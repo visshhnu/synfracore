@@ -1,103 +1,64 @@
 import Link from "next/link";
 import { Zap } from "lucide-react";
-import { navigation } from "@/lib/data/navigation";
 
-const footerLinks = {
-  Academies: [
+const cols = [
+  { title: "Academies", links: [
     { name: "Infrastructure", href: "/academies/infrastructure" },
-    { name: "Cloud", href: "/academies/cloud" },
+    { name: "Cloud (AWS/Azure/GCP)", href: "/academies/cloud" },
     { name: "AI Engineering", href: "/academies/ai" },
     { name: "Data Analytics", href: "/academies/data" },
-    { name: "Healthcare", href: "/academies/healthcare" },
+    { name: "Healthcare Coding", href: "/academies/healthcare" },
     { name: "Cybersecurity", href: "/academies/security" },
-  ],
-  Platform: [
+  ]},
+  { title: "Platform", links: [
     { name: "Labs", href: "/labs" },
     { name: "Projects", href: "/projects" },
     { name: "Roadmaps", href: "/roadmaps" },
     { name: "Certifications", href: "/certifications" },
     { name: "Interview Hub", href: "/interview" },
     { name: "Troubleshooting", href: "/troubleshooting" },
-  ],
-  Community: [
+  ]},
+  { title: "Resources", links: [
+    { name: "AI Assistant", href: "/ai-assistant" },
     { name: "Community Hub", href: "/community" },
     { name: "Career Hub", href: "/career" },
-    { name: "Discussions", href: "/community" },
-    { name: "Mentorship", href: "/community" },
-  ],
-};
+  ]},
+];
 
 export default function Footer() {
   return (
-    <footer style={{ background: "#0C1524", borderTop: "1px solid #1E2D47" }}>
-      <div className="mx-auto max-w-7xl px-6 py-16">
-        <div className="grid gap-12 lg:grid-cols-5">
+    <footer style={{ background: "#04080F", borderTop: "1px solid #0F1E30" }}>
+      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "64px 24px 40px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: "48px", marginBottom: "56px" }}>
           {/* Brand */}
-          <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <div
-                style={{
-                  background: "linear-gradient(135deg, #3B82F6, #8B5CF6)",
-                  borderRadius: "10px",
-                  padding: "6px",
-                  display: "inline-flex",
-                }}
-              >
-                <Zap size={18} style={{ color: "#fff" }} />
+          <div>
+            <Link href="/" style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none", marginBottom: "20px" }}>
+              <div style={{ width: "32px", height: "32px", borderRadius: "8px", background: "linear-gradient(135deg, #2563EB, #7C3AED)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <Zap size={16} color="#fff" />
               </div>
-              <span
-                style={{
-                  fontFamily: "'Syne', sans-serif",
-                  fontSize: "20px",
-                  fontWeight: 700,
-                  background: "linear-gradient(135deg, #60A5FA, #A78BFA)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
-                SynfraCore
-              </span>
+              <span style={{ fontFamily: "'Syne', sans-serif", fontSize: "17px", fontWeight: 800, color: "#E2E8F4" }}>SynfraCore</span>
             </Link>
-            <p style={{ color: "#6B7A99", fontSize: "14px", lineHeight: "1.7", maxWidth: "300px" }}>
-              The world&apos;s most comprehensive technology learning ecosystem. Learn → Practice → Build → Troubleshoot → Get Certified → Get Hired.
+            <p style={{ color: "#64748B", fontSize: "14px", lineHeight: 1.7, maxWidth: "280px", marginBottom: "20px" }}>
+              The world&apos;s most comprehensive technology learning ecosystem. Built for practitioners, by practitioners.
             </p>
-            <div className="mt-6 flex gap-3 flex-wrap">
-              {["DevOps", "Cloud", "AI", "Data", "Security"].map((tag) => (
-                <span key={tag} className="tag">{tag}</span>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+              {["DevOps", "Cloud", "AI", "Data", "Security"].map((t) => (
+                <span key={t} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid #162035", color: "#64748B", padding: "3px 10px", borderRadius: "6px", fontSize: "11px", fontWeight: 500 }}>{t}</span>
               ))}
             </div>
           </div>
 
-          {/* Links */}
-          {Object.entries(footerLinks).map(([group, links]) => (
-            <div key={group}>
-              <h4
-                style={{
-                  color: "#E8EDF5",
-                  fontSize: "13px",
-                  fontWeight: 600,
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  marginBottom: "16px",
-                }}
-              >
-                {group}
-              </h4>
-              <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                {links.map((link) => (
-                  <li key={link.name} style={{ marginBottom: "8px" }}>
-                    <Link
-                      href={link.href}
-                      style={{
-                        color: "#6B7A99",
-                        fontSize: "14px",
-                        textDecoration: "none",
-                        transition: "color 0.2s",
-                      }}
-                      className="hover:text-blue-400"
-                    >
-                      {link.name}
+          {/* Link columns */}
+          {cols.map((col) => (
+            <div key={col.title}>
+              <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#64748B", marginBottom: "18px" }}>{col.title}</div>
+              <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
+                {col.links.map((l) => (
+                  <li key={l.name}>
+                    <Link href={l.href} style={{ color: "#94A3BF", fontSize: "13px", textDecoration: "none", transition: "color 0.15s" }}
+                      
+                      >
+                      {l.name}
                     </Link>
                   </li>
                 ))}
@@ -106,23 +67,11 @@ export default function Footer() {
           ))}
         </div>
 
-        <div
-          style={{
-            borderTop: "1px solid #1E2D47",
-            marginTop: "48px",
-            paddingTop: "24px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: "16px",
-          }}
-        >
-          <p style={{ color: "#6B7A99", fontSize: "13px" }}>
-            © 2026 SynfraCore. All rights reserved.
-          </p>
-          <p style={{ color: "#6B7A99", fontSize: "13px" }}>
-            Learn → Practice → Build → Get Hired
+        {/* Bottom */}
+        <div style={{ borderTop: "1px solid #0F1E30", paddingTop: "28px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "16px" }}>
+          <p style={{ color: "#64748B", fontSize: "13px" }}>© 2026 SynfraCore. Built for the community. Education should be free.</p>
+          <p style={{ color: "#64748B", fontSize: "12px", letterSpacing: "0.06em" }}>
+            LEARN → PRACTICE → BUILD → GET HIRED
           </p>
         </div>
       </div>

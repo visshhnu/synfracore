@@ -1,70 +1,51 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { navigation } from "@/lib/data/navigation";
-import { Menu, X, Zap } from "lucide-react";
+import { Menu, X, Zap, ChevronDown } from "lucide-react";
+
+const navItems = [
+  { name: "Academies", href: "/academies" },
+  { name: "Roadmaps", href: "/roadmaps" },
+  { name: "Labs", href: "/labs" },
+  { name: "Projects", href: "/projects" },
+  { name: "Certifications", href: "/certifications" },
+  { name: "Interview", href: "/interview" },
+  { name: "Troubleshooting", href: "/troubleshooting" },
+  { name: "AI Assistant", href: "/ai-assistant" },
+  { name: "Career", href: "/career" },
+];
 
 export default function Navbar() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-
+  const [open, setOpen] = useState(false);
   return (
-    <header
-      style={{
-        background: "rgba(5, 10, 20, 0.85)",
-        borderBottom: "1px solid #1E2D47",
-        backdropFilter: "blur(20px)",
-        WebkitBackdropFilter: "blur(20px)",
-        position: "sticky",
-        top: 0,
-        zIndex: 100,
-      }}
-    >
-      <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+    <header style={{
+      position: "sticky", top: 0, zIndex: 200,
+      background: "rgba(4,8,15,0.88)",
+      backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)",
+      borderBottom: "1px solid #0F1E30",
+    }}>
+      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px", height: "64px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <div
-            style={{
-              background: "linear-gradient(135deg, #3B82F6, #8B5CF6)",
-              borderRadius: "10px",
-              padding: "6px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Zap size={18} style={{ color: "#fff" }} />
+        <Link href="/" style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none" }}>
+          <div style={{ width: "34px", height: "34px", borderRadius: "9px", background: "linear-gradient(135deg, #2563EB, #7C3AED)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Zap size={17} color="#fff" />
           </div>
-          <span
-            style={{
-              fontFamily: "'Syne', sans-serif",
-              fontSize: "20px",
-              fontWeight: 700,
-              background: "linear-gradient(135deg, #60A5FA, #A78BFA)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
+          <span style={{ fontFamily: "'Syne', sans-serif", fontSize: "18px", fontWeight: 800, color: "#E2E8F4", letterSpacing: "-0.02em" }}>
             SynfraCore
           </span>
         </Link>
 
-        {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-1">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              style={{
-                color: "#9BA8C0",
-                fontSize: "14px",
-                fontWeight: 500,
-                padding: "6px 14px",
-                borderRadius: "8px",
-                transition: "all 0.2s",
-                textDecoration: "none",
-              }}
-              className="hover:bg-white/5 hover:text-white transition-colors"
+        {/* Desktop nav */}
+        <nav style={{ display: "flex", alignItems: "center", gap: "2px" }} className="hide-mobile">
+          {navItems.map((item) => (
+            <Link key={item.name} href={item.href} style={{
+              color: "#94A3BF", fontSize: "13px", fontWeight: 500,
+              padding: "6px 12px", borderRadius: "8px", textDecoration: "none",
+              transition: "color 0.15s, background 0.15s",
+              whiteSpace: "nowrap",
+            }}
+              onMouseEnter={e => { (e.target as HTMLElement).style.color = "#E2E8F4"; (e.target as HTMLElement).style.background = "rgba(255,255,255,0.05)"; }}
+              onMouseLeave={e => { (e.target as HTMLElement).style.color = "#94A3BF"; (e.target as HTMLElement).style.background = "transparent"; }}
             >
               {item.name}
             </Link>
@@ -72,79 +53,39 @@ export default function Navbar() {
         </nav>
 
         {/* CTA */}
-        <div className="hidden lg:flex items-center gap-3">
-          <Link
-            href="/academies"
-            style={{
-              background: "linear-gradient(135deg, #3B82F6, #8B5CF6)",
-              color: "#fff",
-              padding: "8px 20px",
-              borderRadius: "10px",
-              fontSize: "14px",
-              fontWeight: 600,
-              textDecoration: "none",
-              transition: "opacity 0.2s",
-            }}
-            className="hover:opacity-90"
-          >
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <Link href="/academies" className="btn-primary hide-mobile" style={{ padding: "8px 20px", fontSize: "13px", borderRadius: "8px" }}>
             Start Learning
           </Link>
+          <button onClick={() => setOpen(!open)} style={{ background: "none", border: "none", cursor: "pointer", color: "#94A3BF", display: "flex", padding: "4px" }}
+            className="show-mobile"
+            aria-label="Menu">
+            {open ? <X size={22} /> : <Menu size={22} />}
+          </button>
         </div>
-
-        {/* Mobile toggle */}
-        <button
-          className="lg:hidden"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          style={{ color: "#9BA8C0", background: "none", border: "none", cursor: "pointer" }}
-        >
-          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
       </div>
 
       {/* Mobile menu */}
-      {mobileOpen && (
-        <div
-          style={{
-            background: "#0C1524",
-            borderBottom: "1px solid #1E2D47",
-            padding: "16px 24px",
-          }}
-        >
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              onClick={() => setMobileOpen(false)}
-              style={{
-                display: "block",
-                color: "#9BA8C0",
-                padding: "10px 0",
-                fontSize: "15px",
-                borderBottom: "1px solid #1E2D47",
-                textDecoration: "none",
-              }}
-            >
+      {open && (
+        <div style={{ background: "#080D18", borderTop: "1px solid #0F1E30", padding: "16px 24px 24px" }}>
+          {navItems.map((item) => (
+            <Link key={item.name} href={item.href} onClick={() => setOpen(false)} style={{
+              display: "block", color: "#94A3BF", fontSize: "15px", fontWeight: 500,
+              padding: "12px 0", borderBottom: "1px solid #0F1E30", textDecoration: "none",
+            }}>
               {item.name}
             </Link>
           ))}
-          <Link
-            href="/academies"
-            style={{
-              display: "block",
-              marginTop: "16px",
-              background: "linear-gradient(135deg, #3B82F6, #8B5CF6)",
-              color: "#fff",
-              padding: "10px 20px",
-              borderRadius: "10px",
-              textAlign: "center",
-              fontWeight: 600,
-              textDecoration: "none",
-            }}
-          >
-            Start Learning
+          <Link href="/academies" onClick={() => setOpen(false)} className="btn-primary" style={{ marginTop: "20px", width: "100%", justifyContent: "center" }}>
+            Start Learning Free
           </Link>
         </div>
       )}
+
+      <style>{`
+        @media (min-width: 769px) { .show-mobile { display: none !important; } }
+        @media (max-width: 768px) { .hide-mobile { display: none !important; } .show-mobile { display: flex !important; } }
+      `}</style>
     </header>
   );
 }

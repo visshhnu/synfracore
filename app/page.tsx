@@ -1,165 +1,172 @@
+export const runtime = "edge";
 import Link from "next/link";
 import { academies } from "@/lib/data/academies";
 import { certifications, roadmaps, stats } from "@/lib/data/navigation";
-import { ArrowRight, BookOpen, FlaskConical, Code2, Trophy, Wrench, Bot, Clock } from "lucide-react";
+import { ArrowRight, BookOpen, FlaskConical, Code2, Trophy, Wrench, Bot, Clock, CheckCircle } from "lucide-react";
 
-export const runtime = "edge";
+const journey = [
+  { step: "01", title: "Learn", desc: "Structured knowledge base with expert-written content", icon: "📖" },
+  { step: "02", title: "Practice", desc: "Hands-on labs from beginner to production-grade", icon: "🧪" },
+  { step: "03", title: "Build", desc: "Real projects that go straight to your portfolio", icon: "🏗️" },
+  { step: "04", title: "Troubleshoot", desc: "Fix real production issues with root cause analysis", icon: "🔧" },
+  { step: "05", title: "Get Certified", desc: "Structured prep for 13 industry certifications", icon: "🏆" },
+  { step: "06", title: "Get Hired", desc: "Interview prep, resume builder, career roadmaps", icon: "💼" },
+];
 
 export default function Home() {
   return (
-    <div style={{ background: "#050A14", minHeight: "100vh" }}>
+    <div style={{ background: "#04080F" }}>
 
-      {/* ── HERO ── */}
-      <section style={{
-        background: "linear-gradient(135deg, #050A14 0%, #0C1524 100%)",
-        borderBottom: "1px solid #1E2D47",
-        padding: "80px 24px",
-      }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-          <div style={{
-            display: "inline-flex", alignItems: "center", gap: "8px",
-            background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.3)",
-            borderRadius: "100px", padding: "6px 16px", marginBottom: "32px",
-            fontSize: "13px", fontWeight: 600, color: "#60A5FA",
-          }}>
-            <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#34D399", display: "inline-block" }} />
+      {/* ══════════════════ HERO ══════════════════ */}
+      <section className="line-grid" style={{ position: "relative", overflow: "hidden", padding: "100px 24px 96px" }}>
+        {/* Glow orbs */}
+        <div style={{ position: "absolute", top: "-120px", left: "-120px", width: "500px", height: "500px", background: "radial-gradient(circle, rgba(37,99,235,0.14) 0%, transparent 65%)", borderRadius: "50%", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", bottom: "-80px", right: "-80px", width: "400px", height: "400px", background: "radial-gradient(circle, rgba(124,58,237,0.10) 0%, transparent 65%)", borderRadius: "50%", pointerEvents: "none" }} />
+
+        <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative" }}>
+          {/* Eyebrow */}
+          <div className="badge badge-blue" style={{ marginBottom: "28px" }}>
+            <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#34D399", display: "inline-block", animation: "pulse-dot 2s infinite" }} />
             The Complete Tech Learning Ecosystem
           </div>
 
-          <h1 style={{
-            fontFamily: "'Syne', sans-serif",
-            fontSize: "clamp(42px, 7vw, 80px)",
-            fontWeight: 800, lineHeight: 1.05,
-            letterSpacing: "-0.03em", marginBottom: "24px",
-            color: "#E8EDF5",
-          }}>
+          {/* Headline */}
+          <h1 className="display-xl" style={{ marginBottom: "28px", maxWidth: "820px" }}>
             Master{" "}
-            <span style={{ background: "linear-gradient(135deg, #60A5FA, #A78BFA)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>DevOps,</span>
+            <span className="grad-blue">DevOps,</span>
             <br />
             Cloud &{" "}
-            <span style={{ background: "linear-gradient(135deg, #A78BFA, #34D399)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>AI</span>
-            <br />
-            Engineering
+            <span className="grad-purple">AI</span>{" "}
+            <span style={{ color: "#E2E8F4" }}>Engineering</span>
           </h1>
 
-          <p style={{ color: "#9BA8C0", fontSize: "18px", lineHeight: 1.7, maxWidth: "560px", marginBottom: "40px" }}>
+          <p className="body-lg" style={{ maxWidth: "560px", marginBottom: "44px" }}>
             6 Academies. 50+ Technologies. Structured roadmaps, hands-on labs,
-            real projects, and certification prep — all in one platform.
+            real projects, and certification prep — all in one place.
           </p>
 
-          <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", marginBottom: "56px" }}>
-            <Link href="/academies" style={{
-              display: "inline-flex", alignItems: "center", gap: "8px",
-              background: "linear-gradient(135deg, #3B82F6, #8B5CF6)",
-              color: "#fff", padding: "14px 32px", borderRadius: "12px",
-              fontSize: "15px", fontWeight: 600, textDecoration: "none",
-              boxShadow: "0 8px 32px rgba(59,130,246,0.3)",
-            }}>
-              Explore Academies <ArrowRight size={18} />
+          {/* CTAs */}
+          <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", marginBottom: "72px" }}>
+            <Link href="/academies" className="btn-primary" style={{ fontSize: "15px", padding: "14px 32px" }}>
+              Explore Academies <ArrowRight size={17} />
             </Link>
-            <Link href="/roadmaps" style={{
-              display: "inline-flex", alignItems: "center", gap: "8px",
-              background: "transparent", color: "#E8EDF5",
-              padding: "14px 32px", borderRadius: "12px",
-              fontSize: "15px", fontWeight: 600, textDecoration: "none",
-              border: "1px solid #2A3F5E",
-            }}>
+            <Link href="/roadmaps" className="btn-secondary" style={{ fontSize: "15px", padding: "14px 32px" }}>
               View Roadmaps
             </Link>
           </div>
 
-          {/* Stats */}
-          <div style={{ display: "flex", gap: "48px", flexWrap: "wrap" }}>
+          {/* Stats row */}
+          <div style={{ display: "flex", gap: "0", flexWrap: "wrap", borderTop: "1px solid #0F1E30", paddingTop: "40px" }}>
             {stats.map((s, i) => (
-              <div key={s.label}>
+              <div key={s.label} style={{ paddingRight: "48px", marginRight: "48px", borderRight: i < stats.length - 1 ? "1px solid #0F1E30" : "none" }}>
                 <div style={{
-                  fontFamily: "'Syne', sans-serif", fontSize: "36px", fontWeight: 800,
-                  background: ["linear-gradient(135deg,#60A5FA,#818CF8)", "linear-gradient(135deg,#34D399,#06B6D4)", "linear-gradient(135deg,#A78BFA,#F472B6)", "linear-gradient(135deg,#FCD34D,#FB923C)"][i],
-                  WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
+                  fontFamily: "'Syne', sans-serif", fontSize: "40px", fontWeight: 800,
+                  background: ["linear-gradient(135deg,#60A5FA,#818CF8)", "linear-gradient(135deg,#34D399,#06B6D4)", "linear-gradient(135deg,#A78BFA,#EC4899)", "linear-gradient(135deg,#FCD34D,#FB923C)"][i],
+                  WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", lineHeight: 1,
                 }}>{s.value}</div>
-                <div style={{ color: "#6B7A99", fontSize: "13px", fontWeight: 500, marginTop: "4px" }}>{s.label}</div>
+                <div style={{ color: "#64748B", fontSize: "13px", fontWeight: 500, marginTop: "6px", letterSpacing: "0.04em" }}>{s.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── ACADEMIES ── */}
-      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "80px 24px" }}>
-        <div style={{ textAlign: "center", marginBottom: "56px" }}>
-          <span style={{
-            display: "inline-block", background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.2)",
-            color: "#60A5FA", fontSize: "12px", fontWeight: 600, letterSpacing: "0.1em",
-            textTransform: "uppercase", padding: "5px 14px", borderRadius: "100px", marginBottom: "16px",
-          }}>6 Academies</span>
-          <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, color: "#E8EDF5", letterSpacing: "-0.02em" }}>
-            Choose Your Academy
-          </h2>
-          <p style={{ color: "#6B7A99", fontSize: "16px", marginTop: "12px" }}>
-            Structured learning paths across every major technology domain
-          </p>
-        </div>
-
-        <div style={{ display: "grid", gap: "20px", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))" }}>
-          {academies.map((academy) => (
-            <Link key={academy.slug} href={`/academies/${academy.slug}`} style={{ textDecoration: "none" }}>
-              <div style={{
-                background: "#0F1A2E", border: "1px solid #1E2D47", borderRadius: "16px",
-                padding: "28px", height: "100%", display: "flex", flexDirection: "column",
-                transition: "border-color 0.2s",
-              }}>
-                <div style={{
-                  width: "52px", height: "52px", borderRadius: "14px",
-                  background: `${academy.color}20`, border: `1px solid ${academy.color}30`,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: "24px", marginBottom: "18px",
-                }}>{academy.icon}</div>
-                <h3 style={{ fontFamily: "'Syne', sans-serif", fontSize: "19px", fontWeight: 700, color: "#E8EDF5", marginBottom: "4px" }}>{academy.title}</h3>
-                <p style={{ color: academy.color, fontSize: "12px", fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "12px" }}>{academy.subtitle}</p>
-                <p style={{ color: "#6B7A99", fontSize: "13px", lineHeight: 1.6, marginBottom: "20px", flexGrow: 1 }}>{academy.description}</p>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "16px" }}>
-                  {academy.technologies.slice(0, 5).map((tech) => (
-                    <span key={tech.slug} style={{
-                      background: `${academy.color}12`, border: `1px solid ${academy.color}20`,
-                      color: academy.color, padding: "3px 9px", borderRadius: "100px", fontSize: "11px", fontWeight: 600,
-                    }}>{tech.name}</span>
-                  ))}
-                  {academy.technologies.length > 5 && <span style={{ color: "#6B7A99", fontSize: "11px", padding: "3px 6px" }}>+{academy.technologies.length - 5}</span>}
-                </div>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: "14px", borderTop: "1px solid #1E2D47" }}>
-                  <span style={{ color: "#6B7A99", fontSize: "12px" }}>{academy.technologies.length} technologies</span>
-                  <span style={{ display: "flex", alignItems: "center", gap: "4px", color: academy.color, fontSize: "12px", fontWeight: 600 }}>Explore <ArrowRight size={13} /></span>
-                </div>
+      {/* ══════════════════ JOURNEY ══════════════════ */}
+      <section style={{ background: "#080D18", borderTop: "1px solid #0F1E30", borderBottom: "1px solid #0F1E30", padding: "80px 24px" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: "56px" }}>
+            <div className="label" style={{ marginBottom: "12px" }}>Your Path</div>
+            <h2 className="display-md" style={{ color: "#E2E8F4" }}>From Zero to Job-Ready</h2>
+            <p className="body-md" style={{ marginTop: "12px", maxWidth: "480px", margin: "12px auto 0" }}>
+              A complete, proven system used by engineers worldwide
+            </p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "16px" }}>
+            {journey.map((j, i) => (
+              <div key={j.step} style={{ background: "#0D1526", border: "1px solid #162035", borderRadius: "16px", padding: "24px 20px", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", top: "16px", right: "16px", fontFamily: "'Syne', sans-serif", fontSize: "36px", fontWeight: 800, color: "#0F1E30", lineHeight: 1 }}>{j.step}</div>
+                <div style={{ fontSize: "28px", marginBottom: "14px" }}>{j.icon}</div>
+                <div className="heading" style={{ color: "#E2E8F4", marginBottom: "8px", fontSize: "16px" }}>{j.title}</div>
+                <div style={{ fontSize: "13px", color: "#64748B", lineHeight: 1.6 }}>{j.desc}</div>
+                {i < journey.length - 1 && (
+                  <div style={{ position: "absolute", right: "-8px", top: "50%", transform: "translateY(-50%)", color: "#1E3A5F", zIndex: 1, fontSize: "18px" }} className="hide-mobile">→</div>
+                )}
               </div>
-            </Link>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ── ROADMAPS ── */}
-      <section style={{ background: "#0C1524", borderTop: "1px solid #1E2D47", borderBottom: "1px solid #1E2D47" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "80px 24px" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "48px", flexWrap: "wrap", gap: "16px" }}>
+      {/* ══════════════════ ACADEMIES ══════════════════ */}
+      <section style={{ padding: "96px 24px" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "56px", flexWrap: "wrap", gap: "20px" }}>
             <div>
-              <span style={{ display: "inline-block", background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)", color: "#A78BFA", fontSize: "12px", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", padding: "5px 14px", borderRadius: "100px", marginBottom: "14px" }}>Career Paths</span>
-              <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(26px, 3.5vw, 38px)", fontWeight: 800, color: "#E8EDF5" }}>Learning Roadmaps</h2>
+              <div className="badge badge-blue" style={{ marginBottom: "16px" }}>6 Academies</div>
+              <h2 className="display-md" style={{ color: "#E2E8F4" }}>Choose Your Academy</h2>
+              <p className="body-md" style={{ marginTop: "10px" }}>Structured paths across every major technology domain</p>
             </div>
-            <Link href="/roadmaps" style={{ color: "#A78BFA", fontSize: "14px", fontWeight: 600, textDecoration: "none", display: "flex", alignItems: "center", gap: "4px" }}>All Roadmaps <ArrowRight size={15} /></Link>
+            <Link href="/academies" style={{ display: "flex", alignItems: "center", gap: "6px", color: "#60A5FA", fontSize: "14px", fontWeight: 600, textDecoration: "none" }}>
+              View All <ArrowRight size={15} />
+            </Link>
           </div>
-          <div style={{ display: "grid", gap: "16px", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "20px" }}>
+            {academies.map((a) => (
+              <Link key={a.slug} href={`/academies/${a.slug}`} style={{ textDecoration: "none" }}>
+                <div className="card card-interactive" style={{ padding: "28px", height: "100%", display: "flex", flexDirection: "column" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "18px" }}>
+                    <div style={{ width: "48px", height: "48px", borderRadius: "13px", background: `${a.color}18`, border: `1px solid ${a.color}28`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "22px", flexShrink: 0 }}>{a.icon}</div>
+                    <div>
+                      <div className="heading" style={{ color: "#E2E8F4", fontSize: "16px" }}>{a.title}</div>
+                      <div style={{ color: a.color, fontSize: "11px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", marginTop: "2px" }}>{a.subtitle}</div>
+                    </div>
+                  </div>
+                  <p style={{ color: "#64748B", fontSize: "13px", lineHeight: 1.65, marginBottom: "20px", flexGrow: 1 }}>{a.description}</p>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "5px", marginBottom: "18px" }}>
+                    {a.technologies.slice(0, 5).map((t) => (
+                      <span key={t.slug} style={{ background: `${a.color}10`, border: `1px solid ${a.color}1E`, color: a.color, padding: "3px 9px", borderRadius: "6px", fontSize: "11px", fontWeight: 600 }}>{t.name}</span>
+                    ))}
+                    {a.technologies.length > 5 && <span style={{ color: "#64748B", fontSize: "11px", padding: "3px" }}>+{a.technologies.length - 5} more</span>}
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "16px", borderTop: "1px solid #162035" }}>
+                    <span style={{ color: "#64748B", fontSize: "12px" }}>{a.technologies.length} technologies</span>
+                    <span style={{ display: "flex", alignItems: "center", gap: "4px", color: a.color, fontSize: "12px", fontWeight: 600 }}>Enter Academy <ArrowRight size={12} /></span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════ ROADMAPS ══════════════════ */}
+      <section style={{ background: "#080D18", borderTop: "1px solid #0F1E30", borderBottom: "1px solid #0F1E30", padding: "96px 24px" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "52px", flexWrap: "wrap", gap: "20px" }}>
+            <div>
+              <div className="badge badge-purple" style={{ marginBottom: "16px" }}>Career Paths</div>
+              <h2 className="display-md" style={{ color: "#E2E8F4" }}>Learning Roadmaps</h2>
+              <p className="body-md" style={{ marginTop: "10px" }}>Step-by-step paths from beginner to job-ready</p>
+            </div>
+            <Link href="/roadmaps" style={{ display: "flex", alignItems: "center", gap: "6px", color: "#A78BFA", fontSize: "14px", fontWeight: 600, textDecoration: "none" }}>
+              All Roadmaps <ArrowRight size={15} />
+            </Link>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "16px" }}>
             {roadmaps.map((r) => (
               <Link key={r.slug} href={`/roadmaps/${r.slug}`} style={{ textDecoration: "none" }}>
-                <div style={{ background: "#0F1A2E", border: "1px solid #1E2D47", borderRadius: "14px", padding: "22px" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "14px" }}>
-                    <span style={{ fontSize: "28px" }}>{r.icon}</span>
+                <div className="card card-interactive" style={{ padding: "22px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
+                    <span style={{ fontSize: "26px" }}>{r.icon}</span>
                     <div>
-                      <div style={{ fontWeight: 700, fontSize: "15px", color: "#E8EDF5" }}>{r.title}</div>
-                      <div style={{ display: "flex", alignItems: "center", gap: "4px", color: "#6B7A99", fontSize: "12px", marginTop: "2px" }}><Clock size={11} />{r.duration}</div>
+                      <div style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "15px", color: "#E2E8F4" }}>{r.title}</div>
+                      <div style={{ display: "flex", alignItems: "center", gap: "4px", color: "#64748B", fontSize: "12px", marginTop: "3px" }}><Clock size={11} />{r.duration}</div>
                     </div>
                   </div>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
-                    {r.steps.map((step, i) => (
-                      <span key={step} style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.15)", color: "#C4B5FD", padding: "3px 9px", borderRadius: "100px", fontSize: "11px" }}>{i + 1}. {step}</span>
+                    {r.steps.map((s, i) => (
+                      <span key={s} style={{ background: "rgba(124,58,237,0.08)", border: "1px solid rgba(124,58,237,0.14)", color: "#C4B5FD", padding: "3px 9px", borderRadius: "6px", fontSize: "11px", fontWeight: 500 }}>{i + 1}. {s}</span>
                     ))}
                   </div>
                 </div>
@@ -169,55 +176,32 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── CERTIFICATIONS ── */}
-      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "80px 24px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "48px", flexWrap: "wrap", gap: "16px" }}>
-          <div>
-            <span style={{ display: "inline-block", background: "rgba(245,158,11,0.1)", border: "1px solid rgba(245,158,11,0.2)", color: "#FCD34D", fontSize: "12px", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", padding: "5px 14px", borderRadius: "100px", marginBottom: "14px" }}>13 Certifications</span>
-            <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(26px, 3.5vw, 38px)", fontWeight: 800, color: "#E8EDF5" }}>Certification Hub</h2>
-            <p style={{ color: "#6B7A99", fontSize: "15px", marginTop: "8px" }}>Comprehensive prep for industry&apos;s most in-demand certifications</p>
-          </div>
-          <Link href="/certifications" style={{ color: "#FCD34D", fontSize: "14px", fontWeight: 600, textDecoration: "none", display: "flex", alignItems: "center", gap: "4px" }}>All Certs <ArrowRight size={15} /></Link>
-        </div>
-        <div style={{ display: "grid", gap: "10px", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))" }}>
-          {certifications.map((cert) => (
-            <Link key={cert.id} href={`/certifications/${cert.id}`} style={{ textDecoration: "none" }}>
-              <div style={{ background: "#0F1A2E", border: "1px solid #1E2D47", borderRadius: "12px", padding: "16px 20px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <div>
-                  <div style={{ fontSize: "13px", fontWeight: 700, color: "#E8EDF5", marginBottom: "2px" }}>{cert.name}</div>
-                  <div style={{ fontSize: "11px", color: cert.color, fontWeight: 600 }}>{cert.provider} · {cert.code}</div>
-                </div>
-                <span style={{
-                  background: cert.level === "Expert" ? "rgba(244,63,94,0.1)" : cert.level === "Professional" ? "rgba(245,158,11,0.1)" : "rgba(16,185,129,0.1)",
-                  color: cert.level === "Expert" ? "#FB7185" : cert.level === "Professional" ? "#FCD34D" : "#34D399",
-                  padding: "2px 8px", borderRadius: "100px", fontSize: "10px", fontWeight: 600, flexShrink: 0, marginLeft: "12px",
-                }}>{cert.level}</span>
-              </div>
+      {/* ══════════════════ CERTIFICATIONS ══════════════════ */}
+      <section style={{ padding: "96px 24px" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "52px", flexWrap: "wrap", gap: "20px" }}>
+            <div>
+              <div className="badge badge-amber" style={{ marginBottom: "16px" }}>13 Certifications</div>
+              <h2 className="display-md" style={{ color: "#E2E8F4" }}>Certification Hub</h2>
+              <p className="body-md" style={{ marginTop: "10px" }}>Industry-recognized credentials with structured prep</p>
+            </div>
+            <Link href="/certifications" style={{ display: "flex", alignItems: "center", gap: "6px", color: "#FCD34D", fontSize: "14px", fontWeight: 600, textDecoration: "none" }}>
+              All Certs <ArrowRight size={15} />
             </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ── QUICK LINKS ── */}
-      <section style={{ background: "#0C1524", borderTop: "1px solid #1E2D47" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "80px 24px" }}>
-          <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(26px, 3.5vw, 38px)", fontWeight: 800, color: "#E8EDF5", marginBottom: "40px", textAlign: "center" }}>
-            Everything You Need to Get Hired
-          </h2>
-          <div style={{ display: "grid", gap: "16px", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
-            {[
-              { icon: <FlaskConical size={22} />, title: "Hands-on Labs", desc: "Beginner to production-level", href: "/labs", color: "#10B981" },
-              { icon: <Code2 size={22} />, title: "Real Projects", desc: "Build portfolio projects", href: "/projects", color: "#3B82F6" },
-              { icon: <BookOpen size={22} />, title: "Interview Prep", desc: "All levels, all formats", href: "/interview", color: "#8B5CF6" },
-              { icon: <Wrench size={22} />, title: "Troubleshooting", desc: "Fix production issues", href: "/troubleshooting", color: "#F43F5E" },
-              { icon: <Bot size={22} />, title: "AI Assistant", desc: "Expert tech answers", href: "/ai-assistant", color: "#EC4899" },
-              { icon: <Trophy size={22} />, title: "Career Hub", desc: "Resume to job offer", href: "/career", color: "#F59E0B" },
-            ].map((item) => (
-              <Link key={item.title} href={item.href} style={{ textDecoration: "none" }}>
-                <div style={{ background: "#0F1A2E", border: "1px solid #1E2D47", borderRadius: "14px", padding: "24px", textAlign: "center" }}>
-                  <div style={{ color: item.color, display: "flex", justifyContent: "center", marginBottom: "12px" }}>{item.icon}</div>
-                  <div style={{ fontWeight: 700, fontSize: "15px", color: "#E8EDF5", marginBottom: "4px" }}>{item.title}</div>
-                  <div style={{ color: "#6B7A99", fontSize: "12px" }}>{item.desc}</div>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "10px" }}>
+            {certifications.map((c) => (
+              <Link key={c.id} href={`/certifications/${c.id}`} style={{ textDecoration: "none" }}>
+                <div style={{ background: "#0D1526", border: "1px solid #162035", borderRadius: "12px", padding: "16px 18px", display: "flex", alignItems: "center", justifyContent: "space-between", transition: "border-color 0.2s" }}>
+                  <div>
+                    <div style={{ fontSize: "13px", fontWeight: 600, color: "#E2E8F4", marginBottom: "3px" }}>{c.name}</div>
+                    <div style={{ fontSize: "11px", color: c.color, fontWeight: 600 }}>{c.provider} · {c.code}</div>
+                  </div>
+                  <span style={{
+                    flexShrink: 0, marginLeft: "12px", padding: "2px 8px", borderRadius: "100px", fontSize: "10px", fontWeight: 700, letterSpacing: "0.04em",
+                    background: c.level === "Expert" ? "rgba(244,63,94,0.1)" : c.level === "Professional" ? "rgba(245,158,11,0.1)" : "rgba(16,185,129,0.1)",
+                    color: c.level === "Expert" ? "#FB7185" : c.level === "Professional" ? "#FCD34D" : "#34D399",
+                  }}>{c.level}</span>
                 </div>
               </Link>
             ))}
@@ -225,24 +209,112 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "80px 24px" }}>
-        <div style={{ background: "linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1))", border: "1px solid rgba(59,130,246,0.2)", borderRadius: "20px", padding: "60px 40px", textAlign: "center" }}>
-          <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, color: "#E8EDF5", marginBottom: "16px" }}>
-            Learn → Practice → Build → Get Hired
+      {/* ══════════════════ PLATFORM FEATURES ══════════════════ */}
+      <section style={{ background: "#080D18", borderTop: "1px solid #0F1E30", borderBottom: "1px solid #0F1E30", padding: "96px 24px" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: "56px" }}>
+            <div className="label" style={{ marginBottom: "12px" }}>Everything Included</div>
+            <h2 className="display-md" style={{ color: "#E2E8F4" }}>Built for Real Engineers</h2>
+            <p className="body-md" style={{ marginTop: "12px", maxWidth: "460px", margin: "12px auto 0" }}>
+              Not just theory. Every section is built around what you need on the job.
+            </p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "16px" }}>
+            {[
+              { icon: <FlaskConical size={22} />, title: "Hands-on Labs", desc: "Step-by-step guided exercises from beginner to production-level", href: "/labs", color: "#10B981", badge: "500+ Labs" },
+              { icon: <Code2 size={22} />, title: "Real Projects", desc: "Build actual systems that go straight into your portfolio", href: "/projects", color: "#3B82F6", badge: "3 Levels" },
+              { icon: <BookOpen size={22} />, title: "Interview Prep", desc: "MCQs, scenario questions, mock interviews for all levels", href: "/interview", color: "#8B5CF6", badge: "All Levels" },
+              { icon: <Wrench size={22} />, title: "Troubleshooting", desc: "Root cause analysis and fix guides for real production issues", href: "/troubleshooting", color: "#F43F5E", badge: "Production" },
+              { icon: <Bot size={22} />, title: "AI Assistant", desc: "Expert AI answering DevOps, Cloud, and engineering questions", href: "/ai-assistant", color: "#EC4899", badge: "AI-Powered" },
+              { icon: <Trophy size={22} />, title: "Career Hub", desc: "Resume builder, interview tracker, job prep, freelancing guide", href: "/career", color: "#F59E0B", badge: "Coming Soon" },
+            ].map((f) => (
+              <Link key={f.title} href={f.href} style={{ textDecoration: "none" }}>
+                <div className="card card-interactive" style={{ padding: "28px", height: "100%" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "16px" }}>
+                    <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: `${f.color}14`, border: `1px solid ${f.color}22`, display: "flex", alignItems: "center", justifyContent: "center", color: f.color }}>{f.icon}</div>
+                    <span style={{ background: `${f.color}12`, border: `1px solid ${f.color}20`, color: f.color, padding: "2px 8px", borderRadius: "100px", fontSize: "10px", fontWeight: 700 }}>{f.badge}</span>
+                  </div>
+                  <div className="heading" style={{ color: "#E2E8F4", fontSize: "15px", marginBottom: "8px" }}>{f.title}</div>
+                  <div style={{ color: "#64748B", fontSize: "13px", lineHeight: 1.6 }}>{f.desc}</div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════ WHY SYNFRACORE ══════════════════ */}
+      <section style={{ padding: "96px 24px" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "center" }}>
+            <div>
+              <div className="label" style={{ marginBottom: "12px" }}>Why SynfraCore</div>
+              <h2 className="display-md" style={{ color: "#E2E8F4", marginBottom: "20px" }}>
+                Not just a course.<br />
+                <span className="grad-blue">A complete ecosystem.</span>
+              </h2>
+              <p className="body-lg" style={{ marginBottom: "32px" }}>
+                Most platforms give you videos. We give you the full journey — structured knowledge, real practice, a community, and a clear path to employment.
+              </p>
+              <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+                {[
+                  "Content written by practitioners, not content farms",
+                  "Every technology has 14 structured sections",
+                  "Labs that mirror real production environments",
+                  "Interview prep at every level including architect",
+                  "Certifications across AWS, Azure, K8s, HashiCorp, Red Hat",
+                  "AI Assistant trained on DevOps and Cloud expertise",
+                ].map((point) => (
+                  <div key={point} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
+                    <CheckCircle size={16} style={{ color: "#34D399", flexShrink: 0, marginTop: "2px" }} />
+                    <span style={{ color: "#94A3BF", fontSize: "14px", lineHeight: 1.6 }}>{point}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+              {[
+                { num: "50+", label: "Technologies", color: "#3B82F6" },
+                { num: "6", label: "Academies", color: "#8B5CF6" },
+                { num: "13", label: "Certifications", color: "#F59E0B" },
+                { num: "14", label: "Sections per Tech", color: "#10B981" },
+                { num: "3", label: "Lab Levels", color: "#EC4899" },
+                { num: "∞", label: "Career Potential", color: "#06B6D4" },
+              ].map((s) => (
+                <div key={s.label} style={{ background: "#0D1526", border: "1px solid #162035", borderRadius: "14px", padding: "24px", textAlign: "center" }}>
+                  <div style={{ fontFamily: "'Syne', sans-serif", fontSize: "32px", fontWeight: 800, color: s.color, lineHeight: 1 }}>{s.num}</div>
+                  <div style={{ color: "#64748B", fontSize: "12px", fontWeight: 500, marginTop: "8px" }}>{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════ CTA ══════════════════ */}
+      <section style={{ background: "#080D18", borderTop: "1px solid #0F1E30", padding: "96px 24px" }}>
+        <div style={{ maxWidth: "760px", margin: "0 auto", textAlign: "center" }}>
+          <div className="badge badge-green" style={{ marginBottom: "24px", justifyContent: "center" }}>
+            Free to Start
+          </div>
+          <h2 className="display-md" style={{ color: "#E2E8F4", marginBottom: "20px" }}>
+            Ready to start your journey?
           </h2>
-          <p style={{ color: "#9BA8C0", fontSize: "16px", marginBottom: "32px", maxWidth: "500px", margin: "0 auto 32px" }}>
-            Join engineers mastering DevOps, Cloud, and AI skills on SynfraCore
+          <p className="body-lg" style={{ marginBottom: "40px" }}>
+            Join engineers mastering DevOps, Cloud, and AI. No credit card required.
+            Start learning today.
           </p>
-          <Link href="/academies" style={{
-            display: "inline-flex", alignItems: "center", gap: "8px",
-            background: "linear-gradient(135deg, #3B82F6, #8B5CF6)",
-            color: "#fff", padding: "14px 36px", borderRadius: "12px",
-            fontSize: "15px", fontWeight: 600, textDecoration: "none",
-            boxShadow: "0 8px 32px rgba(59,130,246,0.3)",
-          }}>
-            Start Learning Free <ArrowRight size={18} />
-          </Link>
+          <div style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" }}>
+            <Link href="/academies" className="btn-primary" style={{ fontSize: "15px", padding: "15px 36px" }}>
+              Start Learning Free <ArrowRight size={17} />
+            </Link>
+            <Link href="/roadmaps" className="btn-secondary" style={{ fontSize: "15px", padding: "15px 36px" }}>
+              View Roadmaps
+            </Link>
+          </div>
+          <p style={{ color: "#64748B", fontSize: "12px", marginTop: "24px" }}>
+            Learn → Practice → Build → Troubleshoot → Get Certified → Get Hired
+          </p>
         </div>
       </section>
 
