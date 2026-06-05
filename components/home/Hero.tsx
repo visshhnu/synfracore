@@ -108,7 +108,7 @@ export default function Hero() {
 
             <div
               
-              style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "40px", opacity: 0 }}
+              style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "40px", opacity: 1 }}
             >
               {features.map(({ icon, text }) => (
                 <div
@@ -134,7 +134,7 @@ export default function Hero() {
 
             <div
               
-              style={{ display: "flex", gap: "14px", flexWrap: "wrap", opacity: 0 }}
+              style={{ display: "flex", gap: "14px", flexWrap: "wrap", opacity: 1 }}
             >
               <Link
                 href="/academies"
@@ -182,7 +182,7 @@ export default function Hero() {
           {/* Right — Tech badge cloud */}
           <div
             
-            style={{ opacity: 0 }}
+            style={{ opacity: 1 }}
           >
             <div
               style={{

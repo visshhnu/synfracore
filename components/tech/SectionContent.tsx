@@ -189,7 +189,7 @@ export default function SectionContent({
     try {
       const prompt = buildPrompt(techName, section, sectionLabel);
 
-      const response = await fetch("https://api.anthropic.com/v1/messages", {
+      const response = await fetch("/api/ai", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
