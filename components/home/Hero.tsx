@@ -51,7 +51,7 @@ export default function Hero() {
           {/* Left */}
           <div>
             <div
-              className="animate-fade-up"
+              
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -71,7 +71,7 @@ export default function Hero() {
             </div>
 
             <h1
-              className="animate-fade-up stagger-1"
+              
               style={{
                 fontFamily: "'Syne', sans-serif",
                 fontSize: "clamp(42px, 6vw, 72px)",
@@ -79,7 +79,7 @@ export default function Hero() {
                 lineHeight: 1.05,
                 letterSpacing: "-0.03em",
                 marginBottom: "24px",
-                opacity: 0,
+                opacity: 1,
               }}
             >
               Master{" "}
@@ -92,14 +92,14 @@ export default function Hero() {
             </h1>
 
             <p
-              className="animate-fade-up stagger-2"
+              
               style={{
                 color: "#9BA8C0",
                 fontSize: "18px",
                 lineHeight: 1.7,
                 maxWidth: "480px",
                 marginBottom: "36px",
-                opacity: 0,
+                opacity: 1,
               }}
             >
               6 Academies. 50+ Technologies. Structured roadmaps, hands-on labs,
@@ -107,7 +107,7 @@ export default function Hero() {
             </p>
 
             <div
-              className="animate-fade-up stagger-3"
+              
               style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "40px", opacity: 0 }}
             >
               {features.map(({ icon, text }) => (
@@ -133,7 +133,7 @@ export default function Hero() {
             </div>
 
             <div
-              className="animate-fade-up stagger-4"
+              
               style={{ display: "flex", gap: "14px", flexWrap: "wrap", opacity: 0 }}
             >
               <Link
@@ -181,7 +181,7 @@ export default function Hero() {
 
           {/* Right — Tech badge cloud */}
           <div
-            className="animate-fade-up stagger-3"
+            
             style={{ opacity: 0 }}
           >
             <div
