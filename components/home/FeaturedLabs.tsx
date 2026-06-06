@@ -88,7 +88,7 @@ export default function FeaturedLabs() {
             <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 800, letterSpacing: "-0.02em" }}>
               Featured Labs
             </h2>
-            <p style={{ color: "#6B7A99", fontSize: "16px", marginTop: "8px" }}>
+            <p style={{ color: "var(--text-4)", fontSize: "16px", marginTop: "8px" }}>
               Real exercises on real infrastructure — no toy examples
             </p>
           </div>
@@ -109,12 +109,12 @@ export default function FeaturedLabs() {
                     </div>
                     <div style={{ display: "flex", gap: "6px", flexDirection: "column", alignItems: "flex-end" }}>
                       <span style={{ background: ls.bg, border: `1px solid ${ls.border}`, color: ls.color, padding: "2px 9px", borderRadius: "100px", fontSize: "10px", fontWeight: 600 }}>{lab.level}</span>
-                      <span style={{ display: "flex", alignItems: "center", gap: "4px", color: "#6B7A99", fontSize: "11px" }}><Clock size={11} />{lab.duration}</span>
+                      <span style={{ display: "flex", alignItems: "center", gap: "4px", color: "var(--text-4)", fontSize: "11px" }}><Clock size={11} />{lab.duration}</span>
                     </div>
                   </div>
 
                   <h3 style={{ fontSize: "15px", fontWeight: 700, marginBottom: "8px", lineHeight: 1.4 }}>{lab.title}</h3>
-                  <p style={{ color: "#6B7A99", fontSize: "13px", lineHeight: 1.6, flexGrow: 1 }}>{lab.desc}</p>
+                  <p style={{ color: "var(--text-4)", fontSize: "13px", lineHeight: 1.6, flexGrow: 1 }}>{lab.desc}</p>
 
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "16px", paddingTop: "14px", borderTop: "1px solid #1E2D47" }}>
                     <span style={{ background: `${lab.color}12`, border: `1px solid ${lab.color}20`, color: lab.color, padding: "3px 9px", borderRadius: "6px", fontSize: "11px", fontWeight: 600 }}>{lab.tech}</span>

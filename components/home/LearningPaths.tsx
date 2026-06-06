@@ -67,7 +67,7 @@ export default function LearningPaths() {
                   <span style={{ fontSize: "28px" }}>{roadmap.icon}</span>
                   <div>
                     <h3 style={{ fontSize: "16px", fontWeight: 700, marginBottom: "2px" }}>{roadmap.title}</h3>
-                    <div style={{ display: "flex", alignItems: "center", gap: "4px", color: "#6B7A99", fontSize: "12px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "4px", color: "var(--text-4)", fontSize: "12px" }}>
                       <Clock size={12} />
                       {roadmap.duration}
                     </div>

@@ -27,7 +27,7 @@ const cols = [
 
 export default function Footer() {
   return (
-    <footer style={{ background: "#04080F", borderTop: "1px solid #0F1E30" }}>
+    <footer style={{ background: "var(--bg)", borderTop: "1px solid var(--border)" }}>
       <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "64px 24px 40px" }}>
         <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: "48px", marginBottom: "56px" }}>
           {/* Brand */}
@@ -36,14 +36,14 @@ export default function Footer() {
               <div style={{ width: "32px", height: "32px", borderRadius: "8px", background: "linear-gradient(135deg, #2563EB, #7C3AED)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <Zap size={16} color="#fff" />
               </div>
-              <span style={{ fontFamily: "'Syne', sans-serif", fontSize: "17px", fontWeight: 800, color: "#E2E8F4" }}>SynfraCore</span>
+              <span style={{ fontFamily: "'Syne', sans-serif", fontSize: "17px", fontWeight: 800, color: "var(--text-1)" }}>SynfraCore</span>
             </Link>
-            <p style={{ color: "#64748B", fontSize: "14px", lineHeight: 1.7, maxWidth: "280px", marginBottom: "20px" }}>
+            <p style={{ color: "var(--text-4)", fontSize: "14px", lineHeight: 1.7, maxWidth: "280px", marginBottom: "20px" }}>
               The world&apos;s most comprehensive technology learning ecosystem. Built for practitioners, by practitioners.
             </p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
               {["DevOps", "Cloud", "AI", "Data", "Security"].map((t) => (
-                <span key={t} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid #162035", color: "#64748B", padding: "3px 10px", borderRadius: "6px", fontSize: "11px", fontWeight: 500 }}>{t}</span>
+                <span key={t} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid var(--border)", color: "var(--text-4)", padding: "3px 10px", borderRadius: "6px", fontSize: "11px", fontWeight: 500 }}>{t}</span>
               ))}
             </div>
           </div>
@@ -51,11 +51,11 @@ export default function Footer() {
           {/* Link columns */}
           {cols.map((col) => (
             <div key={col.title}>
-              <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#64748B", marginBottom: "18px" }}>{col.title}</div>
+              <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-4)", marginBottom: "18px" }}>{col.title}</div>
               <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
                 {col.links.map((l) => (
                   <li key={l.name}>
-                    <Link href={l.href} style={{ color: "#94A3BF", fontSize: "13px", textDecoration: "none", transition: "color 0.15s" }}
+                    <Link href={l.href} style={{ color: "var(--text-3)", fontSize: "13px", textDecoration: "none", transition: "color 0.15s" }}
                       
                       >
                       {l.name}
@@ -68,9 +68,9 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div style={{ borderTop: "1px solid #0F1E30", paddingTop: "28px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "16px" }}>
-          <p style={{ color: "#64748B", fontSize: "13px" }}>© 2026 SynfraCore. Built for the community. Education should be free.</p>
-          <p style={{ color: "#64748B", fontSize: "12px", letterSpacing: "0.06em" }}>
+        <div style={{ borderTop: "1px solid var(--border)", paddingTop: "28px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "16px" }}>
+          <p style={{ color: "var(--text-4)", fontSize: "13px" }}>© 2026 SynfraCore. Built for the community. Education should be free.</p>
+          <p style={{ color: "var(--text-4)", fontSize: "12px", letterSpacing: "0.06em" }}>
             LEARN → PRACTICE → BUILD → GET HIRED
           </p>
         </div>

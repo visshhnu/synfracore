@@ -23,7 +23,7 @@ export default function AcademiesPage() {
         >
           All Academies
         </h1>
-        <p style={{ color: "#6B7A99", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
+        <p style={{ color: "var(--text-4)", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
           Structured learning paths designed by practitioners, for practitioners
         </p>
       </div>
@@ -33,7 +33,7 @@ export default function AcademiesPage() {
           <div
             key={academy.slug}
             style={{
-              background: "#0F1A2E",
+              background: "var(--bg-2)",
               border: "1px solid #1E2D47",
               borderRadius: "20px",
               padding: "32px",
@@ -87,7 +87,7 @@ export default function AcademiesPage() {
               </Link>
             </div>
 
-            <p style={{ color: "#6B7A99", fontSize: "14px", lineHeight: 1.6, marginBottom: "18px" }}>
+            <p style={{ color: "var(--text-4)", fontSize: "14px", lineHeight: 1.6, marginBottom: "18px" }}>
               {academy.description}
             </p>
 
@@ -99,7 +99,7 @@ export default function AcademiesPage() {
                   style={{
                     background: "rgba(255,255,255,0.03)",
                     border: "1px solid #1E2D47",
-                    color: "#9BA8C0",
+                    color: "var(--text-3)",
                     padding: "4px 10px",
                     borderRadius: "8px",
                     fontSize: "12px",

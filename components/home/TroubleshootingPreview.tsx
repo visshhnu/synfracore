@@ -28,7 +28,7 @@ export default function TroubleshootingPreview() {
             <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 800, letterSpacing: "-0.02em" }}>
               Troubleshooting Hub
             </h2>
-            <p style={{ color: "#6B7A99", fontSize: "16px", marginTop: "8px" }}>
+            <p style={{ color: "var(--text-4)", fontSize: "16px", marginTop: "8px" }}>
               Root cause analysis and fix procedures for real production issues
             </p>
           </div>
@@ -42,7 +42,7 @@ export default function TroubleshootingPreview() {
             const ss = severityStyle[item.severity as keyof typeof severityStyle];
             return (
               <Link key={`${item.tech}-${item.issue}`} href="/troubleshooting" style={{ textDecoration: "none" }}>
-                <div style={{ background: "#0F1A2E", border: "1px solid #1E2D47", borderRadius: "14px", padding: "20px", transition: "all 0.2s", display: "flex", gap: "14px", alignItems: "flex-start" }} className="hover:border-red-500/30">
+                <div style={{ background: "var(--bg-2)", border: "1px solid #1E2D47", borderRadius: "14px", padding: "20px", transition: "all 0.2s", display: "flex", gap: "14px", alignItems: "flex-start" }} className="hover:border-red-500/30">
                   <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: `${item.color}12`, border: `1px solid ${item.color}20`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", flexShrink: 0 }}>
                     {item.icon}
                   </div>

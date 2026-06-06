@@ -32,7 +32,7 @@ export default function JourneySection() {
           >
             Your Learning Journey
           </h2>
-          <p style={{ color: "#6B7A99", fontSize: "16px" }}>
+          <p style={{ color: "var(--text-4)", fontSize: "16px" }}>
             A complete path from beginner to career-ready professional
           </p>
         </div>
@@ -49,7 +49,7 @@ export default function JourneySection() {
             <div key={step.label} style={{ position: "relative" }}>
               <div
                 style={{
-                  background: "#0F1A2E",
+                  background: "var(--bg-2)",
                   border: "1px solid #1E2D47",
                   borderRadius: "14px",
                   padding: "20px 16px",
@@ -58,7 +58,7 @@ export default function JourneySection() {
               >
                 <span style={{ fontSize: "28px", display: "block", marginBottom: "8px" }}>{step.icon}</span>
                 <div style={{ fontWeight: 700, fontSize: "15px", marginBottom: "4px" }}>{step.label}</div>
-                <div style={{ color: "#6B7A99", fontSize: "12px" }}>{step.desc}</div>
+                <div style={{ color: "var(--text-4)", fontSize: "12px" }}>{step.desc}</div>
                 <div
                   style={{
                     position: "absolute",
@@ -103,7 +103,7 @@ export default function JourneySection() {
           >
             Ready to start your journey?
           </h3>
-          <p style={{ color: "#6B7A99", marginBottom: "28px", fontSize: "16px" }}>
+          <p style={{ color: "var(--text-4)", marginBottom: "28px", fontSize: "16px" }}>
             Join thousands of engineers mastering modern tech skills
           </p>
           <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
@@ -132,7 +132,7 @@ export default function JourneySection() {
                 alignItems: "center",
                 gap: "8px",
                 background: "transparent",
-                color: "#E8EDF5",
+                color: "var(--text-1)",
                 padding: "14px 32px",
                 borderRadius: "12px",
                 fontSize: "15px",

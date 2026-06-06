@@ -24,7 +24,7 @@ export default function AIAssistantTeaser() {
           <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(28px, 3.5vw, 44px)", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: "16px" }}>
             SynfraCore AI Assistant
           </h2>
-          <p style={{ color: "#6B7A99", fontSize: "16px", lineHeight: 1.7, marginBottom: "28px" }}>
+          <p style={{ color: "var(--text-4)", fontSize: "16px", lineHeight: 1.7, marginBottom: "28px" }}>
             An expert AI trained on DevOps, Cloud, Kubernetes, Terraform, AWS, Azure, AI Engineering, and more. Get instant answers, code examples, and architectural guidance.
           </p>
 
@@ -37,7 +37,7 @@ export default function AIAssistantTeaser() {
             ].map((item) => (
               <div key={item} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                 <span style={{ width: "18px", height: "18px", borderRadius: "50%", background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.3)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: "10px", color: "#A78BFA" }}>✓</span>
-                <span style={{ color: "#9BA8C0", fontSize: "14px" }}>{item}</span>
+                <span style={{ color: "var(--text-3)", fontSize: "14px" }}>{item}</span>
               </div>
             ))}
           </div>
@@ -48,7 +48,7 @@ export default function AIAssistantTeaser() {
         </div>
 
         {/* Right — Chat preview */}
-        <div style={{ background: "#0F1A2E", border: "1px solid #1E2D47", borderRadius: "20px", overflow: "hidden" }} className="glow-violet">
+        <div style={{ background: "var(--bg-2)", border: "1px solid #1E2D47", borderRadius: "20px", overflow: "hidden" }} className="glow-violet">
           {/* Chat header */}
           <div style={{ background: "#0C1524", borderBottom: "1px solid #1E2D47", padding: "14px 18px", display: "flex", alignItems: "center", gap: "10px" }}>
             <div style={{ width: "32px", height: "32px", borderRadius: "9px", background: "linear-gradient(135deg, #8B5CF6, #EC4899)", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -63,7 +63,7 @@ export default function AIAssistantTeaser() {
             {/* User message */}
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <div style={{ maxWidth: "85%", background: "rgba(139,92,246,0.12)", border: "1px solid rgba(139,92,246,0.2)", borderRadius: "14px 4px 14px 14px", padding: "12px 16px" }}>
-                <p style={{ color: "#E8EDF5", fontSize: "13px", lineHeight: 1.5, margin: 0 }}>
+                <p style={{ color: "var(--text-1)", fontSize: "13px", lineHeight: 1.5, margin: 0 }}>
                   How do I troubleshoot a Kubernetes pod stuck in CrashLoopBackOff?
                 </p>
               </div>
@@ -75,11 +75,11 @@ export default function AIAssistantTeaser() {
                 <Bot size={14} style={{ color: "#fff" }} />
               </div>
               <div style={{ background: "#0C1524", border: "1px solid #1E2D47", borderRadius: "4px 14px 14px 14px", padding: "14px 16px", maxWidth: "87%" }}>
-                <p style={{ color: "#9BA8C0", fontSize: "12px", lineHeight: 1.6, margin: "0 0 10px" }}>
+                <p style={{ color: "var(--text-3)", fontSize: "12px", lineHeight: 1.6, margin: "0 0 10px" }}>
                   A <strong style={{ color: "#FB7185" }}>CrashLoopBackOff</strong> means the container starts, crashes, and Kubernetes keeps restarting it. Here&apos;s how to diagnose:
                 </p>
                 <div style={{ background: "#070E1A", border: "1px solid #1E2D47", borderRadius: "8px", padding: "10px 14px", fontSize: "12px", fontFamily: "monospace", color: "#93C5FD", lineHeight: 1.6 }}>
-                  <span style={{ color: "#6B7A99" }}># Check logs from previous crash</span>
+                  <span style={{ color: "var(--text-4)" }}># Check logs from previous crash</span>
                   <br />
                   kubectl logs &lt;pod&gt; --previous
                   <br />
@@ -91,7 +91,7 @@ export default function AIAssistantTeaser() {
 
           {/* Input area */}
           <div style={{ borderTop: "1px solid #1E2D47", padding: "14px 16px", display: "flex", gap: "8px", alignItems: "center" }}>
-            <div style={{ flexGrow: 1, background: "#0C1524", border: "1px solid #1E2D47", borderRadius: "10px", padding: "8px 14px", fontSize: "13px", color: "#6B7A99" }}>
+            <div style={{ flexGrow: 1, background: "#0C1524", border: "1px solid #1E2D47", borderRadius: "10px", padding: "8px 14px", fontSize: "13px", color: "var(--text-4)" }}>
               Ask anything...
             </div>
             <Link href="/ai-assistant" style={{ width: "34px", height: "34px", borderRadius: "9px", background: "linear-gradient(135deg, #8B5CF6, #EC4899)", display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none", flexShrink: 0 }}>

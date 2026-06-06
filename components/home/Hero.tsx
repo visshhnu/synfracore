@@ -94,7 +94,7 @@ export default function Hero() {
             <p
               
               style={{
-                color: "#9BA8C0",
+                color: "var(--text-3)",
                 fontSize: "18px",
                 lineHeight: 1.7,
                 maxWidth: "480px",
@@ -117,13 +117,13 @@ export default function Hero() {
                     display: "flex",
                     alignItems: "center",
                     gap: "6px",
-                    background: "#0F1A2E",
+                    background: "var(--bg-2)",
                     border: "1px solid #1E2D47",
                     borderRadius: "8px",
                     padding: "8px 14px",
                     fontSize: "13px",
                     fontWeight: 500,
-                    color: "#9BA8C0",
+                    color: "var(--text-3)",
                   }}
                 >
                   <span style={{ color: "#3B82F6" }}>{icon}</span>
@@ -163,7 +163,7 @@ export default function Hero() {
                   alignItems: "center",
                   gap: "8px",
                   background: "transparent",
-                  color: "#E8EDF5",
+                  color: "var(--text-1)",
                   padding: "14px 28px",
                   borderRadius: "12px",
                   fontSize: "15px",
@@ -186,7 +186,7 @@ export default function Hero() {
           >
             <div
               style={{
-                background: "#0F1A2E",
+                background: "var(--bg-2)",
                 border: "1px solid #1E2D47",
                 borderRadius: "24px",
                 padding: "40px",
@@ -209,7 +209,7 @@ export default function Hero() {
                 >
                   ∞
                 </div>
-                <p style={{ color: "#6B7A99", fontSize: "13px", marginTop: "8px", fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase" }}>
+                <p style={{ color: "var(--text-4)", fontSize: "13px", marginTop: "8px", fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase" }}>
                   Technologies Covered
                 </p>
               </div>
@@ -243,7 +243,7 @@ export default function Hero() {
                   textAlign: "center",
                 }}
               >
-                <p style={{ color: "#6B7A99", fontSize: "12px", fontWeight: 500, letterSpacing: "0.06em" }}>
+                <p style={{ color: "var(--text-4)", fontSize: "12px", fontWeight: 500, letterSpacing: "0.06em" }}>
                   LEARN → PRACTICE → BUILD → TROUBLESHOOT → CERTIFY → GET HIRED
                 </p>
               </div>

@@ -21,7 +21,7 @@ export default function StatsSection() {
               >
                 {item.value}
               </div>
-              <div style={{ color: "#6B7A99", fontSize: "14px", marginTop: "8px", fontWeight: 500 }}>
+              <div style={{ color: "var(--text-4)", fontSize: "14px", marginTop: "8px", fontWeight: 500 }}>
                 {item.label}
               </div>
             </div>

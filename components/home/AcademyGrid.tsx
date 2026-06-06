@@ -33,7 +33,7 @@ export default function AcademyGrid() {
         >
           Choose Your Academy
         </h2>
-        <p style={{ color: "#6B7A99", fontSize: "17px", marginTop: "12px", maxWidth: "500px", margin: "12px auto 0" }}>
+        <p style={{ color: "var(--text-4)", fontSize: "17px", marginTop: "12px", maxWidth: "500px", margin: "12px auto 0" }}>
           Structured learning paths across every major technology domain
         </p>
       </div>
@@ -96,7 +96,7 @@ export default function AcademyGrid() {
                 {academy.subtitle}
               </p>
 
-              <p style={{ color: "#6B7A99", fontSize: "14px", lineHeight: 1.6, marginBottom: "20px", flexGrow: 1 }}>
+              <p style={{ color: "var(--text-4)", fontSize: "14px", lineHeight: 1.6, marginBottom: "20px", flexGrow: 1 }}>
                 {academy.description}
               </p>
 
@@ -118,7 +118,7 @@ export default function AcademyGrid() {
                   </span>
                 ))}
                 {academy.technologies.length > 4 && (
-                  <span style={{ color: "#6B7A99", fontSize: "11px", padding: "3px 6px" }}>
+                  <span style={{ color: "var(--text-4)", fontSize: "11px", padding: "3px 6px" }}>
                     +{academy.technologies.length - 4} more
                   </span>
                 )}
@@ -133,7 +133,7 @@ export default function AcademyGrid() {
                   borderTop: "1px solid #1E2D47",
                 }}
               >
-                <span style={{ color: "#6B7A99", fontSize: "13px" }}>
+                <span style={{ color: "var(--text-4)", fontSize: "13px" }}>
                   {academy.technologies.length} technologies
                 </span>
                 <span

@@ -16,7 +16,7 @@ export default function CertificationsPage() {
         <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
           Certification Hub
         </h1>
-        <p style={{ color: "#6B7A99", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
+        <p style={{ color: "var(--text-4)", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
           13 industry certifications — structured prep, practice exams, and study guides
         </p>
       </div>
@@ -36,7 +36,7 @@ export default function CertificationsPage() {
                 <Link key={cert.id} href={`/certifications/${cert.id}`} style={{ textDecoration: "none" }}>
                   <div
                     style={{
-                      background: "#0F1A2E",
+                      background: "var(--bg-2)",
                       border: "1px solid #1E2D47",
                       borderRadius: "16px",
                       padding: "24px",
@@ -61,7 +61,7 @@ export default function CertificationsPage() {
                     </div>
 
                     <h3 style={{ fontSize: "15px", fontWeight: 700, marginBottom: "4px" }}>{cert.name}</h3>
-                    <p style={{ color: "#6B7A99", fontSize: "12px", marginBottom: "16px" }}>{cert.code}</p>
+                    <p style={{ color: "var(--text-4)", fontSize: "12px", marginBottom: "16px" }}>{cert.code}</p>
 
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                       <span

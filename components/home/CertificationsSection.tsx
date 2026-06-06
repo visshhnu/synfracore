@@ -40,7 +40,7 @@ export default function CertificationsSection() {
           >
             Certification Hub
           </h2>
-          <p style={{ color: "#6B7A99", fontSize: "16px", marginTop: "8px" }}>
+          <p style={{ color: "var(--text-4)", fontSize: "16px", marginTop: "8px" }}>
             Comprehensive prep for the industry&apos;s most in-demand certifications
           </p>
         </div>
@@ -57,7 +57,7 @@ export default function CertificationsSection() {
           <div
             key={provider}
             style={{
-              background: "#0F1A2E",
+              background: "var(--bg-2)",
               border: "1px solid #1E2D47",
               borderRadius: "16px",
               padding: "24px",
@@ -101,10 +101,10 @@ export default function CertificationsSection() {
                   className="hover:bg-white/5"
                 >
                   <div>
-                    <span style={{ color: "#E8EDF5", fontSize: "13px", fontWeight: 600, display: "block" }}>
+                    <span style={{ color: "var(--text-1)", fontSize: "13px", fontWeight: 600, display: "block" }}>
                       {cert.name}
                     </span>
-                    <span style={{ color: "#6B7A99", fontSize: "11px" }}>{cert.code}</span>
+                    <span style={{ color: "var(--text-4)", fontSize: "11px" }}>{cert.code}</span>
                   </div>
                   <span
                     style={{

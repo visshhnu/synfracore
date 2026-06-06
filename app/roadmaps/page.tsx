@@ -14,7 +14,7 @@ export default function RoadmapsPage() {
         <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
           Career Roadmaps
         </h1>
-        <p style={{ color: "#6B7A99", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
+        <p style={{ color: "var(--text-4)", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
           Step-by-step paths from beginner to job-ready professional
         </p>
       </div>
@@ -23,13 +23,13 @@ export default function RoadmapsPage() {
         {roadmaps.map((roadmap) => (
           <div
             key={roadmap.slug}
-            style={{ background: "#0F1A2E", border: "1px solid #1E2D47", borderRadius: "20px", padding: "32px" }}
+            style={{ background: "var(--bg-2)", border: "1px solid #1E2D47", borderRadius: "20px", padding: "32px" }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "20px" }}>
               <span style={{ fontSize: "36px" }}>{roadmap.icon}</span>
               <div>
                 <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "22px", fontWeight: 700 }}>{roadmap.title}</h2>
-                <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "#6B7A99", fontSize: "13px", marginTop: "4px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--text-4)", fontSize: "13px", marginTop: "4px" }}>
                   <Clock size={13} /> {roadmap.duration} to complete
                 </div>
               </div>
