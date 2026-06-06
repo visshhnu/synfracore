@@ -1,49 +1,44 @@
 const contentRegistry = new Set([
   // Linux
-  "infrastructure/linux/overview",
-  "infrastructure/linux/fundamentals",
-  "infrastructure/linux/intermediate",
-  "infrastructure/linux/advanced",
-  "infrastructure/linux/cheatsheets",
-  "infrastructure/linux/interview",
+  "infrastructure/linux/overview","infrastructure/linux/fundamentals",
+  "infrastructure/linux/intermediate","infrastructure/linux/advanced",
+  "infrastructure/linux/cheatsheets","infrastructure/linux/interview",
   // Docker
-  "infrastructure/docker/overview",
-  "infrastructure/docker/fundamentals",
-  "infrastructure/docker/cheatsheets",
+  "infrastructure/docker/overview","infrastructure/docker/fundamentals",
+  "infrastructure/docker/cheatsheets","infrastructure/docker/interview",
   // Kubernetes
-  "infrastructure/kubernetes/overview",
-  "infrastructure/kubernetes/fundamentals",
-  "infrastructure/kubernetes/advanced",
-  "infrastructure/kubernetes/troubleshooting",
+  "infrastructure/kubernetes/overview","infrastructure/kubernetes/fundamentals",
+  "infrastructure/kubernetes/advanced","infrastructure/kubernetes/troubleshooting",
+  "infrastructure/kubernetes/interview","infrastructure/kubernetes/labs",
   // Python
-  "infrastructure/python/overview",
-  "infrastructure/python/fundamentals",
+  "infrastructure/python/overview","infrastructure/python/fundamentals",
   "infrastructure/python/cheatsheets",
   // Ansible
-  "infrastructure/ansible/overview",
-  "infrastructure/ansible/fundamentals",
+  "infrastructure/ansible/overview","infrastructure/ansible/fundamentals",
+  "infrastructure/ansible/interview",
   // Prometheus
   "infrastructure/prometheus/overview",
   // Jenkins
   "infrastructure/jenkins/overview",
+  // ArgoCD
+  "infrastructure/argocd/overview",
   // Cloud — Terraform
-  "cloud/terraform/overview",
-  "cloud/terraform/fundamentals",
+  "cloud/terraform/overview","cloud/terraform/fundamentals","cloud/terraform/advanced",
   // Cloud — AWS
-  "cloud/aws-ec2/overview",
-  "cloud/aws-ec2/fundamentals",
+  "cloud/aws-ec2/overview","cloud/aws-ec2/fundamentals",
   "cloud/aws-vpc/overview",
-  "cloud/aws-iam/overview",
-  "cloud/aws-iam/fundamentals",
+  "cloud/aws-iam/overview","cloud/aws-iam/fundamentals",
+  "cloud/aws-s3/overview",
+  // Monitoring
+  "monitoring/grafana/overview",
+  "monitoring/elk-stack/overview",
   // Data
-  "data/sql/overview",
-  "data/sql/fundamentals",
+  "data/sql/overview","data/sql/fundamentals",
   // AI
-  "ai/langchain/overview",
-  "ai/langchain/fundamentals",
+  "ai/langchain/overview","ai/langchain/fundamentals",
+  "ai/rag/overview",
   // Healthcare
-  "healthcare/icd-10-cm/overview",
-  "healthcare/icd-10-cm/fundamentals",
+  "healthcare/icd-10-cm/overview","healthcare/icd-10-cm/fundamentals",
   // Security
   "security/security-fundamentals/overview",
 ]);
