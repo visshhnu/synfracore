@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { CopyProtection } from "@/components/CopyProtection";
 
 export const metadata: Metadata = {
   title: { default: "SynfraCore — Learn DevOps, Cloud & AI", template: "%s — SynfraCore" },
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body style={{ margin: 0, minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--bg)", color: "var(--text-2)" }}>
         <ThemeProvider>
+          <CopyProtection />
           <Navbar />
           <main style={{ flex: 1 }}>{children}</main>
           <Footer />

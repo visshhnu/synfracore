@@ -250,3 +250,52 @@ html.light .logo-wrap {
   background: #0F172A;
   border-radius: 8px;
 }
+
+/* ══ COPY & PRINT PROTECTION ══════════════════════════════ */
+
+/* Disable text selection on content articles */
+article, .prose {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Allow selection inside code blocks for legitimate copying */
+article pre, article code,
+.prose pre, .prose code {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
+}
+
+/* Watermark on content pages */
+.content-watermark {
+  position: relative;
+}
+.content-watermark::after {
+  content: "synfracore.com";
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--text-4);
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ══ PRINT PROTECTION ══════════════════════════════════════ */
+@media print {
+  body * { display: none !important; }
+  body::after {
+    display: block !important;
+    content: "This content is protected. Visit synfracore.com to study online.";
+    font-size: 24px;
+    text-align: center;
+    padding: 100px 40px;
+    color: #000;
+  }
+}

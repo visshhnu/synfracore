@@ -44,6 +44,11 @@ export const academies: Academy[] = [
       { slug: "prometheus", name: "Prometheus", icon: "🔥", description: "Metrics collection, PromQL, alerting rules, and recording rules", level: "Intermediate", tags: ["Monitoring", "Metrics", "CNCF"] },
       { slug: "grafana", name: "Grafana", icon: "📊", description: "Dashboards, visualization, and observability platform", level: "Intermediate", tags: ["Dashboards", "Observability", "Visualization"] },
       { slug: "elk-stack", name: "ELK Stack", icon: "🔍", description: "Elasticsearch, Logstash, Kibana for log management", level: "Advanced", tags: ["Logging", "Search", "Analytics"] },
+      { slug: "postgresql", name: "PostgreSQL", icon: "🐘", description: "Advanced open-source relational database — indexing, performance, replication", level: "Intermediate", tags: ["Database", "SQL", "Relational"] },
+      { slug: "mysql", name: "MySQL", icon: "🐬", description: "World's most popular open-source relational database", level: "Beginner", tags: ["Database", "SQL", "Relational"] },
+      { slug: "mongodb", name: "MongoDB", icon: "🍃", description: "Document database — schema design, aggregation, indexing, Atlas", level: "Intermediate", tags: ["NoSQL", "Document", "Database"] },
+      { slug: "redis", name: "Redis", icon: "⚡", description: "In-memory data store — caching, pub/sub, session management", level: "Intermediate", tags: ["Cache", "In-memory", "Database"] },
+      { slug: "cassandra", name: "Cassandra", icon: "👁️", description: "Wide-column distributed database for massive scale", level: "Advanced", tags: ["NoSQL", "Distributed", "Database"] },
     ],
   },
   {

@@ -1,55 +1,54 @@
 const contentRegistry = new Set([
-  // Linux (6)
+  // ── INFRASTRUCTURE ───────────────────────────────────────────
   "infrastructure/linux/overview","infrastructure/linux/fundamentals",
   "infrastructure/linux/intermediate","infrastructure/linux/advanced",
   "infrastructure/linux/cheatsheets","infrastructure/linux/interview",
-  // Docker (4)
   "infrastructure/docker/overview","infrastructure/docker/fundamentals",
   "infrastructure/docker/cheatsheets","infrastructure/docker/interview",
-  // Kubernetes (7)
   "infrastructure/kubernetes/overview","infrastructure/kubernetes/fundamentals",
   "infrastructure/kubernetes/advanced","infrastructure/kubernetes/troubleshooting",
   "infrastructure/kubernetes/interview","infrastructure/kubernetes/labs",
   "infrastructure/kubernetes/cheatsheets",
-  // Python (4)
   "infrastructure/python/overview","infrastructure/python/fundamentals",
   "infrastructure/python/cheatsheets","infrastructure/python/interview",
-  // Ansible (3)
   "infrastructure/ansible/overview","infrastructure/ansible/fundamentals",
   "infrastructure/ansible/interview",
-  // Prometheus, Jenkins (2), ArgoCD, Helm (2), Git, Networking
-  "infrastructure/prometheus/overview",
+  "infrastructure/terraform/overview","infrastructure/terraform/fundamentals",
+  "infrastructure/terraform/advanced","infrastructure/terraform/interview",
+  "infrastructure/terraform/cheatsheets",
   "infrastructure/jenkins/overview","infrastructure/jenkins/advanced",
-  "infrastructure/argocd/overview",
   "infrastructure/helm/overview","infrastructure/helm/fundamentals",
-  "infrastructure/git/overview","infrastructure/networking/overview",
-  // Cloud — Terraform (5)
-  "cloud/terraform/overview","cloud/terraform/fundamentals",
-  "cloud/terraform/advanced","cloud/terraform/interview",
-  "cloud/terraform/cheatsheets",
-  // Cloud — AWS (8)
+  "infrastructure/argocd/overview",
+  "infrastructure/prometheus/overview",
+  "infrastructure/grafana/overview",
+  "infrastructure/elk-stack/overview",
+  "infrastructure/git/overview",
+  "infrastructure/networking/overview",
+  // Databases
+  "infrastructure/postgresql/overview",
+  "infrastructure/mysql/overview",
+  "infrastructure/mongodb/overview",
+  "infrastructure/redis/overview",
+  "infrastructure/cassandra/overview",
+  // ── CLOUD ────────────────────────────────────────────────────
   "cloud/aws-ec2/overview","cloud/aws-ec2/fundamentals",
   "cloud/aws-vpc/overview",
   "cloud/aws-iam/overview","cloud/aws-iam/fundamentals",
   "cloud/aws-s3/overview","cloud/aws-lambda/overview",
   "cloud/aws-eks/overview",
-  // Cloud — Azure (2)
   "cloud/azure-aks/overview","cloud/azure-devops/overview",
-  // Monitoring (4)
-  "monitoring/grafana/overview","monitoring/elk-stack/overview",
-  "monitoring/datadog/overview","monitoring/loki/overview",
-  // Data (4)
+  // ── DATA ─────────────────────────────────────────────────────
   "data/sql/overview","data/sql/fundamentals",
   "data/pandas/overview","data/power-bi/overview",
-  // AI (5)
+  // ── AI ───────────────────────────────────────────────────────
   "ai/langchain/overview","ai/langchain/fundamentals",
   "ai/rag/overview","ai/prompt-engineering/overview",
   "ai/ai-agents/overview","ai/llmops/overview",
-  // Healthcare (6)
+  // ── HEALTHCARE ───────────────────────────────────────────────
   "healthcare/icd-10-cm/overview","healthcare/icd-10-cm/fundamentals",
   "healthcare/icd-10-cm/interview","healthcare/cpt/overview",
   "healthcare/hcpcs/overview","healthcare/coding-guidelines/overview",
-  // Security (4)
+  // ── SECURITY ─────────────────────────────────────────────────
   "security/security-fundamentals/overview","security/soc/overview",
   "security/ethical-hacking/overview","security/network-security/overview",
 ]);
