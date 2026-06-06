@@ -233,3 +233,20 @@ html.light .line-grid {
   .page-container { padding: 0 16px; }
   .page-section { padding: 56px 0; }
 }
+
+/* ── Logo image — light mode fix ── */
+html.light .logo-img {
+  filter: invert(1) hue-rotate(180deg) saturate(2);
+}
+/* Better approach — just keep dark bg behind logo in light mode */
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+html.light .logo-wrap {
+  background: #0F172A;
+  border-radius: 8px;
+}
