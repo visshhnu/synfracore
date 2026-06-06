@@ -17,9 +17,11 @@ const contentRegistry = new Set([
   // Ansible (3)
   "infrastructure/ansible/overview","infrastructure/ansible/fundamentals",
   "infrastructure/ansible/interview",
-  // Prometheus, Jenkins, ArgoCD, Helm, Git, Networking (6)
-  "infrastructure/prometheus/overview","infrastructure/jenkins/overview",
-  "infrastructure/argocd/overview","infrastructure/helm/overview",
+  // Prometheus, Jenkins (2), ArgoCD, Helm (2), Git, Networking
+  "infrastructure/prometheus/overview",
+  "infrastructure/jenkins/overview","infrastructure/jenkins/advanced",
+  "infrastructure/argocd/overview",
+  "infrastructure/helm/overview","infrastructure/helm/fundamentals",
   "infrastructure/git/overview","infrastructure/networking/overview",
   // Cloud — Terraform (5)
   "cloud/terraform/overview","cloud/terraform/fundamentals",
@@ -36,18 +38,20 @@ const contentRegistry = new Set([
   // Monitoring (4)
   "monitoring/grafana/overview","monitoring/elk-stack/overview",
   "monitoring/datadog/overview","monitoring/loki/overview",
-  // Data (3)
-  "data/sql/overview","data/sql/fundamentals","data/pandas/overview",
-  // AI (4)
+  // Data (4)
+  "data/sql/overview","data/sql/fundamentals",
+  "data/pandas/overview","data/power-bi/overview",
+  // AI (5)
   "ai/langchain/overview","ai/langchain/fundamentals",
   "ai/rag/overview","ai/prompt-engineering/overview",
-  "ai/ai-agents/overview",
-  // Healthcare (4)
+  "ai/ai-agents/overview","ai/llmops/overview",
+  // Healthcare (6)
   "healthcare/icd-10-cm/overview","healthcare/icd-10-cm/fundamentals",
   "healthcare/icd-10-cm/interview","healthcare/cpt/overview",
-  // Security (3)
-  "security/security-fundamentals/overview",
-  "security/soc/overview","security/ethical-hacking/overview",
+  "healthcare/hcpcs/overview","healthcare/coding-guidelines/overview",
+  // Security (4)
+  "security/security-fundamentals/overview","security/soc/overview",
+  "security/ethical-hacking/overview","security/network-security/overview",
 ]);
 
 export function hasContent(a: string, t: string, s: string): boolean {
