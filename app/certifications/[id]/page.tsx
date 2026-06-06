@@ -29,7 +29,7 @@ export default async function CertificationDetailPage({ params }: Props) {
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-16">
-      <Link href="/certifications" style={{ color: "#6B7A99", fontSize: "13px", textDecoration: "none", marginBottom: "24px", display: "inline-block" }}>
+      <Link href="/certifications" style={{ color: "var(--text-4)", fontSize: "13px", textDecoration: "none", marginBottom: "24px", display: "inline-block" }}>
         ← All Certifications
       </Link>
 
@@ -54,7 +54,7 @@ export default async function CertificationDetailPage({ params }: Props) {
               <span style={{ background: `${cert.color}15`, border: `1px solid ${cert.color}25`, color: cert.color, padding: "3px 10px", borderRadius: "100px", fontSize: "12px", fontWeight: 600 }}>
                 {cert.provider}
               </span>
-              <span style={{ background: "rgba(255,255,255,0.05)", border: "1px solid #1E2D47", color: "#9BA8C0", padding: "3px 10px", borderRadius: "100px", fontSize: "12px", fontWeight: 600 }}>
+              <span style={{ background: "rgba(255,255,255,0.05)", border: "1px solid var(--border)", color: "var(--text-3)", padding: "3px 10px", borderRadius: "100px", fontSize: "12px", fontWeight: 600 }}>
                 {cert.code}
               </span>
               <span style={{ background: cert.level === "Expert" ? "rgba(244, 63, 94, 0.1)" : cert.level === "Professional" ? "rgba(245, 158, 11, 0.1)" : "rgba(16, 185, 129, 0.1)", color: cert.level === "Expert" ? "#FB7185" : cert.level === "Professional" ? "#FCD34D" : "#34D399", padding: "3px 10px", borderRadius: "100px", fontSize: "12px", fontWeight: 600 }}>
@@ -71,8 +71,8 @@ export default async function CertificationDetailPage({ params }: Props) {
           <div
             key={sec.title}
             style={{
-              background: "#0F1A2E",
-              border: "1px solid #1E2D47",
+              background: "var(--bg-2)",
+              border: "1px solid var(--border)",
               borderRadius: "14px",
               padding: "22px",
               cursor: "pointer",
@@ -82,7 +82,7 @@ export default async function CertificationDetailPage({ params }: Props) {
           >
             <span style={{ fontSize: "28px", display: "block", marginBottom: "10px" }}>{sec.icon}</span>
             <h3 style={{ fontSize: "15px", fontWeight: 700, marginBottom: "4px" }}>{sec.title}</h3>
-            <p style={{ color: "#6B7A99", fontSize: "12px" }}>{sec.desc}</p>
+            <p style={{ color: "var(--text-4)", fontSize: "12px" }}>{sec.desc}</p>
           </div>
         ))}
       </div>
@@ -97,7 +97,7 @@ export default async function CertificationDetailPage({ params }: Props) {
           textAlign: "center",
         }}
       >
-        <p style={{ color: "#6B7A99", fontSize: "14px", marginBottom: "12px" }}>
+        <p style={{ color: "var(--text-4)", fontSize: "14px", marginBottom: "12px" }}>
           Navigate to the technology pages for AI-generated certification study guides
         </p>
         <Link

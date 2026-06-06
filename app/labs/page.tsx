@@ -17,7 +17,7 @@ export default function LabsPage() {
         <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
           Hands-on Labs
         </h1>
-        <p style={{ color: "#6B7A99", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
+        <p style={{ color: "var(--text-4)", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
           Practice with real tools in structured, guided environments
         </p>
       </div>
@@ -27,7 +27,7 @@ export default function LabsPage() {
           <div key={cat.level} style={{ background: cat.bg, border: `1px solid ${cat.border}`, borderRadius: "16px", padding: "28px", textAlign: "center" }}>
             <span style={{ fontSize: "40px", display: "block", marginBottom: "12px" }}>{cat.icon}</span>
             <h3 style={{ fontFamily: "'Syne', sans-serif", fontSize: "20px", fontWeight: 700, color: cat.color, marginBottom: "8px" }}>{cat.level}</h3>
-            <p style={{ color: "#6B7A99", fontSize: "14px" }}>{cat.desc}</p>
+            <p style={{ color: "var(--text-4)", fontSize: "14px" }}>{cat.desc}</p>
           </div>
         ))}
       </div>
@@ -36,12 +36,12 @@ export default function LabsPage() {
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {academies.map((academy) => (
           <Link key={academy.slug} href={`/academies/${academy.slug}`} style={{ textDecoration: "none" }}>
-            <div style={{ background: "#0F1A2E", border: "1px solid #1E2D47", borderRadius: "14px", padding: "22px" }} className="card">
+            <div style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "14px", padding: "22px" }} className="card">
               <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
                 <span style={{ fontSize: "24px" }}>{academy.icon}</span>
                 <div style={{ marginLeft: "8px" }}>
                   <h3 style={{ fontSize: "15px", fontWeight: 700 }}>{academy.title}</h3>
-                  <p style={{ color: "#6B7A99", fontSize: "12px" }}>{academy.technologies.length} technologies</p>
+                  <p style={{ color: "var(--text-4)", fontSize: "12px" }}>{academy.technologies.length} technologies</p>
                 </div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "6px", color: academy.color, fontSize: "13px", fontWeight: 600 }}>

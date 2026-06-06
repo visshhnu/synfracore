@@ -194,3 +194,42 @@ html.light .prose code { background:rgba(37,99,235,0.07); color:#1D4ED8; }
   .prose h2 { font-size: 18px; }
 }
 @media (min-width: 769px) { .show-mobile { display: none !important; } }
+
+/* ── LIGHT MODE overrides — full coverage ── */
+html.light body { background: #F8FAFC; color: #1E293B; }
+html.light header {
+  background: rgba(248,250,252,0.95) !important;
+  border-bottom-color: #E2E8F0 !important;
+}
+html.light .btn-secondary { color: #1E293B; border-color: #CBD5E1; }
+html.light .btn-secondary:hover { background: rgba(37,99,235,0.06); }
+html.light .card { background: #FFFFFF; border-color: #E2E8F0; }
+html.light .card:hover { border-color: #CBD5E1; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+html.light .badge-blue { color: #1D4ED8; background: rgba(37,99,235,0.08); border-color: rgba(37,99,235,0.2); }
+html.light .badge-purple { color: #6D28D9; }
+html.light .badge-green { color: #059669; }
+html.light .badge-amber { color: #D97706; }
+html.light .line-grid {
+  background-image:
+    linear-gradient(rgba(37,99,235,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37,99,235,0.06) 1px, transparent 1px);
+}
+
+/* ── Page container — fixes edge-to-edge issue ── */
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+}
+.page-section {
+  padding: 80px 0;
+}
+.page-section-sm {
+  padding: 48px 0;
+}
+
+@media (max-width: 768px) {
+  .page-container { padding: 0 16px; }
+  .page-section { padding: 56px 0; }
+}

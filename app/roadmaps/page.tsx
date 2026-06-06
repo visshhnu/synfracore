@@ -23,7 +23,7 @@ export default function RoadmapsPage() {
         {roadmaps.map((roadmap) => (
           <div
             key={roadmap.slug}
-            style={{ background: "var(--bg-2)", border: "1px solid #1E2D47", borderRadius: "20px", padding: "32px" }}
+            style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "20px", padding: "32px" }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "20px" }}>
               <span style={{ fontSize: "36px" }}>{roadmap.icon}</span>

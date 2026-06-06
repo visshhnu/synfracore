@@ -16,7 +16,7 @@ export default function CommunityPage() {
         <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
           Community Hub
         </h1>
-        <p style={{ color: "#6B7A99", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
+        <p style={{ color: "var(--text-4)", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
           Learn together. Grow together. A community for infrastructure and cloud engineers.
         </p>
       </div>
@@ -35,7 +35,7 @@ export default function CommunityPage() {
         <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "28px", fontWeight: 700, marginBottom: "12px" }}>
           Community Features Coming in Phase 3
         </h2>
-        <p style={{ color: "#6B7A99", maxWidth: "500px", margin: "0 auto", fontSize: "16px", lineHeight: 1.7 }}>
+        <p style={{ color: "var(--text-4)", maxWidth: "500px", margin: "0 auto", fontSize: "16px", lineHeight: 1.7 }}>
           We&apos;re building something great. The SynfraCore community will launch with discussion boards, learning groups, mentorship, and live challenges.
         </p>
       </div>
@@ -45,8 +45,8 @@ export default function CommunityPage() {
           <div
             key={f.name}
             style={{
-              background: "#0F1A2E",
-              border: "1px solid #1E2D47",
+              background: "var(--bg-2)",
+              border: "1px solid var(--border)",
               borderRadius: "16px",
               padding: "24px",
               opacity: 0.7,
@@ -59,7 +59,7 @@ export default function CommunityPage() {
                 {f.status}
               </span>
             </div>
-            <p style={{ color: "#6B7A99", fontSize: "13px", marginTop: "8px" }}>{f.desc}</p>
+            <p style={{ color: "var(--text-4)", fontSize: "13px", marginTop: "8px" }}>{f.desc}</p>
           </div>
         ))}
       </div>

@@ -34,7 +34,7 @@ export default async function TechnologyPage({ params }: Props) {
           width: "260px",
           flexShrink: 0,
           borderRight: "1px solid #1E2D47",
-          background: "#0C1524",
+          background: "var(--bg-1)",
           padding: "24px 16px",
           position: "sticky",
           top: "65px",
@@ -43,8 +43,8 @@ export default async function TechnologyPage({ params }: Props) {
         }}
         className="hidden lg:block"
       >
-        <div style={{ marginBottom: "16px", paddingBottom: "16px", borderBottom: "1px solid #1E2D47" }}>
-          <Link href={`/academies/${aSlug}`} style={{ color: "#6B7A99", fontSize: "12px", textDecoration: "none" }}>
+        <div style={{ marginBottom: "16px", paddingBottom: "16px", borderBottom: "1px solid var(--border)" }}>
+          <Link href={`/academies/${aSlug}`} style={{ color: "var(--text-4)", fontSize: "12px", textDecoration: "none" }}>
             ← {academy.title}
           </Link>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "10px" }}>
@@ -80,7 +80,7 @@ export default async function TechnologyPage({ params }: Props) {
                 padding: "9px 12px",
                 borderRadius: "10px",
                 textDecoration: "none",
-                color: "#9BA8C0",
+                color: "var(--text-3)",
                 fontSize: "13px",
                 fontWeight: 500,
                 marginBottom: "2px",
@@ -98,11 +98,11 @@ export default async function TechnologyPage({ params }: Props) {
       {/* Main content */}
       <div style={{ flexGrow: 1, padding: "40px 48px" }}>
         <div style={{ marginBottom: "8px" }}>
-          <Link href={`/academies/${aSlug}`} style={{ color: "#6B7A99", fontSize: "13px", textDecoration: "none" }}>
+          <Link href={`/academies/${aSlug}`} style={{ color: "var(--text-4)", fontSize: "13px", textDecoration: "none" }}>
             {academy.title}
           </Link>
-          <span style={{ color: "#6B7A99", margin: "0 6px" }}>›</span>
-          <span style={{ color: "#E8EDF5", fontSize: "13px" }}>{tech.name}</span>
+          <span style={{ color: "var(--text-4)", margin: "0 6px" }}>›</span>
+          <span style={{ color: "var(--text-1)", fontSize: "13px" }}>{tech.name}</span>
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "16px" }}>
@@ -125,7 +125,7 @@ export default async function TechnologyPage({ params }: Props) {
           </span>
         </div>
 
-        <p style={{ color: "#6B7A99", fontSize: "16px", maxWidth: "600px", marginBottom: "36px", lineHeight: 1.7 }}>
+        <p style={{ color: "var(--text-4)", fontSize: "16px", maxWidth: "600px", marginBottom: "36px", lineHeight: 1.7 }}>
           {tech.description}
         </p>
 
@@ -161,8 +161,8 @@ export default async function TechnologyPage({ params }: Props) {
             >
               <div
                 style={{
-                  background: "#0F1A2E",
-                  border: "1px solid #1E2D47",
+                  background: "var(--bg-2)",
+                  border: "1px solid var(--border)",
                   borderRadius: "14px",
                   padding: "20px",
                   transition: "all 0.2s",

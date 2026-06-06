@@ -25,7 +25,7 @@ export default function CareerPage() {
         <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
           Career Hub
         </h1>
-        <p style={{ color: "#6B7A99", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
+        <p style={{ color: "var(--text-4)", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
           From first job to senior engineer — your complete career acceleration platform
         </p>
       </div>
@@ -36,7 +36,7 @@ export default function CareerPage() {
       </h2>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-16">
         {roles.map((role) => (
-          <div key={role.title} style={{ background: "#0F1A2E", border: "1px solid #1E2D47", borderRadius: "14px", padding: "20px", display: "flex", alignItems: "center", gap: "14px" }}>
+          <div key={role.title} style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "14px", padding: "20px", display: "flex", alignItems: "center", gap: "14px" }}>
             <span style={{ fontSize: "28px" }}>{role.icon}</span>
             <div>
               <div style={{ fontSize: "14px", fontWeight: 700 }}>{role.title}</div>
@@ -55,8 +55,8 @@ export default function CareerPage() {
           <div
             key={f.name}
             style={{
-              background: "#0F1A2E",
-              border: "1px solid #1E2D47",
+              background: "var(--bg-2)",
+              border: "1px solid var(--border)",
               borderRadius: "16px",
               padding: "24px",
               opacity: 0.75,
@@ -69,7 +69,7 @@ export default function CareerPage() {
                 {f.status}
               </span>
             </div>
-            <p style={{ color: "#6B7A99", fontSize: "13px", marginTop: "8px" }}>{f.desc}</p>
+            <p style={{ color: "var(--text-4)", fontSize: "13px", marginTop: "8px" }}>{f.desc}</p>
           </div>
         ))}
       </div>

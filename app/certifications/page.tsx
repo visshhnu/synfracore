@@ -37,7 +37,7 @@ export default function CertificationsPage() {
                   <div
                     style={{
                       background: "var(--bg-2)",
-                      border: "1px solid #1E2D47",
+                      border: "1px solid var(--border)",
                       borderRadius: "16px",
                       padding: "24px",
                       transition: "all 0.2s",

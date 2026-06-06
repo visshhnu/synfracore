@@ -13,7 +13,7 @@ export default async function RoadmapDetailPage({ params }: Props) {
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-16">
-      <Link href="/roadmaps" style={{ color: "#6B7A99", fontSize: "13px", textDecoration: "none", marginBottom: "24px", display: "inline-block" }}>
+      <Link href="/roadmaps" style={{ color: "var(--text-4)", fontSize: "13px", textDecoration: "none", marginBottom: "24px", display: "inline-block" }}>
         ← All Roadmaps
       </Link>
 
@@ -23,7 +23,7 @@ export default async function RoadmapDetailPage({ params }: Props) {
           <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, letterSpacing: "-0.02em" }}>
             {roadmap.title} Roadmap
           </h1>
-          <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "#6B7A99", fontSize: "14px", marginTop: "6px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--text-4)", fontSize: "14px", marginTop: "6px" }}>
             <Clock size={14} /> Estimated: {roadmap.duration}
           </div>
         </div>
@@ -75,8 +75,8 @@ export default async function RoadmapDetailPage({ params }: Props) {
             {/* Content */}
             <div
               style={{
-                background: "#0F1A2E",
-                border: "1px solid #1E2D47",
+                background: "var(--bg-2)",
+                border: "1px solid var(--border)",
                 borderRadius: "14px",
                 padding: "20px 24px",
                 flexGrow: 1,
@@ -84,7 +84,7 @@ export default async function RoadmapDetailPage({ params }: Props) {
               }}
             >
               <h3 style={{ fontSize: "16px", fontWeight: 700 }}>{step}</h3>
-              <p style={{ color: "#6B7A99", fontSize: "13px", marginTop: "4px" }}>
+              <p style={{ color: "var(--text-4)", fontSize: "13px", marginTop: "4px" }}>
                 Phase {i + 1} of {roadmap.steps.length}
               </p>
             </div>
@@ -104,7 +104,7 @@ export default async function RoadmapDetailPage({ params }: Props) {
       >
         <CheckCircle size={32} style={{ color: "#34D399", margin: "0 auto 12px" }} />
         <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "8px" }}>Ready to start?</h3>
-        <p style={{ color: "#6B7A99", marginBottom: "20px", fontSize: "14px" }}>
+        <p style={{ color: "var(--text-4)", marginBottom: "20px", fontSize: "14px" }}>
           Begin with the first topic and work your way through the roadmap
         </p>
         <Link

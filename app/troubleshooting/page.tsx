@@ -32,7 +32,7 @@ export default function TroubleshootingPage() {
         <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
           Troubleshooting Hub
         </h1>
-        <p style={{ color: "#6B7A99", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
+        <p style={{ color: "var(--text-4)", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
           Fix real production issues with root cause analysis and step-by-step procedures
         </p>
       </div>
@@ -40,10 +40,10 @@ export default function TroubleshootingPage() {
       {/* Categories */}
       <div className="grid gap-4 md:grid-cols-5 mb-16">
         {categories.map((cat) => (
-          <div key={cat.name} style={{ background: "#0F1A2E", border: "1px solid #1E2D47", borderRadius: "14px", padding: "20px", textAlign: "center" }}>
+          <div key={cat.name} style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "14px", padding: "20px", textAlign: "center" }}>
             <span style={{ fontSize: "28px", display: "block", marginBottom: "8px" }}>{cat.icon}</span>
             <h3 style={{ fontSize: "13px", fontWeight: 700, marginBottom: "4px" }}>{cat.name}</h3>
-            <p style={{ color: "#6B7A99", fontSize: "11px" }}>{cat.desc}</p>
+            <p style={{ color: "var(--text-4)", fontSize: "11px" }}>{cat.desc}</p>
           </div>
         ))}
       </div>
@@ -57,8 +57,8 @@ export default function TroubleshootingPage() {
           <div
             key={`${item.tech}-${item.issue}`}
             style={{
-              background: "#0F1A2E",
-              border: "1px solid #1E2D47",
+              background: "var(--bg-2)",
+              border: "1px solid var(--border)",
               borderRadius: "14px",
               padding: "20px",
               display: "flex",
@@ -86,10 +86,10 @@ export default function TroubleshootingPage() {
               {item.icon}
             </div>
             <div>
-              <div style={{ fontSize: "13px", fontWeight: 700, color: "#E8EDF5" }}>{item.issue}</div>
+              <div style={{ fontSize: "13px", fontWeight: 700, color: "var(--text-1)" }}>{item.issue}</div>
               <div style={{ color: item.color, fontSize: "11px", fontWeight: 600, marginTop: "2px" }}>{item.tech}</div>
             </div>
-            <span style={{ marginLeft: "auto", color: "#6B7A99", fontSize: "18px" }}>→</span>
+            <span style={{ marginLeft: "auto", color: "var(--text-4)", fontSize: "18px" }}>→</span>
           </div>
         ))}
       </div>
@@ -108,7 +108,7 @@ export default function TroubleshootingPage() {
         <h3 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "8px" }}>
           Technology-Specific Troubleshooting
         </h3>
-        <p style={{ color: "#6B7A99", marginBottom: "20px", fontSize: "14px" }}>
+        <p style={{ color: "var(--text-4)", marginBottom: "20px", fontSize: "14px" }}>
           Navigate to any technology to access its dedicated troubleshooting section
         </p>
         <Link

@@ -24,7 +24,7 @@ export default function InterviewPage() {
         <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
           Interview Hub
         </h1>
-        <p style={{ color: "#6B7A99", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
+        <p style={{ color: "var(--text-4)", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
           Prepare for every level — from junior engineer to principal architect
         </p>
       </div>
@@ -32,10 +32,10 @@ export default function InterviewPage() {
       {/* Levels */}
       <div className="grid gap-5 md:grid-cols-4 mb-16">
         {levels.map((level) => (
-          <div key={level.name} style={{ background: "#0F1A2E", border: "1px solid #1E2D47", borderRadius: "16px", padding: "24px", textAlign: "center" }}>
+          <div key={level.name} style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "16px", padding: "24px", textAlign: "center" }}>
             <span style={{ fontSize: "32px", display: "block", marginBottom: "10px" }}>{level.icon}</span>
             <h3 style={{ fontWeight: 700, marginBottom: "4px", color: level.color }}>{level.name}</h3>
-            <p style={{ color: "#6B7A99", fontSize: "12px" }}>{level.desc}</p>
+            <p style={{ color: "var(--text-4)", fontSize: "12px" }}>{level.desc}</p>
           </div>
         ))}
       </div>
@@ -43,10 +43,10 @@ export default function InterviewPage() {
       {/* Formats */}
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4 mb-16">
         {formats.map((f) => (
-          <div key={f.name} style={{ background: "#0F1A2E", border: "1px solid #1E2D47", borderRadius: "14px", padding: "20px" }}>
+          <div key={f.name} style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "14px", padding: "20px" }}>
             <span style={{ fontSize: "28px", display: "block", marginBottom: "10px" }}>{f.icon}</span>
             <h3 style={{ fontSize: "14px", fontWeight: 700, marginBottom: "4px" }}>{f.name}</h3>
-            <p style={{ color: "#6B7A99", fontSize: "12px" }}>{f.desc}</p>
+            <p style={{ color: "var(--text-4)", fontSize: "12px" }}>{f.desc}</p>
           </div>
         ))}
       </div>
@@ -66,8 +66,8 @@ export default function InterviewPage() {
                 alignItems: "center",
                 gap: "12px",
                 padding: "16px",
-                background: "#0F1A2E",
-                border: "1px solid #1E2D47",
+                background: "var(--bg-2)",
+                border: "1px solid var(--border)",
                 borderRadius: "12px",
                 textDecoration: "none",
                 transition: "all 0.2s",
@@ -77,7 +77,7 @@ export default function InterviewPage() {
               <span style={{ fontSize: "20px" }}>{tech.icon}</span>
               <div>
                 <div style={{ fontSize: "14px", fontWeight: 600 }}>{tech.name}</div>
-                <div style={{ color: "#6B7A99", fontSize: "11px" }}>{a.title}</div>
+                <div style={{ color: "var(--text-4)", fontSize: "11px" }}>{a.title}</div>
               </div>
               <span style={{ marginLeft: "auto", color: a.color, fontSize: "12px" }}>Q&A →</span>
             </Link>

@@ -33,12 +33,12 @@ export default async function AcademyPage({ params }: Props) {
       <div
         style={{
           background: `linear-gradient(135deg, ${academy.color}12, transparent)`,
-          borderBottom: "1px solid #1E2D47",
+          borderBottom: "1px solid var(--border)",
           padding: "48px 0",
         }}
       >
         <div className="mx-auto max-w-7xl px-6">
-          <Link href="/academies" style={{ color: "#6B7A99", fontSize: "13px", textDecoration: "none", marginBottom: "16px", display: "inline-block" }}>
+          <Link href="/academies" style={{ color: "var(--text-4)", fontSize: "13px", textDecoration: "none", marginBottom: "16px", display: "inline-block" }}>
             ← All Academies
           </Link>
 
@@ -68,7 +68,7 @@ export default async function AcademyPage({ params }: Props) {
             </div>
           </div>
 
-          <p style={{ color: "#6B7A99", fontSize: "16px", maxWidth: "600px", marginTop: "16px", lineHeight: 1.7 }}>
+          <p style={{ color: "var(--text-4)", fontSize: "16px", maxWidth: "600px", marginTop: "16px", lineHeight: 1.7 }}>
             {academy.description}
           </p>
         </div>
@@ -111,7 +111,7 @@ export default async function AcademyPage({ params }: Props) {
                   </div>
 
                   <h3 style={{ fontSize: "15px", fontWeight: 700, marginBottom: "6px" }}>{tech.name}</h3>
-                  <p style={{ color: "#6B7A99", fontSize: "12px", lineHeight: 1.5, marginBottom: "14px" }}>
+                  <p style={{ color: "var(--text-4)", fontSize: "12px", lineHeight: 1.5, marginBottom: "14px" }}>
                     {tech.description}
                   </p>
 
@@ -141,7 +141,7 @@ export default async function AcademyPage({ params }: Props) {
                       gap: "4px",
                       marginTop: "14px",
                       paddingTop: "12px",
-                      borderTop: "1px solid #1E2D47",
+                      borderTop: "1px solid var(--border)",
                       color: academy.color,
                       fontSize: "12px",
                       fontWeight: 600,
@@ -179,8 +179,8 @@ export default async function AcademyPage({ params }: Props) {
                 alignItems: "center",
                 gap: "12px",
                 padding: "16px",
-                background: "#0F1A2E",
-                border: "1px solid #1E2D47",
+                background: "var(--bg-2)",
+                border: "1px solid var(--border)",
                 borderRadius: "12px",
                 textDecoration: "none",
                 transition: "all 0.2s",
@@ -190,7 +190,7 @@ export default async function AcademyPage({ params }: Props) {
               <span style={{ color: "#3B82F6" }}>{link.icon}</span>
               <div>
                 <div style={{ fontSize: "14px", fontWeight: 600 }}>{link.label}</div>
-                <div style={{ color: "#6B7A99", fontSize: "11px" }}>{link.desc}</div>
+                <div style={{ color: "var(--text-4)", fontSize: "11px" }}>{link.desc}</div>
               </div>
             </Link>
           ))}

@@ -34,7 +34,7 @@ export default function AcademiesPage() {
             key={academy.slug}
             style={{
               background: "var(--bg-2)",
-              border: "1px solid #1E2D47",
+              border: "1px solid var(--border)",
               borderRadius: "20px",
               padding: "32px",
               transition: "all 0.3s",
@@ -98,7 +98,7 @@ export default function AcademiesPage() {
                   href={`/academies/${academy.slug}/${tech.slug}`}
                   style={{
                     background: "rgba(255,255,255,0.03)",
-                    border: "1px solid #1E2D47",
+                    border: "1px solid var(--border)",
                     color: "var(--text-3)",
                     padding: "4px 10px",
                     borderRadius: "8px",
