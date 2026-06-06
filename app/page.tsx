@@ -36,7 +36,7 @@ export default function Home() {
             <span className="grad-blue">DevOps,</span>
             <br />
             Cloud &{" "}
-            <span className="grad-purple">AI</span>{" "}
+            <span className="grad-blue">AI</span>{" "}
             <span style={{ color: "#E2E8F4" }}>Engineering</span>
           </h1>
 

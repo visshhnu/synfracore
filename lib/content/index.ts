@@ -1,26 +1,31 @@
-// Content registry — tracks all pre-written .md files in /public/content/
-
 const contentRegistry = new Set([
-  // Infrastructure — Linux
+  // Linux
   "infrastructure/linux/overview",
   "infrastructure/linux/fundamentals",
   "infrastructure/linux/intermediate",
   "infrastructure/linux/advanced",
   "infrastructure/linux/cheatsheets",
   "infrastructure/linux/interview",
-  // Infrastructure — Docker
+  // Docker
   "infrastructure/docker/overview",
   "infrastructure/docker/fundamentals",
   "infrastructure/docker/cheatsheets",
-  // Infrastructure — Kubernetes
+  // Kubernetes
   "infrastructure/kubernetes/overview",
   "infrastructure/kubernetes/fundamentals",
   "infrastructure/kubernetes/advanced",
   "infrastructure/kubernetes/troubleshooting",
-  // Infrastructure — Python
+  // Python
   "infrastructure/python/overview",
   "infrastructure/python/fundamentals",
   "infrastructure/python/cheatsheets",
+  // Ansible
+  "infrastructure/ansible/overview",
+  "infrastructure/ansible/fundamentals",
+  // Prometheus
+  "infrastructure/prometheus/overview",
+  // Jenkins
+  "infrastructure/jenkins/overview",
   // Cloud — Terraform
   "cloud/terraform/overview",
   "cloud/terraform/fundamentals",
@@ -30,10 +35,10 @@ const contentRegistry = new Set([
   "cloud/aws-vpc/overview",
   "cloud/aws-iam/overview",
   "cloud/aws-iam/fundamentals",
-  // Data — SQL
+  // Data
   "data/sql/overview",
   "data/sql/fundamentals",
-  // AI — LangChain
+  // AI
   "ai/langchain/overview",
   "ai/langchain/fundamentals",
   // Healthcare
@@ -47,22 +52,13 @@ export function hasContent(academy: string, technology: string, section: string)
   return contentRegistry.has(`${academy}/${technology}/${section}`);
 }
 
-export async function fetchContent(
-  academy: string,
-  technology: string,
-  section: string
-): Promise<string | null> {
-  const key = `${academy}/${technology}/${section}`;
-  if (!contentRegistry.has(key)) return null;
+export async function fetchContent(academy: string, technology: string, section: string): Promise<string | null> {
+  if (!contentRegistry.has(`${academy}/${technology}/${section}`)) return null;
   try {
-    const res = await fetch(`/content/${key}.md`);
+    const res = await fetch(`/content/${academy}/${technology}/${section}.md`);
     if (!res.ok) return null;
     return await res.text();
-  } catch {
-    return null;
-  }
+  } catch { return null; }
 }
 
-export function getContent(_academy: string, _technology: string, _section: string): string | null {
-  return null; // Use fetchContent (async) instead
-}
+export function getContent(_a: string, _t: string, _s: string): string | null { return null; }
