@@ -22,7 +22,7 @@ export default function CareerPage() {
   return (
     <div className="mx-auto max-w-7xl px-6 py-16">
       <div className="mb-16 text-center">
-        <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
+        <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
           Career Hub
         </h1>
         <p style={{ color: "var(--text-4)", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
@@ -31,7 +31,7 @@ export default function CareerPage() {
       </div>
 
       {/* Salary ranges */}
-      <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "24px", fontWeight: 700, marginBottom: "20px" }}>
+      <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "24px", fontWeight: 700, marginBottom: "20px" }}>
         Career Paths & Compensation
       </h2>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-16">
@@ -47,7 +47,7 @@ export default function CareerPage() {
       </div>
 
       {/* Features */}
-      <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "24px", fontWeight: 700, marginBottom: "20px" }}>
+      <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "24px", fontWeight: 700, marginBottom: "20px" }}>
         Career Tools
       </h2>
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">

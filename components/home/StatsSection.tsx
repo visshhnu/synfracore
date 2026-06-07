@@ -9,7 +9,7 @@ export default function StatsSection() {
             <div key={item.label} className="text-center">
               <div
                 style={{
-                  fontFamily: "'Syne', sans-serif",
+                  fontFamily: "'Plus Jakarta Sans', sans-serif",
                   fontSize: "clamp(36px, 5vw, 52px)",
                   fontWeight: 800,
                   background: ["linear-gradient(135deg, #60A5FA, #818CF8)", "linear-gradient(135deg, #34D399, #06B6D4)", "linear-gradient(135deg, #A78BFA, #F472B6)", "linear-gradient(135deg, #FCD34D, #FB923C)"][i % 4],

@@ -73,7 +73,7 @@ export default function Hero() {
             <h1
               
               style={{
-                fontFamily: "'Syne', sans-serif",
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
                 fontSize: "clamp(42px, 6vw, 72px)",
                 fontWeight: 800,
                 lineHeight: 1.05,
@@ -197,7 +197,7 @@ export default function Hero() {
               <div style={{ textAlign: "center", marginBottom: "28px" }}>
                 <div
                   style={{
-                    fontFamily: "'Syne', sans-serif",
+                    fontFamily: "'Plus Jakarta Sans', sans-serif",
                     fontSize: "56px",
                     fontWeight: 800,
                     background: "linear-gradient(135deg, #3B82F6, #8B5CF6, #10B981)",

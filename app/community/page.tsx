@@ -13,7 +13,7 @@ export default function CommunityPage() {
   return (
     <div className="mx-auto max-w-7xl px-6 py-16">
       <div className="mb-16 text-center">
-        <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
+        <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
           Community Hub
         </h1>
         <p style={{ color: "var(--text-4)", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
@@ -32,7 +32,7 @@ export default function CommunityPage() {
         }}
       >
         <span style={{ fontSize: "56px", display: "block", marginBottom: "16px" }}>🚀</span>
-        <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "28px", fontWeight: 700, marginBottom: "12px" }}>
+        <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "28px", fontWeight: 700, marginBottom: "12px" }}>
           Community Features Coming in Phase 3
         </h2>
         <p style={{ color: "var(--text-4)", maxWidth: "500px", margin: "0 auto", fontSize: "16px", lineHeight: 1.7 }}>

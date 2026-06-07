@@ -14,7 +14,7 @@ export default function LabsPage() {
   return (
     <div className="mx-auto max-w-7xl px-6 py-16">
       <div className="mb-16 text-center">
-        <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
+        <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
           Hands-on Labs
         </h1>
         <p style={{ color: "var(--text-4)", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
@@ -26,13 +26,13 @@ export default function LabsPage() {
         {labCategories.map((cat) => (
           <div key={cat.level} style={{ background: cat.bg, border: `1px solid ${cat.border}`, borderRadius: "16px", padding: "28px", textAlign: "center" }}>
             <span style={{ fontSize: "40px", display: "block", marginBottom: "12px" }}>{cat.icon}</span>
-            <h3 style={{ fontFamily: "'Syne', sans-serif", fontSize: "20px", fontWeight: 700, color: cat.color, marginBottom: "8px" }}>{cat.level}</h3>
+            <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "20px", fontWeight: 700, color: cat.color, marginBottom: "8px" }}>{cat.level}</h3>
             <p style={{ color: "var(--text-4)", fontSize: "14px" }}>{cat.desc}</p>
           </div>
         ))}
       </div>
 
-      <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "26px", fontWeight: 700, marginBottom: "24px" }}>Labs by Academy</h2>
+      <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "26px", fontWeight: 700, marginBottom: "24px" }}>Labs by Academy</h2>
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {academies.map((academy) => (
           <Link key={academy.slug} href={`/academies/${academy.slug}`} style={{ textDecoration: "none" }}>

@@ -27,7 +27,7 @@ export default function LearningPaths() {
             </span>
             <h2
               style={{
-                fontFamily: "'Syne', sans-serif",
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
                 fontSize: "clamp(28px, 3.5vw, 42px)",
                 fontWeight: 800,
                 letterSpacing: "-0.02em",

@@ -60,7 +60,7 @@ export default function Home() {
             {stats.map((s, i) => (
               <div key={s.label} style={{ paddingRight: "48px", marginRight: "48px", borderRight: i < stats.length - 1 ? "1px solid #0F1E30" : "none" }}>
                 <div style={{
-                  fontFamily: "'Syne', sans-serif", fontSize: "40px", fontWeight: 800,
+                  fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "40px", fontWeight: 800,
                   background: ["linear-gradient(135deg,#60A5FA,#818CF8)", "linear-gradient(135deg,#34D399,#06B6D4)", "linear-gradient(135deg,#A78BFA,#EC4899)", "linear-gradient(135deg,#FCD34D,#FB923C)"][i],
                   WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", lineHeight: 1,
                 }}>{s.value}</div>
@@ -84,7 +84,7 @@ export default function Home() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "16px" }}>
             {journey.map((j, i) => (
               <div key={j.step} style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "16px", padding: "24px 20px", position: "relative", overflow: "hidden" }}>
-                <div style={{ position: "absolute", top: "16px", right: "16px", fontFamily: "'Syne', sans-serif", fontSize: "36px", fontWeight: 800, color: "#0F1E30", lineHeight: 1 }}>{j.step}</div>
+                <div style={{ position: "absolute", top: "16px", right: "16px", fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "36px", fontWeight: 800, color: "#0F1E30", lineHeight: 1 }}>{j.step}</div>
                 <div style={{ fontSize: "28px", marginBottom: "14px" }}>{j.icon}</div>
                 <div className="heading" style={{ color: "var(--text-1)", marginBottom: "8px", fontSize: "16px" }}>{j.title}</div>
                 <div style={{ fontSize: "13px", color: "var(--text-4)", lineHeight: 1.6 }}>{j.desc}</div>
@@ -160,7 +160,7 @@ export default function Home() {
                   <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
                     <span style={{ fontSize: "26px" }}>{r.icon}</span>
                     <div>
-                      <div style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "15px", color: "var(--text-1)" }}>{r.title}</div>
+                      <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "15px", color: "var(--text-1)" }}>{r.title}</div>
                       <div style={{ display: "flex", alignItems: "center", gap: "4px", color: "var(--text-4)", fontSize: "12px", marginTop: "3px" }}><Clock size={11} />{r.duration}</div>
                     </div>
                   </div>
@@ -282,7 +282,7 @@ export default function Home() {
                 { num: "∞", label: "Career Potential", color: "#06B6D4" },
               ].map((s) => (
                 <div key={s.label} style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "14px", padding: "24px", textAlign: "center" }}>
-                  <div style={{ fontFamily: "'Syne', sans-serif", fontSize: "32px", fontWeight: 800, color: s.color, lineHeight: 1 }}>{s.num}</div>
+                  <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "32px", fontWeight: 800, color: s.color, lineHeight: 1 }}>{s.num}</div>
                   <div style={{ color: "var(--text-4)", fontSize: "12px", fontWeight: 500, marginTop: "8px" }}>{s.label}</div>
                 </div>
               ))}

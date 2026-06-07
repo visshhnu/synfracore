@@ -13,7 +13,7 @@ export default function ProjectsPage() {
   return (
     <div className="mx-auto max-w-7xl px-6 py-16">
       <div className="mb-16 text-center">
-        <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
+        <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
           Real Projects
         </h1>
         <p style={{ color: "var(--text-4)", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
@@ -25,13 +25,13 @@ export default function ProjectsPage() {
         {levels.map((l) => (
           <div key={l.name} style={{ background: "var(--bg-2)", border: `1px solid ${l.color}25`, borderRadius: "16px", padding: "28px", textAlign: "center" }}>
             <span style={{ fontSize: "40px", display: "block", marginBottom: "12px" }}>{l.icon}</span>
-            <h3 style={{ fontFamily: "'Syne', sans-serif", fontSize: "20px", fontWeight: 700, color: l.color, marginBottom: "8px" }}>{l.name} Projects</h3>
+            <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "20px", fontWeight: 700, color: l.color, marginBottom: "8px" }}>{l.name} Projects</h3>
             <p style={{ color: "var(--text-4)", fontSize: "14px" }}>{l.desc}</p>
           </div>
         ))}
       </div>
 
-      <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "26px", fontWeight: 700, marginBottom: "24px" }}>
+      <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "26px", fontWeight: 700, marginBottom: "24px" }}>
         Projects by Academy
       </h2>
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -39,7 +39,7 @@ export default function ProjectsPage() {
           <Link key={academy.slug} href={`/academies/${academy.slug}`} style={{ textDecoration: "none" }}>
             <div style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "16px", padding: "24px" }} className="card">
               <div style={{ fontSize: "32px", marginBottom: "12px" }}>{academy.icon}</div>
-              <h3 style={{ fontFamily: "'Syne', sans-serif", fontSize: "18px", fontWeight: 700, marginBottom: "6px" }}>{academy.title}</h3>
+              <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "18px", fontWeight: 700, marginBottom: "6px" }}>{academy.title}</h3>
               <p style={{ color: "var(--text-4)", fontSize: "13px", marginBottom: "14px" }}>{academy.subtitle}</p>
               <div style={{ color: academy.color, fontSize: "13px", fontWeight: 600 }}>
                 View Projects →

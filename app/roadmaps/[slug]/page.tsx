@@ -20,7 +20,7 @@ export default async function RoadmapDetailPage({ params }: Props) {
       <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "12px" }}>
         <span style={{ fontSize: "48px" }}>{roadmap.icon}</span>
         <div>
-          <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, letterSpacing: "-0.02em" }}>
+          <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, letterSpacing: "-0.02em" }}>
             {roadmap.title} Roadmap
           </h1>
           <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--text-4)", fontSize: "14px", marginTop: "6px" }}>

@@ -13,7 +13,7 @@ export default function CertificationsPage() {
   return (
     <div className="mx-auto max-w-7xl px-6 py-16">
       <div className="mb-16 text-center">
-        <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
+        <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
           Certification Hub
         </h1>
         <p style={{ color: "var(--text-4)", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
@@ -27,7 +27,7 @@ export default function CertificationsPage() {
           <div key={provider} style={{ marginBottom: "48px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
               <Trophy size={20} style={{ color: provCerts[0].color }} />
-              <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "24px", fontWeight: 700 }}>{provider}</h2>
+              <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "24px", fontWeight: 700 }}>{provider}</h2>
               <div style={{ height: "1px", flexGrow: 1, background: "#1E2D47" }} />
             </div>
 

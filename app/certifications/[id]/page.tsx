@@ -47,7 +47,7 @@ export default async function CertificationDetailPage({ params }: Props) {
             <Trophy size={28} style={{ color: cert.color }} />
           </div>
           <div>
-            <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: "28px", fontWeight: 800, letterSpacing: "-0.02em" }}>
+            <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "28px", fontWeight: 800, letterSpacing: "-0.02em" }}>
               {cert.name}
             </h1>
             <div style={{ display: "flex", gap: "10px", marginTop: "6px" }}>

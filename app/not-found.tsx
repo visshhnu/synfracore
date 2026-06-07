@@ -4,10 +4,10 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <div style={{ minHeight: "70vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "40px 24px", background: "var(--bg)" }}>
-      <div style={{ fontFamily: "'Syne', sans-serif", fontSize: "96px", fontWeight: 800, background: "linear-gradient(135deg, #3B82F6, #8B5CF6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", lineHeight: 1, marginBottom: "16px" }}>
+      <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "96px", fontWeight: 800, background: "linear-gradient(135deg, #3B82F6, #8B5CF6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", lineHeight: 1, marginBottom: "16px" }}>
         404
       </div>
-      <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: "28px", fontWeight: 700, marginBottom: "12px", color: "var(--text-1)" }}>Page not found</h1>
+      <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "28px", fontWeight: 700, marginBottom: "12px", color: "var(--text-1)" }}>Page not found</h1>
       <p style={{ color: "var(--text-4)", fontSize: "16px", maxWidth: "400px", marginBottom: "32px" }}>
         This page doesn&apos;t exist yet. Try browsing our academies.
       </p>

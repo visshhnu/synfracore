@@ -477,6 +477,110 @@ const essentialsAcademy: Academy = {
   technologies: [],
 };
 
+
+// ─────────────────────────────────────────────────────────
+// ACADEMY 9: School & College (Phase 2 - Placeholder)
+// ─────────────────────────────────────────────────────────
+const educationAcademy: Academy = {
+  slug: "education",
+  title: "School & College",
+  subtitle: "Class 6-12 · Engineering · Placement",
+  icon: "🎓",
+  color: "#3B82F6",
+  description: "Complete academic support — CBSE/ICSE school curriculum, engineering college subjects (DSA, OS, DBMS, CN), placement preparation, and coding fundamentals from scratch.",
+  domains: [
+    {
+      slug: "school",
+      name: "School (Class 6–12)",
+      icon: "🏫",
+      description: "CBSE, ICSE and State Board curriculum",
+      color: "#10B981",
+      technologies: [
+        { slug: "maths", name: "Mathematics", icon: "📐", description: "Algebra, geometry, calculus, statistics — from basics to board exam level", level: "Beginner", tags: ["CBSE", "ICSE", "Maths"] },
+        { slug: "science", name: "Science", icon: "🔬", description: "Physics, Chemistry, Biology — concepts, experiments, and numerical problems", level: "Beginner", tags: ["Physics", "Chemistry", "Biology"] },
+        { slug: "cs-school", name: "Computer Science", icon: "💻", description: "Python basics, data structures intro, web fundamentals for school students", level: "Beginner", tags: ["Python", "CS", "Coding"] },
+      ],
+    },
+    {
+      slug: "college",
+      name: "College & Engineering",
+      icon: "🏛️",
+      description: "Core CS subjects and engineering fundamentals",
+      color: "#3B82F6",
+      technologies: [
+        { slug: "dsa", name: "Data Structures & Algorithms", icon: "🌲", description: "Arrays, linked lists, trees, graphs, sorting, dynamic programming — placement ready", level: "Intermediate", tags: ["DSA", "Placement", "LeetCode"] },
+        { slug: "os", name: "Operating Systems", icon: "⚙️", description: "Processes, memory management, file systems, synchronization — GATE and placement prep", level: "Intermediate", tags: ["OS", "GATE", "Processes"] },
+        { slug: "dbms", name: "DBMS", icon: "🗄️", description: "Relational algebra, SQL, normalization, transactions, GATE questions", level: "Intermediate", tags: ["DBMS", "SQL", "GATE"] },
+        { slug: "cn", name: "Computer Networks", icon: "🌐", description: "OSI model, TCP/IP, routing, protocols, network security — GATE and interview prep", level: "Intermediate", tags: ["Networks", "GATE", "Protocols"] },
+        { slug: "system-design", name: "System Design", icon: "🏗️", description: "LLD and HLD for tech interviews — design patterns, scalability, real systems", level: "Advanced", tags: ["System Design", "Interviews", "LLD/HLD"] },
+        { slug: "placement-prep", name: "Placement Preparation", icon: "💼", description: "Aptitude, reasoning, coding rounds, HR interviews — campus placement complete prep", level: "Beginner", tags: ["Placement", "Aptitude", "HR"] },
+      ],
+    },
+  ],
+  technologies: [],
+};
+
+// ─────────────────────────────────────────────────────────
+// ACADEMY 10: Competitive Exams
+// ─────────────────────────────────────────────────────────
+const examsAcademy: Academy = {
+  slug: "exams",
+  title: "Competitive Exams",
+  subtitle: "GATE · JEE · NEET · Banking · UPSC",
+  icon: "📝",
+  color: "#8B5CF6",
+  description: "Structured preparation for India's top competitive exams — GATE, JEE, NEET, CAT, Banking (SBI PO/IBPS), SSC, UPSC, and State PSC exams with previous year papers and mock tests.",
+  domains: [
+    {
+      slug: "engineering-exams",
+      name: "Engineering Entrance",
+      icon: "⚗️",
+      description: "JEE Main & Advanced, BITSAT, and state engineering exams",
+      color: "#F59E0B",
+      technologies: [
+        { slug: "jee-maths", name: "JEE Mathematics", icon: "📐", description: "Calculus, algebra, coordinate geometry, probability — JEE Main and Advanced", level: "Advanced", tags: ["JEE", "Maths", "IIT"] },
+        { slug: "jee-physics", name: "JEE Physics", icon: "⚡", description: "Mechanics, electrostatics, optics, modern physics — JEE complete coverage", level: "Advanced", tags: ["JEE", "Physics", "IIT"] },
+        { slug: "jee-chemistry", name: "JEE Chemistry", icon: "🧪", description: "Organic, inorganic, physical chemistry for JEE Main and Advanced", level: "Advanced", tags: ["JEE", "Chemistry", "IIT"] },
+      ],
+    },
+    {
+      slug: "gate",
+      name: "GATE",
+      icon: "🎯",
+      description: "Graduate Aptitude Test in Engineering",
+      color: "#8B5CF6",
+      technologies: [
+        { slug: "gate-cse", name: "GATE CSE", icon: "💻", description: "DSA, OS, DBMS, CN, Algorithms, Compiler Design, Theory of Computation", level: "Advanced", tags: ["GATE", "CSE", "M.Tech"] },
+        { slug: "gate-ece", name: "GATE ECE", icon: "📡", description: "Signals, Networks, Electronics, Communications, Electromagnetics", level: "Advanced", tags: ["GATE", "ECE", "M.Tech"] },
+      ],
+    },
+    {
+      slug: "banking-ssc",
+      name: "Banking & SSC",
+      icon: "🏦",
+      description: "SBI PO, IBPS, SSC CGL, RRB, and insurance exams",
+      color: "#10B981",
+      technologies: [
+        { slug: "banking-exams", name: "Banking Exams (SBI/IBPS)", icon: "🏦", description: "Quantitative aptitude, reasoning, English, banking awareness for SBI PO, IBPS PO/Clerk", level: "Beginner", tags: ["Banking", "SBI", "IBPS"] },
+        { slug: "ssc-cgl", name: "SSC CGL", icon: "📋", description: "Tier I & II — Quant, English, GK, Reasoning for SSC CGL and CHSL", level: "Beginner", tags: ["SSC", "CGL", "Government"] },
+        { slug: "rrb-ntpc", name: "RRB NTPC", icon: "🚂", description: "Mathematics, GI & Reasoning, General Awareness for Railway exams", level: "Beginner", tags: ["Railway", "RRB", "Government"] },
+      ],
+    },
+    {
+      slug: "civil-services",
+      name: "UPSC & Civil Services",
+      icon: "🏛️",
+      description: "IAS, IPS, IFS and State PSC exams",
+      color: "#F43F5E",
+      technologies: [
+        { slug: "upsc-prelims", name: "UPSC Prelims", icon: "🏛️", description: "GS Paper I & II (CSAT) — History, Geography, Polity, Economy, Science, Current Affairs", level: "Advanced", tags: ["UPSC", "IAS", "CSE"] },
+        { slug: "upsc-mains", name: "UPSC Mains", icon: "✍️", description: "Essay, GS Papers I-IV, Optional subject strategy and answer writing", level: "Advanced", tags: ["UPSC", "IAS", "Mains"] },
+      ],
+    },
+  ],
+  technologies: [],
+};
+
 // ─────────────────────────────────────────────────────────
 // EXPORTED DATA
 // ─────────────────────────────────────────────────────────
@@ -489,6 +593,8 @@ export const academies: Academy[] = [
   securityAcademy,
   healthcareAcademy,
   essentialsAcademy,
+  educationAcademy,
+  examsAcademy,
 ];
 
 export function getAcademy(slug: string): Academy | undefined {

@@ -150,7 +150,7 @@ Always provide: accurate technical answers, working code examples in fenced bloc
               <div style={{ width: "68px", height: "68px", borderRadius: "20px", background: "linear-gradient(135deg, #3B82F6, #8B5CF6)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 18px" }}>
                 <Sparkles size={30} style={{ color: "#fff" }} />
               </div>
-              <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "24px", fontWeight: 700, marginBottom: "10px" }}>SynfraCore AI</h2>
+              <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "24px", fontWeight: 700, marginBottom: "10px" }}>SynfraCore AI</h2>
               <p style={{ color: "var(--text-4)", fontSize: "15px", maxWidth: "400px", margin: "0 auto" }}>
                 Ask anything about DevOps, Cloud, Kubernetes, Terraform, AWS, Azure, AI Engineering, Cybersecurity, and more.
               </p>

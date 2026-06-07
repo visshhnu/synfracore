@@ -112,7 +112,7 @@ export default function Footer() {
                 <Image src="/logo-ac-footer.png" alt="AC" width={58} height={36}
                   style={{ height: "30px", width: "auto" }} />
               </div>
-              <span style={{ fontFamily: "'Syne',sans-serif", fontSize: "17px", fontWeight: 800, color: "var(--text-1)" }}>SynfraCore</span>
+              <span style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "17px", fontWeight: 800, color: "var(--text-1)" }}>SynfraCore</span>
             </Link>
             <p style={{ color: "var(--text-4)", fontSize: "13px", lineHeight: 1.75, maxWidth: "260px", marginBottom: "20px" }}>
               The world&apos;s most comprehensive tech learning ecosystem. Built for practitioners, by practitioners. Education should be free.

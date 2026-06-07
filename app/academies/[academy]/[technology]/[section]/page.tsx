@@ -43,7 +43,7 @@ export default async function SectionPage({ params }: Props) {
           height: "calc(100vh - 65px)",
           overflowY: "auto",
         }}
-        className="hidden lg:block"
+        className="sidebar-desktop"
       >
         <div style={{ marginBottom: "16px", paddingBottom: "16px", borderBottom: "1px solid var(--border)" }}>
           <Link href={`/academies/${aSlug}`} style={{ color: "var(--text-4)", fontSize: "12px", textDecoration: "none" }}>
@@ -83,7 +83,7 @@ export default async function SectionPage({ params }: Props) {
       </aside>
 
       {/* Content */}
-      <div style={{ flexGrow: 1, padding: "40px 48px", maxWidth: "900px" }}>
+      <div className="content-main" style={{ flex: 1, minWidth: 0, padding: "36px 40px", maxWidth: "860px", overflowX: "hidden" }}>
         {/* Breadcrumb */}
         <div style={{ fontSize: "13px", color: "var(--text-4)", marginBottom: "8px", display: "flex", gap: "6px", alignItems: "center", flexWrap: "wrap" }}>
           <Link href={`/academies/${aSlug}`} style={{ color: "var(--text-4)", textDecoration: "none"}}>{academy.title}</Link>
@@ -95,7 +95,7 @@ export default async function SectionPage({ params }: Props) {
 
         <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px" }}>
           <span style={{ fontSize: "32px" }}>{sectionData?.icon}</span>
-          <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(24px, 3vw, 36px)", fontWeight: 800, letterSpacing: "-0.02em" }}>
+          <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(24px, 3vw, 36px)", fontWeight: 800, letterSpacing: "-0.02em" }}>
             {tech.name} — {sectionData?.label}
           </h1>
         </div>

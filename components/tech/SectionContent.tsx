@@ -68,9 +68,9 @@ function renderMarkdown(content: string) {
       }
     } else {
       flushTable(`pre-${i}`);
-      if (line.startsWith("# ")) elements.push(<h1 key={i} style={{ fontFamily: "'Syne',sans-serif", fontSize: "26px", fontWeight: 800, margin: "24px 0 12px", color: "var(--text-1)", letterSpacing: "-0.02em" }}>{line.slice(2)}</h1>);
-      else if (line.startsWith("## ")) elements.push(<h2 key={i} style={{ fontFamily: "'Syne',sans-serif", fontSize: "20px", fontWeight: 700, margin: "20px 0 10px", color: "var(--text-1)" }}>{line.slice(3)}</h2>);
-      else if (line.startsWith("### ")) elements.push(<h3 key={i} style={{ fontFamily: "'Syne',sans-serif", fontSize: "16px", fontWeight: 700, margin: "16px 0 8px", color: "var(--text-1)" }}>{line.slice(4)}</h3>);
+      if (line.startsWith("# ")) elements.push(<h1 key={i} style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "26px", fontWeight: 800, margin: "24px 0 12px", color: "var(--text-1)", letterSpacing: "-0.02em" }}>{line.slice(2)}</h1>);
+      else if (line.startsWith("## ")) elements.push(<h2 key={i} style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "20px", fontWeight: 700, margin: "20px 0 10px", color: "var(--text-1)" }}>{line.slice(3)}</h2>);
+      else if (line.startsWith("### ")) elements.push(<h3 key={i} style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "16px", fontWeight: 700, margin: "16px 0 8px", color: "var(--text-1)" }}>{line.slice(4)}</h3>);
       else if (line.match(/^[-*] /)) elements.push(<div key={i} style={{ display: "flex", gap: "10px", margin: "5px 0" }}><span style={{ color: "#2563EB", flexShrink: 0 }}>•</span><span style={{ color: "var(--text-2)", fontSize: "15px", lineHeight: 1.7 }} dangerouslySetInnerHTML={{ __html: formatInline(line.slice(2)) }} /></div>);
       else if (line.match(/^\d+\. /)) { const num = line.match(/^(\d+)\. /)?.[1]; elements.push(<div key={i} style={{ display: "flex", gap: "10px", margin: "5px 0" }}><span style={{ color: "#2563EB", flexShrink: 0, fontWeight: 700, fontSize: "13px", minWidth: "20px", marginTop: "2px" }}>{num}.</span><span style={{ color: "var(--text-2)", fontSize: "15px", lineHeight: 1.7 }} dangerouslySetInnerHTML={{ __html: formatInline(line.replace(/^\d+\. /, "")) }} /></div>); }
       else if (line.startsWith("> ")) elements.push(<div key={i} style={{ borderLeft: "3px solid #2563EB", background: "rgba(37,99,235,0.06)", padding: "10px 16px", margin: "12px 0", borderRadius: "0 8px 8px 0" }}><p style={{ color: "var(--text-3)", fontSize: "14px", margin: 0 }} dangerouslySetInnerHTML={{ __html: formatInline(line.slice(2)) }} /></div>);
@@ -222,7 +222,7 @@ export default function SectionContent({ academy, technology, section, techName,
   return (
     <div style={{ textAlign: "center", padding: "80px 24px" }}>
       <div style={{ fontSize: "48px", marginBottom: "20px" }}>{techIcon}</div>
-      <h3 style={{ fontFamily: "'Syne',sans-serif", fontSize: "20px", fontWeight: 700, marginBottom: "10px", color: "#E2E8F4" }}>
+      <h3 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "20px", fontWeight: 700, marginBottom: "10px", color: "#E2E8F4" }}>
         {sectionLabel} for {techName}
       </h3>
       <p style={{ color: "#64748B", fontSize: "14px", marginBottom: "28px", maxWidth: "400px", margin: "0 auto 28px" }}>

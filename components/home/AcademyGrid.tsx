@@ -25,7 +25,7 @@ export default function AcademyGrid() {
         </span>
         <h2
           style={{
-            fontFamily: "'Syne', sans-serif",
+            fontFamily: "'Plus Jakarta Sans', sans-serif",
             fontSize: "clamp(32px, 4vw, 48px)",
             fontWeight: 800,
             letterSpacing: "-0.02em",
@@ -74,7 +74,7 @@ export default function AcademyGrid() {
 
               <h3
                 style={{
-                  fontFamily: "'Syne', sans-serif",
+                  fontFamily: "'Plus Jakarta Sans', sans-serif",
                   fontSize: "20px",
                   fontWeight: 700,
                   marginBottom: "6px",

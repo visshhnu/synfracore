@@ -23,7 +23,7 @@ export default function JourneySection() {
         <div className="text-center mb-16">
           <h2
             style={{
-              fontFamily: "'Syne', sans-serif",
+              fontFamily: "'Plus Jakarta Sans', sans-serif",
               fontSize: "clamp(28px, 4vw, 44px)",
               fontWeight: 800,
               letterSpacing: "-0.02em",
@@ -95,7 +95,7 @@ export default function JourneySection() {
         >
           <h3
             style={{
-              fontFamily: "'Syne', sans-serif",
+              fontFamily: "'Plus Jakarta Sans', sans-serif",
               fontSize: "28px",
               fontWeight: 700,
               marginBottom: "12px",

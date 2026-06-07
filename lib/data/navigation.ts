@@ -11,20 +11,20 @@ export const navigation = [
 ];
 
 export const techSections = [
-  { slug: "overview", label: "Overview", icon: "📖" },
-  { slug: "fundamentals", label: "Fundamentals", icon: "🔤" },
-  { slug: "intermediate", label: "Intermediate", icon: "⚡" },
-  { slug: "advanced", label: "Advanced", icon: "🚀" },
-  { slug: "roadmap", label: "Roadmap", icon: "🗺️" },
-  { slug: "labs", label: "Labs", icon: "🧪" },
-  { slug: "projects", label: "Projects", icon: "🏗️" },
-  { slug: "interview", label: "Interview Q&A", icon: "💬" },
-  { slug: "troubleshooting", label: "Troubleshooting", icon: "🔧" },
-  { slug: "certification", label: "Certification", icon: "🏆" },
-  { slug: "cheatsheets", label: "Cheatsheets", icon: "📋" },
-  { slug: "notes", label: "Notes", icon: "📝" },
-  { slug: "real-world-scenarios", label: "Real World", icon: "🌍" },
-  { slug: "faq", label: "FAQ", icon: "❓" },
+  { slug: "overview", label: "Overview", icon: "📖", description: "What it is, why it matters, architecture and key concepts" },
+  { slug: "fundamentals", label: "Fundamentals", icon: "🔤", description: "Core concepts and commands — hands-on from the start" },
+  { slug: "intermediate", label: "Intermediate", icon: "⚡", description: "Real-world patterns, best practices, and deeper topics" },
+  { slug: "advanced", label: "Advanced", icon: "🚀", description: "Production patterns, performance, security hardening" },
+  { slug: "roadmap", label: "Roadmap", icon: "🗺️", description: "Step-by-step structured learning path from zero to expert" },
+  { slug: "labs", label: "Labs", icon: "🧪", description: "Hands-on exercises with real environments and scenarios" },
+  { slug: "projects", label: "Projects", icon: "🏗️", description: "Portfolio-ready projects to demonstrate your skills" },
+  { slug: "interview", label: "Interview Q&A", icon: "💬", description: "Most asked interview questions with detailed answers" },
+  { slug: "troubleshooting", label: "Troubleshooting", icon: "🔧", description: "Debug common issues with root cause analysis" },
+  { slug: "certification", label: "Certification", icon: "🏆", description: "Exam guides, practice questions, and prep strategies" },
+  { slug: "cheatsheets", label: "Cheatsheets", icon: "📋", description: "Quick reference — commands, syntax, and patterns" },
+  { slug: "notes", label: "Notes", icon: "📝", description: "Key takeaways, tips, and important points to remember" },
+  { slug: "real-world-scenarios", label: "Real World", icon: "🌍", description: "Production stories, incidents, and how experts solve them" },
+  { slug: "faq", label: "FAQ", icon: "❓", description: "Frequently asked questions and clear answers" },
 ];
 
 export const certifications = [
@@ -54,7 +54,7 @@ export const roadmaps = [
 
 export const stats = [
   { value: "50+", label: "Technologies" },
-  { value: "6", label: "Academies" },
+  { value: "10", label: "Academies" },
   { value: "500+", label: "Labs & Projects" },
   { value: "13", label: "Certifications" },
 ];
