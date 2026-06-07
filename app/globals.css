@@ -462,3 +462,54 @@ html.light .logo-pill-wrap {
   padding: 4px 6px;
   border-radius: 8px;
 }
+
+/* ══ HOMEPAGE MOBILE FIXES ══════════════════════════════════ */
+@media (max-width: 640px) {
+  /* Stats row - stack on mobile */
+  .stats-row > div {
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 16px !important;
+    margin-bottom: 16px !important;
+  }
+  /* Why section - single column on mobile */
+  .why-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+}
+
+/* ══ CONTENT PAGE MOBILE OVERFLOW ══════════════════════════ */
+@media (max-width: 768px) {
+  article pre, .prose pre {
+    max-width: calc(100vw - 48px) !important;
+    overflow-x: auto !important;
+  }
+  article table, .prose table {
+    display: block !important;
+    overflow-x: auto !important;
+    max-width: calc(100vw - 48px) !important;
+  }
+  /* Sidebar hidden on mobile - content takes full width */
+  .sidebar-desktop {
+    display: none !important;
+  }
+  .content-main {
+    max-width: 100% !important;
+    padding: 20px 16px !important;
+  }
+  /* Code language label */
+  .code-lang-label {
+    font-size: 10px !important;
+  }
+}
+
+/* ══ DROPDOWN MENU FIX — no crop ════════════════════════════ */
+/* Mega menu uses fixed positioning so it can't be cropped */
+.mega-menu {
+  position: fixed !important;
+  left: 0 !important;
+  right: 0 !important;
+}
