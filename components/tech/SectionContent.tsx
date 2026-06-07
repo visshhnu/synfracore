@@ -46,10 +46,10 @@ function renderMarkdown(content: string) {
         i++;
       }
       elements.push(
-        <div key={`code-${i}`} style={{ margin: "16px 0", borderRadius: "12px", overflow: "hidden", border: "1px solid #162035" }}>
-          {lang && <div style={{ background: "#0D1526", padding: "5px 16px", fontSize: "11px", color: "#60A5FA", fontFamily: "monospace", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase" }}>{lang}</div>}
-          <pre style={{ background: "#060C18", padding: "20px", margin: 0, overflowX: "auto" }}>
-            <code style={{ color: "#CBD5E1", fontSize: "13px", fontFamily: "monospace", lineHeight: 1.75 }}>{codeLines.join("\n")}</code>
+        <div key={`code-${i}`} style={{ margin: "16px 0", borderRadius: "12px", overflow: "hidden", border: "1px solid var(--border)" }}>
+          {lang && <div style={{ background: "var(--bg-2)", padding: "5px 16px", fontSize: "11px", color: "#60A5FA", fontFamily: "monospace", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase" }}>{lang}</div>}
+          <pre style={{ background: "var(--bg)", padding: "20px", margin: 0, overflowX: "auto" }}>
+            <code style={{ color: "var(--text-2)", fontSize: "13px", fontFamily: "monospace", lineHeight: 1.75 }}>{codeLines.join("\n")}</code>
           </pre>
         </div>
       );
@@ -58,25 +58,25 @@ function renderMarkdown(content: string) {
         const cells = line.split("|").slice(1, -1).map(c => c.trim());
         const isHeader = tableBuffer.length === 0;
         tableBuffer.push(
-          <tr key={`tr-${i}`} style={{ borderBottom: "1px solid #162035" }}>
+          <tr key={`tr-${i}`} style={{ borderBottom: "1px solid var(--border)" }}>
             {cells.map((cell, ci) => isHeader
-              ? <th key={ci} style={{ background: "#0D1526", color: "#E2E8F4", padding: "10px 14px", textAlign: "left", fontSize: "13px", fontWeight: 600, border: "1px solid #162035" }}>{cell}</th>
-              : <td key={ci} style={{ padding: "10px 14px", border: "1px solid #162035", color: "#94A3BF", fontSize: "13px" }} dangerouslySetInnerHTML={{ __html: formatInline(cell) }} />
+              ? <th key={ci} style={{ background: "var(--bg-2)", color: "var(--text-1)", padding: "10px 14px", textAlign: "left", fontSize: "13px", fontWeight: 600, border: "1px solid var(--border)" }}>{cell}</th>
+              : <td key={ci} style={{ padding: "10px 14px", border: "1px solid var(--border)", color: "var(--text-3)", fontSize: "13px" }} dangerouslySetInnerHTML={{ __html: formatInline(cell) }} />
             )}
           </tr>
         );
       }
     } else {
       flushTable(`pre-${i}`);
-      if (line.startsWith("# ")) elements.push(<h1 key={i} style={{ fontFamily: "'Syne',sans-serif", fontSize: "26px", fontWeight: 800, margin: "24px 0 12px", color: "#E2E8F4", letterSpacing: "-0.02em" }}>{line.slice(2)}</h1>);
-      else if (line.startsWith("## ")) elements.push(<h2 key={i} style={{ fontFamily: "'Syne',sans-serif", fontSize: "20px", fontWeight: 700, margin: "20px 0 10px", color: "#E2E8F4" }}>{line.slice(3)}</h2>);
-      else if (line.startsWith("### ")) elements.push(<h3 key={i} style={{ fontFamily: "'Syne',sans-serif", fontSize: "16px", fontWeight: 700, margin: "16px 0 8px", color: "#E2E8F4" }}>{line.slice(4)}</h3>);
-      else if (line.match(/^[-*] /)) elements.push(<div key={i} style={{ display: "flex", gap: "10px", margin: "5px 0" }}><span style={{ color: "#2563EB", flexShrink: 0 }}>•</span><span style={{ color: "#94A3BF", fontSize: "15px", lineHeight: 1.7 }} dangerouslySetInnerHTML={{ __html: formatInline(line.slice(2)) }} /></div>);
-      else if (line.match(/^\d+\. /)) { const num = line.match(/^(\d+)\. /)?.[1]; elements.push(<div key={i} style={{ display: "flex", gap: "10px", margin: "5px 0" }}><span style={{ color: "#2563EB", flexShrink: 0, fontWeight: 700, fontSize: "13px", minWidth: "20px", marginTop: "2px" }}>{num}.</span><span style={{ color: "#94A3BF", fontSize: "15px", lineHeight: 1.7 }} dangerouslySetInnerHTML={{ __html: formatInline(line.replace(/^\d+\. /, "")) }} /></div>); }
-      else if (line.startsWith("> ")) elements.push(<div key={i} style={{ borderLeft: "3px solid #2563EB", background: "rgba(37,99,235,0.05)", padding: "10px 16px", margin: "12px 0", borderRadius: "0 8px 8px 0" }}><p style={{ color: "#94A3BF", fontSize: "14px", margin: 0 }} dangerouslySetInnerHTML={{ __html: formatInline(line.slice(2)) }} /></div>);
-      else if (line === "---") elements.push(<hr key={i} style={{ border: "none", borderTop: "1px solid #162035", margin: "20px 0" }} />);
+      if (line.startsWith("# ")) elements.push(<h1 key={i} style={{ fontFamily: "'Syne',sans-serif", fontSize: "26px", fontWeight: 800, margin: "24px 0 12px", color: "var(--text-1)", letterSpacing: "-0.02em" }}>{line.slice(2)}</h1>);
+      else if (line.startsWith("## ")) elements.push(<h2 key={i} style={{ fontFamily: "'Syne',sans-serif", fontSize: "20px", fontWeight: 700, margin: "20px 0 10px", color: "var(--text-1)" }}>{line.slice(3)}</h2>);
+      else if (line.startsWith("### ")) elements.push(<h3 key={i} style={{ fontFamily: "'Syne',sans-serif", fontSize: "16px", fontWeight: 700, margin: "16px 0 8px", color: "var(--text-1)" }}>{line.slice(4)}</h3>);
+      else if (line.match(/^[-*] /)) elements.push(<div key={i} style={{ display: "flex", gap: "10px", margin: "5px 0" }}><span style={{ color: "#2563EB", flexShrink: 0 }}>•</span><span style={{ color: "var(--text-2)", fontSize: "15px", lineHeight: 1.7 }} dangerouslySetInnerHTML={{ __html: formatInline(line.slice(2)) }} /></div>);
+      else if (line.match(/^\d+\. /)) { const num = line.match(/^(\d+)\. /)?.[1]; elements.push(<div key={i} style={{ display: "flex", gap: "10px", margin: "5px 0" }}><span style={{ color: "#2563EB", flexShrink: 0, fontWeight: 700, fontSize: "13px", minWidth: "20px", marginTop: "2px" }}>{num}.</span><span style={{ color: "var(--text-2)", fontSize: "15px", lineHeight: 1.7 }} dangerouslySetInnerHTML={{ __html: formatInline(line.replace(/^\d+\. /, "")) }} /></div>); }
+      else if (line.startsWith("> ")) elements.push(<div key={i} style={{ borderLeft: "3px solid #2563EB", background: "rgba(37,99,235,0.06)", padding: "10px 16px", margin: "12px 0", borderRadius: "0 8px 8px 0" }}><p style={{ color: "var(--text-3)", fontSize: "14px", margin: 0 }} dangerouslySetInnerHTML={{ __html: formatInline(line.slice(2)) }} /></div>);
+      else if (line === "---") elements.push(<hr key={i} style={{ border: "none", borderTop: "1px solid var(--border)", margin: "20px 0" }} />);
       else if (line.trim() === "") elements.push(<div key={i} style={{ height: "8px" }} />);
-      else elements.push(<p key={i} style={{ color: "#94A3BF", fontSize: "15px", lineHeight: 1.8, margin: "4px 0" }} dangerouslySetInnerHTML={{ __html: formatInline(line) }} />);
+      else elements.push(<p key={i} style={{ color: "var(--text-2)", fontSize: "15px", lineHeight: 1.8, margin: "4px 0" }} dangerouslySetInnerHTML={{ __html: formatInline(line) }} />);
     }
     i++;
   }
@@ -171,7 +171,7 @@ export default function SectionContent({ academy, technology, section, techName,
 
   if (mode === "pre" && preContent) return (
     <div>
-      <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "28px", paddingBottom: "18px", borderBottom: "1px solid #162035" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "28px", paddingBottom: "18px", borderBottom: "1px solid var(--border)" }}>
         <span style={{ background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.2)", color: "#34D399", padding: "3px 12px", borderRadius: "100px", fontSize: "11px", fontWeight: 700, letterSpacing: "0.04em", display: "flex", alignItems: "center", gap: "5px" }}>
           <BookOpen size={11} /> Expert Content
         </span>
@@ -204,12 +204,12 @@ export default function SectionContent({ academy, technology, section, techName,
     );
     if (aiContent) return (
       <div>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "28px", paddingBottom: "18px", borderBottom: "1px solid #162035" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "28px", paddingBottom: "18px", borderBottom: "1px solid var(--border)" }}>
           <span style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)", color: "#A78BFA", padding: "3px 12px", borderRadius: "100px", fontSize: "11px", fontWeight: 700, display: "flex", alignItems: "center", gap: "5px" }}>
             <Sparkles size={11} /> AI Generated
           </span>
-          {preContent && <button onClick={() => setMode("pre")} style={{ marginLeft: "auto", background: "transparent", border: "1px solid #162035", color: "#64748B", padding: "4px 12px", borderRadius: "8px", cursor: "pointer", fontSize: "12px" }}>← Expert Version</button>}
-          <button onClick={() => generateAI(true)} style={{ display: "flex", alignItems: "center", gap: "6px", background: "transparent", border: "1px solid #162035", color: "#64748B", padding: "4px 12px", borderRadius: "8px", cursor: "pointer", fontSize: "12px" }}>
+          {preContent && <button onClick={() => setMode("pre")} style={{ marginLeft: "auto", background: "transparent", border: "1px solid var(--border)", color: "#64748B", padding: "4px 12px", borderRadius: "8px", cursor: "pointer", fontSize: "12px" }}>← Expert Version</button>}
+          <button onClick={() => generateAI(true)} style={{ display: "flex", alignItems: "center", gap: "6px", background: "transparent", border: "1px solid var(--border)", color: "#64748B", padding: "4px 12px", borderRadius: "8px", cursor: "pointer", fontSize: "12px" }}>
             <RefreshCw size={12} /> Regenerate
           </button>
         </div>

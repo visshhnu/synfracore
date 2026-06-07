@@ -392,42 +392,85 @@ const securityAcademy: Academy = {
 // ─────────────────────────────────────────────────────────
 const healthcareAcademy: Academy = {
   slug: "healthcare",
-  title: "Healthcare Coding",
-  subtitle: "ICD-10-CM · CPT · HCPCS",
+  title: "Health & Hospitality",
+  subtitle: "Medical Coding · Home Health · Hospitality",
   icon: "🏥",
   color: "#F43F5E",
-  description: "Comprehensive medical coding education from beginner to certified professional. ICD-10-CM, CPT, HCPCS, coding guidelines, and exam preparation.",
+  description: "Complete health and hospitality education — from professional medical coding and billing to home health care, patient management, and hospitality industry skills.",
   domains: [
     {
-      slug: "diagnosis-coding",
-      name: "Diagnosis Coding",
+      slug: "medical-coding",
+      name: "Medical Coding & Billing",
       icon: "🩺",
-      description: "ICD-10-CM medical diagnosis coding",
+      description: "Professional medical coding — ICD-10, CPT, HCPCS, billing, compliance",
       color: "#F43F5E",
       technologies: [
-        { slug: "icd-10-cm", name: "ICD-10-CM", icon: "📋", description: "International Classification of Diseases — structure, guidelines, sequencing, POA", level: "Beginner", tags: ["ICD-10", "Diagnosis", "CMS"] },
-        { slug: "coding-guidelines", name: "Coding Guidelines", icon: "📖", description: "OGCR, inpatient vs outpatient rules, UHDDS, uncertain diagnoses, HCC", level: "Intermediate", tags: ["Guidelines", "OGCR", "HCC"] },
+        { slug: "icd-10-cm", name: "ICD-10-CM", icon: "📋", description: "International Classification of Diseases — structure, guidelines, sequencing, POA, HCC", level: "Beginner", tags: ["ICD-10", "Diagnosis", "CMS"] },
+        { slug: "cpt", name: "CPT Codes", icon: "🔬", description: "Current Procedural Terminology — E/M, surgery, global package, modifiers, NCCI", level: "Intermediate", tags: ["CPT", "E/M", "Surgery"] },
+        { slug: "hcpcs", name: "HCPCS Level II", icon: "💊", description: "HCPCS — DME, drugs, ambulance, ABN, coverage determinations, modifiers", level: "Intermediate", tags: ["HCPCS", "DME", "Medicare"] },
+        { slug: "coding-guidelines", name: "Coding Guidelines", icon: "📖", description: "OGCR, inpatient vs outpatient, UHDDS, uncertain diagnoses, sequencing rules", level: "Intermediate", tags: ["Guidelines", "OGCR", "HCC"] },
+        { slug: "mock-exams", name: "Mock Exams & CPC Prep", icon: "📝", description: "CPC, CCS, CCA exam practice — case studies, timed tests, detailed explanations", level: "Advanced", tags: ["CPC", "CCS", "Certification"] },
       ],
     },
     {
-      slug: "procedure-coding",
-      name: "Procedure Coding",
-      icon: "🔬",
-      description: "CPT and HCPCS procedure coding",
+      slug: "home-health",
+      name: "Home Health & Patient Care",
+      icon: "🏠",
+      description: "Home health coding, OASIS, patient care documentation",
       color: "#8B5CF6",
       technologies: [
-        { slug: "cpt", name: "CPT Codes", icon: "🔬", description: "Current Procedural Terminology — E/M, surgery, global package, modifiers", level: "Intermediate", tags: ["CPT", "E/M", "Surgery"] },
-        { slug: "hcpcs", name: "HCPCS Level II", icon: "💊", description: "HCPCS — DME, drugs, ambulance, ABN, coverage determinations", level: "Intermediate", tags: ["HCPCS", "DME", "Medicare"] },
+        { slug: "home-health-coding", name: "Home Health Coding", icon: "🏠", description: "OASIS assessments, home health PPS, HIPPS codes, PDGM payment model", level: "Intermediate", tags: ["Home Health", "OASIS", "PDGM"] },
+        { slug: "patient-documentation", name: "Patient Documentation", icon: "📄", description: "Clinical documentation improvement, CDI, query process, physician queries", level: "Intermediate", tags: ["CDI", "Documentation", "Queries"] },
       ],
     },
     {
-      slug: "certification",
-      name: "Certification & Practice",
-      icon: "🏆",
-      description: "Exam preparation and practice",
+      slug: "hospitality",
+      name: "Hospitality & Healthcare Management",
+      icon: "🤝",
+      description: "Healthcare administration and hospitality management",
       color: "#10B981",
       technologies: [
-        { slug: "mock-exams", name: "Mock Exams & Practice", icon: "📝", description: "CPC, CCS exam practice — case studies, timed tests, detailed explanations", level: "Advanced", tags: ["CPC", "CCS", "Practice"] },
+        { slug: "healthcare-admin", name: "Healthcare Administration", icon: "🏢", description: "Revenue cycle management, denial management, AR follow-up, compliance basics", level: "Beginner", tags: ["Revenue Cycle", "RCM", "Compliance"] },
+      ],
+    },
+  ],
+  technologies: [],
+};
+
+
+// ─────────────────────────────────────────────────────────
+// ACADEMY 8: Human Essentials
+// ─────────────────────────────────────────────────────────
+const essentialsAcademy: Academy = {
+  slug: "essentials",
+  title: "Human Essentials",
+  subtitle: "Health · Wellness · Life Skills",
+  icon: "🌱",
+  color: "#10B981",
+  description: "Essential knowledge every human needs — gut health, hygiene, nutrition, mental wellness, home health care, and life skills that schools never taught.",
+  domains: [
+    {
+      slug: "health-wellness",
+      name: "Health & Wellness",
+      icon: "💚",
+      description: "Gut health, nutrition, hygiene, and preventive care",
+      color: "#10B981",
+      technologies: [
+        { slug: "gut-health", name: "Gut Health", icon: "🦠", description: "Microbiome, digestion, probiotics, gut-brain connection, and foods for a healthy gut", level: "Beginner", tags: ["Gut", "Microbiome", "Nutrition"] },
+        { slug: "hygiene", name: "Hygiene & Sanitation", icon: "🧼", description: "Personal hygiene, sanitation practices, infection prevention, and daily health routines", level: "Beginner", tags: ["Hygiene", "Prevention", "Daily Health"] },
+        { slug: "nutrition", name: "Nutrition Basics", icon: "🥗", description: "Macronutrients, micronutrients, meal planning, reading labels, and balanced diet fundamentals", level: "Beginner", tags: ["Nutrition", "Diet", "Wellness"] },
+        { slug: "mental-health", name: "Mental Wellness", icon: "🧠", description: "Stress management, mindfulness, sleep health, and building emotional resilience", level: "Beginner", tags: ["Mental Health", "Mindfulness", "Sleep"] },
+      ],
+    },
+    {
+      slug: "life-skills",
+      name: "Life Skills",
+      icon: "🎯",
+      description: "Practical skills for everyday life",
+      color: "#3B82F6",
+      technologies: [
+        { slug: "personal-finance", name: "Personal Finance", icon: "💰", description: "Budgeting, saving, investing basics, credit scores, and financial planning for everyone", level: "Beginner", tags: ["Finance", "Budgeting", "Savings"] },
+        { slug: "first-aid", name: "First Aid & Emergency", icon: "🚑", description: "CPR, first aid basics, emergency response, and home health management", level: "Beginner", tags: ["First Aid", "CPR", "Emergency"] },
       ],
     },
   ],
@@ -445,6 +488,7 @@ export const academies: Academy[] = [
   dataAcademy,
   securityAcademy,
   healthcareAcademy,
+  essentialsAcademy,
 ];
 
 export function getAcademy(slug: string): Academy | undefined {

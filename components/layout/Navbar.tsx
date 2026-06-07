@@ -6,41 +6,6 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { academies } from "@/lib/data/academies";
 import Image from "next/image";
 
-// Mini AC logo mark — shown when scrolled
-function MiniLogo() {
-  return (
-    <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-      <defs>
-        <linearGradient id="mlag" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#60A5FA"/>
-          <stop offset="100%" stopColor="#2563EB"/>
-        </linearGradient>
-        <linearGradient id="mlog" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#06B6D4"/>
-          <stop offset="100%" stopColor="#2563EB"/>
-        </linearGradient>
-      </defs>
-      {/* A triangle */}
-      <g transform="translate(8,18)">
-        <polygon points="0,-12 9,6 -9,6" fill="none" stroke="url(#mlag)" strokeWidth="2" strokeLinejoin="round"/>
-        <rect x="-4" y="0" width="8" height="2.5" rx="1" fill="url(#mlag)"/>
-        <rect x="-3" y="3.5" width="6" height="2.5" rx="1" fill="url(#mlag)" opacity="0.5"/>
-        <circle cx="0" cy="-12" r="1.8" fill="#60A5FA"/>
-        <circle cx="-9" cy="6" r="1.3" fill="#7C3AED"/>
-        <circle cx="9" cy="6" r="1.3" fill="#06B6D4"/>
-      </g>
-      {/* C circle/ring */}
-      <g transform="translate(26,18)">
-        <path d="M 7,-10 A 11,11 0 1,0 10,5" fill="none" stroke="url(#mlog)" strokeWidth="2.5" strokeLinecap="round"/>
-        <g transform="translate(10,5) rotate(48)">
-          <polygon points="0,-2.5 2,2.5 -2,2.5" fill="#06B6D4"/>
-        </g>
-        <circle cx="0" cy="0" r="1.8" fill="url(#mlog)"/>
-      </g>
-    </svg>
-  );
-}
-
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropOpen, setDropOpen] = useState(false);
@@ -73,19 +38,23 @@ export default function Navbar() {
         transition: "height 0.2s",
       }}>
 
-        {/* Logo — full on top, mini AC on scroll */}
+        {/* Logo: mini AC on scroll, full wordmark at top */}
         <Link href="/" style={{ textDecoration: "none", flexShrink: 0, lineHeight: 0, display: "flex", alignItems: "center" }}>
           {scrolled ? (
-            <MiniLogo />
+            <div className="logo-pill" style={{ display: "flex", alignItems: "center" }}>
+              <Image src="/logo-ac-mini.png" alt="AC" width={51} height={32}
+                style={{ height: "28px", width: "auto" }} priority />
+            </div>
           ) : (
-            <Image
-              src="/logo.png"
-              alt="SynfraCore"
-              width={169}
-              height={38}
-              priority
-              style={{ height: "30px", width: "auto", objectFit: "contain" }}
-            />
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <div className="logo-pill" style={{ display: "flex", alignItems: "center" }}>
+                <Image src="/logo-ac-nav.png" alt="AC" width={64} height={40}
+                  style={{ height: "34px", width: "auto" }} priority />
+              </div>
+              <span style={{ fontFamily: "'Syne',sans-serif", fontSize: "18px", fontWeight: 800, color: "var(--text-1)", letterSpacing: "-0.02em" }}>
+                SynfraCore
+              </span>
+            </div>
           )}
         </Link>
 
@@ -161,7 +130,7 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Right */}
+        {/* Right side */}
         <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
           <ThemeToggle />
           <Link href="/academies" className="btn-primary hide-mobile"
@@ -177,7 +146,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div style={{ background: "var(--bg-1)", borderTop: "1px solid var(--border)", maxHeight: "80vh", overflowY: "auto" }}>
+        <div style={{ background: "var(--bg-1)", borderTop: "1px solid var(--border)", maxHeight: "85vh", overflowY: "auto" }}>
           <div style={{ padding: "12px 16px 8px", borderBottom: "1px solid var(--border)" }}>
             <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-4)" }}>Academies</p>
           </div>
@@ -191,7 +160,8 @@ export default function Navbar() {
               </div>
             </Link>
           ))}
-          <div style={{ padding: "12px 16px", borderTop: "1px solid var(--border)", display: "flex", flexDirection: "column", gap: "8px" }}>
+          <div style={{ padding: "12px 16px 20px", display: "flex", flexDirection: "column", gap: "2px" }}>
+            <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-4)", marginBottom: "8px", marginTop: "4px" }}>Platform</p>
             {[
               { name: "Roadmaps", href: "/roadmaps" },
               { name: "Labs", href: "/labs" },
@@ -201,12 +171,12 @@ export default function Navbar() {
               { name: "Career", href: "/career" },
             ].map(item => (
               <Link key={item.name} href={item.href} onClick={() => setMobileOpen(false)}
-                style={{ display: "block", color: "var(--text-3)", fontSize: "14px", fontWeight: 500, padding: "8px 0", textDecoration: "none" }}>
+                style={{ display: "block", color: "var(--text-3)", fontSize: "14px", fontWeight: 500, padding: "10px 0", borderBottom: "1px solid var(--border)", textDecoration: "none" }}>
                 {item.name}
               </Link>
             ))}
             <Link href="/academies" onClick={() => setMobileOpen(false)} className="btn-primary"
-              style={{ marginTop: "8px", justifyContent: "center", display: "flex", width: "100%" }}>
+              style={{ marginTop: "16px", justifyContent: "center", display: "flex", width: "100%" }}>
               Start Learning Free
             </Link>
           </div>

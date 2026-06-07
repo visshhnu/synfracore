@@ -344,3 +344,75 @@ html, body {
     grid-template-columns: 1fr !important;
   }
 }
+
+/* ══ LIGHT MODE LOGO FIX ═══════════════════════════════════ */
+/* AC logo has white/blue on transparent — needs dark bg in light mode */
+html.light .logo-pill {
+  background: #0F172A;
+  padding: 4px 10px;
+  border-radius: 10px;
+}
+
+/* ══ LIGHT MODE CONTENT TEXT FIX ═══════════════════════════ */
+html.light .prose h1,
+html.light .prose h2,
+html.light .prose h3,
+html.light .prose h4 {
+  color: #0F172A !important;
+}
+
+html.light .prose p,
+html.light .prose li,
+html.light .prose td {
+  color: #334155 !important;
+}
+
+html.light .prose strong {
+  color: #0F172A !important;
+}
+
+html.light .prose code {
+  background: rgba(37,99,235,0.08) !important;
+  color: #1D4ED8 !important;
+  border-color: rgba(37,99,235,0.2) !important;
+}
+
+html.light .prose pre {
+  background: #F1F5F9 !important;
+  border-color: #E2E8F0 !important;
+}
+
+html.light .prose pre code {
+  color: #1E293B !important;
+}
+
+html.light .prose blockquote {
+  background: rgba(37,99,235,0.04) !important;
+  color: #475569 !important;
+}
+
+html.light .prose table th {
+  background: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+
+html.light .prose table td {
+  color: #475569 !important;
+}
+
+html.light .prose a {
+  color: #2563EB !important;
+}
+
+/* Light mode section backgrounds */
+html.light section[style*="background: var(--bg-1)"],
+html.light div[style*="background: var(--bg-1)"] {
+  background: #F1F5F9 !important;
+}
+
+/* Ensure cards visible in light mode */
+html.light .card {
+  background: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06) !important;
+}
