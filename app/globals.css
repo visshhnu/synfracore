@@ -299,3 +299,48 @@ article pre, article code,
     color: #000;
   }
 }
+
+/* ══ MOBILE OVERFLOW FIX ══════════════════════════════════ */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+* { box-sizing: border-box; }
+
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  width: 100%;
+}
+
+/* ══ MOBILE RESPONSIVE GRID ══════════════════════════════ */
+@media (max-width: 640px) {
+  .display-xl { font-size: clamp(32px, 10vw, 52px) !important; }
+  .display-lg { font-size: clamp(24px, 8vw, 36px) !important; }
+  .display-md { font-size: clamp(20px, 6vw, 28px) !important; }
+
+  /* Prevent horizontal scroll on sections */
+  section, .section { padding-left: 16px !important; padding-right: 16px !important; }
+
+  /* Stack grids on mobile */
+  [style*="gridTemplateColumns"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Stats row wraps */
+  [style*="display: flex"][style*="flexWrap: wrap"] {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-container { padding: 0 16px; }
+}
+
+/* ══ FOOTER MOBILE FIX ══════════════════════════════════ */
+@media (max-width: 768px) {
+  footer [style*="gridTemplateColumns: 2fr"] {
+    grid-template-columns: 1fr !important;
+  }
+}

@@ -41,7 +41,7 @@ export default function LabsPage() {
                 <span style={{ fontSize: "24px" }}>{academy.icon}</span>
                 <div style={{ marginLeft: "8px" }}>
                   <h3 style={{ fontSize: "15px", fontWeight: 700 }}>{academy.title}</h3>
-                  <p style={{ color: "var(--text-4)", fontSize: "12px" }}>{academy.technologies.length} technologies</p>
+                  <p style={{ color: "var(--text-4)", fontSize: "12px" }}>{academy.domains.flatMap(d=>d.technologies).length} technologies</p>
                 </div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "6px", color: academy.color, fontSize: "13px", fontWeight: 600 }}>

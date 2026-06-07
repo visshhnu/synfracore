@@ -57,7 +57,7 @@ export default function InterviewPage() {
       </h2>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {academies.flatMap((a) =>
-          a.technologies.slice(0, 3).map((tech) => (
+          a.domains.flatMap(d=>d.technologies).slice(0, 3).map((tech) => (
             <Link
               key={`${a.slug}-${tech.slug}`}
               href={`/academies/${a.slug}/${tech.slug}/interview`}

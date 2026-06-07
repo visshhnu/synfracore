@@ -1,120 +1,73 @@
+export const runtime = "edge";
 import Link from "next/link";
 import { academies } from "@/lib/data/academies";
 import { ArrowRight } from "lucide-react";
 
 export const metadata = {
   title: "Academies — SynfraCore",
-  description: "Choose from 6 specialized academies covering DevOps, Cloud, AI, Data, Healthcare, and Cybersecurity",
+  description: "7 specialised academies covering DevOps, Cloud, Databases, AI, Data Analytics, Cybersecurity, and Healthcare Coding.",
 };
 
 export default function AcademiesPage() {
   return (
-    <div className="mx-auto max-w-7xl px-6 py-16">
+    <div style={{ background: "var(--bg)", minHeight: "100vh" }}>
       {/* Header */}
-      <div className="mb-16 text-center">
-        <h1
-          style={{
-            fontFamily: "'Syne', sans-serif",
-            fontSize: "clamp(36px, 5vw, 56px)",
-            fontWeight: 800,
-            letterSpacing: "-0.03em",
-            marginBottom: "16px",
-          }}
-        >
-          All Academies
-        </h1>
-        <p style={{ color: "var(--text-4)", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
-          Structured learning paths designed by practitioners, for practitioners
-        </p>
+      <div style={{ borderBottom: "1px solid var(--border)", padding: "56px 0 48px" }}>
+        <div className="page-container">
+          <div className="badge badge-blue" style={{ marginBottom: "16px" }}>7 Academies</div>
+          <h1 className="display-lg" style={{ marginBottom: "12px" }}>Choose Your Academy</h1>
+          <p className="body-lg" style={{ maxWidth: "560px" }}>
+            Each academy is a complete learning ecosystem — structured domains, guided paths, hands-on labs, and expert content from beginner to architect level.
+          </p>
+        </div>
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-2">
-        {academies.map((academy) => (
-          <div
-            key={academy.slug}
-            style={{
-              background: "var(--bg-2)",
-              border: "1px solid var(--border)",
-              borderRadius: "20px",
-              padding: "32px",
-              transition: "all 0.3s",
-            }}
-            className="hover:border-blue-500/30"
-          >
-            <div style={{ display: "flex", alignItems: "flex-start", gap: "18px", marginBottom: "20px" }}>
-              <div
-                style={{
-                  width: "60px",
-                  height: "60px",
-                  borderRadius: "16px",
-                  background: `linear-gradient(135deg, ${academy.color}25, ${academy.color}10)`,
-                  border: `1px solid ${academy.color}30`,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "28px",
-                  flexShrink: 0,
-                }}
-              >
-                {academy.icon}
-              </div>
-              <div style={{ flexGrow: 1 }}>
-                <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "22px", fontWeight: 700, marginBottom: "4px" }}>
-                  {academy.title}
-                </h2>
-                <p style={{ color: academy.color, fontSize: "13px", fontWeight: 600, letterSpacing: "0.06em" }}>
-                  {academy.subtitle}
+      {/* Academy grid */}
+      <div className="page-container" style={{ padding: "48px 24px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "20px" }}>
+          {academies.map((academy) => (
+            <Link key={academy.slug} href={`/academies/${academy.slug}`} style={{ textDecoration: "none" }}>
+              <div className="card card-interactive" style={{ padding: "28px", height: "100%", display: "flex", flexDirection: "column" }}>
+                {/* Header */}
+                <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "16px" }}>
+                  <div style={{ width: "52px", height: "52px", borderRadius: "14px", background: `${academy.color}18`, border: `1px solid ${academy.color}30`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "24px", flexShrink: 0 }}>
+                    {academy.icon}
+                  </div>
+                  <div>
+                    <div className="heading" style={{ fontSize: "16px" }}>{academy.title}</div>
+                    <div style={{ fontSize: "11px", color: academy.color, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", marginTop: "2px" }}>{academy.subtitle}</div>
+                  </div>
+                </div>
+
+                <p style={{ fontSize: "13px", color: "var(--text-4)", lineHeight: 1.65, marginBottom: "18px", flexGrow: 1 }}>
+                  {academy.description}
                 </p>
+
+                {/* Domains */}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "5px", marginBottom: "16px" }}>
+                  {academy.domains.slice(0, 4).map((d) => (
+                    <span key={d.slug} style={{ background: `${academy.color}10`, border: `1px solid ${academy.color}20`, color: academy.color, padding: "3px 9px", borderRadius: "6px", fontSize: "11px", fontWeight: 600 }}>
+                      {d.name}
+                    </span>
+                  ))}
+                  {academy.domains.length > 4 && (
+                    <span style={{ color: "var(--text-4)", fontSize: "11px", padding: "3px 4px" }}>+{academy.domains.length - 4} more</span>
+                  )}
+                </div>
+
+                {/* Footer */}
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "14px", borderTop: "1px solid var(--border)" }}>
+                  <span style={{ fontSize: "12px", color: "var(--text-4)" }}>
+                    {academy.domains.reduce((sum, d) => sum + d.technologies.length, 0)} technologies
+                  </span>
+                  <span style={{ display: "flex", alignItems: "center", gap: "4px", color: academy.color, fontSize: "12px", fontWeight: 600 }}>
+                    Enter Academy <ArrowRight size={12} />
+                  </span>
+                </div>
               </div>
-              <Link
-                href={`/academies/${academy.slug}`}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "4px",
-                  background: `${academy.color}15`,
-                  border: `1px solid ${academy.color}30`,
-                  color: academy.color,
-                  padding: "8px 16px",
-                  borderRadius: "10px",
-                  fontSize: "13px",
-                  fontWeight: 600,
-                  textDecoration: "none",
-                  flexShrink: 0,
-                }}
-              >
-                Enter <ArrowRight size={14} />
-              </Link>
-            </div>
-
-            <p style={{ color: "var(--text-4)", fontSize: "14px", lineHeight: 1.6, marginBottom: "18px" }}>
-              {academy.description}
-            </p>
-
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-              {academy.technologies.map((tech) => (
-                <Link
-                  key={tech.slug}
-                  href={`/academies/${academy.slug}/${tech.slug}`}
-                  style={{
-                    background: "rgba(255,255,255,0.03)",
-                    border: "1px solid var(--border)",
-                    color: "var(--text-3)",
-                    padding: "4px 10px",
-                    borderRadius: "8px",
-                    fontSize: "12px",
-                    fontWeight: 500,
-                    textDecoration: "none",
-                    transition: "all 0.15s",
-                  }}
-                  className="hover:bg-white/10 hover:text-white"
-                >
-                  {tech.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-        ))}
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );

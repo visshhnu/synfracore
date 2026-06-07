@@ -101,7 +101,7 @@ export default function AcademyGrid() {
               </p>
 
               <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "20px" }}>
-                {academy.technologies.slice(0, 4).map((tech) => (
+                {academy.domains.flatMap(d=>d.technologies).slice(0, 4).map((tech) => (
                   <span
                     key={tech.slug}
                     style={{
@@ -117,9 +117,9 @@ export default function AcademyGrid() {
                     {tech.name}
                   </span>
                 ))}
-                {academy.technologies.length > 4 && (
+                {academy.domains.flatMap(d=>d.technologies).length > 4 && (
                   <span style={{ color: "var(--text-4)", fontSize: "11px", padding: "3px 6px" }}>
-                    +{academy.technologies.length - 4} more
+                    +{academy.domains.flatMap(d=>d.technologies).length - 4} more
                   </span>
                 )}
               </div>
@@ -134,7 +134,7 @@ export default function AcademyGrid() {
                 }}
               >
                 <span style={{ color: "var(--text-4)", fontSize: "13px" }}>
-                  {academy.technologies.length} technologies
+                  {academy.domains.flatMap(d=>d.technologies).length} technologies
                 </span>
                 <span
                   style={{

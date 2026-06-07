@@ -124,13 +124,13 @@ export default function Home() {
                   </div>
                   <p style={{ color: "var(--text-4)", fontSize: "13px", lineHeight: 1.65, marginBottom: "20px", flexGrow: 1 }}>{a.description}</p>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: "5px", marginBottom: "18px" }}>
-                    {a.technologies.slice(0, 5).map((t) => (
+                    {a.domains.flatMap(d=>d.technologies).slice(0, 5).map((t) => (
                       <span key={t.slug} style={{ background: `${a.color}10`, border: `1px solid ${a.color}1E`, color: a.color, padding: "3px 9px", borderRadius: "6px", fontSize: "11px", fontWeight: 600 }}>{t.name}</span>
                     ))}
-                    {a.technologies.length > 5 && <span style={{ color: "var(--text-4)", fontSize: "11px", padding: "3px" }}>+{a.technologies.length - 5} more</span>}
+                    {a.domains.flatMap(d=>d.technologies).length > 5 && <span style={{ color: "var(--text-4)", fontSize: "11px", padding: "3px" }}>+{a.domains.flatMap(d=>d.technologies).length - 5} more</span>}
                   </div>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "16px", borderTop: "1px solid var(--border)" }}>
-                    <span style={{ color: "var(--text-4)", fontSize: "12px" }}>{a.technologies.length} technologies</span>
+                    <span style={{ color: "var(--text-4)", fontSize: "12px" }}>{a.domains.flatMap(d=>d.technologies).length} technologies</span>
                     <span style={{ display: "flex", alignItems: "center", gap: "4px", color: a.color, fontSize: "12px", fontWeight: 600 }}>Enter Academy <ArrowRight size={12} /></span>
                   </div>
                 </div>
