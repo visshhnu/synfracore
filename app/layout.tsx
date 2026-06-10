@@ -8,12 +8,11 @@ import { CopyProtection } from "@/components/CopyProtection";
 
 export const metadata: Metadata = {
   title: { default: "SynfraCore — Learn DevOps, Cloud & AI", template: "%s — SynfraCore" },
-  description: "The world's most comprehensive technology learning ecosystem. Master DevOps, Cloud, AI Engineering, Data Analytics, Healthcare Coding, and Cybersecurity.",
+  description: "The world's most comprehensive technology learning ecosystem.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    // suppressHydrationWarning prevents React #418 error from theme class mismatch
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
@@ -21,15 +20,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-        {/* Inline script: set theme class BEFORE first paint — prevents flash */}
-        <script dangerouslySetInnerHTML={{ __html: `
-          try {
-            var t = localStorage.getItem('theme');
-            if (t === 'light') document.documentElement.classList.add('light');
-          } catch(e) {}
-        `}} />
+        {/* Set theme BEFORE paint to prevent flash — suppressHydrationWarning handles the class mismatch */}
+        <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem('theme');if(t==='light')document.documentElement.classList.add('light');}catch(e){}` }} />
       </head>
-      <body suppressHydrationWarning style={{ margin: 0, minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--bg)", color: "var(--text-2)" }}>
+      <body style={{ margin: 0, minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--bg)", color: "var(--text-2)" }}>
         <ThemeProvider>
           <CopyProtection />
           <Navbar />

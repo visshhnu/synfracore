@@ -1,6 +1,6 @@
 export const runtime = "edge";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getAcademy, getTechnology } from "@/lib/data/academies";
 import { techSections } from "@/lib/data/navigation";
 
@@ -23,7 +23,7 @@ export default async function TechnologyPage({ params }: Props) {
   const { academy: aSlug, technology: tSlug } = await params;
   const academy = getAcademy(aSlug);
   const tech = getTechnology(aSlug, tSlug);
-  if (!academy || !tech) notFound();
+  if (!academy || !tech) redirect("/academies");
   const lc = levelColors[tech.level];
 
   return (

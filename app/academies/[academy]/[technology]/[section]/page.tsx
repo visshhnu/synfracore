@@ -1,6 +1,6 @@
 export const runtime = "edge";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getAcademy, getTechnology } from "@/lib/data/academies";
 import { techSections } from "@/lib/data/navigation";
 import SectionContent from "@/components/tech/SectionContent";
@@ -21,7 +21,7 @@ export default async function SectionPage({ params }: Props) {
   const { academy: aSlug, technology: tSlug, section } = await params;
   const academy = getAcademy(aSlug);
   const tech = getTechnology(aSlug, tSlug);
-  if (!academy || !tech) notFound();
+  if (!academy || !tech) redirect("/academies");
 
   const sectionData = techSections.find((s) => s.slug === section);
   const currentIndex = techSections.findIndex((s) => s.slug === section);

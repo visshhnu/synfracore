@@ -1,6 +1,6 @@
 export const runtime = "edge";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getAcademy } from "@/lib/data/academies";
 import { ArrowRight } from "lucide-react";
 
@@ -22,7 +22,7 @@ const levelColors = {
 export default async function AcademyPage({ params }: Props) {
   const { academy: slug } = await params;
   const academy = getAcademy(slug);
-  if (!academy) notFound();
+  if (!academy) redirect("/academies");
 
   return (
     <div style={{ background: "var(--bg)", minHeight: "100vh" }}>

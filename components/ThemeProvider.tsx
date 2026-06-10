@@ -9,49 +9,29 @@ const ThemeContext = createContext<{ theme: Theme; toggle: () => void }>({
 });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  // Always start with "dark" on server — prevents hydration mismatch
   const [theme, setTheme] = useState<Theme>("dark");
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     try {
       const saved = localStorage.getItem("theme") as Theme | null;
       const preferred =
         saved ||
-        (window.matchMedia("(prefers-color-scheme: light)").matches
-          ? "light"
-          : "dark");
+        (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
       setTheme(preferred);
-      if (preferred === "light") {
-        document.documentElement.classList.add("light");
-      } else {
-        document.documentElement.classList.remove("light");
-      }
-    } catch {
-      // localStorage not available
-    }
+      document.documentElement.classList.toggle("light", preferred === "light");
+    } catch {}
   }, []);
 
   const toggle = () => {
     const next = theme === "dark" ? "light" : "dark";
     setTheme(next);
-    try {
-      localStorage.setItem("theme", next);
-    } catch {}
-    if (next === "light") {
-      document.documentElement.classList.add("light");
-    } else {
-      document.documentElement.classList.remove("light");
-    }
+    try { localStorage.setItem("theme", next); } catch {}
+    document.documentElement.classList.toggle("light", next === "light");
   };
 
   return (
     <ThemeContext.Provider value={{ theme, toggle }}>
-      {/* suppressHydrationWarning prevents React error #418 */}
-      <div suppressHydrationWarning style={{ display: "contents" }}>
-        {children}
-      </div>
+      {children}
     </ThemeContext.Provider>
   );
 }
