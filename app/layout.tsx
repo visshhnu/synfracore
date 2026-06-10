@@ -13,22 +13,23 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    // suppressHydrationWarning prevents React #418 error from theme class mismatch
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-        {/* Prevent flash of wrong theme */}
+        {/* Inline script: set theme class BEFORE first paint — prevents flash */}
         <script dangerouslySetInnerHTML={{ __html: `
-          (function(){
+          try {
             var t = localStorage.getItem('theme');
-            if(t === 'light') document.documentElement.classList.add('light');
-          })();
+            if (t === 'light') document.documentElement.classList.add('light');
+          } catch(e) {}
         `}} />
       </head>
-      <body style={{ margin: 0, minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--bg)", color: "var(--text-2)" }}>
+      <body suppressHydrationWarning style={{ margin: 0, minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--bg)", color: "var(--text-2)" }}>
         <ThemeProvider>
           <CopyProtection />
           <Navbar />

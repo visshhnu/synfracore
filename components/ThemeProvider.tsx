@@ -2,32 +2,56 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 type Theme = "dark" | "light";
+
 const ThemeContext = createContext<{ theme: Theme; toggle: () => void }>({
   theme: "dark",
   toggle: () => {},
 });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  // Always start with "dark" on server — prevents hydration mismatch
   const [theme, setTheme] = useState<Theme>("dark");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Read saved preference
-    const saved = localStorage.getItem("theme") as Theme | null;
-    const preferred = saved || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
-    setTheme(preferred);
-    document.documentElement.classList.toggle("light", preferred === "light");
+    setMounted(true);
+    try {
+      const saved = localStorage.getItem("theme") as Theme | null;
+      const preferred =
+        saved ||
+        (window.matchMedia("(prefers-color-scheme: light)").matches
+          ? "light"
+          : "dark");
+      setTheme(preferred);
+      if (preferred === "light") {
+        document.documentElement.classList.add("light");
+      } else {
+        document.documentElement.classList.remove("light");
+      }
+    } catch {
+      // localStorage not available
+    }
   }, []);
 
   const toggle = () => {
     const next = theme === "dark" ? "light" : "dark";
     setTheme(next);
-    localStorage.setItem("theme", next);
-    document.documentElement.classList.toggle("light", next === "light");
+    try {
+      localStorage.setItem("theme", next);
+    } catch {}
+    if (next === "light") {
+      document.documentElement.classList.add("light");
+    } else {
+      document.documentElement.classList.remove("light");
+    }
   };
 
   return (
     <ThemeContext.Provider value={{ theme, toggle }}>
-      {children}
+      {/* suppressHydrationWarning prevents React error #418 */}
+      <div suppressHydrationWarning style={{ display: "contents" }}>
+        {children}
+      </div>
     </ThemeContext.Provider>
   );
 }
