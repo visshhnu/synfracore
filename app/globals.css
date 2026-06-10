@@ -552,3 +552,74 @@ html.light .md-strong {
 html.light .md-em {
   color: #6D28D9;
 }
+
+/* ══ SIDEBAR LIGHT MODE FIX ═══════════════════════════════ */
+html.light .sidebar-desktop {
+  background: #F8FAFC;
+  border-right-color: #E2E8F0;
+}
+html.light .sidebar-desktop a {
+  color: #475569;
+}
+html.light .sidebar-desktop a:hover,
+html.light .sidebar-link:hover {
+  background: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+html.light .sidebar-desktop p {
+  color: #94A3B8;
+}
+html.light aside {
+  background: #F8FAFC !important;
+  border-right-color: #E2E8F0 !important;
+}
+html.light aside a {
+  color: #334155 !important;
+}
+html.light aside a:hover {
+  background: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+html.light aside span[style*="color: var(--text"] {
+  color: #334155 !important;
+}
+
+/* ══ CONTENT LIGHT MODE - full fix ════════════════════════ */
+html.light article *,
+html.light .prose * {
+  color: inherit;
+}
+html.light p[style*="color: var(--text-2)"],
+html.light p[style*="color: var(--text-3)"] {
+  color: #334155 !important;
+}
+html.light span[style*="color: var(--text-2)"],
+html.light span[style*="color: var(--text-3)"] {
+  color: #475569 !important;
+}
+html.light h1[style],
+html.light h2[style],
+html.light h3[style] {
+  color: #0F172A !important;
+}
+html.light div[style*="color: var(--text-2)"] {
+  color: #334155 !important;
+}
+html.light div[style*="color: var(--text-3)"] {
+  color: #475569 !important;
+}
+html.light div[style*="color: var(--text-4)"] {
+  color: #64748B !important;
+}
+
+/* ══ LIGHT MODE NAV LINKS ══════════════════════════════════ */
+html.light header {
+  background: rgba(248,250,252,0.96) !important;
+}
+html.light header a {
+  color: #475569;
+}
+html.light header nav a:hover {
+  color: #0F172A !important;
+  background: #F1F5F9 !important;
+}
