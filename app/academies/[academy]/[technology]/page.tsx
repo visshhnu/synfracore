@@ -71,7 +71,6 @@ export default async function TechnologyPage({ params }: Props) {
                   fontSize: "13px", fontWeight: 500, marginBottom: "1px",
                   transition: "all 0.15s",
                 }}
-                onMouseEnter={undefined}
                 className="sidebar-link"
               >
                 <span style={{ fontSize: "15px", width: "20px", textAlign: "center" }}>{section.icon}</span>
@@ -128,8 +127,7 @@ export default async function TechnologyPage({ params }: Props) {
             {techSections.map((section) => (
               <Link key={section.slug} href={`/academies/${aSlug}/${tSlug}/${section.slug}`}
                 style={{ textDecoration: "none", padding: "18px 20px", borderRadius: "12px", border: "1px solid var(--border)", background: "var(--bg-2)", display: "flex", flexDirection: "column", gap: "8px", transition: "all 0.15s" }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = academy.color+"40"; e.currentTarget.style.background = `${academy.color}06`; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--border)"; e.currentTarget.style.background = "var(--bg-2)"; }}>
+                className="section-card">
                 <span style={{ fontSize: "22px" }}>{section.icon}</span>
                 <div style={{ fontSize: "14px", fontWeight: 700, color: "var(--text-1)" }}>{section.label}</div>
                 <div style={{ fontSize: "12px", color: "var(--text-4)" }}>{section.description}</div>
@@ -141,6 +139,8 @@ export default async function TechnologyPage({ params }: Props) {
 
       <style>{`
         .sidebar-link:hover { background: var(--bg-2) !important; color: var(--text-1) !important; }
+        .section-card:hover { border-color: rgba(100,130,255,0.4) !important; background: rgba(100,130,255,0.04) !important; transform: translateY(-1px); }
+        .section-card { transition: all 0.15s; }
         @media (max-width: 768px) {
           .sidebar-desktop { display: none !important; }
           .content-main { padding: 20px 16px !important; max-width: 100% !important; }

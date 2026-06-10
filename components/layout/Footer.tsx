@@ -109,8 +109,7 @@ export default function Footer() {
           <div>
             <Link href="/" style={{ display: "inline-flex", alignItems: "center", gap: "10px", textDecoration: "none", marginBottom: "16px" }}>
               <div className="logo-pill" style={{ display: "flex", alignItems: "center" }}>
-                <Image src="/logo-footer.png" alt="AC" width={58} height={36}
-                  style={{ height: "30px", width: "auto" }} />
+                <Image src="/logo-ac-icon.png" alt="SynfraCore" width={49} height={32} style={{ height: "28px", width: "auto" }} />
               </div>
               <span style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "17px", fontWeight: 800, color: "var(--text-1)" }}>SynfraCore</span>
             </Link>

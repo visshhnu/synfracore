@@ -22,8 +22,22 @@ const languages = [
 
 function LanguageSwitcher() {
   const [open, setOpen] = useState(false);
-  const [current, setCurrent] = useState("en");
   const ref = useRef<HTMLDivElement>(null);
+
+  const languages = [
+    { code: "", label: "English", native: "English" },
+    { code: "te", label: "Telugu", native: "తెలుగు" },
+    { code: "hi", label: "Hindi", native: "हिंदी" },
+    { code: "kn", label: "Kannada", native: "ಕನ್ನಡ" },
+    { code: "ta", label: "Tamil", native: "தமிழ்" },
+    { code: "ml", label: "Malayalam", native: "മലയാളം" },
+    { code: "ar", label: "Arabic", native: "العربية" },
+    { code: "es", label: "Spanish", native: "Español" },
+    { code: "pt", label: "Portuguese", native: "Português" },
+    { code: "zh-TW", label: "Chinese", native: "中文" },
+    { code: "fr", label: "French", native: "Français" },
+    { code: "de", label: "German", native: "Deutsch" },
+  ];
 
   useEffect(() => {
     const close = (e: MouseEvent) => {
@@ -33,8 +47,30 @@ function LanguageSwitcher() {
     return () => document.removeEventListener("mousedown", close);
   }, []);
 
+  const translate = (langCode: string) => {
+    setOpen(false);
+    if (!langCode) {
+      // Reset to English
+      const select = document.querySelector(".goog-te-combo") as HTMLSelectElement;
+      if (select) { select.value = ""; select.dispatchEvent(new Event("change")); }
+      return;
+    }
+    // Use Google Translate combo box
+    const select = document.querySelector(".goog-te-combo") as HTMLSelectElement;
+    if (select) {
+      select.value = langCode;
+      select.dispatchEvent(new Event("change"));
+    } else {
+      // Fallback: use translate URL
+      const url = `https://translate.google.com/translate?sl=en&tl=${langCode}&u=${encodeURIComponent(window.location.href)}`;
+      window.open(url, "_blank");
+    }
+  };
+
   return (
     <div ref={ref} style={{ position: "relative" }}>
+      {/* Hidden Google Translate widget - provides the actual translation */}
+      <div id="google_translate_element" style={{ display: "none" }} />
       <button
         onClick={() => setOpen(!open)}
         style={{
@@ -42,11 +78,10 @@ function LanguageSwitcher() {
           background: "var(--bg-2)", border: "1px solid var(--border)",
           borderRadius: "8px", padding: "6px 10px", cursor: "pointer",
           color: "var(--text-3)", fontSize: "12px", fontFamily: "inherit",
-          transition: "all 0.15s",
         }}
       >
         <Globe size={14} />
-        <span className="hide-xs">{languages.find(l => l.code === current)?.native}</span>
+        <span className="hide-xs">A</span>
         <ChevronDown size={11} />
       </button>
       {open && (
@@ -54,23 +89,22 @@ function LanguageSwitcher() {
           position: "absolute", top: "calc(100% + 6px)", right: 0,
           background: "var(--bg-2)", border: "1px solid var(--border)",
           borderRadius: "12px", boxShadow: "0 16px 40px rgba(0,0,0,0.3)",
-          zIndex: 500, minWidth: "180px", overflow: "hidden", maxHeight: "300px", overflowY: "auto",
+          zIndex: 500, minWidth: "180px", overflow: "hidden", maxHeight: "320px", overflowY: "auto",
         }}>
           {languages.map(lang => (
             <button key={lang.code}
-              onClick={() => { setCurrent(lang.code); setOpen(false); }}
+              onClick={() => translate(lang.code)}
               style={{
                 display: "flex", alignItems: "center", justifyContent: "space-between",
-                width: "100%", padding: "9px 14px", background: "none", border: "none",
-                borderBottom: "1px solid var(--border)", cursor: "pointer",
-                color: lang.code === current ? "#3B82F6" : "var(--text-2)",
-                fontSize: "13px", fontFamily: "inherit",
-                fontWeight: lang.code === current ? 700 : 400,
+                width: "100%", padding: "9px 14px", background: "none",
+                border: "none", borderBottom: "1px solid var(--border)",
+                cursor: "pointer", color: "var(--text-2)", fontSize: "13px",
+                fontFamily: "inherit",
               }}
               onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--bg-1)"}
               onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "none"}
             >
-              <span>{lang.name}</span>
+              <span>{lang.label}</span>
               <span style={{ fontSize: "12px", color: "var(--text-4)" }}>{lang.native}</span>
             </button>
           ))}
