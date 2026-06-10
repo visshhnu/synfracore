@@ -50,21 +50,21 @@ function LanguageSwitcher() {
   const translate = (langCode: string) => {
     setOpen(false);
     if (!langCode) {
-      // Reset to English
-      const select = document.querySelector(".goog-te-combo") as HTMLSelectElement;
-      if (select) { select.value = ""; select.dispatchEvent(new Event("change")); }
+      // Reset - reload page without translate
+      const gtFrame = document.querySelector(".goog-te-banner-frame") as HTMLElement;
+      if (gtFrame) gtFrame.style.display = "none";
+      const body = document.querySelector("body") as HTMLElement;
+      if (body) body.style.top = "0px";
+      // Use cookie to reset
+      document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=" + window.location.hostname;
+      window.location.reload();
       return;
     }
-    // Use Google Translate combo box
-    const select = document.querySelector(".goog-te-combo") as HTMLSelectElement;
-    if (select) {
-      select.value = langCode;
-      select.dispatchEvent(new Event("change"));
-    } else {
-      // Fallback: use translate URL
-      const url = `https://translate.google.com/translate?sl=en&tl=${langCode}&u=${encodeURIComponent(window.location.href)}`;
-      window.open(url, "_blank");
-    }
+    // Set cookie and reload with translation
+    document.cookie = `googtrans=/en/${langCode}`;
+    document.cookie = `googtrans=/en/${langCode}; domain=${window.location.hostname}`;
+    window.location.reload();
   };
 
   return (

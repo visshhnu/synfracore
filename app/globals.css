@@ -513,3 +513,42 @@ html.light .logo-pill-wrap {
   left: 0 !important;
   right: 0 !important;
 }
+
+/* ══ MARKDOWN INLINE ELEMENTS — light/dark safe ════════════ */
+.md-strong {
+  font-weight: 600;
+  color: var(--text-1);
+}
+.md-code {
+  background: rgba(37,99,235,0.08);
+  border: 1px solid rgba(37,99,235,0.18);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #2563EB;
+  font-family: 'JetBrains Mono', monospace;
+}
+html.light .md-code {
+  background: rgba(37,99,235,0.06);
+  color: #1D4ED8;
+  border-color: rgba(37,99,235,0.2);
+}
+.md-em {
+  color: #7C3AED;
+  font-style: italic;
+}
+
+/* ══ LIGHT MODE — full content page fix ═══════════════════ */
+html.light pre {
+  background: #F1F5F9 !important;
+  color: #1E293B !important;
+}
+html.light pre code {
+  color: #1E293B !important;
+}
+html.light .md-strong {
+  color: #0F172A;
+}
+html.light .md-em {
+  color: #6D28D9;
+}

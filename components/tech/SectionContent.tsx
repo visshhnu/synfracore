@@ -15,9 +15,9 @@ type Props = {
 
 function formatInline(text: string): string {
   return text
-    .replace(/\*\*(.+?)\*\*/g, '<strong style="color:#E2E8F4;font-weight:600">$1</strong>')
-    .replace(/`(.+?)`/g, '<code style="background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.2);padding:1px 6px;border-radius:4px;font-size:12px;color:#93C5FD;font-family:monospace">$1</code>')
-    .replace(/\*(.+?)\*/g, '<em style="color:#A78BFA">$1</em>');
+    .replace(/\*\*(.+?)\*\*/g, '<strong class="md-strong">$1</strong>')
+    .replace(/`(.+?)`/g, '<code class="md-code">$1</code>')
+    .replace(/\*(.+?)\*/g, '<em class="md-em">$1</em>');
 }
 
 function renderMarkdown(content: string) {
@@ -162,7 +162,7 @@ export default function SectionContent({ academy, technology, section, techName,
   };
 
   if (loading) return (
-    <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "60px 0", color: "#64748B" }}>
+    <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "60px 0", color: "var(--text-4)" }}>
       <Loader2 size={18} style={{ animation: "spin 1s linear infinite" }} />
       Loading content...
       <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
@@ -187,7 +187,7 @@ export default function SectionContent({ academy, technology, section, techName,
     if (aiLoading) return (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "80px 24px", gap: "16px" }}>
         <div style={{ width: "52px", height: "52px", borderRadius: "14px", background: `${accentColor}15`, border: `1px solid ${accentColor}25`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "24px" }}>{techIcon}</div>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px", color: "#64748B", fontSize: "14px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", color: "var(--text-4)", fontSize: "14px" }}>
           <Loader2 size={16} style={{ animation: "spin 1s linear infinite" }} />
           Generating {techName} {sectionLabel}...
         </div>
@@ -196,8 +196,8 @@ export default function SectionContent({ academy, technology, section, techName,
     );
     if (error) return (
       <div style={{ padding: "32px", background: "rgba(244,63,94,0.05)", border: "1px solid rgba(244,63,94,0.15)", borderRadius: "14px", textAlign: "center" }}>
-        <p style={{ color: "#FB7185", marginBottom: "16px" }}>{error}</p>
-        <button onClick={() => generateAI(true)} style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(244,63,94,0.1)", border: "1px solid rgba(244,63,94,0.2)", color: "#FB7185", padding: "8px 18px", borderRadius: "8px", cursor: "pointer", fontSize: "13px", fontWeight: 600 }}>
+        <p style={{ color: "var(--text-danger, #FB7185)", marginBottom: "16px" }}>{error}</p>
+        <button onClick={() => generateAI(true)} style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(244,63,94,0.1)", border: "1px solid rgba(244,63,94,0.2)", color: "var(--text-danger, #FB7185)", padding: "8px 18px", borderRadius: "8px", cursor: "pointer", fontSize: "13px", fontWeight: 600 }}>
           <RefreshCw size={13} /> Retry
         </button>
       </div>
@@ -208,8 +208,8 @@ export default function SectionContent({ academy, technology, section, techName,
           <span style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)", color: "#A78BFA", padding: "3px 12px", borderRadius: "100px", fontSize: "11px", fontWeight: 700, display: "flex", alignItems: "center", gap: "5px" }}>
             <Sparkles size={11} /> AI Generated
           </span>
-          {preContent && <button onClick={() => setMode("pre")} style={{ marginLeft: "auto", background: "transparent", border: "1px solid var(--border)", color: "#64748B", padding: "4px 12px", borderRadius: "8px", cursor: "pointer", fontSize: "12px" }}>← Expert Version</button>}
-          <button onClick={() => generateAI(true)} style={{ display: "flex", alignItems: "center", gap: "6px", background: "transparent", border: "1px solid var(--border)", color: "#64748B", padding: "4px 12px", borderRadius: "8px", cursor: "pointer", fontSize: "12px" }}>
+          {preContent && <button onClick={() => setMode("pre")} style={{ marginLeft: "auto", background: "transparent", border: "1px solid var(--border)", color: "var(--text-4)", padding: "4px 12px", borderRadius: "8px", cursor: "pointer", fontSize: "12px" }}>← Expert Version</button>}
+          <button onClick={() => generateAI(true)} style={{ display: "flex", alignItems: "center", gap: "6px", background: "transparent", border: "1px solid var(--border)", color: "var(--text-4)", padding: "4px 12px", borderRadius: "8px", cursor: "pointer", fontSize: "12px" }}>
             <RefreshCw size={12} /> Regenerate
           </button>
         </div>
@@ -222,10 +222,10 @@ export default function SectionContent({ academy, technology, section, techName,
   return (
     <div style={{ textAlign: "center", padding: "80px 24px" }}>
       <div style={{ fontSize: "48px", marginBottom: "20px" }}>{techIcon}</div>
-      <h3 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "20px", fontWeight: 700, marginBottom: "10px", color: "#E2E8F4" }}>
+      <h3 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "20px", fontWeight: 700, marginBottom: "10px", color: "var(--text-1)" }}>
         {sectionLabel} for {techName}
       </h3>
-      <p style={{ color: "#64748B", fontSize: "14px", marginBottom: "28px", maxWidth: "400px", margin: "0 auto 28px" }}>
+      <p style={{ color: "var(--text-4)", fontSize: "14px", marginBottom: "28px", maxWidth: "400px", margin: "0 auto 28px" }}>
         Pre-written content coming soon. Generate AI content instantly.
       </p>
       <button onClick={() => generateAI()} style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg, #2563EB, #7C3AED)", color: "#fff", padding: "12px 28px", borderRadius: "10px", cursor: "pointer", fontSize: "14px", fontWeight: 600, border: "none", boxShadow: "0 4px 20px rgba(37,99,235,0.3)" }}>

@@ -22,18 +22,28 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" href="/favicon.ico" />
         {/* Set theme BEFORE paint to prevent flash — suppressHydrationWarning handles the class mismatch */}
         <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem('theme');if(t==='light')document.documentElement.classList.add('light');}catch(e){}` }} />
-        {/* Google Translate - auto translates page content */}
-        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" />
+        {/* Google Translate - cookie-based in-page translation */}
+        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async />
         <script dangerouslySetInnerHTML={{ __html: `
           function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-              pageLanguage: 'en',
-              includedLanguages: 'te,hi,kn,ta,ml,ar,es,pt,zh-TW,fr,de,ja',
-              layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-              autoDisplay: false
-            }, 'google_translate_element');
+            try {
+              new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'te,hi,kn,ta,ml,ar,es,pt,zh-TW,fr,de,ja',
+                autoDisplay: false,
+                multilanguagePage: true
+              }, 'google_translate_element');
+            } catch(e) {}
           }
+          // Hide Google Translate toolbar (keeps translation but removes banner)
+          function hideGTToolbar() {
+            var frame = document.querySelector('.goog-te-banner-frame');
+            if (frame) { frame.style.display = 'none'; document.body.style.top = '0'; }
+          }
+          setTimeout(hideGTToolbar, 500);
+          setTimeout(hideGTToolbar, 2000);
         `}} />
+        <style>{`.goog-te-banner-frame,.skiptranslate{display:none!important}body{top:0!important}#google_translate_element{display:none}`}</style>
       </head>
       <body style={{ margin: 0, minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--bg)", color: "var(--text-2)" }}>
         <ThemeProvider>
