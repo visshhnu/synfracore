@@ -189,23 +189,36 @@ export default function Navbar() {
           transition: "height 0.2s",
         }}>
 
-          {/* Logo */}
-          <Link href="/" style={{ textDecoration: "none", flexShrink: 0, lineHeight: 0 }}>
-            <div style={{
-              background: "transparent",
-              // Light mode: need dark bg so white logo shows
-              padding: 0,
-            }} className="logo-wrapper">
-              <Image
-                src={scrolled ? "/logo-ac-icon.png" : "/logo-main.png"}
-                alt="SynfraCore"
-                width={scrolled ? 39 : 223}
-                height={scrolled ? 26 : 32}
-                style={{ height: scrolled ? "22px" : "28px", width: "auto", display: "block" }}
-                priority
-              />
-            </div>
-          </Link>
+          {/* Logo - visible only when NOT scrolled */}
+          {!scrolled && (
+            <Link href="/" style={{ textDecoration: "none", flexShrink: 0, lineHeight: 0 }}>
+              <div className="logo-wrapper">
+                <Image
+                  src="/logo-main.png"
+                  alt="SynfraCore"
+                  width={223}
+                  height={32}
+                  style={{ height: "28px", width: "auto", display: "block" }}
+                  priority
+                />
+              </div>
+            </Link>
+          )}
+          {/* When scrolled: show AC icon as home link */}
+          {scrolled && (
+            <Link href="/" style={{ textDecoration: "none", flexShrink: 0, lineHeight: 0 }}>
+              <div className="logo-wrapper">
+                <Image
+                  src="/logo-ac-icon.png"
+                  alt="SynfraCore"
+                  width={39}
+                  height={26}
+                  style={{ height: "22px", width: "auto", display: "block" }}
+                  priority
+                />
+              </div>
+            </Link>
+          )}
 
           {/* Desktop: Academies dropdown + nav links */}
           <nav className="desktop-nav" style={{ display: "flex", alignItems: "center", flex: 1, gap: "1px" }}>

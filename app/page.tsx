@@ -246,7 +246,7 @@ export default function Home() {
       {/* ══════════════════ WHY SYNFRACORE ══════════════════ */}
       <section style={{ padding: "96px 24px" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "center" }}>
+          <div className="why-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "center" }}>
             <div>
               <div className="label" style={{ marginBottom: "12px" }}>Why SynfraCore</div>
               <h2 className="display-md" style={{ color: "var(--text-1)", marginBottom: "20px" }}>
