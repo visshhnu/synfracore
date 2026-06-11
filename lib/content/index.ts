@@ -152,6 +152,37 @@ const contentRegistry = new Map<string, string>([
   ["devops/docker/intermediate","infrastructure/docker/intermediate"],
   // Ansible depth
   ["devops/ansible/fundamentals","infrastructure/ansible/fundamentals"],
+
+  // Networking depth
+  ["devops/networking/fundamentals","infrastructure/networking/fundamentals"],
+  // Git depth
+  ["devops/git/fundamentals","infrastructure/git/fundamentals"],
+  // Prometheus depth
+  ["devops/prometheus/fundamentals","infrastructure/prometheus/fundamentals"],
+  ["devops/prometheus/interview","infrastructure/prometheus/interview"],
+  // Grafana depth
+  ["devops/grafana/fundamentals","infrastructure/grafana/fundamentals"],
+  // ELK depth
+  ["devops/elk-stack/fundamentals","infrastructure/elk-stack/fundamentals"],
+  // Jenkins depth
+  ["devops/jenkins/fundamentals","infrastructure/jenkins/fundamentals"],
+  // ArgoCD depth
+  ["devops/argocd/fundamentals","infrastructure/argocd/fundamentals"],
+  // Helm depth
+  ["devops/helm/interview","infrastructure/helm/interview"],
+  // Terraform depth
+  ["devops/terraform/interview","infrastructure/terraform/interview"],
+  // PostgreSQL depth
+  ["databases/postgresql/fundamentals","databases/postgresql/fundamentals"],
+  // Redis depth
+  ["databases/redis/fundamentals","databases/redis/fundamentals"],
+  // Security depth
+  ["security/security-fundamentals/fundamentals","security/security-fundamentals/fundamentals"],
+  // AI depth
+  ["ai/prompt-engineering/fundamentals","ai/prompt-engineering/fundamentals"],
+  // Data depth
+  ["data/sql/intermediate","data/sql/intermediate"],
+  ["data/pandas/fundamentals","data/pandas/fundamentals"],
 ]);
 
 export function hasContent(a: string, t: string, s: string): boolean {
