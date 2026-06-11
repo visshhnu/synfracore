@@ -1,317 +1,250 @@
-# Ansible Fundamentals
-
-## Installation & Setup
-
-```bash
-# Install Ansible (control node only)
-pip install ansible          # Any platform
-sudo apt install ansible     # Ubuntu/Debian
-sudo dnf install ansible     # RHEL/Fedora
-
-# Verify
-ansible --version
-# ansible [core 2.17.x]
-
-# Install commonly needed collections
-ansible-galaxy collection install community.general
-ansible-galaxy collection install amazon.aws
-ansible-galaxy collection install azure.azcollection
-```
+# Ansible — Fundamentals
 
 ## Inventory
 
 ```ini
-# inventory.ini — Static inventory
+# inventory/hosts.ini
 
-# Ungrouped hosts
-192.168.1.10
-server-01.example.com
-
-# Groups
 [webservers]
-web-01.prod.example.com
-web-02.prod.example.com
-web-03.prod.example.com
+web01 ansible_host=10.0.1.10
+web02 ansible_host=10.0.1.11
 
 [databases]
-db-01.prod.example.com
-db-02.prod.example.com
+db01 ansible_host=10.0.2.10
 
-[production:children]   # Group of groups
+[production:children]
 webservers
 databases
 
-[webservers:vars]       # Variables for a group
-ansible_user=ubuntu
+[production:vars]
+ansible_user=ec2-user
 ansible_ssh_private_key_file=~/.ssh/prod.pem
-http_port=80
+ansible_python_interpreter=/usr/bin/python3
 ```
 
 ```yaml
-# inventory.yaml — YAML format (preferred)
+# inventory/hosts.yml — YAML format (preferred)
 all:
+  vars:
+    ansible_user: ec2-user
   children:
-    production:
-      children:
-        webservers:
-          hosts:
-            web-01:
-              ansible_host: 10.0.1.10
-            web-02:
-              ansible_host: 10.0.1.11
-          vars:
-            ansible_user: ubuntu
-            http_port: 80
-        databases:
-          hosts:
-            db-01:
-              ansible_host: 10.0.2.10
-          vars:
-            ansible_user: postgres
+    webservers:
+      hosts:
+        web01:
+          ansible_host: 10.0.1.10
+        web02:
+          ansible_host: 10.0.1.11
+    databases:
+      hosts:
+        db01:
+          ansible_host: 10.0.2.10
+          pg_version: 16
 ```
 
-```bash
-# Test inventory connectivity
-ansible all -i inventory.ini -m ping
-
-# List all hosts
-ansible-inventory -i inventory.yaml --list
-
-# AWS Dynamic Inventory (queries EC2 in real time)
-ansible-inventory -i aws_ec2.yaml --list
-# aws_ec2.yaml:
-# plugin: amazon.aws.aws_ec2
-# regions: [us-east-1]
-# filters:
-#   tag:Environment: production
-```
-
-## Your First Playbook
+## Core Playbook Structure
 
 ```yaml
-# site.yml — Install and configure nginx
 ---
 - name: Configure web servers
   hosts: webservers
-  become: yes              # Run as sudo
+  become: true          # sudo
+  gather_facts: true    # collect system info into ansible_facts
   vars:
-    http_port: 80
-    server_name: "{{ inventory_hostname }}"
-
-  tasks:
+    app_port: 8080
+    nginx_version: 1.24
+  vars_files:
+    - vars/secrets.yml  # encrypted with ansible-vault
+  
+  pre_tasks:
     - name: Update apt cache
       apt:
-        update_cache: yes
-        cache_valid_time: 3600   # Only update if cache older than 1 hour
+        update_cache: true
+        cache_valid_time: 3600
+      when: ansible_os_family == "Debian"
 
+  tasks:
     - name: Install nginx
-      apt:
-        name: nginx
-        state: present           # Idempotent — does nothing if already installed
+      package:
+        name: "nginx={{ nginx_version }}*"
+        state: present
 
-    - name: Deploy nginx config from template
+    - name: Deploy nginx configuration
       template:
         src: templates/nginx.conf.j2
-        dest: /etc/nginx/nginx.conf
+        dest: /etc/nginx/conf.d/app.conf
         owner: root
         group: root
         mode: '0644'
-        validate: nginx -t -c %s  # Validate before copying!
-      notify: Restart nginx        # Only restart if this task changed
+        validate: nginx -t -c %s
+      notify: Reload nginx
 
-    - name: Ensure nginx is running and enabled
-      systemd:
+    - name: Ensure nginx is running
+      service:
         name: nginx
         state: started
-        enabled: yes
+        enabled: true
 
-    - name: Open firewall port
-      ufw:
-        rule: allow
-        port: "{{ http_port }}"
-        proto: tcp
+    - name: Create app directory
+      file:
+        path: /var/www/app
+        state: directory
+        owner: www-data
+        group: www-data
+        mode: '0755'
 
   handlers:
-    - name: Restart nginx
-      systemd:
+    - name: Reload nginx
+      service:
         name: nginx
-        state: restarted
+        state: reloaded
 ```
 
-```bash
-# Run the playbook
-ansible-playbook -i inventory.ini site.yml
-
-# Dry run — check mode (no changes made)
-ansible-playbook -i inventory.ini site.yml --check
-
-# Verbose output (see what changed)
-ansible-playbook -i inventory.ini site.yml -v      # Basic
-ansible-playbook -i inventory.ini site.yml -vvv    # Debug level
-
-# Limit to specific hosts
-ansible-playbook -i inventory.ini site.yml --limit web-01
-
-# Only run specific tags
-ansible-playbook -i inventory.ini site.yml --tags "deploy,config"
-
-# Skip tags
-ansible-playbook -i inventory.ini site.yml --skip-tags "restart"
-
-# Prompt for sudo password (when no key-based sudo)
-ansible-playbook -i inventory.ini site.yml --ask-become-pass
-```
-
-## Jinja2 Templates
-
-```jinja2
-{# templates/nginx.conf.j2 #}
-server {
-    listen {{ http_port }};
-    server_name {{ server_name }};
-    
-    location / {
-        proxy_pass http://{{ backend_host }}:{{ backend_port }};
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-    
-    {% if ssl_enabled %}
-    listen 443 ssl;
-    ssl_certificate /etc/ssl/{{ domain }}.crt;
-    ssl_certificate_key /etc/ssl/{{ domain }}.key;
-    {% endif %}
-    
-    {% for backend in backend_servers %}
-    # Backend: {{ backend.name }}
-    {% endfor %}
-}
-```
-
-## Variables & Precedence
+## Key Modules
 
 ```yaml
-# Variables can come from many places (higher = wins):
-# 1. Extra vars: ansible-playbook ... -e "version=2.0"         (HIGHEST)
-# 2. Task vars
-# 3. Block vars
-# 4. Role vars (roles/myrole/vars/main.yml)
-# 5. set_fact / registered vars
-# 6. Play vars_files
-# 7. Play vars
-# 8. Host vars (host_vars/web-01.yml)
-# 9. Group vars (group_vars/webservers.yml)
-# 10. Role defaults (roles/myrole/defaults/main.yml)         (LOWEST)
+# File management
+- name: Create file
+  file:
+    path: /etc/app/config
+    state: touch
+    mode: '0600'
 
-# group_vars/webservers.yml
-nginx_version: "1.25"
-max_workers: 4
-document_root: /var/www/html
+- name: Copy file
+  copy:
+    src: files/app.conf
+    dest: /etc/app/app.conf
+    backup: true
 
-# host_vars/web-01.yml
-nginx_version: "1.24"   # Override for this specific host
+- name: Template (Jinja2)
+  template:
+    src: templates/config.j2
+    dest: /etc/app/config.yml
+
+# Package management
+- apt:    # Ubuntu/Debian
+    name: [git, curl, htop]
+    state: present
+
+- yum:    # RHEL/CentOS/Amazon Linux
+    name: nginx
+    state: latest
+
+- package: # Works on both (slower)
+    name: nginx
+    state: present
+
+# Service
+- service:
+    name: nginx
+    state: started   # started/stopped/restarted/reloaded
+    enabled: true
+
+# Command execution
+- command: /usr/bin/app --init     # No shell — use when no pipes/redirects needed
+- shell: echo "hello" >> /tmp/log  # Shell — when you need pipes, variables
+
+# Idempotent pattern for shell
+- shell: app --version
+  register: app_version
+  changed_when: false   # Don't report as changed
+
+- shell: app --init
+  args:
+    creates: /var/app/initialized  # Only run if file doesn't exist
+
+# Conditional
+- name: Install on Ubuntu only
+  apt:
+    name: apache2
+  when:
+    - ansible_distribution == "Ubuntu"
+    - ansible_distribution_version is version('20.04', '>=')
+
+# Loop
+- name: Create users
+  user:
+    name: "{{ item.name }}"
+    groups: "{{ item.groups }}"
+    state: present
+  loop:
+    - { name: alice, groups: sudo }
+    - { name: bob, groups: docker }
 ```
 
-## Ansible Vault — Secrets Management
+## Roles
+
+```
+roles/
+  nginx/
+    tasks/
+      main.yml      # Main task list
+    handlers/
+      main.yml      # Handlers (e.g. reload nginx)
+    templates/
+      nginx.conf.j2 # Jinja2 templates
+    files/
+      ssl.conf      # Static files
+    vars/
+      main.yml      # Role variables (high priority)
+    defaults/
+      main.yml      # Default variables (low priority, easily overridden)
+    meta/
+      main.yml      # Dependencies on other roles
+```
+
+```yaml
+# Use role in playbook
+- name: Configure servers
+  hosts: webservers
+  roles:
+    - common
+    - nginx
+    - { role: app, app_version: "2.1.0" }
+```
+
+## Ansible Vault
 
 ```bash
-# Encrypt a file
-ansible-vault encrypt secrets.yml
-# New Vault password: ...
+# Encrypt sensitive file
+ansible-vault encrypt vars/secrets.yml
 
 # Edit encrypted file
-ansible-vault edit secrets.yml
+ansible-vault edit vars/secrets.yml
 
-# View without decrypting to file
-ansible-vault view secrets.yml
+# Run playbook with vault password
+ansible-playbook site.yml --ask-vault-pass
+# Or use password file (for CI/CD)
+ansible-playbook site.yml --vault-password-file .vault_pass
 
-# Encrypt a single value (inline)
-ansible-vault encrypt_string 'my_secret_password' --name 'db_password'
-# Result:
+# Encrypt a single string (inline)
+ansible-vault encrypt_string 'supersecret' --name 'db_password'
+# Output:
 # db_password: !vault |
 #   $ANSIBLE_VAULT;1.1;AES256
 #   ...
-
-# In playbook — use with vault variable
-- name: Create database user
-  mysql_user:
-    name: app
-    password: "{{ db_password }}"  # Decrypted at runtime
-
-# Run playbook with vault
-ansible-playbook site.yml --vault-password-file ~/.vault_pass
-ansible-playbook site.yml --ask-vault-pass
 ```
 
-## Roles — Reusable Structure
+## Running Playbooks
 
 ```bash
-# Create role scaffold
-ansible-galaxy role init roles/nginx
+# Full run
+ansible-playbook -i inventory/hosts.yml site.yml
 
-# Structure:
-# roles/nginx/
-# ├── tasks/main.yml      — Main task list
-# ├── handlers/main.yml   — Event handlers
-# ├── templates/          — Jinja2 templates
-# ├── files/              — Static files
-# ├── vars/main.yml       — Role variables (high priority)
-# ├── defaults/main.yml   — Default variables (low priority)
-# ├── meta/main.yml       — Role metadata, dependencies
-# └── README.md
+# Limit to specific hosts or groups
+ansible-playbook site.yml --limit webservers
+ansible-playbook site.yml --limit web01,web02
 
-# Use role in playbook
-- hosts: webservers
-  roles:
-    - nginx
-    - { role: ssl, when: ssl_enabled }
-    - role: app
-      vars:
-        app_version: "2.1.0"
+# Check mode (dry run — no changes made)
+ansible-playbook site.yml --check
 
-# Download roles from Ansible Galaxy
-ansible-galaxy role install geerlingguy.nginx
-ansible-galaxy role install -r requirements.yml
-```
+# Run only specific tags
+ansible-playbook site.yml --tags "nginx,ssl"
+ansible-playbook site.yml --skip-tags "deploy"
 
-## Rolling Updates Pattern
+# Verbose output for debugging
+ansible-playbook site.yml -vvv
 
-```yaml
-# Update servers 25% at a time — zero downtime
-- name: Rolling deployment
-  hosts: webservers
-  serial: "25%"          # Process 25% of hosts at a time
-  max_fail_percentage: 10  # Abort if >10% fail
-
-  tasks:
-    - name: Remove from load balancer
-      uri:
-        url: "http://lb/api/drain/{{ inventory_hostname }}"
-        method: POST
-
-    - name: Wait for connections to drain
-      wait_for:
-        timeout: 30
-
-    - name: Deploy new version
-      copy:
-        src: app-{{ app_version }}.jar
-        dest: /opt/app/app.jar
-
-    - name: Restart application
-      systemd:
-        name: myapp
-        state: restarted
-
-    - name: Wait for app to be healthy
-      uri:
-        url: "http://{{ inventory_hostname }}:8080/health"
-        status_code: 200
-      retries: 10
-      delay: 5
-
-    - name: Add back to load balancer
-      uri:
-        url: "http://lb/api/enable/{{ inventory_hostname }}"
-        method: POST
+# Ad-hoc command
+ansible webservers -i inventory/hosts.yml -m shell -a "uptime"
+ansible all -m ping
 ```

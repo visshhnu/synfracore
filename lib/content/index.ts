@@ -136,6 +136,22 @@ const contentRegistry = new Map<string, string>([
   ["exams/rrb-ntpc/overview","exams/banking-exams/overview"],
   ["exams/upsc-prelims/overview","exams/upsc-prelims/overview"],
   ["exams/upsc-mains/overview","exams/upsc-prelims/overview"],
+
+  // AWS EC2 depth
+  ["cloud/aws-ec2/interview","cloud/aws-ec2/interview"],
+  ["cloud/aws-ec2/fundamentals","cloud/aws-ec2/fundamentals"],
+  // AWS S3 depth
+  ["cloud/aws-s3/fundamentals","cloud/aws-s3/fundamentals"],
+  // AWS VPC depth
+  ["cloud/aws-vpc/fundamentals","cloud/aws-vpc/fundamentals"],
+  // AWS Lambda depth
+  ["cloud/aws-lambda/fundamentals","cloud/aws-lambda/fundamentals"],
+  // AWS IAM depth
+  ["cloud/aws-iam/interview","cloud/aws-iam/fundamentals"],
+  // Docker depth
+  ["devops/docker/intermediate","infrastructure/docker/intermediate"],
+  // Ansible depth
+  ["devops/ansible/fundamentals","infrastructure/ansible/fundamentals"],
 ]);
 
 export function hasContent(a: string, t: string, s: string): boolean {
