@@ -420,8 +420,8 @@ html.light .card {
 /* ══ SIDEBAR STICKY FIX ════════════════════════════════════ */
 .sidebar-desktop {
   position: sticky;
-  top: 64px;
-  height: calc(100vh - 64px);
+  top: 0;
+  height: 100vh;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--border) transparent;
@@ -668,7 +668,8 @@ header[style*="box-shadow"] {
 }
 
 /* ══ LIGHT MODE NAV RIGHT SIDE VISIBILITY ══════════════════ */
-html.light header button {
+/* Only non-primary buttons in light mode header get dark color */
+html.light header button:not(.btn-primary) {
   color: #334155 !important;
 }
 html.light header button svg {

@@ -5,10 +5,11 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { CopyProtection } from "@/components/CopyProtection";
+import { GoogleTranslate } from "@/components/GoogleTranslate";
 
 export const metadata: Metadata = {
   title: { default: "SynfraCore — Learn DevOps, Cloud & AI", template: "%s — SynfraCore" },
-  description: "The world's most comprehensive technology learning ecosystem.",
+  description: "The world's most comprehensive technology learning ecosystem. Master DevOps, Cloud, AI, Data, Security, and more.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -20,36 +21,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-        {/* Set theme BEFORE paint to prevent flash — suppressHydrationWarning handles the class mismatch */}
+        {/* Set theme class BEFORE first paint — eliminates light/dark flash */}
         <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem('theme');if(t==='light')document.documentElement.classList.add('light');}catch(e){}` }} />
-        {/* Google Translate - cookie-based in-page translation */}
-        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async />
-        <script dangerouslySetInnerHTML={{ __html: `
-          function googleTranslateElementInit() {
-            try {
-              new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'te,hi,kn,ta,ml,ar,es,pt,zh-TW,fr,de,ja',
-                autoDisplay: false,
-                multilanguagePage: true
-              }, 'google_translate_element');
-            } catch(e) {}
-          }
-          // Hide Google Translate toolbar (keeps translation but removes banner)
-          function hideGTToolbar() {
-            var frame = document.querySelector('.goog-te-banner-frame');
-            if (frame) { frame.style.display = 'none'; document.body.style.top = '0'; }
-          }
-          setTimeout(hideGTToolbar, 500);
-          setTimeout(hideGTToolbar, 2000);
-        `}} />
-        <style>{`.goog-te-banner-frame,.skiptranslate{display:none!important}body{top:0!important}#google_translate_element{display:none}`}</style>
+        {/* Hide Google Translate toolbar */}
+        <style>{`.goog-te-banner-frame,.skiptranslate{display:none!important}body{top:0!important}`}</style>
       </head>
-      <body style={{ margin: 0, minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--bg)", color: "var(--text-2)" }}>
+      <body suppressHydrationWarning style={{ margin: 0, minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--bg)", color: "var(--text-2)" }}>
         <ThemeProvider>
           <CopyProtection />
+          {/* GoogleTranslate is client-only — prevents React #418 hydration error */}
+          <GoogleTranslate />
           <Navbar />
-          <main style={{ flex: 1 }}>{children}</main>
+          {/* Padding compensates for fixed navbar height */}
+          <main style={{ flex: 1, paddingTop: "64px" }}>{children}</main>
           <Footer />
         </ThemeProvider>
       </body>

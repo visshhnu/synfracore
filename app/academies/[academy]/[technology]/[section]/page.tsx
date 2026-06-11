@@ -39,8 +39,8 @@ export default async function SectionPage({ params }: Props) {
           background: "var(--bg-1)",
           padding: "24px 16px",
           position: "sticky",
-          top: "64px",
-          height: "calc(100vh - 64px)",
+          top: 0,
+          height: "100vh",
           overflowY: "auto",
         }}
         className="sidebar-desktop"
