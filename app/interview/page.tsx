@@ -19,8 +19,8 @@ const formats = [
 
 export default function InterviewPage() {
   return (
-    <div className="mx-auto max-w-7xl px-6 py-16">
-      <div className="mb-16 text-center">
+    <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "56px 24px" }}>
+      <div style={{ marginBottom: "56px", textAlign: "center" }}>
         <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
           Interview Hub
         </h1>
@@ -30,7 +30,7 @@ export default function InterviewPage() {
       </div>
 
       {/* Levels */}
-      <div className="grid gap-5 md:grid-cols-4 mb-16">
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "16px", marginBottom: "56px" }}>
         {levels.map((level) => (
           <div key={level.name} style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "16px", padding: "24px", textAlign: "center" }}>
             <span style={{ fontSize: "32px", display: "block", marginBottom: "10px" }}>{level.icon}</span>
@@ -41,7 +41,7 @@ export default function InterviewPage() {
       </div>
 
       {/* Formats */}
-      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4 mb-16">
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "16px", marginBottom: "56px" }}>
         {formats.map((f) => (
           <div key={f.name} style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "14px", padding: "20px" }}>
             <span style={{ fontSize: "28px", display: "block", marginBottom: "10px" }}>{f.icon}</span>
@@ -55,7 +55,7 @@ export default function InterviewPage() {
       <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "26px", fontWeight: 700, marginBottom: "24px" }}>
         Interview Q&A by Technology
       </h2>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "16px" }}>
         {academies.flatMap((a) =>
           a.domains.flatMap(d=>d.technologies).slice(0, 3).map((tech) => (
             <Link
@@ -72,7 +72,7 @@ export default function InterviewPage() {
                 textDecoration: "none",
                 transition: "all 0.2s",
               }}
-              className="hover:border-blue-500/30"
+             
             >
               <span style={{ fontSize: "20px" }}>{tech.icon}</span>
               <div>

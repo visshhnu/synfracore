@@ -11,8 +11,8 @@ const providers = [...new Set(certifications.map((c) => c.provider))];
 
 export default function CertificationsPage() {
   return (
-    <div className="mx-auto max-w-7xl px-6 py-16">
-      <div className="mb-16 text-center">
+    <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "56px 24px" }}>
+      <div style={{ marginBottom: "56px", textAlign: "center" }}>
         <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
           Certification Hub
         </h1>
@@ -31,7 +31,7 @@ export default function CertificationsPage() {
               <div style={{ height: "1px", flexGrow: 1, background: "#1E2D47" }} />
             </div>
 
-            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "20px" }}>
               {provCerts.map((cert) => (
                 <Link key={cert.id} href={`/certifications/${cert.id}`} style={{ textDecoration: "none" }}>
                   <div
@@ -42,7 +42,7 @@ export default function CertificationsPage() {
                       padding: "24px",
                       transition: "all 0.2s",
                     }}
-                    className="hover:border-blue-500/30"
+                   
                   >
                     <div
                       style={{

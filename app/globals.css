@@ -666,3 +666,33 @@ html:not(.light) .logo-wrapper {
 header[style*="box-shadow"] {
   background: var(--bg-1) !important;
 }
+
+/* ══ LIGHT MODE NAV RIGHT SIDE VISIBILITY ══════════════════ */
+html.light header button {
+  color: #334155 !important;
+}
+html.light header button svg {
+  color: #334155 !important;
+  stroke: #334155 !important;
+}
+/* Hamburger/menu icon */
+html.light .mobile-only button,
+html.light button[aria-label],
+html.light header > div > div > button {
+  color: #0F172A !important;
+}
+/* ThemeToggle and other icon buttons */
+html.light header button[style*="bg-2"] {
+  background: #F1F5F9 !important;
+  border-color: #E2E8F0 !important;
+  color: #334155 !important;
+}
+/* Language switcher button */
+html.light header .logo-wrapper + nav + div button,
+html.light header button[title*="Translate"] {
+  color: #334155 !important;
+}
+/* Ensure all header icon colors show in light mode */
+html.light header svg {
+  color: currentColor;
+}

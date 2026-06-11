@@ -20,8 +20,8 @@ const roles = [
 
 export default function CareerPage() {
   return (
-    <div className="mx-auto max-w-7xl px-6 py-16">
-      <div className="mb-16 text-center">
+    <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "56px 24px" }}>
+      <div style={{ marginBottom: "56px", textAlign: "center" }}>
         <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
           Career Hub
         </h1>
@@ -34,7 +34,7 @@ export default function CareerPage() {
       <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "24px", fontWeight: 700, marginBottom: "20px" }}>
         Career Paths & Compensation
       </h2>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-16">
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "16px", marginBottom: "56px" }}>
         {roles.map((role) => (
           <div key={role.title} style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "14px", padding: "20px", display: "flex", alignItems: "center", gap: "14px" }}>
             <span style={{ fontSize: "28px" }}>{role.icon}</span>
@@ -50,7 +50,7 @@ export default function CareerPage() {
       <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "24px", fontWeight: 700, marginBottom: "20px" }}>
         Career Tools
       </h2>
-      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "20px" }}>
         {features.map((f) => (
           <div
             key={f.name}

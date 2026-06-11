@@ -12,8 +12,8 @@ const labCategories = [
 
 export default function LabsPage() {
   return (
-    <div className="mx-auto max-w-7xl px-6 py-16">
-      <div className="mb-16 text-center">
+    <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "56px 24px" }}>
+      <div style={{ marginBottom: "56px", textAlign: "center" }}>
         <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
           Hands-on Labs
         </h1>
@@ -22,7 +22,7 @@ export default function LabsPage() {
         </p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-3 mb-16">
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "20px", marginBottom: "56px" }}>
         {labCategories.map((cat) => (
           <div key={cat.level} style={{ background: cat.bg, border: `1px solid ${cat.border}`, borderRadius: "16px", padding: "28px", textAlign: "center" }}>
             <span style={{ fontSize: "40px", display: "block", marginBottom: "12px" }}>{cat.icon}</span>
@@ -33,7 +33,7 @@ export default function LabsPage() {
       </div>
 
       <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "26px", fontWeight: 700, marginBottom: "24px" }}>Labs by Academy</h2>
-      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "20px" }}>
         {academies.map((academy) => (
           <Link key={academy.slug} href={`/academies/${academy.slug}`} style={{ textDecoration: "none" }}>
             <div style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "14px", padding: "22px" }} className="card">

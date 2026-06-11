@@ -122,8 +122,8 @@ const contentRegistry = new Map<string, string>([
   ["education/cn/overview","education/cn/overview"],
   ["education/system-design/overview","education/system-design/overview"],
   ["education/placement-prep/overview","education/placement-prep/overview"],
-  ["education/maths/overview","exams/gate-cse/overview"],
-  ["education/science/overview","exams/gate-cse/overview"],
+  ["education/maths/overview","education/maths/overview"],
+  ["education/science/overview","education/science/overview"],
   ["education/cs-school/overview","education/cs-school/overview"],
   // ── EXAMS ──
   ["exams/gate-cse/overview","exams/gate-cse/overview"],
