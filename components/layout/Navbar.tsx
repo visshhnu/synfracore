@@ -166,9 +166,22 @@ export default function Navbar() {
   let dropTimer: ReturnType<typeof setTimeout>;
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 40);
+    // Listen to BOTH window scroll AND any scrollable container (for sidebar pages)
+    const fn = () => {
+      // Check window scroll
+      if (window.scrollY > 40) { setScrolled(true); return; }
+      // Check if any scrollable container on page has scrolled
+      const scrolled = Array.from(document.querySelectorAll('aside, [class*="sidebar"], main'))
+        .some(el => (el as HTMLElement).scrollTop > 40);
+      setScrolled(window.scrollY > 40 || scrolled);
+    };
     window.addEventListener("scroll", fn, { passive: true });
-    return () => window.removeEventListener("scroll", fn);
+    // Also poll for container scroll (sidebar pages)
+    const interval = setInterval(fn, 200);
+    return () => {
+      window.removeEventListener("scroll", fn);
+      clearInterval(interval);
+    };
   }, []);
 
   return (
