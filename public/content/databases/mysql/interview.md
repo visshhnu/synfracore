@@ -1,0 +1,16 @@
+# MySQL — Interview Questions
+
+**What is the difference between InnoDB and MyISAM?**
+InnoDB is MySQL's default and recommended storage engine since MySQL 5.5. It supports ACID transactions, foreign keys, row-level locking (concurrent writes to different rows), and crash recovery via redo logs. MyISAM is the legacy engine — no transactions, no foreign keys, only table-level locking (one write blocks all reads), but faster for read-heavy workloads with no concurrent writes. In modern MySQL, always use InnoDB. MyISAM use cases are effectively zero now — InnoDB's performance improvements have eliminated MyISAM's historical advantages.
+
+**Explain MySQL's MVCC implementation.**
+MySQL/InnoDB implements MVCC through undo logs. Each row has two hidden columns: DB_TRX_ID (the last transaction that modified it) and DB_ROLL_PTR (pointer to undo log). When a transaction reads a row, InnoDB uses the transaction's read view to determine which version of the row to return — it traverses the undo log chain until it finds a version the transaction can see. Default isolation REPEATABLE READ: sees a consistent snapshot from transaction start. Undo logs are purged by the background purge thread when no active transaction needs them. Long-running transactions prevent purge, causing undo log growth.
+
+**What is the difference between CHAR and VARCHAR?**
+CHAR(n) is fixed-length — always stores exactly n bytes, padding with spaces if shorter. Faster for fixed-length data (UUIDs, country codes, status flags) because MySQL can calculate row offsets. VARCHAR(n) is variable-length — stores only the actual data plus 1-2 bytes for length. More space-efficient for variable-length strings. For columns that are always the same length (e.g., SHA256 hash = always 64 chars), use CHAR — MySQL can skip the length calculation. For usernames, emails, descriptions — use VARCHAR. Modern storage has made this distinction less critical for most applications.
+
+**What is the query cache and why was it removed?**
+MySQL's query cache stored the result of SELECT queries and returned cached results for identical queries. Sounded good in theory, but in practice it became a bottleneck: a global mutex protected the cache, causing contention on multi-core systems. Any write to a table invalidated ALL cached queries for that table. For write-heavy workloads, the cache overhead exceeded the benefit. It was deprecated in MySQL 5.7 and removed in MySQL 8.0. Application-level caching (Redis, Memcached) is the correct solution — more control over invalidation, no global lock, can cache across multiple database servers.
+
+**How do you identify and fix slow queries in MySQL?**
+Enable slow query log: `SET GLOBAL slow_query_log = ON; SET GLOBAL long_query_time = 1;`. Use `EXPLAIN` or `EXPLAIN ANALYZE` on slow queries — look for `ALL` in type column (full table scan), large `rows` estimate, `Using filesort` or `Using temporary`. Fix strategies: add appropriate indexes (covering indexes when possible), rewrite queries to use indexes (avoid functions on indexed columns: `WHERE YEAR(created_at) = 2024` prevents index use; use `WHERE created_at >= '2024-01-01'`), avoid `SELECT *`, use LIMIT, optimize JOINs (index join columns). Use `pt-query-digest` on slow query log to find the worst offenders by total time, not just individual query time.

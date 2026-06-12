@@ -1,0 +1,16 @@
+# AWS S3 — Interview Questions
+
+**What is the difference between S3 bucket policies and IAM policies?**
+IAM policies are attached to identities (users, roles, groups) and define what AWS resources they can access. S3 bucket policies are attached to the bucket itself and define who can access that specific bucket. Both use the same JSON policy language. Key difference: bucket policies can grant access to AWS accounts or principals outside your account (cross-account access) — IAM policies alone can't do this. Bucket policies can also deny access regardless of what IAM says. In practice: use IAM policies for your own users/roles, use bucket policies for cross-account access or to enforce security controls like requiring HTTPS or specific encryption.
+
+**Explain S3 consistency model.**
+Since December 2020, S3 provides strong read-after-write consistency for all objects — after a successful PUT or DELETE, all subsequent reads reflect the change immediately. Previously, S3 had eventual consistency for overwrite PUTs and DELETEs (you might read stale data briefly). This change simplified application logic. S3 also provides strong consistency for LIST operations — after writing an object, it immediately appears in list results. The only caveat: S3 Select and S3 Inventory have their own consistency characteristics.
+
+**What is S3 Transfer Acceleration and when would you use it?**
+Transfer Acceleration uses CloudFront's edge network to speed up uploads to S3. Instead of uploading directly to your S3 bucket's region, you upload to the nearest CloudFront edge location, which then forwards to S3 over AWS's optimized backbone network. Benefit: can be 50-500% faster for uploads from geographically distant clients. Cost: additional per-GB charge on top of standard S3 pricing. Use when: users are globally distributed uploading large files to a centralized bucket; upload speed is critical for UX. Don't use for downloads (use CloudFront for that) or for clients already close to the bucket region.
+
+**How do you secure S3 buckets in production?**
+Block all public access at the account level (AWS Organizations SCP). Enable SSE-KMS encryption with customer-managed keys. Enable S3 Access Logging and CloudTrail data events for audit. Use VPC endpoints so traffic never leaves AWS network. Require HTTPS with bucket policy denying HTTP. Enable versioning to recover from accidental deletes. Enable MFA Delete for critical buckets. Use S3 Object Lock for compliance (WORM — write once, read many). Regularly audit permissions with AWS IAM Access Analyzer. Never put credentials in bucket names or object keys.
+
+**What is multipart upload and when is it required?**
+Multipart upload splits a large object into parts (5MB-5GB each) uploaded independently in parallel, then S3 assembles them. Required for objects over 5GB. Recommended for objects over 100MB. Benefits: parallel uploads increase speed, failed parts can be retried individually without re-uploading the entire file, can pause and resume. The AWS SDK handles this automatically when you use the high-level transfer manager. Important: incomplete multipart uploads cost money (parts are stored but not assembled) — configure an S3 lifecycle rule to abort incomplete multipart uploads after N days.

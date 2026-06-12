@@ -1,0 +1,16 @@
+# Shell Scripting — Interview Questions
+
+**What is the difference between `$()` and backticks for command substitution?**
+Both capture command output, but `$()` (dollar-paren) is strongly preferred. `$()` is nestable: `$(cat $(find . -name "*.txt"))`. Backticks require escaping for nesting: `` `cat \`find . -name '*.txt'\`` `` — hard to read and error-prone. `$()` works with all shells (bash, sh, zsh, ksh). Backticks are POSIX but have quoting issues inside double quotes. In scripts: always use `$()`. The only reason to know backticks is to read legacy scripts.
+
+**Explain `set -euo pipefail` and why you should use it.**
+`-e`: exit immediately on any error (non-zero exit code). Without it, scripts continue after errors silently — a failed `mkdir` lets the next command fail too, but now you don't know the root cause. `-u`: treat unset variables as errors. `$UNDEFINED_VAR` expands to empty string by default, causing subtle bugs (imagine `rm -rf $PREFIX/dir` when $PREFIX is empty = `rm -rf /dir`). `-o pipefail`: pipe fails if ANY command in it fails. `cat file.txt | grep pattern | wc -l` — without pipefail, if `cat` fails, the exit code is whatever `wc` returns (likely 0). Always start production scripts with `set -euo pipefail`.
+
+**What is the difference between single quotes and double quotes in bash?**
+Single quotes preserve everything literally — no variable expansion, no escape sequences, no command substitution. `echo '$HOME is $(pwd)'` prints literally `$HOME is $(pwd)`. Double quotes allow: variable expansion (`$var`), command substitution (`$(cmd)`), and escape sequences (`\n`, `\t`, `\\`). `echo "$HOME is $(pwd)"` expands both. Use double quotes around variables to prevent word splitting and glob expansion: `rm "$file"` handles filenames with spaces; `rm $file` breaks on `file = "my document.txt"`. Single quotes for literal strings that must not expand; double quotes for variables.
+
+**How do you safely handle errors and cleanup in shell scripts?**
+Use `trap` to run cleanup code on exit, regardless of how the script ends. `trap cleanup EXIT` runs the cleanup function when the script exits (success, error, or signal). `trap 'echo "Error on line $LINENO"' ERR` reports errors with line numbers. Combine with `set -e` for automatic exit on errors. For temp files: create in `/tmp` with mktemp, add to trap for cleanup. For locks: create a lock file, trap its removal. Never leave temp files, background processes, or partial state behind. Test your cleanup by adding `exit 1` at various points and verifying cleanup runs.
+
+**What is the difference between `[ ]`, `[[ ]]`, and `(( ))` for conditionals?**
+`[ ]` is the POSIX test command — portable across all shells. Requires careful quoting, doesn't support `&&`/`||` inside, no regex. `[[ ]]` is bash's extended test — smarter quoting (no word splitting inside), supports `&&`/`||`, regex matching with `=~`, no need to quote most variables. Prefer `[[ ]]` in bash scripts. `(( ))` is for arithmetic evaluation — returns success if the result is non-zero. `(( count > 0 ))`, `(( i++ ))`. Inside `(( ))`, variables don't need `$`. Use `[[ ]]` for string/file tests, `(( ))` for numeric comparisons and arithmetic.
