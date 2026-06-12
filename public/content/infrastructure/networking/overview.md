@@ -1,287 +1,168 @@
-# Networking for DevOps & Cloud Engineers
+# Networking for DevOps — Complete Foundation
 
-Networking is the invisible foundation of every cloud system. You cannot debug production issues, design secure architectures, or understand Kubernetes without a solid networking foundation.
+Every DevOps engineer must understand how data flows through networks. Without this knowledge, you cannot debug connectivity issues, design secure cloud architectures, or understand how containers communicate.
 
-## OSI Model — What Actually Matters
+## The OSI Model in Practice
 
-```
-Layer 7 — Application   HTTP, HTTPS, DNS, SMTP, gRPC
-Layer 4 — Transport     TCP (reliable), UDP (fast)
-Layer 3 — Network       IP addressing, routing
-Layer 2 — Data Link     MAC addresses, Ethernet, VLANs
-Layer 1 — Physical      Cables, Wi-Fi (you won't touch this)
-```
+```svg
+<svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;font-family:Inter,sans-serif">
+  <!-- Layers -->
+  <!-- L7 -->
+  <rect x="10" y="10" width="450" height="38" rx="8" fill="#1E3A5F" stroke="#3B82F6" stroke-width="1.5"/>
+  <text x="22" y="33" font-size="13" fill="#93C5FD" font-weight="800">7  Application</text>
+  <text x="200" y="33" font-size="11" fill="#60A5FA">HTTP, HTTPS, DNS, SSH, SMTP, FTP</text>
 
-As a DevOps engineer you live at **Layers 3, 4, and 7**. Understanding these deeply solves 95% of production networking issues.
+  <!-- L6 -->
+  <rect x="10" y="56" width="450" height="38" rx="8" fill="#1E3A5F" stroke="#3B82F6" stroke-width="1"/>
+  <text x="22" y="79" font-size="13" fill="#93C5FD" font-weight="700">6  Presentation</text>
+  <text x="200" y="79" font-size="11" fill="#60A5FA">TLS/SSL encryption, data encoding</text>
 
-## IP Addressing & CIDR
+  <!-- L5 -->
+  <rect x="10" y="102" width="450" height="38" rx="8" fill="#1E3A5F" stroke="#3B82F6" stroke-width="1"/>
+  <text x="22" y="125" font-size="13" fill="#93C5FD" font-weight="700">5  Session</text>
+  <text x="200" y="125" font-size="11" fill="#60A5FA">Connection management, WebSockets</text>
 
-```
-IPv4 address: 192.168.1.10
-Binary:       11000000.10101000.00000001.00001010
-              [Network part]        [Host part]
+  <!-- L4 - highlighted -->
+  <rect x="10" y="148" width="450" height="38" rx="8" fill="#064E3B" stroke="#10B981" stroke-width="2"/>
+  <text x="22" y="171" font-size="13" fill="#34D399" font-weight="800">4  Transport ⭐</text>
+  <text x="200" y="171" font-size="11" fill="#6EE7B7">TCP (reliable), UDP (fast)  |  PORTS live here</text>
 
-CIDR notation: 192.168.1.0/24
-/24 = 24 bits for network = 256 addresses (254 usable)
-/16 = 16 bits for network = 65,536 addresses
-/32 = single host
+  <!-- L3 - highlighted -->
+  <rect x="10" y="194" width="450" height="38" rx="8" fill="#064E3B" stroke="#10B981" stroke-width="2"/>
+  <text x="22" y="217" font-size="13" fill="#34D399" font-weight="800">3  Network ⭐</text>
+  <text x="200" y="217" font-size="11" fill="#6EE7B7">IP Addresses, Routing, ICMP (ping)</text>
 
-Private ranges (RFC 1918 — not routable on internet):
-10.0.0.0/8        → 10.x.x.x (large enterprise)
-172.16.0.0/12     → 172.16-31.x.x (medium)
-192.168.0.0/16    → 192.168.x.x (home/small office)
-```
+  <!-- L2 -->
+  <rect x="10" y="240" width="450" height="38" rx="8" fill="#2D1B69" stroke="#7C3AED" stroke-width="1.5"/>
+  <text x="22" y="263" font-size="13" fill="#C4B5FD" font-weight="700">2  Data Link</text>
+  <text x="200" y="263" font-size="11" fill="#A78BFA">MAC Addresses, Ethernet, Wi-Fi frames</text>
 
-```bash
-# Quick CIDR calculations
-ipcalc 10.0.0.0/16              # Shows network, broadcast, range
-ipcalc 192.168.1.100/24
+  <!-- L1 -->
+  <rect x="10" y="286" width="450" height="24" rx="8" fill="#1F2937" stroke="#6B7280" stroke-width="1"/>
+  <text x="22" y="302" font-size="11" fill="#9CA3AF" font-weight="600">1  Physical</text>
+  <text x="200" y="302" font-size="11" fill="#6B7280">Cables, fiber, radio signals</text>
 
-# Check your IP
-ip addr show eth0
-ip addr show | grep 'inet '     # All interfaces
+  <!-- Right panel: What DevOps cares about -->
+  <rect x="480" y="10" width="230" height="300" rx="12" fill="#0F172A" stroke="#F59E0B" stroke-width="1.5"/>
+  <text x="595" y="36" font-size="12" fill="#FCD34D" text-anchor="middle" font-weight="800">DevOps Focus Areas</text>
 
-# Routing table
-ip route show
-ip route show default           # Default gateway
-route -n                        # Legacy
-```
+  <rect x="496" y="48" width="198" height="36" rx="7" fill="#78350F" stroke="#D97706" stroke-width="1"/>
+  <text x="595" y="64" font-size="10" fill="#FDE68A" text-anchor="middle" font-weight="700">Firewall Rules (L4)</text>
+  <text x="595" y="78" font-size="9" fill="#FCD34D" text-anchor="middle">iptables, Security Groups, NACLs</text>
 
-## TCP vs UDP
+  <rect x="496" y="92" width="198" height="36" rx="7" fill="#1E3A5F" stroke="#3B82F6" stroke-width="1"/>
+  <text x="595" y="108" font-size="10" fill="#93C5FD" text-anchor="middle" font-weight="700">Load Balancing (L4/L7)</text>
+  <text x="595" y="122" font-size="9" fill="#60A5FA" text-anchor="middle">NLB (L4), ALB (L7), Nginx</text>
 
-| | TCP | UDP |
-|--|--|--|
-| **Reliability** | Guaranteed delivery (ACK) | Best effort, may drop |
-| **Order** | Maintains packet order | No ordering |
-| **Speed** | Slower (handshake + ACK) | Fast (no overhead) |
-| **Use for** | HTTP, HTTPS, SSH, databases | DNS, video, VoIP, gaming |
-| **Connection** | Stateful (3-way handshake) | Stateless |
+  <rect x="496" y="136" width="198" height="36" rx="7" fill="#064E3B" stroke="#10B981" stroke-width="1"/>
+  <text x="595" y="152" font-size="10" fill="#6EE7B7" text-anchor="middle" font-weight="700">DNS (L7)</text>
+  <text x="595" y="166" font-size="9" fill="#34D399" text-anchor="middle">Route53, CoreDNS, nslookup</text>
 
-```
-TCP 3-way handshake:
-Client → SYN     → Server
-Client ← SYN-ACK ← Server
-Client → ACK     → Server
-[Connection established]
+  <rect x="496" y="180" width="198" height="36" rx="7" fill="#2D1B69" stroke="#7C3AED" stroke-width="1"/>
+  <text x="595" y="196" font-size="10" fill="#C4B5FD" text-anchor="middle" font-weight="700">TLS/HTTPS (L6)</text>
+  <text x="595" y="210" font-size="9" fill="#A78BFA" text-anchor="middle">Certificates, cert-manager, ACM</text>
 
-TIME_WAIT state: After connection closes, socket stays in TIME_WAIT
-for 2×MSL (~60 seconds). Normal — don't panic when you see it.
-```
+  <rect x="496" y="224" width="198" height="36" rx="7" fill="#7F1D1D" stroke="#EF4444" stroke-width="1"/>
+  <text x="595" y="240" font-size="10" fill="#FCA5A5" text-anchor="middle" font-weight="700">VPN / Tunneling</text>
+  <text x="595" y="254" font-size="9" fill="#F87171" text-anchor="middle">WireGuard, OpenVPN, SSH tunnels</text>
 
-## DNS — How Names Become IPs
-
-```
-You type: api.myapp.com
-
-1. Check /etc/hosts                         (local override)
-2. Check local DNS cache
-3. Ask configured DNS server (8.8.8.8)
-4. DNS server checks its cache
-5. If not cached: Recursive resolution
-   Root nameserver → TLD (.com) → Authoritative (myapp.com)
-6. Returns: api.myapp.com → 1.2.3.4
-7. Cache the result (TTL seconds)
+  <rect x="496" y="268" width="198" height="36" rx="7" fill="#1C1917" stroke="#78716C" stroke-width="1"/>
+  <text x="595" y="284" font-size="10" fill="#D6D3D1" text-anchor="middle" font-weight="700">Packet Capture</text>
+  <text x="595" y="298" font-size="9" fill="#A8A29E" text-anchor="middle">tcpdump, Wireshark</text>
+</svg>
 ```
 
-```bash
-# DNS lookups
-dig api.myapp.com                   # Full DNS query
-dig api.myapp.com A                 # Only A records
-dig api.myapp.com MX                # Mail records
-dig api.myapp.com @8.8.8.8          # Use specific DNS server
-dig +short api.myapp.com            # Just the IP
-nslookup api.myapp.com
+## TCP vs UDP — Choose the Right Protocol
 
-# Reverse DNS (IP → hostname)
-dig -x 1.2.3.4
+```svg
+<svg viewBox="0 0 720 200" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;font-family:Inter,sans-serif">
+  <!-- TCP -->
+  <rect x="10" y="10" width="340" height="180" rx="12" fill="#0F172A" stroke="#3B82F6" stroke-width="2"/>
+  <text x="180" y="36" font-size="14" fill="#60A5FA" text-anchor="middle" font-weight="800">TCP — Reliable</text>
 
-# Check DNS propagation
-dig @ns1.example.com api.myapp.com  # Ask specific nameserver
-dig @8.8.8.8 api.myapp.com          # Google DNS
-dig @1.1.1.1 api.myapp.com          # Cloudflare DNS
+  <!-- 3-way handshake diagram -->
+  <text x="80"  y="62" font-size="10" fill="#9CA3AF" text-anchor="middle">Client</text>
+  <text x="280" y="62" font-size="10" fill="#9CA3AF" text-anchor="middle">Server</text>
+  <line x1="80" y1="68" x2="80"  y2="170" stroke="#374151" stroke-width="1"/>
+  <line x1="280" y1="68" x2="280" y2="170" stroke="#374151" stroke-width="1"/>
 
-# DNS record types
-A       → IPv4 address
-AAAA    → IPv6 address
-CNAME   → Alias (points to another name)
-MX      → Mail server
-TXT     → Text (used for SPF, DKIM, domain verification)
-NS      → Nameserver
-SOA     → Start of Authority (zone metadata)
+  <line x1="80" y1="80" x2="280" y2="100" stroke="#34D399" stroke-width="1.5" marker-end="url(#g)"/>
+  <text x="180" y="86" font-size="9" fill="#34D399" text-anchor="middle">SYN</text>
+  <line x1="280" y1="110" x2="80" y2="130" stroke="#60A5FA" stroke-width="1.5" marker-end="url(#b)"/>
+  <text x="180" y="116" font-size="9" fill="#60A5FA" text-anchor="middle">SYN-ACK</text>
+  <line x1="80" y1="140" x2="280" y2="158" stroke="#A78BFA" stroke-width="1.5" marker-end="url(#p)"/>
+  <text x="180" y="146" font-size="9" fill="#A78BFA" text-anchor="middle">ACK → Connected!</text>
 
-# Local DNS
-cat /etc/resolv.conf                # DNS servers configured
-cat /etc/hosts                      # Local overrides
+  <defs>
+    <marker id="g" markerWidth="6" markerHeight="5" refX="6" refY="2.5" orient="auto"><polygon points="0 0,6 2.5,0 5" fill="#34D399"/></marker>
+    <marker id="b" markerWidth="6" markerHeight="5" refX="6" refY="2.5" orient="auto"><polygon points="0 0,6 2.5,0 5" fill="#60A5FA"/></marker>
+    <marker id="p" markerWidth="6" markerHeight="5" refX="6" refY="2.5" orient="auto"><polygon points="0 0,6 2.5,0 5" fill="#A78BFA"/></marker>
+  </defs>
+
+  <!-- TCP use cases -->
+  <text x="180" y="172" font-size="9" fill="#6B7280" text-anchor="middle">HTTP · HTTPS · SSH · Databases · Email</text>
+
+  <!-- UDP -->
+  <rect x="370" y="10" width="340" height="180" rx="12" fill="#0F172A" stroke="#F59E0B" stroke-width="2"/>
+  <text x="540" y="36" font-size="14" fill="#FCD34D" text-anchor="middle" font-weight="800">UDP — Fast</text>
+
+  <text x="460" y="62" font-size="10" fill="#9CA3AF" text-anchor="middle">Sender</text>
+  <text x="640" y="62" font-size="10" fill="#9CA3AF" text-anchor="middle">Receiver</text>
+  <line x1="460" y1="68" x2="460" y2="170" stroke="#374151" stroke-width="1"/>
+  <line x1="640" y1="68" x2="640" y2="170" stroke="#374151" stroke-width="1"/>
+
+  <line x1="460" y1="80"  x2="640" y2="90"  stroke="#FCD34D" stroke-width="1.5" marker-end="url(#y)"/>
+  <text x="550" y="83"  font-size="9" fill="#FCD34D" text-anchor="middle">Data packet 1 →</text>
+  <line x1="460" y1="100" x2="640" y2="110" stroke="#FCD34D" stroke-width="1.5" marker-end="url(#y)"/>
+  <text x="550" y="103" font-size="9" fill="#FCD34D" text-anchor="middle">Data packet 2 →</text>
+  <line x1="460" y1="120" x2="580" y2="130" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="540" y="123" font-size="9" fill="#EF4444" text-anchor="middle">packet 3 → LOST</text>
+  <line x1="460" y1="140" x2="640" y2="150" stroke="#FCD34D" stroke-width="1.5" marker-end="url(#y)"/>
+  <text x="550" y="143" font-size="9" fill="#FCD34D" text-anchor="middle">Data packet 4 →</text>
+  <text x="550" y="165" font-size="9" fill="#F97316" text-anchor="middle">No ACK, no retry — just speed!</text>
+
+  <text x="540" y="178" font-size="9" fill="#6B7280" text-anchor="middle">DNS · Video streaming · Gaming · VoIP</text>
+  <defs><marker id="y" markerWidth="6" markerHeight="5" refX="6" refY="2.5" orient="auto"><polygon points="0 0,6 2.5,0 5" fill="#FCD34D"/></marker></defs>
+</svg>
 ```
 
-## Ports — What Runs Where
+## IP Addressing and CIDR
 
 ```
-Well-known ports (0-1023) — require root to bind:
-22    SSH
-25    SMTP (email)
-53    DNS
-80    HTTP
-443   HTTPS
-3306  MySQL
-5432  PostgreSQL
-6379  Redis
-27017 MongoDB
+IP Address: 192.168.1.100
+             ↑         ↑
+         Network    Host part
+            part
 
-Registered ports (1024-49151):
-8080  HTTP alternative
-8443  HTTPS alternative
-9090  Prometheus
-3000  Grafana / Node.js default
-5601  Kibana
-9200  Elasticsearch
+CIDR /24 means first 24 bits are the network:
+  192.168.1.0/24  =  192.168.1.0  to  192.168.1.255
+                     (256 addresses, 254 usable hosts)
 
-Ephemeral ports (49152-65535):
-Used by clients for outbound connections
+Cloud subnet sizing:
+  /28 = 16  addresses (11 usable after AWS reserves 5)
+  /24 = 256 addresses (251 usable)
+  /16 = 65,536 addresses (entire VPC)
 ```
 
-```bash
-# Check what's listening
-ss -tlnp                            # TCP listening, numeric, with process
-ss -ulnp                            # UDP listening
-netstat -tlnp                       # Legacy
-lsof -i :8080                       # What's on port 8080
-lsof -i -P -n | grep LISTEN        # All listening processes
+:::tip Quick Reference
+`ping` → tests L3 connectivity
+`traceroute` → shows the path packets take
+`curl -v` → tests L7 HTTP connectivity
+`netstat -tlnp` → shows which ports are listening
+`ss -tlnp` → modern replacement for netstat
+:::
 
-# Test connectivity
-nc -zv host 443                     # Test TCP port open
-nc -zv -w3 host 443                 # With 3 second timeout
-curl -I https://api.example.com     # HTTP check
-telnet host 22                      # Old school (still works)
-```
+## Port Numbers to Know
 
-## Firewalls — iptables & Security Groups
-
-```bash
-# iptables — Linux kernel firewall
-# Chains: INPUT (incoming), OUTPUT (outgoing), FORWARD (routing)
-
-# View rules
-iptables -L -n -v                   # List all rules
-iptables -L INPUT -n -v             # INPUT chain only
-
-# Allow SSH
-iptables -A INPUT -p tcp --dport 22 -j ACCEPT
-
-# Allow established connections (critical — don't lock yourself out!)
-iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
-
-# Block an IP
-iptables -A INPUT -s 1.2.3.4 -j DROP
-
-# Drop all other incoming
-iptables -A INPUT -j DROP
-
-# UFW (Ubuntu Firewall — simpler interface)
-ufw status
-ufw allow 22/tcp
-ufw allow 80/tcp
-ufw allow 443/tcp
-ufw deny 3306                       # Block MySQL from outside
-ufw enable
-ufw delete allow 80/tcp
-```
-
-## Load Balancing
-
-```
-Layer 4 (TCP/UDP):
-  Routes based on IP + port only
-  Faster — no content inspection
-  Examples: AWS NLB, HAProxy TCP mode
-
-Layer 7 (HTTP/HTTPS):
-  Routes based on URL path, headers, cookies
-  Can modify requests/responses
-  Examples: AWS ALB, nginx, Traefik, Envoy
-
-Algorithms:
-  Round Robin       → Request 1→server1, 2→server2, 3→server3, 4→server1
-  Least Connections → Send to server with fewest active connections
-  IP Hash           → Same client IP always goes to same server (sticky)
-  Weighted          → Server3 gets 3× traffic of server1
-
-Health checks:
-  TCP check         → Can we connect?
-  HTTP check        → Does /health return 200?
-  Interval: 10s, Threshold: 2 failures before marking unhealthy
-```
-
-## Network Troubleshooting Workflow
-
-```bash
-# Step 1: Can I reach the host at all?
-ping -c 4 api.example.com
-
-# Step 2: Is the route correct?
-traceroute api.example.com
-mtr api.example.com               # Better — shows packet loss per hop
-
-# Step 3: Is the port open?
-nc -zv api.example.com 443
-curl -v https://api.example.com
-
-# Step 4: DNS resolution correct?
-dig api.example.com
-# Expected: ANSWER section with correct IP
-
-# Step 5: SSL certificate valid?
-echo | openssl s_client -connect api.example.com:443 2>/dev/null \
-  | openssl x509 -noout -dates -subject
-
-# Step 6: Capture traffic (last resort)
-tcpdump -i eth0 host api.example.com -w capture.pcap
-tcpdump -i eth0 port 443
-wireshark capture.pcap             # Analyze in GUI
-
-# Common issues:
-# Connection refused → Service not running or wrong port
-# Connection timed out → Firewall blocking or host unreachable
-# Name not resolved → DNS issue
-# SSL handshake failed → Cert expired or wrong hostname
-```
-
-## Kubernetes Networking Deep Dive
-
-```
-Every Pod gets unique IP (from CNI plugin: Calico, Flannel, Cilium)
-Pods on same node: communicate directly via bridge
-Pods on different nodes: CNI creates overlay or BGP routes
-
-Service types and how they route:
-ClusterIP:
-  kube-proxy creates iptables rules
-  ClusterIP → iptables DNAT → random pod IP
-  
-NodePort:
-  Opens port 30000-32767 on EVERY node
-  Traffic: node:port → iptables → pod
-  
-LoadBalancer:
-  Creates cloud LB (ELB/ALB/Azure LB)
-  Cloud LB → NodePort on node → iptables → pod
-
-DNS in cluster:
-  CoreDNS resolves service names
-  my-service.my-namespace.svc.cluster.local
-  Within same namespace: just use my-service
-  Cross-namespace: my-service.other-namespace
-```
-
-## Interview Questions
-
-**What happens when you curl https://api.example.com?**
-1. DNS resolution: OS checks /etc/hosts, then DNS server, gets IP
-2. TCP connection: 3-way handshake to port 443
-3. TLS handshake: server presents certificate, client verifies, negotiate cipher, exchange keys
-4. HTTP request sent encrypted over established TLS session
-5. Server processes, sends encrypted response
-6. Client decrypts, renders/parses response
-
-**What is NAT and why does Kubernetes need it?**
-Network Address Translation maps private IPs to public IPs. Your home router does NAT — your laptop has 192.168.1.x but internet sees your router's public IP. Kubernetes uses NAT (via iptables MASQUERADE) when pods communicate with external services — pod IP gets translated to node's IP. This is why pods can reach the internet but external systems can't directly reach pod IPs without a Service.
+| Port | Protocol | Used for |
+|---|---|---|
+| 22 | SSH | Secure remote login |
+| 80 | HTTP | Web traffic (unencrypted) |
+| 443 | HTTPS | Web traffic (encrypted) |
+| 3306 | MySQL | Database connections |
+| 5432 | PostgreSQL | Database connections |
+| 6379 | Redis | Cache connections |
+| 6443 | Kubernetes API | kubectl commands |
+| 2379 | etcd | Kubernetes cluster state |
+| 53 | DNS | Name resolution (UDP+TCP) |
+| 123 | NTP | Time synchronization (UDP) |

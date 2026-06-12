@@ -28,7 +28,13 @@ function renderMarkdown(content: string) {
 
   const flushTable = (key: string) => {
     if (tableBuffer.length > 0) {
-      elements.push(<table key={`t-${key}`} style={{ width: "100%", borderCollapse: "collapse", margin: "16px 0" }}><tbody>{tableBuffer}</tbody></table>);
+      elements.push(
+        <div key={`tw-${key}`} style={{ overflowX: "auto", margin: "16px 0" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <tbody>{tableBuffer}</tbody>
+          </table>
+        </div>
+      );
       tableBuffer = [];
     }
   };
@@ -36,7 +42,29 @@ function renderMarkdown(content: string) {
   while (i < lines.length) {
     const line = lines[i];
 
-    if (line.startsWith("```")) {
+    // ── SVG DIAGRAM BLOCK ──
+    if (line.trim() === "```svg") {
+      flushTable(`svg-${i}`);
+      const svgLines: string[] = [];
+      i++;
+      while (i < lines.length && lines[i].trim() !== "```") {
+        svgLines.push(lines[i]);
+        i++;
+      }
+      const svgContent = svgLines.join("\n");
+      elements.push(
+        <div key={`svg-${i}`} style={{
+          margin: "24px 0", borderRadius: "16px", overflow: "hidden",
+          border: "1px solid var(--border)", background: "var(--bg-2)",
+          padding: "24px", display: "flex", justifyContent: "center"
+        }}>
+          <div dangerouslySetInnerHTML={{ __html: svgContent }} style={{ maxWidth: "100%", overflow: "auto" }} />
+        </div>
+      );
+    }
+
+    // ── CODE BLOCKS ──
+    else if (line.startsWith("```")) {
       flushTable(`code-${i}`);
       const lang = line.slice(3).trim();
       const codeLines: string[] = [];
@@ -53,7 +81,44 @@ function renderMarkdown(content: string) {
           </pre>
         </div>
       );
-    } else if (line.startsWith("| ") && line.includes("|")) {
+    }
+
+    // ── CALLOUT BOXES ── :::tip, :::info, :::warning, :::danger
+    else if (line.match(/^:::(tip|info|warning|danger|note)\s*(.*)$/)) {
+      flushTable(`callout-${i}`);
+      const m = line.match(/^:::(tip|info|warning|danger|note)\s*(.*)$/)!;
+      const type = m[1];
+      const title = m[2] || type;
+      const calloutLines: string[] = [];
+      i++;
+      while (i < lines.length && lines[i].trim() !== ":::") {
+        calloutLines.push(lines[i]);
+        i++;
+      }
+      const colors: Record<string, [string, string, string]> = {
+        tip:     ["#10B981", "rgba(16,185,129,0.08)", "rgba(16,185,129,0.2)"],
+        info:    ["#3B82F6", "rgba(59,130,246,0.08)", "rgba(59,130,246,0.2)"],
+        note:    ["#6366F1", "rgba(99,102,241,0.08)", "rgba(99,102,241,0.2)"],
+        warning: ["#F59E0B", "rgba(245,158,11,0.08)", "rgba(245,158,11,0.2)"],
+        danger:  ["#EF4444", "rgba(239,68,68,0.08)",  "rgba(239,68,68,0.2)"],
+      };
+      const icons: Record<string, string> = { tip: "💡", info: "ℹ️", note: "📝", warning: "⚠️", danger: "🚫" };
+      const [color, bg, border] = colors[type] || colors.info;
+      elements.push(
+        <div key={`callout-${i}`} style={{ margin: "20px 0", padding: "16px 20px", background: bg, border: `1px solid ${border}`, borderLeft: `4px solid ${color}`, borderRadius: "0 12px 12px 0" }}>
+          <div style={{ fontWeight: 700, color, fontSize: "13px", marginBottom: "8px", display: "flex", alignItems: "center", gap: "6px" }}>
+            {icons[type]} {title.charAt(0).toUpperCase() + title.slice(1)}
+          </div>
+          {calloutLines.map((cl, ci) => (
+            <p key={ci} style={{ margin: "3px 0", color: "var(--text-2)", fontSize: "14px", lineHeight: 1.7 }}
+              dangerouslySetInnerHTML={{ __html: formatInline(cl) }} />
+          ))}
+        </div>
+      );
+    }
+
+    // ── TABLES ──
+    else if (line.startsWith("| ") && line.includes("|")) {
       if (!line.includes("---")) {
         const cells = line.split("|").slice(1, -1).map(c => c.trim());
         const isHeader = tableBuffer.length === 0;
@@ -66,7 +131,10 @@ function renderMarkdown(content: string) {
           </tr>
         );
       }
-    } else {
+    }
+
+    // ── STANDARD MARKDOWN ──
+    else {
       flushTable(`pre-${i}`);
       if (line.startsWith("# ")) elements.push(<h1 key={i} style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "26px", fontWeight: 800, margin: "24px 0 12px", color: "var(--text-1)", letterSpacing: "-0.02em" }}>{line.slice(2)}</h1>);
       else if (line.startsWith("## ")) elements.push(<h2 key={i} style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "20px", fontWeight: 700, margin: "20px 0 10px", color: "var(--text-1)" }}>{line.slice(3)}</h2>);
@@ -86,18 +154,18 @@ function renderMarkdown(content: string) {
 
 function buildPrompt(techName: string, section: string): string {
   const map: Record<string, string> = {
-    overview: `Write a comprehensive overview of ${techName} for DevOps/Cloud engineers. Cover what it is, why it matters, core architecture, key use cases, and how it fits the modern tech stack. Use markdown with tables.`,
-    fundamentals: `Write ${techName} fundamentals. Cover essential commands/concepts with code examples in fenced blocks. Be practical and hands-on.`,
-    intermediate: `Write intermediate ${techName} content with real-world patterns, best practices, and code examples.`,
+    overview: `Write a comprehensive overview of ${techName}. Include: what it is, why it matters, core architecture, key use cases. Use markdown with tables and diagrams where helpful.`,
+    fundamentals: `Write ${techName} fundamentals with essential commands/concepts, code examples in fenced blocks, and practical tips.`,
+    intermediate: `Write intermediate ${techName} content with real-world patterns, best practices, and production code examples.`,
     advanced: `Write advanced ${techName} content covering production patterns, performance optimization, security hardening, and enterprise patterns.`,
     roadmap: `Create a structured learning roadmap for mastering ${techName} with phases, topics, timelines, and resources.`,
     labs: `Design 6 hands-on labs for ${techName}: 2 beginner, 2 intermediate, 2 advanced. Each with objective, steps, and expected outcome.`,
     projects: `Design 5 portfolio projects for ${techName}: beginner to capstone. Each with description, architecture, and implementation steps.`,
-    interview: `Create ${techName} interview Q&A: 5 beginner, 5 intermediate, 5 advanced, 3 architect questions with detailed answers.`,
-    troubleshooting: `Write a ${techName} troubleshooting guide for 8-10 common production issues with root cause analysis and step-by-step fixes.`,
+    interview: `Create ${techName} interview Q&A: 5 beginner, 5 intermediate, 5 advanced questions with detailed answers.`,
+    troubleshooting: `Write a ${techName} troubleshooting guide for 8-10 common production issues with root cause analysis and fixes.`,
     certification: `Write a certification guide for ${techName} with exam details, study plan, and top resources.`,
     cheatsheets: `Create a comprehensive ${techName} cheat sheet with commands grouped by category and code examples.`,
-    notes: `Create study notes for ${techName} with key concepts, mental models, patterns vs anti-patterns.`,
+    notes: `Create study notes for ${techName} with key concepts, mental models, and patterns vs anti-patterns.`,
     "real-world-scenarios": `Describe 5 real-world production ${techName} scenarios with context, implementation, results, and lessons learned.`,
     faq: `Write 15 FAQ about ${techName} with clear, direct answers covering setup, config, common issues, and best practices.`,
   };
@@ -117,14 +185,9 @@ export default function SectionContent({ academy, technology, section, techName,
     setPreContent(null);
     setAiContent("");
     setMode("empty");
-    
     fetchContent(academy, technology, section).then(content => {
-      if (content) {
-        setPreContent(content);
-        setMode("pre");
-      } else {
-        setMode("empty");
-      }
+      if (content) { setPreContent(content); setMode("pre"); }
+      else setMode("empty");
       setLoading(false);
     });
   }, [academy, technology, section]);
@@ -218,7 +281,6 @@ export default function SectionContent({ academy, technology, section, techName,
     );
   }
 
-  // Empty state
   return (
     <div style={{ textAlign: "center", padding: "80px 24px" }}>
       <div style={{ fontSize: "48px", marginBottom: "20px" }}>{techIcon}</div>

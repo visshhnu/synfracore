@@ -1,216 +1,157 @@
-# AI Fundamentals — From Zero to AI-Ready
+# AI & Machine Learning Engineering
 
-Artificial Intelligence is transforming every industry. Before building AI applications, every engineer needs a clear mental model of what AI actually is, how it works, and where the boundaries lie.
+Artificial Intelligence is transforming software engineering. As a developer or DevOps engineer today, you need to understand how to build with AI — calling APIs, building RAG systems, deploying models, and monitoring AI in production.
 
-## The AI Landscape
+## How a Large Language Model Works
 
-```
-Artificial Intelligence (AI)
-  └── Machine Learning (ML) — learns from data
-        ├── Traditional ML — algorithms, features, structured data
-        │     ├── Supervised (labels provided)
-        │     ├── Unsupervised (no labels, find patterns)
-        │     └── Reinforcement (learns from rewards)
-        └── Deep Learning (DL) — neural networks
-              ├── Computer Vision (CNNs)
-              ├── Natural Language Processing (NLP)
-              └── Large Language Models (LLMs) ← Where the industry is today
-```
+```svg
+<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;font-family:Inter,sans-serif">
+  <!-- Title -->
+  <text x="360" y="28" font-size="14" fill="#A78BFA" text-anchor="middle" font-weight="800">LLM Inference: How Text Generation Works</text>
 
-## How Large Language Models Work
+  <!-- Input -->
+  <rect x="10" y="44" width="160" height="56" rx="10" fill="#1E3A5F" stroke="#3B82F6" stroke-width="2"/>
+  <text x="90" y="67" font-size="11" fill="#93C5FD" text-anchor="middle" font-weight="700">Your Prompt</text>
+  <text x="90" y="84" font-size="10" fill="#60A5FA" text-anchor="middle">"What is Docker?"</text>
+  <text x="90" y="97" font-size="9" fill="#3B82F6" text-anchor="middle">Tokenized → numbers</text>
 
-LLMs are the technology behind ChatGPT, Claude, Gemini, and every AI assistant. Understanding them removes the "magic" and lets you build with them effectively.
+  <!-- Arrow -->
+  <line x1="170" y1="72" x2="196" y2="72" stroke="#6B7280" stroke-width="1.5" marker-end="url(#a1)"/>
+  <defs><marker id="a1" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#6B7280"/></marker></defs>
 
-### Step 1 — Tokenization
-Text is split into tokens (roughly 3-4 characters each):
+  <!-- Transformer blocks -->
+  <rect x="196" y="40" width="310" height="64" rx="10" fill="#2D1B69" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="351" y="64" font-size="12" fill="#C4B5FD" text-anchor="middle" font-weight="800">Transformer Neural Network</text>
+  <text x="235" y="84" font-size="9" fill="#A78BFA" text-anchor="middle">Attention</text>
+  <text x="295" y="84" font-size="9" fill="#A78BFA" text-anchor="middle">Feed-Forward</text>
+  <text x="370" y="84" font-size="9" fill="#A78BFA" text-anchor="middle">Layer Norm</text>
+  <text x="440" y="84" font-size="9" fill="#A78BFA" text-anchor="middle">96+ Layers</text>
+  <rect x="210" y="73" width="72" height="22" rx="5" fill="#4C1D95" opacity="0.5"/>
+  <rect x="270" y="73" width="95" height="22" rx="5" fill="#4C1D95" opacity="0.5"/>
+  <rect x="345" y="73" width="80" height="22" rx="5" fill="#4C1D95" opacity="0.5"/>
+  <rect x="415" y="73" width="75" height="22" rx="5" fill="#4C1D95" opacity="0.5"/>
 
-```
-"Hello world" → ["Hello", " world"]
-"DevOps" → ["Dev", "Ops"]
-"Kubernetes" → ["Kub", "ernet", "es"]
+  <!-- Arrow -->
+  <line x1="506" y1="72" x2="532" y2="72" stroke="#6B7280" stroke-width="1.5" marker-end="url(#a1)"/>
 
-1 token ≈ 4 characters ≈ 0.75 words
-gpt-4 context: 128,000 tokens ≈ ~96,000 words ≈ a short novel
-```
+  <!-- Output -->
+  <rect x="532" y="44" width="160" height="56" rx="10" fill="#064E3B" stroke="#10B981" stroke-width="2"/>
+  <text x="612" y="67" font-size="11" fill="#6EE7B7" text-anchor="middle" font-weight="700">Next Token</text>
+  <text x="612" y="84" font-size="10" fill="#34D399" text-anchor="middle">"Docker" → probability</text>
+  <text x="612" y="97" font-size="9" fill="#10B981" text-anchor="middle">Sample → repeat 1000x</text>
 
-### Step 2 — Embeddings
-Each token becomes a vector (list of numbers) in high-dimensional space. Similar concepts cluster together:
+  <!-- Token → Text loop -->
+  <path d="M 692 100 Q 720 130 692 160" fill="none" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="726" y="132" font-size="9" fill="#F59E0B" text-anchor="middle">repeat</text>
 
-```
-"king" → [0.2, 0.8, 0.1, ...]
-"queen" → [0.3, 0.7, 0.2, ...]
-"president" → [0.2, 0.8, 0.3, ...]
-# These are semantically close in the embedding space
+  <!-- Parameters explanation -->
+  <rect x="10" y="130" width="700" height="68" rx="10" fill="#0F172A" stroke="#374151" stroke-width="1"/>
+  <text x="370" y="152" font-size="12" fill="#9CA3AF" text-anchor="middle" font-weight="700">What "Parameters" Actually Means</text>
+  <text x="180" y="172" font-size="10" fill="#6B7280" text-anchor="middle">GPT-4: ~1.8T params</text>
+  <text x="370" y="172" font-size="10" fill="#6B7280" text-anchor="middle">Claude 3: hundreds of B params</text>
+  <text x="560" y="172" font-size="10" fill="#6B7280" text-anchor="middle">Llama 3.1 8B: 8 billion params</text>
+  <text x="370" y="188" font-size="9" fill="#4B5563" text-anchor="middle">Each parameter is a floating point number. Trained on billions of tokens to encode patterns of language, facts, and reasoning.</text>
 
-"dog" → [0.9, 0.1, 0.8, ...]
-# This is far from "king" semantically
-```
+  <!-- Key concepts bar -->
+  <rect x="10" y="216" width="108" height="72" rx="8" fill="#1E3A5F" stroke="#3B82F6" stroke-width="1"/>
+  <text x="64" y="238" font-size="10" fill="#93C5FD" text-anchor="middle" font-weight="700">Temperature</text>
+  <text x="64" y="256" font-size="9" fill="#60A5FA" text-anchor="middle">0 = deterministic</text>
+  <text x="64" y="270" font-size="9" fill="#60A5FA" text-anchor="middle">1 = creative</text>
+  <text x="64" y="282" font-size="9" fill="#3B82F6" text-anchor="middle">&gt;1 = random</text>
 
-### Step 3 — Attention Mechanism (The "A" in Transformer)
-Self-attention lets each token "look at" every other token to understand context:
+  <rect x="126" y="216" width="108" height="72" rx="8" fill="#064E3B" stroke="#10B981" stroke-width="1"/>
+  <text x="180" y="238" font-size="10" fill="#6EE7B7" text-anchor="middle" font-weight="700">Context Window</text>
+  <text x="180" y="256" font-size="9" fill="#34D399" text-anchor="middle">Max tokens in/out</text>
+  <text x="180" y="270" font-size="9" fill="#34D399" text-anchor="middle">Claude: 200K tokens</text>
+  <text x="180" y="282" font-size="9" fill="#10B981" text-anchor="middle">≈ 150K words</text>
 
-```
-"The bank was steep" — "bank" attends to "steep" → river bank
-"The bank was closed" — "bank" attends to "closed" → financial bank
+  <rect x="242" y="216" width="108" height="72" rx="8" fill="#2D1B69" stroke="#8B5CF6" stroke-width="1"/>
+  <text x="296" y="238" font-size="10" fill="#C4B5FD" text-anchor="middle" font-weight="700">Tokens</text>
+  <text x="296" y="256" font-size="9" fill="#A78BFA" text-anchor="middle">~4 chars each</text>
+  <text x="296" y="270" font-size="9" fill="#A78BFA" text-anchor="middle">1K tokens ≈ 750</text>
+  <text x="296" y="282" font-size="9" fill="#8B5CF6" text-anchor="middle">words</text>
 
-This is how LLMs understand that "it" in "The dog ate the bone because it was hungry"
-refers to "dog" not "bone".
-```
+  <rect x="358" y="216" width="108" height="72" rx="8" fill="#78350F" stroke="#F59E0B" stroke-width="1"/>
+  <text x="412" y="238" font-size="10" fill="#FDE68A" text-anchor="middle" font-weight="700">Hallucination</text>
+  <text x="412" y="256" font-size="9" fill="#FCD34D" text-anchor="middle">Confident wrong</text>
+  <text x="412" y="270" font-size="9" fill="#FCD34D" text-anchor="middle">answers. Fix with</text>
+  <text x="412" y="282" font-size="9" fill="#F59E0B" text-anchor="middle">RAG + grounding</text>
 
-### Step 4 — Training
-Pre-training: fed trillions of tokens from the internet, books, code. Learn to predict the next token.
+  <rect x="474" y="216" width="108" height="72" rx="8" fill="#1C1917" stroke="#78716C" stroke-width="1"/>
+  <text x="528" y="238" font-size="10" fill="#D6D3D1" text-anchor="middle" font-weight="700">Fine-tuning</text>
+  <text x="528" y="256" font-size="9" fill="#A8A29E" text-anchor="middle">Update weights on</text>
+  <text x="528" y="270" font-size="9" fill="#A8A29E" text-anchor="middle">your data. Costly</text>
+  <text x="528" y="282" font-size="9" fill="#78716C" text-anchor="middle">but powerful</text>
 
-Fine-tuning + RLHF: Adjusted to be helpful, harmless, and honest using human feedback.
-
-### Step 5 — Inference
-Given your prompt → model predicts the most likely next token → repeats until done:
-
-```
-Input: "The capital of France is"
-Token 1: " Paris"  (probability: 0.97)
-Token 2: "."       (probability: 0.89)
-Token 3: <END>
-```
-
-The **temperature** controls randomness:
-- `temperature=0` → always picks highest probability token (deterministic)
-- `temperature=1` → sampling from probability distribution (creative)
-- `temperature=2` → very random (often incoherent)
-
-## Key Concepts Every AI Engineer Needs
-
-### Context Window
-The amount of text the model can "see" at once:
-```
-GPT-4o:         128,000 tokens  (~96,000 words)
-Claude 3.7:     200,000 tokens  (~150,000 words)  
-Gemini 1.5 Pro: 1,000,000 tokens (~750,000 words)
-
-Practical implication: Fitting an entire codebase in context for code review
-```
-
-### Hallucination
-LLMs generate plausible-sounding text — they don't "know" facts, they predict likely token sequences. They can confidently state false information.
-
-**Mitigation strategies:**
-- RAG (Retrieval Augmented Generation) — give the model actual facts
-- Prompt engineering — "only answer based on the provided context"
-- Output validation — verify facts programmatically
-- Citation requirements — "cite your source in the document"
-
-### Tokens, Cost & Latency
-```
-Provider pricing (approx, 2024):
-Claude Sonnet:  $3/M input tokens,  $15/M output tokens
-GPT-4o:         $5/M input tokens,  $15/M output tokens  
-GPT-4o-mini:    $0.15/M input,      $0.60/M output
-
-1M tokens ≈ 750,000 words ≈ 3 average novels
-
-For a typical chatbot message (500 input, 200 output):
-Claude Sonnet: $0.0015 + $0.003 = ~$0.005 per conversation turn
+  <rect x="590" y="216" width="120" height="72" rx="8" fill="#0C4A6E" stroke="#0284C7" stroke-width="1"/>
+  <text x="650" y="238" font-size="10" fill="#7DD3FC" text-anchor="middle" font-weight="700">Embeddings</text>
+  <text x="650" y="256" font-size="9" fill="#38BDF8" text-anchor="middle">Text → numbers</text>
+  <text x="650" y="270" font-size="9" fill="#38BDF8" text-anchor="middle">for similarity</text>
+  <text x="650" y="282" font-size="9" fill="#0284C7" text-anchor="middle">search (RAG)</text>
+</svg>
 ```
 
-## Types of AI Models
+## The AI Stack for Engineers
 
-### Generative AI
-Creates new content (text, images, code, audio, video):
-- **Text**: Claude, GPT-4, Gemini, Llama
-- **Images**: DALL-E 3, Midjourney, Stable Diffusion
-- **Code**: GitHub Copilot, Cursor, Claude Code
-- **Audio**: ElevenLabs, Whisper (STT), TTS-1
-- **Video**: Sora, Runway, Kling
+```svg
+<svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;font-family:Inter,sans-serif">
+  <!-- Stack layers (bottom to top) -->
+  <rect x="10" y="210" width="700" height="40" rx="8" fill="#1F2937" stroke="#6B7280" stroke-width="1.5"/>
+  <text x="360" y="235" font-size="12" fill="#9CA3AF" text-anchor="middle" font-weight="700">Foundation Models (GPT-4, Claude 3, Gemini, Llama 3, Mistral)</text>
 
-### Discriminative / Classification
-Classifies or predicts from existing data:
-- Spam detection
-- Sentiment analysis
-- Medical image diagnosis
-- Fraud detection
+  <rect x="10" y="162" width="700" height="40" rx="8" fill="#064E3B" stroke="#10B981" stroke-width="1.5"/>
+  <text x="360" y="185" font-size="12" fill="#34D399" text-anchor="middle" font-weight="700">Model APIs (Anthropic API, OpenAI API, Bedrock, Vertex AI)</text>
+  <text x="360" y="198" font-size="9" fill="#6EE7B7" text-anchor="middle">Pay per token · No infrastructure management · Easy to start</text>
 
-### Embedding Models
-Convert text/images to vectors for search and similarity:
-- `text-embedding-3-small` (OpenAI)
-- `all-MiniLM-L6-v2` (sentence-transformers)
-- Used in RAG, semantic search, recommendation systems
+  <rect x="10" y="114" width="700" height="40" rx="8" fill="#1E3A5F" stroke="#3B82F6" stroke-width="1.5"/>
+  <text x="360" y="137" font-size="12" fill="#93C5FD" text-anchor="middle" font-weight="700">AI Frameworks (LangChain, LlamaIndex, CrewAI, AutoGen)</text>
+  <text x="360" y="150" font-size="9" fill="#60A5FA" text-anchor="middle">Chains · Agents · RAG pipelines · Tool use · Memory</text>
 
-## Choosing the Right Model
+  <rect x="10" y="66" width="700" height="40" rx="8" fill="#2D1B69" stroke="#8B5CF6" stroke-width="1.5"/>
+  <text x="360" y="89" font-size="12" fill="#C4B5FD" text-anchor="middle" font-weight="700">Vector Databases (Pinecone, Chroma, Weaviate, pgvector)</text>
+  <text x="360" y="102" font-size="9" fill="#A78BFA" text-anchor="middle">Store embeddings · Semantic search · RAG retrieval</text>
 
-```
-Task                        Model Choice            Why
-─────────────────────────────────────────────────────────
-Simple Q&A / chatbot        GPT-4o-mini, Haiku      Cost-effective
-Complex reasoning           Claude Sonnet, GPT-4o   Best capability
-Code generation             Claude Sonnet, GPT-4o   Strongest coding
-Long document analysis      Claude 3.7 (200K)       Largest context
-Real-time / low latency     Groq (LPU hardware)     Fastest inference
-Local / private data        Llama 3, Mistral        No data leaves server
-Image understanding         GPT-4o, Claude 3        Multimodal
-Embeddings                  text-embedding-3-small  Cheap, good quality
+  <rect x="10" y="18" width="700" height="40" rx="8" fill="#78350F" stroke="#F59E0B" stroke-width="1.5"/>
+  <text x="360" y="41" font-size="12" fill="#FDE68A" text-anchor="middle" font-weight="700">LLMOps (LangSmith, Weights &amp; Biases, Arize, MLflow)</text>
+  <text x="360" y="54" font-size="9" fill="#FCD34D" text-anchor="middle">Tracing · Evaluation · Cost tracking · A/B testing · Monitoring</text>
+</svg>
 ```
 
-## The AI Engineering Stack
-
-```
-┌─────────────────────────────────────────────┐
-│              User Interface                  │  ← Chat, API, web app
-├─────────────────────────────────────────────┤
-│           Orchestration Layer                │  ← LangChain, LlamaIndex
-│   (chains, agents, memory, routing)          │
-├─────────────────────────────────────────────┤
-│         Knowledge & Retrieval                │  ← RAG, Vector DB
-│   (embeddings, search, context injection)    │
-├─────────────────────────────────────────────┤
-│              LLM Provider                    │  ← OpenAI, Anthropic
-│   (GPT-4, Claude, Gemini, Llama)            │
-├─────────────────────────────────────────────┤
-│         Observability & Ops                  │  ← LangSmith, LLMOps
-│   (tracing, eval, cost, latency)            │
-└─────────────────────────────────────────────┘
-```
-
-## Quick Python Start
+## Calling the Anthropic API
 
 ```python
-# Install: pip install anthropic openai
 import anthropic
 
-client = anthropic.Anthropic()
+client = anthropic.Anthropic()  # Uses ANTHROPIC_API_KEY env var
 
-# Basic call
+# Simple completion
 message = client.messages.create(
-    model="claude-sonnet-4-20250514",
+    model="claude-opus-4-6",
     max_tokens=1024,
     messages=[
-        {"role": "user", "content": "Explain Kubernetes in 2 sentences."}
+        {"role": "user", "content": "Explain Docker in 3 sentences."}
     ]
 )
 print(message.content[0].text)
-
-# With system prompt
-message = client.messages.create(
-    model="claude-sonnet-4-20250514",
-    max_tokens=1024,
-    system="You are a senior DevOps engineer. Give concise, production-quality answers.",
-    messages=[
-        {"role": "user", "content": "What is the best way to manage Kubernetes secrets?"}
-    ]
-)
-
-# Streaming (for real-time responses)
-with client.messages.stream(
-    model="claude-sonnet-4-20250514",
-    max_tokens=1000,
-    messages=[{"role": "user", "content": "Write a Dockerfile for a Python app"}]
-) as stream:
-    for text in stream.text_stream:
-        print(text, end="", flush=True)
 ```
 
-## Interview Questions
+:::tip Cost Estimation
+Claude Sonnet: **$3 per 1M input tokens, $15 per 1M output tokens**
 
-**What is the difference between AI, ML, and Deep Learning?**
-AI is the broad field of making machines intelligent. ML is a subset where systems learn from data rather than being explicitly programmed. Deep Learning is a subset of ML using neural networks with many layers — it's what powers modern LLMs, computer vision, and speech recognition. Think of it as concentric circles: AI ⊃ ML ⊃ Deep Learning ⊃ LLMs.
+1,000 word essay ≈ 1,300 tokens ≈ **$0.004** to generate.
+For most applications, AI API costs are surprisingly low.
+:::
 
-**What is temperature in LLMs and when would you set it to 0?**
-Temperature controls the randomness of token selection. At temperature=0, the model always picks the most probable next token — responses are deterministic and consistent. Set temperature=0 for: data extraction, classification, code generation, anything where you need reproducible results. Use higher temperature (0.7-1.0) for creative writing, brainstorming, generating varied responses. Most production applications use low temperature (0-0.3) for reliability.
+## RAG vs Fine-Tuning — When to Use Each
+
+| | RAG | Fine-Tuning |
+|---|---|---|
+| **Updates knowledge** | Yes — just re-index | No — must retrain |
+| **Private data** | Yes | Yes |
+| **Latency** | Slightly higher (retrieval step) | Same as base model |
+| **Cost** | Retrieval infra | Training compute |
+| **Best for** | Current info, citations, Q&A | Style, format, specialized tasks |
+
+:::info Start Simple
+For 90% of use cases: **Prompt Engineering first → RAG if you need private/current data → Fine-tuning only if still insufficient**. Most teams over-engineer this.
+:::
