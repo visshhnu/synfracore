@@ -1,128 +1,117 @@
-# Git Cheatsheet
-
-## Daily Commands
+# Git — Cheatsheet
 
 ```bash
-# Status and history
-git status
-git log --oneline --graph --all --decorate
-git log --oneline -20
-git diff                    # unstaged changes
-git diff --staged           # staged changes
-git diff main..feature      # between branches
+# ── SETUP ────────────────────────────────────────────────────
+git config --global user.name "Name"
+git config --global user.email "email@example.com"
+git config --global core.editor "code --wait"
+git config --global pull.rebase true           # rebase on pull (cleaner history)
+git config --global push.autoSetupRemote true  # auto track remote branch
+git config --list --global
 
-# Stage and commit
-git add -p                  # interactive staging (chunk by chunk)
-git add .
-git commit -m "type: description"
-git commit --amend --no-edit  # add to last commit
-git commit --amend -m "new message"
+# ── BASICS ───────────────────────────────────────────────────
+git init                           # Initialize repo
+git clone <url>                    # Clone remote
+git status                         # Working tree status
+git add .                          # Stage all
+git add -p                         # Stage interactively (chunk by chunk)
+git commit -m "feat: add login"
+git commit --amend                 # Modify last commit
+git commit --amend --no-edit      # Amend without changing message
+git log --oneline --graph --all    # Visual history
+git diff                           # Unstaged changes
+git diff --staged                  # Staged changes
+git diff main..feature             # Between branches
 
-# Branch
-git checkout -b feature/login
-git switch -c feature/login   # modern
-git branch -d feature/login   # delete local
-git push origin --delete feature/login  # delete remote
-git branch -vv              # show tracking branches
+# ── BRANCHES ─────────────────────────────────────────────────
+git branch                         # List local branches
+git branch -a                      # List all (including remote)
+git branch -vv                     # With upstream tracking info
+git switch -c feature/auth         # Create + switch (modern)
+git switch main                    # Switch to existing
+git branch -d feature/auth         # Delete merged branch
+git branch -D feature/auth         # Force delete
+git push origin --delete feature   # Delete remote branch
 
-# Remote
-git fetch --all --prune     # fetch + remove stale remote branches
-git pull --rebase           # pull with rebase (clean history)
-git push -u origin HEAD     # push and set upstream
-git push --force-with-lease # safe force push
+# ── REMOTE ───────────────────────────────────────────────────
+git remote -v                      # List remotes
+git remote add origin <url>
+git fetch origin                   # Download without merging
+git pull                           # Fetch + merge
+git pull --rebase                  # Fetch + rebase (cleaner)
+git push origin feature/auth
+git push -u origin feature         # Push + set upstream
+git push --force-with-lease        # Safe force push
 
-# Undo
-git restore file.txt        # discard unstaged changes
-git restore --staged file.txt  # unstage
-git reset --soft HEAD~1     # undo commit, keep staged
-git reset --hard HEAD~1     # undo commit, discard changes
-git revert abc123           # undo pushed commit safely
+# ── MERGE & REBASE ───────────────────────────────────────────
+git merge feature/auth             # Merge with commit
+git merge --squash feature/auth    # Squash into one commit
+git merge --no-ff feature/auth     # Force merge commit
+git rebase main                    # Replay commits on main
+git rebase -i HEAD~3               # Interactive rebase last 3
+git cherry-pick abc123             # Apply specific commit
+git cherry-pick abc123..def456     # Apply range of commits
+
+# ── UNDOING ──────────────────────────────────────────────────
+git restore file.txt               # Discard working dir changes
+git restore --staged file.txt      # Unstage file
+git reset --soft HEAD~1            # Undo commit, keep staged
+git reset --mixed HEAD~1           # Undo commit, keep unstaged
+git reset --hard HEAD~1            # Undo commit, discard changes
+git revert abc123                  # Undo commit safely (new commit)
+git clean -fd                      # Remove untracked files+dirs
+
+# ── STASH ────────────────────────────────────────────────────
+git stash                          # Stash all changes
+git stash push -m "WIP feature"    # Stash with message
+git stash push -- src/auth/       # Stash specific files
+git stash list                     # Show all stashes
+git stash pop                      # Restore + remove
+git stash apply stash@{0}         # Restore without removing
+git stash drop stash@{0}          # Remove specific stash
+git stash branch new-branch       # Create branch from stash
+
+# ── SEARCH ───────────────────────────────────────────────────
+git log --grep="login"             # Commits mentioning login
+git log -S "findUser"              # Commits touching this code
+git log --author="Alice"           # Commits by author
+git log --since="2024-01-01"
+git blame file.txt                 # Who changed each line
+git show abc123                    # Show commit details
+git bisect start
+git bisect bad                     # Current commit is bad
+git bisect good v1.0               # Known good commit
+
+# ── TAGS ─────────────────────────────────────────────────────
+git tag                            # List tags
+git tag v1.2.0                     # Lightweight tag
+git tag -a v1.2.0 -m "Release 1.2.0"  # Annotated tag
+git push origin v1.2.0            # Push tag
+git push origin --tags             # Push all tags
+git checkout v1.2.0                # Checkout tag
 ```
 
-## Branching and Merging
-
-```bash
-# Merge strategies
-git merge feature --no-ff         # always create merge commit
-git merge feature --squash        # squash all into one commit, then commit
-
-# Rebase
-git rebase main               # replay commits on top of main
-git rebase -i HEAD~5          # interactive: squash, reword, drop
-git rebase --abort            # cancel in-progress rebase
-git rebase --continue         # after resolving conflict
-
-# Cherry-pick
-git cherry-pick abc123        # apply one commit
-git cherry-pick abc123..def456  # range of commits
-
-# Tags
-git tag v1.2.0                # lightweight tag
-git tag -a v1.2.0 -m "Release v1.2.0"  # annotated
-git push origin v1.2.0
-git push origin --tags
-git tag -d v1.2.0             # delete local tag
-```
-
-## Stash
-
-```bash
-git stash                   # save all changes
-git stash push -m "WIP login"  # with name
-git stash push -p           # interactive stash
-git stash list
-git stash pop               # restore and remove
-git stash apply stash@{2}   # apply without removing
-git stash drop stash@{0}
-git stash clear             # delete all stashes
-git stash branch new-branch  # stash into new branch
-```
-
-## Useful Aliases (.gitconfig)
-
-```ini
-[alias]
-  st = status
-  co = checkout
-  br = branch
-  ci = commit
-  lg = log --oneline --graph --all --decorate
-  last = log -1 HEAD
-  unstage = restore --staged
-  aliases = config --get-regexp alias
-  whoami = config user.email
-
-[core]
-  editor = code --wait
-  autocrlf = input     # Linux/Mac
-  # autocrlf = true    # Windows
-
-[push]
-  default = current    # push to same-named branch
-
-[pull]
-  rebase = true        # always rebase on pull
-```
-
-## Commit Message Convention
+## Conventional Commits
 
 ```
-type(scope): subject (max 72 chars)
-
-[blank line]
-Body: explain WHAT and WHY (not how)
-
-[blank line]
-Footer: Refs #123, BREAKING CHANGE: ...
+<type>(<scope>): <short description>
 
 Types:
   feat:     New feature
   fix:      Bug fix
   docs:     Documentation
-  style:    Formatting (no code change)
-  refactor: Code restructure (no feature/fix)
-  test:     Add/update tests
-  chore:    Build, deps, config
+  style:    Formatting (no logic change)
+  refactor: Code restructure
+  test:     Add/fix tests
+  chore:    Build, deps, tooling
   perf:     Performance improvement
   ci:       CI/CD changes
+  revert:   Revert previous commit
+
+Examples:
+  feat(auth): add OAuth2 Google login
+  fix(api): handle null user in /profile endpoint
+  docs: update API setup instructions
+  chore(deps): bump axios from 1.6.0 to 1.6.7
+  feat!: redesign auth API (breaking change — note the !)
 ```

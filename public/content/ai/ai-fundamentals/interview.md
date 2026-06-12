@@ -1,0 +1,19 @@
+# AI Fundamentals — Interview Questions
+
+**What is the difference between a language model and a chat model?**
+A base language model is trained only to predict the next token — it completes text. Given "The capital of France is", it outputs "Paris." A chat/instruction-tuned model is further trained with RLHF (Reinforcement Learning from Human Feedback) or supervised fine-tuning on instruction-response pairs to follow instructions helpfully. Chat models like GPT-4, Claude, and Gemini are instruction-tuned — they understand that "What is the capital of France?" is a question expecting an answer, not a sentence to be completed.
+
+**What is temperature in LLM inference?**
+Temperature controls randomness in token selection. At temperature 0, the model always picks the most probable next token — deterministic, consistent, but less creative. At temperature 1, tokens are sampled proportionally to their predicted probabilities. Above 1, the distribution becomes more uniform — more random, creative, but potentially incoherent. For factual Q&A and code generation: use 0-0.3. For creative writing: 0.7-1.0. Top-p (nucleus sampling) is often used alongside temperature — only sample from tokens comprising the top p% of probability mass.
+
+**Explain the difference between fine-tuning and RAG.**
+RAG retrieves relevant documents at inference time and injects them into the prompt — no model weights change. Fine-tuning updates the model weights on a specific dataset — the model learns new patterns, styles, or domain knowledge. RAG is better for: up-to-date information, private data, transparent sourcing, no training cost. Fine-tuning is better for: consistent style/format, specialized domain vocabulary, tasks that need learned behavior patterns. Most production systems use RAG before fine-tuning — cheaper, updatable, explainable.
+
+**What causes hallucination and how do you reduce it?**
+LLMs generate text that statistically fits the pattern — they don't "know" facts, they predict tokens. When asked something outside training data or asked to be very specific, the model generates plausible-sounding text even if incorrect. Reduction techniques: RAG (ground responses in retrieved facts), system prompts instructing the model to say "I don't know", low temperature, chain-of-thought reasoning (slower but more accurate), self-consistency (run multiple times, compare), asking the model to cite sources and flagging when it can't.
+
+**What is the context window and why does it matter for production systems?**
+The context window is the maximum number of tokens a model can process in one call — it's the model's "working memory." Everything the model knows about the current conversation must fit here. For production: cost scales linearly with context size (input tokens are priced); latency increases with longer contexts; model quality degrades at very long contexts ("lost in the middle" effect where information in the middle of a long context is poorly recalled). Strategies: chunking long documents, summarizing conversation history, RAG to avoid stuffing everything into context, context caching (Anthropic/Google feature to cache repeated prompt prefixes).
+
+**What is the difference between tokens and embeddings?**
+Tokens are the discrete units the model processes — roughly word fragments (GPT-4 uses about 4 characters per token on average). The vocabulary is fixed at ~50,000-100,000 tokens. Embeddings are dense vector representations of tokens (or entire texts) in a high-dimensional space — similar meanings are close together. Embedding models convert text to vectors for semantic search, clustering, and similarity computation. You use tokenization when working with LLM APIs (measuring cost, context limits). You use embeddings when doing similarity search, RAG retrieval, or classification.

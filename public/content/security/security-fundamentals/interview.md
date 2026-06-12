@@ -1,0 +1,19 @@
+# Security Fundamentals — Interview Questions
+
+**What is the difference between authentication and authorization?**
+Authentication (AuthN) verifies identity — "who are you?" You prove identity via something you know (password), have (OTP token, hardware key), or are (biometric). Multi-factor combines two or more. Authorization (AuthZ) determines permissions — "what can you do?" After you're authenticated, RBAC/ABAC policies determine which resources you can access. Common confusion: OAuth 2.0 is an authorization framework (grants access to resources), while OIDC adds authentication on top. JWT is just a token format used by both.
+
+**Explain symmetric vs asymmetric encryption.**
+Symmetric uses the same key to encrypt and decrypt (AES-256). Fast, but key distribution is the problem — how do you securely share the key? Asymmetric uses a public/private key pair (RSA, ECDSA). Public key encrypts (anyone can encrypt), private key decrypts (only you can decrypt). Slower but solves key distribution. In practice: TLS uses asymmetric crypto to securely exchange a symmetric session key, then uses symmetric crypto for the actual data (best of both). Never use asymmetric for bulk data encryption — too slow.
+
+**What is a CSRF attack and how do you prevent it?**
+Cross-Site Request Forgery tricks a victim's browser into making authenticated requests to your application from a malicious site. If a user is logged in to your-bank.com and visits evil.com, malicious JavaScript can submit a transfer form to your-bank.com — the browser automatically sends the user's cookies. Prevention: CSRF tokens (random secret per session, required in request body), SameSite cookie attribute (`Strict` or `Lax` prevents cross-site sending), custom request headers (browsers block cross-origin custom headers by default), double-submit cookie pattern.
+
+**What is the difference between XSS and SQL injection?**
+XSS (Cross-Site Scripting) injects malicious JavaScript into web pages viewed by other users. Stored XSS persists in the database; Reflected XSS executes via URL parameters. Prevention: escape output (HTML encode < > & " '), Content Security Policy headers, HTTPOnly cookies. SQL injection injects malicious SQL through user input to manipulate database queries. `' OR '1'='1` in a login bypasses authentication. Prevention: parameterized queries/prepared statements (never concatenate user input into SQL), stored procedures, least privilege database accounts.
+
+**What is zero-trust security?**
+Traditional security assumes everything inside the network perimeter is trusted. Zero-trust assumes breach — "never trust, always verify." Every request is authenticated and authorized regardless of network location. Principles: verify explicitly (authenticate every request with strong identity), least privilege access (just enough, just in time), assume breach (minimize blast radius, segment access). Implementation: identity-based access (not IP-based), MFA everywhere, device trust verification, micro-segmentation, detailed logging. Tools: Cloudflare Zero Trust, Zscaler, BeyondCorp (Google's internal model that inspired the framework).
+
+**How do you securely store passwords?**
+Never store plaintext passwords. Never use reversible encryption. Never use fast hashing algorithms (MD5, SHA1, SHA256) — they're too fast, enabling billions of guesses per second with GPUs. Use slow adaptive hashing algorithms: bcrypt (work factor 12+), Argon2id (winner of Password Hashing Competition, recommended today), scrypt. These are deliberately slow and memory-hard. Salt each password uniquely (bcrypt and Argon2 do this automatically) to prevent rainbow table attacks. Work factor should be tunable — increase as hardware improves. Authentication should take ~100-300ms — slow enough to deter brute force, fast enough for UX.

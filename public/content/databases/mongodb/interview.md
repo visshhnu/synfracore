@@ -1,0 +1,16 @@
+# MongoDB — Interview Questions
+
+**When would you choose MongoDB over PostgreSQL?**
+MongoDB suits: flexible/evolving schemas (startup iterating rapidly), document-oriented data that's naturally nested (products with varying attributes, user profiles), high write throughput with horizontal scaling needs, geospatial queries (location-based apps), and when your data access patterns always fetch a document as a whole. PostgreSQL suits: complex relationships between entities, need for strong ACID transactions across multiple collections, complex analytical queries with JOINs, schema stability, and when your team knows SQL. Most applications can use either — the decision often comes down to team familiarity and specific query patterns.
+
+**What is the difference between embedding and referencing in MongoDB?**
+Embedding stores related data within the same document — a blog post with its comments embedded in the posts collection. Fast reads (single query), atomic updates, but document size limit of 16MB and arrays can grow unbounded. Referencing stores related data in separate collections with an ID linking them — like a foreign key. Requires multiple queries or $lookup (aggregation join), but no size limits and data updated in one place. Rule of thumb: embed when data is always accessed together and has bounded growth; reference when data is large, frequently updated independently, or accessed on its own.
+
+**What is the aggregation pipeline?**
+The aggregation pipeline processes documents through a sequence of stages, where each stage transforms the documents. Common stages: `$match` (filter, like WHERE), `$group` (aggregate, like GROUP BY), `$project` (reshape/select fields), `$lookup` (join collections), `$unwind` (flatten arrays), `$sort`, `$limit`, `$skip`. The pipeline is expressed as an array — each stage's output becomes the next stage's input. Far more powerful than find() for analytics and reporting. MongoDB optimizes pipelines automatically (e.g., moves $match early to reduce documents in subsequent stages).
+
+**How does MongoDB handle transactions?**
+MongoDB supports multi-document ACID transactions since version 4.0 (single replica set) and 4.2 (sharded clusters). Use the same session across operations: `session.start_transaction()`, perform operations, then `session.commit_transaction()` or `session.abort_transaction()`. Transactions are slower than single-document operations and should be used only when necessary — MongoDB's document model (embedding related data) often eliminates the need for multi-document transactions. If you find yourself using transactions frequently, reconsider your schema design.
+
+**What are the types of indexes in MongoDB?**
+Single field: basic index on one field. Compound: multiple fields (order matters — leftmost prefix rule applies). Multikey: automatically created when indexing an array field — creates index entries per array element. Text: for full-text search with `$text` operator. Geospatial: 2dsphere for GeoJSON data, 2d for legacy flat coordinates. Hashed: for hash-based sharding. Sparse: only indexes documents that have the field. Partial: only indexes documents matching a filter condition. TTL: automatically deletes documents after a time period.

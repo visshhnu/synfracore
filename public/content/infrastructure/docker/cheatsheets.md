@@ -1,124 +1,102 @@
-# Docker Cheatsheet
-
-## Most Used Commands
+# Docker — Cheatsheet
 
 ```bash
-# Images
-docker build -t myapp:v1.0 .
-docker build -t myapp:v1.0 --target production .    # multi-stage
-docker pull nginx:alpine
-docker push registry.example.com/myapp:v1.0
-docker images
-docker rmi myapp:v1.0
-docker image prune -a                               # remove all unused
+# ── IMAGES ───────────────────────────────────────────────────
+docker images                              # List local images
+docker pull nginx:alpine                   # Pull from registry
+docker build -t myapp:1.0 .               # Build from Dockerfile
+docker build -t myapp:1.0 -f Dockerfile.prod .
+docker build --no-cache -t myapp:1.0 .    # Ignore build cache
+docker tag myapp:1.0 registry.io/myapp:1.0
+docker push registry.io/myapp:1.0
+docker rmi myapp:1.0                       # Remove image
+docker image prune                         # Remove dangling images
+docker image prune -a                      # Remove all unused
+docker save myapp:1.0 | gzip > myapp.tar.gz  # Export
+docker load < myapp.tar.gz                 # Import
+docker history myapp:1.0                   # Show layers
 
-# Containers
-docker run -d -p 8080:80 --name webserver nginx
-docker run -it --rm ubuntu:22.04 bash               # ephemeral
-docker run -e DB_HOST=localhost -v $(pwd):/app myapp
-docker ps                                            # running
-docker ps -a                                         # all including stopped
-docker stop webserver
-docker rm webserver
-docker logs -f webserver
-docker exec -it webserver bash
-docker stats                                         # live resource usage
+# ── CONTAINERS ───────────────────────────────────────────────
+docker ps                                  # Running containers
+docker ps -a                               # All containers
+docker run -d -p 80:80 --name nginx nginx:alpine  # Detached
+docker run -it --rm ubuntu bash            # Interactive, auto-remove
+docker run -e DB_HOST=localhost myapp      # Environment variable
+docker run -v /host/path:/container/path myapp  # Bind mount
+docker run -v myvolume:/data myapp         # Named volume
+docker run --memory 512m --cpus 0.5 myapp # Resource limits
+docker run --network mynet myapp           # Custom network
+docker start/stop/restart container
+docker rm container                        # Remove stopped container
+docker rm -f container                     # Force remove running
+docker container prune                     # Remove all stopped
 
-# Registry
-docker login registry.example.com
-docker tag myapp:v1.0 registry.example.com/myapp:v1.0
-docker push registry.example.com/myapp:v1.0
+# ── EXEC AND LOGS ────────────────────────────────────────────
+docker exec -it container bash
+docker exec container cat /etc/hosts
+docker logs container                      # All logs
+docker logs -f container                   # Follow
+docker logs --tail 100 -f container        # Last 100 lines + follow
+docker logs --since 1h container           # Last hour
+docker inspect container                   # Full JSON details
+docker inspect container | jq '.[0].NetworkSettings.IPAddress'
+docker stats                               # Real-time resource usage
+docker top container                       # Processes in container
 
-# Inspect and debug
-docker inspect webserver
-docker inspect --format='{{.State.Status}}' webserver
-docker diff webserver                                # filesystem changes
-docker cp webserver:/etc/nginx/nginx.conf ./
+# ── VOLUMES ──────────────────────────────────────────────────
+docker volume create mydata
+docker volume ls
+docker volume inspect mydata
+docker volume rm mydata
+docker volume prune                        # Remove unused volumes
 
-# Cleanup
-docker system prune -af --volumes                    # remove everything unused
-docker volume prune
-docker network prune
+# ── NETWORKS ─────────────────────────────────────────────────
+docker network create mynet
+docker network ls
+docker network inspect mynet
+docker network connect mynet container
+docker network disconnect mynet container
+docker network rm mynet
+
+# ── COMPOSE ──────────────────────────────────────────────────
+docker compose up -d                       # Start detached
+docker compose up --build                  # Rebuild images
+docker compose down                        # Stop + remove containers
+docker compose down -v                     # Also remove volumes
+docker compose ps                          # Status
+docker compose logs -f service            # Follow logs
+docker compose exec service bash          # Shell into service
+docker compose pull                        # Pull latest images
+docker compose config                      # Validate compose file
+
+# ── SYSTEM ───────────────────────────────────────────────────
+docker system df                           # Disk usage
+docker system prune                        # Remove all unused
+docker system prune -a --volumes           # Nuclear cleanup
+docker info                                # System info
 ```
 
 ## Dockerfile Best Practices
 
 ```dockerfile
-FROM node:20-alpine AS base
-WORKDIR /app
+# Pin versions
+FROM node:20.11-alpine3.19
 
-# Dependencies layer (cache-friendly - only invalidates when package.json changes)
-FROM base AS deps
+# Layer caching — dependencies before source
 COPY package*.json ./
 RUN npm ci --only=production
-
-# Build layer
-FROM base AS builder
-COPY package*.json ./
-RUN npm ci
 COPY . .
-RUN npm run build
 
-# Production image - smallest possible
-FROM node:20-alpine AS production
-RUN addgroup -g 1001 -S nodejs && adduser -S app -u 1001
-WORKDIR /app
-COPY --from=deps --chown=app:nodejs /app/node_modules ./node_modules
-COPY --from=builder --chown=app:nodejs /app/dist ./dist
-USER app                          # Never run as root
-EXPOSE 3000
-HEALTHCHECK --interval=30s CMD wget -qO- http://localhost:3000/health || exit 1
-CMD ["node", "dist/server.js"]
-```
+# Non-root user
+RUN addgroup -S app && adduser -S app -G app
+USER app
 
-## Docker Compose Quick Reference
+# One process per container
+CMD ["node", "server.js"]  # Not "npm start" (process tree issues)
 
-```yaml
-version: '3.9'
-services:
-  app:
-    build: .
-    ports: ["3000:3000"]
-    environment:
-      NODE_ENV: production
-    env_file: .env                # Load from file
-    depends_on:
-      db: {condition: service_healthy}
-    restart: unless-stopped
-    networks: [app-net]
-    volumes:
-      - ./logs:/app/logs          # bind mount
-      - app_data:/app/data        # named volume
+# HEALTHCHECK
+HEALTHCHECK --interval=30s --timeout=5s CMD wget -qO- http://localhost:3000/health || exit 1
 
-  db:
-    image: postgres:16-alpine
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "postgres"]
-      interval: 5s
-      retries: 5
-    networks: [app-net]
-
-networks:
-  app-net:
-    driver: bridge
-
-volumes:
-  pgdata:
-  app_data:
-```
-
-```bash
-# Compose commands
-docker compose up -d              # start detached
-docker compose up --build         # rebuild images
-docker compose down               # stop and remove containers
-docker compose down -v            # also remove volumes
-docker compose logs -f app        # follow logs
-docker compose ps                 # status
-docker compose exec app sh        # exec into running container
-docker compose scale app=3        # scale service (without swarm)
+# .dockerignore (always include this file)
+# node_modules, .git, .env, *.log, coverage/, docs/
 ```

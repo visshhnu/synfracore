@@ -1,160 +1,126 @@
-# Ansible Cheatsheet
-
-## Ad-Hoc Commands
+# Ansible — Cheatsheet
 
 ```bash
-# Ping all hosts
-ansible all -i inventory.yml -m ping
-
-# Run command
+# ── AD-HOC COMMANDS ──────────────────────────────────────────
+ansible all -m ping
 ansible webservers -m shell -a "uptime"
-ansible all -m command -a "df -h"
+ansible webservers -m command -a "df -h"          # No shell expansion
+ansible webservers -m shell -a "free -m | awk 'NR==2{print $3}'"  # With pipe
+ansible webservers -m service -a "name=nginx state=restarted"
+ansible all -m setup                               # Gather facts
+ansible all -m setup -a "filter=ansible_os_family"
+ansible webservers -b -m yum -a "name=nginx state=present"  # -b = become (sudo)
 
-# Copy file
-ansible webservers -m copy -a "src=./nginx.conf dest=/etc/nginx/nginx.conf"
+# ── PLAYBOOK EXECUTION ───────────────────────────────────────
+ansible-playbook site.yml
+ansible-playbook site.yml -i inventory/prod/
+ansible-playbook site.yml --limit webservers
+ansible-playbook site.yml --limit web01,web02
+ansible-playbook site.yml --check              # Dry run
+ansible-playbook site.yml --diff               # Show file changes
+ansible-playbook site.yml --check --diff       # Dry run + show changes
+ansible-playbook site.yml --tags deploy        # Only run tagged tasks
+ansible-playbook site.yml --skip-tags restart  # Skip tagged tasks
+ansible-playbook site.yml -v                   # Verbose
+ansible-playbook site.yml -vvv                 # Very verbose (debug)
+ansible-playbook site.yml --start-at-task "Install nginx"
+ansible-playbook site.yml --ask-vault-pass
+ansible-playbook site.yml --vault-password-file .vault_pass
 
-# Install package
-ansible webservers -m yum -a "name=nginx state=present" -b
+# ── VAULT ─────────────────────────────────────────────────────
+ansible-vault create secrets.yml
+ansible-vault edit secrets.yml
+ansible-vault view secrets.yml
+ansible-vault encrypt existing.yml
+ansible-vault decrypt encrypted.yml
+ansible-vault rekey secrets.yml               # Change password
+ansible-vault encrypt_string 'supersecret' --name 'db_password'
 
-# Start service
-ansible webservers -m service -a "name=nginx state=started" -b
+# ── INVENTORY ────────────────────────────────────────────────
+ansible-inventory -i inventory/ --list        # Show all inventory as JSON
+ansible-inventory -i inventory/ --graph       # Show group hierarchy
+ansible -i inventory/ all --list-hosts        # List all hosts
 
-# Get facts
-ansible web01 -m setup
-ansible web01 -m setup -a "filter=ansible_*_mb"  # only memory facts
-
-# Check syntax
-ansible-playbook site.yml --syntax-check
-
-# Dry run
-ansible-playbook site.yml --check --diff
-
-# Run with tags
-ansible-playbook site.yml --tags deploy
-ansible-playbook site.yml --skip-tags backup
-
-# Limit to hosts
-ansible-playbook site.yml --limit web01
-ansible-playbook site.yml --limit "webservers:!web03"  # exclude web03
+# ── ROLES ─────────────────────────────────────────────────────
+ansible-galaxy role init my_role              # Create role skeleton
+ansible-galaxy install geerlingguy.nginx      # Install from Galaxy
+ansible-galaxy install -r requirements.yml    # Install from file
+ansible-galaxy list                           # List installed roles
 ```
 
-## Playbook Patterns
+## Key Module Reference
 
 ```yaml
----
-- name: Configure application
-  hosts: appservers
-  become: true
-  gather_facts: true
-  serial: "30%"          # Rolling update: 30% at a time
-  max_fail_percentage: 0 # Abort if any host fails
+# File operations
+- file: path=/etc/app state=directory mode='0755' owner=app
+- copy: src=files/app.conf dest=/etc/app/app.conf backup=yes
+- template: src=nginx.conf.j2 dest=/etc/nginx/conf.d/app.conf validate='nginx -t -c %s'
+- fetch: src=/var/log/app.log dest=./logs/ flat=yes
+- lineinfile: path=/etc/ssh/sshd_config regexp='^PermitRootLogin' line='PermitRootLogin no'
+- blockinfile: path=/etc/hosts block="10.0.0.1 db01\n10.0.0.2 db02"
 
-  vars:
-    app_version: "2.1.0"
-    app_port: 8080
+# Packages
+- apt: name={{ packages }} state=present update_cache=yes
+  vars: { packages: [nginx, git, curl] }
+- yum: name=nginx state=latest
+- package: name=nginx state=present   # OS-agnostic
 
-  pre_tasks:
-    - name: Check disk space
-      assert:
-        that: ansible_mounts | selectattr('mount','==','/') | map(attribute='size_available') | first > 1073741824
-        fail_msg: "Less than 1GB free disk space"
+# Services
+- service: name=nginx state=started enabled=yes
+- systemd: name=myapp daemon_reload=yes state=restarted
 
-  tasks:
-    # Conditional
-    - name: Install on Debian
-      apt: {name: "{{ item }}", state: present}
-      loop: [git, curl, jq]
-      when: ansible_os_family == "Debian"
+# Users and groups
+- user: name=deploy shell=/bin/bash groups=sudo append=yes
+- authorized_key: user=deploy key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
 
-    # Register and use result
-    - name: Check if app is running
-      command: systemctl is-active myapp
-      register: app_status
-      changed_when: false
-      failed_when: false
+# Commands
+- command: /opt/app/migrate.sh creates=/opt/app/.migrated  # skip if file exists
+- shell: echo "{{ env }}" >> /var/log/deploys.log
+- script: scripts/init.sh  # run local script on remote
 
-    - name: Deploy new version
-      block:
-        - name: Download app
-          get_url:
-            url: "https://releases.example.com/app-{{ app_version }}.tar.gz"
-            dest: /tmp/app.tar.gz
-            checksum: "sha256:{{ app_checksum }}"
-        
-        - name: Extract app
-          unarchive:
-            src: /tmp/app.tar.gz
-            dest: /opt/app
-            remote_src: true
-      rescue:
-        - name: Rollback on failure
-          command: /opt/app/rollback.sh
-      always:
-        - name: Clean temp files
-          file: {path: /tmp/app.tar.gz, state: absent}
+# Conditionals
+- apt: name=apache2
+  when: ansible_os_family == "Debian"
 
-    # Template with Jinja2
-    - name: Deploy config
-      template:
-        src: app.conf.j2
-        dest: /etc/app/config.conf
-        validate: /usr/bin/app --check-config %s
-      notify: Restart app
+- name: Run only on first run
+  command: /opt/setup.sh
+  args: { creates: /opt/.initialized }
 
-  handlers:
-    - name: Restart app
-      service: {name: myapp, state: restarted}
+# Register and use results
+- shell: cat /opt/app/VERSION
+  register: app_version
+- debug: msg="App version is {{ app_version.stdout }}"
+- fail: msg="Wrong version" when: app_version.stdout != "2.0"
 ```
 
-## Jinja2 Templates
+## Jinja2 Templates Quick Reference
 
 ```jinja2
-{# app.conf.j2 #}
-[server]
-host = {{ ansible_default_ipv4.address }}
-port = {{ app_port }}
-workers = {{ ansible_processor_vcpus * 2 }}
+{# Variable #}
+{{ variable }}
+{{ dict.key }} or {{ dict['key'] }}
+{{ list[0] }}
 
-[database]
-{% for db_host in groups['databases'] %}
-server = {{ hostvars[db_host]['ansible_host'] }}:5432
+{# Default value #}
+{{ variable | default('fallback') }}
+
+{# Conditions #}
+{% if env == 'prod' %}
+worker_processes {{ ansible_processor_vcpus }};
+{% else %}
+worker_processes 1;
+{% endif %}
+
+{# Loops #}
+{% for server in groups['webservers'] %}
+    server {{ hostvars[server]['ansible_host'] }};
 {% endfor %}
 
-[logging]
-level = {% if inventory_hostname in groups['production'] %}WARNING{% else %}DEBUG{% endif %}
-```
-
-## Inventory Patterns
-
-```ini
-# Static inventory
-[webservers]
-web[01:05].example.com   # web01 through web05
-10.0.1.[10:20]           # range of IPs
-
-[dbservers]
-db01 ansible_host=10.0.2.10 pg_version=16
-
-[production:children]
-webservers
-dbservers
-
-[production:vars]
-ansible_user=ec2-user
-ansible_become=true
-```
-
-```bash
-# Dynamic inventory (AWS)
-ansible-inventory -i aws_ec2.yml --list
-ansible all -i aws_ec2.yml -m ping
-
-# aws_ec2.yml
-plugin: amazon.aws.aws_ec2
-regions: [us-east-1]
-filters:
-  tag:Environment: production
-keyed_groups:
-  - key: tags.Role
-    prefix: role
+{# Filters #}
+{{ 'hello' | upper }}           → HELLO
+{{ list | join(', ') }}         → a, b, c
+{{ string | regex_replace('old', 'new') }}
+{{ number | int }}
+{{ path | basename }}           → filename.txt
+{{ path | dirname }}            → /path/to
 ```

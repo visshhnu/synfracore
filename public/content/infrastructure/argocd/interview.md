@@ -1,0 +1,16 @@
+# ArgoCD — Interview Questions
+
+**What is GitOps and how does ArgoCD implement it?**
+GitOps uses a Git repository as the single source of truth for declarative infrastructure and application definitions. The desired state (Kubernetes manifests) lives in Git; an automated operator (ArgoCD) continuously reconciles the cluster to match that state. Benefits: audit trail via Git history, rollback via `git revert`, PR-based change control, no manual kubectl apply in production. ArgoCD watches a Git repo path, compares it to the live cluster state, detects drift, and syncs automatically (if configured) or alerts for manual sync. The result: "the cluster is always what Git says it should be."
+
+**What is the difference between Sync and Refresh in ArgoCD?**
+Refresh fetches the latest Git state and compares it to the live cluster state — it updates ArgoCD's view of what's changed but doesn't apply anything. Sync actually applies the changes — it runs `kubectl apply` (or Helm install/upgrade) to make the cluster match Git. Hard Refresh forces re-fetching (ignores cache). Auto-sync can be configured to automatically sync when Git changes. Sync without auto-sync requires a human to click "Sync" in the UI or run `argocd app sync` — useful for production where you want human approval before changes are applied.
+
+**Explain the App of Apps pattern.**
+App of Apps is an ArgoCD pattern where a "root" Application points to a directory containing other Application manifests. The root app deploys all child apps automatically. This enables managing dozens of services from a single ArgoCD Application: when you add a new service, create an Application YAML in the apps/ directory and push to Git — the root app syncs and deploys the new Application object, which then syncs its own resources. Benefits: single place to see all applications, consistent sync policy, easy onboarding of new services. Alternative: ApplicationSets (more dynamic, templated).
+
+**How do you handle secrets in ArgoCD?**
+Never store secrets in Git (even encrypted ones risk being accidentally committed as plaintext). Options: Sealed Secrets (encrypt secrets with cluster's public key, safe to commit); External Secrets Operator (sync from AWS Secrets Manager, Vault, GCP Secret Manager into K8s secrets); Vault Agent Sidecar Injector (Vault injects secrets into pods at runtime); SOPS with Helm Secrets plugin (ArgoCD plugin). Best approach for most teams: External Secrets Operator with AWS Secrets Manager or Vault — secrets never touch Git, rotation handled by the secret store, ESO reconciles them into K8s secrets automatically.
+
+**What is the ArgoCD sync wave and why use it?**
+Sync waves control the order in which resources are applied during a sync. Resources with wave `0` (default) apply first, then `1`, `2`, etc. Use case: CRDs must exist before Custom Resources; databases must be running before applications; namespaces before resources in them; ConfigMaps before Deployments that reference them. Set via annotation: `argocd.argoproj.io/sync-wave: "2"`. ArgoCD waits for all resources in wave N to be healthy before applying wave N+1. This enables safe, ordered deployments of complex applications with dependencies.
