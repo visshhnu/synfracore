@@ -1,227 +1,202 @@
-# Kubernetes Cheat Sheet
+# Kubernetes Cheatsheet
 
 ## kubectl Quick Reference
 
 ```bash
-# Context
+# Context and cluster
 kubectl config get-contexts
 kubectl config use-context prod-cluster
-kubectl config current-context
+kubectl config set-context --current --namespace=myapp
 
 # Get resources
-kubectl get pods -A                          # All namespaces
-kubectl get pods -o wide                     # Show node + IP
-kubectl get pods --watch                     # Live updates
-kubectl get all -n production                # Everything
-kubectl get events --sort-by='.lastTimestamp'
+kubectl get pods -A                          # all namespaces
+kubectl get pods -n myapp -o wide            # with node info
+kubectl get pods -l app=api,env=prod         # by label
+kubectl get all -n myapp                     # pods, services, deployments
 
-# Describe (deep detail + events)
-kubectl describe pod <pod> -n <ns>
-kubectl describe node <node>
-kubectl describe deployment <name>
+# Describe and logs
+kubectl describe pod <pod-name> -n myapp
+kubectl logs <pod-name> -n myapp -f          # follow
+kubectl logs <pod-name> -n myapp -c sidecar  # specific container
+kubectl logs <pod-name> --previous           # crashed container logs
 
-# Logs
-kubectl logs <pod> -f                        # Follow
-kubectl logs <pod> --previous               # Crashed container
-kubectl logs <pod> -c <container>           # Multi-container pod
-kubectl logs -l app=myapp --tail=100        # By label
+# Execute into pod
+kubectl exec -it <pod-name> -- /bin/sh
+kubectl exec -it <pod-name> -c <container> -- bash
 
-# Exec
-kubectl exec -it <pod> -- bash
-kubectl exec <pod> -- cat /etc/config
-
-# Apply / Delete
-kubectl apply -f manifest.yaml
-kubectl delete -f manifest.yaml
-kubectl delete pod <pod> --grace-period=0   # Force delete
-```
-
-## Deployment Operations
-
-```bash
-# Scale
-kubectl scale deployment myapp --replicas=5
-
-# Update image
-kubectl set image deployment/myapp myapp=myapp:2.0
-
-# Rollout
-kubectl rollout status deployment/myapp
-kubectl rollout history deployment/myapp
-kubectl rollout undo deployment/myapp
-kubectl rollout undo deployment/myapp --to-revision=3
-
-# Pause / Resume rolling update
-kubectl rollout pause deployment/myapp
-kubectl rollout resume deployment/myapp
-```
-
-## Resource Management
-
-```bash
-# Resource usage
-kubectl top nodes
-kubectl top pods -A
-kubectl top pods --sort-by=memory
-
-# Quota and limits
-kubectl get resourcequota -n production
-kubectl describe limitrange -n production
-
-# Labels and selectors
-kubectl get pods -l app=myapp,env=prod
-kubectl label pod mypod env=prod
-kubectl annotate pod mypod owner=team-a
-```
-
-## Troubleshooting Commands
-
-```bash
-# Pod not starting
-kubectl describe pod <pod>                   # Check Events section
-kubectl logs <pod> --previous               # Crashed container logs
-kubectl get events -n <ns> --sort-by='.lastTimestamp'
-
-# Check endpoints (Service routing)
-kubectl get endpoints <service-name>
-
-# Shell into running pod
-kubectl exec -it <pod> -- bash
-
-# Debug with ephemeral container (K8s 1.23+)
-kubectl debug -it <pod> --image=busybox
-
-# Port forward to test locally
-kubectl port-forward pod/<pod> 8080:8080
-kubectl port-forward svc/<service> 8080:80
+# Port forward
+kubectl port-forward pod/<pod-name> 8080:80
+kubectl port-forward svc/<service> 5432:5432
 
 # Copy files
-kubectl cp <pod>:/var/log/app.log ./app.log
-kubectl cp ./config.yaml <pod>:/etc/config.yaml
+kubectl cp <pod>:/app/logs/app.log ./app.log
+kubectl cp ./config.yaml <pod>:/app/config.yaml
 
-# Check resource consumption
-kubectl top pods --sort-by=cpu -A | head -20
+# Scale
+kubectl scale deployment <name> --replicas=5
+kubectl autoscale deployment <name> --min=2 --max=10 --cpu-percent=70
+
+# Rollout
+kubectl rollout status deployment/<name>
+kubectl rollout history deployment/<name>
+kubectl rollout undo deployment/<name>
+kubectl rollout undo deployment/<name> --to-revision=3
+kubectl set image deployment/<name> <container>=<image>:<tag>
+
+# Apply and delete
+kubectl apply -f manifest.yaml
+kubectl apply -f ./k8s/                      # all files in dir
+kubectl delete -f manifest.yaml
+kubectl delete pod <name> --grace-period=0   # force delete
+
+# Debugging
+kubectl get events -n myapp --sort-by='.lastTimestamp'
+kubectl top pods -n myapp
+kubectl top nodes
+kubectl debug -it <pod> --image=busybox --target=<container>
 ```
 
-## Namespace Operations
-
-```bash
-kubectl create namespace production
-kubectl get namespaces
-kubectl config set-context --current --namespace=production  # Set default ns
-
-# ResourceQuota for namespace
-kubectl apply -f - <<EOF
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: production-quota
-  namespace: production
-spec:
-  hard:
-    requests.cpu: "20"
-    requests.memory: 40Gi
-    limits.cpu: "40"
-    limits.memory: 80Gi
-    pods: "100"
-EOF
-```
-
-## RBAC Quick Setup
-
-```bash
-# Create service account
-kubectl create serviceaccount myapp-sa -n production
-
-# Create role
-kubectl create role pod-reader \
-  --verb=get,list,watch \
-  --resource=pods \
-  -n production
-
-# Bind role
-kubectl create rolebinding read-pods \
-  --role=pod-reader \
-  --serviceaccount=production:myapp-sa \
-  -n production
-
-# Check permissions
-kubectl auth can-i list pods -n production \
-  --as=system:serviceaccount:production:myapp-sa
-```
-
-## Key YAML Snippets
+## Resource Manifests Quick Reference
 
 ```yaml
-# Resource limits — always set these
-resources:
-  requests:
-    memory: "128Mi"
-    cpu: "100m"
-  limits:
-    memory: "256Mi"
-    cpu: "500m"
-
-# Health probes
-livenessProbe:
-  httpGet:
-    path: /health
-    port: 8080
-  initialDelaySeconds: 30
-  periodSeconds: 10
-
-readinessProbe:
-  httpGet:
-    path: /ready
-    port: 8080
-  initialDelaySeconds: 5
-  periodSeconds: 5
-
-# Node affinity
-affinity:
-  nodeAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: topology.kubernetes.io/zone
-          operator: In
-          values: [us-east-1a, us-east-1b]
-
-# Pod anti-affinity (spread across nodes)
-affinity:
-  podAntiAffinity:
-    preferredDuringSchedulingIgnoredDuringExecution:
-    - weight: 100
-      podAffinityTerm:
-        labelSelector:
-          matchLabels:
-            app: myapp
-        topologyKey: kubernetes.io/hostname
-
-# Toleration (for tainted nodes)
-tolerations:
-- key: "dedicated"
-  operator: "Equal"
-  value: "gpu"
-  effect: "NoSchedule"
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  namespace: myapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels: {app: api}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: {maxSurge: 1, maxUnavailable: 0}
+  template:
+    metadata:
+      labels: {app: api, version: "1.0"}
+    spec:
+      containers:
+      - name: api
+        image: registry/api:v1.0
+        ports: [{containerPort: 8080}]
+        resources:
+          requests: {cpu: 100m, memory: 128Mi}
+          limits:   {cpu: 500m, memory: 512Mi}
+        readinessProbe:
+          httpGet: {path: /health, port: 8080}
+          initialDelaySeconds: 10
+        livenessProbe:
+          httpGet: {path: /health, port: 8080}
+          periodSeconds: 30
+        env:
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef: {name: db-secret, key: password}
+---
+# Service
+apiVersion: v1
+kind: Service
+metadata: {name: api, namespace: myapp}
+spec:
+  selector: {app: api}
+  ports:
+  - port: 80
+    targetPort: 8080
+  type: ClusterIP
+---
+# HPA
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata: {name: api-hpa, namespace: myapp}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: api
+  minReplicas: 2
+  maxReplicas: 20
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target: {type: Utilization, averageUtilization: 70}
+---
+# ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata: {name: app-config, namespace: myapp}
+data:
+  LOG_LEVEL: "info"
+  config.yaml: |
+    server:
+      port: 8080
+      timeout: 30s
+---
+# Secret
+apiVersion: v1
+kind: Secret
+metadata: {name: db-secret, namespace: myapp}
+type: Opaque
+stringData:
+  password: "supersecret"   # Use sealed-secrets or ESO in production
+---
+# Ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-ingress
+  namespace: myapp
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts: [api.example.com]
+    secretName: api-tls
+  rules:
+  - host: api.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service: {name: api, port: {number: 80}}
+---
+# PersistentVolumeClaim
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata: {name: data-pvc, namespace: myapp}
+spec:
+  accessModes: [ReadWriteOnce]
+  storageClassName: gp3
+  resources:
+    requests: {storage: 20Gi}
 ```
 
-## Critical Files to Know
+## Common Troubleshooting
 
-```
-/etc/kubernetes/manifests/     Static pod manifests (control plane)
-/etc/kubernetes/pki/           Certificates
-~/.kube/config                 Kubeconfig
-/var/log/containers/           Container logs on node
-/var/lib/kubelet/              Kubelet data
-```
+```bash
+# Pod stuck in Pending
+kubectl describe pod <pod> | grep -A 10 Events
+# → Insufficient cpu/memory: scale up nodes or reduce requests
+# → No nodes match selector: check nodeSelector/taints
+# → PVC not bound: check StorageClass, PV availability
 
-## Exit Codes
+# CrashLoopBackOff
+kubectl logs <pod> --previous   # logs before crash
+kubectl describe pod <pod>      # check exit code, OOM kill
 
-```
-0    Success
-1    Application error
-137  OOMKilled (out of memory) or SIGKILL
-139  Segmentation fault
-143  SIGTERM (graceful shutdown requested)
+# ImagePullBackOff
+kubectl describe pod <pod> | grep -A 5 "Failed"
+# → Check image name/tag, registry credentials (imagePullSecrets)
+
+# Service not routing traffic
+kubectl get endpoints <service>  # should show pod IPs
+# → No endpoints: label selector mismatch between Service and Pod
+# → Check: kubectl get pod --show-labels
+
+# Check RBAC
+kubectl auth can-i create deployments --as system:serviceaccount:myapp:default
+kubectl auth can-i list pods -n kube-system
 ```

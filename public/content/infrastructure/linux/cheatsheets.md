@@ -1,122 +1,154 @@
-# Linux Cheat Sheet
+# Linux Cheatsheet
 
-Quick reference for the most-used commands in production.
+## File and Directory Operations
 
-## Navigation & Files
+```bash
+# Navigation
+pwd                         # current directory
+ls -lah                     # list with sizes, hidden files
+cd -                        # go to previous directory
+tree -L 2                   # directory tree 2 levels deep
 
-\`\`\`bash
-pwd                     # Current directory
-ls -la                  # List all files with details
-cd -                    # Previous directory
-find . -name "*.log" -mtime -7    # Logs modified in 7 days
-grep -r "ERROR" /var/log/ --include="*.log"
-tail -f /var/log/syslog | grep -i error
-\`\`\`
+# File operations
+cp -r src/ dest/            # copy directory
+mv file.txt /new/path/      # move/rename
+rm -rf directory/           # delete (careful!)
+ln -s /real/path link-name  # symbolic link
+find /var/log -name "*.log" -mtime +7    # files older than 7 days
+find . -type f -size +100M               # files over 100MB
+find . -name "*.py" -exec grep -l "import os" {} \;
 
-## Processes
+# View files
+cat file.txt                # print file
+less file.txt               # paginated view (q to quit)
+head -20 file.txt           # first 20 lines
+tail -100f /var/log/app.log # last 100 lines, follow
+grep -r "ERROR" /var/log/   # recursive search
+grep -n "pattern" file.txt  # show line numbers
+grep -v "DEBUG" app.log     # exclude DEBUG lines
 
-\`\`\`bash
-ps aux | grep python    # Find python processes
-kill -9 $(pgrep nginx)  # Kill all nginx processes
-lsof -i :8080           # What's on port 8080
-nice -n 10 ./script.sh  # Run with lower priority
-nohup ./server.sh &     # Run detached
-\`\`\`
+# Permissions
+chmod 755 script.sh         # rwxr-xr-x
+chmod +x script.sh          # add execute bit
+chown user:group file.txt   # change owner
+ls -l                       # see permissions
+
+# Disk usage
+df -h                       # disk space by mount
+du -sh /var/log/*           # size of each item
+du -sh * | sort -hr         # sorted by size
+ncdu /var                   # interactive disk usage
+```
+
+## Process Management
+
+```bash
+# View processes
+ps aux                      # all processes
+ps aux | grep nginx         # find specific process
+top                         # live view (press 1 for per-CPU)
+htop                        # better top
+pgrep nginx                 # PID by name
+lsof -i :8080               # what's using port 8080
+lsof -p 1234                # files open by PID
+
+# Kill processes
+kill 1234                   # graceful (SIGTERM)
+kill -9 1234                # force (SIGKILL)
+pkill nginx                 # kill by name
+killall -HUP nginx          # reload signal
+
+# Background jobs
+command &                   # run in background
+nohup command &             # survives terminal close
+jobs                        # list background jobs
+fg %1                       # bring job 1 to foreground
+Ctrl+Z                      # suspend current job
+Ctrl+C                      # kill current job
+
+# systemd services
+systemctl start|stop|restart|status nginx
+systemctl enable nginx      # start on boot
+systemctl disable nginx
+journalctl -u nginx -f      # follow service logs
+journalctl -u nginx --since "1 hour ago"
+```
+
+## Text Processing
+
+```bash
+# grep
+grep -r "error" .           # recursive
+grep -i "error" file        # case insensitive
+grep -A 3 "FATAL" app.log   # 3 lines after match
+grep -B 3 "FATAL" app.log   # 3 lines before match
+grep -c "ERROR" app.log     # count matches
+
+# sed (stream editor)
+sed 's/old/new/g' file.txt          # replace all
+sed -i 's/old/new/g' file.txt       # in-place edit
+sed -n '10,20p' file.txt            # print lines 10-20
+sed '/^#/d' config.txt              # delete comment lines
+
+# awk
+awk '{print $1, $3}' file.txt       # print columns 1 and 3
+awk -F: '{print $1}' /etc/passwd    # colon delimiter
+awk '/ERROR/ {count++} END {print count}' app.log
+awk '{sum += $2} END {print "Total:", sum}' sales.txt
+
+# sort, uniq, wc
+sort file.txt               # alphabetical sort
+sort -n numbers.txt         # numeric sort
+sort -k2 -t: file.txt       # sort by column 2, colon delimiter
+sort file.txt | uniq        # remove duplicates
+sort file.txt | uniq -c     # count occurrences
+wc -l file.txt              # count lines
+
+# Real-world pipeline
+cat access.log | awk '{print $1}' | sort | uniq -c | sort -rn | head -10
+# → Top 10 IP addresses by request count
+```
 
 ## Networking
 
-\`\`\`bash
-ip addr show            # IP addresses
-ss -tlnp                # TCP listening ports
-curl -IL https://site.com  # HTTP check with redirects
-dig @8.8.8.8 domain.com  # DNS lookup via Google
-traceroute domain.com
-\`\`\`
+```bash
+# Connectivity
+ping -c 4 8.8.8.8           # test connectivity
+traceroute google.com        # trace route
+mtr google.com               # live trace
+curl -I https://example.com  # HTTP headers
+curl -o /dev/null -s -w "%{http_code}" https://example.com  # just status code
 
-## Disk
+# Ports and sockets
+ss -tlnp                    # listening TCP ports
+ss -tlnp | grep :80         # specific port
+netstat -tlnp               # older alternative
+nc -zv host 22              # test port is open
+nc -l 8080                  # listen on port (simple server)
 
-\`\`\`bash
-df -h                   # Disk space
-du -sh /var/* | sort -rh | head -10  # Largest dirs
-lsblk                   # Block devices
-ncdu /                  # Interactive disk usage (install ncdu)
-\`\`\`
+# DNS
+dig example.com             # A record
+dig +short example.com      # just IP
+dig @8.8.8.8 example.com    # use specific DNS server
+nslookup example.com
+host example.com
 
-## Services (systemd)
+# IP and interfaces
+ip addr show                # network interfaces
+ip route show               # routing table
+ifconfig                    # older alternative
+```
 
-\`\`\`bash
-systemctl status nginx
-systemctl restart nginx
-journalctl -u nginx -f  # Follow logs
-systemctl list-units --failed  # What's broken
-\`\`\`
+## Bash Shortcuts
 
-## Performance
-
-\`\`\`bash
-top -c                  # Show full command
-iostat -xz 1 3          # Disk I/O, 3 samples
-free -h                 # Memory
-uptime                  # Load average
-dmesg | tail -20        # Kernel messages
-\`\`\`
-
-## One-liners
-
-\`\`\`bash
-# Count HTTP status codes in access log
-awk '{print $9}' /var/log/nginx/access.log | sort | uniq -c | sort -rn
-
-# Find large files
-find / -type f -size +1G 2>/dev/null
-
-# Watch a file for changes
-watch -n 2 "ls -la /tmp/"
-
-# Monitor a directory
-inotifywait -m /etc/nginx/
-
-# Kill all processes by name
-pkill -f "gunicorn"
-
-# Check SSL certificate expiry
-echo | openssl s_client -connect example.com:443 2>/dev/null | openssl x509 -noout -dates
-
-# Disk usage excluding certain dirs
-du -sh --exclude=/proc --exclude=/sys /
-
-# Compress a directory
-tar -czf backup.tar.gz /opt/myapp/
-
-# Extract
-tar -xzf backup.tar.gz -C /opt/restore/
-\`\`\`
-
-## File Permissions Quick Reference
-
-\`\`\`
-chmod 777  # rwxrwxrwx - everyone everything (AVOID)
-chmod 755  # rwxr-xr-x - standard for executables
-chmod 644  # rw-r--r--  - standard for files
-chmod 600  # rw-------  - private files (SSH keys)
-chmod 700  # rwx------  - private executables
-chmod 400  # r--------  - read-only (AWS .pem files)
-\`\`\`
-
-## Critical Files
-
-\`\`\`
-/etc/passwd         User accounts
-/etc/shadow         Password hashes
-/etc/group          Group definitions
-/etc/hosts          Local DNS
-/etc/resolv.conf    DNS servers
-/etc/fstab          Filesystem mounts
-/etc/crontab        System cron
-/etc/sudoers        Sudo permissions
-/etc/ssh/sshd_config  SSH daemon config
-/proc/cpuinfo       CPU information
-/proc/meminfo       Memory information
-/var/log/syslog     System log
-/var/log/auth.log   Authentication log
-\`\`\`
+```bash
+Ctrl+R       # search command history
+Ctrl+A/E     # beginning/end of line
+Ctrl+U/K     # delete to start/end of line
+Ctrl+W       # delete word before cursor
+!!           # repeat last command
+!$           # last argument of last command
+Alt+.        # insert last argument
+history 50   # last 50 commands
+!nginx       # run last command starting with nginx
+```

@@ -1,62 +1,70 @@
-# Terraform Cheat Sheet
+# Terraform Cheatsheet
 
-## Core Commands
+## CLI Commands
 
 ```bash
-terraform init              # Initialize, download providers & modules
-terraform init -upgrade     # Upgrade providers to latest allowed version
-terraform validate          # Check syntax and configuration validity
-terraform fmt               # Format all .tf files (run before every commit)
-terraform fmt -recursive    # Format all subdirectories too
+# Init and setup
+terraform init                    # init providers + modules
+terraform init -upgrade           # upgrade providers
+terraform init -backend-config=backend.hcl
 
-terraform plan              # Preview changes (no real changes made)
-terraform plan -out=tfplan  # Save plan to file
-terraform plan -var="env=prod"              # Override variable
-terraform plan -var-file="prod.tfvars"     # Use var file
+# Plan and apply
+terraform plan                    # preview changes
+terraform plan -out=plan.tfplan   # save plan
+terraform apply                   # apply (prompts confirmation)
+terraform apply -auto-approve     # CI/CD (no prompt)
+terraform apply plan.tfplan       # apply saved plan
+terraform apply -target=aws_instance.web  # only one resource
 
-terraform apply             # Apply changes (prompts for confirmation)
-terraform apply tfplan      # Apply saved plan (no prompt)
-terraform apply -auto-approve               # Skip confirmation (CI/CD)
-terraform apply -target=aws_instance.web   # Apply only specific resource
+# State
+terraform state list              # list all resources
+terraform state show aws_s3_bucket.main  # inspect resource
+terraform state mv old_name new_name     # rename resource
+terraform state rm aws_s3_bucket.temp   # remove from state (doesn't delete resource)
+terraform import aws_s3_bucket.existing my-bucket-name
 
-terraform destroy           # Destroy all resources
-terraform destroy -target=module.vpc       # Destroy specific resource
-
-# State operations
-terraform state list        # List all resources in state
-terraform state show aws_vpc.main          # Show resource details
-terraform state rm aws_instance.old        # Remove from state (don't destroy)
-terraform state mv aws_instance.web aws_instance.app  # Rename in state
-terraform import aws_s3_bucket.main my-bucket-name    # Import existing resource
-
-# Outputs
-terraform output            # Show all outputs
-terraform output vpc_id     # Show specific output
-terraform output -json      # JSON format (for scripting)
-
-# Debugging
-TF_LOG=DEBUG terraform apply    # Full debug logs
-TF_LOG=ERROR terraform plan     # Errors only
-terraform console               # Interactive expression evaluator
+# Destroy
+terraform destroy                 # destroy everything
+terraform destroy -target=aws_instance.old  # specific resource
 
 # Workspace
 terraform workspace list
 terraform workspace new staging
 terraform workspace select prod
-terraform workspace show        # Current workspace
+
+# Utility
+terraform fmt                     # format code
+terraform validate                # check syntax
+terraform output db_endpoint      # show output value
+terraform console                 # interactive REPL
+terraform show                    # show current state
+terraform graph | dot -Tsvg > graph.svg  # visualize
 ```
 
-## HCL Quick Reference
+## HCL Patterns
 
 ```hcl
 # Variables
-variable "region" {
-  description = "AWS region"
+variable "environment" {
   type        = string
-  default     = "us-east-1"
+  description = "Deployment environment"
+  default     = "dev"
   validation {
-    condition     = contains(["us-east-1", "us-west-2"], var.region)
-    error_message = "Region must be us-east-1 or us-west-2."
+    condition     = contains(["dev","staging","prod"], var.environment)
+    error_message = "Must be dev, staging, or prod."
+  }
+}
+
+variable "instance_config" {
+  type = object({
+    instance_type = string
+    min_size      = number
+    max_size      = number
+  })
+  default = {
+    instance_type = "t3.micro"
+    min_size      = 1
+    max_size      = 3
   }
 }
 
@@ -64,185 +72,94 @@ variable "region" {
 locals {
   common_tags = {
     Environment = var.environment
+    Project     = "synfracore"
     ManagedBy   = "terraform"
-    Team        = var.team
   }
-  name_prefix = "${var.project}-${var.environment}"
+  is_prod = var.environment == "prod"
 }
 
-# Data source
-data "aws_ami" "ubuntu" {
-  most_recent = true
-  owners      = ["099720109477"]  # Canonical
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-*-22.04-amd64-server-*"]
-  }
-}
-
-# Resource with all common meta-arguments
+# Count and for_each
 resource "aws_instance" "web" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = var.instance_type
-
-  tags = merge(local.common_tags, { Name = "${local.name_prefix}-web" })
-
-  lifecycle {
-    create_before_destroy = true
-    prevent_destroy       = false
-    ignore_changes        = [ami]
-  }
-
-  depends_on = [aws_internet_gateway.main]
+  count         = var.environment == "prod" ? 3 : 1
+  instance_type = "t3.micro"
+  tags = merge(local.common_tags, {
+    Name = "web-${count.index + 1}"
+  })
 }
 
-# Output
-output "instance_ip" {
-  description = "Public IP of web instance"
-  value       = aws_instance.web.public_ip
-  sensitive   = false
-}
-```
-
-## Loops and Conditions
-
-```hcl
-# count — create N similar resources
-resource "aws_subnet" "public" {
-  count             = 3
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = "10.0.${count.index}.0/24"
-  availability_zone = data.aws_availability_zones.available.names[count.index]
-  tags = { Name = "public-subnet-${count.index + 1}" }
-}
-# Reference: aws_subnet.public[0].id, aws_subnet.public[*].id
-
-# for_each — create from map/set
-variable "buckets" {
-  default = {
-    logs    = "us-east-1"
-    backups = "us-west-2"
-    assets  = "us-east-1"
-  }
+resource "aws_iam_user" "team" {
+  for_each = toset(["alice", "bob", "carol"])
+  name     = each.value
+  tags     = { User = each.key }
 }
 
-resource "aws_s3_bucket" "this" {
-  for_each = var.buckets
-  bucket   = "${local.name_prefix}-${each.key}"
-  # each.key = "logs", each.value = "us-east-1"
-}
-# Reference: aws_s3_bucket.this["logs"].arn
-
-# Conditional expression
-resource "aws_eip" "nat" {
-  count  = var.enable_nat_gateway ? 1 : 0
-  domain = "vpc"
-}
-
-# For expression
-locals {
-  subnet_ids = [for s in aws_subnet.public : s.id]
-  subnet_map = { for s in aws_subnet.public : s.availability_zone => s.id }
-  prod_sg_ids = [for sg in var.security_groups : sg.id if sg.env == "prod"]
-}
-
-# Dynamic block
-resource "aws_security_group" "web" {
+# Dynamic blocks
+resource "aws_security_group" "app" {
   dynamic "ingress" {
-    for_each = var.ingress_rules
+    for_each = var.allowed_ports
     content {
-      from_port   = ingress.value.port
-      to_port     = ingress.value.port
+      from_port   = ingress.value
+      to_port     = ingress.value
       protocol    = "tcp"
-      cidr_blocks = ingress.value.cidrs
+      cidr_blocks = ["0.0.0.0/0"]
     }
   }
 }
+
+# Conditionals
+instance_type = var.environment == "prod" ? "m5.large" : "t3.micro"
+count         = var.create_resource ? 1 : 0
+
+# Data sources
+data "aws_ami" "amazon_linux" {
+  most_recent = true
+  owners      = ["amazon"]
+  filter {
+    name   = "name"
+    values = ["al2023-ami-*-x86_64"]
+  }
+}
+
+# Outputs
+output "vpc_id" {
+  value       = aws_vpc.main.id
+  description = "The VPC ID"
+}
+
+output "db_password" {
+  value     = random_password.db.result
+  sensitive = true  # Won't show in console output
+}
 ```
 
-## Backend Configuration
+## Remote State (S3 Backend)
 
 ```hcl
-# S3 backend with locking
+# backend.tf
 terraform {
+  required_version = ">= 1.5"
+  
   backend "s3" {
-    bucket         = "company-terraform-state"
+    bucket         = "my-terraform-state"
     key            = "prod/vpc/terraform.tfstate"
     region         = "us-east-1"
     encrypt        = true
-    dynamodb_table = "terraform-locks"
+    kms_key_id     = "arn:aws:kms:..."
+    dynamodb_table = "terraform-state-locks"  # State locking
   }
-
+  
   required_providers {
     aws = {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
   }
-
-  required_version = ">= 1.6.0"
-}
-```
-
-## Common Patterns
-
-```hcl
-# Get current AWS account ID
-data "aws_caller_identity" "current" {}
-output "account_id" { value = data.aws_caller_identity.current.account_id }
-
-# Get available AZs
-data "aws_availability_zones" "available" { state = "available" }
-
-# Read from SSM Parameter Store
-data "aws_ssm_parameter" "db_password" {
-  name            = "/prod/myapp/db_password"
-  with_decryption = true
 }
 
-# Pass to resource
-resource "aws_db_instance" "main" {
-  password = data.aws_ssm_parameter.db_password.value
-}
-```
-
-## Provider Configuration
-
-```hcl
-# AWS with assume role (cross-account)
 provider "aws" {
-  region = "us-east-1"
-  assume_role {
-    role_arn = "arn:aws:iam::123456789:role/terraform-role"
+  region = var.aws_region
+  default_tags {
+    tags = local.common_tags
   }
 }
-
-# Multiple providers (multi-region)
-provider "aws" {
-  alias  = "us_east"
-  region = "us-east-1"
-}
-
-provider "aws" {
-  alias  = "eu_west"
-  region = "eu-west-1"
-}
-
-resource "aws_instance" "eu" {
-  provider = aws.eu_west
-  ami      = "ami-xxx"
-}
-```
-
-## Sensitive Variables
-
-```bash
-# Pass via env var (never in .tf files)
-export TF_VAR_db_password="SecurePass123"
-terraform apply
-
-# Or via var file (add to .gitignore!)
-# secrets.tfvars:
-# db_password = "SecurePass123"
-terraform apply -var-file="secrets.tfvars"
 ```
