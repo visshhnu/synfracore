@@ -1,9 +1,10 @@
 export const runtime = "edge";
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { getAcademy, getTechnology } from "@/lib/data/academies";
 import { techSections } from "@/lib/data/navigation";
 import SectionContent from "@/components/tech/SectionContent";
+import LabsSection from "@/components/tech/LabsSection";
 
 type Props = {
   params: Promise<{ academy: string; technology: string; section: string }>;
@@ -27,6 +28,8 @@ export default async function SectionPage({ params }: Props) {
   const currentIndex = techSections.findIndex((s) => s.slug === section);
   const prevSection = currentIndex > 0 ? techSections[currentIndex - 1] : null;
   const nextSection = currentIndex < techSections.length - 1 ? techSections[currentIndex + 1] : null;
+
+  const isLabs = section === "labs";
 
   return (
     <div style={{ display: "flex", gap: "0", minHeight: "80vh" }}>
@@ -83,7 +86,7 @@ export default async function SectionPage({ params }: Props) {
       </aside>
 
       {/* Content */}
-      <div className="content-main" style={{ flex: 1, minWidth: 0, padding: "36px 40px", maxWidth: "860px", overflowX: "hidden" }}>
+      <div className="content-main" style={{ flex: 1, minWidth: 0, padding: "36px 40px", maxWidth: isLabs ? "1000px" : "860px", overflowX: "hidden" }}>
         {/* Breadcrumb */}
         <div style={{ fontSize: "13px", color: "var(--text-4)", marginBottom: "8px", display: "flex", gap: "6px", alignItems: "center", flexWrap: "wrap" }}>
           <Link href={`/academies/${aSlug}`} style={{ color: "var(--text-4)", textDecoration: "none"}}>{academy.title}</Link>
@@ -100,16 +103,25 @@ export default async function SectionPage({ params }: Props) {
           </h1>
         </div>
 
-        {/* Content component */}
-        <SectionContent
-          academy={aSlug}
-          technology={tSlug}
-          section={section}
-          techName={tech.name}
-          techIcon={tech.icon}
-          sectionLabel={sectionData?.label || section}
-          accentColor={academy.color}
-        />
+        {/* Labs section gets LabsSection, others get SectionContent */}
+        {isLabs ? (
+          <LabsSection
+            academy={aSlug}
+            technology={tSlug}
+            techName={tech.name}
+            accentColor={academy.color}
+          />
+        ) : (
+          <SectionContent
+            academy={aSlug}
+            technology={tSlug}
+            section={section}
+            techName={tech.name}
+            techIcon={tech.icon}
+            sectionLabel={sectionData?.label || section}
+            accentColor={academy.color}
+          />
+        )}
 
         {/* Prev/Next navigation */}
         <div
