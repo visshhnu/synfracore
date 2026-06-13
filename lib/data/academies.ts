@@ -206,6 +206,7 @@ const databasesAcademy: Academy = {
         { slug: "postgresql", name: "PostgreSQL", icon: "🐘", description: "Advanced open-source RDBMS — MVCC, JSON, extensions, replication", level: "Intermediate", tags: ["SQL", "ACID", "MVCC"] },
         { slug: "mysql", name: "MySQL", icon: "🐬", description: "World's most popular open-source relational database — InnoDB, replication", level: "Beginner", tags: ["SQL", "InnoDB", "Replication"] },
         { slug: "sql", name: "SQL Mastery", icon: "📊", description: "SQL from basics to advanced — window functions, CTEs, query optimisation", level: "Beginner", tags: ["SQL", "Queries", "Analytics"] },
+        { slug: "oracle", name: "Oracle Database", icon: "🔴", description: "Oracle DB — PL/SQL, performance tuning, RAC, Data Guard, enterprise features", level: "Advanced", tags: ["Oracle", "PL/SQL", "Enterprise"] },
       ],
     },
     {
@@ -514,6 +515,9 @@ const educationAcademy: Academy = {
         { slug: "cn", name: "Computer Networks", icon: "🌐", description: "OSI model, TCP/IP, routing, protocols, network security — GATE and interview prep", level: "Intermediate", tags: ["Networks", "GATE", "Protocols"] },
         { slug: "system-design", name: "System Design", icon: "🏗️", description: "LLD and HLD for tech interviews — design patterns, scalability, real systems", level: "Advanced", tags: ["System Design", "Interviews", "LLD/HLD"] },
         { slug: "placement-prep", name: "Placement Preparation", icon: "💼", description: "Aptitude, reasoning, coding rounds, HR interviews — campus placement complete prep", level: "Beginner", tags: ["Placement", "Aptitude", "HR"] },
+        { slug: "java", name: "Java Programming", icon: "☕", description: "Java from scratch to advanced — OOP, collections, multithreading, Spring Boot, DSA in Java", level: "Intermediate", tags: ["Java", "OOP", "Spring"] },
+        { slug: "c-programming", name: "C Programming", icon: "🔧", description: "C language fundamentals — pointers, memory management, data structures, system programming", level: "Beginner", tags: ["C", "Pointers", "Systems"] },
+        { slug: "cpp", name: "C++ Programming", icon: "⚡", description: "Modern C++ — STL, OOP, templates, memory management, competitive programming", level: "Intermediate", tags: ["C++", "STL", "OOP"] },
       ],
     },
   ],
@@ -538,6 +542,9 @@ const examsAcademy: Academy = {
       description: "JEE Main & Advanced, BITSAT, and state engineering exams",
       color: "#F59E0B",
       technologies: [
+        { slug: "neet-biology", name: "NEET Biology", icon: "🧬", description: "Botany and Zoology — cell biology, genetics, ecology, human physiology for NEET", level: "Advanced", tags: ["NEET", "Biology", "Medical"] },
+        { slug: "neet-physics", name: "NEET Physics", icon: "⚡", description: "Physics for NEET — mechanics, thermodynamics, optics, modern physics with NCERT focus", level: "Advanced", tags: ["NEET", "Physics", "Medical"] },
+        { slug: "neet-chemistry", name: "NEET Chemistry", icon: "🧪", description: "NEET Chemistry — organic, inorganic, physical with NCERT-based questions", level: "Advanced", tags: ["NEET", "Chemistry", "Medical"] },
         { slug: "jee-maths", name: "JEE Mathematics", icon: "📐", description: "Calculus, algebra, coordinate geometry, probability — JEE Main and Advanced", level: "Advanced", tags: ["JEE", "Maths", "IIT"] },
         { slug: "jee-physics", name: "JEE Physics", icon: "⚡", description: "Mechanics, electrostatics, optics, modern physics — JEE complete coverage", level: "Advanced", tags: ["JEE", "Physics", "IIT"] },
         { slug: "jee-chemistry", name: "JEE Chemistry", icon: "🧪", description: "Organic, inorganic, physical chemistry for JEE Main and Advanced", level: "Advanced", tags: ["JEE", "Chemistry", "IIT"] },
