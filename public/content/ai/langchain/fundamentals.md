@@ -1,212 +1,94 @@
-# LangChain Fundamentals
+# LangChain — Building LLM Applications
 
-## Setup
+LangChain is a framework for building applications powered by language models. It provides abstractions for chains (sequences of LLM calls), tools, memory, and agents that work across any LLM provider.
 
-\`\`\`bash
-pip install langchain langchain-openai langchain-community
-pip install python-dotenv  # For API key management
-\`\`\`
+## Core Concepts
 
-\`\`\`python
-# .env
-OPENAI_API_KEY=sk-...
-ANTHROPIC_API_KEY=...
-\`\`\`
+```python
+# pip install langchain langchain-anthropic langchain-openai
 
-## Chat Models
-
-\`\`\`python
-from langchain_openai import ChatOpenAI
 from langchain_anthropic import ChatAnthropic
-from dotenv import load_dotenv
+from langchain.prompts import ChatPromptTemplate
+from langchain.schema.output_parser import StrOutputParser
 
-load_dotenv()
+# 1. The LLM
+llm = ChatAnthropic(model="claude-sonnet-4-6")
 
-# OpenAI
-llm = ChatOpenAI(
-    model="gpt-4o",
-    temperature=0,          # 0 = deterministic, 1 = creative
-    max_tokens=1000,
-)
-
-# Anthropic Claude
-llm = ChatAnthropic(
-    model="claude-3-5-sonnet-20241022",
-    temperature=0,
-)
-
-# Basic invocation
-response = llm.invoke("What is the capital of France?")
-print(response.content)     # "The capital of France is Paris."
-
-# With messages
-from langchain_core.messages import HumanMessage, SystemMessage
-
-messages = [
-    SystemMessage(content="You are a DevOps expert."),
-    HumanMessage(content="Explain Kubernetes in 2 sentences.")
-]
-response = llm.invoke(messages)
-\`\`\`
-
-## Prompt Templates
-
-\`\`\`python
-from langchain_core.prompts import ChatPromptTemplate, PromptTemplate
-
-# Simple template
-template = ChatPromptTemplate.from_messages([
-    ("system", "You are an expert in {domain}. Answer concisely."),
-    ("user", "{question}")
+# 2. Prompt template
+prompt = ChatPromptTemplate.from_messages([
+    ("system", "You are a {role}. Be concise."),
+    ("human", "{question}")
 ])
 
-# Format and inspect
-formatted = template.format_messages(
-    domain="Kubernetes",
-    question="What is a Pod?"
-)
+# 3. Chain (LCEL - LangChain Expression Language)
+chain = prompt | llm | StrOutputParser()
 
-# Use in chain
-chain = template | llm
-response = chain.invoke({
-    "domain": "Terraform",
-    "question": "What is state locking?"
-})
-print(response.content)
-\`\`\`
-
-## LCEL — LangChain Expression Language
-
-\`\`\`python
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_openai import ChatOpenAI
-
-# Chain components with |
-prompt = ChatPromptTemplate.from_template(
-    "Explain {topic} in exactly 3 bullet points."
-)
-model = ChatOpenAI(model="gpt-4o-mini")
-parser = StrOutputParser()  # Extract string from response
-
-chain = prompt | model | parser  # Build the chain
-
-# Invoke
-result = chain.invoke({"topic": "Docker containers"})
+# 4. Invoke
+result = chain.invoke({"role": "DevOps expert", "question": "What is Kubernetes?"})
 print(result)
 
-# Stream
-for chunk in chain.stream({"topic": "Kubernetes pods"}):
+# Streaming
+for chunk in chain.stream({"role": "DevOps expert", "question": "Explain Docker"}):
     print(chunk, end="", flush=True)
 
-# Batch (parallel)
+# Batch
 results = chain.batch([
-    {"topic": "Terraform"},
-    {"topic": "Ansible"},
-    {"topic": "Jenkins"},
+    {"role": "expert", "question": "What is Terraform?"},
+    {"role": "expert", "question": "What is Ansible?"},
 ])
-\`\`\`
+```
 
-## RAG — Retrieval Augmented Generation
+## RAG with LangChain
 
-\`\`\`python
-from langchain_community.document_loaders import PyPDFLoader, WebBaseLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+```python
+from langchain_anthropic import ChatAnthropic
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_openai import ChatOpenAI
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnablePassthrough
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.chains import RetrievalQA
+from langchain.document_loaders import DirectoryLoader, TextLoader
 
-# 1. Load documents
-loader = PyPDFLoader("kubernetes-docs.pdf")
-docs = loader.load()
+# Load documents
+loader = DirectoryLoader("./docs", glob="**/*.md", loader_cls=TextLoader)
+documents = loader.load()
 
-# 2. Split into chunks
-splitter = RecursiveCharacterTextSplitter(
-    chunk_size=1000,
-    chunk_overlap=200,
-)
-splits = splitter.split_documents(docs)
+# Split into chunks
+splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+chunks = splitter.split_documents(documents)
 
-# 3. Create embeddings and store in vector DB
+# Create vector store
 embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
-vectorstore = Chroma.from_documents(
-    documents=splits,
-    embedding=embeddings,
-    persist_directory="./chroma_db"
-)
-retriever = vectorstore.as_retriever(
-    search_type="similarity",
-    search_kwargs={"k": 5}
-)
+vectorstore = Chroma.from_documents(chunks, embeddings, persist_directory="./chroma_db")
 
-# 4. Build RAG chain
-prompt = ChatPromptTemplate.from_template("""
-Answer the question based only on the following context:
-
-{context}
-
-Question: {question}
-
-If the answer is not in the context, say "I don't have information about that."
-""")
-
-llm = ChatOpenAI(model="gpt-4o")
-
-def format_docs(docs):
-    return "\n\n".join(doc.page_content for doc in docs)
-
-rag_chain = (
-    {"context": retriever | format_docs, "question": RunnablePassthrough()}
-    | prompt
-    | llm
-    | StrOutputParser()
+# Build RAG chain
+llm = ChatAnthropic(model="claude-sonnet-4-6")
+qa_chain = RetrievalQA.from_chain_type(
+    llm=llm,
+    retriever=vectorstore.as_retriever(search_kwargs={"k": 5}),
+    return_source_documents=True
 )
 
-# 5. Query
-answer = rag_chain.invoke("How do I configure resource limits in Kubernetes?")
-print(answer)
-\`\`\`
+result = qa_chain.invoke({"query": "How do I deploy to Kubernetes?"})
+print(result["result"])
+print("Sources:", [d.metadata["source"] for d in result["source_documents"]])
+```
 
-## Memory — Conversational AI
+## Memory and Conversation History
 
-\`\`\`python
-from langchain_community.chat_message_histories import ChatMessageHistory
-from langchain_core.chat_history import BaseChatMessageHistory
-from langchain_core.runnables.history import RunnableWithMessageHistory
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+```python
+from langchain.memory import ConversationBufferWindowMemory
+from langchain.chains import ConversationChain
 
-# Session store
-store = {}
+memory = ConversationBufferWindowMemory(k=10)  # Keep last 10 turns
 
-def get_session_history(session_id: str) -> BaseChatMessageHistory:
-    if session_id not in store:
-        store[session_id] = ChatMessageHistory()
-    return store[session_id]
-
-# Chain with history
-prompt = ChatPromptTemplate.from_messages([
-    ("system", "You are a helpful DevOps assistant."),
-    MessagesPlaceholder(variable_name="history"),
-    ("human", "{input}"),
-])
-
-chain = prompt | ChatOpenAI(model="gpt-4o-mini") | StrOutputParser()
-
-with_history = RunnableWithMessageHistory(
-    chain,
-    get_session_history,
-    input_messages_key="input",
-    history_messages_key="history",
+conversation = ConversationChain(
+    llm=ChatAnthropic(model="claude-sonnet-4-6"),
+    memory=memory,
+    verbose=False
 )
 
-# Multi-turn conversation
-session = {"configurable": {"session_id": "user-123"}}
-
-r1 = with_history.invoke({"input": "What is Kubernetes?"}, config=session)
-r2 = with_history.invoke({"input": "How does it compare to Docker Swarm?"}, config=session)
-r3 = with_history.invoke({"input": "Which should I use for a new project?"}, config=session)
-# Remembers context from previous messages!
-\`\`\`
+conversation.predict(input="What is Docker?")
+conversation.predict(input="How is it different from Kubernetes?")
+conversation.predict(input="Which should I learn first?")
+# Model remembers the entire conversation context
+```

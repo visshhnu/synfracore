@@ -1,0 +1,16 @@
+# AI Agents — Interview Questions
+
+**What is the difference between an AI agent and a simple LLM call?**
+A simple LLM call is a single request-response: you send a prompt, get text back, done. An agent is a loop: the LLM decides what action to take (call a tool, search the web, run code), observes the result, then decides the next action — repeating until the task is complete. Agents can complete multi-step tasks that require planning, information gathering, and adaptive decision-making. The key additions are tools (capabilities to interact with the world) and a loop (the model keeps acting until the goal is reached).
+
+**What is the ReAct pattern?**
+ReAct (Reasoning + Acting) is the foundational agent pattern where the model alternates between reasoning about what to do next and taking actions. The model produces a "Thought" (what should I do?), then an "Action" (call this tool with these parameters), then observes the "Observation" (tool result), then reasons again. This alternation makes the model's reasoning transparent and helps it stay on track for complex tasks. It's named after a 2022 paper showing this significantly outperforms either reasoning or acting alone.
+
+**How do you prevent agents from going into infinite loops or taking dangerous actions?**
+Multiple safeguards: maximum iteration limit (stop after N steps), action allowlists (agent can only call approved tools), action validation before execution (check command against blocklist like `rm -rf`), human-in-the-loop checkpoints (pause and ask for approval before irreversible actions), output validation (check tool results for error patterns and pause), budget limits (stop if API cost exceeds threshold). For production agents operating on real infrastructure, require explicit human approval for any destructive action (delete, modify production, send emails to real users).
+
+**What is the difference between tool use and function calling?**
+They're the same concept with different terminology. Anthropic calls it "tool use," OpenAI calls it "function calling." Both allow the LLM to request execution of predefined functions with structured JSON parameters. The model outputs a special response saying "I want to call function X with these parameters," your code executes the function and returns the result, and the model incorporates the result into its next response. The key innovation: the model's parameters can only output JSON matching your schema — making it reliable for structured data extraction and external service calls.
+
+**Explain the difference between single-agent and multi-agent architectures.**
+Single-agent: one LLM handles all aspects of a task with multiple tools. Simple, easier to debug, good for most tasks. Multi-agent: specialized agents that collaborate — one orchestrator breaks the task into subtasks and assigns them to specialist agents (researcher, coder, reviewer, etc.). Benefits: specialists can use different models optimized for their task (cheap model for research, powerful model for code), parallel execution, separation of concerns. Downsides: more complex, harder to debug, communication overhead, coordination failures. Use multi-agent when tasks are genuinely too long for one context window or when parallelism provides major benefits.
