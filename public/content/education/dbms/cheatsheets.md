@@ -1,34 +1,71 @@
-# Database Management Systems — Quick Reference
+# DBMS — Quick Reference Cheatsheet
 
-## Essential Formulas, Rules, and Patterns
+## Essential Formulas & Rules
 
-This cheatsheet covers the most important information you need to have at your fingertips for Database Management Systems.
+### Core Topics
+**ER Diagrams & Database Design**:
+  Key formula/rule: See fundamentals section for complete derivation
+  When to apply: When the problem mentions keywords related to er diagrams & database design
+**Relational Model & SQL**:
+  Key formula/rule: See fundamentals section for complete derivation
+  When to apply: When the problem mentions keywords related to relational model & sql
+**Normalization (1NF-BCNF)**:
+  Key formula/rule: See fundamentals section for complete derivation
+  When to apply: When the problem mentions keywords related to normalization (1nf-bcnf)
+**Transaction Management (ACID)**:
+  Key formula/rule: See fundamentals section for complete derivation
+  When to apply: When the problem mentions keywords related to transaction management (acid)
+**Concurrency Control**:
+  Key formula/rule: See fundamentals section for complete derivation
+  When to apply: When the problem mentions keywords related to concurrency control
+**Indexing & B+ Trees**:
+  Key formula/rule: See fundamentals section for complete derivation
+  When to apply: When the problem mentions keywords related to indexing & b+ trees
 
-## Core Concepts Summary
+## Problem-Solving Templates
 
-| Concept | Key Rule/Formula | When to Use |
+### Template 1: Identify → Apply → Verify
+1. Read the question completely
+2. Identify the topic/concept required
+3. Write the relevant formula
+4. Substitute known values
+5. Calculate step by step
+6. Verify units and reasonableness
+
+### Template 2: For MCQs
+1. Eliminate obviously wrong options first
+2. If 2 options remain, solve and check which matches
+3. Check if special conditions (edge cases) apply
+
+## Most Common Question Types
+
+| Type | What to Do | Time Budget |
 |---|---|---|
-| (See topic-specific sections above) | Review fundamentals and intermediate sections | Apply in practice problems |
+| Direct formula | Apply formula directly | 30-60 sec |
+| Multi-step | Break into steps, apply each | 1-2 min |
+| Concept-based | Recall definition + example | 45 sec |
+| Data interpretation | Extract data, compute | 2-3 min |
 
-## Most Common Mistakes
+## Revision Strategy
 
-Avoiding common mistakes in Database Management Systems:
-1. Not reading the question carefully enough
-2. Confusing similar concepts
-3. Forgetting edge cases or exceptions
-4. Not checking your work
+**1 month before exam:**
+- Complete all MCQ sets in Labs section
+- Identify weak areas from wrong answers
+- Focused practice on weak areas
 
-## Quick Tips
+**1 week before:**
+- Only previous year papers
+- Time each session like real exam
+- Review this cheatsheet daily
 
-- Review the **Labs** flashcards for rapid revision before exams
-- Practice the MCQ sets timed (simulate exam conditions)
-- Focus on understanding patterns, not memorizing answers
-- For each wrong answer, understand WHY it's wrong
+**1 day before:**
+- Light revision only — no new topics
+- Review flashcards once
+- Get good sleep
 
-## Last-Minute Revision
+## Labs Section
 
-If you have limited time before an exam:
-1. Focus on high-weight topics (check official syllabus)
-2. Review your most-missed quiz questions
-3. Go through flashcards once quickly
-4. Read the cheatsheet in the Labs section
+The **Labs** section for DBMS has:
+- Topic-wise MCQ quiz sets with detailed explanations
+- Flashcards for rapid formula/fact revision
+- Previous year-style questions

@@ -1,29 +1,44 @@
 # Mathematics — Advanced
 
-## Mastering Mathematics
+## Mastery Level for Placements/GATE/University
 
-Advanced topics require deep understanding and extensive practice. These concepts separate practitioners from experts.
+Advanced topics in Mathematics separate top scorers from average candidates. These questions test deep understanding, multi-concept application, and speed under pressure.
 
 ## Advanced Topics
 
-At this level, you tackle:
-- Complex scenarios with multiple interacting concepts
-- Performance optimization and edge cases
-- Industry best practices and professional-grade approaches
-- Integration with other systems and disciplines
+- Algebra & Functions
+- Trigonometry
+- Calculus (Differential & Integral)
+- Probability & Statistics
+- Coordinate Geometry
+- Vectors & 3D Geometry
+- Matrices & Determinants
 
-## Expert-Level Thinking
+## Advanced Problem Patterns
 
-What distinguishes experts:
-- They understand WHY things work, not just HOW
-- They can reason about trade-offs
-- They can explain complex topics simply
-- They've seen (and fixed) the hard problems
+At this level, questions combine multiple concepts:
+- **Multi-step problems**: require 3-5 steps, each using a different concept
+- **Tricky conditions**: unusual constraints that require careful reading
+- **Data interpretation**: extract relevant data, ignore noise, compute quickly
+- **Proof-based** (for GATE/University exams): derive, justify, analyze formally
 
-## Preparation for High-Stakes Use
+## Time Management for Advanced Questions
 
-Whether this is for certification exams, professional work, or interviews — advanced mastery requires:
-1. Extensive practice with difficult problems
-2. Understanding the theory behind practical application
-3. Learning from real-world case studies
-4. Teaching others (forces deeper understanding)
+In competitive exams, advanced questions take longer. Strategy:
+1. **Triage first**: scan all questions, mark easy/medium/hard
+2. **Do easy first**: secure those marks, build confidence
+3. **Medium next**: aim for partial credit where applicable
+4. **Hard last**: attempt with remaining time, guess if negative marking allows
+
+## High-Yield Advanced Topics
+
+Based on previous years' patterns for Placements/GATE/University:
+- Focus on the first 3 topics in the list above (highest weightage)
+- Practice previous year questions from last 5-10 years
+- Study toppers' answer sheets (for subjective exams like UPSC)
+
+## Practice Resources
+
+- **Labs section**: Advanced MCQ sets with detailed explanations
+- **Interview Q&A**: Conceptual questions that test deep understanding
+- Previous year papers: Non-negotiable for exam preparation

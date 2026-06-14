@@ -1,25 +1,46 @@
 # SSC CGL — Intermediate
 
-## Building on SSC CGL Fundamentals
+## From Concepts to Problems
 
-This section covers intermediate concepts that require a solid grasp of the fundamentals. You should be comfortable with basics before proceeding.
+At the intermediate level, you apply fundamental knowledge to solve structured problems. This is where SSC CGL questions at medium difficulty level fall.
 
-## Key Intermediate Topics
+## Topics at This Level
 
-At this level, you move from understanding individual concepts to combining them effectively:
-- Applying core concepts to real-world scenarios
-- Handling edge cases and exceptions
-- Understanding common pitfalls and how to avoid them
-- Connecting SSC CGL to related topics and tools
+- Quantitative Aptitude
+- General Intelligence & Reasoning
+- General Awareness
+- English Comprehension
+- Tier 2: Statistics (Paper 2)
+- Tier 2: Finance & Economics (Paper 3)
 
-## Real-World Application
+## Problem-Solving Strategy
 
-The difference between beginner and intermediate is practical application. You should be able to:
-1. Apply concepts without looking at a reference
-2. Explain your reasoning
-3. Recognize when to use which approach
-4. Debug common problems
+For SSC CGL at intermediate level:
 
-## Practice
+**1. Identify the type** — Which topic does this question belong to? (e.g., work-time, profit-loss, normalization)
 
-The **Labs** section (Intermediate MCQs) tests exactly this level. Aim for 80%+ before moving to Advanced.
+**2. Recall the approach** — What formula/method applies? Write it down.
+
+**3. Apply methodically** — Work step by step. Don't skip steps under time pressure — mistakes happen.
+
+**4. Verify** — Does your answer make sense? For MCQ, check if the answer is "in the ballpark."
+
+**5. Review wrong answers** — Every wrong answer reveals a gap. Fix the gap, not just the answer.
+
+## Practice Distribution
+
+For optimal preparation:
+- 60% time on problem solving (not reading)
+- 20% time on concept review
+- 20% time on analyzing mistakes
+
+## Key Formulas & Rules
+
+Study the **Cheatsheet** section for a compiled list of the most important formulas and rules for SSC CGL. The **Labs** section has intermediate MCQ sets that test exactly this level.
+
+## Transition to Advanced
+
+You're ready for advanced topics when you can:
+- Solve intermediate problems in under 2 minutes each
+- Identify the approach within 15 seconds of reading a problem
+- Score 75%+ consistently on intermediate MCQ sets

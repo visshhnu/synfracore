@@ -1,34 +1,40 @@
-# Coding Guidelines — Interview Questions
+# Coding Guidelines — Interview & Exam Questions
 
-## Common Interview Questions on Coding Guidelines
+## Top Questions for CPC/CCS Certification
 
-Interview questions for Coding Guidelines typically fall into three categories:
-1. **Conceptual**: "Explain X" or "What is the difference between X and Y?"
-2. **Scenario-based**: "How would you handle X situation?"
-3. **Problem-solving**: Apply knowledge to a new problem
+These are the most frequently tested concepts in Coding Guidelines across competitive exams, job interviews, and certification tests.
 
-## How to Answer Effectively
+## Conceptual Questions
 
-**STAR method** for scenario questions:
-- **S**ituation: Set context briefly
-- **T**ask: What needed to be done
-- **A**ction: What YOU specifically did
-- **R**esult: Measurable outcome
+**Q: What is the most important concept in Coding Guidelines?**
+A: The foundation of Coding Guidelines lies in understanding [ICD-10-CM Guideline Sections (A-C)]. Without a solid grasp of this, other concepts become difficult to apply correctly.
 
-**For conceptual questions:**
-- Define the concept precisely
-- Give a concrete example
-- Explain implications or importance
-- Contrast with related concepts if relevant
+**Q: What are the most common mistakes candidates make?**
+A: The most frequent errors include:
+- Misapplying formulas without understanding the underlying concept
+- Making calculation errors under time pressure
+- Misreading the question (especially for tricky MCQs)
+- Not knowing when to use which approach
 
-## Key Areas Interviewers Probe
+**Q: How do you prepare for Coding Guidelines in limited time?**
+A: Focus on high-yield topics first. Study the most tested concepts from previous years, practice MCQs (not theory reading), and use the spaced repetition technique for retention.
 
-In Coding Guidelines, interviewers typically focus on:
-- Fundamental understanding (can you explain the core concepts clearly?)
-- Practical application (have you used this in real situations?)
-- Problem-solving (how do you think through challenges?)
-- Depth of knowledge (can you go beyond surface-level answers?)
+## Topic-Wise Important Questions
 
-## Practice
+**ICD-10-CM Guideline Sections (A-C)**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
+**Principal Diagnosis Selection**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
+**Additional Diagnoses**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
+**Outpatient vs Inpatient Rules**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
+**Signs & Symptoms Coding**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
 
-The **Labs** section has MCQ quiz sets that mirror the format of real exam and interview questions. Practice explaining your reasoning out loud for each answer — interviews require verbal articulation, not just recognition.
+## Exam-Specific Tips
+
+For CPC/CCS Certification:
+- Understand the marking scheme (negative marking affects strategy)
+- Practice with timer (exam conditions matter)
+- The Labs section MCQ sets simulate real exam questions with explanations
+- Review your wrong answers systematically — patterns in errors indicate knowledge gaps
+
+## Quick Revision
+
+Before the exam, use the **Labs flashcard sets** for rapid revision of key formulas, definitions, and patterns. The **Cheatsheet** section has the most important quick-reference material.

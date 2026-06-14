@@ -1,27 +1,47 @@
 # Coding Guidelines — Fundamentals
 
-## Getting Started with Coding Guidelines
+## Overview
 
-This section introduces the core concepts of Coding Guidelines that every learner needs to understand before advancing further.
+Coding Guidelines is a foundational subject for CPC/CCS Certification. Mastering these fundamentals is essential before attempting intermediate or advanced topics.
 
-## Key Concepts
+## Core Topics Covered
 
-The fundamentals of Coding Guidelines include understanding the basic principles, terminology, and foundational techniques that everything else builds on.
+- ICD-10-CM Guideline Sections (A-C)
+- Principal Diagnosis Selection
+- Additional Diagnoses
+- Outpatient vs Inpatient Rules
+- Signs & Symptoms Coding
+- Combination Codes
+- Sequela & Late Effects
+- External Cause Codes
 
-## Core Topics
+## Learning Approach
 
-- Understanding the why: Why does Coding Guidelines matter?
-- Basic terminology and vocabulary
-- Core principles and rules
-- Common patterns and anti-patterns
-- Getting your first hands-on experience
+**Step 1: Understand, don't memorize**
+Each concept in Coding Guidelines builds on the previous. Don't try to memorize formulas/rules before understanding why they work.
 
-## Practice
+**Step 2: Practice with examples**
+After each concept, solve at least 5 examples before moving on. Understanding isn't enough — you need speed and accuracy.
 
-Head to the **Labs** section for interactive MCQ quizzes and flashcards covering all fundamental concepts with explanations.
+**Step 3: Use the Labs section**
+The MCQ quiz sets and flashcards in the Labs section are designed specifically for Coding Guidelines fundamentals. Complete all beginner-level questions before advancing.
 
-## Study Resources
+## Study Schedule
 
-- Start with the Overview section for context
-- Complete all Labs (Beginner level) before moving to Intermediate
-- Focus on understanding concepts, not memorization
+| Week | Focus Area | Daily Time |
+|---|---|---|
+| Week 1 | First 2-3 topics from the list above | 1-2 hours |
+| Week 2 | Next 2-3 topics | 1-2 hours |
+| Week 3 | Remaining topics + revision | 1-2 hours |
+| Week 4 | MCQ practice + weak area review | 2 hours |
+
+## Common Mistakes at This Level
+
+- Skipping the basics and jumping to shortcuts
+- Not solving enough practice problems
+- Reading without writing/working through examples
+- Ignoring errors instead of analyzing them
+
+## What Comes Next
+
+After fundamentals, move to the **Intermediate** section which covers application of these concepts to real problems and harder question patterns.

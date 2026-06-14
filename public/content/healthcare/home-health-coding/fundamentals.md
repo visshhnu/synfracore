@@ -1,27 +1,47 @@
 # Home Health Coding — Fundamentals
 
-## Getting Started with Home Health Coding
+## Overview
 
-This section introduces the core concepts of Home Health Coding that every learner needs to understand before advancing further.
+Home Health Coding is a foundational subject for CPC/CCS Certification. Mastering these fundamentals is essential before attempting intermediate or advanced topics.
 
-## Key Concepts
+## Core Topics Covered
 
-The fundamentals of Home Health Coding include understanding the basic principles, terminology, and foundational techniques that everything else builds on.
+- Home Health PPS (PDGM)
+- OASIS Assessment Tool
+- Primary Diagnosis Selection
+- Functional Assessment Coding
+- Comorbidity Adjustment
+- LUPA & Episode Management
+- Home Health Quality Measures
+- Billing on UB-04
 
-## Core Topics
+## Learning Approach
 
-- Understanding the why: Why does Home Health Coding matter?
-- Basic terminology and vocabulary
-- Core principles and rules
-- Common patterns and anti-patterns
-- Getting your first hands-on experience
+**Step 1: Understand, don't memorize**
+Each concept in Home Health Coding builds on the previous. Don't try to memorize formulas/rules before understanding why they work.
 
-## Practice
+**Step 2: Practice with examples**
+After each concept, solve at least 5 examples before moving on. Understanding isn't enough — you need speed and accuracy.
 
-Head to the **Labs** section for interactive MCQ quizzes and flashcards covering all fundamental concepts with explanations.
+**Step 3: Use the Labs section**
+The MCQ quiz sets and flashcards in the Labs section are designed specifically for Home Health Coding fundamentals. Complete all beginner-level questions before advancing.
 
-## Study Resources
+## Study Schedule
 
-- Start with the Overview section for context
-- Complete all Labs (Beginner level) before moving to Intermediate
-- Focus on understanding concepts, not memorization
+| Week | Focus Area | Daily Time |
+|---|---|---|
+| Week 1 | First 2-3 topics from the list above | 1-2 hours |
+| Week 2 | Next 2-3 topics | 1-2 hours |
+| Week 3 | Remaining topics + revision | 1-2 hours |
+| Week 4 | MCQ practice + weak area review | 2 hours |
+
+## Common Mistakes at This Level
+
+- Skipping the basics and jumping to shortcuts
+- Not solving enough practice problems
+- Reading without writing/working through examples
+- Ignoring errors instead of analyzing them
+
+## What Comes Next
+
+After fundamentals, move to the **Intermediate** section which covers application of these concepts to real problems and harder question patterns.
