@@ -1,4 +1,5 @@
 "use client";
+import { NewsletterSignup } from "@/components/growth/NewsletterSignup";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -107,6 +108,11 @@ export default function Footer() {
             <p style={{ color: "var(--text-4)", fontSize: "13px", lineHeight: 1.75, maxWidth: "260px", marginBottom: "20px" }}>
               The world&apos;s most comprehensive tech learning ecosystem. Built for practitioners, by practitioners. Education should be free.
             </p>
+            {/* Newsletter signup */}
+            <div style={{ marginTop: "18px" }}>
+              <p style={{ fontSize: "11px", color: "var(--text-4)", fontWeight: 700, letterSpacing: "0.07em", textTransform: "uppercase", marginBottom: "8px" }}>Weekly Digest</p>
+              <NewsletterSignup variant="compact" context="footer" />
+            </div>
 
             {/* Social icons */}
             <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>

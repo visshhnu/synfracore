@@ -1,6 +1,9 @@
 export const runtime = "edge";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { ShareButtons } from "@/components/growth/ShareButtons";
+import { NewsletterSignup } from "@/components/growth/NewsletterSignup";
+import { TelegramBanner } from "@/components/growth/TelegramBanner";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -315,7 +318,23 @@ export default async function BlogPost({ params }: Props) {
       <div style={{ fontSize: "16px" }}>
         {renderBody(article.body)}
       </div>
-      <div style={{ marginTop: "64px", paddingTop: "32px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
+      {/* Share buttons */}
+      <div style={{ marginTop: "48px" }}>
+        <ShareButtons title={article.title} />
+      </div>
+
+      {/* Newsletter signup */}
+      <div style={{ marginTop: "24px" }}>
+        <NewsletterSignup variant="inline" context="blog article" />
+      </div>
+
+      {/* Telegram CTA */}
+      <div style={{ marginTop: "16px" }}>
+        <TelegramBanner variant="card" />
+      </div>
+
+      {/* Article footer nav */}
+      <div style={{ marginTop: "40px", paddingTop: "32px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
         <a href="/blog" style={{ color: "var(--text-4)", textDecoration: "none", fontSize: "14px" }}>← All articles</a>
         <a href="/academies" style={{ background: `${color}18`, color, padding: "8px 16px", borderRadius: "8px", textDecoration: "none", fontSize: "13px", fontWeight: 700 }}>
           Start Learning {article.tag} →

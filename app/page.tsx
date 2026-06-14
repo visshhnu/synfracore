@@ -1,4 +1,6 @@
 export const runtime = "edge";
+import { TelegramBanner } from "@/components/growth/TelegramBanner";
+import { NewsletterSignup } from "@/components/growth/NewsletterSignup";
 import Link from "next/link";
 import { academies } from "@/lib/data/academies";
 import { certifications, roadmaps, stats } from "@/lib/data/navigation";
@@ -315,6 +317,14 @@ export default function Home() {
           <p style={{ color: "var(--text-4)", fontSize: "12px", marginTop: "24px" }}>
             Learn → Practice → Build → Troubleshoot → Get Certified → Get Hired
           </p>
+        </div>
+      </section>
+
+      {/* Community Growth Section */}
+      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px 80px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "16px" }}>
+          <TelegramBanner variant="banner" />
+          <NewsletterSignup variant="inline" context="homepage" />
         </div>
       </section>
 

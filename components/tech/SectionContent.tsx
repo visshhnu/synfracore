@@ -1,5 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
+import { ShareButtons } from "@/components/growth/ShareButtons";
+import { TelegramBanner } from "@/components/growth/TelegramBanner";
 import { Loader2, RefreshCw, Sparkles, BookOpen } from "lucide-react";
 import { hasContent, fetchContent } from "@/lib/content";
 
@@ -264,6 +266,11 @@ export default function SectionContent({ academy, technology, section, techName,
         </button>
       </div>
       <article style={{ maxWidth: "800px" }}>{renderMarkdown(preContent)}</article>
+      {/* Share this page + community CTA */}
+      <div style={{ maxWidth: "800px", marginTop: "40px", display: "flex", flexDirection: "column", gap: "12px" }}>
+        <ShareButtons title={`${sectionLabel} — ${techName} | SynfraCore`} compact />
+        <TelegramBanner variant="card" />
+      </div>
     </div>
   );
 
