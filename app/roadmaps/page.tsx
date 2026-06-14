@@ -11,6 +11,10 @@ const salaries: Record<string, string> = {
   "ai-engineer": "₹18L – ₹80L",
   "data-analyst": "₹5L – ₹25L",
   "security-engineer": "₹10L – ₹45L",
+  "database-engineer": "₹8L – ₹35L",
+  "data-engineer": "₹10L – ₹40L",
+  "healthcare-coder": "₹3L – ₹12L",
+  "sre-engineer": "₹20L – ₹90L",
 };
 
 export default function RoadmapsPage() {
@@ -18,13 +22,13 @@ export default function RoadmapsPage() {
     <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "56px 24px" }}>
       <div style={{ marginBottom: "56px", textAlign: "center" }}>
         <div style={{ display: "inline-block", background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.2)", borderRadius: "20px", padding: "6px 16px", fontSize: "13px", color: "#3B82F6", fontWeight: 600, marginBottom: "16px" }}>
-          6 Career Paths
+          10 Career Paths
         </div>
         <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
           Career Roadmaps
         </h1>
         <p style={{ color: "var(--text-4)", fontSize: "18px", maxWidth: "560px", margin: "0 auto", lineHeight: 1.6 }}>
-          Step-by-step learning paths from beginner to job-ready. Follow a roadmap and go from zero to employable in 4–9 months.
+          Step-by-step learning paths from beginner to job-ready. Follow a roadmap and go from zero to employable in 4–9 months across 10 tracks.
         </p>
       </div>
 

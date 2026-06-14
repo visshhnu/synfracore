@@ -50,6 +50,10 @@ export const roadmaps = [
   { slug: "ai-engineer", title: "AI Engineer", icon: "🤖", duration: "6 months", steps: ["Python", "ML Fundamentals", "LLM Concepts", "Prompt Engineering", "LangChain", "RAG & Vector DBs", "AI Agents", "LLMOps"] },
   { slug: "data-analyst", title: "Data Analyst", icon: "📊", duration: "4 months", steps: ["Excel Advanced", "SQL", "Python & Pandas", "Data Visualization", "Power BI", "Tableau", "Dashboarding"] },
   { slug: "security-engineer", title: "Security Engineer", icon: "🛡️", duration: "7 months", steps: ["Security Fundamentals", "Network Security", "Cloud Security", "SIEM & SOC", "Pen Testing", "Ethical Hacking", "Incident Response"] },
+  { slug: "database-engineer", title: "Database Engineer", icon: "🗄️", duration: "6 months", steps: ["SQL Mastery", "PostgreSQL Advanced", "Redis & Caching", "MongoDB", "Database Design", "Performance Tuning", "Replication & HA", "Cloud Databases"] },
+  { slug: "data-engineer", title: "Data Engineer", icon: "⚙️", duration: "8 months", steps: ["Python & Pandas", "SQL Advanced", "Apache Kafka", "dbt", "Airflow", "Spark Basics", "Cloud Data Warehouses", "Pipeline Orchestration"] },
+  { slug: "healthcare-coder", title: "Healthcare Coder", icon: "🏥", duration: "5 months", steps: ["ICD-10-CM Basics", "CPT Procedure Codes", "HCPCS Level II", "Coding Guidelines", "Medical Terminology", "OASIS & PDGM", "CPC Exam Prep", "Compliance & Auditing"] },
+  { slug: "sre-engineer", title: "SRE / Reliability Engineer", icon: "📊", duration: "7 months", steps: ["Linux Deep Dive", "Kubernetes Production", "Prometheus & SLOs", "Incident Management", "Chaos Engineering", "Capacity Planning", "Automation", "On-Call Excellence"] },
 ];
 
 export const stats = [

@@ -43,6 +43,30 @@ const posts = [
     excerpt: "Learn Retrieval-Augmented Generation from scratch. Build a document Q&A system that answers questions about your own PDF files.",
     tag: "AI", readTime: "15 min", date: "Mar 2025", featured: false,
   },
+  {
+    slug: "ansible-playbook-guide",
+    title: "Your First Ansible Playbook: Automate Server Setup in 15 Minutes",
+    excerpt: "Stop SSHing into servers one by one. Write one playbook, run it against 100 servers simultaneously. Complete beginner guide with real examples.",
+    tag: "DevOps", readTime: "10 min", date: "Apr 2025", featured: false,
+  },
+  {
+    slug: "postgresql-indexing-guide",
+    title: "PostgreSQL Indexing: Why Your Queries Are Slow and How to Fix Them",
+    excerpt: "EXPLAIN ANALYZE demystified. Learn to read query execution plans, understand when indexes help vs hurt, and fix the 5 most common slow query patterns.",
+    tag: "Databases", readTime: "12 min", date: "Apr 2025", featured: false,
+  },
+  {
+    slug: "aws-cost-optimization",
+    title: "Reduce Your AWS Bill by 60%: Real Techniques That Actually Work",
+    excerpt: "Not theory — actual changes that cut real AWS bills. Reserved instances, Savings Plans, right-sizing, S3 lifecycle rules, and the one setting most people miss.",
+    tag: "Cloud", readTime: "8 min", date: "May 2025", featured: false,
+  },
+  {
+    slug: "kubernetes-troubleshooting",
+    title: "Kubernetes Troubleshooting: The 10 Most Common Issues and Fixes",
+    excerpt: "CrashLoopBackOff, ImagePullBackOff, Pending pods, OOMKilled — every Kubernetes engineer hits these. Here is exactly how to diagnose and fix each one.",
+    tag: "Kubernetes", readTime: "14 min", date: "May 2025", featured: false,
+  },
 ];
 
 const tagColors: Record<string, string> = {
