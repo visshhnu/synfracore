@@ -1,57 +1,102 @@
 import Link from "next/link";
-import { ArrowRight, BookOpen } from "lucide-react";
-
+import { ArrowRight, Clock, Tag } from "lucide-react";
+export const runtime = "edge";
 export const metadata = {
   title: "Blog — SynfraCore",
-  description: "Tech articles, career tips, and learning guides",
+  description: "DevOps, Cloud, and AI tutorials, career guides, and industry insights from the SynfraCore team.",
 };
 
 const posts = [
-  { title: "How to Pass the CKA Exam in 60 Days", slug: "#", date: "Jan 2025", readTime: "8 min", tags: ["Kubernetes", "Certification"] },
-  { title: "DevOps vs Platform Engineering — What's the Difference?", slug: "#", date: "Jan 2025", readTime: "6 min", tags: ["Career", "DevOps"] },
-  { title: "The Complete Guide to AWS Cost Optimization", slug: "#", date: "Dec 2024", readTime: "12 min", tags: ["AWS", "FinOps"] },
-  { title: "Building Your First RAG App with LangChain and Claude", slug: "#", date: "Dec 2024", readTime: "10 min", tags: ["AI", "RAG", "Python"] },
-  { title: "GATE CSE 2025 Preparation Strategy — From 0 to 700+", slug: "#", date: "Nov 2024", readTime: "15 min", tags: ["GATE", "Exam Prep"] },
-  { title: "Kubernetes Networking Explained — Services, Ingress, and CNI", slug: "#", date: "Nov 2024", readTime: "14 min", tags: ["Kubernetes", "Networking"] },
+  {
+    slug: "docker-beginner-guide",
+    title: "Docker for Beginners: From Zero to Your First Container in 30 Minutes",
+    excerpt: "Everything you need to know to get started with Docker — install, build your first image, and run a multi-container app. No prior experience needed.",
+    tag: "Docker", readTime: "8 min", date: "Jan 2025", featured: true,
+  },
+  {
+    slug: "kubernetes-vs-docker-swarm",
+    title: "Kubernetes vs Docker Swarm in 2025: Which Should You Learn First?",
+    excerpt: "A practical comparison for job seekers. Spoiler: the answer isn't 'learn both' — it depends entirely on your target companies.",
+    tag: "Kubernetes", readTime: "6 min", date: "Jan 2025", featured: true,
+  },
+  {
+    slug: "terraform-aws-starter",
+    title: "Your First Terraform Project: Build a Complete AWS VPC in 20 Minutes",
+    excerpt: "Step-by-step guide to provisioning a production-ready VPC with public/private subnets, NAT Gateway, and bastion host using Terraform.",
+    tag: "Terraform", readTime: "10 min", date: "Feb 2025", featured: false,
+  },
+  {
+    slug: "devops-salary-india-2025",
+    title: "DevOps Engineer Salaries in India 2025: City-wise, Experience-wise Breakdown",
+    excerpt: "Real salary data from 500+ DevOps engineers across Bangalore, Hyderabad, Mumbai, Pune, and Chennai. What to expect at each level.",
+    tag: "Career", readTime: "5 min", date: "Feb 2025", featured: false,
+  },
+  {
+    slug: "cka-exam-guide",
+    title: "CKA Exam Guide 2025: What I Wish I Knew Before Studying",
+    excerpt: "A practical CKA preparation guide from someone who passed on the first attempt — resources, time plan, and the 5 mistakes most candidates make.",
+    tag: "Kubernetes", readTime: "12 min", date: "Mar 2025", featured: false,
+  },
+  {
+    slug: "rag-beginner-guide",
+    title: "Build a RAG System in Python: Step-by-Step with Claude API",
+    excerpt: "Learn Retrieval-Augmented Generation from scratch. Build a document Q&A system that answers questions about your own PDF files.",
+    tag: "AI", readTime: "15 min", date: "Mar 2025", featured: false,
+  },
 ];
 
+const tagColors: Record<string, string> = {
+  Docker: "#3B82F6", Kubernetes: "#8B5CF6", Terraform: "#7C3AED",
+  Career: "#10B981", AI: "#F59E0B", Cloud: "#06B6D4",
+};
+
 export default function BlogPage() {
+  const featured = posts.filter(p => p.featured);
+  const rest = posts.filter(p => !p.featured);
   return (
-    <div style={{ maxWidth: "900px", margin: "0 auto", padding: "56px 24px" }}>
+    <div style={{ maxWidth: "1000px", margin: "0 auto", padding: "56px 24px" }}>
       <div style={{ marginBottom: "48px" }}>
-        <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(32px, 5vw, 48px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>Blog</h1>
-        <p style={{ color: "var(--text-4)", fontSize: "17px", lineHeight: 1.7 }}>Tech deep-dives, career tips, and learning guides</p>
+        <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(28px,4vw,44px)", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: "12px" }}>Blog</h1>
+        <p style={{ color: "var(--text-4)", fontSize: "17px" }}>Practical guides on DevOps, Cloud, AI, and career growth.</p>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "1px", background: "var(--border)", borderRadius: "16px", overflow: "hidden" }}>
-        {posts.map((post, i) => (
-          <Link key={i} href={post.slug}
-            style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", background: "var(--bg-1)", padding: "20px 24px", textDecoration: "none", color: "var(--text-1)", transition: "background 0.15s" }}>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "16px", marginBottom: "8px", lineHeight: 1.4 }}>{post.title}</h2>
-              <div style={{ display: "flex", gap: "8px", alignItems: "center", flexWrap: "wrap" }}>
-                <span style={{ fontSize: "12px", color: "var(--text-4)" }}>{post.date}</span>
-                <span style={{ fontSize: "12px", color: "var(--text-4)" }}>·</span>
-                <span style={{ fontSize: "12px", color: "var(--text-4)" }}>{post.readTime} read</span>
-                {post.tags.map(t => (
-                  <span key={t} style={{ background: "rgba(59,130,246,0.1)", color: "#3B82F6", padding: "1px 7px", borderRadius: "4px", fontSize: "11px", fontWeight: 600 }}>{t}</span>
-                ))}
-              </div>
+      {/* Featured posts */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(420px, 1fr))", gap: "20px", marginBottom: "48px" }}>
+        {featured.map(post => (
+          <Link key={post.slug} href={`/blog/${post.slug}`}
+            style={{ display: "flex", flexDirection: "column", gap: "16px", background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "16px", padding: "28px", textDecoration: "none", color: "var(--text-1)" }}>
+            <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+              <span style={{ background: `${tagColors[post.tag] || "#3B82F6"}18`, color: tagColors[post.tag] || "#3B82F6", padding: "3px 10px", borderRadius: "6px", fontSize: "12px", fontWeight: 700 }}>{post.tag}</span>
+              <span style={{ background: "rgba(234,179,8,0.15)", color: "#B45309", padding: "3px 10px", borderRadius: "6px", fontSize: "11px", fontWeight: 600 }}>Featured</span>
             </div>
-            <ArrowRight size={16} color="var(--text-4)" style={{ flexShrink: 0 }}/>
+            <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "18px", lineHeight: 1.4, margin: 0 }}>{post.title}</h2>
+            <p style={{ color: "var(--text-4)", fontSize: "14px", lineHeight: 1.7, margin: 0 }}>{post.excerpt}</p>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "auto" }}>
+              <div style={{ display: "flex", gap: "12px", fontSize: "12px", color: "var(--text-4)" }}>
+                <span style={{ display: "flex", alignItems: "center", gap: "4px" }}><Clock size={11}/> {post.readTime} read</span>
+                <span>{post.date}</span>
+              </div>
+              <span style={{ fontSize: "13px", fontWeight: 600, color: "#3B82F6" }}>Read →</span>
+            </div>
           </Link>
         ))}
       </div>
 
-      <div style={{ marginTop: "48px", background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "16px", padding: "32px", textAlign: "center" }}>
-        <BookOpen size={32} style={{ margin: "0 auto 16px", color: "#3B82F6" }}/>
-        <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "20px", marginBottom: "8px" }}>Learn by doing, not just reading</h3>
-        <p style={{ color: "var(--text-4)", fontSize: "14px", marginBottom: "20px", lineHeight: 1.6 }}>
-          Our labs and projects section has interactive content that goes deeper than blog posts.
-        </p>
-        <Link href="/labs" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg, #3B82F6, #8B5CF6)", color: "#fff", padding: "12px 24px", borderRadius: "10px", fontSize: "14px", fontWeight: 700, textDecoration: "none" }}>
-          Go to Labs <ArrowRight size={14}/>
-        </Link>
+      {/* All posts */}
+      <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "18px", marginBottom: "16px", color: "var(--text-4)" }}>All Articles</h2>
+      <div style={{ display: "flex", flexDirection: "column", gap: "1px", background: "var(--border)", borderRadius: "14px", overflow: "hidden", border: "1px solid var(--border)" }}>
+        {rest.map(post => (
+          <Link key={post.slug} href={`/blog/${post.slug}`}
+            style={{ display: "flex", alignItems: "center", gap: "16px", background: "var(--bg-1)", padding: "18px 24px", textDecoration: "none", color: "var(--text-1)" }}>
+            <span style={{ background: `${tagColors[post.tag] || "#3B82F6"}18`, color: tagColors[post.tag] || "#3B82F6", padding: "2px 8px", borderRadius: "4px", fontSize: "11px", fontWeight: 700, flexShrink: 0 }}>{post.tag}</span>
+            <span style={{ flex: 1, fontSize: "15px", fontWeight: 500 }}>{post.title}</span>
+            <div style={{ display: "flex", gap: "12px", fontSize: "12px", color: "var(--text-4)", flexShrink: 0, alignItems: "center" }}>
+              <span>{post.readTime}</span>
+              <span>{post.date}</span>
+              <ArrowRight size={13}/>
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
   );
