@@ -5,7 +5,6 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { CopyProtection } from "@/components/CopyProtection";
-import { GoogleTranslate } from "@/components/GoogleTranslate";
 
 export const metadata: Metadata = {
   title: { default: "SynfraCore — Learn DevOps, Cloud & AI", template: "%s | SynfraCore" },
@@ -57,7 +56,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body suppressHydrationWarning style={{ margin: 0, minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--bg)", color: "var(--text-2)" }}>
         <ThemeProvider>
           <CopyProtection />
-          <GoogleTranslate />
           <Navbar />
           <main style={{ flex: 1, paddingTop: "64px" }}>{children}</main>
           <Footer />

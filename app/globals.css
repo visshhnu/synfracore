@@ -619,6 +619,11 @@ html.light header {
 html.light header a {
   color: #475569;
 }
+html.light header a.btn-primary,
+html.light .btn-primary {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #2563EB, #7C3AED) !important;
+}
 html.light header nav a:hover {
   color: #0F172A !important;
   background: #F1F5F9 !important;

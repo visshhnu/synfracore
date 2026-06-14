@@ -184,6 +184,25 @@ export default function Navbar() {
     };
   }, []);
 
+  // Load Google Translate script (safe here - Navbar is always "use client")
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if ((window as any).__gtLoaded) return;
+    (window as any).__gtLoaded = true;
+    (window as any).googleTranslateElementInit = function () {
+      try {
+        new (window as any).google.translate.TranslateElement(
+          { pageLanguage: "en", includedLanguages: "te,hi,kn,ta,ml,ar,es,pt,zh-TW,fr,de,ja", autoDisplay: false },
+          "google_translate_element"
+        );
+      } catch {}
+    };
+    const script = document.createElement("script");
+    script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+    script.async = true;
+    document.head.appendChild(script);
+  }, []);
+
   return (
     <>
       {/* ── STICKY HEADER ── */}
