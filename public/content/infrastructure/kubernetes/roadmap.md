@@ -1,55 +1,50 @@
 # Kubernetes — Learning Roadmap
 
-## Time to Job-Ready: 8 weeks
+## Time to Job-Ready: 8 weeks (2 hours/day)
 
-**Goal:** Can deploy, scale, and manage production workloads on Kubernetes clusters
+**Goal:** Deploy, scale, and manage production workloads on Kubernetes clusters.
 
----
+## Phase 1 — Core Concepts (Week 1-2)
+- Understand the architecture: control plane (API server, etcd, scheduler, controller manager), worker nodes (kubelet, kube-proxy, container runtime)
+- Core resources: Pod, Deployment, ReplicaSet, Service (ClusterIP, NodePort, LoadBalancer)
+- ConfigMaps and Secrets — externalize configuration
+- `kubectl` fundamentals: `get`, `describe`, `apply`, `delete`, `logs`, `exec`, `port-forward`
+- Set up a local cluster: `minikube` or `kind`
 
-## Phase 1: Week 1-2: Core Concepts
+## Phase 2 — Intermediate (Week 3-4)
+- Namespaces and resource isolation
+- Persistent Volumes, PVCs, StorageClasses
+- Ingress controllers — route external HTTP traffic
+- Resource requests and limits, HorizontalPodAutoscaler
+- RBAC: Roles, ClusterRoles, RoleBindings
+- Rolling updates and rollbacks: `kubectl rollout`
 
-- Pods, Deployments, ReplicaSets
-- Services (ClusterIP, NodePort, LoadBalancer)
-- ConfigMaps and Secrets
-- kubectl CLI fundamentals
+## Phase 3 — Production Patterns (Week 5-6)
+- Helm charts: install, upgrade, rollback, create custom charts
+- NetworkPolicy — restrict pod-to-pod communication
+- Pod Disruption Budgets, Affinity and Anti-Affinity rules
+- Probes: liveness, readiness, startup
+- Init containers and sidecar pattern
+- Secrets management: sealed-secrets or external-secrets
 
-## Phase 2: Week 3-4: Intermediate
-
-- Namespaces and RBAC
-- Persistent Volumes and Storage Classes
-- Ingress and TLS termination
-- Resource requests, limits, HPA
-
-## Phase 3: Week 5-6: Production
-
-- Helm charts (install, upgrade, rollback)
-- NetworkPolicy and security contexts
-- Pod disruption budgets and affinity rules
-- Rolling updates and rollback strategies
-
-## Phase 4: Week 7-8: Advanced
-
-- Cluster setup with kubeadm or managed (EKS/GKE/AKS)
-- Custom Resource Definitions (CRDs)
-- Operators and controller patterns
+## Phase 4 — Advanced (Week 7-8)
+- Set up a real cluster: kubeadm or managed (EKS/GKE/AKS)
+- Custom Resource Definitions (CRDs) and Operators
 - GitOps with ArgoCD or Flux
+- Service Mesh basics (Istio or Linkerd)
+- Multi-cluster patterns
+- Monitoring: Prometheus + Grafana on K8s
+
+## Certifications
+- **KCNA** — Kubernetes and Cloud Native Associate (starter)
+- **CKAD** — Certified Kubernetes Application Developer
+- **CKA** — Certified Kubernetes Administrator (most valuable)
+
+## Jobs After Kubernetes Mastery
+Kubernetes Engineer · Platform Engineer · DevOps Engineer · SRE · Cloud Architect
 
 ## Resources
-
-- Kubernetes.io official docs
-- KodeKloud CKA/CKAD courses
-- killer.sh practice exams
-- Kubernetes Up & Running by O'Reilly
-
-## Certifications to Target
-
-- CKA (Certified Kubernetes Administrator)
-- CKAD (Certified Kubernetes App Developer)
-- KCNA (K8s and Cloud Native Associate)
-
-## Career Paths
-
-- Kubernetes Engineer
-- Platform Engineer
-- DevOps Engineer
-- SRE
+- **kubernetes.io/docs** — official docs (allowed during CKA exam)
+- **KodeKloud CKA course** — best structured course
+- **killer.sh** — 2 free mock exams included with CKA purchase
+- **Kubernetes Up & Running** by O'Reilly

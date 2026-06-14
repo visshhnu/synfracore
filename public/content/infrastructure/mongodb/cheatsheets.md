@@ -1,13 +1,11 @@
-# Mongodb — Cheatsheets
+# MongoDB — Cheatsheet
 
-## Overview
 
-This section contains comprehensive content for Mongodb — Cheatsheets. 
-Study materials are organized from fundamentals to advanced topics.
 
-## Key Topics
 
-- Review the fundamentals section to build a strong foundation
-- Practice problems and examples regularly
-- Use the cheatsheet for quick revision before exams
-- Focus on interview questions to test your understanding
+
+```javascript\n// ── CONNECT ──────────────────────────────────────────────\nmongosh "mongodb://localhost:27017"\nmongosh "mongodb+srv://user:pass@cluster.mongodb.net/mydb"\n\n// ── DATABASES & COLLECTIONS ──────────────────────────────\nshow dbs\nuse myapp\nshow collections\ndb.createCollection("users")\ndb.users.drop()\n\n// ── INSERT ────────────────────────────────────────────────\ndb.users.insertOne({ name: "Alice", email: "alice@e.com", age: 30 })\ndb.users.insertMany([{ name: "Bob" }, { name: "Charlie" }])\n\n// ── QUERY ─────────────────────────────────────────────────\ndb.users.find({})                              // all\ndb.users.find({ age: { $gt: 25 } })           // age > 25\ndb.users.find({ $or: [{ name: "Alice" }, { name: "Bob" }] })\ndb.users.find({ tags: { $in: ["python", "go"] } })\ndb.users.find({ name: /^Al/ })                 // regex\ndb.users.find({}, { name: 1, email: 1, _id: 0 })  // projection\ndb.users.find().sort({ name: 1 }).limit(10).skip(20)\n\n// ── UPDATE ────────────────────────────────────────────────\ndb.users.updateOne({ name: "Alice" }, { $set: { age: 31 } })\ndb.users.updateMany({ age: { $lt: 18 } }, { $set: { minor: true } })\ndb.users.findOneAndUpdate({ name: "Alice" }, { $inc: { score: 10 } }, { returnDocument: "after" })\ndb.users.replaceOne({ name: "Alice" }, { name: "Alice", newField: "value" })\n\n// ── DELETE ────────────────────────────────────────────────\ndb.users.deleteOne({ name: "Alice" })\ndb.users.deleteMany({ age: { $lt: 0 } })\n\n// ── INDEXES ───────────────────────────────────────────────\ndb.users.createIndex({ email: 1 }, { unique: true })\ndb.users.createIndex({ name: "text", bio: "text" })  // text search\ndb.users.createIndex({ location: "2dsphere" })       // geospatial\ndb.users.getIndexes()\ndb.users.dropIndex("email_1")\n\n// ── AGGREGATION ───────────────────────────────────────────\ndb.orders.aggregate([\n  { $match: { status: "paid" } },\n  { $group: { _id: "$user_id", total: { $sum: "$amount" } } },\n  { $sort: { total: -1 } },\n  { $limit: 10 }\n])\n\n// ── ADMIN ─────────────────────────────────────────────────\ndb.stats()\ndb.users.stats()\ndb.currentOp()\ndb.killOp(opid)\ndb.users.find({ ... }).explain("executionStats")\n```
+
+
+
+

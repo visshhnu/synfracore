@@ -1,51 +1,45 @@
 # Jenkins — Learning Roadmap
 
-## Time to Job-Ready: 6 weeks
+## Time to Job-Ready: 5 weeks (2 hours/day)
 
-**Goal:** Can build end-to-end CI/CD pipelines that test, build, and deploy applications automatically
+**Goal:** Build end-to-end CI/CD pipelines that automatically test, build, and deploy applications.
 
----
+## Phase 1 — Setup & First Pipeline (Week 1)
+- Install Jenkins: Docker (`docker run -p 8080:8080 jenkins/jenkins:lts`) or Linux package
+- Initial setup: unlock, install suggested plugins, create admin user
+- Install key plugins: Docker, Git, Pipeline, Blue Ocean, Credentials
+- Create first freestyle job: connect to GitHub, run a shell command
+- Understand: executors, agents, workspace, build queue
 
-## Phase 1: Week 1: Setup
+## Phase 2 — Declarative Pipelines (Week 2-3)
+- Jenkinsfile: `pipeline`, `agent`, `stages`, `stage`, `steps`, `post`
+- Environment variables and credentials binding (`withCredentials`)
+- Docker agent: run each stage in a fresh container
+- Parallel stages: run tests faster
+- `when` conditions: only deploy from `main` branch
+- `post` actions: `always`, `success`, `failure` notifications
 
-- Install Jenkins (Docker or Linux)
-- Configure plugins, credentials, nodes
-- Create first freestyle job
-- Connect to GitHub repository
+## Phase 3 — Production Patterns (Week 4)
+- Shared Libraries: DRY pipelines across 50+ repos
+- Multibranch Pipeline: auto-detect branches and PRs
+- Blue Ocean: visual pipeline editor and viewer
+- Webhook triggers: build on every GitHub push in seconds
+- Deployment strategies: rolling, blue-green via kubectl
+- Notifications: Slack, email, JIRA status updates
 
-## Phase 2: Week 2-3: Pipelines
+## Phase 4 — Scale & Security (Week 5)
+- Jenkins on Kubernetes: Kubernetes plugin, dynamic agents
+- Configuration as Code (JCasC): version control Jenkins config
+- Security: RBAC with Matrix Authorization, audit logs, HTTPS
+- Backup: Jenkins home directory, job configs, credentials
+- Performance: master-agent architecture, parallel builds
 
-- Write Declarative Jenkinsfile (stages, steps, post)
-- Environment variables and credentials binding
-- Docker agent for isolated builds
-- Parallel stages for speed
+## Certifications
+- **Certified Jenkins Engineer (CJE)** — CloudBees certification
 
-## Phase 3: Week 4-5: Production
-
-- Shared libraries for DRY pipelines
-- Blue Ocean UI and pipeline visualization
-- Branch strategies (GitFlow, trunk-based)
-- Notifications: Slack, email, JIRA
-
-## Phase 4: Week 6: Advanced
-
-- Jenkins on Kubernetes (Kubernetes plugin)
-- Configuration as Code (JCasC)
-- Performance: agents, build queues, scaling
-- Security: RBAC, audit logs, HTTPS
+## Jobs After Jenkins Mastery
+CI/CD Engineer · DevOps Engineer · Build Engineer · Release Engineer
 
 ## Resources
-
-- Jenkins official documentation
-- KodeKloud Jenkins course
-- Jenkins: The Definitive Guide
-
-## Certifications to Target
-
-- Certified Jenkins Engineer (CJE) — CloudBees
-
-## Career Paths
-
-- CI/CD Engineer
-- DevOps Engineer
-- Build Engineer
+- **jenkins.io/doc** — official pipeline syntax reference
+- **KodeKloud Jenkins course** — practical labs

@@ -4,30 +4,49 @@
 
 | Detail | Info |
 |---|---|
-| **Provider** | CNCF |
-| **Exam Code** | PCA |
+| **Provider** | CNCF (Cloud Native Computing Foundation) |
 | **Cost** | $250 |
-| **Validity** | 3 years |
-| **Format** | 60 questions, 90 min, MCQ |
+| **Validity** | 2 years |
+| **Format** | 60 questions, 90 minutes, multiple choice |
+| **Passing score** | 75% |
+| **Delivery** | Online proctored |
 
 ### Domain Breakdown
+- **20%** Observability Concepts
+- **18%** Prometheus Fundamentals
+- **20%** PromQL
+- **18%** Instrumentation and Metrics
+- **14%** Data Visualization (Grafana)
+- **10%** Alerting & Dashboarding
 
-- **20%** — Observability Concepts
-- **18%** — Prometheus Fundamentals
-- **20%** — PromQL
-- **18%** — Instrumentation and metrics
-- **14%** — Data Visualization
-- **10%** — Alerting & dashboarding
+### Key Topics to Study
 
-## Exam Tips
+**PromQL (20% of exam — highest weight):**
+- Rate vs increase: `rate(counter[5m])` for per-second, `increase()` for total
+- Aggregation operators: `sum`, `avg`, `min`, `max`, `count` with `by()` and `without()`
+- `histogram_quantile(0.99, rate(http_duration_bucket[5m]))` — P99 latency
+- Offset modifier and subqueries
 
-- Master PromQL — it's 20% of the exam
-- Understand the 4 metric types: Counter, Gauge, Histogram, Summary
-- Know AlertManager routing and inhibition rules
-- Study Grafana integration with Prometheus
+**Metric Types:**
+- Counter: only goes up (requests_total, errors_total)
+- Gauge: can go up or down (memory_usage, temperature)
+- Histogram: samples observations into buckets (request durations)
+- Summary: similar to histogram, calculated client-side (less flexible)
 
-## Study Resources
+**AlertManager:**
+- `route` tree: how alerts are matched and routed to receivers
+- `inhibit_rules`: suppress child alerts when parent fires
+- `silence`: temporarily mute alerts during maintenance
 
-- Prometheus official docs
-- PromQL Cheat Sheet on GitHub
-- KodeKloud PCA course
+### Exam Tips
+- PromQL is 20% — practice writing queries against real data
+- Understand when to use each metric type — common exam scenario questions
+- Know the difference between Histogram and Summary (important gotcha)
+- AlertManager routing tree — practice reading complex configurations
+- Grafana: know how to create panels, use variables, set up alerts
+
+### Study Resources
+- **prometheus.io/docs** — official documentation
+- **PCA study guide** — training.linuxfoundation.org
+- **Awesome Prometheus alerts** — example alert rules to study
+- **Grafana Play** — play.grafana.org (free sandbox)

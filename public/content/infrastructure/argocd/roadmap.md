@@ -1,44 +1,39 @@
 # ArgoCD — Learning Roadmap
 
-## Time to Job-Ready: 6 weeks
+## Time to Job-Ready: 4 weeks (2 hours/day)
 
-**Goal:** Can implement GitOps workflows that automatically sync Kubernetes clusters to Git state
+**Goal:** Implement GitOps workflows that automatically sync Kubernetes clusters to Git state.
 
----
+## Phase 1 — GitOps Fundamentals (Week 1)
+- Understand GitOps principles: Git as single source of truth
+- How ArgoCD works: watches Git repo → compares to cluster → syncs differences
+- Install ArgoCD: `kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml`
+- ArgoCD UI: login, explore dashboard
+- Connect a Git repository (HTTPS or SSH)
+- Deploy first application, understand sync status (Synced/OutOfSync/Degraded)
 
-## Phase 1: Week 1-2: GitOps Fundamentals
+## Phase 2 — Core Features (Week 2-3)
+- Application CRD: `source`, `destination`, `syncPolicy`
+- Sync waves and hooks: control deployment order across resources
+- Health checks: built-in and custom health assessments
+- Automated sync: `automated.prune`, `automated.selfHeal`
+- AppProjects: isolate teams, restrict allowed repos/clusters
+- RBAC: role-based access control for team members
 
-- Understand GitOps principles (Git as source of truth)
-- Install ArgoCD on Kubernetes
-- Connect a Git repository
-- Deploy first application, understand sync status
-
-## Phase 2: Week 3-4: Real Usage
-
-- ApplicationSets for multi-cluster deployment
-- Sync waves and hooks for ordered deployment
-- Health assessments and custom health checks
-- RBAC and AppProjects for team isolation
-
-## Phase 3: Week 5-6: Advanced
-
-- Argo Rollouts for canary/blue-green deployments
+## Phase 3 — Advanced (Week 3-4)
+- ApplicationSets: deploy same app to 100 clusters with one manifest
+- Argo Rollouts: canary and blue-green deployments
 - Integration with Helm and Kustomize
-- Notifications (Slack, GitHub status checks)
-- Multi-cluster management
+- Notifications: Slack/GitHub status checks on sync events
+- Multi-cluster management from a single ArgoCD instance
+- Disaster recovery: backup ArgoCD state with `argocd-backup`
+
+## Certifications
+- **CGOA** — Certified GitOps Associate (CNCF, includes Flux and ArgoCD)
+
+## Jobs After ArgoCD Mastery
+Platform Engineer · GitOps Engineer · DevOps Engineer · SRE
 
 ## Resources
-
-- ArgoCD official docs (argo-cd.readthedocs.io)
-- GitOps with Argo CD by Kostis Kapelonis
-- KodeKloud GitOps course
-
-## Certifications to Target
-
-- GitOps Certified Associate (CGOA) — CNCF
-
-## Career Paths
-
-- Platform Engineer
-- DevOps Engineer
-- GitOps Engineer
+- **argo-cd.readthedocs.io** — official documentation
+- **ArgoCon talks** — YouTube, real production case studies

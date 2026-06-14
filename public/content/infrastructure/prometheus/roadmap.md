@@ -1,44 +1,45 @@
 # Prometheus — Learning Roadmap
 
-## Time to Job-Ready: 6 weeks
+## Time to Job-Ready: 5 weeks (2 hours/day)
 
-**Goal:** Can set up comprehensive monitoring with meaningful alerts and dashboards for any infrastructure
+**Goal:** Set up comprehensive monitoring with SLO-based alerts and dashboards for any infrastructure.
 
----
+## Phase 1 — Core Concepts (Week 1-2)
+- Understand the pull model: Prometheus scrapes targets on a schedule
+- Metric types: Counter, Gauge, Histogram, Summary
+- Labels: the key-value pairs that make metrics multi-dimensional
+- `prometheus.yml`: `global`, `scrape_configs`, `alerting`
+- Deploy with Docker Compose: Prometheus + Node Exporter
+- PromQL basics: selectors `{}`, `rate()`, `increase()`, `sum()`, `avg()`
 
-## Phase 1: Week 1-2: Core Concepts
+## Phase 2 — Alerting (Week 3)
+- Write alert rules in YAML: `groups`, `rules`, `expr`, `for`, `labels`, `annotations`
+- AlertManager: `route`, `receiver`, `inhibit_rules`, `silence`
+- Notification channels: Slack, PagerDuty, email
+- SLO-based alerts: error rate > 1%, P99 latency > 1s
+- Alert severity levels: `critical`, `warning`, `info`
 
-- Understand metrics, labels, and data model
-- Prometheus config (scrape_configs, alerting)
-- PromQL basics (selectors, rate(), sum by)
-- Node Exporter, Blackbox Exporter setup
+## Phase 3 — Production (Week 4)
+- Prometheus Operator and ServiceMonitor / PodMonitor CRDs
+- Kube-state-metrics and node-exporter for Kubernetes monitoring
+- Recording rules: pre-compute expensive queries
+- Long-term storage: Thanos or VictoriaMetrics
+- High-availability Prometheus: duplicate instances + deduplication
 
-## Phase 2: Week 3-4: Alerting
+## Phase 4 — Grafana (Week 5)
+- Connect Grafana to Prometheus data source
+- Build dashboards: panels, variables, time ranges
+- Import community dashboards (grafana.com/grafana/dashboards)
+- Grafana alerting: migrate from Prometheus alerts to Grafana Unified Alerting
+- Dashboard as code: Grafonnet or Terraform Grafana provider
 
-- AlertManager configuration (receivers, routes)
-- Write meaningful alert rules (SLO-based)
-- Silence, inhibition, grouping
-- Notification channels (Slack, PagerDuty)
+## Certifications
+- **PCA** — Prometheus Certified Associate (CNCF, $250)
 
-## Phase 3: Week 5-6: Production
-
-- Recording rules for expensive queries
-- Long-term storage (Thanos, Cortex, VictoriaMetrics)
-- Kubernetes monitoring with kube-state-metrics
-- ServiceMonitor and PodMonitor (Prometheus Operator)
+## Jobs After Prometheus Mastery
+SRE · Observability Engineer · Platform Engineer · DevOps Engineer
 
 ## Resources
-
-- Prometheus official docs
-- Prometheus Up & Running by O'Reilly
-- Awesome Prometheus alerts on GitHub
-
-## Certifications to Target
-
-- PCA — Prometheus Certified Associate (CNCF)
-
-## Career Paths
-
-- SRE
-- Platform Engineer
-- Observability Engineer
+- **prometheus.io/docs** — official documentation
+- **Prometheus: Up & Running** by O'Reilly
+- **Awesome Prometheus alerts** — github.com/samber/awesome-prometheus-alerts

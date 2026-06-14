@@ -1,53 +1,46 @@
 # Terraform — Learning Roadmap
 
-## Time to Job-Ready: 8 weeks
+## Time to Job-Ready: 6 weeks (2 hours/day)
 
-**Goal:** Can write production-grade Terraform for any cloud provider with proper state management and modules
+**Goal:** Write production-grade Terraform for any cloud provider with proper state management and modules.
 
----
+## Phase 1 — Foundations (Week 1-2)
+- HCL syntax: resources, data sources, variables, outputs, locals
+- Workflow: `terraform init`, `plan`, `apply`, `destroy`
+- Provider configuration (AWS, Azure, or GCP)
+- State file: what it is, why it matters, never edit manually
+- Remote state: S3 + DynamoDB (AWS) or Terraform Cloud
+- Basic resources: VPC, subnets, security groups, EC2/VMs
 
-## Phase 1: Week 1-2: Foundations
+## Phase 2 — Real Infrastructure (Week 3-4)
+- Load balancers, auto-scaling groups, RDS databases, S3 buckets
+- Data sources: reference existing resources not managed by Terraform
+- `count` vs `for_each` — when to use each
+- Dynamic blocks for repeated nested configuration
+- `depends_on` — explicit dependency management
+- `lifecycle` rules: `create_before_destroy`, `prevent_destroy`, `ignore_changes`
 
-- HCL syntax (resources, variables, outputs, locals)
-- init, plan, apply, destroy workflow
-- Provider configuration (AWS/Azure/GCP)
-- terraform.tfstate and remote backends (S3)
+## Phase 3 — Modules & Collaboration (Week 5)
+- Write reusable modules with input variables and outputs
+- Module versioning and the Terraform Registry
+- Workspaces for multi-environment (dev/staging/prod)
+- `.tfvars` files and variable precedence
+- CI/CD integration: `terraform plan` on PR, `apply` on merge
 
-## Phase 2: Week 3-4: Real Infrastructure
+## Phase 4 — Advanced (Week 6)
+- Import existing infrastructure: `terraform import`
+- Terraform Cloud: remote runs, state locking, team access
+- Policy as code: Sentinel (Terraform Cloud) or OPA (open-source)
+- Testing: `terraform validate`, `terraform fmt`, `tflint`, Terratest
+- Performance: partial applies, targeted applies (`-target`)
 
-- VPC, subnets, security groups in code
-- EC2/VMs, load balancers, auto-scaling
-- RDS/databases, S3 buckets
-- Data sources and existing resource references
+## Certifications
+- **HashiCorp Terraform Associate (003)** — $70, multiple choice, highly recommended
 
-## Phase 3: Week 5-6: Modules & Collaboration
-
-- Write reusable modules with input/output
-- Terraform Registry and community modules
-- Workspaces for multi-environment
-- CI/CD integration (Terraform Cloud or GitHub Actions)
-
-## Phase 4: Week 7-8: Advanced
-
-- Import existing infrastructure
-- Terragrunt for DRY code
-- Sentinel policies and compliance
-- Testing with Terratest
+## Jobs After Terraform Mastery
+Infrastructure Engineer · DevOps Engineer · Cloud Engineer · Platform Engineer
 
 ## Resources
-
-- Terraform official docs (terraform.io)
-- KodeKloud Terraform course
-- Terraform: Up & Running by Yevgeniy Brikman
-- HashiCorp Learn platform
-
-## Certifications to Target
-
-- HashiCorp Terraform Associate (003)
-
-## Career Paths
-
-- DevOps Engineer
-- Cloud Engineer
-- Platform Engineer
-- Infrastructure Engineer
+- **developer.hashicorp.com/terraform** — official learn platform (free)
+- **Terraform: Up & Running** by Yevgeniy Brikman
+- **KodeKloud Terraform course**

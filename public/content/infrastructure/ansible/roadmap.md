@@ -1,52 +1,46 @@
 # Ansible — Learning Roadmap
 
-## Time to Job-Ready: 8 weeks
+## Time to Job-Ready: 6 weeks (2 hours/day)
 
-**Goal:** Can automate server configuration, application deployment, and compliance at scale
+**Goal:** Automate server configuration, application deployment, and compliance at scale without agents.
 
----
+## Phase 1 — Basics (Week 1-2)
+- Understand agentless architecture: SSH-based, no daemon needed on targets
+- Install Ansible: `pip install ansible`
+- Inventory files: static hosts, groups, `group_vars/`, `host_vars/`
+- Ad-hoc commands: `ansible all -m ping`, `ansible webservers -m command -a "uptime"`
+- First playbook: YAML syntax, `hosts`, `tasks`, `handlers`
+- Core modules: `copy`, `template`, `service`, `package`, `user`, `file`
 
-## Phase 1: Week 1-2: Basics
+## Phase 2 — Playbooks (Week 3-4)
+- Variables: `vars`, `vars_files`, `register`, `set_fact`
+- Jinja2 templates: `{{ variable }}`, `{% if %}`, `{% for %}`
+- Conditionals: `when` clause
+- Loops: `loop`, `with_items`, `with_dict`
+- Tags: run specific parts of playbooks
+- Roles: organize playbooks into reusable, shareable components
 
-- Install Ansible, understand agentless architecture
-- Inventory files (static and dynamic)
-- Ad-hoc commands (ansible -m module)
-- First playbook (YAML syntax, tasks, handlers)
+## Phase 3 — Production (Week 5)
+- Ansible Vault: encrypt secrets, `ansible-vault encrypt/decrypt`
+- Error handling: `ignore_errors`, `failed_when`, `block/rescue/always`
+- Rolling updates: `serial`, `max_fail_percentage`
+- AWX/Ansible Tower: UI for team-based automation
+- Performance: `forks`, `pipelining`, `async` tasks
 
-## Phase 2: Week 3-4: Playbooks
+## Phase 4 — Advanced (Week 6)
+- Dynamic inventories: AWS EC2, Azure, GCP plugins
+- Custom modules: write Python modules for custom logic
+- Molecule: test roles with Docker containers
+- `ansible-lint`: enforce best practices
+- Integration with CI/CD pipelines
 
-- Variables (vars, vars_files, group_vars, host_vars)
-- Conditionals (when), loops (loop, with_items)
-- Templates (Jinja2) and file management
-- Roles: organize playbooks into reusable components
+## Certifications
+- **Red Hat EX407** — Ansible Automation Specialist
+- **Red Hat EX294** — Automation with Ansible (RHCE component)
 
-## Phase 3: Week 5-6: Production
-
-- Ansible Vault for secrets management
-- Tags for selective task execution
-- Error handling (ignore_errors, failed_when)
-- Tower/AWX for team collaboration and scheduling
-
-## Phase 4: Week 7-8: Advanced
-
-- Dynamic inventories (AWS, Azure, GCP plugins)
-- Custom modules (Python)
-- Testing with Molecule
-- Performance tuning (async, pipelining, forks)
+## Jobs After Ansible Mastery
+Automation Engineer · DevOps Engineer · Configuration Management Engineer · SRE
 
 ## Resources
-
-- Ansible documentation (docs.ansible.com)
-- Ansible for DevOps by Jeff Geerling (free PDF)
-- KodeKloud Ansible course
-- GitHub: geerlingguy/ansible-role-* examples
-
-## Certifications to Target
-
-- Red Hat Certified Specialist in Ansible Automation (EX407)
-
-## Career Paths
-
-- Automation Engineer
-- DevOps Engineer
-- Configuration Management Engineer
+- **docs.ansible.com** — official documentation
+- **Ansible for DevOps** by Jeff Geerling (free PDF at ansiblefordevops.com)

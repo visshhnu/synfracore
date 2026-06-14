@@ -1,52 +1,45 @@
 # Docker — Learning Roadmap
 
-## Time to Job-Ready: 4 weeks
+## Time to Job-Ready: 4 weeks (2 hours/day)
 
-**Goal:** Can containerize any application, write production-grade Dockerfiles, orchestrate multi-service apps
+**Goal:** Containerize any application, write production Dockerfiles, and orchestrate multi-service apps.
 
----
+## Phase 1 — Container Basics (Week 1)
+- Install Docker Desktop (Mac/Windows) or Docker Engine (Linux)
+- Understand: image vs container, daemon vs client, registry vs repository
+- Core commands: `docker pull`, `docker run`, `docker ps`, `docker logs`, `docker exec`
+- Port mapping (`-p`), volume mounts (`-v`), environment variables (`-e`)
+- `docker stop`, `docker rm`, `docker rmi` — container lifecycle
 
-## Phase 1: Week 1: Container Basics
+## Phase 2 — Building Images (Week 2)
+- Write Dockerfiles: `FROM`, `RUN`, `COPY`, `WORKDIR`, `EXPOSE`, `CMD`, `ENTRYPOINT`
+- Multi-stage builds — reduce image size from 900MB to 120MB
+- Layer caching — order instructions for fastest rebuilds
+- `.dockerignore` — exclude unnecessary files
+- Push to Docker Hub: `docker tag`, `docker push`
 
-- Install Docker, understand daemon/client
-- Pull images, run containers, exec into them
-- docker ps, logs, inspect, rm, rmi
-- Port mapping, volume mounts, environment variables
+## Phase 3 — Docker Compose (Week 3)
+- Write `docker-compose.yml`: services, networks, volumes
+- Multi-container apps: web app + database + Redis cache
+- Health checks and `depends_on` conditions
+- Named volumes for data persistence
+- `docker compose up/down/logs/ps/exec/scale`
 
-## Phase 2: Week 2: Building Images
+## Phase 4 — Production Patterns (Week 4)
+- Security: non-root user, read-only filesystem, no secrets in images
+- Docker secrets and environment file management
+- Resource limits: `--memory`, `--cpus`
+- Networking: bridge, host, overlay modes
+- Container scanning with Trivy: `trivy image myapp:latest`
+- Multi-architecture builds: `docker buildx`
 
-- Write Dockerfiles (FROM, RUN, COPY, CMD, ENTRYPOINT)
-- Multi-stage builds to reduce image size
-- Image layers and build cache optimization
-- Push to Docker Hub / private registry
+## Certifications
+- **Docker Certified Associate (DCA)** — the main Docker certification
 
-## Phase 3: Week 3: Docker Compose
-
-- Write docker-compose.yml (services, networks, volumes)
-- Multi-container apps (app + database + cache)
-- Health checks and depends_on
-- docker compose up/down/scale/logs
-
-## Phase 4: Week 4: Production Patterns
-
-- Security: non-root users, read-only filesystem, secrets
-- Networking: bridge, host, custom networks
-- Resource limits (CPU/memory constraints)
-- Docker Swarm basics or move to Kubernetes
+## Jobs After Docker Mastery
+DevOps Engineer · Platform Engineer · Backend Developer · Cloud Engineer
 
 ## Resources
-
-- Docker official docs (docs.docker.com)
-- Play with Docker (free online lab)
-- Docker Deep Dive by Nigel Poulton
-- KodeKloud Docker labs
-
-## Certifications to Target
-
-- Docker Certified Associate (DCA)
-
-## Career Paths
-
-- DevOps Engineer
-- Platform Engineer
-- Backend Developer
+- **Docker official docs** — docs.docker.com (best reference)
+- **Play with Docker** — labs.play-with-docker.com (free browser-based lab)
+- **Docker Deep Dive** by Nigel Poulton (concise book, ~200 pages)

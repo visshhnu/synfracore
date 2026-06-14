@@ -1,3 +1,13 @@
-# pen-testing — interview
+# Penetration Testing — Interview Questions
 
-Content coming soon.
+**What is the difference between vulnerability assessment and penetration testing?**
+Vulnerability Assessment (VA): automated scanning to identify known vulnerabilities. Tools like Nessus, OpenVAS, Qualys. Output is a list of CVEs with severity scores. Fast, broad, but shallow — doesn't chain vulnerabilities or determine real exploitability. Penetration Test: human-driven attempt to actually exploit vulnerabilities, chain weaknesses, and demonstrate real impact (e.g., "I can read your customer database"). Deeper, slower, more valuable. Rule: VA tells you what might be vulnerable; pen test proves what IS exploitable and what the actual impact would be. Most organizations should do VA monthly and pen tests annually.
+
+**Walk me through the steps of a web application pen test.**
+1. Reconnaissance: understand the application — map all endpoints, identify technologies (Wappalyzer, HTTP headers), find login pages, API docs, JS source maps. 2. Mapping: spider the app, discover all functionality including authenticated pages. 3. Vulnerability scanning: run automated tools (Burp Suite scanner, nikto) as baseline. 4. Manual testing: OWASP Top 10 — test each input for injection, test auth flows for weaknesses, check authorization (can user A access user B's data?), test file uploads, review client-side code. 5. Exploitation: confirm vulnerabilities are real with a working proof of concept. 6. Documentation: every finding with: evidence (HTTP request/response screenshot), severity (CVSS), and remediation steps.
+
+**What is IDOR and how do you find it?**
+IDOR (Insecure Direct Object Reference): when an application uses user-controlled input to access objects directly without proper authorization. Example: `GET /api/orders/12345` returns your order. If you change 12345 to 12344 and get someone else's order — that's IDOR. How to find: look for numeric IDs or GUIDs in URLs, request bodies, cookies. Test: change the ID to another value. Use two different accounts and try to access each other's resources. Also test: predictable file paths (`/uploads/invoice_12345.pdf`), username-based paths (`/profile/alice` — can you access `/profile/bob`?). IDOR is extremely common and one of the highest-paying bug bounty categories.
+
+**What is a CVE and CVSS score?**
+CVE (Common Vulnerabilities and Exposures): a unique identifier for publicly disclosed security vulnerabilities. Format: CVE-YEAR-NUMBER (e.g., CVE-2021-44228 = Log4Shell). CVSS (Common Vulnerability Scoring System): a numerical score 0-10 indicating severity. CVSS v3.1 factors: Attack Vector (Network/Adjacent/Local/Physical), Attack Complexity, Privileges Required, User Interaction, Scope (unchanged/changed), Confidentiality/Integrity/Availability impact. Score ranges: 0=None, 0.1-3.9=Low, 4.0-6.9=Medium, 7.0-8.9=High, 9.0-10.0=Critical. Log4Shell was 10.0 — network exploitable, no auth required, remote code execution.

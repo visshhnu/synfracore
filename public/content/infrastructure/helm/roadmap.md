@@ -1,44 +1,42 @@
 # Helm — Learning Roadmap
 
-## Time to Job-Ready: 6 weeks
+## Time to Job-Ready: 4 weeks (2 hours/day)
 
-**Goal:** Can package any Kubernetes application as a distributable, configurable Helm chart
+**Goal:** Package Kubernetes applications as distributable, configurable Helm charts.
 
----
+## Phase 1 — Using Charts (Week 1-2)
+- What is Helm: package manager for Kubernetes
+- `helm repo add`, `helm repo update`, `helm search repo`
+- `helm install`, `helm upgrade`, `helm rollback`, `helm uninstall`
+- Override values: `--set key=value` and `-f custom-values.yaml`
+- `helm list`, `helm status`, `helm history`
+- Explore Artifact Hub (artifacthub.io) for public charts
 
-## Phase 1: Week 1-2: Using Charts
+## Phase 2 — Building Charts (Week 2-3)
+- `helm create myapp` — scaffold a new chart
+- Chart structure: `Chart.yaml`, `values.yaml`, `templates/`
+- Template syntax: `{{ .Values.replicaCount }}`, `{{ .Release.Name }}`
+- Template functions: `include`, `toYaml`, `tpl`, `required`, `default`
+- Named templates (`_helpers.tpl`) and `NOTES.txt`
+- Chart dependencies (subcharts): `Chart.yaml` dependencies section
 
-- Install Helm, understand Chart structure
-- helm repo add/update/search
-- helm install/upgrade/rollback/uninstall
-- Override values with --set and -f values.yaml
+## Phase 3 — Production (Week 3-4)
+- `helm lint` and `helm template` for validation
+- Chart testing: `helm test` with test pods
+- Publish to OCI registry: `helm push`
+- Helm Secrets plugin: encrypt sensitive values
+- CI/CD integration: lint → test → package → publish → deploy
+- Helmfile: manage multiple releases declaratively
 
-## Phase 2: Week 3-4: Building Charts
+## Key Concepts to Master
+- Difference between `helm install` and `helm upgrade --install`
+- Release lifecycle and how Helm tracks state in Kubernetes Secrets
+- When to use `--atomic`, `--wait`, `--timeout`
+- `lookup` function to reference existing K8s resources
 
-- Scaffold with helm create
-- Write templates (Deployment, Service, Ingress)
-- Template functions (include, toYaml, tpl, required)
-- Chart dependencies and subcharts
-
-## Phase 3: Week 5-6: Production
-
-- Helm test and chart testing
-- Publish chart to OCI registry or ChartMuseum
-- CI/CD with Helm (lint, test, upgrade)
-- Helm secrets plugin for encrypted values
+## Jobs After Helm Mastery
+Kubernetes Engineer · Platform Engineer · DevOps Engineer
 
 ## Resources
-
-- Helm official docs (helm.sh)
-- Artifact Hub (artifacthub.io) for charts
-- KodeKloud Helm course
-
-## Certifications to Target
-
-- Part of CKAD exam
-
-## Career Paths
-
-- Kubernetes Engineer
-- Platform Engineer
-- DevOps Engineer
+- **helm.sh/docs** — complete reference
+- **Artifact Hub** — browse 10,000+ public charts
