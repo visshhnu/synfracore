@@ -1,61 +1,104 @@
 import Link from "next/link";
-import { ArrowRight, BookOpen, Target, Globe } from "lucide-react";
-
+export const runtime = "edge";
 export const metadata = {
-  title: "About — SynfraCore",
-  description: "About SynfraCore — a comprehensive learning platform for DevOps, Cloud, AI, and tech professionals",
+  title: "About SynfraCore",
+  description: "SynfraCore is India's most comprehensive tech learning platform — DevOps, Cloud, AI, Databases, Security and more. Learn who we are and what we are building.",
 };
+
+const stats = [
+  { value: "101", label: "Technologies" },
+  { value: "10", label: "Learning Academies" },
+  { value: "5,000+", label: "Content Pages" },
+  { value: "100%", label: "Free to Start" },
+];
+
+const values = [
+  { icon: "🎯", title: "Practical First", desc: "Every concept is backed by labs you can run, projects you can build, and interview questions you can answer. Theory without practice is useless." },
+  { icon: "📈", title: "Career-Focused", desc: "Content is structured around what gets you hired and promoted — not what's academically interesting. Real job requirements drive every topic we cover." },
+  { icon: "🌍", title: "Built for India", desc: "Salaries, job market data, and career paths reflect the Indian tech industry. We include cloud certifications, GATE, NEET, and government exam prep alongside DevOps and AI." },
+  { icon: "🚀", title: "From Zero to Architect", desc: "Each technology has a clear path: Installation → Fundamentals → Intermediate → Advanced → Projects → Certification. No prerequisite knowledge assumed without being stated." },
+  { icon: "💡", title: "Open Access", desc: "Core content is free. We believe access to quality technical education should not depend on your ability to pay ₹50,000 for a bootcamp." },
+  { icon: "🔄", title: "Always Current", desc: "Tech moves fast. We update content when tools release major versions, when job market demands shift, and when better explanations emerge." },
+];
+
+const academies = [
+  { icon: "⚙️", name: "DevOps", techs: "Linux, Docker, Kubernetes, Terraform, Ansible, Jenkins, ArgoCD" },
+  { icon: "☁️", name: "Cloud", techs: "AWS, Azure, GCP — 20 services with hands-on labs" },
+  { icon: "🗄️", name: "Databases", techs: "PostgreSQL, Redis, MongoDB, MySQL, Cassandra, Elasticsearch" },
+  { icon: "🤖", name: "AI Engineering", techs: "LLMs, RAG, LangChain, AI Agents, Prompt Engineering, LLMOps" },
+  { icon: "📊", name: "Data Analytics", techs: "SQL, Pandas, Power BI, Tableau" },
+  { icon: "🛡️", name: "Security", techs: "Network Security, Ethical Hacking, SOC, SIEM, Pen Testing" },
+  { icon: "🏥", name: "Healthcare Coding", techs: "ICD-10-CM, CPT, HCPCS, OASIS, PDGM — CPC exam prep" },
+  { icon: "💡", name: "Life Essentials", techs: "Nutrition, Mental Health, Personal Finance, First Aid" },
+  { icon: "🎓", name: "CS Education", techs: "DSA, OS, DBMS, System Design, Java, C, C++" },
+  { icon: "📝", name: "Competitive Exams", techs: "GATE CSE/ECE, JEE, NEET, UPSC, SSC CGL, RRB NTPC" },
+];
 
 export default function AboutPage() {
   return (
-    <div style={{ maxWidth: "860px", margin: "0 auto", padding: "56px 24px" }}>
-      <div style={{ marginBottom: "48px" }}>
-        <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "20px" }}>About SynfraCore</h1>
-        <p style={{ fontSize: "18px", color: "var(--text-3)", lineHeight: 1.8, marginBottom: "16px" }}>
-          SynfraCore is a comprehensive technical learning platform built for professionals and students who want to master the modern technology stack — from Linux fundamentals to AI engineering, from SQL to Kubernetes.
+    <div style={{ maxWidth: "1000px", margin: "0 auto", padding: "56px 24px" }}>
+      {/* Header */}
+      <div style={{ maxWidth: "720px", marginBottom: "64px" }}>
+        <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(32px,4vw,52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "20px" }}>
+          About SynfraCore
+        </h1>
+        <p style={{ color: "var(--text-4)", fontSize: "18px", lineHeight: 1.8 }}>
+          SynfraCore is a tech learning platform built for engineers who want to go deep — not just watch videos, but actually build things, pass certifications, and get hired into better roles.
         </p>
-        <p style={{ fontSize: "16px", color: "var(--text-4)", lineHeight: 1.8 }}>
-          We believe learning should be practical, not just theoretical. Every section — from fundamentals to advanced — is designed to give you skills you can use in real jobs, not just pass an exam.
+        <p style={{ color: "var(--text-4)", fontSize: "18px", lineHeight: 1.8, marginTop: "16px" }}>
+          We cover 101 technologies across DevOps, Cloud, AI, Databases, Security, Healthcare Coding, and more — each with a complete learning path from installation guides to advanced architecture to interview preparation.
         </p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "20px", marginBottom: "48px" }}>
-        {[
-          { icon: <BookOpen size={20}/>, title: "10 Academies", desc: "DevOps, Cloud, Databases, AI, Data, Security, Healthcare, Essentials, Education, Exams" },
-          { icon: <Target size={20}/>, title: "101 Technologies", desc: "From Linux and Docker to RAG systems and UPSC preparation" },
-          { icon: <Target size={20}/>, title: "For All Levels", desc: "Beginner to advanced — each topic has structured learning paths" },
-          { icon: <Globe size={20}/>, title: "Made in India", desc: "Focused on Indian tech job market, salaries, and certifications" },
-        ].map(item => (
-          <div key={item.title} style={{ background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "14px", padding: "24px" }}>
-            <div style={{ color: "#3B82F6", marginBottom: "12px" }}>{item.icon}</div>
-            <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "16px", marginBottom: "8px" }}>{item.title}</h3>
-            <p style={{ color: "var(--text-4)", fontSize: "14px", lineHeight: 1.6 }}>{item.desc}</p>
+      {/* Stats */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "16px", marginBottom: "64px" }}>
+        {stats.map(s => (
+          <div key={s.label} style={{ background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "14px", padding: "24px", textAlign: "center" }}>
+            <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "28px", fontWeight: 800, color: "#3B82F6", marginBottom: "6px" }}>{s.value}</div>
+            <div style={{ fontSize: "13px", color: "var(--text-4)" }}>{s.label}</div>
           </div>
         ))}
       </div>
 
-      <div style={{ marginBottom: "48px" }}>
-        <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "24px", marginBottom: "16px" }}>What Makes Us Different</h2>
-        <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-          {[
-            { title: "Real Labs, Not Just Theory", desc: "Interactive terminal simulation, SQL console, code editor — practice the actual commands and code you'll use at work." },
-            { title: "Career-Focused Content", desc: "Every section is designed with employability in mind. Interview Q&A, projects for your portfolio, certification guides, and salary information." },
-            { title: "India-Specific", desc: "Salary ranges in INR, focus on companies hiring in India, Indian exam preparation (GATE, JEE, UPSC, Banking), and healthcare coding for the Indian market." },
-            { title: "AI-Powered Assistant", desc: "Ask questions about any technology and get instant, expert answers powered by Claude." },
-          ].map(item => (
-            <div key={item.title} style={{ borderLeft: "3px solid #3B82F6", paddingLeft: "20px" }}>
-              <h4 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "16px", marginBottom: "6px" }}>{item.title}</h4>
-              <p style={{ color: "var(--text-4)", fontSize: "14px", lineHeight: 1.6 }}>{item.desc}</p>
+      {/* What we cover */}
+      <div style={{ marginBottom: "64px" }}>
+        <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "24px", marginBottom: "24px" }}>What We Cover</h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "12px" }}>
+          {academies.map(a => (
+            <div key={a.name} style={{ background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "12px", padding: "18px" }}>
+              <div style={{ display: "flex", gap: "10px", alignItems: "center", marginBottom: "8px" }}>
+                <span style={{ fontSize: "20px" }}>{a.icon}</span>
+                <span style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "15px" }}>{a.name}</span>
+              </div>
+              <p style={{ color: "var(--text-4)", fontSize: "13px", lineHeight: 1.6, margin: 0 }}>{a.techs}</p>
             </div>
           ))}
         </div>
       </div>
 
-      <div style={{ textAlign: "center", background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "20px", padding: "40px" }}>
-        <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "24px", marginBottom: "12px" }}>Start Learning Today</h2>
-        <p style={{ color: "var(--text-4)", marginBottom: "24px", fontSize: "15px" }}>Browse our academies, pick a technology, and start from the fundamentals.</p>
-        <Link href="/academies" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg, #3B82F6, #8B5CF6)", color: "#fff", padding: "14px 32px", borderRadius: "12px", fontSize: "15px", fontWeight: 700, textDecoration: "none" }}>
-          Explore Academies <ArrowRight size={16}/>
+      {/* Values */}
+      <div style={{ marginBottom: "64px" }}>
+        <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "24px", marginBottom: "24px" }}>Our Approach</h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "20px" }}>
+          {values.map(v => (
+            <div key={v.title} style={{ display: "flex", gap: "16px" }}>
+              <span style={{ fontSize: "24px", flexShrink: 0, marginTop: "2px" }}>{v.icon}</span>
+              <div>
+                <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "15px", marginBottom: "6px" }}>{v.title}</h3>
+                <p style={{ color: "var(--text-4)", fontSize: "14px", lineHeight: 1.7, margin: 0 }}>{v.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* CTA */}
+      <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+        <Link href="/academies" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg, #3B82F6, #8B5CF6)", color: "#fff", padding: "14px 28px", borderRadius: "12px", textDecoration: "none", fontSize: "15px", fontWeight: 700 }}>
+          Browse Academies →
+        </Link>
+        <Link href="/contact" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "var(--bg-1)", border: "1px solid var(--border)", color: "var(--text-2)", padding: "14px 28px", borderRadius: "12px", textDecoration: "none", fontSize: "15px", fontWeight: 600 }}>
+          Contact Us
         </Link>
       </div>
     </div>
