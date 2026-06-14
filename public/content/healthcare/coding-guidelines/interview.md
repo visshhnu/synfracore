@@ -1,13 +1,34 @@
-# Coding Guidelines — Interview
+# Coding Guidelines — Interview Questions
 
-## Overview
+## Common Interview Questions on Coding Guidelines
 
-This section contains comprehensive content for Coding Guidelines — Interview. 
-Study materials are organized from fundamentals to advanced topics.
+Interview questions for Coding Guidelines typically fall into three categories:
+1. **Conceptual**: "Explain X" or "What is the difference between X and Y?"
+2. **Scenario-based**: "How would you handle X situation?"
+3. **Problem-solving**: Apply knowledge to a new problem
 
-## Key Topics
+## How to Answer Effectively
 
-- Review the fundamentals section to build a strong foundation
-- Practice problems and examples regularly
-- Use the cheatsheet for quick revision before exams
-- Focus on interview questions to test your understanding
+**STAR method** for scenario questions:
+- **S**ituation: Set context briefly
+- **T**ask: What needed to be done
+- **A**ction: What YOU specifically did
+- **R**esult: Measurable outcome
+
+**For conceptual questions:**
+- Define the concept precisely
+- Give a concrete example
+- Explain implications or importance
+- Contrast with related concepts if relevant
+
+## Key Areas Interviewers Probe
+
+In Coding Guidelines, interviewers typically focus on:
+- Fundamental understanding (can you explain the core concepts clearly?)
+- Practical application (have you used this in real situations?)
+- Problem-solving (how do you think through challenges?)
+- Depth of knowledge (can you go beyond surface-level answers?)
+
+## Practice
+
+The **Labs** section has MCQ quiz sets that mirror the format of real exam and interview questions. Practice explaining your reasoning out loud for each answer — interviews require verbal articulation, not just recognition.

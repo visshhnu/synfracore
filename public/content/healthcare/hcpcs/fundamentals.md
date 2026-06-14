@@ -1,48 +1,27 @@
-# HCPCS Coding — Fundamentals
+# HCPCS Level II — Fundamentals
 
-## HCPCS Level II Overview
+## Getting Started with HCPCS Level II
 
-```
-HCPCS (Healthcare Common Procedure Coding System)
-Used for: Medicare, Medicaid, other insurers
+This section introduces the core concepts of HCPCS Level II that every learner needs to understand before advancing further.
 
-Level I:   CPT codes (physician procedures)
-Level II:  HCPCS codes — national codes for services NOT in CPT
-  - Durable Medical Equipment (DME)
-  - Supplies and drugs
-  - Ambulance services
-  - Prosthetics and orthotics
+## Key Concepts
 
-Code format: Letter + 4 digits
-  A codes: Transportation, Medical/Surgical Supplies
-  B codes: Enteral/Parenteral Therapy
-  D codes: Dental Procedures
-  E codes: Durable Medical Equipment
-  G codes: Professional Services (CMS temporary)
-  J codes: Drugs administered via other than oral
-  L codes: Orthotic/Prosthetic Procedures
-```
+The fundamentals of HCPCS Level II include understanding the basic principles, terminology, and foundational techniques that everything else builds on.
 
-## Common HCPCS Codes
+## Core Topics
 
-```
-DME (E codes):
-  E0100: Cane
-  E0141: Walker
-  E0601: Continuous Positive Airway Pressure (CPAP) device
-  E1399: Durable medical equipment, miscellaneous
+- Understanding the why: Why does HCPCS Level II matter?
+- Basic terminology and vocabulary
+- Core principles and rules
+- Common patterns and anti-patterns
+- Getting your first hands-on experience
 
-Drugs (J codes):
-  J0150: Injection, adenosine, 6 mg
-  J2469: Injection, piperacillin sodium/tazobactam sodium, 1.125 g
+## Practice
 
-Ambulance (A codes):
-  A0428: Ambulance service, BLS, non-emergency
-  A0429: Ambulance service, BLS, emergency
+Head to the **Labs** section for interactive MCQ quizzes and flashcards covering all fundamental concepts with explanations.
 
-Modifiers in HCPCS:
-  GY: Item is statutory exclusion (non-covered)
-  GZ: Expected to be denied as not medically necessary
-  KX: Requirements specified in LCD have been met
-  ABN: Advance Beneficiary Notice given
-```
+## Study Resources
+
+- Start with the Overview section for context
+- Complete all Labs (Beginner level) before moving to Intermediate
+- Focus on understanding concepts, not memorization

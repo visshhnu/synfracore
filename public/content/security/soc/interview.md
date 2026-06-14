@@ -1,3 +1,10 @@
-# soc — interview
+# SOC Operations — Interview Questions
 
-Content coming soon.
+**What is the difference between L1, L2, and L3 SOC analysts?**
+L1 (Tier 1): Monitor SIEM alerts, triage incoming alerts, do initial investigation, dismiss false positives, escalate real incidents. Handle high volume, follow runbooks strictly. L2 (Tier 2): Handle escalations from L1, deeper investigation, malware analysis, threat hunting, tune detection rules, write incident reports. L3 (Tier 3): Handle complex incidents, develop new detection capabilities, threat intelligence, red team collaboration, security engineering. Experience progression: L1 (0-2 years), L2 (2-5 years), L3 (5+ years).
+
+**Walk me through your incident response process for a suspected ransomware attack.**
+1. Detection: SIEM alert for mass file extension changes or shadow copy deletion. 2. Initial Triage: confirm alert is real — check endpoint for encryption activity, identify patient zero. 3. Contain: immediately isolate affected systems from network (disable NIC or block at switch), prevent spread. 4. Scope: identify all affected systems, determine if backup systems are compromised. 5. Eradicate: identify and remove ransomware payload, identify the initial access vector (phishing? RDP brute force?). 6. Recover: restore from clean backups (verify backups are not encrypted), rebuild affected systems. 7. Post-Incident: root cause analysis, timeline reconstruction, patch the initial access vector, improve detection rules.
+
+**What is threat intelligence and how do you use it in a SOC?**
+Threat intelligence is information about current and emerging threats: IOCs (Indicators of Compromise — malicious IPs, domains, hashes), TTPs (Tactics, Techniques, Procedures — how attackers operate, mapped to MITRE ATT&CK). Sources: commercial feeds (CrowdStrike, Recorded Future), open-source (AlienVault OTX, VirusTotal, Shodan), government (CISA, CERT-In), ISACs (sector-specific sharing). SOC usage: enrich SIEM alerts with IOC lookups, hunt for known-bad IOCs in historical data, tune detections to known TTPs targeting your industry, prioritize patching for exploited vulnerabilities.

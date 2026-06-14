@@ -1,13 +1,25 @@
-# Rrb Ntpc — Intermediate
+# RRB NTPC — Intermediate
 
-## Overview
+## Building on RRB NTPC Fundamentals
 
-This section contains comprehensive content for Rrb Ntpc — Intermediate. 
-Study materials are organized from fundamentals to advanced topics.
+This section covers intermediate concepts that require a solid grasp of the fundamentals. You should be comfortable with basics before proceeding.
 
-## Key Topics
+## Key Intermediate Topics
 
-- Review the fundamentals section to build a strong foundation
-- Practice problems and examples regularly
-- Use the cheatsheet for quick revision before exams
-- Focus on interview questions to test your understanding
+At this level, you move from understanding individual concepts to combining them effectively:
+- Applying core concepts to real-world scenarios
+- Handling edge cases and exceptions
+- Understanding common pitfalls and how to avoid them
+- Connecting RRB NTPC to related topics and tools
+
+## Real-World Application
+
+The difference between beginner and intermediate is practical application. You should be able to:
+1. Apply concepts without looking at a reference
+2. Explain your reasoning
+3. Recognize when to use which approach
+4. Debug common problems
+
+## Practice
+
+The **Labs** section (Intermediate MCQs) tests exactly this level. Aim for 80%+ before moving to Advanced.

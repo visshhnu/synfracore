@@ -1,25 +1,34 @@
-# DSA — Interview Questions
+# Data Structures & Algorithms — Interview Questions
 
-**What is the time complexity of sorting algorithms?**
+## Common Interview Questions on Data Structures & Algorithms
 
-| Algorithm | Best | Average | Worst | Space | Stable |
-|---|---|---|---|---|---|
-| Bubble Sort | O(n) | O(n²) | O(n²) | O(1) | Yes |
-| Selection Sort | O(n²) | O(n²) | O(n²) | O(1) | No |
-| Insertion Sort | O(n) | O(n²) | O(n²) | O(1) | Yes |
-| Merge Sort | O(n log n) | O(n log n) | O(n log n) | O(n) | Yes |
-| Quick Sort | O(n log n) | O(n log n) | O(n²) | O(log n) | No |
-| Heap Sort | O(n log n) | O(n log n) | O(n log n) | O(1) | No |
-| Counting Sort | O(n+k) | O(n+k) | O(n+k) | O(k) | Yes |
+Interview questions for Data Structures & Algorithms typically fall into three categories:
+1. **Conceptual**: "Explain X" or "What is the difference between X and Y?"
+2. **Scenario-based**: "How would you handle X situation?"
+3. **Problem-solving**: Apply knowledge to a new problem
 
-**Explain BFS vs DFS and when to use each.**
-BFS uses a queue, explores level by level. Use for: shortest path in unweighted graphs, finding nodes at distance k, detecting cycles in undirected graphs, minimum steps problems. DFS uses a stack (recursion), explores depth first. Use for: detecting cycles in directed graphs, topological sort, finding all paths, maze solving, tree traversals. BFS guarantees shortest path; DFS is more memory efficient for deep graphs.
+## How to Answer Effectively
 
-**What is dynamic programming?**
-DP solves problems by breaking them into overlapping subproblems and storing results to avoid recomputation. Two approaches: top-down (memoization — recursion + cache) and bottom-up (tabulation — fill a table iteratively). Identify DP problems by: optimal substructure (optimal solution contains optimal sub-solutions) and overlapping subproblems (same subproblems solved multiple times). Common patterns: 1D array, 2D grid, string DP, knapsack, interval DP.
+**STAR method** for scenario questions:
+- **S**ituation: Set context briefly
+- **T**ask: What needed to be done
+- **A**ction: What YOU specifically did
+- **R**esult: Measurable outcome
 
-**Explain the sliding window technique.**
-Sliding window maintains a window of elements and slides it across the array. Avoids nested loops, reducing O(n²) to O(n). Fixed window: maintain sum/count of k elements. Variable window: expand right pointer until valid, shrink left until invalid. Use when: "find max/min subarray of size k", "longest substring without repeating characters", "minimum window substring".
+**For conceptual questions:**
+- Define the concept precisely
+- Give a concrete example
+- Explain implications or importance
+- Contrast with related concepts if relevant
 
-**What is the difference between a tree and a graph?**
-A tree is a connected acyclic graph with N nodes and N-1 edges. Every tree is a graph, but not vice versa. Trees have a root, parent-child relationships, and exactly one path between any two nodes. Graphs can have cycles, multiple paths between nodes, disconnected components, and directed or undirected edges. Tree traversal (BFS/DFS) visits all nodes exactly once. Graph traversal needs a `visited` set to avoid revisiting.
+## Key Areas Interviewers Probe
+
+In Data Structures & Algorithms, interviewers typically focus on:
+- Fundamental understanding (can you explain the core concepts clearly?)
+- Practical application (have you used this in real situations?)
+- Problem-solving (how do you think through challenges?)
+- Depth of knowledge (can you go beyond surface-level answers?)
+
+## Practice
+
+The **Labs** section has MCQ quiz sets that mirror the format of real exam and interview questions. Practice explaining your reasoning out loud for each answer — interviews require verbal articulation, not just recognition.

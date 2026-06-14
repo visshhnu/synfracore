@@ -1,59 +1,27 @@
 # JEE Chemistry — Fundamentals
 
-## High-Priority Topics
+## Getting Started with JEE Chemistry
 
-```
-JEE Mains weightage:
-  Physical Chemistry:  35% (Mole concept, Thermodynamics, Equilibrium, Electrochemistry)
-  Organic Chemistry:   35% (Reactions, Mechanisms, Named reactions)
-  Inorganic Chemistry: 30% (Periodic table, p-block, d-block, Coordination)
-```
+This section introduces the core concepts of JEE Chemistry that every learner needs to understand before advancing further.
 
-## Physical Chemistry Essentials
+## Key Concepts
 
-```
-Mole Concept:
-  1 mole = 6.022 × 10²³ particles (Avogadro's number)
-  Molar mass = mass in grams of 1 mole
-  Molarity (M) = moles/litre
-  Molality (m) = moles/kg solvent
+The fundamentals of JEE Chemistry include understanding the basic principles, terminology, and foundational techniques that everything else builds on.
 
-Thermodynamics:
-  First law: ΔU = q + w (energy conservation)
-  Enthalpy: H = U + PV, ΔH = ΔU + ΔnRT (for gases)
-  Entropy: ΔS > 0 for spontaneous irreversible
-  Gibbs free energy: ΔG = ΔH - TΔS
-  ΔG < 0: spontaneous; ΔG = 0: equilibrium; ΔG > 0: non-spontaneous
+## Core Topics
 
-Chemical Equilibrium:
-  K_c = [products]^coeff / [reactants]^coeff
-  K_p = K_c(RT)^Δn
-  Le Chatelier's principle: system opposes changes in conditions
+- Understanding the why: Why does JEE Chemistry matter?
+- Basic terminology and vocabulary
+- Core principles and rules
+- Common patterns and anti-patterns
+- Getting your first hands-on experience
 
-Electrochemistry:
-  Nernst equation: E = E° - (RT/nF) ln Q
-  At 25°C: E = E° - (0.0591/n) log Q
-  Faraday's law: m = (M × I × t)/(n × F)
-```
+## Practice
 
-## Organic Chemistry Key Reactions
+Head to the **Labs** section for interactive MCQ quizzes and flashcards covering all fundamental concepts with explanations.
 
-```
-Named Reactions (must know for JEE):
-  Aldol condensation: carbonyl + enol → β-hydroxy carbonyl
-  Cannizzaro: non-enolizable aldehyde → acid + alcohol
-  Reimer-Tiemann: phenol + CHCl₃ + base → salicylaldehyde
-  Friedel-Crafts: ArH + RX/RCOCl → Ar-R/Ar-COR (Lewis acid catalyst)
-  Grignard reaction: RMgX + carbonyl → alcohol
-  Diels-Alder: diene + dienophile → cyclohexene derivative
-  Sandmeyer reaction: diazonium → ArX (with CuX)
-  
-Mechanisms:
-  SN1: tertiary, racemization, two steps
-  SN2: primary, inversion, one step, backside attack
-  E1: tertiary, carbocation intermediate
-  E2: anti-periplanar, base required
-  
-Markovnikov's rule: H adds to less substituted carbon
-Peroxide effect (anti-Markovnikov): HBr with peroxide
-```
+## Study Resources
+
+- Start with the Overview section for context
+- Complete all Labs (Beginner level) before moving to Intermediate
+- Focus on understanding concepts, not memorization

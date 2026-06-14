@@ -1,16 +1,34 @@
 # Operating Systems — Interview Questions
 
-**What is the difference between process and thread?**
-A process is an independent program execution with its own memory space — code, stack, heap, and OS resources (file handles, etc.). Processes are isolated; one crashing doesn't affect others, but communication requires IPC (pipes, sockets). A thread is a lightweight execution unit within a process. Threads share the process's memory space, making communication fast but requiring synchronization to avoid race conditions. Creating threads is faster and cheaper than processes. Modern applications use processes for isolation (microservices) and threads for parallelism within a service.
+## Common Interview Questions on Operating Systems
 
-**Explain virtual memory and why it's useful.**
-Virtual memory gives each process the illusion of having the entire address space (e.g., 4GB on 32-bit) even if physical RAM is smaller. The OS and MMU (Memory Management Unit) transparently map virtual addresses to physical frames using page tables. Benefits: process isolation (each process has its own address space), more programs can run than RAM allows (swapping idle pages to disk), programs can use more memory than physical RAM, simplifies memory allocation. The downside: page faults when accessing swapped-out pages cause disk I/O — much slower than RAM access.
+Interview questions for Operating Systems typically fall into three categories:
+1. **Conceptual**: "Explain X" or "What is the difference between X and Y?"
+2. **Scenario-based**: "How would you handle X situation?"
+3. **Problem-solving**: Apply knowledge to a new problem
 
-**What is a semaphore and how does it differ from a mutex?**
-A mutex (mutual exclusion lock) allows only ONE thread to hold it at a time — used to protect a critical section. Binary semaphore is similar but can be signaled from a different thread (mutex must be released by the same thread that acquired it). Counting semaphore allows a resource to be accessed by N threads simultaneously — `sem_init(sem, N)`. Initialize to N; `sem_wait` decrements (blocks at 0); `sem_post` increments. Use case: limit database connection pool to 10 concurrent users. Mutex: toilet key. Semaphore: parking lot with N spaces.
+## How to Answer Effectively
 
-**What causes a race condition and how do you prevent it?**
-A race condition occurs when multiple threads access shared data concurrently and the outcome depends on the relative timing of their execution. Example: two threads both do `counter++` (read, increment, write) — if both read the same value before either writes, one increment is lost. Prevention: mutual exclusion using locks/mutexes, atomic operations (hardware-supported), immutable data, message passing (share nothing). In practice: minimize shared mutable state, use language-provided thread-safe data structures, use higher-level synchronization (channels in Go).
+**STAR method** for scenario questions:
+- **S**ituation: Set context briefly
+- **T**ask: What needed to be done
+- **A**ction: What YOU specifically did
+- **R**esult: Measurable outcome
 
-**Explain how Linux handles system calls.**
-When a process needs OS services (read file, allocate memory, create socket), it executes a system call. The `syscall` instruction switches from user mode to kernel mode, saving the process state. The kernel looks up the system call number in the syscall table, executes the handler (with full hardware access), then returns the result and switches back to user mode. The mode switch is expensive (~1-5µs) — that's why batching I/O operations and using mmap (fewer syscalls than many reads) improves performance. `strace` traces system calls for debugging.
+**For conceptual questions:**
+- Define the concept precisely
+- Give a concrete example
+- Explain implications or importance
+- Contrast with related concepts if relevant
+
+## Key Areas Interviewers Probe
+
+In Operating Systems, interviewers typically focus on:
+- Fundamental understanding (can you explain the core concepts clearly?)
+- Practical application (have you used this in real situations?)
+- Problem-solving (how do you think through challenges?)
+- Depth of knowledge (can you go beyond surface-level answers?)
+
+## Practice
+
+The **Labs** section has MCQ quiz sets that mirror the format of real exam and interview questions. Practice explaining your reasoning out loud for each answer — interviews require verbal articulation, not just recognition.

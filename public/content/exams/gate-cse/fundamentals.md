@@ -1,50 +1,27 @@
-# GATE CSE — Core Subjects
+# GATE CSE — Fundamentals
 
-## Engineering Mathematics
+## Getting Started with GATE CSE
 
-```
-Discrete Mathematics:
-  Set theory: unions, intersections, power sets
-  Relations: reflexive, symmetric, transitive, equivalence
-  Functions: one-to-one, onto, bijection
-  Graph theory: Eulerian/Hamiltonian paths, spanning trees
-  Combinatorics: permutations, combinations, pigeonhole principle
-  Logic: propositional logic, predicate logic, resolution
+This section introduces the core concepts of GATE CSE that every learner needs to understand before advancing further.
 
-Linear Algebra:
-  Matrix operations, determinants, rank
-  Eigenvalues and eigenvectors
-  Systems of linear equations (Gaussian elimination)
+## Key Concepts
 
-Calculus:
-  Limits, derivatives, integration
-  Taylor series, L'Hopital's rule
+The fundamentals of GATE CSE include understanding the basic principles, terminology, and foundational techniques that everything else builds on.
 
-Probability & Statistics:
-  Conditional probability, Bayes' theorem
-  Random variables, distributions (Binomial, Poisson, Normal)
-  Mean, variance, standard deviation
-```
+## Core Topics
 
-## Algorithms — Key Concepts
+- Understanding the why: Why does GATE CSE matter?
+- Basic terminology and vocabulary
+- Core principles and rules
+- Common patterns and anti-patterns
+- Getting your first hands-on experience
 
-```python
-# Time complexities to memorize:
-# Sorting: O(n log n) for merge/heap/quick (average)
-# BFS/DFS: O(V + E)
-# Dijkstra: O((V + E) log V) with binary heap
-# Prim's/Kruskal's MST: O(E log V)
-# Floyd-Warshall: O(V³)
-# Bellman-Ford: O(VE)
+## Practice
 
-# Recurrence relations (Master Theorem):
-# T(n) = aT(n/b) + f(n)
-# Compare f(n) with n^(log_b(a)):
-#   f(n) < n^(log_b a):  T(n) = Θ(n^log_b(a))
-#   f(n) = n^(log_b a):  T(n) = Θ(n^log_b(a) × log n)
-#   f(n) > n^(log_b a):  T(n) = Θ(f(n))
+Head to the **Labs** section for interactive MCQ quizzes and flashcards covering all fundamental concepts with explanations.
 
-# Examples:
-# MergeSort: T(n) = 2T(n/2) + n → Θ(n log n)
-# BinarySearch: T(n) = T(n/2) + 1 → Θ(log n)
-```
+## Study Resources
+
+- Start with the Overview section for context
+- Complete all Labs (Beginner level) before moving to Intermediate
+- Focus on understanding concepts, not memorization

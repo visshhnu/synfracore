@@ -1,9 +1,10 @@
-# Landing Zones — interview
+# Landing Zones — Interview Questions
 
-## Content Coming Soon
+**What is a cloud landing zone and why is it important?**
+A landing zone is a pre-configured, secure multi-account cloud environment that establishes the foundation before deploying any workloads. It enforces: account isolation (separate accounts per environment/team prevents blast radius), security baseline (CloudTrail, GuardDuty, Config everywhere by default), networking architecture (consistent VPC design, centralized egress), identity and access (SSO for all accounts, no root access), cost management (tagging, budgets). Without a landing zone, organizations accumulate technical and security debt that's expensive to fix later.
 
-This section is being prepared. Check back soon for comprehensive interview content on Landing Zones.
+**What is the difference between AWS Control Tower and DIY Organizations?**
+DIY: create AWS Organizations structure manually, write and maintain SCPs yourself, set up account vending, configure baseline services (CloudTrail, Config, GuardDuty) in each account — full flexibility, high maintenance. Control Tower: managed service that sets up Landing Zone automatically, includes pre-built guardrails (both preventive SCPs and detective Config rules), Account Factory for self-service account provisioning, automatic baseline when enrolling accounts. Control Tower opinionated but reduces operational burden significantly. Many enterprises use Control Tower as the foundation then customize.
 
-## Quick Reference
-
-For now, refer to the official documentation and the fundamentals/intermediate sections in this course.
+**What are Service Control Policies (SCPs) and what can't they do?**
+SCPs restrict maximum permissions available to accounts within AWS Organizations — they're applied at OU or account level and cannot be overridden by anything within that account, including the root user. Can: prevent specific API calls, restrict to specific regions, require certain conditions (MFA, tagging). Cannot: grant permissions (SCPs only restrict), replace IAM policies (both must allow), restrict management account (SCPs don't apply to it), prevent AWS from performing management actions in your account. SCPs + IAM policies both must allow an action for it to succeed.

@@ -1,54 +1,34 @@
-# Placement Prep — Interview Questions
+# Placement Preparation — Interview Questions
 
-## Behavioral Questions (STAR Method)
+## Common Interview Questions on Placement Preparation
 
-```
-STAR: Situation, Task, Action, Result
+Interview questions for Placement Preparation typically fall into three categories:
+1. **Conceptual**: "Explain X" or "What is the difference between X and Y?"
+2. **Scenario-based**: "How would you handle X situation?"
+3. **Problem-solving**: Apply knowledge to a new problem
 
-"Tell me about yourself"
-→ 2-3 sentences each on: Background, Skills, Why this company
-→ Keep to 90 seconds
+## How to Answer Effectively
 
-"Tell me about a challenging project"
-S: "I was part of a 4-member team building an e-commerce platform..."
-T: "My responsibility was the payment integration module..."
-A: "I researched Razorpay vs Stripe, implemented with error handling..."
-R: "Delivered 2 days early, processed 500+ transactions in first month"
+**STAR method** for scenario questions:
+- **S**ituation: Set context briefly
+- **T**ask: What needed to be done
+- **A**ction: What YOU specifically did
+- **R**esult: Measurable outcome
 
-"Tell me about a conflict in a team"
-→ Focus on how YOU resolved it, not blaming others
-→ Emphasize communication, listening, compromise
+**For conceptual questions:**
+- Define the concept precisely
+- Give a concrete example
+- Explain implications or importance
+- Contrast with related concepts if relevant
 
-"Why do you want to work here?"
-→ Research the company: products, culture, recent news
-→ "I admire your work on [specific product]... aligns with my interest in..."
-→ NEVER: "For the salary", "Because you called me"
+## Key Areas Interviewers Probe
 
-"Where do you see yourself in 5 years?"
-→ "I want to grow into a senior engineer role, leading a team..."
-→ Show ambition but also show you'll stay long enough to contribute
-```
+In Placement Preparation, interviewers typically focus on:
+- Fundamental understanding (can you explain the core concepts clearly?)
+- Practical application (have you used this in real situations?)
+- Problem-solving (how do you think through challenges?)
+- Depth of knowledge (can you go beyond surface-level answers?)
 
-## CS Fundamentals Quick Answers
+## Practice
 
-```
-OOP concepts:
-  Encapsulation: bundling data + methods, hiding internal state
-  Inheritance: child class inherits parent's attributes/methods
-  Polymorphism: same interface, different implementations (overriding/overloading)
-  Abstraction: hiding implementation details, showing only interface
-
-SOLID principles:
-  Single Responsibility: one class, one reason to change
-  Open/Closed: open for extension, closed for modification
-  Liskov Substitution: subclass should be usable in place of parent
-  Interface Segregation: many specific interfaces > one general interface
-  Dependency Inversion: depend on abstractions, not concretions
-
-Design patterns:
-  Singleton: only one instance (logger, config)
-  Factory: create objects without specifying exact class
-  Observer: subscribe to events (event listeners)
-  Strategy: swap algorithm at runtime (payment methods)
-  Decorator: add behavior without changing class (middleware)
-```
+The **Labs** section has MCQ quiz sets that mirror the format of real exam and interview questions. Practice explaining your reasoning out loud for each answer — interviews require verbal articulation, not just recognition.

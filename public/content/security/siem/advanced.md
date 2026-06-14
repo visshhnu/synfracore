@@ -1,46 +1,66 @@
-# SIEM — Advanced + Interview + Cheatsheet
+# SIEM — Advanced
 
-## SOAR Integration
+## Threat Hunting with SIEM
 
-```python
-# Automated phishing response
-def handle_phishing_alert(alert):
-    email_gw.quarantine(alert['message_id'])
-    email_gw.block_sender(alert['sender'])
-    if alert.get('attachment_hash'):
-        if virustotal.check(alert['attachment_hash'])['malicious'] > 3:
-            active_directory.disable_account(alert['recipient'])
-    return ticketing.create_incident(title=f"Phishing - {alert['sender']}", severity="High")
+Threat hunting is proactive — searching for threats that haven't triggered alerts.
+
+```splunk
+# Hunt: find beaconing (C2 communication pattern)
+# Beacons communicate at regular intervals
+index=proxy
+| bin span=1m _time
+| stats count by src_ip, dest_domain, _time
+| stats stdev(count) as variance, avg(count) as avg_requests, count as intervals by src_ip, dest_domain
+| where intervals > 50 AND variance < 2
+| sort +variance
+
+# Hunt: detect DGA (Domain Generation Algorithm) C2 domains
+index=dns
+| eval domain_length = len(query)
+| eval has_hyphens = if(match(query, "-"), 1, 0)
+| eval consonant_ratio = ... 
+| where domain_length > 12 AND consonant_ratio > 0.7
+
+# Hunt: process injection (malware technique)
+index=windows EventCode=8  # CreateRemoteThread
+| where NOT process IN ("svchost.exe", "csrss.exe")  # Normal injectors
+| stats count by src_process, target_process, host
 ```
 
-## Interview Questions
+## MITRE ATT&CK-Based Detection Coverage
+
+Map your detections to MITRE ATT&CK framework:
 
 ```
-Q: SIEM vs SOAR?
-A: SIEM = detect and alert. SOAR = automate the response.
-
-Q: How to reduce alert fatigue?
-A: Tune rules, add allowlists, use risk-based alerting,
-   correlation rules, automate obvious false positives.
-
-Q: What is MITRE ATT&CK?
-A: Matrix of 14 adversary tactics (Recon to Impact) with
-   hundreds of techniques. Map rules to ATT&CK for coverage.
-
-Q: Most critical log sources?
-A: Active Directory (logins, group changes), Firewall,
-   DNS (all queries), VPN, EDR, Cloud API logs.
+Detection Coverage Matrix:
+Tactic              | Technique            | Detection Status
+--------------------|----------------------|-----------------
+Initial Access      | Phishing (T1566)     | COVERED - email gateway logs
+Execution           | PowerShell (T1059.001) | COVERED - EDR + Sysmon
+Persistence         | Scheduled Task (T1053)| PARTIAL - Windows event only
+Privilege Escalation| UAC Bypass (T1548)   | NOT COVERED
+Defense Evasion     | Log Clearing (T1070) | COVERED - EventCode 1102
+Credential Access   | Kerberoasting (T1558)| COVERED - 4769 anomaly
+Lateral Movement    | Pass-the-Hash (T1550)| COVERED - anomalous NTLM
+C&C                 | DNS Tunneling (T1071.004)| PARTIAL - DNS logs only
 ```
 
-## Cheatsheet
+## Sentinel Detection Rules (KQL)
 
-```
-Critical detections:
-  Brute force:       >10 failed logins from same IP in 5 min
-  Password spray:    Failures to many accounts, one IP
-  Privilege escalation: User added to admin group
-  Lateral movement:  RDP/SMB to 5+ hosts
-  Data exfiltration: Large outbound transfer (>100MB)
-  C2 beacon:         Regular small outbound, consistent interval
-  Impossible travel: Login from 2 IPs more than 1000km apart in <1h
+```kql
+// Microsoft Sentinel - KQL based
+// Detect impossible travel (login from distant locations)
+let timeframe = 1h;
+SigninLogs
+| where TimeGenerated > ago(1d)
+| project TimeGenerated, UserPrincipalName, IPAddress, Location
+| join kind=inner (
+    SigninLogs
+    | where TimeGenerated > ago(1d)
+    | project TimeGenerated2=TimeGenerated, UserPrincipalName, IPAddress2=IPAddress, Location2=Location
+) on UserPrincipalName
+| where IPAddress != IPAddress2
+| where abs(datetime_diff('minute', TimeGenerated, TimeGenerated2)) < 60
+| where Location != Location2
+| project User=UserPrincipalName, Location1=Location, Location2, TimeDiff=abs(datetime_diff('minute', TimeGenerated, TimeGenerated2))
 ```

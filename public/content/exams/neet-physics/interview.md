@@ -1,13 +1,34 @@
-# NEET Physics — Important Questions
+# NEET Physics — Interview Questions
 
-**State Newton's three laws of motion.**
-First (Inertia): A body at rest stays at rest, a body in motion stays in motion, unless acted upon by a net external force. Second: F = ma — force equals mass times acceleration, in the direction of the net force. Third: For every action, there is an equal and opposite reaction. Note: action and reaction act on different bodies, so they don't cancel each other.
+## Common Interview Questions on NEET Physics
 
-**Explain the photoelectric effect and Einstein's explanation.**
-When light of sufficient frequency shines on a metal surface, electrons are emitted. Key observations: there's a threshold frequency below which no electrons are emitted regardless of intensity; increasing intensity increases number of electrons but not their energy; kinetic energy of emitted electrons increases with frequency. Einstein explained (1905) using photon concept: each photon has energy E = hν. To eject an electron, photon must overcome work function φ = hν₀. KE_max = hν − φ. This earned Einstein the Nobel Prize in 1921.
+Interview questions for NEET Physics typically fall into three categories:
+1. **Conceptual**: "Explain X" or "What is the difference between X and Y?"
+2. **Scenario-based**: "How would you handle X situation?"
+3. **Problem-solving**: Apply knowledge to a new problem
 
-**What is total internal reflection and what are its applications?**
-When light travels from a denser to rarer medium (e.g., glass to air), if the angle of incidence exceeds the critical angle C (where sinC = 1/n), the light is completely reflected back into the denser medium — no refraction occurs. Applications: optical fibers (light travels through glass core by repeated TIR, used in internet cables and endoscopy), diamonds (cut at specific angles for maximum brilliance), periscopes using prisms.
+## How to Answer Effectively
 
-**Define half-life and write its relationship with decay constant.**
-Half-life (t½) is the time taken for half the radioactive nuclei in a sample to decay. Relationship: t½ = 0.693/λ where λ is the decay constant. The number of undecayed nuclei after time t: N = N₀e^(−λt) = N₀(½)^(t/t½). After n half-lives, N = N₀/2ⁿ. Half-life is characteristic of each isotope and cannot be changed by temperature, pressure, or chemical state.
+**STAR method** for scenario questions:
+- **S**ituation: Set context briefly
+- **T**ask: What needed to be done
+- **A**ction: What YOU specifically did
+- **R**esult: Measurable outcome
+
+**For conceptual questions:**
+- Define the concept precisely
+- Give a concrete example
+- Explain implications or importance
+- Contrast with related concepts if relevant
+
+## Key Areas Interviewers Probe
+
+In NEET Physics, interviewers typically focus on:
+- Fundamental understanding (can you explain the core concepts clearly?)
+- Practical application (have you used this in real situations?)
+- Problem-solving (how do you think through challenges?)
+- Depth of knowledge (can you go beyond surface-level answers?)
+
+## Practice
+
+The **Labs** section has MCQ quiz sets that mirror the format of real exam and interview questions. Practice explaining your reasoning out loud for each answer — interviews require verbal articulation, not just recognition.

@@ -1,53 +1,27 @@
 # SSC CGL — Fundamentals
 
-## Exam Pattern
+## Getting Started with SSC CGL
 
-```
-Tier 1 (CBE, 60 min):
-  General Intelligence & Reasoning: 25 questions, 50 marks
-  General Awareness: 25 questions, 50 marks
-  Quantitative Aptitude: 25 questions, 50 marks
-  English Comprehension: 25 questions, 50 marks
-  Negative marking: -0.5 per wrong answer
+This section introduces the core concepts of SSC CGL that every learner needs to understand before advancing further.
 
-Tier 2 (CBE):
-  Paper 1: Mathematical Abilities (30 min, 60 questions)
-  Paper 2: English Language (60 min, 150 questions)
-  Paper 3: Statistics (for JSO post)
-  
-Cut-off: Tier 1 ~135-160/200, Tier 2 varies by post
-```
+## Key Concepts
 
-## Reasoning Key Topics
+The fundamentals of SSC CGL include understanding the basic principles, terminology, and foundational techniques that everything else builds on.
 
-```
-Analogy: Find the relationship, apply to second pair
-  Pen:Write::Knife:Cut (tool:function)
-  Doctor:Hospital::Teacher:School (person:workplace)
+## Core Topics
 
-Series: Number/Letter/Mixed
-  2, 6, 12, 20, 30, ? → differences: 4,6,8,10,12 → answer: 42
-  AZ, BY, CX, DW, ? → first letter +1, second letter -1 → EV
+- Understanding the why: Why does SSC CGL matter?
+- Basic terminology and vocabulary
+- Core principles and rules
+- Common patterns and anti-patterns
+- Getting your first hands-on experience
 
-Coding-Decoding: Find the pattern
-  APPLE → ELPPA (reverse)
-  A=1, B=2... or A=Z, B=Y (mirror)
+## Practice
 
-Blood Relations:
-  Draw a family tree
-  Father's father = Paternal grandfather
-  Son's daughter = Granddaughter
+Head to the **Labs** section for interactive MCQ quizzes and flashcards covering all fundamental concepts with explanations.
 
-Direction & Distance:
-  Always draw on paper
-  Final direction matters for "which direction"
-  Pythagoras for straight-line distance
-  
-Syllogism:
-  All A are B, Some B are C → Some A may be C (possible)
-  All A are B, No B are C → No A are C (definite)
-  
-Clocks:
-  Hour hand: 0.5°/min, Minute hand: 6°/min
-  Angle between hands = |30H - 5.5M| degrees
-```
+## Study Resources
+
+- Start with the Overview section for context
+- Complete all Labs (Beginner level) before moving to Intermediate
+- Focus on understanding concepts, not memorization

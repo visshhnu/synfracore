@@ -1,58 +1,25 @@
-# GATE CSE — Intermediate Topics
+# GATE CSE — Intermediate
 
-## Theory of Computation
+## Building on GATE CSE Fundamentals
 
-```
-Finite Automata (FA):
-  DFA: deterministic, exactly one transition per symbol per state
-  NFA: non-deterministic, multiple transitions possible
-  NFA → DFA via subset construction
-  Regular languages: closed under union, intersection, complement
+This section covers intermediate concepts that require a solid grasp of the fundamentals. You should be comfortable with basics before proceeding.
 
-Regular Expressions:
-  a*: zero or more a's
-  a+: one or more a's
-  a|b: a or b
-  (ab)*: zero or more "ab"
+## Key Intermediate Topics
 
-Context-Free Grammars:
-  Productions: S → aSb | ε (palindromes)
-  Push-down automata (PDA) recognize CFGs
-  Ambiguity: multiple parse trees for same string
+At this level, you move from understanding individual concepts to combining them effectively:
+- Applying core concepts to real-world scenarios
+- Handling edge cases and exceptions
+- Understanding common pitfalls and how to avoid them
+- Connecting GATE CSE to related topics and tools
 
-Turing Machines:
-  Most powerful computational model
-  Recognizable (RE) vs Decidable (recursive) languages
-  Halting problem: UNDECIDABLE
-  
-Pumping Lemma:
-  For regular: in any long enough string, middle part can be pumped
-  For CFL: similar but with uvwxy decomposition
-  Use to PROVE a language is NOT regular/CFL
-```
+## Real-World Application
 
-## Computer Organization
+The difference between beginner and intermediate is practical application. You should be able to:
+1. Apply concepts without looking at a reference
+2. Explain your reasoning
+3. Recognize when to use which approach
+4. Debug common problems
 
-```
-Number Systems:
-  Binary, Octal, Hex conversions
-  2's complement: negate = flip bits + 1
-  Overflow detection: carry into MSB ≠ carry out
+## Practice
 
-Instruction Set Architecture:
-  RISC vs CISC
-  Addressing modes: immediate, direct, indirect, register, indexed
-  
-Pipeline:
-  IF → ID → EX → MEM → WB (5-stage)
-  Hazards: structural (resource conflict), data (dependency), control (branch)
-  Data hazard solution: forwarding (bypass), stall (bubble)
-  Branch prediction: static (always not taken) vs dynamic
-
-Cache:
-  Direct mapped: address mod cache_size
-  Fully associative: any block anywhere
-  Set associative: compromise
-  Replacement: LRU, FIFO, Random
-  Write: write-through vs write-back
-```
+The **Labs** section (Intermediate MCQs) tests exactly this level. Aim for 80%+ before moving to Advanced.
