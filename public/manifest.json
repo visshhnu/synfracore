@@ -1,0 +1,16 @@
+{
+  "name": "SynfraCore",
+  "short_name": "SynfraCore",
+  "description": "Learn DevOps, Cloud, AI and more with interactive labs",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0f1a",
+  "theme_color": "#3B82F6",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "/logo-ac-icon.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/logo-ac-icon-lg.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "categories": ["education", "productivity"],
+  "lang": "en"
+}

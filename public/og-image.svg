@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0a0f1a"/>
+  <rect x="0" y="0" width="1200" height="4" fill="#3B82F6"/>
+  <text x="600" y="240" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="white" text-anchor="middle">SynfraCore</text>
+  <text x="600" y="320" font-family="Arial, sans-serif" font-size="28" fill="#94a3b8" text-anchor="middle">Learn DevOps · Cloud · AI · Databases · Security</text>
+  <text x="600" y="380" font-family="Arial, sans-serif" font-size="22" fill="#64748b" text-anchor="middle">101 Technologies · Interactive Labs · Real Projects</text>
+  <rect x="460" y="440" width="280" height="56" rx="12" fill="#3B82F6"/>
+  <text x="600" y="476" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">Start Learning Free</text>
+</svg>

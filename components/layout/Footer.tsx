@@ -3,14 +3,16 @@ import Link from "next/link";
 import Image from "next/image";
 
 const academyLinks = [
-  { name: "DevOps & Platform", href: "/academies/devops" },
-  { name: "Cloud (AWS/Azure/GCP)", href: "/academies/cloud" },
+  { name: "DevOps", href: "/academies/devops" },
+  { name: "Cloud", href: "/academies/cloud" },
   { name: "Databases", href: "/academies/databases" },
-  { name: "AI & ML Engineering", href: "/academies/ai" },
-  { name: "Data Analytics & BI", href: "/academies/data" },
-  { name: "Cybersecurity", href: "/academies/security" },
-  { name: "Health & Medical Coding", href: "/academies/healthcare" },
-  { name: "Human Essentials", href: "/academies/essentials" },
+  { name: "AI Engineering", href: "/academies/ai" },
+  { name: "Data Analytics", href: "/academies/data" },
+  { name: "Security", href: "/academies/security" },
+  { name: "Healthcare Coding", href: "/academies/healthcare" },
+  { name: "Life Essentials", href: "/academies/essentials" },
+  { name: "CS Education", href: "/academies/education" },
+  { name: "Exam Prep", href: "/academies/exams" },
 ];
 
 const platformLinks = [
@@ -25,13 +27,12 @@ const platformLinks = [
 ];
 
 const companyLinks = [
-  { name: "About SynfraCore", href: "/about" },
-  { name: "Our Mission", href: "/about#mission" },
-  { name: "Contact Us", href: "/contact" },
-  { name: "Careers", href: "/careers" },
+  { name: "About", href: "/about" },
   { name: "Blog", href: "/blog" },
-  { name: "Privacy Policy", href: "/privacy" },
-  { name: "Terms of Service", href: "/terms" },
+  { name: "Careers", href: "/careers" },
+  { name: "Contact", href: "/contact" },
+  { name: "Privacy", href: "/privacy" },
+  { name: "Terms", href: "/terms" },
 ];
 
 const socialLinks = [

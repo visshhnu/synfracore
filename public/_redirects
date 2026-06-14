@@ -1,2 +1,5 @@
-# www redirect handled by Cloudflare dashboard DNS, not here
+# Redirect www to non-www (canonical)
+https://www.synfracore.com/* https://synfracore.com/:splat 301!
+
+# Home redirect
 /home / 301

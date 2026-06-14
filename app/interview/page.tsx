@@ -1,88 +1,199 @@
 import Link from "next/link";
-import { academies } from "@/lib/data/academies";
+import { MessageSquare, ArrowRight, Star, Target, Zap } from "lucide-react";
 
-export const metadata = { title: "Interview Hub — SynfraCore" };
+export const metadata = {
+  title: "Interview Preparation | SynfraCore",
+  description: "Master DevOps, Cloud, Database and AI interview questions. 1000+ questions with detailed answers across 101 technologies.",
+};
 
-const levels = [
-  { name: "Beginner", desc: "Concepts & fundamentals", icon: "🌱", color: "#10B981" },
-  { name: "Intermediate", desc: "Implementation scenarios", icon: "⚡", color: "#F59E0B" },
-  { name: "Advanced", desc: "Architecture & design", icon: "🚀", color: "#F43F5E" },
-  { name: "Architect", desc: "System design & trade-offs", icon: "🏗️", color: "#8B5CF6" },
+const interviewTracks = [
+  {
+    label: "DevOps & Platform", academy: "devops", color: "#3B82F6", icon: "⚙️",
+    techs: [
+      { name: "Linux", slug: "linux" }, { name: "Docker", slug: "docker" }, { name: "Kubernetes", slug: "kubernetes" },
+      { name: "Terraform", slug: "terraform" }, { name: "Ansible", slug: "ansible" }, { name: "Jenkins", slug: "jenkins" },
+      { name: "Git", slug: "git" }, { name: "ArgoCD", slug: "argocd" }, { name: "Prometheus", slug: "prometheus" },
+      { name: "ELK Stack", slug: "elk-stack" }, { name: "Helm", slug: "helm" }, { name: "Nginx", slug: "nginx" },
+    ],
+    hotQuestions: [
+      "What happens when you type a URL in a browser?",
+      "Explain Docker vs Kubernetes",
+      "What is a Kubernetes pod and when does it restart?",
+    ],
+  },
+  {
+    label: "Cloud (AWS/Azure/GCP)", academy: "cloud", color: "#F59E0B", icon: "☁️",
+    techs: [
+      { name: "AWS EC2", slug: "aws-ec2" }, { name: "AWS S3", slug: "aws-s3" }, { name: "AWS VPC", slug: "aws-vpc" },
+      { name: "AWS IAM", slug: "aws-iam" }, { name: "AWS Lambda", slug: "aws-lambda" }, { name: "AWS EKS", slug: "aws-eks" },
+      { name: "Azure VMs", slug: "azure-vms" }, { name: "Azure AKS", slug: "azure-aks" }, { name: "GKE", slug: "gke" },
+      { name: "Terraform", slug: "terraform" }, { name: "Cloud Security", slug: "cloud-security" },
+    ],
+    hotQuestions: [
+      "Explain the AWS shared responsibility model",
+      "What is the difference between Security Group and NACL?",
+      "How does IAM role differ from IAM user?",
+    ],
+  },
+  {
+    label: "Databases", academy: "databases", color: "#10B981", icon: "🗄️",
+    techs: [
+      { name: "PostgreSQL", slug: "postgresql" }, { name: "MySQL", slug: "mysql" }, { name: "Redis", slug: "redis" },
+      { name: "MongoDB", slug: "mongodb" }, { name: "Elasticsearch", slug: "elasticsearch" }, { name: "Cassandra", slug: "cassandra" },
+      { name: "DynamoDB", slug: "dynamodb" }, { name: "SQL", slug: "sql" }, { name: "Oracle", slug: "oracle" },
+    ],
+    hotQuestions: [
+      "ACID properties explained with examples",
+      "When would you use NoSQL over SQL?",
+      "How does database indexing work?",
+    ],
+  },
+  {
+    label: "AI Engineering", academy: "ai", color: "#8B5CF6", icon: "🤖",
+    techs: [
+      { name: "AI Fundamentals", slug: "ai-fundamentals" }, { name: "Prompt Engineering", slug: "prompt-engineering" },
+      { name: "LangChain", slug: "langchain" }, { name: "RAG Systems", slug: "rag" },
+      { name: "AI Agents", slug: "ai-agents" }, { name: "LLMOps", slug: "llmops" },
+    ],
+    hotQuestions: [
+      "What is RAG and why is it needed?",
+      "Explain hallucination in LLMs and how to reduce it",
+      "What is the difference between fine-tuning and RAG?",
+    ],
+  },
+  {
+    label: "Data Analytics", academy: "data", color: "#06B6D4", icon: "📊",
+    techs: [
+      { name: "SQL Analytics", slug: "sql" }, { name: "Pandas", slug: "pandas" },
+      { name: "Power BI", slug: "power-bi" }, { name: "Tableau", slug: "tableau" },
+    ],
+    hotQuestions: [
+      "What is the difference between RANK() and DENSE_RANK()?",
+      "Explain window functions with an example",
+      "Row context vs filter context in DAX",
+    ],
+  },
+  {
+    label: "Security", academy: "security", color: "#EF4444", icon: "🛡️",
+    techs: [
+      { name: "Security Fundamentals", slug: "security-fundamentals" }, { name: "Network Security", slug: "network-security" },
+      { name: "Ethical Hacking", slug: "ethical-hacking" }, { name: "SOC", slug: "soc" }, { name: "SIEM", slug: "siem" },
+    ],
+    hotQuestions: [
+      "What is a man-in-the-middle attack?",
+      "How does TLS work?",
+      "Explain the principle of least privilege",
+    ],
+  },
 ];
 
-const formats = [
-  { name: "MCQ Practice", icon: "📝", desc: "Multiple choice question banks" },
-  { name: "Scenario Questions", icon: "🎭", desc: "Real-world problem solving" },
-  { name: "Mock Interviews", icon: "🎙️", desc: "Simulated interview sessions" },
-  { name: "System Design", icon: "📐", desc: "Architecture discussions" },
+const tips = [
+  { icon: "🎯", title: "STAR Method", desc: "Situation, Task, Action, Result — structure all behavioral answers this way" },
+  { icon: "💡", title: "Think Out Loud", desc: "Interviewers want to hear your reasoning, not just the answer" },
+  { icon: "📐", title: "Draw It Out", desc: "Architecture questions: always draw a diagram before explaining" },
+  { icon: "❓", title: "Ask Clarifying Questions", desc: "Never assume — ask about scale, constraints, and use case first" },
+  { icon: "🔢", title: "Quantify Everything", desc: "\"Reduced deploy time by 60%\" beats \"made deployments faster\"" },
+  { icon: "⚠️", title: "Know Your Trade-offs", desc: "Every answer should mention: pros, cons, and when NOT to use it" },
 ];
 
 export default function InterviewPage() {
   return (
     <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "56px 24px" }}>
-      <div style={{ marginBottom: "56px", textAlign: "center" }}>
+      {/* Header */}
+      <div style={{ marginBottom: "64px", textAlign: "center" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.2)", borderRadius: "20px", padding: "6px 16px", fontSize: "13px", color: "#3B82F6", fontWeight: 600, marginBottom: "20px" }}>
+          <MessageSquare size={14}/> Interview Preparation
+        </div>
         <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
           Interview Hub
         </h1>
-        <p style={{ color: "var(--text-4)", fontSize: "18px", maxWidth: "500px", margin: "0 auto" }}>
-          Prepare for every level — from junior engineer to principal architect
+        <p style={{ color: "var(--text-4)", fontSize: "18px", maxWidth: "560px", margin: "0 auto", lineHeight: 1.7 }}>
+          1000+ curated interview questions across 101 technologies. Every topic has Beginner, Intermediate, and Advanced levels.
         </p>
       </div>
 
-      {/* Levels */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "16px", marginBottom: "56px" }}>
-        {levels.map((level) => (
-          <div key={level.name} style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "16px", padding: "24px", textAlign: "center" }}>
-            <span style={{ fontSize: "32px", display: "block", marginBottom: "10px" }}>{level.icon}</span>
-            <h3 style={{ fontWeight: 700, marginBottom: "4px", color: level.color }}>{level.name}</h3>
-            <p style={{ color: "var(--text-4)", fontSize: "12px" }}>{level.desc}</p>
+      {/* Stats */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "16px", marginBottom: "64px" }}>
+        {[
+          { value: "1000+", label: "Questions", icon: "❓" },
+          { value: "101", label: "Technologies", icon: "🛠️" },
+          { value: "3 Levels", label: "Beginner → Architect", icon: "📈" },
+          { value: "Real Answers", label: "Not just questions", icon: "✅" },
+        ].map(stat => (
+          <div key={stat.label} style={{ background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "14px", padding: "20px", textAlign: "center" }}>
+            <div style={{ fontSize: "24px", marginBottom: "6px" }}>{stat.icon}</div>
+            <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "20px", fontWeight: 800, color: "#3B82F6", marginBottom: "4px" }}>{stat.value}</div>
+            <div style={{ fontSize: "12px", color: "var(--text-4)" }}>{stat.label}</div>
           </div>
         ))}
       </div>
 
-      {/* Formats */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "16px", marginBottom: "56px" }}>
-        {formats.map((f) => (
-          <div key={f.name} style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "14px", padding: "20px" }}>
-            <span style={{ fontSize: "28px", display: "block", marginBottom: "10px" }}>{f.icon}</span>
-            <h3 style={{ fontSize: "14px", fontWeight: 700, marginBottom: "4px" }}>{f.name}</h3>
-            <p style={{ color: "var(--text-4)", fontSize: "12px" }}>{f.desc}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* By Technology */}
-      <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "26px", fontWeight: 700, marginBottom: "24px" }}>
-        Interview Q&A by Technology
-      </h2>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "16px" }}>
-        {academies.flatMap((a) =>
-          a.domains.flatMap(d=>d.technologies).slice(0, 3).map((tech) => (
-            <Link
-              key={`${a.slug}-${tech.slug}`}
-              href={`/academies/${a.slug}/${tech.slug}/interview`}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "12px",
-                padding: "16px",
-                background: "var(--bg-2)",
-                border: "1px solid var(--border)",
-                borderRadius: "12px",
-                textDecoration: "none",
-                transition: "all 0.2s",
-              }}
-             
-            >
-              <span style={{ fontSize: "20px" }}>{tech.icon}</span>
-              <div>
-                <div style={{ fontSize: "14px", fontWeight: 600 }}>{tech.name}</div>
-                <div style={{ color: "var(--text-4)", fontSize: "11px" }}>{a.title}</div>
-              </div>
-              <span style={{ marginLeft: "auto", color: a.color, fontSize: "12px" }}>Q&A →</span>
+      {/* Interview Tracks */}
+      {interviewTracks.map(track => (
+        <div key={track.academy} style={{ marginBottom: "48px" }}>
+          {/* Track header */}
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
+            <span style={{ fontSize: "24px" }}>{track.icon}</span>
+            <div style={{ flex: 1 }}>
+              <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "20px", marginBottom: "2px" }}>{track.label}</h2>
+              <p style={{ color: "var(--text-4)", fontSize: "13px" }}>
+                Hot questions: {track.hotQuestions[0].slice(0, 60)}...
+              </p>
+            </div>
+            <Link href={`/academies/${track.academy}`}
+              style={{ background: `${track.color}15`, color: track.color, border: `1px solid ${track.color}33`, padding: "7px 14px", borderRadius: "8px", textDecoration: "none", fontSize: "13px", fontWeight: 600, flexShrink: 0 }}>
+              All topics →
             </Link>
-          ))
-        )}
+          </div>
+
+          {/* Tech grid with direct interview links */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "10px" }}>
+            {track.techs.map(tech => (
+              <Link key={tech.slug} href={`/academies/${track.academy}/${tech.slug}/interview`}
+                style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px", background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "10px", textDecoration: "none", color: "var(--text-2)", fontSize: "14px", fontWeight: 500, transition: "all 0.15s" }}
+                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = track.color; (e.currentTarget as HTMLAnchorElement).style.background = `${track.color}0a`; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = "var(--border)"; (e.currentTarget as HTMLAnchorElement).style.background = "var(--bg-1)"; }}>
+                {tech.name}
+                <ArrowRight size={13} color="var(--text-4)"/>
+              </Link>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      {/* Interview Tips */}
+      <div style={{ background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "20px", padding: "40px", marginBottom: "48px" }}>
+        <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "22px", marginBottom: "8px", display: "flex", alignItems: "center", gap: "8px" }}>
+          <Star size={20} color="#F59E0B"/> Interview Tips That Actually Work
+        </h2>
+        <p style={{ color: "var(--text-4)", fontSize: "14px", marginBottom: "28px" }}>
+          From 1000+ mock interviews — what separates candidates who get offers
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "16px" }}>
+          {tips.map(tip => (
+            <div key={tip.title} style={{ display: "flex", gap: "14px" }}>
+              <span style={{ fontSize: "20px", flexShrink: 0 }}>{tip.icon}</span>
+              <div>
+                <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "14px", marginBottom: "4px" }}>{tip.title}</div>
+                <div style={{ color: "var(--text-4)", fontSize: "13px", lineHeight: 1.6 }}>{tip.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* CTA */}
+      <div style={{ textAlign: "center", background: "linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1))", border: "1px solid rgba(59,130,246,0.2)", borderRadius: "20px", padding: "48px 32px" }}>
+        <Target size={36} style={{ margin: "0 auto 16px", color: "#3B82F6" }}/>
+        <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "26px", fontWeight: 800, marginBottom: "12px" }}>
+          Practice with AI Mock Interviews
+        </h2>
+        <p style={{ color: "var(--text-4)", fontSize: "15px", maxWidth: "480px", margin: "0 auto 24px", lineHeight: 1.7 }}>
+          Ask our AI assistant to quiz you on any technology. It will ask follow-up questions and give you feedback.
+        </p>
+        <Link href="/ai-assistant" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg, #3B82F6, #8B5CF6)", color: "#fff", padding: "14px 32px", borderRadius: "12px", fontSize: "15px", fontWeight: 700, textDecoration: "none" }}>
+          <Zap size={16}/> Start AI Mock Interview
+        </Link>
       </div>
     </div>
   );
