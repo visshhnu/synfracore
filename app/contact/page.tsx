@@ -20,9 +20,7 @@ export default function ContactPage() {
           { icon: <Globe size={18}/>, label: "Website", value: "synfracore.com", href: "https://synfracore.com" },
         ].map(item => (
           <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer"
-            style={{ display: "flex", alignItems: "center", gap: "16px", background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "12px", padding: "20px 24px", textDecoration: "none", color: "var(--text-1)", transition: "border-color 0.2s" }}
-            onMouseEnter={e => (e.currentTarget.style.borderColor = "#3B82F6")}
-            onMouseLeave={e => (e.currentTarget.style.borderColor = "var(--border)")}>
+            style={{ display: "flex", alignItems: "center", gap: "16px", background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "12px", padding: "20px 24px", textDecoration: "none", color: "var(--text-1)", transition: "border-color 0.2s" }}>
             <div style={{ color: "#3B82F6" }}>{item.icon}</div>
             <div>
               <div style={{ fontSize: "12px", color: "var(--text-4)", fontWeight: 600, letterSpacing: "0.08em", marginBottom: "2px" }}>{item.label.toUpperCase()}</div>

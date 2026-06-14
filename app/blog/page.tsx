@@ -26,9 +26,7 @@ export default function BlogPage() {
       <div style={{ display: "flex", flexDirection: "column", gap: "1px", background: "var(--border)", borderRadius: "16px", overflow: "hidden" }}>
         {posts.map((post, i) => (
           <Link key={i} href={post.slug}
-            style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", background: "var(--bg-1)", padding: "20px 24px", textDecoration: "none", color: "var(--text-1)", transition: "background 0.15s" }}
-            onMouseEnter={e => (e.currentTarget.style.background = "var(--bg-2)")}
-            onMouseLeave={e => (e.currentTarget.style.background = "var(--bg-1)")}>
+            style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", background: "var(--bg-1)", padding: "20px 24px", textDecoration: "none", color: "var(--text-1)", transition: "background 0.15s" }}>
             <div style={{ flex: 1, minWidth: 0 }}>
               <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "16px", marginBottom: "8px", lineHeight: 1.4 }}>{post.title}</h2>
               <div style={{ display: "flex", gap: "8px", alignItems: "center", flexWrap: "wrap" }}>
