@@ -1,103 +1,178 @@
-# Docker — Portfolio Projects
+# Docker -- Portfolio Projects
 
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
-
-## Project 1: Production-Grade Docker Setup
-
-**Level:** Beginner | **Time:** 1-2 days
-
-Set up a complete, production-ready Docker environment from scratch with proper configuration, security hardening, and monitoring.
-
-### Steps
-
-1. Plan your Docker architecture and document requirements
-2. Install and configure Docker following official best practices
-3. Apply security hardening (restrict access, disable defaults)
-4. Set up basic monitoring and alerting
-5. Write a README documenting the setup
-6. Add to GitHub with .gitignore and proper structure
-
-### Skills Demonstrated
-
-- Docker installation and configuration
-- Security hardening
-- Documentation
-
-### GitHub Repo Name
-
-`docker-production-setup`
+Build these 3 projects to prove Docker mastery. Each includes code, architecture, and interview talking points.
 
 ---
 
-## Project 2: Docker CI/CD Pipeline
+## Project 1: Multi-Stage Flask API
 
-**Level:** Intermediate | **Time:** 2-3 days
+**Level:** Beginner | **Time:** 1 day | **GitHub:** `docker-flask-api`
 
-Build a complete CI/CD pipeline using Docker that automatically tests, builds, and deploys a sample application on every commit.
+**What you build:** A Python Flask REST API containerized with a multi-stage Dockerfile that reduces image size from 900MB to under 120MB.
+
+### The Dockerfile
+```dockerfile
+# Stage 1: Build dependencies
+FROM python:3.12-slim AS builder
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+# Stage 2: Production image (no build tools)
+FROM python:3.12-slim
+WORKDIR /app
+COPY --from=builder /root/.local /root/.local
+COPY . .
+ENV PATH=/root/.local/bin:$PATH
+RUN useradd -m appuser && chown -R appuser:appuser /app
+USER appuser
+EXPOSE 5000
+HEALTHCHECK --interval=30s --timeout=5s CMD curl -f http://localhost:5000/health || exit 1
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "app:app"]
+```
+
+### Interview points
+- Multi-stage build saves ~700MB (no compiler, no pip cache in final image)
+- Non-root user reduces attack surface
+- HEALTHCHECK enables automatic restart in orchestrators
+- `--no-cache-dir` prevents layer bloat
 
 ### Steps
-
-1. Create a simple Node.js/Python application with unit tests
-2. Write Docker configuration for the pipeline
-3. Implement stages: lint → test → build → deploy
-4. Add Docker image building and pushing to registry
-5. Configure environment-specific deployments (dev/staging/prod)
-6. Add Slack/email notifications for success/failure
-
-### Skills Demonstrated
-
-- CI/CD principles
-- Docker advanced features
-- Docker integration
-
-### GitHub Repo Name
-
-`docker-cicd-pipeline`
+1. Create Flask app with `/health`, `/users`, `/items` endpoints
+2. Write multi-stage Dockerfile (single-stage first, then optimize)
+3. Add `.dockerignore` (exclude `__pycache__`, `.git`, `*.pyc`)
+4. Build and compare sizes: `docker image ls`
+5. Add `docker-compose.yml` with Flask + PostgreSQL + Redis
+6. Add GitHub Actions to build and push to Docker Hub
+7. Document image size before/after in README
 
 ---
 
-## Project 3: Infrastructure Automation with Docker
+## Project 2: Docker Compose Microservices Stack
 
-**Level:** Advanced | **Time:** 4-5 days
+**Level:** Intermediate | **Time:** 2-3 days | **GitHub:** `docker-microservices-stack`
 
-Automate a complete infrastructure deployment using Docker. Deploy a multi-tier application (web + app + database) with full automation, monitoring, and disaster recovery.
+**What you build:** A 5-service application using Docker Compose with proper network isolation, secrets management, and health checks.
+
+### Architecture
+```
+Internet
+   |
+nginx (port 80) -- API Gateway
+   |
+   +-- auth-service (internal)
+   |       |-- postgres-auth (auth-backend network only)
+   |
+   +-- product-service (internal)
+           |-- redis (cache)
+           |-- postgres-products
+```
+
+### docker-compose.yml key patterns
+```yaml
+version: "3.8"
+services:
+  nginx:
+    image: nginx:alpine
+    ports: ["80:80"]
+    networks: [frontend]
+    depends_on:
+      auth: {condition: service_healthy}
+      products: {condition: service_healthy}
+
+  auth:
+    build: ./auth-service
+    networks: [frontend, auth-backend]
+    secrets: [db_password, jwt_secret]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      retries: 3
+
+  postgres-auth:
+    image: postgres:16-alpine
+    networks: [auth-backend]  # NOT accessible from nginx or product service
+    volumes: [auth-db-data:/var/lib/postgresql/data]
+    environment:
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+    secrets: [db_password]
+
+secrets:
+  db_password: {file: ./secrets/db_password.txt}
+  jwt_secret: {file: ./secrets/jwt_secret.txt}
+
+volumes:
+  auth-db-data:
+
+networks:
+  frontend:
+  auth-backend:
+```
+
+### Interview points
+- Network isolation: each service only on networks it needs
+- Docker secrets vs environment variables for passwords
+- `depends_on condition: service_healthy` prevents startup race conditions
+- Named volumes persist DB data across container restarts
 
 ### Steps
-
-1. Design the multi-tier architecture (draw diagram first)
-2. Write Docker configuration for all components
-3. Implement idempotency — run multiple times safely
-4. Add health checks and automatic failure recovery
-5. Implement secret management (no hardcoded credentials)
-6. Write comprehensive tests and runbook documentation
-7. Create a demo video or blog post explaining your solution
-
-### Skills Demonstrated
-
-- Production architecture
-- Secret management
-- Testing and documentation
-
-### GitHub Repo Name
-
-`docker-infrastructure-automation`
+1. Design the architecture diagram first
+2. Build each service independently before composing
+3. Write docker-compose.yml incrementally (2 services first)
+4. Test: `docker compose down -v && docker compose up` should work cleanly
+5. Add `docker compose up --scale product-service=3` for load balancing demo
+6. Test failure: kill auth-service, verify nginx returns appropriate error
+7. Add docker compose watch for development hot-reload
 
 ---
 
-## Tips for Great Projects
+## Project 3: CI/CD with Vulnerability Scanning + Image Signing
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Level:** Advanced | **Time:** 3-4 days | **GitHub:** `docker-secure-cicd`
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+**What you build:** A CI/CD pipeline that builds, scans for vulnerabilities (fails pipeline on critical CVEs), signs images, and deploys.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+### GitHub Actions workflow
+```yaml
+name: Secure Docker CI/CD
+on: [push]
+jobs:
+  build-scan-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+      - name: Build image
+        run: docker build -t myapp:${{ github.sha }} .
+
+      - name: Scan with Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: myapp:${{ github.sha }}
+          severity: HIGH,CRITICAL
+          exit-code: 1   # Fail pipeline on critical vulnerabilities
+
+      - name: Push to registry
+        if: github.ref == "refs/heads/main"
+        run: |
+          docker push myrepo/myapp:${{ github.sha }}
+          docker push myrepo/myapp:latest
+```
+
+### Steps
+1. Set up GitHub Actions with Docker Hub credentials as secrets
+2. Add Trivy with `--exit-code 0` initially, review findings
+3. Fix critical vulns (update base image, patch dependencies)
+4. Enable `--exit-code 1` -- pipeline now fails on new critical CVEs
+5. Add multi-arch build: `docker buildx build --platform linux/amd64,linux/arm64`
+6. Add SBOM generation with syft
+7. Document security improvements in README
+
+---
 
 ## Portfolio Checklist
-
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] All repos public on GitHub with clear READMEs
+- [ ] README includes architecture diagram and how to run locally
+- [ ] GitHub Actions CI passing (green checkmark on repo)
+- [ ] Can explain every Dockerfile instruction in an interview
+- [ ] Project 2 runs with `docker compose up` and works end-to-end

@@ -1,103 +1,111 @@
-# Ansible — Portfolio Projects
-
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
-
-## Project 1: Production-Grade Ansible Setup
-
-**Level:** Beginner | **Time:** 1-2 days
-
-Set up a complete, production-ready Ansible environment from scratch with proper configuration, security hardening, and monitoring.
-
-### Steps
-
-1. Plan your Ansible architecture and document requirements
-2. Install and configure Ansible following official best practices
-3. Apply security hardening (restrict access, disable defaults)
-4. Set up basic monitoring and alerting
-5. Write a README documenting the setup
-6. Add to GitHub with .gitignore and proper structure
-
-### Skills Demonstrated
-
-- Ansible installation and configuration
-- Security hardening
-- Documentation
-
-### GitHub Repo Name
-
-`ansible-production-setup`
+# Ansible -- Portfolio Projects
 
 ---
 
-## Project 2: Ansible CI/CD Pipeline
+## Project 1: CIS Server Hardening Playbook
 
-**Level:** Intermediate | **Time:** 2-3 days
+**Level:** Beginner | **Time:** 1-2 days | **GitHub:** `ansible-server-hardening`
 
-Build a complete CI/CD pipeline using Ansible that automatically tests, builds, and deploys a sample application on every commit.
+Apply CIS Level 1 security hardening to Ubuntu 22.04 servers automatically.
 
-### Steps
+```yaml
+# site.yml
+- name: CIS Level 1 Hardening
+  hosts: all
+  become: true
+  roles:
+    - filesystem
+    - software  
+    - ssh-hardening
+    - network
+    - logging
 
-1. Create a simple Node.js/Python application with unit tests
-2. Write Ansible configuration for the pipeline
-3. Implement stages: lint → test → build → deploy
-4. Add Docker image building and pushing to registry
-5. Configure environment-specific deployments (dev/staging/prod)
-6. Add Slack/email notifications for success/failure
+# roles/ssh-hardening/tasks/main.yml
+- name: Disable root SSH login
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^#?PermitRootLogin"
+    line: "PermitRootLogin no"
+    validate: /usr/sbin/sshd -t -f %s
+  notify: Restart SSH
 
-### Skills Demonstrated
+- name: Set idle timeout (10 minutes)
+  blockinfile:
+    path: /etc/ssh/sshd_config
+    block: |
+      ClientAliveInterval 600
+      ClientAliveCountMax 0
+```
 
-- CI/CD principles
-- Ansible advanced features
-- Docker integration
-
-### GitHub Repo Name
-
-`ansible-cicd-pipeline`
-
----
-
-## Project 3: Infrastructure Automation with Ansible
-
-**Level:** Advanced | **Time:** 4-5 days
-
-Automate a complete infrastructure deployment using Ansible. Deploy a multi-tier application (web + app + database) with full automation, monitoring, and disaster recovery.
-
-### Steps
-
-1. Design the multi-tier architecture (draw diagram first)
-2. Write Ansible configuration for all components
-3. Implement idempotency — run multiple times safely
-4. Add health checks and automatic failure recovery
-5. Implement secret management (no hardcoded credentials)
-6. Write comprehensive tests and runbook documentation
-7. Create a demo video or blog post explaining your solution
-
-### Skills Demonstrated
-
-- Production architecture
-- Secret management
-- Testing and documentation
-
-### GitHub Repo Name
-
-`ansible-infrastructure-automation`
+**Steps:** Test VMs, check mode first, molecule tests, idempotency check, GitHub Actions pipeline
 
 ---
 
-## Tips for Great Projects
+## Project 2: Zero-Downtime Rolling Application Deployment
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Level:** Intermediate | **Time:** 2-3 days | **GitHub:** `ansible-app-deploy`
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+Full deployment with HAProxy removal, health checks, and re-addition for zero-downtime.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+```yaml
+- name: Rolling update
+  hosts: webservers
+  serial: 1
+  max_fail_percentage: 0
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+  pre_tasks:
+    - name: Remove from load balancer
+      haproxy:
+        state: disabled
+        host: "{{ inventory_hostname }}"
+        socket: /var/run/haproxy/admin.sock
+
+  roles:
+    - deploy-app
+
+  post_tasks:
+    - name: Verify health
+      uri:
+        url: "http://localhost:{{ app_port }}/health"
+        status_code: 200
+      retries: 10
+      delay: 5
+
+    - name: Re-add to load balancer
+      haproxy:
+        state: enabled
+        host: "{{ inventory_hostname }}"
+        socket: /var/run/haproxy/admin.sock
+```
+
+**Steps:** Static inventory, Ansible Vault for secrets, rolling update test, rollback mechanism
+
+---
+
+## Project 3: Dynamic AWS Inventory + Compliance Automation
+
+**Level:** Advanced | **Time:** 3-4 days | **GitHub:** `ansible-cloud-fleet`
+
+Dynamic EC2 discovery with tag-based targeting and automated compliance remediation.
+
+```yaml
+# aws_ec2.yml (dynamic inventory)
+plugin: amazon.aws.aws_ec2
+regions: [ap-south-1]
+filters:
+  instance-state-name: running
+  tag:ManagedBy: ansible
+keyed_groups:
+  - key: tags.Environment
+  - key: tags.Role
+```
+
+**Steps:** IAM role for Ansible, dynamic inventory, compliance check playbook, AWX scheduler
+
+---
 
 ## Portfolio Checklist
-
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] All playbooks idempotent (run twice, zero changes second time)
+- [ ] Ansible Vault for all secrets
+- [ ] Molecule tests for all roles
+- [ ] ansible-lint passes with 0 violations

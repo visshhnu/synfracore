@@ -1,103 +1,72 @@
-# AKS — Portfolio Projects
-
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
-
-## Project 1: AKS Architecture Design
-
-**Level:** Beginner | **Time:** 2 days
-
-Design and deploy a basic 3-tier application using AKS services. Includes networking, compute, database, and basic security.
-
-### Steps
-
-1. Draw the architecture diagram first (use draw.io or Excalidraw)
-2. Set up AKS environment with IaC (Terraform or CloudFormation)
-3. Deploy the networking layer (VPC/VNet, subnets, security groups)
-4. Add compute resources and deploy a sample web app
-5. Configure a managed database service
-6. Apply security best practices (IAM, encryption, no public access)
-
-### Skills Demonstrated
-
-- AKS core services
-- IaC
-- Cloud security basics
-
-### GitHub Repo Name
-
-`azure-aks-3tier-architecture`
+# Azure AKS -- Portfolio Projects
 
 ---
 
-## Project 2: Serverless App on AKS
+## Project 1: Production AKS with Workload Identity
 
-**Level:** Intermediate | **Time:** 3 days
+**Level:** Intermediate | **Time:** 2-3 days | **GitHub:** `aks-production`
 
-Build a serverless REST API using AKS managed services. No servers to manage — pay per request, auto-scales to millions.
+Production AKS cluster with Workload Identity, KEDA autoscaling, and Azure Monitor.
 
-### Steps
+```bash
+# Create cluster with all modern features
+az aks create \
+  --resource-group prod-rg --name prod-aks \
+  --node-count 3 --node-vm-size Standard_D4s_v5 \
+  --enable-oidc-issuer \
+  --enable-workload-identity \
+  --enable-cluster-autoscaler --min-count 1 --max-count 10 \
+  --enable-addons monitoring \
+  --auto-upgrade-channel rapid
 
-1. Design the API: endpoints, request/response formats
-2. Implement using AKS serverless services
-3. Add a managed database/storage backend
-4. Implement authentication and authorization
-5. Set up CI/CD for automated deployments
-6. Load test and optimize for cost
+# Set up Workload Identity for a pod to access Azure Key Vault
+OIDC=$(az aks show -g prod-rg -n prod-aks --query oidcIssuerProfile.issuerUrl -o tsv)
+az identity create --name app-identity --resource-group prod-rg
+az identity federated-credential create --name k8s-binding \
+  --identity-name app-identity --resource-group prod-rg \
+  --issuer $OIDC \
+  --subject "system:serviceaccount:default:app-sa"
 
-### Skills Demonstrated
+# Grant Key Vault access
+az keyvault set-policy --name prod-vault \
+  --object-id $(az identity show --name app-identity -g prod-rg --query principalId -o tsv) \
+  --secret-permissions get list
+```
 
-- Serverless architecture
-- API design
-- Cost optimization
-
-### GitHub Repo Name
-
-`azure-aks-serverless-api`
-
----
-
-## Project 3: Cost-Optimized AKS Platform
-
-**Level:** Advanced | **Time:** 5 days
-
-Design and implement a production platform on AKS optimized for both reliability and cost. Implement HA, DR, monitoring, and cost management.
-
-### Steps
-
-1. Analyze requirements: availability target, RTO/RPO, budget
-2. Design multi-AZ/region architecture for high availability
-3. Implement auto-scaling for all compute tiers
-4. Set up centralized logging, monitoring, and alerting
-5. Implement backup and disaster recovery automation
-6. Track costs with budgets and alerts
-7. Optimize: use Reserved Instances/Savings Plans, right-size
-
-### Skills Demonstrated
-
-- HA/DR design
-- Cost optimization
-- Enterprise operations
-
-### GitHub Repo Name
-
-`azure-aks-production-platform`
+**Steps:** Terraform for cluster, Workload Identity setup, KEDA for queue-based scaling, cost monitoring
 
 ---
 
-## Tips for Great Projects
+## Project 2: Blue-Green Deployment on AKS
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Level:** Advanced | **Time:** 3 days | **GitHub:** `aks-blue-green`
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+Zero-downtime blue-green deployments with automatic health validation and instant rollback.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+```yaml
+# Traffic split: 90% blue, 10% green (canary phase)
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/canary: "true"
+    nginx.ingress.kubernetes.io/canary-weight: "10"
+spec:
+  rules:
+  - host: api.example.com
+    http:
+      paths:
+      - path: /
+        backend:
+          service: {name: green-service, port: {number: 80}}
+```
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+**Steps:** Deploy blue, deploy green (no traffic), canary 10%, validate metrics, full cutover or rollback
+
+---
 
 ## Portfolio Checklist
-
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] Workload Identity (no service account key files)
+- [ ] Cluster Autoscaler tested with load
+- [ ] Azure Monitor integrated
+- [ ] Blue-green switch demonstrably zero-downtime

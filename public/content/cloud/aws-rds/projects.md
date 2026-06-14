@@ -1,103 +1,71 @@
-# RDS & Aurora — Portfolio Projects
-
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
-
-## Project 1: RDS & Aurora Architecture Design
-
-**Level:** Beginner | **Time:** 2 days
-
-Design and deploy a basic 3-tier application using RDS & Aurora services. Includes networking, compute, database, and basic security.
-
-### Steps
-
-1. Draw the architecture diagram first (use draw.io or Excalidraw)
-2. Set up RDS & Aurora environment with IaC (Terraform or CloudFormation)
-3. Deploy the networking layer (VPC/VNet, subnets, security groups)
-4. Add compute resources and deploy a sample web app
-5. Configure a managed database service
-6. Apply security best practices (IAM, encryption, no public access)
-
-### Skills Demonstrated
-
-- RDS & Aurora core services
-- IaC
-- Cloud security basics
-
-### GitHub Repo Name
-
-`aws-rds-3tier-architecture`
+# AWS RDS -- Portfolio Projects
 
 ---
 
-## Project 2: Serverless App on RDS & Aurora
+## Project 1: Multi-AZ RDS with Automated Backups
 
-**Level:** Intermediate | **Time:** 3 days
+**Level:** Beginner | **Time:** 1-2 days | **GitHub:** `aws-rds-production`
 
-Build a serverless REST API using RDS & Aurora managed services. No servers to manage — pay per request, auto-scales to millions.
+Production-grade RDS PostgreSQL with Multi-AZ, encryption, and automated backup testing.
 
-### Steps
+```hcl
+resource "aws_db_instance" "prod" {
+  identifier             = "prod-postgres"
+  engine                 = "postgres"
+  engine_version         = "16"
+  instance_class         = "db.t3.medium"
+  allocated_storage      = 100
+  storage_type           = "gp3"
+  storage_encrypted      = true
+  multi_az               = true
+  db_subnet_group_name   = aws_db_subnet_group.main.name
+  vpc_security_group_ids = [aws_security_group.rds.id]
+  backup_retention_period = 7
+  deletion_protection    = true
+  skip_final_snapshot    = false
+  final_snapshot_identifier = "prod-postgres-final"
 
-1. Design the API: endpoints, request/response formats
-2. Implement using RDS & Aurora serverless services
-3. Add a managed database/storage backend
-4. Implement authentication and authorization
-5. Set up CI/CD for automated deployments
-6. Load test and optimize for cost
+  performance_insights_enabled = true
+  monitoring_interval          = 60
+  monitoring_role_arn          = aws_iam_role.rds_monitoring.arn
+}
+```
 
-### Skills Demonstrated
-
-- Serverless architecture
-- API design
-- Cost optimization
-
-### GitHub Repo Name
-
-`aws-rds-serverless-api`
-
----
-
-## Project 3: Cost-Optimized RDS & Aurora Platform
-
-**Level:** Advanced | **Time:** 5 days
-
-Design and implement a production platform on RDS & Aurora optimized for both reliability and cost. Implement HA, DR, monitoring, and cost management.
-
-### Steps
-
-1. Analyze requirements: availability target, RTO/RPO, budget
-2. Design multi-AZ/region architecture for high availability
-3. Implement auto-scaling for all compute tiers
-4. Set up centralized logging, monitoring, and alerting
-5. Implement backup and disaster recovery automation
-6. Track costs with budgets and alerts
-7. Optimize: use Reserved Instances/Savings Plans, right-size
-
-### Skills Demonstrated
-
-- HA/DR design
-- Cost optimization
-- Enterprise operations
-
-### GitHub Repo Name
-
-`aws-rds-production-platform`
+**Steps:** Private subnets, security group (port 5432 from app SG only), test failover, restore from snapshot
 
 ---
 
-## Tips for Great Projects
+## Project 2: RDS Proxy for Connection Pooling
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Level:** Intermediate | **Time:** 2 days | **GitHub:** `aws-rds-proxy`
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+RDS Proxy handles connection pooling for serverless workloads -- 10x more connections.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+```hcl
+resource "aws_db_proxy" "main" {
+  name                   = "prod-proxy"
+  debug_logging          = false
+  engine_family          = "POSTGRESQL"
+  idle_client_timeout    = 1800
+  require_tls            = true
+  role_arn               = aws_iam_role.rds_proxy.arn
+  vpc_subnet_ids         = module.vpc.private_subnets
+  vpc_security_group_ids = [aws_security_group.rds_proxy.id]
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+  auth {
+    auth_scheme = "SECRETS"
+    iam_auth    = "REQUIRED"
+    secret_arn  = aws_secretsmanager_secret.db_password.arn
+  }
+}
+```
+
+**Steps:** Lambda connecting directly vs via proxy -- measure connection count under load
+
+---
 
 ## Portfolio Checklist
-
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] RDS in private subnets (no public access)
+- [ ] Credentials in Secrets Manager (not environment variables)
+- [ ] Automated backup + tested restore
+- [ ] CloudWatch alarms: connections, CPU, storage

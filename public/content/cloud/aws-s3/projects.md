@@ -1,103 +1,87 @@
-# S3 — Portfolio Projects
-
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
-
-## Project 1: S3 Architecture Design
-
-**Level:** Beginner | **Time:** 2 days
-
-Design and deploy a basic 3-tier application using S3 services. Includes networking, compute, database, and basic security.
-
-### Steps
-
-1. Draw the architecture diagram first (use draw.io or Excalidraw)
-2. Set up S3 environment with IaC (Terraform or CloudFormation)
-3. Deploy the networking layer (VPC/VNet, subnets, security groups)
-4. Add compute resources and deploy a sample web app
-5. Configure a managed database service
-6. Apply security best practices (IAM, encryption, no public access)
-
-### Skills Demonstrated
-
-- S3 core services
-- IaC
-- Cloud security basics
-
-### GitHub Repo Name
-
-`aws-s3-3tier-architecture`
+# AWS S3 -- Portfolio Projects
 
 ---
 
-## Project 2: Serverless App on S3
+## Project 1: Static Site with CloudFront CDN and CI/CD
 
-**Level:** Intermediate | **Time:** 3 days
+**Level:** Beginner | **Time:** 1 day | **GitHub:** `aws-static-site-cloudfront`
 
-Build a serverless REST API using S3 managed services. No servers to manage — pay per request, auto-scales to millions.
+React/HTML site on S3 distributed via CloudFront with GitHub Actions auto-deployment.
 
-### Steps
+```hcl
+resource "aws_s3_bucket_public_access_block" "website" {
+  bucket                  = aws_s3_bucket.website.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
 
-1. Design the API: endpoints, request/response formats
-2. Implement using S3 serverless services
-3. Add a managed database/storage backend
-4. Implement authentication and authorization
-5. Set up CI/CD for automated deployments
-6. Load test and optimize for cost
+resource "aws_cloudfront_distribution" "website" {
+  origin {
+    domain_name            = aws_s3_bucket.website.bucket_regional_domain_name
+    origin_access_control_id = aws_cloudfront_origin_access_control.website.id
+  }
+  default_cache_behavior {
+    allowed_methods        = ["GET", "HEAD"]
+    viewer_protocol_policy = "redirect-to-https"
+    default_ttl            = 3600
+  }
+  custom_error_response {
+    error_code         = 404
+    response_code      = 200
+    response_page_path = "/index.html"
+  }
+}
+```
 
-### Skills Demonstrated
+```yaml
+# GitHub Actions deploy
+- name: Deploy to S3
+  run: aws s3 sync ./dist/ s3://$BUCKET_NAME --delete
+- name: Invalidate CloudFront
+  run: aws cloudfront create-invalidation --distribution-id $CF_ID --paths "/*"
+```
 
-- Serverless architecture
-- API design
-- Cost optimization
-
-### GitHub Repo Name
-
-`aws-s3-serverless-api`
-
----
-
-## Project 3: Cost-Optimized S3 Platform
-
-**Level:** Advanced | **Time:** 5 days
-
-Design and implement a production platform on S3 optimized for both reliability and cost. Implement HA, DR, monitoring, and cost management.
-
-### Steps
-
-1. Analyze requirements: availability target, RTO/RPO, budget
-2. Design multi-AZ/region architecture for high availability
-3. Implement auto-scaling for all compute tiers
-4. Set up centralized logging, monitoring, and alerting
-5. Implement backup and disaster recovery automation
-6. Track costs with budgets and alerts
-7. Optimize: use Reserved Instances/Savings Plans, right-size
-
-### Skills Demonstrated
-
-- HA/DR design
-- Cost optimization
-- Enterprise operations
-
-### GitHub Repo Name
-
-`aws-s3-production-platform`
+**Steps:** S3 + CloudFront via Terraform, GitHub Actions pipeline, custom domain, measure CDN speedup
 
 ---
 
-## Tips for Great Projects
+## Project 2: S3 Event Processing Pipeline
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Level:** Intermediate | **Time:** 2 days | **GitHub:** `aws-s3-data-pipeline`
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+CSV upload triggers Lambda, validates data, routes to processed or errors bucket.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+```python
+def lambda_handler(event, context):
+    bucket = event["Records"][0]["s3"]["bucket"]["name"]
+    key    = event["Records"][0]["s3"]["object"]["key"]
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+    content = s3.get_object(Bucket=bucket, Key=key)["Body"].read().decode()
+    reader = csv.DictReader(io.StringIO(content))
+
+    valid, errors = [], []
+    for i, row in enumerate(reader, 1):
+        if not row.get("email") or "@" not in row["email"]:
+            errors.append({"row": i, "error": "Invalid email"})
+            continue
+        valid.append(row)
+
+    s3.put_object(Bucket=bucket, Key=key.replace("raw/", "processed/"),
+                  Body=json.dumps(valid))
+    if errors:
+        s3.put_object(Bucket=bucket, Key=key.replace("raw/", "errors/"),
+                      Body=json.dumps(errors))
+        sns.publish(TopicArn=SNS_ARN, Message=f"{len(errors)} rows failed validation in {key}")
+```
+
+**Steps:** 3 buckets (raw/processed/errors), S3 event notification, test with valid + invalid CSV
+
+---
 
 ## Portfolio Checklist
-
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] All S3 buckets have public access blocked
+- [ ] Server-side encryption enabled
+- [ ] Versioning on critical data buckets
+- [ ] S3 Lifecycle rules to manage costs

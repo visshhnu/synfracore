@@ -1,103 +1,82 @@
-# EC2 — Portfolio Projects
-
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
-
-## Project 1: EC2 Architecture Design
-
-**Level:** Beginner | **Time:** 2 days
-
-Design and deploy a basic 3-tier application using EC2 services. Includes networking, compute, database, and basic security.
-
-### Steps
-
-1. Draw the architecture diagram first (use draw.io or Excalidraw)
-2. Set up EC2 environment with IaC (Terraform or CloudFormation)
-3. Deploy the networking layer (VPC/VNet, subnets, security groups)
-4. Add compute resources and deploy a sample web app
-5. Configure a managed database service
-6. Apply security best practices (IAM, encryption, no public access)
-
-### Skills Demonstrated
-
-- EC2 core services
-- IaC
-- Cloud security basics
-
-### GitHub Repo Name
-
-`aws-ec2-3tier-architecture`
+# AWS EC2 -- Portfolio Projects
 
 ---
 
-## Project 2: Serverless App on EC2
+## Project 1: HA Web Server with ALB and Auto Scaling
 
-**Level:** Intermediate | **Time:** 3 days
+**Level:** Beginner | **Time:** 1-2 days | **GitHub:** `aws-ha-webserver`
 
-Build a serverless REST API using EC2 managed services. No servers to manage — pay per request, auto-scales to millions.
+ALB distributing traffic across EC2 in 2 AZs with Auto Scaling at 70% CPU threshold.
 
-### Steps
+```hcl
+resource "aws_launch_template" "web" {
+  name_prefix   = "web-lt-"
+  image_id      = data.aws_ami.amazon_linux.id
+  instance_type = "t3.micro"
+  user_data = base64encode(<<-EOF
+    #!/bin/bash
+    yum install -y nginx
+    systemctl start nginx
+    echo "<h1>Hello from $(hostname)</h1>" > /usr/share/nginx/html/index.html
+    EOF
+  )
+}
 
-1. Design the API: endpoints, request/response formats
-2. Implement using EC2 serverless services
-3. Add a managed database/storage backend
-4. Implement authentication and authorization
-5. Set up CI/CD for automated deployments
-6. Load test and optimize for cost
+resource "aws_autoscaling_group" "web" {
+  min_size             = 2
+  max_size             = 10
+  desired_capacity     = 2
+  vpc_zone_identifier  = module.vpc.private_subnets
+  target_group_arns    = [aws_lb_target_group.web.arn]
+  health_check_type    = "ELB"
+  launch_template {
+    id      = aws_launch_template.web.id
+    version = "$Latest"
+  }
+}
 
-### Skills Demonstrated
+resource "aws_autoscaling_policy" "cpu" {
+  name                   = "cpu-tracking"
+  autoscaling_group_name = aws_autoscaling_group.web.name
+  policy_type            = "TargetTrackingScaling"
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+    target_value = 70.0
+  }
+}
+```
 
-- Serverless architecture
-- API design
-- Cost optimization
-
-### GitHub Repo Name
-
-`aws-ec2-serverless-api`
-
----
-
-## Project 3: Cost-Optimized EC2 Platform
-
-**Level:** Advanced | **Time:** 5 days
-
-Design and implement a production platform on EC2 optimized for both reliability and cost. Implement HA, DR, monitoring, and cost management.
-
-### Steps
-
-1. Analyze requirements: availability target, RTO/RPO, budget
-2. Design multi-AZ/region architecture for high availability
-3. Implement auto-scaling for all compute tiers
-4. Set up centralized logging, monitoring, and alerting
-5. Implement backup and disaster recovery automation
-6. Track costs with budgets and alerts
-7. Optimize: use Reserved Instances/Savings Plans, right-size
-
-### Skills Demonstrated
-
-- HA/DR design
-- Cost optimization
-- Enterprise operations
-
-### GitHub Repo Name
-
-`aws-ec2-production-platform`
+**Steps:** VPC with private subnets, ALB in public, test with stress command, verify auto-scaling
 
 ---
 
-## Tips for Great Projects
+## Project 2: Golden AMI Pipeline with EC2 Image Builder
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Level:** Intermediate | **Time:** 2 days | **GitHub:** `aws-golden-ami-pipeline`
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+Automated golden AMI with pre-installed packages, hardening, and multi-region distribution.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+```hcl
+resource "aws_imagebuilder_image_recipe" "web" {
+  name         = "web-server-ubuntu22"
+  version      = "1.0.0"
+  parent_image = "arn:aws:imagebuilder:ap-south-1:aws:image/ubuntu-server-22-lts-x86/x.x.x"
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+  component {
+    component_arn = aws_imagebuilder_component.hardening.arn
+  }
+}
+```
+
+**Steps:** Image Builder pipeline, component scripts, weekly schedule, SNS on completion, update ASG
+
+---
 
 ## Portfolio Checklist
-
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] All infrastructure in Terraform (no console clicks)
+- [ ] EC2 in private subnets (no direct internet access)
+- [ ] Access via Systems Manager Session Manager (no SSH keys)
+- [ ] Auto Scaling tested with load test
+- [ ] CloudWatch alarms: CPU, disk, unhealthy hosts

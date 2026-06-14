@@ -1,103 +1,110 @@
-# RAG Systems — Portfolio Projects
-
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
-
-## Project 1: AI-Powered RAG Systems Chatbot
-
-**Level:** Beginner | **Time:** 2 days
-
-Build a conversational chatbot using RAG Systems that can answer questions about a specific domain (DevOps, recipes, customer support).
-
-### Steps
-
-1. Design the chatbot persona and scope
-2. Implement using RAG Systems APIs
-3. Add conversation memory (maintain context)
-4. Handle edge cases (unclear questions, off-topic)
-5. Build a simple web interface with Streamlit or Gradio
-6. Deploy to cloud and share the link
-
-### Skills Demonstrated
-
-- LLM APIs
-- Prompt engineering
-- Conversation design
-
-### GitHub Repo Name
-
-`rag-chatbot`
+# RAG Systems -- Portfolio Projects
 
 ---
 
-## Project 2: Document Q&A System with RAG Systems
+## Project 1: Company Knowledge Base Q&A
 
-**Level:** Intermediate | **Time:** 3 days
+**Level:** Intermediate | **Time:** 3 days | **GitHub:** `rag-knowledge-base`
 
-Build a RAG (Retrieval Augmented Generation) system using RAG Systems that answers questions about your own documents, PDFs, or knowledge base.
+Internal knowledge base Q&A -- upload company docs, get accurate answers with citations.
 
-### Steps
+```python
+from anthropic import Anthropic
+from langchain_community.document_loaders import DirectoryLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.vectorstores import Chroma
+from langchain_community.embeddings import OllamaEmbeddings
 
-1. Choose a document corpus (company docs, Wikipedia topic, textbooks)
-2. Implement document loading, chunking, and embedding
-3. Set up vector database (Chroma, Pinecone, Weaviate)
-4. Integrate RAG Systems for answer generation
-5. Evaluate answer quality with test questions
-6. Add a citation feature (show which document answered the question)
+client = Anthropic()
 
-### Skills Demonstrated
+class KnowledgeBase:
+    def __init__(self, docs_dir: str):
+        docs = DirectoryLoader(docs_dir, glob="**/*.{md,txt,pdf}").load()
+        chunks = RecursiveCharacterTextSplitter(
+            chunk_size=500, chunk_overlap=50
+        ).split_documents(docs)
 
-- RAG architecture
-- Vector databases
-- Evaluation
+        self.vectorstore = Chroma.from_documents(
+            chunks, OllamaEmbeddings(model="nomic-embed-text")
+        )
+        print(f"Indexed {len(chunks)} chunks from {len(docs)} documents")
 
-### GitHub Repo Name
+    def ask(self, question: str) -> dict:
+        sources = self.vectorstore.similarity_search_with_score(question, k=4)
+        context = "
 
-`rag-document-qa`
+".join(f"[{doc.metadata.get("source","")}]
+{doc.page_content}"
+                               for doc, score in sources if score < 0.8)
+
+        response = client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=1000,
+            system="""Answer based ONLY on the context provided.
+Always cite which document your answer comes from.
+If the answer is not in the context, say so clearly.""",
+            messages=[{"role": "user",
+                       "content": f"Context:
+{context}
+
+Question: {question}"}]
+        )
+
+        return {
+            "answer": response.content[0].text,
+            "sources": [doc.metadata.get("source") for doc, _ in sources],
+            "cost": f"${(response.usage.input_tokens * 0.00025 + response.usage.output_tokens * 0.00125) / 1000:.4f}"
+        }
+
+kb = KnowledgeBase("./company-docs")
+result = kb.ask("What is our refund policy?")
+print(result["answer"])
+print("Sources:", result["sources"])
+```
+
+**Steps:** Index company docs, build Streamlit UI, measure accuracy with 20-question test set, add feedback system
 
 ---
 
-## Project 3: Production AI Agent with RAG Systems
+## Project 2: Multi-Source Research Assistant
 
-**Level:** Advanced | **Time:** 5 days
+**Level:** Advanced | **Time:** 4 days | **GitHub:** `rag-research-assistant`
 
-Build an autonomous AI agent using RAG Systems that can complete multi-step tasks: research, write, execute code, interact with APIs — with human oversight.
+RAG system that searches across web + internal docs + uploaded files simultaneously.
 
-### Steps
+```python
+from langchain.tools import DuckDuckGoSearchResults
+from langchain_community.document_loaders import PyPDFLoader
 
-1. Define agent capabilities and tool set
-2. Implement agentic loop using RAG Systems
-3. Add tools: web search, code execution, file operations, API calls
-4. Implement safety guardrails (approve dangerous actions)
-5. Add structured logging and observability
-6. Evaluate agent on a benchmark task suite
-7. Write a detailed blog post about your approach
+def research(question: str, uploaded_files: list = None):
+    sources = []
 
-### Skills Demonstrated
+    # Source 1: Web search
+    web_results = DuckDuckGoSearchResults(num_results=3).run(question)
+    sources.append({"type": "web", "content": web_results})
 
-- Agent design
-- Tool integration
-- Safety and observability
+    # Source 2: Uploaded files
+    if uploaded_files:
+        for file in uploaded_files:
+            docs = PyPDFLoader(file).load()
+            relevant = vectorstore.similarity_search(question, k=2)
+            sources.append({"type": "document", "content": relevant})
 
-### GitHub Repo Name
+    # Source 3: Curated knowledge base
+    internal = internal_vectorstore.similarity_search(question, k=3)
+    sources.append({"type": "internal", "content": internal})
 
-`rag-autonomous-agent`
+    # Synthesize from all sources
+    return synthesize_answer(question, sources)
+```
+
+**Steps:** Multi-source retrieval, source attribution in answers, add reranking, export research report as PDF
 
 ---
-
-## Tips for Great Projects
-
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
-
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
-
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
-
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
 
 ## Portfolio Checklist
-
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] Working demo with real documents
+- [ ] Accuracy measured: test set with known answers
+- [ ] Source citations in every answer
+- [ ] Cost per query documented
+- [ ] Handles "I do not know" gracefully (no hallucination)

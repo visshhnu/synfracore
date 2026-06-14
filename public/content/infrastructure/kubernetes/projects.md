@@ -1,103 +1,157 @@
-# Kubernetes — Portfolio Projects
+# Kubernetes -- Portfolio Projects
 
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
-
-## Project 1: Production-Grade Kubernetes Setup
-
-**Level:** Beginner | **Time:** 1-2 days
-
-Set up a complete, production-ready Kubernetes environment from scratch with proper configuration, security hardening, and monitoring.
-
-### Steps
-
-1. Plan your Kubernetes architecture and document requirements
-2. Install and configure Kubernetes following official best practices
-3. Apply security hardening (restrict access, disable defaults)
-4. Set up basic monitoring and alerting
-5. Write a README documenting the setup
-6. Add to GitHub with .gitignore and proper structure
-
-### Skills Demonstrated
-
-- Kubernetes installation and configuration
-- Security hardening
-- Documentation
-
-### GitHub Repo Name
-
-`kubernetes-production-setup`
+Three projects that prove production Kubernetes skills. These mirror what you will build at any company using K8s.
 
 ---
 
-## Project 2: Kubernetes CI/CD Pipeline
+## Project 1: Stateful WordPress on Kubernetes
 
-**Level:** Intermediate | **Time:** 2-3 days
+**Level:** Beginner | **Time:** 1-2 days | **GitHub:** `k8s-stateful-wordpress`
 
-Build a complete CI/CD pipeline using Kubernetes that automatically tests, builds, and deploys a sample application on every commit.
+**What you build:** WordPress + MySQL on Kubernetes using Deployments, PersistentVolumeClaims, ConfigMaps, and Secrets.
+
+### Key manifests
+```yaml
+# secret.yaml
+apiVersion: v1
+kind: Secret
+metadata: {name: mysql-secret}
+type: Opaque
+data:
+  password: BASE64_ENCODED_PASSWORD
+
+---
+# mysql-pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata: {name: mysql-pvc}
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests: {storage: 10Gi}
+
+---
+# mysql-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: mysql}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: mysql}
+  template:
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8.0
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef: {name: mysql-secret, key: password}
+        volumeMounts:
+        - name: storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: storage
+        persistentVolumeClaim:
+          claimName: mysql-pvc
+```
 
 ### Steps
-
-1. Create a simple Node.js/Python application with unit tests
-2. Write Kubernetes configuration for the pipeline
-3. Implement stages: lint → test → build → deploy
-4. Add Docker image building and pushing to registry
-5. Configure environment-specific deployments (dev/staging/prod)
-6. Add Slack/email notifications for success/failure
-
-### Skills Demonstrated
-
-- CI/CD principles
-- Kubernetes advanced features
-- Docker integration
-
-### GitHub Repo Name
-
-`kubernetes-cicd-pipeline`
+1. Set up minikube or kind cluster locally
+2. Write all manifests by hand (no Helm yet)
+3. Apply in order: Secret, PVC, Deployment, Service
+4. Test persistence: delete pod, verify data survives restart
+5. Add Ingress with host-based routing
+6. Add HPA for WordPress (not MySQL)
+7. Write troubleshooting guide for CrashLoopBackOff
 
 ---
 
-## Project 3: Infrastructure Automation with Kubernetes
+## Project 2: GitOps Platform with ArgoCD
 
-**Level:** Advanced | **Time:** 4-5 days
+**Level:** Intermediate | **Time:** 3 days | **GitHub:** `k8s-gitops-platform`
 
-Automate a complete infrastructure deployment using Kubernetes. Deploy a multi-tier application (web + app + database) with full automation, monitoring, and disaster recovery.
+**What you build:** A GitOps-managed cluster where ALL changes go through Git, ArgoCD auto-syncs, and self-heals drift.
+
+### Repository structure
+```
+k8s-gitops-platform/
++-- apps/
+|   +-- api/ (deployment.yaml, service.yaml, hpa.yaml)
+|   +-- monitoring/ (prometheus.yaml, grafana.yaml)
++-- infra/
+|   +-- argocd/
+|   +-- cert-manager/
++-- argocd-apps/
+    +-- api.yaml
+    +-- monitoring.yaml
+```
+
+### ArgoCD Application
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: production-api
+  namespace: argocd
+spec:
+  source:
+    repoURL: https://github.com/yourname/k8s-gitops-platform
+    targetRevision: HEAD
+    path: apps/api
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: production
+  syncPolicy:
+    automated:
+      prune: true       # Delete resources removed from Git
+      selfHeal: true    # Fix manual kubectl changes
+```
 
 ### Steps
-
-1. Design the multi-tier architecture (draw diagram first)
-2. Write Kubernetes configuration for all components
-3. Implement idempotency — run multiple times safely
-4. Add health checks and automatic failure recovery
-5. Implement secret management (no hardcoded credentials)
-6. Write comprehensive tests and runbook documentation
-7. Create a demo video or blog post explaining your solution
-
-### Skills Demonstrated
-
-- Production architecture
-- Secret management
-- Testing and documentation
-
-### GitHub Repo Name
-
-`kubernetes-infrastructure-automation`
+1. Install ArgoCD on the cluster
+2. Push K8s manifests to GitHub
+3. Create ArgoCD Application pointing to repo
+4. Make a change in Git, watch ArgoCD auto-sync
+5. Try `kubectl delete deployment api` -- ArgoCD restores it
+6. Add Slack notifications for sync events
+7. Add ApplicationSet for dev/staging/prod namespaces
 
 ---
 
-## Tips for Great Projects
+## Project 3: Custom Kubernetes Operator
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Level:** Advanced | **Time:** 4-5 days | **GitHub:** `database-provisioner-operator`
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+**What you build:** A Kubernetes Operator that provisions PostgreSQL on demand via a custom `DatabaseClaim` CRD.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+### Custom Resource
+```yaml
+apiVersion: db.synfracore.io/v1
+kind: DatabaseClaim
+metadata: {name: my-app-db, namespace: team-backend}
+spec:
+  engine: postgres
+  size: small
+  dbName: myappdb
+# Operator sees this and provisions a full PostgreSQL StatefulSet + Service + Secret automatically
+```
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+### Steps
+1. Scaffold with Kubebuilder: `kubebuilder init && kubebuilder create api`
+2. Implement Reconcile loop (compare desired vs actual state)
+3. On DatabaseClaim created: deploy PostgreSQL + create Secret with credentials
+4. On DatabaseClaim deleted: clean up all resources
+5. Add status conditions: Provisioning, Ready, Failed
+6. Write unit tests with envtest
+7. Package as Helm chart
+
+---
 
 ## Portfolio Checklist
-
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] Architecture diagram in every README
+- [ ] `kubectl apply -f .` works from a clean cluster
+- [ ] Project 2 demonstrates live GitOps (commit to Git triggers deploy)
+- [ ] Can explain: StatefulSet vs Deployment for databases
+- [ ] HPA configured and tested with load testing

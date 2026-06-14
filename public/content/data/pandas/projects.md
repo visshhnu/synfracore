@@ -1,103 +1,131 @@
-# Pandas & Python Analytics — Portfolio Projects
-
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
-
-## Project 1: Pandas & Python Analytics Beginner Project
-
-**Level:** Beginner | **Time:** 2 days
-
-Apply your Pandas & Python Analytics fundamentals in a real project. Build something you can show to employers and explain in detail during interviews.
-
-### Steps
-
-1. Define scope: what problem does your Pandas & Python Analytics project solve?
-2. Plan the implementation before writing any code/config
-3. Build iteratively: start with MVP, then add features
-4. Test thoroughly — find and fix edge cases
-5. Write documentation: README, setup guide, how it works
-6. Publish to GitHub with a clear README
-
-### Skills Demonstrated
-
-- Pandas & Python Analytics fundamentals
-- Project planning
-- Documentation
-
-### GitHub Repo Name
-
-`pandas-beginner-project`
+# Pandas -- Portfolio Projects
 
 ---
 
-## Project 2: Pandas & Python Analytics Intermediate Project
+## Project 1: E-Commerce Sales Analysis
 
-**Level:** Intermediate | **Time:** 3-4 days
+**Level:** Beginner | **Time:** 1-2 days | **GitHub:** `pandas-sales-analysis`
 
-Build a production-quality Pandas & Python Analytics project demonstrating intermediate skills. This should be something you're proud to show in interviews.
+Complete sales data analysis pipeline: load messy data, clean it, analyze, and produce executive-ready insights.
 
-### Steps
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
 
-1. Choose a real problem you or others face
-2. Design the solution architecture first
-3. Implement with clean, readable code/configuration
-4. Add error handling and edge cases
-5. Write unit/integration tests
-6. Create a live demo or demo video
+# Load and inspect
+df = pd.read_csv("sales_data.csv", parse_dates=["order_date"])
+print(f"Shape: {df.shape}")
+print(f"Missing values:
+{df.isnull().sum()}")
+print(f"Duplicates: {df.duplicated().sum()}")
 
-### Skills Demonstrated
+# Clean
+df["quantity"] = df["quantity"].fillna(df.groupby("product")["quantity"].transform("median"))
+df["revenue"] = df["quantity"] * df["unit_price"]
+df = df[df["revenue"] > 0]  # Remove returns
+df["month"] = df["order_date"].dt.to_period("M")
+df["region"] = df["region"].str.strip().str.upper()
 
-- Pandas & Python Analytics intermediate patterns
-- Testing
-- Error handling
+# Key analyses
+monthly_revenue = df.resample("ME", on="order_date")["revenue"].sum()
 
-### GitHub Repo Name
+product_performance = df.groupby("product").agg(
+    revenue=("revenue", "sum"),
+    orders=("order_id", "nunique"),
+    units=("quantity", "sum"),
+    avg_order=("revenue", "mean")
+).sort_values("revenue", ascending=False)
 
-`pandas-intermediate-project`
+region_pivot = df.pivot_table(
+    values="revenue", index="region",
+    columns=df["order_date"].dt.quarter,
+    aggfunc="sum", fill_value=0
+)
+
+# MoM growth
+monthly_revenue_df = monthly_revenue.reset_index()
+monthly_revenue_df["mom_growth"] = monthly_revenue_df["revenue"].pct_change() * 100
+
+print("
+Top 10 Products:")
+print(product_performance.head(10))
+
+print("
+Monthly Growth Rate:")
+print(monthly_revenue_df[["order_date", "revenue", "mom_growth"]].tail(6))
+```
+
+**Steps:** Load messy CSV, document all cleaning decisions, 10 analyses, 5 visualizations, executive summary
 
 ---
 
-## Project 3: Pandas & Python Analytics Capstone Project
+## Project 2: Real-Time Data Pipeline with Streaming
 
-**Level:** Advanced | **Time:** 1 week
+**Level:** Intermediate | **Time:** 2-3 days | **GitHub:** `pandas-data-pipeline`
 
-A comprehensive Pandas & Python Analytics project that demonstrates mastery. This should be the centerpiece of your portfolio — something that proves you can do the job.
+ETL pipeline: extract from multiple sources, transform with Pandas, load to PostgreSQL.
 
-### Steps
+```python
+import pandas as pd
+import sqlalchemy
+from pathlib import Path
+import logging
 
-1. Define an ambitious but achievable scope
-2. Research how professionals solve this problem at scale
-3. Implement following industry best practices
-4. Add monitoring, alerting, and operational runbooks
-5. Security review — what could go wrong? Fix it.
-6. Present your project: 5-min video walkthrough
-7. Write a technical blog post about what you learned
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-### Skills Demonstrated
+class DataPipeline:
+    def __init__(self, db_url: str):
+        self.engine = sqlalchemy.create_engine(db_url)
 
-- Advanced patterns
-- Production readiness
-- Communication
+    def extract(self, source_dir: Path) -> dict:
+        dataframes = {}
+        for csv_file in source_dir.glob("*.csv"):
+            df = pd.read_csv(csv_file, parse_dates=True, infer_datetime_format=True)
+            logger.info(f"Loaded {csv_file.name}: {df.shape}")
+            dataframes[csv_file.stem] = df
+        return dataframes
 
-### GitHub Repo Name
+    def transform(self, dataframes: dict) -> pd.DataFrame:
+        orders = dataframes["orders"]
+        products = dataframes["products"]
+        customers = dataframes["customers"]
 
-`pandas-capstone`
+        enriched = orders.merge(
+            products[["product_id", "name", "category", "cost"]],
+            on="product_id"
+        ).merge(
+            customers[["customer_id", "region", "tier"]],
+            on="customer_id"
+        )
+
+        enriched["gross_profit"] = enriched["revenue"] - enriched["cost"] * enriched["quantity"]
+        enriched["profit_margin"] = enriched["gross_profit"] / enriched["revenue"]
+
+        enriched = enriched.dropna(subset=["revenue", "quantity"])
+        enriched = enriched[enriched["quantity"] > 0]
+
+        return enriched
+
+    def load(self, df: pd.DataFrame, table_name: str):
+        df.to_sql(table_name, self.engine,
+                  if_exists="replace", index=False, chunksize=1000)
+        logger.info(f"Loaded {len(df)} rows to {table_name}")
+
+pipeline = DataPipeline("postgresql://localhost/analytics")
+dataframes = pipeline.extract(Path("./data"))
+transformed = pipeline.transform(dataframes)
+pipeline.load(transformed, "enriched_orders")
+```
+
+**Steps:** Multi-source extraction, transformation with audit log, PostgreSQL loading, schedule with cron, data quality checks
 
 ---
-
-## Tips for Great Projects
-
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
-
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
-
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
-
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
 
 ## Portfolio Checklist
-
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] Data cleaning decisions documented in README
+- [ ] Analysis results surprising or insightful (not just "sales went up")
+- [ ] Visualizations exported as PNG (include in README)
+- [ ] Pipeline runs end-to-end with `python pipeline.py`
+- [ ] Can explain every transformation decision in an interview

@@ -1,10 +1,7 @@
+"use client";
 import Link from "next/link";
 import { ArrowRight, Star, Clock, Layers } from "lucide-react";
 
-export const metadata = {
-  title: "Projects — SynfraCore",
-  description: "Portfolio projects for DevOps, Cloud, AI, Data, and Security engineers",
-};
 
 const projectCategories = [
   {

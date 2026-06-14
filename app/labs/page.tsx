@@ -1,10 +1,7 @@
+"use client";
 import Link from "next/link";
 import { Terminal, Code2, Database, FlaskConical, BookOpen, ArrowRight, Zap } from "lucide-react";
 
-export const metadata = {
-  title: "Labs — SynfraCore",
-  description: "Hands-on interactive labs and practice environments for DevOps, Cloud, AI, and more",
-};
 
 const labCategories = [
   {

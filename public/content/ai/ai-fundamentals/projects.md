@@ -1,103 +1,202 @@
-# AI Fundamentals — Portfolio Projects
+# AI Engineering -- Portfolio Projects
 
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
-
-## Project 1: AI-Powered AI Fundamentals Chatbot
-
-**Level:** Beginner | **Time:** 2 days
-
-Build a conversational chatbot using AI Fundamentals that can answer questions about a specific domain (DevOps, recipes, customer support).
-
-### Steps
-
-1. Design the chatbot persona and scope
-2. Implement using AI Fundamentals APIs
-3. Add conversation memory (maintain context)
-4. Handle edge cases (unclear questions, off-topic)
-5. Build a simple web interface with Streamlit or Gradio
-6. Deploy to cloud and share the link
-
-### Skills Demonstrated
-
-- LLM APIs
-- Prompt engineering
-- Conversation design
-
-### GitHub Repo Name
-
-`ai-fundamentals-chatbot`
+Three projects from basic API integration to production RAG. Demonstrate real LLM engineering skills.
 
 ---
 
-## Project 2: Document Q&A System with AI Fundamentals
+## Project 1: DevOps Assistant Chatbot with Claude
 
-**Level:** Intermediate | **Time:** 3 days
+**Level:** Beginner | **Time:** 1-2 days | **GitHub:** `claude-devops-chatbot`
 
-Build a RAG (Retrieval Augmented Generation) system using AI Fundamentals that answers questions about your own documents, PDFs, or knowledge base.
+**What you build:** A multi-turn chatbot specialized in DevOps questions with a custom system prompt and Streamlit web interface.
+
+### Core implementation
+```python
+import anthropic
+import streamlit as st
+
+client = anthropic.Anthropic()
+
+SYSTEM_PROMPT = """You are DevOpsGPT, an expert DevOps and cloud engineering assistant.
+Your expertise includes Docker, Kubernetes, Terraform, CI/CD, AWS, Azure, and monitoring.
+Give practical, actionable answers with working commands when helpful.
+Mention security implications for any configuration.
+Keep answers concise but complete."""
+
+def chat(messages: list) -> str:
+    response = client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=1000,
+        system=SYSTEM_PROMPT,
+        messages=messages
+    )
+    return response.content[0].text
+
+st.title("DevOps Assistant")
+
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+for msg in st.session_state.messages:
+    with st.chat_message(msg["role"]):
+        st.markdown(msg["content"])
+
+if prompt := st.chat_input("Ask about Docker, Kubernetes, AWS..."):
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    with st.chat_message("user"):
+        st.markdown(prompt)
+    with st.chat_message("assistant"):
+        with st.spinner("Thinking..."):
+            response = chat(st.session_state.messages)
+            st.markdown(response)
+    st.session_state.messages.append({"role": "assistant", "content": response})
+```
 
 ### Steps
-
-1. Choose a document corpus (company docs, Wikipedia topic, textbooks)
-2. Implement document loading, chunking, and embedding
-3. Set up vector database (Chroma, Pinecone, Weaviate)
-4. Integrate AI Fundamentals for answer generation
-5. Evaluate answer quality with test questions
-6. Add a citation feature (show which document answered the question)
-
-### Skills Demonstrated
-
-- RAG architecture
-- Vector databases
-- Evaluation
-
-### GitHub Repo Name
-
-`ai-fundamentals-document-qa`
+1. Build CLI version first (simpler to test)
+2. Add Streamlit UI
+3. Test with 20+ different DevOps questions
+4. Add suggested starter questions
+5. Track token usage and cost per conversation
+6. Deploy to Streamlit Cloud (free, shareable link)
+7. Add export conversation as markdown feature
 
 ---
 
-## Project 3: Production AI Agent with AI Fundamentals
+## Project 2: Document Q&A System (RAG)
 
-**Level:** Advanced | **Time:** 5 days
+**Level:** Intermediate | **Time:** 3 days | **GitHub:** `rag-document-qa`
 
-Build an autonomous AI agent using AI Fundamentals that can complete multi-step tasks: research, write, execute code, interact with APIs — with human oversight.
+**What you build:** Upload any PDF/text and ask questions about it. Uses RAG to answer from your specific documents.
 
-### Steps
+### Complete pipeline
+```python
+from anthropic import Anthropic
+from langchain.document_loaders import PyPDFLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.embeddings import OllamaEmbeddings
+from langchain_community.vectorstores import Chroma
 
-1. Define agent capabilities and tool set
-2. Implement agentic loop using AI Fundamentals
-3. Add tools: web search, code execution, file operations, API calls
-4. Implement safety guardrails (approve dangerous actions)
-5. Add structured logging and observability
-6. Evaluate agent on a benchmark task suite
-7. Write a detailed blog post about your approach
+client = Anthropic()
 
-### Skills Demonstrated
+class DocumentQA:
+    def __init__(self):
+        self.vectorstore = None
+        self.embeddings = OllamaEmbeddings(model="nomic-embed-text")
 
-- Agent design
-- Tool integration
-- Safety and observability
+    def load_document(self, path: str):
+        docs = PyPDFLoader(path).load()
+        chunks = RecursiveCharacterTextSplitter(
+            chunk_size=500, chunk_overlap=50
+        ).split_documents(docs)
+        self.vectorstore = Chroma.from_documents(chunks, self.embeddings)
+        return len(chunks)
 
-### GitHub Repo Name
-
-`ai-fundamentals-autonomous-agent`
+    def answer(self, question: str) -> dict:
+        relevant_docs = self.vectorstore.similarity_search(question, k=4)
+        context = "
 
 ---
 
-## Tips for Great Projects
+".join(d.page_content for d in relevant_docs)
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+        response = client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=800,
+            system="Answer questions based ONLY on the provided context. Say you do not have that information if it is not in the context.",
+            messages=[{"role": "user", "content": f"Context:
+{context}
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+Question: {question}"}]
+        )
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+        return {
+            "answer": response.content[0].text,
+            "sources": [d.metadata.get("source", "Document") for d in relevant_docs]
+        }
+```
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+### Steps
+1. Start with text files before adding PDF support
+2. Test retrieval quality before adding LLM (print retrieved chunks)
+3. Build test set: 10 questions with known answers from document
+4. Measure accuracy: aim for 85%+ correct answers
+5. Build Streamlit UI with file upload and chat
+6. Compare: 3 chunks vs 5 chunks retrieved
+7. Document cost per question at different usage scales
+
+---
+
+## Project 3: AI Agent with Tool Use
+
+**Level:** Advanced | **Time:** 4 days | **GitHub:** `devops-ai-agent`
+
+**What you build:** An autonomous agent that uses tools to diagnose and fix infrastructure issues.
+
+### Agent implementation
+```python
+import anthropic, subprocess
+client = anthropic.Anthropic()
+
+tools = [
+    {"name": "run_command",
+     "description": "Run a bash diagnostic command and return output",
+     "input_schema": {"type": "object",
+         "properties": {"cmd": {"type": "string"}},
+         "required": ["cmd"]}},
+    {"name": "check_kubernetes",
+     "description": "Get Kubernetes resource status",
+     "input_schema": {"type": "object",
+         "properties": {
+             "resource": {"type": "string", "enum": ["pods","deployments","events"]},
+             "namespace": {"type": "string", "default": "default"}},
+         "required": ["resource"]}}
+]
+
+def execute_tool(name, inputs):
+    if name == "run_command":
+        r = subprocess.run(inputs["cmd"], shell=True,
+                          capture_output=True, text=True, timeout=30)
+        return r.stdout[:2000] + r.stderr[:500]
+    if name == "check_kubernetes":
+        r = subprocess.run(
+            f"kubectl get {inputs['resource']} -n {inputs.get('namespace','default')}",
+            shell=True, capture_output=True, text=True)
+        return r.stdout + r.stderr
+
+def agent(task: str, max_steps: int = 10) -> str:
+    messages = [{"role": "user", "content": task}]
+    for _ in range(max_steps):
+        r = client.messages.create(model="claude-sonnet-4-6",
+            max_tokens=4096, tools=tools, messages=messages,
+            system="You are a DevOps expert. Use tools to investigate issues. Think step by step.")
+        messages.append({"role": "assistant", "content": r.content})
+        if r.stop_reason == "end_turn":
+            return next(b.text for b in r.content if hasattr(b, "text"))
+        if r.stop_reason == "tool_use":
+            results = [{"type": "tool_result", "tool_use_id": b.id,
+                        "content": execute_tool(b.name, b.input)}
+                       for b in r.content if b.type == "tool_use"]
+            messages.append({"role": "user", "content": results})
+    return "Max steps reached"
+
+print(agent("The payment service pods are crashing. Diagnose the issue."))
+```
+
+### Steps
+1. Build single-tool agent first (just run_command)
+2. Add more tools incrementally
+3. Test on real diagnostic scenarios (pod crashes, high CPU)
+4. Add safety filter: block destructive commands (rm -rf, DROP TABLE)
+5. Add structured incident report output at the end
+6. Log all tool calls for debugging
+7. Measure: how many steps does the agent need for common issues?
+
+---
 
 ## Portfolio Checklist
-
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] Live demo deployed (Streamlit Cloud or Hugging Face Spaces)
+- [ ] README has architecture diagram and example questions
+- [ ] Cost per conversation documented
+- [ ] Error handling for API timeouts and rate limits
+- [ ] Project 2 answer quality measured and documented

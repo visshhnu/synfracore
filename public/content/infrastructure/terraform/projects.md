@@ -1,103 +1,146 @@
-# Terraform — Portfolio Projects
+# Terraform -- Portfolio Projects
 
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
-
-## Project 1: Production-Grade Terraform Setup
-
-**Level:** Beginner | **Time:** 1-2 days
-
-Set up a complete, production-ready Terraform environment from scratch with proper configuration, security hardening, and monitoring.
-
-### Steps
-
-1. Plan your Terraform architecture and document requirements
-2. Install and configure Terraform following official best practices
-3. Apply security hardening (restrict access, disable defaults)
-4. Set up basic monitoring and alerting
-5. Write a README documenting the setup
-6. Add to GitHub with .gitignore and proper structure
-
-### Skills Demonstrated
-
-- Terraform installation and configuration
-- Security hardening
-- Documentation
-
-### GitHub Repo Name
-
-`terraform-production-setup`
+Three IaC projects using real AWS resources. Focus on modules, remote state, and multi-environment patterns.
 
 ---
 
-## Project 2: Terraform CI/CD Pipeline
+## Project 1: 3-Tier AWS Architecture with Modules
 
-**Level:** Intermediate | **Time:** 2-3 days
+**Level:** Beginner | **Time:** 2 days | **GitHub:** `terraform-aws-webapp`
 
-Build a complete CI/CD pipeline using Terraform that automatically tests, builds, and deploys a sample application on every commit.
+**What you build:** VPC + ALB + EC2 Auto Scaling Group + RDS using Terraform modules and remote state.
+
+### Structure
+```
+terraform-aws-webapp/
++-- main.tf          (root module)
++-- variables.tf
++-- outputs.tf
++-- backend.tf       (remote state in S3)
++-- modules/
+    +-- vpc/
+    +-- ec2/
+    +-- rds/
+```
+
+### Remote state
+```hcl
+terraform {
+  backend "s3" {
+    bucket         = "mycompany-terraform-state"
+    key            = "webapp/production/terraform.tfstate"
+    region         = "ap-south-1"
+    dynamodb_table = "terraform-locks"
+    encrypt        = true
+  }
+}
+```
 
 ### Steps
-
-1. Create a simple Node.js/Python application with unit tests
-2. Write Terraform configuration for the pipeline
-3. Implement stages: lint → test → build → deploy
-4. Add Docker image building and pushing to registry
-5. Configure environment-specific deployments (dev/staging/prod)
-6. Add Slack/email notifications for success/failure
-
-### Skills Demonstrated
-
-- CI/CD principles
-- Terraform advanced features
-- Docker integration
-
-### GitHub Repo Name
-
-`terraform-cicd-pipeline`
+1. Create S3 bucket + DynamoDB table for remote state first
+2. Write VPC module: subnets, IGW, NAT, route tables
+3. Write EC2 module: Launch Template + ASG + ALB
+4. Write RDS module in private subnet
+5. Wire modules together in root main.tf
+6. Add dev/prod environments with different tfvars
+7. GitHub Actions: terraform plan on PR, apply on merge to main
 
 ---
 
-## Project 3: Infrastructure Automation with Terraform
+## Project 2: EKS Cluster with Terraform
 
-**Level:** Advanced | **Time:** 4-5 days
+**Level:** Intermediate | **Time:** 3 days | **GitHub:** `terraform-eks-platform`
 
-Automate a complete infrastructure deployment using Terraform. Deploy a multi-tier application (web + app + database) with full automation, monitoring, and disaster recovery.
+**What you build:** Production EKS cluster with VPC, managed node groups, spot instance pool, IRSA, and post-cluster Helm installations.
+
+### Key configuration
+```hcl
+module "eks" {
+  source  = "terraform-aws-modules/eks/aws"
+  version = "~> 20.0"
+
+  cluster_name    = "prod-cluster"
+  cluster_version = "1.30"
+  vpc_id          = module.vpc.vpc_id
+  subnet_ids      = module.vpc.private_subnets
+
+  eks_managed_node_groups = {
+    workers = {
+      min_size     = 1
+      max_size     = 10
+      desired_size = 3
+      instance_types = ["t3.medium"]
+    }
+    spot = {
+      min_size       = 0
+      max_size       = 20
+      desired_size   = 0
+      capacity_type  = "SPOT"
+      instance_types = ["m5.large", "m5.xlarge", "m4.large"]
+    }
+  }
+}
+
+resource "helm_release" "argocd" {
+  depends_on       = [module.eks]
+  name             = "argocd"
+  repository       = "https://argoproj.github.io/argo-helm"
+  chart            = "argo-cd"
+  namespace        = "argocd"
+  create_namespace = true
+}
+```
 
 ### Steps
-
-1. Design the multi-tier architecture (draw diagram first)
-2. Write Terraform configuration for all components
-3. Implement idempotency — run multiple times safely
-4. Add health checks and automatic failure recovery
-5. Implement secret management (no hardcoded credentials)
-6. Write comprehensive tests and runbook documentation
-7. Create a demo video or blog post explaining your solution
-
-### Skills Demonstrated
-
-- Production architecture
-- Secret management
-- Testing and documentation
-
-### GitHub Repo Name
-
-`terraform-infrastructure-automation`
+1. Use official terraform-aws-modules/eks (saves 500+ lines)
+2. Create VPC first, pass subnet IDs to EKS
+3. Apply in phases: VPC, then EKS (avoids timeout)
+4. Install ArgoCD + ALB Controller via Helm provider
+5. Set up IRSA for workload identity
+6. Add terraform test assertions for module validation
 
 ---
 
-## Tips for Great Projects
+## Project 3: Multi-Account Landing Zone
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Level:** Advanced | **Time:** 4-5 days | **GitHub:** `terraform-landing-zone`
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+**What you build:** Create AWS child accounts via Organizations, apply security baseline (CloudTrail, GuardDuty, Config) to each, and enforce SCPs -- all from Terraform.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+### Account creation + cross-account provisioning
+```hcl
+resource "aws_organizations_account" "dev" {
+  name  = "development"
+  email = "dev@company.com"
+}
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+provider "aws" {
+  alias = "dev"
+  assume_role {
+    role_arn = "arn:aws:iam::${aws_organizations_account.dev.id}:role/OrganizationAccountAccessRole"
+  }
+}
+
+module "security_baseline" {
+  source    = "./modules/security-baseline"
+  providers = {aws = aws.dev}
+}
+```
+
+### Steps
+1. Enable AWS Organizations in management account
+2. Write account creation module
+3. Write security baseline (CloudTrail + GuardDuty + Config)
+4. Apply baseline to each account via provider aliases
+5. Add SCP restricting regions to ap-south-1 and us-east-1
+6. Create SSO permission sets per account type
+7. Document full setup with architecture diagram
+
+---
 
 ## Portfolio Checklist
-
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] Remote state in S3 with DynamoDB locking (never local tfstate)
+- [ ] No hardcoded credentials anywhere
+- [ ] `terraform plan` shows zero changes after clean apply (idempotent)
+- [ ] Pre-commit hooks: terraform fmt, validate, tflint
+- [ ] GitHub Actions pipeline: plan on PR, apply on merge

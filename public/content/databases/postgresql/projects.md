@@ -1,102 +1,167 @@
-# PostgreSQL — Portfolio Projects
+# PostgreSQL -- Portfolio Projects
 
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
-
-## Project 1: PostgreSQL Schema Design Project
-
-**Level:** Beginner | **Time:** 2 days
-
-Design and implement a real-world database schema for an e-commerce or social media application using PostgreSQL. Practice normalization, indexing, and query optimization.
-
-### Steps
-
-1. Design the entity-relationship diagram on paper first
-2. Implement the schema in PostgreSQL with proper data types
-3. Add constraints (NOT NULL, UNIQUE, CHECK, FOREIGN KEY)
-4. Create indexes for your most common query patterns
-5. Load sample data (use Faker library for realistic data)
-6. Write and optimize 10 complex queries (joins, aggregations, window functions)
-
-### Skills Demonstrated
-
-- Schema design
-- Indexing strategy
-- Query optimization
-
-### GitHub Repo Name
-
-`postgresql-schema-design`
+Three PostgreSQL projects from schema design to analytics to production operations.
 
 ---
 
-## Project 2: PostgreSQL Performance Optimization
+## Project 1: E-Commerce Schema with Optimized Queries
 
-**Level:** Intermediate | **Time:** 3 days
+**Level:** Beginner | **Time:** 2 days | **GitHub:** `postgres-ecommerce-schema`
 
-Take a slow database and make it 10x faster. Profile queries, identify bottlenecks, add indexes, rewrite queries, and set up connection pooling.
+**What you build:** Complete 8-table e-commerce schema with 50K+ rows of test data and 15 optimized queries covering every common SQL pattern.
+
+### Schema highlights
+```sql
+CREATE TABLE users (
+    id         BIGSERIAL PRIMARY KEY,
+    email      TEXT UNIQUE NOT NULL,
+    name       TEXT NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE orders (
+    id         BIGSERIAL PRIMARY KEY,
+    user_id    BIGINT NOT NULL REFERENCES users(id),
+    status     TEXT NOT NULL DEFAULT "pending"
+               CHECK (status IN ("pending","paid","shipped","delivered","cancelled")),
+    total      NUMERIC(12,2) NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Indexes for query patterns
+CREATE INDEX idx_orders_user_id ON orders(user_id);
+CREATE INDEX idx_orders_status_created ON orders(status, created_at DESC);
+CREATE INDEX idx_products_price ON products(price) WHERE stock > 0;  -- Partial index
+```
+
+### Key queries to demonstrate
+```sql
+-- Customer lifetime value with rank
+SELECT u.name,
+    COUNT(o.id) AS orders,
+    SUM(o.total) AS lifetime_value,
+    RANK() OVER (ORDER BY SUM(o.total) DESC) AS rank
+FROM users u
+LEFT JOIN orders o ON u.id = o.user_id
+GROUP BY u.id, u.name
+ORDER BY lifetime_value DESC NULLS LAST;
+
+-- Month-over-month growth
+WITH monthly AS (
+    SELECT DATE_TRUNC("month", created_at) AS month,
+           SUM(total) AS revenue
+    FROM orders WHERE status != "cancelled"
+    GROUP BY 1
+)
+SELECT month, revenue,
+    LAG(revenue) OVER (ORDER BY month) AS prev_month,
+    ROUND((revenue - LAG(revenue) OVER (ORDER BY month))
+          / LAG(revenue) OVER (ORDER BY month) * 100, 1) AS growth_pct
+FROM monthly ORDER BY month;
+```
 
 ### Steps
-
-1. Load 1M+ rows of test data
-2. Identify slow queries using EXPLAIN/query profiler
-3. Add appropriate indexes, measure improvement
-4. Rewrite N+1 queries to efficient JOINs
-5. Set up connection pooling (PgBouncer/ProxySQL)
-6. Document before/after query execution plans and timings
-
-### Skills Demonstrated
-
-- Query optimization
-- Index design
-- Database profiling
-
-### GitHub Repo Name
-
-`postgresql-performance-tuning`
+1. Write schema with ALL constraints (not just PKs)
+2. Generate 50K+ rows with Python Faker
+3. Write 15 queries -- at least 5 must use window functions
+4. EXPLAIN ANALYZE every query, document execution plans
+5. Add indexes for slow queries, measure before/after
+6. Write performance report with actual timing numbers
 
 ---
 
-## Project 3: PostgreSQL Backend for a REST API
+## Project 2: TimescaleDB IoT Analytics
 
-**Level:** Advanced | **Time:** 4 days
+**Level:** Intermediate | **Time:** 2 days | **GitHub:** `timescale-iot-analytics`
 
-Build the complete data layer for a production REST API using PostgreSQL. Includes schema, migrations, stored procedures/aggregations, replication, and monitoring.
+**What you build:** IoT sensor data pipeline -- ingest 1M data points, query aggregations with continuous aggregates (400x faster than raw queries).
+
+### Setup
+```sql
+CREATE EXTENSION IF NOT EXISTS timescaledb;
+
+CREATE TABLE sensor_readings (
+    time      TIMESTAMPTZ NOT NULL,
+    sensor_id INTEGER NOT NULL,
+    metric    TEXT NOT NULL,
+    value     DOUBLE PRECISION NOT NULL
+);
+
+SELECT create_hypertable("sensor_readings", "time",
+    chunk_time_interval => INTERVAL "1 day");
+
+-- Continuous aggregate (pre-computed, auto-refreshing)
+CREATE MATERIALIZED VIEW hourly_averages
+WITH (timescaledb.continuous) AS
+SELECT time_bucket("1 hour", time) AS hour,
+    sensor_id, metric,
+    AVG(value) AS avg_value,
+    MAX(value) AS max_value
+FROM sensor_readings
+GROUP BY 1, 2, 3;
+```
+
+### Performance result to document
+```
+Raw query on 1M rows: ~2000ms
+Continuous aggregate: ~5ms
+Speedup: 400x
+```
 
 ### Steps
-
-1. Design schema for a social media or SaaS app
-2. Implement migration system (Flyway/Liquibase/Alembic)
-3. Write stored procedures/aggregation pipelines for complex operations
-4. Set up read replica for read scaling
-5. Implement backup strategy with automated testing
-6. Add monitoring: slow query log, connection metrics, disk usage alerts
-
-### Skills Demonstrated
-
-- Database migrations
-- Replication
-- Production operations
-
-### GitHub Repo Name
-
-`postgresql-api-backend`
+1. Run TimescaleDB via Docker
+2. Create schema and hypertable
+3. Load 1M rows with Python COPY command
+4. Create continuous aggregate
+5. Benchmark: measure raw vs aggregate query time
+6. Add data retention policy (keep 1 year)
+7. Connect Grafana for visualization
 
 ---
 
-## Tips for Great Projects
+## Project 3: High-Availability PostgreSQL with pgBouncer
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Level:** Advanced | **Time:** 3-4 days | **GitHub:** `postgres-ha-setup`
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+**What you build:** Primary + replica PostgreSQL with automatic failover using Patroni, connection pooling with pgBouncer, and monitoring with pg_stat_statements.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+### Docker Compose architecture
+```yaml
+services:
+  postgres-primary:
+    image: postgres:16
+    environment:
+      POSTGRES_REPLICATION_MODE: master
+      POSTGRES_REPLICATION_USER: replicator
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+  postgres-replica:
+    image: postgres:16
+    environment:
+      POSTGRES_REPLICATION_MODE: slave
+      POSTGRES_MASTER_HOST: postgres-primary
+
+  pgbouncer:
+    image: pgbouncer/pgbouncer
+    environment:
+      DB_HOST: postgres-primary
+      POOL_MODE: transaction
+      MAX_CLIENT_CONN: 1000
+      DEFAULT_POOL_SIZE: 20
+```
+
+### Steps
+1. Set up primary + replica with streaming replication
+2. Verify replication lag: `SELECT * FROM pg_stat_replication`
+3. Install pgBouncer in transaction mode (10x more connections)
+4. Enable pg_stat_statements for query performance tracking
+5. Simulate primary failure, verify replica promotion
+6. Load test: 500 concurrent connections via pgBouncer vs direct
+
+---
 
 ## Portfolio Checklist
-
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] Schema initialized from migration files (Flyway or plain SQL scripts)
+- [ ] EXPLAIN ANALYZE output in README for top 5 queries
+- [ ] Indexes documented: what was added and measured impact
+- [ ] README answers: "Why NUMERIC not FLOAT for prices?"
+- [ ] All constraints implemented: NOT NULL, CHECK, UNIQUE, FK

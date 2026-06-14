@@ -1,103 +1,102 @@
-# Prometheus — Portfolio Projects
-
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
-
-## Project 1: Production-Grade Prometheus Setup
-
-**Level:** Beginner | **Time:** 1-2 days
-
-Set up a complete, production-ready Prometheus environment from scratch with proper configuration, security hardening, and monitoring.
-
-### Steps
-
-1. Plan your Prometheus architecture and document requirements
-2. Install and configure Prometheus following official best practices
-3. Apply security hardening (restrict access, disable defaults)
-4. Set up basic monitoring and alerting
-5. Write a README documenting the setup
-6. Add to GitHub with .gitignore and proper structure
-
-### Skills Demonstrated
-
-- Prometheus installation and configuration
-- Security hardening
-- Documentation
-
-### GitHub Repo Name
-
-`prometheus-production-setup`
+# Prometheus -- Portfolio Projects
 
 ---
 
-## Project 2: Prometheus CI/CD Pipeline
+## Project 1: Full Monitoring Stack with Alerting
 
-**Level:** Intermediate | **Time:** 2-3 days
+**Level:** Beginner | **Time:** 1-2 days | **GitHub:** `prometheus-monitoring-stack`
 
-Build a complete CI/CD pipeline using Prometheus that automatically tests, builds, and deploys a sample application on every commit.
+Complete Prometheus + Grafana + AlertManager stack monitoring a Node.js application.
 
-### Steps
+```yaml
+# docker-compose.yml
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    ports: ["9090:9090"]
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./alerts.yml:/etc/prometheus/alerts.yml
 
-1. Create a simple Node.js/Python application with unit tests
-2. Write Prometheus configuration for the pipeline
-3. Implement stages: lint → test → build → deploy
-4. Add Docker image building and pushing to registry
-5. Configure environment-specific deployments (dev/staging/prod)
-6. Add Slack/email notifications for success/failure
+  alertmanager:
+    image: prom/alertmanager:latest
+    ports: ["9093:9093"]
+    volumes:
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
 
-### Skills Demonstrated
+  grafana:
+    image: grafana/grafana:latest
+    ports: ["3000:3000"]
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin123
+```
 
-- CI/CD principles
-- Prometheus advanced features
-- Docker integration
+```yaml
+# alerts.yml -- SLO-based alerts
+groups:
+- name: slo
+  rules:
+  - alert: HighErrorRate
+    expr: |
+      (sum(rate(http_requests_total{status=~"5.."}[5m]))
+       / sum(rate(http_requests_total[5m]))) > 0.01
+    for: 5m
+    labels: {severity: critical}
+    annotations:
+      summary: "Error rate {{ $value | humanizePercentage }} exceeds 1% SLO"
 
-### GitHub Repo Name
+  - alert: HighLatency
+    expr: |
+      histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m])) > 1.0
+    for: 5m
+    annotations:
+      summary: "P99 latency {{ $value }}s exceeds 1s SLO"
+```
 
-`prometheus-cicd-pipeline`
+**Steps:** Full stack via Docker Compose, custom app metrics, Grafana dashboards, Slack alerts
 
 ---
 
-## Project 3: Infrastructure Automation with Prometheus
+## Project 2: Custom Prometheus Exporter
 
-**Level:** Advanced | **Time:** 4-5 days
+**Level:** Intermediate | **Time:** 2 days | **GitHub:** `custom-prometheus-exporter`
 
-Automate a complete infrastructure deployment using Prometheus. Deploy a multi-tier application (web + app + database) with full automation, monitoring, and disaster recovery.
+Write a Python exporter that exposes custom business metrics to Prometheus.
 
-### Steps
+```python
+from prometheus_client import start_http_server, Gauge, Counter, Histogram
+import psutil, time
 
-1. Design the multi-tier architecture (draw diagram first)
-2. Write Prometheus configuration for all components
-3. Implement idempotency — run multiple times safely
-4. Add health checks and automatic failure recovery
-5. Implement secret management (no hardcoded credentials)
-6. Write comprehensive tests and runbook documentation
-7. Create a demo video or blog post explaining your solution
+# Business metrics
+active_users  = Gauge("app_active_users", "Currently active users")
+orders_total  = Counter("app_orders_total", "Total orders placed", ["status"])
+order_value   = Histogram("app_order_value_rupees",
+                          "Order value in rupees",
+                          buckets=[100, 500, 1000, 5000, 10000])
 
-### Skills Demonstrated
+# System metrics (custom)
+disk_io_reads = Counter("system_disk_io_reads_total", "Total disk reads", ["device"])
 
-- Production architecture
-- Secret management
-- Testing and documentation
+def collect_metrics():
+    while True:
+        active_users.set(get_active_user_count())
+        disk_io = psutil.disk_io_counters(perdisk=True)
+        for device, stats in disk_io.items():
+            disk_io_reads.labels(device=device)._value.set(stats.read_count)
+        time.sleep(15)
 
-### GitHub Repo Name
+if __name__ == "__main__":
+    start_http_server(8000)
+    collect_metrics()
+```
 
-`prometheus-infrastructure-automation`
+**Steps:** Expose metrics at `/metrics`, scrape from Prometheus, create Grafana dashboard, write alert rules
 
 ---
-
-## Tips for Great Projects
-
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
-
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
-
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
-
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
 
 ## Portfolio Checklist
-
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] Full stack runs with `docker compose up`
+- [ ] Alert fires within 5 minutes of threshold breach
+- [ ] Grafana dashboard exported as JSON (version controlled)
+- [ ] Custom exporter with at least 5 meaningful metrics
+- [ ] Can explain: Counter vs Gauge vs Histogram vs Summary

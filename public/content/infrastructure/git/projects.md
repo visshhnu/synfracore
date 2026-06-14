@@ -1,103 +1,106 @@
-# Git & GitHub — Portfolio Projects
-
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
-
-## Project 1: Production-Grade Git & GitHub Setup
-
-**Level:** Beginner | **Time:** 1-2 days
-
-Set up a complete, production-ready Git & GitHub environment from scratch with proper configuration, security hardening, and monitoring.
-
-### Steps
-
-1. Plan your Git & GitHub architecture and document requirements
-2. Install and configure Git & GitHub following official best practices
-3. Apply security hardening (restrict access, disable defaults)
-4. Set up basic monitoring and alerting
-5. Write a README documenting the setup
-6. Add to GitHub with .gitignore and proper structure
-
-### Skills Demonstrated
-
-- Git & GitHub installation and configuration
-- Security hardening
-- Documentation
-
-### GitHub Repo Name
-
-`git-production-setup`
+# Git -- Portfolio Projects
 
 ---
 
-## Project 2: Git & GitHub CI/CD Pipeline
+## Project 1: Team Git Workflow Setup
 
-**Level:** Intermediate | **Time:** 2-3 days
+**Level:** Beginner | **Time:** 1 day | **GitHub:** `git-team-workflow`
 
-Build a complete CI/CD pipeline using Git & GitHub that automatically tests, builds, and deploys a sample application on every commit.
+Set up a complete team Git workflow: branch protection, commit conventions, PR templates, hooks.
 
-### Steps
+```bash
+# .github/pull_request_template.md
+## Summary
+<!-- What does this PR do? -->
 
-1. Create a simple Node.js/Python application with unit tests
-2. Write Git & GitHub configuration for the pipeline
-3. Implement stages: lint → test → build → deploy
-4. Add Docker image building and pushing to registry
-5. Configure environment-specific deployments (dev/staging/prod)
-6. Add Slack/email notifications for success/failure
+## Type of Change
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Breaking change
+- [ ] Documentation
 
-### Skills Demonstrated
+## Testing
+- [ ] Unit tests pass
+- [ ] Manual testing done
+- [ ] No console errors
 
-- CI/CD principles
-- Git & GitHub advanced features
-- Docker integration
+## Checklist
+- [ ] Code reviewed
+- [ ] Documentation updated
+```
 
-### GitHub Repo Name
+```bash
+# .husky/commit-msg -- enforce conventional commits
+#!/bin/sh
+commit_msg=$(cat "$1")
+pattern="^(feat|fix|docs|style|refactor|test|chore|ci)(\(.+\))?: .{1,72}"
 
-`git-cicd-pipeline`
+if ! echo "$commit_msg" | grep -qE "$pattern"; then
+    echo "ERROR: Commit message must follow Conventional Commits format"
+    echo "Examples: feat: add login page"
+    echo "          fix(auth): handle expired tokens"
+    exit 1
+fi
+```
 
----
-
-## Project 3: Infrastructure Automation with Git & GitHub
-
-**Level:** Advanced | **Time:** 4-5 days
-
-Automate a complete infrastructure deployment using Git & GitHub. Deploy a multi-tier application (web + app + database) with full automation, monitoring, and disaster recovery.
-
-### Steps
-
-1. Design the multi-tier architecture (draw diagram first)
-2. Write Git & GitHub configuration for all components
-3. Implement idempotency — run multiple times safely
-4. Add health checks and automatic failure recovery
-5. Implement secret management (no hardcoded credentials)
-6. Write comprehensive tests and runbook documentation
-7. Create a demo video or blog post explaining your solution
-
-### Skills Demonstrated
-
-- Production architecture
-- Secret management
-- Testing and documentation
-
-### GitHub Repo Name
-
-`git-infrastructure-automation`
+**Steps:** Branch protection rules on main, PR template, commit hooks, CODEOWNERS file, changelog generation
 
 ---
 
-## Tips for Great Projects
+## Project 2: Git History and Blame Analysis Tool
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Level:** Intermediate | **Time:** 2 days | **GitHub:** `git-analytics`
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+Python CLI tool that analyzes a Git repository and generates insights: busiest files, top contributors, commit frequency.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+```python
+import subprocess, json
+from collections import Counter
+from datetime import datetime
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+def get_commits(repo_path: str) -> list:
+    result = subprocess.run(
+        ["git", "log", "--format=%H|%ae|%ai|%s", "--", "."],
+        capture_output=True, text=True, cwd=repo_path
+    )
+    commits = []
+    for line in result.stdout.strip().split("
+"):
+        if line:
+            hash_, email, date, subject = line.split("|", 3)
+            commits.append({"hash": hash_, "email": email,
+                           "date": datetime.fromisoformat(date), "subject": subject})
+    return commits
+
+def hotspot_files(repo_path: str, top_n: int = 20) -> list:
+    result = subprocess.run(
+        ["git", "log", "--name-only", "--format=", "-n", "500"],
+        capture_output=True, text=True, cwd=repo_path
+    )
+    files = [f for f in result.stdout.split("
+") if f.strip()]
+    return Counter(files).most_common(top_n)
+
+def generate_report(repo_path: str):
+    commits = get_commits(repo_path)
+    print(f"Total commits: {len(commits)}")
+    print(f"
+Top 5 contributors:")
+    for email, count in Counter(c["email"] for c in commits).most_common(5):
+        print(f"  {email}: {count} commits")
+    print(f"
+Hotspot files (changed most often):")
+    for file, count in hotspot_files(repo_path)[:10]:
+        print(f"  {count:4d} changes: {file}")
+```
+
+**Steps:** Analyze a real open-source repo, generate HTML report, add commit frequency heatmap, refactor risk score
+
+---
 
 ## Portfolio Checklist
-
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] Conventional commits enforced with hooks
+- [ ] Branch protection on main (no direct push)
+- [ ] PR template in use
+- [ ] CODEOWNERS configured
+- [ ] Can explain: rebase vs merge, when to use each

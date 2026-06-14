@@ -1,103 +1,93 @@
-# Jenkins — Portfolio Projects
-
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
-
-## Project 1: Production-Grade Jenkins Setup
-
-**Level:** Beginner | **Time:** 1-2 days
-
-Set up a complete, production-ready Jenkins environment from scratch with proper configuration, security hardening, and monitoring.
-
-### Steps
-
-1. Plan your Jenkins architecture and document requirements
-2. Install and configure Jenkins following official best practices
-3. Apply security hardening (restrict access, disable defaults)
-4. Set up basic monitoring and alerting
-5. Write a README documenting the setup
-6. Add to GitHub with .gitignore and proper structure
-
-### Skills Demonstrated
-
-- Jenkins installation and configuration
-- Security hardening
-- Documentation
-
-### GitHub Repo Name
-
-`jenkins-production-setup`
+# Jenkins -- Portfolio Projects
 
 ---
 
-## Project 2: Jenkins CI/CD Pipeline
+## Project 1: Node.js CI with Coverage Gate
 
-**Level:** Intermediate | **Time:** 2-3 days
+**Level:** Beginner | **Time:** 1-2 days | **GitHub:** `jenkins-nodejs-pipeline`
 
-Build a complete CI/CD pipeline using Jenkins that automatically tests, builds, and deploys a sample application on every commit.
+Pipeline that enforces 80% code coverage -- fails the build if coverage drops below threshold.
 
-### Steps
+```groovy
+pipeline {
+    agent { docker { image "node:20-alpine" } }
+    environment {
+        DOCKER_CREDS = credentials("dockerhub-creds")
+        IMAGE        = "yourdockerhub/nodeapp"
+        COVERAGE_MIN = 80
+    }
+    stages {
+        stage("Install") { steps { sh "npm ci" } }
+        stage("Lint")    { steps { sh "npm run lint" } }
+        stage("Test + Coverage") {
+            steps { sh "npm test -- --coverage" }
+        }
+        stage("Coverage Gate") {
+            steps {
+                script {
+                    def cov = sh(script: "cat coverage/coverage-summary.json | python3 -c \"import sys,json; print(json.load(sys.stdin)[\'total\'][\'lines\'][\'pct\'])\"",
+                                 returnStdout: true).trim().toFloat()
+                    if (cov < env.COVERAGE_MIN.toFloat()) {
+                        error "Coverage ${cov}% below ${env.COVERAGE_MIN}%"
+                    }
+                }
+            }
+        }
+        stage("Build & Push") {
+            when { branch "main" }
+            steps {
+                script {
+                    docker.withRegistry("", "dockerhub-creds") {
+                        docker.build("${IMAGE}:${BUILD_NUMBER}").push()
+                    }
+                }
+            }
+        }
+    }
+    post {
+        failure { slackSend channel: "#ci", color: "danger", message: "FAILED: ${JOB_NAME}" }
+    }
+}
+```
 
-1. Create a simple Node.js/Python application with unit tests
-2. Write Jenkins configuration for the pipeline
-3. Implement stages: lint → test → build → deploy
-4. Add Docker image building and pushing to registry
-5. Configure environment-specific deployments (dev/staging/prod)
-6. Add Slack/email notifications for success/failure
-
-### Skills Demonstrated
-
-- CI/CD principles
-- Jenkins advanced features
-- Docker integration
-
-### GitHub Repo Name
-
-`jenkins-cicd-pipeline`
-
----
-
-## Project 3: Infrastructure Automation with Jenkins
-
-**Level:** Advanced | **Time:** 4-5 days
-
-Automate a complete infrastructure deployment using Jenkins. Deploy a multi-tier application (web + app + database) with full automation, monitoring, and disaster recovery.
-
-### Steps
-
-1. Design the multi-tier architecture (draw diagram first)
-2. Write Jenkins configuration for all components
-3. Implement idempotency — run multiple times safely
-4. Add health checks and automatic failure recovery
-5. Implement secret management (no hardcoded credentials)
-6. Write comprehensive tests and runbook documentation
-7. Create a demo video or blog post explaining your solution
-
-### Skills Demonstrated
-
-- Production architecture
-- Secret management
-- Testing and documentation
-
-### GitHub Repo Name
-
-`jenkins-infrastructure-automation`
+**Steps:** Jenkins via Docker, webhooks, Blue Ocean, intentionally break coverage to test gate
 
 ---
 
-## Tips for Great Projects
+## Project 2: Multi-Environment Deployment with Approvals
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Level:** Intermediate | **Time:** 2-3 days | **GitHub:** `jenkins-multienvironment-deploy`
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+Build once, deploy to dev automatically, then staged approvals for staging and production.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+```groovy
+stage("Approve Staging") {
+    steps {
+        input message: "Deploy ${BUILD_NUMBER} to Staging?",
+              ok: "Deploy",
+              submitter: "senior-devops,team-lead"
+    }
+}
+stage("Deploy Staging") {
+    steps {
+        sh "kubectl set image deployment/myapp myapp=myrepo/myapp:${BUILD_NUMBER} -n staging"
+    }
+}
+stage("Approve Production") {
+    steps {
+        input message: "Deploy to PRODUCTION?",
+              ok: "YES - Deploy",
+              submitter: "engineering-manager"
+    }
+}
+```
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+**Steps:** 3 K8s namespaces, approval gates, rollback parameter, MTTR tracking
+
+---
 
 ## Portfolio Checklist
-
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] Jenkinsfiles in the same Git repo as the application
+- [ ] No credentials in Jenkinsfile -- use Jenkins Credential Store
+- [ ] Pipeline fails fast (lint before test, test before build)
+- [ ] Blue Ocean UI configured

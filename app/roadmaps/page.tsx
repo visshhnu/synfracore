@@ -1,11 +1,8 @@
+"use client";
 import Link from "next/link";
 import { roadmaps } from "@/lib/data/navigation";
 import { Clock, ArrowRight } from "lucide-react";
 
-export const metadata = {
-  title: "Roadmaps — SynfraCore",
-  description: "Step-by-step career roadmaps for DevOps, Cloud, AI, Data, and Security engineers",
-};
 
 const salaries: Record<string, string> = {
   "devops-engineer": "₹8L – ₹35L",
