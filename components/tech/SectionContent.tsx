@@ -225,10 +225,31 @@ export default function SectionContent({ academy, technology, section, techName,
   };
 
   if (loading) return (
-    <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "60px 0", color: "var(--text-4)" }}>
-      <Loader2 size={18} style={{ animation: "spin 1s linear infinite" }} />
-      Loading content...
-      <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
+    <div style={{ maxWidth: "800px" }}>
+      <style>{`
+        @keyframes shimmer {
+          0% { background-position: -800px 0; }
+          100% { background-position: 800px 0; }
+        }
+        .skeleton {
+          background: linear-gradient(90deg, var(--bg-2) 25%, var(--bg-1) 50%, var(--bg-2) 75%);
+          background-size: 800px 100%;
+          animation: shimmer 1.5s infinite;
+          border-radius: 6px;
+        }
+      `}</style>
+      {/* Skeleton: Title */}
+      <div className="skeleton" style={{ height: "28px", width: "55%", marginBottom: "20px" }} />
+      {/* Skeleton: Body paragraphs */}
+      {[100, 85, 92, 78, 95, 60].map((w, i) => (
+        <div key={i} className="skeleton" style={{ height: "16px", width: `${w}%`, marginBottom: "12px" }} />
+      ))}
+      {/* Skeleton: Code block */}
+      <div className="skeleton" style={{ height: "120px", width: "100%", borderRadius: "10px", margin: "24px 0" }} />
+      {/* More text */}
+      {[88, 72, 95, 65].map((w, i) => (
+        <div key={`b${i}`} className="skeleton" style={{ height: "16px", width: `${w}%`, marginBottom: "12px" }} />
+      ))}
     </div>
   );
 

@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { Menu, X, ChevronDown, Search, Globe } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { academies } from "@/lib/data/academies";
@@ -94,24 +94,28 @@ function SearchBox() {
     return () => document.removeEventListener("mousedown", h);
   }, []);
 
+  // Build search index once (memoized) instead of iterating on every keystroke
+  const searchIndex = useMemo(() => {
+    const index: { name: string; slug: string; tags: string[]; href: string; color: string }[] = [];
+    for (const a of academies) {
+      for (const d of (a.domains || [])) {
+        for (const t of (d.technologies || [])) {
+          index.push({ name: t.name, slug: t.slug, tags: t.tags || [], href: `/academies/${a.slug}/${t.slug}`, color: a.color });
+        }
+      }
+    }
+    return index;
+  }, []);
+
   useEffect(() => {
     if (!q.trim()) { setResults([]); return; }
     const lq = q.toLowerCase();
-    const hits: typeof results = [];
-    for (const a of academies) {
-      for (const d of a.domains) {
-        for (const t of d.technologies) {
-          if (t.name.toLowerCase().includes(lq) || t.tags.some(tg => tg.toLowerCase().includes(lq))) {
-            hits.push({ name: t.name, href: `/academies/${a.slug}/${t.slug}`, color: a.color });
-            if (hits.length >= 6) break;
-          }
-        }
-        if (hits.length >= 6) break;
-      }
-      if (hits.length >= 6) break;
-    }
+    const hits = searchIndex
+      .filter(t => t.name.toLowerCase().includes(lq) || t.tags.some(tg => tg.toLowerCase().includes(lq)))
+      .slice(0, 6)
+      .map(t => ({ name: t.name, href: t.href, color: t.color }));
     setResults(hits);
-  }, [q]);
+  }, [q, searchIndex]);
 
   return (
     <div ref={ref} style={{ position: "relative" }}>
