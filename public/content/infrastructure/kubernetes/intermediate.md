@@ -1,250 +1,322 @@
 # Kubernetes — Intermediate
 
-## ConfigMaps and Secrets
+## Core K8s Objects (TechWorld with Nana)
+
+As a K8s user, your main goal is to deploy and run applications with **high availability**. To do this you need to understand the core objects:
+
+- **Pod** — smallest deployable unit, wraps one or more containers
+- **Deployment** — manages ReplicaSets, rolling updates, rollbacks
+- **ReplicaSet** — ensures N copies of a pod are always running
+- **StatefulSet** — for stateful apps (databases) with stable network identity
+- **Service** — stable network endpoint to access pods
+- **ConfigMap** — non-sensitive configuration data
+- **Secret** — sensitive data (passwords, tokens, keys)
+- **Ingress** — HTTP/HTTPS routing to services
+- **Volume** — persistent storage for pods
+- **Namespace** — virtual cluster within a cluster
+
+## Administrator vs User — Two Learning Paths
+
+From the Nana roadmap: there are two sides to Kubernetes — learning both is important but tackle one at a time.
+
+**K8s User** — deploy and manage applications:
+- Write Deployment and Service manifests
+- Configure environment variables, ConfigMaps, Secrets
+- Set resource limits, health checks
+- Understand rolling updates and rollbacks
+
+**K8s Administrator** — manage the cluster itself:
+- Set up and maintain the control plane
+- Manage nodes, networking, storage
+- Security policies, RBAC, certificates
+- Monitoring and cluster upgrades
+
+Start with User concepts first — then build Administrator knowledge on top.
+
+## Pod
 
 ```yaml
-# ConfigMap — non-sensitive configuration
+# pod.yaml — simplest unit (usually managed via Deployment, not directly)
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    app: demo-app
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx
+    ports:
+    - name: nginx
+      containerPort: 80
+```
+
+```bash
+kubectl apply -f pod.yaml         # create pod
+kubectl get pods                  # list pods
+kubectl get pods -o wide          # with IP and node info
+kubectl describe pod nginx-pod    # full details
+kubectl logs nginx-pod            # pod logs
+kubectl exec -it nginx-pod -- bash  # shell into pod
+kubectl delete pod nginx-pod      # delete pod
+```
+
+## Deployment
+
+```yaml
+# deployment.yaml — manages pods with self-healing and scaling
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: saifshah-regapp
+  labels:
+    app: saifshah-regapp
+spec:
+  replicas: 3                      # run 3 copies
+  selector:
+    matchLabels:
+      app: saifshah-regapp
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1                  # max extra pods during update
+      maxUnavailable: 0            # no downtime during update
+  template:
+    metadata:
+      labels:
+        app: saifshah-regapp
+    spec:
+      containers:
+      - name: regapp
+        image: saifshah/regapp:latest
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        env:
+        - name: DB_HOST
+          value: "postgres-service"
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: password
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+```
+
+```bash
+kubectl apply -f deployment.yaml
+kubectl get deployments
+kubectl rollout status deployment/saifshah-regapp  # watch rollout
+kubectl rollout history deployment/saifshah-regapp  # view history
+kubectl rollout undo deployment/saifshah-regapp     # rollback
+
+# Update image (triggers rolling update)
+kubectl set image deployment/saifshah-regapp regapp=saifshah/regapp:v2
+
+# Scale
+kubectl scale deployment saifshah-regapp --replicas=5
+```
+
+## Service
+
+```yaml
+# service.yaml — stable endpoint for accessing pods
+# LoadBalancer — for cloud providers (AWS/GCP/Azure)
+apiVersion: v1
+kind: Service
+metadata:
+  name: saifshah-service
+spec:
+  selector:
+    app: saifshah-regapp            # targets pods with this label
+  ports:
+  - name: nginx-port
+    port: 80                        # port the service listens on
+    targetPort: 80                  # port on the pod
+  type: LoadBalancer                # provisions cloud load balancer
+```
+
+**Service Types:**
+| Type | Description | Use Case |
+|---|---|---|
+| ClusterIP | Internal only, no external access (default) | Internal microservices |
+| NodePort | Opens port on each node (30000-32767) | Dev/testing |
+| LoadBalancer | Cloud load balancer (AWS ELB, GCP LB) | Production external access |
+| ExternalName | Maps to DNS name | External services |
+
+```bash
+kubectl apply -f service.yaml
+kubectl get services
+kubectl get svc saifshah-service    # check EXTERNAL-IP (cloud LB IP)
+kubectl describe service saifshah-service
+
+# Real output from the notes (EKS deployment):
+# NAME                TYPE           CLUSTER-IP      EXTERNAL-IP                              PORT(S)
+# kubernetes          ClusterIP      10.100.0.1      <none>                                   443/TCP
+# saifshah-service    LoadBalancer   10.100.156.66   a5cc757...us-east-1.elb.amazonaws.com    8080:30620/TCP
+```
+
+## ConfigMap and Secrets
+
+```yaml
+# configmap.yaml — non-sensitive configuration
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: app-config
-  namespace: production
 data:
-  APP_ENV: "production"
-  LOG_LEVEL: "info"
-  MAX_CONNECTIONS: "100"
-  config.yaml: |
-    server:
-      port: 8080
-      timeout: 30s
-    database:
-      pool_size: 10
+  DB_HOST: postgres-service
+  DB_PORT: "5432"
+  APP_ENV: production
+  config.properties: |
+    server.port=8080
+    logging.level=INFO
+```
 
----
-# Secret — sensitive data (base64 encoded, encrypt with KMS at rest)
+```yaml
+# secret.yaml — sensitive data (base64 encoded)
 apiVersion: v1
 kind: Secret
 metadata:
-  name: app-secrets
-  namespace: production
+  name: db-secret
 type: Opaque
 data:
-  db-password: cGFzc3dvcmQxMjM=   # base64 encode: echo -n "password123" | base64
-  api-key: c2VjcmV0a2V5          # Use External Secrets Operator in production!
-
----
-apiVersion: apps/v1
-kind: Deployment
-spec:
-  template:
-    spec:
-      containers:
-      - name: app
-        envFrom:
-        - configMapRef:
-            name: app-config          # All ConfigMap keys as env vars
-        - secretRef:
-            name: app-secrets
-        env:
-        - name: DB_PASSWORD           # Single secret key as specific env var
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: db-password
-        volumeMounts:
-        - name: config-volume
-          mountPath: /etc/config
-      volumes:
-      - name: config-volume
-        configMap:
-          name: app-config            # Mount as files
-          items:
-          - key: config.yaml
-            path: config.yaml
+  # Values must be base64 encoded
+  # echo -n "mypassword" | base64
+  password: bXlwYXNzd29yZA==
+  username: YWRtaW4=
 ```
 
-## Resource Management
+```bash
+# Create secret from literal values (easier)
+kubectl create secret generic db-secret \
+  --from-literal=password=mypassword \
+  --from-literal=username=admin
 
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-spec:
-  template:
-    spec:
-      containers:
-      - name: app
-        resources:
-          requests:
-            memory: "256Mi"   # Guaranteed minimum (used for scheduling)
-            cpu: "250m"       # 250 millicores = 0.25 CPU
-          limits:
-            memory: "512Mi"   # Hard limit — container killed if exceeded (OOMKilled)
-            cpu: "500m"       # Soft limit — throttled, not killed
+# Create from files
+kubectl create secret generic tls-secret \
+  --from-file=tls.crt=/path/to/cert.crt \
+  --from-file=tls.key=/path/to/cert.key
 
-# Memory: 1Gi = 1073741824 bytes, 256Mi = 268435456 bytes
-# CPU: 1000m = 1 core, 100m = 0.1 core
-
-# LimitRange — defaults for namespace
-apiVersion: v1
-kind: LimitRange
-metadata:
-  name: default-limits
-spec:
-  limits:
-  - default:
-      cpu: "500m"
-      memory: "256Mi"
-    defaultRequest:
-      cpu: "100m"
-      memory: "128Mi"
-    type: Container
-
-# ResourceQuota — total limits for namespace
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: namespace-quota
-spec:
-  hard:
-    requests.cpu: "10"
-    requests.memory: 20Gi
-    limits.cpu: "20"
-    limits.memory: 40Gi
-    pods: "50"
-    persistentvolumeclaims: "10"
+# Use in pod
+kubectl get configmap app-config
+kubectl describe secret db-secret
 ```
 
-## Horizontal Pod Autoscaler
+## Deployment Strategies (from Nana roadmap)
 
-```yaml
-# Scale based on CPU/memory (requires Metrics Server)
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: app-hpa
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: my-app
-  minReplicas: 2
-  maxReplicas: 50
-  metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 70       # Scale out when avg CPU > 70%
-  - type: Resource
-    resource:
-      name: memory
-      target:
-        type: Utilization
-        averageUtilization: 80
-  behavior:
-    scaleUp:
-      stabilizationWindowSeconds: 60
-      policies:
-      - type: Pods
-        value: 4
-        periodSeconds: 60             # Add up to 4 pods per minute
-    scaleDown:
-      stabilizationWindowSeconds: 300 # Wait 5 min before scaling down
-      policies:
-      - type: Percent
-        value: 20
-        periodSeconds: 60             # Remove up to 20% per minute
+**Rolling Update (default):**
+- Replace pods one at a time
+- Zero downtime
+- Controlled by `maxSurge` and `maxUnavailable`
+
+**Canary Deployment:**
+- Deploy new version to small subset (e.g., 10% of pods)
+- Test with real traffic before full rollout
+- Use labels and separate Deployments
+
+**Blue-Green Deployment:**
+- Run old (blue) and new (green) versions simultaneously
+- Switch Service selector from blue to green
+- Instant cutover, easy rollback
+
+```bash
+# Rolling update
+kubectl set image deployment/myapp container=myapp:v2
+kubectl rollout status deployment/myapp
+kubectl rollout undo deployment/myapp         # instant rollback
+
+# Canary — deploy small subset
+kubectl scale deployment myapp-v1 --replicas=9
+kubectl scale deployment myapp-v2 --replicas=1
+# 10% traffic to v2, 90% to v1
+
+# Blue-Green — switch service selector
+kubectl patch service myapp -p '{"spec":{"selector":{"version":"green"}}}'
 ```
 
-## Network Policies
+## Namespaces
 
-```yaml
-# By default, all pods can communicate with all pods
-# Network Policy restricts this
+```bash
+# Default namespaces
+kubectl get namespaces
+# NAME              STATUS   AGE
+# default           Active   ...   ← your apps go here by default
+# kube-system       Active   ...   ← K8s system components
+# kube-public       Active   ...   ← publicly readable
+# kube-node-lease   Active   ...   ← node heartbeats
 
-# Allow only app pods to reach database, from within namespace
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: db-access-policy
-  namespace: production
-spec:
-  podSelector:
-    matchLabels:
-      role: database                   # Apply to database pods
-  policyTypes:
-  - Ingress
-  - Egress
-  ingress:
-  - from:
-    - podSelector:
-        matchLabels:
-          role: backend                # Only backend pods can connect
-    - namespaceSelector:
-        matchLabels:
-          name: production             # Only from production namespace
-    ports:
-    - protocol: TCP
-      port: 5432
-  egress: []                           # No egress from database pods
+# Create and use namespaces
+kubectl create namespace production
+kubectl create namespace staging
+
+# Apply to specific namespace
+kubectl apply -f deployment.yaml -n production
+kubectl get pods -n production
+kubectl get pods --all-namespaces    # or -A
+
+# Set default namespace for current context
+kubectl config set-context --current --namespace=production
 ```
 
-## Persistent Storage
+## Essential kubectl Commands
 
-```yaml
-# StorageClass — defines how to provision storage
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: fast-ssd
-provisioner: ebs.csi.aws.com
-parameters:
-  type: gp3
-  iops: "3000"
-  throughput: "125"
-reclaimPolicy: Retain          # Keep data when PVC deleted
-allowVolumeExpansion: true
+```bash
+# Cluster info
+kubectl cluster-info
+kubectl get nodes
+kubectl get nodes -o wide           # with IP addresses
+kubectl describe node node-name     # node details
 
----
-# PersistentVolumeClaim — request storage
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: postgres-data
-spec:
-  accessModes:
-  - ReadWriteOnce              # Single node read/write
-  # ReadWriteMany = multiple nodes (EFS/NFS required)
-  storageClassName: fast-ssd
-  resources:
-    requests:
-      storage: 50Gi
+# Resources
+kubectl get all                     # pods, services, deployments, etc.
+kubectl get all -n kube-system     # in system namespace
+kubectl get pods -w                 # watch pods (live updates)
 
----
-# Use in StatefulSet (databases, message queues)
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: postgres
-spec:
-  serviceName: postgres
-  replicas: 1
-  template:
-    spec:
-      containers:
-      - name: postgres
-        image: postgres:16-alpine
-        volumeMounts:
-        - name: data
-          mountPath: /var/lib/postgresql/data
-  volumeClaimTemplates:         # Each pod gets its own PVC
-  - metadata:
-      name: data
-    spec:
-      accessModes: [ReadWriteOnce]
-      storageClassName: fast-ssd
-      resources:
-        requests:
-          storage: 50Gi
+# Apply and delete
+kubectl apply -f manifest.yaml      # create or update
+kubectl delete -f manifest.yaml     # delete
+kubectl delete pod mypod            # delete specific resource
+
+# Debugging
+kubectl logs pod-name               # pod logs
+kubectl logs pod-name -c container  # specific container in multi-container pod
+kubectl logs pod-name -f            # follow (tail -f)
+kubectl logs pod-name --previous    # logs from crashed container
+kubectl exec -it pod-name -- bash   # interactive shell
+kubectl exec pod-name -- ls /app    # single command
+
+# Port forwarding (dev/debugging only)
+kubectl port-forward pod/mypod 8080:8080
+kubectl port-forward service/myservice 8080:80
+
+# Copy files
+kubectl cp pod-name:/path/file.txt ./local/file.txt
+kubectl cp ./local/file.txt pod-name:/path/file.txt
+
+# Resource usage
+kubectl top nodes                   # CPU/memory per node
+kubectl top pods                    # CPU/memory per pod
+
+# Events (useful for debugging)
+kubectl get events --sort-by='.lastTimestamp'
+kubectl get events -n default
 ```

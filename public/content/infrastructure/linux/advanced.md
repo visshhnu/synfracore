@@ -1,162 +1,390 @@
-# Linux Advanced
+# Linux — Advanced
 
-Production-grade skills: kernel tuning, security hardening, performance analysis.
+## Shell Scripting (Bash)
 
-## Performance Analysis
+### Script Basics
 
-\`\`\`bash
-# CPU Analysis
-top                          # Real-time CPU, press 1 for per-core
-htop                         # Better top
-mpstat -P ALL 1              # Per-CPU stats every 1 second
-vmstat 1 5                   # System stats, 5 samples
-uptime                       # Load averages (1, 5, 15 min)
-sar -u 1 10                  # CPU utilization via sysstat
+```bash
+#!/bin/bash
+# The shebang (#!) tells the OS which interpreter to use
+# Always the first line of a script
 
-# Memory Analysis
-free -h                      # Memory overview
-cat /proc/meminfo            # Detailed memory info
-vmstat -s                    # Memory stats
-smem -t -k                   # Per-process memory usage
-pmap -x <pid>                # Memory map of a process
+# Make a script executable
+chmod +x myscript.sh
 
-# Disk I/O Analysis
-iostat -xz 1                 # Disk I/O stats
-iotop                        # Top for disk I/O
-lsof +D /var/log             # Open files in directory
-fuser /var/log/app.log       # Who has file open
+# Run a script
+./myscript.sh
+bash myscript.sh
+source myscript.sh    # run in current shell (shares variables)
+. myscript.sh         # same as source
 
-# Network Analysis
-iftop                        # Network usage per connection
-nethogs                      # Network usage per process
-ss -s                        # Socket statistics summary
-netstat -s                   # Protocol statistics
-tcpdump -i eth0 port 80      # Capture HTTP traffic
-tcpdump -i any -w capture.pcap  # Capture all to file
-\`\`\`
+# Script example from LSU/NI slides — ~/.bashrc
+#!/bin/bash
 
-## Kernel Tuning (sysctl)
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
 
-\`\`\`bash
-# View current settings
-sysctl -a | grep net.ipv4
-sysctl vm.swappiness
+# User specific aliases and functions
+export PATH=$HOME/packages/bin:$PATH
+export LD_LIBRARY_PATH=$HOME/packages/lib:$LD_LIBRARY_PATH
+alias qsubI="qsub -I -X -l nodes=1:ppn=20 -l walltime=01:00:00 -A my_allocation"
+alias lh="ls -altrh"
+```
 
-# Set temporarily
-sysctl -w vm.swappiness=10
-sysctl -w net.ipv4.tcp_fin_timeout=15
+### Variables
 
-# Persistent settings: /etc/sysctl.conf or /etc/sysctl.d/99-custom.conf
-cat >> /etc/sysctl.d/99-production.conf << 'EOF'
-# Reduce swap usage (good for databases)
-vm.swappiness = 10
+```bash
+# Assign (no spaces around =)
+name="Vishnu"
+count=10
+pi=3.14
 
-# Increase file descriptor limits
-fs.file-max = 2097152
+# Use variables
+echo $name
+echo "Hello $name"
+echo "Count is: ${count}"    # braces recommended in complex expressions
 
-# Network performance tuning
-net.core.somaxconn = 65535
-net.core.netdev_max_backlog = 65535
-net.ipv4.tcp_max_syn_backlog = 65535
-net.ipv4.tcp_fin_timeout = 15
-net.ipv4.tcp_tw_reuse = 1
+# Special variables
+$0     # script name
+$1     # first argument
+$2     # second argument
+$@     # all arguments as separate words
+$*     # all arguments as single string
+$#     # number of arguments
+$$     # current process ID (PID)
+$?     # exit code of last command (0=success, non-zero=error)
 
-# Kubernetes required settings
-net.bridge.bridge-nf-call-iptables = 1
-net.bridge.bridge-nf-call-ip6tables = 1
-net.ipv4.ip_forward = 1
-EOF
+# Example using arguments:
+#!/bin/bash
+echo "Script name: $0"
+echo "First arg:   $1"
+echo "Second arg:  $2"
+echo "All args:    $@"
+echo "Arg count:   $#"
 
-sysctl --system   # Apply all sysctl configs
-\`\`\`
+# Run: ./script.sh hello world
+# Output:
+# Script name: ./script.sh
+# First arg:   hello
+# Second arg:  world
+# All args:    hello world
+# Arg count:   2
 
-## Security Hardening
+# Note from LSU/NI slides:
+# $1, $2, $3... are positional parameters for functions too
+# $0 always = script name, NOT function name
+# FUNCNAME = array containing function call stack names
+# $* or $@ = all parameters passed to a function
+# $# = number of positional parameters
+# $? = exit code of last command
+# $$ = PID of current process
+```
 
-\`\`\`bash
-# SSH hardening (/etc/ssh/sshd_config)
-PermitRootLogin no              # Never allow root SSH
-PasswordAuthentication no       # Keys only
-PubkeyAuthentication yes
-AllowUsers deploy ubuntu        # Whitelist users
-MaxAuthTries 3
-LoginGraceTime 20
-X11Forwarding no
-Protocol 2
+### Functions
 
-# Fail2ban - ban IPs after failed logins
-sudo apt install fail2ban
-cat /etc/fail2ban/jail.local
-[sshd]
-enabled = true
-maxretry = 3
-bantime = 3600
-findtime = 600
+```bash
+# Define function
+greet() {
+    echo "Hello, $1!"
+    echo "Welcome to $2"
+}
 
-# File integrity monitoring (AIDE)
-sudo apt install aide
-aide --init && mv /var/lib/aide/aide.db.new /var/lib/aide/aide.db
-aide --check  # Check for changes
+# Call function
+greet "Vishnu" "SynfraCore"
+# Hello, Vishnu!
+# Welcome to SynfraCore
 
-# Audit logging
-auditctl -w /etc/passwd -p wa -k passwd_changes
-auditctl -w /etc/sudoers -p wa -k sudoers_changes
-ausearch -k passwd_changes
+# Function with return value (use exit codes or echo)
+get_date() {
+    echo $(date +%Y-%m-%d)
+}
+today=$(get_date)
+echo "Today is: $today"
 
-# Find SUID/SGID files (security audit)
-find / -perm -4000 -type f 2>/dev/null   # SUID files
-find / -perm -2000 -type f 2>/dev/null   # SGID files
+# Note from LSU/NI: passing arguments to scripts vs functions
+# The difference: arguments passed to the SCRIPT are different
+# from arguments passed to a FUNCTION within the script
+# Inside a function, $1 refers to the function's first argument
+# not the script's first argument
+```
 
-# Check for world-writable files
-find / -perm -0002 -type f 2>/dev/null
-\`\`\`
+### Conditionals
 
-## Linux Namespaces & Cgroups (Container Internals)
+```bash
+# if-then-elif-else-fi
+if [ "$1" == "hello" ]; then
+    echo "Hello back!"
+elif [ "$1" == "bye" ]; then
+    echo "Goodbye!"
+else
+    echo "I don't understand: $1"
+fi
 
-Understanding these is essential because Docker and Kubernetes are built on them.
+# Numeric comparisons
+if [ $count -gt 10 ]; then echo "greater than 10"; fi
+# -eq equal, -ne not equal, -gt greater than
+# -lt less than, -ge greater or equal, -le less or equal
 
-\`\`\`bash
-# Namespaces isolate resources
-# Types: pid, net, mnt, uts, ipc, user, cgroup
+# String comparisons
+if [ "$str" == "hello" ]; then echo "match"; fi
+if [ "$str" != "hello" ]; then echo "no match"; fi
+if [ -z "$str" ]; then echo "string is empty"; fi
+if [ -n "$str" ]; then echo "string is not empty"; fi
 
-# See namespaces of a process
-ls -la /proc/1/ns
-lsns                         # List all namespaces
-lsns -t pid                  # PID namespaces only
+# File tests
+if [ -f "/etc/nginx/nginx.conf" ]; then echo "file exists"; fi
+if [ -d "/var/log" ]; then echo "directory exists"; fi
+if [ -r "file.txt" ]; then echo "file is readable"; fi
+if [ -w "file.txt" ]; then echo "file is writable"; fi
+if [ -x "script.sh" ]; then echo "file is executable"; fi
 
-# Create isolated namespace (what Docker does)
-unshare --pid --fork --mount-proc bash  # New PID namespace
-# Now ps aux only shows processes in this namespace!
+# Logical operators
+if [ $a -gt 0 ] && [ $b -gt 0 ]; then echo "both positive"; fi
+if [ $a -gt 0 ] || [ $b -gt 0 ]; then echo "at least one positive"; fi
 
-# Cgroups limit resources
-cat /proc/1/cgroup            # cgroups of process 1
-ls /sys/fs/cgroup/            # cgroup hierarchy
+# case statement (switch)
+case $1 in
+    start)
+        echo "Starting service..."
+        ;;
+    stop)
+        echo "Stopping service..."
+        ;;
+    restart)
+        echo "Restarting service..."
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+        ;;
+esac
+```
 
-# Create a cgroup limiting memory (v2)
-mkdir /sys/fs/cgroup/myapp
-echo "104857600" > /sys/fs/cgroup/myapp/memory.max  # 100MB limit
-echo $$ > /sys/fs/cgroup/myapp/cgroup.procs         # Add shell to cgroup
+### Loops
 
-# This is exactly what 'docker run --memory=100m' does!
-\`\`\`
+```bash
+# for loop — iterate list
+for i in 1 2 3 4 5; do
+    echo "Number: $i"
+done
 
-## LVM — Logical Volume Management
+# for loop — range
+for i in $(seq 1 10); do
+    echo $i
+done
 
-\`\`\`bash
-# Check existing LVM
-pvs                          # Physical volumes
-vgs                          # Volume groups
-lvs                          # Logical volumes
-lvdisplay /dev/vg0/root      # Detailed view
+# for loop — C style
+for ((i=0; i<10; i++)); do
+    echo $i
+done
 
-# Extend a logical volume (common in production)
-lvextend -L +20G /dev/vg0/data          # Add 20GB
-resize2fs /dev/vg0/data                 # Resize ext4 filesystem
-xfs_growfs /dev/vg0/data               # For XFS filesystem
+# for loop — files
+for file in *.log; do
+    echo "Processing: $file"
+    gzip "$file"
+done
 
-# Create new LV
-lvcreate -L 50G -n newvol vg0
-mkfs.ext4 /dev/vg0/newvol
-mkdir /mnt/newvol
-mount /dev/vg0/newvol /mnt/newvol
-echo "/dev/vg0/newvol /mnt/newvol ext4 defaults 0 2" >> /etc/fstab
-\`\`\`
+# while loop
+count=0
+while [ $count -lt 10 ]; do
+    echo "Count: $count"
+    count=$((count + 1))
+done
+
+# until loop (opposite of while — runs until condition is true)
+until [ $count -ge 10 ]; do
+    echo "Count: $count"
+    count=$((count + 1))
+done
+
+# Passing arguments to bash scripts (from LSU/NI slides):
+# Note the difference between script arguments and function arguments
+# When >= 10 positional parameters, use ${10} not $10
+# add() function example
+add() {
+    result=$(( $1 + $2 ))
+    echo $result
+}
+sum=$(add 5 3)
+echo "Sum: $sum"   # Sum: 8
+```
+
+### Real-World Scripts
+
+```bash
+#!/bin/bash
+# Automated backup script
+BACKUP_DIR="/backup/$(date +%Y-%m-%d)"
+SOURCE_DIR="/var/www/html"
+LOG_FILE="/var/log/backup.log"
+
+echo "$(date): Starting backup" >> $LOG_FILE
+mkdir -p $BACKUP_DIR
+tar -czf "$BACKUP_DIR/webapp.tar.gz" $SOURCE_DIR
+
+if [ $? -eq 0 ]; then
+    echo "$(date): Backup successful" >> $LOG_FILE
+else
+    echo "$(date): Backup FAILED" >> $LOG_FILE
+    exit 1
+fi
+
+#!/bin/bash
+# Check if services are running and restart if down
+SERVICES=("nginx" "mysql" "redis")
+
+for service in "${SERVICES[@]}"; do
+    if ! systemctl is-active --quiet $service; then
+        echo "$(date): $service is down, restarting..." | tee -a /var/log/service-monitor.log
+        systemctl restart $service
+    fi
+done
+
+#!/bin/bash
+# Deploy application
+APP_DIR="/opt/myapp"
+REPO_URL="https://github.com/org/myapp.git"
+
+echo "Pulling latest code..."
+cd $APP_DIR && git pull origin main
+
+echo "Installing dependencies..."
+pip install -r requirements.txt
+
+echo "Restarting application..."
+systemctl restart myapp
+
+echo "Deployment complete!"
+```
+
+## Environment Variables and Shell Configuration
+
+```bash
+# View environment variables
+env                            # all environment variables
+printenv PATH                  # specific variable
+echo $HOME                     # home directory
+echo $USER                     # current username
+echo $SHELL                    # current shell
+echo $PATH                     # executable search path
+
+# Set environment variables
+export MY_VAR="value"          # available to child processes
+MY_LOCAL="local"               # only in current script/shell
+
+# Add to PATH
+export PATH=$PATH:/usr/local/myapp/bin
+
+# Permanent environment variables — add to:
+~/.bashrc             # for interactive shells
+~/.bash_profile       # for login shells
+/etc/environment      # system-wide
+
+# Source (apply) changes immediately
+source ~/.bashrc
+. ~/.bashrc           # same as source
+```
+
+## System Administration
+
+```bash
+# Disk usage
+df -h                          # disk space by filesystem
+df -h /var                     # specific path
+du -sh /var/log                # total size of directory
+du -sh /var/log/*              # size of each item
+du --max-depth=1 /             # top-level directory sizes
+
+# Memory
+free -h                        # RAM usage (human readable)
+cat /proc/meminfo              # detailed memory info
+
+# System info
+uname -a                       # kernel and system info
+cat /etc/os-release            # distribution info
+cat /etc/redhat-release        # RHEL/CentOS version
+uptime                         # how long system has been running
+hostname                       # system hostname
+
+# Service management (systemd)
+systemctl start nginx          # start service
+systemctl stop nginx           # stop service
+systemctl restart nginx        # restart service
+systemctl reload nginx         # reload config without restart
+systemctl enable nginx         # start on boot
+systemctl disable nginx        # don't start on boot
+systemctl status nginx         # service status
+systemctl is-active nginx      # check if running (exit code)
+systemctl list-units --type=service   # all services
+
+# Logs
+journalctl -u nginx            # logs for nginx service
+journalctl -u nginx -f         # follow nginx logs
+journalctl --since "1 hour ago"  # recent logs
+journalctl --since "2024-01-01" --until "2024-01-02"
+tail -f /var/log/syslog        # system log
+tail -f /var/log/auth.log      # authentication log
+
+# Package management
+# RHEL/CentOS/Fedora
+dnf install nginx              # install
+dnf remove nginx               # remove
+dnf update                     # update all
+dnf search nginx               # search
+
+# Ubuntu/Debian
+apt update                     # update package list
+apt install nginx              # install
+apt remove nginx               # remove
+apt upgrade                    # upgrade all packages
+apt search nginx               # search
+```
+
+## sed — Advanced Usage
+
+From the LSU/NI slides — sed commands and flags reference:
+
+```bash
+# sed syntax: sed [flags] 'command' file
+
+# Substitution (most common)
+sed 's/pattern/replacement/' file         # replace first occurrence
+sed 's/pattern/replacement/g' file        # replace all (global)
+sed 's/pattern/replacement/gi' file       # global + case-insensitive
+sed 's/pattern/replacement/2' file        # replace 2nd occurrence only
+sed 's/http/https/g' config.conf         # practical: update URLs
+
+# Print specific lines
+sed -n '5p' file.txt                      # print only line 5
+sed -n '5,10p' file.txt                   # print lines 5-10
+sed -n '/pattern/p' file.txt             # print lines matching pattern
+
+# Delete lines
+sed '/pattern/d' file.txt                 # delete matching lines
+sed '5d' file.txt                         # delete line 5
+sed '5,10d' file.txt                      # delete lines 5-10
+
+# Edit in-place (modify the actual file)
+sed -i 's/old/new/g' file.txt            # WARNING: modifies file!
+sed -i.bak 's/old/new/g' file.txt        # create .bak backup first
+
+# Multiple commands with -e
+sed -e 's/foo/bar/g' -e 's/baz/qux/g' file.txt
+
+# sed flags table (from LSU/NI slides):
+# -e  combine multiple commands
+# -f  read commands from file
+# -h  print help info
+# -n  disable auto-printing (use with p command)
+# -V  print version info
+# -r  use extended regex
+
+# sed command characters:
+# s  substitution       g  global replacement
+# d  delete             p  print
+# i  ignore case        G  add newline
+# w  write to file      x  exchange pattern/hold buffer
+# h  copy to hold buf   ;  separate commands
+```
