@@ -1,184 +1,444 @@
 # Ansible — Advanced
 
-## Custom Modules
+## Ansible Vault — Encrypting Secrets
 
-```python
-#!/usr/bin/python
-# library/app_deploy.py — Custom Ansible module
-
-from ansible.module_utils.basic import AnsibleModule
-import subprocess, json
-
-DOCUMENTATION = '''
-module: app_deploy
-short_description: Deploy application version
-'''
-
-def main():
-    module = AnsibleModule(
-        argument_spec=dict(
-            version=dict(type='str', required=True),
-            service=dict(type='str', required=True),
-            health_check_url=dict(type='str', default='http://localhost/health'),
-            timeout=dict(type='int', default=60),
-        ),
-        supports_check_mode=True
-    )
-
-    version = module.params['version']
-    service = module.params['service']
-
-    # Check current version
-    result = subprocess.run(
-        ['/opt/app/current-version.sh', service],
-        capture_output=True, text=True
-    )
-    current = result.stdout.strip()
-
-    if current == version:
-        module.exit_json(changed=False, msg=f"Already at version {version}")
-
-    if module.check_mode:
-        module.exit_json(changed=True, msg=f"Would deploy {version}")
-
-    # Deploy
-    deploy = subprocess.run(
-        ['/opt/deploy.sh', service, version],
-        capture_output=True, text=True
-    )
-
-    if deploy.returncode != 0:
-        module.fail_json(msg=f"Deploy failed: {deploy.stderr}")
-
-    module.exit_json(
-        changed=True,
-        msg=f"Deployed {service} from {current} to {version}",
-        previous_version=current,
-        new_version=version
-    )
-
-if __name__ == '__main__':
-    main()
-```
-
-```yaml
-# Use custom module in playbook
-- name: Deploy application
-  app_deploy:
-    version: "{{ app_version }}"
-    service: "myapp"
-    health_check_url: "http://localhost:8080/health"
-    timeout: 120
-  register: deploy_result
-
-- debug:
-    msg: "Deployed: {{ deploy_result.msg }}"
-```
-
-## Ansible and CI/CD Integration
-
-```yaml
-# GitHub Actions — run Ansible in CI/CD
-name: Deploy
-
-on:
-  push:
-    branches: [main]
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install Ansible
-        run: pip install ansible boto3
-
-      - name: Setup SSH key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-
-      - name: Install requirements
-        run: ansible-galaxy install -r requirements.yml
-
-      - name: Run playbook
-        run: |
-          ansible-playbook site.yml \
-            --inventory inventory/prod/ \
-            --extra-vars "app_version=${{ github.sha }}" \
-            --vault-password-file <(echo "${{ secrets.VAULT_PASS }}")
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-```
-
-## Testing with Molecule
+Ansible Vault encrypts sensitive files (passwords, keys, certificates) so you can safely commit them to version control.
 
 ```bash
-# Install molecule
-pip install molecule[docker] ansible-lint
+# Create a new encrypted file
+ansible-vault create secret.txt
+# New Vault password: mypassword
+# Confirm New Vault password: mypassword
+# Opens editor — type your secret content and save
 
-# Initialize molecule for a role
-cd roles/nginx
-molecule init scenario --driver-name docker
+# View encrypted file — it looks like this:
+cat secret.txt
+$ANSIBLE_VAULT;1.1;AES256
+64633234613936303336
+32363332373562333736...  (encrypted gibberish)
 
-# molecule/default/molecule.yml
-platforms:
-  - name: ubuntu22
-    image: geerlingguy/docker-ubuntu2204-ansible
-    command: /lib/systemd/systemd
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    privileged: true
-  - name: centos9
-    image: geerlingguy/docker-centos9-ansible
-    command: /lib/systemd/systemd
+# Edit an encrypted file
+ansible-vault edit secret.txt
 
-# molecule/default/verify.yml
-- name: Verify
+# Encrypt an existing file
+ansible-vault encrypt secret2.txt
+# New Vault password:
+# Confirm New Vault password:
+# Encryption successful
+
+# Decrypt a file permanently
+ansible-vault decrypt secret.txt
+
+# Change the vault password (rekey)
+ansible-vault rekey secret2.txt
+# Vault password: (old password)
+# New Vault password: (new password)
+# Confirm New Vault password:
+# Rekey successful
+# Note: must enter old password before entering new one
+```
+
+### Using Vault in Playbooks
+
+```yaml
+# vars/secrets.yml (encrypted with ansible-vault)
+db_password: "myS3cr3tP@ssw0rd"
+api_key: "sk-abc123def456"
+
+# playbook.yml
+---
+- name: Deploy app with secrets
+  hosts: webservers
+  vars_files:
+    - vars/secrets.yml    # Ansible decrypts this at runtime
+
+  tasks:
+    - name: Configure database
+      template:
+        src: db.conf.j2
+        dest: /etc/myapp/db.conf
+```
+
+```bash
+# Run playbook with vault password
+ansible-playbook playbook.yml --ask-vault-pass
+
+# Or use a password file (better for automation)
+echo "mypassword" > ~/.vault_pass
+chmod 600 ~/.vault_pass
+ansible-playbook playbook.yml --vault-password-file ~/.vault_pass
+
+# Or set in ansible.cfg
+[defaults]
+vault_password_file = ~/.vault_pass
+```
+
+## Ansible Roles
+
+Roles are the standard way to organize playbooks into reusable, shareable components.
+
+### Role Directory Structure
+
+```
+roles/
+└── httpd-role/
+    ├── tasks/
+    │   └── main.yml       # main task list
+    ├── handlers/
+    │   └── main.yml       # handlers
+    ├── templates/
+    │   └── index.j2       # Jinja2 templates
+    ├── files/
+    │   └── httpd.conf     # static files to copy
+    ├── vars/
+    │   └── main.yml       # role variables (high priority)
+    ├── defaults/
+    │   └── main.yml       # default variables (lowest priority)
+    ├── meta/
+    │   └── main.yml       # role metadata, dependencies
+    └── README.md
+```
+
+### Creating a Role
+
+```bash
+# Create role structure automatically
+ansible-galaxy init httpd-role
+cd httpd-role
+```
+
+```yaml
+# tasks/main.yml
+---
+- name: Install httpd
+  yum:
+    name: httpd
+    state: latest
+
+- name: Start and enable httpd
+  service:
+    name: httpd
+    state: started
+    enabled: true
+
+- name: Create index.html using Jinja2
+  template:
+    src: index.j2
+    dest: /var/www/html/index.html
+```
+
+```jinja2
+{# templates/index.j2 #}
+Welcome to {{ inventory_hostname }}
+
+This is an Apache Web Server.
+
+Please contact {{ sysadmin }} for any questions or concerns.
+```
+
+```yaml
+# defaults/main.yml — default variable values (can be overridden)
+---
+sysadmin: elliot@linuxhandbook.com
+```
+
+```yaml
+# handlers/main.yml
+---
+- name: Restart httpd
+  service:
+    name: httpd
+    state: restarted
+```
+
+### Using Roles in Playbooks
+
+```yaml
+# apache-role.yml
+---
+- name: Use the httpd-role
+  hosts: webservers
+  roles:
+    - httpd-role              # apply the role
+
+# Override role defaults
+- name: Use role with custom vars
+  hosts: webservers
+  roles:
+    - role: httpd-role
+      vars:
+        sysadmin: admin@mycompany.com
+
+# Static import (processed at parse time)
+- name: Apply roles
   hosts: all
   tasks:
-    - name: Check nginx is running
-      service_facts:
-    - assert:
-        that: "'nginx' in services and services['nginx']['state'] == 'running'"
+    - import_role:
+        name: httpd-role
 
-    - name: Check nginx responds
-      uri:
-        url: http://localhost
-        status_code: 200
+# Dynamic include (processed at runtime)
+- name: Apply role conditionally
+  hosts: all
+  tasks:
+    - include_role:
+        name: db_role
+      when: inventory_hostname in groups['dbservers']
+```
+
+### Ansible Galaxy — Public Roles
+
+```bash
+# Search for community roles
+ansible-galaxy search nginx
+
+# Install a role from Galaxy
+ansible-galaxy install geerlingguy.nginx
+ansible-galaxy install geerlingguy.mysql
+
+# Install multiple roles from requirements file
+cat requirements.yml
+---
+- name: geerlingguy.nginx
+  version: 3.0.0
+- name: geerlingguy.mysql
+  version: 4.3.2
+
+ansible-galaxy install -r requirements.yml
+
+# List installed roles
+ansible-galaxy list
+
+# Roles are installed to ~/.ansible/roles/ by default
+```
+
+## Managing Software — Module Reference
+
+From the book's Chapter 11 — modules for package management:
+
+```yaml
+# package — distro-agnostic (auto-detects yum/apt/dnf)
+- package:
+    name: vim
+    state: present
+
+# yum — RHEL/CentOS specific
+- yum:
+    name: httpd
+    state: latest        # present, absent, latest
+
+# apt — Debian/Ubuntu specific
+- apt:
+    name: nginx
+    state: present
+    update_cache: yes    # run apt update first
+
+# yum_repository — add YUM repos
+- yum_repository:
+    name: zabbix-monitoring
+    description: Zabbix 5.2 Repo
+    baseurl: https://repo.zabbix.com/zabbix/5.2/rhel/8/x86_64/
+    enabled: yes
+    gpgcheck: no
+
+# package_facts — get info about installed packages
+- package_facts:
+    manager: auto
+
+- debug:
+    msg: "nginx version: {{ ansible_facts.packages['nginx'][0]['version'] }}"
+
+# rpm_key — GPG key management
+- rpm_key:
+    key: https://packages.chef.io/chef.asc
+    state: present
+
+# redhat_subscription — RHEL subscription management
+- redhat_subscription:
+    state: present
+    username: user@redhat.com
+    password: "{{ rhsm_password }}"
+```
+
+### Real Example: Add Zabbix Repo and Install Agent
+
+```yaml
+---
+- name: Manage Software
+  hosts: node1
+  become: yes
+  tasks:
+    - name: Add Zabbix repository
+      yum_repository:
+        name: zabbix-monitoring
+        description: "Zabbix 5.2 Repo"
+        baseurl: https://repo.zabbix.com/zabbix/5.2/rhel/8/x86_64/
+        enabled: yes
+        gpgcheck: no
+
+    - name: Install zabbix-agent
+      yum:
+        name: zabbix-agent
+        state: present
+
+    - name: Display zabbix-agent info
+      package_facts:
+        manager: auto
+
+    - name: Show installed version
+      debug:
+        msg: "zabbix-agent version: {{ ansible_facts.packages['zabbix-agent'][0]['version'] }}"
+```
+
+## RHEL System Roles (NTP Example)
+
+RHEL System Roles are pre-built roles from Red Hat:
+
+```bash
+# Install RHEL System Roles
+dnf install rhel-system-roles -y
+# Roles installed to: /usr/share/ansible/roles/
+```
+
+```yaml
+# Configure NTP with timesync role
+---
+- name: Configure NTP using timesync role
+  hosts: node1
+  vars:
+    timesync_ntp_servers:
+      - hostname: 0.north-america.pool.ntp.org
+        iburst: yes
+      - hostname: 1.north-america.pool.ntp.org
+        iburst: yes
+      - hostname: 2.north-america.pool.ntp.org
+        iburst: yes
+      - hostname: 3.north-america.pool.ntp.org
+        iburst: yes
+  roles:
+    - rhel-system-roles.timesync
 ```
 
 ```bash
-molecule test          # Full cycle: create → converge → verify → destroy
-molecule converge      # Apply role only
-molecule verify        # Run tests only
-molecule login         # SSH into test container
+# Verify NTP is configured on node1
+ansible node1 -m command -a "cat /etc/chrony.conf"
+# node1 | CHANGED | rc=0 >>
+# # Ansible managed
+# server 0.north-america.pool.ntp.org iburst
+# ...
+
+ansible node1 -m command -a "timedatectl"
+# Local time:     Sat 2020-11-14 21:08:46 CST
+# System clock synchronized: yes
 ```
 
-## AWX / Ansible Automation Platform
+## Ansible Troubleshooting
 
+```bash
+# Verbose mode — see exactly what Ansible is doing
+ansible-playbook playbook.yml -v     # basic
+ansible-playbook playbook.yml -vv    # more detail
+ansible-playbook playbook.yml -vvv   # connection debug (SSH level)
+ansible-playbook playbook.yml -vvvv  # maximum (plugin level)
+
+# Check mode (dry run) — shows what WOULD change, makes no changes
+ansible-playbook playbook.yml --check
+
+# Start at a specific task
+ansible-playbook playbook.yml --start-at-task="Install nginx"
+
+# Run only specific tags
+ansible-playbook playbook.yml --tags "install,configure"
+ansible-playbook playbook.yml --skip-tags "restart"
+
+# List tasks without running them
+ansible-playbook playbook.yml --list-tasks
+
+# List hosts that would be targeted
+ansible-playbook playbook.yml --list-hosts
+
+# Syntax check
+ansible-playbook playbook.yml --syntax-check
+
+# Limit to specific hosts
+ansible-playbook playbook.yml --limit node1
+ansible-playbook playbook.yml --limit "node1,node2"
+ansible-playbook playbook.yml --limit webservers
+
+# Step through tasks one at a time (confirm each)
+ansible-playbook playbook.yml --step
 ```
-AWX (open-source) / AAP (Red Hat licensed):
-  Web UI for Ansible
-  Role-based access control
-  Job scheduling and history
-  REST API for triggering playbooks
-  Credential vault
-  Survey forms (parameterize playbook runs)
 
-Key concepts:
-  Project:      Git repository with playbooks
-  Inventory:    Static or dynamic host list
-  Credential:   SSH keys, vault passwords, cloud creds
-  Job Template: Playbook + inventory + credentials
-  Workflow:     Chain multiple job templates
-  Schedule:     Run job templates on a cron schedule
+### Common Errors and Fixes
 
-Use case: Give developers ability to deploy their app
-  without giving them SSH access to servers
-  They click "Deploy to staging" in AWX UI
-  AAP runs the playbook with saved credentials
+```bash
+# Error: "UNREACHABLE" 
+# Fix: Check SSH connectivity and host key
+ssh -i ~/.ssh/id_rsa user@nodeIP
+# If first time: accept fingerprint manually, then Ansible works
+
+# Error: "Missing sudo password"
+# Fix: Add become_pass or configure NOPASSWD in sudoers
+ansible-playbook playbook.yml --ask-become-pass
+
+# Error: "Python not found on managed node"  
+# Fix: Install Python or specify interpreter
+ansible all -m ping -e "ansible_python_interpreter=/usr/bin/python3"
+
+# Error: "Permission denied reading /etc/shadow"
+# Fix: Add become: yes to play or task
+- name: Read shadow file
+  command: cat /etc/shadow
+  become: yes
+
+# Error: Module fails but want to continue
+# Fix: ignore_errors on that specific task
+- name: Task that might fail
+  command: might-fail
+  ignore_errors: yes
+```
+
+## Dynamic Inventory
+
+Instead of static inventory files, generate inventory dynamically from cloud APIs:
+
+```bash
+# AWS EC2 dynamic inventory
+pip install boto3
+cat aws_ec2.yml:
+---
+plugin: aws_ec2
+regions:
+  - ap-south-1
+keyed_groups:
+  - key: tags.Environment
+    prefix: env
+  - key: instance_type
+    prefix: type
+
+ansible-inventory -i aws_ec2.yml --list    # show all hosts
+ansible-playbook -i aws_ec2.yml playbook.yml
+
+# Azure dynamic inventory
+pip install azure-cli-core azure-mgmt-compute
+ansible-playbook -i azure_rm.yml playbook.yml
+```
+
+## ansible-doc — Built-in Documentation
+
+```bash
+# List all available modules
+ansible-doc -l
+
+# Get full documentation for a module
+ansible-doc yum
+ansible-doc copy
+ansible-doc template
+ansible-doc user
+ansible-doc service
+ansible-doc file
+ansible-doc blockinfile    # add a block of text to a file
+ansible-doc lineinfile     # manage single lines in a file
+
+# Short synopsis only
+ansible-doc -s yum
 ```
