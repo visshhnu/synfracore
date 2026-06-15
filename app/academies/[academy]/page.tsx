@@ -1,98 +1,115 @@
 export const runtime = "edge";
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
+import type { Metadata } from "next";
 import { getAcademy } from "@/lib/data/academies";
-import { ArrowRight } from "lucide-react";
 
-type Props = { params: Promise<{ academy: string }> };
-
-export async function generateMetadata({ params }: Props) {
-  const { academy: slug } = await params;
-  const academy = getAcademy(slug);
-  if (!academy) return {};
-  return { title: `${academy.title} — SynfraCore`, description: academy.description };
-}
-
-const levelColors = {
-  Beginner:     { bg: "rgba(16,185,129,0.1)",  border: "rgba(16,185,129,0.2)",  text: "#34D399" },
-  Intermediate: { bg: "rgba(245,158,11,0.1)",  border: "rgba(245,158,11,0.2)",  text: "#FCD34D" },
-  Advanced:     { bg: "rgba(244,63,94,0.1)",   border: "rgba(244,63,94,0.2)",   text: "#FB7185" },
+type Props = {
+  params: Promise<{ academy: string }>;
 };
 
+const academyDescriptions: Record<string, string> = {
+  devops: "Master DevOps with Docker, Kubernetes, Terraform, Ansible, Jenkins, and more. Real labs, interview prep, and certification guides for DevOps engineers in 2025.",
+  cloud: "Learn AWS, Azure, and GCP cloud platforms. EC2, S3, VPC, AKS, GKE — complete cloud architect preparation with hands-on labs.",
+  databases: "PostgreSQL, MySQL, MongoDB, Redis, Cassandra, DynamoDB — full database engineering track with SQL mastery and NoSQL expertise.",
+  ai: "AI Engineering — LLMs, RAG, LangChain, AI Agents, Prompt Engineering, LLMOps. Build production AI applications from scratch.",
+  data: "Data Analytics with Python Pandas, Power BI, Tableau, and Excel. Transform raw data into business insights.",
+  security: "Cybersecurity — ethical hacking, SOC, SIEM, network security, and penetration testing. Prepare for security certifications.",
+  healthcare: "Medical coding — ICD-10-CM, CPT, HCPCS, and CMS guidelines. Complete healthcare coding preparation and mock exams.",
+  essentials: "Human essentials — nutrition, mental health, personal finance, first aid, and gut health. Life skills that compound.",
+  education: "Computer science fundamentals — DSA, System Design, OS, DBMS, CN, Java, C++, and placement preparation.",
+  exams: "JEE, NEET, GATE, UPSC, SSC CGL, RRB NTPC — comprehensive exam preparation with practice questions and strategies.",
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { academy: aSlug } = await params;
+  const academy = getAcademy(aSlug);
+  if (!academy) return { title: "Academy | SynfraCore" };
+
+  const description = academyDescriptions[aSlug] || `${academy.title} — complete learning path with labs, projects, interview prep, and certification guides at SynfraCore.`;
+  const canonicalUrl = `https://synfracore.com/academies/${aSlug}`;
+
+  return {
+    title: `${academy.title} Academy`,
+    description,
+    keywords: [academy.title, `learn ${academy.title}`, `${academy.title} course`, `${academy.title} tutorials`, "SynfraCore"],
+    alternates: { canonical: canonicalUrl },
+    openGraph: {
+      title: `${academy.title} Academy | SynfraCore`,
+      description,
+      url: canonicalUrl,
+      type: "website",
+      siteName: "SynfraCore",
+    },
+  };
+}
+
 export default async function AcademyPage({ params }: Props) {
-  const { academy: slug } = await params;
-  const academy = getAcademy(slug);
+  const { academy: aSlug } = await params;
+  const academy = getAcademy(aSlug);
   if (!academy) redirect("/academies");
 
   return (
-    <div style={{ background: "var(--bg)", minHeight: "100vh" }}>
-      {/* Hero */}
-      <div style={{ background: `linear-gradient(135deg, ${academy.color}10, transparent)`, borderBottom: "1px solid var(--border)", padding: "48px 0" }}>
-        <div className="page-container">
-          <Link href="/academies" style={{ color: "var(--text-4)", fontSize: "13px", textDecoration: "none", marginBottom: "20px", display: "inline-flex", alignItems: "center", gap: "4px" }}>
-            ← All Academies
-          </Link>
-          <div style={{ display: "flex", alignItems: "center", gap: "20px", marginTop: "12px", flexWrap: "wrap" }}>
-            <div style={{ width: "72px", height: "72px", borderRadius: "18px", background: `${academy.color}18`, border: `1px solid ${academy.color}30`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "32px", flexShrink: 0 }}>
-              {academy.icon}
-            </div>
-            <div>
-              <h1 className="display-md">{academy.title}</h1>
-              <div style={{ color: academy.color, fontSize: "12px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", marginTop: "4px" }}>
-                {academy.subtitle} · {academy.domains.reduce((s, d) => s + d.technologies.length, 0)} Technologies
-              </div>
-            </div>
-          </div>
-          <p className="body-md" style={{ marginTop: "16px", maxWidth: "640px" }}>{academy.description}</p>
+    <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "40px 24px" }}>
+      {/* Breadcrumb */}
+      <nav style={{ fontSize: "12px", color: "var(--text-4)", marginBottom: "24px" }}>
+        <Link href="/" style={{ color: "var(--text-4)", textDecoration: "none" }}>Home</Link>
+        {" / "}
+        <Link href="/academies" style={{ color: "var(--text-4)", textDecoration: "none" }}>Academies</Link>
+        {" / "}
+        <span style={{ color: "var(--text-2)" }}>{academy.title}</span>
+      </nav>
+
+      {/* Header */}
+      <div style={{ marginBottom: "40px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
+          <span style={{ fontSize: "36px" }}>{academy.icon}</span>
+          <h1 style={{ fontSize: "32px", fontWeight: 700 }}>{academy.title}</h1>
         </div>
+        <p style={{ color: "var(--text-3)", fontSize: "16px", maxWidth: "700px", lineHeight: "1.7" }}>
+          {academyDescriptions[aSlug] || academy.description}
+        </p>
       </div>
 
-      {/* Domains */}
-      <div className="page-container" style={{ padding: "48px 24px" }}>
-        {academy.domains.map((domain) => (
-          <div key={domain.slug} style={{ marginBottom: "48px" }}>
-            {/* Domain header */}
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px", paddingBottom: "14px", borderBottom: "1px solid var(--border)" }}>
-              <span style={{ fontSize: "20px" }}>{domain.icon}</span>
-              <div>
-                <div className="heading" style={{ fontSize: "17px" }}>{domain.name}</div>
-                <div style={{ fontSize: "13px", color: "var(--text-4)", marginTop: "2px" }}>{domain.description}</div>
+      {/* Technologies grid */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "16px" }}>
+        {(academy.technologies || []).map((tech: any) => (
+          <Link
+            key={tech.slug}
+            href={`/academies/${aSlug}/${tech.slug}`}
+            style={{ textDecoration: "none" }}
+          >
+            <div
+              style={{
+                padding: "20px",
+                borderRadius: "12px",
+                border: "1px solid var(--border)",
+                background: "var(--bg-1)",
+                cursor: "pointer",
+              }}
+              className="card-hover"
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
+                <span style={{ fontSize: "24px" }}>{tech.icon}</span>
+                <span style={{ fontWeight: 600, fontSize: "15px" }}>{tech.name}</span>
+                <span style={{ marginLeft: "auto", fontSize: "11px", padding: "2px 6px", borderRadius: "4px", background: "var(--bg-2)", color: "var(--text-4)" }}>
+                  {tech.level}
+                </span>
               </div>
+              <p style={{ fontSize: "13px", color: "var(--text-4)", lineHeight: "1.5", margin: 0 }}>
+                {tech.description}
+              </p>
+              {tech.tags && (
+                <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginTop: "10px" }}>
+                  {tech.tags.slice(0, 3).map((tag: string) => (
+                    <span key={tag} style={{ fontSize: "11px", padding: "2px 6px", borderRadius: "10px", background: "var(--bg-2)", color: "var(--text-4)" }}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
-
-            {/* Technologies grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "14px" }}>
-              {domain.technologies.map((tech) => {
-                const lc = levelColors[tech.level];
-                return (
-                  <Link key={tech.slug} href={`/academies/${academy.slug}/${tech.slug}`} style={{ textDecoration: "none" }}>
-                    <div className="card card-interactive" style={{ padding: "20px" }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "10px" }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                          <span style={{ fontSize: "24px" }}>{tech.icon}</span>
-                          <span className="heading" style={{ fontSize: "14px" }}>{tech.name}</span>
-                        </div>
-                        <span style={{ background: lc.bg, border: `1px solid ${lc.border}`, color: lc.text, padding: "2px 8px", borderRadius: "100px", fontSize: "10px", fontWeight: 700, whiteSpace: "nowrap", flexShrink: 0 }}>
-                          {tech.level}
-                        </span>
-                      </div>
-                      <p style={{ fontSize: "12px", color: "var(--text-4)", lineHeight: 1.6, marginBottom: "12px" }}>{tech.description}</p>
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
-                          {tech.tags.slice(0, 3).map((tag) => (
-                            <span key={tag} style={{ background: "var(--bg-1)", border: "1px solid var(--border)", color: "var(--text-4)", padding: "2px 7px", borderRadius: "5px", fontSize: "10px" }}>{tag}</span>
-                          ))}
-                        </div>
-                        <span style={{ color: academy.color, fontSize: "11px", fontWeight: 600, display: "flex", alignItems: "center", gap: "3px" }}>
-                          Start <ArrowRight size={11} />
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

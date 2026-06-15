@@ -1,6 +1,7 @@
 export const runtime = "edge";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import type { Metadata } from "next";
 import { getAcademy, getTechnology } from "@/lib/data/academies";
 import { techSections } from "@/lib/data/navigation";
 import SectionContent from "@/components/tech/SectionContent";
@@ -10,11 +11,102 @@ type Props = {
   params: Promise<{ academy: string; technology: string; section: string }>;
 };
 
-export async function generateMetadata({ params }: Props) {
-  const { technology: tSlug, section } = await params;
-  const sectionData = techSections.find((s) => s.slug === section);
+// Map slugs to clean display names for metadata
+const techDisplayNames: Record<string, string> = {
+  linux: "Linux", docker: "Docker", kubernetes: "Kubernetes", terraform: "Terraform",
+  ansible: "Ansible", jenkins: "Jenkins", python: "Python", git: "Git",
+  helm: "Helm", argocd: "ArgoCD", prometheus: "Prometheus", grafana: "Grafana",
+  "elk-stack": "ELK Stack", nginx: "Nginx", networking: "Networking",
+  "shell-scripting": "Shell Scripting", "aws-ec2": "AWS EC2", "aws-s3": "AWS S3",
+  "aws-vpc": "AWS VPC", "aws-iam": "AWS IAM", "aws-rds": "AWS RDS",
+  "aws-lambda": "AWS Lambda", "aws-eks": "AWS EKS", cloudformation: "CloudFormation",
+  route53: "Route 53", "azure-entra": "Azure Entra ID", "azure-vms": "Azure VMs",
+  "azure-vnets": "Azure VNets", "azure-aks": "Azure AKS", "azure-devops": "Azure DevOps",
+  gke: "Google Kubernetes Engine", bigquery: "BigQuery", "cloud-run": "Cloud Run",
+  "cloud-security": "Cloud Security", "cost-optimization": "Cost Optimization",
+  "landing-zones": "Landing Zones", postgresql: "PostgreSQL", redis: "Redis",
+  mongodb: "MongoDB", mysql: "MySQL", cassandra: "Cassandra", dynamodb: "DynamoDB",
+  elasticsearch: "Elasticsearch", sql: "SQL", oracle: "Oracle",
+  "ai-fundamentals": "AI Fundamentals", "prompt-engineering": "Prompt Engineering",
+  langchain: "LangChain", rag: "RAG", "ai-agents": "AI Agents", llmops: "LLMOps",
+  openai: "OpenAI API", excel: "Excel", pandas: "Pandas", "power-bi": "Power BI",
+  tableau: "Tableau", "security-fundamentals": "Security Fundamentals",
+  "network-security": "Network Security", "ethical-hacking": "Ethical Hacking",
+  soc: "SOC", siem: "SIEM", "pen-testing": "Penetration Testing",
+  "icd-10-cm": "ICD-10-CM Coding", cpt: "CPT Coding", hcpcs: "HCPCS Coding",
+  "coding-guidelines": "Medical Coding Guidelines", "mock-exams": "Medical Coding Mock Exams",
+  "home-health-coding": "Home Health Coding", "patient-documentation": "Patient Documentation",
+  "healthcare-admin": "Healthcare Administration", "gut-health": "Gut Health",
+  hygiene: "Hygiene", nutrition: "Nutrition", "mental-health": "Mental Health",
+  "personal-finance": "Personal Finance", "first-aid": "First Aid",
+  dsa: "Data Structures & Algorithms", "system-design": "System Design",
+  os: "Operating Systems", dbms: "DBMS", cn: "Computer Networks",
+  maths: "Mathematics", science: "Science", "cs-school": "Computer Science",
+  "placement-prep": "Placement Preparation", java: "Java", "c-programming": "C Programming",
+  cpp: "C++", "jee-maths": "JEE Mathematics", "jee-physics": "JEE Physics",
+  "jee-chemistry": "JEE Chemistry", "neet-biology": "NEET Biology",
+  "neet-physics": "NEET Physics", "neet-chemistry": "NEET Chemistry",
+  "gate-cse": "GATE CSE", "gate-ece": "GATE ECE", "banking-exams": "Banking Exams",
+  "ssc-cgl": "SSC CGL", "rrb-ntpc": "RRB NTPC", "upsc-prelims": "UPSC Prelims",
+  "upsc-mains": "UPSC Mains",
+};
+
+const sectionDescriptions: Record<string, (tech: string) => string> = {
+  overview: (t) => `What is ${t}? Architecture, core concepts, and why it matters in 2025. Complete overview for beginners and experienced engineers.`,
+  fundamentals: (t) => `${t} fundamentals — core concepts, commands, and hands-on examples. Learn ${t} from scratch with real-world practice.`,
+  intermediate: (t) => `Intermediate ${t} — real-world patterns, best practices, and deeper topics. Take your ${t} skills to the next level.`,
+  advanced: (t) => `Advanced ${t} — production patterns, performance tuning, and security hardening. Expert-level ${t} for senior engineers.`,
+  labs: (t) => `Hands-on ${t} labs — practice with real scenarios and environments. Build practical ${t} skills through doing.`,
+  projects: (t) => `${t} projects for your portfolio — build real-world applications and demonstrate your ${t} expertise to employers.`,
+  interview: (t) => `Top ${t} interview questions and answers — prepare for DevOps interviews with real questions asked at top companies.`,
+  certification: (t) => `${t} certification guide — exam prep, practice questions, and study strategies to pass your ${t} certification.`,
+  cheatsheets: (t) => `${t} cheatsheet — quick reference for commands, syntax, and patterns. Keep this open during your ${t} work.`,
+  troubleshooting: (t) => `${t} troubleshooting guide — debug common issues with root cause analysis and production-tested fixes.`,
+  roadmap: (t) => `${t} learning roadmap — structured step-by-step path from beginner to expert. Know exactly what to learn and in what order.`,
+};
+
+const sectionTitles: Record<string, string> = {
+  overview: "Overview",
+  fundamentals: "Fundamentals",
+  intermediate: "Intermediate",
+  advanced: "Advanced",
+  labs: "Labs",
+  projects: "Projects",
+  interview: "Interview Q&A",
+  certification: "Certification Guide",
+  cheatsheets: "Cheatsheet",
+  troubleshooting: "Troubleshooting",
+  roadmap: "Learning Roadmap",
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { academy: aSlug, technology: tSlug, section } = await params;
+  const tech = getTechnology(aSlug, tSlug);
+  const techName = tech?.name || techDisplayNames[tSlug] || tSlug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  const sectionLabel = sectionTitles[section] || section.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  const descFn = sectionDescriptions[section];
+  const description = descFn ? descFn(techName) : `${techName} ${sectionLabel} — learn ${techName} with real examples and hands-on practice at SynfraCore.`;
+
+  const title = `${techName} ${sectionLabel}`;
+  const canonicalUrl = `https://synfracore.com/academies/${aSlug}/${tSlug}/${section}`;
+
   return {
-    title: `${tSlug} ${sectionData?.label || section} — SynfraCore`,
+    title,
+    description,
+    keywords: [techName, sectionLabel, `learn ${techName}`, `${techName} tutorial`, `${techName} course`, "DevOps", "SynfraCore"],
+    alternates: { canonical: canonicalUrl },
+    openGraph: {
+      title: `${techName} ${sectionLabel} | SynfraCore`,
+      description,
+      url: canonicalUrl,
+      type: "article",
+      siteName: "SynfraCore",
+    },
+    twitter: {
+      card: "summary",
+      title: `${techName} ${sectionLabel} | SynfraCore`,
+      description,
+    },
   };
 }
 
@@ -57,7 +149,6 @@ export default async function SectionPage({ params }: Props) {
             <span style={{ fontWeight: 700, fontSize: "16px" }}>{tech.name}</span>
           </div>
         </div>
-
         <nav>
           {techSections.map((s) => (
             <Link
@@ -66,16 +157,15 @@ export default async function SectionPage({ params }: Props) {
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: "10px",
-                padding: "9px 12px",
-                borderRadius: "10px",
-                textDecoration: "none",
-                color: s.slug === section ? "#E8EDF5" : "#9BA8C0",
-                fontSize: "13px",
-                fontWeight: s.slug === section ? 700 : 500,
+                gap: "8px",
+                padding: "8px 10px",
+                borderRadius: "6px",
                 marginBottom: "2px",
-                background: s.slug === section ? "rgba(59,130,246,0.1)" : "transparent",
-                border: s.slug === section ? "1px solid rgba(59,130,246,0.2)" : "1px solid transparent",
+                textDecoration: "none",
+                fontSize: "13px",
+                fontWeight: s.slug === section ? 600 : 400,
+                color: s.slug === section ? "var(--accent)" : "var(--text-3)",
+                background: s.slug === section ? "var(--bg-2)" : "transparent",
               }}
             >
               <span style={{ fontSize: "14px" }}>{s.icon}</span>
@@ -85,106 +175,56 @@ export default async function SectionPage({ params }: Props) {
         </nav>
       </aside>
 
-      {/* Content */}
-      <div className="content-main" style={{ flex: 1, minWidth: 0, padding: "36px 40px", maxWidth: isLabs ? "1000px" : "860px", overflowX: "hidden" }}>
+      {/* Main content */}
+      <main style={{ flex: 1, minWidth: 0, padding: "32px 24px" }}>
         {/* Breadcrumb */}
-        <div style={{ fontSize: "13px", color: "var(--text-4)", marginBottom: "8px", display: "flex", gap: "6px", alignItems: "center", flexWrap: "wrap" }}>
-          <Link href={`/academies/${aSlug}`} style={{ color: "var(--text-4)", textDecoration: "none"}}>{academy.title}</Link>
-          <span>›</span>
+        <nav style={{ fontSize: "12px", color: "var(--text-4)", marginBottom: "16px" }}>
+          <Link href="/" style={{ color: "var(--text-4)", textDecoration: "none" }}>Home</Link>
+          {" / "}
+          <Link href="/academies" style={{ color: "var(--text-4)", textDecoration: "none" }}>Academies</Link>
+          {" / "}
+          <Link href={`/academies/${aSlug}`} style={{ color: "var(--text-4)", textDecoration: "none" }}>{academy.title}</Link>
+          {" / "}
           <Link href={`/academies/${aSlug}/${tSlug}`} style={{ color: "var(--text-4)", textDecoration: "none" }}>{tech.name}</Link>
-          <span>›</span>
-          <span style={{ color: "var(--text-1)" }}>{sectionData?.label}</span>
-        </div>
+          {" / "}
+          <span style={{ color: "var(--text-2)" }}>{sectionData?.label || section}</span>
+        </nav>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px" }}>
-          <span style={{ fontSize: "32px" }}>{sectionData?.icon}</span>
-          <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(24px, 3vw, 36px)", fontWeight: 800, letterSpacing: "-0.02em" }}>
-            {tech.name} — {sectionData?.label}
-          </h1>
-        </div>
+        <h1 style={{ fontSize: "28px", fontWeight: 700, marginBottom: "8px" }}>
+          {tech.name} — {sectionData?.label || section}
+        </h1>
+        <p style={{ color: "var(--text-3)", fontSize: "14px", marginBottom: "28px" }}>
+          {sectionData?.description}
+        </p>
 
-        {/* Labs section gets LabsSection, others get SectionContent */}
         {isLabs ? (
-          <LabsSection
-            academy={aSlug}
-            technology={tSlug}
-            techName={tech.name}
-            accentColor={academy.color}
-          />
+          <LabsSection academy={aSlug} technology={tSlug} techName={tech.name} accentColor={"#6366F1"} />
         ) : (
           <SectionContent
-            academy={aSlug}
-            technology={tSlug}
-            section={section}
-            techName={tech.name}
-            techIcon={tech.icon}
-            sectionLabel={sectionData?.label || section}
-            accentColor={academy.color}
-          />
+                academy={aSlug}
+                technology={tSlug}
+                section={section}
+                techName={tech.name}
+                techIcon={tech.icon}
+                sectionLabel={sectionData?.label || section}
+                accentColor="#6366F1"
+              />
         )}
 
-        {/* Prev/Next navigation */}
-        <div
-          style={{
-            marginTop: "48px",
-            paddingTop: "24px",
-            borderTop: "1px solid var(--border)",
-            display: "flex",
-            justifyContent: "space-between",
-            gap: "16px",
-          }}
-        >
+        {/* Prev / Next navigation */}
+        <div style={{ display: "flex", justifyContent: "space-between", marginTop: "48px", paddingTop: "24px", borderTop: "1px solid var(--border)" }}>
           {prevSection ? (
-            <Link
-              href={`/academies/${aSlug}/${tSlug}/${prevSection.slug}`}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-                padding: "14px 20px",
-                background: "var(--bg-2)",
-                border: "1px solid var(--border)",
-                borderRadius: "12px",
-                textDecoration: "none",
-                flex: 1,
-                maxWidth: "240px",
-              }}
-            >
-              <span>←</span>
-              <div>
-                <div style={{ color: "var(--text-4)", fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" }}>Previous</div>
-                <div style={{ fontSize: "13px", fontWeight: 600 }}>{prevSection.label}</div>
-              </div>
+            <Link href={`/academies/${aSlug}/${tSlug}/${prevSection.slug}`} style={{ display: "flex", alignItems: "center", gap: "6px", textDecoration: "none", color: "var(--text-3)", fontSize: "13px" }}>
+              ← {prevSection.label}
             </Link>
           ) : <div />}
-
           {nextSection ? (
-            <Link
-              href={`/academies/${aSlug}/${tSlug}/${nextSection.slug}`}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "flex-end",
-                gap: "10px",
-                padding: "14px 20px",
-                background: "var(--bg-2)",
-                border: "1px solid var(--border)",
-                borderRadius: "12px",
-                textDecoration: "none",
-                flex: 1,
-                maxWidth: "240px",
-                textAlign: "right",
-              }}
-            >
-              <div>
-                <div style={{ color: "var(--text-4)", fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" }}>Next</div>
-                <div style={{ fontSize: "13px", fontWeight: 600 }}>{nextSection.label}</div>
-              </div>
-              <span>→</span>
+            <Link href={`/academies/${aSlug}/${tSlug}/${nextSection.slug}`} style={{ display: "flex", alignItems: "center", gap: "6px", textDecoration: "none", color: "var(--accent)", fontSize: "13px", fontWeight: 600 }}>
+              {nextSection.label} →
             </Link>
           ) : <div />}
         </div>
-      </div>
+      </main>
     </div>
   );
 }

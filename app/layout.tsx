@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { CopyProtection } from "@/components/CopyProtection";
+import { WebSiteJsonLd, OrganizationJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
   title: { default: "SynfraCore — Learn DevOps, Cloud & AI", template: "%s | SynfraCore" },
@@ -54,6 +55,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="dns-prefetch" href="https://translate.googleapis.com" />
         <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem('theme');if(t==='light')document.documentElement.classList.add('light');}catch(e){}` }} />
         <style>{`.goog-te-banner-frame,.skiptranslate{display:none!important}body{top:0!important}`}</style>
+        <WebSiteJsonLd />
+        <OrganizationJsonLd />
       </head>
       <body suppressHydrationWarning style={{ margin: 0, minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--bg)", color: "var(--text-2)" }}>
         <ThemeProvider>
