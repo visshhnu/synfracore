@@ -163,3 +163,93 @@ class NumberPrinter extends Thread {
 NumberPrinter np = new NumberPrinter();
 np.start();
 ```
+
+---
+
+## From the Handwritten Notes (Q&A Notebook)
+
+These are direct questions from the 5-year notes collection — numbered as found in the original notebook.
+
+**Q3: What do you understand by JVM?**
+JVM (Java Virtual Machine) is a virtual machine that enables the computer to run a Java program. JVM acts like a runtime engine which calls the main method present in Java code. Java code is compiled by JVM to bytecode which is close to native code. JVM is platform dependent (different JVMs for Windows, Linux, Mac) but Java code is platform independent — write once, run anywhere.
+
+**Q4: How many types of memory are allocated by JVM?**
+JVM allocates 5 types of memory:
+1. **Heap** — whenever an object is created
+2. **Class Area (Method Area)** — stores class metadata, static variables
+3. **Stack** — method call frames, local variables (one per thread)
+4. **Native Method Stack** — for native (C/C++) method calls
+5. **Program Counter Register** — current instruction pointer per thread
+
+**Q5: What is Platform?**
+Platform is a set of hardware and software environment in which a piece of software is executed. Java is a software-based platform — JVM is the platform on which Java programs run, not hardware.
+
+**Q16: How many types of constructors are used in Java?**
+Two types: Default constructor (no parameters — provided by compiler if you don't write one), and Parameterized constructor (takes parameters for initialization). Note: if you write a parameterized constructor, the compiler does NOT add a default constructor automatically.
+
+**Q17: What is the purpose of a default constructor?**
+A default constructor initializes instance variables to their default values — integers to 0, objects to null, booleans to false. Example:
+```java
+class Student {
+    int id;
+    String name;
+    void Student_Info() { System.out.println(id + " " + name); }
+}
+// With new Student(), id=0, name=null
+// Output: 0 null
+```
+
+**Q30: Can we make abstract methods static?**
+No. If we declare abstract methods as static, they become part of the class and can be called directly. But calling an undefined abstract method is completely useless, therefore it is not allowed.
+
+**Q31: Can we declare static methods and variables inside abstract class?**
+Yes. Static members belong to the class, not the instance. Abstract classes can have static members.
+
+**Q32: What is the `this` keyword in Java?**
+`this` is a reference variable that refers to the current object. It can be used to:
+1. Refer to current class instance variable
+2. Invoke current class method
+3. Invoke current class constructor: `this()`
+4. Return current class instance from the method
+5. Pass as argument in method call
+6. Pass as argument in constructor call
+Note: `this` can be used to refer to static members but it is NOT good practice.
+
+**Q46: Can we declare constructor as final?**
+No. The constructor can never be declared as final, because it is never inherited. If you try to do so, it will throw a compile time error.
+
+**Q47: Can we declare interface as final?**
+No. Interface must be implemented by some class to provide its definition. Therefore, there is no sense to make it final. If you try to do so, it will throw compile time error.
+
+**Q48: Difference between final and abstract method?**
+Abstract method cannot be final as we need to override them in subclass to give its definition. Final method cannot be overridden — directly contradicts the purpose of abstract.
+
+**Q49: What is Java instanceof operator?**
+The `instanceof` operator in Java is also known as type comparison operator because it compares the instance with type.
+```java
+class Simple {
+    public static void main(String args[]) {
+        Simple s = new Simple();
+        System.out.println(s instanceof Simple);  // true
+    }
+}
+// Returns true if the object is an instance of the specified class
+// Used before casting to avoid ClassCastException
+if (obj instanceof Dog) {
+    Dog d = (Dog) obj;
+    d.bark();
+}
+```
+
+**Properties of Java (from notes):**
+- **Distributed** — RMI (Remote Method Invocation) and EJB (Enterprise JavaBeans) are used for creating distributed applications
+- **Dynamic** — Java is a dynamic language. It supports dynamic loading of classes. Classes are loaded on demand.
+- Multi-level inheritance example in Python comparison — Java achieves it through class hierarchy, Python through direct multiple inheritance
+
+**JVM Memory allocation — practical consequences:**
+- Heap memory is shared across all threads → synchronization needed
+- Stack is per-thread → thread-safe by nature (no synchronization needed for local variables)
+- When you create `new Object()` → goes to Heap
+- When you call a method → a stack frame is pushed onto the thread's stack
+- When method returns → frame is popped (local variables automatically freed)
+- Objects with no references → eligible for garbage collection from Heap
