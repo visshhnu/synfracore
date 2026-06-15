@@ -1,238 +1,75 @@
-# Docker Interview Questions & Troubleshooting
+# Docker — Interview Questions
 
-## Interview Questions
-
-### Beginner
-
-**What is Docker and what problem does it solve?**
-Docker packages an application and all its dependencies (runtime, libraries, config files) into a container that runs consistently on any machine. It solves the classic "works on my machine" problem. Before containers: developers ran apps differently on their laptops vs staging vs production — different OS versions, library versions, environment variables. Docker creates identical environments everywhere.
+Real questions from DevOps interviews, drawn from 5 years of notes and production experience.
 
 ---
+
+## Core Concepts
+
+**What is Docker and how does it differ from a Virtual Machine?**
+Docker uses OS-level containerization — containers share the host OS kernel, so they start in milliseconds and use far fewer resources. A VM runs a full OS with its own kernel on a hypervisor — takes minutes to start, uses gigabytes of RAM just for the OS. Containers are isolated using Linux namespaces (process, network, filesystem) and cgroups (CPU, memory limits). The trade-off: VMs give stronger isolation (different kernels, hardware emulation), containers give speed and density. In practice, most cloud workloads use containers inside VMs (best of both).
 
 **What is the difference between a Docker image and a container?**
-An image is a read-only template — a snapshot of an environment with your application code, runtime, and all dependencies. A container is a running instance of an image. Like an image is a class definition and a container is an object instance. Multiple containers can run from the same image simultaneously, each isolated from the others.
+Image is a read-only template — a snapshot of a filesystem with your app and all its dependencies. It's built once and stored in a registry. Container is a running instance of an image — it adds a writable layer on top of the image's read-only layers. You can run many containers from one image. Analogy: image is a class definition, container is an object (instance).
+
+**What is a Dockerfile and what are its main instructions?**
+A Dockerfile is a text file with instructions to build a Docker image. Key instructions: `FROM` (base image), `RUN` (execute command during build, creates new layer), `COPY` (copy files into image), `WORKDIR` (set working directory), `ENV` (environment variable), `EXPOSE` (document port), `VOLUME` (create mount point), `USER` (run as non-root), `CMD` (default command when container starts), `ENTRYPOINT` (always-run command, CMD becomes its arguments).
+
+**What is the difference between CMD and ENTRYPOINT?**
+`CMD` sets the default command — it can be completely overridden at runtime: `docker run myimage bash` ignores CMD. `ENTRYPOINT` always runs — `docker run myimage bash` passes "bash" as an argument to ENTRYPOINT. Common pattern: `ENTRYPOINT ["python3", "app.py"]` with no CMD for a service. Or `ENTRYPOINT ["python3"]` with `CMD ["app.py"]` so you can override just the script but keep the interpreter.
 
 ---
 
-**What is a Dockerfile?**
-A Dockerfile is a text file with instructions to build a Docker image. Each instruction (`FROM`, `RUN`, `COPY`, `CMD`) creates a layer. Layers are cached — if nothing changes in layers 1-5, rebuilding only runs from the changed layer onward. This makes builds fast.
-
----
-
-**What is Docker Compose?**
-Docker Compose is a tool for defining and running multi-container applications. You define all services, networks, and volumes in a `docker-compose.yml` file and start everything with `docker compose up`. Perfect for local development with a web app, database, and cache all running together.
-
----
-
-### Intermediate
-
-**Explain Docker networking — bridge, host, none, overlay.**
-
-`bridge` — Default. Docker creates a virtual network bridge. Containers get their own IP, communicate via bridge. Can expose ports to host with `-p`. Containers on same bridge can reach each other by IP or container name (with user-defined networks).
-
-`host` — Container shares the host's network namespace. No isolation. Container ports are directly on the host. Faster (no NAT overhead) but no isolation. Use for performance-critical networking.
-
-`none` — Container has no network. Completely isolated. Use for batch jobs that don't need network.
-
-`overlay` — Multi-host networking for Docker Swarm or Kubernetes. Creates a virtual network spanning multiple Docker hosts.
-
----
-
-**What is a multi-stage build and why use it?**
-
-```dockerfile
-# Stage 1: Build — has all build tools (large image)
-FROM node:20 AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
-
-# Stage 2: Production — only runtime (small image)
-FROM node:20-alpine
-WORKDIR /app
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
-USER node
-CMD ["node", "dist/server.js"]
-```
-
-Result: Final image doesn't include build tools, source code, or dev dependencies. Images go from 1GB+ to 100MB. Smaller images = faster pulls, smaller attack surface.
-
----
-
-**What are Docker volumes and why prefer named volumes over bind mounts?**
-
-Named volumes (`-v mydata:/app/data`) are managed by Docker — stored in Docker's data directory, not a specific host path. Portable across machines. Docker handles permissions. Better for databases and persistent app data.
-
-Bind mounts (`-v /host/path:/container/path`) mount a specific host directory. Great for development (live code reload) but tied to a specific host path. Not portable.
-
-Anonymous volumes (`-v /app/data`) created without a name — Docker gives random name. Good for temporary data that shouldn't persist after `docker rm`.
-
----
+## Images and Layers
 
 **How does Docker layer caching work?**
+Each Dockerfile instruction creates a new layer. Docker caches layers and reuses them if the instruction and all previous instructions haven't changed. If you change line 5, layers 5+ are rebuilt. This is why you should: (1) put frequently changing instructions last (like `COPY . .`), (2) put rarely changing instructions first (like `RUN apt-get install`). Copy `requirements.txt` and `RUN pip install` BEFORE `COPY . .` — dependencies are installed from cache even when code changes.
 
-Each Dockerfile instruction creates a layer. Docker caches layers. When rebuilding:
-- If an instruction and all preceding instructions are unchanged → use cache
-- If an instruction changes → that layer AND ALL SUBSEQUENT LAYERS rebuild
+**What are dangling images?**
+Images with no tag and no container using them — shown as `<none>:<none>` in `docker images`. Created when you rebuild with the same tag — old image loses its tag. Remove with `docker image prune` or `docker rmi $(docker images -f "dangling=true" -q)`.
 
-This is why you copy `package.json` and run `npm install` BEFORE copying source code:
-
-```dockerfile
-# GOOD: package.json rarely changes → node_modules cached
-COPY package.json .
-RUN npm install       # Cached unless package.json changed
-COPY . .             # Source code changes don't invalidate npm install
-
-# BAD: COPY . . invalidates npm install every time code changes
-COPY . .
-RUN npm install      # Always rebuilds!
-```
+**What is a multi-stage build and why use it?**
+Multi-stage build uses multiple `FROM` statements in one Dockerfile. Each stage can `COPY --from=previous-stage` files. The final image only contains what you explicitly copy into it. Example: Stage 1 uses a Maven image to compile Java (700MB). Stage 2 uses a JRE image (100MB) and copies only the JAR. Final image is 100MB, not 700MB. The build tools and source code are discarded.
 
 ---
 
-### Advanced
+## Volumes and Networking
 
-**How do you secure a Docker container in production?**
+**What is the difference between a volume and a bind mount?**
+Volume: Docker manages the storage location (`/var/lib/docker/volumes/`). Created with `docker volume create`. Not dependent on host directory structure. Portable, backed up, migrated more easily. Bind mount: a host directory mapped directly into the container (`-v /host/path:/container/path`). You control the location. Files are immediately visible on host — good for development (hot reload). Volumes are recommended for production; bind mounts for development.
 
-1. **Non-root user** — `USER 1001` in Dockerfile. Never run as root.
-2. **Read-only filesystem** — `--read-only`. Mount specific writable paths with tmpfs.
-3. **Drop all capabilities** — `--cap-drop ALL`, only add what's needed (`--cap-add NET_BIND_SERVICE`).
-4. **No new privileges** — `--security-opt no-new-privileges:true`
-5. **Resource limits** — `--memory=512m --cpus=1`. Prevent container from consuming all host resources.
-6. **Minimal base image** — `alpine` or `distroless` instead of `ubuntu`. Smaller attack surface.
-7. **Scan images** — Use Trivy or Snyk to scan for CVEs before pushing.
-8. **Private registry** — Never pull from public registry in production without scanning.
+**Why are containers immutable and why does that matter?**
+Containers should not be modified while running. If you need a change, rebuild the image and replace the container. This is the "immutable infrastructure" principle. Benefits: (1) predictable — the container in production is identical to what was tested, (2) rollback is easy — just run the previous image, (3) no configuration drift — you can't have servers that diverged from the desired state over time.
+
+**What is the Docker bridge network and how do containers communicate?**
+The default bridge network (`docker0`) connects all containers without `--network` specified. They can communicate by IP but NOT by name. A custom bridge network (`docker network create mynet`) enables DNS-based name resolution — `container1` can reach `container2` just by typing `ping container2`. Always use custom networks in production. Same network = can communicate. Different networks = isolated.
 
 ---
 
-**Explain the difference between ENTRYPOINT and CMD.**
+## Production and CI/CD
 
-`CMD` — Default command to run. Can be overridden: `docker run myimage custom-command`
-`ENTRYPOINT` — Fixed executable. Arguments appended: `docker run myimage --config=/etc/app.conf`
+**How do you pass secrets to a Docker container safely?**
+Never bake secrets into the image (they appear in `docker history`). Options: (1) Environment variables at runtime: `docker run -e DB_PASSWORD=xxx myapp` — visible in process list, avoid for sensitive secrets. (2) Docker secrets (Swarm): encrypted, only available to specific services. (3) Kubernetes Secrets: base64-encoded, stored in etcd, mounted as files or env vars. (4) External: Vault, AWS Secrets Manager, read at runtime from API. Best practice: use a secrets manager, inject at runtime, never in the image.
 
-Combined: ENTRYPOINT is the executable, CMD provides default arguments:
+**What is the difference between `docker stop` and `docker kill`?**
+`docker stop` sends SIGTERM (graceful shutdown) and waits 10 seconds, then sends SIGKILL. The application can catch SIGTERM and clean up (close connections, flush buffers). `docker kill` sends SIGKILL immediately — no cleanup possible. Always prefer `docker stop`. Use `docker kill` only when `stop` doesn't work.
 
-```dockerfile
-ENTRYPOINT ["nginx"]
-CMD ["-g", "daemon off;"]
-# docker run mynginx = nginx -g daemon off;
-# docker run mynginx -c /etc/nginx/nginx.conf = nginx -c /etc/nginx/nginx.conf
-```
+**How do you update a container with zero downtime?**
+In Docker Swarm: `docker service update --image newimage:tag myservice` with `--update-parallelism 1 --update-delay 10s` for rolling updates. In Kubernetes: `kubectl set image deployment/myapp container=newimage:tag` triggers a rolling update by default. Behind a load balancer: update containers one at a time, health check passes before moving to next.
+
+**What is Docker Scout / Trivy used for?**
+Image vulnerability scanning. After building an image, scan it before pushing: `trivy image myapp:latest`. Reports CVEs (Common Vulnerabilities and Exposures) in the OS packages and language libraries. Shows severity (CRITICAL, HIGH, MEDIUM, LOW). Integrate into CI/CD pipeline: fail the build if any CRITICAL vulnerabilities found. Keeps your production images free from known exploits.
 
 ---
 
-## Troubleshooting Guide
+## Quick-Fire
 
-### Container Exits Immediately (Exit Code 0 or 1)
+**How do you see why a container crashed?** `docker logs container_name` or for a stopped container: `docker logs container_name` still works. Check exit code: `docker inspect container_name | grep -i exitcode`.
 
-```bash
-# Check exit code
-docker ps -a
-docker inspect <container> | grep ExitCode
+**How do you run a command in a running container?** `docker exec -it container_name bash` (interactive) or `docker exec container_name ls /app` (non-interactive).
 
-# Exit 0 — process completed normally (CMD finished)
-# Fix: CMD should be a long-running process
-# BAD:  CMD echo "hello"          (exits immediately)
-# GOOD: CMD ["nginx", "-g", "daemon off;"]  (stays running)
+**How do you copy files to/from a container?** `docker cp local_file.txt container:/path/` and `docker cp container:/path/file.txt ./local/`
 
-# Exit 1 — application error
-docker logs <container>
+**What does `--rm` flag do?** `docker run --rm myapp` — automatically removes the container when it exits. Good for one-off tasks and CI jobs to avoid container accumulation.
 
-# Exit 137 — OOMKilled (Out of Memory)
-docker inspect <container> | grep OOMKilled
-# Fix: increase --memory limit
-
-# Exit 139 — Segfault
-# Check application logs for core dump
-```
-
-### Permission Denied Errors
-
-```bash
-# Check who owns the files
-docker exec -it <container> ls -la /app
-
-# Container user vs file owner mismatch
-# In Dockerfile:
-RUN chown -R 1001:1001 /app
-USER 1001
-
-# Or use --user flag
-docker run --user 1001 myimage
-```
-
-### Container Can't Connect to Database
-
-```bash
-# Check they're on the same network
-docker network ls
-docker network inspect <network>
-
-# Use container name as hostname (user-defined networks only!)
-# docker run --network mynet --name db postgres
-# Then: psql -h db -U user  (works!)
-
-# Default bridge network: use IP, not container name
-docker inspect db | grep IPAddress
-
-# Check firewall / security group if different hosts
-```
-
-### Image Pull Failures
-
-```bash
-# Check registry auth
-docker login registry.example.com
-cat ~/.docker/config.json
-
-# For private ECR
-aws ecr get-login-password --region us-east-1 \
-  | docker login --username AWS --password-stdin \
-  123456789.dkr.ecr.us-east-1.amazonaws.com
-
-# Pull specific platform (M1 Mac pulling amd64)
-docker pull --platform linux/amd64 myimage
-```
-
-### Disk Space Issues
-
-```bash
-# See what's taking space
-docker system df
-
-# Clean up
-docker system prune         # Remove stopped containers, unused images, networks
-docker system prune -a      # Also remove unused images (not just dangling)
-docker system prune -a -f --volumes  # Nuclear option — everything unused
-
-# Remove old images
-docker image prune -a --filter "until=720h"  # Older than 30 days
-
-# In production: set log rotation
-{
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "10m",
-    "max-file": "3"
-  }
-}
-```
-
-### Container Networking Debug
-
-```bash
-# Shell into container with network tools
-docker run --rm --network <network> nicolaka/netshoot
-
-# From inside: test connectivity
-curl -v http://service-name:8080/health
-nslookup service-name
-traceroute service-name
-nc -zv service-name 8080
-
-# Check iptables rules
-iptables -L -n -v | grep DOCKER
-```
+**How do you limit container memory?** `docker run --memory 512m --memory-swap 512m myapp` — sets hard memory limit and disables swap. Container gets OOMKilled if it exceeds the limit.
