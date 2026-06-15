@@ -1,89 +1,221 @@
 # Java — Cheatsheet
 
+## Quick Reference — From Real Engineer Notes
+
 ```java
-// ── STRINGS ───────────────────────────────────────────────
-String s = "Hello World";
-s.length()                        // 11
-s.charAt(0)                       // 'H'
-s.substring(6)                    // "World"
-s.substring(0, 5)                 // "Hello"
-s.toLowerCase() / toUpperCase()
-s.trim()                          // remove leading/trailing whitespace
-s.strip()                         // Unicode-aware trim (Java 11+)
-s.contains("World")               // true
-s.startsWith("Hello") / endsWith("ld")
-s.replace("World", "Java")        // "Hello Java"
-s.replaceAll("\\d", "#")           // regex replace
-s.split("\\s+")                    // split by whitespace
-s.isEmpty()                       // true if ""
-s.isBlank()                       // true if whitespace only (Java 11+)
-s.indexOf("o")                    // 4 (first occurrence)
-s.lastIndexOf("o")                // 7
-String.format("Hi %s, you are %d", name, age)
-String.join(", ", "a", "b", "c")  // "a, b, c"
-String.valueOf(42)                // "42"
-Integer.parseInt("42")            // 42
-Integer.toBinaryString(10)        // "1010"
-new StringBuilder().append("a").append("b").toString() // string building
+// ── COMPILE & RUN ──────────────────────────────────────────
+javac MyProgram.java          // compile
+java MyProgram                // run (no .class extension)
+java -cp . MyProgram          // with classpath
+jar cf app.jar *.class        // create JAR
+java -jar app.jar             // run JAR
 
-// ── ARRAYS ────────────────────────────────────────────────
-int[] arr = new int[5];           // [0, 0, 0, 0, 0]
-int[] arr = {1, 2, 3, 4, 5};
-arr.length                        // 5
-Arrays.sort(arr)                  // in-place sort
-Arrays.fill(arr, 0)               // set all to 0
-Arrays.copyOf(arr, 3)             // [1, 2, 3]
-Arrays.copyOfRange(arr, 1, 4)     // [2, 3, 4]
-Arrays.toString(arr)              // "[1, 2, 3, 4, 5]"
-Arrays.binarySearch(arr, 3)       // 2 (index, array must be sorted)
-int[][] matrix = new int[3][4];   // 3 rows, 4 cols
+// ── DATA TYPES ─────────────────────────────────────────────
+int    i = 10;          // -2B to +2B
+long   l = 10L;         // -9.2E18 to +9.2E18 — need 'L'
+double d = 3.14;        // 64-bit decimal
+float  f = 3.14f;       // 32-bit decimal — need 'f'
+char   c = 'A';         // single quotes
+boolean b = true;
+String s = "hello";     // reference type
 
-// ── MATH ──────────────────────────────────────────────────
-Math.abs(-5)                      // 5
-Math.max(3, 7)                    // 7
-Math.min(3, 7)                    // 3
-Math.pow(2, 10)                   // 1024.0
-Math.sqrt(16)                     // 4.0
-Math.floor(3.7)                   // 3.0
-Math.ceil(3.2)                    // 4.0
-Math.round(3.5)                   // 4
-Math.random()                     // 0.0 to 1.0
-(int)(Math.random() * 100)        // 0 to 99
+// ── STRING METHODS ─────────────────────────────────────────
+s.length()              // length
+s.charAt(0)             // first char
+s.substring(1, 4)       // chars at index 1,2,3
+s.toUpperCase()         // HELLO
+s.toLowerCase()         // hello
+s.trim()                // remove leading/trailing spaces
+s.replace("a","b")      // replace all occurrences
+s.contains("ell")       // true/false
+s.startsWith("He")      // true/false
+s.endsWith("lo")        // true/false
+s.equals(other)         // compare content (NOT ==)
+s.equalsIgnoreCase(o)   // case-insensitive compare
+s.split(",")            // split into array
+String.valueOf(42)      // int to String
+Integer.parseInt("42")  // String to int
 
-// ── COLLECTIONS QUICK REFERENCE ───────────────────────────
-// List (ordered, duplicates allowed)
-List<T> list = new ArrayList<>();
-list.add(x); list.get(i); list.size(); list.remove(i);
-Collections.sort(list); Collections.reverse(list);
+// ── ACCESS SPECIFIERS ──────────────────────────────────────
+// private   → same class only
+// default   → same package
+// protected → same package + subclasses
+// public    → everywhere
 
-// Map (key-value)
-Map<K,V> map = new HashMap<>();
-map.put(k,v); map.get(k); map.containsKey(k);
-map.getOrDefault(k, def); map.remove(k);
-for(Map.Entry<K,V> e : map.entrySet()) { e.getKey(); e.getValue(); }
+// ── EXCEPTION HANDLING ─────────────────────────────────────
+try {
+    // risky code
+} catch (SpecificException e) {
+    // handle
+} catch (Exception e) {       // catch-all (put last)
+    e.getMessage();           // error message
+    e.printStackTrace();      // full stack trace
+} finally {
+    // ALWAYS runs — close files/DB connections here
+}
 
-// Set (unique)
-Set<T> set = new HashSet<>();
-set.add(x); set.contains(x); set.remove(x); set.size();
+// throw vs throws
+throw new IllegalArgumentException("Invalid input");   // inside method
+void myMethod() throws IOException { ... }             // method signature
 
-// Stack / Queue
-Deque<T> stack = new ArrayDeque<>();  stack.push(x); stack.pop(); stack.peek();
-Deque<T> queue = new ArrayDeque<>();  queue.offer(x); queue.poll(); queue.peek();
-PriorityQueue<T> pq = new PriorityQueue<>();  // min heap
+// Custom exception
+class MyException extends Exception {
+    MyException(String msg) { super(msg); }
+}
 
-// ── STREAMS QUICK REFERENCE ───────────────────────────────
-stream.filter(predicate)           // keep elements matching condition
-stream.map(function)               // transform each element
-stream.flatMap(f)                  // flatten nested collections
-stream.sorted()                    // natural sort
-stream.sorted(Comparator.comparing(T::getField))
-stream.distinct()                  // remove duplicates
-stream.limit(n) / skip(n)
-stream.reduce(identity, accumulator)
-stream.collect(Collectors.toList())
-stream.collect(Collectors.joining(", "))
-stream.collect(Collectors.groupingBy(T::getField))
-stream.count() / sum() / max() / min() / average()
-stream.anyMatch(p) / allMatch(p) / noneMatch(p)
-stream.findFirst() / findAny()     // returns Optional<T>
+// ── COLLECTIONS ────────────────────────────────────────────
+// ArrayList
+List<String> list = new ArrayList<>();
+list.add("item");
+list.add(0, "first");       // insert at index
+list.get(0);                // retrieve
+list.remove(0);             // remove by index
+list.remove("item");        // remove by value
+list.size();                // count
+list.contains("item");      // true/false
+list.isEmpty();             // true/false
+Collections.sort(list);     // sort
+list.clear();               // remove all
+
+// HashMap
+Map<String, Integer> map = new HashMap<>();
+map.put("key", value);
+map.get("key");             // returns null if not found
+map.getOrDefault("k", 0);  // return 0 if not found
+map.containsKey("key");
+map.containsValue(42);
+map.remove("key");
+map.size();
+for (Map.Entry<K,V> e : map.entrySet()) { e.getKey(); e.getValue(); }
+map.keySet();               // Set of all keys
+map.values();               // Collection of all values
+
+// HashSet
+Set<String> set = new HashSet<>();
+set.add("item");
+set.remove("item");
+set.contains("item");
+set.size();
+
+// Stack (LIFO)
+Stack<Integer> stack = new Stack<>();
+stack.push(1);
+stack.pop();    // remove + return top
+stack.peek();   // view top without removing
+stack.isEmpty();
+
+// Queue (FIFO)
+Queue<Integer> q = new LinkedList<>();
+q.offer(1);    // add to tail
+q.poll();      // remove from head
+q.peek();      // view head without removing
+
+// ── MULTITHREADING ─────────────────────────────────────────
+// Method 1: Extend Thread
+class MyThread extends Thread {
+    public void run() { /* thread code */ }
+}
+MyThread t = new MyThread();
+t.start();     // start() not run()!
+t.sleep(1000); // pause 1 second
+t.isAlive();   // is thread still running?
+t.join();      // wait for thread to finish
+
+// Method 2: Implement Runnable (preferred)
+Runnable task = () -> { /* thread code */ };
+Thread t = new Thread(task);
+t.start();
+
+// Synchronization
+synchronized void method() { }    // method-level lock
+synchronized (this) { }           // block-level lock
+
+// Thread states: New → Ready → Running → Waiting → Halted
+
+// ── JAVA 8+ LAMBDA ─────────────────────────────────────────
+// Old anonymous class
+Runnable r = new Runnable() { public void run() { } };
+// Lambda equivalent
+Runnable r = () -> { };
+
+list.forEach(item -> System.out.println(item));
+list.forEach(System.out::println);   // method reference
+list.sort((a, b) -> a.compareTo(b));
+
+// ── STREAM API ─────────────────────────────────────────────
+list.stream()
+    .filter(x -> x > 0)
+    .map(x -> x * 2)
+    .sorted()
+    .distinct()
+    .limit(10)
+    .collect(Collectors.toList());
+
+list.stream().count();
+list.stream().min(Comparator.naturalOrder()).get();
+list.stream().max(Comparator.naturalOrder()).get();
+list.stream().reduce(0, Integer::sum);
+list.stream().mapToInt(Integer::intValue).sum();
+list.stream().mapToInt(Integer::intValue).average().getAsDouble();
+list.stream().anyMatch(x -> x > 5);   // any element matches?
+list.stream().allMatch(x -> x > 0);   // all elements match?
+list.stream().noneMatch(x -> x < 0);  // no element matches?
+
+// ── IO STREAMS ─────────────────────────────────────────────
+// Read file (modern)
+try (BufferedReader br = new BufferedReader(new FileReader("file.txt"))) {
+    br.lines().forEach(System.out::println);
+}
+
+// Read all bytes (Java 11+)
+byte[] bytes = Files.readAllBytes(Path.of("file.txt"));
+String content = new String(bytes);
+
+// Write file
+Files.write(Path.of("out.txt"), "content".getBytes());
+
+// ── NETWORK ────────────────────────────────────────────────
+// Server
+ServerSocket ss = new ServerSocket(9999);
+Socket client = ss.accept();           // blocks until connection
+
+// Client
+Socket s = new Socket("localhost", 9999);
+DataInputStream  dis = new DataInputStream(s.getInputStream());
+DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+dos.writeUTF("Hello Server");
+String response = dis.readUTF();
+
+// ── USEFUL PATTERNS ────────────────────────────────────────
+// Null check
+if (obj != null) { ... }
+Objects.requireNonNull(obj, "obj cannot be null");
+
+// StringBuilder (mutable String)
+StringBuilder sb = new StringBuilder();
+sb.append("Hello").append(" ").append("World");
+sb.insert(5, ",");
+sb.delete(0, 5);
+sb.reverse();
+String result = sb.toString();
+
+// Ternary
+String status = salary > 50000 ? "High" : "Low";
+
+// var (Java 10+)
+var list = new ArrayList<String>();
+var name = "Alice";
+```
+
+## Access Specifier Matrix (from Microsoft SDE notes)
+
+```
+                Same Class  SamePkg-Sub  SamePkg-INDC  DiffPkg-Sub  DiffPkg-INDC
+private            ✅           ❌            ❌             ❌            ❌
+default            ✅           ✅            ✅             ❌            ❌
+protected          ✅           ✅            ✅             ✅            ❌
+public             ✅           ✅            ✅             ✅            ✅
+
+BC = Base Class, DC = Derived Class, INDC = Independent Class
+✅ = accessible, ❌ = not accessible
 ```
