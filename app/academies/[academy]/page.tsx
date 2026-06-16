@@ -26,13 +26,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const academy = getAcademy(aSlug);
   if (!academy) return { title: "Academy | SynfraCore" };
 
-  const description = academyDescriptions[aSlug] || `${academy.title} — complete learning path with labs, projects, interview prep, and certification guides at SynfraCore.`;
+  const description = academyDescriptions[aSlug] || academy.description;
   const canonicalUrl = `https://synfracore.com/academies/${aSlug}`;
 
   return {
     title: `${academy.title} Academy`,
     description,
-    keywords: [academy.title, `learn ${academy.title}`, `${academy.title} course`, `${academy.title} tutorials`, "SynfraCore"],
+    keywords: [academy.title, `learn ${academy.title}`, `${academy.title} course`, "SynfraCore"],
     alternates: { canonical: canonicalUrl },
     openGraph: {
       title: `${academy.title} Academy | SynfraCore`,
@@ -51,6 +51,7 @@ export default async function AcademyPage({ params }: Props) {
 
   return (
     <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "40px 24px" }}>
+
       {/* Breadcrumb */}
       <nav style={{ fontSize: "12px", color: "var(--text-4)", marginBottom: "24px" }}>
         <Link href="/" style={{ color: "var(--text-4)", textDecoration: "none" }}>Home</Link>
@@ -64,54 +65,80 @@ export default async function AcademyPage({ params }: Props) {
       <div style={{ marginBottom: "40px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
           <span style={{ fontSize: "36px" }}>{academy.icon}</span>
-          <h1 style={{ fontSize: "32px", fontWeight: 700 }}>{academy.title}</h1>
+          <div>
+            <h1 style={{ fontSize: "32px", fontWeight: 700, marginBottom: "4px" }}>{academy.title}</h1>
+            <p style={{ fontSize: "14px", color: "var(--text-4)" }}>{academy.subtitle}</p>
+          </div>
         </div>
-        <p style={{ color: "var(--text-3)", fontSize: "16px", maxWidth: "700px", lineHeight: "1.7" }}>
+        <p style={{ color: "var(--text-3)", fontSize: "15px", maxWidth: "720px", lineHeight: "1.7" }}>
           {academyDescriptions[aSlug] || academy.description}
         </p>
       </div>
 
-      {/* Technologies grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "16px" }}>
-        {(academy.technologies || []).map((tech: any) => (
-          <Link
-            key={tech.slug}
-            href={`/academies/${aSlug}/${tech.slug}`}
-            style={{ textDecoration: "none" }}
-          >
-            <div
-              style={{
-                padding: "20px",
-                borderRadius: "12px",
-                border: "1px solid var(--border)",
-                background: "var(--bg-1)",
-                cursor: "pointer",
-              }}
-              className="card-hover"
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
-                <span style={{ fontSize: "24px" }}>{tech.icon}</span>
-                <span style={{ fontWeight: 600, fontSize: "15px" }}>{tech.name}</span>
-                <span style={{ marginLeft: "auto", fontSize: "11px", padding: "2px 6px", borderRadius: "4px", background: "var(--bg-2)", color: "var(--text-4)" }}>
-                  {tech.level}
-                </span>
-              </div>
-              <p style={{ fontSize: "13px", color: "var(--text-4)", lineHeight: "1.5", margin: 0 }}>
-                {tech.description}
-              </p>
-              {tech.tags && (
-                <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginTop: "10px" }}>
-                  {tech.tags.slice(0, 3).map((tag: string) => (
-                    <span key={tag} style={{ fontSize: "11px", padding: "2px 6px", borderRadius: "10px", background: "var(--bg-2)", color: "var(--text-4)" }}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              )}
+      {/* Domains with their technologies — THE CORRECT STRUCTURE */}
+      {academy.domains.map((domain) => (
+        <div key={domain.slug} style={{ marginBottom: "40px" }}>
+
+          {/* Domain header */}
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px", paddingBottom: "12px", borderBottom: "1px solid var(--border)" }}>
+            <span style={{ fontSize: "20px" }}>{domain.icon}</span>
+            <div>
+              <h2 style={{ fontSize: "18px", fontWeight: 600, margin: 0 }}>{domain.name}</h2>
+              <p style={{ fontSize: "12px", color: "var(--text-4)", margin: 0 }}>{domain.description}</p>
             </div>
-          </Link>
-        ))}
-      </div>
+          </div>
+
+          {/* Technologies grid inside this domain */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "12px" }}>
+            {domain.technologies.map((tech) => (
+              <Link
+                key={tech.slug}
+                href={`/academies/${aSlug}/${tech.slug}`}
+                style={{ textDecoration: "none" }}
+              >
+                <div
+                  style={{
+                    padding: "18px",
+                    borderRadius: "10px",
+                    border: "1px solid var(--border)",
+                    background: "var(--bg-1)",
+                    cursor: "pointer",
+                    height: "100%",
+                  }}
+                  className="card-hover"
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
+                    <span style={{ fontSize: "22px" }}>{tech.icon}</span>
+                    <span style={{ fontWeight: 600, fontSize: "14px" }}>{tech.name}</span>
+                    <span style={{
+                      marginLeft: "auto", fontSize: "10px", padding: "2px 6px",
+                      borderRadius: "4px", background: "var(--bg-2)", color: "var(--text-4)",
+                      whiteSpace: "nowrap",
+                    }}>
+                      {tech.level}
+                    </span>
+                  </div>
+                  <p style={{ fontSize: "12px", color: "var(--text-4)", lineHeight: "1.5", margin: "0 0 8px 0" }}>
+                    {tech.description}
+                  </p>
+                  {tech.tags && (
+                    <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
+                      {tech.tags.slice(0, 3).map((tag: string) => (
+                        <span key={tag} style={{
+                          fontSize: "10px", padding: "2px 6px", borderRadius: "10px",
+                          background: "var(--bg-2)", color: "var(--text-4)",
+                        }}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
