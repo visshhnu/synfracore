@@ -32,7 +32,7 @@ const academies = [
 ];
 
 const techs: Record<string, string[]> = {
-  devops: ["linux", "networking", "shell-scripting", "git", "docker", "kubernetes", "helm", "jenkins", "argocd", "terraform", "ansible", "prometheus", "grafana", "elk-stack", "nginx", "python"],
+  devops: ["linux", "networking", "shell-scripting", "git", "docker", "kubernetes", "helm", "jenkins", "argocd", "terraform", "ansible", "prometheus", "grafana", "elk-stack", "nginx", "python", "openshift"],
   cloud: ["aws-ec2", "aws-s3", "aws-vpc", "aws-iam", "aws-rds", "aws-lambda", "aws-eks", "cloudformation", "route53", "azure-entra", "azure-vms", "azure-vnets", "azure-aks", "azure-devops", "gke", "bigquery", "cloud-run", "cloud-security", "cost-optimization", "landing-zones"],
   databases: ["postgresql", "redis", "mongodb", "mysql", "cassandra", "dynamodb", "elasticsearch", "sql", "oracle"],
   ai: ["ai-fundamentals", "prompt-engineering", "langchain", "rag", "ai-agents", "llmops", "openai"],

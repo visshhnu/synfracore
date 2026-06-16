@@ -110,6 +110,16 @@ const devopsAcademy: Academy = {
         { slug: "nginx", name: "Nginx", icon: "⚡", description: "Web server, reverse proxy, load balancer — config, SSL termination, performance", level: "Intermediate", tags: ["Web Server", "Proxy", "Load Balancer"] },
       ],
     },
+    {
+      slug: "openshift",
+      name: "OpenShift & Enterprise K8s",
+      icon: "🔴",
+      description: "Red Hat OpenShift — enterprise Kubernetes with SCCs, Routes, Operators, and built-in monitoring",
+      color: "#EE0000",
+      technologies: [
+        { slug: "openshift", name: "OpenShift (OCP)", icon: "🔴", description: "Enterprise Kubernetes — SCCs, Routes, Operators, OLM, KubeVirt, Tekton, live migration, and GitOps at scale", level: "Advanced", tags: ["OCP", "Enterprise K8s", "Red Hat", "Telecom"] },
+      ],
+    },
   ],
   technologies: [],
 };
