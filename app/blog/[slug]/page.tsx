@@ -214,11 +214,222 @@ const articles: Record<string, { title: string; tag: string; date: string; readT
       "```bash\n# Cluster health\nkubectl get nodes\nkubectl get pods -A | grep -v Running | grep -v Completed\nkubectl top nodes && kubectl top pods -A\n\n# Events sorted by time\nkubectl get events --sort-by=.lastTimestamp -n <namespace>\n```",
     ]
   },
+
+  "how-to-learn-devops-2026": {
+    title: "How to Learn DevOps in 2026: The Complete Roadmap",
+    tag: "DevOps", date: "January 2026", readTime: "10 min read",
+    body: [
+      "## What DevOps Actually Means in 2026",
+      "DevOps is not a job title or a tool — it is a culture and practice of breaking the wall between development and operations teams. In 2026, every tech company runs on DevOps principles: fast deployments, automated testing, infrastructure as code, and continuous feedback loops.",
+      "## The Correct Learning Order",
+      "Most beginners make the mistake of jumping into Kubernetes before understanding Linux. Here is the sequence that actually gets you hired:\n\n**Phase 1 — Foundation (Months 1-2):** Linux fundamentals, Git, basic networking (TCP/IP, DNS, HTTP), and Python or Bash scripting. Without these, nothing else makes sense.\n\n**Phase 2 — Containers (Month 3):** Docker. Build images, run containers, write Docker Compose files. This is the single most employable skill in the list.\n\n**Phase 3 — Cloud (Months 4-5):** Pick one cloud — AWS for maximum job opportunities. Learn EC2, S3, VPC, IAM, RDS. Get the AWS Solutions Architect Associate certification.\n\n**Phase 4 — Orchestration (Month 6):** Kubernetes. Deployments, Services, ConfigMaps, Secrets, Ingress. Study for CKA.\n\n**Phase 5 — Automation (Months 7-8):** Terraform and Ansible. These appear in almost every DevOps job description.\n\n**Phase 6 — CI/CD and Monitoring (Months 9-10):** Jenkins or GitHub Actions for pipelines. Prometheus and Grafana for monitoring.",
+      "## What to Build to Get Hired",
+      "Projects matter more than certificates. Build these three:\n1. A Dockerized web app deployed on AWS EC2 with a CI/CD pipeline\n2. A Kubernetes cluster on EKS with Helm charts\n3. A Terraform module that provisions a complete AWS environment\n\nPut all three on GitHub with good READMEs. This is what interviewers actually look at.",
+      "## Salary Expectations in 2026 (India)",
+      "Fresher: ₹4-8 LPA. 2-3 years: ₹12-20 LPA. 5+ years: ₹25-45 LPA. Senior/Architect: ₹50-80 LPA. Remote roles for foreign companies: $40,000-$100,000+ USD. OpenShift skills add ₹5-10 LPA premium in telecom and enterprise.",
+      "## Start Today",
+      "Do not wait until you know everything. Deploy your first Docker container today. The rest will follow. Check out the [SynfraCore DevOps Academy](/academies/devops) for the complete structured learning path.",
+    ]
+  },
+  "devops-salary-india-2026": {
+    title: "DevOps Engineer Salary in India 2026: City-wise Breakdown",
+    tag: "Career", date: "February 2026", readTime: "8 min read",
+    body: [
+      "## The Numbers That Matter",
+      "DevOps is one of the highest-paying tech roles in India in 2026. Here is the real data from Naukri, LinkedIn, and community salary surveys.",
+      "## By Experience Level",
+      "| Level | Experience | Salary Range |\n|---|---|---|\n| Fresher | 0-1 year | ₹3.5 - 7 LPA |\n| Junior | 1-3 years | ₹8 - 15 LPA |\n| Mid | 3-5 years | ₹15 - 28 LPA |\n| Senior | 5-8 years | ₹28 - 50 LPA |\n| Lead/Architect | 8+ years | ₹50 - 90 LPA |",
+      "## By City",
+      "**Bengaluru:** India's DevOps capital. Best salaries, most openings. Mid-level: ₹18-30 LPA.\n\n**Hyderabad:** Growing fast. Major AWS, Microsoft, Google offices. Mid-level: ₹15-25 LPA.\n\n**Pune:** Strong DevOps market. Mid-level: ₹14-22 LPA.\n\n**Chennai:** Good opportunities. Mid-level: ₹12-20 LPA.\n\n**Mumbai:** Finance and fintech companies. Mid-level: ₹15-26 LPA.\n\n**Remote:** The game-changer. Indian engineers working for US/EU companies earn ₹40-100 LPA remotely.",
+      "## Skills That Increase Your Salary",
+      "- **Kubernetes + CKA certification:** +₹3-8 LPA premium\n- **AWS with SAA-C03:** +₹2-5 LPA premium\n- **OpenShift (OCP):** +₹5-10 LPA in enterprise/telecom\n- **Terraform + IaC:** +₹3-6 LPA\n- **Platform Engineering:** +₹8-15 LPA over regular DevOps\n- **AI/ML Ops integration:** Emerging, +₹5-15 LPA",
+      "## How to Negotiate",
+      "Always counter-offer. Come with data from Naukri/LinkedIn for your role and city. CKA or AWS SAA certification is worth ₹2-5 LPA in negotiation power alone. Working for a US startup remotely is the highest ROI move — a mid-level engineer at ₹18 LPA locally can earn ₹50-80 LPA remotely.",
+    ]
+  },
+  "openshift-vs-kubernetes-2026": {
+    title: "OpenShift vs Kubernetes 2026: Enterprise Choice Explained",
+    tag: "DevOps", date: "March 2026", readTime: "9 min read",
+    body: [
+      "## OpenShift Is Kubernetes — Plus Enterprise Additions",
+      "OpenShift is not a replacement for Kubernetes — it IS Kubernetes, with enterprise additions. Every kubectl command works on OpenShift (using the oc CLI which is a superset). Same Deployments, Services, ConfigMaps. What OpenShift adds is what enterprises actually need in production.",
+      "## Key Additions Over Vanilla Kubernetes",
+      "**Security Context Constraints (SCCs):** More granular than Kubernetes Pod Security Admission. Battle-tested in highly regulated environments.\n\n**Built-in HAProxy Router (Routes):** No need to install and configure an Ingress controller. Works out of the box with Edge, Passthrough, and Reencrypt TLS modes.\n\n**Cluster Version Operator:** Managed upgrades. `oc adm upgrade` upgrades all components in the right order, rolling nodes one by one. Vanilla Kubernetes upgrades are manual and risky.\n\n**OperatorHub:** One-click installation of certified, Red Hat-supported operators. All tested and supported under one support contract.",
+      "## Where OpenShift Dominates",
+      "**Telecom:** 5G networks, NFV workloads, ORAN. Vodafone, Orange, Nokia deployments are almost universally on OpenShift.\n\n**Banking and Finance:** Compliance, FedRAMP, FIPS 140-2.\n\n**Healthcare:** HIPAA compliance and enterprise support SLAs.\n\n**Government:** Air-gapped deployments with the Agent-based installer.",
+      "## The Job Market Reality",
+      "OpenShift skills command a ₹5-10 LPA premium in enterprise and telecom hiring. Red Hat Certified OpenShift Administrator (EX280) is one of the most valuable certifications for senior DevOps roles in India in 2026.",
+      "## Verdict",
+      "Startups and small teams: managed Kubernetes (EKS, GKE, AKS) — most flexibility at lowest cost. Enterprises with security and compliance requirements: OpenShift. Learn both — start with Kubernetes fundamentals, then OpenShift for enterprise work. Check out our [OpenShift Academy](/academies/devops/openshift) for the complete OCP learning path.",
+    ]
+  },
+  "what-is-rag-2026": {
+    title: "What is RAG? Retrieval-Augmented Generation Explained Simply (2026)",
+    tag: "AI", date: "January 2026", readTime: "8 min read",
+    body: [
+      "## The Problem RAG Solves",
+      "Large Language Models like GPT-4 and Claude know a lot — but they were trained on data up to a certain date, and they do not know anything specific to your organisation: internal documents, customer data, recent updates, proprietary knowledge. RAG (Retrieval-Augmented Generation) solves this by giving the LLM relevant documents at query time.",
+      "## How RAG Works",
+      "```\n1. INGEST (done once):\n   Your documents → split into chunks → convert to vectors (embeddings)\n   → store in a vector database\n\n2. QUERY (every user question):\n   Question → converted to vector → vector DB finds similar chunks\n   → top K chunks + question sent to LLM → answer with context\n```",
+      "## Build a Simple RAG System",
+      "```python\nfrom langchain_community.document_loaders import PyPDFLoader\nfrom langchain.text_splitter import RecursiveCharacterTextSplitter\nfrom langchain_community.vectorstores import Chroma\nfrom langchain_community.embeddings import HuggingFaceEmbeddings\nimport anthropic\n\n# Step 1: Load and split\ndocs = PyPDFLoader('handbook.pdf').load()\nchunks = RecursiveCharacterTextSplitter(chunk_size=500).split_documents(docs)\n\n# Step 2: Create vector store\nvectorstore = Chroma.from_documents(chunks, HuggingFaceEmbeddings())\n\n# Step 3: Answer questions\ndef ask(question):\n    results = vectorstore.similarity_search(question, k=3)\n    context = '\\n\\n'.join([r.page_content for r in results])\n    client = anthropic.Anthropic()\n    msg = client.messages.create(\n        model='claude-sonnet-4-6', max_tokens=1024,\n        messages=[{'role': 'user', 'content': f'Context:\\n{context}\\n\\nAnswer: {question}'}]\n    )\n    return msg.content[0].text\n```",
+      "## RAG vs Fine-tuning",
+      "**Fine-tuning:** Train model on your data — expensive, slow to update, good for style/format adaptation.\n**RAG:** Retrieve context at query time — cheap, always up to date, good for factual Q&A over documents.\n\nFor most enterprise use cases in 2026, RAG is the correct approach. Fine-tune only when RAG cannot solve the problem.",
+      "## Learn More",
+      "See the [AI Academy RAG section](/academies/ai/rag) for hands-on RAG tutorials with code examples.",
+    ]
+  },
+  "gut-health-complete-guide-2026": {
+    title: "Gut Health 2026: The Complete Guide to Your Microbiome",
+    tag: "Health", date: "January 2026", readTime: "10 min read",
+    body: [
+      "## Your Gut Is Your Second Brain",
+      "Your gut contains approximately 100 trillion bacteria — more cells than your entire body. This microbiome influences not just digestion, but your immune system (70% lives in the gut), mental health (90% of serotonin produced in the gut), energy levels, sleep quality, and risk of chronic diseases.",
+      "## Signs of an Unhealthy Gut",
+      "If you experience several of these regularly, your gut health needs attention: frequent bloating or gas, irregular bowel movements, food intolerances that have developed over time, persistent fatigue, poor sleep quality, skin problems (acne, eczema), frequent infections, anxiety or depression, sugar cravings, brain fog.",
+      "## Five Pillars of Gut Health",
+      "**1. Diverse Diet:** Aim to eat 30+ different plant foods per week. Each plant feeds different bacteria, creating a more diverse microbiome. Monday: apple, banana, brown rice, lentils, spinach, garlic, onion = 7 plants already.\n\n**2. Fermented Foods:** Include daily — idli, dosa, dhokla (excellent Indian fermented foods), yogurt with live cultures, kefir, kimchi. These add beneficial bacteria directly.\n\n**3. Prebiotic Foods:** Feed your bacteria — garlic, onion, bananas (slightly underripe), oats, chickpeas, lentils (dal).\n\n**4. Reduce Gut Disruptors:** Ultra-processed foods (chips, biscuits, instant noodles), excess sugar, unnecessary antibiotics, artificial sweeteners.\n\n**5. Lifestyle:** Sleep 7-9 hours (gut has a circadian rhythm), 30 minutes exercise daily, manage chronic stress (biggest microbiome disruptor).",
+      "## A 7-Day Gut Reset",
+      "**Days 1-3:** Remove ultra-processed foods and excess sugar. You may feel worse initially (die-off of bad bacteria — normal).\n**Days 4-7:** Add one serving of fermented food daily. Increase vegetables to half your plate at every meal. Add a handful of nuts or seeds.\n**Ongoing:** Diversity is the goal. If your diet looks the same every day, your microbiome is not diverse.",
+      "## The India Advantage",
+      "Traditional Indian cooking is excellent for gut health: idli and dosa (fermented), turmeric (anti-inflammatory), cumin and coriander (digestive), lentils and chickpeas (prebiotic fibre), fenugreek (methi). Traditional Indian food that is minimally processed is genuinely one of the best gut-health diets in the world.",
+    ]
+  },
+  "mental-health-tech-professionals-2026": {
+    title: "Mental Health for Tech Professionals 2026: Recognising and Preventing Burnout",
+    tag: "Health", date: "February 2026", readTime: "9 min read",
+    body: [
+      "## The Hidden Crisis in Tech",
+      "A 2025 survey found 67% of software engineers experienced burnout in the past year. 42% said mental health issues affected their productivity. Tech culture celebrates overwork — but the consequences are real, serious, and often invisible until they become a crisis.",
+      "## What Burnout Actually Is",
+      "Burnout is not just being tired. It is a state of chronic stress that leads to: physical and emotional exhaustion, cynicism and detachment (you stop caring about your work), and feelings of ineffectiveness. It does not go away with a weekend off. It requires real recovery — often months.",
+      "## Early Warning Signs",
+      "**Cognitive:** Difficulty concentrating, forgetting things you know well, making more errors than usual.\n\n**Emotional:** Irritability, feeling overwhelmed by tasks that used to feel manageable, dread on Sunday evenings, detachment from work you used to enjoy.\n\n**Physical:** Persistent fatigue even after sleep, frequent illness, disrupted sleep.",
+      "## Practical Strategies That Work",
+      "**Set physical work boundaries:** Close the laptop when done. No work Slack on your personal phone.\n\n**Protect your mornings:** Do not check email or Slack until 9 AM. Use the first 30 minutes for yourself.\n\n**Separate identity from work:** Your work is what you do, not who you are. A system outage is not a personal failure.\n\n**Take real vacations:** Checking Slack on vacation is not a vacation.",
+      "## When to Seek Help",
+      "A therapist is not just for crisis moments. In India, online therapy is now widely accessible: iCall (9152987821), YourDOST, InnerHour. Your company EAP (Employee Assistance Program) often includes free sessions — check your benefits. If you are in crisis: Vandrevala Foundation: 1860-2662-345 (24/7).",
+    ]
+  },
+  "postgresql-vs-mysql-2026": {
+    title: "PostgreSQL vs MySQL 2026: Which Database Should You Choose?",
+    tag: "Databases", date: "January 2026", readTime: "8 min read",
+    body: [
+      "## The Short Answer",
+      "For new projects in 2026, choose PostgreSQL. It is more powerful, more standards-compliant, and handles complex queries better. MySQL is right when you specifically need MySQL-compatible tools or are joining an existing MySQL project.",
+      "## Feature Comparison",
+      "| Feature | PostgreSQL | MySQL |\n|---|---|---|\n| JSON support | Native JSONB (indexed, queryable) | JSON type (limited) |\n| Window functions | Full support | Full support (8.0+) |\n| CTEs with recursion | Yes | Yes (8.0+) |\n| Materialized views | Yes | No |\n| Extensions | pgvector, PostGIS, TimescaleDB | Plugin-based |\n| Table inheritance | Yes | No |\n| ACID compliance | Strict | Strict (InnoDB) |",
+      "## PostgreSQL Wins For",
+      "**Complex queries:** Query planner is more sophisticated. Complex JOINs and window functions consistently execute faster.\n\n**JSON workloads:** JSONB is indexed and fully queryable — hybrid relational + document database.\n\n**AI/Vector search:** pgvector extension makes PostgreSQL a vector database — store embeddings alongside your data.\n\n**Extensions:** The ecosystem is unmatched — geographic data (PostGIS), time-series (TimescaleDB), full-text search, vector search all in one database.",
+      "## MySQL Wins For",
+      "Read-heavy web apps where you need maximum concurrent reads. Legacy PHP applications (WordPress, Drupal). Existing teams with deep MySQL expertise. When MySQL-specific tools in your stack require it.",
+      "## Recommendation for 2026",
+      "Start with PostgreSQL for new projects. You get more features, better SQL compliance, and the pgvector extension for AI workloads. See the [PostgreSQL Academy](/academies/databases/postgresql) for fundamentals through advanced.",
+    ]
+  },
+  "cybersecurity-roadmap-2026": {
+    title: "Cybersecurity Roadmap 2026: How to Break Into the Field",
+    tag: "Security", date: "January 2026", readTime: "10 min read",
+    body: [
+      "## Why Cybersecurity in 2026",
+      "Cybersecurity professionals are in higher demand than ever. The global cybersecurity workforce gap exceeds 3.5 million unfilled positions. In India, average salaries range from ₹8-35 LPA depending on specialisation, with significant premium for certified professionals.",
+      "## The Cybersecurity Domains",
+      "**Offensive Security (Red Team):** Penetration testing, ethical hacking, vulnerability assessment. Certification path: CEH → eJPT → OSCP (gold standard).\n\n**Defensive Security (Blue Team):** SOC analyst, threat detection, incident response, SIEM operations. Certification path: CompTIA Security+ → CySA+ → GCIH.\n\n**Cloud Security:** Secure cloud infrastructure. Certification: AWS Security Specialty, CCSP.\n\n**AppSec:** Code review, SAST/DAST, secure development, bug bounty.\n\n**GRC:** ISO 27001, SOC 2, GDPR, PCI-DSS compliance.",
+      "## Learning Path for Beginners",
+      "**Foundation (3 months):** Networking (TCP/IP, DNS, HTTP, TLS), Linux command line, Python scripting, how web apps work.\n\n**Core Security (3 months):** CompTIA Security+ — covers all fundamental security concepts. TryHackMe and HackTheBox for hands-on practice. OWASP Top 10 web vulnerabilities.\n\n**Specialise (6 months):** Choose — offensive (OSCP path) or defensive (SOC analyst path).",
+      "## Free Resources",
+      "TryHackMe (beginner-friendly, gamified), HackTheBox (challenging, real-world), OWASP WebGoat (intentionally vulnerable web app), VulnHub (vulnerable VM practice), Cybrary (free courses).",
+      "## Certifications That Matter",
+      "**Red Team:** OSCP (gold standard), CEH (common in job requirements), eJPT (good start, affordable).\n**Blue Team:** CompTIA Security+ (widely required), CySA+ (analyst-focused), GCIH (incident handling).\n**Cloud:** AWS Security Specialty, CCSP, SC-200.",
+    ]
+  },
+  "dsa-roadmap-2026": {
+    title: "DSA Roadmap 2026: Master Data Structures and Algorithms for FAANG",
+    tag: "Education", date: "January 2026", readTime: "11 min read",
+    body: [
+      "## Why DSA Still Matters in 2026",
+      "Despite debates about whether DSA interviews reflect real work, the reality is that top companies — Google, Meta, Amazon, Microsoft — all use DSA-based interviews. Mastering DSA is the entry ticket.",
+      "## The Learning Order That Works",
+      "**Weeks 1-2:** Arrays and Strings — two pointers, sliding window, prefix sums. 30% of interview problems.\n\n**Weeks 3-4:** Linked Lists — reverse, detect cycle, find middle, merge sorted.\n\n**Weeks 5-6:** Stacks and Queues — monotonic stack, BFS using queue.\n\n**Weeks 7-8:** Binary Search — not just find element. Binary search on answer is one of the most powerful patterns.\n\n**Weeks 9-10:** Trees — BST, DFS, BFS. Most tree questions are DFS variations.\n\n**Weeks 11-12:** Graphs — DFS, BFS, topological sort, union-find.\n\n**Weeks 13-16:** Dynamic Programming — the hardest topic. 1D DP first, then 2D DP, then string DP.",
+      "## Essential Patterns",
+      "```python\n# Two Pointers\ndef two_sum_sorted(arr, target):\n    left, right = 0, len(arr) - 1\n    while left < right:\n        s = arr[left] + arr[right]\n        if s == target: return [left, right]\n        elif s < target: left += 1\n        else: right -= 1\n\n# Sliding Window\ndef max_sum_subarray(arr, k):\n    window_sum = sum(arr[:k])\n    max_sum = window_sum\n    for i in range(k, len(arr)):\n        window_sum += arr[i] - arr[i-k]\n        max_sum = max(max_sum, window_sum)\n    return max_sum\n\n# Binary Search\ndef binary_search(arr, target):\n    left, right = 0, len(arr) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if arr[mid] == target: return mid\n        elif arr[mid] < target: left = mid + 1\n        else: right = mid - 1\n    return -1\n```",
+      "## Practice Plan",
+      "**Months 1-2:** LeetCode Easy — 70-80 problems. Speed is the goal.\n**Months 3-4:** LeetCode Medium — 100-150 problems. This is where most interviews live.\n**Months 5-6:** Company-specific problems + mock interviews.\n\nConsistency beats intensity: 1-2 problems daily beats 500 problems in a 2-month sprint.",
+      "## Mock Interviews Are Non-Negotiable",
+      "Solving problems alone is different from solving them out loud with someone watching. Use Pramp (free peer mock interviews) or interviewing.io. The first few mock interviews are humbling — you realise how different talking through code is from typing it silently. See the [DSA Academy](/academies/education/dsa) for structured practice.",
+    ]
+  },
+  "aws-vs-azure-vs-gcp-2026": {
+    title: "AWS vs Azure vs GCP 2026: Which Cloud Should You Learn First?",
+    tag: "Cloud", date: "January 2026", readTime: "9 min read",
+    body: [
+      "## The Honest Answer",
+      "Learn AWS first. It has 31% market share — more than Azure and GCP combined. The most jobs, tutorials, and community support. Once you understand AWS deeply, Azure and GCP are straightforward to add because the core concepts are identical.",
+      "## Market Share Reality (2026)",
+      "AWS: 31% — first mover, broadest service catalog (200+ services), most enterprise adoption.\nAzure: 24% — Microsoft ecosystem, dominant in enterprises running Windows/Office365/Active Directory.\nGCP: 11% — best data and AI services (BigQuery, Vertex AI, GKE).",
+      "## Service Mapping",
+      "| AWS | Azure | GCP |\n|---|---|---|\n| EC2 | Virtual Machines | Compute Engine |\n| S3 | Blob Storage | Cloud Storage |\n| VPC | Virtual Network | VPC |\n| IAM | Azure AD + RBAC | IAM |\n| EKS | AKS | GKE |\n| Lambda | Azure Functions | Cloud Functions |\n| RDS | Azure Database | Cloud SQL |\n| CloudWatch | Azure Monitor | Cloud Monitoring |",
+      "## When to Learn Azure Instead",
+      "If you work in a Microsoft-heavy enterprise (banks, insurance, government using Active Directory, SQL Server, .NET), Azure is the natural choice. Azure DevOps Pipelines are also widely used even in non-Azure environments.",
+      "## Certification Order",
+      "Start with AWS Certified Solutions Architect Associate (SAA-C03) — most widely recognised cloud certification in hiring. Then add Azure Administrator (AZ-104) or GCP Associate Cloud Engineer as a second. Two cloud certifications puts you ahead of 95% of candidates. See the [Cloud Academy](/academies/cloud) for all cloud learning paths.",
+    ]
+  },
+  "work-life-balance-2026": {
+    title: "Work-Life Balance in Tech 2026: What It Actually Means and How to Find It",
+    tag: "Health", date: "March 2026", readTime: "8 min read",
+    body: [
+      "## Balance Does Not Mean Equal",
+      "Work-life balance does not mean 8 hours work, 8 hours life, 8 hours sleep perfectly divided every day. It means over time, across weeks and months, you are not consistently sacrificing one domain for another. A balanced life absorbs crunch sprints and recovers.",
+      "## The Tech Industry's Balance Problem",
+      "Tech companies have culturally normalised overwork. The data shows: consistent overwork (50+ hours per week) reduces productivity after a few weeks, increases errors, and leads to burnout. More hours worked does not mean better output beyond a threshold.",
+      "## Practical Strategies",
+      "**Fixed stop time:** Commit to a specific work end time (7 PM, 6 PM) and protect it. Not every day will work — but most days should.\n\n**Use your leave:** Indian tech professionals are notoriously bad at taking leave. Take at least one week-long break every 3 months.\n\n**Protect weekends:** At minimum, protect Sunday. No work calls, no code, no Slack. One full day of not working restores resources for the week.\n\n**Async communication norms:** Push for your team to adopt the norm that Slack does not require instant response outside business hours.",
+      "## The Career Trap",
+      "Young developers often optimise entirely for salary — taking the highest-paying offer, working the most hours, chasing promotions. Money matters, but optimising only for it leads to: interesting but exhausting work, neglected relationships, health problems in your 30s, and the realisation in your 40s that you built a career but not a life.\n\nBetter framework: optimise for the combination of interesting work, good team, reasonable hours, and adequate compensation.",
+      "## What Gets Protected, Gets Done",
+      "Scheduled exercise gets done. Scheduled family dinners get done. Scheduled personal learning gets done. What is not scheduled gets squeezed out. Treat your personal time with the same seriousness as your work calendar.",
+    ]
+  },
+  "ansible-vs-terraform-2026": {
+    title: "Ansible vs Terraform 2026: The Real Difference and When to Use Each",
+    tag: "DevOps", date: "February 2026", readTime: "8 min read",
+    body: [
+      "## The Most Common Interview Question",
+      "Every DevOps interview asks this. The real answer that impresses interviewers: you use BOTH, for different things, and they complement each other perfectly.",
+      "## The Core Difference",
+      "**Terraform** creates and manages **infrastructure** — servers, networks, databases, load balancers. It talks to cloud APIs. It provisions the resources your applications will run on.\n\n**Ansible** configures the **software** on that infrastructure — installs packages, deploys application code, manages services, sets configuration files. It talks to servers over SSH.",
+      "## A Real Example",
+      "```bash\n# Terraform creates the EC2 instance\nresource \"aws_instance\" \"web\" {\n  ami           = \"ami-0c55b159cbfafe1f0\"\n  instance_type = \"t3.micro\"\n}\n\n# Ansible configures it after Terraform creates it\n- name: Deploy web application\n  hosts: web_servers\n  tasks:\n    - name: Install nginx\n      yum: { name: nginx, state: present }\n    - name: Start nginx\n      service: { name: nginx, state: started }\n```",
+      "## Decision Table",
+      "| Task | Tool |\n|---|---|\n| Create an EC2 instance | Terraform |\n| Install nginx on it | Ansible |\n| Create an RDS database | Terraform |\n| Configure app to connect to DB | Ansible |\n| Create a VPC with subnets | Terraform |\n| Run a command on 50 servers | Ansible ad-hoc |",
+      "## What to Learn First",
+      "If choosing one: learn Terraform. Infrastructure provisioning is the bottleneck in most teams. Terraform skills transfer across cloud providers. Then add Ansible for configuration management. See the [Terraform Academy](/academies/devops/terraform) and [Ansible Academy](/academies/devops/ansible) for complete learning paths.",
+    ]
+  },
+  "personal-finance-india-2026": {
+    title: "Personal Finance for Indian Developers 2026: Where to Put Your Money",
+    tag: "Health", date: "April 2026", readTime: "10 min read",
+    body: [
+      "## The Advice Most Developers Do Not Get",
+      "Tech professionals in India earn well — but many reach their 30s with little to show for it: no investments, high lifestyle inflation, no plan. This guide is practical, India-specific, and based on what actually works.",
+      "## Step 1: Emergency Fund First",
+      "Before any investments, build 3-6 months of expenses in an FD or liquid mutual fund. If monthly expenses are ₹50,000 → Emergency fund = ₹1,50,000 to ₹3,00,000. This protects you from lifestyle disruption if you lose your job or want to take time off between roles.",
+      "## Step 2: Use All Tax-Saving Instruments",
+      "**EPFO (PF):** Free money — employer contributes. Never withdraw unless absolutely necessary.\n\n**Section 80C (₹1.5 lakh deduction):** PPF (government-backed, 7.1% tax-free returns) + ELSS mutual funds (best if you can handle 3-year lock-in).\n\n**NPS:** Additional ₹50,000 deduction under Section 80CCD(1B). Good for retirement corpus.\n\n**Health insurance:** Always have your own — do not rely only on employer coverage (you lose it when you switch jobs).",
+      "## Step 3: SIP in Index Funds",
+      "70-80% of active mutual fund managers underperform their benchmark index over 10 years. Index funds give you market returns at minimal cost:\n\n- **Nifty 50 Index Fund:** Core holding — top 50 companies\n- **Nifty Next 50 Index Fund:** Higher growth potential\n- **US Index Fund:** Geographic diversification\n\nAutomate your SIP on the 1st of every month, right after salary credit. Increase SIP by 10-15% every year as your salary grows.",
+      "## The Lifestyle Inflation Trap",
+      "Every time you get a raise, invest at least 50% of the increment. Lifestyle can improve, but not faster than your savings rate grows. The engineer who earns ₹20 LPA and invests ₹6 LPA builds more wealth than the one who earns ₹30 LPA and spends ₹28 LPA.",
+    ]
+  },
 };
 
 const tagColors: Record<string, string> = {
   Docker: "#3B82F6", Kubernetes: "#8B5CF6", Terraform: "#7C3AED",
-  Career: "#10B981", AI: "#F59E0B", Cloud: "#06B6D4", DevOps: "#3B82F6", Databases: "#10B981",
+  Career: "#10B981", AI: "#F59E0B", Cloud: "#06B6D4", DevOps: "#3B82F6",
+  Databases: "#10B981", Security: "#EF4444", Health: "#22C55E",
+  Education: "#A855F7", Ansible: "#EF4444", AWS: "#F97316",
 };
 
 export async function generateMetadata({ params }: Props) {

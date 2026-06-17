@@ -963,7 +963,18 @@ const contentRegistry = new Map<string, string>([
   ["exams/upsc-prelims/certification","exams/upsc-prelims/certification"],
   ["exams/upsc-mains/roadmap","exams/upsc-mains/roadmap"],
   ["exams/upsc-mains/projects","exams/upsc-mains/projects"],
-  ["exams/upsc-mains/certification","exams/upsc-mains/certification"]
+  ["exams/upsc-mains/certification","exams/upsc-mains/certification"],
+  // ── OPENSHIFT ──
+  ["devops/openshift/overview","infrastructure/openshift/overview"],
+  ["devops/openshift/fundamentals","infrastructure/openshift/fundamentals"],
+  ["devops/openshift/intermediate","infrastructure/openshift/intermediate"],
+  ["devops/openshift/advanced","infrastructure/openshift/advanced"],
+  ["devops/openshift/interview","infrastructure/openshift/interview"],
+  ["devops/openshift/cheatsheets","infrastructure/openshift/cheatsheets"],
+  ["devops/openshift/labs","infrastructure/openshift/overview"],
+  ["devops/openshift/projects","infrastructure/openshift/advanced"],
+  ["devops/openshift/roadmap","infrastructure/openshift/overview"],
+  ["devops/openshift/certification","infrastructure/openshift/overview"],
 ]);
 
 export function hasContent(a: string, t: string, s: string): boolean {
