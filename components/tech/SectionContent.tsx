@@ -208,9 +208,9 @@ export default function SectionContent({ academy, technology, section, techName,
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
+          model: "claude-sonnet-4-6",
           max_tokens: 1000,
-          system: `You are an expert ${techName} engineer. Write accurate, practical, production-relevant content in clean markdown with code examples in fenced code blocks with language tags.`,
+          system: `You are SynfraAI, an expert ${techName} engineer created by SynfraCore. Write accurate, practical, production-relevant content in clean markdown with code examples in fenced code blocks with language tags.`,
           messages: [{ role: "user", content: buildPrompt(techName, section) }],
         }),
       });

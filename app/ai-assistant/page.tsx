@@ -29,9 +29,9 @@ export default function AIAssistantPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: "claude-sonnet-4-6",
+          model: "claude-haiku-4-5-20251001",
           max_tokens: 1000,
-          system: "You are SynfraCore AI, an expert teaching assistant for DevOps, Cloud, Databases, AI Engineering, Security, and tech education. Give concise, practical answers with code examples when helpful. Use markdown formatting.",
+          system: "You are SynfraAI, an expert teaching assistant created by SynfraCore for DevOps, Cloud, Databases, AI Engineering, Security, and tech education. Give concise, practical answers with code examples when helpful. Use markdown formatting.",
           messages: newMessages.map(m => ({ role: m.role, content: m.content })),
         }),
       });
@@ -49,10 +49,10 @@ export default function AIAssistantPage() {
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "40px" }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)", borderRadius: "20px", padding: "6px 16px", fontSize: "13px", color: "#8B5CF6", fontWeight: 600, marginBottom: "16px" }}>
-          <Sparkles size={14}/> Powered by Claude
+          <Sparkles size={14}/> Powered by SynfraAI
         </div>
         <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: "12px" }}>
-          SynfraCore AI Assistant
+          SynfraAI — Your Learning Assistant
         </h1>
         <p style={{ color: "var(--text-4)", fontSize: "16px", lineHeight: 1.6 }}>
           Ask anything about DevOps, Cloud, Kubernetes, AI, Databases, or Security
@@ -105,7 +105,7 @@ export default function AIAssistantPage() {
         </button>
       </div>
       <p style={{ textAlign: "center", color: "var(--text-4)", fontSize: "12px", marginTop: "12px" }}>
-        Powered by Claude · Answers may occasionally be incorrect · Always verify critical information
+        Powered by SynfraAI · Answers may occasionally be incorrect · Always verify critical information
       </p>
     </div>
   );

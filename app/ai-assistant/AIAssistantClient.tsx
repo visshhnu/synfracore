@@ -107,9 +107,9 @@ export default function AIAssistantClient() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
+          model: "claude-haiku-4-5-20251001",
           max_tokens: 1000,
-          system: `You are SynfraCore AI — an expert DevOps, Cloud, Platform Engineering, and AI Engineering assistant. 
+          system: `You are SynfraAI — an expert DevOps, Cloud, Platform Engineering, and AI Engineering assistant. 
 Specialties: Linux, Docker, Kubernetes, Helm, ArgoCD, Terraform, Ansible, Jenkins, GitHub Actions, AWS, Azure, GCP, Prometheus, Grafana, ELK, Python, LangChain, RAG, LLMOps, Cybersecurity, Data Analytics, Medical Coding.
 Always provide: accurate technical answers, working code examples in fenced blocks with language tags, best practices, and clear structure using markdown.`,
           messages: history,
@@ -133,7 +133,7 @@ Always provide: accurate technical answers, working code examples in fenced bloc
           <Bot size={19} style={{ color: "#fff" }} />
         </div>
         <div>
-          <h1 style={{ fontSize: "15px", fontWeight: 700 }}>SynfraCore AI Assistant</h1>
+          <h1 style={{ fontSize: "15px", fontWeight: 700 }}>SynfraAI Assistant</h1>
           <p style={{ color: "var(--text-4)", fontSize: "12px" }}>Expert in DevOps · Cloud · AI · Kubernetes · Terraform</p>
         </div>
         <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "6px", background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.2)", color: "#34D399", padding: "3px 11px", borderRadius: "100px", fontSize: "11px", fontWeight: 600 }}>
@@ -150,7 +150,7 @@ Always provide: accurate technical answers, working code examples in fenced bloc
               <div style={{ width: "68px", height: "68px", borderRadius: "20px", background: "linear-gradient(135deg, #3B82F6, #8B5CF6)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 18px" }}>
                 <Sparkles size={30} style={{ color: "#fff" }} />
               </div>
-              <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "24px", fontWeight: 700, marginBottom: "10px" }}>SynfraCore AI</h2>
+              <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "24px", fontWeight: 700, marginBottom: "10px" }}>SynfraAI</h2>
               <p style={{ color: "var(--text-4)", fontSize: "15px", maxWidth: "400px", margin: "0 auto" }}>
                 Ask anything about DevOps, Cloud, Kubernetes, Terraform, AWS, Azure, AI Engineering, Cybersecurity, and more.
               </p>

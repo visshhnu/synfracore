@@ -116,7 +116,7 @@ const articles: Record<string, { title: string; tag: string; date: string; readT
     ]
   },
   "rag-beginner-guide": {
-    title: "Build a RAG System in Python: Step-by-Step with Claude API",
+    title: "Build a RAG System in Python: Step-by-Step with SynfraAI",
     tag: "AI", date: "March 2025", readTime: "15 min read",
     body: [
       "## What is RAG and Why You Need It",
@@ -268,7 +268,7 @@ const articles: Record<string, { title: string; tag: string; date: string; readT
     tag: "AI", date: "January 2026", readTime: "8 min read",
     body: [
       "## The Problem RAG Solves",
-      "Large Language Models like GPT-4 and Claude know a lot — but they were trained on data up to a certain date, and they do not know anything specific to your organisation: internal documents, customer data, recent updates, proprietary knowledge. RAG (Retrieval-Augmented Generation) solves this by giving the LLM relevant documents at query time.",
+      "Large Language Models like GPT-4 and Claude/SynfraAI know a lot — but they were trained on data up to a certain date, and they do not know anything specific to your organisation: internal documents, customer data, recent updates, proprietary knowledge. RAG (Retrieval-Augmented Generation) solves this by giving the LLM relevant documents at query time.",
       "## How RAG Works",
       "```\n1. INGEST (done once):\n   Your documents → split into chunks → convert to vectors (embeddings)\n   → store in a vector database\n\n2. QUERY (every user question):\n   Question → converted to vector → vector DB finds similar chunks\n   → top K chunks + question sent to LLM → answer with context\n```",
       "## Build a Simple RAG System",
@@ -691,66 +691,89 @@ export async function generateMetadata({ params }: Props) {
   return { title: `${article.title} | SynfraCore Blog`, description: article.title };
 }
 
+function formatInlineBlog(text: string): string {
+  return text
+    .replace(/`([^`]+)`/g, '<code style="background:var(--bg-2);padding:2px 6px;border-radius:4px;font-family:monospace;font-size:0.9em;color:#60A5FA">$1</code>')
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" style="color:#60A5FA;text-decoration:underline">$1</a>');
+}
+
 function renderLine(line: string, i: number) {
   if (line.startsWith("## ")) return <h2 key={i} style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "22px", margin: "36px 0 12px" }}>{line.slice(3)}</h2>;
   if (line.startsWith("### ")) return <h3 key={i} style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "18px", margin: "28px 0 10px" }}>{line.slice(4)}</h3>;
-  if (line.startsWith("```")) {
-    return null; // handled in renderBody
-  }
-  if (line.startsWith("| ")) {
-    return null; // handled in renderBody
-  }
-  if (line === "") return <br key={i}/>;
-  return <p key={i} style={{ margin: "0 0 14px", lineHeight: 1.85, color: "var(--text-3)" }}>{line}</p>;
+  if (line.match(/^[-*] /)) return <div key={i} style={{ display:"flex", gap:"10px", margin:"4px 0" }}><span style={{ color:"#60A5FA", flexShrink:0, marginTop:"2px" }}>•</span><span style={{ color:"var(--text-3)", fontSize:"15px", lineHeight:1.7 }} dangerouslySetInnerHTML={{ __html: formatInlineBlog(line.slice(2)) }}/></div>;
+  if (line.match(/^\d+\. /)) { const num = line.match(/^(\d+)\. /)?.[1]; return <div key={i} style={{ display:"flex", gap:"10px", margin:"4px 0" }}><span style={{ color:"#60A5FA", flexShrink:0, fontWeight:700, minWidth:"20px" }}>{num}.</span><span style={{ color:"var(--text-3)", fontSize:"15px", lineHeight:1.7 }} dangerouslySetInnerHTML={{ __html: formatInlineBlog(line.replace(/^\d+\. /,"")) }}/></div>; }
+  if (line.startsWith("| ")) return null;
+  if (line.startsWith("```")) return null;
+  if (line === "" || line === "---") return <div key={i} style={{ height:"8px" }}/>;
+  return <p key={i} style={{ margin:"0 0 12px", lineHeight:1.85, color:"var(--text-3)", fontSize:"15px" }} dangerouslySetInnerHTML={{ __html: formatInlineBlog(line) }}/>;
 }
 
 function renderBody(body: string[]) {
+  // Flatten all body items — each item may contain \n-embedded multi-line content
+  const rawLines: string[] = [];
+  for (const item of body) {
+    const expanded = item.split("\n");
+    rawLines.push(...expanded);
+  }
+
   const elements: React.ReactNode[] = [];
   let i = 0;
-  while (i < body.length) {
-    const line = body[i];
+
+  while (i < rawLines.length) {
+    const line = rawLines[i];
+
+    // Code block
     if (line.startsWith("```")) {
-      // Find closing ```
-      let code = "";
+      const lang = line.slice(3).trim();
+      const codeLines: string[] = [];
       i++;
-      while (i < body.length && !body[i].startsWith("```")) {
-        code += body[i] + "\n";
+      while (i < rawLines.length && !rawLines[i].startsWith("```")) {
+        codeLines.push(rawLines[i]);
         i++;
       }
       elements.push(
-        <pre key={i} style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "10px", padding: "20px", overflowX: "auto", fontSize: "13px", lineHeight: 1.7, margin: "16px 0" }}>
-          <code style={{ fontFamily: "'JetBrains Mono',monospace", color: "var(--text-2)" }}>{code}</code>
-        </pre>
+        <div key={`code-${i}`} style={{ margin:"16px 0", borderRadius:"12px", overflow:"hidden", border:"1px solid var(--border)" }}>
+          {lang && <div style={{ background:"var(--bg-2)", padding:"5px 16px", fontSize:"11px", color:"#60A5FA", fontFamily:"monospace", fontWeight:700, letterSpacing:"0.06em", textTransform:"uppercase" as const }}>{lang}</div>}
+          <pre style={{ background:"var(--bg)", padding:"20px", margin:0, overflowX:"auto" as const }}>
+            <code style={{ color:"var(--text-2)", fontSize:"13px", fontFamily:"'JetBrains Mono',monospace", lineHeight:1.75 }}>{codeLines.join("\n")}</code>
+          </pre>
+        </div>
       );
-    } else if (line.startsWith("| ")) {
-      // Collect table rows
+    }
+    // Table
+    else if (line.startsWith("| ")) {
       const rows: string[] = [];
-      while (i < body.length && body[i].startsWith("| ")) {
-        rows.push(body[i]);
+      while (i < rawLines.length && rawLines[i].startsWith("| ")) {
+        rows.push(rawLines[i]);
         i++;
       }
       const [header, , ...dataRows] = rows;
       const headers = header.split("|").filter(Boolean).map(h => h.trim());
       elements.push(
-        <table key={i} style={{ width: "100%", borderCollapse: "collapse", margin: "16px 0", fontSize: "14px" }}>
-          <thead>
-            <tr style={{ borderBottom: "2px solid var(--border)" }}>
-              {headers.map((h, hi) => <th key={hi} style={{ padding: "10px 16px", textAlign: "left", fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700 }}>{h}</th>)}
-            </tr>
-          </thead>
-          <tbody>
-            {dataRows.map((row, ri) => (
-              <tr key={ri} style={{ borderBottom: "1px solid var(--border)" }}>
-                {row.split("|").filter(Boolean).map((c, ci) => (
-                  <td key={ci} style={{ padding: "10px 16px", color: "var(--text-3)" }}>{c.trim()}</td>
-                ))}
+        <div key={`tbl-${i}`} style={{ overflowX:"auto" as const, margin:"16px 0" }}>
+          <table style={{ width:"100%", borderCollapse:"collapse" as const, fontSize:"14px" }}>
+            <thead>
+              <tr style={{ borderBottom:"2px solid var(--border)", background:"var(--bg-2)" }}>
+                {headers.map((h, hi) => <th key={hi} style={{ padding:"10px 16px", textAlign:"left" as const, fontWeight:700 }}>{h}</th>)}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {dataRows.filter(r => !r.includes("---")).map((row, ri) => (
+                <tr key={ri} style={{ borderBottom:"1px solid var(--border)" }}>
+                  {row.split("|").filter(Boolean).map((c, ci) => (
+                    <td key={ci} style={{ padding:"10px 16px", color:"var(--text-3)" }} dangerouslySetInnerHTML={{ __html: formatInlineBlog(c.trim()) }}/>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       );
       continue;
-    } else {
+    }
+    else {
       const el = renderLine(line, i);
       if (el) elements.push(el);
     }
