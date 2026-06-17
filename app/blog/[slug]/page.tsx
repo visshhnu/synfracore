@@ -423,6 +423,258 @@ const articles: Record<string, { title: string; tag: string; date: string; readT
       "Every time you get a raise, invest at least 50% of the increment. Lifestyle can improve, but not faster than your savings rate grows. The engineer who earns ₹20 LPA and invests ₹6 LPA builds more wealth than the one who earns ₹30 LPA and spends ₹28 LPA.",
     ]
   },
+  "terraform-best-practices-2026": {
+    title: "Terraform Best Practices 2026: How Senior Engineers Write IaC",
+    tag: "Terraform", date: "March 2026", readTime: "9 min read",
+    body: [
+      "## What Separates Senior from Junior Terraform",
+      "Junior: one big main.tf, hardcoded values. Senior: modules, remote state, workspaces, CI/CD for infrastructure.",
+      "## 1. Remote State\n```hcl\nterraform {\n  backend \"s3\" {\n    bucket         = \"mycompany-tfstate\"\n    key            = \"production/terraform.tfstate\"\n    region         = \"ap-south-1\"\n    encrypt        = true\n    dynamodb_table = \"terraform-state-lock\"\n  }\n}\n```\nWithout remote state: two engineers apply simultaneously, state diverges, infrastructure becomes unmanageable.",
+      "## 2. Module Structure\n```\nterraform-infra/\n├── modules/vpc/\n├── modules/eks/\n├── modules/rds/\n├── environments/dev/\n└── environments/production/\n```\nSame modules, different variable values per environment.",
+      "## 3. Terraform in CI/CD\nRun `terraform fmt -check`, `terraform validate`, `terraform plan` on every PR. Post plan output as PR comment so infrastructure changes get code review. `terraform apply` only on merge to main with approval. See [Terraform Academy](/academies/devops/terraform) for complete IaC path."
+    ]
+  },
+  "what-is-serverless-2026": {
+    title: "Serverless Computing 2026: What It Is and When to Use It",
+    tag: "Cloud", date: "March 2026", readTime: "8 min read",
+    body: [
+      "## The Real Definition",
+      "Serverless does not mean no servers — it means you do not manage servers. Write a function, upload it, the cloud handles scaling, patching, availability. Pay only for execution time, not idle capacity.",
+      "## AWS Lambda\n```python\ndef handler(event, context):\n    bucket = event['Records'][0]['s3']['bucket']['name']\n    key    = event['Records'][0]['s3']['object']['key']\n    process_file(bucket, key)\n    return {'statusCode': 200}\n# Triggered on S3 upload. Runs 200ms. Zero cost when idle.\n```",
+      "## When Serverless is Right\n- Event-driven: image resizing, webhook handlers, email notifications\n- Scheduled tasks replacing cron jobs\n- Unpredictable traffic: auto-scales 0 to 10,000 concurrently\n- Startup economics: zero cost at zero traffic",
+      "## When Serverless is Wrong\n- Long-running processes (Lambda max 15 minutes) — use EC2 or ECS\n- Cold starts matter (1-3s idle startup) — unacceptable for latency-sensitive APIs\n- High consistent volume — containers often cheaper at scale\n\nSee [Lambda Academy](/academies/cloud/aws-lambda) for deep dive."
+    ]
+  },
+  "cloud-cost-optimization-2026": {
+    title: "Cloud Cost Optimization 2026: Cut Your AWS Bill by 40%",
+    tag: "Cloud", date: "April 2026", readTime: "10 min read",
+    body: [
+      "## The Problem Nobody Talks About",
+      "The average company wastes 30-35% of cloud spend on unused or over-provisioned resources. Here is how to find and fix it systematically.",
+      "## Step 1: Find Where Money Goes\n```bash\naws ce get-cost-and-usage \\\n  --time-period Start=2026-01-01,End=2026-01-31 \\\n  --granularity MONTHLY --metrics BlendedCost \\\n  --group-by Type=DIMENSION,Key=SERVICE\n# Typical: EC2 40-50%, RDS 20-25%, Data transfer 10-15%\n```",
+      "## Step 2: Right-Size Instances\nInstances below 20% average CPU are candidates for downsizing. An m5.xlarge at 15% CPU should be t3.large — 40% cost reduction. Use AWS Compute Optimizer for automated recommendations.",
+      "## Step 3: Reserved Instances\n- 1-year No Upfront: 30-40% savings over on-demand\n- 3-year No Upfront: 45-55% savings\n- Compute Savings Plans: most flexible, applies automatically\n\nFor instances running 1+ years, reservations are mandatory — on-demand for those is just waste.",
+      "## Quick Wins This Week\n1. Delete unattached EBS volumes and Elastic IPs\n2. Delete EC2 snapshots older than 90 days\n3. Turn off dev/test environments nights and weekends (saves 65%)\n4. Migrate gp2 EBS to gp3 — same performance, 20% cheaper\n5. S3 lifecycle: Standard to Glacier after 90 days (80% cheaper)\n6. Set a Budget alert at your monthly threshold"
+    ]
+  },
+  "aws-networking-vpc-2026": {
+    title: "AWS VPC Networking 2026: Complete Guide for DevOps Engineers",
+    tag: "Cloud", date: "May 2026", readTime: "11 min read",
+    body: [
+      "## VPC is the Foundation of Everything on AWS",
+      "Every EC2 instance, RDS database, and EKS cluster lives inside a VPC. Get networking wrong and nothing else works correctly.",
+      "## Standard Architecture\n```\nVPC (10.0.0.0/16)\n├── Public Subnets  (10.0.1.x, 10.0.2.x) — ALB, NAT Gateway\n├── Private Subnets (10.0.11.x, 10.0.12.x) — EC2, EKS nodes\n└── Database Subnets (10.0.21.x, 10.0.22.x) — RDS, ElastiCache\nSpread across 2-3 Availability Zones for HA\n```",
+      "## Key Components\n- **Internet Gateway:** Allows public subnet resources to reach internet\n- **NAT Gateway:** Private subnets initiate outbound connections without being publicly reachable. ~$0.05/hour — one per AZ for HA\n- **Security Groups:** Stateful firewall per resource. Default: deny all inbound\n- **Route Tables:** Public subnets → IGW. Private subnets → NAT Gateway",
+      "## Build with Terraform\n```hcl\nresource \"aws_vpc\" \"main\" {\n  cidr_block = \"10.0.0.0/16\"\n  enable_dns_hostnames = true\n  tags = { Name = \"production-vpc\" }\n}\n```\n\nCommon mistakes: too-small CIDRs, databases in public subnets, single AZ, overlapping CIDRs preventing VPC peering. See [AWS VPC Academy](/academies/cloud/aws-vpc)."
+    ]
+  },
+  "gcp-bigquery-guide-2026": {
+    title: "GCP BigQuery 2026: Serverless Data Warehouse That Processes Petabytes",
+    tag: "Cloud", date: "June 2026", readTime: "9 min read",
+    body: [
+      "## Why BigQuery Wins for Data Analytics",
+      "Serverless — no infrastructure to manage. Query petabytes in seconds with standard SQL. Pay per query ($5/TB, first 1TB/month free). Google invented MapReduce; BigQuery is the production-grade evolution.",
+      "## First Query — No Setup Needed\n```sql\nSELECT country_name, SUM(cumulative_confirmed) AS total_cases\nFROM `bigquery-public-data.covid19_open_data.covid19_open_data`\nWHERE date = '2022-01-01'\nGROUP BY country_name ORDER BY total_cases DESC LIMIT 10;\n-- Returns in seconds on millions of rows. Hits free tier.\n```",
+      "## Cost Optimization with Partitioning\n```sql\nCREATE TABLE myproject.dataset.events\nPARTITION BY DATE(event_timestamp)\nAS SELECT * FROM source_table;\n\n-- Only scans Jan 2026 partitions, not entire table\nSELECT * FROM myproject.dataset.events\nWHERE DATE(event_timestamp) >= '2026-01-01';\n-- 90% less data scanned = 90% lower cost\n```",
+      "## When to Choose GCP\n- Data warehouse at scale — BigQuery pricing beats Redshift running 24/7\n- Python-heavy teams — Vertex AI Workbench is the best managed notebook\n- Real-time analytics — Pub/Sub + Dataflow + BigQuery is mature\n- ML at scale — Vertex AI ahead of SageMaker in 2026\n\nSee [BigQuery Academy](/academies/cloud/bigquery)."
+    ]
+  },
+  "langchain-tutorial-2026": {
+    title: "LangChain Tutorial 2026: Build AI Applications in Python",
+    tag: "AI", date: "February 2026", readTime: "10 min read",
+    body: [
+      "## What is LangChain?",
+      "LangChain is a Python framework for building LLM applications. It provides components for connecting to LLMs, loading documents, splitting text, vector stores, chains, agents, and memory. Think of it as the React of AI development.",
+      "## LCEL — The Modern Way\n```python\nfrom langchain_anthropic import ChatAnthropic\nfrom langchain_core.prompts import ChatPromptTemplate\nfrom langchain_core.output_parsers import StrOutputParser\n\nllm    = ChatAnthropic(model='claude-sonnet-4-6')\nprompt = ChatPromptTemplate.from_template('Explain {topic} simply.')\nchain  = prompt | llm | StrOutputParser()\n\nresult = chain.invoke({'topic': 'Kubernetes pods'})\nprint(result)\n```",
+      "## RAG Chain in 10 Lines\n```python\nfrom langchain_community.vectorstores import Chroma\nfrom langchain_core.runnables import RunnablePassthrough\n\nretriever = vectorstore.as_retriever()\nrag_chain = (\n    {'context': retriever, 'question': RunnablePassthrough()}\n    | ChatPromptTemplate.from_template(\n        'Answer based on context:\\n{context}\\nQuestion: {question}')\n    | llm | StrOutputParser()\n)\nprint(rag_chain.invoke('What is our refund policy?'))\n```",
+      "## Debug with LangSmith\nSet LANGCHAIN_TRACING_V2=true — every chain call is traced: inputs, outputs, latency, token usage, errors. Essential for production debugging. See [LangChain Academy](/academies/ai/langchain)."
+    ]
+  },
+  "llmops-production-2026": {
+    title: "LLMOps 2026: Running AI Applications in Production",
+    tag: "AI", date: "March 2026", readTime: "10 min read",
+    body: [
+      "## What is LLMOps?",
+      "LLMOps is MLOps for Large Language Models — practices, tools, and processes for deploying and maintaining LLM-powered applications at production scale.",
+      "## The Stack in 2026\n- Application framework: LangChain / LlamaIndex\n- Tracing: LangSmith, Phoenix/Arize\n- Inference: Anthropic/OpenAI APIs, or vLLM/Ollama for self-hosted\n- Vector stores: Chroma, Qdrant, pgvector\n- Caching: Redis for response caching\n- Monitoring: Grafana for cost/latency dashboards",
+      "## Cost Monitoring\n```python\nresponse = client.messages.create(\n    model='claude-haiku-4-5',  # cheaper for simple tasks\n    max_tokens=500,\n    messages=[{'role': 'user', 'content': prompt}]\n)\ncost = (response.usage.input_tokens * 0.0000008) + \\\n       (response.usage.output_tokens * 0.000004)\nprint(f'Cost: ${cost:.6f}')\n# Cache identical responses in Redis — major cost reduction\n```",
+      "## Prompt Version Control and Evaluation\nPrompts are code. Store in Git or LangSmith. Test before deploying — use Claude-as-judge automated evaluation. Track accuracy on a test dataset before every prompt change. You cannot improve what you cannot measure. See [LLMOps Academy](/academies/ai/llmops)."
+    ]
+  },
+  "vector-databases-2026": {
+    title: "Vector Databases 2026: The Foundation of AI Search and RAG",
+    tag: "AI", date: "April 2026", readTime: "9 min read",
+    body: [
+      "## Why Vector Databases Exist",
+      "Traditional databases search by exact match. Vector databases search by meaning — find semantically similar documents even if they share no words. Powers RAG, semantic search, recommendation engines.",
+      "## How It Works\n```\n'What is Kubernetes?' → [0.23, -0.45, 0.67, ...] (1536 numbers)\n'Introduction to K8s' → [0.24, -0.43, 0.65, ...]  very similar\n'Best pizza recipes'  → [-0.12, 0.89, -0.33, ...]  very different\n```\nVector search finds documents with similar vectors using ANN (Approximate Nearest Neighbor) algorithms.",
+      "## Popular Databases in 2026\n| Database | Best For |\n|---|---|\n| Chroma | Development, getting started |\n| Qdrant | Production, high performance |\n| Pinecone | Fully managed, easiest setup |\n| pgvector | Already using PostgreSQL |",
+      "## Semantic Search Example\n```python\nfrom qdrant_client import QdrantClient\nfrom sentence_transformers import SentenceTransformer\n\nmodel  = SentenceTransformer('all-MiniLM-L6-v2')\nclient = QdrantClient(':memory:')\n# Index documents, then search:\nresults = client.search('docs',\n    query_vector=model.encode('container orchestration').tolist(), limit=2)\nfor r in results:\n    print(f'Score: {r.score:.3f} | {r.payload[\"text\"]}')\n```\n\nIf you already run PostgreSQL, use pgvector — no new infrastructure needed. See [AI Academy](/academies/ai)."
+    ]
+  },
+  "ai-engineering-roadmap-2026": {
+    title: "AI Engineer Roadmap 2026: From Developer to AI Engineer",
+    tag: "AI", date: "May 2026", readTime: "10 min read",
+    body: [
+      "## What is an AI Engineer?",
+      "Builds products powered by AI. Unlike ML researchers who build models, AI engineers use existing models (Claude, GPT-4, Llama) via APIs and focus on: prompting, RAG, agents, evaluation, and production deployment.",
+      "## The Stack You Need\n- Foundation: Python, REST APIs, SQL, basic statistics\n- LLM Fundamentals: tokens, context windows, embeddings, prompt engineering\n- Core Skills: RAG, tool use/function calling, LangChain, vector databases, LLM evaluation\n- Production: LLMOps, cost monitoring, caching, streaming, API design\n- Advanced: multi-modal, AI agents with memory, fine-tuning (LoRA)",
+      "## Salaries in 2026 (India)\n| Level | Experience | Salary |\n|---|---|---|\n| Junior | 0-2 years | Rs 8-18 LPA |\n| Mid | 2-5 years | Rs 20-45 LPA |\n| Senior | 5-8 years | Rs 45-90 LPA |\n\nFor remote international roles, multiply 3-5x.",
+      "## 6-Month Path\n- Months 1-2: Get comfortable with Claude and OpenAI APIs. Build 5-10 small apps\n- Month 3: Build a complete RAG system (document Q&A)\n- Month 4: Build agents with real tool use\n- Month 5: Deploy with monitoring and cost tracking\n- Month 6: One substantial portfolio project — full stack AI app with evaluation\n\nSee [AI Academy](/academies/ai) for structured learning path."
+    ]
+  },
+  "redis-use-cases-2026": {
+    title: "Redis 2026: Six Production Use Cases Every Developer Should Know",
+    tag: "Databases", date: "February 2026", readTime: "7 min read",
+    body: [
+      "## What is Redis?",
+      "Redis is an in-memory data store. Data lives in RAM — reads and writes happen in microseconds. 100-1000x faster than disk-based databases for the right use cases.",
+      "## Use Case 1: Caching\n```python\nimport redis, json\nr = redis.Redis(host='localhost', port=6379)\n\ndef get_user(user_id):\n    cached = r.get(f'user:{user_id}')\n    if cached: return json.loads(cached)\n    user = db.query('SELECT * FROM users WHERE id = %s', user_id)\n    r.setex(f'user:{user_id}', 300, json.dumps(user))\n    return user\n```",
+      "## Use Case 2: Rate Limiting\n```python\ndef is_rate_limited(user_id, limit=100, window=60):\n    key = f'ratelimit:{user_id}'\n    count = r.incr(key)\n    if count == 1: r.expire(key, window)\n    return count > limit\n```",
+      "## Use Cases 3-6\n**Leaderboards:** `r.zadd('scores', {'player_A': 1500}); r.zrevrange('scores', 0, 9, withscores=True)`\n\n**Session Storage:** Store with TTL — any app server reads them, scales horizontally.\n\n**Pub/Sub Messaging:** Publish events, subscribe from other services.\n\n**Distributed Locks:** `r.lock('order_lock', timeout=10)` — prevent race conditions across servers.",
+      "## When NOT to Use Redis\nRedis is not a primary database — use alongside PostgreSQL. Data must survive restarts? Persistent database. Data larger than RAM? Disk-based storage. See [Redis Academy](/academies/databases/redis)."
+    ]
+  },
+  "mongodb-beginners-2026": {
+    title: "MongoDB 2026: When to Use Document Database and How to Start",
+    tag: "Databases", date: "March 2026", readTime: "8 min read",
+    body: [
+      "## When MongoDB Makes Sense",
+      "Use when: data structure varies between documents, you need nested objects without JOINs, or data is document-like by nature (articles, user profiles with variable fields).\n\nDo NOT use when: data has clear relationships benefiting from JOINs, you need ACID transactions across multiple collections, or you are unsure — default to PostgreSQL.",
+      "## CRUD Operations\n```javascript\nconst users = db.collection('users');\n// Insert\nawait users.insertOne({ name: 'Alice', tags: ['admin'], address: { city: 'Chennai' } });\n// Query nested fields\nconst result = await users.find({ 'address.city': 'Chennai' }).toArray();\n// Update with operators\nawait users.updateOne(\n  { name: 'Alice' },\n  { $set: { 'address.city': 'Mumbai' }, $push: { tags: 'superadmin' } }\n);\n```",
+      "## Aggregation Pipeline\n```javascript\nconst result = await orders.aggregate([\n  { $match: { date: { $gte: new Date('2026-01-01') } } },\n  { $group: { _id: '$status', count: { $sum: 1 }, avg: { $avg: '$amount' } } },\n  { $sort: { count: -1 } }\n]).toArray();\n```",
+      "## Common Anti-Patterns\n- Unbounded arrays (16MB document limit)\n- Using $lookup everywhere (if you JOIN constantly, use PostgreSQL)\n- Missing indexes (MongoDB scans without them, same as SQL)\n\nSee [MongoDB Academy](/academies/databases/mongodb)."
+    ]
+  },
+  "elasticsearch-guide-2026": {
+    title: "Elasticsearch 2026: Full-Text Search and Log Analytics Guide",
+    tag: "Databases", date: "April 2026", readTime: "9 min read",
+    body: [
+      "## What is Elasticsearch?",
+      "Distributed search and analytics engine — the E in the ELK stack. Exceptionally fast at full-text search and real-time analytics over large datasets.",
+      "## Quick Start\n```bash\ndocker run -d -p 9200:9200 \\\n  -e 'discovery.type=single-node' \\\n  -e 'xpack.security.enabled=false' \\\n  elasticsearch:8.12.0\n\ncurl -X POST http://localhost:9200/articles/_doc \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"title\": \"Docker Guide\", \"content\": \"Docker packages apps\", \"tags\": [\"devops\"]}'\n```",
+      "## Python Search\n```python\nfrom elasticsearch import Elasticsearch\nes = Elasticsearch('http://localhost:9200')\n\nresults = es.search(index='articles', body={\n    'query': {'bool': {\n        'must':   [{'match': {'content': 'kubernetes pods'}}],\n        'filter': [{'terms': {'tags': ['devops']}}]\n    }}\n})\nfor hit in results['hits']['hits']:\n    print(f\"Score: {hit['_score']} | {hit['_source']['title']}\")\n```",
+      "## ES vs PostgreSQL Full-Text Search\nPostgreSQL full-text works for under 10M documents with simple requirements. Use Elasticsearch for: advanced relevance tuning, faceted search, auto-complete, complex aggregations, or log analytics with Kibana.\n\nSee [ELK Academy](/academies/devops/elk-stack) for full ELK stack setup guide."
+    ]
+  },
+  "sql-interview-questions-2026": {
+    title: "Top 40 SQL Interview Questions 2026: Complete Answers",
+    tag: "Databases", date: "May 2026", readTime: "13 min read",
+    body: [
+      "## Core Concepts (Q1-Q10)",
+      "**Q1: WHERE vs HAVING?** WHERE filters rows before grouping. HAVING filters groups after GROUP BY and can use aggregates.\n\n**Q2: DELETE vs TRUNCATE vs DROP?** DELETE: removes specific rows, can roll back. TRUNCATE: removes all rows fast, DDL. DROP: removes table and structure entirely.\n\n**Q3: What are window functions?** Calculations across rows without collapsing them. ROW_NUMBER(), RANK(), DENSE_RANK(), LAG(), LEAD(), SUM() OVER().\n\n**Q4: RANK() vs DENSE_RANK()?** RANK() leaves gaps after ties: 1,1,3. DENSE_RANK() no gaps: 1,1,2. Use DENSE_RANK for Nth highest.\n\n**Q5: What is a CTE?** Common Table Expression — WITH clause. Makes complex queries readable. Supports recursion for hierarchical data.",
+      "## Window Functions in Practice (Q11-Q20)",
+      "**Q11: 3rd highest salary.**\n```sql\nSELECT DISTINCT salary FROM (\n    SELECT salary, DENSE_RANK() OVER (ORDER BY salary DESC) AS rnk\n    FROM employees\n) t WHERE rnk = 3;\n```\n\n**Q12: Employees earning more than manager.**\n```sql\nSELECT e.name FROM employees e\nJOIN employees m ON e.manager_id = m.id\nWHERE e.salary > m.salary;\n```\n\n**Q13: Running total.**\n```sql\nSELECT date, amount, SUM(amount) OVER (ORDER BY date) AS running_total\nFROM sales;\n```",
+      "## Performance (Q21-Q30)",
+      "**Q21: How does an index work?** B-tree stores values sorted with row pointers. O(log n) lookup vs O(n) full scan. Speeds SELECT, slows INSERT/UPDATE/DELETE.\n\n**Q22: What is EXPLAIN ANALYZE?** Shows actual execution plan with timing. Look for Seq Scan on large tables (missing index) and high rows removed by filter.\n\n**Q23: Composite index leftmost prefix rule.**\n```sql\nCREATE INDEX idx ON orders(user_id, status);\n-- Uses index: WHERE user_id=1 AND status='pending'\n-- Uses index: WHERE user_id=1\n-- Does NOT use: WHERE status='pending' (skips user_id)\n```",
+      "## Advanced (Q31-Q40)",
+      "**Q31: Deadlock?** Thread A holds Lock 1 waits Lock 2. Thread B holds Lock 2 waits Lock 1. Both wait forever. Prevention: always acquire locks in the same order.\n\n**Q32: ACID?** Atomicity: all or nothing. Consistency: valid state to valid state. Isolation: concurrent transactions don't interfere. Durability: committed data survives crashes.\n\n**Q33: Materialized view?** Stored cached query result — fast to read, refresh manually: REFRESH MATERIALIZED VIEW my_view.\n\n**Q34: UNION vs UNION ALL?** UNION removes duplicates (slower). UNION ALL keeps all rows (faster).\n\nSee [SQL Academy](/academies/databases/sql) for hands-on practice."
+    ]
+  },
+  "owasp-top-10-2026": {
+    title: "OWASP Top 10 2026: Critical Web Security Every Developer Must Know",
+    tag: "Security", date: "February 2026", readTime: "10 min read",
+    body: [
+      "## Why Every Developer Must Know This",
+      "The OWASP Top 10 is the most referenced web application security list. Every security audit, penetration test, and compliance framework references it. If you write web applications, you are responsible for preventing these.",
+      "## 1. Broken Access Control (Most Critical)\n```python\n# VULNERABLE\n@app.route('/api/users/<int:user_id>')\ndef get_user(user_id):\n    return db.get_user(user_id)  # no ownership check!\n\n# SECURE\n@app.route('/api/users/<int:user_id>')\n@login_required\ndef get_user(user_id):\n    if current_user.id != user_id and not current_user.is_admin:\n        abort(403)\n    return db.get_user(user_id)\n```",
+      "## 2. SQL Injection\n```python\n# VULNERABLE — never do this\nquery = f\"SELECT * FROM users WHERE name = '{user_input}'\"\n\n# SAFE — parameterised queries\ncursor.execute('SELECT * FROM users WHERE name = %s', (user_input,))\n```",
+      "## 3. Cryptographic Failures\n```python\n# WRONG — MD5 is crackable in seconds\nhash = md5(password).hexdigest()\n\n# CORRECT — bcrypt with work factor\nfrom bcrypt import hashpw, gensalt\nhashed = hashpw(password.encode(), gensalt(rounds=12))\n```",
+      "## 4-10 Summary\n**#4 Insecure Design:** Missing rate limiting, no account lockout.\n**#5 Misconfiguration:** Default passwords, verbose errors.\n**#6 Vulnerable Components:** pip audit, npm audit, Dependabot.\n**#7 Auth Failures:** Implement MFA. Secure password reset.\n**#8 Integrity Failures:** Verify CI/CD artifacts.\n**#9 Logging Failures:** Log all auth events, alert on anomalies.\n**#10 SSRF:** Validate URLs your server fetches from user input.\n\nSee [Security Academy](/academies/security) for hands-on labs."
+    ]
+  },
+  "devsecops-guide-2026": {
+    title: "DevSecOps 2026: Security Inside Your CI/CD Pipeline",
+    tag: "Security", date: "March 2026", readTime: "10 min read",
+    body: [
+      "## What is DevSecOps?",
+      "Security integrated into every stage of development and deployment — not bolted on at the end. Catch vulnerabilities early when they are cheapest to fix.",
+      "## The Pipeline\n- Code: SAST (scan source code — Semgrep, SonarQube)\n- Build: SCA (dependency CVE scan — pip-audit, npm audit)\n- Package: Image Scan (Trivy, Snyk)\n- Deploy: IaC Scan (Checkov for Terraform/K8s manifests)\n- Runtime: Falco (container behaviour monitoring)",
+      "## GitHub Actions Security Jobs\n```yaml\njobs:\n  security:\n    steps:\n    - uses: returntocorp/semgrep-action@v1\n      with: { config: 'p/owasp-top-ten' }\n\n    - run: pip-audit requirements.txt --fail-on HIGH\n\n    - run: docker build -t myapp:${{ github.sha }} .\n    - uses: aquasecurity/trivy-action@master\n      with:\n        image-ref: myapp:${{ github.sha }}\n        severity: CRITICAL,HIGH\n        exit-code: '1'\n\n    - uses: bridgecrewio/checkov-action@master\n      with: { directory: terraform/ }\n```",
+      "## Secret Scanning and Runtime Security\n```bash\n# Prevent committing secrets\ngit secrets --install && git secrets --register-aws\ngitleaks detect --source . --report-path report.sarif\n```\n\n```yaml\n# Falco — alert on suspicious container behaviour\n- rule: Shell in Production Container\n  condition: container and proc.name in (bash, sh)\n  output: 'Shell opened (user=%user.name container=%container.name)'\n  priority: WARNING\n```\nSee [Security Academy](/academies/security) for hands-on labs."
+    ]
+  },
+  "gate-cse-2026": {
+    title: "GATE CSE 2026: Complete Preparation Strategy",
+    tag: "Education", date: "February 2026", readTime: "11 min read",
+    body: [
+      "## What GATE CSE Opens For You",
+      "M.Tech at IITs/NITs (subsidised + Rs 12,400/month scholarship), PSU government jobs (BHEL, AAI, DRDO, BARC — Rs 60-80K+ monthly), and private company hiring. A top-1000 rank transforms your career options.",
+      "## Syllabus Weightage\n| Topic | Marks | Priority |\n|---|---|---|\n| Engineering Mathematics | 10-15 | Very High |\n| Algorithms + Data Structures | 12-20 | Very High |\n| OS + DBMS + Networks | 18-28 | Very High |\n| Theory of Computation | 8-12 | High |\n| Digital Logic + CO | 10-14 | High |\n| Programming (C) | 6-8 | High |",
+      "## 12-Month Plan\n**Months 1-3:** Engineering Mathematics + Digital Logic + C Programming. Foundational — everything builds on these.\n\n**Months 4-6:** Data Structures + Algorithms + Theory of Computation. Most challenging — maximum time here.\n\n**Months 7-9:** OS + Computer Organisation + DBMS + Computer Networks.\n\n**Months 10-11:** Full revision + previous year papers 2010-2025.\n\n**Month 12:** Full mock tests. 3 hours, timed, no breaks, analyse every mistake.",
+      "## Most Important Practice",
+      "Solving previous 10 years of GATE CSE papers is the single highest-impact activity. Questions repeat patterns. Free on the GATE website. Most toppers say previous papers gave them the biggest rank jump.\n\nCommon mistakes: skipping Engineering Maths (10-15 marks), ignoring C programming, not doing previous years, starting too late (need 6-12 months). See [GATE CSE Academy](/academies/exams/gate-cse)."
+    ]
+  },
+  "system-design-interview-2026": {
+    title: "System Design Interview 2026: How to Crack the Most Important Round",
+    tag: "Education", date: "March 2026", readTime: "12 min read",
+    body: [
+      "## Why System Design Is Different",
+      "DSA has correct answers. System design has trade-offs. Interviewers evaluate: can you gather requirements, understand scale, apply distributed systems patterns, and clearly articulate trade-offs.",
+      "## The RESHADED Framework\n- **R**equirements: Functional + non-functional (scale, latency, availability)\n- **E**stimation: Traffic, storage, bandwidth\n- **S**torage: Database choice, schema\n- **H**igh-level design: Core components and connections\n- **A**PIs: Define contracts\n- **D**eep dive: Hardest components\n- **E**valuation: Review against requirements\n- **D**iscuss: Trade-offs and alternatives",
+      "## Example: Design YouTube\n**Estimation:** 500 hours video/min x 60 x 24 = ~500TB/day upload. 5B views/day = ~58K peak req/sec.\n\n**High-Level Design:**\n```\nClient → CDN (video delivery)\n       → API Gateway\n         → Upload → Video Processing → S3\n         → Streaming → CDN\n         → Search → Elasticsearch\n         → Metadata → PostgreSQL\n```",
+      "## Numbers to Know\n```\nMemory access: ~100ns\nSSD read:      ~100us\nNetwork:       ~1ms (same DC)\nMySQL:         ~1000 QPS with indexing\nRedis:         ~100,000 QPS\nKafka:         ~1M msg/s per partition\n```\n\nResources: Designing Data-Intensive Applications (Kleppmann), System Design Primer (GitHub, free), ByteByteGo YouTube. See [System Design Academy](/academies/education/system-design)."
+    ]
+  },
+  "java-interview-2026": {
+    title: "Java Interview Questions 2026: Top 40 With Detailed Answers",
+    tag: "Education", date: "April 2026", readTime: "13 min read",
+    body: [
+      "## Core Java (Q1-Q15)",
+      "**Q1: JDK vs JRE vs JVM?** JVM: executes bytecode. JRE: JVM + class libraries, for running. JDK: JRE + compiler + tools, for developing.\n\n**Q2: String immutability?** Strings cannot be modified after creation. str = str + ' world' creates a NEW object. Benefits: thread-safe, usable as HashMap keys, enables string pool optimisation.\n\n**Q3: HashMap vs Hashtable?** HashMap: not synchronised, allows null key, faster. Hashtable: synchronised, no nulls, legacy. Use ConcurrentHashMap for thread-safe maps.\n\n**Q4: How does HashMap work internally?** Array of buckets. hashCode() determines bucket index. Collisions use linked list. Java 8+: converts to red-black tree at length 8 — O(n) to O(log n).\n\n**Q5: == vs .equals()?** == compares references (memory addresses). .equals() compares content. ALWAYS use .equals() for String comparison.",
+      "## OOP (Q16-Q25)",
+      "**Q16: Abstract class vs interface?** Abstract: constructors, instance vars, concrete methods, single inheritance. Interface: multiple implementation, default/static methods (Java 8+). Abstract for shared code, interface for contracts.\n\n**Q17: Overloading vs overriding?** Overloading: same name, different params, compile-time. Overriding: child redefines parent method, runtime. Cannot override static, final, private methods.\n\n**Q18: What is polymorphism?** One interface, multiple implementations. Compile-time (overloading) and runtime (overriding). Core OOP pillar enabling flexible, extensible code.",
+      "## Multithreading (Q26-Q35)",
+      "**Q26: Thread vs Runnable?** Extending Thread prevents extending other classes. Implementing Runnable allows extending another class. Always prefer Runnable or Callable.\n\n**Q27: What is synchronized?** Prevents multiple threads executing a block simultaneously. Each object has an intrinsic lock. Prefer java.util.concurrent alternatives for performance.\n\n**Q28: What is a deadlock?** Thread A holds Lock 1 waits Lock 2. Thread B holds Lock 2 waits Lock 1. Prevention: always acquire locks in the same order.",
+      "## Java 8+ Features (Q36-Q40)",
+      "**Q36: Lambda expressions?** Anonymous functions: `Runnable r = () -> System.out.println(Hello)` — no anonymous class needed.\n\n**Q37: Stream API?** Functional operations on collections, lazy: `list.stream().filter(x -> x > 0).map(x -> x * 2).collect(toList())`\n\n**Q38: Optional?** Container for a value that may be null. `opt.orElse(default)`, `opt.ifPresent(consumer)` — avoids NullPointerException.\n\n**Q39: CompletableFuture?** Async computation: `CompletableFuture.supplyAsync(() -> fetchData()).thenApply(data -> process(data))`\n\n**Q40: Default methods in interfaces?** Java 8 allows interface method implementations: `default void log() {}` — add methods without breaking existing implementations.\n\nSee [Java Academy](/academies/education/java) for complete learning path."
+    ]
+  },
+  "medical-coding-career-2026": {
+    title: "Medical Coding Career 2026: Complete Guide for Beginners in India",
+    tag: "Healthcare", date: "February 2026", readTime: "10 min read",
+    body: [
+      "## What is Medical Coding?",
+      "Medical coding transforms healthcare diagnoses, procedures, and services into universal codes used for insurance billing, disease tracking, and hospital reimbursement. Every patient visit generates codes that determine payment.",
+      "## The Three Code Systems\n**ICD-10-CM:** Diagnosis codes — what is wrong. Example: J18.9 = Pneumonia, unspecified.\n\n**CPT:** Procedure codes — what was done. Example: 99213 = Office visit, moderate complexity.\n\n**HCPCS:** Supply, equipment, drug codes. Example: E0601 = CPAP device. Used for Medicare/Medicaid.",
+      "## Salaries in India (2026)\n| Level | Experience | Salary |\n|---|---|---|\n| Fresher | 0-1 year | Rs 2.5-4 LPA |\n| Junior | 1-3 years | Rs 4-7 LPA |\n| Senior | 3-5 years | Rs 7-12 LPA |\n| Lead/Auditor | 5+ years | Rs 12-20 LPA |\n| US Remote | 3+ years | Rs 18-35 LPA |",
+      "## CPC Certification\nCPC (Certified Professional Coder) from AAPC is the gold standard. Widely recognised by employers in India. Exam: 5 hours 40 minutes, 150 questions, open book. Most failures are time management, not knowledge — practice speed.\n\nWork from home is common: major BPOs (Omega Healthcare, Inovalon, Episource) hire remote coders. Stable career, growing demand as Indian BPOs handle US healthcare billing. See [Healthcare Coding Academy](/academies/healthcare/icd-10-cm)."
+    ]
+  },
+  "first-aid-basics-2026": {
+    title: "First Aid Basics 2026: What Everyone Should Know",
+    tag: "Health", date: "March 2026", readTime: "8 min read",
+    body: [
+      "## Why First Aid Knowledge Saves Lives",
+      "In India, average ambulance response time in cities is 15-20 minutes. In cardiac arrest, every minute without CPR reduces survival by 7-10%. Bystander first aid in those first minutes makes the difference between life and death.",
+      "## CPR — When Someone Collapses\n```\n1. Call 112 immediately\n2. Lay person on firm surface, tilt head back\n3. Chest compressions:\n   - Heel of hand on center of chest\n   - Push hard and fast: 5-6 cm deep, 100-120 per minute\n   - Let chest fully recoil between compressions\n4. 30 compressions : 2 rescue breaths (if trained)\n5. Do NOT stop until ambulance arrives\n```\nHands-only CPR (compressions only) is better than no CPR at all.",
+      "## Choking — Heimlich Maneuver\nAdult choking (cannot speak, cannot breathe):\n1. Stand behind them, lean them slightly forward\n2. Give 5 firm back blows between shoulder blades\n3. Give 5 abdominal thrusts: fist above navel, pull sharply inward and upward\n4. Alternate 5+5 until expelled or unconscious\n\nFor infants under 1 year: 5 back blows + 5 chest thrusts only — never abdominal thrusts.",
+      "## FAST — Stroke Recognition\n- Face: Ask to smile. One side drooping?\n- Arms: Raise both. One drifts down?\n- Speech: Repeat a phrase. Slurred or strange?\n- Time: Any sign = call 112 immediately. Every minute of delay = more brain damage.\n\nAlso know: every home should have a basic first aid kit — sterile bandages, antiseptic, thermometer, ORS sachets, paracetamol, gloves. Check expiry dates every 6 months."
+    ]
+  },
+  "sleep-optimization-2026": {
+    title: "Sleep Optimization for Developers 2026: Sleep Better, Think Clearer",
+    tag: "Health", date: "April 2026", readTime: "8 min read",
+    body: [
+      "## Sleep is When Your Brain Learns",
+      "Sleep consolidates memories — including everything you learned coding today. Good sleep after learning makes knowledge stick dramatically better than staying up to review. Sleep deprivation impairs judgment, creativity, and problem-solving — the exact skills that make a good engineer.",
+      "## The Developer Sleep Problems\n**Cannot sleep before 1-2 AM:**\n- Blue light suppresses melatonin for 1-3 hours\n- Debugging and architecture keep the brain alert\n- Fix: Night mode on all screens after sunset. Stop coding 90 minutes before bed. Same wake time every day including weekends — shifts your sleep phase earlier within 2 weeks\n\n**Waking at 3 AM:**\n- Brain solving problems during sleep\n- Fix: Keep a notebook by the bed — write the thought that woke you. Externalising it stops your brain holding it",
+      "## The Sleep Hygiene Checklist\n- Temperature: 18-20 degrees C — body needs to lower core temperature to sleep\n- Darkness: Complete blackout — even phone charging light affects melatonin\n- Consistency: Same wake time daily — the most powerful intervention\n- Caffeine cutoff: Before 2 PM — half-life is 5-6 hours\n- No screens 30-60 minutes before bed\n- Phone out of bedroom: Buy a Rs 500 alarm clock",
+      "## What Actually Helps vs Hype\n**Actually works:** Consistent wake time, cool dark room, exercise (not within 2 hours of bed), limiting caffeine.\n\n**Overhyped:** Most sleep supplements except magnesium glycinate (mild evidence). White noise (helpful for some, irrelevant for others).\n\n**Track without obsessing:** Sleep Cycle app or smartwatch shows trends. Use to identify patterns, not as a daily report card — worrying about sleep data is itself a cause of poor sleep."
+    ]
+  },
+  "jee-preparation-2026": {
+    title: "JEE 2026 Preparation: Complete Strategy to Crack IIT Entrance",
+    tag: "Education", date: "January 2026", readTime: "11 min read",
+    body: [
+      "## JEE 2026 — The Structure",
+      "JEE Main 2026: NTA conducts two sessions (January + April), best score counts. JEE Advanced: for top 2.5 lakh JEE Main qualifiers — IIT admission. Physics, Chemistry, Maths carry equal weight in both.",
+      "## Subject Strategy\n**Mathematics:** Most differentiating subject. Priority: Calculus (25-30% of maths), Coordinate Geometry, Complex Numbers, Probability. Minimum 150-200 problems per topic.\n\n**Physics:** Conceptual over memorisation. Priority: Mechanics (30%), Electrostatics + Current Electricity (25%), Modern Physics (15%). NCERT is mandatory — many JEE Main questions come directly from NCERT.\n\n**Chemistry:** Highest marks per hour invested. Organic (35%): reaction mechanisms. Physical (35%): numerical problems. Inorganic (30%): NCERT + periodic trends.",
+      "## 12-Month Plan\n- Months 1-4: Complete NCERT for all three subjects. Non-negotiable.\n- Months 5-8: Topic-by-topic problem solving with standard books\n- Months 9-10: Previous year papers 2010-2025 — pattern recognition is crucial\n- Months 11-12: Full mock tests twice per week under timed conditions",
+      "## Mock Tests Are Non-Negotiable\nTime management kills more JEE aspirants than lack of knowledge. Students doing 50+ mocks significantly outperform those who only study. JEE Main: 3 hours, 90 questions, 2 minutes per question average.\n\nKey resources: HC Verma (Physics), RD Sharma/Cengage (Maths), NCERT + VK Jaiswal (Organic Chemistry). Previous papers free on NTA website. See [JEE Maths Academy](/academies/exams/jee-maths)."
+    ]
+  },
 };
 
 const tagColors: Record<string, string> = {
