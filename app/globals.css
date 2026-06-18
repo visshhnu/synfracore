@@ -731,3 +731,18 @@ html.light header svg {
 /* Light mode hover adjustments */
 html.light .hover-card:hover { background: #FFFFFF !important; }
 html.light .hover-row:hover  { background: #F1F5F9 !important; }
+
+/* Performance: use CSS variables from next/font */
+:root {
+  --font-inter: "Inter", system-ui, -apple-system, sans-serif;
+  --font-jakarta: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Courier New", monospace;
+}
+
+/* Fix: prevent non-composited animation warnings */
+.card-hover,
+[style*="transition"],
+.animated {
+  will-change: auto;
+  transform: translateZ(0);
+}

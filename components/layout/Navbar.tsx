@@ -204,6 +204,8 @@ export default function Navbar() {
     const script = document.createElement("script");
     script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
     script.async = true;
+    script.defer = true;
+    script.async = true;
     document.head.appendChild(script);
   }, []);
 
@@ -230,12 +232,12 @@ export default function Navbar() {
             <Link href="/" style={{ textDecoration: "none", flexShrink: 0, lineHeight: 0 }}>
               <div className="logo-wrapper">
                 <Image
-                  src="/logo-main.png"
+                  src="/logo-main.webp"
                   alt="SynfraCore"
                   width={223}
                   height={32}
-                  style={{ height: "28px", width: "auto", display: "block" }}
                   priority
+                  style={{ height: "28px", width: "auto", display: "block" }}
                 />
               </div>
             </Link>
@@ -356,7 +358,7 @@ export default function Navbar() {
           {/* Mobile header */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px", borderBottom: "1px solid var(--border)", flexShrink: 0 }}>
             <div className="logo-wrapper" style={{ lineHeight: 0 }}>
-              <Image src="/logo-main.png" alt="SynfraCore" width={223} height={32} style={{ height: "26px", width: "auto" }} />
+              <Image src="/logo-main.webp" alt="SynfraCore" width={223} height={32} priority style={{ height: "26px", width: "auto" }} />
             </div>
             <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
               <ThemeToggle />
