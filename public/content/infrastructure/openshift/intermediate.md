@@ -1,447 +1,365 @@
-# OpenShift — Intermediate
+# OpenShift — Cluster Administration
 
-## Deployments and Application Management
+## Control Plane Architecture Deep Dive
 
-### Health Probes — Critical for Zero-Downtime
+The OCP control plane runs on **master nodes** — always 3 for HA. Each master runs:
 
-Missing `readinessProbe` is the #1 cause of downtime during rolling updates.
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: myapp
-  namespace: production
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: myapp
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 25%          # allow 25% extra pods during update
-      maxUnavailable: 0      # never take pods down before new ones ready
-  template:
-    metadata:
-      labels:
-        app: myapp
-    spec:
-      containers:
-      - name: myapp
-        image: myapp:v2
-        ports:
-        - containerPort: 8080
-        resources:
-          requests:
-            cpu: 100m        # scheduler uses this to place pod
-            memory: 128Mi
-          limits:
-            cpu: 500m        # hard cap — pod throttled if exceeded
-            memory: 512Mi    # hard cap — pod OOMKilled if exceeded
-        # readinessProbe: pod only gets traffic when this passes
-        readinessProbe:
-          httpGet:
-            path: /health/ready
-            port: 8080
-          initialDelaySeconds: 10  # wait 10s after container starts
-          periodSeconds: 5         # check every 5s
-          failureThreshold: 3      # fail 3 times before removing from service
-        # livenessProbe: restart pod if this fails (deadlock detection)
-        livenessProbe:
-          httpGet:
-            path: /health/live
-            port: 8080
-          initialDelaySeconds: 30
-          periodSeconds: 10
-          failureThreshold: 3
-        # startupProbe: delays liveness/readiness for slow-starting apps
-        startupProbe:
-          httpGet:
-            path: /health/started
-            port: 8080
-          failureThreshold: 30     # allow 30 * 10s = 5 minutes to start
-          periodSeconds: 10
+```
+┌─────────────────────────────────────────────────────────┐
+│                  Master Node (×3)                       │
+│                                                         │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
+│  │  API Server  │  │    etcd      │  │  Controller  │  │
+│  │  (kube-api)  │  │  (database)  │  │   Manager    │  │
+│  └──────────────┘  └──────────────┘  └──────────────┘  │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
+│  │  Scheduler   │  │   kubelet    │  │ CRI-O        │  │
+│  │              │  │  (manages    │  │ (container   │  │
+│  │              │  │   node)      │  │  runtime)    │  │
+│  └──────────────┘  └──────────────┘  └──────────────┘  │
+└─────────────────────────────────────────────────────────┘
 ```
 
-| Probe | Purpose | Consequence of Failure |
-|---|---|---|
-| `livenessProbe` | Is the container alive? | Container restarted |
-| `readinessProbe` | Ready for traffic? | Removed from Service endpoints |
-| `startupProbe` | Done starting? | Delays liveness/readiness checks |
+## etcd — The Cluster Brain
 
-### Deployment Strategies
+etcd stores **all cluster state** — every object (pod, deployment, secret, configmap, node) as key-value pairs. If etcd is unhealthy, the cluster stops accepting writes.
 
-```yaml
-# Rolling Update (default) — gradual replacement, zero downtime
-strategy:
-  type: RollingUpdate
-  rollingUpdate:
-    maxSurge: 1         # 1 extra pod during update
-    maxUnavailable: 0   # never take a pod down before new one ready
-
-# Recreate — kill all then start new (causes downtime)
-strategy:
-  type: Recreate
-  # Use when: app cannot run two versions simultaneously (DB migrations, etc.)
-```
-
-**Blue/Green on OCP (zero downtime, instant rollback):**
-```bash
-# Deploy green (new version)
-oc apply -f deployment-green.yaml
-
-# Wait for green to be ready
-oc rollout status deployment/myapp-green -n production
-
-# Test green via direct port-forward
-oc port-forward deployment/myapp-green 8080:8080 -n production
-
-# Switch Route traffic from blue to green
-oc patch route myapp -n production \
-  -p '{"spec":{"to":{"name":"myapp-green"}}}'
-
-# Instant rollback if something wrong — switch back
-oc patch route myapp -n production \
-  -p '{"spec":{"to":{"name":"myapp-blue"}}}'
-```
-
-**Canary Deployment — Route weights:**
-```yaml
-# Split 90% blue / 10% green using Route alternateBackends
-apiVersion: route.openshift.io/v1
-kind: Route
-metadata:
-  name: myapp
-spec:
-  to:
-    kind: Service
-    name: myapp-blue
-    weight: 90
-  alternateBackends:
-  - kind: Service
-    name: myapp-green
-    weight: 10
-```
-
-## ConfigMaps and Secrets
+### Where etcd Runs
+In OCP 4.x, etcd runs as **static pods** on all 3 control plane nodes — managed by the etcd Operator.
 
 ```bash
-# ConfigMap — non-sensitive configuration
-oc create configmap app-config \
-  --from-literal=DB_HOST=postgres-service \
-  --from-literal=DB_PORT=5432 \
-  --from-literal=APP_ENV=production
+# Check etcd health
+oc get etcd cluster -o yaml | grep -A10 conditions
 
-# ConfigMap from file
-oc create configmap nginx-config --from-file=nginx.conf
+# View etcd pods
+oc get pods -n openshift-etcd
 
-# Secret — sensitive data (base64-encoded in etcd)
-oc create secret generic db-credentials \
-  --from-literal=password=mypassword \
-  --from-literal=username=dbuser
+# Check etcd member list (run inside etcd pod)
+oc rsh -n openshift-etcd etcd-master-0
+etcdctl member list \
+  --endpoints=https://localhost:2379 \
+  --cacert=/etc/kubernetes/static-pod-certs/configmaps/etcd-serving-ca/ca-bundle.crt \
+  --cert=/etc/kubernetes/static-pod-certs/secrets/etcd-all-certs/etcd-peer-master-0.crt \
+  --key=/etc/kubernetes/static-pod-certs/secrets/etcd-all-certs/etcd-peer-master-0.key
 
-# TLS Secret
-oc create secret tls myapp-tls \
-  --cert=tls.crt \
-  --key=tls.key
-
-# Use in deployment
-containers:
-- name: myapp
-  envFrom:
-  - configMapRef:
-      name: app-config       # all keys become env vars
-  env:
-  - name: DB_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: db-credentials
-        key: password        # specific secret key
-  volumeMounts:
-  - name: config-volume
-    mountPath: /etc/myapp
-volumes:
-- name: config-volume
-  configMap:
-    name: app-config          # mount as files
+# Defrag etcd (frees space — run periodically)
+etcdctl defrag --endpoints=https://localhost:2379 ...
 ```
 
-**Important:** OCP Secrets are base64-encoded, not encrypted by default. For true encryption:
-- Enable etcd encryption: `oc patch apiserver cluster --type merge --patch '{"spec":{"encryption":{"type":"aescbc"}}}'`
-- Or use HashiCorp Vault / Azure Key Vault with Vault Agent injector
+### etcd Performance Requirements
+```bash
+# Test etcd disk latency (must be under 10ms p99)
+# Slow disk = slow cluster API response
+fio --rw=write --ioengine=sync --fdatasync=1 --filename=/var/lib/etcd/test \
+    --size=22m --bs=2300 --name=mytest
 
-## Operators and OperatorHub
-
-Operators extend OCP with new capabilities — they are controllers that manage complex stateful applications.
-
-### How Operators Work
-
-```
-OperatorHub → Install via OLM → Creates CRDs → You create CR → Operator reconciles
+# Monitor etcd latency
+oc get --raw /metrics | grep etcd_disk_wal_fsync_duration
+# p99 should be < 10ms — if higher, upgrade disk to SSD/NVMe
 ```
 
-1. **Subscription** — tells OLM which operator to install, from which channel, with which approval
-2. **ClusterServiceVersion (CSV)** — the operator's metadata, permissions, and deployment spec
-3. **Custom Resource Definition (CRD)** — new API types the operator introduces (e.g. `PostgresCluster`)
-4. **Custom Resource (CR)** — your instance of the CRD (e.g. `my-postgres`)
-5. **Operator controller** — watches for CRs, reconciles the actual state with desired state
+### etcd Backup — Critical for Disaster Recovery
 
 ```bash
-# Check OperatorHub catalogue sources
-oc get catalogsource -n openshift-marketplace
+# ALWAYS backup etcd before:
+# - Cluster upgrades
+# - Infrastructure changes
+# - Deleting critical resources
 
-# List installed operators
-oc get operators
-oc get csv -n openshift-operators    # ClusterServiceVersions
+# SSH into a control plane node
+ssh core@master-0.cluster.example.com
 
-# Check operator status
-oc get csv -n openshift-operators -o wide
-# Look for PHASE: Succeeded
+# Run the backup script (built into OCP)
+sudo /usr/local/bin/cluster-backup.sh /home/core/backup/
 
-# Install operator via YAML (Subscription)
-cat <<EOF | oc apply -f -
-apiVersion: operators.coreos.com/v1alpha1
-kind: Subscription
-metadata:
-  name: openshift-gitops-operator
-  namespace: openshift-operators
-spec:
-  channel: latest
-  installPlanApproval: Automatic   # or Manual for production control
-  name: openshift-gitops-operator
-  source: redhat-operators
-  sourceNamespace: openshift-marketplace
-EOF
+# Output:
+# snapshot_2026_01_15_120000.db        ← etcd snapshot
+# static_kuberesources_2026_01_15.tar.gz ← static pod manifests
 
-# Approve manual install plan
-oc get installplan -n openshift-operators
-oc patch installplan <name> -n openshift-operators \
-  --type merge --patch '{"spec":{"approved":true}}'
+# Copy backup off the node immediately
+scp core@master-0:/home/core/backup/* /safe/backup/location/
+
+# Restore from backup (disaster recovery only)
+sudo -E /usr/local/bin/cluster-restore.sh /home/core/backup/
 ```
 
-### Key Operators Every OCP Engineer Should Know
+## API Server — How to Manage It
 
-| Operator | Purpose | Namespace |
-|---|---|---|
-| OpenShift GitOps | ArgoCD for GitOps | openshift-gitops |
-| OpenShift Pipelines | Tekton CI/CD | openshift-pipelines |
-| Cluster Logging | EFK/Loki log aggregation | openshift-logging |
-| OpenShift Data Foundation | Ceph storage (RWX) | openshift-storage |
-| Advanced Cluster Management | Multi-cluster management | open-cluster-management |
-| OpenShift Virtualization | KubeVirt — VMs on OCP | openshift-cnv |
-| Cert Manager | TLS certificate automation | cert-manager |
-| External Secrets | Vault/AWS SM integration | external-secrets |
-
-## Networking — OVN-Kubernetes and Multus
-
-### OVN-Kubernetes (Default CNI)
-
-OVN-Kubernetes (Open Virtual Network) is the default network plugin in OCP 4.x. It provides:
-- Pod networking with VXLAN/Geneve overlay
-- Network Policies (L3/L4 filtering)
-- Egress IP — assign stable external IP to a namespace
-- EgressFirewall — control what external IPs a namespace can reach
+The API server is the **only entry point** for all cluster operations. All `oc` and `kubectl` commands go through it.
 
 ```bash
-# Check CNI plugin
-oc get network.config/cluster -o yaml | grep networkType
+# Check API server health
+oc get clusteroperator kube-apiserver
+# AVAILABLE=True, PROGRESSING=False, DEGRADED=False = healthy
 
-# View cluster network config
-oc get network.config/cluster
+# View API server pods (one per master)
+oc get pods -n openshift-kube-apiserver
 
-# Network Policies — control pod-to-pod traffic
-cat <<EOF | oc apply -f -
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: allow-api-to-db
-  namespace: production
-spec:
-  podSelector:
-    matchLabels:
-      app: database           # this policy applies to DB pods
-  ingress:
-  - from:
-    - podSelector:
-        matchLabels:
-          app: api            # ONLY allow traffic from API pods
-    ports:
-    - protocol: TCP
-      port: 5432              # on PostgreSQL port only
-EOF
+# Check API server audit logs (who did what)
+oc adm node-logs master-0 --path=kube-apiserver/audit.log | head -50
 
-# Deny all ingress by default (then allow specific)
-cat <<EOF | oc apply -f -
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: deny-all-ingress
-  namespace: production
-spec:
-  podSelector: {}             # applies to ALL pods in namespace
-  policyTypes:
-  - Ingress                   # no ingress allowed unless another policy allows it
-EOF
+# Check API server error rate
+oc get --raw /metrics | grep apiserver_request_total
+
+# Restart API server (rarely needed — operator handles this)
+# DO NOT manually delete API server pods — the operator will recreate them
+# If needed: oc delete pod <apiserver-pod> -n openshift-kube-apiserver
+
+# Check API server certificates expiry
+oc get secret -n openshift-kube-apiserver \
+  -o jsonpath='{range .items[*]}{.metadata.name}{" "}{.data.tls\.crt}{"\n"}{end}' \
+  | grep -v "^$" | while read name cert; do
+    expiry=$(echo $cert | base64 -d | openssl x509 -noout -enddate 2>/dev/null)
+    echo "$name: $expiry"
+  done
 ```
 
-### Multus — Multiple Network Interfaces
+## kubelet — Node Agent
 
-Multus is a meta-CNI plugin that allows pods to have **multiple network interfaces**. Critical for:
-- Telecom/NFV workloads needing separate management and data plane networks
-- High-performance networking with SR-IOV or DPDK
-- Separating storage traffic from application traffic
-
-```yaml
-# NetworkAttachmentDefinition — define the additional network
-apiVersion: k8s.cni.cncf.io/v1
-kind: NetworkAttachmentDefinition
-metadata:
-  name: storage-network
-  namespace: production
-spec:
-  config: '{
-    "cniVersion": "0.3.1",
-    "type": "macvlan",
-    "master": "eth1",
-    "mode": "bridge",
-    "ipam": {
-      "type": "static",
-      "addresses": [{"address": "192.168.100.0/24"}]
-    }
-  }'
-
-# Attach to a pod
-apiVersion: v1
-kind: Pod
-metadata:
-  name: myapp
-  annotations:
-    k8s.v1.cni.cncf.io/networks: storage-network   # attach extra NIC
-spec:
-  containers:
-  - name: myapp
-    image: myapp:latest
-```
+kubelet runs on **every node** (masters and workers). It:
+- Receives pod specs from API server
+- Ensures containers are running via CRI-O
+- Reports node status back to API server
+- Runs liveness/readiness probes
 
 ```bash
-# Check Multus is installed
-oc get network-attachment-definitions -A
+# Check kubelet status on a node
+oc adm node-logs <nodename> --unit=kubelet | tail -50
+# or ssh into the node:
+ssh core@worker-1.cluster.example.com
+sudo systemctl status kubelet
 
-# Check pod's network interfaces
-oc exec -it <pod> -n <ns> -- ip addr show
-# Pod will have eth0 (primary, from OVN) + net1 (secondary, from Multus)
+# View kubelet configuration
+oc get configmap kubelet-config-1.27 -n openshift-config-managed -o yaml
+
+# Kubelet logs — most useful for pod scheduling issues
+oc adm node-logs worker-1 --unit=kubelet | grep -i "error\|fail\|warning" | tail -30
+
+# Check node conditions (kubelet reports these)
+oc describe node worker-1 | grep -A20 "Conditions:"
+# DiskPressure=False    ← OK
+# MemoryPressure=False  ← OK
+# PIDPressure=False     ← OK
+# Ready=True            ← kubelet healthy
+
+# Restart kubelet (node stays up, pods may restart)
+ssh core@worker-1.cluster.example.com
+sudo systemctl restart kubelet
 ```
 
-## MachineConfig and Node Management
+## Controller Manager and Scheduler
 
 ```bash
-# MachineConfig — manage OS-level config on nodes
-# Creating a MachineConfig triggers rolling drain+reboot of affected nodes
+# Controller Manager — runs control loops
+# Watches desired state vs actual state and reconciles
+# Example: Deployment controller ensures N replicas always running
 
-# Example: add a custom kernel argument
+# Check controller manager
+oc get pods -n openshift-kube-controller-manager
+oc get clusteroperator kube-controller-manager
+
+# Scheduler — places pods on nodes
+oc get pods -n openshift-kube-scheduler
+oc get clusteroperator kube-scheduler
+
+# Debug scheduler decisions
+oc describe pod <pending-pod> -n <ns>
+# Events section shows WHY scheduler couldn't place it:
+# "0/3 nodes available: 3 Insufficient memory"
+# "0/3 nodes available: 3 node(s) had taint"
+# "0/3 nodes available: 3 node(s) didn't match node selector"
+```
+
+## Node Management
+
+```bash
+# List all nodes with status
+oc get nodes
+oc get nodes -o wide    # includes IP, OS, kernel version
+
+# Node details — CPU, memory, conditions, allocated resources
+oc describe node worker-1
+
+# Node resource usage
+oc adm top nodes
+
+# Mark node unschedulable (stop new pods landing on it)
+oc adm cordon worker-1
+
+# Drain node for maintenance (evicts all pods)
+oc adm drain worker-1 \
+  --ignore-daemonsets \
+  --delete-emptydir-data \
+  --grace-period=30
+
+# After maintenance — bring node back
+oc adm uncordon worker-1
+
+# Add label to node (for nodeSelector scheduling)
+oc label node worker-1 disk=ssd
+oc label node worker-2 role=gpu
+
+# Add taint (repels pods without matching toleration)
+oc adm taint node worker-1 key=value:NoSchedule
+
+# Remove taint
+oc adm taint node worker-1 key:NoSchedule-
+
+# Node logs (system journal)
+oc adm node-logs worker-1 --unit=crio          # container runtime logs
+oc adm node-logs worker-1 --unit=kubelet        # kubelet logs
+oc adm node-logs worker-1 --path=openshift-apiserver/audit.log
+```
+
+## CRI-O — Container Runtime
+
+OCP uses **CRI-O** (not Docker) as the container runtime. kubelet talks to CRI-O via CRI (Container Runtime Interface).
+
+```bash
+# SSH into a node to use crictl (CRI-O client)
+ssh core@worker-1.cluster.example.com
+
+# List running containers
+sudo crictl ps
+
+# List pods
+sudo crictl pods
+
+# Check container logs
+sudo crictl logs <container-id>
+
+# Pull an image manually
+sudo crictl pull quay.io/openshift-release-dev/ocp-v4.0-art-dev:latest
+
+# CRI-O logs
+sudo journalctl -u crio -f
+```
+
+## Machine Config Operator (MCO)
+
+MCO manages the OS configuration of all nodes via **MachineConfig** objects. Changes trigger a rolling reboot of affected nodes.
+
+```bash
+# Check MachineConfigPool status
+oc get mcp
+# NAME     CONFIG                     UPDATED  UPDATING  DEGRADED
+# master   rendered-master-abc123     True     False     False
+# worker   rendered-worker-def456     False    True      False  ← updating
+
+# Pause worker MCP (batch multiple MC changes → single reboot)
+oc patch mcp worker --type merge -p '{"spec":{"paused":true}}'
+# Apply all your MachineConfigs here
+oc patch mcp worker --type merge -p '{"spec":{"paused":false}}'
+# ONE rolling reboot applies all changes
+
+# Check what changed in a MachineConfig
+oc describe mc rendered-worker-def456 | grep -A20 "Config:"
+
+# View all MachineConfigs
+oc get mc | sort
+
+# Create a MachineConfig (adds a file to all workers)
 cat <<EOF | oc apply -f -
 apiVersion: machineconfiguration.openshift.io/v1
 kind: MachineConfig
 metadata:
   labels:
     machineconfiguration.openshift.io/role: worker
-  name: worker-custom-kernel-args
+  name: worker-custom-sysctl
 spec:
-  kernelArguments:
-    - transparent_hugepage=always
-    - intel_iommu=on
+  config:
+    ignition:
+      version: 3.4.0
+    storage:
+      files:
+      - path: /etc/sysctl.d/99-custom.conf
+        contents:
+          source: data:,net.ipv4.ip_forward%3D1
+        mode: 0644
 EOF
-
-# MachineConfigPool status
-oc get mcp
-# NAME     CONFIG        UPDATED   UPDATING   DEGRADED
-# master   ...           True      False      False
-# worker   ...           False     True       False   ← update in progress
-
-# Pause MCP to batch multiple MachineConfig changes (apply all at once, one reboot)
-oc patch mcp worker --type merge --patch '{"spec":{"paused":true}}'
-# Apply all your MachineConfigs
-oc patch mcp worker --type merge --patch '{"spec":{"paused":false}}'
-# Now ONE rolling reboot applies all changes
-
-# Drain a node for maintenance
-oc adm drain <nodename> --ignore-daemonsets --delete-emptydir-data
-# Bring it back
-oc adm uncordon <nodename>
 ```
 
-## Helm on OpenShift
+## Cluster Operators — The Health Dashboard
+
+Cluster Operators (COs) are the controllers that manage all OCP platform components. They are your primary health indicator.
 
 ```bash
-# Install Helm chart
-helm install myapp ./mychart -n myproject -f values-prod.yaml
+# Check ALL cluster operators at once
+oc get co
 
-# Upgrade
-helm upgrade myapp ./mychart -n myproject -f values-prod.yaml
+# What you want to see:
+# NAME                        AVAILABLE  PROGRESSING  DEGRADED
+# authentication              True       False         False   ✅
+# console                     True       False         False   ✅
+# dns                         True       False         False   ✅
+# etcd                        True       False         False   ✅
+# ingress                     True       False         False   ✅
+# kube-apiserver              True       False         False   ✅
+# ...
 
-# Rollback to revision 2
-helm rollback myapp 2 -n myproject
+# If any CO shows DEGRADED=True or AVAILABLE=False:
+oc describe co <operator-name>
+# Read the "Status → Conditions" section for exact reason
 
-# List releases
-helm list -n myproject
-helm list -A    # all namespaces
+# Check a specific operator's pods
+oc get pods -n openshift-ingress
+oc get pods -n openshift-etcd
+oc get pods -n openshift-kube-apiserver
 
-# View release history
-helm history myapp -n myproject
-
-# Dry run (preview without applying)
-helm upgrade --dry-run myapp ./mychart -n myproject -f values.yaml
-
-# Uninstall
-helm uninstall myapp -n myproject
-
-# Common values.yaml pattern for environment differences
-# values-dev.yaml:  replicas: 1, resources.requests.cpu: 100m
-# values-prod.yaml: replicas: 3, resources.requests.cpu: 500m
+# Get operator logs
+oc logs -n openshift-ingress deployment/ingress-operator
 ```
 
-## GitOps with ArgoCD on OpenShift
+## Cluster Version Operator (CVO) — Managing Upgrades
 
 ```bash
-# OpenShift GitOps operator installs ArgoCD in openshift-gitops namespace
-# Access ArgoCD UI:
-oc get route openshift-gitops-server -n openshift-gitops
+# Current cluster version
+oc get clusterversion
+# NAME      VERSION  AVAILABLE  PROGRESSING  SINCE   STATUS
+# version   4.15.3   True       False         2d      Cluster version is 4.15.3
 
-# Get admin password
-oc get secret openshift-gitops-cluster -n openshift-gitops \
-  -o jsonpath='{.data.admin\.password}' | base64 -d
+# Check available updates
+oc adm upgrade
 
-# ArgoCD Application — links Git repo to OCP namespace
-cat <<EOF | oc apply -f -
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: myapp-production
-  namespace: openshift-gitops
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/org/myapp-config
-    targetRevision: main
-    path: overlays/production        # Kustomize overlay or Helm chart path
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: production
-  syncPolicy:
-    automated:                       # auto-sync on Git changes
-      prune: true                    # delete resources removed from Git
-      selfHeal: true                 # fix drift (manual changes in cluster)
-    syncOptions:
-    - CreateNamespace=true
-EOF
+# Apply update
+oc adm upgrade --to-latest=true
+# or specific version:
+oc adm upgrade --to=4.15.10
 
-# Check sync status
-oc get application myapp-production -n openshift-gitops
-# Status: Synced = cluster matches Git
-# Status: OutOfSync = drift detected (someone changed cluster manually)
+# Monitor upgrade progress
+watch oc get clusterversion    # overall status
+watch oc get co                # operators updating one by one
+watch oc get nodes             # workers draining and rebooting
+watch oc get mcp               # machine config pool rolling update
 
-# Manual sync
-argocd app sync myapp-production  # using argocd CLI
-# Or via web console
+# Pause upgrade (if issues found)
+oc patch clusterversion version \
+  --type merge -p '{"spec":{"overrides":[{"kind":"Deployment","name":"cluster-version-operator","namespace":"openshift-cluster-version","unmanaged":true}]}}'
+
+# Check upgrade history
+oc get clusterversion -o jsonpath='{.items[0].status.history}' | python3 -m json.tool
+```
+
+## Must-Gather — Support Bundle Collection
+
+```bash
+# Collect full diagnostic bundle for Red Hat support
+oc adm must-gather
+
+# Creates must-gather.local.<timestamp>/ directory with:
+# - All pod logs from all namespaces
+# - All cluster operator status
+# - Events from last hour
+# - Node configs and conditions
+# - etcd member status
+
+# Gather for specific operator
+oc adm must-gather --image=registry.redhat.io/openshift4/ose-network-tools:latest
+
+# Gather with custom destination
+oc adm must-gather --dest-dir=/tmp/must-gather/
+
+# Upload to Red Hat support case
+tar -czf must-gather.tar.gz must-gather.local.*/
+# Upload via access.redhat.com/support
 ```
