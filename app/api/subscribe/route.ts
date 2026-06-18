@@ -11,26 +11,24 @@ export async function POST(request: Request) {
     const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
     if (!RESEND_API_KEY) {
-      console.log(`Subscriber (Resend not configured): ${email}`);
+      console.log(`Subscriber (Resend not configured yet): ${email}`);
       return Response.json({ success: true });
     }
 
-    // Add contact to Resend Audience
-    // Get your Audience ID from Resend dashboard → Audiences → click your audience → copy ID from URL
-    const AUDIENCE_ID = process.env.RESEND_AUDIENCE_ID;
+    // Step 1: Add to global contacts (new Resend API — no audience_id needed)
+    await fetch("https://api.resend.com/contacts", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        unsubscribed: false,
+      }),
+    });
 
-    if (AUDIENCE_ID) {
-      await fetch(`https://api.resend.com/audiences/${AUDIENCE_ID}/contacts`, {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${RESEND_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, subscribed: true }),
-      });
-    }
-
-    // Send welcome email
+    // Step 2: Send welcome email
     await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -51,18 +49,17 @@ export async function POST(request: Request) {
         <span style="color:white;font-weight:800;font-size:18px;">SynfraCore</span>
       </div>
       <h1 style="color:#F1F5F9;font-size:26px;font-weight:800;margin:0 0 8px;">Welcome aboard! 🎉</h1>
-      <p style="color:#94A3B8;font-size:15px;margin:0;">You are now subscribed to the SynfraCore Weekly Digest</p>
+      <p style="color:#94A3B8;font-size:15px;margin:0;">Subscribed to SynfraCore Weekly Digest</p>
     </div>
     <div style="background:#111827;border:1px solid #1E2D47;border-radius:16px;padding:28px;margin-bottom:28px;">
       <p style="color:#CBD5E1;font-size:15px;line-height:1.7;margin:0 0 16px;">Every Sunday morning, you will receive:</p>
       <ul style="color:#CBD5E1;font-size:14px;line-height:1.9;margin:0 0 20px;padding-left:20px;">
         <li>🐳 Top DevOps and Cloud tutorials this week</li>
         <li>❓ A must-know interview question with detailed answer</li>
-        <li>⚡ One practical command-line tip you can use today</li>
-        <li>🤖 What changed in AI engineering and LLMOps</li>
+        <li>⚡ One practical command-line tip</li>
+        <li>🤖 What is new in AI engineering</li>
         <li>📊 Job market signals for India and remote roles</li>
       </ul>
-      <p style="color:#94A3B8;font-size:14px;margin:0;">First digest arrives this Sunday.</p>
     </div>
     <div style="text-align:center;margin-bottom:32px;">
       <a href="https://synfracore.com/academies/devops" style="display:inline-block;background:linear-gradient(135deg,#3B82F6,#8B5CF6);color:white;text-decoration:none;padding:12px 24px;border-radius:10px;font-weight:700;font-size:14px;margin:4px;">DevOps Academy</a>
@@ -77,7 +74,7 @@ export async function POST(request: Request) {
       }),
     });
 
-    return Response.json({ success: true, message: "Subscribed successfully" });
+    return Response.json({ success: true });
   } catch (error) {
     console.error("Subscribe error:", error);
     return Response.json({ error: "Something went wrong" }, { status: 500 });
