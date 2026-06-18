@@ -675,6 +675,64 @@ const articles: Record<string, { title: string; tag: string; date: string; readT
       "## Mock Tests Are Non-Negotiable\nTime management kills more JEE aspirants than lack of knowledge. Students doing 50+ mocks significantly outperform those who only study. JEE Main: 3 hours, 90 questions, 2 minutes per question average.\n\nKey resources: HC Verma (Physics), RD Sharma/Cengage (Maths), NCERT + VK Jaiswal (Organic Chemistry). Previous papers free on NTA website. See [JEE Maths Academy](/academies/exams/jee-maths)."
     ]
   },
+  "jenkins-pipeline-tutorial-2026": {
+    title: "Jenkins Pipeline Tutorial 2026: From Zero to Production CI/CD",
+    tag: "DevOps", date: "April 2026", readTime: "12 min read",
+    body: [
+      "## Why Jenkins Still Matters in 2026",
+      "GitHub Actions and GitLab CI get all the attention, but Jenkins still runs CI/CD for the majority of enterprise production workloads. Banks, telecoms, healthcare — they built on Jenkins and it works. Knowing Jenkins is a guaranteed interview question at any enterprise DevOps role.",
+      "## Your First Declarative Pipeline\n```groovy\n// Jenkinsfile — place this in your Git repo root\npipeline {\n    agent any\n\n    environment {\n        APP_NAME = 'myapp'\n        DOCKER_REGISTRY = 'docker.io/myorg'\n    }\n\n    stages {\n        stage('Checkout') {\n            steps {\n                git branch: 'main', url: 'https://github.com/org/myapp.git'\n            }\n        }\n        stage('Build') {\n            steps { sh 'mvn clean package -DskipTests' }\n        }\n        stage('Test') {\n            steps { sh 'mvn test' }\n            post { always { junit 'target/surefire-reports/*.xml' } }\n        }\n        stage('Docker Build and Push') {\n            steps {\n                withCredentials([usernamePassword(\n                    credentialsId: 'dockerhub-creds',\n                    usernameVariable: 'DOCKER_USER',\n                    passwordVariable: 'DOCKER_PASS'\n                )]) {\n                    sh '''\n                        docker build -t $DOCKER_REGISTRY/$APP_NAME:$BUILD_NUMBER .\n                        docker login -u $DOCKER_USER -p $DOCKER_PASS\n                        docker push $DOCKER_REGISTRY/$APP_NAME:$BUILD_NUMBER\n                    '''\n                }\n            }\n        }\n        stage('Deploy to Kubernetes') {\n            steps {\n                sh '''\n                    kubectl set image deployment/$APP_NAME \\\\\n                        $APP_NAME=$DOCKER_REGISTRY/$APP_NAME:$BUILD_NUMBER\n                    kubectl rollout status deployment/$APP_NAME\n                '''\n            }\n        }\n    }\n    post {\n        success { echo 'Deployment successful!' }\n        failure  { echo 'Deployment failed!' }\n    }\n}\n```",
+      "## Key Jenkins Concepts",
+      "**Declarative vs Scripted:** Use declarative (the `pipeline {}` syntax) for 95% of use cases. Structured, validated, easy to read. Use scripted Groovy only when declarative cannot express the logic.\n\n**Agents:** `agent any` runs on any available agent. `agent { docker { image 'maven:3.9' } }` runs the stage inside a Docker container — consistent build environment.\n\n**Credentials:** Never hardcode passwords. Store in Jenkins Credentials Manager and reference with `withCredentials()`.",
+      "## Parallel Stages for Speed\n```groovy\nstage('Tests') {\n    parallel {\n        stage('Unit Tests')        { steps { sh 'mvn test -Dtest=Unit*' } }\n        stage('Integration Tests') { steps { sh 'mvn test -Dtest=Integration*' } }\n        stage('Security Scan')     { steps { sh 'trivy image myapp:latest' } }\n    }\n}\n// All three run simultaneously — cuts pipeline time by 60%\n```",
+      "## Common Failures and Fixes",
+      "**Build fails on one agent but not another:** Use Docker agents for consistent environments.\n\n**Pipeline hangs:** Add `timeout(time: 10, unit: 'MINUTES')` to stages.\n\n**Secrets leaking in logs:** Use the Mask Passwords plugin. Never echo passwords.\n\n**Workspace pollution:** Add `cleanWs()` in `post { always { ... } }` to clean after each build.\n\nSee [Jenkins Academy](/academies/devops/jenkins) for the complete CI/CD learning path."
+    ]
+  },
+  "gitops-argocd-beginners-2026": {
+    title: "GitOps with ArgoCD 2026: Everything You Need to Know",
+    tag: "DevOps", date: "April 2026", readTime: "10 min read",
+    body: [
+      "## What is GitOps?",
+      "GitOps is a simple but powerful idea: **Git is the single source of truth for your infrastructure and applications.** Every configuration change goes through a Git pull request. Nothing is changed directly in the cluster. ArgoCD continuously watches Git and reconciles the cluster to match.",
+      "## Why GitOps Changes Everything",
+      "**Before GitOps:** Engineers `kubectl apply` directly in production. Changes are not tracked. Rollback means remembering what you changed. Environments drift apart.\n\n**With GitOps:** Every change is a Git commit. Full audit trail. Rollback is `git revert`. If someone manually changes the cluster, ArgoCD detects and reverts it.",
+      "## Install ArgoCD on Kubernetes\n```bash\nkubectl create namespace argocd\nkubectl apply -n argocd \\\n  -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml\n\n# Get admin password\nkubectl get secret argocd-initial-admin-secret -n argocd \\\n  -o jsonpath='{.data.password}' | base64 -d\n\n# Access UI\nkubectl port-forward svc/argocd-server -n argocd 8080:443\n# Open: https://localhost:8080\n```",
+      "## Create Your First Application\n```yaml\napiVersion: argoproj.io/v1alpha1\nkind: Application\nmetadata:\n  name: myapp-production\n  namespace: argocd\nspec:\n  project: default\n  source:\n    repoURL: https://github.com/org/myapp-config\n    targetRevision: main\n    path: overlays/production\n  destination:\n    server: https://kubernetes.default.svc\n    namespace: production\n  syncPolicy:\n    automated:\n      prune: true       # delete resources removed from Git\n      selfHeal: true    # revert manual cluster changes\n    syncOptions:\n    - CreateNamespace=true\n```",
+      "## Sync vs OutOfSync vs Drift",
+      "**Synced:** Cluster matches Git exactly.\n**OutOfSync:** Cluster differs from Git — someone applied something manually, or a new commit was pushed.\n**Drift:** When cluster state diverges from Git without a commit. With `selfHeal: true`, ArgoCD detects and reverts drift within 3 minutes.",
+      "## The Rollback Advantage\n```bash\n# Find last good commit\ngit log --oneline overlays/production/\n\n# Revert to it\ngit revert HEAD~1\ngit push\n# ArgoCD detects the push and rolls back within 3 minutes\n# No kubectl commands needed — Git does it all\n```\nSee [ArgoCD Academy](/academies/devops/argocd) for hands-on GitOps labs."
+    ]
+  },
+  "cka-exam-guide-2026": {
+    title: "How to Pass the CKA Exam in 2026: Complete Study Guide",
+    tag: "DevOps", date: "May 2026", readTime: "14 min read",
+    body: [
+      "## What is the CKA?",
+      "The Certified Kubernetes Administrator (CKA) is a hands-on, performance-based exam — 2 hours, 17 tasks, 66% passing score. No multiple choice. You get a live Kubernetes cluster and must solve real problems. It is the most respected Kubernetes certification and appears in almost every senior DevOps job description.",
+      "## Exam Domains (2024 Curriculum)\n| Domain | Weight |\n|---|---|\n| Cluster Architecture, Installation and Configuration | 25% |\n| Workloads and Scheduling | 15% |\n| Services and Networking | 20% |\n| Storage | 10% |\n| Troubleshooting | 30% |",
+      "## The Most Important Preparation Tip",
+      "Speed is the biggest challenge. You have 2 hours for 17 tasks — about 7 minutes per task. You cannot Google solutions. You must know commands by muscle memory. Practice until you can type every command without thinking.",
+      "## Must-Know Commands\n```bash\n# Create resources quickly with --dry-run\nkubectl run nginx --image=nginx --dry-run=client -o yaml > pod.yaml\nkubectl create deployment myapp --image=myapp:v1 --replicas=3 \\\n  --dry-run=client -o yaml > deploy.yaml\n\n# Switch cluster context (exam has multiple clusters)\nkubectl config use-context cluster1\nkubectl config get-contexts\n\n# Imperative commands save time\nkubectl expose deployment myapp --port=80 --type=NodePort\nkubectl scale deployment myapp --replicas=5\nkubectl label node node1 disk=ssd\nkubectl taint node node1 key=value:NoSchedule\n\n# Set aliases at exam start (saves 30+ seconds per task)\nalias k=kubectl\nexport do='--dry-run=client -o yaml'\n# Now: k run nginx --image=nginx $do > pod.yaml\n```",
+      "## Study Resources in Order",
+      "1. Kubernetes.io documentation — the only resource allowed during exam. Know it deeply.\n2. Killer.sh — the official CKA simulator. Do it at least twice. Harder than the real exam.\n3. KodeKloud CKA course — best structured course for beginners.\n4. Practice cluster — run minikube or kind locally, break things and fix them.\n5. [SynfraCore Kubernetes Academy](/academies/devops/kubernetes) — fundamentals through advanced.",
+      "## Timeline for Preparation",
+      "3 months from zero to exam-ready:\n- Month 1: Core concepts (pods, deployments, services, namespaces)\n- Month 2: Storage, networking, RBAC, cluster administration\n- Month 3: Practice, practice, practice. Killer.sh daily.\n\nBook the exam with a 2-week buffer. The pressure of a scheduled exam forces preparation intensity."
+    ]
+  },
+  "monitoring-prometheus-grafana-2026": {
+    title: "Prometheus and Grafana 2026: Complete Monitoring Setup Guide",
+    tag: "DevOps", date: "May 2026", readTime: "11 min read",
+    body: [
+      "## Why Monitoring Cannot Be an Afterthought",
+      "Production systems fail without warning when you have no monitoring. You find out about the problem when a customer calls. With Prometheus and Grafana, you know about problems 30 minutes before users notice — and you have the data to fix them fast.",
+      "## How Prometheus and Grafana Work Together\n```\nYour App (/metrics endpoint)\n    ↓ (Prometheus scrapes every 30s)\nPrometheus (stores time-series data)\n    ↓ (Grafana queries with PromQL)\nGrafana (dashboards and alerts)\n    ↓ (Alertmanager routes alerts)\nSlack / PagerDuty / Email\n```",
+      "## Install with Helm\n```bash\nhelm repo add prometheus-community https://prometheus-community.github.io/helm-charts\nhelm repo update\n\n# Install Prometheus + Grafana + Alertmanager + node-exporter\nhelm install monitoring prometheus-community/kube-prometheus-stack \\\n  --namespace monitoring \\\n  --create-namespace \\\n  -f values.yaml\n\n# Access Grafana (default: admin / prom-operator)\nkubectl port-forward svc/monitoring-grafana 3000:80 -n monitoring\n```",
+      "## Make Your App Observable\n```python\nfrom prometheus_client import Counter, Histogram, start_http_server\n\nREQUESTS = Counter('http_requests_total', 'Total HTTP requests', ['method', 'status'])\nLATENCY  = Histogram('http_request_duration_seconds', 'Request latency')\n\n# Record metrics in your handlers\nwith LATENCY.time():\n    response = handle_request()\n    REQUESTS.labels(method='GET', status='200').inc()\n\n# Expose /metrics on port 8001\nstart_http_server(8001)\n```",
+      "## Essential PromQL Queries\n```promql\n# Request rate (per second, last 5 minutes)\nrate(http_requests_total[5m])\n\n# Error rate percentage\nrate(http_requests_total{status=~\"5..\"}[5m])\n/ rate(http_requests_total[5m]) * 100\n\n# 95th percentile latency\nhistogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))\n\n# Pod restart count (last 1 hour)\nincrease(kube_pod_container_status_restarts_total[1h]) > 0\n```",
+      "## Critical Alerts to Set Up on Day 1\n```yaml\ngroups:\n- name: critical.rules\n  rules:\n  - alert: HighErrorRate\n    expr: rate(http_requests_total{status=~\"5..\"}[5m]) > 0.05\n    for: 5m\n    labels: { severity: critical }\n    annotations:\n      summary: \"Error rate above 5%\"\n\n  - alert: NodeDiskFull\n    expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) < 0.10\n    for: 5m\n    labels: { severity: critical }\n    annotations:\n      summary: \"Node disk less than 10% free\"\n```\nSee [Prometheus Academy](/academies/devops/prometheus) for the complete observability path."
+    ]
+  },
 };
 
 const tagColors: Record<string, string> = {
