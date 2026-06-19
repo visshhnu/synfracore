@@ -1079,6 +1079,23 @@ const contentRegistry = new Map<string, string>([
   ["security/pen-testing/fundamentals","security/pen-testing/fundamentals"],
   ["security/pen-testing/intermediate","security/pen-testing/intermediate"],
   ["security/pen-testing/interview","security/pen-testing/interview"],
+
+  // ── CLASS 10 MATHS ──
+  ["education/class-10/maths/real-numbers","education/school/class-10/maths/real-numbers"],
+  ["education/class-10/maths/polynomials","education/school/class-10/maths/polynomials"],
+  ["education/class-10/maths/linear-equations","education/school/class-10/maths/linear-equations"],
+  ["education/class-10/maths/quadratic-equations","education/school/class-10/maths/quadratic-equations"],
+  ["education/class-10/maths/arithmetic-progressions","education/school/class-10/maths/arithmetic-progressions"],
+  ["education/class-10/maths/triangles","education/school/class-10/maths/triangles"],
+  ["education/class-10/maths/coordinate-geometry","education/school/class-10/maths/coordinate-geometry"],
+  ["education/class-10/maths/trigonometry","education/school/class-10/maths/trigonometry"],
+  ["education/class-10/maths/heights-distances","education/school/class-10/maths/heights-distances"],
+  ["education/class-10/maths/circles","education/school/class-10/maths/circles"],
+  ["education/class-10/maths/constructions","education/school/class-10/maths/constructions"],
+  ["education/class-10/maths/areas-related-circles","education/school/class-10/maths/areas-related-circles"],
+  ["education/class-10/maths/surface-areas-volumes","education/school/class-10/maths/surface-areas-volumes"],
+  ["education/class-10/maths/statistics","education/school/class-10/maths/statistics"],
+  ["education/class-10/maths/probability","education/school/class-10/maths/probability"],
 ]);
 
 export function hasContent(a: string, t: string, s: string): boolean {
