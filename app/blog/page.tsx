@@ -63,7 +63,24 @@ const articles = [
   { slug: "postgresql-indexing-guide", title: "PostgreSQL Indexing: Make Your Queries 100x Faster", date: "Mar 2026", tag: "Databases" },
   { slug: "aws-cost-optimization", title: "AWS Cost Optimization: Practical Savings Guide", date: "Mar 2026", tag: "Cloud" },
   { slug: "terraform-aws-starter", title: "Your First Terraform Project on AWS", date: "Feb 2026", tag: "Terraform" },
-  { slug: "ansible-playbook-guide", title: "Ansible Playbook Tutorial: Automate Everything", date: "Mar 2026", tag: "DevOps" }
+  { slug: "ansible-playbook-guide", title: "Ansible Playbook Tutorial: Automate Everything", date: "Mar 2026", tag: "DevOps" },
+  { slug: "ethical-hacking-roadmap-2026", title: "Ethical Hacking Roadmap 2026: From Beginner to OSCP", date: "Jan 2026", tag: "Security" },
+  { slug: "soc-analyst-guide-2026", title: "SOC Analyst Career 2026: Your Complete Entry Guide", date: "Feb 2026", tag: "Security" },
+  { slug: "network-security-guide-2026", title: "Network Security 2026: Fundamentals Every Engineer Must Know", date: "Mar 2026", tag: "Security" },
+  { slug: "nutrition-for-tech-2026", title: "Nutrition for Tech Professionals 2026: Eat for Focus", date: "Feb 2026", tag: "Health" },
+  { slug: "exercise-for-desk-workers-2026", title: "Exercise for Desk Workers 2026: Stay Healthy Sitting All Day", date: "Mar 2026", tag: "Health" },
+  { slug: "digital-wellbeing-2026", title: "Digital Wellbeing 2026: Use Technology Without Being Used by It", date: "Apr 2026", tag: "Health" },
+  { slug: "placement-prep-guide-2026", title: "Campus Placement Preparation 2026: Complete Guide for CS Students", date: "Mar 2026", tag: "Education" },
+  { slug: "cpp-beginners-2026", title: "C++ for Beginners 2026: Learn the Language That Powers Everything", date: "Apr 2026", tag: "Education" },
+  { slug: "os-concepts-interview-2026", title: "Operating Systems Interview Questions 2026: Top 40 With Answers", date: "May 2026", tag: "Education" },
+  { slug: "computer-networks-interview-2026", title: "Computer Networks Interview Questions 2026: Top 35 With Answers", date: "Jun 2026", tag: "Education" },
+  { slug: "neet-preparation-2026", title: "NEET 2026 Preparation: Complete Strategy to Crack Medical Entrance", date: "Jan 2026", tag: "Education" },
+  { slug: "banking-exam-guide-2026", title: "Banking Exam 2026: Complete Guide for IBPS, SBI, and RRB PO", date: "Feb 2026", tag: "Education" },
+  { slug: "upsc-prelims-strategy-2026", title: "UPSC Prelims 2026: Strategy to Clear GS Paper 1 and CSAT", date: "Mar 2026", tag: "Education" },
+  { slug: "icd10-coding-guide-2026", title: "ICD-10-CM Coding 2026: Complete Beginner to Professional Guide", date: "Jan 2026", tag: "Healthcare" },
+  { slug: "medical-coding-interview-2026", title: "Medical Coding Interview Questions 2026: Top 40 With Answers", date: "Feb 2026", tag: "Healthcare" },
+  { slug: "devops-salary-india-2025", title: "DevOps Engineer Salary in India 2025: Breakdown", date: "Jan 2025", tag: "Career" },
+  { slug: "cka-exam-guide", title: "CKA Exam Guide: How to Pass Certified Kubernetes Administrator", date: "Jan 2026", tag: "DevOps" },
 ];
 
 const tagColors: Record<string, string> = {
