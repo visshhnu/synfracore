@@ -5,4 +5,4 @@ pages_build_output_dir = ".vercel/output/static"
 
 [[kv_namespaces]]
 binding = "BLOG_KV"
-id = "57d60b769fbe4ae6be430d9dc4975f00"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"

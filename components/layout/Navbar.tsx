@@ -155,6 +155,7 @@ function SearchBox() {
 
 // ── Main Navbar ───────────────────────────────────────────
 const NAV_LINKS = [
+  { n: "Learn", h: "/learn" },
   { n: "Roadmaps", h: "/roadmaps" },
   { n: "Labs", h: "/labs" },
   { n: "Certifications", h: "/certifications" },
