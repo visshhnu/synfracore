@@ -155,7 +155,6 @@ function SearchBox() {
 
 // ── Main Navbar ───────────────────────────────────────────
 const NAV_LINKS = [
-  { n: "Learn", h: "/learn" },
   { n: "Roadmaps", h: "/roadmaps" },
   { n: "Labs", h: "/labs" },
   { n: "Certifications", h: "/certifications" },
@@ -167,6 +166,8 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropOpen, setDropOpen] = useState(false);
+  const [academyOpen, setAcademyOpen] = useState(false);
+  let academyTimer: ReturnType<typeof setTimeout>;
   const [scrolled, setScrolled] = useState(false);
   let dropTimer: ReturnType<typeof setTimeout>;
 
@@ -278,6 +279,23 @@ export default function Navbar() {
               </button>
             </div>
 
+            {/* Academy dropdown */}
+            <div
+              onMouseEnter={() => { clearTimeout(academyTimer); setAcademyOpen(true); }}
+              onMouseLeave={() => { academyTimer = setTimeout(() => setAcademyOpen(false), 150); }}
+              style={{ position: "relative" }}
+            >
+              <button style={{
+                display: "flex", alignItems: "center", gap: "3px",
+                color: "var(--text-3)", fontSize: "13px", fontWeight: 500,
+                padding: "5px 9px", borderRadius: "7px",
+                background: "none", border: "none", cursor: "pointer", fontFamily: "inherit",
+              }}>
+                Academy
+                <ChevronDown size={11} style={{ transform: academyOpen ? "rotate(180deg)" : "none", transition: "transform 0.2s" }} />
+              </button>
+            </div>
+
             {/* Regular links */}
             {NAV_LINKS.map(item => (
               <Link key={item.n} href={item.h} style={{
@@ -343,6 +361,106 @@ export default function Navbar() {
               <Link href="/academies" onClick={() => setDropOpen(false)}
                 style={{ fontSize: "12px", fontWeight: 600, color: "#3B82F6", textDecoration: "none", padding: "7px 20px", background: "rgba(59,130,246,0.08)", borderRadius: "8px", border: "1px solid rgba(59,130,246,0.2)" }}>
                 View All {academies.length} Academies →
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {/* Academy mega dropdown */}
+        {academyOpen && (
+          <div
+            onMouseEnter={() => { clearTimeout(academyTimer); setAcademyOpen(true); }}
+            onMouseLeave={() => { academyTimer = setTimeout(() => setAcademyOpen(false), 150); }}
+            style={{
+              position: "absolute", left: 0, right: 0, top: "100%",
+              background: "var(--bg-2)", borderBottom: "2px solid var(--border)",
+              boxShadow: "0 20px 60px rgba(0,0,0,0.25)", zIndex: 300,
+              padding: "24px 40px",
+            }}
+          >
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: "8px", maxWidth: "1000px", margin: "0 auto" }}>
+
+              {/* School */}
+              <div>
+                <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#10B981", marginBottom: "8px" }}>🏫 School</div>
+                {[
+                  { h: "/learn/class-10", n: "Class 10", d: "CBSE · ICSE · State Boards" },
+                  { h: "/learn", n: "Class 12", d: "Boards + JEE/NEET Foundation" },
+                ].map(i => (
+                  <Link key={i.h} href={i.h} onClick={() => setAcademyOpen(false)}
+                    style={{ display: "block", padding: "8px 10px", borderRadius: "8px", textDecoration: "none", marginBottom: "2px" }}
+                    onMouseEnter={e => { e.currentTarget.style.background = "var(--bg-3,var(--bg-1))"; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
+                    <div style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-1)" }}>{i.n}</div>
+                    <div style={{ fontSize: "11px", color: "var(--text-4)" }}>{i.d}</div>
+                  </Link>
+                ))}
+              </div>
+
+              {/* Entrance Exams */}
+              <div>
+                <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#F59E0B", marginBottom: "8px" }}>🏆 Entrance Exams</div>
+                {[
+                  { h: "/learn/jee", n: "JEE Main & Advanced", d: "Physics · Maths · Chemistry" },
+                  { h: "/learn/neet", n: "NEET", d: "Biology · Physics · Chemistry" },
+                  { h: "/learn/gate-cse", n: "GATE CSE", d: "DSA · OS · DBMS · Algorithms" },
+                  { h: "/learn", n: "CAT / GMAT", d: "Management entrance" },
+                ].map(i => (
+                  <Link key={i.h+i.n} href={i.h} onClick={() => setAcademyOpen(false)}
+                    style={{ display: "block", padding: "8px 10px", borderRadius: "8px", textDecoration: "none", marginBottom: "2px" }}
+                    onMouseEnter={e => { e.currentTarget.style.background = "var(--bg-3,var(--bg-1))"; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
+                    <div style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-1)" }}>{i.n}</div>
+                    <div style={{ fontSize: "11px", color: "var(--text-4)" }}>{i.d}</div>
+                  </Link>
+                ))}
+              </div>
+
+              {/* Competitive */}
+              <div>
+                <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#3B82F6", marginBottom: "8px" }}>🏛️ Competitive</div>
+                {[
+                  { h: "/learn/banking", n: "Banking (SBI/IBPS)", d: "Quant · Reasoning · English" },
+                  { h: "/learn", n: "UPSC Civil Services", d: "IAS · IPS · Prelims & Mains" },
+                  { h: "/learn", n: "SSC CGL/CHSL", d: "Quant · English · Reasoning" },
+                  { h: "/learn", n: "Defence (NDA/CDS)", d: "Army · Navy · Air Force" },
+                ].map(i => (
+                  <Link key={i.h+i.n} href={i.h} onClick={() => setAcademyOpen(false)}
+                    style={{ display: "block", padding: "8px 10px", borderRadius: "8px", textDecoration: "none", marginBottom: "2px" }}
+                    onMouseEnter={e => { e.currentTarget.style.background = "var(--bg-3,var(--bg-1))"; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
+                    <div style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-1)" }}>{i.n}</div>
+                    <div style={{ fontSize: "11px", color: "var(--text-4)" }}>{i.d}</div>
+                  </Link>
+                ))}
+              </div>
+
+              {/* Career */}
+              <div>
+                <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#8B5CF6", marginBottom: "8px" }}>🎯 Career</div>
+                {[
+                  { h: "/learn", n: "Resume Building", d: "ATS-optimised resume tips" },
+                  { h: "/learn", n: "Interview Prep", d: "STAR method · HR · Technical" },
+                  { h: "/learn", n: "Aptitude", d: "Quant · Logical · Verbal" },
+                  { h: "/learn", n: "Certifications", d: "AWS · Azure · GCP · CKA" },
+                ].map(i => (
+                  <Link key={i.h+i.n} href={i.h} onClick={() => setAcademyOpen(false)}
+                    style={{ display: "block", padding: "8px 10px", borderRadius: "8px", textDecoration: "none", marginBottom: "2px" }}
+                    onMouseEnter={e => { e.currentTarget.style.background = "var(--bg-3,var(--bg-1))"; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
+                    <div style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-1)" }}>{i.n}</div>
+                    <div style={{ fontSize: "11px", color: "var(--text-4)" }}>{i.d}</div>
+                  </Link>
+                ))}
+              </div>
+
+            </div>
+
+            {/* Footer bar */}
+            <div style={{ borderTop: "1px solid var(--border)", marginTop: "16px", paddingTop: "14px", display: "flex", justifyContent: "center", gap: "10px" }}>
+              <Link href="/learn" onClick={() => setAcademyOpen(false)}
+                style={{ fontSize: "12px", fontWeight: 600, color: "#8B5CF6", textDecoration: "none", padding: "7px 20px", background: "rgba(139,92,246,0.08)", borderRadius: "8px", border: "1px solid rgba(139,92,246,0.2)" }}>
+                Browse All Courses →
               </Link>
             </div>
           </div>

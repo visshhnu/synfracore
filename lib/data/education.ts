@@ -281,6 +281,9 @@ export const neetSubjects = [
       { slug: "biomolecules", title: "Biomolecules", description: "Carbohydrates, proteins, lipids, nucleic acids, and enzymes", topics: ["Carbohydrates","Proteins","Lipids","Nucleic Acids","Enzymes","Cofactors","Enzyme Inhibition","Km and Vmax"], pyqYears: ["2023","2022","2021","2020","2019"] },
       { slug: "genetics-principles", title: "Principles of Inheritance and Variation", description: "Mendel's laws, dihybrid cross, codominance, sex-linked traits, chromosomal disorders", topics: ["Mendel Laws","Monohybrid Cross","Dihybrid Cross","Incomplete Dominance","Codominance","Sex Determination","Sex-linked Traits","Chromosomal Disorders"], pyqYears: ["2023","2022","2021","2020","2019"] },
       { slug: "plant-physiology", title: "Transport in Plants and Mineral Nutrition", description: "Water relations, osmosis, mineral nutrition, nitrogen fixation, transpiration", topics: ["Water Potential","Osmosis","Plasmolysis","Mineral Nutrition","Nitrogen Fixation","Transpiration","Guard Cells","Cohesion-Tension Theory"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "human-physiology", title: "Human Physiology", description: "Digestion, breathing, circulation, excretion, and neural coordination", topics: ["Digestion Enzymes","Lung Volumes","Gas Transport","Cardiac Cycle","Nephron","ADH","Neural Coordination"], pyqYears: ["2023","2022","2021","2020","2019"] },
+      { slug: "plant-kingdom", title: "Plant Kingdom", description: "Algae, bryophytes, pteridophytes, gymnosperms, angiosperms — classification and life cycles", topics: ["Algae","Bryophytes","Pteridophytes","Gymnosperms","Angiosperms","Alternation of Generations","Monocot vs Dicot"], pyqYears: ["2023","2022","2021","2020","2019"] },
+      { slug: "ecology", title: "Ecology and Environment", description: "Ecosystem, food chains, biodiversity, biogeochemical cycles, and environmental issues", topics: ["Population Interactions","Food Chain","Energy Flow","Biodiversity","Hotspots","Biogeochemical Cycles","Environmental Issues"], pyqYears: ["2023","2022","2021","2020","2019"] },
     ],
   },
   {
@@ -292,6 +295,8 @@ export const neetSubjects = [
       { slug: "laws-of-motion", title: "Laws of Motion", description: "Newton's laws, friction, circular motion, Lami's theorem", topics: ["Newton's Laws","Friction","Circular Motion","Lami's Theorem","Impulse","Momentum"], pyqYears: ["2023","2022","2021","2020"] },
       { slug: "gravitation", title: "Gravitation", description: "Kepler's laws, orbital velocity, escape velocity, satellite energy", topics: ["Gravitation Law","Kepler's Laws","Orbital Velocity","Escape Velocity","Satellite Motion","Geostationary Orbit"], pyqYears: ["2023","2022","2021","2020"] },
       { slug: "thermodynamics", title: "Thermodynamics", description: "Laws of thermodynamics, gas processes, Carnot engine", topics: ["Laws of Thermodynamics","Gas Processes","Specific Heats","Carnot Engine","Entropy","Heat Engines"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "optics", title: "Optics", description: "Ray optics, wave optics, optical instruments, YDSE, diffraction", topics: ["Mirrors","Lenses","Refraction","TIR","Young Double Slit","Diffraction","Optical Instruments"], pyqYears: ["2023","2022","2021","2020","2019"] },
+      { slug: "electrostatics-magnetism", title: "Electrostatics and Magnetism", description: "Coulomb law, capacitors, magnetic force, EMI, transformers", topics: ["Coulomb Law","Electric Field","Capacitors","Magnetic Force","Faraday Law","Lenz Law","Transformer"], pyqYears: ["2023","2022","2021","2020","2019"] },
     ],
   },
   {
@@ -302,6 +307,8 @@ export const neetSubjects = [
     chapters: [
       { slug: "chemical-bonding", title: "Chemical Bonding and Molecular Structure", description: "VSEPR theory, hybridisation, molecular orbital theory, bond parameters", topics: ["Ionic Bond","Covalent Bond","VSEPR Theory","Hybridisation","MO Theory","Hydrogen Bond","Bond Parameters"], pyqYears: ["2023","2022","2021","2020"] },
       { slug: "equilibrium", title: "Equilibrium", description: "Chemical and ionic equilibrium, pH, buffer, Ksp", topics: ["Equilibrium Constant","Le Chatelier","pH Scale","Weak Acid/Base","Buffer Solutions","Ksp","Common Ion Effect"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "organic-reaction-mechanisms", title: "Organic Reaction Mechanisms", description: "Named reactions, SN1/SN2, EAS, polymers — all major organic reactions", topics: ["Aldol Condensation","Cannizzaro","Sandmeyer","Hoffmann","Lucas Test","SN1 vs SN2","EAS","Polymers"], pyqYears: ["2023","2022","2021","2020","2019"] },
+      { slug: "solutions-electrochemistry", title: "Solutions and Electrochemistry", description: "Colligative properties, Raoult's law, Faraday's laws, cell EMF", topics: ["Raoult Law","Colligative Properties","Van't Hoff Factor","Cell EMF","Nernst Equation","Faraday Laws","Molar Conductance"], pyqYears: ["2023","2022","2021","2020","2019"] },
     ],
   },
 ];

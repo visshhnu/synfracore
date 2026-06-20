@@ -1223,6 +1223,17 @@ const contentRegistry = new Map<string, string>([
   // ── NEET CHEMISTRY ──
   ["education/neet/chemistry/chemical-bonding","education/neet/chemistry/chemical-bonding"],
   ["education/neet/chemistry/equilibrium","education/neet/chemistry/equilibrium"],
+
+  // ── NEET BIOLOGY (additional) ──
+  ["education/neet/biology/human-physiology","education/neet/biology/human-physiology"],
+  ["education/neet/biology/plant-kingdom","education/neet/biology/plant-kingdom"],
+  ["education/neet/biology/ecology","education/neet/biology/ecology"],
+  // ── NEET PHYSICS (additional) ──
+  ["education/neet/physics/optics","education/neet/physics/optics"],
+  ["education/neet/physics/electrostatics-magnetism","education/neet/physics/electrostatics-magnetism"],
+  // ── NEET CHEMISTRY (additional) ──
+  ["education/neet/chemistry/organic-reaction-mechanisms","education/neet/chemistry/organic-reaction-mechanisms"],
+  ["education/neet/chemistry/solutions-electrochemistry","education/neet/chemistry/solutions-electrochemistry"],
 ]);
 
 export function hasContent(a: string, t: string, s: string): boolean {
