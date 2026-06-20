@@ -1096,6 +1096,66 @@ const contentRegistry = new Map<string, string>([
   ["education/class-10/maths/surface-areas-volumes","education/school/class-10/maths/surface-areas-volumes"],
   ["education/class-10/maths/statistics","education/school/class-10/maths/statistics"],
   ["education/class-10/maths/probability","education/school/class-10/maths/probability"],
+
+  // ── CLASS 10 SCIENCE ──
+  ["education/class-10/science/chemical-reactions","education/school/class-10/science/chemical-reactions"],
+  ["education/class-10/science/acids-bases-salts","education/school/class-10/science/acids-bases-salts"],
+  ["education/class-10/science/metals-nonmetals","education/school/class-10/science/metals-nonmetals"],
+  ["education/class-10/science/carbon-compounds","education/school/class-10/science/carbon-compounds"],
+  ["education/class-10/science/periodic-classification","education/school/class-10/science/periodic-classification"],
+  ["education/class-10/science/life-processes","education/school/class-10/science/life-processes"],
+  ["education/class-10/science/control-coordination","education/school/class-10/science/control-coordination"],
+  ["education/class-10/science/reproduction","education/school/class-10/science/reproduction"],
+  ["education/class-10/science/heredity-evolution","education/school/class-10/science/heredity-evolution"],
+  ["education/class-10/science/light","education/school/class-10/science/light"],
+  ["education/class-10/science/human-eye","education/school/class-10/science/human-eye"],
+  ["education/class-10/science/electricity","education/school/class-10/science/electricity"],
+  ["education/class-10/science/magnetic-effects","education/school/class-10/science/magnetic-effects"],
+  ["education/class-10/science/environment","education/school/class-10/science/environment"],
+
+
+  // ── JEE MATHS ──
+  ["education/jee/maths/sets-relations","education/jee/maths/sets-relations"],
+  ["education/jee/maths/complex-numbers","education/jee/maths/complex-numbers"],
+  ["education/jee/maths/matrices-determinants","education/jee/maths/matrices-determinants"],
+  ["education/jee/maths/permutation-combination","education/jee/maths/permutation-combination"],
+  ["education/jee/maths/binomial-theorem","education/jee/maths/binomial-theorem"],
+  ["education/jee/maths/sequences-series","education/jee/maths/sequences-series"],
+  ["education/jee/maths/limits-derivatives","education/jee/maths/limits-derivatives"],
+  ["education/jee/maths/applications-derivatives","education/jee/maths/applications-derivatives"],
+  ["education/jee/maths/integrals","education/jee/maths/integrals"],
+  ["education/jee/maths/coordinate-geometry","education/jee/maths/coordinate-geometry"],
+  ["education/jee/maths/vectors-3d","education/jee/maths/vectors-3d"],
+  ["education/jee/maths/probability","education/jee/maths/probability"],
+  ["education/jee/maths/statistics","education/jee/maths/statistics"],
+  // ── GATE CSE DSA ──
+  ["education/gate-cse/dsa/arrays-strings","education/gate/cse/arrays-strings"],
+  ["education/gate-cse/dsa/linked-lists","education/gate/cse/linked-lists"],
+  ["education/gate-cse/dsa/stacks-queues","education/gate/cse/stacks-queues"],
+  ["education/gate-cse/dsa/trees","education/gate/cse/trees"],
+  ["education/gate-cse/dsa/graphs","education/gate/cse/graphs"],
+  ["education/gate-cse/dsa/sorting","education/gate/cse/sorting"],
+  ["education/gate-cse/dsa/dynamic-programming","education/gate/cse/dynamic-programming"],
+  // ── GATE CSE OS ──
+  ["education/gate-cse/os/process-management","education/gate/cse/os/process-management"],
+  ["education/gate-cse/os/synchronisation","education/gate/cse/os/synchronisation"],
+  ["education/gate-cse/os/memory-management","education/gate/cse/os/memory-management"],
+  ["education/gate-cse/os/file-systems","education/gate/cse/os/file-systems"],
+  // ── GATE CSE DBMS ──
+  ["education/gate-cse/dbms/er-model","education/gate/cse/dbms/er-model"],
+  ["education/gate-cse/dbms/relational-algebra","education/gate/cse/dbms/relational-algebra"],
+  ["education/gate-cse/dbms/sql","education/gate/cse/dbms/sql"],
+  ["education/gate-cse/dbms/normalisation","education/gate/cse/dbms/normalisation"],
+  ["education/gate-cse/dbms/transactions","education/gate/cse/dbms/transactions"],
+  // ── BANKING QUANT ──
+  ["education/banking/quant/number-system","education/banking/quant/number-system"],
+  ["education/banking/quant/percentage","education/banking/quant/percentage"],
+  ["education/banking/quant/profit-loss","education/banking/quant/profit-loss"],
+  ["education/banking/quant/simple-compound-interest","education/banking/quant/simple-compound-interest"],
+  ["education/banking/quant/time-work","education/banking/quant/time-work"],
+  ["education/banking/quant/time-speed-distance","education/banking/quant/time-speed-distance"],
+  ["education/banking/quant/data-interpretation","education/banking/quant/data-interpretation"],
+  ["education/banking/quant/series-sequence","education/banking/quant/series-sequence"],
 ]);
 
 export function hasContent(a: string, t: string, s: string): boolean {
