@@ -267,6 +267,45 @@ export const bankingSubjects: Subject[] = [
   },
 ];
 
+
+// ── NEET ─────────────────────────────────────────────────────────────────────
+
+export const neetSubjects = [
+  {
+    slug: "biology",
+    name: "Biology",
+    icon: "🧬",
+    description: "NEET Biology — Botany and Zoology with NCERT-based chapter-wise content, PYQs, and MCQs",
+    chapters: [
+      { slug: "cell-biology", title: "Cell — The Unit of Life", description: "Cell theory, prokaryotic vs eukaryotic, organelles, plasma membrane", topics: ["Cell Theory","Prokaryotic Cell","Eukaryotic Cell","Plasma Membrane","Nucleus","Mitochondria","Chloroplast","ER","Golgi","Lysosome"], pyqYears: ["2023","2022","2021","2020","2019"] },
+      { slug: "biomolecules", title: "Biomolecules", description: "Carbohydrates, proteins, lipids, nucleic acids, and enzymes", topics: ["Carbohydrates","Proteins","Lipids","Nucleic Acids","Enzymes","Cofactors","Enzyme Inhibition","Km and Vmax"], pyqYears: ["2023","2022","2021","2020","2019"] },
+      { slug: "genetics-principles", title: "Principles of Inheritance and Variation", description: "Mendel's laws, dihybrid cross, codominance, sex-linked traits, chromosomal disorders", topics: ["Mendel Laws","Monohybrid Cross","Dihybrid Cross","Incomplete Dominance","Codominance","Sex Determination","Sex-linked Traits","Chromosomal Disorders"], pyqYears: ["2023","2022","2021","2020","2019"] },
+      { slug: "plant-physiology", title: "Transport in Plants and Mineral Nutrition", description: "Water relations, osmosis, mineral nutrition, nitrogen fixation, transpiration", topics: ["Water Potential","Osmosis","Plasmolysis","Mineral Nutrition","Nitrogen Fixation","Transpiration","Guard Cells","Cohesion-Tension Theory"], pyqYears: ["2023","2022","2021","2020"] },
+    ],
+  },
+  {
+    slug: "physics",
+    name: "Physics",
+    icon: "⚡",
+    description: "NEET Physics — all chapters from Class 11 and 12 with NEET-pattern MCQs and PYQs",
+    chapters: [
+      { slug: "laws-of-motion", title: "Laws of Motion", description: "Newton's laws, friction, circular motion, Lami's theorem", topics: ["Newton's Laws","Friction","Circular Motion","Lami's Theorem","Impulse","Momentum"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "gravitation", title: "Gravitation", description: "Kepler's laws, orbital velocity, escape velocity, satellite energy", topics: ["Gravitation Law","Kepler's Laws","Orbital Velocity","Escape Velocity","Satellite Motion","Geostationary Orbit"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "thermodynamics", title: "Thermodynamics", description: "Laws of thermodynamics, gas processes, Carnot engine", topics: ["Laws of Thermodynamics","Gas Processes","Specific Heats","Carnot Engine","Entropy","Heat Engines"], pyqYears: ["2023","2022","2021","2020"] },
+    ],
+  },
+  {
+    slug: "chemistry",
+    name: "Chemistry",
+    icon: "🧪",
+    description: "NEET Chemistry — Physical, Organic, and Inorganic with NEET PYQs",
+    chapters: [
+      { slug: "chemical-bonding", title: "Chemical Bonding and Molecular Structure", description: "VSEPR theory, hybridisation, molecular orbital theory, bond parameters", topics: ["Ionic Bond","Covalent Bond","VSEPR Theory","Hybridisation","MO Theory","Hydrogen Bond","Bond Parameters"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "equilibrium", title: "Equilibrium", description: "Chemical and ionic equilibrium, pH, buffer, Ksp", topics: ["Equilibrium Constant","Le Chatelier","pH Scale","Weak Acid/Base","Buffer Solutions","Ksp","Common Ion Effect"], pyqYears: ["2023","2022","2021","2020"] },
+    ],
+  },
+];
+
 // ── MAIN EDUCATION STRUCTURE ──────────────────────────────────────────────────
 
 export type EducationBoard = {
@@ -346,7 +385,7 @@ export const educationBoards: EducationBoard[] = [
     tagline: "MBBS/BDS Medical Entrance",
     description: "NEET preparation — Biology (Botany + Zoology), Physics, Chemistry with NCERT-focused chapter-wise content and PYQs 2015-2024",
     phases: ["NCERT Mastery","Topic Practice","PYQ Analysis","Mock Tests","Final Revision"],
-    subjects: [],  // content added progressively
+    subjects: neetSubjects, // content added progressively
   },
   {
     slug: "ssc",

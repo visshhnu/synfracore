@@ -1210,6 +1210,19 @@ const contentRegistry = new Map<string, string>([
   // ── CAREER ACADEMY ──
   ["education/career/resume/resume-building","education/career/resume/resume-building"],
   ["education/career/interview/interview-preparation","education/career/interview/interview-preparation"],
+
+  // ── NEET BIOLOGY ──
+  ["education/neet/biology/cell-biology","education/neet/biology/cell-biology"],
+  ["education/neet/biology/biomolecules","education/neet/biology/biomolecules"],
+  ["education/neet/biology/genetics-principles","education/neet/biology/genetics-principles"],
+  ["education/neet/biology/plant-physiology","education/neet/biology/plant-physiology"],
+  // ── NEET PHYSICS ──
+  ["education/neet/physics/laws-of-motion","education/neet/physics/laws-of-motion"],
+  ["education/neet/physics/gravitation","education/neet/physics/gravitation"],
+  ["education/neet/physics/thermodynamics","education/neet/physics/thermodynamics"],
+  // ── NEET CHEMISTRY ──
+  ["education/neet/chemistry/chemical-bonding","education/neet/chemistry/chemical-bonding"],
+  ["education/neet/chemistry/equilibrium","education/neet/chemistry/equilibrium"],
 ]);
 
 export function hasContent(a: string, t: string, s: string): boolean {
