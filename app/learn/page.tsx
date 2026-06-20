@@ -10,8 +10,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://synfracore.com/learn" },
 };
 
-const liveBoards = ["class-10","jee","gate-cse","banking","neet","upsc","defence"];
-const comingSoon = ["ssc","class-12"];
+const liveBoards = ["class-10","jee","gate-cse","banking","neet","upsc","defence","ssc","career","finance"];
+const comingSoon = ["class-12"];
 
 export default function LearnPage() {
   const live = educationBoards.filter(b => liveBoards.includes(b.slug));
@@ -83,8 +83,9 @@ export default function LearnPage() {
           {[
             ...soon.map(b => ({ icon: b.icon, name: b.name, desc: b.tagline })),
             { icon: "🎯", name: "Career Academy", desc: "Resume · Interview · Aptitude" },
-            { icon: "🏦", name: "Finance & Commerce", desc: "CA · Stock Market · Economics" },
+            { icon: "📐", name: "Class 12", desc: "CBSE · Maths · Physics · Chemistry" },
             { icon: "⚖️", name: "Law Academy", desc: "Constitutional · Corporate · Cyber Law" },
+            { icon: "🌾", name: "Agriculture", desc: "Agri-tech · Rural education" },
           ].map(b => (
             <div key={b.name} style={{ padding: "18px 20px", borderRadius: "10px", border: "1px dashed var(--border)", background: "var(--bg)", opacity: 0.65, display: "flex", alignItems: "center", gap: "12px" }}>
               <span style={{ fontSize: "24px" }}>{b.icon}</span>

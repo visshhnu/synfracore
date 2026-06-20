@@ -1242,6 +1242,28 @@ const contentRegistry = new Map<string, string>([
   ["education/defence/cds/cds-exam","education/defence/cds/cds-exam"],
   // ── UPSC PRELIMS ──
   ["education/upsc/prelims/gs-paper1","education/upsc/prelims/gs-paper1"],
+
+  // ── SSC QUANT ──
+  ["education/ssc/quant/number-system-hcf-lcm","education/ssc/quant/number-system-hcf-lcm"],
+  ["education/ssc/quant/percentage-profit-loss","education/ssc/quant/percentage-profit-loss"],
+  ["education/ssc/quant/time-work-pipes","education/ssc/quant/time-work-pipes"],
+  ["education/ssc/quant/speed-distance-time","education/ssc/quant/speed-distance-time"],
+  ["education/ssc/quant/data-interpretation","education/ssc/quant/data-interpretation"],
+  // ── SSC REASONING ──
+  ["education/ssc/reasoning/series-analogy","education/ssc/reasoning/series-analogy"],
+  ["education/ssc/reasoning/classification-matrix","education/ssc/reasoning/classification-matrix"],
+  // ── SSC ENGLISH ──
+  ["education/ssc/english/vocabulary-grammar","education/ssc/english/vocabulary-grammar"],
+  ["education/ssc/english/reading-comprehension-cloze","education/ssc/english/reading-comprehension-cloze"],
+  // ── SSC GK ──
+  ["education/ssc/gk/general-awareness","education/ssc/gk/general-awareness"],
+  // ── CAREER ACADEMY ──
+  ["education/career/aptitude/aptitude-fundamentals","education/career/aptitude/aptitude-fundamentals"],
+  ["education/career/placement/placement-training","education/career/placement/placement-training"],
+  // ── FINANCE ACADEMY ──
+  ["education/finance/accounting/accounting-basics","education/finance/accounting/accounting-basics"],
+  ["education/finance/stock-market/stock-market-basics","education/finance/stock-market/stock-market-basics"],
+  ["education/finance/economics/macro-economics","education/finance/economics/macro-economics"],
 ]);
 
 export function hasContent(a: string, t: string, s: string): boolean {

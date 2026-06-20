@@ -314,6 +314,127 @@ export const neetSubjects = [
 ];
 
 
+
+// ── SSC ──────────────────────────────────────────────────────────────────────
+
+export const sscSubjects = [
+  {
+    slug: "quant",
+    name: "Quantitative Aptitude",
+    icon: "🔢",
+    description: "Number system, percentage, profit-loss, time-work, speed-distance, and DI for SSC",
+    chapters: [
+      { slug: "number-system-hcf-lcm", title: "Number System, HCF and LCM", description: "Types of numbers, divisibility rules, HCF, LCM, and word problems", topics: ["Number Types","Divisibility Rules","HCF","LCM","Word Problems"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "percentage-profit-loss", title: "Percentage, Profit and Loss", description: "Percentage calculations, successive change, profit-loss, marked price, discount", topics: ["Percentage","Profit%","Loss%","Marked Price","Discount","Successive Change"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "time-work-pipes", title: "Time, Work and Pipes & Cisterns", description: "Work efficiency method, LCM approach, pipes filling/emptying, men-days formula", topics: ["Work Efficiency","LCM Method","Pipes","Cisterns","Men-Days Formula"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "speed-distance-time", title: "Speed, Distance and Time", description: "Trains, boats, relative speed, average speed, circular track problems", topics: ["Basic Formulas","Average Speed","Relative Speed","Trains","Boats & Streams"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "data-interpretation", title: "Data Interpretation", description: "Tables, bar graphs, pie charts, line graphs — reading and calculation techniques", topics: ["Tables","Bar Graphs","Pie Charts","Line Graphs","Approximation Techniques"], pyqYears: ["2023","2022","2021"] },
+    ],
+  },
+  {
+    slug: "reasoning",
+    name: "Reasoning Ability",
+    icon: "🧩",
+    description: "Series, analogy, classification, matrix, and logical reasoning for SSC",
+    chapters: [
+      { slug: "series-analogy", title: "Series and Analogy", description: "Number series, letter series, word/number/letter analogy patterns", topics: ["Number Series","Letter Series","Word Analogy","Number Analogy","Letter Analogy"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "classification-matrix", title: "Classification and Matrix", description: "Odd one out from word/number/letter groups, matrix pattern finding", topics: ["Word Classification","Number Classification","Letter Classification","Matrix Patterns","Magic Square"], pyqYears: ["2023","2022","2021","2020"] },
+    ],
+  },
+  {
+    slug: "english",
+    name: "English",
+    icon: "📝",
+    description: "Vocabulary, grammar, reading comprehension, and cloze test for SSC",
+    chapters: [
+      { slug: "vocabulary-grammar", title: "Vocabulary and Grammar", description: "Synonyms, antonyms, idioms, one-word substitution, error detection, sentence improvement", topics: ["Synonyms","Antonyms","Idioms","One-word Substitution","Error Detection","Sentence Improvement"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "reading-comprehension-cloze", title: "Reading Comprehension and Cloze Test", description: "RC strategy for SSC, cloze test approach, common traps and shortcuts", topics: ["RC Strategy","Factual Questions","Inference","Cloze Test","Connectors","Grammar in Context"], pyqYears: ["2023","2022","2021","2020"] },
+    ],
+  },
+  {
+    slug: "gk",
+    name: "General Awareness",
+    icon: "🌐",
+    description: "Static GK and current affairs — History, Polity, Geography, Science, Economy",
+    chapters: [
+      { slug: "general-awareness", title: "General Awareness", description: "Indian History, Polity, Geography, Science, Economy, and Current Affairs for SSC", topics: ["Indian History","Polity","Geography","Physics","Chemistry","Biology","Economy","Awards"], pyqYears: ["2023","2022","2021","2020"] },
+    ],
+  },
+];
+
+// ── CAREER ACADEMY ─────────────────────────────────────────────────────────────
+
+export const careerSubjects = [
+  {
+    slug: "resume",
+    name: "Resume Building",
+    icon: "📄",
+    description: "ATS-optimised resume writing, format, action verbs, and common mistakes",
+    chapters: [
+      { slug: "resume-building", title: "Resume Building", description: "ATS-optimised resume format, structure for fresher and experienced, quantification tips", topics: ["ATS Optimisation","Resume Format","Action Verbs","Quantification","Common Mistakes"], pyqYears: [] },
+    ],
+  },
+  {
+    slug: "interview",
+    name: "Interview Preparation",
+    icon: "🤝",
+    description: "STAR method, common HR questions, technical interview tips, salary negotiation",
+    chapters: [
+      { slug: "interview-preparation", title: "Interview Preparation", description: "STAR method, HR questions, technical interview strategy, salary negotiation framework", topics: ["STAR Method","HR Questions","Technical Interview","Salary Negotiation","Interview Day Checklist"], pyqYears: [] },
+    ],
+  },
+  {
+    slug: "aptitude",
+    name: "Aptitude",
+    icon: "🧮",
+    description: "Quantitative aptitude fundamentals for campus placement — TCS, Infosys, Wipro pattern",
+    chapters: [
+      { slug: "aptitude-fundamentals", title: "Aptitude Fundamentals", description: "Number system, percentage, ratios, probability, permutation, geometry for placement tests", topics: ["Number System","Percentage","Ratio","Probability","Permutation","Company Patterns"], pyqYears: [] },
+    ],
+  },
+  {
+    slug: "placement",
+    name: "Placement Training",
+    icon: "🎓",
+    description: "Complete campus placement guide — aptitude, GD, technical, HR, and salary negotiation",
+    chapters: [
+      { slug: "placement-training", title: "Placement Training — Complete Guide", description: "Campus recruitment process, GD tips, technical interview by role, HR framework", topics: ["Aptitude Strategy","Group Discussion","Technical Interview","HR Interview","Salary Negotiation","Resources"], pyqYears: [] },
+    ],
+  },
+];
+
+// ── FINANCE ACADEMY ────────────────────────────────────────────────────────────
+
+export const financeSubjects = [
+  {
+    slug: "accounting",
+    name: "Accounting",
+    icon: "📊",
+    description: "Accounting fundamentals — double entry, journal, ledger, financial statements",
+    chapters: [
+      { slug: "accounting-basics", title: "Accounting Fundamentals", description: "Accounting equation, double entry system, journal, ledger, trial balance, financial statements", topics: ["Accounting Equation","Double Entry","Journal","Ledger","Trial Balance","Financial Statements","Accounting Concepts"], pyqYears: [] },
+    ],
+  },
+  {
+    slug: "stock-market",
+    name: "Stock Market",
+    icon: "📈",
+    description: "Stock market basics — BSE, NSE, SENSEX, NIFTY, fundamental and technical analysis",
+    chapters: [
+      { slug: "stock-market-basics", title: "Stock Market Fundamentals", description: "Primary and secondary markets, SENSEX, NIFTY, fundamental analysis, technical analysis, SEBI", topics: ["Markets","Indices","Fundamental Analysis","Technical Analysis","SEBI Regulations","How to Invest"], pyqYears: [] },
+    ],
+  },
+  {
+    slug: "economics",
+    name: "Economics",
+    icon: "🏦",
+    description: "Macroeconomics — GDP, inflation, monetary policy, fiscal policy, balance of payments",
+    chapters: [
+      { slug: "macro-economics", title: "Macroeconomics and Indian Economy", description: "National income, inflation, monetary policy, fiscal policy, balance of payments for finance roles", topics: ["GDP","National Income","Inflation","Monetary Policy","Fiscal Policy","Balance of Payments","Key Concepts"], pyqYears: [] },
+    ],
+  },
+];
+
 // ── DEFENCE & UPSC ────────────────────────────────────────────────────────────
 
 export const defenceSubjects = [
@@ -440,7 +561,7 @@ export const educationBoards: EducationBoard[] = [
     tagline: "Government Job Preparation",
     description: "SSC CGL and CHSL preparation — Quant, English, Reasoning, GK for Tier I and Tier II",
     phases: ["Basics","Topic Practice","Previous Papers","Mock Tests","Revision"],
-    subjects: [],  // content added progressively
+    subjects: sscSubjects,
   },
   {
     slug: "defence",
@@ -452,6 +573,28 @@ export const educationBoards: EducationBoard[] = [
     description: "Complete preparation for NDA, CDS, and AFCAT defence exams — Mathematics, General Ability Test, English, and GK with previous year questions",
     phases: ["Foundation","Subject Mastery","PYQ Practice","Mock Tests","Final Revision"],
     subjects: defenceSubjects,
+  },
+  {
+    slug: "career",
+    name: "Career Academy",
+    shortName: "Career",
+    icon: "🎯",
+    color: "#8B5CF6",
+    tagline: "Resume · Interview · Aptitude · Placement",
+    description: "Complete career preparation — resume building, interview techniques, aptitude for placements, and campus recruitment training",
+    phases: ["Resume","Aptitude Prep","GD Practice","Technical Prep","HR Prep","Placement"],
+    subjects: careerSubjects,
+  },
+  {
+    slug: "finance",
+    name: "Finance & Commerce",
+    shortName: "Finance",
+    icon: "🏦",
+    color: "#F59E0B",
+    tagline: "Accounting · Stock Market · Economics",
+    description: "Finance fundamentals — accounting, stock markets, macroeconomics, and investment basics for finance careers and personal finance",
+    phases: ["Accounting Basics","Financial Markets","Economics","Advanced Finance","Real Applications"],
+    subjects: financeSubjects,
   },
   {
     slug: "class-12",
