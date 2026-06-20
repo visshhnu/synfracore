@@ -1156,6 +1156,35 @@ const contentRegistry = new Map<string, string>([
   ["education/banking/quant/time-speed-distance","education/banking/quant/time-speed-distance"],
   ["education/banking/quant/data-interpretation","education/banking/quant/data-interpretation"],
   ["education/banking/quant/series-sequence","education/banking/quant/series-sequence"],
+
+  // ── JEE PHYSICS ──
+  ["education/jee/physics/units-dimensions","education/jee/physics/units-dimensions"],
+  ["education/jee/physics/kinematics","education/jee/physics/kinematics"],
+  ["education/jee/physics/laws-of-motion","education/jee/physics/laws-of-motion"],
+  ["education/jee/physics/work-energy","education/jee/physics/work-energy"],
+  ["education/jee/physics/rotation","education/jee/physics/rotation"],
+  ["education/jee/physics/gravitation","education/jee/physics/gravitation"],
+  ["education/jee/physics/thermodynamics","education/jee/physics/thermodynamics"],
+  ["education/jee/physics/electrostatics","education/jee/physics/electrostatics"],
+  ["education/jee/physics/current-electricity","education/jee/physics/current-electricity"],
+  ["education/jee/physics/magnetic-effects","education/jee/physics/magnetic-effects"],
+  ["education/jee/physics/modern-physics","education/jee/physics/modern-physics"],
+  // ── JEE CHEMISTRY ──
+  ["education/jee/chemistry/atomic-structure","education/jee/chemistry/atomic-structure"],
+  ["education/jee/chemistry/chemical-bonding","education/jee/chemistry/chemical-bonding"],
+  ["education/jee/chemistry/equilibrium","education/jee/chemistry/equilibrium"],
+  ["education/jee/chemistry/thermodynamics-chem","education/jee/chemistry/thermodynamics-chem"],
+  ["education/jee/chemistry/organic-basic","education/jee/chemistry/organic-basic"],
+  ["education/jee/chemistry/hydrocarbons","education/jee/chemistry/hydrocarbons"],
+  ["education/jee/chemistry/carbonyl-compounds","education/jee/chemistry/carbonyl-compounds"],
+  ["education/jee/chemistry/periodic-table","education/jee/chemistry/periodic-table"],
+  // ── BANKING REASONING ──
+  ["education/banking/reasoning/puzzles-seating","education/banking/reasoning/puzzles-seating"],
+  ["education/banking/reasoning/syllogism","education/banking/reasoning/syllogism"],
+  ["education/banking/reasoning/blood-relations","education/banking/reasoning/blood-relations"],
+  ["education/banking/reasoning/direction-distance","education/banking/reasoning/direction-distance"],
+  ["education/banking/reasoning/inequality","education/banking/reasoning/inequality"],
+  ["education/banking/reasoning/coding-decoding","education/banking/reasoning/coding-decoding"],
 ]);
 
 export function hasContent(a: string, t: string, s: string): boolean {
