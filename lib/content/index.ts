@@ -1185,6 +1185,31 @@ const contentRegistry = new Map<string, string>([
   ["education/banking/reasoning/direction-distance","education/banking/reasoning/direction-distance"],
   ["education/banking/reasoning/inequality","education/banking/reasoning/inequality"],
   ["education/banking/reasoning/coding-decoding","education/banking/reasoning/coding-decoding"],
+
+  // ── CLASS-10 ENGLISH ──
+  ["education/class-10/english/a-letter-to-god","education/school/class-10/english/a-letter-to-god"],
+  ["education/class-10/english/nelson-mandela","education/school/class-10/english/nelson-mandela"],
+  ["education/class-10/english/grammar-writing","education/school/class-10/english/grammar-writing"],
+  ["education/class-10/english/two-stories-flying","education/school/class-10/english/two-stories-flying"],
+  // ── CLASS-10 SOCIAL SCIENCE ──
+  ["education/class-10/social/rise-of-nationalism","education/school/class-10/social/rise-of-nationalism"],
+  ["education/class-10/social/nationalism-india","education/school/class-10/social/nationalism-india"],
+  ["education/class-10/social/resources-development","education/school/class-10/social/resources-development"],
+  ["education/class-10/social/power-sharing","education/school/class-10/social/power-sharing"],
+  ["education/class-10/social/development","education/school/class-10/social/development"],
+  ["education/class-10/social/money-credit","education/school/class-10/social/money-credit"],
+  // ── BANKING ENGLISH ──
+  ["education/banking/english/reading-comprehension","education/banking/english/reading-comprehension"],
+  ["education/banking/english/cloze-test","education/banking/english/cloze-test"],
+  ["education/banking/english/error-detection","education/banking/english/error-detection"],
+  ["education/banking/english/sentence-improvement","education/banking/english/sentence-improvement"],
+  // ── BANKING AWARENESS ──
+  ["education/banking/awareness/banking-basics","education/banking/awareness/banking-basics"],
+  ["education/banking/awareness/financial-awareness","education/banking/awareness/financial-awareness"],
+  ["education/banking/awareness/current-affairs","education/banking/awareness/current-affairs"],
+  // ── CAREER ACADEMY ──
+  ["education/career/resume/resume-building","education/career/resume/resume-building"],
+  ["education/career/interview/interview-preparation","education/career/interview/interview-preparation"],
 ]);
 
 export function hasContent(a: string, t: string, s: string): boolean {
