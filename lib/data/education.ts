@@ -329,6 +329,7 @@ export const sscSubjects = [
       { slug: "time-work-pipes", title: "Time, Work and Pipes & Cisterns", description: "Work efficiency method, LCM approach, pipes filling/emptying, men-days formula", topics: ["Work Efficiency","LCM Method","Pipes","Cisterns","Men-Days Formula"], pyqYears: ["2023","2022","2021","2020"] },
       { slug: "speed-distance-time", title: "Speed, Distance and Time", description: "Trains, boats, relative speed, average speed, circular track problems", topics: ["Basic Formulas","Average Speed","Relative Speed","Trains","Boats & Streams"], pyqYears: ["2023","2022","2021","2020"] },
       { slug: "data-interpretation", title: "Data Interpretation", description: "Tables, bar graphs, pie charts, line graphs — reading and calculation techniques", topics: ["Tables","Bar Graphs","Pie Charts","Line Graphs","Approximation Techniques"], pyqYears: ["2023","2022","2021"] },
+      { slug: "simple-compound-interest", title: "Simple and Compound Interest", description: "SI and CI formulas, shortcuts, rule of 72, CI-SI difference", topics: ["Simple Interest","Compound Interest","CI-SI Difference","Rule of 72","Compounding Frequency"], pyqYears: ["2023","2022","2021","2020"] },
     ],
   },
   {
@@ -339,6 +340,7 @@ export const sscSubjects = [
     chapters: [
       { slug: "series-analogy", title: "Series and Analogy", description: "Number series, letter series, word/number/letter analogy patterns", topics: ["Number Series","Letter Series","Word Analogy","Number Analogy","Letter Analogy"], pyqYears: ["2023","2022","2021","2020"] },
       { slug: "classification-matrix", title: "Classification and Matrix", description: "Odd one out from word/number/letter groups, matrix pattern finding", topics: ["Word Classification","Number Classification","Letter Classification","Matrix Patterns","Magic Square"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "logical-venn-diagram", title: "Venn Diagrams and Statement-Conclusion", description: "Venn diagram relationships, statement-conclusion logical reasoning", topics: ["Venn Diagrams","All/No/Some Relations","Statement-Conclusion","3-Circle Problems","Either-Or Cases"], pyqYears: ["2023","2022","2021","2020"] },
     ],
   },
   {
@@ -606,6 +608,71 @@ export const educationBoards: EducationBoard[] = [
     description: "Class 12 board preparation aligned with JEE/NEET — Maths, Physics, Chemistry, Biology, CS",
     phases: ["NCERT","Solved Examples","Board PYQs","MCQ Practice","Revision"],
     subjects: [],  // content added progressively
+  },
+];
+
+
+// ── CLASS 12 ──────────────────────────────────────────────────────────────────
+
+export const class12Subjects = [
+  {
+    slug: "maths",
+    name: "Mathematics",
+    icon: "📐",
+    description: "Class 12 Maths — Relations, Matrices, Calculus, Probability for CBSE boards and JEE foundation",
+    chapters: [
+      { slug: "relations-functions", title: "Relations and Functions", description: "Types of relations, types of functions, composition, inverse functions, binary operations", topics: ["Types of Relations","Equivalence Relation","One-one Functions","Onto Functions","Composition","Inverse Functions"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "matrices-determinants", title: "Matrices and Determinants", description: "Matrix operations, determinant properties, inverse, solving systems of equations", topics: ["Matrix Operations","Determinants","Properties","Cofactors","Inverse","Cramer's Rule"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "calculus-derivatives", title: "Continuity, Differentiability and Applications", description: "Continuity, differentiation rules, chain rule, tangent-normal, maxima-minima", topics: ["Continuity","Differentiability","Standard Derivatives","Chain Rule","Tangent-Normal","Maxima-Minima"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "integration", title: "Integration and Its Applications", description: "Indefinite integrals, substitution, parts, partial fractions, definite integrals, area", topics: ["Standard Integrals","Substitution","Integration by Parts","Partial Fractions","Definite Integrals","Area Under Curves"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "probability", title: "Probability (Class 12)", description: "Conditional probability, Bayes theorem, random variables, binomial distribution", topics: ["Conditional Probability","Multiplication Theorem","Total Probability","Bayes Theorem","Random Variables","Binomial Distribution"], pyqYears: ["2023","2022","2021","2020"] },
+    ],
+  },
+  {
+    slug: "physics",
+    name: "Physics",
+    icon: "⚡",
+    description: "Class 12 Physics — Electrostatics, Current Electricity, Optics for CBSE boards and JEE",
+    chapters: [
+      { slug: "electric-charges-fields", title: "Electric Charges and Fields", description: "Coulomb's law, electric field, Gauss's law, electric potential", topics: ["Electric Charge","Coulomb's Law","Electric Field","Gauss's Law","Electric Potential","Equipotential Surfaces"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "current-electricity-board", title: "Current Electricity", description: "Ohm's law, Kirchhoff's laws, Wheatstone bridge, potentiometer, meter bridge", topics: ["Ohm's Law","Combinations","Kirchhoff's Laws","Wheatstone Bridge","Meter Bridge","Potentiometer"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "wave-optics", title: "Ray Optics and Wave Optics", description: "Mirrors, lenses, TIR, Young's double slit experiment, diffraction", topics: ["Mirrors","Refraction","TIR","Lenses","Prism","YDSE","Diffraction"], pyqYears: ["2023","2022","2021","2020"] },
+    ],
+  },
+  {
+    slug: "chemistry",
+    name: "Chemistry",
+    icon: "🧪",
+    description: "Class 12 Chemistry — Electrochemistry, Organic Nitrogen Compounds for CBSE boards",
+    chapters: [
+      { slug: "electrochemistry-board", title: "Electrochemistry", description: "EMF of cells, Nernst equation, conductance, Faraday's laws of electrolysis", topics: ["Electrochemical Cells","Standard EMF","Nernst Equation","Conductance","Faraday's Laws","Electrolysis"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "organic-nitrogen-compounds", title: "Amines and Diazonium Salts", description: "Classification, preparation, reactions of amines, diazonium salt reactions", topics: ["Classification","Basicity","Preparation","Carbylamine Test","Hinsberg Test","Diazonium Reactions","Sandmeyer Reaction"], pyqYears: ["2023","2022","2021","2020"] },
+    ],
+  },
+  {
+    slug: "biology",
+    name: "Biology",
+    icon: "🧬",
+    description: "Class 12 Biology — Reproduction, Genetics and Evolution for CBSE boards and NEET",
+    chapters: [
+      { slug: "reproduction", title: "Reproduction in Organisms and Flowering Plants", description: "Asexual and sexual reproduction, flower structure, pollination, double fertilisation, human reproduction", topics: ["Asexual Reproduction","Flower Structure","Pollination","Double Fertilisation","Embryo Sac","Human Reproduction","Menstrual Cycle"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "genetics-evolution", title: "Genetics and Evolution", description: "DNA structure, replication, transcription, translation, genetic code, evolution theories", topics: ["DNA Structure","Replication","Transcription","Translation","Genetic Code","Darwin's Theory","Hardy-Weinberg"], pyqYears: ["2023","2022","2021","2020"] },
+    ],
+  },
+];
+
+
+// ── FINANCE TAXATION ──────────────────────────────────────────────────────────
+
+export const financeExtraSubjects = [
+  {
+    slug: "taxation",
+    name: "Taxation",
+    icon: "📋",
+    description: "Income Tax and GST fundamentals — slabs, deductions, GST rates, ITC",
+    chapters: [
+      { slug: "taxation-gst", title: "Taxation — Income Tax and GST", description: "Income tax heads, deductions (80C, 80D), GST structure, rates, ITC, returns", topics: ["Income Tax Heads","80C Deductions","Tax Slabs","GST Structure","GST Rates","Input Tax Credit","GST Returns"], pyqYears: [] },
+    ],
   },
 ];
 

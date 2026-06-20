@@ -10,12 +10,11 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://synfracore.com/learn" },
 };
 
-const liveBoards = ["class-10","jee","gate-cse","banking","neet","upsc","defence","ssc","career","finance"];
-const comingSoon = ["class-12"];
+const liveBoards = ["class-10","class-12","jee","gate-cse","banking","neet","upsc","defence","ssc","career","finance"];
 
 export default function LearnPage() {
   const live = educationBoards.filter(b => liveBoards.includes(b.slug));
-  const soon = educationBoards.filter(b => comingSoon.includes(b.slug));
+  const soon: typeof educationBoards = [];
 
   return (
     <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "48px 24px" }}>
@@ -83,7 +82,7 @@ export default function LearnPage() {
           {[
             ...soon.map(b => ({ icon: b.icon, name: b.name, desc: b.tagline })),
             { icon: "🎯", name: "Career Academy", desc: "Resume · Interview · Aptitude" },
-            { icon: "📐", name: "Class 12", desc: "CBSE · Maths · Physics · Chemistry" },
+            { icon: "⚖️", name: "Law Academy", desc: "Constitutional · Corporate · Cyber Law" },
             { icon: "⚖️", name: "Law Academy", desc: "Constitutional · Corporate · Cyber Law" },
             { icon: "🌾", name: "Agriculture", desc: "Agri-tech · Rural education" },
           ].map(b => (

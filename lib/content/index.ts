@@ -1264,6 +1264,28 @@ const contentRegistry = new Map<string, string>([
   ["education/finance/accounting/accounting-basics","education/finance/accounting/accounting-basics"],
   ["education/finance/stock-market/stock-market-basics","education/finance/stock-market/stock-market-basics"],
   ["education/finance/economics/macro-economics","education/finance/economics/macro-economics"],
+
+  // ── CLASS-12 MATHS ──
+  ["education/class-12/maths/relations-functions","education/school/class-12/maths/relations-functions"],
+  ["education/class-12/maths/matrices-determinants","education/school/class-12/maths/matrices-determinants"],
+  ["education/class-12/maths/calculus-derivatives","education/school/class-12/maths/calculus-derivatives"],
+  ["education/class-12/maths/integration","education/school/class-12/maths/integration"],
+  ["education/class-12/maths/probability","education/school/class-12/maths/probability"],
+  // ── CLASS-12 PHYSICS ──
+  ["education/class-12/physics/electric-charges-fields","education/school/class-12/physics/electric-charges-fields"],
+  ["education/class-12/physics/current-electricity-board","education/school/class-12/physics/current-electricity-board"],
+  ["education/class-12/physics/wave-optics","education/school/class-12/physics/wave-optics"],
+  // ── CLASS-12 CHEMISTRY ──
+  ["education/class-12/chemistry/electrochemistry-board","education/school/class-12/chemistry/electrochemistry-board"],
+  ["education/class-12/chemistry/organic-nitrogen-compounds","education/school/class-12/chemistry/organic-nitrogen-compounds"],
+  // ── CLASS-12 BIOLOGY ──
+  ["education/class-12/biology/reproduction","education/school/class-12/biology/reproduction"],
+  ["education/class-12/biology/genetics-evolution","education/school/class-12/biology/genetics-evolution"],
+  // ── SSC ADDITIONAL ──
+  ["education/ssc/quant/simple-compound-interest","education/ssc/quant/simple-compound-interest"],
+  ["education/ssc/reasoning/logical-venn-diagram","education/ssc/reasoning/logical-venn-diagram"],
+  // ── FINANCE TAXATION ──
+  ["education/finance/taxation/taxation-gst","education/finance/taxation/taxation-gst"],
 ]);
 
 export function hasContent(a: string, t: string, s: string): boolean {
