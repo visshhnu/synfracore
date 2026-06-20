@@ -421,9 +421,9 @@ export default function Navbar() {
                 <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#3B82F6", marginBottom: "8px" }}>🏛️ Competitive</div>
                 {[
                   { h: "/learn/banking", n: "Banking (SBI/IBPS)", d: "Quant · Reasoning · English" },
-                  { h: "/learn", n: "UPSC Civil Services", d: "IAS · IPS · Prelims & Mains" },
+                  { h: "/learn/upsc", n: "UPSC Civil Services", d: "IAS · IPS · Prelims & Mains" },
                   { h: "/learn", n: "SSC CGL/CHSL", d: "Quant · English · Reasoning" },
-                  { h: "/learn", n: "Defence (NDA/CDS)", d: "Army · Navy · Air Force" },
+                  { h: "/learn/defence", n: "Defence (NDA/CDS)", d: "NDA · CDS · AFCAT" },
                 ].map(i => (
                   <Link key={i.h+i.n} href={i.h} onClick={() => setAcademyOpen(false)}
                     style={{ display: "block", padding: "8px 10px", borderRadius: "8px", textDecoration: "none", marginBottom: "2px" }}

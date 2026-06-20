@@ -14,7 +14,7 @@ export default function AcademiesPage() {
       {/* Header */}
       <div style={{ borderBottom: "1px solid var(--border)", padding: "56px 0 48px" }}>
         <div className="page-container">
-          <div className="badge badge-blue" style={{ marginBottom: "16px" }}>7 Academies</div>
+          <div className="badge badge-blue" style={{ marginBottom: "16px" }}>Tech Academies</div>
           <h1 className="display-lg" style={{ marginBottom: "12px" }}>Choose Your Academy</h1>
           <p className="body-lg" style={{ maxWidth: "560px" }}>
             Each academy is a complete learning ecosystem — structured domains, guided paths, hands-on labs, and expert content from beginner to architect level.

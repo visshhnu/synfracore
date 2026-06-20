@@ -313,6 +313,43 @@ export const neetSubjects = [
   },
 ];
 
+
+// ── DEFENCE & UPSC ────────────────────────────────────────────────────────────
+
+export const defenceSubjects = [
+  {
+    slug: "nda",
+    name: "NDA",
+    icon: "⚔️",
+    description: "NDA exam preparation — Mathematics (300 marks) and General Ability Test (600 marks)",
+    chapters: [
+      { slug: "mathematics", title: "NDA Mathematics", description: "Algebra, calculus, matrices, trigonometry, statistics, analytical geometry for NDA Paper I", topics: ["Algebra","Matrices","Trigonometry","Calculus","Statistics","Probability","Analytical Geometry","Vectors"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "general-ability", title: "NDA General Ability Test", description: "English and GK — Physics, Chemistry, Biology, History, Geography, Current Events", topics: ["English Grammar","Vocabulary","Physics","Chemistry","Biology","History","Geography","Defence GK"], pyqYears: ["2023","2022","2021","2020"] },
+    ],
+  },
+  {
+    slug: "cds",
+    name: "CDS",
+    icon: "🎖️",
+    description: "Combined Defence Services exam — English, General Knowledge, Elementary Mathematics",
+    chapters: [
+      { slug: "cds-exam", title: "CDS Complete Guide", description: "English, GK (Polity, History, Geography, Science), and Elementary Mathematics for CDS", topics: ["English","Indian Polity","History","Geography","Science & Tech","Elementary Maths","Defence Awareness"], pyqYears: ["2023","2022","2021","2020"] },
+    ],
+  },
+];
+
+export const upscSubjects = [
+  {
+    slug: "prelims",
+    name: "Prelims GS",
+    icon: "📜",
+    description: "UPSC Prelims General Studies Paper 1 — History, Polity, Economy, Geography, Environment, Science",
+    chapters: [
+      { slug: "gs-paper1", title: "GS Paper 1 — Complete Coverage", description: "Indian History, Polity, Economy, Geography, Environment, Science and Technology for UPSC Prelims", topics: ["Ancient History","Medieval History","Modern History","Indian Polity","Economy","Geography","Environment","Science & Tech"], pyqYears: ["2023","2022","2021","2020","2019"] },
+    ],
+  },
+];
+
 // ── MAIN EDUCATION STRUCTURE ──────────────────────────────────────────────────
 
 export type EducationBoard = {
@@ -380,8 +417,8 @@ export const educationBoards: EducationBoard[] = [
     color: "#EF4444",
     tagline: "IAS, IPS, IFS Preparation",
     description: "UPSC Prelims and Mains preparation — GS Paper 1 & 2 (CSAT), essay writing, current affairs with structured chapter-wise content",
-    phases: ["NCERT Foundation","Standard References","Current Affairs","PYQ Practice","Answer Writing"],
-    subjects: [],  // content added progressively
+    subjects: upscSubjects,
+    phases: ["NCERT Foundation","Standard References","Current Affairs","PYQ Practice","Answer Writing"]
   },
   {
     slug: "neet",
@@ -404,6 +441,17 @@ export const educationBoards: EducationBoard[] = [
     description: "SSC CGL and CHSL preparation — Quant, English, Reasoning, GK for Tier I and Tier II",
     phases: ["Basics","Topic Practice","Previous Papers","Mock Tests","Revision"],
     subjects: [],  // content added progressively
+  },
+  {
+    slug: "defence",
+    name: "Defence Exams",
+    shortName: "Defence",
+    icon: "⚔️",
+    color: "#F59E0B",
+    tagline: "NDA · CDS · AFCAT",
+    description: "Complete preparation for NDA, CDS, and AFCAT defence exams — Mathematics, General Ability Test, English, and GK with previous year questions",
+    phases: ["Foundation","Subject Mastery","PYQ Practice","Mock Tests","Final Revision"],
+    subjects: defenceSubjects,
   },
   {
     slug: "class-12",

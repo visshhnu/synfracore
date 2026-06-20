@@ -48,6 +48,8 @@ export default async function AcademyPage({ params }: Props) {
   const { academy: aSlug } = await params;
   const academy = getAcademy(aSlug);
   if (!academy) redirect("/academies");
+  // School and competitive exam content now lives at /learn
+  if (["education", "exams"].includes(aSlug)) redirect("/learn");
 
   return (
     <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "40px 24px" }}>

@@ -1234,6 +1234,14 @@ const contentRegistry = new Map<string, string>([
   // ── NEET CHEMISTRY (additional) ──
   ["education/neet/chemistry/organic-reaction-mechanisms","education/neet/chemistry/organic-reaction-mechanisms"],
   ["education/neet/chemistry/solutions-electrochemistry","education/neet/chemistry/solutions-electrochemistry"],
+
+  // ── DEFENCE NDA ──
+  ["education/defence/nda/mathematics","education/defence/nda/mathematics"],
+  ["education/defence/nda/general-ability","education/defence/nda/general-ability"],
+  // ── DEFENCE CDS ──
+  ["education/defence/cds/cds-exam","education/defence/cds/cds-exam"],
+  // ── UPSC PRELIMS ──
+  ["education/upsc/prelims/gs-paper1","education/upsc/prelims/gs-paper1"],
 ]);
 
 export function hasContent(a: string, t: string, s: string): boolean {

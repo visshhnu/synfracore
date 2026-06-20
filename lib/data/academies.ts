@@ -498,7 +498,7 @@ const educationAcademy: Academy = {
   subtitle: "Class 6-12 · Engineering · Placement",
   icon: "🎓",
   color: "#3B82F6",
-  description: "Complete academic support — CBSE/ICSE school curriculum, engineering college subjects (DSA, OS, DBMS, CN), placement preparation, and coding fundamentals from scratch.",
+  description: "School and competitive exam preparation has moved to the Academy section. Visit /learn for structured chapter-wise content with PYQs and MCQs.",
   domains: [
     {
       slug: "school",
@@ -543,7 +543,7 @@ const examsAcademy: Academy = {
   subtitle: "GATE · JEE · NEET · Banking · UPSC",
   icon: "📝",
   color: "#8B5CF6",
-  description: "Structured preparation for India's top competitive exams — GATE, JEE, NEET, CAT, Banking (SBI PO/IBPS), SSC, UPSC, and State PSC exams with previous year papers and mock tests.",
+  description: "JEE, NEET, GATE, Banking and competitive exam preparation has moved to the Academy section. Visit /learn for structured chapter-wise content.",
   domains: [
     {
       slug: "engineering-exams",
@@ -610,12 +610,13 @@ export const academies: Academy[] = [
   securityAcademy,
   healthcareAcademy,
   essentialsAcademy,
-  educationAcademy,
-  examsAcademy,
 ];
 
+// These academies redirect to /learn — kept for backward compatibility
+export const legacyAcademies: Academy[] = [educationAcademy, examsAcademy];
+
 export function getAcademy(slug: string): Academy | undefined {
-  return academies.find((a) => a.slug === slug);
+  return [...academies, ...legacyAcademies].find((a) => a.slug === slug);
 }
 
 export function getAllTechnologies(): Array<Technology & { academy: string; domain: string }> {
