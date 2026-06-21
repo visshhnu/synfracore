@@ -625,6 +625,9 @@ export const class12Subjects = [
       { slug: "matrices-determinants", title: "Matrices and Determinants", description: "Matrix operations, determinant properties, inverse, solving systems of equations", topics: ["Matrix Operations","Determinants","Properties","Cofactors","Inverse","Cramer's Rule"], pyqYears: ["2023","2022","2021","2020"] },
       { slug: "calculus-derivatives", title: "Continuity, Differentiability and Applications", description: "Continuity, differentiation rules, chain rule, tangent-normal, maxima-minima", topics: ["Continuity","Differentiability","Standard Derivatives","Chain Rule","Tangent-Normal","Maxima-Minima"], pyqYears: ["2023","2022","2021","2020"] },
       { slug: "integration", title: "Integration and Its Applications", description: "Indefinite integrals, substitution, parts, partial fractions, definite integrals, area", topics: ["Standard Integrals","Substitution","Integration by Parts","Partial Fractions","Definite Integrals","Area Under Curves"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "vectors-3d-geometry", title: "Vectors and 3D Geometry", description: "Dot product, cross product, scalar triple product, lines and planes in 3D", topics: ["Dot Product","Cross Product","Scalar Triple Product","Lines in 3D","Planes","Distance Formula"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "linear-programming", title: "Linear Programming", description: "Formulation, graphical method, corner points, feasible region, optimal solution", topics: ["LPP Formulation","Graphical Method","Feasible Region","Corner Points","Maximisation","Minimisation"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "differential-equations", title: "Differential Equations", description: "Order, degree, variable separable, homogeneous, linear DE with integrating factor", topics: ["Order and Degree","Variable Separable","Homogeneous DE","Linear DE","Integrating Factor","Applications"], pyqYears: ["2023","2022","2021","2020"] },
       { slug: "probability", title: "Probability (Class 12)", description: "Conditional probability, Bayes theorem, random variables, binomial distribution", topics: ["Conditional Probability","Multiplication Theorem","Total Probability","Bayes Theorem","Random Variables","Binomial Distribution"], pyqYears: ["2023","2022","2021","2020"] },
     ],
   },
@@ -636,6 +639,8 @@ export const class12Subjects = [
     chapters: [
       { slug: "electric-charges-fields", title: "Electric Charges and Fields", description: "Coulomb's law, electric field, Gauss's law, electric potential", topics: ["Electric Charge","Coulomb's Law","Electric Field","Gauss's Law","Electric Potential","Equipotential Surfaces"], pyqYears: ["2023","2022","2021","2020"] },
       { slug: "current-electricity-board", title: "Current Electricity", description: "Ohm's law, Kirchhoff's laws, Wheatstone bridge, potentiometer, meter bridge", topics: ["Ohm's Law","Combinations","Kirchhoff's Laws","Wheatstone Bridge","Meter Bridge","Potentiometer"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "magnetic-effects-board", title: "Magnetic Effects of Current and Magnetism", description: "Biot-Savart law, Ampere's law, galvanometer, bar magnet, Earth's magnetism", topics: ["Biot-Savart Law","Ampere's Law","Force on Conductor","Galvanometer","Ammeter","Voltmeter","Bar Magnet","Earth Magnetism"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "semiconductor-devices", title: "Semiconductor Electronics", description: "p-n junction, rectifiers, transistor, logic gates", topics: ["Energy Bands","p-n Junction","Rectifiers","Transistor","Logic Gates","Universal Gates"], pyqYears: ["2023","2022","2021","2020"] },
       { slug: "wave-optics", title: "Ray Optics and Wave Optics", description: "Mirrors, lenses, TIR, Young's double slit experiment, diffraction", topics: ["Mirrors","Refraction","TIR","Lenses","Prism","YDSE","Diffraction"], pyqYears: ["2023","2022","2021","2020"] },
     ],
   },
@@ -646,6 +651,8 @@ export const class12Subjects = [
     description: "Class 12 Chemistry — Electrochemistry, Organic Nitrogen Compounds for CBSE boards",
     chapters: [
       { slug: "electrochemistry-board", title: "Electrochemistry", description: "EMF of cells, Nernst equation, conductance, Faraday's laws of electrolysis", topics: ["Electrochemical Cells","Standard EMF","Nernst Equation","Conductance","Faraday's Laws","Electrolysis"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "coordination-compounds", title: "Coordination Compounds", description: "Nomenclature, Werner's theory, isomerism, Crystal Field Theory", topics: ["Ligands","Nomenclature","Werner's Theory","Isomerism","CFT","Stability","Colour"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "polymers-biomolecules", title: "Polymers and Biomolecules", description: "Classification of polymers, important synthetic polymers, carbohydrates, proteins, vitamins", topics: ["Polymer Classification","Nylon","Dacron","Rubber","Carbohydrates","Proteins","Vitamins"], pyqYears: ["2023","2022","2021","2020"] },
       { slug: "organic-nitrogen-compounds", title: "Amines and Diazonium Salts", description: "Classification, preparation, reactions of amines, diazonium salt reactions", topics: ["Classification","Basicity","Preparation","Carbylamine Test","Hinsberg Test","Diazonium Reactions","Sandmeyer Reaction"], pyqYears: ["2023","2022","2021","2020"] },
     ],
   },
@@ -656,6 +663,8 @@ export const class12Subjects = [
     description: "Class 12 Biology — Reproduction, Genetics and Evolution for CBSE boards and NEET",
     chapters: [
       { slug: "reproduction", title: "Reproduction in Organisms and Flowering Plants", description: "Asexual and sexual reproduction, flower structure, pollination, double fertilisation, human reproduction", topics: ["Asexual Reproduction","Flower Structure","Pollination","Double Fertilisation","Embryo Sac","Human Reproduction","Menstrual Cycle"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "biotechnology", title: "Biotechnology — Principles and Applications", description: "Restriction enzymes, PCR, gel electrophoresis, rDNA technology, insulin, Bt cotton", topics: ["Restriction Enzymes","Vectors","rDNA Technology","PCR","Gel Electrophoresis","Insulin","Bt Cotton","Gene Therapy"], pyqYears: ["2023","2022","2021","2020"] },
+      { slug: "human-health-disease", title: "Human Health and Disease", description: "Innate and acquired immunity, vaccines, common diseases, cancer, drugs abuse", topics: ["Innate Immunity","Acquired Immunity","Vaccines","Bacterial Diseases","Viral Diseases","Cancer","Drug Abuse"], pyqYears: ["2023","2022","2021","2020"] },
       { slug: "genetics-evolution", title: "Genetics and Evolution", description: "DNA structure, replication, transcription, translation, genetic code, evolution theories", topics: ["DNA Structure","Replication","Transcription","Translation","Genetic Code","Darwin's Theory","Hardy-Weinberg"], pyqYears: ["2023","2022","2021","2020"] },
     ],
   },

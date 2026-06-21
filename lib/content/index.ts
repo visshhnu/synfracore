@@ -1286,6 +1286,20 @@ const contentRegistry = new Map<string, string>([
   ["education/ssc/reasoning/logical-venn-diagram","education/ssc/reasoning/logical-venn-diagram"],
   // ── FINANCE TAXATION ──
   ["education/finance/taxation/taxation-gst","education/finance/taxation/taxation-gst"],
+
+  // ── CLASS-12 MATHS (extra) ──
+  ["education/class-12/maths/vectors-3d-geometry","education/school/class-12/maths/vectors-3d-geometry"],
+  ["education/class-12/maths/linear-programming","education/school/class-12/maths/linear-programming"],
+  ["education/class-12/maths/differential-equations","education/school/class-12/maths/differential-equations"],
+  // ── CLASS-12 PHYSICS (extra) ──
+  ["education/class-12/physics/magnetic-effects-board","education/school/class-12/physics/magnetic-effects-board"],
+  ["education/class-12/physics/semiconductor-devices","education/school/class-12/physics/semiconductor-devices"],
+  // ── CLASS-12 CHEMISTRY (extra) ──
+  ["education/class-12/chemistry/coordination-compounds","education/school/class-12/chemistry/coordination-compounds"],
+  ["education/class-12/chemistry/polymers-biomolecules","education/school/class-12/chemistry/polymers-biomolecules"],
+  // ── CLASS-12 BIOLOGY (extra) ──
+  ["education/class-12/biology/biotechnology","education/school/class-12/biology/biotechnology"],
+  ["education/class-12/biology/human-health-disease","education/school/class-12/biology/human-health-disease"],
 ]);
 
 export function hasContent(a: string, t: string, s: string): boolean {
