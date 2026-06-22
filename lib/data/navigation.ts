@@ -57,8 +57,8 @@ export const roadmaps = [
 ];
 
 export const stats = [
-  { value: "50+", label: "Technologies" },
-  { value: "10", label: "Academies" },
-  { value: "500+", label: "Labs & Projects" },
+  { value: "284+", label: "Chapters" },
+  { value: "11", label: "Academies" },
+  { value: "890+", label: "Tech Topics" },
   { value: "13", label: "Certifications" },
 ];
