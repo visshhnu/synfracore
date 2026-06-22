@@ -1,75 +1,255 @@
-# Docker — Interview Questions
-
-Real questions from DevOps interviews, drawn from 5 years of notes and production experience.
-
----
+# Docker Interview Questions
 
 ## Core Concepts
 
-**What is Docker and how does it differ from a Virtual Machine?**
-Docker uses OS-level containerization — containers share the host OS kernel, so they start in milliseconds and use far fewer resources. A VM runs a full OS with its own kernel on a hypervisor — takes minutes to start, uses gigabytes of RAM just for the OS. Containers are isolated using Linux namespaces (process, network, filesystem) and cgroups (CPU, memory limits). The trade-off: VMs give stronger isolation (different kernels, hardware emulation), containers give speed and density. In practice, most cloud workloads use containers inside VMs (best of both).
+**Q: What is Docker? Difference between containers and VMs?**
 
-**What is the difference between a Docker image and a container?**
-Image is a read-only template — a snapshot of a filesystem with your app and all its dependencies. It's built once and stored in a registry. Container is a running instance of an image — it adds a writable layer on top of the image's read-only layers. You can run many containers from one image. Analogy: image is a class definition, container is an object (instance).
+Docker is a containerisation platform that packages applications with their dependencies into isolated, portable containers.
 
-**What is a Dockerfile and what are its main instructions?**
-A Dockerfile is a text file with instructions to build a Docker image. Key instructions: `FROM` (base image), `RUN` (execute command during build, creates new layer), `COPY` (copy files into image), `WORKDIR` (set working directory), `ENV` (environment variable), `EXPOSE` (document port), `VOLUME` (create mount point), `USER` (run as non-root), `CMD` (default command when container starts), `ENTRYPOINT` (always-run command, CMD becomes its arguments).
+| | Containers | Virtual Machines |
+|---|---|---|
+| Size | MBs | GBs |
+| Startup | Seconds | Minutes |
+| OS | Shares host kernel | Full OS per VM |
+| Isolation | Process-level (namespaces) | Full hardware virtualisation |
+| Density | 100s on one host | 10s on one host |
+| Use case | Microservices, CI/CD | Full isolation, different kernels |
 
-**What is the difference between CMD and ENTRYPOINT?**
-`CMD` sets the default command — it can be completely overridden at runtime: `docker run myimage bash` ignores CMD. `ENTRYPOINT` always runs — `docker run myimage bash` passes "bash" as an argument to ENTRYPOINT. Common pattern: `ENTRYPOINT ["python3", "app.py"]` with no CMD for a service. Or `ENTRYPOINT ["python3"]` with `CMD ["app.py"]` so you can override just the script but keep the interpreter.
-
----
-
-## Images and Layers
-
-**How does Docker layer caching work?**
-Each Dockerfile instruction creates a new layer. Docker caches layers and reuses them if the instruction and all previous instructions haven't changed. If you change line 5, layers 5+ are rebuilt. This is why you should: (1) put frequently changing instructions last (like `COPY . .`), (2) put rarely changing instructions first (like `RUN apt-get install`). Copy `requirements.txt` and `RUN pip install` BEFORE `COPY . .` — dependencies are installed from cache even when code changes.
-
-**What are dangling images?**
-Images with no tag and no container using them — shown as `<none>:<none>` in `docker images`. Created when you rebuild with the same tag — old image loses its tag. Remove with `docker image prune` or `docker rmi $(docker images -f "dangling=true" -q)`.
-
-**What is a multi-stage build and why use it?**
-Multi-stage build uses multiple `FROM` statements in one Dockerfile. Each stage can `COPY --from=previous-stage` files. The final image only contains what you explicitly copy into it. Example: Stage 1 uses a Maven image to compile Java (700MB). Stage 2 uses a JRE image (100MB) and copies only the JAR. Final image is 100MB, not 700MB. The build tools and source code are discarded.
+Containers use **Linux namespaces** (pid, net, mnt, uts, ipc, user) for isolation and **cgroups** for resource limits.
 
 ---
 
-## Volumes and Networking
+**Q: Explain Dockerfile — key instructions.**
 
-**What is the difference between a volume and a bind mount?**
-Volume: Docker manages the storage location (`/var/lib/docker/volumes/`). Created with `docker volume create`. Not dependent on host directory structure. Portable, backed up, migrated more easily. Bind mount: a host directory mapped directly into the container (`-v /host/path:/container/path`). You control the location. Files are immediately visible on host — good for development (hot reload). Volumes are recommended for production; bind mounts for development.
+```dockerfile
+FROM ubuntu:22.04                          # Base image (always first)
+LABEL maintainer="team@company.com"        # Metadata
 
-**Why are containers immutable and why does that matter?**
-Containers should not be modified while running. If you need a change, rebuild the image and replace the container. This is the "immutable infrastructure" principle. Benefits: (1) predictable — the container in production is identical to what was tested, (2) rollback is easy — just run the previous image, (3) no configuration drift — you can't have servers that diverged from the desired state over time.
+ARG NODE_VERSION=18                        # Build-time variable
+ENV APP_ENV=production                     # Runtime environment variable
 
-**What is the Docker bridge network and how do containers communicate?**
-The default bridge network (`docker0`) connects all containers without `--network` specified. They can communicate by IP but NOT by name. A custom bridge network (`docker network create mynet`) enables DNS-based name resolution — `container1` can reach `container2` just by typing `ping container2`. Always use custom networks in production. Same network = can communicate. Different networks = isolated.
+WORKDIR /app                               # Sets working directory
+
+COPY package*.json ./                      # Copy files (uses cache well)
+RUN npm ci --only=production               # Execute command (creates layer)
+
+COPY . .                                   # Copy remaining source
+
+EXPOSE 3000                                # Document port (doesn't publish)
+
+HEALTHCHECK --interval=30s --timeout=3s   CMD curl -f http://localhost:3000/health || exit 1
+
+USER node                                  # Run as non-root (security!)
+CMD ["node", "server.js"]                  # Default command (overridable)
+# ENTRYPOINT ["node"]                      # Fixed executable (CMD becomes args)
+```
+
+**CMD vs ENTRYPOINT:**
+- `CMD`: default command, easily overridden with `docker run image <new-command>`
+- `ENTRYPOINT`: fixed executable, CMD becomes default arguments
+- Together: `ENTRYPOINT ["node"]` + `CMD ["server.js"]` → runs `node server.js`, can override just the script
 
 ---
 
-## Production and CI/CD
+**Q: How do you optimise Docker images?**
 
-**How do you pass secrets to a Docker container safely?**
-Never bake secrets into the image (they appear in `docker history`). Options: (1) Environment variables at runtime: `docker run -e DB_PASSWORD=xxx myapp` — visible in process list, avoid for sensitive secrets. (2) Docker secrets (Swarm): encrypted, only available to specific services. (3) Kubernetes Secrets: base64-encoded, stored in etcd, mounted as files or env vars. (4) External: Vault, AWS Secrets Manager, read at runtime from API. Best practice: use a secrets manager, inject at runtime, never in the image.
+1. **Multi-stage builds** — biggest impact:
+```dockerfile
+# Build stage
+FROM node:18 AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
 
-**What is the difference between `docker stop` and `docker kill`?**
-`docker stop` sends SIGTERM (graceful shutdown) and waits 10 seconds, then sends SIGKILL. The application can catch SIGTERM and clean up (close connections, flush buffers). `docker kill` sends SIGKILL immediately — no cleanup possible. Always prefer `docker stop`. Use `docker kill` only when `stop` doesn't work.
+# Production stage — only final artifacts
+FROM node:18-alpine
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+USER node
+CMD ["node", "dist/server.js"]
+# Result: 1.2GB → 120MB
+```
 
-**How do you update a container with zero downtime?**
-In Docker Swarm: `docker service update --image newimage:tag myservice` with `--update-parallelism 1 --update-delay 10s` for rolling updates. In Kubernetes: `kubectl set image deployment/myapp container=newimage:tag` triggers a rolling update by default. Behind a load balancer: update containers one at a time, health check passes before moving to next.
-
-**What is Docker Scout / Trivy used for?**
-Image vulnerability scanning. After building an image, scan it before pushing: `trivy image myapp:latest`. Reports CVEs (Common Vulnerabilities and Exposures) in the OS packages and language libraries. Shows severity (CRITICAL, HIGH, MEDIUM, LOW). Integrate into CI/CD pipeline: fail the build if any CRITICAL vulnerabilities found. Keeps your production images free from known exploits.
+2. **Use slim/alpine base images**: `node:18-alpine` vs `node:18` saves ~800MB
+3. **Order layers by change frequency**: `COPY package.json` before `COPY .` — npm install layer cached unless package.json changes
+4. **`.dockerignore`**: Exclude `node_modules`, `.git`, `*.log`, `tests/`
+5. **Combine RUN commands**: `RUN apt-get update && apt-get install -y pkg1 pkg2 && rm -rf /var/lib/apt/lists/*`
+6. **Don't run as root**: `USER node`
 
 ---
 
-## Quick-Fire
+**Q: What is Docker Compose? When would you use it vs Kubernetes?**
 
-**How do you see why a container crashed?** `docker logs container_name` or for a stopped container: `docker logs container_name` still works. Check exit code: `docker inspect container_name | grep -i exitcode`.
+Docker Compose defines and runs multi-container applications with a single `docker-compose.yml`:
 
-**How do you run a command in a running container?** `docker exec -it container_name bash` (interactive) or `docker exec container_name ls /app` (non-interactive).
+```yaml
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://user:pass@db:5432/mydb
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./logs:/app/logs
 
-**How do you copy files to/from a container?** `docker cp local_file.txt container:/path/` and `docker cp container:/path/file.txt ./local/`
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: pass
+      POSTGRES_USER: user
+      POSTGRES_DB: mydb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user"]
+      interval: 5s
 
-**What does `--rm` flag do?** `docker run --rm myapp` — automatically removes the container when it exits. Good for one-off tasks and CI jobs to avoid container accumulation.
+volumes:
+  postgres_data:
+```
 
-**How do you limit container memory?** `docker run --memory 512m --memory-swap 512m myapp` — sets hard memory limit and disables swap. Container gets OOMKilled if it exceeds the limit.
+**Docker Compose vs Kubernetes:**
+Use Compose for: local development, simple deployments, small teams, single-host.
+Use Kubernetes for: production, multi-node, auto-scaling, high availability, complex networking.
+
+---
+
+**Q: Explain Docker networking.**
+
+**Network drivers:**
+- `bridge` (default): Isolated network, containers communicate by name, NAT to host
+- `host`: Container shares host network stack (no isolation, best performance)
+- `none`: No networking
+- `overlay`: Multi-host networking (Docker Swarm / across hosts)
+
+```bash
+# Create custom network
+docker network create --driver bridge app-network
+
+# Run containers on same network (can communicate by name)
+docker run --network app-network --name db postgres
+docker run --network app-network --name app myapp
+# app container can reach db: POSTGRES_HOST=db
+```
+
+**Port mapping**: `docker run -p 8080:3000` → host port 8080 maps to container port 3000.
+
+---
+
+**Q: What are Docker volumes? Types?**
+
+Volumes persist data beyond container lifecycle.
+
+**Types:**
+1. **Named volumes** (preferred): `docker run -v mydata:/app/data` — managed by Docker, survives container deletion, easy to share
+2. **Bind mounts**: `docker run -v /host/path:/container/path` — mounts host directory, good for development (live code reload)
+3. **tmpfs mounts**: In-memory only, not persisted (sensitive data)
+
+```bash
+docker volume create mydata
+docker volume ls
+docker volume inspect mydata
+docker volume rm mydata
+
+# Backup a volume
+docker run --rm -v mydata:/data -v $(pwd):/backup ubuntu tar czf /backup/backup.tar.gz /data
+```
+
+---
+
+**Q: How do you secure Docker containers?**
+
+1. **Don't run as root**: `USER nonroot` in Dockerfile
+2. **Read-only filesystem**: `docker run --read-only --tmpfs /tmp`
+3. **No privileged mode**: Avoid `--privileged` (gives almost root access)
+4. **Limit capabilities**: `--cap-drop ALL --cap-add NET_BIND_SERVICE`
+5. **Resource limits**: `--memory 512m --cpus 0.5`
+6. **Scan images**: Trivy, Snyk, Docker Scout
+7. **Use trusted base images**: Official images, minimal base
+8. **Secrets management**: Don't use ENV for secrets in production — use Docker secrets or external vault
+9. **Network isolation**: Only expose necessary ports
+10. **Sign images**: Docker Content Trust (DCT)
+
+---
+
+**Q: What happens when you run `docker run`?**
+
+1. Docker CLI sends request to Docker daemon (dockerd)
+2. Daemon checks local image cache — if not found, pulls from registry
+3. Daemon creates container filesystem (UnionFS layers: image layers read-only + writable layer on top)
+4. Daemon creates network namespace, assigns IP
+5. Daemon sets up cgroups for resource limits
+6. Daemon runs the entrypoint/command process (PID 1 in container)
+
+**Union filesystem (overlayFS)**: Image layers are read-only. Each container gets a thin writable layer on top. Changes only written to writable layer. Multiple containers share same image layers (efficient).
+
+---
+
+**Q: How do you debug a running container?**
+
+```bash
+# Execute command in running container
+docker exec -it container_name /bin/sh
+
+# View logs
+docker logs container_name -f --tail=100
+
+# Inspect container configuration
+docker inspect container_name
+
+# View resource usage
+docker stats container_name
+
+# Copy files from/to container
+docker cp container_name:/app/error.log ./error.log
+
+# View processes inside container
+docker top container_name
+
+# Attach to container's stdin/stdout
+docker attach container_name
+
+# Override entrypoint for debug (bypass application startup)
+docker run --entrypoint /bin/sh -it myimage
+```
+
+## Revision Notes
+```
+CONTAINER vs VM: Shares kernel (lighter, faster) vs full OS (heavier, more isolated)
+NAMESPACES: pid, net, mnt, uts, ipc, user (isolation)
+CGROUPS: resource limits (CPU, memory, I/O)
+
+DOCKERFILE KEY INSTRUCTIONS:
+FROM: base image | WORKDIR: working dir | COPY: copy files
+RUN: execute (creates layer) | ENV: runtime env var | ARG: build-time var
+EXPOSE: document port | CMD: default command | ENTRYPOINT: fixed executable
+USER: run as user (security) | HEALTHCHECK: health probe
+
+IMAGE OPTIMISATION:
+Multi-stage builds (biggest impact) | Alpine base images
+Layer ordering (change frequency) | .dockerignore | Combine RUN commands
+
+NETWORKING:
+bridge (default, isolated) | host (no isolation, max performance) | overlay (multi-host)
+Port mapping: -p hostPort:containerPort
+
+VOLUMES:
+Named: -v name:/path (managed by Docker, persistent)
+Bind: -v /host:/container (host directory, dev use)
+tmpfs: in-memory, not persistent
+
+SECURITY:
+Non-root USER | --read-only | --cap-drop ALL | Resource limits | Image scanning
+No privileged | External secrets (not ENV) | Sign images (DCT)
+
+DEBUG:
+exec -it → logs -f → inspect → stats → docker cp
+```

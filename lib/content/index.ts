@@ -1300,6 +1300,12 @@ const contentRegistry = new Map<string, string>([
   // ── CLASS-12 BIOLOGY (extra) ──
   ["education/class-12/biology/biotechnology","education/school/class-12/biology/biotechnology"],
   ["education/class-12/biology/human-health-disease","education/school/class-12/biology/human-health-disease"],
+
+  // ── UPSC ADDITIONAL ──
+  ["education/upsc/prelims/history-polity","education/upsc/prelims/history-polity"],
+  ["education/upsc/prelims/geography-environment","education/upsc/prelims/geography-environment"],
+  // ── FINANCE BANKING ──
+  ["education/finance/banking-finance/investment-basics","education/finance/banking-finance/investment-basics"],
 ]);
 
 export function hasContent(a: string, t: string, s: string): boolean {

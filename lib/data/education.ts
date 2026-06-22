@@ -427,6 +427,15 @@ export const financeSubjects = [
     ],
   },
   {
+    slug: "banking-finance",
+    name: "Banking & Finance",
+    icon: "💳",
+    description: "Banking products, investment instruments, mutual funds, insurance, retirement planning",
+    chapters: [
+      { slug: "investment-basics", title: "Investment and Banking Products", description: "Banking deposits, loans, equity, mutual funds, fixed income, insurance, retirement products", topics: ["Banking Deposits","Loans","CIBIL Score","Equity","Mutual Funds","Fixed Income","Insurance","NPS","EPF"], pyqYears: [] },
+    ],
+  },
+  {
     slug: "economics",
     name: "Economics",
     icon: "🏦",
@@ -468,6 +477,8 @@ export const upscSubjects = [
     icon: "📜",
     description: "UPSC Prelims General Studies Paper 1 — History, Polity, Economy, Geography, Environment, Science",
     chapters: [
+      { slug: "history-polity", title: "Indian History and Indian Polity", description: "Ancient, Medieval, Modern India history + Constitutional framework, Fundamental Rights, DPSP for UPSC Prelims", topics: ["Ancient India","Medieval India","Mughal Empire","Freedom Struggle","Constitution","Fundamental Rights","DPSP","Parliament"], pyqYears: ["2023","2022","2021","2020","2019"] },
+      { slug: "geography-environment", title: "Indian Geography and Environment", description: "Physical features, rivers, climate, soils, biodiversity, protected areas, environmental laws for UPSC", topics: ["Himalayas","Northern Plains","Peninsular Plateau","Rivers","Monsoon","Soils","Biodiversity","Environmental Laws"], pyqYears: ["2023","2022","2021","2020","2019"] },
       { slug: "gs-paper1", title: "GS Paper 1 — Complete Coverage", description: "Indian History, Polity, Economy, Geography, Environment, Science and Technology for UPSC Prelims", topics: ["Ancient History","Medieval History","Modern History","Indian Polity","Economy","Geography","Environment","Science & Tech"], pyqYears: ["2023","2022","2021","2020","2019"] },
     ],
   },

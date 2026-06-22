@@ -1,136 +1,338 @@
-# Ansible — Interview Questions
-
-Real questions from DevOps interviews — based on O'Reilly book content and 5 years of production experience notes.
-
----
+# Ansible Interview Questions
 
 ## Core Concepts
 
-**What is Ansible and how does it differ from Puppet/Chef?**
-Ansible is an agentless configuration management and automation tool. The key difference: Ansible uses SSH and Python — no agent needed on managed nodes. Puppet and Chef require an agent daemon installed and running on every managed node, which adds overhead and a separate update lifecycle. Ansible is push-based (control node pushes to managed nodes); Puppet/Chef are pull-based (agents check in with server). Ansible is easier to start with (lower learning curve, just YAML) but Puppet/Chef can be better at large-scale enforcing desired state continuously.
+**Q: What is Ansible? How does it work?**
+Ansible is an agentless, push-based configuration management and automation tool. Unlike Chef/Puppet (agent-based, pull model), Ansible connects to nodes over SSH and executes tasks.
 
-**What is the difference between a playbook, play, and task?**
-Playbook is the entire YAML file containing one or more plays. Play is a top-level unit mapping a set of tasks to a group of hosts (has `name`, `hosts`, `tasks` keys). Task is a single action within a play — calls one module. One playbook → many plays → each play → many tasks.
+**Architecture:**
+- **Control node**: Where Ansible runs (your machine or CI server)
+- **Managed nodes**: Target servers — NO agents needed, only Python and SSH
+- **Inventory**: List of managed nodes (static file or dynamic from cloud APIs)
+- **Playbook**: YAML file describing tasks to execute
+- **Module**: Unit of work (copy, template, yum, service, shell, etc.)
+- **Fact**: Information gathered from managed nodes (`ansible_hostname`, `ansible_os_family`)
 
-**What is idempotency in Ansible?**
-Idempotency means running a playbook multiple times gives the same result as running it once. If nginx is already installed, `state: present` won't reinstall it — it reports `ok` (no change). This is critical: you can safely run playbooks repeatedly — even in CI/CD — without fear of breaking things. `command` and `shell` modules are NOT idempotent by default (they always run). Use `creates` or `removes` arguments or `when` conditions to make them idempotent.
-
-**What is the difference between `command` and `shell` module?**
-`command` executes a simple command directly — no shell features (no pipes `|`, no redirects `>`, no `&&`). `shell` runs the command through `/bin/sh` — supports pipes, redirects, glob patterns, and shell variables. Use `command` when possible (safer, more predictable). Use `shell` only when you need shell features.
-
----
-
-## Inventory and Variables
-
-**What is the Ansible inventory and how do you organize it?**
-Inventory lists all hosts Ansible manages, organized into groups. Static inventory is an INI or YAML file. Dynamic inventory fetches hosts from cloud APIs (AWS EC2, Azure, GCP) at runtime. Best practices: group by function (webservers, databases), by environment (production, staging), and by location. Use `group_vars/` directory for group-specific variables and `host_vars/` for host-specific variables.
-
-**What is variable precedence in Ansible? (from highest to lowest)**
-1. Extra vars (`-e` from command line) — highest, always wins
-2. Task vars (set_fact, register)
-3. Play vars, vars_files, vars prompt
-4. Host vars (host_vars/ directory)
-5. Group vars (group_vars/ directory)
-6. Role defaults — lowest
-
-**What are Ansible facts and how do you use them?**
-Facts are system information gathered automatically at playbook start (Gathering Facts task). Includes: `ansible_distribution`, `ansible_os_family`, `ansible_memory_mb`, `ansible_interfaces`, `ansible_processor_cores`, IP addresses, etc. Access as `{{ ansible_facts['distribution'] }}` or shorthand `{{ ansible_distribution }}`. Disable fact gathering when not needed with `gather_facts: no` to speed up playbooks.
-
-**What is the difference between `vars`, `vars_files`, and `include_vars`?**
-`vars`: inline in playbook, static. `vars_files`: load from external YAML file, static (preprocessed at parse time, loaded at playbook start). `include_vars`: load from file dynamically at task execution time — useful when filename is determined by a variable. For Vault-encrypted files: use `vars_files` (Ansible decrypts automatically at load time).
+**Execution flow:**
+Control node → SSH to managed node → Copy Python code → Execute → Return results → Clean up
 
 ---
 
-## Modules and Playbooks
+**Q: Explain the Ansible inventory. What is a dynamic inventory?**
 
-**What is a Handler in Ansible?**
-A handler is a task that only runs when notified by another task using `notify`. Handlers run once at the end of the play, regardless of how many tasks notify them. Common use: restart nginx only if config file changed. If config didn't change, handler never runs — avoids unnecessary restarts.
-```yaml
-- name: Update nginx config
-  template:
-    src: nginx.conf.j2
-    dest: /etc/nginx/nginx.conf
-  notify: Restart nginx      # notify handler
+**Static inventory:**
+```ini
+[webservers]
+web1.example.com
+web2.example.com ansible_user=ubuntu
 
-handlers:
-  - name: Restart nginx      # only runs if template task changed something
-    service:
-      name: nginx
-      state: restarted
+[databases]
+db1.example.com ansible_host=10.0.1.5
+
+[production:children]
+webservers
+databases
 ```
 
-**How do you run a task only on specific hosts?**
-```yaml
-# Method 1: when condition with facts
-- name: RHEL-specific task
-  yum: { name: httpd, state: present }
-  when: ansible_facts['os_family'] == "RedHat"
-
-# Method 2: when with inventory group
-- name: DB task only on database hosts
-  mysql_db: { name: myapp, state: present }
-  when: inventory_hostname in groups['databases']
-
-# Method 3: delegate_to — run task on different host
-- name: Run on control node
-  shell: echo "running locally"
-  delegate_to: localhost
+**Dynamic inventory**: Scripts or plugins that query cloud APIs and generate inventory in real-time.
+```bash
+ansible-inventory --list -i aws_ec2.yml  # AWS EC2 dynamic inventory plugin
 ```
 
-**What is `become` and when do you need it?**
-`become: yes` enables privilege escalation (run as sudo/root). Required for: installing packages, managing services, writing to system directories. Can be set at play level (applies to all tasks), task level, or role level. `become_user: postgres` escalates to a specific user instead of root.
-
-**What is the difference between Roles and regular Playbooks?**
-Roles are reusable, structured packages of tasks, handlers, variables, templates, and files organized into a standard directory layout. Regular playbooks are flat YAML files. Use roles when: (1) the same configuration applies to multiple playbooks, (2) you want to share via Ansible Galaxy, (3) a logical grouping of related tasks deserves its own namespace. `ansible-galaxy init my-role` creates the structure automatically.
-
----
-
-## Vault and Security
-
-**How do you manage secrets in Ansible?**
-Ansible Vault encrypts files with AES256. `ansible-vault create secrets.yml` creates encrypted file. `ansible-vault encrypt existing.yml` encrypts existing file. Run playbook with `--ask-vault-pass` or `--vault-password-file ~/.vault_pass`. Best practices: keep vault password in a secrets manager (HashiCorp Vault, AWS Secrets Manager), never commit plaintext passwords, use separate vault password per environment (dev, staging, prod).
-
-**What is `ansible-vault rekey`?**
-Changes the vault password of an encrypted file. Requires the old password first, then sets a new password. Used when: rotating credentials, team member with vault access leaves, password compromise suspected.
-
----
-
-## Performance and Production
-
-**How do you speed up Ansible playbooks?**
-1. `gather_facts: no` — skip if facts not needed (saves 2-3 seconds per host)
-2. `pipelining = True` in ansible.cfg — reuses SSH connection for multiple tasks
-3. Increase `forks` (default 5) — `forks = 20` runs on 20 hosts in parallel
-4. Use `async` and `poll` for long-running tasks to run them in parallel
-5. `serial` keyword for rolling updates — update N hosts at a time
-6. `--limit` to target specific hosts during development
-
-**What is `serial` and why do you use it?**
-`serial` controls how many hosts to process at a time (rolling update):
 ```yaml
-- name: Rolling update
+# aws_ec2.yml
+plugin: aws_ec2
+regions: [us-east-1]
+filters:
+  tag:Environment: production
+groups:
+  webservers: "'web' in tags.Role"
+```
+
+Dynamic inventory ensures you always have current server list without manual updates.
+
+---
+
+**Q: What is a playbook? Explain its structure.**
+
+```yaml
+---
+- name: Configure web servers
   hosts: webservers
-  serial: 2             # update 2 hosts at a time (not all at once)
-  tasks:
-    - name: Update app
-      ...
-```
-Ensures you don't take down all servers simultaneously. Can also use percentage: `serial: "25%"`.
+  become: true          # sudo/root
+  vars:
+    http_port: 80
+    app_version: "2.1.0"
+  
+  pre_tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
 
-**How do you handle failures in Ansible?**
-`ignore_errors: yes` — task fails but playbook continues. `failed_when` — define custom failure condition. `block/rescue/always` — structured error handling (like try/catch/finally). `max_fail_percentage` at play level — tolerate a percentage of host failures before aborting.
+  roles:
+    - common
+    - nginx
+
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+      notify: restart nginx   # Trigger handler
+
+    - name: Copy config
+      template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/nginx.conf
+      notify: restart nginx
+
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+```
+
+**Key concepts:**
+- `become: true` = privilege escalation (sudo)
+- `notify` + `handlers` = triggered once at end of play (idempotent restart)
+- `pre_tasks/post_tasks` = run before/after roles
+- `vars` = play-level variables
 
 ---
 
-## Troubleshooting Questions
+**Q: What is idempotency and why is it important in Ansible?**
 
-**A playbook worked yesterday but fails today. How do you debug?**
-1. Run with `-vvv` for verbose output and see exact SSH commands
-2. Check if the managed node is reachable: `ansible hostname -m ping`
-3. Check if the module works manually: `ansible hostname -m yum -a "name=httpd state=present" --become`
-4. Run with `--check` to see what would change without changing anything
-5. Add `- debug: var=variable_name` tasks to print variable values
-6. Check `ansible_facts` to verify the system state
+Idempotency means running a task multiple times produces the same result as running it once. Ansible modules are designed to be idempotent.
 
-**What does "UNREACHABLE" mean in Ansible output?**
-Ansible could not connect to the host via SSH. Common causes: host is down, SSH service not running, firewall blocking port 22, wrong SSH key, wrong username, IP changed. Fix: test SSH manually first — `ssh -i ~/.ssh/id_rsa user@hostname`. If SSH works manually but Ansible fails, check `ansible_user` and `ansible_port` in inventory.
+Example: `apt: name=nginx state=present`
+- First run: installs nginx
+- Second run: nginx already installed → no change, no error
+
+Non-idempotent: `shell: echo "configured" >> /etc/config.txt` — appends every run!
+Make it idempotent: use `lineinfile` module or check with `creates`/`when` conditionals.
+
+**Why important**: You can run playbooks repeatedly (after failures, for audits, by CI/CD) without side effects.
+
+---
+
+**Q: Explain Ansible Roles. What is the directory structure?**
+
+Roles organise tasks, variables, templates, and files into reusable units.
+
+```
+roles/
+  nginx/
+    tasks/
+      main.yml        # Tasks (required)
+    handlers/
+      main.yml        # Handlers
+    templates/
+      nginx.conf.j2   # Jinja2 templates
+    files/
+      index.html      # Static files
+    vars/
+      main.yml        # Role variables (higher precedence)
+    defaults/
+      main.yml        # Default variables (lowest precedence — overridable)
+    meta/
+      main.yml        # Role metadata, dependencies
+    README.md
+```
+
+Using a role in playbook:
+```yaml
+roles:
+  - common
+  - { role: nginx, vars: { http_port: 8080 } }
+```
+
+Ansible Galaxy: `ansible-galaxy install geerlingguy.mysql` — community roles.
+
+---
+
+**Q: What is Ansible Vault?**
+
+Ansible Vault encrypts sensitive data (passwords, API keys, certificates) in YAML files.
+
+```bash
+# Create encrypted file
+ansible-vault create secrets.yml
+
+# Edit encrypted file
+ansible-vault edit secrets.yml
+
+# Encrypt existing file
+ansible-vault encrypt vars/passwords.yml
+
+# Decrypt
+ansible-vault decrypt vars/passwords.yml
+
+# Run playbook with vault
+ansible-playbook site.yml --ask-vault-pass
+ansible-playbook site.yml --vault-password-file ~/.vault_pass
+```
+
+Best practice: Store vault password in CI/CD secrets (not in repo). Use separate vault IDs for different environments.
+
+---
+
+**Q: Difference between `when`, `loop`, `register`, and `with_items`?**
+
+**when** — conditional execution:
+```yaml
+- name: Install on Debian only
+  apt:
+    name: nginx
+  when: ansible_os_family == "Debian"
+```
+
+**loop** (preferred over `with_items`):
+```yaml
+- name: Install packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - nginx
+    - git
+    - curl
+```
+
+**register** — capture task output:
+```yaml
+- name: Check service status
+  command: systemctl is-active nginx
+  register: nginx_status
+
+- debug:
+    msg: "Nginx is {{ nginx_status.stdout }}"
+
+- name: Start if not running
+  service:
+    name: nginx
+    state: started
+  when: nginx_status.stdout != "active"
+```
+
+---
+
+**Q: Explain tags in Ansible and when to use them.**
+
+Tags allow running a subset of tasks without running the whole playbook.
+
+```yaml
+tasks:
+  - name: Install nginx
+    apt:
+      name: nginx
+    tags:
+      - install
+      - nginx
+
+  - name: Configure nginx
+    template:
+      src: nginx.conf.j2
+      dest: /etc/nginx/nginx.conf
+    tags:
+      - configure
+      - nginx
+```
+
+```bash
+ansible-playbook site.yml --tags nginx          # Only nginx tasks
+ansible-playbook site.yml --tags configure      # Only configuration tasks
+ansible-playbook site.yml --skip-tags install   # Skip installation
+```
+
+---
+
+**Q: What is the difference between `copy`, `template`, and `fetch` modules?**
+
+`copy`: Copy a static file from control node to managed node.
+```yaml
+- copy:
+    src: files/index.html
+    dest: /var/www/html/index.html
+    mode: '0644'
+```
+
+`template`: Process a Jinja2 template (with variables) and copy to managed node.
+```yaml
+- template:
+    src: templates/nginx.conf.j2   # Contains {{ variables }}
+    dest: /etc/nginx/nginx.conf
+```
+
+`fetch`: Pull files FROM managed nodes to control node (opposite of copy).
+```yaml
+- fetch:
+    src: /var/log/app/error.log
+    dest: logs/{{ inventory_hostname }}/error.log
+    flat: no
+```
+
+---
+
+**Q: How do you handle errors in Ansible playbooks?**
+
+```yaml
+# Ignore errors (task marked failed but play continues)
+- name: Check if service exists
+  command: systemctl status myapp
+  ignore_errors: yes
+  register: service_check
+
+# Change what counts as failure
+- name: Check disk space
+  command: df -h
+  failed_when: "'100%' in df_result.stdout"
+  register: df_result
+
+# Change what counts as changed
+- name: Run script
+  command: /opt/script.sh
+  changed_when: false   # Never mark as changed
+
+# Block/rescue/always (try/except/finally)
+- block:
+    - name: Risky task
+      command: /opt/risky.sh
+  rescue:
+    - name: Handle failure
+      debug: msg="Task failed, cleaning up"
+  always:
+    - name: Always run this
+      debug: msg="Always executed"
+```
+
+## Revision Notes
+```
+ANSIBLE: Agentless, push-based, SSH, Python on managed nodes
+COMPONENTS: Inventory + Playbook + Modules + Roles + Facts + Handlers
+
+INVENTORY: Static INI/YAML or Dynamic (cloud plugins)
+PLAYBOOK: hosts + become + vars + pre_tasks + roles + tasks + handlers
+
+IDEMPOTENCY: Same result on repeated runs. Core principle.
+HANDLER: Triggered by notify, runs once at end of play.
+
+ROLES: tasks/ + handlers/ + templates/ + files/ + vars/ + defaults/ + meta/
+vars/ > playbook vars > defaults/ (precedence order)
+
+VAULT: ansible-vault encrypt/decrypt/edit. --ask-vault-pass to run.
+
+CONDITIONALS: when: (Jinja2 expression)
+LOOPS: loop: (preferred over with_items)
+REGISTER: capture output. use .stdout, .rc, .failed
+
+ERROR HANDLING:
+ignore_errors: yes | failed_when | changed_when
+block/rescue/always (try/except/finally pattern)
+
+USEFUL MODULES:
+apt/yum: packages | service: service control | template: Jinja2 files
+copy: static files | fetch: pull from nodes | lineinfile: edit files
+user/group: user management | cron: scheduled tasks
+```
