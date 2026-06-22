@@ -3,44 +3,121 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { getAcademy } from "@/lib/data/academies";
+import { ArrowRight, CheckCircle, Clock, BookOpen, FlaskConical, Trophy } from "lucide-react";
 
-type Props = {
-  params: Promise<{ academy: string }>;
+type Props = { params: Promise<{ academy: string }> };
+
+const academyMeta: Record<string, {
+  desc: string;
+  who: string[];
+  prereqs: string[];
+  outcomes: string[];
+  path: { phase: string; topics: string[]; duration: string }[];
+  jobs: string[];
+  proofStats: { label: string; value: string }[];
+}> = {
+  devops: {
+    desc: "Master the complete DevOps toolchain — from containers and orchestration to CI/CD pipelines, infrastructure as code, and production monitoring. Built for engineers who want to move fast without breaking things.",
+    who: ["Software engineers moving into platform/infra roles", "Sysadmins modernising to cloud-native", "Backend devs wanting DevOps skills", "Students targeting DevOps interviews"],
+    prereqs: ["Basic Linux command line", "Familiarity with any programming language", "Understanding of web applications"],
+    outcomes: [
+      "Deploy and manage containerised applications with Docker and Kubernetes",
+      "Build CI/CD pipelines with Jenkins, GitHub Actions, and ArgoCD",
+      "Provision infrastructure with Terraform and configure with Ansible",
+      "Monitor production systems with Prometheus and Grafana",
+      "Pass CKA, CKAD, and Terraform Associate certifications",
+    ],
+    path: [
+      { phase: "Foundation", topics: ["Linux", "Shell Scripting", "Git", "Networking basics"], duration: "3–4 weeks" },
+      { phase: "Containers", topics: ["Docker", "Docker Compose", "Container security"], duration: "2–3 weeks" },
+      { phase: "Orchestration", topics: ["Kubernetes", "Helm", "ArgoCD", "GitOps"], duration: "4–6 weeks" },
+      { phase: "CI/CD", topics: ["Jenkins", "GitHub Actions", "GitLab CI", "Tekton"], duration: "2–3 weeks" },
+      { phase: "IaC", topics: ["Terraform", "Ansible", "Pulumi"], duration: "3–4 weeks" },
+      { phase: "Monitoring", topics: ["Prometheus", "Grafana", "Loki", "Alertmanager"], duration: "2–3 weeks" },
+    ],
+    jobs: ["DevOps Engineer", "Platform Engineer", "SRE", "Cloud Engineer", "Infrastructure Engineer"],
+    proofStats: [{ label: "Technologies", value: "25+" }, { label: "Interview Q&As", value: "200+" }, { label: "Certifications", value: "4" }],
+  },
+  cloud: {
+    desc: "Become a cloud architect across AWS, Azure, and GCP. From core services to advanced patterns — VPCs, IAM, serverless, containers, cost optimisation, and multi-cloud strategy.",
+    who: ["DevOps engineers expanding to cloud", "On-premise engineers migrating to cloud", "Solution architects seeking cloud expertise", "Anyone targeting cloud certifications"],
+    prereqs: ["Basic networking concepts (TCP/IP, DNS, HTTP)", "Linux fundamentals", "Basic scripting"],
+    outcomes: [
+      "Design and deploy cloud architectures on AWS, Azure, and GCP",
+      "Build secure, highly available, and cost-optimised cloud infrastructure",
+      "Implement multi-cloud and hybrid strategies",
+      "Pass AWS SAA, AZ-104, and GCP ACE certifications",
+    ],
+    path: [
+      { phase: "Cloud Fundamentals", topics: ["What is cloud", "Shared responsibility", "Regions and AZs"], duration: "1 week" },
+      { phase: "AWS Core", topics: ["EC2", "S3", "VPC", "IAM", "RDS", "Lambda"], duration: "4–6 weeks" },
+      { phase: "Azure Core", topics: ["Azure VMs", "Azure AD", "AKS", "Azure DevOps"], duration: "3–4 weeks" },
+      { phase: "GCP Core", topics: ["GCE", "GKE", "Cloud SQL", "Pub/Sub"], duration: "3–4 weeks" },
+      { phase: "Advanced", topics: ["Multi-cloud", "FinOps", "Security", "DR/HA patterns"], duration: "3–4 weeks" },
+    ],
+    jobs: ["Cloud Architect", "Solutions Architect", "Cloud Engineer", "Cloud Consultant"],
+    proofStats: [{ label: "Technologies", value: "15+" }, { label: "Certifications", value: "6" }, { label: "Architecture patterns", value: "30+" }],
+  },
+  ai: {
+    desc: "Build production AI applications — from LLM fundamentals to RAG pipelines, AI agents, and LLMOps. Practical, engineering-focused, not just theory.",
+    who: ["Software engineers building AI features", "Data scientists moving to ML engineering", "Backend devs integrating LLMs", "Anyone building AI-powered products"],
+    prereqs: ["Python programming (intermediate)", "Basic understanding of APIs", "Familiarity with data structures"],
+    outcomes: [
+      "Build RAG pipelines with vector databases and embedding models",
+      "Create autonomous AI agents with LangChain and LangGraph",
+      "Deploy LLMs at scale with vLLM and model serving frameworks",
+      "Implement LLMOps practices: evaluation, monitoring, and fine-tuning",
+    ],
+    path: [
+      { phase: "LLM Fundamentals", topics: ["How LLMs work", "Prompt engineering", "OpenAI/Anthropic APIs"], duration: "1–2 weeks" },
+      { phase: "RAG Systems", topics: ["Vector DBs", "Embeddings", "Retrieval strategies", "Chunking"], duration: "2–3 weeks" },
+      { phase: "AI Agents", topics: ["ReAct agents", "Tool use", "LangChain", "LangGraph"], duration: "2–3 weeks" },
+      { phase: "LLMOps", topics: ["Evaluation", "Monitoring", "Fine-tuning", "vLLM deployment"], duration: "2–3 weeks" },
+    ],
+    jobs: ["AI Engineer", "ML Engineer", "LLM Engineer", "AI Product Engineer"],
+    proofStats: [{ label: "Interview Q&As", value: "80+" }, { label: "Projects", value: "10+" }, { label: "Topics", value: "40+" }],
+  },
+  security: {
+    desc: "Comprehensive cybersecurity from ethical hacking to enterprise security operations. Build, break, and defend systems with real-world techniques.",
+    who: ["Engineers wanting to specialise in security", "IT professionals moving to cybersecurity", "DevOps engineers adding security skills (DevSecOps)"],
+    prereqs: ["Networking fundamentals", "Linux basics", "Basic programming knowledge"],
+    outcomes: [
+      "Perform penetration testing and vulnerability assessments",
+      "Build and manage SIEM and SOC operations",
+      "Implement DevSecOps practices in CI/CD pipelines",
+      "Prepare for CEH, CISSP, and CompTIA Security+ certifications",
+    ],
+    path: [
+      { phase: "Security Foundations", topics: ["CIA triad", "Threat modelling", "OWASP Top 10"], duration: "2 weeks" },
+      { phase: "Network Security", topics: ["Firewalls", "IDS/IPS", "VPN", "Zero Trust"], duration: "2–3 weeks" },
+      { phase: "AppSec", topics: ["SAST/DAST", "Secret scanning", "Container security"], duration: "2 weeks" },
+      { phase: "Offensive", topics: ["Pen testing", "Ethical hacking", "Kali Linux"], duration: "3–4 weeks" },
+      { phase: "Security Ops", topics: ["SIEM", "SOC", "Incident response"], duration: "2–3 weeks" },
+    ],
+    jobs: ["Security Engineer", "SOC Analyst", "Penetration Tester", "DevSecOps Engineer"],
+    proofStats: [{ label: "Technologies", value: "20+" }, { label: "Certifications", value: "3" }, { label: "Lab scenarios", value: "50+" }],
+  },
 };
 
-const academyDescriptions: Record<string, string> = {
-  devops: "Master DevOps with Docker, Kubernetes, Terraform, Ansible, Jenkins, and more. Real labs, interview prep, and certification guides for DevOps engineers in 2025.",
-  cloud: "Learn AWS, Azure, and GCP cloud platforms. EC2, S3, VPC, AKS, GKE — complete cloud architect preparation with hands-on labs.",
-  databases: "PostgreSQL, MySQL, MongoDB, Redis, Cassandra, DynamoDB — full database engineering track with SQL mastery and NoSQL expertise.",
-  ai: "AI Engineering — LLMs, RAG, LangChain, AI Agents, Prompt Engineering, LLMOps. Build production AI applications from scratch.",
-  data: "Data Analytics with Python Pandas, Power BI, Tableau, and Excel. Transform raw data into business insights.",
-  security: "Cybersecurity — ethical hacking, SOC, SIEM, network security, and penetration testing. Prepare for security certifications.",
-  healthcare: "Medical coding — ICD-10-CM, CPT, HCPCS, and CMS guidelines. Complete healthcare coding preparation and mock exams.",
-  essentials: "Human essentials — nutrition, mental health, personal finance, first aid, and gut health. Life skills that compound.",
-  education: "Computer science fundamentals — DSA, System Design, OS, DBMS, CN, Java, C++, and placement preparation.",
-  exams: "JEE, NEET, GATE, UPSC, SSC CGL, RRB NTPC — comprehensive exam preparation with practice questions and strategies.",
+const defaultMeta = {
+  desc: "Expert-written content with hands-on labs, real projects, and interview preparation.",
+  who: ["Engineers at all levels", "Students and job seekers", "Working professionals upskilling"],
+  prereqs: ["Basic computer knowledge", "Motivation to learn"],
+  outcomes: ["Master the core technologies in this domain", "Build real projects for your portfolio", "Prepare for interviews and certifications"],
+  path: [],
+  jobs: [],
+  proofStats: [{ label: "Topics", value: "50+" }, { label: "Interview Q&As", value: "50+" }],
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { academy: aSlug } = await params;
   const academy = getAcademy(aSlug);
   if (!academy) return { title: "Academy | SynfraCore" };
-
-  const description = academyDescriptions[aSlug] || academy.description;
-  const canonicalUrl = `https://synfracore.com/academies/${aSlug}`;
-
+  const m = academyMeta[aSlug] || defaultMeta;
   return {
-    title: `${academy.title} Academy`,
-    description,
-    keywords: [academy.title, `learn ${academy.title}`, `${academy.title} course`, "SynfraCore"],
-    alternates: { canonical: canonicalUrl },
-    openGraph: {
-      title: `${academy.title} Academy | SynfraCore`,
-      description,
-      url: canonicalUrl,
-      type: "website",
-      siteName: "SynfraCore",
-    },
+    title: `${academy.title} Academy — Structured Learning Path | SynfraCore`,
+    description: m.desc,
+    alternates: { canonical: `https://synfracore.com/academies/${aSlug}` },
   };
 }
 
@@ -48,90 +125,166 @@ export default async function AcademyPage({ params }: Props) {
   const { academy: aSlug } = await params;
   const academy = getAcademy(aSlug);
   if (!academy) redirect("/academies");
-  // School and competitive exam content now lives at /learn
   if (["education", "exams"].includes(aSlug)) redirect("/learn");
+
+  const m = academyMeta[aSlug] || defaultMeta;
 
   return (
     <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "40px 24px" }}>
 
       {/* Breadcrumb */}
-      <nav style={{ fontSize: "12px", color: "var(--text-4)", marginBottom: "24px" }}>
-        <Link href="/" style={{ color: "var(--text-4)", textDecoration: "none" }}>Home</Link>
-        {" / "}
-        <Link href="/academies" style={{ color: "var(--text-4)", textDecoration: "none" }}>Academies</Link>
-        {" / "}
+      <nav style={{ fontSize: "12px", color: "var(--text-4)", marginBottom: "24px", display: "flex", gap: "6px" }}>
+        <Link href="/" style={{ color: "var(--text-4)", textDecoration: "none" }}>Home</Link>›
+        <Link href="/academies" style={{ color: "var(--text-4)", textDecoration: "none" }}>Academies</Link>›
         <span style={{ color: "var(--text-2)" }}>{academy.title}</span>
       </nav>
 
-      {/* Header */}
+      {/* Hero */}
       <div style={{ marginBottom: "40px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
-          <span style={{ fontSize: "36px" }}>{academy.icon}</span>
+        <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "14px" }}>
+          <span style={{ fontSize: "44px" }}>{academy.icon}</span>
           <div>
-            <h1 style={{ fontSize: "32px", fontWeight: 700, marginBottom: "4px" }}>{academy.title}</h1>
-            <p style={{ fontSize: "14px", color: "var(--text-4)" }}>{academy.subtitle}</p>
+            <h1 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "32px", fontWeight: 800, marginBottom: "4px" }}>
+              {academy.title} Academy
+            </h1>
+            <p style={{ color: academy.color, fontSize: "14px", fontWeight: 600 }}>{academy.subtitle}</p>
           </div>
         </div>
-        <p style={{ color: "var(--text-3)", fontSize: "15px", maxWidth: "720px", lineHeight: "1.7" }}>
-          {academyDescriptions[aSlug] || academy.description}
-        </p>
+        <p style={{ color: "var(--text-3)", fontSize: "16px", maxWidth: "720px", lineHeight: 1.7, marginBottom: "24px" }}>{m.desc}</p>
+
+        {/* Proof stats */}
+        <div style={{ display: "flex", gap: "24px", flexWrap: "wrap" }}>
+          {m.proofStats.map(s => (
+            <div key={s.label} style={{ textAlign: "center", padding: "12px 20px", background: academy.color + "10", borderRadius: "10px", border: `1px solid ${academy.color}25` }}>
+              <div style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "22px", fontWeight: 800, color: academy.color }}>{s.value}</div>
+              <div style={{ fontSize: "11px", color: "var(--text-4)", fontWeight: 600 }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* Domains with their technologies — THE CORRECT STRUCTURE */}
-      {academy.domains.map((domain) => (
-        <div key={domain.slug} style={{ marginBottom: "40px" }}>
+      {/* Two-column: Who + Prerequisites + Outcomes */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px", marginBottom: "40px" }}>
 
-          {/* Domain header */}
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px", paddingBottom: "12px", borderBottom: "1px solid var(--border)" }}>
+        {/* Who this is for */}
+        <div style={{ padding: "24px", borderRadius: "12px", border: "1px solid var(--border)", background: "var(--bg-1)" }}>
+          <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "15px", marginBottom: "14px", display: "flex", alignItems: "center", gap: "8px" }}>
+            👤 Who This Is For
+          </h2>
+          {m.who.map((w, i) => (
+            <div key={i} style={{ display: "flex", gap: "8px", marginBottom: "8px", fontSize: "13px", color: "var(--text-3)" }}>
+              <span style={{ color: academy.color, fontWeight: 700, flexShrink: 0 }}>✓</span>{w}
+            </div>
+          ))}
+        </div>
+
+        {/* Prerequisites */}
+        <div style={{ padding: "24px", borderRadius: "12px", border: "1px solid var(--border)", background: "var(--bg-1)" }}>
+          <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "15px", marginBottom: "14px" }}>
+            📋 Prerequisites
+          </h2>
+          {m.prereqs.map((p, i) => (
+            <div key={i} style={{ display: "flex", gap: "8px", marginBottom: "8px", fontSize: "13px", color: "var(--text-3)" }}>
+              <span style={{ color: "var(--text-4)", flexShrink: 0 }}>•</span>{p}
+            </div>
+          ))}
+          <div style={{ marginTop: "14px", padding: "10px", background: "rgba(16,185,129,0.06)", borderRadius: "8px", fontSize: "12px", color: "#10B981" }}>
+            💡 No prior experience? Start with <Link href="/academies/devops/linux" style={{ color: "#10B981", fontWeight: 700 }}>Linux Fundamentals</Link>
+          </div>
+        </div>
+      </div>
+
+      {/* What you'll be able to do */}
+      <div style={{ padding: "24px", borderRadius: "12px", border: "1px solid var(--border)", background: "var(--bg-1)", marginBottom: "40px" }}>
+        <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "16px", marginBottom: "16px" }}>
+          🎯 What You'll Be Able to Do
+        </h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "10px" }}>
+          {m.outcomes.map((o, i) => (
+            <div key={i} style={{ display: "flex", gap: "10px", fontSize: "14px", color: "var(--text-2)", alignItems: "flex-start" }}>
+              <CheckCircle size={15} color="#10B981" style={{ marginTop: "2px", flexShrink: 0 }} />
+              <span>{o}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Learning path */}
+      {m.path.length > 0 && (
+        <div style={{ marginBottom: "40px" }}>
+          <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "18px", marginBottom: "20px" }}>
+            🗺️ Recommended Learning Path
+          </h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
+            {m.path.map((phase, i) => (
+              <div key={i} style={{ display: "flex", gap: "0", alignItems: "flex-start" }}>
+                {/* Timeline */}
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginRight: "16px" }}>
+                  <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: academy.color, color: "white", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", fontWeight: 700, flexShrink: 0 }}>{i + 1}</div>
+                  {i < m.path.length - 1 && <div style={{ width: "2px", background: "var(--border)", flex: 1, minHeight: "24px" }} />}
+                </div>
+                {/* Content */}
+                <div style={{ paddingBottom: "24px", flex: 1 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
+                    <span style={{ fontWeight: 700, fontSize: "15px", color: "var(--text-1)" }}>{phase.phase}</span>
+                    <span style={{ fontSize: "11px", color: "var(--text-4)", background: "var(--bg-2)", padding: "2px 8px", borderRadius: "20px", display: "flex", alignItems: "center", gap: "4px" }}>
+                      <Clock size={10} /> {phase.duration}
+                    </span>
+                  </div>
+                  <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+                    {phase.topics.map(t => (
+                      <span key={t} style={{ fontSize: "12px", padding: "3px 10px", borderRadius: "20px", background: academy.color + "12", color: academy.color, fontWeight: 600 }}>{t}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Job roles */}
+      {m.jobs.length > 0 && (
+        <div style={{ padding: "20px 24px", borderRadius: "12px", background: "linear-gradient(135deg,rgba(59,130,246,0.06),rgba(139,92,246,0.06))", border: "1px solid rgba(59,130,246,0.15)", marginBottom: "40px", display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
+          <div style={{ fontWeight: 700, fontSize: "14px", color: "var(--text-1)", whiteSpace: "nowrap" }}>💼 Jobs you can target:</div>
+          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+            {m.jobs.map(j => (
+              <span key={j} style={{ fontSize: "12px", padding: "4px 12px", borderRadius: "20px", background: "var(--bg-2)", color: "var(--text-2)", fontWeight: 600, border: "1px solid var(--border)" }}>{j}</span>
+            ))}
+          </div>
+          <Link href="/career" style={{ marginLeft: "auto", color: "#3B82F6", fontSize: "13px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
+            Salary guide →
+          </Link>
+        </div>
+      )}
+
+      {/* Domain grid */}
+      <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "18px", marginBottom: "20px" }}>
+        📚 Explore Topics
+      </h2>
+      {academy.domains.map((domain) => (
+        <div key={domain.slug} style={{ marginBottom: "36px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "14px", paddingBottom: "10px", borderBottom: "1px solid var(--border)" }}>
             <span style={{ fontSize: "20px" }}>{domain.icon}</span>
             <div>
-              <h2 style={{ fontSize: "18px", fontWeight: 600, margin: 0 }}>{domain.name}</h2>
+              <h3 style={{ fontSize: "16px", fontWeight: 700, margin: 0 }}>{domain.name}</h3>
               <p style={{ fontSize: "12px", color: "var(--text-4)", margin: 0 }}>{domain.description}</p>
             </div>
           </div>
-
-          {/* Technologies grid inside this domain */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "12px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "10px" }}>
             {domain.technologies.map((tech) => (
-              <Link
-                key={tech.slug}
-                href={`/academies/${aSlug}/${tech.slug}`}
-                style={{ textDecoration: "none" }}
-              >
-                <div
-                  style={{
-                    padding: "18px",
-                    borderRadius: "10px",
-                    border: "1px solid var(--border)",
-                    background: "var(--bg-1)",
-                    cursor: "pointer",
-                    height: "100%",
-                  }}
-                  className="card-hover"
-                >
-                  <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
-                    <span style={{ fontSize: "22px" }}>{tech.icon}</span>
-                    <span style={{ fontWeight: 600, fontSize: "14px" }}>{tech.name}</span>
-                    <span style={{
-                      marginLeft: "auto", fontSize: "10px", padding: "2px 6px",
-                      borderRadius: "4px", background: "var(--bg-2)", color: "var(--text-4)",
-                      whiteSpace: "nowrap",
-                    }}>
-                      {tech.level}
-                    </span>
+              <Link key={tech.slug} href={`/academies/${aSlug}/${tech.slug}`} style={{ textDecoration: "none" }}>
+                <div className="card-hover" style={{ padding: "16px", borderRadius: "10px", border: "1px solid var(--border)", background: "var(--bg-1)", cursor: "pointer" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
+                    <span style={{ fontSize: "20px" }}>{tech.icon}</span>
+                    <span style={{ fontWeight: 600, fontSize: "13px" }}>{tech.name}</span>
+                    <span style={{ marginLeft: "auto", fontSize: "10px", padding: "2px 6px", borderRadius: "4px", background: "var(--bg-2)", color: "var(--text-4)" }}>{tech.level}</span>
                   </div>
-                  <p style={{ fontSize: "12px", color: "var(--text-4)", lineHeight: "1.5", margin: "0 0 8px 0" }}>
-                    {tech.description}
-                  </p>
+                  <p style={{ fontSize: "12px", color: "var(--text-4)", lineHeight: 1.5, margin: 0 }}>{tech.description}</p>
                   {tech.tags && (
-                    <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
+                    <div style={{ display: "flex", gap: "4px", flexWrap: "wrap", marginTop: "8px" }}>
                       {tech.tags.slice(0, 3).map((tag: string) => (
-                        <span key={tag} style={{
-                          fontSize: "10px", padding: "2px 6px", borderRadius: "10px",
-                          background: "var(--bg-2)", color: "var(--text-4)",
-                        }}>
-                          {tag}
-                        </span>
+                        <span key={tag} style={{ fontSize: "10px", padding: "2px 6px", borderRadius: "10px", background: "var(--bg-2)", color: "var(--text-4)" }}>{tag}</span>
                       ))}
                     </div>
                   )}
@@ -141,6 +294,17 @@ export default async function AcademyPage({ params }: Props) {
           </div>
         </div>
       ))}
+
+      {/* CTA */}
+      <div style={{ textAlign: "center", padding: "40px 24px", borderTop: "1px solid var(--border)", marginTop: "20px" }}>
+        <h3 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "20px", marginBottom: "10px" }}>Ready to start?</h3>
+        <p style={{ color: "var(--text-3)", marginBottom: "20px" }}>Pick any topic above and begin learning today.</p>
+        <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
+          <Link href="/roadmaps" className="btn-primary">View Roadmap <ArrowRight size={15} /></Link>
+          <Link href="/interview" className="btn-secondary">Interview Prep</Link>
+        </div>
+      </div>
+
     </div>
   );
 }

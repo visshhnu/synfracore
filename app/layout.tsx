@@ -65,6 +65,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <style>{`.goog-te-banner-frame,.skiptranslate{display:none!important}body{top:0!important}`}</style>
         <WebSiteJsonLd />
         <OrganizationJsonLd />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "SynfraCore",
+              "url": "https://synfracore.com",
+              "description": "Practitioner-built learning platform for DevOps, Cloud, AI, Security, and career readiness. Expert content, hands-on labs, interview prep, and certification guides.",
+              "sameAs": ["https://t.me/synfracore"],
+              "knowsAbout": ["DevOps", "Kubernetes", "Cloud Computing", "AWS", "Azure", "Terraform", "Ansible", "Platform Engineering", "AI Engineering"],
+            })
+          }}
+        />
       </head>
       <body suppressHydrationWarning style={{ margin: 0, minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--bg)", color: "var(--text-2)" }}>
         <ThemeProvider>
