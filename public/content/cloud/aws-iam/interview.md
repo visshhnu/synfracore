@@ -1,19 +1,106 @@
-# AWS IAM — Interview Questions
+# AWS IAM Interview Questions
 
-**What is the principle of least privilege and how do you implement it in AWS?**
-Grant only the minimum permissions needed for a task — nothing more. In AWS: use IAM policies with specific actions and resources (not Action:* or Resource:*), use IAM roles instead of long-term access keys, use AWS Organizations SCPs to set maximum permissions across accounts, use Access Analyzer to find unused permissions, regularly audit with IAM credential reports and Access Advisor to remove unused access.
+## Core Concepts
 
-**What is the difference between an IAM user, role, and group?**
-IAM User: a person or application with long-term credentials (username/password or access keys). IAM Group: a collection of users that share the same policies — assign policies to groups not individual users. IAM Role: an identity with temporary credentials that can be assumed by users, services, or external identities — no long-term credentials, uses STS to get temporary tokens. Best practice: humans use SSO/Identity Center, applications and services use roles.
+**Q: Explain IAM components — Users, Roles, Policies, Groups.**
 
-**How does IAM policy evaluation work?**
-Evaluation order: 1) Explicit DENY always wins, 2) If explicit Allow exists (in identity policy + resource policy + SCP + permissions boundary), allow. Implicit DENY is the default — everything is denied unless explicitly allowed. SCPs set maximum permissions for an account but don't grant permissions. Permissions boundaries limit the maximum permissions an IAM entity can have. If any of these restricts access, the request is denied even if a policy allows it.
+**User**: Long-term identity for a person or application. Has permanent credentials (access keys or password). Avoid for applications — use Roles instead.
 
-**What are IAM conditions and how do you use them?**
-Conditions restrict when a policy applies. Common examples: `aws:RequestedRegion` (restrict to specific regions), `aws:SourceIP` (restrict by IP range), `aws:MultiFactorAuthPresent` (require MFA), `s3:prefix` (restrict S3 path), `ec2:Region` (specific EC2 region). Example: allow S3 access only from corporate IPs and only with MFA — forces security controls.
+**Group**: Collection of users. Attach policies to group, not individual users.
 
-**What is the difference between trust policy and permission policy?**
-Permission policy: what the IAM entity (user/role) can DO — defines allowed/denied actions on resources. Trust policy (only for roles): WHO can assume this role — defines which principals (users, services, accounts) can call sts:AssumeRole. A role needs both: trust policy to say who can use it, permission policy to say what they can do when they use it.
+**Role**: Temporary identity assumed by AWS services, EC2 instances, Lambda functions, or cross-account access. No permanent credentials — uses temporary tokens (STS).
 
-**How do you secure the AWS root account?**
-Enable MFA immediately (hardware MFA for maximum security). Generate and then delete root access keys (root should never have programmatic access). Don't use root for daily tasks — create an admin IAM user or use IAM Identity Center. Set up billing alerts and CloudTrail. Enable AWS Organizations and use root only for: changing account email, closing account, changing AWS support plan, or tasks that literally require root.
+**Policy**: JSON document defining permissions (Allow/Deny + Actions + Resources + Conditions).
+
+**Best practices:**
+- Root account: only for initial setup, then lock away
+- Use Groups + Policies for human users
+- Use Roles for applications (EC2 instance profile, Lambda execution role)
+- Least privilege: grant only required permissions
+- Enable MFA for privileged users
+
+---
+
+**Q: How does IAM policy evaluation work?**
+
+Evaluation order (key to memorise):
+1. **Explicit Deny** (anywhere) — always wins
+2. **SCPs (Service Control Policies)** — org-level guardrails
+3. **Resource-based policies** — bucket policies, etc.
+4. **Identity-based policies** — IAM policies attached to user/role
+5. **Default Deny** — if no explicit allow, deny
+
+**Implicit deny**: No policy exists → Denied.
+**Explicit deny**: Policy exists that denies → Always denied (even with allow elsewhere).
+
+---
+
+**Q: What is IRSA (IAM Roles for Service Accounts)?**
+
+IRSA allows Kubernetes pods (on EKS) to assume IAM roles without storing credentials in pods.
+
+```bash
+# Create OIDC provider for EKS cluster
+eksctl utils associate-iam-oidc-provider --cluster my-cluster --approve
+
+# Create IAM role with trust policy referencing K8s service account
+aws iam create-role --role-name s3-reader   --assume-role-policy-document file://trust-policy.json
+
+# Annotate K8s service account
+kubectl annotate serviceaccount my-sa   eks.amazonaws.com/role-arn=arn:aws:iam::123456789:role/s3-reader
+```
+
+Trust policy allows the specific Kubernetes service account to assume the IAM role. Pods using that service account automatically get temporary AWS credentials via projected volume.
+
+---
+
+**Q: What are permission boundaries?**
+
+Permission boundaries set the maximum permissions an IAM entity (user/role) can have. Even if the entity has a policy that allows more, the boundary caps it.
+
+```json
+// Permission boundary: max S3 and EC2 only
+{
+  "Effect": "Allow",
+  "Action": ["s3:*", "ec2:*"],
+  "Resource": "*"
+}
+```
+
+Use case: Allow developers to create IAM roles, but prevent privilege escalation — their boundary ensures any role they create can't exceed their own permissions.
+
+---
+
+**Q: What is AWS STS? Common use cases?**
+
+STS (Security Token Service) issues temporary security credentials (up to 36 hours).
+
+Common uses:
+- `AssumeRole`: Cross-account access, temporary elevated access
+- `AssumeRoleWithWebIdentity`: Social login (Google/Facebook) → AWS access
+- `AssumeRoleWithSAML`: Enterprise SSO (AD) → AWS access
+- `GetFederationToken`: Legacy federation
+
+```bash
+# Assume cross-account role
+aws sts assume-role   --role-arn arn:aws:iam::OTHER_ACCOUNT:role/ReadOnly   --role-session-name my-session
+# Returns: AccessKeyId, SecretAccessKey, SessionToken (expires in 1hr default)
+```
+
+## Revision Notes
+```
+IAM HIERARCHY: User/Group/Role + Policies
+Users: humans (avoid for apps) | Roles: temporary (EC2, Lambda, cross-account)
+Groups: collection of users | Policies: JSON permissions
+
+EVALUATION: Explicit Deny > SCP > Resource Policy > Identity Policy > Implicit Deny
+
+IRSA: K8s service accounts assume IAM roles via OIDC. No credentials stored.
+Permission Boundaries: cap maximum permissions (prevent escalation)
+STS: temporary credentials. AssumeRole for cross-account access.
+
+BEST PRACTICES:
+Lock root account | MFA on privileged users
+Least privilege | Use roles for EC2/Lambda
+Rotate access keys | Use CloudTrail for audit
+```

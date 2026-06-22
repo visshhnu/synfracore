@@ -1,16 +1,132 @@
-# RAG Systems — Interview Questions
+# RAG (Retrieval Augmented Generation) Interview Questions
 
-**What is the difference between RAG and fine-tuning?**
-RAG retrieves relevant documents at inference time and injects them into the context — the model weights don't change, knowledge is external, and updates require only re-indexing documents (no training). Fine-tuning updates the model weights on a specific dataset — knowledge becomes embedded in the model, updates require re-training. RAG is better for: private/proprietary data, frequently updated information, needing source attribution, when you need to add knowledge without losing general capabilities, lower cost. Fine-tuning is better for: consistent output format, specialized domain terminology, tasks requiring deeply learned behavior patterns, when retrieval latency is unacceptable. Most production RAG systems also use some fine-tuning for instruction following.
+## Core Concepts
 
-**What is chunking and what are the trade-offs of different chunk sizes?**
-Chunking splits documents into smaller pieces for embedding and retrieval. Small chunks (100-200 tokens): more precise retrieval, but lose context (a sentence makes no sense without surrounding paragraphs); more chunks to store and search. Large chunks (800-1500 tokens): preserve context, fewer chunks, but embed less precisely and might include irrelevant content. Optimal chunk size depends on your content type: code → function/class boundaries; markdown → heading sections; conversational text → sentence groups. Overlap (10-20%) between chunks prevents cutting off context at boundaries. Semantic chunking (split at topic shifts, not character counts) performs best but is more complex.
+**Q: Explain RAG architecture end to end.**
 
-**How do you evaluate RAG system quality?**
-Evaluation framework (RAGAS is a popular library): Faithfulness — are the generated answers grounded in the retrieved context (not hallucinated)? Context Precision — are the retrieved chunks relevant to the question? Context Recall — did we retrieve all necessary information? Answer Relevancy — does the answer actually address the question? Implementation: create a test set of question-answer pairs with ground truth, run your RAG pipeline, compare with LLM-as-judge or exact match. Key metric in production: hallucination rate (answers that contradict retrieved context). Retrieve-then-Read evaluation separates retrieval quality from generation quality.
+RAG = Retrieval Augmented Generation. Combines a retrieval system with an LLM to answer questions from private/recent documents.
 
-**What is hybrid search and why does it improve RAG?**
-Hybrid search combines dense retrieval (embedding similarity — captures semantic meaning) with sparse retrieval (BM25/keyword search — captures exact terms). Dense search: "show me articles about cardiac arrest" finds documents about "heart attack" even if those exact words don't appear. Sparse search: "show me articles about GPT-4o" finds documents containing that exact model name, which embeddings might not capture well. Combining both with a reranker (cross-encoder model that scores each retrieved chunk against the query) gives significantly better retrieval quality than either method alone. Reciprocal Rank Fusion is a simple algorithm to merge ranked lists from dense and sparse search.
+**Two phases:**
 
-**How do you handle when the relevant information isn't in your document store?**
-First: detect the case — the model should say "I don't have information about this" rather than hallucinate. Implement this via system prompt instructions and confidence scoring (ask the model to rate its confidence and flag low-confidence answers). Strategies: graceful degradation message ("I couldn't find specific information about X in our documentation"); fall back to general model knowledge for non-sensitive queries with a disclaimer; trigger a human escalation for high-stakes questions; log unanswerable queries to identify gaps in your document store for future ingestion. Never silently hallucinate — this destroys trust. Implement a "no answer" threshold below which the system refuses to answer.
+**Indexing (offline):**
+```
+Documents → Chunk → Embed → Store in Vector DB
+```
+1. Load documents (PDF, HTML, markdown, database)
+2. Chunk into pieces (300-1000 tokens each, with overlap)
+3. Embed each chunk with embedding model → dense vector
+4. Store vectors + metadata in vector database (Qdrant, Pinecone, Weaviate, ChromaDB)
+
+**Retrieval + Generation (online):**
+```
+User Query → Embed → Similarity Search → Top-K Chunks → LLM + Context → Answer
+```
+1. Embed user query with same embedding model
+2. Similarity search in vector DB (cosine similarity)
+3. Retrieve top-k most relevant chunks (typically k=3-5)
+4. Inject chunks into LLM prompt as context
+5. LLM generates answer grounded in retrieved context
+
+---
+
+**Q: What chunking strategies exist? How do you choose?**
+
+**Fixed-size chunking**: Split every N tokens with M token overlap.
+- Simple, fast. 
+- Problem: splits mid-sentence, mid-table.
+- Good for: homogeneous text (articles, logs).
+- Typical: 512 tokens, 50 token overlap.
+
+**Recursive character splitting**: Split by paragraphs → sentences → words if needed.
+- Respects natural boundaries.
+- LangChain `RecursiveCharacterTextSplitter` — most common.
+
+**Semantic chunking**: Embed sentences, split where embedding similarity drops significantly.
+- Groups semantically related content together.
+- More expensive (requires embedding every sentence).
+- Best for: diverse topics in same document.
+
+**Document-structure-aware**: Split by markdown headers, PDF sections, HTML tags.
+- Preserves document structure.
+- Best for: technical docs, PDFs with clear structure.
+
+**Parent-child chunking**: Store small chunks (for precise retrieval) + large chunks (for context in answer).
+Retrieve small → return parent chunk to LLM.
+
+---
+
+**Q: How do you evaluate RAG pipeline quality?**
+
+**RAGAS framework** (key metrics):
+
+| Metric | Measures | Formula |
+|---|---|---|
+| **Faithfulness** | Is answer grounded in retrieved context? (no hallucination) | Claims in answer ÷ claims supported by context |
+| **Answer Relevance** | Does answer address the question? | LLM scores relevance |
+| **Context Recall** | Did retrieval find all relevant chunks? | Relevant retrieved ÷ total relevant |
+| **Context Precision** | Were retrieved chunks relevant? | Relevant retrieved ÷ total retrieved |
+
+**Offline evaluation**: Build eval dataset (questions + ground truth answers + relevant documents). Run RAGAS.
+**Online evaluation**: Log queries → sample → human review. Track faithfulness score over time.
+
+---
+
+**Q: Advanced RAG techniques — what are they?**
+
+**HyDE (Hypothetical Document Embedding)**: Generate hypothetical answer → embed it → search with hypothesis vector instead of question vector. Better semantic match for factual questions.
+
+**Multi-query retrieval**: Generate 3-5 variations of the user's question → retrieve for each → merge results (union or RRF). Catches different phrasings.
+
+**Re-ranking**: Retrieve 20-50 candidates → re-rank with cross-encoder (e.g., Cohere Rerank, bge-reranker) → return top 3. Better than pure vector similarity.
+
+**Self-RAG**: LLM decides when to retrieve (not every query needs retrieval). Model generates "retrieve" tokens to trigger search, "relevant"/"irrelevant" tokens to filter results.
+
+**Hybrid search**: Vector similarity + BM25 keyword search → combine with RRF (Reciprocal Rank Fusion). Better for exact term matches.
+
+---
+
+**Q: Production RAG — what fails and how do you fix it?**
+
+| Problem | Symptom | Fix |
+|---|---|---|
+| Wrong chunks retrieved | Answer misses key info | Better chunking, metadata filters |
+| Hallucination | Answer not in retrieved context | Add faithfulness prompt, lower temperature |
+| Slow retrieval | High latency | Index optimisation, approximate search (HNSW), caching |
+| Too much context | LLM ignores middle chunks | Compress/summarise chunks, use re-ranking |
+| Poor embedding quality | Wrong semantic matches | Switch to better model (bge-large, text-embedding-3-large) |
+| Stale knowledge | Outdated answers | Refresh embeddings pipeline on document update |
+
+**Production stack example:**
+```python
+# Retrieval pipeline
+docs = vector_store.similarity_search(query, k=20)  # Over-retrieve
+docs = reranker.rerank(query, docs, top_k=4)         # Re-rank for quality
+response = llm.invoke(prompt.format(context=docs, query=query))
+faithfulness = ragas.evaluate(response, docs)         # Monitor quality
+```
+
+## Revision Notes
+```
+RAG PIPELINE:
+INDEXING: Load → Chunk → Embed → Store in VectorDB
+QUERY: Embed query → Similarity search → Top-K chunks → LLM + context → Answer
+
+CHUNKING STRATEGIES:
+Fixed-size (simple) | Recursive (respects boundaries) | Semantic (groups by meaning)
+Document-structure-aware | Parent-child (small retrieve, large context)
+
+RAGAS METRICS:
+Faithfulness: no hallucination (answer supported by context)
+Relevance: answer addresses question
+Context Recall: retrieval completeness
+Context Precision: retrieval precision
+
+ADVANCED RAG:
+HyDE: hypothetical answer → search | Multi-query: question variations → merge
+Re-ranking: 20-50 candidates → cross-encoder → top 3
+Hybrid search: vector + BM25 | Self-RAG: LLM controls retrieval
+
+PRODUCTION FAILURES:
+Wrong retrieval → better chunking/metadata | Hallucination → faithfulness prompt
+Slow → HNSW index + caching | Too much context → re-ranking + compression
+```

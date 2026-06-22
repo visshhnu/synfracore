@@ -1,16 +1,115 @@
-# AWS Lambda — Interview Questions
+# AWS Lambda Interview Questions
 
-**What is a cold start and how do you reduce it?**
-A cold start occurs when Lambda needs to create a new execution environment — download the code package, start the runtime, run initialization code outside the handler. This adds 100ms-3s latency (Java/JVM: worst; Python/Node: best). Warm starts reuse the existing container — only the handler code runs, typically <10ms overhead. Reduction strategies: use Python or Node.js runtimes (lighter than Java/Go); minimize package size (smaller = faster download); move SDK client initialization outside the handler (runs once, reused); use Lambda SnapStart (Java — snapshots initialized state); use Provisioned Concurrency (keep N containers always warm — costs money); use Lambda URLs with response streaming to start returning data before full initialization.
+## Core Concepts
 
-**How does Lambda handle concurrency?**
-Each simultaneous invocation runs in its own isolated execution environment. Account-level default concurrency limit: 1000 (can be increased). Reserved concurrency: guarantee a function gets a specific number of concurrent executions — prevents other functions from stealing capacity, but also caps the function at that limit. Provisioned concurrency: pre-initializes environments to eliminate cold starts — you pay for the provisioned capacity even when idle. If concurrency limit is reached, Lambda throttles — synchronous invocations get a 429 error; async invocations retry for up to 6 hours.
+**Q: How does Lambda work? What is cold start?**
 
-**What is the difference between synchronous and asynchronous Lambda invocation?**
-Synchronous (RequestResponse): caller waits for the function to complete and return a response. Used by API Gateway, ALB, direct SDK calls. Errors return to the caller immediately — no automatic retry. Asynchronous (Event): caller sends the event and doesn't wait. Lambda queues the event and returns 202 immediately. Lambda retries failed invocations twice automatically. Used by S3 events, SNS, EventBridge. Event source mapping (SQS, Kinesis, DynamoDB Streams): Lambda polls the queue/stream, processes in batches. Batch failures can be configured with `ReportBatchItemFailures` to retry only failed items.
+Lambda is serverless compute — you provide code, AWS runs it on demand. No servers to manage.
 
-**How do you manage environment variables and secrets in Lambda?**
-Environment variables: fine for non-sensitive config (LOG_LEVEL, TABLE_NAME). Lambda encrypts them at rest with KMS. Avoid storing secrets as environment variables — they're visible in the Lambda console to anyone with access. Better approach: use AWS Secrets Manager or Parameter Store. Fetch secrets at cold start (outside handler) and cache in module scope — minimize latency and API calls. AWS SDK automatically handles authentication via the Lambda execution role. For database passwords: use RDS Proxy with IAM authentication — no password storage needed, Lambda authenticates with its IAM role.
+**Execution model:**
+1. Event triggers Lambda (API Gateway, S3, SQS, CloudWatch Events, etc.)
+2. AWS finds/creates execution environment (container)
+3. Runs your handler function
+4. Returns response or writes to output
+5. Environment stays "warm" briefly (reuse for next invocation) or is destroyed
 
-**Explain Lambda Layers.**
-Layers are ZIP archives containing libraries, a custom runtime, or other dependencies that you attach to Lambda functions. The layer is extracted to `/opt` in the execution environment. Benefits: share common code across functions without duplicating packages in each deployment; reduce package size (deployment package limit: 50MB zipped, 250MB unzipped); faster deployments when only code changes (not dependencies). A function can have up to 5 layers. Layers are versioned — use a specific version ARN for reproducibility. AWS and third parties publish public layers (AWS Data Wrangler for pandas, PowerTools for Python for observability utilities).
+**Cold start**: First invocation (or after idle period) requires:
+- Spin up execution environment (~100ms)
+- Download deployment package
+- Initialise runtime (Python/Node.js)
+- Run initialisation code outside handler
+
+Cold start latency: ~100ms-1s (Java worst, Python/Node.js better, SnapStart for Java).
+
+**Mitigation:**
+- Provisioned Concurrency: pre-warms environments (eliminates cold starts, extra cost)
+- Keep deployment package small
+- Move heavy initialisation outside handler (connection pooling, SDK clients)
+- Use Python/Node.js for latency-sensitive functions
+
+---
+
+**Q: Lambda limits and concurrency.**
+
+| Limit | Value |
+|---|---|
+| Max memory | 10,240 MB |
+| Max timeout | 15 minutes |
+| Deployment package | 50MB zipped, 250MB unzipped |
+| Container image | Up to 10GB |
+| Concurrent executions | 1,000 (soft limit, can increase) |
+| Ephemeral storage (/tmp) | 512MB default, up to 10GB |
+
+**Concurrency types:**
+- **Reserved concurrency**: Caps maximum concurrent executions for a function (throttles beyond limit)
+- **Provisioned concurrency**: Pre-initialised environments (warm, no cold start, costs money)
+
+---
+
+**Q: Lambda invocation types — synchronous vs asynchronous.**
+
+**Synchronous** (request-response): Caller waits for result.
+Triggers: API Gateway, ALB, Lambda (SDK call), Cognito
+
+**Asynchronous**: Lambda queues event, returns immediately (202). Retries 2x on failure.
+Triggers: S3, SNS, CloudWatch Events
+
+**Event Source Mapping** (stream/queue): Lambda polls source.
+Triggers: SQS, Kinesis, DynamoDB Streams, Kafka
+
+**Error handling:**
+- Sync: Error returned to caller
+- Async: Retries, then DLQ (Dead Letter Queue)
+- Event source mapping: Retries until expiry, BisectOnError
+
+---
+
+**Q: How do you connect Lambda to a VPC?**
+
+```python
+# Lambda VPC config - add in function configuration
+VpcConfig:
+  SubnetIds: [subnet-xxx, subnet-yyy]  # Private subnets
+  SecurityGroupIds: [sg-xxx]
+
+# Lambda needs AWSLambdaVPCAccessExecutionRole
+# For internet access from VPC: needs NAT Gateway
+# For AWS services: use VPC Endpoints (avoid NAT)
+```
+
+**Why VPC?**: Access RDS, ElastiCache, or other private resources.
+**VPC caveat**: Adds ~100ms cold start. Use VPC Endpoints for AWS services to avoid NAT Gateway costs.
+
+---
+
+**Q: Lambda layers and container images — when to use each?**
+
+**Layers**: Shared code/dependencies packaged as a ZIP.
+- Max 5 layers per function
+- Separate deployment from updates (update layer once, all functions benefit)
+- Good for: shared libraries (pandas, requests), custom runtimes, security tools
+
+**Container Images** (up to 10GB):
+- Full control of environment
+- Larger ML models, complex dependencies
+- Familiar Docker workflow
+- Better for ML inference, large dependency trees
+
+## Revision Notes
+```
+LAMBDA: serverless, event-driven, max 15min timeout, 10GB memory
+COLD START: ~100ms-1s. Mitigate: Provisioned Concurrency, small packages, warm code outside handler.
+
+CONCURRENCY:
+Reserved: caps maximum (throttles beyond)
+Provisioned: pre-warmed (no cold start, costs money)
+Default limit: 1,000 concurrent (can raise)
+
+INVOCATION TYPES:
+Sync: API GW, ALB → wait for result
+Async: S3, SNS → queued, retries 2x
+Event Source Mapping: SQS, Kinesis → Lambda polls
+
+LAYERS: shared code (max 5). Container: large deps/ML models.
+VPC: adds cold start time. Use VPC Endpoints for AWS services.
+```

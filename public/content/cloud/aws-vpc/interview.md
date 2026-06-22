@@ -1,16 +1,104 @@
-# AWS VPC — Interview Questions
+# AWS VPC Interview Questions
 
-**What is the difference between a Security Group and a Network ACL?**
-Security Groups are stateful firewalls attached to ENIs (instance level) — if you allow inbound traffic on port 80, the response traffic is automatically allowed outbound. They have only Allow rules; you can't explicitly deny. Rules are evaluated as a whole (all rules together). NACLs are stateless firewalls at the subnet level — you must explicitly allow both inbound and outbound traffic for each connection, including ephemeral response ports (1024-65535). They support both Allow and Deny rules, evaluated in order by rule number (lowest first). Use NACLs to block specific IPs at subnet level; Security Groups for fine-grained instance-level control.
+## Core Concepts
 
-**What is a NAT Gateway and why do private subnets need it?**
-Private subnet instances have no route to the internet — they can't receive direct internet traffic (good for security) but also can't initiate outbound connections for updates, API calls, etc. NAT Gateway lives in a public subnet with an Elastic IP, and private subnets route `0.0.0.0/0` through it. NAT translates the private IP to its public IP for outbound connections and translates responses back. It's one-way — external sources cannot initiate connections to private instances through NAT. One NAT Gateway per AZ is recommended (NAT Gateway is AZ-specific; using one across AZs creates cross-AZ data transfer costs and single AZ dependency).
+**Q: Explain AWS VPC architecture.**
+A Virtual Private Cloud (VPC) is your private network in AWS — logically isolated from other AWS customers.
 
-**Explain VPC peering vs Transit Gateway.**
-VPC Peering connects two VPCs directly — traffic stays on AWS backbone, not the internet. Non-transitive: if A↔B and B↔C, A cannot reach C through B (must create A↔C peering). Management complexity grows quadratically with VPC count (10 VPCs = up to 45 peering connections). Transit Gateway is a hub-and-spoke router — all VPCs connect to TGW, and TGW routes between them. Transitive: A→TGW→B→TGW→C works. Scales to thousands of VPCs. Can also attach VPN and Direct Connect. Cost: TGW has hourly charge + data processing fee; VPC peering only charges for cross-AZ/cross-region data. Use peering for 2-3 VPCs; TGW for 4+ or when you need on-prem connectivity.
+Key components:
+- **CIDR block**: IP range for the VPC (e.g., 10.0.0.0/16 = 65,536 IPs)
+- **Subnets**: Divide VPC into smaller networks (public, private, isolated)
+- **Route tables**: Control traffic routing within VPC and to internet
+- **Internet Gateway (IGW)**: Enables internet access for public subnets
+- **NAT Gateway**: Allows private subnets to reach internet (outbound only)
+- **Security Groups**: Stateful firewall at instance level (allow rules only)
+- **NACLs**: Stateless firewall at subnet level (allow + deny rules)
 
-**What are VPC Endpoints and what problems do they solve?**
-Without VPC endpoints, private subnet traffic to AWS services (S3, DynamoDB, Secrets Manager) must go through the internet via NAT Gateway — paying NAT processing fees and sending data outside AWS network. VPC endpoints keep traffic within AWS. Gateway endpoints (free) for S3 and DynamoDB: you add an entry to route tables. Interface endpoints ($0.01/hr per AZ) for other services: a private IP in your VPC resolves to the service. Benefits: no internet exposure, no NAT Gateway cost for AWS service traffic, can enforce VPC endpoint conditions in bucket/resource policies (deny access not through endpoint).
+**Public vs Private subnet:**
+Public subnet = route table has route `0.0.0.0/0 → IGW` (internet accessible)
+Private subnet = route table has route `0.0.0.0/0 → NAT Gateway` (outbound only)
 
-**How would you design a highly available 3-tier VPC architecture?**
-Three tiers across two AZs minimum (three for production). Web tier: public subnets with Application Load Balancer spanning all AZs. App tier: private subnets with EC2/ECS behind internal ALB or directly from web ALB. Database tier: private subnets with RDS Multi-AZ (standby in different AZ). One NAT Gateway per AZ (avoid cross-AZ traffic). Route tables: public subnets route to IGW; app subnets route to NAT Gateway in same AZ; database subnets no internet route. Security groups: ALB allows 443 from internet → app SG allows port from ALB SG only → DB SG allows 5432 from app SG only.
+---
+
+**Q: Security Groups vs Network ACLs — key differences?**
+
+| | Security Group | NACL |
+|---|---|---|
+| Level | Instance (ENI) | Subnet |
+| State | Stateful (return traffic auto-allowed) | Stateless (must allow both directions) |
+| Rules | Allow only | Allow + Deny |
+| Evaluation | All rules evaluated | Rules in order, first match wins |
+| Default | Deny all in, allow all out | Allow all |
+
+**Best practice:** Use Security Groups as primary firewall. Use NACLs for subnet-level blocking (e.g., block specific IPs).
+
+---
+
+**Q: How does VPC peering work? What are its limitations?**
+
+VPC peering creates a private connection between two VPCs (same or different accounts/regions). Traffic stays on AWS backbone — not internet.
+
+```
+VPC A (10.0.0.0/16) ←── Peering ──→ VPC B (172.16.0.0/16)
+```
+
+**Limitations:**
+- Non-transitive: If A peers with B and B peers with C, A cannot reach C through B
+- No overlapping CIDR blocks (must use unique IP ranges)
+- Not for large-scale connectivity (use Transit Gateway instead)
+
+**Transit Gateway**: Hub-and-spoke model. One TGW connects many VPCs and on-premise networks. Transitive routing supported.
+
+---
+
+**Q: Explain VPC endpoints — Interface vs Gateway.**
+
+VPC Endpoints allow private connectivity to AWS services without internet/NAT.
+
+**Gateway Endpoint**: Free. Route table entry to S3 or DynamoDB only.
+```
+Route table: pl-xxxxxx (S3 prefix list) → vpce-xxxxxx
+```
+
+**Interface Endpoint (PrivateLink)**: Paid. Creates ENI in your subnet with private IP. Works for 100+ AWS services (SQS, SSM, CloudWatch, etc.).
+
+Use case: EC2 in private subnet needs to access S3 → use Gateway Endpoint (free, no NAT cost).
+
+---
+
+**Q: Walk me through designing a 3-tier VPC.**
+
+```
+VPC: 10.0.0.0/16
+
+Public Subnets (per AZ): 10.0.1.0/24, 10.0.2.0/24
+  → Load Balancer, NAT Gateway, Bastion
+
+Private App Subnets: 10.0.10.0/24, 10.0.11.0/24
+  → EC2 / ECS / EKS application tier
+
+Private DB Subnets: 10.0.20.0/24, 10.0.21.0/24
+  → RDS, ElastiCache (no internet access)
+
+Route Tables:
+Public:   0.0.0.0/0 → IGW
+Private:  0.0.0.0/0 → NAT Gateway
+DB:       (local only — no internet)
+
+Security Groups:
+ALB-SG:  Inbound 80/443 from 0.0.0.0/0
+App-SG:  Inbound 8080 from ALB-SG only
+DB-SG:   Inbound 5432 from App-SG only
+```
+
+## Revision Notes
+```
+VPC = private isolated network. CIDR defines IP space.
+Public subnet = route to IGW | Private = route to NAT GW
+SG: stateful, allow only, instance level
+NACL: stateless, allow+deny, subnet level, ordered rules
+VPC Peering: non-transitive, no overlapping CIDRs
+Transit Gateway: hub-and-spoke, transitive routing
+Gateway Endpoint: S3+DynamoDB, free
+Interface Endpoint: PrivateLink, paid, all other services
+```

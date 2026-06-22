@@ -1,16 +1,103 @@
-# AWS RDS — Interview Questions
+# AWS RDS Interview Questions
 
-**What is the difference between RDS Multi-AZ and Read Replicas?**
-Multi-AZ is for high availability — AWS maintains a synchronous standby replica in a different AZ. The standby is NOT accessible for reads; it only activates during failover (automatic, takes 60-120 seconds). Read Replicas are for read scaling — asynchronous replicas you can direct read traffic to, reducing load on the primary. Replicas can be in the same region, cross-region, or promoted to standalone (for migrations/DR). You can have both: Multi-AZ for HA + up to 5 read replicas for read scaling. Key distinction: Multi-AZ = automatic failover with no data loss; Read Replicas = read performance (slight lag is possible).
+## Core Concepts
 
-**How does RDS automated backup work?**
-RDS takes automated backups during the maintenance window — a full snapshot plus transaction logs captured throughout the day. Retention period: 1-35 days (default 7). Point-in-time recovery: restore to any second within the retention window. Backups stored in S3 (you don't see the bucket). Automated backups are deleted when you delete the DB instance (unless you take a final snapshot). Manual snapshots persist until you explicitly delete them. Restore creates a NEW RDS instance — you cannot restore in-place. Update your application's connection string to point to the restored instance.
+**Q: What is RDS? Multi-AZ vs Read Replica?**
 
-**What is RDS Proxy and when should you use it?**
-RDS Proxy is a connection pooler that sits between your application and RDS. It maintains a pool of established database connections and multiplexes thousands of application connections through them. Critical for: Lambda functions (each invocation can open a new DB connection, quickly exhausting PostgreSQL's connection limit); applications with connection spikes (auto-scaling); reducing connection overhead. Also supports IAM authentication (Lambda → RDS Proxy with IAM token → RDS, no password needed). RDS Proxy doesn't work with all database features (e.g., some PostgreSQL-specific connection parameters).
+RDS (Relational Database Service) is managed relational databases — AWS handles patching, backups, failover.
 
-**How do you handle database migrations with zero downtime on RDS?**
-Blue-green deployments: create a new RDS instance (green), replicate data using DMS or native replication, test the new instance, switch traffic via connection string update or Route53, then decommission old (blue). For schema migrations: use expand-contract pattern — add new columns as nullable (backward compatible), deploy new app code that writes to both, backfill data, switch reads to new column, finally drop old column. AWS Database Migration Service (DMS) handles ongoing replication during cutover. Always test the migration on a restored snapshot first, measure migration duration, and prepare a rollback plan.
+Supported engines: MySQL, PostgreSQL, MariaDB, Oracle, SQL Server, Aurora (MySQL/PostgreSQL compatible).
 
-**What are the most important RDS parameters to tune for PostgreSQL?**
-`max_connections`: PostgreSQL creates a process per connection (~5-10MB each). Set based on RAM. Use PgBouncer/RDS Proxy to stay well below limit. `shared_buffers`: 25% of RAM — PostgreSQL's buffer cache. `effective_cache_size`: 75% of RAM — hints to query planner. `work_mem`: per-sort/hash memory — multiply by concurrent queries. `max_wal_size`: increase for write-heavy workloads to reduce checkpoint frequency. `log_min_duration_statement`: set to 1000ms to capture slow queries. For RDS: change these via Parameter Groups, not config files. Apply immediately or at next maintenance window depending on parameter.
+**Multi-AZ (High Availability):**
+- Synchronous replication to standby in another AZ
+- Automatic failover in 1-2 minutes (DNS changes, no manual intervention)
+- Standby is NOT readable — only for failover
+- Use for: production databases, HA requirement
+
+**Read Replica (Scalability):**
+- Asynchronous replication
+- Readable (offload read queries from primary)
+- Can be promoted to standalone (for DR)
+- Up to 5 replicas per primary (MySQL/MariaDB/PostgreSQL)
+- Can be cross-region (for geo-distributed reads and DR)
+
+---
+
+**Q: What is Aurora? How is it different from standard RDS?**
+
+Aurora is AWS's proprietary cloud-native database — MySQL and PostgreSQL compatible but with significant architectural improvements.
+
+**Key Aurora differences:**
+- 6-way replication across 3 AZs (storage layer) — survives 2 AZ failures
+- Up to 15 read replicas (vs 5 for standard RDS)
+- Failover in ~30 seconds (vs 1-2 mins for Multi-AZ RDS)
+- Storage auto-scales in 10GB increments up to 128TB
+- Aurora Global Database: single primary, up to 5 secondary regions (sub-second replication)
+- Aurora Serverless: auto-scales capacity (good for unpredictable workloads)
+
+**When Aurora over standard RDS**: Production workloads needing high availability, high throughput, or global scale.
+
+---
+
+**Q: RDS backup and recovery.**
+
+**Automated backups**: Daily snapshots + transaction logs. Retention: 1-35 days. Point-in-time recovery to any second within retention period.
+
+**Manual snapshots**: User-initiated. Stored until deleted. Persist after RDS deletion.
+
+**Cross-region backups**: Copy automated backups to another region (DR).
+
+**RTO/RPO:**
+- Multi-AZ: RTO ~1-2 min, RPO near-zero (synchronous)
+- Aurora: RTO ~30s, RPO near-zero
+- Single-AZ + backups: RTO hours (restore), RPO = last backup
+
+---
+
+**Q: RDS security best practices.**
+
+1. **Private subnet**: Never in public subnet. Use SG to allow only app servers.
+2. **Encryption at rest**: Enable KMS encryption (required for compliance).
+3. **Encryption in transit**: SSL/TLS for connections. Enforce with parameter group (`require_secure_transport = ON`).
+4. **IAM Database Authentication**: Use IAM roles instead of passwords for MySQL/PostgreSQL connections.
+5. **Secrets Manager**: Rotate database credentials automatically.
+6. **VPC Security Groups**: Only allow inbound from app security group, specific port.
+7. **No public accessibility**: Disable public access.
+
+---
+
+**Q: RDS Performance Insights and optimisation.**
+
+**Performance Insights**: Visualise DB load by wait events, SQL queries. Identify top waits (CPU, I/O, locks).
+
+**Optimisation:**
+- Identify slow queries: Performance Insights top SQL, or `pg_stat_statements`, `slow_query_log`
+- Add appropriate indexes
+- Connection pooling: RDS Proxy (serverless/Lambda use cases)
+- Read replicas for read-heavy workloads
+- Right-size instance class (use Performance Insights before sizing up)
+- Parameter groups: tune `max_connections`, `shared_buffers`, etc.
+
+**RDS Proxy**: Pooled connection management. Reduces overhead for Lambda functions (which create new connections per invocation).
+
+## Revision Notes
+```
+RDS: managed relational DB. MySQL/PostgreSQL/Aurora/Oracle/SQL Server.
+
+MULTI-AZ: Sync replication, auto-failover (1-2min). Standby NOT readable.
+READ REPLICA: Async replication, readable. Up to 5. Promote for DR.
+
+AURORA vs RDS:
+6-way replication (3 AZs) | 15 read replicas | 30s failover
+Auto-scaling storage | Aurora Global DB (sub-second cross-region)
+
+BACKUP: Automated (1-35 day retention) + Manual snapshots
+Point-in-time recovery within retention window
+
+SECURITY:
+Private subnet | Encryption at rest (KMS) | SSL in transit
+IAM auth | Secrets Manager rotation | No public access
+
+RDS PROXY: connection pooling (Lambda use case)
+Performance Insights: identify top wait events and slow queries
+```

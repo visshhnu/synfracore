@@ -1,16 +1,194 @@
-# ELK Stack — Interview Questions
+# ELK Stack Interview Questions
 
-**What is the difference between Filebeat and Logstash?**
-Filebeat is a lightweight log shipper that runs on each server — it tails log files and ships them to Elasticsearch or Logstash. Minimal resource usage (written in Go). Logstash is a powerful data processing pipeline — it can ingest from many sources, parse/transform/enrich data with complex filters (grok, mutate, geoip), and output to many destinations. The choice: if you need heavy parsing/transformation, use Filebeat → Logstash → Elasticsearch. If logs are already structured JSON, use Filebeat → Elasticsearch directly (no Logstash needed, simpler, cheaper). Many modern setups skip Logstash entirely using Filebeat with ingest pipelines in Elasticsearch.
+## Core Concepts
 
-**What is the difference between an index and a data stream in Elasticsearch?**
-A regular index is a single logical unit of storage. A data stream is an abstraction over time-series data (logs, metrics) that automatically manages backing indices. When you write to a data stream, it writes to the current "write index." Index lifecycle management automatically rolls over to a new index when size/age thresholds are met, moves old indices through warm/cold phases, and eventually deletes them. Use data streams for time-series data — you don't manage index rotation manually, ILM handles it. Regular indices for non-time-series data (product catalog, user profiles).
+**Q: What is the ELK Stack? What is each component?**
 
-**Explain Elasticsearch sharding and when to adjust it.**
-An index is divided into shards — each shard is a self-contained Lucene index. Primary shards hold data; replica shards are copies for redundancy and read scaling. Rule of thumb: shard size 10-50GB (too small = overhead from too many shards; too large = slow recovery). One shard per node is a good starting point for small clusters. You cannot change primary shard count after creation (only replicas can change) — plan upfront. The "oversharding" problem is common: many small shards (< 1GB) waste memory and slow queries. Use ILM to control shard count per day's data.
+ELK = Elasticsearch + Logstash + Kibana. Now often called Elastic Stack (adds Beats).
 
-**How do you design an Elasticsearch index mapping for logs?**
-Define explicit mappings rather than relying on dynamic mapping. Key decisions: use `keyword` type for fields you filter/aggregate on (status, service name, environment) — not analyzed, exact match. Use `text` for fields you full-text search. Use `date` for timestamps with the correct format. Disable dynamic mapping for unknown fields to prevent mapping explosion (too many unique field names causing memory issues). Use `flattened` type for arbitrary JSON objects with unknown keys. Set `doc_values: false` for text fields you'll never sort/aggregate on (saves disk).
+**Elasticsearch**: Distributed search and analytics engine. Stores and indexes data. Query with REST API.
 
-**What are the key ELK Stack performance bottlenecks?**
-Indexing rate bottleneck: increase Elasticsearch bulk size, tune `refresh_interval` (longer = faster indexing, slower search), add more nodes/shards. Search performance: use filter context (not query context) for exact matches — filters are cached. Avoid wildcard queries on unindexed fields. Use index sorting if you always query in the same order. Logstash bottleneck: add multiple Logstash pipelines with `pipeline.workers` matching CPU count, use persistent queues to handle spikes without dropping events. Disk I/O: use SSD for hot tier, cold tier can use HDD. JVM heap: set to 50% of RAM, max 32GB (JVM pointer compression limit).
+**Logstash**: Data processing pipeline. Ingests data from multiple sources, transforms it, sends to Elasticsearch (or other outputs). Heavy — uses JVM.
+
+**Kibana**: Visualisation layer. Dashboards, search UI, Discover (log exploration), Lens (analytics).
+
+**Beats**: Lightweight data shippers (Filebeat for logs, Metricbeat for metrics, Packetbeat for network). Alternative to Logstash for simple use cases.
+
+**Common modern architecture:**
+```
+[Apps/Hosts] → Filebeat/Metricbeat (lightweight) → Logstash (transform) → Elasticsearch → Kibana
+                                          OR
+[Apps/Hosts] → Beats → Elasticsearch (with ingest pipelines) → Kibana
+```
+
+---
+
+**Q: Elasticsearch concepts — index, document, shard, replica.**
+
+**Document**: JSON record. The basic unit of data.
+**Index**: Collection of related documents (like a database table, but schema-flexible).
+**Shard**: Horizontal partition of an index. Allows parallel processing and scaling.
+**Replica**: Copy of a shard. Provides redundancy and increased read throughput.
+
+```
+Index: "logs-2024-01"
+  Primary Shard 0 ──→ Replica Shard 0 (on different node)
+  Primary Shard 1 ──→ Replica Shard 1
+  Primary Shard 2 ──→ Replica Shard 2
+```
+
+**Choosing shard count**: Rule of thumb: 20-40GB per shard. Too many shards = overhead.
+
+**Index templates**: Define settings/mappings for indices matching a pattern (e.g., `logs-*`).
+**ILM (Index Lifecycle Management)**: Auto-rotate indices. Hot → Warm → Cold → Delete.
+
+---
+
+**Q: Elasticsearch queries — DSL basics.**
+
+```json
+// Full-text search
+{
+  "query": {
+    "match": { "message": "error database connection" }
+  }
+}
+
+// Exact match (keyword field)
+{
+  "query": {
+    "term": { "status.keyword": "failed" }
+  }
+}
+
+// Range query
+{
+  "query": {
+    "range": {
+      "timestamp": {
+        "gte": "2024-01-01",
+        "lte": "2024-01-31"
+      }
+    }
+  }
+}
+
+// Boolean query (combine)
+{
+  "query": {
+    "bool": {
+      "must": [{ "match": { "level": "ERROR" } }],
+      "filter": [{ "term": { "service": "payment" } }],
+      "must_not": [{ "match": { "message": "health check" } }]
+    }
+  }
+}
+
+// Aggregation (COUNT GROUP BY)
+{
+  "aggs": {
+    "by_service": {
+      "terms": { "field": "service.keyword" },
+      "aggs": {
+        "error_count": { "value_count": { "field": "_id" } }
+      }
+    }
+  }
+}
+```
+
+---
+
+**Q: Logstash pipeline configuration.**
+
+```ruby
+# logstash.conf
+input {
+  beats { port => 5044 }  # Receive from Filebeat
+  # OR
+  kafka { topics => ["app-logs"] bootstrap_servers => "kafka:9092" }
+}
+
+filter {
+  # Parse Apache log format
+  grok {
+    match => { "message" => "%{COMBINEDAPACHELOG}" }
+  }
+
+  # Parse JSON logs
+  json { source => "message" }
+
+  # Add timestamp
+  date { match => ["timestamp", "ISO8601"] }
+
+  # Enrich with GeoIP
+  geoip { source => "client_ip" }
+
+  # Drop health check logs
+  if [path] =~ "/health" { drop {} }
+
+  # Mask sensitive data
+  mutate {
+    gsub => ["message", "password=\S+", "password=REDACTED"]
+  }
+}
+
+output {
+  elasticsearch {
+    hosts => ["elasticsearch:9200"]
+    index => "app-logs-%{+YYYY.MM.dd}"
+  }
+  # Dead letter queue for failed events
+  # stdout { codec => rubydebug }  # Debug only
+}
+```
+
+---
+
+**Q: Scaling and production concerns.**
+
+**Elasticsearch scaling:**
+- Add more data nodes for storage and throughput
+- Dedicated master nodes (3+) — don't mix master+data for large clusters
+- Coordinating nodes — handle search routing, reduce load on data nodes
+
+**Memory**: Allocate 50% of RAM to JVM heap (max 31GB — beyond that, JVM loses compressed OOPs).
+`ES_JAVA_OPTS="-Xms16g -Xmx16g"`
+
+**Index performance:**
+- Bulk API for indexing (not one-by-one)
+- Disable `_source` if not needed (saves space)
+- Use appropriate refresh interval (default 1s — increase for bulk loads)
+
+**Production concerns:**
+- Cluster health: GREEN (all shards), YELLOW (replicas unassigned), RED (primary shard missing)
+- Monitor JVM heap % (above 75% = GC pressure)
+- Slow log threshold for queries
+
+## Revision Notes
+```
+ELK STACK:
+Elasticsearch: distributed search + storage
+Logstash: ingest + transform + route (heavy, JVM)
+Kibana: visualisation + dashboards
+Beats: lightweight shippers (Filebeat, Metricbeat)
+
+ELASTICSEARCH CONCEPTS:
+Document → Index → Shards (primary + replica)
+~20-40GB per shard | ILM: hot→warm→cold→delete
+
+QUERY DSL:
+match: full-text | term: exact | range: date/number
+bool: must/filter/should/must_not (combine queries)
+aggs: group-by and compute metrics
+
+LOGSTASH PIPELINE:
+input → filter (grok/json/date/geoip/mutate) → output
+grok: parse unstructured text | json: parse JSON logs
+Drop: filter noisy logs | Mutate: transform fields
+
+SCALING:
+Dedicated master nodes (3+) for large clusters
+50% RAM to JVM heap (max 31GB) | Bulk API for fast indexing
+Cluster health: GREEN=good, YELLOW=replica missing, RED=primary missing
+```

@@ -1,16 +1,157 @@
-# AI Agents — Interview Questions
+# AI Agents Interview Questions
 
-**What is the difference between an AI agent and a simple LLM call?**
-A simple LLM call is a single request-response: you send a prompt, get text back, done. An agent is a loop: the LLM decides what action to take (call a tool, search the web, run code), observes the result, then decides the next action — repeating until the task is complete. Agents can complete multi-step tasks that require planning, information gathering, and adaptive decision-making. The key additions are tools (capabilities to interact with the world) and a loop (the model keeps acting until the goal is reached).
+## Core Concepts
 
-**What is the ReAct pattern?**
-ReAct (Reasoning + Acting) is the foundational agent pattern where the model alternates between reasoning about what to do next and taking actions. The model produces a "Thought" (what should I do?), then an "Action" (call this tool with these parameters), then observes the "Observation" (tool result), then reasons again. This alternation makes the model's reasoning transparent and helps it stay on track for complex tasks. It's named after a 2022 paper showing this significantly outperforms either reasoning or acting alone.
+**Q: What is an AI agent? How is it different from a simple LLM call?**
 
-**How do you prevent agents from going into infinite loops or taking dangerous actions?**
-Multiple safeguards: maximum iteration limit (stop after N steps), action allowlists (agent can only call approved tools), action validation before execution (check command against blocklist like `rm -rf`), human-in-the-loop checkpoints (pause and ask for approval before irreversible actions), output validation (check tool results for error patterns and pause), budget limits (stop if API cost exceeds threshold). For production agents operating on real infrastructure, require explicit human approval for any destructive action (delete, modify production, send emails to real users).
+**Simple LLM call**: Single input → Single output. Stateless. No actions.
+```
+User: "What is 2+2?" → LLM → "4"
+```
 
-**What is the difference between tool use and function calling?**
-They're the same concept with different terminology. Anthropic calls it "tool use," OpenAI calls it "function calling." Both allow the LLM to request execution of predefined functions with structured JSON parameters. The model outputs a special response saying "I want to call function X with these parameters," your code executes the function and returns the result, and the model incorporates the result into its next response. The key innovation: the model's parameters can only output JSON matching your schema — making it reliable for structured data extraction and external service calls.
+**AI Agent**: LLM + tools + memory + reasoning loop. Can take actions, observe results, iterate.
+```
+User: "Book a meeting with Alice tomorrow at 3pm"
+Agent: Check Alice's calendar → Check my calendar → Find conflicts → Create event → Send invite → Confirm
+```
 
-**Explain the difference between single-agent and multi-agent architectures.**
-Single-agent: one LLM handles all aspects of a task with multiple tools. Simple, easier to debug, good for most tasks. Multi-agent: specialized agents that collaborate — one orchestrator breaks the task into subtasks and assigns them to specialist agents (researcher, coder, reviewer, etc.). Benefits: specialists can use different models optimized for their task (cheap model for research, powerful model for code), parallel execution, separation of concerns. Downsides: more complex, harder to debug, communication overhead, coordination failures. Use multi-agent when tasks are genuinely too long for one context window or when parallelism provides major benefits.
+**Key properties of agents:**
+- **Reasoning**: Plans multi-step to achieve goal
+- **Tool use**: Calls external functions (search, APIs, databases, code execution)
+- **Memory**: Maintains state across steps (working memory) and sessions (persistent memory)
+- **Autonomy**: Decides when it's done (or when to ask for help)
+
+---
+
+**Q: Explain the ReAct pattern. What is LangGraph?**
+
+**ReAct (Reason + Act)**: Agent alternates between Thought (reasoning) and Action (tool call).
+
+```
+Thought: I need to check the weather in London
+Action: weather_api("London")
+Observation: 18°C, partly cloudy
+Thought: Now I can answer the user
+Answer: London is currently 18°C with partly cloudy skies.
+```
+
+LLM generates "Thought:" → executes "Action:" → observes result → generates next Thought. Loop until final answer.
+
+**LangGraph**: Framework for building stateful, multi-step agents as directed graphs.
+- **Nodes**: Functions (LLM calls, tool calls, custom logic)
+- **Edges**: Control flow between nodes (conditional branching)
+- **State**: Shared dict that flows through the graph
+
+```python
+from langgraph.graph import StateGraph
+
+class AgentState(TypedDict):
+    messages: list
+    next_action: str
+
+def agent_node(state: AgentState):
+    # LLM decides next action
+    response = llm.invoke(state["messages"])
+    return {"messages": [..., response], "next_action": response.tool_calls[0].name}
+
+def tool_node(state: AgentState):
+    # Execute tool call
+    result = execute_tool(state["next_action"])
+    return {"messages": [..., result]}
+
+graph = StateGraph(AgentState)
+graph.add_node("agent", agent_node)
+graph.add_node("tools", tool_node)
+graph.add_edge("agent", "tools")    # Always call tools after agent
+graph.add_conditional_edges("tools", should_continue, {"continue": "agent", "end": END})
+```
+
+---
+
+**Q: Agent memory types.**
+
+**Short-term (within session):**
+- Conversation history (last N messages)
+- Scratchpad (working memory for current task)
+- Tool outputs
+
+**Long-term (across sessions):**
+- Vector store: store embeddings of past interactions, retrieve relevant memories
+- SQL/key-value: structured facts about user (name, preferences, history)
+- Episodic: summaries of past conversations
+
+**Implementation:**
+```python
+# Short-term: conversation buffer
+memory = ConversationBufferWindowMemory(k=10)  # Last 10 exchanges
+
+# Long-term: vector store memory
+memory = VectorStoreRetrieverMemory(retriever=vectorstore.as_retriever(k=5))
+```
+
+---
+
+**Q: Multi-agent systems — when and how?**
+
+Single agent limitations: Context window fills up, can't parallelize, one role is too broad.
+
+**Multi-agent patterns:**
+
+**Supervisor + Workers**: Supervisor agent decomposes task → routes to specialist agents → aggregates results.
+```
+User query → Supervisor → Research Agent (web search)
+                       → Analysis Agent (data processing)
+                       → Writer Agent (draft answer)
+          ← Supervisor aggregates
+```
+
+**Sequential pipeline**: Each agent's output is next agent's input.
+```
+Planner → Researcher → Critic → Writer → Editor
+```
+
+**Debate/Critique**: Two agents (proposer + critic) improve quality through disagreement.
+
+**Framework**: CrewAI, LangGraph (multi-agent), AutoGen.
+
+---
+
+**Q: Agent failure modes and how to handle them.**
+
+**Infinite loops**: Agent keeps calling tools, never terminates.
+Fix: max_iterations limit, detect repeated actions, human-in-the-loop checkpoint.
+
+**Tool errors**: External API fails, returns unexpected format.
+Fix: Tool error handling, retry with backoff, fallback tools.
+
+**Hallucinated tool calls**: Agent invents tool names or parameters.
+Fix: Strict tool schema validation, function calling with type hints.
+
+**Context overflow**: Long agent runs exceed context window.
+Fix: Summarise intermediate results, use external memory, compress observations.
+
+**Prompt injection via tool results**: Tool returns malicious instruction.
+Fix: Treat tool outputs as untrusted data, don't execute raw tool results as instructions.
+
+## Revision Notes
+```
+AGENT = LLM + Tools + Memory + Reasoning Loop
+Properties: Reason, Tool Use, Memory, Autonomy
+
+REACT: Thought → Action → Observation → repeat
+LANGGRAPH: State + Nodes + Edges. Directed graph for agent control flow.
+
+MEMORY:
+Short-term: conversation history, scratchpad, tool outputs
+Long-term: vector store (semantic), SQL (structured), episodic (summaries)
+
+MULTI-AGENT:
+Supervisor+Workers: decompose → route → aggregate
+Sequential pipeline: each agent feeds next
+Debate: proposer + critic improves quality
+Frameworks: CrewAI, LangGraph, AutoGen
+
+FAILURE MODES:
+Infinite loops → max_iterations | Tool errors → retry + fallback
+Context overflow → summarise + compress | Injection → treat tool output as untrusted
+```

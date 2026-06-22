@@ -1,16 +1,135 @@
-# Grafana — Interview Questions
+# Grafana Interview Questions
 
-**What is the difference between Grafana and Prometheus?**
-Prometheus is a time-series database and monitoring system — it scrapes metrics, stores them, and lets you query them with PromQL. It has a basic built-in UI but it's not suitable for sharing dashboards or creating polished visualizations. Grafana is a visualization and dashboarding platform — it connects to data sources (Prometheus, Loki, Elasticsearch, databases, CloudWatch) and creates rich, interactive dashboards. They work together: Prometheus collects and stores metrics, Grafana visualizes them. Grafana doesn't store metrics itself (for time-series) — it queries the backend on each dashboard load.
+## Core Concepts
 
-**What is a Grafana data source and how do you add one?**
-A data source is a connection to a backend storage system — Prometheus, Loki, InfluxDB, PostgreSQL, CloudWatch, Azure Monitor, etc. Add via: Configuration → Data Sources → Add data source → select type → configure URL and authentication → Save & Test. In production, provision data sources as code using Grafana's provisioning YAML files in `/etc/grafana/provisioning/datasources/` — this makes your Grafana configuration reproducible and version-controllable. Multiple data sources can be used in the same dashboard, even in the same panel using panel overrides.
+**Q: What is Grafana? How does it differ from Prometheus?**
 
-**What is the difference between a panel query and an alert in Grafana?**
-Panel queries run when you view the dashboard — they fetch data for visualization. If you close the dashboard, queries stop. Grafana alerts (Unified Alerting, GA since Grafana 8) run continuously on a schedule — they evaluate alert rules regardless of whether the dashboard is open. Alert rules are separate from panel queries (though they often use the same PromQL). Alerts generate notifications via contact points (Slack, PagerDuty, email). Each alert has a pending period — if the condition persists beyond the pending duration, the alert fires. This prevents flapping on momentary spikes.
+Grafana is a visualisation and analytics platform — it queries data sources and renders dashboards.
+Prometheus is a time-series database and alerting system that collects metrics.
 
-**Explain the concept of template variables in Grafana.**
-Template variables make dashboards reusable and interactive. A variable (e.g., `$cluster`) appears as a dropdown at the top of the dashboard. Panels use the variable in their queries — `sum(cpu_usage{cluster=~"$cluster"})`. Users can select which cluster to view without editing the dashboard. Variable types: Query (populated from your data source — list all unique values of a label), Custom (predefined list), Constant, Datasource (switch between data sources), Interval. Variables can cascade: selecting a region populates the environment list for that region. Essential for multi-team, multi-environment dashboards.
+**They work together:**
+- Prometheus: collects, stores, and alerts on metrics
+- Grafana: visualises Prometheus data (and 50+ other sources) in dashboards
 
-**How do you implement on-call alerting with Grafana?**
-Configure Grafana's notification policies and contact points. Contact points define WHERE to send alerts (Slack webhook, PagerDuty API key, email). Notification policies define WHEN and to which contact point — route based on alert labels (severity=critical → PagerDuty, severity=warning → Slack). On-call routing: integrate with PagerDuty or OpsGenie directly from Grafana for escalation policies and on-call schedules. Set timing intervals (notify every 4h if still firing). Use alert silences for planned maintenance. Alert grouping prevents notification storms — groups related alerts and sends one notification per group.
+**Grafana data sources**: Prometheus, Loki (logs), Tempo (traces), InfluxDB, Elasticsearch, PostgreSQL, CloudWatch, Datadog, and more.
+
+**Grafana** (visualisation) + **Prometheus** (metrics) + **Loki** (logs) + **Tempo** (traces) = Grafana LGTM Stack (open source observability stack).
+
+---
+
+**Q: Walk me through building a dashboard.**
+
+```
+1. Add data source → Settings → Data Sources → Add Prometheus (URL: http://prometheus:9090)
+2. Create Dashboard → Add Panel
+3. Select data source (Prometheus), write PromQL query
+4. Choose visualization type (Time series, Gauge, Stat, Table, Bar chart)
+5. Configure display: unit, thresholds, legend
+6. Set time range and refresh interval
+7. Add variables for dynamic dashboards (select environment, host)
+8. Save and set permissions
+```
+
+**Key panel types:**
+- **Time series**: Metrics over time (CPU, request rate)
+- **Stat**: Single current value with colour threshold
+- **Gauge**: Current value with min/max
+- **Table**: Tabular data (top N queries, server list)
+- **Logs**: Log viewer (with Loki datasource)
+- **Traces**: Distributed trace viewer (with Tempo)
+
+---
+
+**Q: Grafana variables — how do they work?**
+
+Variables make dashboards dynamic — filter by environment, host, service without editing queries.
+
+```
+Dashboard Settings → Variables → Add variable
+
+Type: Query
+Data source: Prometheus
+Query: label_values(up, instance)  # Get all instance label values
+Name: instance
+Multi-value: true  # Allow selecting multiple
+Include All: true
+```
+
+```promql
+# Use variable in panel query
+rate(http_requests_total{instance="$instance", job="$job"}[5m])
+```
+
+Dropdown appears at top of dashboard. Change selection → all panels update.
+
+---
+
+**Q: Grafana alerting.**
+
+```yaml
+# Alert rule in Grafana UI:
+Name: High Error Rate
+Query: sum(rate(http_requests_total{status=~"5.."}[5m])) / sum(rate(http_requests_total[5m]))
+Condition: IS ABOVE 0.05   # 5% error rate
+For: 5m                    # Must be true for 5 minutes
+Labels: severity=critical, team=backend
+Annotations:
+  summary: "High error rate {{ $value | printf "%.1f" }}%"
+  
+Contact points: Slack (#alerts channel), PagerDuty
+Notification policies: severity=critical → PagerDuty | severity=warning → Slack
+```
+
+**Grafana Alerting vs Prometheus Alertmanager:**
+- Both can trigger alerts; Grafana can alert on any data source (not just Prometheus)
+- Prometheus Alertmanager: more mature, used by many existing setups
+- Grafana Alerting: unified across all data sources, better for multi-source correlation
+
+---
+
+**Q: Grafana as Code — how to manage dashboards in Git?**
+
+```bash
+# grafonnet (Jsonnet library for Grafana dashboards)
+# OR Grafana dashboard JSON exported and stored in Git
+
+# Helm chart with ConfigMap approach
+kubectl create configmap grafana-dashboards   --from-file=dashboard.json   -n monitoring
+
+# Grafana dashboard sidecar reads ConfigMaps with label
+# grafana_dashboard: "1"
+```
+
+**Grafana Terraform provider:**
+```hcl
+resource "grafana_dashboard" "my_dashboard" {
+  config_json = file("dashboards/my-dashboard.json")
+  folder      = grafana_folder.devops.id
+}
+```
+
+**Best practice**: Store dashboard JSON in Git, provision via Helm/Terraform, prevent manual edits in Grafana UI (or reconcile back to Git).
+
+## Revision Notes
+```
+GRAFANA: Visualisation layer. Queries multiple data sources → dashboards.
+Prometheus: collects/stores/alerts. Grafana: visualises Prometheus (and more).
+
+LGTM STACK (open source):
+Loki (logs) + Grafana (UI) + Tempo (traces) + Mimir (Prometheus-compatible scale)
+
+PANEL TYPES: Time series, Stat, Gauge, Table, Logs, Traces, Heatmap
+DATA SOURCES: Prometheus, Loki, Tempo, InfluxDB, CloudWatch, PostgreSQL, Elasticsearch
+
+VARIABLES: label_values() query → dropdown → filter panels dynamically
+Template syntax: {instance="$instance"}
+
+ALERTING:
+Alert rules → Contact points (Slack, PagerDuty, email) → Notification policies
+Can alert on ANY data source (advantage over Prometheus-only alerting)
+for: 5m (must be sustained before firing)
+
+DASHBOARD AS CODE:
+Store JSON in Git | Helm ConfigMap + sidecar | Terraform grafana_dashboard resource
+Prevents config drift | Enables review workflow
+```

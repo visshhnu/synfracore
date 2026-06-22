@@ -1,19 +1,161 @@
-# Security Fundamentals — Interview Questions
+# Security Engineering Interview Questions
 
-**What is the difference between authentication and authorization?**
-Authentication (AuthN) verifies identity — "who are you?" You prove identity via something you know (password), have (OTP token, hardware key), or are (biometric). Multi-factor combines two or more. Authorization (AuthZ) determines permissions — "what can you do?" After you're authenticated, RBAC/ABAC policies determine which resources you can access. Common confusion: OAuth 2.0 is an authorization framework (grants access to resources), while OIDC adds authentication on top. JWT is just a token format used by both.
+## Core Concepts
 
-**Explain symmetric vs asymmetric encryption.**
-Symmetric uses the same key to encrypt and decrypt (AES-256). Fast, but key distribution is the problem — how do you securely share the key? Asymmetric uses a public/private key pair (RSA, ECDSA). Public key encrypts (anyone can encrypt), private key decrypts (only you can decrypt). Slower but solves key distribution. In practice: TLS uses asymmetric crypto to securely exchange a symmetric session key, then uses symmetric crypto for the actual data (best of both). Never use asymmetric for bulk data encryption — too slow.
+**Q: What is the CIA triad? Give examples.**
 
-**What is a CSRF attack and how do you prevent it?**
-Cross-Site Request Forgery tricks a victim's browser into making authenticated requests to your application from a malicious site. If a user is logged in to your-bank.com and visits evil.com, malicious JavaScript can submit a transfer form to your-bank.com — the browser automatically sends the user's cookies. Prevention: CSRF tokens (random secret per session, required in request body), SameSite cookie attribute (`Strict` or `Lax` prevents cross-site sending), custom request headers (browsers block cross-origin custom headers by default), double-submit cookie pattern.
+**Confidentiality**: Only authorised parties can access data.
+Examples: Encryption at rest/transit, access controls, MFA, least privilege.
 
-**What is the difference between XSS and SQL injection?**
-XSS (Cross-Site Scripting) injects malicious JavaScript into web pages viewed by other users. Stored XSS persists in the database; Reflected XSS executes via URL parameters. Prevention: escape output (HTML encode < > & " '), Content Security Policy headers, HTTPOnly cookies. SQL injection injects malicious SQL through user input to manipulate database queries. `' OR '1'='1` in a login bypasses authentication. Prevention: parameterized queries/prepared statements (never concatenate user input into SQL), stored procedures, least privilege database accounts.
+**Integrity**: Data is accurate and unmodified.
+Examples: Hash functions (SHA-256), digital signatures, checksums, audit logs.
 
-**What is zero-trust security?**
-Traditional security assumes everything inside the network perimeter is trusted. Zero-trust assumes breach — "never trust, always verify." Every request is authenticated and authorized regardless of network location. Principles: verify explicitly (authenticate every request with strong identity), least privilege access (just enough, just in time), assume breach (minimize blast radius, segment access). Implementation: identity-based access (not IP-based), MFA everywhere, device trust verification, micro-segmentation, detailed logging. Tools: Cloudflare Zero Trust, Zscaler, BeyondCorp (Google's internal model that inspired the framework).
+**Availability**: Systems are accessible when needed.
+Examples: DDoS protection, redundancy, failover, backups, rate limiting.
 
-**How do you securely store passwords?**
-Never store plaintext passwords. Never use reversible encryption. Never use fast hashing algorithms (MD5, SHA1, SHA256) — they're too fast, enabling billions of guesses per second with GPUs. Use slow adaptive hashing algorithms: bcrypt (work factor 12+), Argon2id (winner of Password Hashing Competition, recommended today), scrypt. These are deliberately slow and memory-hard. Salt each password uniquely (bcrypt and Argon2 do this automatically) to prevent rainbow table attacks. Work factor should be tunable — increase as hardware improves. Authentication should take ~100-300ms — slow enough to deter brute force, fast enough for UX.
+**Additional AAA:**
+- Authentication: Verify who you are (passwords, MFA, certificates)
+- Authorisation: What you're allowed to do (RBAC, ABAC)
+- Accounting/Audit: Track what was done (logs, audit trails)
+
+---
+
+**Q: Explain common attack types and defences.**
+
+**SQL Injection**:
+```sql
+-- Attack: username = "admin'--"
+SELECT * FROM users WHERE username = 'admin'--' AND password = '...'
+-- '--' comments out password check
+
+-- Defence: Parameterised queries
+cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+```
+
+**XSS (Cross-Site Scripting)**:
+Attack: Inject JavaScript into web pages viewed by other users.
+Defence: Output encoding, Content Security Policy (CSP) headers, `httpOnly` cookies.
+
+**CSRF (Cross-Site Request Forgery)**:
+Attack: Trick authenticated user's browser to make unintended request.
+Defence: CSRF tokens, `SameSite=Strict` cookies, check Origin header.
+
+**IDOR (Insecure Direct Object Reference)**:
+Attack: `GET /api/orders/1234` → change to `/api/orders/5678` (other user's order).
+Defence: Authorisation check per request, use GUIDs instead of sequential IDs.
+
+**SSRF (Server-Side Request Forgery)**:
+Attack: Trick server into making requests to internal services.
+Defence: Allowlist of permitted URLs, block internal IPs (169.254.x.x, 10.x.x.x).
+
+---
+
+**Q: What is Zero Trust? How do you implement it?**
+
+Zero Trust: "Never trust, always verify." Assume breach. Verify every request regardless of network location.
+
+Traditional: Inside network = trusted. VPN = trusted.
+Zero Trust: Even internal traffic must be authenticated and authorised per request.
+
+**Pillars:**
+1. **Identity**: Strong authentication (MFA). Every request has verified identity.
+2. **Device**: Device health checks. Only compliant devices allowed.
+3. **Network**: Micro-segmentation. East-west traffic monitored and filtered.
+4. **Application**: Per-application access control, not network-wide.
+5. **Data**: Classify and protect data. Encryption at rest and transit.
+
+**Implementation:**
+- Identity Provider (Okta, Azure AD) + MFA everywhere
+- Service mesh with mTLS for service-to-service (Istio, Linkerd)
+- Network policies in Kubernetes
+- SPIFFE/SPIRE for workload identity
+- Continuous authorisation (not just at login)
+
+---
+
+**Q: Secrets management best practices.**
+
+**Never:**
+- Hardcode secrets in code
+- Commit secrets to Git
+- Pass secrets via environment variables in container images
+- Log secrets
+
+**Do:**
+- HashiCorp Vault: Dynamic secrets, auto-rotation, fine-grained access
+- AWS Secrets Manager: Managed rotation, KMS integration
+- External Secrets Operator (K8s): Sync secrets from Vault/AWS to K8s secrets
+- SOPS: Encrypt secrets files before Git commit
+- 1Password/Bitwarden: Human credential management
+
+```bash
+# Vault dynamic secrets — DB credentials that auto-expire
+vault read database/creds/my-role
+# Key           Value
+# username      v-role-xxxxx
+# password      xxxxxxxx
+# lease_duration 1h
+# Vault auto-rotates after lease expires
+```
+
+---
+
+**Q: DevSecOps — shift security left.**
+
+Integrate security throughout CI/CD, not just at the end.
+
+**SAST (Static Application Security Testing)**: Scan source code for vulnerabilities before build.
+Tools: SonarQube, Semgrep, Bandit (Python), ESLint security rules.
+
+**DAST (Dynamic Application Security Testing)**: Test running application for vulnerabilities.
+Tools: OWASP ZAP, Burp Suite.
+
+**SCA (Software Composition Analysis)**: Scan dependencies for known CVEs.
+Tools: Snyk, Dependabot, OWASP Dependency-Check.
+
+**Container security:**
+```bash
+# Scan image with Trivy
+trivy image myapp:latest
+# Reports: CVEs in OS packages, libraries, misconfigurations
+
+# Kubernetes security scanning
+trivy k8s --report summary cluster
+```
+
+**CI/CD pipeline security gates:**
+```yaml
+stages:
+  - sast:        # Semgrep/SonarQube
+  - dependency:  # Snyk
+  - build:       # Docker build
+  - scan:        # Trivy image scan
+  - test:
+  - dast:        # OWASP ZAP against staging
+  - deploy:      # Only if all gates pass
+```
+
+## Revision Notes
+```
+CIA TRIAD: Confidentiality (encryption) | Integrity (hashing/signatures) | Availability (redundancy)
+AAA: Authentication + Authorisation + Accounting
+
+COMMON ATTACKS:
+SQLi: parameterised queries | XSS: CSP + output encoding
+CSRF: tokens + SameSite | IDOR: auth checks per request | SSRF: URL allowlisting
+
+ZERO TRUST: Never trust, always verify. Identity + Device + Network + App + Data.
+mTLS for service-to-service | MFA everywhere | Micro-segmentation | Workload identity (SPIFFE)
+
+SECRETS MANAGEMENT:
+Never: hardcode, git commit, ENV vars in images, log secrets
+Use: HashiCorp Vault (dynamic) | AWS Secrets Manager | External Secrets Operator (K8s)
+SOPS: encrypt secret files for Git
+
+DEVSECOPS (shift left):
+SAST: static code scan (Semgrep, SonarQube)
+SCA: dependency CVEs (Snyk, Dependabot)
+DAST: test running app (OWASP ZAP)
+Container: Trivy image scan
+CI gates: fail build on critical CVEs
+```
