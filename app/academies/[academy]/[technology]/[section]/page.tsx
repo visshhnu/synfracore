@@ -6,6 +6,9 @@ import { getAcademy, getTechnology } from "@/lib/data/academies";
 import { techSections } from "@/lib/data/navigation";
 import SectionContent from "@/components/tech/SectionContent";
 import LabsSection from "@/components/tech/LabsSection";
+import AuthorBadge from "@/components/tech/AuthorBadge";
+import WhatNext from "@/components/tech/WhatNext";
+import QuickQuiz from "@/components/tech/QuickQuiz";
 
 type Props = {
   params: Promise<{ academy: string; technology: string; section: string }>;
@@ -122,6 +125,26 @@ export default async function SectionPage({ params }: Props) {
   const nextSection = currentIndex < techSections.length - 1 ? techSections[currentIndex + 1] : null;
 
   const isLabs = section === "labs";
+  const isInterview = section === "interview";
+  const isOverview = section === "overview";
+
+  // Quiz questions for key sections
+  const quizData: Record<string, { q: string; opts: string[]; ans: number; exp: string }[]> = {
+    fundamentals: [
+      { q: `What is the primary purpose of ${tech.name}?`, opts: ["Version control", "The correct answer depends on the technology — check the overview", "Database management", "Network routing"], ans: 1, exp: `${tech.name} is a specialized tool — its primary purpose is explained in the Overview section above.` },
+      { q: "Which command is used to get help/documentation for most CLI tools?", opts: ["--help or -h flag", "man <command>", "info <command>", "All of the above"], ans: 3, exp: "Most Unix tools support --help/-h for quick help, man pages for detailed docs, and info for GNU tools. Always try --help first." },
+    ],
+    interview: [
+      { q: `What is the most important concept to understand about ${tech.name} for interviews?`, opts: ["Its version history", "Core architecture and how components interact", "Exact syntax of every command", "Its license type"], ans: 1, exp: "Interviewers primarily test whether you understand how the system works architecturally — not syntax memorization. Explain the 'why' behind design decisions." },
+      { q: "How should you answer a scenario question you're unsure about?", opts: ["Say you don't know and stop", "Think aloud: state your reasoning, what you'd check, and how you'd approach it", "Guess confidently", "Ask the interviewer for the answer"], ans: 1, exp: "Thinking aloud demonstrates problem-solving ability. Interviewers value your reasoning process as much as the correct answer. State assumptions, describe your approach, and ask clarifying questions." },
+      { q: "Which best describes a production issue you've faced?", opts: ["Only mention successes", "Describe the problem, your diagnosis process, fix, and what you learned", "Avoid the question", "Give a very brief answer to avoid mistakes"], ans: 1, exp: "Interviewers love concrete examples. Use the STAR format (Situation, Task, Action, Result) and focus on your specific contribution and what you learned." },
+    ],
+    advanced: [
+      { q: "What is the first step when optimizing a production system?", opts: ["Apply all optimizations immediately", "Measure first — identify the actual bottleneck with profiling/metrics", "Increase hardware resources", "Rewrite the system"], ans: 1, exp: "Premature optimization is a common mistake. Always measure to identify the actual bottleneck before making changes. Use metrics, profiling tools, and benchmarks to validate your findings." },
+    ],
+  };
+
+  const currentQuiz = quizData[section] || null;
 
   return (
     <div style={{ display: "flex", gap: "0", minHeight: "80vh" }}>
@@ -211,8 +234,42 @@ export default async function SectionPage({ params }: Props) {
               />
         )}
 
-        {/* Prev / Next navigation */}
-        <div style={{ display: "flex", justifyContent: "space-between", marginTop: "48px", paddingTop: "24px", borderTop: "1px solid var(--border)" }}>
+        {/* Author badge */}
+        <AuthorBadge techName={tech.name} section={section} accentColor="#6366F1" />
+
+        {/* Main content */}
+        {isLabs ? (
+          <LabsSection academy={aSlug} technology={tSlug} techName={tech.name} accentColor={"#6366F1"} />
+        ) : (
+          <SectionContent
+            academy={aSlug}
+            technology={tSlug}
+            section={section}
+            techName={tech.name}
+            techIcon={tech.icon}
+            sectionLabel={sectionData?.label || section}
+            accentColor="#6366F1"
+          />
+        )}
+
+        {/* Quick Quiz */}
+        {currentQuiz && currentQuiz.length > 0 && (
+          <div style={{ marginTop: "40px" }}>
+            <QuickQuiz questions={currentQuiz} techName={tech.name} accentColor="#6366F1" />
+          </div>
+        )}
+
+        {/* What's next */}
+        <WhatNext
+          academy={aSlug}
+          technology={tSlug}
+          currentSection={section}
+          techName={tech.name}
+          accentColor="#6366F1"
+        />
+
+        {/* Prev / Next navigation (simplified, WhatNext handles primary) */}
+        <div style={{ display: "flex", justifyContent: "space-between", marginTop: "24px", paddingTop: "24px", borderTop: "1px solid var(--border)" }}>
           {prevSection ? (
             <Link href={`/academies/${aSlug}/${tSlug}/${prevSection.slug}`} style={{ display: "flex", alignItems: "center", gap: "6px", textDecoration: "none", color: "var(--text-3)", fontSize: "13px" }}>
               ← {prevSection.label}

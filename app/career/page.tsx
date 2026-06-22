@@ -14,6 +14,7 @@ const careerPaths = [
     salaryRange: "₹6L – ₹40L",
     demand: "Very High",
     roadmapLink: "/roadmaps/devops-engineer",
+    roleLink: "/careers/devops-engineer",
     skills: ["Linux", "Docker", "Kubernetes", "CI/CD", "Terraform", "Cloud"],
     companies: ["Infosys", "TCS", "Wipro", "Amazon", "Microsoft", "Google"],
     jobTitles: ["DevOps Engineer", "Platform Engineer", "SRE", "Infrastructure Engineer"],
@@ -25,6 +26,7 @@ const careerPaths = [
     salaryRange: "₹15L – ₹80L",
     demand: "Very High",
     roadmapLink: "/roadmaps/cloud-architect",
+    roleLink: "/careers/cloud-architect",
     skills: ["AWS/Azure/GCP", "Networking", "Security", "Terraform", "Cost Optimization"],
     companies: ["Amazon", "Microsoft", "Google", "Accenture", "Deloitte", "KPMG"],
     jobTitles: ["Cloud Architect", "Solutions Architect", "Cloud Engineer"],
@@ -36,6 +38,7 @@ const careerPaths = [
     salaryRange: "₹12L – ₹80L",
     demand: "Extremely High",
     roadmapLink: "/roadmaps/ai-engineer",
+    roleLink: "/careers/ai-engineer",
     skills: ["Python", "LLM APIs", "RAG", "AI Agents", "LLMOps", "Prompt Engineering"],
     companies: ["OpenAI", "Anthropic", "Google", "Microsoft", "Startups", "Consulting"],
     jobTitles: ["AI Engineer", "ML Engineer", "LLM Engineer", "AI Product Engineer"],
@@ -69,6 +72,7 @@ const careerPaths = [
     salaryRange: "₹20L – ₹80L",
     demand: "High",
     roadmapLink: "/roadmaps/platform-engineer",
+    roleLink: "/careers/platform-engineer",
     skills: ["Kubernetes", "GitOps", "Service Mesh", "Developer Tooling", "Observability"],
     companies: ["Unicorns", "Product Companies", "Scale-ups", "Enterprise Tech"],
     jobTitles: ["Platform Engineer", "Staff Engineer", "Infrastructure Lead"],
@@ -135,6 +139,11 @@ export default function CareerPage() {
               <div style={{ fontSize: "13px", color: "var(--text-3)" }}>{path.jobTitles.join(" · ")}</div>
             </div>
 
+            {(path as any).roleLink && (
+              <Link href={(path as any).roleLink} style={{ display: "flex", alignItems: "center", gap: "6px", background: path.color, color: "white", padding: "10px 16px", borderRadius: "10px", textDecoration: "none", fontSize: "13px", fontWeight: 700, marginBottom: "8px" }}>
+                Full Career Guide →
+              </Link>
+            )}
             <Link href={path.roadmapLink} style={{ display: "flex", alignItems: "center", gap: "6px", background: `${path.color}15`, color: path.color, border: `1px solid ${path.color}33`, padding: "10px 16px", borderRadius: "10px", textDecoration: "none", fontSize: "13px", fontWeight: 600 }}>
               <TrendingUp size={14}/> View Learning Roadmap <ArrowRight size={13} style={{ marginLeft: "auto" }}/>
             </Link>

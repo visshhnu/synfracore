@@ -1,147 +1,150 @@
 "use client";
-import { useState, useMemo } from "react";
+export const runtime = "edge";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Search, ArrowRight } from "lucide-react";
-import { academies } from "@/lib/data/academies";
+import { Search } from "lucide-react";
 
-const SECTIONS = ["overview","fundamentals","intermediate","advanced","labs","projects","interview","certification","cheatsheets","roadmap"];
-
-type Result = { academy: string; tech: string; techName: string; section: string; url: string };
-
-function buildIndex(): Result[] {
-  const results: Result[] = [];
-  for (const academy of academies) {
-    for (const tech of (academy.technologies || [])) {
-      for (const section of SECTIONS) {
-        results.push({
-          academy: academy.slug,
-          tech: tech.slug,
-          techName: tech.name,
-          section,
-          url: `/academies/${academy.slug}/${tech.slug}/${section}`,
-        });
-      }
-    }
-  }
-  return results;
+interface Result {
+  title: string;
+  url: string;
+  category: string;
+  tags: string[];
+  color: string;
 }
 
-const ALL_RESULTS = buildIndex();
-
-const SECTION_LABELS: Record<string, string> = {
-  overview: "Overview", fundamentals: "Fundamentals", intermediate: "Intermediate",
-  advanced: "Advanced", labs: "Labs", projects: "Projects",
-  interview: "Interview Q&A", certification: "Certification", cheatsheets: "Cheatsheet", roadmap: "Roadmap",
-};
-
-const ACADEMY_COLORS: Record<string, string> = {
-  devops: "#3B82F6", cloud: "#F59E0B", databases: "#10B981",
-  ai: "#8B5CF6", data: "#06B6D4", security: "#EF4444",
-  healthcare: "#F97316", essentials: "#84CC16", education: "#EC4899", exams: "#A855F7",
-};
+const searchIndex: Result[] = [
+  // Tech academies
+  { title: "Kubernetes Overview", url: "/academies/devops/kubernetes/overview", category: "DevOps", tags: ["kubernetes","k8s","containers","orchestration"], color: "#326CE5" },
+  { title: "Kubernetes Interview Q&A", url: "/academies/devops/kubernetes/interview", category: "DevOps", tags: ["kubernetes","interview","k8s","jobs"], color: "#326CE5" },
+  { title: "Kubernetes Advanced — HA/DR/RBAC", url: "/academies/devops/kubernetes/advanced", category: "DevOps", tags: ["kubernetes","ha","dr","rbac","production"], color: "#326CE5" },
+  { title: "Terraform Interview Q&A", url: "/academies/devops/terraform/interview", category: "DevOps", tags: ["terraform","iac","infrastructure","interview"], color: "#7B42BC" },
+  { title: "Ansible Interview Q&A", url: "/academies/devops/ansible/interview", category: "DevOps", tags: ["ansible","configuration","automation","interview"], color: "#EE0000" },
+  { title: "Docker Interview Q&A", url: "/academies/devops/docker/interview", category: "DevOps", tags: ["docker","containers","images","interview"], color: "#2496ED" },
+  { title: "Jenkins Interview Q&A", url: "/academies/devops/jenkins/interview", category: "DevOps", tags: ["jenkins","cicd","pipeline","interview"], color: "#D33833" },
+  { title: "Helm Interview Q&A", url: "/academies/devops/helm/interview", category: "DevOps", tags: ["helm","kubernetes","charts","interview"], color: "#0F1689" },
+  { title: "Prometheus Interview Q&A", url: "/academies/devops/prometheus/interview", category: "DevOps", tags: ["prometheus","monitoring","metrics","interview"], color: "#E6522C" },
+  { title: "Linux Interview Q&A", url: "/academies/devops/linux/interview", category: "DevOps", tags: ["linux","shell","commands","interview"], color: "#FCC624" },
+  { title: "ArgoCD Interview Q&A", url: "/academies/devops/argocd/interview", category: "DevOps", tags: ["argocd","gitops","cicd","interview"], color: "#EF7B4D" },
+  { title: "Shell Scripting Interview Q&A", url: "/academies/devops/shell-scripting/interview", category: "DevOps", tags: ["shell","bash","scripting","interview"], color: "#4EAA25" },
+  { title: "Git Interview Q&A", url: "/academies/devops/git/interview", category: "DevOps", tags: ["git","version control","github","interview"], color: "#F05032" },
+  { title: "AI Engineering Interview Q&A", url: "/academies/ai/llm-engineering/interview", category: "AI", tags: ["llm","rag","ai","agents","interview","langchain"], color: "#8B5CF6" },
+  // Education
+  { title: "Class 10 — All Subjects", url: "/learn/class-10", category: "Education", tags: ["class 10","cbse","maths","science","board exam"], color: "#10B981" },
+  { title: "JEE Main & Advanced Prep", url: "/learn/jee", category: "Education", tags: ["jee","iit","engineering","entrance"], color: "#F59E0B" },
+  { title: "NEET Biology/Physics/Chemistry", url: "/learn/neet", category: "Education", tags: ["neet","medical","biology","physics","chemistry"], color: "#EC4899" },
+  { title: "GATE CSE Preparation", url: "/learn/gate-cse", category: "Education", tags: ["gate","computer science","cse","exam"], color: "#6366F1" },
+  { title: "Banking Exams (SBI/IBPS)", url: "/learn/banking", category: "Education", tags: ["banking","sbi","ibps","bank po","quant"], color: "#3B82F6" },
+  { title: "UPSC Civil Services", url: "/learn/upsc", category: "Education", tags: ["upsc","ias","ips","civil services","prelims"], color: "#EF4444" },
+  { title: "SSC CGL/CHSL", url: "/learn/ssc", category: "Education", tags: ["ssc","cgl","chsl","government job"], color: "#14B8A6" },
+  { title: "Defence Exams (NDA/CDS)", url: "/learn/defence", category: "Education", tags: ["nda","cds","defence","military"], color: "#F59E0B" },
+  { title: "Class 12 — All Subjects", url: "/learn/class-12", category: "Education", tags: ["class 12","cbse","board exam","physics","chemistry"], color: "#6366F1" },
+  // Career roles
+  { title: "Platform Engineer Career Path", url: "/careers/platform-engineer", category: "Career", tags: ["platform engineer","career","salary","roadmap"], color: "#8B5CF6" },
+  { title: "DevOps Engineer Career Path", url: "/careers/devops-engineer", category: "Career", tags: ["devops engineer","career","salary","roadmap"], color: "#F59E0B" },
+  { title: "SRE Career Path", url: "/careers/sre-engineer", category: "Career", tags: ["sre","site reliability","career","salary"], color: "#10B981" },
+  { title: "Cloud Architect Career Path", url: "/careers/cloud-architect", category: "Career", tags: ["cloud architect","aws","azure","career","salary"], color: "#3B82F6" },
+  { title: "AI Engineer Career Path", url: "/careers/ai-engineer", category: "Career", tags: ["ai engineer","ml","llm","career","salary"], color: "#8B5CF6" },
+  // Certifications
+  { title: "AWS Solutions Architect Prep", url: "/certifications/aws-saa", category: "Cert", tags: ["aws","solutions architect","certification","saa-c03"], color: "#FF9900" },
+  { title: "CKA — Kubernetes Admin Cert", url: "/certifications/cka", category: "Cert", tags: ["cka","kubernetes","certification","exam"], color: "#326CE5" },
+  { title: "Terraform Associate Cert", url: "/certifications/terraform-associate", category: "Cert", tags: ["terraform","hashicorp","certification","exam"], color: "#7B42BC" },
+];
 
 export default function SearchPage() {
   const [query, setQuery] = useState("");
+  const [results, setResults] = useState<Result[]>([]);
+  const [activeCategory, setActiveCategory] = useState("All");
 
-  const results = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (q.length < 2) return [];
-    return ALL_RESULTS.filter(r =>
-      r.techName.toLowerCase().includes(q) ||
-      r.tech.toLowerCase().includes(q) ||
-      r.section.toLowerCase().includes(q) ||
-      r.academy.toLowerCase().includes(q)
-    ).slice(0, 30);
-  }, [query]);
+  const categories = ["All", "DevOps", "Education", "Career", "AI", "Cert"];
 
-  // Group by tech
-  const grouped = useMemo(() => {
-    const g: Record<string, Result[]> = {};
-    for (const r of results) {
-      const key = `${r.academy}/${r.tech}`;
-      if (!g[key]) g[key] = [];
-      g[key].push(r);
+  useEffect(() => {
+    if (!query.trim() && activeCategory === "All") {
+      setResults(searchIndex.slice(0, 12));
+      return;
     }
-    return g;
-  }, [results]);
-
-  const totalTechs = useMemo(() => new Set(ALL_RESULTS.map(r => r.tech)).size, []);
+    const q = query.toLowerCase();
+    const filtered = searchIndex.filter(r => {
+      const matchCat = activeCategory === "All" || r.category === activeCategory;
+      const matchQuery = !q || r.title.toLowerCase().includes(q) || r.tags.some(t => t.includes(q));
+      return matchCat && matchQuery;
+    });
+    setResults(filtered);
+  }, [query, activeCategory]);
 
   return (
     <div style={{ maxWidth: "800px", margin: "0 auto", padding: "56px 24px" }}>
-      <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(28px,4vw,44px)", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: "8px" }}>
-        Search
-      </h1>
-      <p style={{ color: "var(--text-4)", fontSize: "15px", marginBottom: "32px" }}>
-        Search across {totalTechs} technologies and all learning sections
-      </p>
+      <div style={{ textAlign: "center", marginBottom: "40px" }}>
+        <h1 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 800, fontSize: "36px", marginBottom: "12px" }}>
+          Search SynfraCore
+        </h1>
+        <p style={{ color: "var(--text-3)", fontSize: "16px" }}>
+          Find content across tech academies, education boards, career paths, and certifications
+        </p>
+      </div>
 
       {/* Search input */}
-      <div style={{ position: "relative", marginBottom: "32px" }}>
-        <Search size={18} style={{ position: "absolute", left: "16px", top: "50%", transform: "translateY(-50%)", color: "var(--text-4)" }}/>
+      <div style={{ position: "relative", marginBottom: "24px" }}>
+        <Search size={18} style={{ position: "absolute", left: "16px", top: "50%", transform: "translateY(-50%)", color: "var(--text-4)" }} />
         <input
           autoFocus
-          type="text"
-          placeholder="Search technologies, topics, sections…"
           value={query}
           onChange={e => setQuery(e.target.value)}
+          placeholder="Search topics, exams, tools, careers..."
           style={{
-            width: "100%", boxSizing: "border-box",
-            padding: "16px 16px 16px 48px",
-            fontSize: "16px", background: "var(--bg-1)",
-            border: "2px solid var(--border)", borderRadius: "14px",
-            color: "var(--text-1)", outline: "none",
-            fontFamily: "inherit",
+            width: "100%", padding: "16px 16px 16px 48px", borderRadius: "12px",
+            border: "2px solid var(--border)", background: "var(--bg-1)",
+            fontSize: "16px", color: "var(--text-1)", outline: "none",
+            boxSizing: "border-box",
           }}
         />
       </div>
 
+      {/* Category filters */}
+      <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "32px" }}>
+        {categories.map(cat => (
+          <button key={cat} onClick={() => setActiveCategory(cat)} style={{
+            padding: "6px 16px", borderRadius: "20px", fontSize: "13px", fontWeight: 600,
+            border: "1px solid var(--border)", cursor: "pointer",
+            background: activeCategory === cat ? "var(--accent)" : "var(--bg-2)",
+            color: activeCategory === cat ? "white" : "var(--text-3)",
+          }}>
+            {cat}
+          </button>
+        ))}
+      </div>
+
       {/* Results */}
-      {query.length >= 2 && results.length === 0 && (
-        <div style={{ textAlign: "center", padding: "48px", color: "var(--text-4)" }}>
-          <div style={{ fontSize: "40px", marginBottom: "12px" }}>🔍</div>
-          <p>No results for &ldquo;{query}&rdquo;</p>
-          <p style={{ fontSize: "13px", marginTop: "8px" }}>Try: docker, kubernetes, aws, sql, python</p>
-        </div>
-      )}
-
-      {Object.entries(grouped).map(([key, items]) => {
-        const first = items[0];
-        const color = ACADEMY_COLORS[first.academy] || "#3B82F6";
-        return (
-          <div key={key} style={{ background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "14px", padding: "20px", marginBottom: "12px" }}>
-            {/* Tech header */}
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "14px" }}>
-              <span style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "17px" }}>{first.techName}</span>
-              <span style={{ background: `${color}18`, color, padding: "2px 8px", borderRadius: "4px", fontSize: "11px", fontWeight: 700 }}>{first.academy}</span>
-            </div>
-            {/* Section links */}
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-              {items.map(r => (
-                <Link key={r.section} href={r.url}
-                  style={{ display: "inline-flex", alignItems: "center", gap: "5px", background: "var(--bg-2)", border: "1px solid var(--border)", padding: "6px 12px", borderRadius: "6px", textDecoration: "none", color: "var(--text-3)", fontSize: "13px" }}>
-                  {SECTION_LABELS[r.section] || r.section}
-                  <ArrowRight size={11}/>
-                </Link>
-              ))}
-            </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+        {results.length === 0 && (
+          <div style={{ textAlign: "center", padding: "48px", color: "var(--text-4)" }}>
+            No results for &quot;{query}&quot; — try different keywords
           </div>
-        );
-      })}
+        )}
+        {results.map(r => (
+          <Link key={r.url} href={r.url} style={{ textDecoration: "none" }}>
+            <div className="card-hover" style={{ padding: "16px 20px", borderRadius: "10px", border: "1px solid var(--border)", background: "var(--bg-1)", display: "flex", alignItems: "center", gap: "14px", cursor: "pointer" }}>
+              <div style={{ width: "4px", height: "40px", borderRadius: "2px", background: r.color, flexShrink: 0 }} />
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "4px", flexWrap: "wrap" }}>
+                  <span style={{ fontWeight: 700, fontSize: "15px", color: "var(--text-1)" }}>{r.title}</span>
+                  <span style={{ fontSize: "10px", padding: "2px 8px", borderRadius: "20px", background: r.color + "15", color: r.color, fontWeight: 700, flexShrink: 0 }}>{r.category}</span>
+                </div>
+                <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
+                  {r.tags.slice(0, 4).map(t => (
+                    <span key={t} style={{ fontSize: "11px", padding: "1px 6px", borderRadius: "4px", background: "var(--bg-2)", color: "var(--text-4)" }}>{t}</span>
+                  ))}
+                </div>
+              </div>
+              <span style={{ color: "var(--text-4)", fontSize: "16px", flexShrink: 0 }}>→</span>
+            </div>
+          </Link>
+        ))}
+      </div>
 
-      {/* Empty state */}
-      {query.length < 2 && (
-        <div>
-          <p style={{ color: "var(--text-4)", fontSize: "14px", marginBottom: "20px" }}>Popular searches:</p>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-            {["kubernetes","docker","terraform","aws","python","postgresql","ai","linux","jenkins","redis"].map(t => (
-              <button key={t} onClick={() => setQuery(t)}
-                style={{ background: "var(--bg-1)", border: "1px solid var(--border)", padding: "8px 16px", borderRadius: "8px", color: "var(--text-2)", fontSize: "14px", cursor: "pointer", fontFamily: "inherit" }}>
-                {t}
-              </button>
-            ))}
-          </div>
-        </div>
+      {!query && activeCategory === "All" && (
+        <p style={{ textAlign: "center", color: "var(--text-4)", fontSize: "13px", marginTop: "24px" }}>
+          Showing popular content · Type to search all {searchIndex.length} topics
+        </p>
       )}
     </div>
   );
