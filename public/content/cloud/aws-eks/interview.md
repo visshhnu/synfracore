@@ -1,16 +1,77 @@
-# AWS EKS — Interview Questions
+# AWS EKS Interview Questions
 
-**What is the difference between EKS Managed Node Groups and Fargate?**
-Managed Node Groups are EC2 instances you control — you choose instance type, storage, OS AMI. AWS manages the node lifecycle (launch, health, updates) but you still pay for and manage the EC2 instances. You can SSH in, install DaemonSets, use GPU instances, and customize. Fargate is fully serverless — no EC2 instances to manage; AWS allocates compute per pod based on resource requests. No DaemonSets, no custom AMIs, no SSH. Each pod gets isolated compute (better security isolation). Fargate costs more per vCPU/memory but eliminates node management overhead. Use Managed Node Groups for most workloads; Fargate for batch jobs, teams that don't want to manage nodes, or when pod-level isolation is required.
+## Core Concepts
 
-**How does IRSA (IAM Roles for Service Accounts) work?**
-IRSA lets pods assume IAM roles without storing credentials. Setup: enable OIDC provider for the cluster → create IAM role with trust policy allowing the cluster's OIDC provider and specific namespace/service account → annotate the Kubernetes Service Account with the IAM role ARN. At runtime: AWS SDK on the pod fetches a projected service account token → calls STS AssumeRoleWithWebIdentity → gets temporary credentials → accesses AWS service. No access keys in environment variables or secrets. Credentials automatically rotate. This is the correct way to give pods AWS permissions.
+**Q: What is EKS? Node options?**
 
-**What is the EKS control plane and what does AWS manage?**
-The EKS control plane consists of the API server, etcd, scheduler, and controller manager — all managed by AWS in a separate AWS-managed VPC. AWS handles: HA (3 API server replicas across AZs), etcd backups, version upgrades, security patches, scaling. You manage: worker nodes (EC2 or Fargate), networking (VPC CNI), storage (EBS/EFS CSI drivers), add-ons (CoreDNS, kube-proxy), cluster-level configuration. You pay for: the managed control plane (~$0.10/hour), your EC2 worker nodes, data transfer, add-on resources. The separation means your workloads don't compete with control plane resources.
+EKS is AWS's managed Kubernetes service. AWS manages the control plane. Cost: $0.10/hr per cluster + EC2 nodes.
 
-**How do you upgrade an EKS cluster safely?**
-Upgrade sequence: control plane first, then node groups, then add-ons. Check release notes for breaking changes. Test in staging first with the same upgrade path. Update control plane: `aws eks update-cluster-version` — takes ~15 minutes, no worker node disruption. Update managed node groups: EKS does rolling replacement of nodes (cordon old, create new, drain, terminate). Update add-ons (CoreDNS, kube-proxy, VPC CNI) to versions compatible with new Kubernetes version. Use PodDisruptionBudgets to ensure app availability during node replacement. EKS supports N-2 version skew (can be one minor version behind control plane), so you can upgrade control plane first.
+Three node options:
+- **Managed Node Groups**: AWS manages EC2 lifecycle (patching, replacement on failure). You define instance types.
+- **Fargate**: Serverless — no nodes. Pay per pod vCPU+memory. No DaemonSets, limited storage.
+- **Karpenter**: Smart node provisioner. Creates right-sized nodes on demand. Spot+On-Demand. Faster than Cluster Autoscaler.
 
-**What is the AWS VPC CNI and how does it differ from other CNI plugins?**
-AWS VPC CNI assigns real VPC IP addresses to pods (not overlay network IPs). Each EC2 node has multiple ENIs attached, each with multiple private IPs — pods get these IPs directly. Benefit: pods are directly addressable from the VPC, no NAT, works natively with security groups and VPC routing. Limitation: pod density is limited by EC2 instance ENI/IP limits (e.g., m5.large can have 3 ENIs × 10 IPs = 29 pod IPs maximum). Solutions: VPC CNI with custom networking (use secondary CIDR), or prefix delegation (gives /28 CIDR block per ENI = 16 IPs, dramatically increasing pod density). Alternative CNIs (Calico, Cilium) use overlay networks — more pod density but lose native VPC integration.
+---
+
+**Q: IRSA — IAM Roles for Service Accounts.**
+
+```bash
+# Enable OIDC provider
+eksctl utils associate-iam-oidc-provider --cluster my-cluster --approve
+
+# Create IAM role bound to K8s service account
+eksctl create iamserviceaccount \
+  --cluster my-cluster --namespace default \
+  --name s3-reader-sa \
+  --attach-policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess \
+  --approve
+
+# Pods using s3-reader-sa automatically get temporary AWS credentials
+# No access keys stored anywhere
+```
+
+---
+
+**Q: EKS VPC CNI networking.**
+
+AWS VPC CNI: every pod gets a real VPC IP from the node's ENI (no overlay). Pods are directly routable from VPC.
+
+Limit: pods per node = (ENIs × IPs per ENI) - 1. Enable prefix delegation for more pods:
+```bash
+aws eks update-addon --cluster-name my-cluster --addon-name vpc-cni \
+  --configuration-values '{"env":{"ENABLE_PREFIX_DELEGATION":"true"}}'
+# Each ENI slot = /28 prefix = 16 IPs -> many more pods per node
+```
+
+---
+
+**Q: EKS security checklist.**
+
+```
+Control plane:  Private API endpoint | Audit logging enabled
+Nodes:          Private subnets | IMDSv2 required | No SSH (use SSM)
+Workloads:      IRSA for AWS access | Pod Security Standards
+                Network policies | External Secrets Operator
+                ECR image scanning + Falco runtime
+```
+
+---
+
+**Q: Karpenter vs Cluster Autoscaler.**
+
+| | Cluster Autoscaler | Karpenter |
+|---|---|---|
+| Node type | Pre-defined node groups | Any instance type on demand |
+| Speed | 2-10 min scale-up | ~30 seconds |
+| Spot | Manual mixed groups | Native, automatic fallback |
+| Right-sizing | Fixed size groups | Picks optimal size per workload |
+
+## Revision Notes
+```
+EKS: managed K8s, $0.10/hr control plane + EC2 costs
+NODE OPTIONS: Managed Groups (EC2 lifecycle) | Fargate (serverless) | Karpenter (smart provisioner)
+IRSA: K8s SA + OIDC -> assume IAM role -> no credentials stored
+VPC CNI: real VPC IPs per pod | prefix delegation for more pods per node
+KARPENTER: right-sized nodes on demand, fast (~30s), native Spot+OD
+SECURITY: private endpoint + private nodes + IMDSv2 + IRSA + network policies
+```

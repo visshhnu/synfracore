@@ -1,16 +1,164 @@
-# MongoDB — Interview Questions
+# MongoDB Interview Questions
 
-**When would you choose MongoDB over PostgreSQL?**
-MongoDB suits: flexible/evolving schemas (startup iterating rapidly), document-oriented data that's naturally nested (products with varying attributes, user profiles), high write throughput with horizontal scaling needs, geospatial queries (location-based apps), and when your data access patterns always fetch a document as a whole. PostgreSQL suits: complex relationships between entities, need for strong ACID transactions across multiple collections, complex analytical queries with JOINs, schema stability, and when your team knows SQL. Most applications can use either — the decision often comes down to team familiarity and specific query patterns.
+## Core Concepts
 
-**What is the difference between embedding and referencing in MongoDB?**
-Embedding stores related data within the same document — a blog post with its comments embedded in the posts collection. Fast reads (single query), atomic updates, but document size limit of 16MB and arrays can grow unbounded. Referencing stores related data in separate collections with an ID linking them — like a foreign key. Requires multiple queries or $lookup (aggregation join), but no size limits and data updated in one place. Rule of thumb: embed when data is always accessed together and has bounded growth; reference when data is large, frequently updated independently, or accessed on its own.
+**Q: What is MongoDB? When to choose it over relational DB?**
 
-**What is the aggregation pipeline?**
-The aggregation pipeline processes documents through a sequence of stages, where each stage transforms the documents. Common stages: `$match` (filter, like WHERE), `$group` (aggregate, like GROUP BY), `$project` (reshape/select fields), `$lookup` (join collections), `$unwind` (flatten arrays), `$sort`, `$limit`, `$skip`. The pipeline is expressed as an array — each stage's output becomes the next stage's input. Far more powerful than find() for analytics and reporting. MongoDB optimizes pipelines automatically (e.g., moves $match early to reduce documents in subsequent stages).
+MongoDB is a document-oriented NoSQL database. Data stored as JSON-like BSON documents in collections (not tables). Schema-flexible — documents in same collection can have different fields.
 
-**How does MongoDB handle transactions?**
-MongoDB supports multi-document ACID transactions since version 4.0 (single replica set) and 4.2 (sharded clusters). Use the same session across operations: `session.start_transaction()`, perform operations, then `session.commit_transaction()` or `session.abort_transaction()`. Transactions are slower than single-document operations and should be used only when necessary — MongoDB's document model (embedding related data) often eliminates the need for multi-document transactions. If you find yourself using transactions frequently, reconsider your schema design.
+**Choose MongoDB when:**
+- Data is hierarchical/nested (documents with embedded sub-documents)
+- Schema changes frequently during development
+- Need to store varied document structures
+- Horizontal scaling (sharding) is a requirement
+- Working with JSON natively (APIs, web apps)
 
-**What are the types of indexes in MongoDB?**
-Single field: basic index on one field. Compound: multiple fields (order matters — leftmost prefix rule applies). Multikey: automatically created when indexing an array field — creates index entries per array element. Text: for full-text search with `$text` operator. Geospatial: 2dsphere for GeoJSON data, 2d for legacy flat coordinates. Hashed: for hash-based sharding. Sparse: only indexes documents that have the field. Partial: only indexes documents matching a filter condition. TTL: automatically deletes documents after a time period.
+**Choose RDBMS when:**
+- Complex relationships and JOINs are frequent
+- ACID transactions across multiple collections needed (MongoDB 4.0+ supports, but complex)
+- Strict schema enforcement required
+- Data is naturally tabular and relational
+
+---
+
+**Q: MongoDB query operations — CRUD and aggregation.**
+
+```javascript
+// INSERT
+db.users.insertOne({ name: "Alice", age: 30, tags: ["admin", "user"] })
+db.users.insertMany([{ name: "Bob" }, { name: "Charlie" }])
+
+// FIND (SELECT)
+db.users.findOne({ name: "Alice" })
+db.users.find({ age: { $gte: 25 } }).sort({ name: 1 }).limit(10)
+db.users.find({ tags: "admin" })  // Array contains value
+db.users.find({ "address.city": "Mumbai" })  // Nested field
+
+// UPDATE
+db.users.updateOne({ name: "Alice" }, { $set: { age: 31 } })
+db.users.updateMany({ age: { $lt: 18 } }, { $set: { minor: true } })
+db.users.findOneAndUpdate({ name: "Alice" }, { $inc: { loginCount: 1 } }, { returnDocument: "after" })
+
+// DELETE
+db.users.deleteOne({ name: "Alice" })
+db.users.deleteMany({ status: "inactive" })
+
+// AGGREGATION PIPELINE
+db.orders.aggregate([
+  { $match: { status: "completed" } },            // Filter
+  { $group: { _id: "$userId", total: { $sum: "$amount" } } },  // Group + sum
+  { $sort: { total: -1 } },                       // Sort descending
+  { $limit: 10 },                                 // Top 10
+  { $lookup: {                                    // JOIN with users collection
+      from: "users",
+      localField: "_id",
+      foreignField: "_id",
+      as: "user"
+  }}
+])
+```
+
+---
+
+**Q: MongoDB indexing strategies.**
+
+```javascript
+// Single field index
+db.users.createIndex({ email: 1 })  // 1=ascending, -1=descending
+
+// Compound index (order matters for queries)
+db.orders.createIndex({ userId: 1, createdAt: -1 })
+// Supports: { userId } and { userId, createdAt } queries
+// Does NOT support: { createdAt } alone efficiently
+
+// Unique index
+db.users.createIndex({ email: 1 }, { unique: true })
+
+// Sparse index (only documents with field)
+db.users.createIndex({ phone: 1 }, { sparse: true })
+
+// TTL index (auto-delete documents after expiry)
+db.sessions.createIndex({ createdAt: 1 }, { expireAfterSeconds: 3600 })
+
+// Text index (full-text search)
+db.articles.createIndex({ title: "text", body: "text" })
+db.articles.find({ $text: { $search: "MongoDB tutorial" } })
+
+// Covered query: index contains all fields needed (no document fetch)
+// Explain plan
+db.users.find({ email: "alice@example.com" }).explain("executionStats")
+// Look for: "IXSCAN" (good) vs "COLLSCAN" (full table scan — add index)
+```
+
+---
+
+**Q: Replication in MongoDB.**
+
+**Replica Set**: Group of mongod processes maintaining same data. Minimum 3 nodes.
+
+```
+Primary (reads + writes)
+  ├── Secondary 1 (replica, can serve reads)
+  ├── Secondary 2 (replica)
+  └── Arbiter (vote only, no data)
+```
+
+- Primary receives all writes, replicates via oplog (operation log)
+- Secondaries tail oplog, apply operations asynchronously
+- **Automatic failover**: If primary unreachable, secondaries elect new primary (needs majority vote)
+- **Read preference**: `primary` (default), `secondary` (lower latency, may be stale), `nearest`
+
+**Write concern**: How many nodes must acknowledge write.
+```javascript
+db.orders.insertOne(doc, { writeConcern: { w: "majority", j: true } })
+// w: "majority" → quorum must acknowledge
+// j: true → write must be journaled (durable)
+```
+
+---
+
+**Q: MongoDB sharding for horizontal scale.**
+
+Sharding splits data across multiple shards for high-throughput, large datasets.
+
+**Shard key**: Field(s) that determine which shard a document belongs to.
+```javascript
+sh.shardCollection("mydb.orders", { userId: 1 })
+// All orders from same userId go to same shard
+// Good: most queries filter by userId
+// Bad if: single userId has millions of orders (hotspot)
+```
+
+**Shard key choices:**
+- High cardinality (many distinct values)
+- Even distribution (no hotspots)
+- Aligns with query patterns
+
+**Hashed sharding**: `{ userId: "hashed" }` — even distribution, but range queries scatter across all shards.
+**Ranged sharding**: `{ createdAt: 1 }` — good for range queries, but monotonically increasing key creates hotspot on last shard.
+
+## Revision Notes
+```
+MONGODB: Document DB, BSON, flexible schema, horizontal scaling
+
+QUERY OPERATORS:
+$eq/$ne/$gt/$lt/$gte/$lte/$in/$nin: comparison
+$and/$or/$not: logical | $exists/$type: element
+$set/$inc/$push/$pull/$addToSet: update operators
+
+AGGREGATION PIPELINE STAGES:
+$match (filter) → $group → $sort → $limit/$skip → $lookup (join) → $project (reshape)
+
+INDEXING:
+Single: {field: 1/-1} | Compound: order matters, ESR rule
+Unique: enforce uniqueness | TTL: auto-expiry | Text: full-text search
+Use explain() to check IXSCAN vs COLLSCAN
+
+REPLICA SET: Primary + Secondaries + optional Arbiter (3 nodes minimum)
+Writes to primary → replicates via oplog → secondaries
+Write concern: {w: "majority"} for durability
+
+SHARDING: Distribute across shards via shard key
+Good shard key: high cardinality, even distribution, aligns with queries
+Avoid monotonic keys (hotspot) | Hashed sharding: even but no range queries
+```

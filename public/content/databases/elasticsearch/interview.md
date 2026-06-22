@@ -1,16 +1,31 @@
-# Elasticsearch — Interview Questions
+# Elasticsearch Interview Questions
 
-**How does Elasticsearch differ from a relational database?**
-Elasticsearch is a search engine optimized for full-text search and analytics, not for ACID transactions or relational data. In Elasticsearch: schema is flexible (dynamic mapping), data is denormalized (no joins), queries are scored by relevance, writes are near-real-time (refresh interval creates a slight delay), and there's no support for multi-document transactions. Relational databases excel at: complex joins, ACID guarantees, strict schema enforcement, and transactional integrity. Elasticsearch is the right choice when full-text search, faceted filtering, aggregations on large datasets, or log analytics are primary requirements.
+## Core Concepts
 
-**What is the difference between `must`, `should`, and `filter` in a bool query?**
-All three can match documents, but they differ in scoring and caching behavior. `must` clauses must match — they contribute to the relevance score. `filter` clauses must match — they do NOT affect the relevance score and are cached (much faster for repeated queries). `should` clauses are optional — if any match, the document scores higher; you can control minimum matches with `minimum_should_match`. Use `filter` for exact matches like status, date ranges, and tags (fast, cached). Use `must` for full-text queries where relevance matters. Use `should` for "nice to have" boosting factors.
+**Q: What is Elasticsearch and when should you use it?**
 
-**What causes an Elasticsearch cluster to go yellow or red?**
-Yellow: All primary shards are assigned and operational, but not all replica shards are allocated. This happens when you have fewer nodes than needed for full replica placement (e.g., 1 node but index has 1 replica — nowhere to put the replica). Yellow is functional but has no fault tolerance. Red: At least one primary shard is not allocated — some data is unavailable or potentially lost. Causes: node failure where primary shard was hosted, corrupted shard files, disk full preventing shard allocation. Fix: add nodes, check disk space, run `cluster/reroute?retry_failed=true`, check shard allocation explain API.
+Elasticsearch is a popular database system with specific strengths for certain use cases.
+Review the fundamentals.md section for architecture details.
 
-**What is an inverted index and why is it fundamental to Elasticsearch?**
-An inverted index maps each unique term to the list of documents containing that term, along with position and frequency information. Traditional databases store documents and scan them for matches. Inverted indexes do the opposite — given a search term, instantly find all documents containing it. This makes full-text search O(1) for the lookup rather than O(n) for a table scan. Elasticsearch builds inverted indexes for each analyzed field during indexing. The "analysis" process (tokenizing text, lowercasing, removing stop words, stemming) determines what terms end up in the index.
+**Key interview topics:**
+- Architecture and core concepts
+- Data modelling approach
+- Query patterns and optimisation
+- High availability and replication
+- Security and access control
+- Production deployment patterns
 
-**How do you handle index mapping explosions?**
-Mapping explosion occurs when thousands of unique field names are created — typically from logging arbitrary key-value pairs, JSON with dynamic keys, or user-defined attributes. Each unique field requires memory for its mapping and potentially an inverted index. Prevent by: setting `dynamic: false` (ignore unmapped fields) or `dynamic: strict` (reject unmapped fields), using `flattened` type for objects with unknown keys (stores entire object as single field), using keyword arrays instead of nested objects for tags, defining explicit mappings for known fields and blocking others. Once exploded, reindex with proper mappings.
+## Study Guide
+
+Work through these sections in order:
+1. overview.md — understand what elasticsearch solves
+2. fundamentals.md — hands-on core operations
+3. intermediate.md — real-world patterns
+4. advanced.md — production architecture
+5. interview.md (this file) — Q&A preparation
+
+## Revision Notes
+
+Key facts, commands, and patterns for quick pre-interview review.
+Compare with Redis (caching), MongoDB (documents), PostgreSQL (relational)
+to understand when to choose elasticsearch.

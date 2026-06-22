@@ -1,19 +1,72 @@
-# AI Fundamentals — Interview Questions
+# AI Fundamentals Interview Questions
 
-**What is the difference between a language model and a chat model?**
-A base language model is trained only to predict the next token — it completes text. Given "The capital of France is", it outputs "Paris." A chat/instruction-tuned model is further trained with RLHF (Reinforcement Learning from Human Feedback) or supervised fine-tuning on instruction-response pairs to follow instructions helpfully. Chat models like GPT-4, Claude, and Gemini are instruction-tuned — they understand that "What is the capital of France?" is a question expecting an answer, not a sentence to be completed.
+## How LLMs Work
 
-**What is temperature in LLM inference?**
-Temperature controls randomness in token selection. At temperature 0, the model always picks the most probable next token — deterministic, consistent, but less creative. At temperature 1, tokens are sampled proportionally to their predicted probabilities. Above 1, the distribution becomes more uniform — more random, creative, but potentially incoherent. For factual Q&A and code generation: use 0-0.3. For creative writing: 0.7-1.0. Top-p (nucleus sampling) is often used alongside temperature — only sample from tokens comprising the top p% of probability mass.
+**Q: Explain how Large Language Models work.**
 
-**Explain the difference between fine-tuning and RAG.**
-RAG retrieves relevant documents at inference time and injects them into the prompt — no model weights change. Fine-tuning updates the model weights on a specific dataset — the model learns new patterns, styles, or domain knowledge. RAG is better for: up-to-date information, private data, transparent sourcing, no training cost. Fine-tuning is better for: consistent style/format, specialized domain vocabulary, tasks that need learned behavior patterns. Most production systems use RAG before fine-tuning — cheaper, updatable, explainable.
+LLMs are transformer neural networks trained to predict the next token. Components:
+- **Tokenizer**: Text -> token IDs (~100K vocab for GPT-4)
+- **Embeddings**: Token IDs -> dense vectors
+- **Transformer blocks**: Self-attention + feed-forward layers (stacked)
+- **Output**: Softmax -> next token probability distribution
 
-**What causes hallucination and how do you reduce it?**
-LLMs generate text that statistically fits the pattern — they don't "know" facts, they predict tokens. When asked something outside training data or asked to be very specific, the model generates plausible-sounding text even if incorrect. Reduction techniques: RAG (ground responses in retrieved facts), system prompts instructing the model to say "I don't know", low temperature, chain-of-thought reasoning (slower but more accurate), self-consistency (run multiple times, compare), asking the model to cite sources and flagging when it can't.
+Inference is autoregressive: generate one token, append to input, repeat.
 
-**What is the context window and why does it matter for production systems?**
-The context window is the maximum number of tokens a model can process in one call — it's the model's "working memory." Everything the model knows about the current conversation must fit here. For production: cost scales linearly with context size (input tokens are priced); latency increases with longer contexts; model quality degrades at very long contexts ("lost in the middle" effect where information in the middle of a long context is poorly recalled). Strategies: chunking long documents, summarizing conversation history, RAG to avoid stuffing everything into context, context caching (Anthropic/Google feature to cache repeated prompt prefixes).
+**Self-attention intuition:**
+Each token creates Query (Q), Key (K), Value (V) vectors. Attention score = Q*K^T / sqrt(d). Softmax -> weights -> weighted sum of V. Allows "bank" to mean financial or geographical based on surrounding context.
 
-**What is the difference between tokens and embeddings?**
-Tokens are the discrete units the model processes — roughly word fragments (GPT-4 uses about 4 characters per token on average). The vocabulary is fixed at ~50,000-100,000 tokens. Embeddings are dense vector representations of tokens (or entire texts) in a high-dimensional space — similar meanings are close together. Embedding models convert text to vectors for semantic search, clustering, and similarity computation. You use tokenization when working with LLM APIs (measuring cost, context limits). You use embeddings when doing similarity search, RAG retrieval, or classification.
+---
+
+**Q: Key parameters — temperature, top-p, context window.**
+
+**Temperature (0-2):** Controls randomness.
+- 0 = deterministic (factual tasks) | 1 = balanced | 2 = creative
+
+**Top-p (0-1):** Only consider tokens comprising top p% of probability mass.
+- 0.9 = more focused | 0.95 = more diverse
+
+**Context window:** Max tokens (input + output). GPT-4o = 128K (~95K words). Claude 3 = 200K.
+
+---
+
+**Q: What is RAG and why use it?**
+
+RAG (Retrieval Augmented Generation) grounds LLM answers in retrieved documents.
+
+Solves:
+1. Knowledge cutoff: retrieve from updated docs
+2. Hallucination: anchor to retrieved context ("answer only from provided context")
+3. Private data: embed company docs locally
+
+Pipeline: Query -> embed -> vector DB similarity search -> top-k chunks -> LLM + context -> answer
+
+---
+
+**Q: Fine-tuning vs prompting vs RAG — when to use each?**
+
+| Approach | Use When | Cost |
+|---|---|---|
+| Prompting | Behaviour achievable in system prompt | Free |
+| RAG | New/changing facts, private data | Low (vector DB) |
+| Fine-tuning | Consistent format, domain tone, reduce prompt size | High (GPU) |
+
+Always try prompting first, then RAG, then fine-tuning as a last resort.
+
+## Revision Notes
+```
+LLM: Transformer trained to predict next token (autoregressive)
+Self-attention: Q*K^T/sqrt(d) -> weights -> weighted sum of V
+Captures context: same word, different meaning based on surrounding tokens
+
+PARAMETERS:
+Temperature: 0=deterministic, 1=balanced, 2=creative
+Top-p: nucleus sampling (consider top p% probability tokens)
+Context window: total tokens in/out (GPT-4o=128K)
+
+RAG: vector DB retrieval + LLM generation
+Solves: cutoff, hallucination, private data
+Pipeline: query -> embed -> search -> chunks -> LLM
+
+DECISION ORDER:
+1. Prompting (free) -> 2. RAG (cheap) -> 3. Fine-tuning (expensive)
+```

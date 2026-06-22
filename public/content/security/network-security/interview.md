@@ -1,16 +1,92 @@
-# Network Security — Interview Questions
+# Network Security Interview Questions
 
-**What is the difference between IDS and IPS?**
-IDS (Intrusion Detection System) passively monitors traffic and generates alerts — it detects and notifies but doesn't block. It sits out-of-band (traffic mirror), so no false-positive blocking risk. IPS (Intrusion Prevention System) sits inline — all traffic passes through it, and it can block malicious traffic in real time. The risk: false positives block legitimate traffic. In production, tune IDS first to understand the false positive rate, then move to IPS mode with confidence. Host-based (HIDS/HIPS) monitors a single system; network-based (NIDS/NIPS) monitors network traffic.
+## Core Concepts
 
-**Explain the TLS handshake process.**
-TLS 1.3 (simplified): Client sends supported cipher suites and key_share. Server responds with chosen cipher, its certificate (containing public key), and its key_share. Client verifies the certificate chain against trusted CAs, both derive the session key from the key exchanges (ECDHE), and encrypted data transfer begins. The key innovation of TLS 1.3: forward secrecy via ECDHE (even if the private key is compromised later, past sessions can't be decrypted) and the handshake is only 1 round-trip (vs 2 for TLS 1.2).
+**Q: Defense in depth — network security layers.**
 
-**What is network segmentation and why is it important?**
-Network segmentation divides a network into zones with controlled communication between them — typically: internet → DMZ → internal → database tier. If an attacker compromises a web server in the DMZ, they cannot directly reach the database without also breaching the internal firewall. Microsegmentation takes this further, applying policies at the individual workload level (not just network zones) — common in Kubernetes with NetworkPolicies and in cloud environments with security groups per service. Without segmentation, a single breach can give lateral movement access to everything.
+```
+Layer 1 — Perimeter:    Firewall (block all by default, allow explicitly)
+Layer 2 — DMZ:          Web servers in demilitarised zone (separate from internal)
+Layer 3 — Internal:     IDS/IPS (detect/prevent intrusions), network segmentation
+Layer 4 — Endpoint:     EDR, host firewall, patch management
+Layer 5 — Application:  WAF, input validation, authentication
+Layer 6 — Data:         Encryption at rest/transit, DLP
+Layer 7 — Monitoring:   SIEM, flow analysis, anomaly detection
+```
 
-**What is DNS over HTTPS and why does it matter for security?**
-Traditional DNS queries are plaintext — your ISP, network admin, or anyone on-path can see every domain you resolve. DNS over HTTPS (DoH) encrypts DNS queries inside HTTPS, making them indistinguishable from normal web traffic. Privacy benefit: DNS queries can't be monitored or censored. Security benefit: prevents DNS hijacking and MITM attacks. Trade-off: harder for enterprise security teams to monitor DNS (used for detecting malware C2 communication and data exfiltration via DNS tunneling). Enterprises often disable DoH to maintain DNS visibility for security monitoring.
+No single control = security. Multiple layers mean attackers must defeat each.
 
-**How does a firewall differ from a WAF?**
-A traditional firewall operates at Layer 3-4 (network/transport) — it filters based on IP addresses, ports, and protocols. It can block 192.168.0.0/24 from reaching port 3306 but can't inspect HTTP content. A WAF (Web Application Firewall) operates at Layer 7 (application) — it understands HTTP/HTTPS and can detect SQLi patterns in query parameters, XSS in request bodies, CSRF tokens, rate limiting per user. WAFs protect web applications; traditional firewalls protect network perimeters. In production: use both — firewall at network edge, WAF (AWS WAF, Cloudflare, ModSecurity) in front of web applications.
+---
+
+**Q: Firewalls — types.**
+
+**Packet filter (L3/L4)**: Match by IP, port, protocol. Simple, fast. No state.
+**Stateful inspection (L4)**: Track connection state. Auto-allow return traffic.
+**Application-aware (L7/NGFW)**: Deep packet inspection. Identify apps by behaviour, not just port. Decrypt SSL for inspection.
+**WAF**: HTTP-specific. Block OWASP attacks (SQLi, XSS, CSRF). Rules + ML.
+
+---
+
+**Q: IDS vs IPS.**
+
+| | IDS | IPS |
+|---|---|---|
+| Mode | Monitor and alert | Inline, block threats |
+| Response | Alert only | Drop malicious traffic |
+| Risk | No false-block risk | False positive = blocked legitimate traffic |
+| Placement | Out-of-band (mirror port) | Inline (in traffic path) |
+
+Detection methods:
+- **Signature-based**: Match known attack patterns (fast, misses 0-days)
+- **Anomaly-based**: Deviation from baseline (catches unknowns, more false positives)
+
+---
+
+**Q: TLS/SSL — key concepts.**
+
+TLS = Transport Layer Security. Provides: encryption (confidentiality), integrity (MACs), authentication (certificates).
+
+**Certificate chain of trust:**
+```
+Root CA (self-signed, built into browsers/OS)
+  └── Intermediate CA
+        └── Server Certificate (issued to synfracore.com)
+```
+
+Browser validates: cert issued by trusted CA? domain matches? not expired? not revoked (OCSP)?
+
+**Certificate pinning**: App explicitly trusts only specific certificate/key. Prevents MitM even with compromised CA.
+
+**TLS 1.3** improvements over 1.2: 1-RTT handshake (vs 2-RTT), mandatory forward secrecy (ECDHE), removed weak ciphers.
+
+---
+
+**Q: Network segmentation and zero trust.**
+
+**VLAN**: Layer 2 segmentation. Logically separate broadcast domains. Traffic between VLANs goes through router/firewall — enforces policies.
+
+**Micro-segmentation**: Fine-grained policies between individual workloads (not just VLANs). Often software-defined (NSX, Kubernetes NetworkPolicy, security groups).
+
+**Zero Trust Network Access (ZTNA)**: Replace VPN. Users authenticate per-application. No implicit trust from network location. Works for remote/hybrid.
+
+## Revision Notes
+```
+DEFENSE IN DEPTH: Perimeter → DMZ → IDS → Endpoint → App → Data → Monitor
+Multiple layers — attacker must breach each
+
+FIREWALL TYPES:
+Packet filter: IP/port matching | Stateful: connection tracking
+NGFW: L7 app-aware, SSL inspection | WAF: HTTP-specific, OWASP protection
+
+IDS: alert only (out-of-band) | IPS: inline blocking
+Signature: known patterns | Anomaly: deviation from baseline
+
+TLS:
+Certificate chain: Root CA → Intermediate → Server cert
+Browser validates: trusted CA + domain match + not expired
+TLS 1.3: 1-RTT + mandatory ECDHE + removed weak ciphers
+
+SEGMENTATION:
+VLAN: L2 separation | Micro-segmentation: per-workload policies
+ZTNA: replace VPN, per-app auth, no implicit trust
+```

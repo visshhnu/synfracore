@@ -1,16 +1,92 @@
-# SQL Mastery — Interview Questions
+# SQL Interview Questions
 
-**What is the difference between INNER JOIN, LEFT JOIN, and FULL OUTER JOIN?**
-INNER JOIN returns only rows where there's a match in BOTH tables — if a customer has no orders, they won't appear. LEFT JOIN returns all rows from the left table plus matching rows from the right — customers with no orders appear with NULL values for order columns. RIGHT JOIN is the mirror (all right, matching left). FULL OUTER JOIN returns all rows from both tables — non-matching rows from either side have NULLs. In practice: INNER JOIN for required relationships (orders must have customers), LEFT JOIN for optional relationships (users who may or may not have orders), FULL OUTER JOIN for finding mismatches (records in one system but not another).
+## Core Concepts
 
-**What is a window function and how does it differ from GROUP BY?**
-GROUP BY collapses multiple rows into one aggregate row per group — you lose access to individual row data. Window functions perform calculations across related rows while keeping all original rows. `SUM(salary) OVER (PARTITION BY dept)` adds a total column to each row without collapsing them. This allows calculating things like "what percentage of department salary does each employee represent" in a single query. Window functions include: ranking (ROW_NUMBER, RANK, DENSE_RANK), aggregate (SUM, AVG, COUNT over partition), and navigation (LAG, LEAD, FIRST_VALUE, LAST_VALUE). The OVER clause defines the window — PARTITION BY defines the group, ORDER BY defines order within the group.
+**Q: Explain JOINs — types and when to use each.**
 
-**How does a database index work and when does it NOT help?**
-A B-tree index is a sorted tree structure that allows O(log n) lookups instead of O(n) full table scan. Index on `email` column: instead of scanning all 10M rows to find alice@example.com, the DB traverses the tree in ~23 steps. Index doesn't help when: function is applied to the indexed column in WHERE (`WHERE YEAR(created_at) = 2024` — use `WHERE created_at >= '2024-01-01'`); LIKE with leading wildcard (`LIKE '%suffix'` — can't use index, but `LIKE 'prefix%'` can); column has very low cardinality (boolean column — full scan is often faster); query returns >20-30% of rows (full scan becomes cheaper than index + random I/O); index isn't used due to statistics being outdated (run ANALYZE/UPDATE STATISTICS).
+```sql
+-- INNER JOIN: only matching rows from both tables
+SELECT o.id, u.name FROM orders o
+INNER JOIN users u ON o.user_id = u.id;
 
-**What is query optimization — how do you approach a slow query?**
-Process: run EXPLAIN/EXPLAIN ANALYZE to see the execution plan — look for full table scans, bad join order, filesort. Check indexes: is there an index on the WHERE and JOIN columns? Is the optimizer using it? Sometimes add FORCE INDEX. Rewrite the query: avoid subqueries in WHERE (use JOINs), avoid SELECT *, avoid OR (use UNION), avoid functions on indexed columns. Check statistics: stale statistics lead to bad plans (run ANALYZE TABLE). Partition large tables by date for time-range queries. Archive old data — 10M active rows vs 100M total rows makes a huge difference. Add covering indexes for hot queries (index includes all columns the query needs, no table lookup required).
+-- LEFT JOIN: all rows from left, matching from right (NULLs for no match)
+SELECT u.name, COUNT(o.id) as order_count FROM users u
+LEFT JOIN orders o ON u.id = o.user_id
+GROUP BY u.name;  -- Includes users with 0 orders
 
-**What is a deadlock and how do you prevent it in databases?**
-Deadlock: Transaction A holds lock on row 1, waits for row 2. Transaction B holds lock on row 2, waits for row 1. Neither can proceed. The database detects the cycle and kills one transaction (the victim). Prevention: always acquire locks in the same order across all transactions (if your code always updates users before orders, no circular dependency). Keep transactions short — less time holding locks = less chance of conflict. Use SELECT FOR UPDATE only when you'll definitely modify the row. In application code: catch deadlock exceptions and retry the transaction. In MySQL: check deadlock logs with `SHOW ENGINE INNODB STATUS`.
+-- RIGHT JOIN: all from right, matching from left (rarely used, use LEFT instead)
+-- FULL OUTER JOIN: all rows from both, NULLs where no match
+-- CROSS JOIN: cartesian product (all combinations)
+```
+
+---
+
+**Q: Window functions.**
+
+```sql
+-- ROW_NUMBER, RANK, DENSE_RANK
+SELECT name, salary,
+  RANK() OVER (PARTITION BY dept ORDER BY salary DESC) as rank_in_dept,
+  SUM(salary) OVER (PARTITION BY dept) as dept_total,
+  LAG(salary) OVER (ORDER BY hire_date) as prev_hire_salary
+FROM employees;
+```
+
+---
+
+**Q: CTEs vs subqueries vs temp tables.**
+
+```sql
+-- CTE (WITH): readable, named, can reference multiple times
+WITH high_value AS (
+    SELECT user_id FROM orders GROUP BY user_id HAVING SUM(amount) > 1000
+)
+SELECT u.name FROM users u JOIN high_value h ON u.id = h.user_id;
+
+-- Subquery: inline, single-use
+-- Temp table: materialised, can index, for complex multi-step queries
+```
+
+---
+
+**Q: Indexing strategy.**
+
+```sql
+-- Composite index: column order matters. Equality first, range last.
+CREATE INDEX idx_orders ON orders(user_id, status, created_at);
+-- Supports: WHERE user_id = ? AND status = ?
+-- Supports: WHERE user_id = ? AND status = ? AND created_at > ?
+-- NOT: WHERE status = ? (missing user_id prefix)
+
+-- Covering index: all queried columns in index (no table lookup)
+-- Partial index: index with WHERE condition (smaller, faster)
+CREATE INDEX idx_active ON users(email) WHERE active = true;
+```
+
+---
+
+**Q: Query optimisation checklist.**
+
+1. `EXPLAIN ANALYZE` — identify full table scans
+2. Add indexes on JOIN/WHERE/ORDER BY columns (high cardinality)
+3. Avoid functions on indexed columns (`WHERE YEAR(date) = 2024` breaks index)
+4. Use specific columns, not `SELECT *`
+5. `LIMIT` for large result sets
+6. Avoid N+1: use JOIN instead of loop queries
+7. Update statistics: `ANALYZE table`
+8. Connection pooling (PgBouncer, ProxySQL)
+
+## Revision Notes
+```
+JOINS: INNER(matching only) LEFT(all left + NULLs) FULL OUTER(all both sides)
+WINDOW FUNCTIONS: OVER(PARTITION BY dept ORDER BY salary)
+ROW_NUMBER | RANK | DENSE_RANK | SUM/AVG (running) | LAG/LEAD
+
+CTE: WITH clause, readable, reusable in query
+INDEX: composite = equality cols first, range last | covering = all cols in index
+EXPLAIN: look for Seq Scan -> add index | "Using filesort" -> add ORDER BY index
+
+OPTIMISATION:
+No functions on indexed cols | Specific cols not SELECT * | JOINs not N+1
+ANALYZE for fresh statistics | Connection pooling for high concurrency
+```

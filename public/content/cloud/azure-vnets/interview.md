@@ -1,10 +1,66 @@
-# Azure VNets — Interview Questions
+# Azure Virtual Networks Interview Questions
 
-**What is the difference between NSG and Azure Firewall?**
-NSG (Network Security Group): basic L4 (IP/port) filtering, free, applied to subnet or NIC level, stateful, no logging by default, no threat intelligence. Azure Firewall: managed L4-L7 firewall, supports FQDN filtering (allow/deny by domain name), TLS inspection, threat intelligence-based filtering, centralized logging to Log Analytics, DNAT for inbound, costs ~$1/hr. Use NSG for basic traffic control within VNets; Azure Firewall for centralized egress inspection in hub-spoke topology.
+## Core Concepts
 
-**Explain VNet peering vs VPN Gateway.**
-VNet peering: direct private connection between VNets in same or different regions/subscriptions, low latency (backbone network), non-transitive (A↔B and B↔C doesn't mean A↔C), no bandwidth limits, charged per GB. VPN Gateway: connects VNets or on-premises networks via encrypted tunnel over internet, transitive routing possible, bandwidth limited by gateway SKU, costs $0.04/hr. Use peering for Azure-to-Azure; use VPN Gateway for on-premises connectivity or when transitivity is needed.
+**Q: Azure VNet architecture.**
 
-**What is a private endpoint and why is it needed?**
-Private endpoints bring Azure PaaS services (Storage, SQL, Key Vault, etc.) into your VNet via a private IP address. Without private endpoints, PaaS services are accessed over the public internet even from within Azure — your traffic leaves Azure's backbone. With private endpoints: traffic stays completely within Azure's private network, PaaS service is accessible only from within VNet (or peered VNets), public access can be disabled entirely. Required for compliance and security in regulated industries.
+VNet is Azure's private network — isolated, logically. Divided into subnets. Spans one region.
+
+Key components:
+- **Subnets**: Divide VNet (public/private/gateway subnets)
+- **NSG (Network Security Group)**: Stateful firewall at subnet or NIC level (allow rules)
+- **Route Table (UDR)**: Custom routing — force traffic through NVA or VPN
+- **VNet Peering**: Connect VNets (same or cross-region) — private, low-latency
+- **Private Endpoint**: Private IP for PaaS services (Storage, SQL) within VNet
+- **Service Endpoint**: Route PaaS traffic over Azure backbone (no private IP)
+
+---
+
+**Q: NSG vs Azure Firewall.**
+
+**NSG**: Basic stateful filtering at subnet/NIC. Allow rules by port/IP. Free.
+**Azure Firewall**: Managed, stateful, full FQDN filtering, threat intelligence. Premium. Central hub.
+
+Use NSG for basic network segmentation. Azure Firewall for centralised, enterprise-grade filtering.
+
+---
+
+**Q: VNet Peering vs VPN Gateway vs ExpressRoute.**
+
+| | VNet Peering | VPN Gateway | ExpressRoute |
+|---|---|---|---|
+| Connection | VNet-to-VNet (Azure) | On-prem to Azure (internet) | On-prem to Azure (private) |
+| Latency | Very low | Higher (internet) | Low (dedicated) |
+| Bandwidth | High | Up to 10Gbps | Up to 100Gbps |
+| Cost | Per GB transferred | Gateway + data | Circuit + gateway |
+| Transitive | No (Hub-spoke with NVA) | No by default | No by default |
+
+Hub-and-spoke: central hub VNet peered to all spokes. Shared services in hub (firewall, DNS, VPN).
+
+---
+
+**Q: Private Endpoint vs Service Endpoint.**
+
+**Service Endpoint**: Traffic to PaaS stays on Azure backbone. Source IP is VNet IP. Resource can restrict to specific VNets. No private IP created.
+
+**Private Endpoint**: Creates NIC with private IP in your subnet. PaaS service gets private IP. DNS resolves to private IP. No internet exposure at all.
+
+Use Private Endpoint for sensitive workloads — completely removes internet exposure.
+
+## Revision Notes
+```
+VNET: private isolated network. Subnets divide it.
+NSG: stateful allow-rules at subnet/NIC (free, basic)
+Azure Firewall: managed, centralised, FQDN filtering (premium)
+
+CONNECTIVITY:
+VNet Peering: VNet-to-VNet (fast, non-transitive)
+VPN Gateway: on-prem over internet
+ExpressRoute: on-prem private dedicated circuit (low latency)
+
+Hub-spoke: central hub (shared services) + spoke VNets peered to hub
+
+Private Endpoint: private IP in VNet for PaaS (no internet, DNS resolves private)
+Service Endpoint: Azure backbone routing (no private IP, VNet-restricted access)
+Use Private Endpoint for sensitive data — complete network isolation
+```

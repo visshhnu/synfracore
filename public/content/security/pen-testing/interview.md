@@ -1,13 +1,84 @@
-# Penetration Testing — Interview Questions
+# Penetration Testing Interview Questions
 
-**What is the difference between vulnerability assessment and penetration testing?**
-Vulnerability Assessment (VA): automated scanning to identify known vulnerabilities. Tools like Nessus, OpenVAS, Qualys. Output is a list of CVEs with severity scores. Fast, broad, but shallow — doesn't chain vulnerabilities or determine real exploitability. Penetration Test: human-driven attempt to actually exploit vulnerabilities, chain weaknesses, and demonstrate real impact (e.g., "I can read your customer database"). Deeper, slower, more valuable. Rule: VA tells you what might be vulnerable; pen test proves what IS exploitable and what the actual impact would be. Most organizations should do VA monthly and pen tests annually.
+## Core Concepts
 
-**Walk me through the steps of a web application pen test.**
-1. Reconnaissance: understand the application — map all endpoints, identify technologies (Wappalyzer, HTTP headers), find login pages, API docs, JS source maps. 2. Mapping: spider the app, discover all functionality including authenticated pages. 3. Vulnerability scanning: run automated tools (Burp Suite scanner, nikto) as baseline. 4. Manual testing: OWASP Top 10 — test each input for injection, test auth flows for weaknesses, check authorization (can user A access user B's data?), test file uploads, review client-side code. 5. Exploitation: confirm vulnerabilities are real with a working proof of concept. 6. Documentation: every finding with: evidence (HTTP request/response screenshot), severity (CVSS), and remediation steps.
+**Q: What is penetration testing? Types?**
 
-**What is IDOR and how do you find it?**
-IDOR (Insecure Direct Object Reference): when an application uses user-controlled input to access objects directly without proper authorization. Example: `GET /api/orders/12345` returns your order. If you change 12345 to 12344 and get someone else's order — that's IDOR. How to find: look for numeric IDs or GUIDs in URLs, request bodies, cookies. Test: change the ID to another value. Use two different accounts and try to access each other's resources. Also test: predictable file paths (`/uploads/invoice_12345.pdf`), username-based paths (`/profile/alice` — can you access `/profile/bob`?). IDOR is extremely common and one of the highest-paying bug bounty categories.
+Authorised, simulated attack to find exploitable vulnerabilities before real attackers.
 
-**What is a CVE and CVSS score?**
-CVE (Common Vulnerabilities and Exposures): a unique identifier for publicly disclosed security vulnerabilities. Format: CVE-YEAR-NUMBER (e.g., CVE-2021-44228 = Log4Shell). CVSS (Common Vulnerability Scoring System): a numerical score 0-10 indicating severity. CVSS v3.1 factors: Attack Vector (Network/Adjacent/Local/Physical), Attack Complexity, Privileges Required, User Interaction, Scope (unchanged/changed), Confidentiality/Integrity/Availability impact. Score ranges: 0=None, 0.1-3.9=Low, 4.0-6.9=Medium, 7.0-8.9=High, 9.0-10.0=Critical. Log4Shell was 10.0 — network exploitable, no auth required, remote code execution.
+Types: Black box (no info), White box (full info), Grey box (partial). Scope: network, web app, mobile, social engineering, red team (full adversary simulation).
+
+**ALWAYS get written authorisation first** — never test without explicit permission.
+
+---
+
+**Q: Pen testing phases (PTES methodology).**
+
+```
+1. Pre-engagement: written auth, scope, rules of engagement, emergency contact
+2. Reconnaissance: OSINT — whois, DNS, shodan, theHarvester
+3. Scanning: nmap -sV -sC | nikto | gobuster
+4. Vulnerability ID: Nessus, nuclei, manual analysis
+5. Exploitation: Metasploit, manual exploits (SQLi, SSRF, etc.)
+6. Post-exploitation: privilege escalation, lateral movement, demonstrate impact
+7. Reporting: exec summary + technical findings + remediation
+```
+
+---
+
+**Q: Key tools.**
+
+```bash
+nmap -sV -sC -O -p- target.com    # Port scan + version + OS detection
+nikto -h https://target.com        # Web vulnerability scanner
+gobuster dir -u https://target.com -w wordlist.txt  # Directory enumeration
+sqlmap -u "https://target.com/page?id=1"            # SQL injection test
+burpsuite                          # Web proxy: intercept, modify, replay
+msfconsole                         # Metasploit exploitation framework
+```
+
+---
+
+**Q: OWASP Top 10 (2021) — must know.**
+
+1. Broken Access Control (IDOR, privilege escalation)
+2. Cryptographic Failures (weak crypto, plaintext sensitive data)
+3. Injection (SQLi, command injection, XSS)
+4. Insecure Design (missing threat modelling)
+5. Security Misconfiguration (default creds, exposed admin)
+6. Vulnerable Components (known CVEs in dependencies)
+7. Auth Failures (weak passwords, no MFA)
+8. Software Integrity Failures (unsigned updates)
+9. Logging/Monitoring Failures (no audit logs)
+10. SSRF (server-side request forgery)
+
+---
+
+**Q: Report structure.**
+
+1. Executive summary (business risk, not technical)
+2. Finding title + CVSS score
+3. Affected system(s)
+4. Evidence (screenshot showing exploitation)
+5. Business impact
+6. Remediation recommendation (specific, actionable)
+
+Immediately notify client for: active exploitation evidence, critical data exposure, safety-impacting systems.
+
+## Revision Notes
+```
+PEN TEST: authorised attack simulation. WRITTEN PERMISSION first.
+TYPES: Black(no info) | White(full info) | Grey(partial)
+
+PHASES: Pre-engagement → Recon → Scan → Vuln ID → Exploit → Post-exploit → Report
+
+TOOLS:
+nmap(ports) | nikto(web vulns) | gobuster(directories)
+Burp Suite(web proxy) | SQLMap(SQLi) | Metasploit(exploitation)
+
+OWASP TOP 10: Access Control | Crypto | Injection | Design | Misconfiguration
+Old Components | Auth | Integrity | Logging | SSRF
+
+REPORT: Exec summary + CVSS score + evidence + impact + remediation
+Immediate escalation for: active attack evidence, critical data exposure
+```

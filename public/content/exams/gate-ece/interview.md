@@ -1,13 +1,32 @@
-# GATE ECE — Interview Questions
+# GATE ECE (Electronics & Communication) Interview Questions
 
-**What is the difference between a BJT and a MOSFET?**
-BJT (Bipolar Junction Transistor): current-controlled device. Base current controls collector current (IC = β × IB). Has three terminals: Base, Collector, Emitter. Bipolar — uses both electrons and holes as carriers. Good for analog circuits, high-frequency applications, and higher output current. Higher power consumption (base current needed). MOSFET (Metal Oxide Semiconductor Field Effect Transistor): voltage-controlled device. Gate voltage controls drain current. Has four terminals: Gate, Drain, Source, Body. Unipolar — uses only one type of carrier. Used in digital circuits (CMOS), switches, power electronics. Near-zero gate current means low power consumption. CMOS uses complementary NMOS+PMOS for low static power.
+## Overview
 
-**Explain the Nyquist sampling theorem.**
-The Nyquist theorem states that to perfectly reconstruct a bandlimited signal, it must be sampled at a rate of at least 2× the highest frequency present (fs ≥ 2fmax). This minimum rate is called the Nyquist rate. If sampled below the Nyquist rate, aliasing occurs — high frequency components appear as lower frequencies, causing distortion that cannot be reversed. In practice, an anti-aliasing filter (low-pass) is applied before sampling to remove frequencies above fs/2. Example: audio CD uses 44.1 kHz sampling because human hearing goes to ~20 kHz; 44.1k > 2×20k = 40 kHz.
+This section covers GATE ECE (Electronics & Communication) preparation for competitive exams and technical interviews.
 
-**What is meant by gain margin and phase margin in control systems?**
-These are stability margins — how much a system can be perturbed before becoming unstable. Gain Margin (GM): the factor by which the gain can be increased before the closed-loop system becomes unstable. Measured at the phase crossover frequency (where phase = -180°). GM in dB = -20 log|G(jωpc)|. Higher is better; typical design: GM > 6dB. Phase Margin (PM): additional phase lag the system can tolerate at the gain crossover frequency (where |G(jω)| = 1 or 0dB). PM = 180° + ∠G(jωgc). Typical design: PM > 45°. Both positive GM and PM → stable system. Zero or negative → unstable.
+### Study Resources
 
-**What is the difference between AM and FM modulation?**
-AM (Amplitude Modulation): the amplitude of the carrier varies in proportion to the message signal. The frequency remains constant. Bandwidth = 2W (W = message bandwidth). Sensitive to noise (amplitude disturbances). Used in: AM radio, aviation voice. FM (Frequency Modulation): the frequency of the carrier varies in proportion to the message signal. The amplitude remains constant. Bandwidth = 2(Δf + W) per Carson's rule. More resistant to noise (amplitude clippers remove noise). Used in: FM radio (higher quality), cellular communications. FM provides better SNR but requires more bandwidth than AM.
+Complete preparation available in this section:
+- **overview.md**: Syllabus, exam pattern, scoring
+- **fundamentals.md**: Core concepts from scratch
+- **intermediate.md**: Problem-solving patterns
+- **advanced.md**: High-difficulty topics
+- **interview.md** (this file): Q&A format revision
+- **labs.md**: Practice problems
+- **cheatsheets.md**: Quick formula/syntax reference
+
+### Key Topics
+
+For GATE ECE (Electronics & Communication), the interview preparation covers:
+- Core concepts tested in competitive exams
+- Previous year question patterns
+- High-weightage topics for maximum score improvement
+- Common mistakes and how to avoid them
+- Time management strategies
+
+### Revision Strategy
+
+1. Master fundamentals first (overview + fundamentals sections)
+2. Practice problem sets (labs section)
+3. Review PYQs and MCQs
+4. Final revision using cheatsheets before exam

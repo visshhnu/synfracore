@@ -1,17 +1,32 @@
-# Medical Coding Mock Exams — Interview Questions
+# Healthcare Mock Exams
 
-**What is your experience with medical coding certifications?**
+## Overview
 
+This section covers healthcare mock exams for medical coding and healthcare professionals.
 
-List your active certifications (CPC, CCS, COC, etc.), when you obtained them, and CEUs completed. Discuss your coding experience by setting (outpatient/inpatient/physician), specialty areas, and volume (records coded per day).
+### Key Topics
 
-**How do you handle a denied claim?**
+- Medical coding standards (ICD-10, CPT, HCPCS)
+- Healthcare administration workflows
+- Patient documentation requirements
+- Compliance and regulatory standards (HIPAA)
+- Electronic Health Records (EHR) systems
+- Revenue cycle management
 
+### Study Approach
 
-A coding denial (CO-4: service inconsistent with modifier; CO-11: diagnosis inconsistent with procedure) requires: review the original record and code assignment, determine if the denial is correct, either correct the claim or appeal with clinical documentation showing medical necessity and correct code selection.
+1. Review the overview.md for the healthcare domain context
+2. Work through fundamentals for basic coding and documentation
+3. Practice with mock exams in this section
+4. Review the interview Q&A for role-specific preparation
 
-**What is HIPAA and how does it affect your daily work?**
-HIPAA (Health Insurance Portability and Accountability Act) protects patient health information (PHI). Daily impact: PHI must only be shared for Treatment, Payment, or Operations (TPO) purposes. Never email unencrypted PHI. Access is role-based — only view records you need for your job. Breaches must be reported within 60 days to HHS and affected patients. Minimum Necessary standard: only access/disclose the minimum information needed. In practice: password-protect documents, log off workstations when stepping away, report suspected breaches immediately.
+### Interview Preparation
 
-**What CPT code range covers Evaluation and Management services?**
-E/M codes are in the range 99202-99499. The most commonly used are office/outpatient visit codes: New patients 99202-99205 (complexity-based) and Established patients 99211-99215. Selection is based on either Medical Decision Making (MDM) level or Total Time spent. Other E/M categories include: hospital care (99221-99239), consultations (99241-99255 — not reimbursed by Medicare), emergency department (99281-99285), nursing facility (99304-99318).
+Common questions cover:
+- Medical terminology and anatomy
+- Coding accuracy and compliance
+- Documentation best practices
+- Healthcare information systems
+- Patient privacy regulations
+
+Revision notes cover key codes, compliance rules, and system workflows.

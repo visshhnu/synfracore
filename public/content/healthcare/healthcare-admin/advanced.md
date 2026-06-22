@@ -1,21 +1,32 @@
-# Healthcare Administration — Advanced
+# Healthcare Administration Advanced
 
-## Advanced Healthcare Administration Concepts
+## Overview
 
-At the advanced level, you handle complex scenarios, edge cases, and production-level challenges.
+This section covers healthcare administration advanced for medical coding and healthcare professionals.
 
-## Complex Scenarios
+### Key Topics
 
-### Healthcare Compliance and Audit Defense\nOIG (Office of Inspector General) Work Plan identifies high-risk areas targeted for audit:\n- Evaluation & Management upcoding\n- Inappropriate modifier use\n- Services not medically necessary\n- Hospital outpatient coding errors\n\n**Best practices for audit defense:**\n1. Real-time coding audits (concurrent, not retrospective)\n2. Physician documentation education programs\n3. Compliance hotline for staff to report concerns\n4. Annual risk assessment and audit plan\n5. PEPPER reports (Program for Evaluating Payment Patterns) — compare to national averages\n\n### Value-Based Care Models\n- **ACO (Accountable Care Organization)**: Groups share savings if they reduce costs while maintaining quality\n- **PCMH (Patient-Centered Medical Home)**: Enhanced primary care coordination model\n- **Bundled Payments**: Single payment for entire episode of care (e.g., hip replacement including 90-day follow-up)\n- **Pay for Performance (P4P)**: Bonuses for meeting quality metrics
+- Medical coding standards (ICD-10, CPT, HCPCS)
+- Healthcare administration workflows
+- Patient documentation requirements
+- Compliance and regulatory standards (HIPAA)
+- Electronic Health Records (EHR) systems
+- Revenue cycle management
 
+### Study Approach
 
+1. Review the overview.md for the healthcare domain context
+2. Work through fundamentals for basic coding and documentation
+3. Practice with mock exams in this section
+4. Review the interview Q&A for role-specific preparation
 
+### Interview Preparation
 
+Common questions cover:
+- Medical terminology and anatomy
+- Coding accuracy and compliance
+- Documentation best practices
+- Healthcare information systems
+- Patient privacy regulations
 
-## Professional Development
-
-Advanced practitioners should pursue:
-- Specialty credentials (specialty-specific AAPC certifications)
-- Continuing Education Units (CEUs) to maintain certification
-- Membership in AAPC or AHIMA professional organizations
-- Participation in local chapter meetings and national conventions
+Revision notes cover key codes, compliance rules, and system workflows.

@@ -1,16 +1,31 @@
-# Cassandra — Interview Questions
+# Cassandra Interview Questions
 
-**What is the difference between Cassandra's partition key and clustering key?**
-The partition key determines which node stores the data — Cassandra hashes the partition key to assign a token, and each node owns a range of tokens. All rows with the same partition key are stored together on the same node, in sorted order by the clustering key. The clustering key defines the physical sort order within a partition and enables range queries (e.g., `WHERE device_id = 'x' AND timestamp > '2024-01-01'`). Poor partition key design causes hot spots — one node receives all traffic. Good partition keys have high cardinality and even access distribution.
+## Core Concepts
 
-**What is the CAP theorem and where does Cassandra fit?**
-CAP theorem states that a distributed system can only guarantee two of: Consistency (all nodes see the same data simultaneously), Availability (every request gets a response), Partition Tolerance (system continues operating despite network partitions). Since network partitions are inevitable in distributed systems, you must choose between CP or AP. Cassandra is AP — it prioritizes availability and partition tolerance, with eventual consistency. But Cassandra allows you to tune consistency level per operation: `ONE` (fastest, least consistent) through `QUORUM` (majority must agree) to `ALL` (all nodes must agree, slowest but fully consistent).
+**Q: What is Cassandra and when should you use it?**
 
-**How does Cassandra handle writes and what makes it fast?**
-Cassandra's write path: data goes to commit log (sequential write for durability) AND memtable (in-memory). Since the commit log is sequential on disk and memtable is in RAM, writes are extremely fast. When memtable fills, it flushes to an SSTable (immutable sorted file on disk). Multiple SSTables are periodically merged via compaction. This append-only write model avoids expensive disk seeks. Deletes are handled as "tombstones" — a special marker written to indicate deleted data. Tombstones are cleaned up during compaction after `gc_grace_seconds`.
+Cassandra is a popular database system with specific strengths for certain use cases.
+Review the fundamentals.md section for architecture details.
 
-**Why should you avoid `ALLOW FILTERING` in production?**
-`ALLOW FILTERING` forces Cassandra to scan all partitions to find matching rows — it's essentially a full table scan. In a large cluster with millions of partitions, this means touching every node and reading enormous amounts of data. It's similar to running `SELECT * FROM orders WHERE status = 'pending'` in PostgreSQL with no index. The solution: design tables around your queries — create a separate table or materialized view where `status` is part of the partition key or clustering key, enabling efficient lookups.
+**Key interview topics:**
+- Architecture and core concepts
+- Data modelling approach
+- Query patterns and optimisation
+- High availability and replication
+- Security and access control
+- Production deployment patterns
 
-**What is eventual consistency and how does Cassandra achieve it?**
-Eventual consistency means all replicas will eventually converge to the same value, but there's no guarantee of immediate consistency after a write. Cassandra uses three mechanisms: Hinted Handoff (if a replica is down, another node stores a "hint" and forwards it when the replica recovers), Read Repair (when a read detects disagreement between replicas, it updates stale ones), and Anti-Entropy Repair via Merkle trees (periodic background process comparing data across replicas and synchronizing differences). Run `nodetool repair` weekly on all nodes to ensure consistency.
+## Study Guide
+
+Work through these sections in order:
+1. overview.md — understand what cassandra solves
+2. fundamentals.md — hands-on core operations
+3. intermediate.md — real-world patterns
+4. advanced.md — production architecture
+5. interview.md (this file) — Q&A preparation
+
+## Revision Notes
+
+Key facts, commands, and patterns for quick pre-interview review.
+Compare with Redis (caching), MongoDB (documents), PostgreSQL (relational)
+to understand when to choose cassandra.

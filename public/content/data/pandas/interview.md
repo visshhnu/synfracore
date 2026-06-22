@@ -1,16 +1,94 @@
-# Pandas — Interview Questions
+# Pandas Interview Questions
 
-**What is the difference between .loc and .iloc?**
-`.loc` is label-based — you select by index labels or boolean conditions. `df.loc[5]` returns the row with index label 5 (which may not be the 6th row if the index is custom). `df.loc[df['age'] > 25, ['name','email']]` selects rows by condition and specific columns by name. `.iloc` is position-based (integer location) — `df.iloc[5]` always returns the 6th row regardless of index, `df.iloc[0:5, 2:4]` returns rows 0-4 and columns 2-3. Use `.loc` for real-world data selection with meaningful index/conditions; use `.iloc` for positional slicing.
+## Core Concepts
 
-**What causes a SettingWithCopyWarning and how do you fix it?**
-It happens when you modify a slice that may be a view of the original DataFrame rather than a copy. `df[df['age'] > 25]['name'] = 'Adult'` — this might modify a temporary copy, not the original. Fix by either using `.loc` directly on the original: `df.loc[df['age'] > 25, 'name'] = 'Adult'`, or explicitly create a copy first: `subset = df[df['age'] > 25].copy()`, then modify `subset`. The warning is Pandas telling you the behavior may be unpredictable.
+**Q: DataFrame operations — select, filter, transform.**
 
-**When would you use .apply() vs vectorized operations?**
-Vectorized operations (using Series/DataFrame built-in methods and numpy) are 10-100× faster because they run in compiled C/Fortran code. Use them whenever possible: `df['total'] = df['price'] * df['qty']` (never use `.apply` for this). Use `.apply()` for complex row/column logic that can't be expressed vectorially: `df.apply(lambda row: complex_business_logic(row['a'], row['b']), axis=1)`. Never use `.iterrows()` on large DataFrames — it converts each row to a Series (very slow). If `.apply()` is still too slow, use Cython via `@numba.jit` or switch to Polars.
+```python
+import pandas as pd
 
-**How do you handle a DataFrame with 10 million rows that doesn't fit in memory?**
-Multiple strategies: use `pd.read_csv(chunksize=100000)` to process in chunks, aggregating results; use `dtype` parameter to read with memory-efficient types (int8 instead of int64, category instead of object); filter early with `usecols` to read only needed columns; use PyArrow backend (newer pandas versions) or switch to Polars (columnar, lazy evaluation, much more memory-efficient); use Dask for distributed pandas-like operations across multiple cores/machines; use SQLite or DuckDB to query CSV/Parquet files directly without loading into memory.
+# Create / Load
+df = pd.read_csv("data.csv")
+df = pd.DataFrame({"name": ["Alice","Bob"], "age": [30, 25]})
 
-**What is the difference between groupby + agg and groupby + transform?**
-`agg` collapses each group to one row — you get a smaller DataFrame with one row per group. `transform` returns a DataFrame with the same shape as the original — each row gets the group's aggregate value. Use `agg` when you want group summaries. Use `transform` when you want to add group statistics back to the original rows: `df['region_avg'] = df.groupby('region')['sales'].transform('mean')` adds the region average to each row, enabling `df['pct_of_avg'] = df['sales'] / df['region_avg']` without needing a join.
+# Select
+df["name"]               # Series
+df[["name", "age"]]      # DataFrame
+df.iloc[0]               # Row by integer position
+df.loc[df["age"] > 25]   # Row by condition
+
+# Filter
+df[df["age"] > 25]
+df.query("age > 25 and name != 'Bob'")
+
+# Transform
+df["age_group"] = df["age"].apply(lambda x: "senior" if x >= 30 else "junior")
+df["full_name"] = df["first"] + " " + df["last"]
+```
+
+---
+
+**Q: GroupBy and aggregation.**
+
+```python
+# GroupBy: like SQL GROUP BY
+df.groupby("department")["salary"].mean()
+df.groupby(["dept","level"]).agg({"salary": ["mean","max","count"]})
+
+# Pivot table
+pd.pivot_table(df, values="sales", index="region", columns="product", aggfunc="sum")
+
+# Apply custom function
+df.groupby("dept").apply(lambda x: x.nlargest(3, "salary"))  # Top 3 per dept
+```
+
+---
+
+**Q: Merging and joining DataFrames.**
+
+```python
+# Merge (like SQL JOIN)
+result = pd.merge(orders, users, left_on="user_id", right_on="id", how="left")
+
+# Concat (stack rows or columns)
+combined = pd.concat([df1, df2], ignore_index=True)     # Stack rows
+wide = pd.concat([df1, df2], axis=1)                     # Add columns
+```
+
+---
+
+**Q: Performance best practices.**
+
+```python
+# Vectorised operations > apply > loops
+# Slow: df.apply(lambda x: x["a"] * x["b"])
+# Fast: df["a"] * df["b"]  (vectorised)
+
+# Efficient data types
+df["category"] = df["category"].astype("category")  # String with few unique values
+df["int_col"] = df["int_col"].astype("int32")        # vs int64
+
+# Chunked reading for large files
+for chunk in pd.read_csv("big_file.csv", chunksize=10000):
+    process(chunk)
+
+# Use numpy where for conditionals
+df["flag"] = np.where(df["score"] > 90, "high", "normal")
+```
+
+## Revision Notes
+```
+PANDAS CORE: DataFrame (2D) | Series (1D)
+SELECTION: df["col"] | df[["c1","c2"]] | df.loc[condition] | df.iloc[pos]
+FILTER: df[df["col"] > value] | df.query("col > value")
+
+GROUPBY: df.groupby("col")["val"].agg({"mean","max","count"})
+MERGE: pd.merge(left, right, on="key", how="left/inner/outer")
+CONCAT: pd.concat([df1, df2]) = stack rows
+
+PERFORMANCE:
+Vectorised ops > apply > loops
+astype("category") for low-cardinality strings
+Chunked reading for large files
+np.where for conditional column creation
+```

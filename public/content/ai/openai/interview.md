@@ -1,16 +1,94 @@
-# OpenAI — Interview Questions
+# OpenAI API Interview Questions
 
-**What is the difference between GPT-4o and o1?**
-GPT-4o is a standard autoregressive transformer — it generates response tokens sequentially, one at a time, without any explicit reasoning step. Fast, cost-effective, great for most tasks. o1 uses "chain-of-thought reasoning" internally before producing a response — it spends tokens "thinking" through the problem, then gives a final answer. This makes o1 dramatically better at math, complex code, multi-step logic, and scientific reasoning. But o1 is 5-10× slower and more expensive than GPT-4o. Use GPT-4o for general chat, RAG, summarization. Use o1 for complex algorithms, math proofs, and reasoning-heavy tasks.
+## Core Concepts
 
-**How does function calling (tool use) work in OpenAI?**
-You define functions with a name, description, and JSON schema for parameters. The model sees the function definitions and decides whether to call one based on the user's request. If it decides to call a function, instead of outputting text, it outputs a structured response saying "call function X with these arguments." Your code executes the function and returns the result. The model then incorporates the result into a final response. Crucially, the model NEVER executes code — it only requests calls with structured JSON arguments. This enables reliable structured data extraction and external service integration.
+**Q: Chat completions API**
 
-**What is the Assistants API and when would you use it?**
-The Assistants API manages conversation state server-side — threads (conversation history), file storage, and code interpreter/file search tool execution. Unlike the chat completions API where you manage message history yourself, the Assistants API stores everything. Use it when: you need file upload and analysis (user uploads a PDF for analysis), you want code interpreter (model can run Python to analyze data), or you want persistent conversations without managing state. For simple chat without files, the Chat Completions API is simpler and gives more control.
+```python
+from openai import OpenAI
+client = OpenAI()
 
-**How do you handle rate limits in production?**
-OpenAI has token-per-minute (TPM) and requests-per-minute (RPM) limits. Strategies: implement exponential backoff with jitter (retry after 2^n seconds with random delay), distribute requests across time rather than bursting, cache responses for identical prompts, use batch API for async workloads (cheaper, no rate limits), split work across multiple API keys (for high-throughput enterprise), downgrade to gpt-4o-mini for less critical paths. Monitor rate limit errors as a metric and alert when approaching limits. The `Retry-After` header in the 429 response tells you exactly how long to wait.
+response = client.chat.completions.create(
+    model="gpt-4o-mini",    # gpt-4o (best) | gpt-4o-mini (33x cheaper) | o1 (reasoning)
+    messages=[
+        {"role": "system", "content": "You are a DevOps expert."},
+        {"role": "user", "content": "Explain Kubernetes pods"}
+    ],
+    temperature=0.7,        # 0=deterministic, 2=creative
+    max_tokens=1000,
+)
+print(response.choices[0].message.content)
+print(response.usage)  # prompt_tokens, completion_tokens, total_tokens
+```
 
-**What are embeddings and how do you use them for semantic search?**
-Embeddings convert text into a vector of numbers (typically 1536 or 3072 floats) where semantically similar text produces similar vectors. To build semantic search: generate embeddings for all your documents and store them in a vector database (Pinecone, Chroma, pgvector). For a query, generate its embedding and find the stored embeddings with smallest cosine distance — these are the most semantically similar documents. Unlike keyword search (exact word matching), semantic search finds "kubernetes container orchestration" when you search "managing containers at scale." Use `text-embedding-3-small` for cost-effectiveness in RAG systems.
+**Q: Function calling**
+
+```python
+tools = [{"type": "function", "function": {
+    "name": "get_weather", "description": "Get weather for a city",
+    "parameters": {"type": "object",
+        "properties": {"city": {"type": "string"}}, "required": ["city"]}}}]
+
+# Round 1: LLM decides to call function
+resp = client.chat.completions.create(model="gpt-4o-mini", messages=msgs, tools=tools)
+tool_call = resp.choices[0].message.tool_calls[0]
+result = get_weather(json.loads(tool_call.function.arguments)["city"])
+
+# Round 2: provide result, get final answer
+msgs += [resp.choices[0].message,
+    {"role": "tool", "tool_call_id": tool_call.id, "content": json.dumps(result)}]
+final = client.chat.completions.create(model="gpt-4o-mini", messages=msgs)
+```
+
+**Q: Structured output and embeddings**
+
+```python
+from pydantic import BaseModel
+
+class Info(BaseModel):
+    company: str
+    technologies: list[str]
+
+# Guaranteed JSON matching Pydantic schema
+resp = client.beta.chat.completions.parse(
+    model="gpt-4o-mini", messages=[...], response_format=Info)
+data = resp.choices[0].message.parsed
+
+# Embeddings for RAG
+emb = client.embeddings.create(
+    input=["Kubernetes is container orchestration"],
+    model="text-embedding-3-small").data[0].embedding   # 1536-dim vector
+```
+
+**Q: Production best practices**
+
+```python
+import backoff
+from openai import RateLimitError
+
+@backoff.on_exception(backoff.expo, RateLimitError, max_tries=5)
+def call_llm(msgs): return client.chat.completions.create(...)
+
+# Streaming for responsive UX
+for chunk in client.chat.completions.create(..., stream=True):
+    if chunk.choices[0].delta.content:
+        print(chunk.choices[0].delta.content, end="")
+```
+
+Rules: retry on rate limits, stream for UX, log token usage, semantic cache with Redis, sanitise input (prompt injection), use mini models (33x cheaper than gpt-4o).
+
+## Revision Notes
+```
+MODELS: gpt-4o (best) | gpt-4o-mini (33x cheaper) | o1 (reasoning)
+text-embedding-3-small (1536d) | text-embedding-3-large (3072d, higher quality)
+
+CHAT: messages=[system/user/assistant/tool] | temperature | max_tokens
+JSON MODE: response_format={"type":"json_object"}
+FUNCTION CALLING: tools list -> LLM calls -> execute -> append result -> final
+STRUCTURED OUTPUT: beta.chat.completions.parse + Pydantic model (guaranteed schema)
+EMBEDDINGS: .embeddings.create -> vector -> cosine similarity -> RAG
+
+PRODUCTION:
+Retry with backoff | Stream for UX | Log token usage
+Semantic cache | Sanitise user input | Use mini models
+```

@@ -1,16 +1,75 @@
-# LangChain — Interview Questions
+# LangChain Interview Questions
 
-**What is LangChain and why would you use it instead of direct API calls?**
-LangChain is a framework for building LLM applications that provides abstractions for: chains (composable sequences of LLM calls), memory (managing conversation history), agents (LLMs that use tools), and retrieval (RAG systems). Use LangChain when: building complex multi-step chains, need unified interface across multiple LLM providers, building RAG systems with vector stores, or want built-in observability via LangSmith. Avoid LangChain when: making simple single LLM calls (unnecessary overhead), need maximum control over the API, or want minimal dependencies. The debate is real — many teams start with LangChain and later move to direct API calls as they need more control.
+## Core Concepts
 
-**Explain LangChain Expression Language (LCEL).**
-LCEL is LangChain's pipe-based composition syntax. Using `|`, you chain together prompts, LLMs, parsers, and other components. `chain = prompt | llm | parser` creates a chain where output of each step feeds into the next. Benefits: automatic streaming support, batch execution, async/await compatibility, parallel execution with `RunnableParallel`, and built-in tracing. The key concept is that every component is a `Runnable` with `.invoke()`, `.stream()`, `.batch()`, and `.ainvoke()` methods, making them composable. LCEL chains are lazy — they define the computation graph but don't execute until you call `.invoke()`.
+**Q: What is LangChain?**
 
-**What is a retriever in LangChain and how does it differ from a vector store?**
-A vector store stores and retrieves vectors (embeddings). A retriever is a higher-level abstraction that implements `.get_relevant_documents(query)` — it can wrap a vector store but can also be a BM25 retriever (keyword search), a multi-query retriever (generates multiple query variations), an ensemble retriever (combines multiple retrievers), or a contextual compression retriever (compresses retrieved docs before returning). This abstraction lets you swap retrieval strategies without changing your chain. The chain only needs to know it's getting a retriever, not which type it is.
+LangChain is a framework for building LLM-powered applications. It provides abstractions over LLM providers, chain composition, agent frameworks, memory, and 100+ integrations.
 
-**What are LangChain agents and when should you use them?**
-Agents use an LLM to decide which tools to call and in what order, based on the user's request. They're appropriate when: the task requires multiple steps that depend on intermediate results, you don't know in advance which tools will be needed, or the task requires planning and adaptive decision-making. Avoid agents when: you know exactly what sequence of operations is needed (use a chain instead — more predictable and faster), the task is simple, or reliability is critical (agents can fail in unexpected ways). Production rule: prefer chains over agents when possible; use agents only when the task genuinely requires dynamic decision-making.
+**Q: LCEL (LangChain Expression Language)**
 
-**How does LangGraph differ from LangChain agents?**
-LangChain agents use the ReAct pattern — a simple loop of think/act/observe until done. Good for simple agent tasks but limited control over flow. LangGraph builds explicit state machines with nodes (actions), edges (transitions), and conditional routing. Benefits: precise control over flow, easy to add human-in-the-loop checkpoints, handles cycles explicitly, easier to debug (you can see exactly what state the system is in), and supports more complex patterns like parallel execution and sub-graphs. Use LangGraph when you need more structure than a simple agent loop — particularly for multi-agent systems, complex workflows with branching logic, or when you need reliable state management.
+```python
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+
+llm = ChatOpenAI(model="gpt-4o-mini")
+prompt = ChatPromptTemplate.from_messages([
+    ("system", "You are a DevOps expert."),
+    ("human", "{question}")
+])
+chain = prompt | llm | StrOutputParser()  # Pipe operator composes steps
+result = chain.invoke({"question": "What is a Pod?"})
+
+# Streaming
+for chunk in chain.stream({"question": "Explain Terraform"}):
+    print(chunk, end="")
+```
+
+**Q: LangChain tools and agents**
+
+```python
+from langchain_core.tools import tool
+from langchain.agents import create_tool_calling_agent, AgentExecutor
+
+@tool
+def check_pod_status(namespace: str, pod_name: str) -> str:
+    """Check the status of a Kubernetes pod in a namespace."""
+    return f"Pod {pod_name} in {namespace}: Running, 2/2 containers ready"
+
+# LLM reads docstring to decide when to call the tool
+executor = AgentExecutor(agent=agent, tools=[check_pod_status])
+result = executor.invoke({"input": "Is api-server running in production?"})
+```
+
+**Q: RAG pipeline**
+
+```python
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_openai import OpenAIEmbeddings
+from langchain_community.vectorstores import Qdrant
+
+splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+chunks = splitter.split_documents(docs)
+vectorstore = Qdrant.from_documents(chunks, OpenAIEmbeddings())
+retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
+```
+
+**Q: LangSmith observability**
+
+```python
+import os
+os.environ["LANGCHAIN_TRACING_V2"] = "true"
+os.environ["LANGCHAIN_API_KEY"] = "your-key"
+# All LangChain calls traced — shows prompts, tokens, latency, costs
+```
+
+## Revision Notes
+```
+LCEL: prompt | llm | parser (pipe operator)
+.invoke() | .stream() | .ainvoke() | .batch()
+TOOLS: @tool decorator — LLM reads docstring to decide when to use
+AGENT: create_tool_calling_agent + AgentExecutor
+RAG: loader -> splitter -> embeddings -> vectorstore -> retriever -> chain
+LANGSMITH: LANGCHAIN_TRACING_V2=true -> automatic tracing
+```
