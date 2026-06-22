@@ -1306,6 +1306,9 @@ const contentRegistry = new Map<string, string>([
   ["education/upsc/prelims/geography-environment","education/upsc/prelims/geography-environment"],
   // ── FINANCE BANKING ──
   ["education/finance/banking-finance/investment-basics","education/finance/banking-finance/investment-basics"],
+
+  // ── UPSC ECONOMY ──
+  ["education/upsc/prelims/economy-science","education/upsc/prelims/economy-science"],
 ]);
 
 export function hasContent(a: string, t: string, s: string): boolean {

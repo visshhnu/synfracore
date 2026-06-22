@@ -1,147 +1,321 @@
 # Linux Interview Questions
 
-Comprehensive Q&A for every level — from junior to senior engineer.
+## Core Concepts
 
-## Beginner Questions
+**Q: What is a Linux process? Explain process states.**
 
-**What is the difference between a process and a thread?**
-A process is an independent program with its own memory space, file descriptors, and resources. A thread is a lightweight unit of execution that shares memory space with other threads in the same process. Processes are isolated; threads are not. In Linux, both are implemented as tasks using the \`clone()\` system call — threads just share more resources.
+A process is an executing instance of a program. Each process has a PID (Process ID), PPID (Parent PID), memory space, file descriptors, and CPU state.
 
-*Follow-up: How does this relate to containers?*
+**Process states:**
+- `R` (Running): Currently executing on CPU
+- `S` (Sleeping, interruptible): Waiting for I/O, can be woken by signal
+- `D` (Sleeping, uninterruptible): Waiting for I/O, cannot be interrupted (kernel I/O)
+- `Z` (Zombie): Process terminated but parent hasn't called wait() yet
+- `T` (Stopped): Stopped by signal (Ctrl+Z) or being debugged
 
----
-
-**Explain the Linux file permission model.**
-Linux uses a discretionary access control (DAC) model with three categories of permissions: owner, group, and others. Each has three bits: read (4), write (2), execute (1). Permissions are represented as octal (e.g., 755 = rwxr-xr-x). Special bits include SUID (run as owner), SGID (run as group), and sticky bit (only owner can delete). In modern environments, SELinux or AppArmor add mandatory access controls on top.
-
----
-
-**What does \`chmod 644\` mean?**
-Owner has read+write (6=4+2), group has read-only (4), others have read-only (4). This is standard for configuration files — the owner can edit them, but others can only read them.
-
----
-
-**How do you check disk space and find what's consuming it?**
-\`\`\`bash
-df -h            # Check overall disk usage per filesystem
-du -sh /var/*    # Find which subdirectory is large
-du -sh /* 2>/dev/null | sort -rh | head -10  # Top 10 largest
-ncdu /           # Interactive drill-down (best tool)
-\`\`\`
+```bash
+ps aux                    # All processes with resource usage
+ps -ef                    # All processes in full format
+top / htop               # Real-time process monitoring
+pstree                   # Process tree
+kill -9 PID              # SIGKILL (force kill)
+kill -15 PID             # SIGTERM (graceful termination)
+kill -SIGSTOP PID        # Pause process
+kill -SIGCONT PID        # Resume process
+```
 
 ---
 
-**What's the difference between \`>>\` and \`>\` in shell?**
-\`>\` truncates (overwrites) the file before writing. \`>>\` appends to the existing file. In production scripts, use \`>>\` for log files to avoid data loss.
+**Q: Explain Linux file permissions.**
+
+```bash
+ls -la
+# -rwxr-xr--  1 alice dev  4096 Jan 1 10:00 script.sh
+# |||||||||
+# Type: - (file), d (dir), l (link), c (char device), b (block device)
+#  Owner: rwx (read write execute)
+#     Group: r-x (read execute)
+#        Others: r-- (read only)
+```
+
+**chmod:**
+```bash
+chmod 755 script.sh      # rwxr-xr-x (octal)
+chmod u+x,g-w file       # symbolic: add exec to user, remove write from group
+chmod -R 644 /data/      # Recursive
+```
+
+**chown:**
+```bash
+chown alice:dev file.txt    # Change owner and group
+chown -R www-data /var/www  # Recursive
+```
+
+**Special bits:**
+- SUID (4000): Run as file owner (e.g., `/usr/bin/passwd` runs as root)
+- SGID (2000): Run as file group | New files inherit directory group
+- Sticky bit (1000): Only file owner can delete in directory (e.g., `/tmp`)
+
+```bash
+chmod u+s /usr/local/bin/myapp   # Set SUID
+ls -la → -rwsr-xr-x              # s in user execute position = SUID
+```
 
 ---
 
-## Intermediate Questions
+**Q: What is a Linux filesystem? Explain key directories.**
 
-**Explain Linux boot process from BIOS to login prompt.**
-1. **BIOS/UEFI** — POST (Power-On Self-Test), finds bootable device
-2. **Bootloader (GRUB2)** — Loads kernel and initramfs from /boot
-3. **initramfs** — Temporary filesystem, mounts real root filesystem
-4. **Kernel** — Initializes hardware, mounts root FS, launches PID 1
-5. **systemd (PID 1)** — Starts system targets (multi-user.target), manages service dependencies
-6. **Login** — getty/agetty prompts for credentials
-
-*In containers, steps 1-3 are skipped — the container runtime provides the kernel.*
-
----
-
-**What are Linux namespaces and how do containers use them?**
-Namespaces are a kernel feature that partition global resources into isolated views. Docker uses:
-- **PID namespace** — Container sees its own PID 1 (not host's)
-- **Network namespace** — Separate network interfaces, routing tables
-- **Mount namespace** — Separate filesystem view
-- **UTS namespace** — Separate hostname
-- **IPC namespace** — Separate inter-process communication
-- **User namespace** — Map container root to unprivileged host user
-
-\`\`\`bash
-# Verify: container PID 1 on host has different PID
-docker run nginx &
-ps aux | grep nginx   # Has a different PID on host
-\`\`\`
+```
+/          Root — everything starts here
+├── bin/   Essential user binaries (ls, cp, mv, bash)
+├── sbin/  System binaries (root only: iptables, fdisk, mount)
+├── etc/   System configuration files (passwd, fstab, nginx/, ssh/)
+├── var/   Variable data (logs /var/log, mail, spool, databases)
+├── tmp/   Temporary files (cleared on reboot)
+├── home/  User home directories (/home/alice, /home/bob)
+├── root/  Root user's home
+├── opt/   Optional software packages (non-OS apps)
+├── usr/   User programs and data (large hierarchy)
+│   ├── bin/    Non-essential user binaries
+│   ├── local/  Locally installed software
+│   └── lib/    Libraries
+├── lib/   Shared libraries for /bin and /sbin
+├── proc/  Virtual filesystem — running process info (/proc/cpuinfo, /proc/meminfo)
+├── sys/   Virtual filesystem — kernel and device info
+├── dev/   Device files (sda, null, zero, random, tty)
+└── mnt/ /media/  Temporary mount points
+```
 
 ---
 
-**What are cgroups and why do they matter for Kubernetes?**
-Control Groups (cgroups) limit and account for resource usage (CPU, memory, I/O) for groups of processes. Kubernetes uses cgroups to enforce resource requests and limits:
-- \`resources.requests.memory: "128Mi"\` → soft hint for scheduling
-- \`resources.limits.memory: "256Mi"\` → hard cgroup memory limit (OOMKill if exceeded)
+**Q: How do you diagnose high CPU, memory, and disk usage?**
+
+**CPU:**
+```bash
+top                          # Real-time; press 'P' to sort by CPU
+htop                         # Better interactive view
+ps aux --sort=-%cpu | head   # Top CPU consumers
+mpstat -P ALL 1              # Per-core CPU stats
+perf top                     # Performance profiling
+# Check load average: uptime → 1.23 0.89 0.92 (1/5/15 min avg)
+# Load > number of CPUs = overloaded
+```
+
+**Memory:**
+```bash
+free -h                      # Memory overview
+cat /proc/meminfo            # Detailed memory
+ps aux --sort=-%mem | head   # Top memory consumers
+vmstat 1                     # Virtual memory stats (si/so = swap in/out)
+# High swap usage = system under memory pressure
+```
+
+**Disk:**
+```bash
+df -h                        # Disk space usage per filesystem
+du -sh /var/log/*            # Directory sizes
+du -sh * | sort -rh | head   # Top space consumers
+iotop                        # Real-time I/O per process
+iostat -x 1                  # Disk I/O stats (await = average wait time)
+lsof | grep deleted          # Files deleted but still held open (space not freed)
+```
+
+**Network:**
+```bash
+netstat -tuln                # Listening ports
+ss -tuln                     # Faster alternative to netstat
+netstat -an | grep ESTABLISHED | wc -l  # Active connections
+tcpdump -i eth0 port 80      # Packet capture
+iftop / nload                # Real-time bandwidth usage
+```
 
 ---
 
-**How would you troubleshoot high CPU load on a server?**
-\`\`\`bash
-# 1. Identify overall load
-uptime    # Load averages - if > CPU count, you have a problem
+**Q: Explain Linux boot process.**
 
-# 2. Find the process
-top -c    # Sort by CPU, press P
-ps aux --sort=-%cpu | head -10
-
-# 3. Investigate the process  
-strace -p <pid>       # System calls
-perf top              # CPU profiling
-cat /proc/<pid>/status  # Process details
-
-# 4. Check if I/O wait is the cause
-iostat -xz 1          # High %iowait = disk bottleneck, not CPU
-
-# 5. Check for runaway cron jobs
-grep CRON /var/log/syslog | tail -20
-\`\`\`
+1. **BIOS/UEFI**: Power on → POST (Power-On Self Test) → finds boot device
+2. **MBR/GPT**: Boot loader found in first sector (MBR) or EFI partition (UEFI)
+3. **GRUB** (bootloader): Loads Linux kernel and initrd/initramfs into memory
+4. **Kernel**: Decompresses, initialises hardware, mounts virtual filesystems (proc, sys, dev)
+5. **initramfs**: Temporary root filesystem with drivers needed to mount real root
+6. **init/systemd** (PID 1): First process. Manages all other services.
+7. **systemd targets**: Boots to default target (multi-user.target or graphical.target)
+8. **Login prompt** or GUI
 
 ---
 
-## Advanced Questions
+**Q: What is systemd? Key commands?**
 
-**How does the OOM killer work and how do you control it?**
-When the system runs out of memory, the kernel's OOM (Out-of-Memory) killer selects a process to kill based on its "badness" score. The score considers memory usage, run time, and \`oom_score_adj\`. 
+systemd is the init system (PID 1) and service manager for most modern Linux distros.
 
-\`\`\`bash
-# Check OOM score
-cat /proc/<pid>/oom_score
+```bash
+# Service management
+systemctl start nginx
+systemctl stop nginx
+systemctl restart nginx
+systemctl reload nginx        # Reload config without restart
+systemctl status nginx        # Show service status, recent logs
+systemctl enable nginx        # Start on boot
+systemctl disable nginx       # Remove from boot
+systemctl is-active nginx     # Check if running
 
-# Protect a process from OOM kill (-1000 = never kill)
-echo -1000 > /proc/<pid>/oom_score_adj
+# System management
+systemctl list-units --type=service --state=running
+systemctl list-failed         # Failed services
+systemctl daemon-reload       # Reload systemd after unit file change
+systemctl reboot / poweroff / halt
 
-# Make a process more likely to be killed (1000 = kill first)  
-echo 1000 > /proc/<pid>/oom_score_adj
-
-# In Kubernetes, this is set via QoS classes:
-# Guaranteed (requests=limits) → oom_score_adj = -998
-# Burstable (requests < limits) → based on memory usage
-# BestEffort (no limits) → oom_score_adj = 1000
-\`\`\`
-
----
-
-**Explain inode exhaustion and how to diagnose it.**
-Every file needs an inode (metadata: permissions, timestamps, location). You can run out of inodes before running out of disk space — this causes "No space left on device" even with free disk.
-
-\`\`\`bash
-df -i              # Check inode usage
-df -i / | awk 'NR==2{print $5}' # Inode usage percentage
-
-# Find directories with many files
-for i in /*; do echo $i; find $i -xdev | wc -l; done 2>/dev/null | paste - -
-
-# Common cause: millions of small temp files
-ls /tmp | wc -l
-ls /var/spool/postfix/maildrop | wc -l
-\`\`\`
+# Journald (logging)
+journalctl -u nginx           # Logs for nginx service
+journalctl -f                 # Follow (like tail -f)
+journalctl --since "1 hour ago"
+journalctl -p err             # Only error level and above
+journalctl -n 100             # Last 100 lines
+```
 
 ---
 
-**Architect Question: You have a production server running out of disk. Walk me through your response.**
+**Q: What is a cron job? How do you set one up?**
 
-1. **Don't panic, assess** — \`df -h\` to find which filesystem, \`du -sh /*\` to find what's growing
-2. **Quick wins** — Clear old logs (\`journalctl --vacuum-size=1G\`), clean package cache (\`apt clean\`)  
-3. **Find the real cause** — Runaway log file? Growing database? Old Docker images? (\`docker system df\`)
-4. **Fix without downtime** — LVM: add disk, extend VG, extend LV, resize filesystem
-5. **Prevent recurrence** — Log rotation (logrotate), monitoring alerts at 80%, Prometheus disk alerts
-6. **Post-mortem** — Document what happened, update runbooks, add capacity planning
+```bash
+crontab -e        # Edit current user's crontab
+crontab -l        # List crontab entries
+crontab -r        # Remove all crontab entries
+sudo crontab -e   # Edit root's crontab
+```
+
+**Cron syntax:** `minute hour day-of-month month day-of-week command`
+
+```
+# Run at 2:30 AM daily
+30 2 * * * /opt/scripts/backup.sh
+
+# Run every 15 minutes
+*/15 * * * * /opt/scripts/healthcheck.sh
+
+# Run at 9 AM on weekdays (Mon-Fri)
+0 9 * * 1-5 /opt/scripts/report.sh
+
+# Run at midnight on 1st of every month
+0 0 1 * * /opt/scripts/monthly-report.sh
+
+# Redirect output
+* * * * * /opt/scripts/job.sh >> /var/log/job.log 2>&1
+```
+
+---
+
+**Q: Explain common networking commands.**
+
+```bash
+# Connectivity
+ping google.com              # ICMP ping
+traceroute google.com        # Trace route
+curl -I https://example.com  # HTTP headers
+wget https://example.com/file  # Download file
+nslookup example.com         # DNS lookup
+dig example.com              # Detailed DNS lookup
+host example.com             # Simple DNS lookup
+
+# Network config
+ip addr show                 # IP addresses (replaces ifconfig)
+ip route show                # Routing table
+ip link show                 # Network interfaces
+ip addr add 192.168.1.100/24 dev eth0  # Add IP address
+
+# Firewall (iptables)
+iptables -L -n -v            # List rules
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -j DROP    # Default drop
+
+# Firewall (nftables / firewalld)
+firewall-cmd --list-all
+firewall-cmd --add-service=http --permanent
+firewall-cmd --reload
+
+# Port/connection info
+ss -tuln                     # Listening ports
+ss -tunp                     # Ports with process names
+lsof -i :80                  # What's using port 80
+```
+
+---
+
+**Q: Important shell scripting concepts.**
+
+```bash
+#!/bin/bash
+set -euo pipefail   # e: exit on error, u: error on undefined, o pipefail: pipe error
+
+# Variables
+NAME="world"
+echo "Hello, ${NAME}!"
+
+# If/else
+if [ -f "/etc/nginx/nginx.conf" ]; then
+    echo "Nginx config found"
+elif [ -d "/etc/nginx" ]; then
+    echo "Nginx dir exists but no config"
+else
+    echo "Nginx not installed"
+fi
+
+# For loop
+for file in /var/log/*.log; do
+    echo "Processing: $file"
+    gzip "$file"
+done
+
+# Functions
+check_service() {
+    local service=$1
+    if systemctl is-active --quiet "$service"; then
+        echo "$service is running"
+        return 0
+    else
+        echo "$service is not running"
+        return 1
+    fi
+}
+check_service nginx
+
+# Process substitution and pipes
+active_users=$(who | wc -l)
+echo "Active users: $active_users"
+
+# Exit codes
+command && echo "Success" || echo "Failed"
+
+# Trap for cleanup
+trap 'rm -f /tmp/tempfile; echo "Cleaned up"' EXIT INT TERM
+```
+
+## Revision Notes
+```
+PROCESS STATES: R(running) S(sleep) D(uninterruptible) Z(zombie) T(stopped)
+kill -15 (SIGTERM, graceful) | kill -9 (SIGKILL, force)
+ps aux --sort=-%cpu | top | htop
+
+PERMISSIONS: rwxrwxrwx (owner/group/others)
+chmod 755 = rwxr-xr-x | 644 = rw-r--r-- | 777 = all access
+SUID(4000): run as owner | SGID(2000): run as group | Sticky(1000): only owner deletes
+
+KEY DIRECTORIES:
+/etc: config | /var/log: logs | /proc: process info (virtual)
+/tmp: temp (cleared on boot) | /opt: optional software
+
+CPU DIAGNOSIS: top → load average | ps aux --sort=-%cpu | mpstat
+MEMORY: free -h | vmstat (swap in/out) | /proc/meminfo
+DISK: df -h (space) | du -sh * (sizes) | iostat -x (I/O stats) | iotop
+
+SYSTEMD: systemctl start/stop/restart/status/enable/disable
+journalctl -u service -f (follow logs)
+
+CRON: min hour day month weekday command
+*/5 * * * * (every 5 min) | 0 2 * * * (2 AM daily)
+
+NETWORKING:
+ip addr / ip route (modern) | ss -tuln (listening ports)
+curl / wget / dig / traceroute
+iptables -L -n -v / firewall-cmd
+```

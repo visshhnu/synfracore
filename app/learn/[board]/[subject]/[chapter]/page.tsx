@@ -76,7 +76,7 @@ export default async function ChapterPage({ params }: Props) {
       </aside>
 
       {/* Main content */}
-      <main style={{ flex: 1, minWidth: 0, padding: "24px 28px", maxWidth: "860px" }}>
+      <main className="learn-chapter-main" style={{ flex: 1, minWidth: 0, padding: "24px 28px", maxWidth: "860px" }}>
 
         {/* Breadcrumb */}
         <nav style={{ fontSize: "12px", color: "var(--text-4)", marginBottom: "16px", display: "flex", flexWrap: "wrap", gap: "4px", alignItems: "center" }}>

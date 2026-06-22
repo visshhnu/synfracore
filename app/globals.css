@@ -746,3 +746,11 @@ html.light .hover-row:hover  { background: #F1F5F9 !important; }
   will-change: auto;
   transform: translateZ(0);
 }
+
+/* ══ LEARN CHAPTER PAGE MOBILE ════════════════════════════ */
+@media (max-width: 768px) {
+  .learn-chapter-main {
+    padding: 16px !important;
+    max-width: 100vw !important;
+  }
+}
