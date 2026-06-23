@@ -1,53 +1,64 @@
-# Route53 — Certification Guide
+# AWS Route 53 & DNS Certification Guide
 
-## Why Get Certified in Route53?
+## Primary Certification
 
-Certifications validate your Route53 skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+**AWS Solutions Architect Associate (SAA-C03)**
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+*Format*: 65 questions | 130 minutes | 720/1000 | $150 USD
 
-## Most Valuable Certifications
+## Related Certifications
 
-Research current certifications for Route53 on these sources:
+- AWS Advanced Networking Specialty
+- AWS SysOps Administrator
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+## Key Exam Topics
 
-## General Certification Strategy
+- Routing policies: Simple, Weighted, Latency, Failover, Geolocation, Multi-value, IP-based
+- Alias records: free, for AWS resources, works at zone apex (example.com)
+- CNAME: not at zone apex; small charge; for non-AWS external domains
+- Health checks: endpoint (HTTP/HTTPS/TCP), CloudWatch alarm, calculated
+- Private hosted zones: internal DNS for VPC; must enable DNS resolution + hostnames
+- DNS failover: primary/secondary with health check; Route 53 removes unhealthy records
+- Traffic flow: visual editor for complex routing policies with geoproximity
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+## Must-Know CLI Commands
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
-
-```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+```bash
+aws route53 list-hosted-zones
+aws route53 list-resource-record-sets --hosted-zone-id ZXXXXX
+aws route53 change-resource-record-sets --hosted-zone-id ZXXXXX --change-batch file://change.json
+aws route53 create-health-check --caller-reference unique123 --health-check-config Type=HTTPS,FullyQualifiedDomainName=api.example.com,Port=443,ResourcePath=/health
+aws route53 test-dns-answer --hosted-zone-id ZXXXXX --record-name api.example.com --record-type A
 ```
 
-## After Certification
+## Exam Tips
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+- Alias: auto-updates IP if ELB/CloudFront IP changes; no TTL charge
+- Health check: 3 regions check endpoint; 30% must fail before marking unhealthy
+- Geolocation: most specific match wins (city > country > continent > default)
+- Weighted routing: weight=0 means no traffic (can keep record for testing)
+
+## Study Plan
+
+**Week 1-2**: Read official docs + overview/fundamentals sections in this platform
+**Week 3-4**: Hands-on labs (AWS free tier / Azure sandbox / GCP free tier)
+**Week 5**: Practice exams (TutorialsDojo, ExamTopics, Whizlabs)
+**Final days**: Review weak areas + cheatsheet
+
+## Free Study Resources
+
+- AWS: aws.amazon.com/training — free digital courses
+- Azure: learn.microsoft.com — Microsoft Learn (free + sandbox labs)
+- GCP: cloud.google.com/training — free courses + Qwiklabs credits
+- TutorialsDojo: cheat sheets for all exams (best value paid resource)
+
+## Revision Notes
+```
+PRIMARY EXAM: AWS Solutions Architect Associate (SAA-C03)
+
+TOP TOPICS:
+  Routing policies: Simple, Weighted, Latency, Failover, Geolocation, Multi-value,
+  Alias records: free, for AWS resources, works at zone apex (example.com)
+  CNAME: not at zone apex; small charge; for non-AWS external domains
+  Health checks: endpoint (HTTP/HTTPS/TCP), CloudWatch alarm, calculated
+```

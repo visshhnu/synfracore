@@ -1,60 +1,46 @@
-# Cost Optimization — Cheatsheet
+# Cloud Cost Optimisation Quick Reference
 
+## AWS Cost Commands
 ```bash
-# ── FIND WASTE IMMEDIATELY ────────────────────────────────
-# Unattached EBS volumes
-aws ec2 describe-volumes --filters Name=status,Values=available \
-  --query 'Volumes[*].[VolumeId,Size,VolumeType,CreateTime]' --output table
-
-# Unused Elastic IPs
-aws ec2 describe-addresses \
-  --query 'Addresses[?AssociationId==null].[AllocationId,PublicIp]' --output table
-
-# Idle load balancers (no targets or low traffic)
-aws elbv2 describe-load-balancers --query 'LoadBalancers[*].[LoadBalancerName,Type,State.Code]' --output table
-
-# Old snapshots (> 30 days old)
-aws ec2 describe-snapshots --owner-ids self \
-  --query "Snapshots[?StartTime<='$(date -d '30 days ago' +%Y-%m-%d)'].[SnapshotId,VolumeSize,StartTime]" --output table
-
-# Instances with low CPU (right-sizing candidates)
-aws cloudwatch get-metric-statistics \
-  --namespace AWS/EC2 --metric-name CPUUtilization \
-  --dimensions Name=InstanceId,Value=i-1234567 \
-  --start-time $(date -d '7 days ago' +%Y-%m-%dT%H:%M:%SZ) \
-  --end-time $(date +%Y-%m-%dT%H:%M:%SZ) \
-  --period 86400 --statistics Average
-
-# ── COST ANALYSIS ─────────────────────────────────────────
-# Total spend by service
+# Cost Explorer
 aws ce get-cost-and-usage \
-  --time-period Start=$(date +%Y-%m-01),End=$(date +%Y-%m-%d) \
-  --granularity MONTHLY --metrics BlendedCost \
-  --group-by Type=DIMENSION,Key=SERVICE \
-  --query 'ResultsByTime[].Groups[*].[Keys[0],Metrics.BlendedCost.Amount]' --output table
+  --time-period Start=2024-01-01,End=2024-01-31 \
+  --granularity MONTHLY --group-by Type=DIMENSION,Key=SERVICE
 
-# Forecast next month
-aws ce get-cost-forecast \
-  --time-period Start=$(date +%Y-%m-01),End=$(date -d 'next month' +%Y-%m-01) \
-  --metric BLENDED_COST --granularity MONTHLY
+# Compute Optimizer (right-sizing)
+aws compute-optimizer get-ec2-instance-recommendations
+aws compute-optimizer get-ecs-service-recommendations
+aws compute-optimizer get-lambda-function-recommendations
 
-# ── SAVINGS PLANS / RI ────────────────────────────────────
-# Current commitments
-aws savingsplans describe-savings-plans
-aws ec2 describe-reserved-instances --query 'ReservedInstances[*].[ReservedInstancesId,InstanceType,State,End]' --output table
+# Trusted Advisor
+aws support describe-trusted-advisor-check-summaries \
+  --check-ids 'Qch7DwouX1'  # Cost optimisation checks
 
-# ── AUTO STOP DEV ENVIRONMENTS ────────────────────────────
-# Tag: Environment=dev → stop at 6PM, start at 8AM weekdays
-# Use EventBridge + Lambda or AWS Instance Scheduler (free CloudFormation template)
-aws cloudformation deploy \
-  --template-url https://s3.amazonaws.com/solutions-reference/aws-instance-scheduler/latest/aws-instance-scheduler.template \
-  --stack-name instance-scheduler \
-  --parameter-overrides DefaultTimezone=Asia/Kolkata
+# Find unused resources
+aws ec2 describe-volumes --filters Name=status,Values=available  # Unattached EBS
+aws ec2 describe-addresses --filters Name=allocation-id,Values=*  # Unused EIPs
+aws ec2 describe-snapshots --owner-ids self --filters Name=status,Values=completed
+```
 
-# ── KEY PRICING RULES ─────────────────────────────────────
-# EC2:     On-Demand > Savings Plan > RI > Spot
-# S3:      Standard > Standard-IA > Glacier-IR > Glacier > Deep Archive
-# Data in: Free | Data out to internet: $0.09/GB (first 10TB)
-# Inter-AZ: $0.01/GB | Same-AZ: Free
-# NAT GW:  $0.045/hr + $0.045/GB processed
+## Cost Saving Reference
+```
+DISCOUNT OPTIONS:
+  On-Demand:      baseline (no discount)
+  Spot:           60-90% off (stateless/fault-tolerant workloads)
+  RI 1yr No-upfront: ~30% off  (predictable workloads)
+  RI 3yr All-upfront: ~60% off (long-running, stable)
+  Savings Plans: 17-66% off (flexible, compute or EC2)
+
+RIGHT SIZING (typically 20-40% savings):
+  Use Compute Optimizer → recommendations per service
+  Target: CPU 40-70%, Memory 40-80%
+  Resize DOWN then enable autoscaling
+
+QUICK WINS:
+  Delete unattached EBS volumes (immediately)
+  Release unassociated Elastic IPs ($3.60/month each)
+  Delete old snapshots (set lifecycle policies)
+  Stop dev/test at end of business hours (save 67%)
+  Delete unused load balancers (~$20/month each)
+  Clean up unused NAT Gateways ($35+/month each)
 ```

@@ -1,39 +1,107 @@
-# MongoDB — Intermediate
+# MongoDB Intermediate Topics
 
-## Core Operations at Scale
+## Schema Design Patterns
 
-At the intermediate level, you move from basic CRUD to understanding how MongoDB works under the hood and writing efficient queries.
+**Embed vs Reference**:
+```javascript
+// EMBED (denormalise): when data is always accessed together
+// Fast reads (single document), but duplication if shared
+{
+  _id: ObjectId("..."),
+  name: "Alice",
+  address: { street: "123 MG Road", city: "Bangalore", pin: "560001" },
+  preferences: { theme: "dark", notifications: true }
+}
 
+// REFERENCE (normalise): when data is large, shared, or updated independently
+{
+  _id: ObjectId("..."),
+  name: "Alice",
+  departmentId: ObjectId("..."),   // Reference to departments collection
+  managerId: ObjectId("...")
+}
+```
 
+**Rules:**
+- Embed: 1:1 or 1:few relationships, accessed together, not shared
+- Reference: 1:many (large), many:many, frequently updated sub-documents
 
+## Aggregation Patterns
 
+```javascript
+// Faceted search (counts per category)
+db.products.aggregate([
+  { $match: { inStock: true } },
+  { $facet: {
+      byCategory: [{ $group: { _id: "$category", count: { $sum: 1 } } }],
+      byBrand:    [{ $group: { _id: "$brand",    count: { $sum: 1 } } }],
+      priceRange: [{ $group: { _id: null,
+          min: { $min: "$price" }, max: { $max: "$price" }
+      }}]
+  }}
+])
 
-## Aggregation Pipeline\n```javascript\n// Count orders by status\ndb.orders.aggregate([\n    { $match: { created_at: { $gte: new Date("2024-01-01") } } },\n    { $group: {\n        _id: "$status",\n        count: { $sum: 1 },\n        total_revenue: { $sum: "$amount" }\n    }},\n    { $sort: { count: -1 } }\n])\n\n// Lookup (JOIN equivalent)\ndb.orders.aggregate([\n    { $lookup: {\n        from: "users",\n        localField: "user_id",\n        foreignField: "_id",\n        as: "user"\n    }},\n    { $unwind: "$user" },\n    { $project: { "user.name": 1, amount: 1, status: 1 } }\n])\n\n// Indexes\ndb.orders.createIndex({ user_id: 1, created_at: -1 })\ndb.users.createIndex({ email: 1 }, { unique: true })\ndb.products.createIndex({ name: "text", description: "text" })  // Text search\n\n// Explain a query\ndb.orders.find({ status: "pending" }).explain("executionStats")\n// Look for: IXSCAN (good) vs COLLSCAN (bad — no index)\n```
+// Bucket (histogram)
+db.orders.aggregate([
+  { $bucket: {
+      groupBy: "$amount",
+      boundaries: [0, 100, 500, 1000, 5000],
+      default: "5000+",
+      output: { count: { $sum: 1 }, total: { $sum: "$amount" } }
+  }}
+])
 
+// Top N per group
+db.orders.aggregate([
+  { $sort: { amount: -1 } },
+  { $group: {
+      _id: "$userId",
+      topOrder: { $first: "$$ROOT" },  // First doc per group after sort
+      orderCount: { $sum: 1 }
+  }}
+])
+```
 
+## Transactions (Multi-document ACID)
 
+```javascript
+// Available since MongoDB 4.0 (replica sets), 4.2 (sharded)
+const session = client.startSession()
+session.startTransaction({
+  readConcern: { level: "snapshot" },
+  writeConcern: { w: "majority" }
+})
 
+try {
+  const orders = client.db("shop").collection("orders")
+  const inventory = client.db("shop").collection("inventory")
+  
+  await orders.insertOne({ userId: "123", items: ["A"] }, { session })
+  await inventory.updateOne({ item: "A" }, { $inc: { qty: -1 } }, { session })
+  
+  await session.commitTransaction()
+} catch (error) {
+  await session.abortTransaction()
+} finally {
+  await session.endSession()
+}
+```
 
-## Performance Checklist
-- ✅ Indexes on all columns used in WHERE, JOIN, ORDER BY
-- ✅ EXPLAIN your slow queries — never guess
-- ✅ Use connection pooling in production
-- ✅ Set appropriate timeouts
-- ✅ Monitor: query time, connection count, cache hit rate
+**Use sparingly**: MongoDB is designed for single-document atomicity. Multi-document transactions have performance cost — redesign schema to avoid if possible.
 
-## Performance Monitoring
+## Revision Notes
+```
+EMBED vs REFERENCE:
+Embed: 1:1, 1:few, always accessed together, not shared
+Reference: 1:many (large), many:many, frequently updated independently
 
-Track these metrics in production to spot issues early:
-- Query response time (aim for < 10ms for cached, < 100ms for DB queries)
-- Connection pool utilization (alert if > 80%)
-- Cache hit rate (Redis: should be > 90%)
-- Replication lag (should be < 1 second)
-- Disk usage growth rate (project when you will run out)
+AGGREGATION STAGES:
+$match (filter) → $group (aggregate) → $sort → $limit
+$lookup (join) → $unwind (flatten array) → $project (select fields)
+$facet: multiple aggregations in parallel (faceted search)
+$bucket: histogram grouping
 
-## Next Steps
-
-Complete the **Advanced** section to learn production architecture patterns including:
-- High availability and automatic failover
-- Horizontal scaling strategies
-- Security hardening
-- Backup and disaster recovery
+TRANSACTIONS: available 4.0+ (replica set), 4.2+ (sharded cluster)
+Performance cost — prefer single-document atomicity via schema design
+Use for: financial operations, inventory, anything requiring atomic multi-doc update
+```

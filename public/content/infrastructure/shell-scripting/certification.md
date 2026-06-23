@@ -1,53 +1,194 @@
-# Shell Scripting — Certification Guide
+# Shell Scripting Certification Guide
 
-## Why Get Certified in Shell Scripting?
+## Certifications Available
 
-Certifications validate your Shell Scripting skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+No dedicated shell scripting certification. Shell scripting tested in:
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+| Cert | Coverage | Provider |
+|------|----------|----------|
+| **RHCSA (EX200)** | Script writing tasks | Red Hat |
+| **LFCS** | Shell scripting on Linux | Linux Foundation |
+| **AWS SysOps** | Shell on EC2 instances | AWS |
 
-## Most Valuable Certifications
+**ShellCheck** (shellcheck.net) is the de-facto linting standard for shell scripts.
 
-Research current certifications for Shell Scripting on these sources:
+---
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+## Core Shell Scripting Patterns
 
-## General Certification Strategy
+```bash
+#!/usr/bin/env bash
+# ALWAYS start with proper shebang
+# Use #!/usr/bin/env bash for portability
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+# SAFETY FLAGS (put at top of every script)
+set -euo pipefail
+# -e: exit on error | -u: error on undefined variable | -o pipefail: fail on pipe error
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
+# VARIABLES
+name="Alice"
+age=30
+readonly CONFIG_FILE="/etc/myapp/config"  # Constants use UPPERCASE + readonly
 
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
+# Double-quote variables to prevent word splitting
+echo "Hello, $name"               # correct
+echo "Files: $(ls /tmp)"          # command substitution
+echo "Count: $((age + 10))"       # arithmetic
 
-## Study Schedule Template
+# ARRAYS
+fruits=("apple" "banana" "cherry")
+echo "${fruits[0]}"                # First element
+echo "${fruits[@]}"                # All elements
+echo "${#fruits[@]}"               # Length
 
+# Read into array
+mapfile -t lines < file.txt        # Read file lines into array
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+
+```bash
+# CONDITIONALS
+if [[ -f "$file" ]]; then          # [[ ]] preferred over [ ]
+    echo "File exists"
+elif [[ -d "$file" ]]; then
+    echo "Directory exists"
+else
+    echo "Neither"
+fi
+
+# File tests
+[[ -f file ]]   # regular file | [[ -d dir ]]  directory
+[[ -e path ]]   # exists       | [[ -r file ]] readable
+[[ -s file ]]   # non-empty    | [[ -x file ]] executable
+[[ -z "$var" ]] # empty string | [[ -n "$var" ]] non-empty
+[[ "$a" == "$b" ]] # string equal | [[ $n -eq $m ]] numeric equal
+
+# LOOPS
+for i in {1..10}; do echo "$i"; done
+for file in /tmp/*.log; do [[ -f "$file" ]] && echo "$file"; done
+
+while IFS= read -r line; do        # Read file line by line
+    echo "$line"
+done < file.txt
+
+# FUNCTIONS
+greet() {
+    local name="$1"                 # local: function-scoped variable
+    local -r title="${2:-Mr/Ms}"    # default value with :-
+    echo "Hello, $title $name"
+    return 0                        # Return exit code
+}
+greet "Alice" "Dr"
 ```
 
-## After Certification
+```bash
+# ERROR HANDLING
+die() {
+    echo "ERROR: $1" >&2            # Write to stderr
+    exit "${2:-1}"                  # Default exit code 1
+}
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+cleanup() {
+    rm -f "$TMPFILE"
+    echo "Cleaned up" >&2
+}
+trap cleanup EXIT INT TERM          # Always run cleanup
+
+TMPFILE=$(mktemp)
+[[ -f "$TMPFILE" ]] || die "Failed to create temp file"
+
+# Check exit codes
+if ! command -v docker &>/dev/null; then
+    die "Docker not installed" 127
+fi
+```
+
+```bash
+# TEXT PROCESSING (essential tools)
+# grep
+grep -rn "ERROR" /var/log/          # Recursive, line numbers
+grep -E "^(ERROR|WARN)" app.log     # Extended regex
+grep -v "DEBUG" app.log | grep -c "ERROR"  # Count non-debug errors
+
+# awk
+awk '{print $1}' access.log         # First column (space-delimited)
+awk -F',' '{print $2}' data.csv     # Second column (comma-delimited)
+awk '$3 > 1000 {print $0}' data     # Filter rows
+awk '{sum += $5} END {print sum}' data  # Sum column 5
+
+# sed
+sed 's/foo/bar/g' file.txt          # Replace all occurrences
+sed -i 's/foo/bar/g' file.txt       # In-place edit
+sed -n '10,20p' file.txt            # Print lines 10-20
+sed '/^#/d' config.txt              # Delete comment lines
+
+# cut, sort, uniq
+cut -d: -f1 /etc/passwd             # First field, colon delimiter
+sort -k2 -n file.txt                # Sort by 2nd field, numeric
+sort | uniq -c | sort -rn           # Count duplicates, most first
+```
+
+---
+
+## Common Script Templates
+
+```bash
+#!/usr/bin/env bash
+# Script template with argument parsing
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LOG_FILE="/tmp/$(basename "$0" .sh).log"
+
+usage() {
+    cat <<EOF
+Usage: $(basename "$0") [OPTIONS] ARGUMENT
+
+Options:
+  -h, --help     Show this help
+  -v, --verbose  Verbose output
+  -o FILE        Output file (default: stdout)
+
+EOF
+    exit "${1:-0}"
+}
+
+VERBOSE=false
+OUTPUT=""
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -h|--help)   usage 0 ;;
+        -v|--verbose) VERBOSE=true ;;
+        -o)          OUTPUT="$2"; shift ;;
+        --)          shift; break ;;
+        -*)          echo "Unknown option: $1" >&2; usage 1 ;;
+        *)           break ;;
+    esac
+    shift
+done
+
+[[ $# -lt 1 ]] && { echo "Error: ARGUMENT required" >&2; usage 1; }
+ARGUMENT="$1"
+```
+
+## Revision Notes
+```
+SHEBANG: #!/usr/bin/env bash (portable) or #!/bin/bash
+SAFETY: set -euo pipefail at top of EVERY script
+
+VARIABLES:
+  UPPERCASE for env vars/constants | lowercase for local vars
+  Always quote: "$var" not $var | local in functions
+
+CONDITIONALS: [[ ]] preferred (handles spaces, regex)
+  File tests: -f (file) -d (dir) -e (exists) -z (empty) -n (non-empty)
+
+LOOPS: for x in list; | while IFS= read -r line; (safest file reading)
+
+DEBUGGING: set -x (trace) | bash -n script.sh (syntax check)
+LINTING: shellcheck script.sh (install: apt install shellcheck)
+
+TEXT TOOLS:
+  grep: search | awk: column processing | sed: stream edit
+  cut: extract columns | sort | uniq -c | wc -l
+```

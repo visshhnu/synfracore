@@ -1,53 +1,161 @@
-# ELK Stack — Certification Guide
+# ELK Stack Certification Guide
 
-## Why Get Certified in ELK Stack?
+## Certifications Available
 
-Certifications validate your ELK Stack skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+| Cert | Full Name | Format | Cost |
+|------|-----------|--------|------|
+| **Elastic Certified Engineer** | ECE | Hands-on lab, 3 hours | $400 |
+| **Elastic Certified Analyst** | ECA | Hands-on lab, 3 hours | $400 |
+| **Elastic Certified Observability Engineer** | ECOE | Hands-on lab, 3 hours | $400 |
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+All Elastic certifications are **performance-based** on a live Elasticsearch cluster.
 
-## Most Valuable Certifications
+---
 
-Research current certifications for ELK Stack on these sources:
-
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
-
-## General Certification Strategy
-
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
-
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
+## Elastic Certified Engineer — Exam Topics
 
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+CLUSTER MANAGEMENT:
+  ✓ Configure nodes for different roles (master, data, ingest, coordinating)
+  ✓ Create and manage index templates and component templates
+  ✓ Configure ILM (Index Lifecycle Management) policies
+  ✓ Set up cross-cluster replication (CCR)
+  ✓ Diagnose and repair cluster health issues (RED/YELLOW)
+  ✓ Back up and restore using snapshots
+
+INDEXING & MAPPING:
+  ✓ Create explicit mappings (avoid mapping explosions)
+  ✓ Text vs keyword vs nested vs object fields
+  ✓ Multi-field mappings
+  ✓ Dynamic templates and index templates
+
+QUERYING:
+  ✓ Write complex Query DSL (bool, must, filter, should, must_not)
+  ✓ Aggregations (terms, date_histogram, avg, cardinality, nested)
+  ✓ Search templates and async search
+  ✓ Score tuning with boost, function_score
+
+PERFORMANCE:
+  ✓ Optimize shard sizing and count
+  ✓ Optimize index for write vs read
+  ✓ Identify slow queries with slow logs
 ```
 
-## After Certification
+---
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## Must-Know API Patterns
+
+```bash
+# Cluster health and diagnostics
+GET _cluster/health?pretty
+GET _cluster/stats
+GET _cat/indices?v&s=index
+GET _cat/shards?v&h=index,shard,prirep,state,node&s=state
+GET _cat/nodes?v&h=name,heap.percent,cpu,load_1m
+
+# ILM — Index Lifecycle Management
+PUT _ilm/policy/logs-policy
+{
+  "policy": {
+    "phases": {
+      "hot":    { "min_age": "0ms", "actions": { "rollover": { "max_age": "1d", "max_primary_shard_size": "50gb" } } },
+      "warm":   { "min_age": "3d",  "actions": { "shrink": { "number_of_shards": 1 }, "forcemerge": { "max_num_segments": 1 } } },
+      "cold":   { "min_age": "30d", "actions": { "freeze": {} } },
+      "delete": { "min_age": "90d", "actions": { "delete": {} } }
+    }
+  }
+}
+
+# Index template
+PUT _index_template/logs-template
+{
+  "index_patterns": ["logs-*"],
+  "template": {
+    "settings": { "number_of_shards": 1, "number_of_replicas": 1 },
+    "mappings": {
+      "properties": {
+        "@timestamp": { "type": "date" },
+        "message":    { "type": "text" },
+        "level":      { "type": "keyword" },
+        "service":    { "type": "keyword" }
+      }
+    }
+  }
+}
+
+# Snapshot backup
+PUT _snapshot/my_repository
+{ "type": "s3", "settings": { "bucket": "my-es-snapshots", "region": "us-east-1" } }
+
+PUT _snapshot/my_repository/snapshot_2024-01
+{ "indices": "logs-*", "include_global_state": false }
+
+POST _snapshot/my_repository/snapshot_2024-01/_restore
+{ "indices": "logs-2024.01.*" }
+```
+
+---
+
+## Logstash Pipeline Configuration
+
+```ruby
+# /etc/logstash/conf.d/pipeline.conf
+input {
+  beats { port => 5044 }
+  kafka {
+    bootstrap_servers => "kafka:9092"
+    topics => ["app-logs"]
+    codec => json
+  }
+}
+
+filter {
+  grok {
+    match => { "message" => "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:level} %{GREEDYDATA:msg}" }
+  }
+  date {
+    match => [ "timestamp", "ISO8601" ]
+    target => "@timestamp"
+  }
+  if [level] == "ERROR" {
+    mutate { add_tag => ["error"] }
+  }
+  geoip { source => "client_ip" }
+}
+
+output {
+  elasticsearch {
+    hosts => ["https://es:9200"]
+    user => "elastic"
+    password => "${ES_PASSWORD}"
+    index => "logs-%{+YYYY.MM.dd}"
+    ilm_enabled => true
+    ilm_rollover_alias => "logs"
+    ilm_policy => "logs-policy"
+  }
+}
+```
+
+## Revision Notes
+```
+ELASTIC CERTS: hands-on, 3 hours, live cluster, expensive ($400)
+Study from elastic.co/training — official learning paths
+
+CLUSTER HEALTH:
+  GREEN: all shards assigned | YELLOW: replicas unassigned | RED: primary missing
+  Fix YELLOW single-node: set replicas=0 or add a node
+
+SHARD SIZING: target 20-50GB per shard | avoid too-many-small-shards
+Index per day/week/month depending on volume
+
+QUERY DSL:
+  must: AND (affects score) | filter: AND (cached, no score)
+  should: OR (boosts score) | must_not: NOT (no score)
+  Use filter context for exact matches (faster, cached)
+
+ILM: hot (active write) → warm (query only) → cold (frozen) → delete
+Rollover: max_age or max_size triggers new index
+
+MAPPINGS: text (full-text, tokenised) vs keyword (exact, aggregate, sort)
+Multi-field: map as BOTH text and keyword
+```

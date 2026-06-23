@@ -1,53 +1,51 @@
-# AWS Lambda — Cheatsheet
+# AWS Lambda Quick Reference
 
+## CLI Commands
 ```bash
-# ── DEPLOY & MANAGE ───────────────────────────────────────
-# Create function
-zip function.zip lambda_function.py
-aws lambda create-function   --function-name my-function   --runtime python3.12   --role arn:aws:iam::ACCOUNT:role/LambdaRole   --handler lambda_function.lambda_handler   --zip-file fileb://function.zip   --timeout 30 --memory-size 512
+# Deploy
+zip function.zip index.js
+aws lambda create-function --function-name my-fn \
+  --runtime nodejs20.x --handler index.handler \
+  --role arn:aws:iam::123:role/LambdaRole \
+  --zip-file fileb://function.zip
 
-# Update code
-zip -r function.zip .
-aws lambda update-function-code --function-name my-function --zip-file fileb://function.zip
-
-# Update config
-aws lambda update-function-configuration --function-name my-function   --timeout 60 --memory-size 1024   --environment "Variables={DB_HOST=db.internal,LOG_LEVEL=INFO}"
+aws lambda update-function-code --function-name my-fn --zip-file fileb://function.zip
+aws lambda publish-version --function-name my-fn
+aws lambda create-alias --function-name my-fn --name prod --function-version 5
 
 # Invoke
-aws lambda invoke --function-name my-function   --payload '{"key":"value"}' --cli-binary-format raw-in-base64-out   output.json && cat output.json
+aws lambda invoke --function-name my-fn --payload '{}' response.json
+aws lambda invoke --function-name my-fn --invocation-type Event --payload '{}'  output.json  # Async
 
-# ── MONITORING ────────────────────────────────────────────
-aws logs tail /aws/lambda/my-function --follow --since 10m
-aws logs filter-log-events --log-group-name /aws/lambda/my-function   --filter-pattern "ERROR" --start-time $(date -d '1 hour ago' +%s000)
+# Config
+aws lambda update-function-configuration --function-name my-fn --memory-size 512 --timeout 30
+aws lambda put-function-concurrency --function-name my-fn --reserved-concurrent-executions 100
+aws lambda put-provisioned-concurrency-config --function-name my-fn --qualifier prod --provisioned-concurrent-executions 10
 
-# Key metrics (CloudWatch):
-# Duration, Errors, Throttles, ConcurrentExecutions
-# IteratorAge (Kinesis/DynamoDB streams), DeadLetterErrors
+# Logs
+aws logs tail /aws/lambda/my-fn --follow
+aws logs filter-log-events --log-group-name /aws/lambda/my-fn --filter-pattern 'ERROR'
+```
 
-# ── TRIGGERS & EVENT SOURCES ─────────────────────────────
-# S3 trigger
-aws lambda add-permission --function-name my-function   --statement-id s3-trigger --action lambda:InvokeFunction   --principal s3.amazonaws.com --source-arn arn:aws:s3:::my-bucket
+## Key Limits & Concepts
+```
+Limits:
+  Memory:    128MB – 10,240MB
+  Timeout:   max 15 minutes
+  Package:   50MB zip, 250MB unzipped, 10GB container image
+  /tmp:      512MB default, up to 10GB
+  Concurrent: 1,000 default (increase via support)
 
-# EventBridge (cron)
-aws events put-rule --name daily-job --schedule-expression "cron(0 2 * * ? *)"
-aws events put-targets --rule daily-job   --targets "Id=1,Arn=arn:aws:lambda:REGION:ACCOUNT:function:my-function"
+Invocation types:
+  RequestResponse (sync):  API GW, SDK calls — caller waits
+  Event (async):           S3, SNS — queued, retries 2x on failure
+  DryRun:                  check permissions only
 
-# SQS trigger
-aws lambda create-event-source-mapping   --function-name my-function   --event-source-arn arn:aws:sqs:REGION:ACCOUNT:my-queue   --batch-size 10 --maximum-batching-window-in-seconds 30
+Pricing: 1M free requests/month + 400,000 GB-seconds compute
+  After free tier: $0.20 per 1M requests + $0.0000166667/GB-sec
 
-# ── VERSIONS & ALIASES ────────────────────────────────────
-aws lambda publish-version --function-name my-function
-aws lambda create-alias --function-name my-function --name prod   --function-version 5 --routing-config '{"AdditionalVersionWeights":{"4":0.1}}'
-# 90% to v5 (prod), 10% to v4 (canary)
-
-# ── LAMBDA FUNCTION URL ───────────────────────────────────
-aws lambda create-function-url-config   --function-name my-function --auth-type NONE
-# Returns: https://xxxxx.lambda-url.REGION.on.aws/
-
-# ── COMMON LIMITS ─────────────────────────────────────────
-# Max execution time: 15 minutes
-# Memory: 128MB – 10,240MB (10GB)
-# Package size: 50MB (zip), 250MB (unzipped), 10GB (container)
-# Concurrent executions: 1,000 (soft limit, request increase)
-# /tmp storage: 512MB – 10,240MB
+Cold start mitigation:
+  Provisioned Concurrency: pre-warm environments (cost: $$)
+  Keep package small | minimize init code outside handler
+  Use arm64 (Graviton): 20% cheaper, often faster
 ```

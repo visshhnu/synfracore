@@ -1,53 +1,64 @@
-# VPC — Certification Guide
+# AWS VPC & Networking Certification Guide
 
-## Why Get Certified in VPC?
+## Primary Certification
 
-Certifications validate your VPC skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+**AWS Advanced Networking Specialty (ANS-C01)**
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+*Format*: 65 questions | 170 minutes | 750/1000 | $300 USD (Advanced Networking)
 
-## Most Valuable Certifications
+## Related Certifications
 
-Research current certifications for VPC on these sources:
+- AWS Solutions Architect Associate (VPC is 20-25% of exam)
+- AWS SysOps
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+## Key Exam Topics
 
-## General Certification Strategy
+- VPC architecture: subnets (public/private), route tables, IGW, NAT Gateway
+- Security Groups (stateful) vs NACLs (stateless, subnet-level, ordered rules)
+- VPC Peering: non-transitive, no overlapping CIDR, cross-region/account supported
+- Transit Gateway: hub-and-spoke for many VPCs; replaces complex peering mesh
+- VPC Endpoints: Gateway (S3/DynamoDB, free) vs Interface (PrivateLink, per-hour cost)
+- Direct Connect: dedicated network connection (1G, 10G, 100G), lower latency than VPN
+- VPN: site-to-site (IPSec over internet) or Client VPN (OpenVPN to remote workers)
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+## Must-Know CLI Commands
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
-
-```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+```bash
+aws ec2 create-vpc --cidr-block 10.0.0.0/16 --tag-specifications "ResourceType=vpc,Tags=[{Key=Name,Value=MyVPC}]"
+aws ec2 create-subnet --vpc-id vpc-xxx --cidr-block 10.0.1.0/24 --availability-zone us-east-1a
+aws ec2 create-nat-gateway --subnet-id subnet-xxx --allocation-id eipalloc-xxx
+aws ec2 create-vpc-endpoint --vpc-id vpc-xxx --service-name com.amazonaws.us-east-1.s3 --vpc-endpoint-type Gateway
+aws ec2 describe-flow-logs
 ```
 
-## After Certification
+## Exam Tips
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+- VPC Peering: must update BOTH route tables; /32 routes to peer VPC resources
+- Transit Gateway: single point; can share across accounts via RAM
+- NAT Gateway: per-AZ for HA; $35+/month + data processing charges
+- VPC Flow Logs: capture IP traffic metadata (not payload); send to S3 or CloudWatch
+
+## Study Plan
+
+**Week 1-2**: Read official docs + overview/fundamentals sections in this platform
+**Week 3-4**: Hands-on labs (AWS free tier / Azure sandbox / GCP free tier)
+**Week 5**: Practice exams (TutorialsDojo, ExamTopics, Whizlabs)
+**Final days**: Review weak areas + cheatsheet
+
+## Free Study Resources
+
+- AWS: aws.amazon.com/training — free digital courses
+- Azure: learn.microsoft.com — Microsoft Learn (free + sandbox labs)
+- GCP: cloud.google.com/training — free courses + Qwiklabs credits
+- TutorialsDojo: cheat sheets for all exams (best value paid resource)
+
+## Revision Notes
+```
+PRIMARY EXAM: AWS Advanced Networking Specialty (ANS-C01)
+
+TOP TOPICS:
+  VPC architecture: subnets (public/private), route tables, IGW, NAT Gateway
+  Security Groups (stateful) vs NACLs (stateless, subnet-level, ordered rules)
+  VPC Peering: non-transitive, no overlapping CIDR, cross-region/account supported
+  Transit Gateway: hub-and-spoke for many VPCs; replaces complex peering mesh
+```

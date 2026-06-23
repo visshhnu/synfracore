@@ -1,55 +1,42 @@
-# GKE — Cheatsheet
+# Google GKE Quick Reference
 
+## gcloud container Commands
 ```bash
-# ── CLUSTER ───────────────────────────────────────────────
-# Create Standard cluster
-gcloud container clusters create prod \
-  --region asia-south1 --num-nodes 3 \
-  --machine-type e2-standard-4 \
-  --enable-autoscaling --min-nodes 1 --max-nodes 10 \
-  --workload-pool=$(gcloud config get-value project).svc.id.goog \
-  --enable-network-policy \
-  --release-channel regular
+# Cluster management
+gcloud container clusters create my-cluster \
+  --region us-central1 --num-nodes 3 \
+  --machine-type n2-standard-4 \
+  --enable-ip-alias --workload-pool=PROJECT.svc.id.goog
 
-# Create Autopilot cluster
-gcloud container clusters create-auto prod \
-  --region asia-south1 --release-channel regular
+gcloud container clusters get-credentials my-cluster --region us-central1
+gcloud container clusters describe my-cluster --region us-central1
+gcloud container clusters upgrade my-cluster --master --cluster-version 1.29
+gcloud container clusters delete my-cluster --region us-central1
 
-# Get credentials
-gcloud container clusters get-credentials prod --region asia-south1
+# Node pools
+gcloud container node-pools create spot-pool --cluster my-cluster \
+  --region us-central1 --spot --machine-type n2-standard-4 \
+  --enable-autoscaling --min-nodes 0 --max-nodes 20
+gcloud container node-pools delete old-pool --cluster my-cluster --region us-central1
 
-# List and describe
-gcloud container clusters list
-gcloud container clusters describe prod --region asia-south1
-
-# Upgrade
-gcloud container clusters upgrade prod --region asia-south1 --master  # Control plane
-gcloud container clusters upgrade prod --region asia-south1 --node-pool=default-pool
-
-# ── NODE POOLS ────────────────────────────────────────────
-gcloud container node-pools list --cluster prod --region asia-south1
-gcloud container node-pools create spot-pool \
-  --cluster prod --region asia-south1 \
-  --machine-type e2-standard-4 --spot \
-  --enable-autoscaling --min-nodes 0 --max-nodes 50
-gcloud container node-pools delete old-pool --cluster prod --region asia-south1
-
-# ── WORKLOAD IDENTITY ─────────────────────────────────────
-PROJECT=$(gcloud config get-value project)
-gcloud iam service-accounts create app-gsa
-gcloud iam service-accounts add-iam-policy-binding app-gsa@$PROJECT.iam.gserviceaccount.com \
+# Workload Identity
+gcloud container clusters update my-cluster --region us-central1 \
+  --workload-pool=PROJECT.svc.id.goog
+gcloud iam service-accounts add-iam-policy-binding GSA@PROJECT.iam.gserviceaccount.com \
   --role roles/iam.workloadIdentityUser \
-  --member "serviceAccount:$PROJECT.svc.id.goog[default/app-ksa]"
-kubectl annotate sa app-ksa iam.gke.io/gcp-service-account=app-gsa@$PROJECT.iam.gserviceaccount.com
+  --member 'serviceAccount:PROJECT.svc.id.goog[NAMESPACE/KSA]'
+kubectl annotate sa KSA iam.gke.io/gcp-service-account=GSA@PROJECT.iam.gserviceaccount.com
+```
 
-# ── ADDONS ────────────────────────────────────────────────
-gcloud container clusters update prod --region asia-south1 \
-  --update-addons=GcePersistentDiskCsiDriver=ENABLED
-gcloud container clusters update prod --region asia-south1 \
-  --enable-stackdriver-kubernetes   # Cloud Monitoring + Logging
+## Key Reference
+```
+Standard vs Autopilot:
+  Standard:  manage nodes yourself, pay per node
+  Autopilot: Google manages nodes, pay per pod (recommended for most)
 
-# ── ARTIFACT REGISTRY ─────────────────────────────────────
-gcloud auth configure-docker asia-south1-docker.pkg.dev
-docker tag myapp asia-south1-docker.pkg.dev/$PROJECT/myrepo/myapp:v1
-docker push asia-south1-docker.pkg.dev/$PROJECT/myrepo/myapp:v1
+VPC-native (--enable-ip-alias): real VPC IPs per pod
+Private cluster (--enable-private-nodes): no external node IPs
+
+Spot nodes: 60-91% cheaper, preemptible in 24hr
+Node auto-provisioning: creates new pools as needed
 ```

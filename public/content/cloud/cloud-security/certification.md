@@ -1,53 +1,65 @@
-# Cloud Security — Certification Guide
+# Cloud Security Certification Guide
 
-## Why Get Certified in Cloud Security?
+## Primary Certification
 
-Certifications validate your Cloud Security skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+**AWS Certified Security Specialty (SCS-C02)**
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+*Format*: Varies by vendor | $300-$400 USD for specialties
 
-## Most Valuable Certifications
+## Related Certifications
 
-Research current certifications for Cloud Security on these sources:
+- Google Professional Cloud Security Engineer
+- AZ-500 Azure Security
+- CCSP (Cloud Security Professional)
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+## Key Exam Topics
 
-## General Certification Strategy
+- Shared responsibility model: vendor secures OF the cloud; customer secures IN the cloud
+- IAM least privilege: grant minimum permissions needed; audit unused with Access Advisor
+- CSPM tools: Security Hub (AWS), Defender for Cloud (Azure), Security Command Center (GCP)
+- Encryption: at rest (KMS managed keys) + in transit (TLS 1.2+)
+- Network security: private subnets, NACLs/NSGs, WAF, DDoS protection (Shield/Armor)
+- Threat detection: GuardDuty (AWS), Microsoft Sentinel (Azure), Chronicle (GCP)
+- Compliance: AWS Config/Azure Policy/GCP OrgPolicies for continuous compliance monitoring
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+## Must-Know CLI Commands
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
-
-```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+```bash
+aws securityhub enable-security-hub --enable-default-standards
+aws guardduty create-detector --enable --finding-publishing-frequency FIFTEEN_MINUTES
+aws kms create-key --description "My CMK" --key-usage ENCRYPT_DECRYPT
+aws kms enable-key-rotation --key-id arn:aws:kms:...
+aws wafv2 list-web-acls --scope REGIONAL --region us-east-1
 ```
 
-## After Certification
+## Exam Tips
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+- Enable GuardDuty, Security Hub, Config in ALL regions — threats can come from any region
+- S3 Block Public Access: enable account-wide as baseline, then explicitly allow if needed
+- CloudTrail: enable in all regions + S3 bucket in separate account for immutable audit log
+- Secrets Manager vs SSM Parameter Store: Secrets Manager for credentials (rotation built-in)
+
+## Study Plan
+
+**Week 1-2**: Read official docs + overview/fundamentals sections in this platform
+**Week 3-4**: Hands-on labs (AWS free tier / Azure sandbox / GCP free tier)
+**Week 5**: Practice exams (TutorialsDojo, ExamTopics, Whizlabs)
+**Final days**: Review weak areas + cheatsheet
+
+## Free Study Resources
+
+- AWS: aws.amazon.com/training — free digital courses
+- Azure: learn.microsoft.com — Microsoft Learn (free + sandbox labs)
+- GCP: cloud.google.com/training — free courses + Qwiklabs credits
+- TutorialsDojo: cheat sheets for all exams (best value paid resource)
+
+## Revision Notes
+```
+PRIMARY EXAM: AWS Certified Security Specialty (SCS-C02)
+
+TOP TOPICS:
+  Shared responsibility model: vendor secures OF the cloud; customer secures IN th
+  IAM least privilege: grant minimum permissions needed; audit unused with Access 
+  CSPM tools: Security Hub (AWS), Defender for Cloud (Azure), Security Command Cen
+  Encryption: at rest (KMS managed keys) + in transit (TLS 1.2+)
+```

@@ -1,45 +1,52 @@
-# BigQuery — Cheatsheet
+# BigQuery Quick Reference
 
+## bq CLI Commands
 ```bash
-# ── CLI OPERATIONS ────────────────────────────────────────
-bq ls                                              # List datasets
-bq ls project:dataset                             # List tables
-bq show project:dataset.table                     # Table info + schema
-bq query --use_legacy_sql=false 'SELECT COUNT(*) FROM project.dataset.table'
-bq query --dry_run --use_legacy_sql=false 'SELECT * FROM big_table'  # Cost estimate
-bq mk --dataset project:new_dataset
-bq mk --table project:dataset.table name:STRING,age:INT64
-bq rm -r project:old_dataset
-bq extract project:dataset.table gs://bucket/export-*.csv
-bq load --source_format=CSV project:dataset.table gs://bucket/data.csv schema.json
-bq load --source_format=PARQUET --autodetect project:dataset.table gs://bucket/*.parquet
+bq ls                                          # List datasets
+bq ls myproject:mydataset                      # List tables
+bq show mydataset.mytable                      # Table schema
+bq head -n 5 mydataset.mytable                 # First 5 rows
+bq query --use_legacy_sql=false 'SELECT COUNT(*) FROM mydataset.mytable'
 
-# ── KEY SQL PATTERNS ──────────────────────────────────────
--- Date manipulation
-DATE_TRUNC(date_col, MONTH)
-DATE_ADD(CURRENT_DATE(), INTERVAL 7 DAY)
-DATE_DIFF(end_date, start_date, DAY)
-FORMAT_DATE('%Y-%m', date_col)
+# Load data
+bq load --autodetect --source_format=CSV mydataset.mytable gs://bucket/file.csv
+bq load --source_format=NEWLINE_DELIMITED_JSON mydataset.mytable gs://bucket/*.json schema.json
 
--- Array and struct
-ARRAY_LENGTH(arr_col)
-UNNEST(arr_col) AS item                           -- Flatten arrays
-arr_col[ORDINAL(1)]                               -- 1-indexed array access
-STRUCT('Alice' AS name, 30 AS age)
+# Create table
+bq mk --table mydataset.mytable name:STRING,age:INTEGER,created:TIMESTAMP
+bq mk --table --time_partitioning_field=created_at \
+  --clustering_fields=region,product mydataset.events schema.json
 
--- Approximate aggregates (faster for large data)
-APPROX_COUNT_DISTINCT(user_id)                    -- Faster than COUNT(DISTINCT)
-APPROX_TOP_COUNT(product_id, 10)                  -- Top 10 most frequent
-APPROX_QUANTILES(price, 100)[OFFSET(50)]          -- Median
+# Copy and export
+bq cp mydataset.source mydataset.destination
+bq extract mydataset.mytable gs://bucket/export-*.csv
+bq rm -f mydataset.mytable
+```
 
--- Window functions
-ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY created_at DESC)
-SUM(revenue) OVER (PARTITION BY user_id ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)
-LAG(value, 1) OVER (PARTITION BY id ORDER BY date)
+## SQL Patterns
+```sql
+-- Partition pruning (key for cost control!)
+SELECT * FROM `project.dataset.events`
+WHERE DATE(created_at) = '2024-01-15'  -- Scans only that partition
 
--- ── INFORMATION_SCHEMA (metadata queries) ────────────────
-SELECT * FROM INFORMATION_SCHEMA.TABLES
-SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = 'my_table'
-SELECT * FROM region-us.INFORMATION_SCHEMA.JOBS_BY_PROJECT WHERE DATE(creation_time) = CURRENT_DATE()
-SELECT * FROM region-us.INFORMATION_SCHEMA.TABLE_STORAGE WHERE table_name = 'events'
+-- Wildcard tables
+SELECT * FROM `project.dataset.events_*`
+WHERE _TABLE_SUFFIX BETWEEN '20240101' AND '20240131'
+
+-- Approximate count (much faster/cheaper)
+SELECT APPROX_COUNT_DISTINCT(user_id) FROM events
+
+-- Struct and array
+SELECT name, ARRAY_LENGTH(items) as item_count FROM orders
+SELECT o.name, item FROM orders o, UNNEST(o.items) AS item
+```
+
+## Cost Control Reference
+```
+ALWAYS SELECT only needed columns (columnar = you pay per column scanned)
+Use WHERE on partition column (DATE/TIMESTAMP) to prune partitions
+Clustering: filter on cluster columns after partition → less scan
+Materialised views: pre-compute expensive aggregations
+APPROX_COUNT_DISTINCT: much faster than COUNT(DISTINCT)
+Dry run: bq query --dry_run → shows bytes to be scanned before running
 ```

@@ -1,53 +1,55 @@
-# AWS EKS — Cheatsheet
+# AWS EKS Quick Reference
 
+## eksctl Commands
 ```bash
-# ── CLUSTER MANAGEMENT ────────────────────────────────────
-# Create cluster with eksctl
-eksctl create cluster --name prod   --region ap-south-1 --version 1.30   --nodegroup-name workers --node-type t3.medium   --nodes 3 --nodes-min 1 --nodes-max 10   --managed
+# Cluster management
+eksctl create cluster --name my-cluster --region us-east-1 --nodegroup-name workers \
+  --node-type m5.large --nodes 3 --nodes-min 2 --nodes-max 5 --managed
+eksctl delete cluster --name my-cluster
+eksctl get cluster
+eksctl upgrade cluster --name my-cluster --approve
 
-# Get kubeconfig
-aws eks update-kubeconfig --name prod --region ap-south-1
+# Node groups
+eksctl create nodegroup --cluster my-cluster --name gpu-pool \
+  --node-type g4dn.xlarge --nodes 2 --nodes-min 0 --nodes-max 5
+eksctl delete nodegroup --cluster my-cluster --name old-nodes
+eksctl scale nodegroup --cluster my-cluster --name workers --nodes 5
 
-# Cluster info
-aws eks describe-cluster --name prod --query 'cluster.[status,version,endpoint]' --output text
-eksctl get cluster --region ap-south-1
+# IRSA
+eksctl utils associate-iam-oidc-provider --cluster my-cluster --approve
+eksctl create iamserviceaccount --cluster my-cluster \
+  --name s3-reader --namespace default \
+  --attach-policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess --approve
+```
 
-# ── NODE GROUPS ───────────────────────────────────────────
-eksctl create nodegroup --cluster prod   --name spot-workers --node-type m5.large   --spot --nodes 0 --nodes-min 0 --nodes-max 20
+## aws eks Commands
+```bash
+aws eks list-clusters
+aws eks describe-cluster --name my-cluster
+aws eks update-kubeconfig --name my-cluster --region us-east-1
+aws eks get-token --cluster-name my-cluster  # Get auth token
 
-eksctl scale nodegroup --cluster prod --name workers --nodes 5
-eksctl delete nodegroup --cluster prod --name old-workers --drain
+# Add-ons
+aws eks list-addons --cluster-name my-cluster
+aws eks create-addon --cluster-name my-cluster --addon-name vpc-cni
+aws eks update-addon --cluster-name my-cluster --addon-name vpc-cni \
+  --addon-version v1.18.0-eksbuild.1
+```
 
-# ── ADDONS ────────────────────────────────────────────────
-aws eks create-addon --cluster-name prod --addon-name vpc-cni --resolve-conflicts OVERWRITE
-aws eks create-addon --cluster-name prod --addon-name coredns
-aws eks create-addon --cluster-name prod --addon-name kube-proxy
-aws eks create-addon --cluster-name prod --addon-name aws-ebs-csi-driver
-aws eks list-addons --cluster-name prod
+## Key Reference
+```
+Node options:
+  Managed Node Groups: AWS manages EC2 lifecycle
+  Fargate:             serverless pods (no nodes), pay per pod
+  Karpenter:           smart right-sized provisioning
 
-# ── WORKLOAD IDENTITY (IRSA) ──────────────────────────────
-# Create OIDC provider
-eksctl utils associate-iam-oidc-provider --cluster prod --approve
+VPC CNI limits (IPs per node):
+  ENIs × IPs per ENI - 1 = max pods
+  m5.large: 3 ENIs × 10 IPs = 29 max pods
+  Enable prefix delegation: 3 × 10 × 16 = 480 pod IPs
 
-# Create service account with IAM role
-eksctl create iamserviceaccount   --cluster prod   --namespace default   --name s3-reader   --attach-policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess   --approve
-
-# ── ALB INGRESS ───────────────────────────────────────────
-# Install AWS Load Balancer Controller
-helm install aws-load-balancer-controller eks/aws-load-balancer-controller   -n kube-system   --set clusterName=prod   --set serviceAccount.create=false   --set serviceAccount.name=aws-load-balancer-controller
-
-# ── AUTOSCALING ───────────────────────────────────────────
-# Cluster Autoscaler
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
-
-# Karpenter (modern alternative - faster, cheaper)
-helm install karpenter oci://public.ecr.aws/karpenter/karpenter   --namespace karpenter --create-namespace   --set settings.clusterName=prod
-
-# ── UPGRADE ───────────────────────────────────────────────
-# Update control plane
-aws eks update-cluster-version --name prod --kubernetes-version 1.31
-aws eks wait cluster-active --name prod
-
-# Update node group
-aws eks update-nodegroup-version --cluster-name prod --nodegroup-name workers
+EKS Auth (aws-auth ConfigMap):
+  Maps IAM roles/users to K8s RBAC
+  kubectl edit configmap aws-auth -n kube-system
+  Or use: eksctl create iamidentitymapping
 ```

@@ -1,39 +1,104 @@
-# MySQL — Intermediate
+# MySQL Intermediate Topics
 
-## Core Operations at Scale
+## InnoDB Storage Engine
 
-At the intermediate level, you move from basic CRUD to understanding how MySQL works under the hood and writing efficient queries.
+InnoDB is MySQL's default and recommended storage engine. Key features:
 
-## SQL Joins and Aggregations\n```sql\n-- INNER JOIN: only matching rows\nSELECT u.name, o.total FROM users u\nINNER JOIN orders o ON u.id = o.user_id;\n\n-- LEFT JOIN: all users, NULL if no orders\nSELECT u.name, COUNT(o.id) as order_count\nFROM users u LEFT JOIN orders o ON u.id = o.user_id\nGROUP BY u.id, u.name\nHAVING COUNT(o.id) > 5\nORDER BY order_count DESC;\n\n-- Subquery\nSELECT * FROM products\nWHERE price > (SELECT AVG(price) FROM products);\n\n-- Window function\nSELECT name, price,\n    RANK() OVER (PARTITION BY category ORDER BY price DESC) as price_rank\nFROM products;\n```\n\n## Indexing Strategy\n```sql\n-- Always index foreign keys\nCREATE INDEX idx_orders_user_id ON orders(user_id);\n\n-- Composite index: column order matters\n-- Good for WHERE status = X AND created_at > Y\nCREATE INDEX idx_orders_status_date ON orders(status, created_at);\n\n-- Check if index is used\nEXPLAIN SELECT * FROM orders WHERE user_id = 5;\n-- Look for: type=ref (index used) vs type=ALL (full scan — bad)\n```
+- **ACID transactions**: BEGIN/COMMIT/ROLLBACK with full support
+- **Row-level locking**: Better concurrency than table-level locks
+- **Foreign keys**: Enforced referential integrity
+- **MVCC**: Readers don't block writers (consistent read snapshots)
+- **Crash recovery**: Redo log ensures durability after crash
 
+```sql
+-- Check engine
+SHOW TABLE STATUS LIKE 'orders';   -- Engine column shows InnoDB
+SHOW ENGINE INNODB STATUS;         -- Internal state, deadlock info
 
+-- InnoDB buffer pool (most important tuning parameter)
+-- Set to 70-80% of available RAM
+SET GLOBAL innodb_buffer_pool_size = 4*1024*1024*1024;  -- 4GB
 
+-- Check buffer pool hit rate (should be > 99%)
+SHOW STATUS LIKE 'Innodb_buffer_pool_read%';
+```
 
+## Indexing Strategy
 
+```sql
+-- Composite index: leftmost prefix rule
+CREATE INDEX idx_user_status_date ON orders(user_id, status, created_at);
 
+-- Supports these WHERE clauses:
+-- WHERE user_id = ?
+-- WHERE user_id = ? AND status = ?
+-- WHERE user_id = ? AND status = ? AND created_at > ?
 
+-- Does NOT efficiently support:
+-- WHERE status = ?                  (missing user_id prefix)
+-- WHERE user_id = ? AND created_at > ?  (missing status in middle)
 
+-- Index selectivity: high cardinality = better index candidate
+SELECT COUNT(DISTINCT status)/COUNT(*) FROM orders;    -- low (bad index candidate)
+SELECT COUNT(DISTINCT user_id)/COUNT(*) FROM orders;   -- high (good index candidate)
 
-## Performance Checklist
-- ✅ Indexes on all columns used in WHERE, JOIN, ORDER BY
-- ✅ EXPLAIN your slow queries — never guess
-- ✅ Use connection pooling in production
-- ✅ Set appropriate timeouts
-- ✅ Monitor: query time, connection count, cache hit rate
+-- Covering index for frequent queries
+CREATE INDEX idx_list ON orders(user_id, status, amount, created_at);
+-- Avoids accessing table data entirely for:
+SELECT amount, created_at FROM orders WHERE user_id=1 AND status='paid';
+```
 
-## Performance Monitoring
+## Locking and Deadlocks
 
-Track these metrics in production to spot issues early:
-- Query response time (aim for < 10ms for cached, < 100ms for DB queries)
-- Connection pool utilization (alert if > 80%)
-- Cache hit rate (Redis: should be > 90%)
-- Replication lag (should be < 1 second)
-- Disk usage growth rate (project when you will run out)
+```sql
+-- Row locks (InnoDB default)
+SELECT * FROM accounts WHERE id = 1 FOR UPDATE;  -- Exclusive lock
+SELECT * FROM accounts WHERE id = 1 LOCK IN SHARE MODE;  -- Shared lock
 
-## Next Steps
+-- Deadlock detection (automatic): MySQL auto-rolls back smaller transaction
+-- Investigate deadlocks
+SHOW ENGINE INNODB STATUS;   -- Look for LATEST DETECTED DEADLOCK section
 
-Complete the **Advanced** section to learn production architecture patterns including:
-- High availability and automatic failover
-- Horizontal scaling strategies
-- Security hardening
-- Backup and disaster recovery
+-- Prevent deadlocks:
+-- 1. Always access tables/rows in same order across transactions
+-- 2. Keep transactions short
+-- 3. Use SELECT ... FOR UPDATE only when needed
+-- 4. Add indexes (avoid gap locks from range scans)
+```
+
+## JSON Data Type (MySQL 5.7+)
+
+```sql
+CREATE TABLE events (
+    id INT PRIMARY KEY,
+    data JSON
+);
+
+INSERT INTO events VALUES (1, '{"type":"click","user":123,"page":"/home"}');
+
+-- Query JSON
+SELECT data->>'$.type' FROM events WHERE id = 1;         -- "click"
+SELECT data->'$.user' FROM events;                        -- 123 (integer)
+SELECT * FROM events WHERE data->>'$.type' = 'click';
+
+-- Index virtual column from JSON
+ALTER TABLE events ADD COLUMN event_type VARCHAR(50)
+    GENERATED ALWAYS AS (data->>'$.type') STORED;
+CREATE INDEX idx_event_type ON events(event_type);
+```
+
+## Revision Notes
+```
+INNODB: row-level locking, MVCC, ACID, crash recovery
+Buffer pool: 70-80% RAM. Hit rate > 99% = good.
+
+COMPOSITE INDEX RULE: leftmost prefix must be present in WHERE clause
+Cardinality: high cardinality cols make better index candidates
+Covering index: all SELECT cols in index = index-only scan
+
+DEADLOCK: MySQL auto-detects and rolls back. Check INNODB STATUS.
+Prevention: consistent lock order, short transactions, add indexes
+
+JSON: data->>'$.field' extracts as string, ->'$.field' as JSON
+Index JSON fields via GENERATED ALWAYS AS virtual columns
+```

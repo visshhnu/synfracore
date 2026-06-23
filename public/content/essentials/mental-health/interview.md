@@ -1,40 +1,108 @@
-# Mental Wellness — Interview & Exam Questions
+# Mental Health — Key Concepts and Q&A
 
-## Top Questions for Daily Life Application
+## Understanding Mental Health
 
-These are the most frequently tested concepts in Mental Wellness across competitive exams, job interviews, and certification tests.
+**Q: What is mental health and why does it matter?**
 
-## Conceptual Questions
+Mental health encompasses emotional, psychological, and social well-being. It affects how we think, feel, and act — and influences how we handle stress, relate to others, and make decisions.
 
-**Q: What is the most important concept in Mental Wellness?**
-A: The foundation of Mental Wellness lies in understanding [Common Mental Health Conditions]. Without a solid grasp of this, other concepts become difficult to apply correctly.
+Mental health exists on a spectrum — from flourishing to crisis. Everyone has mental health, just as everyone has physical health. It can fluctuate based on life circumstances, biology, and environment.
 
-**Q: What are the most common mistakes candidates make?**
-A: The most frequent errors include:
-- Misapplying formulas without understanding the underlying concept
-- Making calculation errors under time pressure
-- Misreading the question (especially for tricky MCQs)
-- Not knowing when to use which approach
+**WHO definition**: A state of well-being in which the individual realises their own abilities, can cope with normal stresses of life, can work productively and fruitfully, and is able to make a contribution to their community.
 
-**Q: How do you prepare for Mental Wellness in limited time?**
-A: Focus on high-yield topics first. Study the most tested concepts from previous years, practice MCQs (not theory reading), and use the spaced repetition technique for retention.
+---
 
-## Topic-Wise Important Questions
+**Q: Common mental health conditions — recognition and facts.**
 
-**Common Mental Health Conditions**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
-**Stress Management Techniques**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
-**Cognitive Behavioral Therapy (CBT) Basics**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
-**Mindfulness & Meditation**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
-**Sleep Hygiene**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
+**Anxiety disorders** (most common): Excessive worry, fear, or dread that interferes with daily functioning.
+- Types: Generalised Anxiety (GAD), Panic Disorder, Social Anxiety, Specific Phobias, PTSD
+- Prevalence: ~18% of adults annually
+- Key feature: Anxiety is disproportionate to actual threat, persists even when threat passes
 
-## Exam-Specific Tips
+**Depression (Major Depressive Disorder)**: Persistent sadness, loss of interest, fatigue.
+- Not "just feeling sad" — affects sleep, appetite, concentration, self-worth
+- 2-week criteria: 5+ symptoms most of the day for 2+ weeks
+- Affects 5% of global population (WHO). Leading cause of disability worldwide.
 
-For Daily Life Application:
-- Understand the marking scheme (negative marking affects strategy)
-- Practice with timer (exam conditions matter)
-- The Labs section MCQ sets simulate real exam questions with explanations
-- Review your wrong answers systematically — patterns in errors indicate knowledge gaps
+**Bipolar Disorder**: Periods of mania (elevated mood, reduced sleep need, impulsivity) alternating with depression.
 
-## Quick Revision
+**OCD**: Intrusive thoughts (obsessions) + repetitive behaviours to neutralise anxiety (compulsions).
 
-Before the exam, use the **Labs flashcard sets** for rapid revision of key formulas, definitions, and patterns. The **Cheatsheet** section has the most important quick-reference material.
+**Schizophrenia**: Disrupted thinking, hallucinations, delusions, reduced emotional expression.
+
+**ADHD**: Inattention, hyperactivity, impulsivity. In adults: difficulty sustaining focus, organisation.
+
+---
+
+**Q: The stress response — fight, flight, freeze.**
+
+When the brain perceives threat, the amygdala triggers:
+1. **Sympathetic nervous system** activates (fight or flight)
+2. Adrenaline + cortisol released
+3. Heart rate ↑, breathing ↑, muscles tense, digestion slows
+4. Prefrontal cortex (rational thinking) partially bypassed
+
+**Freeze response**: Sometimes nervous system immobilises us (especially trauma).
+
+**Chronic stress**: When stress response is always "on" — raises cortisol chronically. Effects: immune suppression, sleep disruption, memory impairment, cardiovascular strain, mental health impact.
+
+**Parasympathetic nervous system** (rest and digest): Counter-activates with deep breathing, meditation, safety, sleep.
+
+---
+
+**Q: Evidence-based approaches to mental wellness.**
+
+**Sleep (most important)**: 7-9 hours. Sleep deprivation = anxiety, depression, poor cognition. Consistent schedule > duration alone.
+
+**Physical activity**: 30+ minutes moderate exercise 5x/week. Comparable to antidepressants for mild-moderate depression (meta-analyses). Releases endorphins, BDNF, reduces cortisol.
+
+**Social connection**: Loneliness raises mortality risk equivalent to smoking 15 cigarettes/day (study). Quality > quantity of relationships.
+
+**Mindfulness/Meditation**: Reduces amygdala reactivity. 8-week MBSR programmes show measurable brain changes. Apps: Headspace, Calm, Insight Timer.
+
+**Cognitive Behavioural Therapy (CBT)**: Gold-standard psychological therapy. Identifies and challenges unhelpful thought patterns. Effective for depression, anxiety, PTSD, OCD.
+
+**Professional help**: Psychologist (therapy), Psychiatrist (medication + therapy), Counsellor, Therapist. No shame in seeking help — brain is an organ; mental health is health.
+
+---
+
+**Q: Mental health at work — warning signs and support.**
+
+**Warning signs of burnout (Maslach model):**
+- Exhaustion: emotional and physical depletion
+- Cynicism/Depersonalisation: detachment from work and colleagues
+- Reduced efficacy: feeling ineffective, inability to complete tasks
+
+**Burnout vs depression**: Burnout context-specific (work); depression pervades all areas of life.
+
+**Workplace support:**
+- EAP (Employee Assistance Programme): free counselling sessions
+- Psychological safety: safe to speak up, admit mistakes, ask for help
+- Open conversations: manager check-ins, normalise mental health conversations
+- Reasonable adjustments: flexible hours, reduced workload during acute phase
+
+**icdic crisis**: If you or someone you know is in immediate danger — contact local emergency services or crisis helpline. In India: iCall (9152987821), Vandrevala Foundation (1860-2662-345).
+
+## Revision Notes
+```
+MENTAL HEALTH: emotional + psychological + social well-being. Spectrum, not binary.
+
+COMMON CONDITIONS:
+Anxiety: excessive, disproportionate fear (GAD, Panic, Social, PTSD)
+Depression: persistent low mood + 5+ symptoms for 2+ weeks
+Bipolar: mania + depression cycles
+ADHD: attention, hyperactivity, impulsivity
+
+STRESS RESPONSE: amygdala → sympathetic NS → adrenaline/cortisol → fight/flight/freeze
+Chronic stress: immune suppression, sleep disruption, mental health impact
+Reset: deep breathing, exercise, sleep, connection
+
+EVIDENCE-BASED WELLNESS:
+Sleep (7-9hr, consistent) | Exercise (30min 5x/week = antidepressant effect)
+Social connection | Mindfulness/meditation | CBT (gold-standard therapy)
+
+BURNOUT: Exhaustion + Cynicism + Reduced efficacy (context: work)
+vs Depression: depression pervades all life areas
+
+CRISIS: iCall India 9152987821 | Vandrevala 1860-2662-345
+```

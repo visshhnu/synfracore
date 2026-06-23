@@ -1,53 +1,64 @@
-# Lambda — Certification Guide
+# AWS Lambda & Serverless Certification Guide
 
-## Why Get Certified in Lambda?
+## Primary Certification
 
-Certifications validate your Lambda skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+**AWS Certified Developer Associate (DVA-C02)**
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+*Format*: 65 questions | 130 minutes | 720/1000 | $150 USD
 
-## Most Valuable Certifications
+## Related Certifications
 
-Research current certifications for Lambda on these sources:
+- AWS Solutions Architect Associate
+- AWS DevOps Engineer Professional
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+## Key Exam Topics
 
-## General Certification Strategy
+- Lambda execution model: invocation types (sync/async/event source mapping)
+- Cold starts: JVM/Python worse than Node.js; provisioned concurrency prevents them
+- Concurrency: reserved concurrency (limits) + provisioned concurrency (pre-warm)
+- Lambda layers: shared dependencies, runtimes, custom extensions
+- Lambda@Edge and CloudFront Functions: run code at CDN edge
+- Event sources: API Gateway, ALB, S3, DynamoDB Streams, SQS, SNS, Kinesis
+- Lambda VPC: private subnet + NAT Gateway for internet; adds cold start latency
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+## Must-Know CLI Commands
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
-
-```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+```bash
+aws lambda create-function --function-name my-fn --runtime python3.12 --handler lambda_function.lambda_handler --role arn:... --zip-file fileb://function.zip
+aws lambda invoke --function-name my-fn --payload '{"key":"value"}' response.json
+aws lambda update-function-configuration --function-name my-fn --memory-size 1024
+aws lambda put-function-concurrency --function-name my-fn --reserved-concurrent-executions 100
+aws logs tail /aws/lambda/my-fn --follow
 ```
 
-## After Certification
+## Exam Tips
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+- Execution environment reuse: initialize outside handler for connection pooling
+- /tmp is 512MB-10GB — use for temporary files during execution
+- Lambda Powertools (Python/Java/TypeScript): structured logging, tracing, metrics
+- Avoid long-running tasks: max 15 min — use Step Functions for orchestration
+
+## Study Plan
+
+**Week 1-2**: Read official docs + overview/fundamentals sections in this platform
+**Week 3-4**: Hands-on labs (AWS free tier / Azure sandbox / GCP free tier)
+**Week 5**: Practice exams (TutorialsDojo, ExamTopics, Whizlabs)
+**Final days**: Review weak areas + cheatsheet
+
+## Free Study Resources
+
+- AWS: aws.amazon.com/training — free digital courses
+- Azure: learn.microsoft.com — Microsoft Learn (free + sandbox labs)
+- GCP: cloud.google.com/training — free courses + Qwiklabs credits
+- TutorialsDojo: cheat sheets for all exams (best value paid resource)
+
+## Revision Notes
+```
+PRIMARY EXAM: AWS Certified Developer Associate (DVA-C02)
+
+TOP TOPICS:
+  Lambda execution model: invocation types (sync/async/event source mapping)
+  Cold starts: JVM/Python worse than Node.js; provisioned concurrency prevents the
+  Concurrency: reserved concurrency (limits) + provisioned concurrency (pre-warm)
+  Lambda layers: shared dependencies, runtimes, custom extensions
+```

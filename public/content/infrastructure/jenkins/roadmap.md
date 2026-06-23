@@ -1,45 +1,70 @@
-# Jenkins — Learning Roadmap
+# Jenkins Learning Roadmap
 
-## Time to Job-Ready: 5 weeks (2 hours/day)
+**Goal**: From manual deployments to enterprise CI/CD automation
 
-**Goal:** Build end-to-end CI/CD pipelines that automatically test, build, and deploy applications.
+## Learning Phases
 
-## Phase 1 — Setup & First Pipeline (Week 1)
-- Install Jenkins: Docker (`docker run -p 8080:8080 jenkins/jenkins:lts`) or Linux package
-- Initial setup: unlock, install suggested plugins, create admin user
-- Install key plugins: Docker, Git, Pipeline, Blue Ocean, Credentials
-- Create first freestyle job: connect to GitHub, run a shell command
-- Understand: executors, agents, workspace, build queue
+### Phase 1: Jenkins Basics (1 week)
 
-## Phase 2 — Declarative Pipelines (Week 2-3)
-- Jenkinsfile: `pipeline`, `agent`, `stages`, `stage`, `steps`, `post`
-- Environment variables and credentials binding (`withCredentials`)
-- Docker agent: run each stage in a fresh container
-- Parallel stages: run tests faster
-- `when` conditions: only deploy from `main` branch
-- `post` actions: `always`, `success`, `failure` notifications
+- Install Jenkins locally (Docker)
+- Jenkins UI: jobs, builds, console output
+- First Freestyle job
+- Plugin ecosystem overview
 
-## Phase 3 — Production Patterns (Week 4)
-- Shared Libraries: DRY pipelines across 50+ repos
-- Multibranch Pipeline: auto-detect branches and PRs
-- Blue Ocean: visual pipeline editor and viewer
-- Webhook triggers: build on every GitHub push in seconds
-- Deployment strategies: rolling, blue-green via kubectl
-- Notifications: Slack, email, JIRA status updates
+### Phase 2: Pipelines (2 weeks)
 
-## Phase 4 — Scale & Security (Week 5)
-- Jenkins on Kubernetes: Kubernetes plugin, dynamic agents
-- Configuration as Code (JCasC): version control Jenkins config
-- Security: RBAC with Matrix Authorization, audit logs, HTTPS
-- Backup: Jenkins home directory, job configs, credentials
-- Performance: master-agent architecture, parallel builds
+- Declarative Pipeline syntax
+- Jenkinsfile: stages, steps, post
+- Environment variables and parameters
+- Agent selection: any, docker, label
 
-## Certifications
-- **Certified Jenkins Engineer (CJE)** — CloudBees certification
+### Phase 3: Integration (2 weeks)
 
-## Jobs After Jenkins Mastery
-CI/CD Engineer · DevOps Engineer · Build Engineer · Release Engineer
+- Git integration and webhooks
+- Docker build and push in pipeline
+- SonarQube code quality gate
+- Nexus/Artifactory artifact publishing
 
-## Resources
-- **jenkins.io/doc** — official pipeline syntax reference
-- **KodeKloud Jenkins course** — practical labs
+### Phase 4: Advanced (2 weeks)
+
+- Multibranch pipelines
+- Shared libraries for reuse
+- Parallel stages and matrix builds
+- Credentials management (credentials())
+
+### Phase 5: Enterprise (1 week)
+
+- Jenkins HA: multiple controllers
+- Kubernetes agents (ephemeral)
+- Blue Ocean UI
+- Job DSL for programmatic job creation
+
+## Job Roles This Enables
+
+- DevOps Engineer
+- Build/Release Engineer
+- CI/CD Engineer
+
+## Target Certifications
+
+- CloudBees Certified Jenkins Engineer (CJE)
+
+## How to Use This Roadmap
+
+1. Work through phases in order — each builds on the previous
+2. Complete the labs section for each phase before moving on
+3. Build a project after each phase to cement learning
+4. Use the interview section to test understanding regularly
+5. Track progress: revisit earlier sections as concepts compound
+
+## Prerequisites
+
+See `prerequisites.md` in this section for what you should know before starting.
+
+## Revision Notes
+```
+Total time: 10-15 weeks (part-time)
+Daily practice more effective than weekend marathons
+Build real things — theory alone not enough for these tools
+Join communities: CNCF Slack, relevant subreddits, Discord servers
+```

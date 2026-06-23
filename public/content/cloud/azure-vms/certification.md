@@ -1,53 +1,63 @@
-# Virtual Machines — Certification Guide
+# Azure Virtual Machines Certification Guide
 
-## Why Get Certified in Virtual Machines?
+## Primary Certification
 
-Certifications validate your Virtual Machines skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+**AZ-104 Microsoft Azure Administrator**
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+*Format*: 40-60 MCQ | 3 hours | 700/1000 | $165 USD
 
-## Most Valuable Certifications
+## Related Certifications
 
-Research current certifications for Virtual Machines on these sources:
+- AZ-305 Azure Solutions Architect Expert
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+## Key Exam Topics
 
-## General Certification Strategy
+- VM series: B (burstable/dev), D (general), E (memory), F (compute), N (GPU), L (storage)
+- Availability Sets: fault domains (separate racks) + update domains (rolling restart)
+- Availability Zones: physically separate data centers in same region (higher SLA)
+- VM Scale Sets (VMSS): autoscaling group; flexible orchestration recommended
+- Azure Spot VMs: 60-90% cheaper, evictable; use for batch/stateless workloads
+- Disk types: Ultra (highest IOPS, mission critical) / Premium SSD v2 / Premium SSD / Standard SSD / HDD
+- Azure Hybrid Benefit: use existing Windows Server / SQL Server licenses on Azure (save 40-55%)
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+## Must-Know CLI Commands
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
-
-```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+```bash
+az vm create --resource-group myRG --name myVM --image Ubuntu2204 --size Standard_D4s_v3 --admin-username azureuser --generate-ssh-keys
+az vm start --name myVM --resource-group myRG
+az vm stop --name myVM --resource-group myRG
+az vm deallocate --name myVM --resource-group myRG  # Stop billing for compute
+az vm resize --resource-group myRG --name myVM --size Standard_D8s_v3
 ```
 
-## After Certification
+## Exam Tips
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+- Deallocate vs Stop: Stop keeps VM running (still charged!); Deallocate frees compute billing
+- Availability Zones vs Sets: Zones = datacenter-level isolation; Sets = rack-level within datacenter
+- Azure Bastion: connect via browser without public IP or NSG port 22/3389
+- VM Extensions: run scripts post-deployment (Custom Script Extension, DSC, OMS Agent)
+
+## Study Plan
+
+**Week 1-2**: Read official docs + overview/fundamentals sections in this platform
+**Week 3-4**: Hands-on labs (AWS free tier / Azure sandbox / GCP free tier)
+**Week 5**: Practice exams (TutorialsDojo, ExamTopics, Whizlabs)
+**Final days**: Review weak areas + cheatsheet
+
+## Free Study Resources
+
+- AWS: aws.amazon.com/training — free digital courses
+- Azure: learn.microsoft.com — Microsoft Learn (free + sandbox labs)
+- GCP: cloud.google.com/training — free courses + Qwiklabs credits
+- TutorialsDojo: cheat sheets for all exams (best value paid resource)
+
+## Revision Notes
+```
+PRIMARY EXAM: AZ-104 Microsoft Azure Administrator
+
+TOP TOPICS:
+  VM series: B (burstable/dev), D (general), E (memory), F (compute), N (GPU), L (
+  Availability Sets: fault domains (separate racks) + update domains (rolling rest
+  Availability Zones: physically separate data centers in same region (higher SLA)
+  VM Scale Sets (VMSS): autoscaling group; flexible orchestration recommended
+```

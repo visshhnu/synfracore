@@ -1,53 +1,64 @@
-# IAM — Certification Guide
+# AWS IAM & Identity Certification Guide
 
-## Why Get Certified in IAM?
+## Primary Certification
 
-Certifications validate your IAM skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+**AWS Certified Security Specialty (SCS-C02)**
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+*Format*: 65 questions | 170 minutes | 750/1000 | $300 USD (Security Specialty)
 
-## Most Valuable Certifications
+## Related Certifications
 
-Research current certifications for IAM on these sources:
+- AWS Solutions Architect (all levels have heavy IAM)
+- AWS SysOps Administrator
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+## Key Exam Topics
 
-## General Certification Strategy
+- Policy evaluation: Explicit Deny > SCP > Resource policy > Identity policy > implicit deny
+- IAM condition keys: aws:SourceIp, aws:RequestedRegion, aws:MultiFactorAuthPresent
+- Permission boundaries: set maximum permissions (even if identity policy allows more)
+- SCP (Service Control Policies): org-level maximum permissions (cannot grant)
+- IRSA and Workload Identity for EC2/Lambda/ECS/EKS service permissions
+- Trust policies and cross-account access with external ID
+- IAM Access Analyzer: find external/cross-account access, validate policies
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+## Must-Know CLI Commands
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
-
-```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+```bash
+aws iam simulate-principal-policy --policy-source-arn arn:... --action-names s3:GetObject
+aws iam get-account-authorization-details > iam-snapshot.json
+aws iam create-role --role-name MyRole --assume-role-policy-document file://trust.json
+aws sts assume-role --role-arn arn:aws:iam::123:role/MyRole --role-session-name session
+aws accessanalyzer list-findings --analyzer-name my-analyzer
 ```
 
-## After Certification
+## Exam Tips
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+- Never use root account for daily tasks — enable MFA and create admin user
+- Access keys rotate every 90 days — use IAM Access Advisor to find unused permissions
+- External ID in trust policy prevents confused deputy attack (for third-party access)
+- IAM roles for EC2: attach role to instance profile — no static credentials
+
+## Study Plan
+
+**Week 1-2**: Read official docs + overview/fundamentals sections in this platform
+**Week 3-4**: Hands-on labs (AWS free tier / Azure sandbox / GCP free tier)
+**Week 5**: Practice exams (TutorialsDojo, ExamTopics, Whizlabs)
+**Final days**: Review weak areas + cheatsheet
+
+## Free Study Resources
+
+- AWS: aws.amazon.com/training — free digital courses
+- Azure: learn.microsoft.com — Microsoft Learn (free + sandbox labs)
+- GCP: cloud.google.com/training — free courses + Qwiklabs credits
+- TutorialsDojo: cheat sheets for all exams (best value paid resource)
+
+## Revision Notes
+```
+PRIMARY EXAM: AWS Certified Security Specialty (SCS-C02)
+
+TOP TOPICS:
+  Policy evaluation: Explicit Deny > SCP > Resource policy > Identity policy > imp
+  IAM condition keys: aws:SourceIp, aws:RequestedRegion, aws:MultiFactorAuthPresen
+  Permission boundaries: set maximum permissions (even if identity policy allows m
+  SCP (Service Control Policies): org-level maximum permissions (cannot grant)
+```

@@ -1,53 +1,63 @@
-# Cloud Run — Certification Guide
+# Google Cloud Run Certification Guide
 
-## Why Get Certified in Cloud Run?
+## Primary Certification
 
-Certifications validate your Cloud Run skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+**Google Cloud Professional Cloud Developer**
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+*Format*: 50-60 MCQ | 2 hours | 70%+ | $200 USD
 
-## Most Valuable Certifications
+## Related Certifications
 
-Research current certifications for Cloud Run on these sources:
+- Google Associate Cloud Engineer
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+## Key Exam Topics
 
-## General Certification Strategy
+- Cloud Run: serverless containers; scales to zero; pay per request (100ms billing)
+- Cloud Run Services vs Jobs: Services (HTTP requests) vs Jobs (one-off tasks)
+- Traffic splitting: deploy new revision → split traffic % for canary or blue-green
+- Concurrency: max concurrent requests per container instance (default 80, max 1000)
+- Cold starts: 0 min instances = scales to zero (cost-efficient but adds latency)
+- VPC Connector: access private VPC resources (Cloud SQL, Redis, internal services)
+- Cloud Run vs Cloud Functions vs GKE: choose based on complexity and scale
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+## Must-Know CLI Commands
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
-
-```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+```bash
+gcloud run deploy myservice --image gcr.io/PROJECT/myapp:latest --platform managed --region us-central1 --allow-unauthenticated
+gcloud run services update-traffic myservice --to-revisions REVISION=50,LATEST=50
+gcloud run services describe myservice --format="value(status.url)"
+gcloud run jobs create my-job --image gcr.io/PROJECT/batch:latest --tasks 100 --max-retries 3
+gcloud run jobs execute my-job --wait
 ```
 
-## After Certification
+## Exam Tips
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+- IAM authentication: Cloud Run invoker role — or --allow-unauthenticated for public
+- Environment variables and secrets: use Secret Manager (--set-secrets), not env vars
+- Binary Authorization: ensure only trusted images can be deployed
+- Cloud Run min-instances: set > 0 to eliminate cold starts (costs $$)
+
+## Study Plan
+
+**Week 1-2**: Read official docs + overview/fundamentals sections in this platform
+**Week 3-4**: Hands-on labs (AWS free tier / Azure sandbox / GCP free tier)
+**Week 5**: Practice exams (TutorialsDojo, ExamTopics, Whizlabs)
+**Final days**: Review weak areas + cheatsheet
+
+## Free Study Resources
+
+- AWS: aws.amazon.com/training — free digital courses
+- Azure: learn.microsoft.com — Microsoft Learn (free + sandbox labs)
+- GCP: cloud.google.com/training — free courses + Qwiklabs credits
+- TutorialsDojo: cheat sheets for all exams (best value paid resource)
+
+## Revision Notes
+```
+PRIMARY EXAM: Google Cloud Professional Cloud Developer
+
+TOP TOPICS:
+  Cloud Run: serverless containers; scales to zero; pay per request (100ms billing
+  Cloud Run Services vs Jobs: Services (HTTP requests) vs Jobs (one-off tasks)
+  Traffic splitting: deploy new revision → split traffic % for canary or blue-gree
+  Concurrency: max concurrent requests per container instance (default 80, max 100
+```

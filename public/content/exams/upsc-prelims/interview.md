@@ -1,40 +1,105 @@
-# UPSC Prelims — Interview & Exam Questions
+# UPSC Civil Services Prelims — Key Topics
 
-## Top Questions for UPSC Prelims
+## Indian Polity & Constitution
 
-These are the most frequently tested concepts in UPSC Prelims across competitive exams, job interviews, and certification tests.
+**Q: What are Fundamental Rights in the Indian Constitution?**
+```
+Part III (Articles 12-35) — Enforceable in court (High Court Art. 226, Supreme Court Art. 32)
 
-## Conceptual Questions
+6 Fundamental Rights:
+1. Right to Equality (Art. 14-18): equal protection, no discrimination, abolish untouchability
+2. Right to Freedom (Art. 19-22): speech, assembly, movement, residence, profession
+   Art. 21: Right to Life (most expansive — privacy, livelihood, education included by SC)
+3. Right against Exploitation (Art. 23-24): no forced labour, no child labour (<14 years)
+4. Right to Religious Freedom (Art. 25-28): freedom of conscience, religion
+5. Cultural & Educational Rights (Art. 29-30): minorities protect culture, establish institutions
+6. Right to Constitutional Remedies (Art. 32): 'Heart and Soul' of Constitution (Ambedkar)
+   Writs: Habeas Corpus, Mandamus, Prohibition, Certiorari, Quo Warranto
 
-**Q: What is the most important concept in UPSC Prelims?**
-A: The foundation of UPSC Prelims lies in understanding [Indian History (Ancient, Medieval, Modern)]. Without a solid grasp of this, other concepts become difficult to apply correctly.
+Note: Right to Property removed in 1978 (44th Amendment) → now legal right (Art. 300A)
+```
 
-**Q: What are the most common mistakes candidates make?**
-A: The most frequent errors include:
-- Misapplying formulas without understanding the underlying concept
-- Making calculation errors under time pressure
-- Misreading the question (especially for tricky MCQs)
-- Not knowing when to use which approach
+**Q: Difference between Fundamental Rights and Directive Principles.**
+```
+FUNDAMENTAL RIGHTS (Part III):
+  Justiciable (enforceable in court)
+  Primarily negative (State CANNOT do)
+  Individual rights — protect from state action
+  Available immediately
 
-**Q: How do you prepare for UPSC Prelims in limited time?**
-A: Focus on high-yield topics first. Study the most tested concepts from previous years, practice MCQs (not theory reading), and use the spaced repetition technique for retention.
+DIRECTIVE PRINCIPLES (Part IV, Art. 36-51):
+  Non-justiciable (not enforceable in court, but fundamental to governance)
+  Primarily positive (State SHOULD do)
+  Social + economic goals — guide state policy
+  Require resources to implement
+  Examples: UCC, prohibition, equal pay, free legal aid, living wage
 
-## Topic-Wise Important Questions
+CONFLICT: Supreme Court settled in Minerva Mills (1980) — both equally important,
+          neither can override the other, must be harmonised
+```
 
-**Indian History (Ancient, Medieval, Modern)**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
-**Geography (Physical, Indian, World)**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
-**Indian Polity & Constitution**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
-**Economy (Basic Concepts, Budget, Banking)**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
-**Science & Technology**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
+## Indian History
 
-## Exam-Specific Tips
+**Q: What were the main causes of the 1857 Revolt?**
+```
+POLITICAL CAUSES:
+  Doctrine of Lapse (Dalhousie): annexed states without heirs (Jhansi, Satara, Nagpur)
+  Deposition of Nawab of Awadh (Oudh) despite loyalty
+  Fear of annexation among princely states
 
-For UPSC Prelims:
-- Understand the marking scheme (negative marking affects strategy)
-- Practice with timer (exam conditions matter)
-- The Labs section MCQ sets simulate real exam questions with explanations
-- Review your wrong answers systematically — patterns in errors indicate knowledge gaps
+ECONOMIC CAUSES:
+  Destruction of Indian handicrafts by British goods
+  Ruination of Indian traders by unequal competition
+  Excessive land revenue demands → peasant impoverishment
 
-## Quick Revision
+SOCIAL/RELIGIOUS CAUSES:
+  Fear of Christian conversion
+  Widow Remarriage Act, suppression of sati — seen as interference
+  Introduction of Western education
 
-Before the exam, use the **Labs flashcard sets** for rapid revision of key formulas, definitions, and patterns. The **Cheatsheet** section has the most important quick-reference material.
+MILITARY CAUSES:
+  Greased cartridges (pig and cow fat) — offended both Hindu and Muslim sepoys
+  General Service Enlistment Act (crossing seas against Hindu belief)
+  Differential pay — Indian sepoys paid less
+
+SIGNIFICANCE: First organised uprising against British rule. Called 'Sepoy Mutiny'
+by British, 'First War of Independence' by Indian nationalists (V.D. Savarkar)
+```
+
+## Geography
+
+**Q: What is the Intertropical Convergence Zone (ITCZ) and its role in Indian Monsoon?**
+```
+ITCZ: Belt near equator where trade winds from northern and southern hemispheres converge
+Sun heats equatorial region → warm air rises → low pressure belt
+
+ROLE IN MONSOON:
+  In summer: ITCZ shifts north (toward Bay of Bengal and Arabian Sea area)
+  Differential heating: land heats faster than sea
+  Low pressure over subcontinent | High pressure over Indian Ocean
+  Moist winds from ocean drawn in → South-West Monsoon
+
+SW Monsoon onset: ~June 1 (Kerala) | Retreats: ~October
+NE Monsoon: Oct-Nov, affects Tamil Nadu coast (from Bay of Bengal)
+```
+
+## Revision Notes
+```
+PRELIMS PATTERN: 2 papers | GS Paper 1 (200 marks) | CSAT Paper 2 (200 marks, qualifying 33%)
+100 questions GS | 80 questions CSAT | 2 hours each | 1/3 negative marking
+
+HIGH-PRIORITY TOPICS GS Paper 1:
+  Polity: Constitution, Parliament, President, Governor, Judiciary, DPSP, FR
+  History: Modern India (freedom struggle), Ancient/Medieval (architecture, art)
+  Geography: Physical geography, climate, rivers, agriculture
+  Economy: Budget, monetary policy, banking, FDI, WTO, schemes
+  Environment: Protected areas, biodiversity, climate change, conventions
+  Current Affairs: Last 12 months — crucial (30+ questions typically)
+
+STUDY STRATEGY:
+  NCERT first (class 6-12 Polity, History, Geography, Economics)
+  Then standard references (Laxmikanth for Polity)
+  Daily newspaper (The Hindu/Indian Express) for current affairs
+  Previous papers (10 years) → identify question patterns
+  Mock tests: at least 20-25 full-length mocks
+```

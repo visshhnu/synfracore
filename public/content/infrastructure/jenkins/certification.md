@@ -1,53 +1,170 @@
-# Jenkins — Certification Guide
+# Jenkins Certification Guide
 
-## Why Get Certified in Jenkins?
+## Certifications Available
 
-Certifications validate your Jenkins skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+| Cert | Full Name | Questions | Time | Passing |
+|------|-----------|-----------|------|---------|
+| **CJE** | CloudBees Certified Jenkins Engineer | 60 | 90 min | 70% |
+| **CJPE** | CloudBees Certified Jenkins Platform Engineer | 60 | 90 min | 70% |
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+CJE focuses on Jenkins core. CJPE adds CloudBees-specific features (team management, RBAC, plugins).
 
-## Most Valuable Certifications
+---
 
-Research current certifications for Jenkins on these sources:
+## CJE Exam Domains
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+| Domain | Topics |
+|--------|--------|
+| CI/CD & Jenkins Concepts | CI vs CD, Jenkins purpose, build triggers |
+| Jenkins Administration | Install, config, system management |
+| Building Continuous Delivery Pipelines | Declarative Pipeline, Blue Ocean |
+| CD Patterns | Artifacts, deployment strategies, testing |
+| Jenkins Plugins | Core plugins, manage plugins |
 
-## General Certification Strategy
+---
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+## Declarative Pipeline (Core of Exam)
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
+```groovy
+// Jenkinsfile — declarative syntax
+pipeline {
+    agent { label 'linux' }         // Run on nodes with 'linux' label
 
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
+    environment {
+        APP_VERSION = '1.0.0'
+        DOCKER_REGISTRY = 'registry.example.com'
+        DEPLOY_CREDS = credentials('deploy-ssh-key')  // Inject credentials
+    }
 
-## Study Schedule Template
+    options {
+        timeout(time: 30, unit: 'MINUTES')
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+        disableConcurrentBuilds()
+    }
+
+    triggers {
+        pollSCM('H/5 * * * *')      // Poll SCM every 5 min
+        cron('0 2 * * *')           // Nightly build at 2am
+    }
+
+    parameters {
+        string(name: 'BRANCH', defaultValue: 'main', description: 'Branch to build')
+        booleanParam(name: 'DEPLOY', defaultValue: false, description: 'Deploy?')
+        choice(name: 'ENV', choices: ['dev', 'staging', 'prod'], description: 'Target env')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: "${params.BRANCH}", url: 'https://github.com/org/repo.git'
+            }
+        }
+
+        stage('Build & Test') {
+            parallel {                          // Run in parallel
+                stage('Unit Tests') {
+                    steps { sh 'npm test' }
+                }
+                stage('Lint') {
+                    steps { sh 'npm run lint' }
+                }
+            }
+        }
+
+        stage('Build Image') {
+            steps {
+                sh "docker build -t ${DOCKER_REGISTRY}/myapp:${APP_VERSION} ."
+                sh "docker push ${DOCKER_REGISTRY}/myapp:${APP_VERSION}"
+            }
+        }
+
+        stage('Deploy') {
+            when {
+                expression { params.DEPLOY == true }
+                branch 'main'
+            }
+            steps {
+                sh "./deploy.sh ${params.ENV} ${APP_VERSION}"
+            }
+        }
+    }
+
+    post {
+        always {
+            junit 'test-results/**/*.xml'      // Archive test results
+            cleanWs()                          // Clean workspace
+        }
+        success {
+            slackSend message: "Build ${BUILD_NUMBER} succeeded"
+        }
+        failure {
+            emailext to: 'team@example.com', subject: "Build Failed: ${JOB_NAME}"
+        }
+    }
+}
+```
+
+---
+
+## Key Jenkins Concepts
 
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+ARCHITECTURE:
+  Controller: orchestrates builds, stores config
+  Agent/Node: executes build steps (can be Docker, K8s pod, SSH)
+  Executor: thread on agent that runs builds
+
+TRIGGERS:
+  SCM polling | Webhooks (preferred) | Cron | Upstream build
+
+PLUGINS (know these for exam):
+  Pipeline | Git | Docker Pipeline | Kubernetes | Blue Ocean
+  Credentials | SonarQube | Nexus Artifact Uploader | Slack Notification
+  JUnit | HTML Publisher | Email Extension
+
+CREDENTIALS:
+  Stored in Jenkins credentials store (encrypted)
+  Types: username/password, SSH key, secret text, secret file, certificate
+  Inject via: credentials() binding or withCredentials() block
+
+SHARED LIBRARIES:
+  Reusable Groovy code across pipelines
+  @Library('my-shared-lib') import
+  vars/ directory: global functions
+  src/ directory: Groovy classes
+
+MULTIBRANCH PIPELINE:
+  Auto-discovers branches and PRs
+  Each branch gets own pipeline (from Jenkinsfile)
+  PR pipelines can validate before merge
 ```
 
-## After Certification
+---
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## Study Resources
+
+- **Jenkins Docs** (jenkins.io/doc) — free official documentation
+- **CloudBees University** (university.cloudbees.com) — free tier available
+- **"Jenkins: The Definitive Guide"** — free PDF available
+- **Practice**: Run Jenkins locally with Docker: `docker run -p 8080:8080 jenkins/jenkins:lts`
+
+## Revision Notes
+```
+CJE: 60 MCQ, 90 min, 70% pass, CloudBees proctored
+
+MUST KNOW:
+  Declarative Pipeline: agent/environment/options/triggers/parameters/stages/post
+  Parallel stages: parallel { stage('A'){} stage('B'){} }
+  When conditions: branch, expression, environment
+  Post conditions: always/success/failure/unstable/changed
+
+CREDENTIALS: never hardcode! Use credentials() or withCredentials()
+SHARED LIBRARIES: @Library annotation, vars/ for global functions
+MULTIBRANCH: auto-discovers branches, each gets own Jenkinsfile
+
+COMMON EXAM TOPICS:
+  Difference: Freestyle vs Pipeline jobs
+  Agent: any / label / docker / kubernetes
+  Artifact archiving: archiveArtifacts, stash/unstash
+  Test results: junit 'results/*.xml'
+```

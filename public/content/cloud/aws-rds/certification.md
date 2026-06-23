@@ -1,53 +1,64 @@
-# RDS & Aurora — Certification Guide
+# AWS RDS & Databases Certification Guide
 
-## Why Get Certified in RDS & Aurora?
+## Primary Certification
 
-Certifications validate your RDS & Aurora skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+**AWS Certified Database Specialty (DBS-C01)**
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+*Format*: 65 questions | 180 minutes | 750/1000 | $300 USD (DB Specialty)
 
-## Most Valuable Certifications
+## Related Certifications
 
-Research current certifications for RDS & Aurora on these sources:
+- AWS Solutions Architect (databases are 10-15% of SAA)
+- AWS DevOps Engineer Professional
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+## Key Exam Topics
 
-## General Certification Strategy
+- Multi-AZ vs Read Replicas: HA vs performance (Multi-AZ = sync standby, no reads)
+- Aurora: 6-copy replication across 3 AZs, up to 15 read replicas, 5x faster than MySQL
+- Aurora Global Database: cross-region replication < 1 second RPO
+- Aurora Serverless v2: auto-scales capacity in fine-grained increments
+- RDS Proxy: connection pooling for Lambda/containers, reduce DB connection overhead
+- Backup: automated (1-35 days retention) + manual snapshots (kept until deleted)
+- Encryption: enable at creation (cannot add later); use KMS CMK for cross-account
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+## Must-Know CLI Commands
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
-
-```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+```bash
+aws rds describe-db-instances
+aws rds create-db-instance --db-instance-identifier mydb --engine mysql --db-instance-class db.t3.medium --master-username admin --master-user-password secret --allocated-storage 20
+aws rds create-db-snapshot --db-instance-identifier mydb --db-snapshot-identifier mydb-snap-20240115
+aws rds restore-db-instance-from-db-snapshot --db-instance-identifier mydb-restored --db-snapshot-identifier mydb-snap-20240115
+aws rds create-db-instance-read-replica --db-instance-identifier mydb-replica --source-db-instance-identifier mydb
 ```
 
-## After Certification
+## Exam Tips
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+- Multi-AZ failover: automatic, ~60-120 seconds; DNS updates to standby
+- Read Replica: manual promotion (takes time); useful for disaster recovery too
+- Aurora failover: ~30 seconds (faster than RDS) — promotes existing replica
+- RDS Proxy: group Lambda concurrency connections → prevents "too many connections"
+
+## Study Plan
+
+**Week 1-2**: Read official docs + overview/fundamentals sections in this platform
+**Week 3-4**: Hands-on labs (AWS free tier / Azure sandbox / GCP free tier)
+**Week 5**: Practice exams (TutorialsDojo, ExamTopics, Whizlabs)
+**Final days**: Review weak areas + cheatsheet
+
+## Free Study Resources
+
+- AWS: aws.amazon.com/training — free digital courses
+- Azure: learn.microsoft.com — Microsoft Learn (free + sandbox labs)
+- GCP: cloud.google.com/training — free courses + Qwiklabs credits
+- TutorialsDojo: cheat sheets for all exams (best value paid resource)
+
+## Revision Notes
+```
+PRIMARY EXAM: AWS Certified Database Specialty (DBS-C01)
+
+TOP TOPICS:
+  Multi-AZ vs Read Replicas: HA vs performance (Multi-AZ = sync standby, no reads)
+  Aurora: 6-copy replication across 3 AZs, up to 15 read replicas, 5x faster than 
+  Aurora Global Database: cross-region replication < 1 second RPO
+  Aurora Serverless v2: auto-scales capacity in fine-grained increments
+```

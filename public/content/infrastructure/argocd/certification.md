@@ -1,53 +1,180 @@
-# ArgoCD — Certification Guide
+# ArgoCD Certification Guide
 
-## Why Get Certified in ArgoCD?
+## Certifications Available
 
-Certifications validate your ArgoCD skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+No official ArgoCD-specific certification exists. ArgoCD/GitOps knowledge tested in:
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+| Cert | Coverage | Provider |
+|------|----------|----------|
+| **GitOps Fundamentals** | GitOps principles + ArgoCD | Codefresh (free) |
+| **GitOps at Scale** | ApplicationSets, multi-cluster | Codefresh (free) |
+| **CKA/CKAD** | ArgoCD as deployment tool | CNCF |
+| Platform Engineering certs | GitOps as core discipline | Various |
 
-## Most Valuable Certifications
+GitOps Fundamentals at: **codefresh.io/learn/gitops/**
 
-Research current certifications for ArgoCD on these sources:
+---
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+## ArgoCD Core Concepts
 
-## General Certification Strategy
+```yaml
+# Application CRD — the core resource
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app
+  namespace: argocd
+spec:
+  project: default
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+  source:
+    repoURL: https://github.com/org/repo.git
+    targetRevision: HEAD                 # branch, tag, or commit SHA
+    path: k8s/overlays/production        # Path within repo
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
+    # For Helm charts:
+    # chart: my-chart
+    # helm:
+    #   values: |
+    #     replicas: 3
 
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
+  destination:
+    server: https://kubernetes.default.svc  # Current cluster
+    namespace: production
 
-## Study Schedule Template
-
+  syncPolicy:
+    automated:
+      prune: true          # Delete resources removed from Git
+      selfHeal: true       # Revert manual changes to cluster
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        maxDuration: 3m
+        factor: 2
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+
+---
+
+## ArgoCD CLI Commands
+
+```bash
+# Connect and login
+argocd login argocd.example.com --username admin --password $PASS
+argocd login argocd.example.com --sso                          # SSO login
+
+# App management
+argocd app list
+argocd app get my-app
+argocd app sync my-app                                         # Trigger sync
+argocd app sync my-app --revision v1.2.0                      # Sync specific revision
+argocd app diff my-app                                         # What will change
+argocd app history my-app                                      # Sync history
+argocd app rollback my-app 5                                   # Roll back to revision 5
+
+# Create app from CLI
+argocd app create my-app   --repo https://github.com/org/repo   --path k8s/production   --dest-server https://kubernetes.default.svc   --dest-namespace production   --sync-policy automated   --auto-prune --self-heal
+
+# Cluster management
+argocd cluster list
+argocd cluster add arn:aws:eks:us-east-1:123:cluster/prod     # Add EKS cluster
+
+# Projects
+argocd proj list
+argocd proj create my-project   --src-repo https://github.com/org/*   --dest-namespace production   --dest-server https://kubernetes.default.svc
 ```
 
-## After Certification
+---
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## ApplicationSet (Multi-app Patterns)
+
+```yaml
+# Generate one Application per directory in repo
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: microservices
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/org/monorepo.git
+        revision: HEAD
+        directories:
+          - path: services/*            # One app per service directory
+
+    # Cluster generator: deploy same app to multiple clusters
+    - clusters:
+        selector:
+          matchLabels:
+            environment: production
+
+  template:
+    metadata:
+      name: '{{path.basename}}'        # service directory name
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/org/monorepo.git
+        path: '{{path}}'
+      destination:
+        server: '{{server}}'
+        namespace: '{{path.basename}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+```
+
+---
+
+## Sync Hooks and Waves
+
+```yaml
+# Control sync order with hooks and waves
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-migrate
+  annotations:
+    argocd.argoproj.io/hook: PreSync          # Run before sync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    argocd.argoproj.io/sync-wave: "-1"        # Lower = earlier
+spec:
+  template:
+    spec:
+      containers:
+        - name: migrate
+          image: myapp:latest
+          command: ["python", "manage.py", "migrate"]
+      restartPolicy: Never
+```
+
+**Hook types**: PreSync → Sync → PostSync → SyncFail
+
+## Revision Notes
+```
+ARGOCD: Pull-based GitOps. Agent in cluster watches Git → applies to cluster.
+
+KEY CONCEPTS:
+  Application: Git source → K8s destination
+  Sync: bring cluster state to match Git state
+  prune: delete resources removed from Git (enable carefully!)
+  selfHeal: revert manual kubectl changes to match Git
+
+SYNC STATUS: Synced | OutOfSync | Unknown
+HEALTH STATUS: Healthy | Degraded | Progressing | Missing | Unknown
+
+APP-OF-APPS: one Application that manages other Applications
+ApplicationSet: template-driven multi-app generation
+  Generators: Git directories, clusters, list, matrix, merge
+
+HOOKS: PreSync (DB migrate) | PostSync (smoke test) | SyncFail (notify)
+WAVES: sync-wave annotation controls order within a hook phase
+
+RBAC: AppProjects control which repos/clusters/namespaces teams can use
+SSO: integrate with GitHub/Google/LDAP via Dex OIDC provider
+```

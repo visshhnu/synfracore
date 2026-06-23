@@ -1,56 +1,71 @@
-# Linux — Learning Roadmap
+# Linux Learning Roadmap
 
-## Time to Job-Ready: 8 weeks (2 hours/day)
+**Goal**: From GUI user to confident Linux command-line engineer
 
-**Goal:** Confidently administer Linux servers, write automation scripts, and diagnose production issues.
+## Learning Phases
 
-## Phase 1 — Shell Fundamentals (Week 1-2)
-- Navigate the filesystem: `ls`, `cd`, `pwd`, `find`, `locate`
-- File operations: `cp`, `mv`, `rm`, `mkdir`, `touch`, `ln`
-- Text processing: `cat`, `grep`, `sed`, `awk`, `cut`, `sort`, `uniq`
-- I/O redirection: `>`, `>>`, `|`, `2>&1`, `tee`
-- Permissions: `chmod`, `chown`, `umask`, SUID/SGID bits
+### Phase 1: Fundamentals (2 weeks)
 
-## Phase 2 — System Administration (Week 3-4)
-- Process management: `ps`, `top`, `htop`, `kill`, `nice`, `systemctl`
-- Package management: `apt` (Ubuntu/Debian), `yum`/`dnf` (RHEL/CentOS)
-- User and group management: `useradd`, `usermod`, `passwd`, `groupadd`
-- Cron jobs and scheduling: `crontab -e`, `/etc/cron.d/`, systemd timers
-- Disk management: `df`, `du`, `lsblk`, `fdisk`, `mount`, LVM basics
+- Navigation: ls, cd, pwd, find
+- File ops: cp, mv, rm, mkdir, chmod, chown
+- Text: cat, less, head, tail, grep, wc
+- Editors: vim basics (insert, save, quit)
 
-## Phase 3 — Networking & Security (Week 5-6)
-- Networking tools: `ip`, `ss`, `netstat`, `curl`, `wget`, `nmap`
-- SSH: key generation, config file, `~/.ssh/authorized_keys`, `sshd_config` hardening
-- Firewall: `ufw` (Ubuntu), `firewalld` (RHEL), `iptables` basics
-- Log analysis: `journalctl`, `/var/log/`, `logrotate`, `grep` patterns
-- File permissions deep-dive: `setuid`, `setgid`, sticky bit, ACLs
+### Phase 2: System Management (2 weeks)
 
-## Phase 4 — Bash Scripting & Performance (Week 7-8)
-- Bash scripting: variables, arrays, loops (`for`, `while`), conditionals, functions
-- Error handling: `set -euo pipefail`, `trap`, exit codes
-- System monitoring: `vmstat`, `iostat`, `sar`, `dstat`, `perf`
-- Text processing scripts: parse logs, generate reports, automate tasks
-- Crontab automation: backup scripts, health checks, alerting
+- Process management: ps, top, htop, kill, nice
+- systemd: systemctl start/stop/status/enable
+- Users and groups: useradd, passwd, sudoers
+- Package management: apt (Debian/Ubuntu) or yum/dnf (RHEL)
 
-## Weekly Study Schedule
+### Phase 3: Networking (1 week)
+
+- ip addr, ip route, ss, netstat
+- SSH: key generation, config, scp, rsync
+- Firewall: ufw or firewalld basics
+- DNS: dig, nslookup, resolv.conf
+
+### Phase 4: Storage (1 week)
+
+- df, du, lsblk, fdisk, mount
+- LVM: pvcreate, vgcreate, lvcreate, lvextend
+- File systems: ext4, xfs formatting and mounting
+- /etc/fstab for persistent mounts
+
+### Phase 5: Advanced & Scripting (2 weeks)
+
+- Bash scripting for automation
+- Cron and at for scheduling
+- Logging: journalctl, /var/log, logrotate
+- Performance: sar, vmstat, iostat, strace
+
+## Job Roles This Enables
+
+- DevOps Engineer
+- SRE
+- System Administrator
+- Any backend engineering role
+
+## Target Certifications
+
+- RHCSA (EX200) → RHCE (EX294) | LFCS | CompTIA Linux+
+
+## How to Use This Roadmap
+
+1. Work through phases in order — each builds on the previous
+2. Complete the labs section for each phase before moving on
+3. Build a project after each phase to cement learning
+4. Use the interview section to test understanding regularly
+5. Track progress: revisit earlier sections as concepts compound
+
+## Prerequisites
+
+See `prerequisites.md` in this section for what you should know before starting.
+
+## Revision Notes
 ```
-Monday:    Read one section → take notes in your own words
-Tuesday:   Lab practice — run every command from Monday
-Wednesday: Write a small script applying what you learned
-Thursday:  Read man pages for 5 commands you use daily
-Friday:    Interview Q&A practice — explain concepts out loud
-Weekend:   Build a real automation script for your own use
+Total time: 10-15 weeks (part-time)
+Daily practice more effective than weekend marathons
+Build real things — theory alone not enough for these tools
+Join communities: CNCF Slack, relevant subreddits, Discord servers
 ```
-
-## Certifications to Target
-- **LFCS** — Linux Foundation Certified System Administrator (recommended first)
-- **RHCSA (EX200)** — Red Hat Certified System Administrator (most recognized)
-
-## Jobs After Linux Mastery
-Linux Administrator · DevOps Engineer · SRE · Cloud Engineer · Platform Engineer
-
-## Resources
-- **This course** — Overview → Fundamentals → Labs → Projects
-- **The Linux Command Line** by William Shotts (free at linuxcommand.org)
-- **OverTheWire: Bandit** — gamified Linux practice (bandit.labs.overthewire.org)
-- **tldr.sh** — simplified man pages for quick reference

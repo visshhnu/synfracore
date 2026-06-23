@@ -1,42 +1,70 @@
-# Helm — Learning Roadmap
+# Helm Learning Roadmap
 
-## Time to Job-Ready: 4 weeks (2 hours/day)
+**Goal**: From kubectl apply to templated, versioned Kubernetes deployments
 
-**Goal:** Package Kubernetes applications as distributable, configurable Helm charts.
+## Learning Phases
 
-## Phase 1 — Using Charts (Week 1-2)
-- What is Helm: package manager for Kubernetes
-- `helm repo add`, `helm repo update`, `helm search repo`
-- `helm install`, `helm upgrade`, `helm rollback`, `helm uninstall`
-- Override values: `--set key=value` and `-f custom-values.yaml`
-- `helm list`, `helm status`, `helm history`
-- Explore Artifact Hub (artifacthub.io) for public charts
+### Phase 1: Helm Basics (1 week)
 
-## Phase 2 — Building Charts (Week 2-3)
-- `helm create myapp` — scaffold a new chart
-- Chart structure: `Chart.yaml`, `values.yaml`, `templates/`
-- Template syntax: `{{ .Values.replicaCount }}`, `{{ .Release.Name }}`
-- Template functions: `include`, `toYaml`, `tpl`, `required`, `default`
-- Named templates (`_helpers.tpl`) and `NOTES.txt`
-- Chart dependencies (subcharts): `Chart.yaml` dependencies section
+- What Helm is and why: templates + values
+- helm install/upgrade/rollback/uninstall
+- Chart structure: Chart.yaml, templates/, values.yaml
+- Using public charts: Artifact Hub
 
-## Phase 3 — Production (Week 3-4)
-- `helm lint` and `helm template` for validation
-- Chart testing: `helm test` with test pods
-- Publish to OCI registry: `helm push`
-- Helm Secrets plugin: encrypt sensitive values
-- CI/CD integration: lint → test → package → publish → deploy
-- Helmfile: manage multiple releases declaratively
+### Phase 2: Chart Development (2 weeks)
 
-## Key Concepts to Master
-- Difference between `helm install` and `helm upgrade --install`
-- Release lifecycle and how Helm tracks state in Kubernetes Secrets
-- When to use `--atomic`, `--wait`, `--timeout`
-- `lookup` function to reference existing K8s resources
+- helm create: starter chart
+- Go template syntax: {{ .Values }}, {{ if }}, {{ range }}
+- Named templates: _helpers.tpl
+- Built-in objects: .Release, .Chart, .Capabilities
 
-## Jobs After Helm Mastery
-Kubernetes Engineer · Platform Engineer · DevOps Engineer
+### Phase 3: Advanced Templating (2 weeks)
 
-## Resources
-- **helm.sh/docs** — complete reference
-- **Artifact Hub** — browse 10,000+ public charts
+- Hooks: pre-install, post-upgrade, pre-delete
+- Chart tests with helm test
+- Dependencies: Chart.yaml dependencies, conditions, tags
+- Schema validation: values.schema.json
+
+### Phase 4: Distribution (1 week)
+
+- OCI registries for charts
+- Chart Releaser for GitHub-hosted repos
+- Versioning: SemVer for charts
+- Private chart repositories
+
+### Phase 5: Production (1 week)
+
+- Helmfile: manage multiple charts
+- ArgoCD + Helm for GitOps
+- Secret management: Helm Secrets plugin
+- Diff plugin for pre-upgrade preview
+
+## Job Roles This Enables
+
+- Platform Engineer
+- DevOps Engineer
+- Kubernetes Administrator
+
+## Target Certifications
+
+- CKAD covers Helm deployment tasks
+
+## How to Use This Roadmap
+
+1. Work through phases in order — each builds on the previous
+2. Complete the labs section for each phase before moving on
+3. Build a project after each phase to cement learning
+4. Use the interview section to test understanding regularly
+5. Track progress: revisit earlier sections as concepts compound
+
+## Prerequisites
+
+See `prerequisites.md` in this section for what you should know before starting.
+
+## Revision Notes
+```
+Total time: 10-15 weeks (part-time)
+Daily practice more effective than weekend marathons
+Build real things — theory alone not enough for these tools
+Join communities: CNCF Slack, relevant subreddits, Discord servers
+```

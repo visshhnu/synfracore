@@ -1,46 +1,70 @@
-# Ansible — Learning Roadmap
+# Ansible Learning Roadmap
 
-## Time to Job-Ready: 6 weeks (2 hours/day)
+**Goal**: From manual sysadmin to automated configuration management
 
-**Goal:** Automate server configuration, application deployment, and compliance at scale without agents.
+## Learning Phases
 
-## Phase 1 — Basics (Week 1-2)
-- Understand agentless architecture: SSH-based, no daemon needed on targets
-- Install Ansible: `pip install ansible`
-- Inventory files: static hosts, groups, `group_vars/`, `host_vars/`
-- Ad-hoc commands: `ansible all -m ping`, `ansible webservers -m command -a "uptime"`
-- First playbook: YAML syntax, `hosts`, `tasks`, `handlers`
-- Core modules: `copy`, `template`, `service`, `package`, `user`, `file`
+### Phase 1: Ansible Basics (1 week)
 
-## Phase 2 — Playbooks (Week 3-4)
-- Variables: `vars`, `vars_files`, `register`, `set_fact`
-- Jinja2 templates: `{{ variable }}`, `{% if %}`, `{% for %}`
-- Conditionals: `when` clause
-- Loops: `loop`, `with_items`, `with_dict`
-- Tags: run specific parts of playbooks
-- Roles: organize playbooks into reusable, shareable components
+- What Ansible is and why it beats scripts
+- Installing Ansible, SSH key setup
+- Ad-hoc commands: ansible -m module
+- Inventory: static and patterns
 
-## Phase 3 — Production (Week 5)
-- Ansible Vault: encrypt secrets, `ansible-vault encrypt/decrypt`
-- Error handling: `ignore_errors`, `failed_when`, `block/rescue/always`
-- Rolling updates: `serial`, `max_fail_percentage`
-- AWX/Ansible Tower: UI for team-based automation
-- Performance: `forks`, `pipelining`, `async` tasks
+### Phase 2: Playbooks (2 weeks)
 
-## Phase 4 — Advanced (Week 6)
-- Dynamic inventories: AWS EC2, Azure, GCP plugins
-- Custom modules: write Python modules for custom logic
-- Molecule: test roles with Docker containers
-- `ansible-lint`: enforce best practices
-- Integration with CI/CD pipelines
+- Playbook structure: plays, tasks, handlers
+- Core modules: copy, file, template, service, package
+- Variables: vars, defaults, group_vars, host_vars
+- Conditions (when) and loops (loop)
 
-## Certifications
-- **Red Hat EX407** — Ansible Automation Specialist
-- **Red Hat EX294** — Automation with Ansible (RHCE component)
+### Phase 3: Roles (2 weeks)
 
-## Jobs After Ansible Mastery
-Automation Engineer · DevOps Engineer · Configuration Management Engineer · SRE
+- Role directory structure
+- ansible-galaxy: download and create roles
+- Dependencies and defaults
+- Role testing with Molecule
 
-## Resources
-- **docs.ansible.com** — official documentation
-- **Ansible for DevOps** by Jeff Geerling (free PDF at ansiblefordevops.com)
+### Phase 4: Advanced (2 weeks)
+
+- Ansible Vault for secrets
+- Dynamic inventory (AWS, Azure)
+- Custom modules (Python)
+- Error handling: block/rescue/always
+
+### Phase 5: Production (1 week)
+
+- Ansible Tower/AWX for web UI and RBAC
+- Idempotency best practices
+- Performance: pipelining, forks, async tasks
+- Collections from Ansible Galaxy
+
+## Job Roles This Enables
+
+- Systems Administrator
+- DevOps Engineer
+- Automation Engineer
+
+## Target Certifications
+
+- Red Hat RHCE (EX294 — includes Ansible)
+
+## How to Use This Roadmap
+
+1. Work through phases in order — each builds on the previous
+2. Complete the labs section for each phase before moving on
+3. Build a project after each phase to cement learning
+4. Use the interview section to test understanding regularly
+5. Track progress: revisit earlier sections as concepts compound
+
+## Prerequisites
+
+See `prerequisites.md` in this section for what you should know before starting.
+
+## Revision Notes
+```
+Total time: 10-15 weeks (part-time)
+Daily practice more effective than weekend marathons
+Build real things — theory alone not enough for these tools
+Join communities: CNCF Slack, relevant subreddits, Discord servers
+```

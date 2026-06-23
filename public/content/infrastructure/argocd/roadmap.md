@@ -1,39 +1,70 @@
-# ArgoCD — Learning Roadmap
+# Argocd Learning Roadmap
 
-## Time to Job-Ready: 4 weeks (2 hours/day)
+**Goal**: From imperative kubectl to GitOps-driven continuous delivery
 
-**Goal:** Implement GitOps workflows that automatically sync Kubernetes clusters to Git state.
+## Learning Phases
 
-## Phase 1 — GitOps Fundamentals (Week 1)
-- Understand GitOps principles: Git as single source of truth
-- How ArgoCD works: watches Git repo → compares to cluster → syncs differences
-- Install ArgoCD: `kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml`
-- ArgoCD UI: login, explore dashboard
-- Connect a Git repository (HTTPS or SSH)
-- Deploy first application, understand sync status (Synced/OutOfSync/Degraded)
+### Phase 1: GitOps Concepts (1 week)
 
-## Phase 2 — Core Features (Week 2-3)
-- Application CRD: `source`, `destination`, `syncPolicy`
-- Sync waves and hooks: control deployment order across resources
-- Health checks: built-in and custom health assessments
-- Automated sync: `automated.prune`, `automated.selfHeal`
-- AppProjects: isolate teams, restrict allowed repos/clusters
-- RBAC: role-based access control for team members
+- What GitOps is: Git as single source of truth
+- Push vs pull deployment models
+- ArgoCD architecture: app controller, repo server, API
+- Install ArgoCD in Kubernetes
 
-## Phase 3 — Advanced (Week 3-4)
-- ApplicationSets: deploy same app to 100 clusters with one manifest
-- Argo Rollouts: canary and blue-green deployments
-- Integration with Helm and Kustomize
-- Notifications: Slack/GitHub status checks on sync events
-- Multi-cluster management from a single ArgoCD instance
-- Disaster recovery: backup ArgoCD state with `argocd-backup`
+### Phase 2: First Application (1 week)
 
-## Certifications
-- **CGOA** — Certified GitOps Associate (CNCF, includes Flux and ArgoCD)
+- Application CRD: source, destination, sync policy
+- argocd CLI and UI
+- Manual sync and auto-sync
+- Health status and sync status
 
-## Jobs After ArgoCD Mastery
-Platform Engineer · GitOps Engineer · DevOps Engineer · SRE
+### Phase 3: Advanced Features (2 weeks)
 
-## Resources
-- **argo-cd.readthedocs.io** — official documentation
-- **ArgoCon talks** — YouTube, real production case studies
+- App-of-apps pattern for multiple apps
+- ApplicationSet: generators and templates
+- Sync hooks and waves for ordering
+- Resource health customisation
+
+### Phase 4: Multi-cluster & Security (2 weeks)
+
+- AppProjects: scope and restrictions
+- RBAC for ArgoCD users
+- SSO integration (Dex, GitHub OAuth)
+- Multi-cluster deployment with external clusters
+
+### Phase 5: Progressive Delivery (1 week)
+
+- Argo Rollouts for canary/blue-green
+- Analysis templates for automated verification
+- Integration with Argo Workflows
+- Notifications for sync events
+
+## Job Roles This Enables
+
+- Platform Engineer
+- DevOps Engineer
+- Release Engineer
+
+## Target Certifications
+
+- GitOps Fundamentals (Codefresh, free)
+
+## How to Use This Roadmap
+
+1. Work through phases in order — each builds on the previous
+2. Complete the labs section for each phase before moving on
+3. Build a project after each phase to cement learning
+4. Use the interview section to test understanding regularly
+5. Track progress: revisit earlier sections as concepts compound
+
+## Prerequisites
+
+See `prerequisites.md` in this section for what you should know before starting.
+
+## Revision Notes
+```
+Total time: 10-15 weeks (part-time)
+Daily practice more effective than weekend marathons
+Build real things — theory alone not enough for these tools
+Join communities: CNCF Slack, relevant subreddits, Discord servers
+```

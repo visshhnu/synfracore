@@ -1,39 +1,168 @@
-# AWS EC2 — Interview Questions
+# AWS EC2 Interview Questions
 
-## Most Asked Questions
+## Core Concepts
 
-**Explain the difference between vertical and horizontal scaling in EC2.**
-Vertical scaling (scale up) means changing the instance type to a larger one — e.g. t3.medium to m5.4xlarge. You must stop the instance, change the type, then start it. This causes downtime and has hardware limits. Horizontal scaling (scale out) means adding more instances behind a load balancer, using Auto Scaling Groups. This is the AWS-recommended approach — it can scale to hundreds of instances with zero downtime and provides fault tolerance across AZs.
+**Q: What is EC2? Explain instance types.**
 
-**What is the difference between an AMI and a Snapshot?**
-A Snapshot is a point-in-time backup of an EBS volume — it captures the raw disk data. An AMI (Amazon Machine Image) is a complete template for launching an instance — it includes one or more snapshots (root volume + data volumes), launch permissions, and block device mapping. An AMI is built FROM a snapshot. When you create an AMI from an instance, AWS creates snapshots of its volumes and packages them with instance metadata.
+EC2 (Elastic Compute Cloud) is AWS's virtual server service. You choose instance type (CPU/RAM/storage profile) and OS, and AWS runs it on their hardware.
 
-**How does EC2 instance metadata work?**
-Every EC2 instance can query its own metadata at http://169.254.169.254/latest/meta-data/ — this is a link-local address only accessible from within the instance. It returns instance ID, instance type, AMI ID, IAM role credentials, private IP, public IP, and more. IMDSv2 (recommended) requires a session token to prevent SSRF attacks. Applications use this to self-configure without hardcoded values.
+**Instance families:**
+| Family | Optimised For | Examples |
+|---|---|---|
+| t (Burstable) | Variable workloads, dev/test | t3.micro, t3.large |
+| m (General Purpose) | Balanced CPU/RAM | m6i.large, m5.xlarge |
+| c (Compute) | CPU-heavy (video, batch) | c6i.4xlarge |
+| r (Memory) | Databases, caches | r6i.8xlarge |
+| i/d (Storage) | High disk IOPS | i4i.xlarge |
+| g/p (GPU) | ML training, graphics | g5.xlarge, p4d.24xlarge |
+| trn (Trainium) | ML training (AWS chip) | trn1.32xlarge |
+| inf (Inferentia) | ML inference (AWS chip) | inf2.xlarge |
 
-```bash
-# IMDSv2 — get instance metadata securely
-TOKEN=$(curl -X PUT "http://169.254.254.254/latest/api/token" \
-  -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
-curl -H "X-aws-ec2-metadata-token: $TOKEN" \
-  http://169.254.254.254/latest/meta-data/instance-id
+**T instances and CPU credits**: Burstable — earn credits when CPU < baseline, spend during bursts. `T3 Unlimited` = burst without credit limit (small extra cost).
+
+---
+
+**Q: EC2 purchasing options.**
+
+| Option | Discount | Commitment | Best For |
+|---|---|---|---|
+| On-Demand | 0% | None | Unpredictable, short-term |
+| Spot | 60-90% | None (evictable) | Stateless batch, fault-tolerant |
+| Reserved (1yr) | ~40% | 1 year | Steady-state production |
+| Reserved (3yr) | ~60% | 3 years | Long-running databases |
+| Savings Plans | ~17-66% | 1-3yr $/hr commit | Flexible mix of instances |
+| Dedicated Host | 0% | On-demand or reserved | Licensing, compliance |
+
+**Spot best practices:**
+- Use Spot Fleet (mix instance types) to reduce interruption risk
+- Use `--instance-interruption-behavior=hibernate` for stateful workloads
+- Monitor Spot interruption notices (2-min warning via metadata service)
+- Use On-Demand + Spot mixed ASG (base capacity On-Demand, scale with Spot)
+
+---
+
+**Q: EC2 networking — ENI, security groups, placement groups.**
+
+**ENI (Elastic Network Interface)**: Virtual NIC. Each instance gets primary ENI. Can attach additional ENIs (for network appliances, dual-homed instances).
+
+**Security Groups:**
+```
+Inbound rules: by default deny all. Add allow rules.
+Outbound rules: by default allow all. Can restrict.
+Stateful: allow inbound → return traffic automatically allowed.
+Reference other SGs: "allow port 8080 from App-SG" → any instance in App-SG
 ```
 
-**What is EC2 Hibernate?**
-Normal stop/start flushes RAM to disk (EBS root volume) before stopping — RAM state is preserved. On restart, the OS reads it back into memory and resumes from where it left off. Faster to resume long-running workloads. Requirements: instance must have EBS root volume with enough space for RAM, encrypted volume, and instance must support hibernate (most types do, not bare metal or spot).
+**Placement Groups:**
+- **Cluster**: All instances in same AZ, same rack. Low latency (HPC). Risk: all fail together.
+- **Spread**: Each instance on different rack (max 7 per AZ). High availability.
+- **Partition**: Groups of instances on separate racks (good for Hadoop, Kafka).
 
-**How do you make an instance highly available?**
-Place at least 2 instances in different Availability Zones behind an Application Load Balancer. Use Auto Scaling Group with min=2 across at least 2 AZs. Configure health checks on the ALB so unhealthy instances are removed from rotation. Use EBS or EFS for stateful data (not instance store). Enable ALB access logs for visibility. Set up CloudWatch alarms for scaling and health monitoring.
+---
 
-**What happens when an EC2 instance fails its health check?**
-With an Auto Scaling Group: ASG's health check (EC2 or ELB) marks the instance unhealthy. ASG terminates the instance and launches a replacement. If using ELB health checks, instances failing ALB health checks get deregistered before termination. The replacement gets launched in the same AZ as the failed instance (ASG rebalances across AZs over time).
+**Q: AMI, snapshots, and EC2 Image Builder.**
 
-**Spot vs Reserved vs On-Demand — when to use each?**
-On-Demand: Testing, development, unpredictable workloads, spiky traffic. No commitment.
-Reserved: Predictable baseline load that runs 24/7 — databases, always-on APIs. 1 or 3 year commitment. 30-60% savings.
-Spot: Batch processing, ML training, CI/CD workers, rendering — workloads that can be interrupted and resumed. Up to 90% savings. 2-minute notice before termination.
-Savings Plans: Like Reserved but more flexible — covers any instance type, any size. Preferred over RIs for most teams.
+**AMI (Amazon Machine Image)**: Template for launching EC2 instances. Contains OS, software, configuration.
 
-**What is the difference between EBS and Instance Store?**
-Instance Store is physically attached to the host — extremely fast (NVMe SSD), but completely ephemeral. Data is LOST when instance stops, terminates, or the underlying hardware fails. Use only for temporary cache, scratch space, or buffer.
-EBS is a network-attached block storage service. Data persists independently of instance lifecycle. Can be detached and attached to another instance. Supports snapshots for backup. Slightly higher latency than Instance Store (network vs physical) but acceptable for databases and OS volumes.
+```bash
+# Create AMI from running instance
+aws ec2 create-image   --instance-id i-1234567890abcdef0   --name "MyApp-AMI-$(date +%Y%m%d)"   --no-reboot
+
+# Copy AMI to another region (for DR/global deployment)
+aws ec2 copy-image   --source-region us-east-1   --source-image-id ami-xxxxx   --region eu-west-1   --name "MyApp-AMI-EU"
+```
+
+**EC2 Image Builder**: Automate AMI creation pipeline.
+- Define image recipe (base AMI + components to install/configure)
+- Schedule automated builds, test, distribute to multiple regions
+- Integrates with Systems Manager for patching
+
+**EBS Snapshots**: Point-in-time backup of EBS volume. Incremental (only changed blocks). Stored in S3.
+```bash
+aws ec2 create-snapshot --volume-id vol-xxx --description "Daily backup"
+# Automate: Data Lifecycle Manager (DLM) policies
+```
+
+---
+
+**Q: EC2 Auto Scaling — how does it work?**
+
+Auto Scaling Group (ASG): Maintains desired number of EC2 instances, scales based on demand.
+
+```yaml
+Auto Scaling Group:
+  MinSize: 2
+  MaxSize: 20
+  DesiredCapacity: 4
+  
+Scaling Policies:
+  Target Tracking: "Keep avg CPU at 70%"
+  Step Scaling: "CPU > 80% → add 2 | CPU < 20% → remove 1"
+  Scheduled: "Scale to 10 at 9am weekdays, scale to 2 at 8pm"
+  Predictive: ML-based pre-scaling for recurring patterns
+  
+Health Checks: EC2 status checks + ELB health checks
+Lifecycle Hooks: Run scripts on launch/terminate (warm up, drain connections)
+```
+
+**Launch Template** (preferred over Launch Configuration): Defines instance configuration for ASG. Supports multiple versions, Spot+On-Demand mix.
+
+---
+
+**Q: EC2 monitoring and troubleshooting.**
+
+```bash
+# EC2 status checks
+# System status check: hardware/hypervisor issue (contact AWS)
+# Instance status check: OS/network issue (your responsibility)
+
+# View instance metadata from within instance
+curl http://169.254.169.254/latest/meta-data/instance-id
+curl http://169.254.169.254/latest/meta-data/instance-type
+# IMDSv2 (more secure):
+TOKEN=$(curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/
+
+# CloudWatch metrics: CPUUtilization, NetworkIn/Out, DiskReadBytes
+# Enhanced monitoring: 1-minute granularity (default: 5 min)
+aws ec2 monitor-instances --instance-ids i-xxx
+
+# Connect to instance
+aws ssm start-session --target i-xxx   # Systems Manager (no SSH key needed)
+# Or traditional: ssh -i key.pem ec2-user@ip
+```
+
+**Common issues:**
+- Instance won't start: Check instance limits, VPC/subnet config
+- Can't connect via SSH: Check SG port 22, NACL, key pair, OS boot logs
+- High CPU: Check CloudWatch, use `top`/`htop` via SSM session
+- Status check failed: Stop/start (moves to new hardware) vs reboot
+
+## Revision Notes
+```
+EC2 FAMILIES: t(burst) m(general) c(compute) r(memory) i(storage) g/p(GPU)
+T instances: CPU credits for burst. T3 Unlimited = burst without credit limit.
+
+PURCHASING:
+On-Demand: no commitment | Spot: 60-90% off, evictable | RI: 40-60% off 1-3yr
+Savings Plans: flexible commitment | Dedicated Host: licensing/compliance
+
+NETWORKING:
+ENI: virtual NIC, can add multiple
+SGs: stateful, allow-only, can reference other SGs
+Placement: Cluster(low latency) | Spread(HA, 7/AZ) | Partition(Hadoop/Kafka)
+
+AMI: instance template. Create from running instance. Copy cross-region.
+EBS Snapshot: incremental backup. DLM for automation.
+EC2 Image Builder: automated AMI pipeline with testing.
+
+AUTO SCALING:
+ASG: min/desired/max. Launch Template (preferred over Launch Config).
+Policies: Target Tracking | Step | Scheduled | Predictive
+Lifecycle hooks: scripts on launch/terminate
+
+TROUBLESHOOTING:
+Status checks: System (AWS hardware) vs Instance (your OS)
+IMDSv2: use token-based metadata access (more secure)
+Connect: SSM Session Manager (no SSH key needed, no port 22)
+```

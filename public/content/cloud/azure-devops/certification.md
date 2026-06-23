@@ -1,53 +1,64 @@
-# Azure DevOps — Certification Guide
+# Azure DevOps Certification Guide
 
-## Why Get Certified in Azure DevOps?
+## Primary Certification
 
-Certifications validate your Azure DevOps skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+**AZ-400 Designing and Implementing Microsoft DevOps Solutions**
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+*Format*: 40-60 MCQ | 3 hours | 700/1000 | $165 USD
 
-## Most Valuable Certifications
+## Related Certifications
 
-Research current certifications for Azure DevOps on these sources:
+- GitHub Actions Certification
+- AZ-204 Azure Developer Associate
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+## Key Exam Topics
 
-## General Certification Strategy
+- Azure Pipelines: YAML pipeline structure (trigger, pool, stages, jobs, steps)
+- Service connections: authenticate pipelines to external services (Azure, GitHub, Docker)
+- Environments: track deployments; approval gates before prod deployment
+- Branch policies: require reviews, build validation, work item linking before merging
+- Variable groups and Azure Key Vault: share variables across pipelines securely
+- Azure Artifacts: private package feeds (npm, NuGet, Maven, Python, Universal)
+- Test Plans: manual + exploratory testing; integrate test results from CI pipeline
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+## Must-Know CLI Commands
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
-
-```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+```bash
+az devops configure --defaults organization=https://dev.azure.com/myorg project=myproject
+az pipelines create --name my-pipeline --yaml-path azure-pipelines.yml --repository myrepo
+az pipelines run --name my-pipeline --branch main
+az pipelines variable-group create --name my-vars --authorize --variables MY_VAR=value
+az artifacts universal download --feed myfeed --name mypackage --version 1.0.0 --path ./output
 ```
 
-## After Certification
+## Exam Tips
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+- YAML pipelines > Classic pipelines: version controlled, reviewable, reusable
+- Template syntax: extends template for standardized pipelines across teams
+- Deployment gates: invoke Azure Function or REST API to check conditions before deploy
+- Service connections: use managed identity (not service principal) for Azure resources
+
+## Study Plan
+
+**Week 1-2**: Read official docs + overview/fundamentals sections in this platform
+**Week 3-4**: Hands-on labs (AWS free tier / Azure sandbox / GCP free tier)
+**Week 5**: Practice exams (TutorialsDojo, ExamTopics, Whizlabs)
+**Final days**: Review weak areas + cheatsheet
+
+## Free Study Resources
+
+- AWS: aws.amazon.com/training — free digital courses
+- Azure: learn.microsoft.com — Microsoft Learn (free + sandbox labs)
+- GCP: cloud.google.com/training — free courses + Qwiklabs credits
+- TutorialsDojo: cheat sheets for all exams (best value paid resource)
+
+## Revision Notes
+```
+PRIMARY EXAM: AZ-400 Designing and Implementing Microsoft DevOps Solutions
+
+TOP TOPICS:
+  Azure Pipelines: YAML pipeline structure (trigger, pool, stages, jobs, steps)
+  Service connections: authenticate pipelines to external services (Azure, GitHub,
+  Environments: track deployments; approval gates before prod deployment
+  Branch policies: require reviews, build validation, work item linking before mer
+```

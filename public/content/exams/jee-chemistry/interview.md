@@ -1,40 +1,82 @@
-# JEE Chemistry — Interview & Exam Questions
+# JEE Chemistry — Important Questions & Concepts
 
-## Top Questions for JEE
+## Physical Chemistry
 
-These are the most frequently tested concepts in JEE Chemistry across competitive exams, job interviews, and certification tests.
+**Q: Molarity vs molality — when to use each?**
+```
+Molarity (M) = moles of solute / litres of solution
+  Changes with temperature (volume expands/contracts)
+  Used for: dilutions, titrations, stoichiometry
 
-## Conceptual Questions
+Molality (m) = moles of solute / kg of solvent
+  Temperature independent (mass doesn't change)
+  Used for: colligative properties (ΔTf, ΔTb, osmotic pressure)
+```
 
-**Q: What is the most important concept in JEE Chemistry?**
-A: The foundation of JEE Chemistry lies in understanding [Mole Concept & Stoichiometry]. Without a solid grasp of this, other concepts become difficult to apply correctly.
+**Q: Rate of reaction: 2NO + O₂ → 2NO₂. Write rate expression.**
+```
+Rate = k[NO]²[O₂]
+  NO is second order (exponent = 2 from balanced equation for elementary)
+  O₂ is first order
+  Overall order = 3
+Note: Order from equation only valid for elementary reactions
+       For complex reactions, order determined experimentally
+```
 
-**Q: What are the most common mistakes candidates make?**
-A: The most frequent errors include:
-- Misapplying formulas without understanding the underlying concept
-- Making calculation errors under time pressure
-- Misreading the question (especially for tricky MCQs)
-- Not knowing when to use which approach
+**Q: Calculate ΔG° for reaction with Kp = 10⁵ at 300K.**
+```
+ΔG° = -RT ln Kp = -8.314 × 300 × ln(10⁵)
+     = -2494.2 × 5 × 2.303
+     = -28,722 J/mol ≈ -28.7 kJ/mol
+Negative ΔG° → spontaneous reaction (Kp > 1 → products favoured)
+```
 
-**Q: How do you prepare for JEE Chemistry in limited time?**
-A: Focus on high-yield topics first. Study the most tested concepts from previous years, practice MCQs (not theory reading), and use the spaced repetition technique for retention.
+## Organic Chemistry
 
-## Topic-Wise Important Questions
+**Q: Explain SN1 vs SN2 mechanisms.**
+```
+SN1 (Substitution Nucleophilic Unimolecular):
+  2 steps: ionisation → carbocation intermediate
+  Rate = k[substrate] (first order — only substrate in slow step)
+  Favoured: tertiary > secondary substrates
+           Polar protic solvents (water, alcohol)
+           Weak nucleophiles
+  Stereochemistry: racemisation (carbocation attacked from both sides)
 
-**Mole Concept & Stoichiometry**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
-**Chemical Bonding & Structure**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
-**Thermodynamics & Equilibrium**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
-**Electrochemistry**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
-**Organic Chemistry (GOC, Named Reactions)**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
+SN2 (Bimolecular):
+  1 step: nucleophile attacks as leaving group leaves (backside attack)
+  Rate = k[substrate][nucleophile] (second order)
+  Favoured: primary > secondary substrates (less steric hindrance)
+           Polar aprotic solvents (DMSO, acetone)
+           Strong nucleophiles
+  Stereochemistry: inversion (Walden inversion)
+```
 
-## Exam-Specific Tips
+## Inorganic Chemistry
 
-For JEE:
-- Understand the marking scheme (negative marking affects strategy)
-- Practice with timer (exam conditions matter)
-- The Labs section MCQ sets simulate real exam questions with explanations
-- Review your wrong answers systematically — patterns in errors indicate knowledge gaps
+**Q: Why is the second ionisation energy of Na very high?**
+```
+Na (Z=11): 1s² 2s² 2p⁶ 3s¹
+First IE: remove 3s¹ electron (outermost, easiest) → Na⁺ = noble gas config
+Second IE: remove electron from 2p⁶ (inner shell, full shell, much harder)
+IE₂ >> IE₁ because noble gas configuration is highly stable
+```
 
-## Quick Revision
+## Revision Notes
+```
+MOLE CONCEPT: n = mass/molar mass | PV = nRT | 1 mol = 6.022×10²³
+SOLUTIONS:
+  Molarity (M): moles/litres | Molality (m): moles/kg solvent
+  Normality (N) = n × M (n = equivalents)
+  Henry's law: p = KH·x | Raoult's law: P_total = x_A·P_A° + x_B·P_B°
 
-Before the exam, use the **Labs flashcard sets** for rapid revision of key formulas, definitions, and patterns. The **Cheatsheet** section has the most important quick-reference material.
+KINETICS: rate = k[A]^m[B]^n | t½ for 1st order = 0.693/k
+THERMOCHEMISTRY: ΔG = ΔH - TΔS | ΔG° = -RT lnK
+  ΔG < 0: spontaneous | ΔG > 0: non-spontaneous
+
+ORGANIC MECHANISMS:
+  SN1: tertiary, racemisation, protic solvent
+  SN2: primary, inversion, aprotic solvent, strong nucleophile
+  E1: tertiary, carbocation, Zaitsev product
+  E2: secondary/tertiary, strong base, anti-periplanar
+```

@@ -1,46 +1,71 @@
-# Terraform — Learning Roadmap
+# Terraform Learning Roadmap
 
-## Time to Job-Ready: 6 weeks (2 hours/day)
+**Goal**: From infrastructure clicks to automated IaC at scale
 
-**Goal:** Write production-grade Terraform for any cloud provider with proper state management and modules.
+## Learning Phases
 
-## Phase 1 — Foundations (Week 1-2)
-- HCL syntax: resources, data sources, variables, outputs, locals
-- Workflow: `terraform init`, `plan`, `apply`, `destroy`
-- Provider configuration (AWS, Azure, or GCP)
-- State file: what it is, why it matters, never edit manually
-- Remote state: S3 + DynamoDB (AWS) or Terraform Cloud
-- Basic resources: VPC, subnets, security groups, EC2/VMs
+### Phase 1: Terraform Basics (2 weeks)
 
-## Phase 2 — Real Infrastructure (Week 3-4)
-- Load balancers, auto-scaling groups, RDS databases, S3 buckets
-- Data sources: reference existing resources not managed by Terraform
-- `count` vs `for_each` — when to use each
-- Dynamic blocks for repeated nested configuration
-- `depends_on` — explicit dependency management
-- `lifecycle` rules: `create_before_destroy`, `prevent_destroy`, `ignore_changes`
+- HCL syntax: providers, resources, data sources
+- terraform init/plan/apply/destroy
+- State files and backends
+- Variables and outputs
 
-## Phase 3 — Modules & Collaboration (Week 5)
-- Write reusable modules with input variables and outputs
-- Module versioning and the Terraform Registry
-- Workspaces for multi-environment (dev/staging/prod)
-- `.tfvars` files and variable precedence
-- CI/CD integration: `terraform plan` on PR, `apply` on merge
+### Phase 2: Real Infrastructure (2 weeks)
 
-## Phase 4 — Advanced (Week 6)
-- Import existing infrastructure: `terraform import`
-- Terraform Cloud: remote runs, state locking, team access
-- Policy as code: Sentinel (Terraform Cloud) or OPA (open-source)
-- Testing: `terraform validate`, `terraform fmt`, `tflint`, Terratest
-- Performance: partial applies, targeted applies (`-target`)
+- AWS/Azure/GCP provider
+- VPC, subnets, security groups with Terraform
+- Modules: writing and using
+- Locals, for_each, count
 
-## Certifications
-- **HashiCorp Terraform Associate (003)** — $70, multiple choice, highly recommended
+### Phase 3: State Management (1 week)
 
-## Jobs After Terraform Mastery
-Infrastructure Engineer · DevOps Engineer · Cloud Engineer · Platform Engineer
+- Remote state: S3 + DynamoDB locking
+- State manipulation: mv, rm, import
+- Workspaces for environments
+- terraform_remote_state data source
 
-## Resources
-- **developer.hashicorp.com/terraform** — official learn platform (free)
-- **Terraform: Up & Running** by Yevgeniy Brikman
-- **KodeKloud Terraform course**
+### Phase 4: Advanced Patterns (2 weeks)
+
+- Module composition and versioning
+- Terraform Registry and private modules
+- Dynamic blocks and complex expressions
+- Providers: aliasing and multi-region
+
+### Phase 5: Enterprise IaC (2 weeks)
+
+- Terraform Cloud/Enterprise
+- CI/CD with Terraform (GitHub Actions)
+- Testing: Terratest, checkov (security)
+- Drift detection and remediation
+
+## Job Roles This Enables
+
+- DevOps Engineer
+- Cloud Engineer
+- SRE
+- Platform Engineer
+
+## Target Certifications
+
+- HashiCorp Terraform Associate (003)
+
+## How to Use This Roadmap
+
+1. Work through phases in order — each builds on the previous
+2. Complete the labs section for each phase before moving on
+3. Build a project after each phase to cement learning
+4. Use the interview section to test understanding regularly
+5. Track progress: revisit earlier sections as concepts compound
+
+## Prerequisites
+
+See `prerequisites.md` in this section for what you should know before starting.
+
+## Revision Notes
+```
+Total time: 10-15 weeks (part-time)
+Daily practice more effective than weekend marathons
+Build real things — theory alone not enough for these tools
+Join communities: CNCF Slack, relevant subreddits, Discord servers
+```

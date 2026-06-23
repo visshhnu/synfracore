@@ -1,50 +1,71 @@
-# Kubernetes — Learning Roadmap
+# Kubernetes Learning Roadmap
 
-## Time to Job-Ready: 8 weeks (2 hours/day)
+**Goal**: From container basics to certified Kubernetes administrator
 
-**Goal:** Deploy, scale, and manage production workloads on Kubernetes clusters.
+## Learning Phases
 
-## Phase 1 — Core Concepts (Week 1-2)
-- Understand the architecture: control plane (API server, etcd, scheduler, controller manager), worker nodes (kubelet, kube-proxy, container runtime)
-- Core resources: Pod, Deployment, ReplicaSet, Service (ClusterIP, NodePort, LoadBalancer)
-- ConfigMaps and Secrets — externalize configuration
-- `kubectl` fundamentals: `get`, `describe`, `apply`, `delete`, `logs`, `exec`, `port-forward`
-- Set up a local cluster: `minikube` or `kind`
+### Phase 1: Foundation (2 weeks)
 
-## Phase 2 — Intermediate (Week 3-4)
-- Namespaces and resource isolation
-- Persistent Volumes, PVCs, StorageClasses
-- Ingress controllers — route external HTTP traffic
-- Resource requests and limits, HorizontalPodAutoscaler
-- RBAC: Roles, ClusterRoles, RoleBindings
-- Rolling updates and rollbacks: `kubectl rollout`
+- Linux basics
+- Docker fundamentals
+- Container concepts
+- YAML syntax
 
-## Phase 3 — Production Patterns (Week 5-6)
-- Helm charts: install, upgrade, rollback, create custom charts
-- NetworkPolicy — restrict pod-to-pod communication
-- Pod Disruption Budgets, Affinity and Anti-Affinity rules
-- Probes: liveness, readiness, startup
-- Init containers and sidecar pattern
-- Secrets management: sealed-secrets or external-secrets
+### Phase 2: K8s Core (4 weeks)
 
-## Phase 4 — Advanced (Week 7-8)
-- Set up a real cluster: kubeadm or managed (EKS/GKE/AKS)
-- Custom Resource Definitions (CRDs) and Operators
-- GitOps with ArgoCD or Flux
-- Service Mesh basics (Istio or Linkerd)
+- Pods, ReplicaSets, Deployments
+- Services (ClusterIP, NodePort, LoadBalancer)
+- ConfigMaps and Secrets
+- Namespaces and RBAC basics
+
+### Phase 3: Intermediate (4 weeks)
+
+- StatefulSets and DaemonSets
+- Persistent Volumes and Storage Classes
+- Ingress controllers
+- HPA and VPA autoscaling
+
+### Phase 4: Advanced (4 weeks)
+
+- Network policies
+- Security contexts and Pod Security
+- Custom resources and operators
 - Multi-cluster patterns
-- Monitoring: Prometheus + Grafana on K8s
 
-## Certifications
-- **KCNA** — Kubernetes and Cloud Native Associate (starter)
-- **CKAD** — Certified Kubernetes Application Developer
-- **CKA** — Certified Kubernetes Administrator (most valuable)
+### Phase 5: CKA Prep (2 weeks)
 
-## Jobs After Kubernetes Mastery
-Kubernetes Engineer · Platform Engineer · DevOps Engineer · SRE · Cloud Architect
+- Practice on killer.sh
+- Time management for exam tasks
+- kubectl shortcuts and aliases
+- Exam-day strategy
 
-## Resources
-- **kubernetes.io/docs** — official docs (allowed during CKA exam)
-- **KodeKloud CKA course** — best structured course
-- **killer.sh** — 2 free mock exams included with CKA purchase
-- **Kubernetes Up & Running** by O'Reilly
+## Job Roles This Enables
+
+- DevOps Engineer
+- Platform Engineer
+- SRE
+- Cloud Engineer
+
+## Target Certifications
+
+- CKA → CKAD → CKS (progression)
+
+## How to Use This Roadmap
+
+1. Work through phases in order — each builds on the previous
+2. Complete the labs section for each phase before moving on
+3. Build a project after each phase to cement learning
+4. Use the interview section to test understanding regularly
+5. Track progress: revisit earlier sections as concepts compound
+
+## Prerequisites
+
+See `prerequisites.md` in this section for what you should know before starting.
+
+## Revision Notes
+```
+Total time: 10-15 weeks (part-time)
+Daily practice more effective than weekend marathons
+Build real things — theory alone not enough for these tools
+Join communities: CNCF Slack, relevant subreddits, Discord servers
+```

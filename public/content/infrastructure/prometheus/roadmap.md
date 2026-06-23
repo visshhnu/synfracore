@@ -1,45 +1,71 @@
-# Prometheus — Learning Roadmap
+# Prometheus Learning Roadmap
 
-## Time to Job-Ready: 5 weeks (2 hours/day)
+**Goal**: From no monitoring to production observability with Prometheus + Grafana
 
-**Goal:** Set up comprehensive monitoring with SLO-based alerts and dashboards for any infrastructure.
+## Learning Phases
 
-## Phase 1 — Core Concepts (Week 1-2)
-- Understand the pull model: Prometheus scrapes targets on a schedule
-- Metric types: Counter, Gauge, Histogram, Summary
-- Labels: the key-value pairs that make metrics multi-dimensional
-- `prometheus.yml`: `global`, `scrape_configs`, `alerting`
-- Deploy with Docker Compose: Prometheus + Node Exporter
-- PromQL basics: selectors `{}`, `rate()`, `increase()`, `sum()`, `avg()`
+### Phase 1: Basics (1 week)
 
-## Phase 2 — Alerting (Week 3)
-- Write alert rules in YAML: `groups`, `rules`, `expr`, `for`, `labels`, `annotations`
-- AlertManager: `route`, `receiver`, `inhibit_rules`, `silence`
-- Notification channels: Slack, PagerDuty, email
-- SLO-based alerts: error rate > 1%, P99 latency > 1s
-- Alert severity levels: `critical`, `warning`, `info`
+- What Prometheus is: pull-based time series
+- Install with Docker or Kubernetes operator
+- prometheus.yml: scrape configs
+- Explore metrics in Prometheus UI
 
-## Phase 3 — Production (Week 4)
-- Prometheus Operator and ServiceMonitor / PodMonitor CRDs
-- Kube-state-metrics and node-exporter for Kubernetes monitoring
-- Recording rules: pre-compute expensive queries
-- Long-term storage: Thanos or VictoriaMetrics
-- High-availability Prometheus: duplicate instances + deduplication
+### Phase 2: PromQL (2 weeks)
 
-## Phase 4 — Grafana (Week 5)
-- Connect Grafana to Prometheus data source
-- Build dashboards: panels, variables, time ranges
-- Import community dashboards (grafana.com/grafana/dashboards)
-- Grafana alerting: migrate from Prometheus alerts to Grafana Unified Alerting
-- Dashboard as code: Grafonnet or Terraform Grafana provider
+- Instant vectors and range vectors
+- Aggregation: sum, avg, rate, irate
+- Filtering with label matchers
+- Functions: increase, topk, histogram_quantile
 
-## Certifications
-- **PCA** — Prometheus Certified Associate (CNCF, $250)
+### Phase 3: Alerting (1 week)
 
-## Jobs After Prometheus Mastery
-SRE · Observability Engineer · Platform Engineer · DevOps Engineer
+- Recording rules for pre-computed queries
+- Alert rules: expr, for, labels, annotations
+- Alertmanager: routing, receivers, silences
+- Integrations: Slack, PagerDuty, email
 
-## Resources
-- **prometheus.io/docs** — official documentation
-- **Prometheus: Up & Running** by O'Reilly
-- **Awesome Prometheus alerts** — github.com/samber/awesome-prometheus-alerts
+### Phase 4: Integration (2 weeks)
+
+- Node Exporter for host metrics
+- kube-state-metrics for Kubernetes
+- Application instrumentation (client libraries)
+- Service discovery: kubernetes_sd_configs
+
+### Phase 5: Scale & Production (2 weeks)
+
+- Federation for hierarchical Prometheus
+- Remote write to Thanos/Mimir/Cortex
+- Long-term storage with Thanos
+- Grafana dashboards from PromQL
+
+## Job Roles This Enables
+
+- SRE
+- DevOps Engineer
+- Platform Engineer
+- Observability Engineer
+
+## Target Certifications
+
+- Grafana Associate covers Prometheus + Grafana
+
+## How to Use This Roadmap
+
+1. Work through phases in order — each builds on the previous
+2. Complete the labs section for each phase before moving on
+3. Build a project after each phase to cement learning
+4. Use the interview section to test understanding regularly
+5. Track progress: revisit earlier sections as concepts compound
+
+## Prerequisites
+
+See `prerequisites.md` in this section for what you should know before starting.
+
+## Revision Notes
+```
+Total time: 10-15 weeks (part-time)
+Daily practice more effective than weekend marathons
+Build real things — theory alone not enough for these tools
+Join communities: CNCF Slack, relevant subreddits, Discord servers
+```

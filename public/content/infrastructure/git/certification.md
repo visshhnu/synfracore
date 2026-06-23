@@ -1,53 +1,136 @@
-# Git & GitHub — Certification Guide
+# Git Certification Guide
 
-## Why Get Certified in Git & GitHub?
+## Certifications Available
 
-Certifications validate your Git & GitHub skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+| Cert | Provider | Cost | Format |
+|------|----------|------|--------|
+| **GitHub Foundations** | GitHub | $99 | Multiple choice |
+| **GitHub Actions** | GitHub | $99 | Multiple choice |
+| **GitHub Advanced Security** | GitHub | $99 | Multiple choice |
+| **GitHub Administration** | GitHub | $99 | Multiple choice |
+| **GitLab Certified Associate** | GitLab | Free | Online |
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+No vendor-neutral "Git certification" exists — these test platform-specific workflows.
 
-## Most Valuable Certifications
+---
 
-Research current certifications for Git & GitHub on these sources:
+## GitHub Foundations Exam Objectives
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+**Core Git & GitHub concepts:**
 
-## General Certification Strategy
+```bash
+# GIT FUNDAMENTALS (must know perfectly)
+git init
+git clone https://github.com/user/repo.git
+git status
+git add .                        # Stage all
+git add -p                       # Interactive stage (patch by patch)
+git commit -m "feat: add login"
+git commit --amend               # Modify last commit (before push)
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+# BRANCHING
+git branch feature/login
+git checkout -b feature/login    # Create + switch
+git switch -c feature/login      # Modern syntax
+git merge feature/login
+git merge --no-ff feature/login  # Always create merge commit
+git rebase main                  # Rebase current branch onto main
+git rebase -i HEAD~3             # Interactive rebase (squash, reorder)
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
+# REMOTE
+git remote add origin https://github.com/user/repo.git
+git fetch origin                 # Download without merging
+git pull                         # fetch + merge (or rebase)
+git push origin feature/login
+git push --force-with-lease      # Safe force push (checks remote hasn't changed)
 
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
+# HISTORY & INSPECTION
+git log --oneline --graph --all
+git log --follow -- filename     # Track file through renames
+git diff HEAD~1 HEAD             # Diff last commit
+git blame file.py                # Who changed each line
+git bisect start                 # Binary search for bug-introducing commit
+git reflog                       # Recovery log (all HEAD movements)
 
-## Study Schedule Template
+# UNDOING
+git restore file.py              # Discard unstaged changes
+git restore --staged file.py     # Unstage file
+git revert HEAD                  # New commit that undoes last commit
+git reset HEAD~1 --soft          # Undo commit, keep changes staged
+git reset HEAD~1 --mixed         # Undo commit, keep changes unstaged (default)
+git reset HEAD~1 --hard          # Undo commit, discard all changes (DANGER)
+
+# STASH
+git stash                        # Stash dirty working tree
+git stash push -m "WIP: login"  # Named stash
+git stash list
+git stash pop                    # Apply and drop
+git stash apply stash@{1}        # Apply without dropping
+
+# TAGS
+git tag v1.0.0
+git tag -a v1.0.0 -m "Release 1.0.0"  # Annotated (use for releases)
+git push origin --tags
+```
+
+---
+
+## GitHub-Specific Concepts
 
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+PULL REQUESTS:
+  Fork → Clone → Branch → Commit → Push → PR → Review → Merge
+  PR types: regular merge | squash and merge | rebase and merge
+
+BRANCH PROTECTION RULES:
+  Require PR reviews | Require status checks | Block force pushes
+  Restrict pushes to matching branches
+
+GITHUB ACTIONS (tested in Actions cert):
+  .github/workflows/*.yml
+  on: push, pull_request, schedule, workflow_dispatch
+  jobs: runs-on, steps, uses (actions), env, secrets
+  Environments with protection rules and approvals
+  Reusable workflows: workflow_call
+
+SECURITY:
+  Dependabot: automated dependency updates
+  Code scanning: CodeQL for vulnerability detection
+  Secret scanning: detect committed credentials
+  Branch protection: require signed commits
+
+GITHUB PACKAGES:
+  Docker images, npm, Maven, NuGet via ghcr.io
+  Authenticate: docker login ghcr.io -u USERNAME -p $GITHUB_TOKEN
 ```
 
-## After Certification
+---
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## Study Resources
+
+- **GitHub Skills** (github.com/skills) — free interactive courses
+- **GitHub Docs** (docs.github.com) — official documentation (open during exam)
+- **Pro Git Book** (git-scm.com/book) — free, comprehensive
+- **Learn Git Branching** (learngitbranching.js.org) — interactive visual
+
+## Revision Notes
+```
+GITHUB FOUNDATIONS: MCQ, covers Git + GitHub collaboration
+
+MUST KNOW:
+  Core workflow: add/commit/push/pull/merge/branch
+  Three areas: working tree / staging area / repository
+  Merge strategies: regular / squash / rebase
+  Conflict resolution: manual edit → add → commit
+
+RECOVERING MISTAKES:
+  reflog: find any lost commit
+  reset --soft: undo commit, keep staged | --mixed: unstaged | --hard: discard
+  revert: safe undo for shared branches (creates new commit)
+  restore: discard working tree changes
+
+GITHUB ACTIONS:
+  on:/jobs:/steps: structure | uses: for pre-built actions
+  secrets: never hardcode | environments: approval gates
+  Reusable workflows: workflow_call trigger
+```

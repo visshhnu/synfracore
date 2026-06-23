@@ -1,53 +1,44 @@
-# Networking — Certification Guide
+# Networking Certification Guide
 
-## Why Get Certified in Networking?
+## Certifications Available
 
-Certifications validate your Networking skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+- **CompTIA Network+**
+- **Cisco CCNA (200-301)**
+- **AWS/Azure/GCP Networking Speciality**
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+## Key Exam Topics
 
-## Most Valuable Certifications
+- OSI model and TCP/IP stack
+- IP addressing and subnetting
+- Routing protocols: OSPF, BGP, EIGRP
+- Switching: VLANs, STP, EtherChannel
+- Network security: firewalls, IDS/IPS, VPN
+- Wireless networking: 802.11, WPA2/3
 
-Research current certifications for Networking on these sources:
+## Exam Tips
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+- Network+: 90 questions, 90 minutes, 720/900 passing
+- CCNA: 100-120 questions, 120 minutes, 825/1000 passing
+- Subnetting speed is critical — practice until instant
 
-## General Certification Strategy
+## Study Resources
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+- Professor Messer CompTIA videos (free)
+- Cisco Networking Academy (free)
+- Jeremy's IT Lab CCNA (YouTube, free)
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
+## Study Plan
 
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
+**Week 1-2**: Core concepts (overview + fundamentals sections)
+**Week 3-4**: Hands-on practice (labs + projects sections)
+**Week 5**: Interview prep + exam-specific practice tests
+**Final days**: Cheatsheet review + rest
 
-## Study Schedule Template
-
+## Revision Notes
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+Focus areas for networking certification:
+  OSI model and TCP/IP stack
+  IP addressing and subnetting
+  Routing protocols: OSPF, BGP, EIGRP
+  Switching: VLANs, STP, EtherChannel
 ```
-
-## After Certification
-
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)

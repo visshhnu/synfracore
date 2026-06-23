@@ -1,40 +1,66 @@
-# NEET Physics — Interview & Exam Questions
+# NEET Physics — Important Questions & Concepts
 
-## Top Questions for NEET
+## Mechanics & Dynamics
 
-These are the most frequently tested concepts in NEET Physics across competitive exams, job interviews, and certification tests.
+**Q: A car decelerates from 60 km/h to rest in 5 seconds. Deceleration?**
+```
+u = 60 km/h = 60 × 1000/3600 = 50/3 m/s ≈ 16.67 m/s
+v = 0, t = 5s
+a = (v - u)/t = (0 - 16.67)/5 = -3.33 m/s²
+Magnitude of deceleration = 3.33 m/s² ≈ 10/3 m/s²
+```
 
-## Conceptual Questions
+**Q: Body at rest on incline angle θ. Condition for equilibrium?**
+```
+Forces: Normal (N), Weight (mg), Friction (f)
+Along incline: f = mg sinθ (friction balances component of weight)
+Perpendicular: N = mg cosθ
+For equilibrium: f ≤ μN → mg sinθ ≤ μ mg cosθ → tanθ ≤ μ
+Max angle of repose: θ_max = arctan(μ)
+```
 
-**Q: What is the most important concept in NEET Physics?**
-A: The foundation of NEET Physics lies in understanding [Mechanics]. Without a solid grasp of this, other concepts become difficult to apply correctly.
+## Fluid Mechanics & Thermal Physics
 
-**Q: What are the most common mistakes candidates make?**
-A: The most frequent errors include:
-- Misapplying formulas without understanding the underlying concept
-- Making calculation errors under time pressure
-- Misreading the question (especially for tricky MCQs)
-- Not knowing when to use which approach
+**Q: Blood pressure measured as 120/80 mmHg. What does it mean?**
+```
+Systolic/Diastolic pressure
+120 mmHg systolic = max pressure when heart contracts (systole)
+80 mmHg diastolic = min pressure when heart relaxes (diastole)
+In SI: 1 mmHg = 133.3 Pa
+120 mmHg = 120 × 133.3 = 15,996 Pa ≈ 16 kPa
 
-**Q: How do you prepare for NEET Physics in limited time?**
-A: Focus on high-yield topics first. Study the most tested concepts from previous years, practice MCQs (not theory reading), and use the spaced repetition technique for retention.
+Bernoulli's principle: P + ½ρv² + ρgh = constant
+Higher blood flow velocity → lower pressure (stenosis risk)
+```
 
-## Topic-Wise Important Questions
+## Electric & Magnetic Effects
 
-**Mechanics**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
-**Electrostatics**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
-**Optics**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
-**Modern Physics**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
-**Thermodynamics**: Focus on definitions, examples, and common problem patterns. Practice 10+ problems on this specific topic.
+**Q: Why is heart's electrical activity monitored with ECG?**
+```
+Heart muscle generates electrical signals during contraction.
+ECG (Electrocardiogram) records potential difference from body surface.
+P wave: atrial depolarisation
+QRS complex: ventricular depolarisation (strongest signal)
+T wave: ventricular repolarisation
+Irregular ECG → arrhythmia, heart block, MI diagnosis
+Physics: action potential, ionic current, changing electric field
+```
 
-## Exam-Specific Tips
-
-For NEET:
-- Understand the marking scheme (negative marking affects strategy)
-- Practice with timer (exam conditions matter)
-- The Labs section MCQ sets simulate real exam questions with explanations
-- Review your wrong answers systematically — patterns in errors indicate knowledge gaps
-
-## Quick Revision
-
-Before the exam, use the **Labs flashcard sets** for rapid revision of key formulas, definitions, and patterns. The **Cheatsheet** section has the most important quick-reference material.
+## Revision Notes
+```
+KINEMATICS: v=u+at | s=ut+½at² | v²=u²+2as
+NEWTON'S LAWS: F=ma | Action-Reaction | Inertia
+FRICTION: f_s ≤ μ_s N | f_k = μ_k N | tan θ_repose = μ_s
+WORK-ENERGY: W=Fs cosθ | KE=½mv² | PE=mgh | Conservation
+FLUIDS:
+  Bernoulli: P + ½ρv² + ρgh = const
+  Stoke's law: F = 6πηrv
+  Terminal velocity: v_t = 2r²(ρ-σ)g / 9η
+THERMAL:
+  Q = mcΔT | Q = mL (latent) | Ideal gas: PV = nRT
+  Specific heat: water = 4200 J/kg·K
+OPTICS:
+  Lens formula: 1/f = 1/v - 1/u
+  Power P = 1/f (in metres) = D (dioptres)
+  Eye defects: myopia (concave lens) | hypermetropia (convex lens)
+```
