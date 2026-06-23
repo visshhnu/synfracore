@@ -1,53 +1,137 @@
-# AI Agents — Certification Guide
+# AI Agents Certification Guide
 
-## Why Get Certified in AI Agents?
+## Certifications Available
 
-Certifications validate your AI Agents skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+No dedicated "AI Agents" certification exists yet. Most relevant paths:
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+| Cert / Course | Provider | Cost | Relevance |
+|---------------|----------|------|-----------|
+| **DeepLearning.AI AI Agents in LangGraph** | Coursera/DL.AI | Free | Core agents |
+| **Hugging Face Agents Course** | HF | Free | Open source agents |
+| **LangChain Academy — LangGraph** | LangChain | Free | Production agents |
+| **AWS Certified ML Specialty** | AWS | $300 | ML + agent systems |
+| **Google Professional ML Engineer** | Google | $200 | ML + agent platforms |
 
-## Most Valuable Certifications
+---
 
-Research current certifications for AI Agents on these sources:
+## Agent Architecture — Core Concepts
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+```python
+# REACT AGENT (Reason + Act + Observe)
+from langchain.agents import create_react_agent, AgentExecutor
+from langchain_core.tools import tool
+from langchain_openai import ChatOpenAI
 
-## General Certification Strategy
+@tool
+def search_web(query: str) -> str:
+    """Search the web for current information about a topic."""
+    return tavily_client.search(query)["results"][0]["content"]
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+@tool
+def run_python(code: str) -> str:
+    """Execute Python code and return the output or error."""
+    return execute_in_sandbox(code)
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
+llm = ChatOpenAI(model="gpt-4o")
+executor = AgentExecutor(
+    agent=create_react_agent(llm, [search_web, run_python], prompt),
+    tools=[search_web, run_python],
+    verbose=True,
+    max_iterations=10,    # prevent infinite loops
+    handle_parsing_errors=True,
+)
+result = executor.invoke({"input": "Find latest AI news and summarise"})
 
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
+# LANGGRAPH — stateful agents with explicit flow control
+from langgraph.graph import StateGraph, END
+from langgraph.prebuilt import ToolNode
+from typing import TypedDict, Annotated
+from langchain_core.messages import BaseMessage
+import operator
 
-## Study Schedule Template
+class State(TypedDict):
+    messages: Annotated[list[BaseMessage], operator.add]
+
+llm_with_tools = ChatOpenAI(model="gpt-4o").bind_tools([search_web])
+
+def call_model(state: State):
+    return {"messages": [llm_with_tools.invoke(state["messages"])]}
+
+def should_continue(state: State):
+    last = state["messages"][-1]
+    if hasattr(last, "tool_calls") and last.tool_calls:
+        return "tools"
+    return END
+
+graph = StateGraph(State)
+graph.add_node("agent", call_model)
+graph.add_node("tools", ToolNode([search_web]))
+graph.set_entry_point("agent")
+graph.add_conditional_edges("agent", should_continue)
+graph.add_edge("tools", "agent")
+app = graph.compile()
+```
+
+---
+
+## Agent Design Patterns
 
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+PATTERN             USE CASE                       IMPLEMENTATION
+────────────────────────────────────────────────────────────────────────
+ReAct               General purpose tasks          LangChain AgentExecutor
+Plan-and-Execute    Complex multi-step tasks       Plan first, then execute each
+Multi-agent         Specialised parallel work      Orchestrator + worker agents
+Reflection          Self-improvement               Agent critiques own output
+RAG agent           Knowledge-augmented Q&A        Retrieval tool + LLM reasoning
+CodeAct             Code generation + execution    Python REPL + iterative debug
+
+MEMORY TYPES:
+  In-context (short-term): conversation history in prompt window (limited)
+  External vector DB: user facts, past interactions, long-term knowledge
+  Episodic: specific past interactions stored and retrieved by similarity
+  Semantic: structured facts (knowledge graph or key-value store)
 ```
 
-## After Certification
+---
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## Production Checklist
+
+```
+RELIABILITY:
+  max_iterations / recursion limit to prevent infinite loops
+  Per-tool timeout (5-30 seconds depending on tool)
+  Graceful fallback when tool fails
+  Human-in-the-loop for irreversible actions (email send, payment)
+
+SECURITY:
+  Validate user input before passing to agents (prompt injection risk)
+  Tool permissions: principle of least privilege
+  Sandboxed code execution (no direct filesystem/network access)
+  Output validation before taking consequential actions
+
+OBSERVABILITY:
+  LangSmith or Langfuse: trace every LLM call and tool invocation
+  Log token usage and cost per session
+  Alert on: failure rate, latency spikes, cost anomalies
+```
+
+## Revision Notes
+```
+AGENT vs CHAIN: chains = fixed flow, agents = dynamic tool selection
+
+REACT LOOP: Thought (reasoning) → Action (tool call) → Observation (result) → repeat
+LANGGRAPH: StateGraph with nodes + conditional edges (more control than AgentExecutor)
+
+TOOL DESIGN:
+  Clear docstring = LLM reads it to decide when to call the tool
+  Return structured output (JSON) for downstream processing
+  Always handle errors (return error message, not raise exception)
+
+EVALUATION:
+  Task success rate | Tool call accuracy | Step count efficiency
+  Use LangSmith datasets + LLM-as-judge for automated evaluation
+
+PRODUCTION: max_iterations + timeout + human approval for destructive actions
+  Tracing (LangSmith/Langfuse) is not optional in production
+```

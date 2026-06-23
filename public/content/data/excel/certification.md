@@ -1,53 +1,87 @@
-# Excel & Advanced Excel — Certification Guide
+# Excel Certification Guide
 
-## Why Get Certified in Excel & Advanced Excel?
+## Certifications Available
 
-Certifications validate your Excel & Advanced Excel skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+| Cert | Provider | Cost |
+|------|----------|------|
+| **Microsoft Office Specialist (MOS) Excel** | Microsoft | $165 |
+| **Microsoft Excel Expert (MO-201)** | Microsoft | $165 |
+| **Excel VBA certification (various)** | Third-party | Varies |
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+MOS Excel (MO-201): create workbooks, formulas, charts, pivot tables, macros.
 
-## Most Valuable Certifications
+---
 
-Research current certifications for Excel & Advanced Excel on these sources:
+## Core Skills & Commands
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+```excel
+-- Key formulas for MOS exam
+XLOOKUP(lookup, lookup_array, return_array)     -- Modern VLOOKUP
+INDEX(array, MATCH(lookup, lookup_col, 0))      -- Flexible lookup
+SUMIFS(sum_range, criteria_range1, criteria1)   -- Conditional sum
+COUNTIFS(range1, criteria1, range2, criteria2)  -- Conditional count
+IF(condition, true_val, false_val)              -- Conditional logic
+IFERROR(formula, fallback)                      -- Error handling
 
-## General Certification Strategy
+-- PivotTable: Insert → PivotTable → drag fields
+-- Rows, Columns, Values, Filters
+-- Slicers for interactive filtering
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+-- Power Query: Data → Get Data → From CSV/Web/Database
+-- Transform, filter, merge, append queries
+-- Refresh All updates all connections
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
-
-```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+-- Charts: Insert → Charts → Recommended Charts
+-- Dynamic charts update automatically with data changes
 ```
 
-## After Certification
+---
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## Study Resources
+
+- **GCFGlobal Excel Tutorial** (free, comprehensive basics)
+- **ExcelJet** (exceljet.net) — formula reference with examples
+- **Microsoft Learn** — official MOS certification learning path
+- **Chandoo.org** — advanced Excel and charting techniques
+
+## Revision Notes
+
+```
+MOS EXCEL KEY SKILLS:
+  Formulas: XLOOKUP, INDEX-MATCH, SUMIFS, COUNTIFS, IFS
+  PivotTables: group, filter, calculated fields, slicers
+  Power Query: load, transform, merge, refresh
+  Charts: dynamic, recommended, formatting
+  Data validation, conditional formatting, named ranges
+  VLOOKUP is legacy — use XLOOKUP on exam if available
+```
+
+---
+
+## MOS Exam Preparation
+
+```
+MOS EXCEL (MO-201) EXAM DOMAINS:
+  Managing Workbooks:        save formats, templates, properties, inspection
+  Managing Data:             flash fill, data validation, conditional formatting
+  Managing Tables:           create, format, filter, calculated columns
+  Formulas and Functions:    named ranges, IF/IFS, XLOOKUP, array formulas
+  Create Charts:             types, formatting, trendlines, sparklines
+  PivotTables and PivotCharts: create, configure, slicer, timeline
+
+EXAM FORMAT:
+  Performance-based: you actually use Excel (not MCQ)
+  Approximately 35 tasks across 5 projects
+  Proctored at Certiport testing centres
+  70%+ passing score (varies slightly by exam version)
+```
+
+---
+
+## Study Resources
+
+- **GCFGlobal Excel Tutorial** (free, comprehensive basics to intermediate)
+- **ExcelJet** (exceljet.net) — formula reference with real-world examples
+- **Microsoft Learn** — official MOS certification preparation path
+- **Chandoo.org** — advanced Excel, Power Query, and data visualisation
+- **ExcelWithBusiness** (free course tier available)

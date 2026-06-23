@@ -1,53 +1,105 @@
-# MongoDB — Certification Guide
+# MongoDB Certification Guide
 
-## Why Get Certified in MongoDB?
+## Certifications Available
 
-Certifications validate your MongoDB skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+| Cert | Provider | Cost | Format |
+|------|----------|------|--------|
+| **MongoDB Associate Developer (Python/JS/Java)** | MongoDB | Free exam | MCQ + practical |
+| **MongoDB Associate DBA** | MongoDB | Free exam | MCQ + practical |
+| **MongoDB Atlas Developer** | MongoDB | Free | Course + badge |
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+MongoDB University at learn.mongodb.com — free courses and free certification exams.
 
-## Most Valuable Certifications
+---
 
-Research current certifications for MongoDB on these sources:
+## Core Topics
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+```javascript
+// CRUD
+db.users.insertOne({ name: "Alice", age: 30, city: "Mumbai" })
+db.users.insertMany([{ name: "Bob" }, { name: "Carol" }])
 
-## General Certification Strategy
+db.users.findOne({ name: "Alice" })
+db.users.find({ age: { $gte: 25, $lt: 40 } }).sort({ name: 1 }).limit(10)
+db.users.find({ "address.city": "Mumbai" })          // nested field
+db.users.find({ tags: "admin" })                     // array contains
+db.users.find({}, { name: 1, email: 1, _id: 0 })     // projection
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+db.users.updateOne({ name: "Alice" }, { $set: { age: 31 }, $push: { tags: "vip" } })
+db.users.updateMany({ active: false }, { $set: { archived: true } })
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
+db.users.deleteOne({ name: "Alice" })
+db.users.deleteMany({ lastLogin: { $lt: new Date("2023-01-01") } })
 
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
+// QUERY OPERATORS (know these for the exam)
+// Comparison: $eq $ne $gt $gte $lt $lte $in $nin
+// Logical:    $or $and $not $nor
+// Element:    $exists $type
+// Array:      $elemMatch $size $all
 
-## Study Schedule Template
+// UPDATE OPERATORS (know these too)
+// $set $unset $inc $push $pull $addToSet $rename $pop $each
+
+// AGGREGATION PIPELINE
+db.orders.aggregate([
+  { $match:   { status: "completed" } },               // filter (use index here)
+  { $group:   { _id: "$userId", total: { $sum: "$amount" }, count: { $sum: 1 } } },
+  { $sort:    { total: -1 } },
+  { $limit:   10 },
+  { $lookup:  { from: "users", localField: "_id", foreignField: "_id", as: "user" } },
+  { $unwind:  "$user" },
+  { $project: { "user.name": 1, total: 1, count: 1 } }
+])
+
+// INDEXES
+db.users.createIndex({ email: 1 }, { unique: true })
+db.users.createIndex({ name: "text", bio: "text" })                  // full-text
+db.users.createIndex({ createdAt: 1 }, { expireAfterSeconds: 86400 }) // TTL index
+db.users.find({ email: "a@b.com" }).explain("executionStats")
+// COLLSCAN = full collection scan (add an index!) | IXSCAN = index scan (good)
+```
+
+---
+
+## Data Modelling Rules
 
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+EMBED WHEN:
+  Data is always accessed together (post + author snippet)
+  Relationship is 1:1 or 1:few (order + line items)
+  Sub-documents are small and bounded
+
+REFERENCE WHEN:
+  Relationship is 1:many with many side growing large
+  Many-to-many relationship
+  Sub-document is independently updated at high frequency
+
+COMMON SCHEMA PATTERNS:
+  Extended reference: embed frequently read fields, keep reference for the rest
+  Bucket: group time-series records into hourly/daily parent documents
+  Subset: cache latest N items in parent (e.g. 10 most recent comments)
+  Polymorphic: multiple shapes in one collection — add a "type" discriminator field
 ```
 
-## After Certification
+---
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## Study Resources
+
+- **MongoDB University** (learn.mongodb.com) — free courses and free certification exam
+- **MongoDB Docs** (mongodb.com/docs) — official reference
+- **MongoDB Atlas** — free 512 MB shared cluster for hands-on practice
+- **Practical MongoDB Aggregations** — free ebook by Paul Done
+
+## Revision Notes
+```
+DOCUMENT DB: JSON/BSON, schema-flexible, scales horizontally via sharding
+CRUD: insertOne/Many | findOne/find | updateOne/Many | deleteOne/Many
+UPDATE OPS: $set $inc $push $pull $addToSet — know these cold
+
+AGGREGATION PIPELINE:
+  $match (filter early, uses index) -> $group -> $sort -> $limit -> $lookup -> $project
+
+INDEXES: single | compound (leftmost-prefix rule) | text | TTL | 2dsphere (geo)
+REPLICA SET: PRIMARY (writes) + SECONDARYs (reads/HA) — minimum 3 members
+SCHEMA DESIGN: embed for fast reads, reference for flexibility
+```

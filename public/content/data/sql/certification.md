@@ -1,53 +1,76 @@
-# SQL Mastery — Certification Guide
+# Sql Certification Guide
 
-## Why Get Certified in SQL Mastery?
+## Certifications Available
 
-Certifications validate your SQL Mastery skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+| Cert / Course | Provider | Cost |
+|---------------|----------|------|
+| **DP-900: Azure Data Fundamentals** | Microsoft | $165 |
+| **Oracle Database SQL Certified Associate** | Oracle | $245 |
+| **Kaggle SQL Course** | Kaggle | Free |
+| **Mode Analytics SQL Tutorial** | Mode | Free |
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+SQL knowledge tested in: data analyst certifications, cloud data platform certs.
 
-## Most Valuable Certifications
+---
 
-Research current certifications for SQL Mastery on these sources:
+## Core Skills & Commands
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+```sql
+-- Core SQL for certifications
+-- SELECT with filtering
+SELECT name, salary FROM employees
+WHERE department = 'Engineering' AND salary > 100000
+ORDER BY salary DESC LIMIT 10;
 
-## General Certification Strategy
+-- JOINs
+SELECT e.name, d.department_name, e.salary
+FROM employees e
+LEFT JOIN departments d ON e.dept_id = d.id
+WHERE d.location = 'Mumbai';
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+-- Aggregation
+SELECT department, COUNT(*) as headcount, AVG(salary) as avg_sal
+FROM employees
+GROUP BY department
+HAVING AVG(salary) > 80000
+ORDER BY avg_sal DESC;
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
+-- Window functions
+SELECT name, salary,
+  RANK() OVER (PARTITION BY department ORDER BY salary DESC) as rank,
+  SUM(salary) OVER (PARTITION BY department) as dept_total,
+  LAG(salary) OVER (ORDER BY hire_date) as prev_salary
+FROM employees;
 
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
+-- CTE (Common Table Expression)
+WITH top_earners AS (
+  SELECT *, RANK() OVER (ORDER BY salary DESC) as rnk FROM employees
+)
+SELECT * FROM top_earners WHERE rnk <= 10;
 
-## Study Schedule Template
+-- Subquery
+SELECT * FROM employees
+WHERE salary > (SELECT AVG(salary) FROM employees);
+```
+
+---
+
+## Study Resources
+
+- **SQLZoo** (sqlzoo.net) — free interactive SQL practice
+- **Mode Analytics SQL Tutorial** (free, business analytics focus)
+- **LeetCode SQL problems** — interview-style practice
+- **PostgreSQL Tutorial** (postgresqltutorial.com) — comprehensive reference
+
+## Revision Notes
 
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+SQL KEY CONCEPTS:
+  SELECT/FROM/WHERE/GROUP BY/HAVING/ORDER BY/LIMIT
+  JOINs: INNER | LEFT | RIGHT | FULL OUTER | SELF | CROSS
+  Aggregates: COUNT/SUM/AVG/MIN/MAX + GROUP BY + HAVING
+  Window functions: RANK/ROW_NUMBER/LAG/LEAD/SUM OVER (PARTITION BY ORDER BY)
+  Subqueries: WHERE col IN (SELECT...) | correlated subqueries
+  CTEs: WITH name AS (SELECT...) -- reusable named subquery
+  Indexes: speed up WHERE/JOIN/ORDER BY on high-cardinality columns
 ```
-
-## After Certification
-
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)

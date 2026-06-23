@@ -1,53 +1,104 @@
-# C++ Programming — Certification Guide
+# C++ Programming Certification Guide
 
-## Why Get Certified in C++ Programming?
+## Certifications Available
 
-Certifications validate your C++ Programming skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+| Cert | Provider | Cost | Format |
+|------|----------|------|--------|
+| **C++ Institute PCPP** | C++ Institute | $295 | MCQ |
+| **ISO C++ Foundation** | Various | Varies | MCQ |
+| **GATE CS** | IIT/IISc | Rs.1,800 | MCQ + NAT, 3 hrs |
+| **NPTEL C++ MOOC** | NPTEL/IIT | Free | Proctored exam |
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+---
 
-## Most Valuable Certifications
+## Core Topics
 
-Research current certifications for C++ Programming on these sources:
+```cpp
+// OOP FUNDAMENTALS
+class Animal {
+protected:
+    std::string name;
+public:
+    Animal(std::string n) : name(n) {}    // initializer list
+    virtual std::string sound() = 0;      // pure virtual = abstract
+    virtual ~Animal() {}                   // virtual destructor (always!)
+};
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+class Dog : public Animal {
+public:
+    Dog(std::string n) : Animal(n) {}
+    std::string sound() override { return "Woof"; }
+};
 
-## General Certification Strategy
+// TEMPLATES
+template<typename T>
+T maxVal(T a, T b) { return a > b ? a : b; }
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+template<typename T>
+class Stack {
+    std::vector<T> data;
+public:
+    void push(T val) { data.push_back(val); }
+    T pop() { T v = data.back(); data.pop_back(); return v; }
+    bool empty() const { return data.empty(); }
+};
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
+// STL CONTAINERS
+std::vector<int> v = {3,1,4,1,5};
+std::sort(v.begin(), v.end());
 
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
+std::map<std::string,int> freq;
+for (auto& s : words) freq[s]++;
 
-## Study Schedule Template
+std::priority_queue<int> maxHeap;
+std::priority_queue<int, std::vector<int>, std::greater<int>> minHeap;
+
+// SMART POINTERS (C++11+)
+auto d = std::make_unique<Dog>("Rex");    // sole owner, auto-freed
+auto s1 = std::make_shared<Dog>("Rex");  // reference counted
+auto s2 = s1;  // ref count = 2
+
+// MOVE SEMANTICS
+std::vector<int> a = {1,2,3};
+std::vector<int> b = std::move(a);  // a is now empty, no copy made
+
+// LAMBDA
+auto square = [](int x) { return x * x; };
+std::sort(v.begin(), v.end(), [](int a, int b){ return a > b; });
+
+// RANGE-BASED FOR
+for (const auto& item : container) { /* use item */ }
+```
+
+---
+
+## GATE CS Important C++ Topics
 
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+INHERITANCE: public/protected/private | virtual base class (diamond problem)
+POLYMORPHISM: virtual functions + vtable | override keyword | final
+TEMPLATES: function templates | class templates | specialisation
+STL: vector/list/deque | map/set/unordered_map | stack/queue/priority_queue
+MEMORY: stack (auto) | heap (new/delete, malloc/free) | smart pointers
+OPERATOR OVERLOADING: +, -, <<, >>, [], (), =
+EXCEPTION HANDLING: try/catch/throw/noexcept
+CONCURRENCY (C++11): std::thread | std::mutex | std::async | std::future
 ```
 
-## After Certification
+---
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## Study Resources
+
+- **cppreference.com** — definitive C++ language and library reference
+- **The C++ Programming Language** (Bjarne Stroustrup) — authoritative
+- **LearnCpp.com** — free comprehensive tutorial with examples
+- **CppCoreGuidelines** (github.com/isocpp) — modern C++ best practices
+
+## Revision Notes
+```
+OOP: encapsulation | inheritance | polymorphism | abstraction
+VIRTUAL: virtual fn = runtime dispatch via vtable | pure virtual = abstract class
+RULE OF FIVE: destructor | copy ctor | copy assign | move ctor | move assign
+SMART POINTERS: unique_ptr (sole) | shared_ptr (counted) | weak_ptr (no ownership)
+STL ALGORITHMS: sort/find/count/transform/accumulate — prefer over raw loops
+```

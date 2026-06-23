@@ -1,53 +1,63 @@
-# Power BI — Certification Guide
+# Power Bi Certification Guide
 
-## Why Get Certified in Power BI?
+## Certifications Available
 
-Certifications validate your Power BI skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+| Cert | Provider | Cost |
+|------|----------|------|
+| **PL-300: Power BI Data Analyst** | Microsoft | $165 |
+| **DP-900: Azure Data Fundamentals** | Microsoft | $165 |
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+PL-300 is the primary Power BI cert. 50-60 questions, 120 min, 700/1000 passing.
 
-## Most Valuable Certifications
+---
 
-Research current certifications for Power BI on these sources:
+## Core Skills & Commands
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+```dax
+-- PL-300 DAX essentials
+Total Sales = SUM(Orders[Amount])
+Average Order = AVERAGE(Orders[Amount])
+Sales YTD = TOTALYTD([Total Sales], Dates[Date])
+Sales LY = CALCULATE([Total Sales], SAMEPERIODLASTYEAR(Dates[Date]))
+Growth % = DIVIDE([Total Sales] - [Sales LY], [Sales LY])
 
-## General Certification Strategy
+-- CALCULATE: change filter context
+Sales USA = CALCULATE([Total Sales], Customers[Country] = "USA")
+Top 10 Sales = CALCULATE([Total Sales], TOPN(10, Products, [Total Sales], DESC))
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+-- Variables for readability
+Margin % =
+VAR revenue = [Total Sales]
+VAR cost = [Total Cost]
+RETURN DIVIDE(revenue - cost, revenue)
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
-
-```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+-- Time intelligence (requires date dimension table!)
+Sales MTD = TOTALMTD([Total Sales], Dates[Date])
+Sales Rolling 3M = CALCULATE([Total Sales],
+    DATESINPERIOD(Dates[Date], LASTDATE(Dates[Date]), -3, MONTH))
 ```
 
-## After Certification
+---
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## Study Resources
+
+- **Microsoft Learn PL-300** (free, official, includes practice labs)
+- **Guy in a Cube** (YouTube) — best free Power BI channel
+- **SQLBI** (dax.guide) — definitive DAX reference
+- **ExamTopics PL-300** — community practice questions
+
+## Revision Notes
+
+```
+PL-300 KEY TOPICS:
+  Data model: star schema (fact + dimension tables)
+  DAX: SUM/COUNT/AVERAGE | CALCULATE (context modifier) | time intelligence
+  Relationships: many-to-one | active vs inactive
+  Power Query: M language, merge/append, transformations
+  RLS: filter data by user identity
+  Publish: Power BI Service, schedule refresh, share
+  
+CALCULATED COLUMN vs MEASURE:
+  Column: computed per row, stored in model, use for filtering
+  Measure: computed on demand, context-aware, use for aggregations
+```

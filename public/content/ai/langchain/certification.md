@@ -1,53 +1,160 @@
-# LangChain — Certification Guide
+# LangChain Certification Guide
 
-## Why Get Certified in LangChain?
+## Certifications Available
 
-Certifications validate your LangChain skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+| Resource | Type | Cost | Link |
+|----------|------|------|------|
+| **LangChain Academy** | Free course + certificate | Free | academy.langchain.com |
+| **DeepLearning.AI LangChain Dev** | Course certificate | Free | learn.deeplearning.ai |
+| **DeepLearning.AI LangGraph** | Course certificate | Free | learn.deeplearning.ai |
+| **AWS ML Specialty** | Formal cert covering RAG/agents | $300 | AWS |
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+---
 
-## Most Valuable Certifications
+## LangChain Core — Must-Know Code
 
-Research current certifications for LangChain on these sources:
+```python
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.runnables import RunnablePassthrough
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+# BASIC CHAIN (LCEL pipe syntax)
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+prompt = ChatPromptTemplate.from_template("Translate to French: {text}")
+chain = prompt | llm | StrOutputParser()
+result = chain.invoke({"text": "Hello world"})
 
-## General Certification Strategy
+# RUNNABLE METHODS
+chain.invoke({"text": "Hello"})                    # single call
+chain.batch([{"text": "Hi"}, {"text": "Bye"}])     # parallel batch
+for chunk in chain.stream({"text": "Hello"}):      # streaming
+    print(chunk, end="")
+await chain.ainvoke({"text": "Hello"})             # async
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+# RAG PIPELINE
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_openai import OpenAIEmbeddings
+from langchain_community.vectorstores import Chroma
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
+# 1. Load and split
+docs = PyPDFLoader("doc.pdf").load()
+chunks = RecursiveCharacterTextSplitter(
+    chunk_size=1000, chunk_overlap=200
+).split_documents(docs)
 
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
+# 2. Embed and store
+vectorstore = Chroma.from_documents(
+    chunks, OpenAIEmbeddings(model="text-embedding-3-small")
+)
+retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
 
-## Study Schedule Template
+# 3. RAG chain
+rag_prompt = ChatPromptTemplate.from_template("""
+Answer using only the context below.
 
+Context: {context}
+Question: {question}
+""")
+
+def format_docs(docs):
+    return "\n\n".join(d.page_content for d in docs)
+
+rag_chain = (
+    {"context": retriever | format_docs, "question": RunnablePassthrough()}
+    | rag_prompt | llm | StrOutputParser()
+)
+answer = rag_chain.invoke("What is the main topic?")
+
+# STRUCTURED OUTPUT
+from pydantic import BaseModel
+class Analysis(BaseModel):
+    sentiment: str
+    confidence: float
+    key_points: list[str]
+
+structured = llm.with_structured_output(Analysis)
+result = structured.invoke("Analyse: Great product!")
+
+# CONVERSATION MEMORY
+from langchain_core.chat_history import InMemoryChatMessageHistory
+from langchain_core.runnables.history import RunnableWithMessageHistory
+
+store = {}
+def get_history(session_id: str):
+    if session_id not in store:
+        store[session_id] = InMemoryChatMessageHistory()
+    return store[session_id]
+
+chain_with_memory = RunnableWithMessageHistory(chain, get_history)
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+
+---
+
+## LangGraph — Stateful Agents
+
+```python
+from langgraph.graph import StateGraph, END
+from langgraph.prebuilt import ToolNode
+from typing import TypedDict, Annotated
+from langchain_core.messages import BaseMessage
+import operator
+
+class State(TypedDict):
+    messages: Annotated[list[BaseMessage], operator.add]
+
+llm_with_tools = ChatOpenAI(model="gpt-4o").bind_tools(tools)
+
+def call_model(state: State):
+    return {"messages": [llm_with_tools.invoke(state["messages"])]}
+
+def should_continue(state: State):
+    last = state["messages"][-1]
+    if hasattr(last, "tool_calls") and last.tool_calls:
+        return "tools"
+    return END
+
+graph = StateGraph(State)
+graph.add_node("agent", call_model)
+graph.add_node("tools", ToolNode(tools))
+graph.set_entry_point("agent")
+graph.add_conditional_edges("agent", should_continue)
+graph.add_edge("tools", "agent")
+app = graph.compile()
+
+# Run
+result = app.invoke({"messages": [("user", "Search for latest AI news")]})
 ```
 
-## After Certification
+---
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## Study Resources
+
+- **LangChain Academy** (academy.langchain.com) — free, official, structured courses
+- **DeepLearning.AI short courses** — LangChain + LangGraph (free, 1 hr each)
+- **LangChain Python docs** (python.langchain.com) — always up to date
+- **LangSmith docs** — for tracing and evaluation
+
+## Revision Notes
+```
+LCEL: pipe operator | composes runnables
+  prompt | llm | parser  (left to right execution)
+  Runnable: invoke / stream / batch / ainvoke / astream
+
+RAG STEPS (must memorise):
+  Load (PyPDFLoader) → Split (RecursiveCharacterTextSplitter)
+  → Embed (OpenAIEmbeddings) → Store (Chroma/FAISS)
+  → Retrieve (as_retriever) → Generate (prompt | llm | parser)
+
+LANGGRAPH vs LANGCHAIN AGENTS:
+  LangChain AgentExecutor: simpler, less control
+  LangGraph StateGraph: explicit state, conditional routing, more robust
+
+LANGSMITH: tracing (see every call) + datasets (test cases) + evals
+  Set LANGCHAIN_TRACING_V2=true to auto-trace all chains
+
+KEY CLASSES: ChatOpenAI | ChatPromptTemplate | FAISS/Chroma
+  StrOutputParser | JsonOutputParser | PydanticOutputParser
+  RunnableWithMessageHistory | ConversationChain
+```

@@ -1,53 +1,111 @@
-# System Design — Certification Guide
+# System Design Certification Guide
 
-## Why Get Certified in System Design?
+## Certifications / Resources Available
 
-Certifications validate your System Design skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+| Resource | Provider | Cost | Format |
+|----------|----------|------|--------|
+| **System Design Interview Vol 1 & 2** | Alex Xu | $30 ea | Books |
+| **Grokking System Design Interview** | DesignGurus | $79 | Self-paced |
+| **AWS Solutions Architect Associate** | AWS | $150 | MCQ — covers distributed design |
+| **Google Cloud Architect** | Google | $200 | MCQ + case study |
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+No single "system design" certification — it is tested in senior engineering interviews.
 
-## Most Valuable Certifications
+---
 
-Research current certifications for System Design on these sources:
-
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
-
-## General Certification Strategy
-
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
-
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
+## Core Design Components
 
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+SCALABILITY BUILDING BLOCKS:
+
+Load Balancer:
+  Round-robin, least connections, IP hash
+  L4 (TCP) for raw performance | L7 (HTTP) for content-based routing
+  Examples: AWS ALB, Nginx, HAProxy
+
+CDN (Content Delivery Network):
+  Cache static assets (images, JS, CSS) close to users
+  Edge caches: Cloudflare, CloudFront, Fastly
+  Reduces origin load, improves latency globally
+
+Cache Layer (Redis / Memcached):
+  Cache-aside: app checks cache, on miss reads DB and populates cache
+  Write-through: write to cache AND DB simultaneously
+  Write-back: write to cache, async flush to DB (faster writes, data loss risk)
+  TTL and eviction: LRU most common eviction policy
+
+Database Layer:
+  SQL: strong consistency, ACID, joins, complex queries (PostgreSQL, MySQL)
+  NoSQL: horizontal scale, flexible schema (DynamoDB, MongoDB, Cassandra)
+  Read replicas: scale reads independently from writes
+  Sharding: partition data by user_id hash or range across multiple DB nodes
+  Connection pooling: PgBouncer, RDS Proxy — limit DB connection overhead
+
+Message Queue / Event Streaming:
+  Decouple producers from consumers (async processing)
+  Kafka: distributed, durable, high-throughput, replay events
+  SQS: managed, simple queue, at-least-once delivery
+  Use cases: order processing, notifications, audit log, fanout
+
+Object Storage:
+  S3 for user-uploaded files, images, backups, static websites
+  CDN in front for low-latency reads
+
+API Gateway:
+  Rate limiting, authentication, request routing, aggregation
+  Examples: AWS API Gateway, Kong, Nginx
 ```
 
-## After Certification
+---
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## CAP Theorem and Distributed Concepts
+
+```
+CAP THEOREM (pick 2 of 3 during network partition):
+  Consistency:         all nodes see the same data at the same time
+  Availability:        every request gets a response (may not be latest)
+  Partition tolerance: system works despite network failures between nodes
+
+  CP systems: HBase, ZooKeeper, PostgreSQL (single node)
+  AP systems: Cassandra, DynamoDB, CouchDB
+  Practical: all distributed systems tolerate partitions, choose C vs A tradeoff
+
+CONSISTENCY MODELS:
+  Strong:      read always returns latest write (expensive, distributed locks)
+  Eventual:    all replicas converge eventually (Cassandra, DNS)
+  Read-your-writes: writer always sees their own latest write
+
+RATE LIMITING ALGORITHMS:
+  Fixed window:   simple, allows burst at boundary reset
+  Sliding window: smooth and accurate, higher memory use
+  Token bucket:   allows controlled burst, practical choice (Nginx, Kong)
+  Leaky bucket:   constant output rate, absorbs bursts
+
+ESTIMATION (back-of-envelope):
+  100M users, 10% DAU = 10M DAU
+  10M DAU, 10 reads/user/day = 100M reads/day = ~1,200 reads/sec
+  1M writes/day = ~12 writes/sec
+  1 KB per write * 1M writes/day = 1 GB/day storage
+```
+
+---
+
+## Study Resources
+
+- **System Design Interview Vol 1 & 2** (Alex Xu) — best-selling books, clear diagrams
+- **ByteByteGo** (blog.bytebytego.com) — free newsletter from Alex Xu
+- **High Scalability** (highscalability.com) — real-world architecture case studies
+- **Grokking the System Design Interview** (designgurus.io) — structured practice
+
+## Revision Notes
+```
+SCALE: horizontal (more nodes) preferred over vertical (bigger node)
+CACHE: cache-aside is most common | Redis for session, rate limit, leaderboard
+DB: SQL for ACID | NoSQL for scale and flexibility | read replicas for read scale
+QUEUE: decouple services | Kafka for durability + replay | SQS for simplicity
+CDN: static assets | API caching | edge compute
+
+CAP: CP (ZooKeeper, HBase) | AP (Cassandra, DynamoDB) — always partition-tolerant
+BACK-OF-ENVELOPE: estimate QPS, storage, bandwidth before designing
+TRADEOFFS: consistency vs availability | latency vs throughput | cost vs performance
+```

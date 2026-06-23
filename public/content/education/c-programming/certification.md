@@ -1,53 +1,126 @@
-# C Programming — Certification Guide
+# C Programming Certification Guide
 
-## Why Get Certified in C Programming?
+## Certifications Available
 
-Certifications validate your C Programming skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+| Cert | Provider | Cost | Format |
+|------|----------|------|--------|
+| **C Programming Certificate** | NPTEL | Free | Proctored exam |
+| **C Programming Specialist** | Certiport | $130 | MCQ + coding |
+| **IBM C/C++ Developer** | IBM/Coursera | ~$300 | Project-based |
+| **GATE CS** | IIT/IISc | Rs.1,800 | MCQ + NAT, 3 hrs |
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+C is foundational — tested heavily in GATE CS, placements, and embedded systems roles.
 
-## Most Valuable Certifications
+---
 
-Research current certifications for C Programming on these sources:
+## Core Topics
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+```c
+// POINTERS AND MEMORY
+int x = 10;
+int *p = &x;        // p holds address of x
+printf("%d", *p);   // dereference: prints 10
+*p = 20;            // modifies x through pointer
 
-## General Certification Strategy
+// POINTER ARITHMETIC
+int arr[] = {10, 20, 30, 40};
+int *p = arr;        // points to arr[0]
+printf("%d", *(p+2)); // arr[2] = 30
+p++;                  // now points to arr[1]
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+// DYNAMIC MEMORY
+int *arr = (int*)malloc(n * sizeof(int));
+if (arr == NULL) { perror("malloc"); exit(1); }
+arr[0] = 10;
+free(arr);   // always free to avoid memory leaks
+arr = NULL;  // prevent dangling pointer
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
+int *arr2 = (int*)calloc(n, sizeof(int));  // zero-initialized
+arr2 = (int*)realloc(arr2, 2*n * sizeof(int));  // resize
 
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
+// STRUCTURES
+struct Student {
+    char name[50];
+    int roll;
+    float gpa;
+};
+struct Student s1 = {"Alice", 101, 9.2};
+struct Student *sp = &s1;
+printf("%s", sp->name);   // arrow operator for pointer to struct
 
-## Study Schedule Template
+// LINKED LIST (common exam topic)
+struct Node {
+    int data;
+    struct Node *next;
+};
+
+struct Node* createNode(int data) {
+    struct Node* n = (struct Node*)malloc(sizeof(struct Node));
+    n->data = data;
+    n->next = NULL;
+    return n;
+}
+
+// FILE I/O
+FILE *fp = fopen("data.txt", "r");
+if (fp == NULL) { perror("fopen"); return 1; }
+char line[256];
+while (fgets(line, sizeof(line), fp)) {
+    printf("%s", line);
+}
+fclose(fp);
+
+// STRINGS
+char s[] = "hello";
+strlen(s);      // 5 (not including null)
+strcpy(dst, s); // unsafe — use strncpy
+strcmp(s1, s2); // 0=equal, <0=s1<s2, >0=s1>s2
+strcat(s1, s2); // append s2 to s1 (ensure s1 has space)
+
+// COMMON PITFALLS
+// 1. sizeof(arr)/sizeof(arr[0])  — find array length
+// 2. int *p; *p = 5;             — uninitialized pointer (segfault)
+// 3. double free                 — undefined behaviour
+// 4. off-by-one in loops         — i < n, not i <= n
+// 5. integer overflow            — use long or check before arithmetic
+```
+
+---
+
+## GATE CS Important Topics
 
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+POINTERS: address arithmetic, pointer to pointer, function pointers
+MEMORY: stack vs heap, malloc/calloc/realloc/free, memory leaks
+STORAGE CLASSES: auto | register | static | extern
+SCOPE AND LIFETIME: block scope, file scope, static variables
+STRUCTURES AND UNIONS: size, padding, bit fields
+BIT MANIPULATION: AND(&) OR(|) XOR(^) NOT(~) shifts(<< >>)
+  x & (x-1): clear lowest set bit  |  x & (-x): isolate lowest bit
+  Check bit n: (x >> n) & 1        |  Set bit n: x | (1 << n)
+RECURSION: base case + recursive case, stack depth
+FILE I/O: fopen/fclose/fread/fwrite/fprintf/fscanf/fgets
+PREPROCESSOR: #define #include #ifdef #ifndef #endif
 ```
 
-## After Certification
+---
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## Study Resources
+
+- **NPTEL C Programming** — free IIT course with certification
+- **The C Programming Language** (Kernighan & Ritchie) — the definitive book
+- **GFG C Programming** (geeksforgeeks.org/c-programming-language) — free, exam-oriented
+- **CS50x** (cs50.harvard.edu) — free Harvard course, starts with C
+
+## Revision Notes
+```
+POINTER BASICS: int *p = &x | *p = dereference | p++ = next element
+MEMORY: malloc (uninitialized) | calloc (zero-init) | realloc (resize) | free
+ALWAYS: check NULL after malloc | free every malloc | set pointer NULL after free
+
+STRUCTURES: struct s; s.field or sp->field (pointer)
+STRINGS: null-terminated char arrays | strlen excludes null | strcpy is unsafe
+
+GATE FOCUS: pointer arithmetic | sizeof | storage classes | bit manipulation
+PLACEMENT FOCUS: linked lists | sorting | string manipulation | recursion
+```

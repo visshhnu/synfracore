@@ -1,53 +1,88 @@
-# Computer Networks — Certification Guide
+# Computer Networks Certification Guide
 
-## Why Get Certified in Computer Networks?
+## Certifications Available
 
-Certifications validate your Computer Networks skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+| Cert | Provider | Cost | Format |
+|------|----------|------|--------|
+| **CompTIA Network+** | CompTIA | $358 | MCQ + performance |
+| **Cisco CCNA (200-301)** | Cisco | $330 | MCQ + simulation |
+| **GATE CS** | IIT/IISc | Rs.1,800 | MCQ + NAT, 3 hrs |
+| **NPTEL Computer Networks MOOC** | NPTEL | Free | Proctored exam |
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+---
 
-## Most Valuable Certifications
-
-Research current certifications for Computer Networks on these sources:
-
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
-
-## General Certification Strategy
-
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
-
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
+## Core Topics
 
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+OSI MODEL (7 layers, must know all):
+  Layer 7 Application:  HTTP, HTTPS, FTP, SMTP, DNS, DHCP, SSH, Telnet
+  Layer 6 Presentation: TLS/SSL, encryption, encoding, compression
+  Layer 5 Session:      NetBIOS, RPC, session establishment/teardown
+  Layer 4 Transport:    TCP (reliable) | UDP (fast) — ports and segments
+  Layer 3 Network:      IP, ICMP, ARP, routing — packets and addresses
+  Layer 2 Data Link:    Ethernet (802.3), Wi-Fi (802.11) — frames and MAC
+  Layer 1 Physical:     cables, fiber, radio waves — raw bits
+
+TCP vs UDP:
+  TCP: connection-oriented, reliable (ack+retransmit), ordered, congestion control
+  UDP: connectionless, no reliability, low overhead — DNS, VoIP, gaming, streaming
+
+TCP HANDSHAKES:
+  Connect: SYN -> SYN-ACK -> ACK (3-way)
+  Close:   FIN -> ACK  then  FIN -> ACK (4-way)
+
+IP ADDRESSING:
+  Private ranges: 10.0.0.0/8 | 172.16.0.0/12 | 192.168.0.0/16
+  Loopback: 127.0.0.1 | Broadcast: 255.255.255.255
+  Subnetting: /24=254 usable | /25=126 | /26=62 | /27=30 | /28=14
+  Formula: usable = 2^(32-prefix) - 2
+
+ROUTING PROTOCOLS:
+  Static:  manually configured, small networks
+  RIP:     distance vector, max 15 hops, slow convergence (legacy)
+  OSPF:    link-state, Dijkstra algorithm, fast convergence, uses cost
+  BGP:     path vector, used between ISPs and cloud providers (internet backbone)
+
+APPLICATION LAYER PROTOCOLS:
+  HTTP/1.1: text-based, keep-alive, pipelining
+  HTTP/2:   multiplexing, header compression, binary framing
+  HTTP/3:   QUIC (UDP-based), 0-RTT handshake
+  DNS:      A (IPv4) | AAAA (IPv6) | MX (mail) | CNAME (alias) | NS | PTR | TXT
+  DHCP:     DORA — Discover -> Offer -> Request -> Acknowledge
+  SMTP/IMAP/POP3: email send and retrieve
+
+HTTP STATUS CODES:
+  200 OK | 201 Created | 204 No Content | 301 Moved | 302 Found
+  400 Bad Request | 401 Unauthorized | 403 Forbidden | 404 Not Found
+  429 Too Many Requests | 500 Internal Server Error | 503 Service Unavailable
+
+NETWORK SECURITY:
+  TLS: asymmetric handshake -> symmetric session key -> encrypted data
+  Firewall: packet filter (stateless) | stateful | NGFW (application-aware)
+  VPN: encrypt traffic in tunnel (IPSec, OpenVPN, WireGuard)
+  NAT: translate private IP to public IP (overload / PAT most common)
 ```
 
-## After Certification
+---
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## Study Resources
+
+- **Kurose & Ross Computer Networks** — standard university textbook
+- **GFG Computer Networks** (geeksforgeeks.org/computer-network) — free, exam notes
+- **Jeremy's IT Lab** (YouTube) — best free CCNA preparation
+- **Professor Messer** (professormesser.com) — free Network+ prep
+
+## Revision Notes
+```
+OSI: All People Seem To Need Data Processing (7 to 1)
+TCP: reliable, ordered, connection-oriented | UDP: fast, no guarantee
+3-WAY HANDSHAKE: SYN -> SYN-ACK -> ACK
+SUBNETTING: /24=254 | /25=126 | /26=62 | /27=30 | /28=14
+
+DNS: A/AAAA/MX/CNAME/NS/PTR/TXT — know each record type
+DHCP DORA: Discover -> Offer -> Request -> Acknowledge
+HTTP: stateless | methods GET/POST/PUT/PATCH/DELETE | status 2xx/3xx/4xx/5xx
+
+GATE TOPICS: subnetting, TCP/IP stack, routing algorithms (Dijkstra, Bellman-Ford)
+  sliding window, congestion control, IP addressing, DNS resolution steps
+```

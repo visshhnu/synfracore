@@ -1,53 +1,72 @@
-# Pandas & Python Analytics — Certification Guide
+# Pandas Certification Guide
 
-## Why Get Certified in Pandas & Python Analytics?
+## Certifications Available
 
-Certifications validate your Pandas & Python Analytics skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+| Cert / Course | Provider | Cost |
+|---------------|----------|------|
+| **Kaggle Pandas Course** | Kaggle | Free |
+| **DataCamp Data Analyst with Python** | DataCamp | ~$300/yr |
+| **IBM Data Analyst Professional** | Coursera | ~$300 |
+| **Associate Data Analyst in SQL+Python** | DataCamp | ~$300/yr |
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+No standalone Pandas cert — assessed as part of Python/data analyst tracks.
 
-## Most Valuable Certifications
+---
 
-Research current certifications for Pandas & Python Analytics on these sources:
+## Core Skills & Commands
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+```python
+import pandas as pd
 
-## General Certification Strategy
+# Loading data
+df = pd.read_csv("data.csv")
+df = pd.read_excel("data.xlsx")
+df = pd.read_json("data.json")
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+# Exploration
+df.head() | df.info() | df.describe() | df.shape
+df.dtypes | df.isnull().sum() | df.nunique()
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
+# Selection
+df["col"]              # Series
+df[["col1","col2"]]    # DataFrame
+df.iloc[0:5, 1:3]      # by position
+df.loc[df["age"] > 30] # by label/condition
+df.query("age > 30 and city == 'Mumbai'")  # SQL-like
 
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
+# Cleaning
+df.dropna() | df.fillna(0) | df.drop_duplicates()
+df["col"] = df["col"].str.strip().str.lower()
+df["date"] = pd.to_datetime(df["date"])
+df = df.rename(columns={"old": "new"})
 
-## Study Schedule Template
+# Aggregation
+df.groupby("city")["sales"].sum()
+df.groupby("city").agg({"sales": "sum", "orders": "count"})
+df.pivot_table(values="sales", index="region", columns="product", aggfunc="sum")
+
+# Merging
+pd.merge(df1, df2, on="id", how="left")
+pd.concat([df1, df2], ignore_index=True)
+```
+
+---
+
+## Study Resources
+
+- **Kaggle Pandas Course** (free, best starting point)
+- **Pandas documentation** (pandas.pydata.org/docs) — official reference
+- **Real Python Pandas tutorials** — practical examples
+- **DataCamp Pandas skill track** — structured learning path
+
+## Revision Notes
 
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+PANDAS ESSENTIALS:
+  Load: read_csv/excel/json | Explore: head/info/describe/dtypes
+  Select: df["col"] | df.loc[condition] | df.iloc[rows, cols]
+  Clean: dropna/fillna/drop_duplicates/str.strip/astype
+  Aggregate: groupby().agg() | pivot_table | value_counts
+  Merge: pd.merge(df1, df2, on="key", how="left/right/inner/outer")
+  Apply: df["col"].apply(func) | df.applymap(func)
 ```
-
-## After Certification
-
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)

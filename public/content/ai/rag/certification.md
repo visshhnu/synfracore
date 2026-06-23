@@ -1,53 +1,144 @@
-# RAG Systems — Certification Guide
+# RAG (Retrieval-Augmented Generation) Certification Guide
 
-## Why Get Certified in RAG Systems?
+## Certifications Available
 
-Certifications validate your RAG Systems skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+RAG is a technique, not a certification track. Learn it through:
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+| Course / Cert | Provider | Cost | Focus |
+|---------------|----------|------|-------|
+| **DeepLearning.AI RAG courses** | DL.AI | Free | Build RAG systems |
+| **LangChain Academy** | LangChain | Free | RAG + LangGraph |
+| **AWS Certified ML Specialty** | AWS | $300 | Bedrock Knowledge Bases |
+| **Google Professional ML Engineer** | Google | $200 | Vertex AI Search |
+| **Qdrant Vector Search course** | Qdrant | Free | Vector store deep dive |
 
-## Most Valuable Certifications
+---
 
-Research current certifications for RAG Systems on these sources:
+## RAG Pipeline — Complete Code
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+```python
+from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from langchain_community.vectorstores import Chroma
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.runnables import RunnablePassthrough
+from langchain_core.output_parsers import StrOutputParser
 
-## General Certification Strategy
+# STEP 1: LOAD
+loader = DirectoryLoader("./docs", glob="**/*.pdf", loader_cls=PyPDFLoader)
+documents = loader.load()
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+# STEP 2: CHUNK
+splitter = RecursiveCharacterTextSplitter(
+    chunk_size=1000,
+    chunk_overlap=200,
+    separators=["\n\n", "\n", ".", " ", ""],
+)
+chunks = splitter.split_documents(documents)
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
+# STEP 3: EMBED AND STORE
+embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+vectorstore = Chroma.from_documents(chunks, embeddings, persist_directory="./db")
 
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
+# STEP 4: RETRIEVE
+retriever = vectorstore.as_retriever(
+    search_type="mmr",
+    search_kwargs={"k": 4, "fetch_k": 20}
+)
 
-## Study Schedule Template
+# STEP 5: GENERATE
+llm = ChatOpenAI(model="gpt-4o-mini")
+prompt = ChatPromptTemplate.from_template("""
+Answer using ONLY the context. If unsure, say you do not have that information.
+
+Context: {context}
+Question: {question}
+""")
+
+def format_docs(docs):
+    return "\n\n---\n\n".join(doc.page_content for doc in docs)
+
+rag_chain = (
+    {"context": retriever | format_docs, "question": RunnablePassthrough()}
+    | prompt | llm | StrOutputParser()
+)
+answer = rag_chain.invoke("What are the main requirements?")
+```
+
+---
+
+## Advanced RAG Techniques
+
+```python
+# HYBRID SEARCH (dense + sparse BM25)
+from langchain_community.retrievers import BM25Retriever
+from langchain.retrievers import EnsembleRetriever
+
+bm25 = BM25Retriever.from_documents(chunks)
+bm25.k = 4
+ensemble = EnsembleRetriever(
+    retrievers=[bm25, vectorstore.as_retriever(search_kwargs={"k": 4})],
+    weights=[0.5, 0.5]
+)
+
+# MULTI-QUERY RETRIEVAL
+from langchain.retrievers.multi_query import MultiQueryRetriever
+multi_retriever = MultiQueryRetriever.from_llm(
+    retriever=vectorstore.as_retriever(), llm=llm
+)
+# Generates 3 query variations, retrieves for all, deduplicates
+
+# RAGAS EVALUATION
+from ragas import evaluate
+from ragas.metrics import faithfulness, answer_relevancy, context_recall, context_precision
+# faithfulness: no hallucination (grounded in context)
+# context_recall: retrieved the right chunks
+# answer_relevancy: answer addresses the question
+# context_precision: retrieved chunks are actually useful
+```
+
+---
+
+## Chunking Strategy Guide
 
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+FIXED SIZE (RecursiveCharacterTextSplitter):
+  chunk_size: 512-1024 chars (sweet spot for most use cases)
+  chunk_overlap: 10-20% of chunk_size (preserve cross-boundary context)
+
+SEMANTIC CHUNKING:
+  Split on meaning boundaries (paragraph, section) not character count
+  Slower but higher quality for structured documents
+
+PARENT-CHILD:
+  Index small chunks (precise retrieval)
+  Return large parent chunk (full context)
+
+DOCUMENT-AWARE:
+  PDFs: split on page boundaries
+  Code: split on function/class boundaries
+  Markdown: split on headers
 ```
 
-## After Certification
+## Revision Notes
+```
+RAG PIPELINE: Load → Split → Embed → Store → Retrieve → Generate
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+CHUNKING: chunk_size=1000, overlap=200 (RecursiveCharacterTextSplitter default)
+EMBEDDING: text-embedding-3-small (cheap) | text-embedding-3-large (quality)
+VECTOR STORES: Chroma (local dev) | Qdrant (production) | FAISS (in-memory)
+
+RETRIEVAL:
+  similarity: basic cosine | mmr: diverse results | hybrid: BM25 + dense
+  HyDE: embed hypothetical answer not question (better semantic match)
+  Multi-query: generate 3 query variants, merge results
+
+RAGAS SCORES (0-1, higher better):
+  faithfulness >0.9 | context_recall >0.8 | answer_relevancy >0.8
+
+RAG vs FINE-TUNING:
+  RAG: dynamic knowledge, no retraining needed
+  Fine-tuning: consistent style, tone, or format
+  Both: fine-tuned model + RAG knowledge base
+```

@@ -1,53 +1,71 @@
-# Tableau — Certification Guide
+# Tableau Certification Guide
 
-## Why Get Certified in Tableau?
+## Certifications Available
 
-Certifications validate your Tableau skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+| Cert | Provider | Cost |
+|------|----------|------|
+| **Tableau Desktop Specialist** | Salesforce | $250 |
+| **Tableau Desktop Certified Associate** | Salesforce | $500 |
+| **Tableau Server Certified Associate** | Salesforce | $500 |
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+Desktop Specialist: multiple choice. Certified Associate: practical tasks + MCQ.
 
-## Most Valuable Certifications
+---
 
-Research current certifications for Tableau on these sources:
-
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
-
-## General Certification Strategy
-
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
-
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
+## Core Skills & Commands
 
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+-- Tableau Desktop Specialist key topics
+
+CONNECT: File (CSV, Excel), Server (SQL, BigQuery), Cloud (S3)
+DIMENSIONS vs MEASURES:
+  Dimensions: categorical (blue pills) — Region, Category, Product
+  Measures: quantitative (green pills) — Sales, Profit, Quantity
+
+CHART TYPES (Show Me panel):
+  Bar chart: categorical comparison
+  Line chart: trend over time
+  Scatter plot: correlation between two measures
+  Map: geographic data (must have geographic role)
+  Treemap: part-to-whole + size comparison
+  Heatmap: patterns in two categorical dimensions
+
+CALCULATED FIELDS:
+  [Profit Ratio] = SUM([Profit]) / SUM([Sales])
+  [Above Average] = IF SUM([Sales]) > AVG(SUM([Sales])) THEN "Yes" ELSE "No" END
+
+LOD EXPRESSIONS (Level of Detail):
+  {FIXED [Region] : SUM([Sales])}          -- fixed dimension
+  {INCLUDE [Order ID] : COUNT([Product])} -- add dimension
+  {EXCLUDE [Region] : AVG([Sales])}        -- remove dimension
+
+FILTERS (order of operations):
+  Extract → Data Source → Context → Dimension → Measure → Table Calc
+
+PERFORMANCE:
+  Use extracts (.hyper) instead of live connections
+  Reduce marks (<5000) | Index high-cardinality fields
+  Context filters reduce scope for subsequent filters
 ```
 
-## After Certification
+---
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## Study Resources
+
+- **Tableau Public** (free, build and share dashboards)
+- **Tableau Training Videos** (official, tableau.com/learn)
+- **Superdata School** — Tableau prep resources
+- **Makeover Monday** — weekly data viz practice challenge
+
+## Revision Notes
+
+```
+TABLEAU SPECIALIST KEY TOPICS:
+  Dimensions (blue/categorical) vs Measures (green/quantitative)
+  Show Me panel: choose chart type by data shape
+  Calculated fields: basic formulas + IF/THEN/ELSE
+  LOD expressions: FIXED/INCLUDE/EXCLUDE (advanced)
+  Filters: data source → context → dimension → measure → table calc
+  Dashboard: combine sheets + layout containers + actions
+  Performance: extracts > live connection | fewer marks = faster
+```

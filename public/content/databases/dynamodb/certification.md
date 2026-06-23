@@ -1,53 +1,115 @@
-# DynamoDB — Certification Guide
+# AWS DynamoDB Certification Guide
 
-## Why Get Certified in DynamoDB?
+## Certifications Available
 
-Certifications validate your DynamoDB skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+| Cert | Provider | Cost | Format |
+|------|----------|------|--------|
+| **AWS Certified Database Specialty (DBS-C01)** | AWS | $300 | MCQ, 180 min |
+| **AWS Certified Developer Associate (DVA-C02)** | AWS | $150 | MCQ, 130 min |
+| **AWS Solutions Architect Associate** | AWS | $150 | MCQ — covers DynamoDB |
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+DynamoDB is a major topic in AWS Database Specialty and Developer Associate exams.
 
-## Most Valuable Certifications
+---
 
-Research current certifications for DynamoDB on these sources:
+## Core Concepts and Code
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
+```python
+import boto3, time
+from boto3.dynamodb.conditions import Key, Attr
 
-## General Certification Strategy
+table = boto3.resource('dynamodb', region_name='us-east-1').Table('Orders')
 
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
+# PUT (create or full replace)
+table.put_item(Item={
+    'userId': 'U123', 'orderId': 'O456',
+    'amount': 99.99, 'status': 'pending',
+    'ttl': int(time.time()) + 86400 * 30   # auto-delete in 30 days
+})
 
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
+# GET
+item = table.get_item(Key={'userId': 'U123', 'orderId': 'O456'}).get('Item')
 
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
+# UPDATE with condition
+table.update_item(
+    Key={'userId': 'U123', 'orderId': 'O456'},
+    UpdateExpression='SET #s = :s',
+    ExpressionAttributeNames={'#s': 'status'},   # 'status' is a reserved word
+    ExpressionAttributeValues={':s': 'shipped'},
+    ConditionExpression=Attr('status').eq('pending')  # optimistic locking
+)
 
-## Study Schedule Template
+# QUERY — efficient, uses partition key (always prefer over scan)
+response = table.query(
+    KeyConditionExpression=Key('userId').eq('U123') &
+                           Key('orderId').begins_with('O')
+)
+
+# SCAN — avoid! reads entire table partition by partition
+response = table.scan(
+    FilterExpression=Attr('status').eq('pending') & Attr('amount').gt(50)
+)
+```
+
+---
+
+## Key Exam Concepts
 
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+CAPACITY MODES:
+  On-demand:    auto-scales, pay per request, no capacity planning needed
+  Provisioned:  specify RCU/WCU, cheaper for predictable traffic patterns
+  1 RCU  = 1 strongly consistent read of up to 4 KB/sec
+          (0.5 RCU for eventually consistent reads)
+  1 WCU  = 1 write of up to 1 KB/sec
+
+INDEXES:
+  GSI (Global Secondary Index):
+    Entirely new partition key + optional sort key
+    Can be added or deleted after table creation
+    Only eventually consistent reads
+  LSI (Local Secondary Index):
+    Same partition key as base table, different sort key
+    Must be defined at table creation time (cannot add later)
+    Supports strongly consistent reads
+
+SINGLE-TABLE DESIGN:
+  Store multiple entity types in one table using key overloading
+  Example: PK="USER#123" SK="PROFILE"
+           PK="USER#123" SK="ORDER#2024-01"
+  One Query returns entity + all related items (no joins needed)
+
+STREAMS + LAMBDA (event-driven patterns):
+  DynamoDB Streams captures INSERT / MODIFY / REMOVE events
+  Trigger Lambda for: search sync, notifications, audit log, cache invalidation
+
+GLOBAL TABLES:  multi-region active-active, sub-second replication
+DAX:            in-memory write-through cache, microsecond read latency
+TTL:            auto-delete items based on a timestamp attribute (free feature)
 ```
 
-## After Certification
+---
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## Study Resources
+
+- **AWS Docs DynamoDB** (docs.aws.amazon.com/amazondynamodb) — comprehensive
+- **The DynamoDB Book** by Alex DeBrie — best deep-dive paid resource
+- **AWS Workshops catalog** — free hands-on DynamoDB labs
+- **AWS Skill Builder** — free DynamoDB digital courses and labs
+
+## Revision Notes
+```
+DYNAMODB: serverless, fully managed key-value + document store, single-digit ms
+
+KEY DESIGN: partition key distributes data evenly (high cardinality required)
+  Sort key enables range queries, sorting, and pagination within partition
+  GSI: new PK/SK for alternate access patterns (add later)
+  LSI: same PK, different SK — must define at table creation
+
+CAPACITY: on-demand (variable cost, auto) vs provisioned (cheaper, auto-scaling)
+SINGLE-TABLE: overload PK/SK with entity-type prefixes for efficient co-location
+
+STREAMS -> Lambda: event-driven fanout for search, audit, notifications
+GLOBAL TABLES: multi-region active-active with last-writer-wins conflict resolution
+DAX: 10x read throughput boost as a managed in-memory cache layer
+```

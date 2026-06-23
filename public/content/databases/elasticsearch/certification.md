@@ -1,53 +1,109 @@
-# Elasticsearch — Certification Guide
+# Elasticsearch Certification Guide
 
-## Why Get Certified in Elasticsearch?
+## Certifications Available
 
-Certifications validate your Elasticsearch skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+| Cert | Provider | Cost | Format |
+|------|----------|------|--------|
+| **Elastic Certified Engineer** | Elastic | $400 | Hands-on lab, 3 hrs |
+| **Elastic Certified Analyst** | Elastic | $400 | Hands-on lab, 3 hrs |
+| **Elastic Certified Observability Engineer** | Elastic | $400 | Hands-on lab |
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+All Elastic exams are performance-based on a live cluster — no MCQ questions.
 
-## Most Valuable Certifications
+---
 
-Research current certifications for Elasticsearch on these sources:
+## Core Topics
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
-
-## General Certification Strategy
-
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
-
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
-
-```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+```bash
+# CLUSTER HEALTH AND STATUS
+GET _cluster/health?pretty
+GET _cat/indices?v&s=index
+GET _cat/nodes?v&h=name,heap.percent,cpu,load_1m
+GET _cat/shards?v&h=index,shard,prirep,state,node
 ```
 
-## After Certification
+```json
+// INDEX CREATION WITH EXPLICIT MAPPING
+{
+  "settings": { "number_of_shards": 1, "number_of_replicas": 1 },
+  "mappings": {
+    "properties": {
+      "name":  { "type": "text", "fields": { "kw": { "type": "keyword" } } },
+      "price": { "type": "float" },
+      "tags":  { "type": "keyword" },
+      "date":  { "type": "date", "format": "yyyy-MM-dd" }
+    }
+  }
+}
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+// BOOL QUERY
+{
+  "query": {
+    "bool": {
+      "must":     [{ "match": { "name": "gaming laptop" } }],
+      "filter":   [{ "range": { "price": { "gte": 500, "lte": 2000 } } },
+                   { "term":  { "tags": "electronics" } }],
+      "must_not": [{ "term": { "available": false } }]
+    }
+  },
+  "sort": [{ "price": "asc" }],
+  "size": 10
+}
+
+// AGGREGATIONS
+{
+  "size": 0,
+  "aggs": {
+    "by_status": {
+      "terms": { "field": "status.keyword", "size": 10 },
+      "aggs": { "avg_response": { "avg": { "field": "response_ms" } } }
+    },
+    "per_hour": {
+      "date_histogram": { "field": "@timestamp", "calendar_interval": "1h" }
+    }
+  }
+}
+
+// ILM POLICY
+{
+  "policy": { "phases": {
+    "hot":    { "actions": { "rollover": { "max_age": "1d", "max_primary_shard_size": "50gb" } } },
+    "warm":   { "min_age": "3d",  "actions": { "shrink": { "number_of_shards": 1 } } },
+    "delete": { "min_age": "30d", "actions": { "delete": {} } }
+  }}
+}
+
+// SNAPSHOT (backup to filesystem or S3)
+// PUT _snapshot/my_repo  { "type": "fs", "settings": { "location": "/mnt/backups" } }
+// PUT _snapshot/my_repo/snap1  { "indices": "logs-*", "include_global_state": false }
+// POST _snapshot/my_repo/snap1/_restore
+```
+
+---
+
+## Study Resources
+
+- **Elastic Training** (elastic.co/training) — official learning paths
+- **Elastic Docs** (elastic.co/guide) — authoritative reference
+- **Elastic Community** (discuss.elastic.co) — active support forums
+- **Local ELK Docker Compose** — run practice environment on your machine
+
+## Revision Notes
+```
+MAPPING: text (full-text, tokenized, analyzed) | keyword (exact, aggregations, sort)
+Multi-field: map as BOTH text AND keyword.kw — most common production pattern
+Dynamic mapping: auto-created on first insert — define explicit in production
+
+BOOL QUERY: must (AND + relevance score) | filter (AND + cached, no score)
+            should (OR, boosts score)    | must_not (NOT)
+Use filter context for exact matches — no scoring overhead, results are cached
+
+SHARDS: target 20-50 GB per shard | too many small shards = overhead
+HEALTH: GREEN = all shards OK | YELLOW = replicas missing | RED = primary missing
+
+ILM: hot (write) -> warm (read-only) -> cold (minimal resources) -> delete
+SNAPSHOT: register repo -> take snapshot -> restore (works for backup and migration)
+
+AGGREGATIONS: terms (group by) | date_histogram (time buckets) | avg/sum/cardinality
+Nested aggs: place sub-agg inside parent for multi-dimensional breakdowns
+```
