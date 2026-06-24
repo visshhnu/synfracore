@@ -1,44 +1,75 @@
-# Patient Documentation — Advanced
+# Patient Documentation Advanced Topics
 
-## Advanced Patient Documentation Concepts
+## Advanced Coding Scenarios
 
-At the advanced level, you handle complex scenarios, edge cases, and production-level challenges.
+```
+NEOPLASM CODING:
+  Step 1: Determine behavior — malignant primary, malignant secondary, in situ, benign, uncertain
+  Step 2: Find in Neoplasm Table by site
+  Step 3: Select appropriate column
+  Step 4: Verify in Tabular List
+  
+  SEQUENCING FOR MALIGNANCY:
+    Primary site actively treated: sequence primary first
+    Metastatic site being treated: sequence metastasis + primary secondary
+    History of cancer, no current treatment: use Z85.xxx (personal history)
+    Prophylactic surgery (family history): Z80.xxx (family history)
+  
+  CODING TREATMENT COMPLICATIONS:
+    Anemia due to chemotherapy: D64.81 (anemia) + T45.1x5A (adverse effect)
+    Nausea from chemo: R11.0 + T45.1x5A (adverse effect, initial encounter)
+    Dehydration after radiation: E86.0 + Y84.2 (radiation therapy complication)
 
-## Complex Scenarios
+OBSTETRIC CODING (O codes):
+  7th character = trimester:
+    1 = first (< 14 weeks) | 2 = second (14-27 weeks)
+    3 = third (28+ weeks) | 0 = unspecified trimester
+    A/B/C: fetus (for multiple gestations, identify which fetus affected)
+  
+  At delivery: O codes sequenced first (even if C/S complication is reason for admission)
+  O80: normal delivery (all criteria must be met: single liveborn, no complications)
+  O82: cesarean section (use when no specific complication code exists)
+  
+  Z3A.xx: Weeks of gestation (use as additional code when O code present)
+  Z37.0: Single liveborn infant, born in hospital (required at delivery)
 
+HIV CODING:
+  B20: HIV disease (symptomatic) — sequence FIRST even if treating another condition
+  Z21: Asymptomatic HIV infection — positive status, no symptoms or AIDS
+  Do NOT code inconclusive test as B20 — code the test result or symptom instead
+  Confirmation: by provider statement, not just lab result
+```
 
+## Compliance and Audit Readiness
 
-### Clinical Documentation Improvement (CDI)\nCDI programs ensure documentation accurately reflects the severity of patient illness:\n\n**CDI Process:**\n1. CDI specialist reviews medical record concurrently (during admission)\n2. Identifies documentation gaps (unclear diagnoses, missing conditions)\n3. Submits physician query (compliant format — not leading)\n4. Physician responds — clarifies, confirms, or denies\n5. Final code assignment based on complete documentation\n\n**High-impact CDI targets:**\n- Malnutrition (requires specific documentation: mild/moderate/severe)\n- Sepsis vs. SIRS (sepsis pays significantly more — requires clinical criteria)\n- Pressure injuries (stage documentation affects case-mix)\n- Acute kidney injury vs. chronic kidney disease\n- Respiratory failure (impacts DRG weight significantly)
+```
+DOCUMENTATION AUDIT CHECKLIST:
+  ☐ Legible, dated, signed with credentials
+  ☐ Chief complaint/reason for visit documented
+  ☐ Diagnoses supported by documentation (not just in problem list)
+  ☐ Procedures match operative report and claim
+  ☐ Modifiers supported by documentation
+  ☐ E&M level supported by MDM or total time documented
+  ☐ No copy-paste without update (EHR cloning risk)
+  ☐ Addenda properly dated, signed, and labelled
 
+RAC AUDIT RED FLAGS:
+  High-level E&M for all visits (99215 every encounter)
+  Billing both global and component procedure codes
+  Unbundled procedures (NCCI violation)
+  Modifier -25 without supporting documentation
+  Diagnoses not reflecting current visit (using inactive problem list)
+  
+INTERNAL AUDIT PROCESS:
+  Pre-payment: before claim submission (most effective)
+  Post-payment: random sample of paid claims (retrospective)
+  Targeted: focus on high-risk areas identified by OIG Work Plan
+  External: hire outside firm for objective assessment
+  Track: denial rate, error rate by coder, by payer, by procedure type
+```
 
-
-## Professional Development
-
-Advanced practitioners should pursue:
-- Specialty credentials (specialty-specific AAPC certifications)
-- Continuing Education Units (CEUs) to maintain certification
-- Membership in AAPC or AHIMA professional organizations
-- Participation in local chapter meetings and national conventions
-
-## Practical Application
-
-Understanding this topic in depth requires applying it to real case scenarios. Work through the case studies in the Advanced section and use the MCQ quiz sets in the Labs section to test your knowledge.
-
-## Key Regulations to Know
-
-- **HIPAA Privacy Rule** — protects patient health information (PHI); applies to covered entities and business associates
-- **HIPAA Security Rule** — technical, physical, administrative safeguards for electronic PHI (ePHI)  
-- **CMS Conditions of Participation** — requirements for facilities participating in Medicare/Medicaid
-- **OIG Compliance Guidelines** — voluntary compliance program guidance for healthcare organizations
-- **False Claims Act** — civil and criminal penalties for fraudulent billing; qui tam provisions allow whistleblowers
-
-## Certification Preparation
-
-Most positions in this area recognize the following certifications:
-- **CPC** (Certified Professional Coder) — AAPC, outpatient/physician focus
-- **CCS** (Certified Coding Specialist) — AHIMA, inpatient/hospital focus
-- **RHIT** (Registered Health Information Technician) — AHIMA
-- **RHIA** (Registered Health Information Administrator) — AHIMA senior credential
-- **CPB** (Certified Professional Biller) — AAPC, billing and reimbursement
-
-Continuing education (CEUs) required annually to maintain all credentials.
+## Study Resources
+- **OIG Work Plan** (oig.hhs.gov/reports-and-publications/workplan) — annual audit targets
+- **AHA Coding Clinic** — quarterly ICD-10-CM guidance (subscription)
+- **CPT Assistant** (AMA) — monthly CPT guidance (subscription)
+- **AAPC Medical Coding Solutions** — practice management and compliance tools

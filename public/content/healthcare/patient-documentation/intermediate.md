@@ -1,40 +1,71 @@
-# Patient Documentation — Intermediate
+# Patient Documentation Intermediate Topics
 
-## Applying Patient Documentation in Practice
+## E&M Documentation Intermediate
 
-At the intermediate level, you work with real scenarios and more complex situations.
+```
+2021 E&M CHANGES IMPACT ON DOCUMENTATION:
+  Old (pre-2021): required history, exam, and MDM documented to specific level
+  New (2021+): MDM OR total time determines level (history/exam no longer drive level)
+  
+  What this means for documentation:
+    Physicians no longer need to document extensive review of systems to hit 99215
+    BUT documentation still must support medical necessity for any service billed
+    MDM documentation needs: problems addressed, data reviewed/ordered, risk of treatment
+    Time documentation: total time on date of service (including all non-face-to-face work)
 
-## Key Processes
+MDM DOCUMENTATION EXAMPLES:
+  STRAIGHTFORWARD (99202/99212):
+    "Patient here for BP check. BP 128/82 on lisinopril. Continue current regimen."
+    One self-limited problem | Minimal data | Minimal risk
 
+  LOW COMPLEXITY (99203/99213):
+    "Patient with stable hypertension and type 2 DM for routine follow-up. 
+     HbA1c results reviewed (7.2%). BP controlled. Refill metformin and lisinopril."
+    Two stable chronic conditions | Reviewed test result | Low risk (prescription management)
 
+  MODERATE (99204/99214):
+    "New complaint of chest pain. Ordered EKG, troponin, CBC. Reviewed prior cardiology notes.
+     Risk of NSTEMI cannot be excluded. Prescribing aspirin, admit for observation."
+    New undiagnosed problem with uncertain prognosis | Independent interpretation | High risk
 
-### SOAP Note Format in Practice\n```\nS (Subjective): What the patient reports\n   Chief complaint: "Severe headache for 3 days"\n   HPI: 35-year-old female presents with throbbing frontal headache,\n   7/10 severity, associated with photophobia, no fever\n   PMH: Migraines since age 20, controlled with sumatriptan\n   Medications: Sumatriptan 50mg PRN, OCP\n   Allergies: Penicillin (rash)\n\nO (Objective): What the provider observes/measures\n   Vitals: BP 128/82, HR 78, RR 16, T 98.6°F\n   Physical Exam: Alert, oriented x3. HEENT: photophobia present.\n   Neurological: No focal deficits. Fundoscopy normal.\n\nA (Assessment): Diagnosis\n   1. Migraine without aura (G43.909) — primary\n   2. Oral contraceptive use (Z79.3) — contributing factor\n\nP (Plan): Treatment\n   - Sumatriptan 100mg now, may repeat in 2 hours if needed\n   - Dark quiet room, hydration\n   - Follow up if no improvement in 24 hours\n   - Counseled on OCP and migraine association\n```
+TIME-BASED DOCUMENTATION:
+  "Total time spent on this encounter including pre- and post-work: 45 minutes"
+  Include: chart prep, face-to-face, ordering, documentation, care coordination
+  Do NOT include: time for services billed separately (procedures, tests)
+```
 
+## Claim Submission and Denials
 
+```
+CLAIM FORM ELEMENTS (CMS-1500):
+  Box 21: diagnosis codes (up to 12) — ICD-10-CM
+  Box 24: service lines — date, place of service, CPT, modifiers, diagnosis pointer, charge
+  Box 24J: rendering provider NPI
+  Box 33: billing provider NPI
 
-## Practice
+COMMON DENIAL REASONS AND FIXES:
+  CO-4: Procedure inconsistent with modifier — check modifier applicability
+  CO-11: Diagnosis inconsistent with procedure — verify correct dx pointer
+  CO-50: Non-covered service — check patient benefits, get ABN if needed
+  CO-97: Bundled into another service — check NCCI edits, add modifier if appropriate
+  PR-96: Non-covered charge — patient responsibility if not covered benefit
+  
+  APPEALS PROCESS:
+    Level 1: redetermination (original MAC) — 120 days to file
+    Level 2: reconsideration (QIC — Qualified Independent Contractor) — 180 days
+    Level 3: ALJ (Administrative Law Judge) hearing — 60 days
+    Level 4: Medicare Appeals Council — 60 days
+    Level 5: Federal District Court — 60 days (if amount meets threshold)
 
-Complete the Labs MCQ sets for this topic — they cover exactly the intermediate-level scenarios you will see in certification exams and real-world practice.
+PRIOR AUTHORIZATION:
+  Required for: high-cost procedures, elective surgery, specialty referrals
+  Get before service: retroactive auth usually not accepted
+  Document: auth number in billing notes
+  Appeal denied auth: clinical documentation + physician letter of medical necessity
+```
 
-## Practical Application
-
-Understanding this topic in depth requires applying it to real case scenarios. Work through the case studies in the Advanced section and use the MCQ quiz sets in the Labs section to test your knowledge.
-
-## Key Regulations to Know
-
-- **HIPAA Privacy Rule** — protects patient health information (PHI); applies to covered entities and business associates
-- **HIPAA Security Rule** — technical, physical, administrative safeguards for electronic PHI (ePHI)  
-- **CMS Conditions of Participation** — requirements for facilities participating in Medicare/Medicaid
-- **OIG Compliance Guidelines** — voluntary compliance program guidance for healthcare organizations
-- **False Claims Act** — civil and criminal penalties for fraudulent billing; qui tam provisions allow whistleblowers
-
-## Certification Preparation
-
-Most positions in this area recognize the following certifications:
-- **CPC** (Certified Professional Coder) — AAPC, outpatient/physician focus
-- **CCS** (Certified Coding Specialist) — AHIMA, inpatient/hospital focus
-- **RHIT** (Registered Health Information Technician) — AHIMA
-- **RHIA** (Registered Health Information Administrator) — AHIMA senior credential
-- **CPB** (Certified Professional Biller) — AAPC, billing and reimbursement
-
-Continuing education (CEUs) required annually to maintain all credentials.
+## Study Resources
+- **CMS Physician Fee Schedule** — RVU values, coverage, billing guidelines (free online)
+- **AAPC CPC Practice Exam** (aapc.com) — 150-question timed practice tests
+- **Decode HER** (decodher.com) — female-led coding education platform with scenarios
+- **Medical Billing and Coding Forum** (billerswebsite.com) — peer Q&A for coders

@@ -1,56 +1,85 @@
-# Azure AKS — Intermediate
+# Azure AKS Intermediate
 
-## KEDA (Kubernetes Event-Driven Autoscaling)
+## Networking Deep Dive
 
-```bash
-# KEDA scales pods based on any event source (queue length, HTTP requests, metrics)
-# Much more powerful than HPA which only uses CPU/memory
+```
+NETWORK PLUGINS:
+  kubenet (basic):
+    Pods get IPs from pod CIDR (not native VNet IPs)
+    NAT required for pod-to-pod across nodes
+    Simpler, less Azure-native, smaller IP usage
+    Limitation: no Windows nodes, no Azure Network Policy
 
-helm repo add kedacore https://kedacore.github.io/charts
-helm install keda kedacore/keda --namespace keda --create-namespace
+  Azure CNI (advanced):
+    Each pod gets a real VNet IP address
+    No NAT between pods; fully routable in Azure network
+    IP planning critical: reserve enough IPs upfront
+    Supports: Windows nodes, Azure Network Policy, VNet-native features
 
-# Scale based on Azure Service Bus queue
-apiVersion: keda.sh/v1alpha1
-kind: ScaledObject
-metadata:
-  name: order-processor
-spec:
-  scaleTargetRef:
-    name: order-processor-deployment
-  minReplicaCount: 0             # Scale to zero when idle!
-  maxReplicaCount: 50
-  triggers:
-  - type: azure-servicebus
-    metadata:
-      queueName: orders
-      namespace: prod-servicebus
-      messageCount: "5"           # 1 replica per 5 messages
-    authenticationRef:
-      name: servicebus-trigger-auth
+  Azure CNI Overlay (newer):
+    Pods get IPs from overlay network, NOT VNet IPs
+    Better IP conservation than standard Azure CNI
+    Similar feature set to Azure CNI
+
+  Cilium (eBPF):
+    High performance, eBPF-based; replaces kube-proxy
+    Enable: --network-plugin azure --network-plugin-mode overlay --network-dataplane cilium
+
+NETWORK POLICY:
+  Azure Network Policy: native, enforces by Azure (limited features)
+  Calico: more feature-rich, works with kubenet or Azure CNI
+  Cilium: eBPF-based, highest performance
+
+INGRESS CONTROLLERS:
+  NGINX: most popular, simple HTTP/S routing
+  Application Gateway Ingress Controller (AGIC): native Azure L7 LB, WAF-integrated
+  Azure Container Apps: serverless alternative
 ```
 
-## Azure Monitor + Container Insights
+## Autoscaling
 
 ```bash
-# Enable Container Insights
-az aks enable-addons \
-    --addons monitoring \
-    --name prod-aks \
-    --resource-group prod-rg \
-    --workspace-resource-id /subscriptions/.../workspaces/prod-logs
+# Cluster Autoscaler (scale node count)
+az aks update -g myRG -n myAKS \
+  --enable-cluster-autoscaler --min-count 1 --max-count 10
 
-# Kusto (KQL) queries for AKS monitoring
-# In Log Analytics workspace:
+az aks update -g myRG -n myAKS \
+  --update-cluster-autoscaler --min-count 2 --max-count 15
 
-// CPU usage by node
-Perf
-| where ObjectName == "K8SNode" and CounterName == "cpuUsageNanoCores"
-| summarize avg(CounterValue) by Computer, bin(TimeGenerated, 5m)
-| render timechart
+# KEDA (event-driven autoscaling for pods)
+az aks update -g myRG -n myAKS --enable-keda
 
-// Failed pods
-KubePodInventory
-| where PodStatus == "Failed"
-| project TimeGenerated, Namespace, Name, PodStatus, ContainerLastStatus
-| order by TimeGenerated desc
+# VPA (Vertical Pod Autoscaler)
+az aks update -g myRG -n myAKS --enable-vpa
+
+# Node pool with autoscaler
+az aks nodepool add -g myRG --cluster-name myAKS -n pool2 \
+  --enable-cluster-autoscaler --min-count 1 --max-count 5
 ```
+
+## Monitoring and Security
+
+```bash
+# Container Insights (Log Analytics)
+az aks enable-addons -g myRG -n myAKS --addons monitoring \
+  --workspace-resource-id /subscriptions/.../workspaces/myWS
+
+# Azure Policy for AKS (Gatekeeper)
+az aks enable-addons -g myRG -n myAKS --addons azure-policy
+
+# Defender for Containers
+az aks update -g myRG -n myAKS --enable-defender
+
+# Key Vault secrets (CSI driver)
+az aks enable-addons -g myRG -n myAKS --addons azure-keyvault-secrets-provider
+
+# Private cluster
+az aks create -g myRG -n myPrivateAKS --enable-private-cluster \
+  --private-dns-zone system
+```
+
+## Study Resources
+- **Microsoft Learn AKS path** (learn.microsoft.com) — free, hands-on
+- **AKS Baseline Architecture** (aka.ms/aks/baseline) — Microsoft reference arch
+- **AKS checklist** (aka.ms/aks/checklist) — production readiness
+- **AKS Best Practices** docs — security, storage, networking, scaling

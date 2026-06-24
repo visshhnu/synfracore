@@ -1,50 +1,79 @@
-# First Aid & Emergency — Intermediate
+# First Aid — Intermediate Guide
 
-## From Concepts to Problems
+## Intermediate First Aid
 
-At the intermediate level, you apply fundamental knowledge to solve structured problems. This is where Daily Life Application questions at medium difficulty level fall.
+### Scene Assessment and Triage
 
-## Topics at This Level
+```
+PRIMARY SURVEY — DRABC:
+  D — Danger: assess scene for hazards (traffic, fire, chemicals)
+  R — Response: AVPU scale
+      A = Alert (eyes open, responds normally)
+      V = Voice (responds to voice)
+      P = Pain (responds to painful stimulus)
+      U = Unresponsive (no response)
+  A — Airway: open with head-tilt chin-lift
+  B — Breathing: look, listen, feel for 10 seconds
+  C — Circulation: check for severe bleeding
 
-- DRSABCD Protocol
-- CPR (Adult, Child, Infant)
-- AED Usage
-- Choking (Heimlich Maneuver)
-- Bleeding Control
-- Burns & Scalds
-- Fractures & Sprains
-- Diabetic Emergency
-- Heart Attack Recognition
-- Stroke (FAST)
+SECONDARY SURVEY:
+  Head-to-toe examination after life threats controlled
+  SAMPLE history: Signs/Symptoms | Allergies | Medications
+                  Past medical history | Last meal | Events
 
-## Problem-Solving Strategy
+TRIAGE (multiple casualties):
+  START method:
+    RED (Immediate): life-threatening, survivable
+    YELLOW (Delayed): serious but stable
+    GREEN (Minor): walking wounded
+    BLACK (Expectant): deceased or unsurvivable
 
-For First Aid & Emergency at intermediate level:
+VITAL SIGNS (normal ranges):
+  Adult pulse: 60–100 bpm | Respiratory rate: 12–20/min
+  SpO2: 95–100% | Temperature: 36.5–37.5°C
+  Capillary refill: <2 seconds
+```
 
-**1. Identify the type** — Which topic does this question belong to? (e.g., work-time, profit-loss, normalization)
+### Common Medical Emergencies
 
-**2. Recall the approach** — What formula/method applies? Write it down.
+```
+DIABETIC EMERGENCY:
+  Hypoglycaemia (low blood sugar — more common):
+    Signs: shakiness, sweating, confusion, pale, fast pulse
+    Conscious: give sugar — glucose tablets, fruit juice, regular soda
+    Unconscious: recovery position, call 999, do NOT give food/drink
 
-**3. Apply methodically** — Work step by step. Don't skip steps under time pressure — mistakes happen.
+  Hyperglycaemia (high blood sugar):
+    Signs: gradual onset, thirst, frequent urination, fruity breath
+    Action: medical attention required, monitor consciousness
 
-**4. Verify** — Does your answer make sense? For MCQ, check if the answer is "in the ballpark."
+SEIZURE MANAGEMENT:
+  Protect from injury — move sharp/hard objects away
+  Do NOT restrain or put anything in mouth
+  Time the seizure duration
+  Recovery position when movements stop
+  Call 999 if: first seizure | >5 min | no recovery | injury | pregnant
 
-**5. Review wrong answers** — Every wrong answer reveals a gap. Fix the gap, not just the answer.
+STROKE — FAST test:
+  Face: drooping on one side?
+  Arms: weakness, cannot raise both equally?
+  Speech: slurred or confused?
+  Time: call 999 immediately — every minute brain cells die
 
-## Practice Distribution
+HEART ATTACK:
+  Signs: chest pain (may radiate arm/jaw), breathlessness, sweating, nausea
+  Sit comfortable, loosen clothing
+  Aspirin 300mg if not allergic and not already taken
+  Call 999 immediately
+  Be prepared to start CPR
+```
 
-For optimal preparation:
-- 60% time on problem solving (not reading)
-- 20% time on concept review
-- 20% time on analyzing mistakes
-
-## Key Formulas & Rules
-
-Study the **Cheatsheet** section for a compiled list of the most important formulas and rules for First Aid & Emergency. The **Labs** section has intermediate MCQ sets that test exactly this level.
-
-## Transition to Advanced
-
-You're ready for advanced topics when you can:
-- Solve intermediate problems in under 2 minutes each
-- Identify the approach within 15 seconds of reading a problem
-- Score 75%+ consistently on intermediate MCQ sets
+## Revision Notes
+```
+DRABC: Danger → Response (AVPU) → Airway → Breathing → Circulation
+AVPU: Alert | Voice | Pain | Unresponsive — quick consciousness scale
+TRIAGE: RED (immediate) | YELLOW (delayed) | GREEN (minor) | BLACK (expectant)
+HYPO: give sugar (conscious) | HYPER: medical attention
+STROKE: FAST test → call 999 immediately (time = brain tissue)
+HEART ATTACK: sit, aspirin 300mg (if OK), call 999, prepare CPR
+```

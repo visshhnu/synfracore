@@ -1,45 +1,78 @@
-# NEET Physics — Advanced
+# NEET Physics Advanced Preparation
 
-## Mastery Level for NEET
+## Electromagnetic Waves and Optics
 
-Advanced topics in NEET Physics separate top scorers from average candidates. These questions test deep understanding, multi-concept application, and speed under pressure.
+```
+ELECTROMAGNETIC SPECTRUM (increasing frequency / decreasing wavelength):
+  Radio waves: >1mm | Microwaves: 1mm-10⁻³mm | Infrared: 10⁻³mm-700nm
+  Visible: 400-700nm (VIBGYOR) | Ultraviolet: 400nm-1nm
+  X-rays: 1nm-10⁻³nm | Gamma rays: <10⁻³nm
 
-## Advanced Topics
+USES:
+  Radio: communication | Microwave: radar, microwave oven, satellite
+  IR: TV remote, night vision, heat | UV: sterilization, vitamin D, security marking
+  X-ray: medical imaging, luggage scanning | Gamma: cancer treatment, food irradiation
 
-- Mechanics
-- Electrostatics
-- Optics
-- Modern Physics
-- Thermodynamics
-- Waves
-- Current Electricity
-- Magnetic Effects
+All EM waves travel at c = 3×10⁸ m/s in vacuum
+Transverse waves | do not require medium | carry energy and momentum
 
-## Advanced Problem Patterns
+RAY OPTICS — MIRRORS:
+  Mirror formula: 1/v + 1/u = 1/f (note: different from lens formula sign)
+  Focal length: f = R/2
+  Magnification: m = -v/u (negative means inverted)
+  
+  Concave mirror (f negative): converging, real inverted image when u > f
+  Convex mirror (f positive): diverging, always virtual erect diminished image
+```
 
-At this level, questions combine multiple concepts:
-- **Multi-step problems**: require 3-5 steps, each using a different concept
-- **Tricky conditions**: unusual constraints that require careful reading
-- **Data interpretation**: extract relevant data, ignore noise, compute quickly
-- **Proof-based** (for GATE/University exams): derive, justify, analyze formally
+## SHM and Waves
 
-## Time Management for Advanced Questions
+```
+SIMPLE HARMONIC MOTION:
+  x = A sin(ωt + φ) | velocity: v = Aω cos(ωt)
+  Acceleration: a = -ω²x (proportional to displacement, opposite direction)
+  
+  Time period:
+    Spring-mass: T = 2π√(m/k)
+    Simple pendulum: T = 2π√(L/g) — independent of mass and amplitude
+    Liquid in U-tube: T = 2π√(L/2g) where L = total length
+  
+  Energy in SHM:
+    KE = ½mω²(A²-x²) | PE = ½mω²x² | Total = ½mω²A² (constant)
+    KE maximum at x=0 (equilibrium) | PE maximum at x=±A (extremes)
 
-In competitive exams, advanced questions take longer. Strategy:
-1. **Triage first**: scan all questions, mark easy/medium/hard
-2. **Do easy first**: secure those marks, build confidence
-3. **Medium next**: aim for partial credit where applicable
-4. **Hard last**: attempt with remaining time, guess if negative marking allows
+WAVES:
+  Wave equation: v = fλ | for string: v = √(T/μ)
+  
+  Standing waves — string both ends fixed:
+    Harmonics: fn = nv/2L | fundamental = v/2L
+    Nodes (no displacement) | Antinodes (maximum displacement)
+  
+  Sound:
+    Intensity: I ∝ A² | Loudness (dB): β = 10 log(I/I₀) where I₀ = 10⁻¹² W/m²
+    Beats: n_beats = |f₁ - f₂| (per second)
+    Doppler: f' = f × (v ± v_observer)/(v ∓ v_source)
+```
 
-## High-Yield Advanced Topics
+## NEET Physics Scoring Strategy
 
-Based on previous years' patterns for NEET:
-- Focus on the first 3 topics in the list above (highest weightage)
-- Practice previous year questions from last 5-10 years
-- Study toppers' answer sheets (for subjective exams like UPSC)
+```
+SECTION APPROACH:
+  Attempt: Modern Physics (easiest for formula application) first
+  Then: Optics, Current Electricity (systematic solving)
+  Then: Mechanics (time-consuming, do last)
+  Skip: Extremely calculation-heavy problems — check with 1-2 options first
 
-## Practice Resources
+ACCURACY OVER SPEED:
+  NEET Physics: better to do 35/45 with 90% accuracy
+  Than attempt all 45 with 70% accuracy (negative marking hurts)
+  
+  Wrong answer: -1 mark | Correct: +4 marks
+  Break-even: 1 correct compensates for 4 wrong (4-4=0)
+  Strategy: skip if less than 60% confident
 
-- **Labs section**: Advanced MCQ sets with detailed explanations
-- **Interview Q&A**: Conceptual questions that test deep understanding
-- Previous year papers: Non-negotiable for exam preparation
+FORMULA SHEET PREPARATION:
+  Make a 2-page formula sheet by chapter
+  Revise formula sheet daily last 30 days before exam
+  Do 10-15 PYQ per chapter after each revision
+```

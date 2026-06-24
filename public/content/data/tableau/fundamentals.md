@@ -1,51 +1,90 @@
-# Tableau — Fundamentals
+# Tableau Fundamentals
 
-## What is Tableau
+## What is Tableau?
 
-Tableau is a data visualization platform that lets you build interactive dashboards and reports by dragging and dropping data fields. It's widely used in business intelligence, analytics, and data science.
+Tableau is a leading Business Intelligence (BI) and data visualization platform that enables users to connect to data sources, create interactive dashboards, and share insights — all without writing code. It is widely used by data analysts, business analysts, and data scientists.
+
+## Core Products
+
+```
+TABLEAU DESKTOP:    full-featured authoring (paid)
+TABLEAU SERVER:     on-premise deployment and sharing
+TABLEAU CLOUD:      SaaS version of Server (formerly Tableau Online)
+TABLEAU PUBLIC:     free, public publishing only
+TABLEAU PREP:       data preparation and ETL
+TABLEAU READER:     free viewer for packaged workbooks
+```
 
 ## Key Concepts
 
 ```
-Data Source:   Connect to databases, files, cloud services
-Fields:        Dimensions (qualitative/categorical) vs Measures (quantitative)
-Marks:         Data points on a visualization (bars, points, shapes)
-Shelves:       Rows, Columns, Filters, Color, Size, Label, Detail, Tooltip
-Sheet:         One visualization
-Dashboard:     Collection of sheets + interactive filters
-Story:         Presentation of sheets/dashboards with narrative
+DIMENSIONS vs MEASURES:
+  Dimensions: categorical (discrete) — blue pills
+    Customer Name, Category, Region, Order Date (discrete)
+  Measures: numeric (continuous) — green pills
+    Sales, Profit, Quantity, Discount
+
+  Drag dimension to Rows/Columns = grouping
+  Drag measure to chart area = aggregation (SUM, AVG, etc.)
+
+MARK TYPES:
+  Bar, Line, Area, Scatter, Map, Pie, Gantt, Text, Circle, Shape, Square
+
+AGGREGATION:
+  Default: SUM for measures
+  Right-click measure → Measure → change to AVG, COUNT, MEDIAN, etc.
+  Disaggregate: Analysis menu → uncheck Aggregate Measures
+
+FILTERS ORDER (inner to outer):
+  Extract filter → Data source filter → Context filter →
+  Dimension filter → Measure filter → Table calc filter
+  
+  Context filter: creates a temporary table → all other filters apply to it
+  Useful for: Top N within a filtered set
+
+CALCULATED FIELDS:
+  Create new measures or dimensions from existing data
+  [Profit Ratio] = SUM([Profit]) / SUM([Sales])
+  [High Value] = IIF([Sales] > 10000, "High", "Low")
+  Date calc: DATEDIFF('day', [Order Date], [Ship Date])
 ```
 
-## Getting Started
+## Common Chart Types
 
 ```
-1. Connect to data:
-   File: Excel, CSV, JSON, PDF
-   Server: Tableau Server, Tableau Cloud
-   Connectors: PostgreSQL, MySQL, Snowflake, BigQuery, Salesforce
+BAR CHART: Compare categories
+  Dimensions on Rows, Measure on Columns (or vice versa)
+  Sort: right-click axis → Sort
 
-2. Understand your fields:
-   Blue = Dimension (categorical, discrete)
-   Green = Measure (numeric, continuous)
-   
-   Tableau auto-classifies: Date as Dimension, Sales as Measure
+LINE CHART: Show trends over time
+  Date on Columns, Measure on Rows
+  Right-click date → exact date vs. year/quarter/month/day
 
-3. Build a view:
-   Drag Dimension to Columns → creates axis/category
-   Drag Measure to Rows → creates bar/axis
-   Drag to Color → color code the marks
-   Drag to Size → size the marks
+SCATTER PLOT: Correlation between two measures
+  Measure on Columns, Measure on Rows
+  Add dimension to Detail = one point per member
 
-4. Show Me panel: Tableau suggests the right chart type based on fields selected
+MAP: Geographic data
+  Latitude/Longitude or geographic dimension (Country, State, City)
+  Drag geographic field → Tableau assigns coordinates automatically
+
+HEATMAP: Two dimensions + color measure
+  Dimension on Rows, Dimension on Columns
+  Measure to Color → change mark type to Square
+
+TREEMAP: Hierarchical proportions
+  Drag measure to Size, dimension to Label
+  Change mark type to Square
+
+DASHBOARD:
+  File → New Dashboard → drag sheets from left panel
+  Set dashboard size (device-specific layouts available)
+  Add actions: filter action, highlight action, URL action
 ```
 
-## Essential Chart Types
-
-```
-Bar chart:     Sales by Region → Region to Columns, Sales to Rows
-Line chart:    Sales over time → Date to Columns, Sales to Rows
-Scatter plot:  Sales vs Profit → Sales to Columns, Profit to Rows, Product to Color
-Map:           Revenue by country → Auto-detected from geo fields
-Treemap:       Part of whole → Sales to Color and Size, Category to Label
-Heat map:      Category vs Time → Date to Columns, Category to Rows, Sales to Color
-```
+## Study Resources
+- **Tableau Public Gallery** (public.tableau.com) — see what others build, download workbooks
+- **Tableau Training** (tableau.com/learn/training) — free videos from Tableau
+- **Tableau Desktop Specialist** — entry-level certification ($250)
+- **Andy Kriebel Viz Makeovers** (YouTube) — improve chart design skills
+- **Storytelling with Data** (Cole Nussbaumer Knaflic) — book on effective dataviz

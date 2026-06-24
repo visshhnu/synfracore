@@ -1,44 +1,69 @@
-# RRB NTPC — Fundamentals
+# RRB NTPC Fundamentals
 
-## Overview
+## About Indian Railways Recruitment
 
-RRB NTPC is a foundational subject for RRB NTPC. Mastering these fundamentals is essential before attempting intermediate or advanced topics.
+Indian Railways is one of the world's largest railway networks and one of the largest employers in India. RRB NTPC is conducted to fill Non-Technical Popular Category posts across all railway zones.
 
-## Core Topics Covered
+## Eligibility
 
-- Mathematics (Arithmetic, Algebra, Geometry)
-- General Intelligence & Reasoning
-- General Awareness
-- Current Affairs
-- Railway GK
+```
+EDUCATIONAL QUALIFICATION:
+  Group B posts (Station Master, Goods Guard): bachelor's degree
+  Group C posts (Clerk, Typist): 12th pass (intermediate)
+  Age: 18-33 years for most posts (18-30 for some)
+  Relaxation: +2 OBC | +5 SC/ST | +10 PwD
+  Medical: different medical standards for different posts
+    A1/B1/C1/D: vision standards | Must pass medical examination
 
-## Learning Approach
+PHYSICAL STANDARDS:
+  Some posts (Station Master, Goods Guard) require specific vision standards
+  Colour blindness disqualifies from certain posts
+  Always check specific post requirements before applying
+```
 
-**Step 1: Understand, don't memorize**
-Each concept in RRB NTPC builds on the previous. Don't try to memorize formulas/rules before understanding why they work.
+## Application Process
 
-**Step 2: Practice with examples**
-After each concept, solve at least 5 examples before moving on. Understanding isn't enough — you need speed and accuracy.
+```
+NOTIFICATION: released at rrbcdg.gov.in (Ministry of Railways)
+  All 21 RRBs release simultaneously
+  Choose your preferred RRB (based on state/language preference)
+  
+APPLICATION FEE:
+  General/OBC/EWS: Rs.500 (Rs.400 refunded after appearing in CBT1)
+  SC/ST/PwD/Women: Rs.250 (fully refunded after appearing in CBT1)
+  
+DOCUMENT REQUIREMENTS:
+  10th and 12th marksheets + certificates
+  Degree certificate (for Group B)
+  Caste certificate (if applicable)
+  Aadhaar and photo ID
+```
 
-**Step 3: Use the Labs section**
-The MCQ quiz sets and flashcards in the Labs section are designed specifically for RRB NTPC fundamentals. Complete all beginner-level questions before advancing.
+## Career Progression
 
-## Study Schedule
+```
+AFTER JOINING:
+  Training: 6-12 months departmental training
+  Probation: 2 years
+  Promotion: seniority-based with departmental exams
+    Junior → Senior → Supervisor → Gazetted Officer
+  
+  GRADE PAY PROGRESSION:
+    Group C start: Rs.19,900-29,200
+    After 10-15 years: Rs.35,000-55,000
+    Senior officer level: Rs.60,000-80,000+
 
-| Week | Focus Area | Daily Time |
-|---|---|---|
-| Week 1 | First 2-3 topics from the list above | 1-2 hours |
-| Week 2 | Next 2-3 topics | 1-2 hours |
-| Week 3 | Remaining topics + revision | 1-2 hours |
-| Week 4 | MCQ practice + weak area review | 2 hours |
+TRANSFERS: mandatory transfer policy — postings across zones
+SENIORITY: zone-based, cadre-based — matters for promotion
 
-## Common Mistakes at This Level
+BEST POSTS (stability + pay + work-life balance):
+  Station Master: supervisory, good allowances
+  Goods Guard: field work with good pay, travel allowance
+  Commercial cum Ticket Clerk: station-based, regular hours
+```
 
-- Skipping the basics and jumping to shortcuts
-- Not solving enough practice problems
-- Reading without writing/working through examples
-- Ignoring errors instead of analyzing them
-
-## What Comes Next
-
-After fundamentals, move to the **Intermediate** section which covers application of these concepts to real problems and harder question patterns.
+## Study Resources
+- **RRB official website** (rrbcdg.gov.in / indianrailways.gov.in) — notifications
+- **Lucent GK** — best for static GK covering science, history, geography
+- **Arihant RRB NTPC guide** — covers both CBT 1 and CBT 2
+- **Previous Year Papers 2016 and 2019-21** — most important practice resource

@@ -1,45 +1,79 @@
-# Mental Wellness — Advanced
+# Mental Health — Advanced Guide
 
-## Mastery Level for Daily Life Application
+## Advanced Mental Health Topics
 
-Advanced topics in Mental Wellness separate top scorers from average candidates. These questions test deep understanding, multi-concept application, and speed under pressure.
+### Psychological Therapies
 
-## Advanced Topics
+```
+CBT (Cognitive Behavioural Therapy):
+  Core concept: thoughts → feelings → behaviours (all interconnected)
+  Identify cognitive distortions:
+    Catastrophising: assuming worst outcome
+    All-or-nothing thinking: black and white, no grey
+    Mind reading: assuming others think negatively of you
+    Emotional reasoning: feeling = fact ("I feel stupid, so I am")
+    Personalisation: taking excessive blame
+  
+  CBT Techniques:
+    Thought diary: identify automatic negative thoughts
+    Behavioural activation: schedule pleasant activities despite low mood
+    Exposure hierarchy: gradual exposure to feared situations
+    Cognitive restructuring: challenge and reframe unhelpful thoughts
 
-- Common Mental Health Conditions
-- Stress Management Techniques
-- Cognitive Behavioral Therapy (CBT) Basics
-- Mindfulness & Meditation
-- Sleep Hygiene
-- Exercise & Mental Health
-- Social Support & Connection
-- When to Seek Help
+ACT (Acceptance and Commitment Therapy):
+  Accept difficult thoughts/feelings rather than fighting them
+  Defusion: see thoughts as just thoughts, not facts
+  Values clarification: identify what matters most
+  Committed action: move toward values despite discomfort
 
-## Advanced Problem Patterns
+DBT (Dialectical Behaviour Therapy):
+  Developed for borderline personality disorder
+  TIPP skills for crisis: Temperature | Intense exercise | Paced breathing | Progressive relaxation
+  DEAR MAN for assertive communication
+  Emotion regulation and interpersonal effectiveness
 
-At this level, questions combine multiple concepts:
-- **Multi-step problems**: require 3-5 steps, each using a different concept
-- **Tricky conditions**: unusual constraints that require careful reading
-- **Data interpretation**: extract relevant data, ignore noise, compute quickly
-- **Proof-based** (for GATE/University exams): derive, justify, analyze formally
+MINDFULNESS:
+  Non-judgmental awareness of present moment
+  Body scan, breath awareness, mindful movement
+  Evidence base: reduces depression relapse, anxiety, stress
+  Apps: Headspace, Calm, Insight Timer (free tier available)
+```
 
-## Time Management for Advanced Questions
+### Workplace Mental Health
 
-In competitive exams, advanced questions take longer. Strategy:
-1. **Triage first**: scan all questions, mark easy/medium/hard
-2. **Do easy first**: secure those marks, build confidence
-3. **Medium next**: aim for partial credit where applicable
-4. **Hard last**: attempt with remaining time, guess if negative marking allows
+```
+STRESS vs BURNOUT:
+  Stress: too much pressure, temporary, person still engaged
+  Burnout: chronic exhaustion, cynicism, reduced efficacy
+  Burnout domains: exhaustion | depersonalisation | reduced accomplishment
 
-## High-Yield Advanced Topics
+BURNOUT PREVENTION:
+  Set clear boundaries between work and personal time
+  Regular breaks (Pomodoro: 25min work, 5min break)
+  Physical activity: 150min moderate exercise/week
+  Social connection: maintain relationships outside work
+  Seek help early — do not wait for crisis
 
-Based on previous years' patterns for Daily Life Application:
-- Focus on the first 3 topics in the list above (highest weightage)
-- Practice previous year questions from last 5-10 years
-- Study toppers' answer sheets (for subjective exams like UPSC)
+REASONABLE ADJUSTMENTS (workplace):
+  Flexible working hours | Remote working options
+  Adjusted workload during recovery
+  Phased return after absence
+  Regular check-ins with manager
+  Access to Employee Assistance Programme (EAP)
 
-## Practice Resources
+MENTAL HEALTH STIGMA:
+  Internal stigma: self-shame, reluctance to seek help
+  Social stigma: discrimination, prejudice from others
+  Reducing stigma: education | open conversation | challenging language
+  Language: "person with depression" not "depressive"
+```
 
-- **Labs section**: Advanced MCQ sets with detailed explanations
-- **Interview Q&A**: Conceptual questions that test deep understanding
-- Previous year papers: Non-negotiable for exam preparation
+## Revision Notes
+```
+CBT: thoughts→feelings→behaviours | identify distortions | thought diary
+DISTORTIONS: catastrophising | all-or-nothing | mind reading | emotional reasoning
+ACT: accept → defuse → values → commit (do not fight difficult thoughts)
+BURNOUT: exhaustion + cynicism + reduced efficacy (vs stress = just pressure)
+MINDFULNESS: present-moment non-judgmental awareness — evidence-based
+STIGMA: internal (self) + social (others) — combat with education and language
+```

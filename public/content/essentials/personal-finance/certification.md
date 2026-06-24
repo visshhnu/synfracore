@@ -1,53 +1,83 @@
-# Personal Finance — Certification Guide
+# Personal Finance Certification Guide
 
-## Why Get Certified in Personal Finance?
+## Top Certifications
 
-Certifications validate your Personal Finance skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+| Cert | Provider | Cost | Format |
+|------|----------|------|--------|
+| **CFP (Certified Financial Planner)** | FPSB India | Rs.15,000 | 4 exams |
+| **NISM Series Certifications** | SEBI/NISM | Rs.1,500–2,500 | MCQ |
+| **CFA Level 1** | CFA Institute | $1,000 | MCQ, 4.5 hrs × 2 |
+| **AMFI (Mutual Fund Distributor)** | AMFI/NISM | Rs.1,500 | MCQ |
+| **IRDA Insurance License** | IRDA India | Rs.500 | MCQ |
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+---
 
-## Most Valuable Certifications
-
-Research current certifications for Personal Finance on these sources:
-
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
-
-## General Certification Strategy
-
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
-
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
+## Core Topics
 
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+BUDGETING — 50/30/20 RULE:
+  50% Needs: rent, food, utilities, transport, EMIs
+  30% Wants: dining out, entertainment, shopping, travel
+  20% Savings and investments: emergency fund, SIP, loan repayment
+  
+  India variant — 40/30/30:
+  40% Needs (higher housing costs in cities)
+  30% Wants
+  30% Savings (higher savings rate expected culturally)
+
+EMERGENCY FUND:
+  3–6 months of monthly expenses in liquid form
+  Where: savings account, liquid mutual fund, FD with premature withdrawal
+  Purpose: job loss, medical emergency, major repair
+  Build first before investing
+
+TERM INSURANCE:
+  Cover: 10–15 × annual income
+  Youngest age: get at earliest age (premium is lowest)
+  Duration: until retirement or until liabilities cleared
+  Type: pure term (no returns) — cheapest, most efficient
+  Avoid: ULIPs, endowment plans (mix insurance + investment poorly)
+
+HEALTH INSURANCE:
+  Individual: cover yourself | Family floater: one policy covers family
+  Cover: minimum Rs.5–10 lakh base | super top-up for higher coverage cheaply
+  Get before 30: no pre-existing conditions, lower premium
+  Key features: cashless hospitals, no sub-limits, restoration benefit
+
+MUTUAL FUNDS:
+  SIP (Systematic Investment Plan): invest fixed amount monthly
+  Types:
+    Equity funds: stocks, higher return potential, higher risk
+    Debt funds: bonds, lower return, lower risk
+    Hybrid: mix of equity and debt
+    Index funds: track Nifty/Sensex — low cost, no fund manager risk
+  Power of compounding: Rs.5,000/month SIP for 20 years at 12% = Rs.49.9 lakh invested → Rs.1.8 crore
+  ELSS: Equity Linked Savings Scheme — tax saving under 80C + market returns
+
+TAX PLANNING (India):
+  Section 80C (Rs.1.5 lakh limit): PPF, ELSS, EPF, NPS, life insurance premium, tuition fees
+  Section 80D: health insurance premium (Rs.25,000 self + Rs.25,000 parents)
+  NPS (Tier I): additional Rs.50,000 deduction under 80CCD(1B)
+  HRA: exempt based on least of — actual HRA | 50% salary (metro) | rent minus 10% salary
+  Home loan: principal under 80C | interest under Section 24 (Rs.2 lakh limit)
 ```
 
-## After Certification
+---
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## Study Resources
+
+- **Zerodha Varsity** (zerodha.com/varsity) — free, excellent financial education
+- **NISM** (nism.ac.in) — official SEBI certifications
+- **FPSB India** (fpsb.in) — CFP certification information
+- **Freefincal** (freefincal.com) — scientific personal finance for India
+
+## Revision Notes
+```
+50/30/20 RULE: Needs | Wants | Savings (India: 40/30/30)
+EMERGENCY FUND: 3-6 months expenses | liquid savings/FD/liquid MF — build FIRST
+TERM INSURANCE: 10-15x annual income | pure term only (no ULIP/endowment)
+HEALTH INSURANCE: 5-10 lakh min | family floater | cashless | before age 30
+SIP + COMPOUNDING: small monthly amounts + time = large wealth (start early!)
+80C: Rs.1.5L limit — PPF/ELSS/EPF/NPS/LIC premium/tuition
+NPS: extra Rs.50K deduction under 80CCD(1B) — great for salaried
+```

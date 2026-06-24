@@ -1,32 +1,78 @@
-# Healthcare Administration — Quick Reference
+# Healthcare Administration Quick Reference
 
-## Essential Reference Guide
+## Key Acronyms
 
-## Revenue Cycle Key Metrics\n| Metric | Target | Formula |\n|---|---|---|\n| Days in AR | < 40 days | (AR balance / avg daily charges) |\n| Clean Claim Rate | > 95% | (clean claims / total claims) × 100 |\n| Denial Rate | < 5% | (denied claims / total claims) × 100 |\n| Collection Rate | > 95% | (payments / charges) × 100 |\n\n## Common Denial Codes\n- CO-4: Modifier inconsistent with procedure\n- CO-11: Diagnosis inconsistent with procedure\n- CO-16: Claim lacks required information\n- CO-29: Time limit for filing has expired\n- CO-97: Service included in global period\n- CO-109: Claim not covered by this payer\n- PR-1: Deductible\n- PR-2: Coinsurance\n- PR-3: Copay\n\n## Key Regulatory Bodies\n- CMS: Medicare/Medicaid oversight\n- OIG: Fraud and abuse enforcement\n- OCR: HIPAA enforcement (HHS Office for Civil Rights)\n- TJC: The Joint Commission (hospital accreditation)\n- NCQA: Quality measurement (HEDIS)
+```
+ORGANIZATIONS:
+  CMS: Centers for Medicare & Medicaid Services
+  TJC: The Joint Commission
+  AHRQ: Agency for Healthcare Research and Quality
+  CDC: Centers for Disease Control
+  FDA: Food and Drug Administration
+  OIG: Office of Inspector General
+  OCR: Office for Civil Rights (HIPAA enforcement)
+  ACHE: American College of Healthcare Executives
+  AHA: American Hospital Association
+  AMA: American Medical Association
 
+PAYMENT:
+  DRG: Diagnosis Related Group (inpatient payment)
+  APC: Ambulatory Payment Classification (outpatient)
+  RVU: Relative Value Unit (physician payment)
+  RBRVS: Resource-Based Relative Value Scale
+  IPPS: Inpatient Prospective Payment System
+  OPPS: Outpatient Prospective Payment System
+  FFS: Fee for Service | ACO: Accountable Care Organization
+  MIPS: Merit-based Incentive Payment System
+  APM: Alternative Payment Model
 
+QUALITY:
+  HEDIS: Health Effectiveness Data and Information Set
+  HCAHPS: Hospital Consumer Assessment of Healthcare Providers and Systems
+  HAC: Hospital-Acquired Condition
+  HRRP: Hospital Readmissions Reduction Program
+  PSI: Patient Safety Indicator
+  RCA: Root Cause Analysis | FMEA: Failure Mode and Effects Analysis
 
+OPERATIONS:
+  AR: Accounts Receivable | DNFB: Discharged Not Final Billed
+  CMI: Case Mix Index | FTE: Full-Time Equivalent
+  LOS: Length of Stay | ALOS: Average Length of Stay
+  ADC: Average Daily Census | OT: Occupancy Rate
+```
 
+## Key Financial Benchmarks
 
-## Practical Application
+```
+REVENUE CYCLE:
+  Days in AR: < 40 days (excellent < 30 days)
+  Clean claim rate: > 95%
+  Denial rate: < 5% (excellent < 2%)
+  Net collection rate: > 95%
+  Cost to collect: < 3% of net revenue
 
-Understanding this topic in depth requires applying it to real case scenarios. Work through the case studies in the Advanced section and use the MCQ quiz sets in the Labs section to test your knowledge.
+HOSPITAL OPERATIONS:
+  Operating margin: 3-5% (nonprofit community hospital)
+  Occupancy rate: 75-85% (optimal efficiency)
+  ALOS: 4-5 days (national average acute care)
+  CMI: compare to peers — higher CMI = more complex patients = more revenue
+  Nurse-to-patient ratio: 1:5 med/surg | 1:2 ICU
 
-## Key Regulations to Know
+PHYSICIAN PRACTICE:
+  Revenue per physician FTE: $400,000-$800,000 (varies by specialty)
+  Collection rate: > 95% of net charges
+  Days in AR: < 30 days
+  Cost per RVU: benchmark to MGMA survey data
+```
 
-- **HIPAA Privacy Rule** — protects patient health information (PHI); applies to covered entities and business associates
-- **HIPAA Security Rule** — technical, physical, administrative safeguards for electronic PHI (ePHI)  
-- **CMS Conditions of Participation** — requirements for facilities participating in Medicare/Medicaid
-- **OIG Compliance Guidelines** — voluntary compliance program guidance for healthcare organizations
-- **False Claims Act** — civil and criminal penalties for fraudulent billing; qui tam provisions allow whistleblowers
+## Regulatory Quick Reference
 
-## Certification Preparation
-
-Most positions in this area recognize the following certifications:
-- **CPC** (Certified Professional Coder) — AAPC, outpatient/physician focus
-- **CCS** (Certified Coding Specialist) — AHIMA, inpatient/hospital focus
-- **RHIT** (Registered Health Information Technician) — AHIMA
-- **RHIA** (Registered Health Information Administrator) — AHIMA senior credential
-- **CPB** (Certified Professional Biller) — AAPC, billing and reimbursement
-
-Continuing education (CEUs) required annually to maintain all credentials.
+```
+HIPAA: protect PHI | minimum necessary | patient rights | breach = notify in 60 days
+EMTALA: screen all ED patients | stabilize before transfer | no patient dumping
+Stark: no physician self-referral for DHS without exception
+Anti-Kickback: no remuneration for referrals
+False Claims Act: $10K-$50K per false claim + treble damages | whistleblower qui tam
+OSHA bloodborne pathogen standard: PPE, exposure control plan, training
+ACA: individual mandate (tax penalty removed) | insurance market reforms | Medicaid expansion
+```

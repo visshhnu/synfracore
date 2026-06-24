@@ -1,51 +1,94 @@
-# AWS Lambda Quick Reference
+# AWS Lambda Cheatsheet
 
-## CLI Commands
+## Core Commands
 ```bash
-# Deploy
-zip function.zip index.js
-aws lambda create-function --function-name my-fn \
-  --runtime nodejs20.x --handler index.handler \
-  --role arn:aws:iam::123:role/LambdaRole \
+# Deploy function
+aws lambda create-function \
+  --function-name my-function \
+  --runtime python3.12 \
+  --handler lambda_function.lambda_handler \
+  --role arn:aws:iam::123456789:role/lambda-role \
   --zip-file fileb://function.zip
 
-aws lambda update-function-code --function-name my-fn --zip-file fileb://function.zip
-aws lambda publish-version --function-name my-fn
-aws lambda create-alias --function-name my-fn --name prod --function-version 5
+# Update code
+aws lambda update-function-code \
+  --function-name my-function \
+  --zip-file fileb://function.zip
 
 # Invoke
-aws lambda invoke --function-name my-fn --payload '{}' response.json
-aws lambda invoke --function-name my-fn --invocation-type Event --payload '{}'  output.json  # Async
+aws lambda invoke --function-name my-function \
+  --payload '{"key":"value"}' response.json
 
-# Config
-aws lambda update-function-configuration --function-name my-fn --memory-size 512 --timeout 30
-aws lambda put-function-concurrency --function-name my-fn --reserved-concurrent-executions 100
-aws lambda put-provisioned-concurrency-config --function-name my-fn --qualifier prod --provisioned-concurrent-executions 10
+# Configuration
+aws lambda update-function-configuration \
+  --function-name my-function \
+  --memory-size 512 --timeout 30
 
-# Logs
-aws logs tail /aws/lambda/my-fn --follow
-aws logs filter-log-events --log-group-name /aws/lambda/my-fn --filter-pattern 'ERROR'
+# Environment variables
+aws lambda update-function-configuration \
+  --function-name my-function \
+  --environment Variables={DB_HOST=mydb.example.com,ENV=prod}
+
+# Versions and aliases
+aws lambda publish-version --function-name my-function
+aws lambda create-alias --function-name my-function \
+  --name prod --function-version 5
+
+# List and delete
+aws lambda list-functions
+aws lambda delete-function --function-name my-function
 ```
 
-## Key Limits & Concepts
+## Event Sources (Triggers)
 ```
-Limits:
-  Memory:    128MB – 10,240MB
-  Timeout:   max 15 minutes
-  Package:   50MB zip, 250MB unzipped, 10GB container image
-  /tmp:      512MB default, up to 10GB
-  Concurrent: 1,000 default (increase via support)
+API Gateway    → HTTP requests; synchronous invocation
+S3             → object create/delete events; asynchronous
+SQS            → poll queue; batch processing; async
+SNS            → pub/sub notifications; async
+DynamoDB Streams → record changes; async
+EventBridge    → scheduled (cron) or event-driven; async
+Kinesis        → real-time streaming data; async
+Cognito        → auth triggers (pre/post login); sync
+CloudFront     → Lambda@Edge; sync at CDN
+ALB            → HTTP requests via load balancer; sync
+```
 
-Invocation types:
-  RequestResponse (sync):  API GW, SDK calls — caller waits
-  Event (async):           S3, SNS — queued, retries 2x on failure
-  DryRun:                  check permissions only
+## Handler and Context
+```python
+import json
 
-Pricing: 1M free requests/month + 400,000 GB-seconds compute
-  After free tier: $0.20 per 1M requests + $0.0000166667/GB-sec
+def lambda_handler(event, context):
+    # context attributes
+    print(context.function_name)
+    print(context.memory_limit_in_mb)
+    print(context.get_remaining_time_in_millis())
+    
+    # event is the trigger payload
+    body = event.get('body', '{}')
+    
+    return {
+        'statusCode': 200,
+        'headers': {'Content-Type': 'application/json'},
+        'body': json.dumps({'message': 'success'})
+    }
+```
 
-Cold start mitigation:
-  Provisioned Concurrency: pre-warm environments (cost: $$)
-  Keep package small | minimize init code outside handler
-  Use arm64 (Graviton): 20% cheaper, often faster
+## Key Limits and Defaults
+| Setting | Default | Max |
+|---------|---------|-----|
+| Timeout | 3 sec | 15 min |
+| Memory | 128 MB | 10,240 MB |
+| Concurrency | 1,000 (account) | Increase by request |
+| Package size | — | 50 MB (zip), 250 MB (unzipped) |
+| /tmp storage | — | 10 GB |
+| Env vars | — | 4 KB total |
+
+## Key Patterns
+```
+Cold start mitigation: provisioned concurrency | keep-warm pings (not best)
+VPC Lambda: assign subnets + SGs; needs NAT for internet; adds cold start time
+Layers: shared libraries/dependencies (up to 5 layers, 250 MB unzipped total)
+Destinations: on success or failure → SQS/SNS/EventBridge/Lambda
+Dead letter queue (DLQ): SQS/SNS for failed async invocations
+Power Tuning: AWS Lambda Power Tuning tool → find optimal memory/cost tradeoff
 ```

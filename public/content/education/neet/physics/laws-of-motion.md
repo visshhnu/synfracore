@@ -1,55 +1,129 @@
-# Laws of Motion (NEET Physics)
+# Laws of Motion — NEET Physics
 
-## Why This Chapter Matters
-Laws of Motion is tested in NEET Physics every year — 4-8 marks. Newton's laws, friction, circular motion, and Lami's theorem are all high-yield topics.
+## Newton's Three Laws
 
-## Core Concepts (NEET Focus)
-
-### Newton's Laws
-**First Law:** A body remains at rest or in uniform motion unless external net force acts.
-Inertia = mass × (no units — just proportional). Heavier object = more inertia.
-
-**Second Law:** F = ma (net force)
-Impulse = F × t = change in momentum = m(v-u)
-
-**Third Law:** Action-Reaction pair (on DIFFERENT bodies, never cancel)
-
-### Friction
-f_s ≤ μ_s N (static) | f_k = μ_k N (kinetic)
-μ_k < μ_s always. Friction independent of area of contact and speed.
-
-Angle of friction: tan(λ) = μ where λ = angle of inclination at which body just starts to slide.
-
-### Lami's Theorem
-When 3 concurrent coplanar forces keep a body in equilibrium:
-F₁/sin(α) = F₂/sin(β) = F₃/sin(γ)
-where α, β, γ are angles OPPOSITE to respective forces.
-
-### Circular Motion
-Centripetal acceleration: a_c = v²/r = ω²r
-Centripetal force: F_c = mv²/r (directed toward center — not a new force, provided by existing forces)
-
-Banking: tanθ = v²/rg (frictionless banked road, optimal speed)
-
-## PYQs (NEET)
-
-**NEET 2023:** A body of mass 5 kg is acted on by net force F = (4t² - 3t)N. Impulse at t=3s to t=4s?
-F(3) = 36-9 = 27N, F(4) = 64-12 = 52N... Actually impulse = ∫F dt from 3 to 4 = [4t³/3 - 3t²/2] from 3 to 4
-= (256/3 - 24) - (36 - 27/2) = (85.3 - 24) - (36 - 13.5) = 61.3 - 22.5 = 38.8 N·s
-
-**NEET 2022:** A block on rough surface (μ=0.4), mass 10kg. Applied force = 50N at 30° above horizontal. Normal force?
-N + Fsin30° = mg → N = 100 - 25 = 75 N
-
-**NEET 2021:** In circular motion, the centripetal force is:
-Directed toward the center of the circular path. It is not a new force but is provided by existing forces (tension, gravity, friction, etc.)
-
-## Revision Notes
 ```
-F=ma | Impulse = F×t = Δp | p = mv
-Friction: f_s ≤ μ_s N | f_k = μ_k N | μ_k < μ_s
-Centripetal force: mv²/r (provided by existing forces, not new)
-Banking (no friction): tanθ = v²/rg
+FIRST LAW (Law of Inertia):
+  A body continues in its state of rest or uniform motion in a straight line
+  unless acted upon by an external net force
+  
+  Inertia: tendency to resist change in state of motion
+  Inertia ∝ mass (heavier object = more inertia)
+  
+  Examples: passenger lurches forward when bus brakes (inertia of motion)
+            dust falls from carpet when beaten (inertia of rest)
+            coin falls into glass when card is flicked (inertia of rest)
 
-LAMI'S THEOREM (3 forces in equilibrium):
-F₁/sinα = F₂/sinβ = F₃/sinγ
+SECOND LAW:
+  F_net = ma (net force = mass × acceleration)
+  Vector equation: direction of acceleration = direction of net force
+  
+  Impulse: J = F × Δt = Δ(mv) = change in momentum
+  Impulse-momentum theorem: J = mv_f - mv_i
+  
+  Unit of force: 1 Newton = 1 kg·m/s²
+
+THIRD LAW (Action-Reaction):
+  For every action, there is equal and opposite reaction
+  SAME magnitude, OPPOSITE direction, act on DIFFERENT bodies
+  Action and reaction CANNOT cancel (they act on different objects)
+  
+  Examples: gun recoil, rocket propulsion, swimming, walking
+
+LINEAR MOMENTUM:
+  p = mv (vector quantity)
+  Conservation: if F_net = 0 (no external force), total momentum is conserved
+  p_initial = p_final for isolated system
+  Application: collisions, explosions, rocket propulsion
 ```
+
+## Friction
+
+```
+TYPES:
+  Static friction: prevents relative motion; adjustable up to maximum
+    f_s ≤ μ_s × N (static friction coefficient × normal force)
+    Maximum static friction: f_s(max) = μ_s × N
+  
+  Kinetic friction: opposes relative motion (sliding friction)
+    f_k = μ_k × N (constant once sliding)
+    μ_k < μ_s (always: kinetic less than static maximum)
+  
+  Rolling friction: very small (wheels, ball bearings)
+
+ANGLE OF FRICTION (λ):
+  tan λ = μ (friction coefficient)
+  Angle of repose (θ): angle at which object just starts to slide on incline
+  tan θ = μ_s → θ = angle of friction for static case
+
+FRICTION ON INCLINE:
+  Normal: N = mg cos θ | Friction (static): f = mg sin θ (when stationary)
+  Condition for sliding: mg sin θ > μ_s × mg cos θ → tan θ > μ_s
+  Acceleration when sliding: a = g(sin θ - μ_k cos θ)
+
+FRICTION IS NOT ALWAYS HARMFUL:
+  Useful: walking, car tyres on road, brakes, writing, machinery
+  Reduced by: lubricants, ball bearings, polishing, streamlining
+```
+
+## Circular Motion
+
+```
+UNIFORM CIRCULAR MOTION:
+  Speed constant but direction changes → acceleration exists
+  Centripetal acceleration: a = v²/r = ω²r (directed INWARD toward centre)
+  Centripetal force: F = mv²/r = mω²r (net force required for circular motion)
+  
+  This is NOT a separate force — it IS the net inward force
+  The force providing centripetal force: friction, tension, normal, gravity
+
+CIRCULAR MOTION EXAMPLES:
+  Car on flat road: friction provides centripetal force (f = mv²/r)
+  Car on banked road: N sin θ provides centripetal force
+    Ideal banking angle: tan θ = v²/rg (no friction needed at this speed)
+  
+  Conical pendulum:
+    T cos θ = mg (vertical equilibrium)
+    T sin θ = mv²/r = mω²r (centripetal)
+    → tan θ = ω²r/g | Period: T = 2π√(l cos θ/g)
+  
+  Vertical circular motion (ball on string):
+    At bottom: T - mg = mv²_B/r → T = mg + mv²_B/r (maximum tension)
+    At top: T + mg = mv²_T/r → T = mv²_T/r - mg
+    Minimum speed at top: T = 0 → v_min = √(gr)
+    Using energy conservation: v_B² = v_T² + 4gr
+
+PSEUDO FORCE:
+  When solving in non-inertial (accelerating) reference frame
+  Add pseudo force = -ma (opposite to frame's acceleration)
+  Example: person in accelerating car feels pushed back → pseudo force outward
+  Centrifugal force: pseudo force in rotating frame (outward)
+```
+
+## NEET Pattern Questions
+
+```
+COMMON NEET QUESTION TYPES:
+  Find tension in string during vertical circular motion
+  Maximum speed on banked/unbanked road without skidding
+  Impulse calculation from force-time graph area
+  Conservation of momentum in collision/explosion
+  Angle of repose and friction coefficient relationship
+
+FORMULA SHEET:
+  F = ma | J = Δp = F·Δt | p = mv
+  f_s(max) = μ_s N | f_k = μ_k N | tan(θ_repose) = μ_s
+  a_c = v²/r = ω²r | F_c = mv²/r
+  Escape velocity: NOT in this chapter (see Gravitation)
+
+COMMON MISTAKES:
+  Confusing centripetal force with centrifugal (centrifugal is pseudo, only in rotating frame)
+  Applying Newton's 3rd law: remember action-reaction on DIFFERENT bodies
+  Friction direction: always OPPOSES relative motion (or tendency of motion)
+```
+
+## Study Resources
+- **NCERT Physics Part 1, Chapters 4 and 5** — Laws of Motion (mandatory)
+- **DC Pandey Laws of Motion** — excellent practice problems for NEET
+- **PW Physics Wallah** — free Laws of Motion NEET lecture series
+- **NEET PYQ Analysis** — 5-7 questions from this chapter every year

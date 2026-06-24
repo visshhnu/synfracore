@@ -1,50 +1,73 @@
-# ICD-10-CM — Intermediate
+# ICD-10-CM Intermediate Topics
 
-## Coding Guidelines
-
-```
-ICD-10-CM Official Guidelines apply to all care settings.
-Use both alphabetic index AND tabular list for every code.
-
-Acute and Chronic conditions:
-  If both exist, code acute first, then chronic
-  Example: Acute on chronic heart failure → I50.2x + I50.1 (if both needed)
-
-Combination codes:
-  Single code that captures both condition AND manifestation
-  E11.649 — Type 2 diabetes with hypoglycemia without coma
-  Do NOT use separate codes when combination code exists
-
-Code first/Use additional code:
-  Some codes require sequencing
-  Code first underlying condition
-  Use additional code for manifestation
-
-External cause codes (V00-Y99):
-  Never code as principal diagnosis
-  Code cause of injury (fall, motor vehicle, assault)
-  Code activity: Z93.0 (sports), Z56.0 (work)
-  Code place of occurrence: Y93.x
-```
-
-## Specificity and Laterality
+## Coding Steps and Conventions
 
 ```
-ICD-10-CM requires maximum specificity:
-  Not just "fracture" but:
-    - Type (traumatic vs pathological vs stress)
-    - Location (femur, radius, tibia)
-    - Laterality (right vs left)
-    - Encounter type (initial, subsequent, sequela)
-    
-Encounter type extensions:
-  A: Initial encounter (active treatment)
-  D: Subsequent encounter (routine care during healing)
-  S: Sequela (late effect)
+STEP-BY-STEP CODING PROCESS:
+  1. Identify the main term in the diagnosis
+  2. Locate main term in ICD-10-CM Alphabetic Index
+  3. Review subterms and notes under main term
+  4. Follow cross-references (see, see also)
+  5. Verify code in Tabular List (never code from index alone)
+  6. Read all instructional notes in Tabular List
+  7. Assign highest level of specificity
+  8. Follow sequencing guidelines
 
-Example: Left radius fracture, initial encounter
-  S52.501A — Unspecified fracture of lower end of left radius, initial encounter
+MAIN TERMS IN INDEX:
+  Condition: pneumonia, fracture, diabetes
+  Eponyms: Crohn disease, Alzheimer disease
+  Nouns: pain, infection, disorder
+  NOT anatomy: never look up "knee" or "lung" — look up condition
 
-Laterality:
-  1 = right    2 = left    3 = bilateral    0 = unspecified
+PLACEHOLDER X:
+  Used to fill character positions when code needs 7th character
+  Example: S52.001A needs 7th char A, but only 6 chars used
+  S52.001XA — X fills position 6 so A can be 7th
+
+COMBINATION CODES:
+  Single code that captures two conditions
+  E11.65: Type 2 diabetes with hyperglycemia
+  I25.110: Atherosclerotic heart disease with unstable angina
+  Always use combination code when available
+
+MULTIPLE CODING INSTRUCTIONS:
+  Code first: underlying condition coded first
+  Use additional code: secondary code must be added
+  In diseases classified elsewhere: manifestation coded second
 ```
+
+## Frequently Tested Code Categories
+
+```
+FRACTURES (S/T codes):
+  7th characters:
+    A = initial encounter, closed fracture
+    B = initial encounter, open fracture (type I or II)
+    D = subsequent, routine healing
+    G = subsequent, delayed healing
+    K = subsequent, nonunion
+    S = sequela
+
+BURNS (T20-T32):
+  Code site and degree separately when multiple
+  T31/T32: total body surface area (TBSA) for major burns
+  Degrees: 1st (erythema), 2nd (blistering), 3rd (full thickness)
+
+DIABETES COMPLICATIONS:
+  Always link: diabetes + complication (causal relationship assumed)
+  E11.21: Type 2 + diabetic nephropathy
+  E11.311: Type 2 + unspecified diabetic retinopathy with macular edema
+  E11.40: Type 2 + diabetic neuropathy, unspecified
+
+SEPSIS:
+  A41.9: Sepsis, unspecified (principal dx when reason for admission)
+  Severe sepsis: A41.9 + R65.20 (without septic shock)
+  Septic shock: A41.9 + R65.21 (always sequence sepsis first)
+  Urosepsis: NOT a valid ICD-10-CM term — code underlying infection
+```
+
+## Study Resources
+- **AAPC Online Practice Exams** — simulate real exam conditions
+- **ICD-10-CM Official Guidelines** — free PDF from CDC each October
+- **Blausen Medical Encyclopedia** — understand anatomy for coding
+- **AHIMA Body of Knowledge** — free study resources for RHIT/CCS

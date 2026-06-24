@@ -1,54 +1,73 @@
-# Medical Coding Mock Exams — Fundamentals
+# Medical Coding Mock Exams Fundamentals
 
-## Overview
+## Documentation Requirements
 
-Medical Coding Mock Exams is a critical component of the healthcare industry, ensuring that medical facilities operate efficiently and that patient information is accurately recorded and accessible.
+```
+WHAT MAKES DOCUMENTATION CODEABLE:
+  Legible: must be readable by all who need to access
+  Complete: includes all elements needed for coding
+  Accurate: reflects actual services provided
+  Timely: completed at or near time of service
+  Authentic: signed by the provider with credentials and date
 
-## Core Concepts
+PHYSICIAN DOCUMENTATION ELEMENTS:
+  Chief complaint: reason patient presented
+  History of present illness (HPI): duration, severity, timing, quality
+  Review of systems (ROS): body systems reviewed
+  Physical examination: body areas and organ systems examined
+  Assessment: diagnosis (definitive or working)
+  Plan: treatment plan, orders, follow-up
 
-### CPC/CCS Exam Preparation
+QUERY PROCESS:
+  When: documentation is ambiguous, conflicting, or incomplete
+  Who: CDI (Clinical Documentation Improvement) specialist or coder
+  How: compliant query (non-leading, multiple choice or open-ended)
+  
+  VALID QUERY SCENARIOS:
+    Diagnosis documentation present but no code exists → query for specificity
+    Signs/symptoms present but no diagnosis documented
+    Conflicting documentation between providers
+    Possible or probable conditions after study → query for confirmation
+  
+  INVALID (LEADING) QUERIES:
+    Suggest specific diagnosis not supported by clinical indicators
+    Pressure physician to document higher severity without clinical basis
+```
 
+## Medical Terminology for Coding
 
+```
+BODY SYSTEMS:
+  Integumentary: skin, hair, nails, sweat glands
+  Musculoskeletal: bones, muscles, tendons, ligaments, cartilage
+  Cardiovascular: heart, arteries, veins, capillaries
+  Respiratory: nose, pharynx, larynx, trachea, bronchi, lungs
+  Digestive: mouth, oesophagus, stomach, intestines, liver, pancreas
+  Urinary: kidneys, ureters, bladder, urethra
+  Reproductive: gender-specific organs
+  Nervous: brain, spinal cord, peripheral nerves
+  Endocrine: glands producing hormones (thyroid, adrenal, pancreas)
+  Immune/Lymphatic: lymph nodes, spleen, thymus
 
-Medical coding mock exams simulate the CPC (Certified Professional Coder) or CCS (Certified Coding Specialist) exam format. Practice exams help identify knowledge gaps and build exam-day speed.
+DIRECTIONAL TERMS:
+  Anterior/Posterior: front/back
+  Superior/Inferior: above/below
+  Medial/Lateral: toward/away from midline
+  Proximal/Distal: closer/farther from point of attachment
+  Bilateral: both sides | Unilateral: one side
 
-## Key Terminology
+PROCEDURE SUFFIXES:
+  -ectomy: surgical removal (appendectomy = remove appendix)
+  -otomy: incision into (laparotomy = incision into abdomen)
+  -ostomy: create opening (colostomy = opening in colon)
+  -plasty: surgical repair (rhinoplasty = nose repair)
+  -oscopy: visual examination (colonoscopy = examine colon)
+  -gram: record/image (electrocardiogram = heart electrical record)
+  -graphy: process of recording (echocardiography)
+```
 
-
-
-- **CPC**: Certified Professional Coder (AAPC) — outpatient/physician coding\n- **CCS**: Certified Coding Specialist (AHIMA) — inpatient/hospital coding\n- **ICD-10-CM**: Diagnosis coding system\n- **CPT**: Current Procedural Terminology — procedure codes\n- **HCPCS Level II**: Supplies, equipment, drugs\n- **DRG**: Diagnosis Related Group — inpatient payment classification
-
-## Study Approach
-
-This topic requires both conceptual understanding and practical application. Work through:
-1. Read the fundamentals section carefully
-2. Complete the Labs section MCQ quiz sets
-3. Apply concepts to case studies in the Advanced section
-4. Practice with the Interview Q&A section before certification exams
-
-## Next Steps
-
-Continue to the **Intermediate** section for real-world application scenarios.
-
-## Practical Application
-
-Understanding this topic in depth requires applying it to real case scenarios. Work through the case studies in the Advanced section and use the MCQ quiz sets in the Labs section to test your knowledge.
-
-## Key Regulations to Know
-
-- **HIPAA Privacy Rule** — protects patient health information (PHI); applies to covered entities and business associates
-- **HIPAA Security Rule** — technical, physical, administrative safeguards for electronic PHI (ePHI)  
-- **CMS Conditions of Participation** — requirements for facilities participating in Medicare/Medicaid
-- **OIG Compliance Guidelines** — voluntary compliance program guidance for healthcare organizations
-- **False Claims Act** — civil and criminal penalties for fraudulent billing; qui tam provisions allow whistleblowers
-
-## Certification Preparation
-
-Most positions in this area recognize the following certifications:
-- **CPC** (Certified Professional Coder) — AAPC, outpatient/physician focus
-- **CCS** (Certified Coding Specialist) — AHIMA, inpatient/hospital focus
-- **RHIT** (Registered Health Information Technician) — AHIMA
-- **RHIA** (Registered Health Information Administrator) — AHIMA senior credential
-- **CPB** (Certified Professional Biller) — AAPC, billing and reimbursement
-
-Continuing education (CEUs) required annually to maintain all credentials.
+## Study Resources
+- **Medical Terminology: A Word Parts Approach** — standard reference
+- **AAPC Medical Coding Training: CPC** — comprehensive preparation
+- **AHIMA Body of Knowledge** — free health information management resources
+- **MedlinePlus** (medlineplus.gov) — free medical terminology and conditions reference

@@ -1,46 +1,62 @@
-# Banking Exams (SBI/IBPS) — Fundamentals
+# Banking Exams Fundamentals
 
-## Overview
+## Overview of Banking Examinations
 
-Banking Exams (SBI/IBPS) is a foundational subject for Banking (IBPS/SBI). Mastering these fundamentals is essential before attempting intermediate or advanced topics.
+```
+MAJOR BANKING EXAMS IN INDIA:
+  IBPS PO: Institute of Banking Personnel Selection — Probationary Officers
+  IBPS Clerk: Clerical cadre recruitment for 11 public sector banks
+  SBI PO: State Bank of India Probationary Officers
+  SBI Clerk: State Bank of India Junior Associates
+  RBI Grade B: Reserve Bank of India Grade B Officers (tough, prestigious)
+  RBI Assistant: RBI support staff
+  NABARD Grade A: National Bank for Agriculture and Rural Development
+  IDBI Bank: Industrial Development Bank of India
 
-## Core Topics Covered
+EXAM STAGES:
+  IBPS PO / SBI PO: Prelims → Mains → Interview
+  IBPS Clerk / SBI Clerk: Prelims → Mains (no interview)
+  RBI Grade B: Prelims → Mains Phase I → Mains Phase II → Interview
 
-- Quantitative Aptitude (Arithmetic)
-- Reasoning (Logical & Verbal)
-- English Language
-- General Awareness (Banking)
-- Computer Knowledge
-- Data Interpretation
-- Puzzles & Seating Arrangement
+ELIGIBILITY (IBPS/SBI PO):
+  Education: graduation in any discipline
+  Age: 20-30 years (relaxation: +3 OBC, +5 SC/ST)
+  Computer literacy: basic
+```
 
-## Learning Approach
+## Prelims Pattern (IBPS/SBI PO)
 
-**Step 1: Understand, don't memorize**
-Each concept in Banking Exams (SBI/IBPS) builds on the previous. Don't try to memorize formulas/rules before understanding why they work.
+```
+3 SECTIONS, 100 QUESTIONS, 60 MINUTES:
+  English Language: 30 questions, 30 marks, 20 minutes
+  Quantitative Aptitude: 35 questions, 35 marks, 20 minutes
+  Reasoning Ability: 35 questions, 35 marks, 20 minutes
 
-**Step 2: Practice with examples**
-After each concept, solve at least 5 examples before moving on. Understanding isn't enough — you need speed and accuracy.
+NEGATIVE MARKING: 0.25 marks per wrong answer
 
-**Step 3: Use the Labs section**
-The MCQ quiz sets and flashcards in the Labs section are designed specifically for Banking Exams (SBI/IBPS) fundamentals. Complete all beginner-level questions before advancing.
+ENGLISH TOPICS (prelims level):
+  Reading comprehension (1 passage, 5-7 questions)
+  Error spotting (grammar errors in sentences)
+  Fill in the blanks (single and double blanks)
+  Para jumbles (rearrange 5 sentences)
+  Sentence improvement / correction
 
-## Study Schedule
+QUANTITATIVE APTITUDE:
+  Simplification / Approximation (5-8 questions — easiest, do first)
+  Number series (5 questions)
+  Data interpretation (1 set, 5 questions)
+  Arithmetic: percentage, ratio, profit/loss, time/work, SI/CI
 
-| Week | Focus Area | Daily Time |
-|---|---|---|
-| Week 1 | First 2-3 topics from the list above | 1-2 hours |
-| Week 2 | Next 2-3 topics | 1-2 hours |
-| Week 3 | Remaining topics + revision | 1-2 hours |
-| Week 4 | MCQ practice + weak area review | 2 hours |
+REASONING:
+  Puzzles and seating arrangement (most important — 10-15 questions)
+  Inequality: A>B≥C — find relationship between non-adjacent
+  Syllogism: all/some/no statements — valid conclusions
+  Coding-decoding
+  Blood relations and direction sense
+```
 
-## Common Mistakes at This Level
-
-- Skipping the basics and jumping to shortcuts
-- Not solving enough practice problems
-- Reading without writing/working through examples
-- Ignoring errors instead of analyzing them
-
-## What Comes Next
-
-After fundamentals, move to the **Intermediate** section which covers application of these concepts to real problems and harder question patterns.
+## Study Resources
+- **Adda247** (adda247.com) — free videos, quizzes, daily current affairs
+- **Testbook** (testbook.com) — mock tests, analysis, recommended books list
+- **Reasoning by MK Pandey** — best reasoning book for banking
+- **Quicker Maths by Tyra** — calculation tricks for banking

@@ -1,21 +1,25 @@
-# AWS Route 53 Quick Reference
+# Route 53 Cheatsheet
 
-## CLI Commands
+## Core Commands
 ```bash
 # List hosted zones
 aws route53 list-hosted-zones
-aws route53 get-hosted-zone --id /hostedzone/ZXXXXX
+aws route53 list-hosted-zones-by-name --dns-name example.com
 
-# List records
-aws route53 list-resource-record-sets --hosted-zone-id ZXXXXX
+# Create hosted zone
+aws route53 create-hosted-zone \
+  --name example.com --caller-reference $(date +%s)
 
-# Create/update record
-aws route53 change-resource-record-sets --hosted-zone-id ZXXXXX \
+# List records in zone
+aws route53 list-resource-record-sets --hosted-zone-id Z123
+
+# Create/update record (change batch)
+aws route53 change-resource-record-sets --hosted-zone-id Z123 \
   --change-batch '{
     "Changes": [{
       "Action": "UPSERT",
       "ResourceRecordSet": {
-        "Name": "api.example.com",
+        "Name": "www.example.com",
         "Type": "A",
         "TTL": 300,
         "ResourceRecords": [{"Value": "1.2.3.4"}]
@@ -23,37 +27,53 @@ aws route53 change-resource-record-sets --hosted-zone-id ZXXXXX \
     }]
   }'
 
-# Alias record (for ALB/CloudFront/S3)
-# Use AliasTarget instead of ResourceRecords
-
-# Health checks
-aws route53 create-health-check --caller-reference unique-id \
-  --health-check-config '{
-    "Type": "HTTPS",
-    "FullyQualifiedDomainName": "api.example.com",
-    "ResourcePath": "/health",
-    "RequestInterval": 30,
-    "FailureThreshold": 3
+# Alias record (points to AWS resource — no TTL, no charge for queries)
+aws route53 change-resource-record-sets --hosted-zone-id Z123 \
+  --change-batch '{
+    "Changes": [{
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "app.example.com",
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z35SXDOTRQ7X7K",
+          "DNSName": "my-alb-123.us-east-1.elb.amazonaws.com",
+          "EvaluateTargetHealth": true
+        }
+      }
+    }]
   }'
+
+# Health check
+aws route53 create-health-check \
+  --caller-reference $(date +%s) \
+  --health-check-config Type=HTTPS,FullyQualifiedDomainName=www.example.com,Port=443,ResourcePath=/health
+
 aws route53 list-health-checks
+aws route53 get-health-check-status --health-check-id xxx
 ```
 
-## Routing Policies Reference
-```
-Simple:      Single value or multiple values (random selection)
-Weighted:    Traffic split by % (A/B test: 90/10)
-Latency:     Route to lowest-latency region (multi-region apps)
-Failover:    Primary/secondary with health check (DR pattern)
-Geolocation: Route by continent/country (compliance, language)
-Multi-value: Up to 8 healthy records (basic load distribution)
+## Record Types Quick Reference
+| Type | Use Case | Example |
+|------|----------|---------|
+| A | IPv4 address | 1.2.3.4 |
+| AAAA | IPv6 address | 2001:db8::1 |
+| CNAME | Alias to another hostname | www → example.com |
+| Alias | AWS resource alias (free) | → ALB, CloudFront, S3 |
+| MX | Mail server | 10 mail.example.com |
+| TXT | Text records, verification | SPF, DKIM, domain verify |
+| NS | Name servers | ns-xxx.awsdns-xx.com |
+| SOA | Zone authority | Created automatically |
+| SRV | Service location | _sip._tcp.example.com |
 
-ALIAS vs CNAME:
-  Alias:  works at zone apex (example.com) | free for AWS targets
-         auto-follows IP changes | ELB/CloudFront/S3/API GW
-  CNAME:  not at zone apex | charged | external domains only
-
-TTL guidance:
-  High TTL (86400): stable records, less DNS queries
-  Low TTL (60):     pre-migration, failover scenarios
-  During migration: lower TTL 48hr before, then switch, then raise
-```
+## Routing Policies Summary
+| Policy | Use Case | Key Feature |
+|--------|----------|-------------|
+| Simple | Single resource | No health checks |
+| Failover | Active-passive HA | Primary/Secondary |
+| Weighted | A/B testing, blue/green | % split 0-255 |
+| Latency | Multi-region active-active | Lowest latency region |
+| Geolocation | Compliance, localisation | User geographic location |
+| Geoproximity | Custom geographic routing | Bias adjustment |
+| Multivalue | Basic DNS load balancing | Up to 8 healthy records |
+| IP-based | ISP or on-prem routing | CIDR-based routing |

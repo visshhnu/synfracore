@@ -1,45 +1,80 @@
-# Hygiene & Sanitation — Advanced
+# Hygiene — Advanced Guide
 
-## Mastery Level for Daily Life Application
+## Advanced Hygiene Topics
 
-Advanced topics in Hygiene & Sanitation separate top scorers from average candidates. These questions test deep understanding, multi-concept application, and speed under pressure.
+### Infection Control in Healthcare
 
-## Advanced Topics
+```
+CHAIN OF INFECTION:
+  1. Infectious agent (pathogen): bacteria, virus, fungus, parasite
+  2. Reservoir: where pathogen lives (person, animal, environment)
+  3. Portal of exit: how it leaves reservoir (respiratory, faecal, blood)
+  4. Mode of transmission:
+     Contact: direct (touch) or indirect (contaminated surface/fomite)
+     Droplet: >5µm particles, travel <1 metre (influenza, COVID-19)
+     Airborne: <5µm particles, travel >1 metre (TB, measles, chickenpox)
+     Vector-borne: mosquito (malaria, dengue), tick (Lyme disease)
+  5. Portal of entry: how it enters new host (respiratory, GI, skin break)
+  6. Susceptible host: immune status, age, underlying conditions
+  
+  BREAKING THE CHAIN: any link broken = infection prevented
+  Most effective breaks: hand hygiene, PPE, vaccination, isolation
 
-- Hand Hygiene (WHO 5 Moments)
-- Oral Hygiene (Brushing & Flossing)
-- Skin Care & Bathing
-- Food Safety & Handling
-- Environmental Hygiene
-- Respiratory Hygiene
-- Personal Protective Equipment
-- Water Safety
+PPE HIERARCHY:
+  Gloves: change between patients, remove without touching outside
+  Apron/gown: fluid-resistant, change per task/patient
+  Mask: surgical (droplet) | FFP3/N95 (airborne)
+  Eye protection: splash risk, aerosol-generating procedures
+  
+  DONNING (putting on): gown → mask → goggles → gloves
+  DOFFING (removing): gloves → goggles → gown → mask (most to least contaminated)
+  Hand hygiene after doffing each item
 
-## Advanced Problem Patterns
+ISOLATION PRECAUTIONS:
+  Contact: MRSA, C. difficile, VRE — gloves + gown
+  Droplet: influenza, COVID-19 — surgical mask + eye protection
+  Airborne: TB, measles, chickenpox — N95 mask + negative pressure room
+  
+HEALTHCARE-ASSOCIATED INFECTIONS (HAIs):
+  CAUTI: catheter-associated UTI — proper insertion, minimal duration
+  CLABSI: central line bloodstream infection — sterile technique
+  SSI: surgical site infection — skin prep, prophylactic antibiotics
+  VAP: ventilator-associated pneumonia — head-of-bed elevation, oral care
+  MRSA: methicillin-resistant Staphylococcus aureus — contact precautions
+```
 
-At this level, questions combine multiple concepts:
-- **Multi-step problems**: require 3-5 steps, each using a different concept
-- **Tricky conditions**: unusual constraints that require careful reading
-- **Data interpretation**: extract relevant data, ignore noise, compute quickly
-- **Proof-based** (for GATE/University exams): derive, justify, analyze formally
+### Antimicrobial Resistance (AMR)
 
-## Time Management for Advanced Questions
+```
+WHY ANTIBIOTICS BECOME INEFFECTIVE:
+  Natural selection: bacteria with resistance mutations survive
+  Horizontal gene transfer: bacteria share resistance genes
+  Biofilm formation: bacteria communities with increased resistance
+  
+CONTRIBUTING FACTORS:
+  Overuse in humans: self-medication, not completing courses
+  Agriculture: growth promotion in livestock (now banned in many countries)
+  Poor infection control: spreading resistant strains in hospitals
+  
+RESPONSIBLE ANTIBIOTIC USE:
+  Only take antibiotics prescribed by a doctor
+  Complete the full course even if feeling better
+  Never share antibiotics or take leftover antibiotics
+  Report side effects to prescriber
+  
+WHO PRIORITY PATHOGENS (critical):
+  Carbapenem-resistant Acinetobacter baumannii
+  Carbapenem-resistant Pseudomonas aeruginosa
+  Carbapenem-resistant Enterobacteriaceae (CRE)
+  These are last-resort antibiotic resistant
+```
 
-In competitive exams, advanced questions take longer. Strategy:
-1. **Triage first**: scan all questions, mark easy/medium/hard
-2. **Do easy first**: secure those marks, build confidence
-3. **Medium next**: aim for partial credit where applicable
-4. **Hard last**: attempt with remaining time, guess if negative marking allows
-
-## High-Yield Advanced Topics
-
-Based on previous years' patterns for Daily Life Application:
-- Focus on the first 3 topics in the list above (highest weightage)
-- Practice previous year questions from last 5-10 years
-- Study toppers' answer sheets (for subjective exams like UPSC)
-
-## Practice Resources
-
-- **Labs section**: Advanced MCQ sets with detailed explanations
-- **Interview Q&A**: Conceptual questions that test deep understanding
-- Previous year papers: Non-negotiable for exam preparation
+## Revision Notes
+```
+CHAIN OF INFECTION: agent → reservoir → exit → transmission → entry → host
+TRANSMISSION: contact | droplet (>5µm, <1m) | airborne (<5µm, >1m) | vector
+PPE DONNING: gown → mask → goggles → gloves
+PPE DOFFING: gloves → goggles → gown → mask (most contaminated first)
+ISOLATION: contact (MRSA) | droplet (flu/COVID) | airborne (TB/measles — N95 + negative pressure)
+AMR: natural selection of resistant bacteria | complete courses | no self-medication
+```

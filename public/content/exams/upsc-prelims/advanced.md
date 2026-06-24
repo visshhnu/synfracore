@@ -1,44 +1,64 @@
-# UPSC Prelims — Advanced
+# UPSC Prelims Advanced Preparation
 
-## Mastery Level for UPSC Prelims
+## Advanced Strategy and Techniques
 
-Advanced topics in UPSC Prelims separate top scorers from average candidates. These questions test deep understanding, multi-concept application, and speed under pressure.
+```
+QUESTION PATTERN ANALYSIS (last 10 years):
+  Ancient History: Indus Valley, Buddhist/Jain teachings, Gupta achievements
+  Medieval: Bhakti saints (Kabir, Mirabai, Tukaram), Mughal administration
+  Modern: Socio-religious reform movements, press, trade unions, women movement
+  Art and Culture: classical dance, music forms, UNESCO heritage, temple architecture
+  Geography: weather systems, ocean currents, rock types, National Parks, tribes
+  Polity: constitutional amendments, Supreme Court judgments, committees, bills
+  Economy: budget terms, RBI functions, inflation indices (WPI, CPI), banking
+  Environment: Ramsar sites, biosphere reserves, CITES listed species, climate summits
+  Science: ISRO missions, DRDO systems, recent discoveries, diseases
 
-## Advanced Topics
+ELIMINATION TECHNIQUE:
+  UPSC rarely has completely wrong options — look for most accurate
+  Use "all of above" / "none of above" carefully — these are traps
+  Factual questions: if 100% sure, mark; if 2 options confusing, 50% chance — skip
+  Statement-based: eliminate clearly wrong statements first
 
-- Indian History (Ancient, Medieval, Modern)
-- Geography (Physical, Indian, World)
-- Indian Polity & Constitution
-- Economy (Basic Concepts, Budget, Banking)
-- Science & Technology
-- Environment & Ecology
-- Current Affairs
+CURRENT AFFAIRS INTEGRATION:
+  Economy in news: latest budget, GDP data, inflation, RBI policy
+  International: bilateral agreements, UN bodies, climate summits
+  Science and Tech: space missions, new discoveries, defence acquisitions
+  Environment: newly declared national parks, Ramsar sites, tiger census
+  Awards: Bharat Ratna, Padma, Nobel, Booker — who won and why notable
+```
 
-## Advanced Problem Patterns
+## Subject-wise Advanced Notes
 
-At this level, questions combine multiple concepts:
-- **Multi-step problems**: require 3-5 steps, each using a different concept
-- **Tricky conditions**: unusual constraints that require careful reading
-- **Data interpretation**: extract relevant data, ignore noise, compute quickly
-- **Proof-based** (for GATE/University exams): derive, justify, analyze formally
+```
+POLITY — HIGH FREQUENCY TOPICS:
+  Fundamental Rights (Part III): Articles 12-35, exceptions, writs (HAMSC)
+  DPSP (Part IV): Articles 36-51, non-justiciable, Gandhian vs socialist
+  Federalism: Union list (97), State list (61), Concurrent (52)
+  Parliament: Rajya Sabha 250/238 elected | Lok Sabha 552/543 elected
+  Constitutional bodies: CAG, UPSC, Election Commission, Finance Commission
+  Emergency: Art 352 (national), 356 (state), 360 (financial)
+  Amendments: 42nd (mini constitution) | 44th (restored) | 73rd/74th (local bodies)
 
-## Time Management for Advanced Questions
+ECONOMY — FREQUENTLY TESTED:
+  Monetary policy: CRR, SLR, Repo rate, Reverse repo rate, MSF, Bank rate
+  Union budget: Fiscal deficit = Total expenditure - Revenue receipts - Non-debt capital
+  Inflation: WPI (wholesale, base 2011-12) | CPI (consumer, base 2012)
+  Banking: RBI functions, SARFAESI, IBC, NABARD, SIDBI, NPA resolution
+  Committees: Narasimham (banking reform) | Kelkar (fiscal consolidation) | Rangarajan
+  International: IMF/World Bank/WTO/ADB/AIIB roles, India GDP ranking
 
-In competitive exams, advanced questions take longer. Strategy:
-1. **Triage first**: scan all questions, mark easy/medium/hard
-2. **Do easy first**: secure those marks, build confidence
-3. **Medium next**: aim for partial credit where applicable
-4. **Hard last**: attempt with remaining time, guess if negative marking allows
+ENVIRONMENT — HIGH YIELD:
+  Ramsar sites in India: 75+ wetlands (Chilika, Wular, Loktak etc.)
+  Biosphere reserves: 18 (12 in UNESCO network)
+  Tiger reserves: 54 | Project Tiger 1973 | NTCA set up 2005
+  Climate: Paris Agreement (2015), NDC, net zero by 2070 (India commitment)
+  Conventions: CITES, CBD, Ramsar, Basel, Stockholm, Rotterdam, Minamata
+  Pollution acts: Environment Protection 1986 | Water 1974 | Air 1981
+```
 
-## High-Yield Advanced Topics
-
-Based on previous years' patterns for UPSC Prelims:
-- Focus on the first 3 topics in the list above (highest weightage)
-- Practice previous year questions from last 5-10 years
-- Study toppers' answer sheets (for subjective exams like UPSC)
-
-## Practice Resources
-
-- **Labs section**: Advanced MCQ sets with detailed explanations
-- **Interview Q&A**: Conceptual questions that test deep understanding
-- Previous year papers: Non-negotiable for exam preparation
+## Study Resources
+- **Vision IAS Prelims Test Series** — best simulation of actual exam
+- **Insights on India Secure Initiative** — daily mains answers (also prelims prep)
+- **Current Affairs Yearly Compilation** (Vision/ForumIAS) — one-stop revision
+- **UPSC Prelims PYQs (2011-2024)** — topic-wise analysis is mandatory

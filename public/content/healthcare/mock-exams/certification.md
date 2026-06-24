@@ -1,53 +1,85 @@
-# Mock Exams & CPC Prep — Certification Guide
+# Medical Coding Mock Exams Certification Guide
 
-## Why Get Certified in Mock Exams & CPC Prep?
+## Overview
 
-Certifications validate your Mock Exams & CPC Prep skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+Medical coding certification exams test practical coding skills across ICD-10-CM, CPT, and HCPCS code sets. This section covers exam preparation strategies and mock exam approaches.
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+## Top Certifications
 
-## Most Valuable Certifications
+| Cert | Provider | Cost | Format |
+|------|----------|------|--------|
+| **CPC (Certified Professional Coder)** | AAPC | $399 | 150 MCQ, 5h40m, open book |
+| **CCS (Certified Coding Specialist)** | AHIMA | $299 | MCQ + coding, 4 hrs |
+| **COC (Certified Outpatient Coder)** | AAPC | $399 | 150 MCQ |
+| **CIC (Certified Inpatient Coder)** | AAPC | $399 | 150 MCQ |
+| **CPC-P (Payer)** | AAPC | $399 | 150 MCQ |
 
-Research current certifications for Mock Exams & CPC Prep on these sources:
+---
 
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
-
-## General Certification Strategy
-
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
-
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
+## Exam Strategy
 
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+BEFORE THE EXAM:
+  Tab and highlight codebooks: ICD-10-CM, CPT, HCPCS
+  Create quick reference tabs: anatomy terms, modifiers, E&M table
+  Practice with timed mock exams (2 min per question maximum)
+  Review: official ICD-10-CM guidelines (free PDF from CMS)
+  Review: CPT guidelines at beginning of each section
+
+DURING THE EXAM:
+  Read question completely before looking at codes
+  Eliminate obviously wrong answers first
+  Never code from index alone — always verify in tabular list
+  For surgery: find the procedure, determine if add-on codes needed
+  For E&M: identify patient type and level from documentation clues
+  
+  TIME MANAGEMENT:
+    Flag hard questions, skip and return
+    Easier questions: anatomy, definitions, basic codes
+    Harder: surgical coding, complex E&M, auditing questions
+    No penalty for guessing — answer every question
+  
+  COMMON TRAPS:
+    "Most appropriate" — one code may be acceptable, another is best
+    Bilateral procedures — check modifier -50 applicability
+    Bundled services — check NCCI before billing separately
+    Incomplete diagnosis — code to highest specificity available
+
+OPEN BOOK STRATEGY:
+  Do NOT look up every code — too slow
+  Know common codes by heart (top 50 E&M, common surgical, key ICD-10)
+  Use book for: verification, unusual codes, checking guidelines
+  
+PASSING SCORE: 70% (105/150 for CPC)
+RETAKE: if fail, can retake after 30 days (additional fee applies)
 ```
 
-## After Certification
+---
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## Quick Code Reference
+
+```
+TOP E&M CODES (memorise):
+  99213: office visit, established, low complexity (most common)
+  99214: office visit, established, moderate complexity
+  99232: hospital subsequent, moderate complexity
+  99283: ED, moderate complexity
+
+TOP ICD-10 CODES (memorise):
+  E11.9: Type 2 DM without complications
+  I10: Essential hypertension
+  J18.9: Pneumonia, unspecified
+  Z00.00: Adult health exam without abnormal findings
+
+TOP CPT CODES (memorise):
+  99213/99214: office visits
+  45378: diagnostic colonoscopy
+  47562: laparoscopic cholecystectomy
+  27447: total knee arthroplasty
+```
+
+## Study Resources
+- **AAPC CPC Study Guide** — official, matches exam content exactly
+- **AAPC Practicode** — 500+ real coding scenarios with audit feedback
+- **Optum360 EncoderPro** — online coding tool with guidelines built in
+- **Medical Coding Exam Prep** (Buck) — Elsevier practice exam book

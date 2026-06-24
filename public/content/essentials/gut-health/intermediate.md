@@ -1,48 +1,63 @@
-# Gut Health — Intermediate
+# Gut Health — Intermediate Guide
 
-## From Concepts to Problems
+## Intermediate Gut Health
 
-At the intermediate level, you apply fundamental knowledge to solve structured problems. This is where Daily Life Application questions at medium difficulty level fall.
+### Digestive System Fundamentals
 
-## Topics at This Level
+```
+DIGESTION STEP BY STEP:
+  Mouth: chewing + amylase (starts starch digestion)
+         Tip: chew 20–30 times per bite — aids entire digestion
+  
+  Stomach: HCl (pH 1.5–3.5) + pepsin (protein digestion)
+            Churning for 2–4 hours → chyme
+            Acid sterilises food, activates enzymes
+  
+  Small intestine (6–7 metres):
+    Duodenum: pancreatic enzymes + bile emulsify fats
+    Jejunum: primary nutrient absorption
+    Ileum: B12 and bile acid absorption
+    Villi + microvilli: massive surface area = ~250 sqm
+  
+  Large intestine (colon, 1.5 metres):
+    Water absorption
+    Bacterial fermentation of undigested fibre
+    Short-chain fatty acid production
+    Formation and storage of faeces
 
-- Gut Microbiome Composition
-- Prebiotics vs Probiotics
-- Fiber Types (Soluble/Insoluble)
-- Leaky Gut & Intestinal Permeability
-- Gut-Brain Axis
-- Fermented Foods
-- IBS Management
-- Foods to Avoid for Gut Health
+COMMON DIGESTIVE DISORDERS:
 
-## Problem-Solving Strategy
+  IBS (Irritable Bowel Syndrome):
+    Functional disorder — no structural damage
+    Subtypes: IBS-C (constipation), IBS-D (diarrhoea), IBS-M (mixed)
+    Triggers: stress, certain foods (FODMAPs), hormonal changes
+    Affects ~15% of global population
+  
+  GERD (Acid Reflux):
+    Lower oesophageal sphincter weakness → acid reflux
+    Triggers: large meals, lying down after eating, obesity, caffeine, alcohol
+    Management: elevate head of bed, small frequent meals, avoid triggers
+  
+  Constipation:
+    <3 bowel movements/week, hard stools, straining
+    Causes: low fibre, dehydration, sedentary, medications (iron, opioids)
+    Management: increase fibre gradually, hydration, activity, squat position
 
-For Gut Health at intermediate level:
+TIPS FOR BETTER DIGESTION:
+  Eat slowly — 20 minutes for satiety signals
+  Stay upright 2–3 hours after eating
+  Warm water/herbal tea aids motility
+  Exercise regularly — improves gut transit
+  Manage stress — gut-brain axis is real
+  Sleep 7–9 hours — gut microbiome follows circadian rhythm
+```
 
-**1. Identify the type** — Which topic does this question belong to? (e.g., work-time, profit-loss, normalization)
-
-**2. Recall the approach** — What formula/method applies? Write it down.
-
-**3. Apply methodically** — Work step by step. Don't skip steps under time pressure — mistakes happen.
-
-**4. Verify** — Does your answer make sense? For MCQ, check if the answer is "in the ballpark."
-
-**5. Review wrong answers** — Every wrong answer reveals a gap. Fix the gap, not just the answer.
-
-## Practice Distribution
-
-For optimal preparation:
-- 60% time on problem solving (not reading)
-- 20% time on concept review
-- 20% time on analyzing mistakes
-
-## Key Formulas & Rules
-
-Study the **Cheatsheet** section for a compiled list of the most important formulas and rules for Gut Health. The **Labs** section has intermediate MCQ sets that test exactly this level.
-
-## Transition to Advanced
-
-You're ready for advanced topics when you can:
-- Solve intermediate problems in under 2 minutes each
-- Identify the approach within 15 seconds of reading a problem
-- Score 75%+ consistently on intermediate MCQ sets
+## Revision Notes
+```
+DIGESTION ORDER: mouth (amylase) → stomach (HCl+pepsin) → small intestine (absorb) → colon (ferment)
+STOMACH: pH 1.5-3.5 | sterilises food | activates pepsin | 2-4hr retention
+SMALL INTESTINE: primary absorption | 250sqm surface area via villi
+COLON: water absorption + fibre fermentation + SCFA production
+IBS: functional | no damage | triggers: stress/FODMAPs | 15% population
+GERD: LES weakness | small meals | upright after eating | elevate head
+```

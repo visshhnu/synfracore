@@ -1,49 +1,65 @@
-# GATE CSE — Intermediate
+# GATE Computer Science — Intermediate
 
-## From Concepts to Problems
+## GATE CSE — Intermediate Preparation
 
-At the intermediate level, you apply fundamental knowledge to solve structured problems. This is where GATE questions at medium difficulty level fall.
+### OS and Networks Deep Dive
 
-## Topics at This Level
+```
+OPERATING SYSTEMS — MUST KNOW:
 
-- Data Structures & Algorithms
-- Theory of Computation
-- Digital Logic
-- Computer Organization
-- Operating Systems
-- DBMS
-- Computer Networks
-- Discrete Mathematics
-- Programming (C)
+DEADLOCK HANDLING:
+  Ostrich algorithm: ignore (Unix/Windows default for most cases)
+  Detection + Recovery: banker's algorithm, resource allocation graph
+  Prevention: break one of 4 necessary conditions
+  
+  Banker's Algorithm (Deadlock Avoidance):
+    For each process: Allocation + Need = Maximum
+    Need = Maximum - Allocation
+    Available = Total - sum(Allocation)
+    Safe state: exists a safe sequence where all processes can complete
 
-## Problem-Solving Strategy
+VIRTUAL MEMORY:
+  Page size tradeoff:
+    Small pages: less internal fragmentation, large page table
+    Large pages: large internal fragmentation, small page table
+  
+  Working Set model: set of pages process has used recently (last Δ references)
+  Thrashing: if sum of working sets > available frames
+  
+  TLB Hit Ratio: h
+  Effective Access Time = h × (TLB time + memory time) + (1-h) × (TLB time + 2×memory time)
 
-For GATE CSE at intermediate level:
+COMPUTER NETWORKS — MUST KNOW:
 
-**1. Identify the type** — Which topic does this question belong to? (e.g., work-time, profit-loss, normalization)
+TCP SLIDING WINDOW:
+  Sender window size = min(cwnd, rwnd)
+  Slow start: cwnd doubles each RTT
+  Congestion avoidance: cwnd increases by 1 per RTT
+  Fast retransmit: 3 duplicate ACKs → retransmit without timeout
+  
+ERROR DETECTION:
+  Parity: single bit error detection only
+  CRC (Cyclic Redundancy Check): burst error detection (up to degree of polynomial)
+  Checksum: TCP/UDP/IP — 16-bit ones complement sum
+  Hamming code: detect and correct single-bit errors
 
-**2. Recall the approach** — What formula/method applies? Write it down.
+SUBNETTING:
+  IP: 192.168.1.0/26
+  Subnet mask: 255.255.255.192 (/26 = 11111111.11111111.11111111.11000000)
+  Network address: 192.168.1.0
+  Broadcast: 192.168.1.63
+  Usable hosts: 62 (64 - 2)
+  
+  VLSM: variable length subnet masking — different subnets get different prefix lengths
+  CIDR: classless inter-domain routing — aggregation of multiple networks
+```
 
-**3. Apply methodically** — Work step by step. Don't skip steps under time pressure — mistakes happen.
-
-**4. Verify** — Does your answer make sense? For MCQ, check if the answer is "in the ballpark."
-
-**5. Review wrong answers** — Every wrong answer reveals a gap. Fix the gap, not just the answer.
-
-## Practice Distribution
-
-For optimal preparation:
-- 60% time on problem solving (not reading)
-- 20% time on concept review
-- 20% time on analyzing mistakes
-
-## Key Formulas & Rules
-
-Study the **Cheatsheet** section for a compiled list of the most important formulas and rules for GATE CSE. The **Labs** section has intermediate MCQ sets that test exactly this level.
-
-## Transition to Advanced
-
-You're ready for advanced topics when you can:
-- Solve intermediate problems in under 2 minutes each
-- Identify the approach within 15 seconds of reading a problem
-- Score 75%+ consistently on intermediate MCQ sets
+## Revision Notes
+```
+BANKER'S: Need = Max - Allocation | find safe sequence from Available
+TLB HIT RATIO: effective access time formula is frequently asked in GATE
+TCP CONGESTION: slow start (double) → ssthresh → additive increase → triple dup ACK
+SLIDING WINDOW: throughput = window_size / RTT (bandwidth-delay product)
+CRC: generator polynomial | remainder appended to message | detect burst errors
+SUBNETTING: /n means n bits for network | 2^(32-n) - 2 usable hosts
+```

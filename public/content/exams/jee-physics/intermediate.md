@@ -1,48 +1,63 @@
-# JEE Physics — Intermediate
+# JEE Physics Intermediate Topics
 
-## From Concepts to Problems
+## Rotational Mechanics (High Importance)
 
-At the intermediate level, you apply fundamental knowledge to solve structured problems. This is where JEE questions at medium difficulty level fall.
+```
+KEY CONCEPTS:
+  Moment of Inertia (I): I = Σmr² (discrete) | I = ∫r²dm (continuous)
+  
+  Standard MI values:
+    Solid sphere about diameter: I = 2mr²/5
+    Hollow sphere about diameter: I = 2mr²/3
+    Solid cylinder about axis: I = mr²/2
+    Thin ring about axis: I = mr²
+    Rod about centre: I = mL²/12 | about end: I = mL²/3
+  
+  Parallel axis theorem: I = Icm + md²
+  Perpendicular axis theorem (lamina): Iz = Ix + Iy
 
-## Topics at This Level
+  Torque: τ = r × F = Iα
+  Angular momentum: L = Iω | dL/dt = τ
+  Conservation of L: when τ_external = 0
 
-- Mechanics (Newton's Laws, Work-Energy)
-- Electrostatics & Magnetism
-- Optics (Ray & Wave)
-- Modern Physics (Photoelectric, Nuclear)
-- Thermodynamics
-- Oscillations & Waves
-- Current Electricity
-- Rotational Motion
+ROLLING MOTION:
+  Rolling without slipping: v = rω (constraint)
+  Total KE = Translational KE + Rotational KE
+    = ½mv² + ½Iω² = ½mv²(1 + I/mr²)
+  
+  Acceleration on incline:
+    a = g sinθ / (1 + I/mr²)
+    Ring < Cylinder < Sphere (least a to most a, i.e., ring slowest down incline)
 
-## Problem-Solving Strategy
+TYPICAL PROBLEMS:
+  Toppling condition: normal force moves to edge when CG tilts beyond base
+  Angular impulse: J = τ·Δt = ΔL (analogous to linear impulse)
+```
 
-For JEE Physics at intermediate level:
+## Electromagnetic Induction
 
-**1. Identify the type** — Which topic does this question belong to? (e.g., work-time, profit-loss, normalization)
+```
+FARADAY'S LAW: EMF = -dΦ/dt where Φ = B·A·cos θ (flux)
+LENZ'S LAW: induced current opposes the change in flux
 
-**2. Recall the approach** — What formula/method applies? Write it down.
+MOTIONAL EMF: ε = BLv (rod of length L moving at velocity v in field B)
 
-**3. Apply methodically** — Work step by step. Don't skip steps under time pressure — mistakes happen.
+SELF INDUCTANCE: L = NΦ/I | ε = -L dI/dt
+  Inductor energy: U = ½LI²
+  
+RL CIRCUIT:
+  Growth: I = (V/R)(1 - e^(-t/τ)) where τ = L/R
+  Decay: I = I₀e^(-t/τ)
 
-**4. Verify** — Does your answer make sense? For MCQ, check if the answer is "in the ballpark."
+AC CIRCUITS:
+  XL = ωL | XC = 1/(ωC) | Z = √(R² + (XL-XC)²)
+  Power: P = VrmsIrms cos φ where cos φ = R/Z (power factor)
+  Resonance: XL = XC → ω₀ = 1/√(LC) → Z = R (minimum, purely resistive)
+  At resonance: current maximum, power maximum, voltage across L and C can exceed supply
+```
 
-**5. Review wrong answers** — Every wrong answer reveals a gap. Fix the gap, not just the answer.
-
-## Practice Distribution
-
-For optimal preparation:
-- 60% time on problem solving (not reading)
-- 20% time on concept review
-- 20% time on analyzing mistakes
-
-## Key Formulas & Rules
-
-Study the **Cheatsheet** section for a compiled list of the most important formulas and rules for JEE Physics. The **Labs** section has intermediate MCQ sets that test exactly this level.
-
-## Transition to Advanced
-
-You're ready for advanced topics when you can:
-- Solve intermediate problems in under 2 minutes each
-- Identify the approach within 15 seconds of reading a problem
-- Score 75%+ consistently on intermediate MCQ sets
+## Study Resources
+- **DC Pandey Electricity and Magnetism** — for class 12 topics, excellent problems
+- **HC Verma Exercise problems** — all must be solved (use solutions for guidance)
+- **JEE Advanced PYQ** — 2010-2024, difficulty level guide
+- **NPTEL Physics** — IIT Kharagpur free lecture series

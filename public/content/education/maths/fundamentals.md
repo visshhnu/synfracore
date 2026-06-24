@@ -1,46 +1,80 @@
-# Mathematics — Fundamentals
+# Engineering Mathematics Fundamentals
 
-## Overview
+## Sets and Basic Algebra
 
-Mathematics is a foundational subject for Placements/GATE/University. Mastering these fundamentals is essential before attempting intermediate or advanced topics.
+```
+SET OPERATIONS:
+  Union A∪B: elements in A or B or both
+  Intersection A∩B: elements in both A and B
+  Complement A': elements not in A (with respect to universal set U)
+  Difference A-B: elements in A but not in B
+  Symmetric Difference A⊕B: (A-B)∪(B-A) = (A∪B)-(A∩B)
+  
+  Power Set P(A): set of all subsets including empty set and A itself
+  If |A| = n, then |P(A)| = 2^n
+  
+  Cartesian Product A×B: set of all ordered pairs (a,b) where a∈A, b∈B
+  |A×B| = |A| × |B|
 
-## Core Topics Covered
+DE MORGAN'S LAWS:
+  (A∪B)' = A' ∩ B' (complement of union = intersection of complements)
+  (A∩B)' = A' ∪ B' (complement of intersection = union of complements)
 
-- Algebra & Functions
-- Trigonometry
-- Calculus (Differential & Integral)
-- Probability & Statistics
-- Coordinate Geometry
-- Vectors & 3D Geometry
-- Matrices & Determinants
+COUNTING PRINCIPLES:
+  Addition: if A and B disjoint, |A∪B| = |A| + |B|
+  Multiplication: if step 1 has m ways, step 2 has n ways → m×n total
+  Inclusion-Exclusion: |A∪B| = |A| + |B| - |A∩B|
+  
+  Permutations: nPr = n!/(n-r)! — ordered selection
+  Combinations: nCr = n!/[r!(n-r)!] — unordered selection
+  nCr = nC(n-r) | nC0 = nCn = 1 | nC1 = n
+```
 
-## Learning Approach
+## Propositional Logic Basics
 
-**Step 1: Understand, don't memorize**
-Each concept in Mathematics builds on the previous. Don't try to memorize formulas/rules before understanding why they work.
+```
+CONNECTIVES:
+  AND (∧): both true | OR (∨): at least one true
+  NOT (¬): opposite | Implication (→): false only when T→F
+  Biconditional (↔): same truth value
 
-**Step 2: Practice with examples**
-After each concept, solve at least 5 examples before moving on. Understanding isn't enough — you need speed and accuracy.
+TRUTH TABLE — IMPLICATION (p → q):
+  T,T → T | T,F → F | F,T → T | F,F → T
+  "False implies anything" is considered true
 
-**Step 3: Use the Labs section**
-The MCQ quiz sets and flashcards in the Labs section are designed specifically for Mathematics fundamentals. Complete all beginner-level questions before advancing.
+LOGICAL EQUIVALENCES:
+  Double negation: ¬(¬p) ≡ p
+  De Morgan: ¬(p∧q) ≡ ¬p∨¬q | ¬(p∨q) ≡ ¬p∧¬q
+  Contrapositive: p→q ≡ ¬q→¬p (useful for proofs)
+  Implication: p→q ≡ ¬p∨q
 
-## Study Schedule
+TAUTOLOGIES:
+  Law of excluded middle: p ∨ ¬p
+  Law of non-contradiction: ¬(p ∧ ¬p)
+  Hypothetical syllogism: (p→q) ∧ (q→r) → (p→r)
+```
 
-| Week | Focus Area | Daily Time |
-|---|---|---|
-| Week 1 | First 2-3 topics from the list above | 1-2 hours |
-| Week 2 | Next 2-3 topics | 1-2 hours |
-| Week 3 | Remaining topics + revision | 1-2 hours |
-| Week 4 | MCQ practice + weak area review | 2 hours |
+## Calculus Essentials
 
-## Common Mistakes at This Level
+```
+LIMITS:
+  L'Hopital: if f(a)/g(a) = 0/0 or ∞/∞, then lim f(x)/g(x) = lim f'(x)/g'(x)
+  
+DERIVATIVE RULES:
+  d/dx(xⁿ) = nxⁿ⁻¹ | d/dx(eˣ) = eˣ | d/dx(ln x) = 1/x
+  d/dx(sin x) = cos x | d/dx(cos x) = -sin x
+  Chain: d/dx[f(g(x))] = f'(g(x)) × g'(x)
+  Product: (uv)' = u'v + uv'
 
-- Skipping the basics and jumping to shortcuts
-- Not solving enough practice problems
-- Reading without writing/working through examples
-- Ignoring errors instead of analyzing them
+INTEGRATION:
+  ∫xⁿdx = xⁿ⁺¹/(n+1) + C (n ≠ -1)
+  ∫(1/x)dx = ln|x| + C
+  ∫eˣdx = eˣ + C
+  Fundamental theorem: ∫[a to b] f(x)dx = F(b) - F(a) where F' = f
+```
 
-## What Comes Next
-
-After fundamentals, move to the **Intermediate** section which covers application of these concepts to real problems and harder question patterns.
+## Study Resources
+- **NPTEL Engineering Mathematics** — free IIT video lectures, all topics
+- **Kenneth Rosen Discrete Mathematics** — gold standard for discrete maths
+- **Gilbert Strang Linear Algebra** — MIT OCW free video series (best LA resource)
+- **GFG Mathematics for GATE** — free, exam-oriented notes and practice

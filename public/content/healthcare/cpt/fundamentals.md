@@ -1,42 +1,79 @@
-# CPT Codes — Fundamentals
+# CPT Fundamentals
 
-## What are CPT Codes?
+## What is CPT?
 
-CPT (Current Procedural Terminology) codes are a standardized system maintained by the American Medical Association (AMA) to describe medical, surgical, and diagnostic procedures. They are used for billing insurance companies and government programs.
+Current Procedural Terminology (CPT) is a medical code set maintained by the American Medical Association (AMA). It describes medical, surgical, and diagnostic services. CPT codes are used for billing in outpatient and physician office settings.
 
-## CPT Code Structure
-
-CPT codes are 5-digit numeric codes (Category I) or alphanumeric (Category II and III):
-
-- **Category I**: Most common — describe procedures and services (e.g., 99213 = office visit)
-- **Category II**: Performance measurement/tracking codes (end in F)
-- **Category III**: Emerging technology codes (end in T)
-
-## Major CPT Sections
-
-| Section | Code Range | Content |
-|---|---|---|
-| Evaluation and Management | 99202-99499 | Office visits, hospital care |
-| Anesthesia | 00100-01999 | Anesthesia services |
-| Surgery | 10004-69990 | All surgical procedures |
-| Radiology | 70010-79999 | X-ray, CT, MRI, ultrasound |
-| Pathology & Lab | 80047-89398 | Lab tests |
-| Medicine | 90281-99199 | Injections, therapy, vaccines |
-
-## E/M Coding (Most Used)
-
-Office visits are coded 99202-99215 based on:
-- New patient (99202-99205) vs Established patient (99211-99215)
-- Level 1-5 based on either: Medical Decision Making (MDM) complexity OR Total Time
+## Code Structure
 
 ```
-99202: New pt, straightforward MDM or 15-29 min
-99203: New pt, low complexity MDM or 30-44 min
-99204: New pt, moderate complexity MDM or 45-59 min
-99205: New pt, high complexity MDM or 60-74 min
+5-DIGIT NUMERIC CODE: 10000-99499 (Category I)
+  No letters in standard codes
+  Organized by body system or specialty
 
-99212: Established, straightforward MDM or 10-19 min
-99213: Established, low complexity MDM or 20-29 min
-99214: Established, moderate complexity MDM or 30-39 min
-99215: Established, high complexity MDM or 40-54 min
+ADD-ON CODES (+):
+  Always reported with a primary code, never alone
+  Example: 99292 (each additional 30 min critical care — add-on to 99291)
+  Never append modifier -51 to add-on codes
+
+MODIFIER 51 EXEMPT:
+  Symbol: circle with slash
+  Not subject to multiple procedure reduction
+  Example: 93971 (duplex scan of extremity arteries, unilateral)
+
+SEPARATE PROCEDURE:
+  Parenthetical note "separate procedure"
+  When integral to larger service, do not bill separately
+  When performed alone, may be reported
 ```
+
+## How to Use the CPT Book
+
+```
+INDEX LOOKUP:
+  Main terms: procedure or service performed
+    Appendectomy, colonoscopy, arthroplasty
+  Body site: anatomical location
+    Knee, shoulder, abdomen
+  Condition: what is being treated
+    Fracture, hernia, tumor
+  Eponym: named procedures
+    Whipple procedure, Mohs surgery
+
+TABULAR SECTION:
+  Always verify code in tabular after finding in index
+  Read all instructional notes, parenthetical notes
+  Check includes/excludes notes
+  Verify all code options — index often lists only primary code
+
+APPENDICES:
+  Appendix A: complete modifier listing
+  Appendix B: summary of additions/deletions/revisions
+  Appendix C: clinical examples for E&M services
+  Appendix D: summary of add-on codes
+```
+
+## Key Sections Overview
+
+```
+E&M (99202-99499): Most commonly billed codes
+  New patient needs all 3 key components (or time/MDM)
+  Established patient needs 2 of 3 key components
+  2021 changes: time or MDM determines level (office/outpatient)
+
+ANESTHESIA (00100-01999):
+  Reported in units: base units + time units
+  Physical status modifiers: P1 (normal) to P6 (brain dead)
+  Qualifying circumstances: 99100-99140 (extreme age, emergency, etc.)
+
+SURGERY (10004-69990):
+  Includes local anesthesia, pre/post-op care in global package
+  Report surgical service once even if bilateral (add -50)
+  Unlisted codes end in -99 — requires special report attachment
+```
+
+## Study Resources
+- **AMA CPT 101 resources** (ama-assn.org/practice-management/cpt) — free
+- **AAPC CPC Student Study Guide** — structured preparation
+- **Medical Terminology in a Flash** (F.A. Davis) — flash card system
+- **YouTube: Laureen Jandroep** — free CPT and E&M coding tutorials

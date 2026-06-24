@@ -1,53 +1,78 @@
-# Gut Health — Certification Guide
+# Gut Health Certification Guide
 
-## Why Get Certified in Gut Health?
+## Top Certifications
 
-Certifications validate your Gut Health skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+| Cert | Provider | Cost | Format |
+|------|----------|------|--------|
+| **Gut Health Practitioner Certificate** | College of Naturopathic Medicine | $500 | Online |
+| **Integrative Nutrition Coach (IIN)** | IIN | $1,500+ | Online, 1 year |
+| **Applied Functional Medicine** | AFMCP | $2,000+ | Advanced |
+| **Nutrition and Gut Health Diploma** | Shaw Academy | $200 | Online |
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+---
 
-## Most Valuable Certifications
-
-Research current certifications for Gut Health on these sources:
-
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
-
-## General Certification Strategy
-
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
-
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
+## Core Topics
 
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+THE GUT MICROBIOME:
+  Trillions of microorganisms (bacteria, fungi, viruses) in the digestive tract
+  ~100 trillion bacteria — more than human body cells
+  Major phyla: Firmicutes, Bacteroidetes (together ~90% of gut bacteria)
+  Functions:
+    Digest food we cannot digest (fibre fermentation)
+    Produce vitamins (K2, B12, biotin, folate)
+    Regulate immune system (70% of immune cells in gut)
+    Produce neurotransmitters (90% of serotonin made in gut)
+    Protect against pathogens (colonisation resistance)
+
+GUT-BRAIN AXIS:
+  Bidirectional communication: gut ↔ brain via vagus nerve
+  Gut produces 90% of body serotonin (mood regulation)
+  Dysbiosis (imbalanced microbiome) linked to anxiety, depression
+  Stress affects gut motility and permeability
+
+SIGNS OF POOR GUT HEALTH:
+  Digestive: bloating, gas, constipation, diarrhoea, IBS, acid reflux
+  Systemic: fatigue, brain fog, skin issues (eczema, acne), frequent infections
+  Mental: anxiety, depression, mood changes
+
+IMPROVING GUT HEALTH:
+  Eat diverse plant foods: aim 30+ different plants per week
+  Increase dietary fibre: 25–38g/day (prebiotic fuel for good bacteria)
+  Fermented foods (probiotics):
+    Curd/yoghurt: Lactobacillus acidophilus
+    Idli/dosa batter: fermented — Lactobacillus
+    Kimchi, kefir, kombucha, sauerkraut
+    Pickles in brine (not vinegar)
+  Prebiotics (food for good bacteria):
+    Garlic, onion, leeks, asparagus, oats, bananas, flaxseed
+  Avoid: excessive antibiotics, processed foods, artificial sweeteners
+  Manage stress: cortisol disrupts gut microbiome
+  Sleep: microbiome follows circadian rhythm
+
+IBS MANAGEMENT:
+  Low FODMAP diet (Fermentable Oligosaccharides, Disaccharides, Monosaccharides, Polyols)
+  Avoid high-FODMAP: onion, garlic, wheat, apples, milk, legumes (temporarily)
+  Reintroduce systematically to identify personal triggers
+  Stress management crucial component
 ```
 
-## After Certification
+---
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## Study Resources
+
+- **Zoe Nutrition** (joinzoe.com) — personalised microbiome research
+- **British Gut Project** — citizen science gut microbiome study
+- **Monash University FODMAP** (monashfodmap.com) — official low-FODMAP guidance
+- **PubMed Gut Microbiome** — latest research papers
+
+## Revision Notes
+```
+MICROBIOME: ~100 trillion bacteria | Firmicutes + Bacteroidetes = 90%
+FUNCTIONS: digest fibre | make vitamins | regulate immunity | produce serotonin
+GUT-BRAIN: vagus nerve | 90% serotonin in gut | dysbiosis → mood issues
+PROBIOTICS: curd, idli/dosa, kimchi, kefir, kombucha, brine pickles
+PREBIOTICS: garlic, onion, oats, banana, flaxseed (feed good bacteria)
+IBS: Low FODMAP diet | identify personal triggers | stress management
+DIVERSITY: 30+ different plants per week = most important dietary target
+```

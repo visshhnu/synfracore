@@ -1,46 +1,106 @@
-# Terraform — Infrastructure as Code
+# Terraform Overview
 
-Terraform by HashiCorp is the industry-standard tool for provisioning and managing cloud infrastructure through code. It works with 1000+ providers — AWS, Azure, GCP, Kubernetes, databases, DNS, and more.
+## What is Terraform?
 
-## Why Terraform?
+Terraform is an open-source Infrastructure as Code (IaC) tool by HashiCorp that lets you define, provision, and manage cloud infrastructure using a declarative configuration language (HCL — HashiCorp Configuration Language). It supports 1,000+ providers including AWS, Azure, GCP, Kubernetes, and more.
 
-**Before Terraform:** Click around in AWS console. Write docs about what you clicked. Hope the next person follows the docs. Inconsistent environments. No version history. No easy way to recreate.
+## Core Concepts
 
-**With Terraform:** Describe your infrastructure in code. Version it in Git. Review it in PRs. Apply it consistently across environments. Destroy and recreate in minutes.
-
-\`\`\`hcl
-# This creates an AWS EC2 instance
-resource "aws_instance" "web" {
-  ami           = "ami-0c55b159cbfafe1f0"
-  instance_type = "t3.micro"
-  
-  tags = {
-    Name = "production-web-server"
+```
+PROVIDERS:
+  Plugin that interacts with a cloud/service API
+  terraform {
+    required_providers {
+      aws = { source = "hashicorp/aws", version = "~> 5.0" }
+    }
   }
-}
-\`\`\`
+  provider "aws" { region = "us-east-1" }
 
-## How Terraform Works
+RESOURCES:
+  Infrastructure objects (EC2 instance, S3 bucket, VPC, etc.)
+  resource "aws_instance" "web" {
+    ami           = "ami-0c55b159cbfafe1f0"
+    instance_type = "t3.micro"
+    tags = { Name = "WebServer" }
+  }
 
-\`\`\`
-1. Write: .tf files describing desired infrastructure
-2. Init:  terraform init   (download providers)
-3. Plan:  terraform plan   (show what will change)
-4. Apply: terraform apply  (make the changes)
-\`\`\`
+DATA SOURCES:
+  Read existing infrastructure (not managed by Terraform)
+  data "aws_ami" "amazon_linux" {
+    most_recent = true
+    owners      = ["amazon"]
+    filter { name = "name", values = ["amzn2-ami-hvm-*-x86_64-gp2"] }
+  }
 
-Terraform uses a **declarative model** — you describe WHAT you want, not HOW to create it. Terraform figures out the how.
+VARIABLES:
+  Input variables for reusability
+  variable "instance_type" {
+    type    = string
+    default = "t3.micro"
+    description = "EC2 instance type"
+  }
 
-## State
+OUTPUTS:
+  Expose values from configuration
+  output "instance_ip" {
+    value = aws_instance.web.public_ip
+  }
 
-Terraform maintains a **state file** (\`terraform.tfstate\`) that maps your config to real infrastructure. The state is the source of truth for what Terraform thinks exists.
+MODULES:
+  Reusable packages of Terraform configuration
+  module "vpc" {
+    source  = "terraform-aws-modules/vpc/aws"
+    version = "5.0"
+    name    = "my-vpc"
+    cidr    = "10.0.0.0/16"
+  }
 
-**Critical:** In teams, state must be stored remotely (S3, Terraform Cloud) to avoid conflicts. Never commit state files to Git.
+STATE:
+  terraform.tfstate: tracks real infrastructure
+  Remote state: S3 + DynamoDB (AWS) or Terraform Cloud
+  terraform {
+    backend "s3" {
+      bucket         = "my-tfstate"
+      key            = "prod/terraform.tfstate"
+      region         = "us-east-1"
+      dynamodb_table = "terraform-locks"
+    }
+  }
+```
 
-## Providers
+## Core Workflow
 
-Providers are plugins that let Terraform talk to APIs. Each provider is maintained separately:
-- \`hashicorp/aws\` — All AWS services
-- \`hashicorp/azurerm\` — Azure resources
-- \`hashicorp/google\` — GCP resources
-- \`hashicorp/kubernetes\` — K8s resources
+```bash
+# Initialize (download providers, configure backend)
+terraform init
+
+# Preview changes (dry run)
+terraform plan
+terraform plan -out=tfplan  # save plan
+
+# Apply changes
+terraform apply
+terraform apply tfplan  # apply saved plan
+
+# Destroy infrastructure
+terraform destroy
+terraform destroy -target aws_instance.web  # destroy specific resource
+
+# State management
+terraform show             # show current state
+terraform state list       # list all resources in state
+terraform state show aws_instance.web  # show specific resource
+terraform import aws_instance.web i-1234567890  # import existing resource
+terraform refresh          # sync state with real infrastructure
+
+# Formatting and validation
+terraform fmt              # format HCL files
+terraform validate         # validate configuration syntax
+```
+
+## Study Resources
+- **HashiCorp Terraform Documentation** (developer.hashicorp.com/terraform) — official, comprehensive
+- **Terraform: Up and Running** (Yevgeniy Brikman) — best book for learning Terraform
+- **HashiCorp Certified: Terraform Associate (003)** — entry-level certification
+- **Gruntwork Terragrunt** — DRY Terraform configurations for large teams
+- **Terraform Registry** (registry.terraform.io) — modules and providers repository

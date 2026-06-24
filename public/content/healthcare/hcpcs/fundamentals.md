@@ -1,47 +1,92 @@
-# HCPCS Level II — Fundamentals
+# HCPCS Level II Fundamentals
 
 ## Overview
 
-HCPCS Level II is a foundational subject for CPC/CCS Certification. Mastering these fundamentals is essential before attempting intermediate or advanced topics.
+HCPCS (Healthcare Common Procedure Coding System) has two levels:
 
-## Core Topics Covered
+- **Level I**: CPT codes (maintained by AMA, numeric)
+- **Level II**: Alphanumeric codes for items and services not in CPT
 
-- HCPCS Level II Code Structure
-- DME (Durable Medical Equipment)
-- J-Codes (Drug Administration)
-- A-Codes (Supplies, Transportation)
-- HCPCS Modifiers
-- ABN (Advance Beneficiary Notice)
-- LCD/NCD Coverage
-- Medicare Billing Rules
+This section covers Level II — the codes used for supplies, durable medical equipment, drugs, ambulance, and other services primarily billed to Medicare and Medicaid.
 
-## Learning Approach
+## When to Use HCPCS Level II
 
-**Step 1: Understand, don't memorize**
-Each concept in HCPCS Level II builds on the previous. Don't try to memorize formulas/rules before understanding why they work.
+```
+USE HCPCS II WHEN:
+  No CPT code exists for the item or service
+  Medicare/Medicaid specifically requires it
+  Billing supplies, DME, orthotics, prosthetics
+  Billing injectable drugs administered in office/clinic
+  Billing ambulance services
+  Billing vision, hearing services and supplies
 
-**Step 2: Practice with examples**
-After each concept, solve at least 5 examples before moving on. Understanding isn't enough — you need speed and accuracy.
+COMMON EXAMPLES:
+  Patient needs a walker         → E0130 (walker, rigid)
+  Office gives flu vaccine       → 90686 (CPT) + G0008 (admin)
+  Patient receives IV Rocephin   → J0696 (ceftriaxone injection)
+  Patient gets fitted for brace  → L1906 (ankle orthosis)
+  Patient transported by ambulance → A0428 (BLS, non-emergency)
+```
 
-**Step 3: Use the Labs section**
-The MCQ quiz sets and flashcards in the Labs section are designed specifically for HCPCS Level II fundamentals. Complete all beginner-level questions before advancing.
+## Key Code Ranges to Know
 
-## Study Schedule
+```
+A codes: Medical/surgical supplies, transportation
+  A4570: Splint
+  A6216: Gauze, non-impregnated, non-sterile
+  A9270: Noncovered item or service
 
-| Week | Focus Area | Daily Time |
-|---|---|---|
-| Week 1 | First 2-3 topics from the list above | 1-2 hours |
-| Week 2 | Next 2-3 topics | 1-2 hours |
-| Week 3 | Remaining topics + revision | 1-2 hours |
-| Week 4 | MCQ practice + weak area review | 2 hours |
+E codes: Durable Medical Equipment
+  E0100-E0199: Canes, crutches, walkers
+  E0600-E0693: Respiratory equipment
+  E0950-E1030: Wheelchair accessories
+  E1050-E1298: Power wheelchairs
 
-## Common Mistakes at This Level
+J codes: Drugs
+  J0001-J0999: Anti-infectives, antivirals
+  J2000-J2999: Miscellaneous drugs
+  J9000-J9999: Chemotherapy drugs
 
-- Skipping the basics and jumping to shortcuts
-- Not solving enough practice problems
-- Reading without writing/working through examples
-- Ignoring errors instead of analyzing them
+G codes: Temporary procedures
+  G0008: Flu vaccine administration
+  G0009: Pneumonia vaccine administration
+  G0439: Annual wellness visit
+  G0443: Brief face-to-face behavioral counseling for alcohol
 
-## What Comes Next
+L codes: Orthotics and Prosthetics
+  L0112-L0999: Spinal orthoses
+  L1000-L1999: Lower limb orthoses
+  L5000-L5999: Lower limb prostheses
+  L8000-L8699: Prosthetic implants
+```
 
-After fundamentals, move to the **Intermediate** section which covers application of these concepts to real problems and harder question patterns.
+## Modifiers for HCPCS
+
+```
+CONDITION MODIFIERS:
+  KX: Specific required documentation is on file
+  GA: ABN on file (beneficiary agreed to pay if denied)
+  GZ: Expect denial — ABN required but not obtained
+
+DME MODIFIERS:
+  RR: Rental
+  NU: New equipment/supply
+  UE: Used durable medical equipment
+  RP: Replacement of DME, orthotic, prosthetic
+
+BILATERAL MODIFIERS:
+  LT: Left side
+  RT: Right side
+  50: Bilateral procedure (same as CPT)
+
+DRUG MODIFIERS:
+  JA: Administered intravenously
+  JB: Administered subcutaneously
+  JW: Drug amount discarded/not administered (waste)
+```
+
+## Study Resources
+- **CMS HCPCS page** (cms.gov/Medicare/Coding/HCPCSReleaseCodeSets) — free annual files
+- **AAPC HCPCS codebook** — best reference with guidelines
+- **CMS coverage policies** — check NCDs and LCDs for medical necessity
+- **PDAC contractor** (pdac.palmettogba.com) — verify DME codes

@@ -1,47 +1,65 @@
-# UPSC Prelims — Intermediate
+# UPSC Prelims Intermediate Preparation
 
-## From Concepts to Problems
+## Subject-wise Study Approach
 
-At the intermediate level, you apply fundamental knowledge to solve structured problems. This is where UPSC Prelims questions at medium difficulty level fall.
+```
+HISTORY STUDY METHOD:
+  Start: NCERT 6,7,8 (ancient+medieval), NCERT 10,11,12 (modern)
+  Then: Spectrum Modern History by Rajiv Ahir (modern India)
+  Art and Culture: NCERT Fine Arts + Nitin Singhania (optional but helpful)
+  Focus: causes, consequences, significant personalities, dates of key events
+  Practice: previous year topic-wise questions (2011-2024)
 
-## Topics at This Level
+GEOGRAPHY STUDY METHOD:
+  Start: NCERT 11 (Fundamentals of Physical Geography) + NCERT 12 (India)
+  Physical: landforms, climate, drainage, natural vegetation
+  India: agriculture (crops and conditions), minerals, industries, transport
+  World: major countries geography, international boundaries, water bodies
+  Map work: mark all national parks, rivers, states, important cities
+  Focus: linkage questions (which river, which state, which product)
 
-- Indian History (Ancient, Medieval, Modern)
-- Geography (Physical, Indian, World)
-- Indian Polity & Constitution
-- Economy (Basic Concepts, Budget, Banking)
-- Science & Technology
-- Environment & Ecology
-- Current Affairs
+POLITY STUDY METHOD:
+  Read: M. Laxmikant Indian Polity (complete, do not skip chapters)
+  Constitution: Part III, IV, IV-A, VI, XI, XIV, XV, XVIII specially
+  Recent: constitutional amendments, Supreme Court judgments
+  Committees: Parliamentary, Constitutional, Statutory, Regulatory bodies
+  
+ECONOMY STUDY METHOD:
+  Start: NCERT 11-12 Economics
+  Then: Economic Survey summary (easy language by coaching institutes)
+  Budget: understand key budget terms and numbers
+  Current: RBI monthly bulletin, finance ministry press releases
+  Focus: conceptual understanding over data memorization
+```
 
-## Problem-Solving Strategy
+## Monthly Study Schedule
 
-For UPSC Prelims at intermediate level:
+```
+MONTH 1-2: NCERT foundation
+  Complete all NCERTs: History (6-12), Geography (6-12), Polity (9,11), Economy (10-12)
+  Make short notes (2-3 pages per book)
+  Do NOT refer standard books yet
 
-**1. Identify the type** — Which topic does this question belong to? (e.g., work-time, profit-loss, normalization)
+MONTH 3-4: Standard books
+  Laxmikant Polity (complete)
+  Spectrum Modern History
+  Geography: Majid Husain / GC Leong for physical geography
+  Economy: Indian Economy by Ramesh Singh (selected chapters)
 
-**2. Recall the approach** — What formula/method applies? Write it down.
+MONTH 5-6: Current Affairs + Revision
+  Go through 12-month current affairs (one compilation)
+  Revise NCERT notes + standard book notes
+  Start previous year questions (2011-2024)
 
-**3. Apply methodically** — Work step by step. Don't skip steps under time pressure — mistakes happen.
+MONTH 7-8: Test series + weak areas
+  Join mock test series (Vision IAS or Insights)
+  Analyze each test: where did you go wrong?
+  Focus on weak subjects identified in mocks
+  Final revision of notes
+```
 
-**4. Verify** — Does your answer make sense? For MCQ, check if the answer is "in the ballpark."
-
-**5. Review wrong answers** — Every wrong answer reveals a gap. Fix the gap, not just the answer.
-
-## Practice Distribution
-
-For optimal preparation:
-- 60% time on problem solving (not reading)
-- 20% time on concept review
-- 20% time on analyzing mistakes
-
-## Key Formulas & Rules
-
-Study the **Cheatsheet** section for a compiled list of the most important formulas and rules for UPSC Prelims. The **Labs** section has intermediate MCQ sets that test exactly this level.
-
-## Transition to Advanced
-
-You're ready for advanced topics when you can:
-- Solve intermediate problems in under 2 minutes each
-- Identify the approach within 15 seconds of reading a problem
-- Score 75%+ consistently on intermediate MCQ sets
+## Study Resources
+- **NCERT books (6-12)** — free PDF from ncert.nic.in — start here
+- **Laxmikant Indian Polity** — 6th edition or latest
+- **Spectrum Modern History** — best modern history reference
+- **The Hindu newspaper** — 30-45 min daily for current affairs

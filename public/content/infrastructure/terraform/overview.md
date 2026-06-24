@@ -1,46 +1,124 @@
-# Terraform — Infrastructure as Code
+# Terraform Overview (Infrastructure)
 
-Terraform by HashiCorp is the industry-standard tool for provisioning and managing cloud infrastructure through code. It works with 1000+ providers — AWS, Azure, GCP, Kubernetes, databases, DNS, and more.
+## Terraform in the Infrastructure Context
 
-## Why Terraform?
+Terraform is the de facto standard for Infrastructure as Code (IaC) in DevOps and cloud engineering. It enables teams to define, provision, and version infrastructure the same way developers version application code — enabling repeatable, auditable, and consistent environments.
 
-**Before Terraform:** Click around in AWS console. Write docs about what you clicked. Hope the next person follows the docs. Inconsistent environments. No version history. No easy way to recreate.
+## Why Terraform Over Alternatives
 
-**With Terraform:** Describe your infrastructure in code. Version it in Git. Review it in PRs. Apply it consistently across environments. Destroy and recreate in minutes.
-
-\`\`\`hcl
-# This creates an AWS EC2 instance
-resource "aws_instance" "web" {
-  ami           = "ami-0c55b159cbfafe1f0"
-  instance_type = "t3.micro"
+```
+vs CloudFormation (AWS only):
+  Terraform: multi-cloud, 1000+ providers, cleaner HCL syntax
+  CloudFormation: AWS-native, no state file management needed, native AWS integration
   
-  tags = {
-    Name = "production-web-server"
+vs Ansible:
+  Terraform: declarative (define end state), better for provisioning
+  Ansible: imperative (define steps), better for configuration management
+  Best practice: Terraform to provision, Ansible to configure
+  
+vs Pulumi:
+  Terraform: HCL domain-specific language, larger community
+  Pulumi: use general-purpose languages (Python, TypeScript, Go)
+  Choose Pulumi if: team prefers code, complex logic needed in IaC
+
+vs CDK (Cloud Development Kit):
+  CDK (AWS): generates CloudFormation; TypeScript/Python/Java/Go
+  CDK for Terraform (CDKTF): generates Terraform; use general-purpose languages
+```
+
+## Core Workflow
+
+```bash
+# Project structure (recommended)
+my-infrastructure/
+├── main.tf           # main resources
+├── variables.tf      # input variables
+├── outputs.tf        # output values
+├── providers.tf      # provider configuration
+├── terraform.tfvars  # variable values (not in Git if has secrets)
+├── versions.tf       # required versions
+└── modules/          # reusable modules
+    └── vpc/
+        ├── main.tf
+        ├── variables.tf
+        └── outputs.tf
+
+# Workflow
+terraform init        # download providers, configure backend
+terraform plan        # show what will change
+terraform apply       # make the changes
+terraform destroy     # destroy all resources
+
+# State operations
+terraform state list                    # list all managed resources
+terraform state show aws_s3_bucket.main # inspect a resource
+terraform state mv old_name new_name    # rename resource in state
+terraform import aws_s3_bucket.main mybucket  # import existing resource
+terraform state rm aws_instance.old     # remove from state (NOT from cloud)
+```
+
+## Remote State and Collaboration
+
+```hcl
+# terraform/providers.tf
+terraform {
+  required_version = ">= 1.6.0"
+  
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+  
+  # Remote state — REQUIRED for teams
+  backend "s3" {
+    bucket         = "my-company-terraform-state"
+    key            = "prod/us-east-1/terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "terraform-state-lock"  # prevents concurrent applies
+    encrypt        = true
   }
 }
-\`\`\`
 
-## How Terraform Works
+provider "aws" {
+  region = var.aws_region
+  
+  default_tags {  # apply to all resources
+    tags = {
+      ManagedBy   = "Terraform"
+      Environment = var.environment
+      Repository  = "github.com/company/infrastructure"
+    }
+  }
+}
+```
 
-\`\`\`
-1. Write: .tf files describing desired infrastructure
-2. Init:  terraform init   (download providers)
-3. Plan:  terraform plan   (show what will change)
-4. Apply: terraform apply  (make the changes)
-\`\`\`
+## Security Best Practices
 
-Terraform uses a **declarative model** — you describe WHAT you want, not HOW to create it. Terraform figures out the how.
+```
+SECRETS IN TERRAFORM:
+  Never: hardcode secrets in .tf files
+  Use: environment variables (TF_VAR_db_password)
+  Use: AWS Secrets Manager / Azure Key Vault data sources
+  Use: HashiCorp Vault provider
+  Use: .tfvars files marked in .gitignore
 
-## State
+STATE FILE SECURITY:
+  Contains sensitive values (passwords, keys may be in outputs)
+  Encrypt backend: enable S3 encryption, use KMS key
+  Control access: only CI/CD pipeline and senior engineers
+  Audit: CloudTrail logs all S3 state file access
 
-Terraform maintains a **state file** (\`terraform.tfstate\`) that maps your config to real infrastructure. The state is the source of truth for what Terraform thinks exists.
+IAM FOR TERRAFORM:
+  CI/CD: use OIDC federation (GitHub Actions → AWS, no static keys)
+  Local: use IAM roles with SSO / short-lived credentials
+  Never: use root account for Terraform
+```
 
-**Critical:** In teams, state must be stored remotely (S3, Terraform Cloud) to avoid conflicts. Never commit state files to Git.
-
-## Providers
-
-Providers are plugins that let Terraform talk to APIs. Each provider is maintained separately:
-- \`hashicorp/aws\` — All AWS services
-- \`hashicorp/azurerm\` — Azure resources
-- \`hashicorp/google\` — GCP resources
-- \`hashicorp/kubernetes\` — K8s resources
+## Study Resources
+- **Terraform: Up and Running** (Yevgeniy Brikman) — best book, covers real patterns
+- **HashiCorp Learn** (developer.hashicorp.com/terraform/tutorials) — free official tutorials
+- **Terraform Associate (003)** — entry-level certification; practical exam
+- **Gruntwork IaC Library** — production-grade Terraform modules, patterns guide free online
+- **awesome-terraform** (github.com/shuaibiyy/awesome-terraform) — curated resource list

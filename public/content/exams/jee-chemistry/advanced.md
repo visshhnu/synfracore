@@ -1,45 +1,76 @@
-# JEE Chemistry — Advanced
+# JEE Chemistry Advanced Topics
 
-## Mastery Level for JEE
+## Organic Chemistry Reactions
 
-Advanced topics in JEE Chemistry separate top scorers from average candidates. These questions test deep understanding, multi-concept application, and speed under pressure.
+```
+IMPORTANT NAME REACTIONS:
 
-## Advanced Topics
+ALDEHYDE/KETONE REACTIONS:
+  Aldol condensation: two aldehydes/ketones → β-hydroxy aldehyde/ketone (base)
+  Cannizzaro: aldehyde with no α-H → disproportionation (acid + alcohol)
+  Clemmensen reduction: C=O → CH₂ (Zn-Hg/HCl) — acidic conditions
+  Wolff-Kishner reduction: C=O → CH₂ (NH₂NH₂/KOH) — basic conditions
 
-- Mole Concept & Stoichiometry
-- Chemical Bonding & Structure
-- Thermodynamics & Equilibrium
-- Electrochemistry
-- Organic Chemistry (GOC, Named Reactions)
-- Coordination Compounds
-- p-Block & d-Block Elements
-- Polymers & Biomolecules
+CARBOXYLIC ACID:
+  Hell-Volhard-Zelinsky: α-halogenation using P and X₂ (red P + Br₂)
+  Koch reaction: alkene + CO + H₂O → carboxylic acid (H⁺)
+  Kolbe reaction: sodium carboxylate + electrolysis → alkane (coupling)
 
-## Advanced Problem Patterns
+AROMATIC REACTIONS:
+  Electrophilic aromatic substitution (EAS) — need catalyst for most:
+    Nitration: conc HNO₃ + conc H₂SO₄ → NO₂ group
+    Halogenation: X₂ + Lewis acid (FeBr₃, AlCl₃) → X group
+    Sulfonation: SO₃/H₂SO₄ (fuming) → SO₃H group (reversible)
+    Friedel-Crafts alkylation: RX + AlCl₃ → R group (rearrangement possible)
+    Friedel-Crafts acylation: RCOCl + AlCl₃ → COR group (no rearrangement)
+  
+  Directing effects:
+    o,p directors (activate): -OH, -OR, -NH₂, -NHR, alkyl groups
+    m directors (deactivate): -NO₂, -CHO, -COOH, -CN, -SO₃H
 
-At this level, questions combine multiple concepts:
-- **Multi-step problems**: require 3-5 steps, each using a different concept
-- **Tricky conditions**: unusual constraints that require careful reading
-- **Data interpretation**: extract relevant data, ignore noise, compute quickly
-- **Proof-based** (for GATE/University exams): derive, justify, analyze formally
+AMINES:
+  Gabriel synthesis: phthalimide + RX → primary amine (no 2° or 3°)
+  Hofmann bromamide degradation: RCONH₂ + Br₂ + KOH → RNH₂ (one C lost)
+  Sandmeyer reaction: ArN₂⁺ → ArX (X = Cl, Br, CN) using CuX
+  Balz-Schiemann: ArN₂⁺BF₄⁻ → ArF + BF₃ + N₂
 
-## Time Management for Advanced Questions
+REDUCTION REAGENTS:
+  LiAlH₄ (LAH): reduces aldehydes, ketones, esters, acids, amides, nitro
+  NaBH₄: reduces aldehydes and ketones ONLY (milder, won't touch esters)
+  H₂/Pd or Pt: hydrogenation of C=C, C≡C, also reduces nitro to amine
+```
 
-In competitive exams, advanced questions take longer. Strategy:
-1. **Triage first**: scan all questions, mark easy/medium/hard
-2. **Do easy first**: secure those marks, build confidence
-3. **Medium next**: aim for partial credit where applicable
-4. **Hard last**: attempt with remaining time, guess if negative marking allows
+## Coordination Chemistry
 
-## High-Yield Advanced Topics
+```
+IUPAC NAMING:
+  Order: anionic ligands → neutral ligands → cation name
+  Ligand names: Cl⁻=chlorido, NO₂⁻=nitrito-N, NH₃=ammine, H₂O=aqua
+  
+  [Co(NH₃)₄Cl₂]Cl: tetraammineichloridocobalt(III) chloride
+  [Pt(en)₂]²⁺: bis(ethylenediamine)platinum(II)
 
-Based on previous years' patterns for JEE:
-- Focus on the first 3 topics in the list above (highest weightage)
-- Practice previous year questions from last 5-10 years
-- Study toppers' answer sheets (for subjective exams like UPSC)
+ISOMERS:
+  Structural: ionisation (AgNO₃ test), linkage (ambidentate ligand)
+            hydrate, coordination position
+  Stereo: geometric (cis-trans, fac-mer) | optical (non-superimposable mirror images)
+  
+  Square planar: cis-trans possible (MA₂B₂, MABC₂)
+  Octahedral: cis-trans, fac-mer, optical isomers
 
-## Practice Resources
+VALENCE BOND THEORY (VBT):
+  Hybridisation determines geometry
+  Inner orbital complex: uses (n-1)d orbitals, low spin, diamagnetic (if paired)
+  Outer orbital complex: uses nd orbitals, high spin, paramagnetic (if unpaired)
 
-- **Labs section**: Advanced MCQ sets with detailed explanations
-- **Interview Q&A**: Conceptual questions that test deep understanding
-- Previous year papers: Non-negotiable for exam preparation
+CRYSTAL FIELD THEORY (CFT):
+  Strong field ligands (CO, CN⁻, NO₂⁻): large Δ → low spin
+  Weak field ligands (I⁻, Br⁻, Cl⁻, F⁻, OH⁻): small Δ → high spin
+  Spectrochemical series: I⁻ < Br⁻ < Cl⁻ < F⁻ < OH⁻ < H₂O < en < CN⁻ < CO
+```
+
+## Study Resources
+- **VK Jaiswal Organic Chemistry** — best for mechanisms and reactions
+- **Narendra Awasthi Physical Chemistry** — best for calculations
+- **Previous Year JEE Advanced Chemistry** — 2010-2024 complete analysis
+- **Unacademy Iconic JEE** — structured preparation with mock tests

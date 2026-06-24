@@ -1,53 +1,68 @@
-# JEE Chemistry — Certification Guide
+# JEE Chemistry Certification Guide
 
-## Why Get Certified in JEE Chemistry?
+## JEE Chemistry Overview
 
-Certifications validate your JEE Chemistry skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+Chemistry is equally divided into three parts for JEE: Physical Chemistry (~40%), Organic Chemistry (~35%), and Inorganic Chemistry (~25%).
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
-
-## Most Valuable Certifications
-
-Research current certifications for JEE Chemistry on these sources:
-
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
-
-## General Certification Strategy
-
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
-
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
+## Syllabus Overview
 
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+PHYSICAL CHEMISTRY:
+  Basic Concepts: mole concept, stoichiometry, limiting reagent
+  Atomic Structure: Bohr model, quantum numbers, orbital shapes
+  Chemical Bonding: VSEPR, hybridisation, MO theory, H-bonding
+  States of Matter: ideal gas laws, real gases, liquid properties
+  Thermodynamics: enthalpy, entropy, Gibbs energy, Hess's law
+  Equilibrium: Kc, Kp, Le Chatelier, acid-base, solubility product
+  Electrochemistry: EMF, Nernst equation, electrolysis, Faraday's laws
+  Chemical Kinetics: rate laws, activation energy, Arrhenius equation
+  Nuclear Chemistry: half-life, decay types, nuclear reactions
+
+INORGANIC CHEMISTRY:
+  Periodic Table: trends in properties, atomic radius, IE, EA, EN
+  s-block: alkali and alkaline earth metal properties and compounds
+  p-block: groups 13-18, oxides, hydrides, halides, uses
+  d-block: transition metals, coordination compounds (IUPAC naming, isomers)
+  f-block: lanthanides and actinides (general properties)
+  Metallurgy: ore concentration, extraction, refining processes
+  Environmental Chemistry: air/water/soil pollution
+
+ORGANIC CHEMISTRY:
+  Basic Principles: IUPAC naming, isomers, hybridisation, inductive effects
+  Hydrocarbons: alkanes, alkenes, alkynes — reactions, mechanisms
+  Functional Groups: alcohols, aldehydes, ketones, carboxylic acids, amines
+  Aromatic Chemistry: benzene reactions (EAS), Birch reduction
+  Polymers: addition and condensation polymers
+  Biomolecules: carbohydrates, proteins, nucleic acids, vitamins
+  Practical Chemistry: detection, separation, purification techniques
 ```
 
-## After Certification
+---
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## High Yield Topics
+
+```
+MOST MARKS IN JEE MAIN CHEMISTRY:
+  1. Coordination compounds (8-10 marks) — IUPAC naming, isomers, VBT/CFT
+  2. Organic reactions (15-20 marks) — mechanisms, name reactions
+  3. Equilibrium + Ionic equilibrium (8-10 marks)
+  4. Electrochemistry (8 marks) — Nernst, electrolysis, cells
+  5. p-block elements (8-10 marks) — oxides, hydrides, structure
+
+NAME REACTIONS (must know):
+  Aldol condensation | Cannizzaro reaction | Claisen condensation
+  Beckmann rearrangement | Baeyer-Villiger oxidation | Reimer-Tiemann
+  Sandmeyer reaction | Gabriel synthesis | Hell-Volhard-Zelinsky
+  Friedel-Crafts (alkylation + acylation) | Kolbe reaction
+```
+
+## Revision Notes
+```
+PHYSICAL CHEMISTRY: requires calculation practice (Kc/Kp, Nernst, rate constant)
+ORGANIC: mechanism understanding over memorisation — arrow pushing
+INORGANIC: highly factual — daily 30-minute revision keeps in memory
+
+MOLE CONCEPT: foundation of physical chemistry — master first
+NCERT: in inorganic chemistry, NCERT is almost sufficient for JEE Main
+BOOKS: NCERT + OP Tandon (Physical) + Morrison Boyd (Organic) + JD Lee (Inorganic)
+```

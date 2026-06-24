@@ -1,45 +1,73 @@
-# Coding Guidelines — Advanced
+# Medical Coding Advanced Guidelines
 
-## Mastery Level for CPC/CCS Certification
+## Compliance and Auditing
 
-Advanced topics in Coding Guidelines separate top scorers from average candidates. These questions test deep understanding, multi-concept application, and speed under pressure.
+```
+OIG COMPLIANCE PROGRAM:
+  Office of Inspector General — monitors Medicare/Medicaid fraud
+  Work Plan: annual list of audit targets
+  Common issues: upcoding, unbundling, medically unnecessary services
 
-## Advanced Topics
+UPCODING: billing higher-level code than documented
+  Example: billing 99215 (high complexity E&M) when 99213 warranted
+  Result: overpayment, potential fraud and abuse charges
 
-- ICD-10-CM Guideline Sections (A-C)
-- Principal Diagnosis Selection
-- Additional Diagnoses
-- Outpatient vs Inpatient Rules
-- Signs & Symptoms Coding
-- Combination Codes
-- Sequela & Late Effects
-- External Cause Codes
+DOWNCODING: billing lower than documented
+  Leaves money on table, not technically illegal but poor practice
 
-## Advanced Problem Patterns
+UNBUNDLING: billing components separately when bundled code exists
+  Example: billing each step of laparoscopic cholecystectomy separately
+  Instead: use single 47562 code
 
-At this level, questions combine multiple concepts:
-- **Multi-step problems**: require 3-5 steps, each using a different concept
-- **Tricky conditions**: unusual constraints that require careful reading
-- **Data interpretation**: extract relevant data, ignore noise, compute quickly
-- **Proof-based** (for GATE/University exams): derive, justify, analyze formally
+MODIFIER MISUSE:
+  Modifier 25: significant, separate E&M same day as procedure
+    Must document why E&M was above and beyond pre/post-op care
+  Modifier 59: distinct procedural service
+    Use only when no more specific modifier applies (XE, XS, XP, XU)
+  Modifier 51: multiple procedures (list highest RVU first)
 
-## Time Management for Advanced Questions
+RAC AUDITS (Recovery Audit Contractor):
+  Review claims for improper payments
+  Lookback: 3 years
+  Common targets: MS-DRG validation, medical necessity, duplicate billing
 
-In competitive exams, advanced questions take longer. Strategy:
-1. **Triage first**: scan all questions, mark easy/medium/hard
-2. **Do easy first**: secure those marks, build confidence
-3. **Medium next**: aim for partial credit where applicable
-4. **Hard last**: attempt with remaining time, guess if negative marking allows
+STARK LAW and ANTI-KICKBACK:
+  Stark: prohibits physician self-referral for designated health services
+  Anti-Kickback: prohibits remuneration for Medicare/Medicaid referrals
+  Civil Monetary Penalties: up to $10,000 per false claim + treble damages
+```
 
-## High-Yield Advanced Topics
+## Advanced E&M Coding (2021+ Guidelines)
 
-Based on previous years' patterns for CPC/CCS Certification:
-- Focus on the first 3 topics in the list above (highest weightage)
-- Practice previous year questions from last 5-10 years
-- Study toppers' answer sheets (for subjective exams like UPSC)
+```
+NEW 2021 E&M RULES (Office/Outpatient):
+  Level determined by EITHER:
+    Medical Decision Making (MDM) complexity, OR
+    Total time on date of encounter
 
-## Practice Resources
+  MDM COMPONENTS (need 2 of 3):
+    Number and complexity of problems
+    Amount/complexity of data reviewed
+    Risk of complications/morbidity
 
-- **Labs section**: Advanced MCQ sets with detailed explanations
-- **Interview Q&A**: Conceptual questions that test deep understanding
-- Previous year papers: Non-negotiable for exam preparation
+  LEVELS (99202-99215):
+    99202/99212: Straightforward MDM or 15-29 min
+    99203/99213: Low MDM or 30-44 min
+    99204/99214: Moderate MDM or 45-59 min
+    99205/99215: High MDM or 60-74 min
+
+  NEW vs ESTABLISHED:
+    New: not seen by physician (or same group/specialty) in 3 years
+    Established: seen within 3 years
+
+INPATIENT E&M (99221-99223 admission, 99231-99233 subsequent):
+  Still uses 3-key-component method (history, exam, MDM)
+  All 3 required for initial hospital (99221-99223)
+  2 of 3 required for subsequent (99231-99233)
+```
+
+## Study Resources
+- **OIG Work Plan** (oig.hhs.gov) — annual audit targets, free
+- **CMS Transmittals** — official policy changes for Medicare
+- **AAPC Codify** — online coding tool with guidance
+- **AHIMA Journal** — peer-reviewed health information management

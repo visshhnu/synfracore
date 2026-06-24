@@ -1,43 +1,79 @@
-# NEET Chemistry — Cheatsheet
+# NEET Chemistry Quick Reference
+
+## Periodic Table Key Data
 
 ```
-── PHYSICAL CHEMISTRY ───────────────────────────────────────
-1 mole = 6.022×10²³ | STP: 22.4 L/mol | PV=nRT
-Oxidation state rules: F always -1; O usually -2; H usually +1
-Equivalent weight = molar mass/n-factor
-M₁V₁=M₂V₂ (dilution) | N₁V₁=N₂V₂ (neutralization)
+ATOMIC RADIUS (pm):
+  Li(152) Na(186) K(227) | Be(112) Mg(160) Ca(197) | B(87) Al(143)
+  C(77) Si(118) | N(75) P(110) | O(73) S(103) | F(72) Cl(99)
 
-pH = -log[H⁺] | pOH = -log[OH⁻] | pH+pOH=14 at 25°C
-Ka×Kb = Kw = 10⁻¹⁴ | pKa + pKb = 14
+IONISATION ENERGY (kJ/mol, first):
+  Trend: increases → across period | decreases ↓ down group
+  Exceptions: IE₁(B) < IE₁(Be) | IE₁(O) < IE₁(N) | IE₁(Tl) < IE₁(In)
 
-Kp = Kc(RT)^Δn | ΔG = -RTlnK | ΔG° = -nFE°
-Rate = k[A]^m[B]^n | t½(1st order) = 0.693/k
-Arrhenius: k = Ae^(-Ea/RT)
+ELECTRONEGATIVITY (Pauling scale):
+  F(3.98) O(3.44) N(3.04) Cl(3.16) Br(2.96) C(2.55) H(2.2) Na(0.93)
+```
 
-── PERIODIC TABLE TRENDS ────────────────────────────────────
-Atomic radius: increases ↓ group, decreases → period
-Ionisation energy: decreases ↓, increases →
-Electronegativity: increases → and ↑ (F highest = 4.0)
-Electron affinity: Cl > F (F has small size, repulsion)
-Metallic character: increases ↓ and ←
-Melting point: metals generally decrease ↓ (exceptions)
+## Important Reactions Quick Reference
 
-── ORGANIC QUICK TESTS ──────────────────────────────────────
-Tollen's: Ag mirror → aldehyde
-Fehling's: brick red ppt → aliphatic aldehyde
-Iodoform: CHI₃ yellow ppt → CH₃CO- or CH₃CH(OH)- group
-Lucas: immediate turbidity = 3° alcohol
-Ninhydrin: purple → amino acid or amine
-Biuret: violet → protein (2+ peptide bonds)
-Molisch: purple ring → any carbohydrate
-Benedict's: brick red → reducing sugar
-Seliwanoff: red → ketose (fructose)
-Carbylamine: foul smell → primary amine only
+```
+IDENTIFICATION TESTS:
+  Primary amine: carbylamine test (CHCl₃ + KOH + R-NH₂ → isocyanide, foul smell)
+  Aldehyde: Tollens (silver mirror) | Fehling (red precipitate)
+  Ketone: 2,4-DNP (orange/red precipitate)
+  Unsaturation: decolourises Br₂/CCl₄
+  Phenol: FeCl₃ (violet colour) | doesn't react with NaHCO₃
+  Carboxylic acid: reacts with NaHCO₃ (CO₂ effervescence)
 
-── HYBRIDIZATION SHAPES ────────────────────────────────────
-sp:   linear (180°) — BeCl₂, CO₂, C₂H₂
-sp²:  trigonal planar (120°) — BF₃, SO₃, C₂H₄
-sp³:  tetrahedral (109.5°) — CH₄, CCl₄, NH₄⁺
-sp³d: trig bipyramidal (PCl₅) or T-shape (ClF₃) or seesaw (SF₄)
-sp³d²: octahedral (SF₆) or square planar (XeF₄)
+COLOUR GUIDE (inorganic — NEET loves these):
+  CrO₄²⁻: yellow | Cr₂O₇²⁻: orange | Cr³⁺: green | CrO₃: dark red
+  MnO₄⁻: purple | MnO₄²⁻: green | Mn²⁺: pink/light pink
+  Fe²⁺: pale green | Fe³⁺: yellow-brown | Cu²⁺: blue | Ni²⁺: green
+
+FLAME TEST COLOURS:
+  Li: crimson red | Na: golden yellow | K: lilac/violet
+  Ca: brick red | Sr: crimson red | Ba: apple green | Cu: blue-green
+```
+
+## Thermodynamics Key Formulas
+
+```
+ENTHALPY:
+  ΔH = ΔU + Δ(PV) = ΔU + ΔngRT (for ideal gases)
+  Hess's law: ΔH_rxn = ΣΔH_products - ΣΔH_reactants
+
+ENTROPY AND GIBBS ENERGY:
+  ΔS > 0: disorder increases (solid→liquid→gas, dissolution, more moles of gas)
+  ΔG = ΔH - TΔS
+  ΔG < 0: spontaneous | ΔG > 0: non-spontaneous | ΔG = 0: equilibrium
+
+THERMODYNAMIC PREDICTIONS:
+  ΔH < 0, ΔS > 0: always spontaneous (ΔG always negative)
+  ΔH > 0, ΔS < 0: never spontaneous
+  ΔH < 0, ΔS < 0: spontaneous at low T (enthalpy driven)
+  ΔH > 0, ΔS > 0: spontaneous at high T (entropy driven)
+```
+
+## Electrochemistry Quick Reference
+
+```
+CELL REACTION AND EMF:
+  E°cell = E°cathode - E°anode (standard reduction potentials)
+  Positive E°cell → spontaneous reaction
+
+NERNST EQUATION: E = E° - (0.0592/n) log Q (at 25°C)
+  At equilibrium: E = 0, so E° = (0.0592/n) log Keq
+
+FARADAY'S LAWS:
+  Q = I × t (charge = current × time)
+  Mass deposited: m = (M × I × t) / (n × 96500)
+  
+  1 Faraday = 96500 C = charge of 1 mole of electrons
+  
+CONDUCTANCE:
+  Specific conductance: κ = 1/ρ (reciprocal of resistivity)
+  Molar conductance: Λm = (κ × 1000) / M
+  Strong electrolytes: Λm increases linearly with dilution
+  Weak electrolytes: Λm increases sharply at high dilution (Kohlrausch law)
 ```

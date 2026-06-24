@@ -1,52 +1,88 @@
-# BigQuery Quick Reference
+# BigQuery Cheatsheet
+
+## Core SQL Patterns
+```sql
+-- Standard SQL (default)
+SELECT column1, COUNT(*) as cnt
+FROM `project.dataset.table`
+WHERE DATE(created_at) = CURRENT_DATE()
+  AND status = 'active'
+GROUP BY column1
+ORDER BY cnt DESC
+LIMIT 100;
+
+-- Partitioned table query (specify partition = cheaper)
+SELECT *
+FROM `project.dataset.events`
+WHERE _PARTITIONDATE = '2025-06-01'  -- partition pruning
+  AND event_type = 'click';
+
+-- Time-travel (query historical data)
+SELECT * FROM `project.dataset.table`
+FOR SYSTEM_TIME AS OF TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 HOUR);
+
+-- Approximate distinct count (faster for large datasets)
+SELECT APPROX_COUNT_DISTINCT(user_id) as approx_users FROM `project.dataset.events`;
+
+-- Wildcard tables (query multiple date-sharded tables)
+SELECT * FROM `project.dataset.events_*`
+WHERE _TABLE_SUFFIX BETWEEN '20250601' AND '20250630';
+
+-- ARRAY and STRUCT (nested data)
+SELECT user_id, item.name, item.price
+FROM `project.dataset.orders`, UNNEST(items) AS item
+WHERE item.price > 100;
+
+-- Window functions
+SELECT user_id, event_type,
+  ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY event_time) as rn,
+  LAG(event_type) OVER (PARTITION BY user_id ORDER BY event_time) as prev_event
+FROM `project.dataset.events`;
+```
 
 ## bq CLI Commands
 ```bash
-bq ls                                          # List datasets
-bq ls myproject:mydataset                      # List tables
-bq show mydataset.mytable                      # Table schema
-bq head -n 5 mydataset.mytable                 # First 5 rows
-bq query --use_legacy_sql=false 'SELECT COUNT(*) FROM mydataset.mytable'
+# Datasets
+bq mk --dataset --location=US myproject:mydataset
+bq ls myproject:
+bq rm -r myproject:mydataset
 
-# Load data
-bq load --autodetect --source_format=CSV mydataset.mytable gs://bucket/file.csv
-bq load --source_format=NEWLINE_DELIMITED_JSON mydataset.mytable gs://bucket/*.json schema.json
+# Tables
+bq show myproject:mydataset.mytable
+bq mk --table mydataset.mytable schema.json
+bq load --source_format=CSV mydataset.mytable gs://bucket/file.csv schema.json
+bq load --source_format=NEWLINE_DELIMITED_JSON mydataset.mytable gs://bucket/*.json
 
-# Create table
-bq mk --table mydataset.mytable name:STRING,age:INTEGER,created:TIMESTAMP
-bq mk --table --time_partitioning_field=created_at \
-  --clustering_fields=region,product mydataset.events schema.json
+# Query
+bq query --use_legacy_sql=false 'SELECT COUNT(*) FROM `myproject.mydataset.mytable`'
+bq query --destination_table myproject:mydataset.results --use_legacy_sql=false 'SELECT ...'
+bq extract --destination_format=CSV mydataset.mytable gs://bucket/output-*.csv
 
-# Copy and export
-bq cp mydataset.source mydataset.destination
-bq extract mydataset.mytable gs://bucket/export-*.csv
-bq rm -f mydataset.mytable
+# Jobs
+bq ls -j -n 20  # list recent jobs
+bq show -j <job-id>  # job details
+bq cancel <job-id>
 ```
 
-## SQL Patterns
-```sql
--- Partition pruning (key for cost control!)
-SELECT * FROM `project.dataset.events`
-WHERE DATE(created_at) = '2024-01-15'  -- Scans only that partition
-
--- Wildcard tables
-SELECT * FROM `project.dataset.events_*`
-WHERE _TABLE_SUFFIX BETWEEN '20240101' AND '20240131'
-
--- Approximate count (much faster/cheaper)
-SELECT APPROX_COUNT_DISTINCT(user_id) FROM events
-
--- Struct and array
-SELECT name, ARRAY_LENGTH(items) as item_count FROM orders
-SELECT o.name, item FROM orders o, UNNEST(o.items) AS item
+## Optimization Quick Reference
 ```
+PARTITIONING:
+  Ingestion-time: _PARTITIONDATE auto-assigned
+  Column: DATE/TIMESTAMP/INTEGER column
+  Always filter on partition column → partition pruning
 
-## Cost Control Reference
-```
-ALWAYS SELECT only needed columns (columnar = you pay per column scanned)
-Use WHERE on partition column (DATE/TIMESTAMP) to prune partitions
-Clustering: filter on cluster columns after partition → less scan
-Materialised views: pre-compute expensive aggregations
-APPROX_COUNT_DISTINCT: much faster than COUNT(DISTINCT)
-Dry run: bq query --dry_run → shows bytes to be scanned before running
+CLUSTERING:
+  Up to 4 columns per table
+  Applied after partitioning
+  Eliminates blocks containing non-matching values
+
+SLOT OPTIMIZATION:
+  On-demand: $5/TB processed (query cost = data scanned × rate)
+  Reservations: dedicated slots for predictable workloads
+  Flex Slots: short-term commitment (60s minimum)
+  Best practice: SELECT only columns needed (avoid SELECT *)
+
+MATERIALIZED VIEWS:
+  Pre-computed aggregations; auto-refresh; serve from cache
+  Good for: repeated aggregation queries on large tables
 ```

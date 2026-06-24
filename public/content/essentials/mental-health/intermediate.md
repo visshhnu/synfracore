@@ -1,48 +1,85 @@
-# Mental Wellness — Intermediate
+# Mental Health — Intermediate Guide
 
-## From Concepts to Problems
+## Intermediate Mental Health
 
-At the intermediate level, you apply fundamental knowledge to solve structured problems. This is where Daily Life Application questions at medium difficulty level fall.
+### Understanding Mental Health
 
-## Topics at This Level
+```
+MENTAL HEALTH CONTINUUM:
+  Not binary (sick/well) — a spectrum that changes over time
+  Everyone has mental health, like physical health
+  Factors affecting mental health:
+    Biological: genetics, brain chemistry, physical health
+    Psychological: thinking patterns, past experiences, personality
+    Social: relationships, work, finances, housing, discrimination
 
-- Common Mental Health Conditions
-- Stress Management Techniques
-- Cognitive Behavioral Therapy (CBT) Basics
-- Mindfulness & Meditation
-- Sleep Hygiene
-- Exercise & Mental Health
-- Social Support & Connection
-- When to Seek Help
+PROTECTIVE FACTORS:
+  Strong social connections and support network
+  Sense of purpose and meaning
+  Physical health (sleep, exercise, nutrition)
+  Coping skills and emotional regulation
+  Access to professional support when needed
 
-## Problem-Solving Strategy
+RISK FACTORS:
+  Social isolation | financial stress | trauma history
+  Substance misuse | chronic physical illness
+  Family history of mental illness | adverse childhood experiences
 
-For Mental Wellness at intermediate level:
+RECOVERY MODEL:
+  Recovery = living a meaningful life despite mental health challenges
+  Not necessarily absence of symptoms
+  Self-determination, hope, and personal growth central
+  Peer support plays significant role
 
-**1. Identify the type** — Which topic does this question belong to? (e.g., work-time, profit-loss, normalization)
+MENTAL HEALTH IN INDIA:
+  Treatment gap: ~80% of people with mental illness receive no treatment
+  National Mental Health Programme (NMHP)
+  Mental Healthcare Act 2017: right to mental healthcare
+  District Mental Health Programme (DMHP) in all districts
+  Barriers: stigma, cost, lack of professionals, awareness
 
-**2. Recall the approach** — What formula/method applies? Write it down.
+SELF-CARE STRATEGIES:
+  SLEEP: 7–9 hours, consistent schedule, dark/cool room
+  EXERCISE: 30 min moderate activity most days — proven antidepressant effect
+  NUTRITION: regular meals, limit caffeine/alcohol, hydration
+  SOCIAL: maintain at least one close relationship
+  MEANING: hobby, volunteering, creative activity
+  NATURE: 20+ minutes outdoors daily reduces cortisol
+```
 
-**3. Apply methodically** — Work step by step. Don't skip steps under time pressure — mistakes happen.
+## Revision Notes
+```
+CONTINUUM: mental health is a spectrum, not binary — everyone is on it
+BIO-PSYCHO-SOCIAL model: all three factors contribute to mental health
+PROTECTIVE FACTORS: social connection, purpose, physical health, coping skills
+INDIA: 80% treatment gap | MHA 2017 | NMHP | DMHP | iCall helpline
+SELF-CARE: SLEEP (7-9hr) + EXERCISE (30min) + SOCIAL + NATURE + MEANING
+RECOVERY: meaningful life with challenges — not necessarily symptom-free
+```
 
-**4. Verify** — Does your answer make sense? For MCQ, check if the answer is "in the ballpark."
 
-**5. Review wrong answers** — Every wrong answer reveals a gap. Fix the gap, not just the answer.
+## Additional Notes
 
-## Practice Distribution
+Cloud and infrastructure tools evolve rapidly. Always cross-reference with the official documentation for the most current commands and best practices.
 
-For optimal preparation:
-- 60% time on problem solving (not reading)
-- 20% time on concept review
-- 20% time on analyzing mistakes
+### Key Principles
+- Start with fundamentals before advanced configurations
+- Practice in a sandbox environment before applying to production
+- Understand the underlying concepts, not just the commands
+- Join community forums and follow official release notes for updates
+- Certifications validate knowledge — consider pursuing relevant credentials to demonstrate expertise
 
-## Key Formulas & Rules
+### Recommended Learning Path
+1. Complete official documentation and getting started guides
+2. Practice with hands-on labs and sandbox environments
+3. Build real projects to solidify understanding
+4. Study for and obtain relevant certifications
+5. Contribute to open-source projects or write blog posts to deepen knowledge
 
-Study the **Cheatsheet** section for a compiled list of the most important formulas and rules for Mental Wellness. The **Labs** section has intermediate MCQ sets that test exactly this level.
+### Community Resources
+- Official documentation is always the authoritative source
+- GitHub repositories often contain real-world examples and configurations
+- Stack Overflow and community forums help with specific problems
+- YouTube tutorials provide visual walkthroughs for complex topics
+- Local meetups and online communities connect you with practitioners
 
-## Transition to Advanced
-
-You're ready for advanced topics when you can:
-- Solve intermediate problems in under 2 minutes each
-- Identify the approach within 15 seconds of reading a problem
-- Score 75%+ consistently on intermediate MCQ sets

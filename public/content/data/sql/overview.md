@@ -1,41 +1,74 @@
-# SQL — Structured Query Language
-
-SQL is the universal language for working with relational databases. Whether you're a data analyst, backend developer, or DevOps engineer, SQL is a fundamental skill.
+# SQL Overview
 
 ## What is SQL?
 
-SQL (Structured Query Language) is the standard language for querying, manipulating, and managing relational databases. Originally developed at IBM in the 1970s, it's now supported by virtually every database system: PostgreSQL, MySQL, SQLite, SQL Server, Oracle, Snowflake, BigQuery, and more.
+SQL (Structured Query Language) is the standard language for managing and querying relational databases. It is used in MySQL, PostgreSQL, SQLite, SQL Server, Oracle, and BigQuery — making it the most widely used data language in the world.
 
-## Why SQL Still Dominates
+## Core SQL Categories
 
-Despite decades of NoSQL databases, SQL databases handle the vast majority of transactional workloads. Why?
+```
+DDL (Data Definition Language): structure
+  CREATE TABLE users (id INT PRIMARY KEY, name VARCHAR(100));
+  ALTER TABLE users ADD COLUMN email VARCHAR(255);
+  DROP TABLE users;
+  TRUNCATE TABLE users;  -- delete all rows, keep structure
 
-- **ACID transactions** — Atomicity, Consistency, Isolation, Durability
-- **Structured data** — Perfect for financial, HR, operational data
-- **Powerful queries** — Joins, aggregations, window functions
-- **Mature ecosystem** — Decades of tools, knowledge, optimization
-- **Ubiquity** — Every company runs at least one SQL database
+DML (Data Manipulation Language): data
+  INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com');
+  UPDATE users SET email = 'new@example.com' WHERE id = 1;
+  DELETE FROM users WHERE id = 1;
 
-## Database Types
+DQL (Data Query Language): retrieve
+  SELECT name, email FROM users WHERE active = 1 ORDER BY name;
 
-| Database | Best For | Notable Feature |
-|----------|---------|-----------------|
-| PostgreSQL | Complex queries, JSON | Best open-source, extensible |
-| MySQL/MariaDB | Web applications | Fast reads, widely hosted |
-| SQLite | Embedded, local | Zero config, single file |
-| SQL Server | Microsoft ecosystem | SSRS, SSIS integration |
-| Snowflake | Data warehousing | Columnar, cloud-native |
-| BigQuery | Analytics at scale | Serverless, petabyte scale |
+DCL (Data Control Language): permissions
+  GRANT SELECT ON users TO analyst_role;
+  REVOKE INSERT ON users FROM intern_role;
 
-## Relational Model
+TCL (Transaction Control Language): transactions
+  BEGIN; UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+  UPDATE accounts SET balance = balance + 100 WHERE id = 2; COMMIT;
+  ROLLBACK;  -- undo if error
+```
 
-Data is organized into **tables** (relations). Each table has:
-- **Rows** (records/tuples) — each represents one entity
-- **Columns** (attributes/fields) — each represents one property
-- **Primary Key** — unique identifier for each row
-- **Foreign Key** — reference to primary key in another table
+## Essential Query Patterns
 
-Relationships between tables:
-- **One-to-Many** — One customer has many orders
-- **Many-to-Many** — Orders have many products, products in many orders (needs junction table)
-- **One-to-One** — User has one profile
+```sql
+-- Joins
+SELECT u.name, o.total
+FROM users u
+INNER JOIN orders o ON u.id = o.user_id  -- only matching rows
+LEFT JOIN orders o ON u.id = o.user_id   -- all users, NULL if no order
+WHERE o.created_at >= '2025-01-01'
+ORDER BY o.total DESC LIMIT 10;
+
+-- Aggregations
+SELECT department, COUNT(*) as headcount, AVG(salary) as avg_salary
+FROM employees
+GROUP BY department
+HAVING COUNT(*) > 5  -- filter after grouping (WHERE is before)
+ORDER BY avg_salary DESC;
+
+-- Subquery
+SELECT name FROM users
+WHERE id IN (SELECT user_id FROM orders WHERE total > 1000);
+
+-- CTE (cleaner than subquery)
+WITH high_value_customers AS (
+  SELECT user_id FROM orders GROUP BY user_id HAVING SUM(total) > 10000
+)
+SELECT u.name, u.email
+FROM users u JOIN high_value_customers hvc ON u.id = hvc.user_id;
+
+-- Window functions
+SELECT name, salary,
+  RANK() OVER (PARTITION BY department ORDER BY salary DESC) as dept_rank,
+  salary - AVG(salary) OVER (PARTITION BY department) as vs_dept_avg
+FROM employees;
+```
+
+## Study Resources
+- **Mode SQL Tutorial** (mode.com/sql-tutorial) — free, interactive, real data
+- **SQLZoo** (sqlzoo.net) — browser-based SQL practice
+- **PostgreSQL documentation** — best free SQL reference, covers advanced features
+- **Leetcode SQL problems** — 200+ SQL interview problems with solutions

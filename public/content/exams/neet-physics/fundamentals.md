@@ -1,47 +1,71 @@
-# NEET Physics — Fundamentals
+# NEET Physics Fundamentals
 
-## Overview
+## Mechanics Fundamentals for NEET
 
-NEET Physics is a foundational subject for NEET. Mastering these fundamentals is essential before attempting intermediate or advanced topics.
+```
+KINEMATICS:
+  Equations of motion (uniform acceleration):
+    v = u + at
+    s = ut + ½at²
+    v² = u² + 2as
+  
+  Free fall: a = g = 9.8 m/s² downward
+  Projectile: horizontal (constant velocity) + vertical (gravity)
+    Time of flight: T = 2u sinθ/g
+    Maximum height: H = u²sin²θ/2g
+    Horizontal range: R = u²sin2θ/g
 
-## Core Topics Covered
+NEWTON'S LAWS:
+  1st Law: body at rest stays at rest, body in motion stays in motion unless acted upon
+  2nd Law: F = ma (net force causes acceleration)
+  3rd Law: every action has equal and opposite reaction on DIFFERENT bodies
+  
+  Free body diagram approach:
+    Isolate the object
+    Draw all forces: weight (mg down), normal (N up or perpendicular)
+    Tension T in string, friction f opposing motion
+    Apply F_net = ma in each direction
 
-- Mechanics
-- Electrostatics
-- Optics
-- Modern Physics
-- Thermodynamics
-- Waves
-- Current Electricity
-- Magnetic Effects
+WORK AND ENERGY:
+  Work: W = F·d·cosθ (θ = angle between force and displacement)
+    Positive work: force and displacement in same direction
+    Negative work: force opposes displacement (friction)
+    Zero work: force perpendicular to displacement (normal force)
+  
+  Kinetic Energy: KE = ½mv²
+  Potential Energy (gravitational): PE = mgh
+  Conservation: if no non-conservative forces: KE₁ + PE₁ = KE₂ + PE₂
 
-## Learning Approach
+CIRCULAR MOTION:
+  Centripetal acceleration: a = v²/r = ω²r (directed toward centre)
+  Centripetal force: F = mv²/r (net force toward centre — NOT extra force)
+  Banking angle: tan θ = v²/rg (for frictionless banked road)
+```
 
-**Step 1: Understand, don't memorize**
-Each concept in NEET Physics builds on the previous. Don't try to memorize formulas/rules before understanding why they work.
+## Electrostatics for NEET
 
-**Step 2: Practice with examples**
-After each concept, solve at least 5 examples before moving on. Understanding isn't enough — you need speed and accuracy.
+```
+COULOMB'S LAW: F = kq₁q₂/r² (k = 9×10⁹ N.m²/C²)
+  Vector form: force along line joining charges
+  Attractive for unlike charges | repulsive for like charges
 
-**Step 3: Use the Labs section**
-The MCQ quiz sets and flashcards in the Labs section are designed specifically for NEET Physics fundamentals. Complete all beginner-level questions before advancing.
+ELECTRIC FIELD: E = F/q₀ = kQ/r²
+  Field lines: start from positive, end at negative
+  Never cross | closer = stronger field
+  Inside conductor: E = 0 (charges redistribute)
 
-## Study Schedule
+POTENTIAL: V = kQ/r (scalar, not vector)
+  Work done = q(V₁ - V₂) (positive charge moves from high V to low V)
+  E = -dV/dr (negative gradient of potential)
 
-| Week | Focus Area | Daily Time |
-|---|---|---|
-| Week 1 | First 2-3 topics from the list above | 1-2 hours |
-| Week 2 | Next 2-3 topics | 1-2 hours |
-| Week 3 | Remaining topics + revision | 1-2 hours |
-| Week 4 | MCQ practice + weak area review | 2 hours |
+CAPACITOR: stores charge and energy
+  Q = CV | Energy = ½CV² = Q²/2C
+  Parallel plate: C = ε₀A/d | with dielectric: C = Kε₀A/d
+  Combination: Series: 1/C = Σ1/Cᵢ | Parallel: C = ΣCᵢ
+```
 
-## Common Mistakes at This Level
-
-- Skipping the basics and jumping to shortcuts
-- Not solving enough practice problems
-- Reading without writing/working through examples
-- Ignoring errors instead of analyzing them
-
-## What Comes Next
-
-After fundamentals, move to the **Intermediate** section which covers application of these concepts to real problems and harder question patterns.
+## Study Resources
+- **NCERT Physics 11 and 12** — NEET follows NCERT very closely
+- **DC Pandey Physics for NEET** — chapter-wise theory + problems
+- **PW (Physics Wallah) NEET Physics** — free excellent video lectures
+- **NEET PYQ Physics (2013-2024)** — 100-150 questions repeat or are similar

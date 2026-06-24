@@ -1,45 +1,80 @@
-# Gut Health — Advanced
+# Gut Health — Advanced Guide
 
-## Mastery Level for Daily Life Application
+## Advanced Gut Health Topics
 
-Advanced topics in Gut Health separate top scorers from average candidates. These questions test deep understanding, multi-concept application, and speed under pressure.
+### Leaky Gut and Intestinal Permeability
 
-## Advanced Topics
+```
+INTESTINAL BARRIER FUNCTION:
+  Single layer of epithelial cells connected by tight junctions
+  Allows: nutrients through | Blocks: pathogens, undigested food, toxins
+  
+  Leaky gut (increased intestinal permeability):
+    Tight junctions become loose
+    Undigested food particles, bacteria, toxins enter bloodstream
+    Triggers systemic inflammation and immune response
+  
+  CAUSES OF LEAKY GUT:
+    Dysbiosis: overgrowth of harmful bacteria
+    Diet: excessive refined sugar, processed food, alcohol, gluten (in sensitive)
+    NSAIDs: ibuprofen, aspirin damage gut lining
+    Stress: cortisol disrupts epithelial tight junctions
+    Antibiotics: kill beneficial bacteria, allow pathogen overgrowth
+  
+  HEALING STRATEGIES:
+    Remove triggers: processed food, alcohol, food intolerances
+    Replace: digestive enzymes, HCl if deficient
+    Reinoculate: probiotics + fermented foods
+    Repair: L-glutamine (gut cell fuel), zinc, collagen, bone broth
+    Rebalance: stress management, sleep optimisation
+  
+  CONDITIONS LINKED TO DYSBIOSIS:
+    IBS, IBD (Crohn's, UC), coeliac disease
+    Type 2 diabetes, obesity
+    Mental health: depression, anxiety
+    Autoimmune: rheumatoid arthritis, thyroid disease
+    Skin: eczema, psoriasis, acne
 
-- Gut Microbiome Composition
-- Prebiotics vs Probiotics
-- Fiber Types (Soluble/Insoluble)
-- Leaky Gut & Intestinal Permeability
-- Gut-Brain Axis
-- Fermented Foods
-- IBS Management
-- Foods to Avoid for Gut Health
+SIBO (Small Intestinal Bacterial Overgrowth):
+  Bacteria from large intestine colonise small intestine
+  Symptoms: bloating (especially after meals), gas, diarrhoea, malabsorption
+  Diagnosis: hydrogen/methane breath test
+  Treatment: specific antibiotics (rifaximin) + diet + address root cause
+```
 
-## Advanced Problem Patterns
+### The Gut and Immunity
 
-At this level, questions combine multiple concepts:
-- **Multi-step problems**: require 3-5 steps, each using a different concept
-- **Tricky conditions**: unusual constraints that require careful reading
-- **Data interpretation**: extract relevant data, ignore noise, compute quickly
-- **Proof-based** (for GATE/University exams): derive, justify, analyze formally
+```
+GUT IMMUNE SYSTEM:
+  GALT (Gut-Associated Lymphoid Tissue): 70% of immune system
+  Peyer's patches: lymphoid tissue sampling gut contents
+  IgA secretion: first-line antibody defence in gut lumen
+  Gut bacteria educate immune system — particularly in early life
+  
+MICROBIOME AND DISEASE:
+  Obese microbiome: more Firmicutes (extract more calories from food)
+  Lean microbiome: more Bacteroidetes
+  Transplanting obese mouse microbiome → lean mouse gains weight
+  
+BENEFICIAL BACTERIA:
+  Lactobacillus: ferment lactose, produce lactic acid, inhibit pathogens
+  Bifidobacterium: produce short-chain fatty acids, support immunity
+  Akkermansia muciniphila: maintain gut lining, metabolic health marker
+  Faecalibacterium prausnitzii: anti-inflammatory, reduced in IBD
+  
+SHORT-CHAIN FATTY ACIDS (SCFAs):
+  Produced when gut bacteria ferment dietary fibre
+  Butyrate: fuel for colonocytes, anti-inflammatory, reduce colon cancer risk
+  Propionate: liver metabolism, appetite regulation
+  Acetate: energy substrate, immune regulation
+```
 
-## Time Management for Advanced Questions
-
-In competitive exams, advanced questions take longer. Strategy:
-1. **Triage first**: scan all questions, mark easy/medium/hard
-2. **Do easy first**: secure those marks, build confidence
-3. **Medium next**: aim for partial credit where applicable
-4. **Hard last**: attempt with remaining time, guess if negative marking allows
-
-## High-Yield Advanced Topics
-
-Based on previous years' patterns for Daily Life Application:
-- Focus on the first 3 topics in the list above (highest weightage)
-- Practice previous year questions from last 5-10 years
-- Study toppers' answer sheets (for subjective exams like UPSC)
-
-## Practice Resources
-
-- **Labs section**: Advanced MCQ sets with detailed explanations
-- **Interview Q&A**: Conceptual questions that test deep understanding
-- Previous year papers: Non-negotiable for exam preparation
+## Revision Notes
+```
+LEAKY GUT: tight junctions loosen → inflammation → autoimmune/systemic issues
+4Rs: Remove (triggers) → Replace (enzymes) → Reinoculate (probiotics) → Repair (glutamine)
+SIBO: bacteria in small intestine | bloating after meals | breath test diagnosis
+GALT: 70% immune system in gut | IgA first-line defence
+SCFAs: butyrate (gut fuel) + propionate + acetate — produced from fibre fermentation
+FIRMICUTES: more in obese | BACTEROIDETES: more in lean — diet shapes ratio
+```

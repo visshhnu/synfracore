@@ -1,51 +1,70 @@
-# Cloud Security Quick Reference
+# Cloud Security Cheatsheet
 
-## AWS Security Commands
+## Security Commands Reference
+
 ```bash
-# Security Hub (CSPM)
-aws securityhub get-findings --filters '{"SeverityLabel":[{"Value":"CRITICAL","Comparison":"EQUALS"}]}'
-aws securityhub enable-security-hub --enable-default-standards
+# AWS — Check public S3 buckets
+aws s3api list-buckets --query 'Buckets[].Name' --output text | \
+  xargs -I {} aws s3api get-bucket-acl --bucket {}
 
-# GuardDuty (threat detection)
-aws guardduty create-detector --enable
-aws guardduty list-findings --detector-id xxx
-aws guardduty get-findings --detector-id xxx --finding-ids yyy
+# AWS — Enable GuardDuty all regions
+for region in $(aws ec2 describe-regions --query 'Regions[].RegionName' --output text); do
+  aws guardduty create-detector --enable --region $region
+done
 
-# Config (compliance)
-aws configservice describe-compliance-by-config-rule --compliance-types NON_COMPLIANT
-aws configservice get-compliance-details-by-resource --resource-type AWS::S3::Bucket --resource-id my-bucket
+# AWS — CloudTrail status check
+aws cloudtrail describe-trails --include-shadow-trails false
+aws cloudtrail get-trail-status --name myTrail
 
-# CloudTrail
-aws cloudtrail lookup-events --lookup-attributes AttributeKey=Username,AttributeValue=alice
-aws cloudtrail get-trail-status --name my-trail
+# AWS — IAM password policy check
+aws iam get-account-password-policy
 
-# Secrets Manager
-aws secretsmanager create-secret --name db/password --secret-string 'mysecret'
-aws secretsmanager get-secret-value --secret-id db/password
-aws secretsmanager rotate-secret --secret-id db/password
+# AWS — Find over-permissive security groups
+aws ec2 describe-security-groups \
+  --filters "Name=ip-permission.cidr,Values=0.0.0.0/0" \
+  --query 'SecurityGroups[].{ID:GroupId,Name:GroupName,Ports:IpPermissions[].FromPort}'
+
+# Azure — Defender for Cloud secure score
+az security secure-score-controls list
+
+# Azure — Enable Defender for Storage
+az security pricing create -n StorageAccounts --tier Standard
+
+# GCP — List overly permissive IAM bindings
+gcloud projects get-iam-policy PROJECT_ID --format=json | \
+  python3 -c "import json,sys; p=json.load(sys.stdin); [print(b) for b in p['bindings'] if 'allUsers' in b.get('members',[]) or 'allAuthenticatedUsers' in b.get('members',[])]"
+
+# GCP — Enable Security Command Center
+gcloud services enable securitycenter.googleapis.com
 ```
 
-## Quick Security Checklist
+## Security Checklist (Quick Audit)
 ```
-IAM:
-  ☐ MFA enabled for root and all privileged users
-  ☐ No active root access keys
-  ☐ Least privilege for all roles and users
-  ☐ Access Analyzer enabled (find external access)
-
-Network:
-  ☐ No 0.0.0.0/0 on port 22 or 3389 in security groups
-  ☐ VPC Flow Logs enabled
-  ☐ Resources in private subnets (no direct internet)
-
-Data:
-  ☐ S3 Block Public Access enabled account-wide
-  ☐ EBS/RDS encryption enabled
-  ☐ CloudTrail enabled in all regions
-  ☐ KMS for sensitive data with CMKs
-
-Monitoring:
-  ☐ Security Hub + GuardDuty enabled
-  ☐ Config rules for compliance monitoring
-  ☐ CloudWatch alarms for root login, policy changes
+☐ Root / Global Admin MFA enabled
+☐ No root access keys (AWS) — delete them
+☐ CloudTrail / Activity Log / GCP Audit Logs enabled ALL regions
+☐ GuardDuty / Defender for Cloud / SCC enabled
+☐ No 0.0.0.0/0 on port 22 or 3389
+☐ No public S3 buckets with sensitive data
+☐ Encryption at rest on all storage and databases
+☐ Secrets in Secrets Manager / Key Vault (not env vars or code)
+☐ MFA required for all human users
+☐ Access keys rotated in last 90 days
+☐ Unused IAM users/service principals disabled
+☐ VPC Flow Logs enabled
+☐ Budget alerts configured
+☐ Backup tested (can you restore?)
+☐ Incident response runbook exists
 ```
+
+## Key Security Tools by Cloud
+| Tool | AWS | Azure | GCP |
+|------|-----|-------|-----|
+| Threat detection | GuardDuty | Defender for Cloud | SCC |
+| SIEM | Security Lake + partner | Sentinel | Chronicle |
+| Vuln scan | Inspector | Defender for Servers | SCC Premium |
+| Posture mgmt | Security Hub | Defender CSPM | SCC |
+| Secrets | Secrets Manager | Key Vault | Secret Manager |
+| Key mgmt | KMS | Key Vault | Cloud KMS |
+| WAF | AWS WAF | Azure WAF | Cloud Armor |
+| Identity | IAM + STS | Entra ID | Cloud IAM |

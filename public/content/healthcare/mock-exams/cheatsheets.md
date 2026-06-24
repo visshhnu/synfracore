@@ -1,32 +1,74 @@
-# Medical Coding Mock Exams — Quick Reference
+# Medical Coding Mock Exams Quick Reference Cheatsheet
 
-## Essential Reference Guide
+## High-Frequency Code Quick Reference
 
+```
+TOP ICD-10-CM CODES (memorise these):
+  E11.9   Type 2 DM, no complications
+  E11.65  Type 2 DM with hyperglycemia
+  I10     Essential (primary) hypertension
+  I50.9   Heart failure, unspecified
+  I50.23  Acute-on-chronic systolic CHF
+  J18.9   Pneumonia, unspecified organism
+  J44.1   COPD with acute exacerbation
+  N18.3   CKD stage 3
+  M79.3   Panniculitis (unspecified)
+  Z00.00  Encounter for general adult medical exam
+  Z12.11  Encounter for screening for malignant neoplasm of colon
+  Z79.4   Long-term (current) use of insulin
+  Z87.891 Personal history of nicotine dependence
 
+TOP CPT E&M CODES:
+  99213   Office/outpatient established, low complexity
+  99214   Office/outpatient established, moderate complexity
+  99215   Office/outpatient established, high complexity
+  99203   Office/outpatient new, low complexity
+  99204   Office/outpatient new, moderate complexity
+  99232   Hospital subsequent, moderate complexity
+  99283   Emergency dept, moderate complexity
+  99291   Critical care, first 30-74 minutes
 
+TOP MODIFIERS:
+  -22  Increased procedural services
+  -25  Significant, separate E&M same day as procedure
+  -26  Professional component only
+  -50  Bilateral procedure
+  -51  Multiple procedures
+  -59  Distinct procedural service
+  -76  Repeat procedure same physician
+  -TC  Technical component only
+  -LT/-RT  Left/Right side
+```
 
+## MDM Quick Reference Table
 
-## CPC Exam Quick Facts\n- Questions: 150 MCQ\n- Time: 5 hours 40 minutes (~2.3 min/question)\n- Passing: 70%\n- Allowed: ICD-10-CM, CPT (including appendices), HCPCS Level II manuals\n- Offered: In-person at testing center or at home (online proctored)\n\n## Modifier Quick Reference\n| Modifier | When to Use |\n|---|---|\n| -22 | Increased procedural services |\n| -25 | Significant, separate E/M same day as procedure |\n| -51 | Multiple procedures (secondary CPT codes) |\n| -57 | E/M resulting in decision for major surgery |\n| -58 | Staged/related procedure during global period |\n| -59 | Distinct procedural service |\n| -76 | Repeat procedure by same physician |\n| -79 | Unrelated procedure during global period |\n| -GA | ABN on file |\n| -GY | Statutory exclusion (not a Medicare benefit) |\n| -KX | Documentation on file (LCD requirement met) |\n| -RT/-LT | Right/Left side |\n| -50 | Bilateral procedure |\n\n## ICD-10 Sequencing Rules (Outpatient)\n1. Code the condition chiefly responsible for services (first-listed)\n2. Code chronic conditions as additional dx each visit if applicable\n3. Do NOT code probable/suspected diagnoses — code signs/symptoms\n4. External cause codes: never first-listed\n5. Z codes for health encounters without illness: can be first-listed
+| Level | Problems | Data | Risk | Code (New/Est) |
+|-------|----------|------|------|----------------|
+| Straightforward | 1 self-limited | Min/none | Minimal | 99202/99212 |
+| Low | 2 self-limited or 1 stable chronic | Limited | Low | 99203/99213 |
+| Moderate | 1 chronic + exacerbation | Moderate | Moderate | 99204/99214 |
+| High | 1 chronic severe / acute threat | Extensive | High | 99205/99215 |
 
-## Practical Application
+## ICD-10-CM Coding Rules Quick Reference
 
-Understanding this topic in depth requires applying it to real case scenarios. Work through the case studies in the Advanced section and use the MCQ quiz sets in the Labs section to test your knowledge.
-
-## Key Regulations to Know
-
-- **HIPAA Privacy Rule** — protects patient health information (PHI); applies to covered entities and business associates
-- **HIPAA Security Rule** — technical, physical, administrative safeguards for electronic PHI (ePHI)  
-- **CMS Conditions of Participation** — requirements for facilities participating in Medicare/Medicaid
-- **OIG Compliance Guidelines** — voluntary compliance program guidance for healthcare organizations
-- **False Claims Act** — civil and criminal penalties for fraudulent billing; qui tam provisions allow whistleblowers
-
-## Certification Preparation
-
-Most positions in this area recognize the following certifications:
-- **CPC** (Certified Professional Coder) — AAPC, outpatient/physician focus
-- **CCS** (Certified Coding Specialist) — AHIMA, inpatient/hospital focus
-- **RHIT** (Registered Health Information Technician) — AHIMA
-- **RHIA** (Registered Health Information Administrator) — AHIMA senior credential
-- **CPB** (Certified Professional Biller) — AAPC, billing and reimbursement
-
-Continuing education (CEUs) required annually to maintain all credentials.
+```
+CODE SEQUENCING:
+  Inpatient: principal diagnosis first (condition after study that occasioned admission)
+  Outpatient: first-listed diagnosis (condition chiefly responsible for the visit)
+  
+CODE TO HIGHEST SPECIFICITY:
+  Wrong: E11.9 (unspecified) when documentation says "with neuropathy"
+  Right: E11.40 (Type 2 DM with diabetic neuropathy, unspecified)
+  
+UNCERTAIN DIAGNOSES:
+  Inpatient: code probable/suspected/likely as confirmed
+  Outpatient: code symptoms only (NOT probable/suspected/rule out)
+  
+COMBINATION CODES:
+  Use single combination code when available (E11.65 = DM2 + hyperglycemia)
+  Do not code two codes if one combination code covers both conditions
+  
+SIGNS AND SYMPTOMS:
+  Code as additional: if not routinely associated with confirmed diagnosis
+  Do NOT code: if integral to confirmed diagnosis (cough with COPD = don't separately code)
+```

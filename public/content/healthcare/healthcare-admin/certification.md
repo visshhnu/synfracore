@@ -1,53 +1,97 @@
-# Healthcare Administration — Certification Guide
+# Healthcare Administration Certification Guide
 
-## Why Get Certified in Healthcare Administration?
+## Top Certifications
 
-Certifications validate your Healthcare Administration skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+| Cert | Provider | Cost | Format |
+|------|----------|------|--------|
+| **FACHE (Fellow, ACHE)** | ACHE | $250 + membership | Portfolio + exam |
+| **CMPE (Certified Medical Practice Executive)** | MGMA | $500 | MCQ |
+| **RHIA (Registered Health Info Admin)** | AHIMA | $299 | MCQ, 4 hrs |
+| **CPHM (Certified Professional Healthcare Management)** | NAHSE | $300 | MCQ |
+| **MHA degree programs** | Universities | Varies | Degree + residency |
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+---
 
-## Most Valuable Certifications
-
-Research current certifications for Healthcare Administration on these sources:
-
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
-
-## General Certification Strategy
-
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
-
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
+## Core Healthcare Admin Domains
 
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+HEALTHCARE FINANCE:
+  Revenue cycle: scheduling → registration → coding → billing → payment
+  Accounts receivable: days in AR target < 40-50 days
+  Denial rate: target < 5% of claims
+  Collection rate: gross vs net collection rate
+  Operating margin: (revenue - expenses) / revenue × 100
+  Payer mix: Medicare/Medicaid vs commercial — affects reimbursement rates
+
+  DRG (Diagnosis Related Group):
+    Medicare inpatient payment methodology
+    Fixed payment based on diagnosis category
+    MS-DRG: CMS Medicare Severity DRGs (750+ groups)
+    Higher severity = higher payment weight
+    CC/MCC: complication/comorbidity adds to DRG weight
+
+HEALTHCARE QUALITY:
+  HEDIS: Health Effectiveness Data and Information Set
+    Used by health plans to measure care quality
+    Examples: mammography rates, diabetes A1c control, blood pressure
+  HCAHPS: Hospital Consumer Assessment of Healthcare Providers
+    Patient satisfaction surveys — tied to Medicare reimbursement
+    Domains: nurse communication, physician communication, discharge info
+  Core measures: Joint Commission standards (sepsis, VTE prevention)
+  Patient safety indicators: HAC (hospital-acquired conditions)
+
+REGULATORY COMPLIANCE:
+  HIPAA: privacy (PHI protection), security (electronic PHI)
+  EMTALA: emergency care regardless of ability to pay
+  ACA: insurance reforms, Medicaid expansion, quality reporting
+  Stark Law / Anti-Kickback: physician self-referral restrictions
+  CMS Conditions of Participation: hospital accreditation standards
+  Joint Commission: voluntary accreditation (most hospitals pursue)
 ```
 
-## After Certification
+---
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## Revenue Cycle Management
+
+```
+FRONT END (access management):
+  Scheduling, registration, insurance verification
+  Pre-authorization for procedures
+  Financial counseling and payment plans
+  Point-of-service collections
+
+MIDDLE (clinical and coding):
+  Medical documentation by providers
+  Clinical documentation improvement (CDI)
+  Medical coding (ICD-10-CM, CPT, DRGs)
+  Charge capture — ensure all billable services recorded
+
+BACK END (billing and collections):
+  Claim submission (electronic 837 transaction)
+  Remittance processing (835 ERA)
+  Denial management and appeals
+  Bad debt and charity care write-offs
+  Outsourced vs in-house billing decisions
+
+KEY METRICS:
+  Days in AR: lower is better (< 40 days target)
+  Clean claim rate: claims paid without correction on first submission (> 95%)
+  Denial rate: percentage denied (< 5% target)
+  Net collection rate: actual collections vs net collectible
+  DNFB (discharged not final billed): tracks coding backlog
+```
+
+## Revision Notes
+```
+HEALTHCARE ADMIN ROLES: CEO, CFO, COO, department directors, practice managers
+FACHE: requires 3 years management experience + exam + references
+CMPE: for medical practice managers specifically (MGMA)
+
+REIMBURSEMENT MODELS:
+  Fee-for-service (FFS): pay per service (traditional)
+  Value-based: pay based on outcomes (CMS MACRA/MIPS)
+  Capitation: fixed per-member per-month regardless of utilization
+  Bundled payments: single payment for episode of care
+
+KEY LAWS: HIPAA | EMTALA | ACA | Stark | Anti-Kickback | False Claims Act
+```

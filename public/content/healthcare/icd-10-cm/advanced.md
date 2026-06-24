@@ -1,49 +1,76 @@
-# ICD-10-CM — Advanced
+# ICD-10-CM Advanced Topics
 
-## Z Codes — Factors Influencing Health Status
+## Complex Coding Scenarios
 
-Z codes (Z00-Z99) describe encounters for reasons other than a disease or injury:
+```
+NEOPLASM TABLE:
+  Determine: primary, secondary, in situ, benign, uncertain, unspecified
+  C codes: malignant primary neoplasms
+  C77-C79: secondary (metastatic) neoplasms
+  D00-D09: carcinoma in situ
+  D10-D36: benign neoplasms
 
-**Common Z code categories:**
-- Z00-Z13: Encounters for examinations and screenings
-- Z20-Z29: Persons with potential health hazards
-- Z30-Z39: Reproductive/pregnancy
-- Z40-Z53: Aftercare
-- Z55-Z65: Socioeconomic and psychosocial circumstances
-- Z66-Z99: Chronic conditions, status codes
+  Coding sequence for cancer:
+  1. Primary site (if known and being treated)
+  2. Secondary sites
+  3. Comorbidities affecting care
+  4. Z codes for follow-up if cancer excised
 
-**Social determinants of health (SDOH)** can now be coded with Z codes:
-- Z59.00: Homelessness
-- Z63.4: Disappearance/death of family member
-- Z56.0: Unemployment
-- Z59.9: Problem related to housing
+OBSTETRIC CODING (O codes):
+  7th character = trimester or delivery
+    1 = first trimester (less than 14 weeks)
+    2 = second trimester (14-27 weeks)
+    3 = third trimester (28+ weeks)
+    4 = postpartum / delivery
+  Always code O80 Normal delivery when applicable
+  Principal dx must be O code when delivery occurs
 
-Coding SDOH factors is increasingly important for population health management and value-based care models.
+EXTERNAL CAUSE CODES (V/W/X/Y):
+  Never principal diagnosis — always supplementary
+  Activity code (Y93): what patient was doing
+  Place of occurrence (Y92): where injury happened
+  Status (Y99): work/leisure/military
 
-## Present on Admission (POA) for Complex Cases
+POISONING vs ADVERSE EFFECT vs UNDERDOSING:
+  Poisoning: overdose or wrong substance — T codes, sequence first
+  Adverse effect: correct drug, correct dose, bad reaction — T code last
+  Underdosing: taking less than prescribed — T code, complications second
+  Combination codes available for drug + manifestation
 
-**Scenario**: Patient admitted with pneumonia. On day 3, develops C. difficile colitis.
+HIV CODING:
+  Z21: asymptomatic HIV infection (positive test, no symptoms)
+  B20: HIV disease (symptomatic) — sequence first
+  Never use inconclusive test result codes for confirmed HIV
+  Confirmed by provider statement, not lab alone
+```
 
-Coding:
-- Pneumonia: POA = Y (present on admission)
-- C. difficile colitis: POA = N (hospital-acquired)
+## Coding Clinics and Guidelines
 
-Impact: C. diff is a Hospital-Acquired Condition (HAC). Medicare may not pay the additional DRG cost for HACs with POA = N. This is why CDI and documentation accuracy matter financially.
+```
+SEQUENCING HIERARCHY:
+  1. Etiology/manifestation convention (code etiology first)
+  2. Two or more diagnoses equally meeting definition of principal
+  3. Two or more comparative/contrasting diagnoses
+  4. Original treatment plan not carried out
+  5. Complications of surgery and other treatment
 
-## DRG System and ICD-10-PCS
+SIGNS AND SYMPTOMS:
+  Code when no definitive diagnosis established
+  Do not code if sign/symptom integral to confirmed diagnosis
+  R codes acceptable as principal dx in outpatient setting
 
-For inpatient hospital billing, diagnoses and procedures flow into DRGs (Diagnosis Related Groups):
-- Each patient admission assigned one DRG
-- DRG determines payment (IPPS — Inpatient Prospective Payment System)
-- CC/MCC (Comorbidity/Major Comorbidity) codes increase DRG weight
+CHRONIC CONDITIONS:
+  Always code if documented and affect patient care
+  No limit on number of codes per encounter
+  Conditions documented as "history of" — use Z codes if resolved
 
-ICD-10-PCS (Procedure Coding System): used for inpatient procedures. Different from CPT. 7-character alphanumeric code. Required on UB-04 claims.
+UNCERTAINTY WORDS (inpatient only):
+  "Probable," "suspected," "likely," "possible" — CODE as if confirmed
+  (Outpatient: code signs/symptoms, not uncertain diagnoses)
+```
 
-## Auditing and Compliance
-
-RAC (Recovery Audit Contractors) review Medicare claims:
-- Look for: upcoding, incorrect diagnoses, medically unnecessary services
-- Can audit up to 3 years of claims
-- Provider must repay incorrectly paid claims + interest
-
-Best defense: accurate, complete documentation that supports every coded diagnosis and procedure.
+## Study Resources
+- **AAPC ICD-10-CM Codebook** — official annual edition, required for exam
+- **AHA Coding Clinic** — official guidance published quarterly
+- **AAPC CPC Study Guide** — exam preparation with practice questions
+- **Optum360 EncoderPro** — online coding tool with guidelines built in

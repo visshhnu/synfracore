@@ -1,45 +1,81 @@
-# UPSC Mains — Fundamentals
+# UPSC Mains Fundamentals
 
-## Overview
+## What is UPSC Mains?
 
-UPSC Mains is a foundational subject for UPSC Mains. Mastering these fundamentals is essential before attempting intermediate or advanced topics.
+UPSC Civil Services Mains is the second stage of the CSE examination. Only candidates who clear the Prelims are eligible to appear. Mains tests analytical ability, knowledge depth, and communication skills through descriptive written answers.
 
-## Core Topics Covered
+## Key Differences from Prelims
 
-- GS1: History, Geography, Society
-- GS2: Polity, Governance, International Relations
-- GS3: Economy, Agriculture, Science, Environment
-- GS4: Ethics, Integrity, Aptitude
-- Essay Paper
-- Optional Subject
+```
+PRELIMS vs MAINS:
+  Prelims: objective MCQ | Mains: subjective descriptive answers
+  Prelims: factual recall | Mains: analytical thinking and application
+  Prelims: 2 papers | Mains: 9 papers over 5 days
+  Prelims: eliminator | Mains: determines final merit rank (along with interview)
+  
+  What examiners want in Mains:
+    - Multi-dimensional analysis (not one-sided)
+    - Use of examples, data, case studies
+    - Balanced conclusion with way forward
+    - Clarity and structure (introduction, body, conclusion)
+    - Diagrams and flowcharts where relevant
+```
 
-## Learning Approach
+## Optional Subject Selection
 
-**Step 1: Understand, don't memorize**
-Each concept in UPSC Mains builds on the previous. Don't try to memorize formulas/rules before understanding why they work.
+```
+POPULAR OPTIONALS AND WHY:
+  Public Administration:
+    Overlap with GS Paper 2 | short syllabus | many coaching materials
+    Risk: popular = more competition, average scores
+  
+  Sociology:
+    Overlap with GS Paper 1 (society) | relatively stable syllabus
+    Good for candidates with social science background
+  
+  History:
+    Overlap with GS Paper 1 | vast syllabus | need good memory
+    Better if you genuinely enjoy the subject
+  
+  Geography:
+    Significant overlap with GS Papers | maps help | scoring if done well
+    Good if strong in UPSC geography preparation
+  
+  PSIR (Political Science and International Relations):
+    Overlap with GS Papers 2 | good scoring | popular with humanities graduates
+  
+  Anthropology:
+    Shorter syllabus | less competition | decent scoring
+    Good for science graduates as it includes biological anthropology
 
-**Step 2: Practice with examples**
-After each concept, solve at least 5 examples before moving on. Understanding isn't enough — you need speed and accuracy.
+  Engineering/Medical/Law/Literature:
+    Best for background holders — do not choose without prior knowledge
+```
 
-**Step 3: Use the Labs section**
-The MCQ quiz sets and flashcards in the Labs section are designed specifically for UPSC Mains fundamentals. Complete all beginner-level questions before advancing.
+## Essay Paper Strategy
 
-## Study Schedule
+```
+TWO ESSAYS (250 marks):
+  Section A: philosophical/abstract topics
+  Section B: socio-economic/governance topics
+  
+  Write approximately 1000-1200 words per essay
+  Time: 3 hours total (90 minutes each)
+  
+  APPROACH:
+    Spend 10 minutes outlining before writing
+    Introduction: quote / anecdote / fact / rhetorical question
+    Body: 4-5 paragraphs with different dimensions
+    Use: examples from India and world | data | committee reports
+    Conclusion: visionary but realistic way forward
+  
+  AVOID:
+    One-sided arguments | extreme positions | poor structure
+    Only facts without analysis | cliched quotes | very short essays
+```
 
-| Week | Focus Area | Daily Time |
-|---|---|---|
-| Week 1 | First 2-3 topics from the list above | 1-2 hours |
-| Week 2 | Next 2-3 topics | 1-2 hours |
-| Week 3 | Remaining topics + revision | 1-2 hours |
-| Week 4 | MCQ practice + weak area review | 2 hours |
-
-## Common Mistakes at This Level
-
-- Skipping the basics and jumping to shortcuts
-- Not solving enough practice problems
-- Reading without writing/working through examples
-- Ignoring errors instead of analyzing them
-
-## What Comes Next
-
-After fundamentals, move to the **Intermediate** section which covers application of these concepts to real problems and harder question patterns.
+## Study Resources
+- **UPSC CSE Topper answer copies** — download from upsc.gov.in
+- **IASbaba / Insights on India** — free study material and answer practice
+- **Vision IAS Mains Test Series** — structured preparation
+- **Vajiram and Ravi class notes** — comprehensive GS coverage

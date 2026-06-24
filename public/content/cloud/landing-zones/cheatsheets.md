@@ -1,44 +1,85 @@
-# Cloud Landing Zone Quick Reference
+# Cloud Landing Zones Cheatsheet
 
-## AWS Control Tower Commands
+## AWS Landing Zone — Key Components
 ```bash
-# AWS Organizations
-aws organizations create-organization
-aws organizations create-organizational-unit --parent-id r-xxxx --name Workloads
-aws organizations create-account --email new@company.com --account-name dev-account
-aws organizations list-accounts
+# AWS Control Tower (managed landing zone)
+# Setup via console: aws.amazon.com/controltower
 
-# Service Control Policies (preventive guardrails)
-aws organizations create-policy --name deny-disable-cloudtrail \
-  --type SERVICE_CONTROL_POLICY --content file://scp.json
-aws organizations attach-policy --policy-id p-xxxx --target-id ou-xxxx
+# Key concepts:
+# Management account: Control Tower home, no workloads
+# Log archive account: centralised CloudTrail, Config logs
+# Audit account: security team access, read-only across org
 
-# AWS Config (detective guardrails)
-aws configservice put-config-rule --config-rule file://rule.json
-aws configservice describe-compliance-by-config-rule
+# Account Factory — create new accounts via Service Catalog
+aws servicecatalog list-portfolios
+aws servicecatalog search-products --filters FullTextSearch=account
 
-# Control Tower — primarily managed via AWS Console
-# aws controltower list-landing-zones  (preview API)
+# SCPs — apply guardrails at OU level
+aws organizations list-policies --filter SERVICE_CONTROL_POLICY
+aws organizations describe-policy --policy-id p-xxxx
+
+# Common preventive guardrails (SCPs):
+# - Deny root account usage
+# - Require S3 bucket encryption
+# - Deny disabling CloudTrail
+# - Deny leaving AWS Organisations
+
+# Common detective guardrails (Config rules):
+# - s3-bucket-public-read-prohibited
+# - encrypted-volumes
+# - cloudtrail-enabled
+# - iam-password-policy
+
+# Example SCP: Deny root
+cat > deny-root.json << 'EOF'
+{
+  "Version": "2012-10-17",
+  "Statement": [{
+    "Effect": "Deny",
+    "Action": "*",
+    "Resource": "*",
+    "Condition": {"StringLike": {"aws:PrincipalArn": "arn:aws:iam::*:root"}}
+  }]
+}
+EOF
+aws organizations create-policy --content file://deny-root.json \
+  --description "Deny root usage" --name DenyRoot --type SERVICE_CONTROL_POLICY
 ```
 
-## Account Structure Reference
-```
-Root (Management Account)
-├── Security OU
-│   ├── Log Archive (S3 + CloudTrail logs)
-│   └── Security Tooling (Security Hub, GuardDuty, SIEM)
-├── Infrastructure OU
-│   ├── Shared Services (DNS, AD, Transit Gateway, Artifactory)
-│   └── Network (VPCs, Direct Connect, VPN hub)
-├── Workloads OU
-│   ├── Dev
-│   ├── Staging
-│   └── Prod
-└── Sandbox OU (isolated developer accounts)
+## Azure Landing Zone — Key Components
+```bash
+# Management Group hierarchy
+az account management-group create --name "Platform" --display-name "Platform"
+az account management-group create --name "Connectivity" --parent "Platform"
+az account management-group create --name "Identity" --parent "Platform"
+az account management-group create --name "Management" --parent "Platform"
+az account management-group create --name "Landing-Zones" --display-name "Landing Zones"
+az account management-group create --name "Corp" --parent "Landing-Zones"
+az account management-group create --name "Online" --parent "Landing-Zones"
 
-Key principles:
-  1 environment = 1 account (blast radius isolation)
-  Centralise security tooling in Security OU
-  Centralise logging in Log Archive (immutable)
-  Centralise egress in Network account
+# Azure Policy at management group scope
+az policy assignment create \
+  --name "Require-Encryption" \
+  --policy "/providers/Microsoft.Authorization/policyDefinitions/xxx" \
+  --scope "/providers/Microsoft.Management/managementGroups/Landing-Zones"
+
+# Assign Blueprint or deploy via Bicep/Terraform
+# ALZ Bicep: github.com/Azure/ALZ-Bicep
+# Terraform: github.com/Azure/terraform-azurerm-caf-enterprise-scale
+```
+
+## Key Guardrails Quick Reference
+```
+AWS PREVENTIVE (SCPs):                    AZURE PREVENTIVE (Policy/RBAC):
+  Deny root account usage                   Require resource tags (Deny)
+  Deny leaving Organisation                 Allowed locations (Deny)
+  Deny disabling CloudTrail                 Require encryption (Deny)
+  Deny creating IAM users without MFA       No public IPs (Deny)
+  Require MFA for console                   Approved VM SKUs only
+
+AWS DETECTIVE (Config):                   AZURE DETECTIVE (Policy audit):
+  cloudtrail-enabled                        Require tag on resource groups
+  encrypted-volumes                         Monitor unencrypted SQL
+  s3-bucket-public-read-prohibited          Audit MFA for admins
+  iam-password-policy                       Monitor open network ports
 ```

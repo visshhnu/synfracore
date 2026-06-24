@@ -1,55 +1,94 @@
-# Gravitation (NEET Physics)
+# Gravitation — NEET Physics
 
-## Why This Chapter Matters
-Gravitation has 4-8 marks in NEET. Satellite motion, escape velocity, Kepler's laws, and gravitational potential are the key topics.
+## Key Concepts
 
-## Core Concepts
-
-### Newton's Law of Gravitation
-F = GMm/r² | G = 6.67 × 10⁻¹¹ N·m²/kg²
-g = GM/R² at surface | g at height h: g_h = g(R/(R+h))²
-
-### Kepler's Laws
-1st: Elliptical orbits with Sun at one focus
-2nd: Equal areas in equal times (conservation of angular momentum)
-3rd: T² ∝ r³ | T²/r³ = 4π²/GM (constant for all satellites of same planet)
-
-### Orbital Velocity
-v_o = √(GM/r) = √(gR²/r)
-At surface: v_o = √(gR) ≈ 7.9 km/s
-
-### Escape Velocity
-v_e = √(2GM/R) = √(2gR) ≈ 11.2 km/s
-v_e = √2 × v_o (at same radius)
-
-### Satellite Energy
-KE = GMm/2r | PE = -GMm/r | Total E = -GMm/2r (negative = bound)
-
-### Gravitational Potential
-V = -GM/r (negative at all points)
-Gravitational PE = mV = -GMm/r
-
-## PYQs (NEET)
-
-**NEET 2023:** Escape velocity on Earth is 11.2 km/s. On a planet with same mass and half radius?
-v_e = √(2GM/R). Same M, R → R/2: v_e' = √(2GM/(R/2)) = √(4GM/R) = 2v_e = 22.4 km/s
-
-**NEET 2022:** Period of satellite at height equal to Earth's radius R above surface?
-r = R + R = 2R. T = 2π√(r³/GM) = 2π√(8R³/GM) = 2√2 × 2π√(R³/GM) = 2√2 T_surface
-T_surface (at R) = 2π√(R³/GM) = 84.3 min. So T = 2√2 × 84.3 ≈ 238.4 min
-
-**NEET 2021:** Geo-stationary satellite has same angular velocity as Earth. Period = 24 hours. Altitude ≈ 36,000 km.
-
-## Revision Notes
 ```
-F = GMm/r² | g = GM/R²
-g_h = g(1 - 2h/R) for h << R | g_d = g(1 - d/R)
+UNIVERSAL LAW OF GRAVITATION (Newton):
+  F = G × m₁ × m₂ / r²
+  G = 6.674 × 10⁻¹¹ N·m²/kg² (universal gravitational constant)
+  F is attractive, acts along line joining the two masses
+  
+  Vector form: F = -G m₁ m₂ r̂ / r² (negative = attractive direction)
 
-KEPLER'S 3rd: T² ∝ r³ | T²/r³ = 4π²/GM
+GRAVITATIONAL FIELD:
+  g = GM/r² (gravitational field intensity)
+  At Earth's surface: g = 9.8 m/s² = GM_E/R_E²
+  
+  Variation of g:
+    Altitude h: g_h = g(1 - 2h/R) for h << R; exact: g_h = gR²/(R+h)²
+    Depth d: g_d = g(1 - d/R) → g = 0 at centre of Earth
+    Latitude φ: g_φ = g - ω²R cos²φ (Earth rotation effect)
+      g minimum at equator | g maximum at poles
+    Shape: Earth is oblate spheroid → g greater at poles than equator
 
-v_orbital = √(GM/r) | v_escape = √(2GM/R) = √2 × v_orbital
+GRAVITATIONAL POTENTIAL:
+  V = -GM/r (potential at distance r from mass M)
+  Negative sign: work done TO bring mass from infinity to that point
+  Potential energy: U = -GMm/r (for mass m in field of M)
+  
+  At Earth's surface: V = -gR = -6.25 × 10⁷ J/kg
 
-SATELLITE ENERGY = -GMm/2r (always negative = bound orbit)
-ESCAPE VELOCITY on Moon ≈ 2.4 km/s (1/5 of Earth's)
-GEOSTATIONARY: T=24h, altitude=36000km, V≈3.1km/s
+ESCAPE VELOCITY:
+  Minimum velocity to escape gravitational pull
+  v_e = √(2GM/R) = √(2gR)
+  Earth: v_e = √(2 × 9.8 × 6.4×10⁶) = 11.2 km/s
+  Moon: 2.4 km/s (lower → no atmosphere, gas molecules escape)
+  
+ORBITAL VELOCITY:
+  For circular orbit at radius r from centre: v_o = √(GM/r)
+  At Earth's surface (r = R): v_o = √(gR) ≈ 7.9 km/s
+  Relationship: v_e = √2 × v_o
+
+KEPLER'S LAWS:
+  1st (Ellipse): planets orbit Sun in ellipses with Sun at one focus
+  2nd (Area): equal areas swept in equal times (angular momentum conserved)
+  3rd (Period): T² ∝ r³ → T₁²/T₂² = r₁³/r₂³
+    For Earth around Sun: T = 1 year, r = 1 AU (defining values)
 ```
+
+## Satellites
+
+```
+GEOSTATIONARY SATELLITE:
+  Orbit: equatorial, circular, at 36,000 km altitude
+  Period: 24 hours (same as Earth's rotation → appears stationary)
+  Orbital velocity: 3.1 km/s
+  Use: TV, communication, weather satellites
+
+ORBITAL ENERGY:
+  KE = GMm/2r = ½mv²
+  PE = -GMm/r
+  Total E = KE + PE = -GMm/2r (negative = bound system)
+  
+  Adding energy → orbit goes higher → velocity decreases (counterintuitive!)
+  Energy to escape orbit: +GMm/2r (make total E = 0)
+
+WEIGHTLESSNESS IN ORBIT:
+  Not true weightlessness (gravity still acts)
+  Apparent weightlessness: astronaut and spacecraft in free fall together
+  Normal reaction N = m(g - a_centripetal) = 0 when in orbit (g = v²/r)
+```
+
+## NEET Questions Pattern
+
+```
+COMMON NEET QUESTIONS:
+  Calculate escape velocity for Moon or other planet
+  Find orbital velocity at given altitude
+  Apply Kepler's third law to compare planetary orbits
+  Variation of g with altitude, depth, latitude
+  Energy of satellite, binding energy
+
+FORMULA SUMMARY:
+  F = Gm₁m₂/r² | g = GM/R² | v_o = √(GM/r) | v_e = √(2GM/R) = √2 × v_o
+  T² = 4π²r³/GM (Kepler's 3rd) | E_satellite = -GMm/2r | g_h = gR²/(R+h)²
+
+CONSTANTS:
+  G = 6.67×10⁻¹¹ N·m²/kg² | M_E = 6×10²⁴ kg | R_E = 6.4×10⁶ m | g = 9.8 m/s²
+```
+
+## Study Resources
+- **NCERT Physics Part 1, Chapter 8** — Gravitation (read every line)
+- **HC Verma Vol 1, Chapter 11** — more detailed treatment
+- **PW Physics Wallah Gravitation** — free video lecture for NEET
+- **NEET PYQ Gravitation** — last 10 years questions on this chapter

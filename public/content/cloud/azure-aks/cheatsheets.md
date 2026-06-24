@@ -1,51 +1,67 @@
-# Azure AKS Quick Reference
+# Azure AKS Cheatsheet
 
-## az aks Commands
+## Core Commands
 ```bash
-# Cluster lifecycle
-az aks create --name myAKS --resource-group myRG \
-  --node-count 3 --node-vm-size Standard_D4s_v3 \
-  --enable-managed-identity --enable-workload-identity \
-  --enable-cluster-autoscaler --min-count 2 --max-count 10
+# Create cluster
+az aks create -g myRG -n myAKS \
+  --node-count 3 --node-vm-size Standard_DS2_v2 \
+  --enable-managed-identity --generate-ssh-keys \
+  --network-plugin azure --network-policy azure
 
-az aks get-credentials --name myAKS --resource-group myRG  # Set kubeconfig
-az aks show --name myAKS --resource-group myRG
-az aks upgrade --name myAKS --resource-group myRG --kubernetes-version 1.29.0
-az aks delete --name myAKS --resource-group myRG
+az aks get-credentials -g myRG -n myAKS
+az aks show -g myRG -n myAKS
+az aks list -g myRG
 
 # Node pools
-az aks nodepool add --cluster-name myAKS --resource-group myRG \
-  --name gpupool --node-vm-size Standard_NC6s_v3 \
-  --node-count 2 --mode User
-az aks nodepool scale --cluster-name myAKS --resource-group myRG \
-  --name gpupool --node-count 5
-az aks nodepool delete --cluster-name myAKS --resource-group myRG --name old-pool
+az aks nodepool add -g myRG --cluster-name myAKS \
+  -n gpupool --node-count 2 --node-vm-size Standard_NC6 \
+  --node-taints sku=gpu:NoSchedule
+az aks nodepool scale -g myRG --cluster-name myAKS \
+  -n agentpool --node-count 5
+az aks nodepool list -g myRG --cluster-name myAKS
 
-# Add-ons
-az aks enable-addons --addons monitoring --workspace-resource-id $WORKSPACE_ID \
-  --name myAKS --resource-group myRG
-az aks enable-addons --addons azure-policy --name myAKS --resource-group myRG
+# Upgrade
+az aks get-upgrades -g myRG -n myAKS
+az aks upgrade -g myRG -n myAKS --kubernetes-version 1.29
 
-# Workload Identity
-az aks update --enable-oidc-issuer --enable-workload-identity \
-  --name myAKS --resource-group myRG
-OIDC=$(az aks show --name myAKS --query 'oidcIssuerProfile.issuerUrl' -o tsv)
-az identity federated-credential create --name myapp-fc \
-  --identity-name myapp-id --resource-group myRG \
-  --issuer $OIDC --subject 'system:serviceaccount:default:myapp-sa'
+# Scale
+az aks scale -g myRG -n myAKS --node-count 5
+
+# Enable add-ons
+az aks enable-addons -g myRG -n myAKS \
+  --addons monitoring --workspace-resource-id /subscriptions/xxx/resourcegroups/yyy/providers/microsoft.operationalinsights/workspaces/zzz
+
+az aks disable-addons -g myRG -n myAKS --addons monitoring
+
+# Delete
+az aks delete -g myRG -n myAKS --yes --no-wait
 ```
 
-## Key Reference
-```
-Networking:
-  Kubenet:    overlay, limited scale, cheaper IPs
-  Azure CNI:  real VNet IPs per pod, directly routable (recommended)
+## Workload Identity (IRSA equivalent)
+```bash
+# Enable OIDC + workload identity
+az aks update -g myRG -n myAKS \
+  --enable-oidc-issuer --enable-workload-identity
 
-Node pool modes:
-  System: required K8s system pods (DNS, metrics-server)
-  User:   application workloads
+# Get OIDC issuer URL
+az aks show -g myRG -n myAKS --query oidcIssuerProfile.issuerUrl -o tsv
 
-Cost saving options:
-  --priority Spot: Spot VMs (60-80% cheaper, evictable)
-  Autoscaler: min/max count for cost + availability
+# Create managed identity
+az identity create -g myRG -n myIdentity
+
+# Federated credential
+az identity federated-credential create \
+  --name myFedCred --identity-name myIdentity -g myRG \
+  --issuer <OIDC_URL> --subject system:serviceaccount:default:my-sa \
+  --audience api://AzureADTokenExchange
 ```
+
+## Key Concepts
+| Concept | AKS | EKS Equivalent |
+|---------|-----|----------------|
+| Node pool | Node pool | Node group |
+| Workload identity | Workload Identity | IRSA |
+| CNI | Azure CNI or kubenet | AWS VPC CNI |
+| Load balancer | Azure LB / App Gateway Ingress | AWS ALB / NLB |
+| Storage | Azure Disk CSI / Azure Files CSI | EBS CSI / EFS CSI |
+| Policy | Azure Policy / Gatekeeper | OPA Gatekeeper |

@@ -1,57 +1,92 @@
-# GATE CSE — Overview
+# GATE CSE Overview
 
-## What is GATE?
+## What is GATE CSE?
 
-GATE (Graduate Aptitude Test in Engineering) is a national-level exam conducted jointly by IISc and 7 IITs for admission to M.Tech/M.E./M.S. programs at IITs, NITs, and other premier institutes. A good GATE score also qualifies you for PSU jobs (BHEL, GAIL, NTPC, BSNL, etc.) with high salaries.
+GATE CSE (Graduate Aptitude Test in Engineering — Computer Science and Engineering) is a national-level entrance exam for:
+- Admission to M.Tech/M.S programs at IITs, NITs, IISc, and other premier institutes
+- PSU recruitment: DRDO, ISRO, NTPC, ONGC, BEL, and others
+- Direct PhD admissions at IISc and IITs
 
-## GATE CSE Exam Pattern
+## Exam Pattern
 
-| Detail | Info |
-|---|---|
-| **Duration** | 3 hours |
-| **Total Marks** | 100 |
-| **Questions** | 65 (10 General Aptitude + 55 Technical) |
-| **Negative Marking** | -1/3 for 1-mark MCQ, -2/3 for 2-mark MCQ |
-| **Mode** | Computer-based (online) |
+```
+DURATION: 3 hours | TOTAL MARKS: 100
 
-## Subject-wise Weightage (approx.)
+GENERAL APTITUDE (GA): 15 marks
+  Verbal Ability: 5 marks (1-mark questions)
+  Numerical Ability: 10 marks (1 and 2-mark questions)
 
-| Subject | Marks |
-|---|---|
-| Engineering Mathematics | 13 |
-| General Aptitude | 15 |
-| Data Structures & Algorithms | 12 |
-| Operating Systems | 10 |
-| DBMS | 8 |
-| Computer Networks | 8 |
-| Theory of Computation | 8 |
-| Digital Logic | 7 |
-| Computer Organization | 7 |
-| Compiler Design | 5 |
-| Programming (C) | 5 |
-| Software Engineering | 2 |
+TECHNICAL SECTION: 85 marks
+  1-mark MCQ: approximately 25 questions = 25 marks
+  2-mark MCQ: approximately 25 questions = 50 marks (with negative marking)
+  Numerical Answer Type (NAT): approximately 5 questions = 10 marks (no negative marking)
 
-## Year-wise Cutoffs (General Category)
+NEGATIVE MARKING:
+  MCQ 1-mark: -1/3 per wrong answer
+  MCQ 2-mark: -2/3 per wrong answer
+  NAT: no negative marking (always attempt NAT questions)
+```
 
-| Year | Cutoff (out of 100) |
-|---|---|
-| 2024 | ~25 |
-| 2023 | ~25 |
-| 2022 | ~25 |
+## Syllabus Summary
 
-Top IITs (Bombay, Delhi, Madras, Kharagpur) require GATE scores of 700+/1000 (normalized).
+```
+CORE SUBJECTS:
+  Discrete Mathematics: sets, logic, proofs, counting, graph theory, trees
+  Engineering Mathematics: linear algebra, calculus, probability, statistics
+  Digital Logic: boolean algebra, gates, combinational/sequential circuits
+  Computer Organization and Architecture: CPU, memory hierarchy, I/O, pipelining
+  Programming and Data Structures: C programming, arrays, linked lists, trees, graphs
+  Algorithms: sorting, searching, graph algorithms, dynamic programming, complexity
+  Theory of Computation: automata (DFA/NFA), context-free grammars, Turing machines
+  Compiler Design: lexical analysis, parsing, semantic analysis, code generation
+  Operating Systems: processes, memory management, file systems, synchronisation
+  Databases: ER model, relational algebra, SQL, normalisation, transactions
+  Computer Networks: OSI model, TCP/IP, routing, congestion, application protocols
 
-## Study Resources
-- **NPTEL lectures** — nptel.ac.in (free, excellent for theory)
-- **Made Easy / GateSmashers** — YouTube, concept videos
-- **Previous year papers** — most important resource (pyqs.gatecse.in)
-- **GO Book** — geeksforgeeks.org/gate-cs-notes-according-to-official-gate-2023-syllabus
+WEIGHTAGE (approximate):
+  Algorithms + DS: 20-25%
+  OS + Networks: 20-25%
+  Digital Logic + COA: 15-20%
+  Discrete Maths + Engineering Maths: 15-20%
+  Compiler + TOC + Databases: 15-20%
+```
 
-## 6-Month Study Plan
+## Preparation Timeline
 
-**Months 1-2:** Engineering Mathematics + DSA + Programming
-**Months 3-4:** OS + DBMS + Computer Networks + TOC
-**Month 5:** Digital Logic + Computer Organization + Compiler Design
-**Month 6:** Full-length mock tests + Previous year papers revision
+```
+12 MONTHS (ideal):
+  Month 1-3:   Cover all subjects (one topic per day, make notes)
+  Month 4-5:   Solve standard textbook exercises
+  Month 6-7:   Previous year papers (2010-2024) topic-wise
+  Month 8-9:   Full-length mock tests (Gate Overflow, Made Easy, ACE)
+  Month 10-11: Revision and weak area focus
+  Month 12:    Final revision, previous 5 years full papers
 
-The **Labs** section has topic-wise MCQ sets simulating GATE question patterns.
+6 MONTHS (for repeat aspirants):
+  Month 1-2:   Refresh all subjects quickly
+  Month 3-4:   Previous year papers topic-wise
+  Month 5:     Mock tests and analysis
+  Month 6:     Revision + recent year papers
+
+IMPORTANT RESOURCES:
+  Gate Overflow (gateoverflow.in) — community solutions to PYQs
+  Made Easy / ACE Academy — coaching + test series
+  Standard books: Cormen (Algorithms) | Galvin (OS) | Forouzan (Networks)
+  NPTEL lectures — free IIT video lectures for all GATE subjects
+```
+
+## Cutoff and Opportunities
+
+```
+CUTOFF SCORE (GATE marks out of 100, not rank):
+  IIT admissions: 60-75+ for CSE at top IITs
+  NIT admissions: 50-65 for CSE NITs
+  PSU cutoff: DRDO/ISRO 70+ | NTPC/BEL 50-60
+
+GATE SCORE vs GATE MARKS:
+  Score = 1000 × (marks - qualifying marks) / (top score - qualifying marks)
+  Score range: 0 to 1000 (not same as marks)
+
+VALIDITY: GATE score valid for 3 years
+ATTEMPTS: unlimited attempts | no age limit for M.Tech
+```

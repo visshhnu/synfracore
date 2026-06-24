@@ -1,47 +1,83 @@
-# Banking Exams (SBI/IBPS) — Intermediate
+# Banking Exams Intermediate Preparation
 
-## From Concepts to Problems
+## Mains Exam Deep Dive (IBPS/SBI PO)
 
-At the intermediate level, you apply fundamental knowledge to solve structured problems. This is where Banking (IBPS/SBI) questions at medium difficulty level fall.
+```
+MAINS PATTERN (IBPS PO):
+  Reasoning and Computer Aptitude: 45 questions, 60 marks, 60 min
+  English Language: 35 questions, 40 marks, 40 min
+  Data Analysis and Interpretation: 35 questions, 60 marks, 45 min
+  General Economy and Banking Awareness: 40 questions, 40 marks, 35 min
+  Total: 155 questions, 200 marks, 3 hours
 
-## Topics at This Level
+MAINS vs PRELIMS DIFFERENCE:
+  Prelims: simple individual questions
+  Mains: complex sets (DI sets, complex puzzles, new pattern English)
+  Computer knowledge: added in Mains (20 marks in reasoning section)
+  Banking awareness: tested only in Mains (not Prelims)
+```
 
-- Quantitative Aptitude (Arithmetic)
-- Reasoning (Logical & Verbal)
-- English Language
-- General Awareness (Banking)
-- Computer Knowledge
-- Data Interpretation
-- Puzzles & Seating Arrangement
+## Banking and Financial Awareness
 
-## Problem-Solving Strategy
+```
+STRUCTURE OF BANKING:
+  Central bank: Reserve Bank of India (established 1935)
+  Public sector banks: SBI + 11 nationalised banks (nationalised 1969, 1980)
+  Private sector banks: HDFC, ICICI, Axis, Kotak, IndusInd, Yes Bank
+  Regional Rural Banks (RRBs): sponsored by public sector banks, serve rural areas
+  Small Finance Banks: serve unbanked sections (AU, Equitas, Ujjivan)
+  Payments Banks: limited banking services (Airtel, Paytm, Post Office)
+  Cooperative banks: NABARD refinancing, primarily agricultural
 
-For Banking Exams (SBI/IBPS) at intermediate level:
+KEY BANKING CONCEPTS:
+  KYC (Know Your Customer): identity verification — PAN, Aadhaar, passport
+  AML (Anti-Money Laundering): PMLA 2002, STR reporting to FIU
+  NEFT: batch settlement (half-hourly), no transaction limit
+  RTGS: real-time, minimum Rs.2 lakh, for large transactions
+  IMPS: instant, 24x7, up to Rs.5 lakh per transaction
+  UPI: real-time, linked to bank account, PhonePe/GooglePay/BHIM
+  NACH: automated clearing for ECS — salary, EMI, dividends
 
-**1. Identify the type** — Which topic does this question belong to? (e.g., work-time, profit-loss, normalization)
+PRIORITY SECTOR LENDING:
+  Banks must lend 40% to priority sector
+  Components: agriculture (18%), MSME, education, housing, export
+  PSL certificates: traded if targets not met directly
+  
+RECENT POLICY CHANGES (check latest before exam):
+  Repo rate and CRR — changes frequently, always verify current figures
+  New banks licensed: track RBI announcements
+  Digital payments: RBI guidelines on payment aggregators
+```
 
-**2. Recall the approach** — What formula/method applies? Write it down.
+## Computer Knowledge (Mains)
 
-**3. Apply methodically** — Work step by step. Don't skip steps under time pressure — mistakes happen.
+```
+HARDWARE:
+  Input: keyboard, mouse, scanner, microphone, webcam
+  Output: monitor, printer, speaker, projector
+  Processing: CPU (control unit + ALU + registers)
+  Storage: RAM (volatile) | ROM (non-volatile) | HDD/SSD (secondary)
 
-**4. Verify** — Does your answer make sense? For MCQ, check if the answer is "in the ballpark."
+SOFTWARE:
+  System software: OS (Windows, Linux, macOS), device drivers
+  Application software: MS Office, browsers, email clients
+  Utility software: antivirus, backup, compression (WinZip)
 
-**5. Review wrong answers** — Every wrong answer reveals a gap. Fix the gap, not just the answer.
+NETWORKING:
+  LAN: office/building | WAN: across cities | MAN: city-wide | PAN: personal
+  Internet: global WAN | Intranet: private org network | Extranet: selected external
+  IP address: IPv4 (32-bit) | IPv6 (128-bit)
+  Protocols: HTTP (web) | FTP (file) | SMTP (email) | TCP/IP
 
-## Practice Distribution
+MS OFFICE:
+  Word: document creation, formatting, mail merge, table of contents
+  Excel: formulas (SUM, AVERAGE, VLOOKUP, IF), charts, pivot tables
+  PowerPoint: slides, animations, slide transitions
+  Shortcut: Ctrl+C (copy) | Ctrl+V (paste) | Ctrl+Z (undo) | Ctrl+S (save)
+```
 
-For optimal preparation:
-- 60% time on problem solving (not reading)
-- 20% time on concept review
-- 20% time on analyzing mistakes
-
-## Key Formulas & Rules
-
-Study the **Cheatsheet** section for a compiled list of the most important formulas and rules for Banking Exams (SBI/IBPS). The **Labs** section has intermediate MCQ sets that test exactly this level.
-
-## Transition to Advanced
-
-You're ready for advanced topics when you can:
-- Solve intermediate problems in under 2 minutes each
-- Identify the approach within 15 seconds of reading a problem
-- Score 75%+ consistently on intermediate MCQ sets
+## Study Resources
+- **Memory Reading (bankersadda.com)** — daily banking news capsule
+- **Banking Awareness by Arihant** — comprehensive static + current banking
+- **GA Tornado (Adda247)** — current affairs compilation for banking exams
+- **Oliveboard IBPS PO Mains Mock** — best mains simulation

@@ -1,57 +1,106 @@
-# Cloud Security — Intermediate
+# Cloud Security Intermediate Topics
 
-## AWS GuardDuty Advanced
+## IAM Security Best Practices
 
-```bash
-# GuardDuty findings and automated response
-# Enable in ALL regions (critical — threats don't stay in one region)
-for region in $(aws ec2 describe-regions --query 'Regions[].RegionName' --output text); do
-  aws guardduty create-detector --enable --region $region \
-    --features '[{"Name":"S3_DATA_EVENTS","Status":"ENABLED"},{"Name":"EKS_AUDIT_LOGS","Status":"ENABLED"}]'
-done
+```
+ACCESS KEY HYGIENE:
+  Never use root account access keys (delete them)
+  Rotate IAM access keys every 90 days
+  Delete unused access keys and inactive users
+  Use IAM Access Analyzer to find over-privileged policies
+  
+  # Check for old access keys
+  aws iam generate-credential-report
+  aws iam get-credential-report --query Content --output text | base64 -d
 
-# Auto-remediate high-severity findings with EventBridge + Lambda
-cat > guardduty-response.json << 'EOF'
-{
-  "source": ["aws.guardduty"],
-  "detail-type": ["GuardDuty Finding"],
-  "detail": {
-    "severity": [7, 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8, 8.9, 9, 10]
+  # List access keys and age
+  aws iam list-access-keys --user-name alice
+  
+PERMISSION BOUNDARIES:
+  Limit max permissions an IAM entity can have
+  Useful for: delegating IAM permission creation to dev teams safely
+  Even if policy grants *, boundary restricts to boundary permissions
+
+CONDITION KEYS FOR SECURITY:
+  aws:MultiFactorAuthPresent: true (require MFA)
+  aws:SourceIp: restrict to office IPs
+  aws:RequestedRegion: lock to specific regions
+  aws:CalledVia: restrict to specific services
+  
+  # Example: require MFA for console operations
+  {
+    "Effect": "Deny",
+    "Action": "*",
+    "Resource": "*",
+    "Condition": {"BoolIfExists": {"aws:MultiFactorAuthPresent": "false"}}
   }
-}
-EOF
-
-aws events put-rule --name high-severity-findings \
-  --event-pattern file://guardduty-response.json
-
-# Lambda that isolates a compromised EC2 instance
-# 1. Detach from security groups
-# 2. Attach to quarantine SG (deny all ingress/egress)
-# 3. Create forensic snapshot
-# 4. Send alert to security team
 ```
 
-## CSPM: Detect Misconfigurations at Scale
+## Network Security Deep Dive
 
-```bash
-# AWS Security Hub — aggregates findings from 60+ services
-aws securityhub enable-security-hub --enable-default-standards
-
-# Enable all AWS-native integrations
-aws securityhub enable-import-findings-for-product \
-  --product-arn arn:aws:securityhub:us-east-1::product/aws/guardduty
-aws securityhub enable-import-findings-for-product \
-  --product-arn arn:aws:securityhub:us-east-1::product/aws/inspector
-
-# Query findings
-aws securityhub get-findings \
-  --filters '{"SeverityLabel":[{"Value":"CRITICAL","Comparison":"EQUALS"}],"RecordState":[{"Value":"ACTIVE","Comparison":"EQUALS"}]}' \
-  --query 'Findings[*].[Title, AwsAccountId, UpdatedAt]' \
-  --output table
-
-# Suppress known false positives
-aws securityhub batch-update-findings \
-  --finding-identifiers Id=$FINDING_ID,ProductArn=$PRODUCT_ARN \
-  --workflow '{"Status":"SUPPRESSED"}' \
-  --note '{"Text":"Known false positive — dev account","UpdatedBy":"security-team"}'
 ```
+SECURITY GROUP BEST PRACTICES:
+  No 0.0.0.0/0 on SSH (22) or RDP (3389) — use Bastion/SSM instead
+  Separate security groups per tier (web, app, database)
+  Reference security groups by ID, not IP ranges (dynamic IPs)
+  Outbound: restrict to known destinations where possible
+  
+  # Scan for open SSH/RDP
+  aws ec2 describe-security-groups \
+    --filters Name=ip-permission.from-port,Values=22 \
+              Name=ip-permission.cidr,Values=0.0.0.0/0
+
+BASTION ALTERNATIVES:
+  AWS Systems Manager Session Manager:
+    No SSH key management needed
+    No open inbound ports required
+    All sessions logged to CloudWatch/S3
+    aws ssm start-session --target i-1234567890abcdef0
+  
+  Azure Bastion:
+    Managed PaaS bastion host (no public IP on VMs)
+    RDP/SSH through browser via Azure portal
+    No agent required on target VM
+
+WAF CONFIGURATION:
+  AWS WAF: attach to CloudFront, ALB, API Gateway, AppSync
+    Managed rule groups: AWS, F5, Imperva, Fortinet
+    Custom rules: rate-based (DDoS), IP reputation, geoblocking
+  Azure WAF: attach to App Gateway or Front Door
+  Cloud Armor: GCP WAF, DDoS protection for external LBs
+```
+
+## Logging and Monitoring
+
+```
+ESSENTIAL LOGS TO ENABLE:
+  AWS:
+    CloudTrail: ALL regions, ALL events, S3 bucket + CloudWatch Logs destination
+    VPC Flow Logs: ALL VPCs (reject traffic especially valuable)
+    S3 server access logging: who accessed what object
+    RDS: slow query, error, general logs
+    GuardDuty: always on, all regions
+  
+  Azure:
+    Activity Log: diagnostic settings → Log Analytics Workspace
+    Azure Monitor: resource-level metrics and logs
+    Microsoft Defender for Cloud: auto-provisioned agents
+    NSG Flow Logs: traffic analysis
+  
+  GCP:
+    Cloud Audit Logs: admin activity (default on), data access (must enable)
+    VPC Flow Logs: subnet-level traffic
+    Security Command Center: asset inventory, vulnerabilities, threats
+
+SIEM INTEGRATION:
+  Centralise logs from all accounts/subscriptions/projects
+  AWS: Security Lake (standardised OCSF format) or CloudWatch → SIEM
+  Azure: Sentinel workbooks, analytics rules, automation playbooks
+  GCP: Chronicle (Google SIEM), or export to BigQuery/third-party
+```
+
+## Study Resources
+- **AWS Security Fundamentals** (aws.amazon.com/training) — free digital training
+- **Microsoft Learn Security Fundamentals** — free, covers Azure and Defender
+- **NIST SP 800-53** — comprehensive security controls catalog
+- **CIS Controls** (cisecurity.org) — prioritised security controls, cloud companion guides

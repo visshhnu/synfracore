@@ -1,44 +1,66 @@
-# Mathematics — Advanced
+# Engineering Mathematics Advanced Topics
 
-## Mastery Level for Placements/GATE/University
+## Linear Algebra Advanced
 
-Advanced topics in Mathematics separate top scorers from average candidates. These questions test deep understanding, multi-concept application, and speed under pressure.
+```
+EIGENVALUES AND EIGENVECTORS:
+  Definition: Av = λv (v is eigenvector, λ is eigenvalue)
+  Characteristic equation: det(A - λI) = 0
+  
+  Properties:
+    Sum of eigenvalues = trace(A) (sum of diagonal elements)
+    Product of eigenvalues = det(A)
+    If A is triangular, eigenvalues are diagonal elements
+    Symmetric matrix: real eigenvalues | Orthogonal eigenvectors
 
-## Advanced Topics
+  CAYLEY-HAMILTON THEOREM:
+    Every matrix satisfies its own characteristic equation
+    If p(λ) = 0 is characteristic equation, then p(A) = 0
+    Used to find inverse: express A^(-1) in terms of lower powers of A
 
-- Algebra & Functions
-- Trigonometry
-- Calculus (Differential & Integral)
-- Probability & Statistics
-- Coordinate Geometry
-- Vectors & 3D Geometry
-- Matrices & Determinants
+MATRIX DECOMPOSITIONS:
+  LU decomposition: A = LU (lower × upper triangular)
+    Used for: solving Ax=b, computing det, inverse
+  Diagonalization: A = PDP^(-1) where D = diagonal matrix of eigenvalues
+    P = matrix of eigenvectors (columns)
+    Requires: n linearly independent eigenvectors (holds for symmetric matrices)
 
-## Advanced Problem Patterns
+QUADRATIC FORMS:
+  xᵀAx where A is symmetric matrix
+  Positive definite: all eigenvalues > 0 (bowl-shaped surface)
+  Negative definite: all eigenvalues < 0
+  Indefinite: mixed sign eigenvalues (saddle point)
+```
 
-At this level, questions combine multiple concepts:
-- **Multi-step problems**: require 3-5 steps, each using a different concept
-- **Tricky conditions**: unusual constraints that require careful reading
-- **Data interpretation**: extract relevant data, ignore noise, compute quickly
-- **Proof-based** (for GATE/University exams): derive, justify, analyze formally
+## Complex Numbers and Transform Theory
 
-## Time Management for Advanced Questions
+```
+COMPLEX NUMBERS:
+  z = x + iy | |z| = √(x²+y²) | arg(z) = tan⁻¹(y/x)
+  Euler's formula: e^(iθ) = cos θ + i sin θ (most important!)
+  De Moivre: (cos θ + i sin θ)ⁿ = cos(nθ) + i sin(nθ)
+  
+LAPLACE TRANSFORM (for differential equations):
+  L{f(t)} = F(s) = ∫[0 to ∞] f(t)e^(-st)dt
+  
+  Key pairs (must memorise):
+    L{1} = 1/s | L{t} = 1/s² | L{tⁿ} = n!/s^(n+1)
+    L{e^(at)} = 1/(s-a) | L{sin(at)} = a/(s²+a²) | L{cos(at)} = s/(s²+a²)
+  
+  Properties:
+    Linearity | Time shift: L{f(t-a)u(t-a)} = e^(-as)F(s)
+    Convolution: L{f*g} = F(s)·G(s)
+  
+  Solving ODE: take Laplace → algebraic equation → solve for Y(s) → inverse Laplace
 
-In competitive exams, advanced questions take longer. Strategy:
-1. **Triage first**: scan all questions, mark easy/medium/hard
-2. **Do easy first**: secure those marks, build confidence
-3. **Medium next**: aim for partial credit where applicable
-4. **Hard last**: attempt with remaining time, guess if negative marking allows
+Z-TRANSFORM (discrete-time systems):
+  Z{x[n]} = Σ x[n]z^(-n)
+  Useful for: difference equations, digital signal processing, GATE CS
+  Key pairs: Z{δ[n]} = 1 | Z{u[n]} = z/(z-1) | Z{aⁿu[n]} = z/(z-a)
+```
 
-## High-Yield Advanced Topics
-
-Based on previous years' patterns for Placements/GATE/University:
-- Focus on the first 3 topics in the list above (highest weightage)
-- Practice previous year questions from last 5-10 years
-- Study toppers' answer sheets (for subjective exams like UPSC)
-
-## Practice Resources
-
-- **Labs section**: Advanced MCQ sets with detailed explanations
-- **Interview Q&A**: Conceptual questions that test deep understanding
-- Previous year papers: Non-negotiable for exam preparation
+## Study Resources
+- **Kreyszig Advanced Engineering Mathematics** — comprehensive reference
+- **GATE Mathematics Previous Year Solutions** — pattern analysis essential
+- **3Blue1Brown Essence of Linear Algebra** (YouTube) — free, best visual intuition
+- **MIT OCW 18.03 Differential Equations** — free, complete course

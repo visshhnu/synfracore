@@ -1,53 +1,85 @@
-# NEET Biology — Certification Guide
+# NEET Biology Certification Guide
 
-## Why Get Certified in NEET Biology?
+## NEET Overview
 
-Certifications validate your NEET Biology skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+| Detail | Info |
+|--------|------|
+| **Full Name** | National Eligibility cum Entrance Test (Undergraduate) |
+| **Authority** | National Testing Agency (NTA) |
+| **Marks** | 720 total (Biology: 360, Physics: 180, Chemistry: 180) |
+| **Duration** | 3 hours 20 minutes |
+| **Questions** | 180 (Biology: 90, Physics: 45, Chemistry: 45) |
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+Biology is the most important subject in NEET — it carries 50% of the total marks.
 
-## Most Valuable Certifications
+---
 
-Research current certifications for NEET Biology on these sources:
-
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
-
-## General Certification Strategy
-
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
-
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
+## Biology Syllabus
 
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+CLASS 11 BIOLOGY:
+  The Living World: taxonomy, classification, nomenclature
+  Biological Classification: 5-kingdom system, monera, protista, fungi
+  Plant Kingdom: algae, bryophytes, pteridophytes, gymnosperms, angiosperms
+  Animal Kingdom: classification basis, invertebrates, vertebrates
+  
+  Morphology: root, stem, leaf, flower, fruit, seed (flowering plants)
+  Anatomy: tissue types (plant and animal), meristematic, permanent, animal tissues
+  
+  Cell: prokaryotic vs eukaryotic, cell organelles, cell division (mitosis, meiosis)
+  Biomolecules: carbohydrates, proteins, lipids, nucleic acids, enzymes
+  Cell Cycle: G1, S, G2, M phases | mitosis stages | meiosis stages
+  
+  Transport: water and minerals (osmosis, diffusion, active transport)
+  Mineral Nutrition: essential elements, nitrogen cycle, nitrogen fixation
+  Photosynthesis: light reactions, Calvin cycle, C4 and CAM pathways
+  Respiration: glycolysis, Krebs cycle, ETC, fermentation
+  Plant Growth: growth regulators (auxin, gibberellin, cytokinin, ABA, ethylene)
+  
+  Breathing: respiratory organs, mechanism, disorders
+  Body Fluids: blood composition, blood groups, lymph, clotting
+  Circulation: heart structure, cardiac cycle, ECG, disorders
+  Excretion: kidney structure, nephron, urine formation, disorders
+  Locomotion: skeletal system, joints, muscle contraction (sliding filament theory)
+  Neural Control: neuron, nerve impulse, reflex, sensory organs
+  Chemical Coordination: endocrine glands and hormones
+
+CLASS 12 BIOLOGY:
+  Reproduction: sexual in flowering plants, human reproductive system
+  Reproductive Health: contraception, STDs, ART (IVF, GIFT, ZIFT)
+  Genetics: Mendel's laws, inheritance, chromosomal disorders
+  Molecular Basis: DNA structure, replication, transcription, translation
+  Evolution: origin, Darwinism, speciation, human evolution
+  Human Health: diseases, immunity, vaccines, drugs and alcohol
+  Biotechnology: principles (rDNA technology, PCR, ELISA, blotting)
+  Biotechnology Applications: Bt cotton, golden rice, gene therapy, GMO
+  Organisms and Populations: ecological adaptations, population growth
+  Ecosystem: energy flow, nutrient cycling, productivity, succession
+  Biodiversity: types, loss, conservation strategies
+  Environmental Issues: pollution, ozone depletion, greenhouse effect
 ```
 
-## After Certification
+---
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## High Yield Topics
+
+```
+MOST MARKS (2019-2024 NEET analysis):
+  Genetics and Molecular Biology: 25-30 marks
+  Human Physiology: 20-25 marks  
+  Reproduction: 15-20 marks
+  Cell Biology: 10-15 marks
+  Plant Physiology: 10-15 marks
+  Ecology: 10-15 marks
+```
+
+## Revision Notes
+```
+NEET BIOLOGY: 720 marks total | 360 from biology (most important)
+NCERT IS EVERYTHING: 95%+ questions directly from NCERT Class 11 and 12
+Strategy: read NCERT line-by-line | underline key terms | make diagrams
+
+MARKING: +4 correct | -1 wrong
+NCERT DIAGRAMS: label every diagram — many questions from diagrams
+PREVIOUS YEAR: 40-50 questions repeat or are similar to previous years
+```

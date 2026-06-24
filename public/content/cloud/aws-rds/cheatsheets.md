@@ -1,40 +1,86 @@
-# AWS RDS — Cheatsheet
+# AWS RDS Cheatsheet
 
+## Core CLI Commands
 ```bash
-# ── CREATE & MANAGE ───────────────────────────────────────
-# Create RDS PostgreSQL
-aws rds create-db-instance   --db-instance-identifier prod-db   --db-instance-class db.t3.medium   --engine postgres --engine-version 16   --master-username admin   --master-user-password $(openssl rand -base64 16)   --allocated-storage 100 --storage-type gp3   --multi-az --no-publicly-accessible   --backup-retention-period 7 --deletion-protection
+# Create DB instance
+aws rds create-db-instance \
+  --db-instance-identifier mydb \
+  --db-instance-class db.t3.micro \
+  --engine mysql --engine-version 8.0 \
+  --master-username admin \
+  --master-user-password MyPassword123! \
+  --allocated-storage 20 \
+  --db-name myapp \
+  --vpc-security-group-ids sg-xxx \
+  --db-subnet-group-name my-subnet-group \
+  --backup-retention-period 7 \
+  --multi-az
 
-aws rds wait db-instance-available --db-instance-identifier prod-db
+# Snapshot
+aws rds create-db-snapshot \
+  --db-instance-identifier mydb \
+  --db-snapshot-identifier mydb-snap-20250624
 
-# Get endpoint
-aws rds describe-db-instances --db-instance-identifier prod-db   --query 'DBInstances[0].Endpoint.Address' --output text
+# Restore from snapshot
+aws rds restore-db-instance-from-db-snapshot \
+  --db-instance-identifier mydb-restored \
+  --db-snapshot-identifier mydb-snap-20250624
 
-# Modify instance
-aws rds modify-db-instance --db-instance-identifier prod-db   --db-instance-class db.r6g.large --apply-immediately
+# Read replica
+aws rds create-db-instance-read-replica \
+  --db-instance-identifier mydb-replica \
+  --source-db-instance-identifier mydb
 
-# ── SNAPSHOTS & BACKUP ────────────────────────────────────
-aws rds create-db-snapshot --db-instance-identifier prod-db --db-snapshot-identifier manual-snap-$(date +%Y%m%d)
-aws rds describe-db-snapshots --db-instance-identifier prod-db --output table
-aws rds restore-db-instance-from-db-snapshot   --db-instance-identifier restored-db   --db-snapshot-identifier manual-snap-20240115
+# Scale storage
+aws rds modify-db-instance \
+  --db-instance-identifier mydb \
+  --allocated-storage 100 --apply-immediately
 
-# Point-in-time restore (within retention window)
-aws rds restore-db-instance-to-point-in-time   --source-db-instance-identifier prod-db   --target-db-instance-identifier restored-pitr   --restore-time 2024-01-15T14:00:00Z
+aws rds describe-db-instances
+aws rds delete-db-instance --db-instance-identifier mydb --skip-final-snapshot
+```
 
-# ── MONITORING ────────────────────────────────────────────
-aws rds describe-db-log-files --db-instance-identifier prod-db
-aws cloudwatch get-metric-statistics --namespace AWS/RDS   --metric-name DatabaseConnections   --dimensions Name=DBInstanceIdentifier,Value=prod-db   --start-time $(date -u -d '1 hour ago' +%Y-%m-%dT%H:%M:%SZ)   --end-time $(date -u +%Y-%m-%dT%H:%M:%SZ) --period 60 --statistics Average
+## Multi-AZ vs Read Replica
+| Feature | Multi-AZ | Read Replica |
+|---------|----------|--------------|
+| Purpose | High availability | Read scaling |
+| Replication | Synchronous | Asynchronous |
+| Endpoint | Single (auto-failover) | Separate endpoint |
+| Promote | Automatic (failover) | Manual (break replica) |
+| Cross-region | Standby same region | Replica across regions |
+| Use | HA, disaster recovery | Analytics, reporting, read offload |
 
-# Key metrics to monitor:
-# DatabaseConnections, CPUUtilization, FreeStorageSpace
-# ReadLatency, WriteLatency, ReadIOPS, WriteIOPS
-# FreeableMemory, SwapUsage, ReplicaLag (for read replicas)
+## Supported Engines
+```
+MySQL          → 5.7, 8.0
+PostgreSQL     → 13, 14, 15, 16
+MariaDB        → 10.6, 10.11
+Oracle         → SE2, EE (BYOL or LI)
+SQL Server     → Express, Web, Standard, Enterprise
+Aurora MySQL   → MySQL 5.7/8.0 compatible (serverless v2 option)
+Aurora PostgreSQL → PG 13/14/15 compatible (serverless v2 option)
+```
 
-# ── READ REPLICAS ─────────────────────────────────────────
-aws rds create-db-instance-read-replica   --db-instance-identifier prod-db-replica   --source-db-instance-identifier prod-db
-aws rds promote-read-replica --db-instance-identifier prod-db-replica  # Promote to standalone
+## RDS Proxy
+```bash
+# Create proxy (reduces connection overhead)
+aws rds create-db-proxy \
+  --db-proxy-name myproxy \
+  --engine-family MYSQL \
+  --auth Description=admin,SecretArn=arn:aws:secretsmanager:... \
+  --role-arn arn:aws:iam::123456789:role/RDSProxy \
+  --vpc-subnet-ids subnet-xxx subnet-yyy \
+  --vpc-security-group-ids sg-xxx
 
-# ── PARAMETER GROUPS ─────────────────────────────────────
-aws rds create-db-parameter-group   --db-parameter-group-name custom-postgres16   --db-parameter-group-family postgres16   --description "Custom PostgreSQL 16"
-aws rds modify-db-parameter-group   --db-parameter-group-name custom-postgres16   --parameters "ParameterName=max_connections,ParameterValue=500,ApplyMethod=pending-reboot"
+# Use case: Lambda → RDS Proxy → RDS (avoids connection exhaustion)
+```
+
+## Key Points
+```
+Parameter Group: tune DB settings (max_connections, innodb_buffer_pool, etc.)
+Option Group:    add features (Oracle TDE, SQL Server backup, etc.)
+Encryption:      at rest (KMS), in transit (SSL/TLS) — enable at creation
+Automated backup: 1-35 days retention | point-in-time recovery within window
+Performance Insights: visualise DB load, top SQL, wait events (free 7-day retention)
+Enhanced Monitoring: OS metrics at 1-60 second granularity
 ```

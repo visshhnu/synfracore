@@ -1,40 +1,95 @@
-# Healthcare Administration — Intermediate
+# Healthcare Administration Intermediate Topics
 
-## Applying Healthcare Administration in Practice
+## Healthcare Finance Intermediate
 
-At the intermediate level, you work with real scenarios and more complex situations.
+```
+OPERATING BUDGET COMPONENTS:
+  Revenue: patient services revenue (gross) - contractual adjustments = net revenue
+  Expenses: salaries/benefits (~55-60%), supplies (~15-20%), overhead, depreciation
+  Operating income: net revenue - operating expenses
+  Operating margin: operating income / net revenue × 100 (target 3-5% nonprofit)
 
-## Key Processes
+MEDICARE PAYMENT SYSTEMS:
+  IPPS (Inpatient Prospective Payment): DRG-based flat payment
+    Base rate × DRG weight × geographic adjustment = payment
+    Outlier payments for extremely high-cost cases
+  OPPS (Outpatient Prospective Payment): APC-based
+    APC (Ambulatory Payment Classification) — similar to DRG for outpatient
+  RBRVS (Resource-Based Relative Value Scale): physician payment
+    RVU (relative value unit) × conversion factor = payment
+    Work RVU + Practice Expense RVU + Malpractice RVU = total RVU
 
-### Revenue Cycle Management (RCM)\nThe revenue cycle covers every step from patient scheduling to final payment:\n1. **Scheduling & Registration** — verify insurance eligibility before visit\n2. **Prior Authorization** — get approval for procedures requiring it\n3. **Charge Capture** — ensure all services rendered are documented\n4. **Coding** — assign correct ICD-10 and CPT codes\n5. **Claim Submission** — submit to insurance (electronic preferred: ANSI 837P)\n6. **Payment Posting** — reconcile payments received\n7. **Denial Management** — appeal denied claims promptly (timely filing limits)\n8. **Patient Billing** — collect patient responsibility after insurance\n\n### Key Metrics\n- **Days in AR** (Accounts Receivable): lower is better (target < 40 days)\n- **Clean Claim Rate**: % of claims accepted first submission (target > 95%)\n- **Denial Rate**: % of claims denied (target < 5%)\n- **Collection Rate**: % of billed charges collected (target > 95%)
+COST ACCOUNTING:
+  Direct costs: attributed to specific department (nursing, pharmacy)
+  Indirect costs: allocated across departments (administration, utilities)
+  Cost per discharge: total costs / total discharges
+  Break-even analysis: fixed costs / (revenue per unit - variable cost per unit)
 
+CAPITAL BUDGETING:
+  ROI (Return on Investment): net profit / total investment × 100
+  NPV (Net Present Value): discounted value of future cash flows
+  Payback period: initial investment / annual net cash flow
+  Certificate of need (CON): some states require before capital projects
+```
 
+## Quality and Patient Safety
 
+```
+QUALITY FRAMEWORKS:
+  Donabedian Model:
+    Structure: resources and systems in place
+    Process: activities and services provided
+    Outcome: results (mortality, readmissions, satisfaction)
 
+  IHI Triple Aim (quadruple aim):
+    Better health for populations
+    Better care for individuals
+    Lower per-capita cost
+    (+ Provider wellbeing in quadruple aim)
 
-## Practice
+PATIENT SAFETY EVENTS:
+  Sentinel event: unexpected death or serious harm (must report to TJC)
+  Near miss: error caught before reaching patient
+  Adverse event: harm to patient from medical treatment
+  Root cause analysis (RCA): systematic investigation after serious event
+  FMEA (Failure Mode and Effects Analysis): proactive risk assessment
 
-Complete the Labs MCQ sets for this topic — they cover exactly the intermediate-level scenarios you will see in certification exams and real-world practice.
+HOSPITAL ACQUIRED CONDITIONS (HAC):
+  Medicare does not pay additional for HACs
+  Examples: CAUTI, CLABSI, surgical site infection, falls, pressure injuries
+  HAC Reduction Program: hospitals in bottom 25% get 1% Medicare payment reduction
 
-## Practical Application
+READMISSION REDUCTION:
+  Hospital Readmissions Reduction Program (HRRP)
+  Targeted conditions: AMI, HF, pneumonia, COPD, hip/knee arthroplasty, CABG
+  30-day readmission rates compared to expected
+  Penalty: up to 3% Medicare payment reduction
+```
 
-Understanding this topic in depth requires applying it to real case scenarios. Work through the case studies in the Advanced section and use the MCQ quiz sets in the Labs section to test your knowledge.
+## Human Resources in Healthcare
 
-## Key Regulations to Know
+```
+STAFFING RATIOS:
+  California mandate: 1:5 nurse-to-patient ratio (medical/surgical floor)
+  ICU: 1:1 or 1:2 depending on acuity
+  ED: varies by triage category and census
+  Overtime and agency staff: increase costs significantly
 
-- **HIPAA Privacy Rule** — protects patient health information (PHI); applies to covered entities and business associates
-- **HIPAA Security Rule** — technical, physical, administrative safeguards for electronic PHI (ePHI)  
-- **CMS Conditions of Participation** — requirements for facilities participating in Medicare/Medicaid
-- **OIG Compliance Guidelines** — voluntary compliance program guidance for healthcare organizations
-- **False Claims Act** — civil and criminal penalties for fraudulent billing; qui tam provisions allow whistleblowers
+PROVIDER CREDENTIALING:
+  Primary source verification (PSV): verify licenses, education, training
+  Privileging: specific procedures a provider may perform at this facility
+  OPPE/FPPE: ongoing and focused professional practice evaluation
+  Peer review: confidential quality oversight (protected from discovery)
 
-## Certification Preparation
+WORKFORCE CHALLENGES:
+  Nursing shortage: projected 200,000+ vacancies nationally
+  Burnout: high after COVID-19 pandemic, travel nurse costs
+  CRNA/NP/PA: expanded roles in many states due to physician shortage
+  Locum tenens: temporary physicians to fill gaps
+```
 
-Most positions in this area recognize the following certifications:
-- **CPC** (Certified Professional Coder) — AAPC, outpatient/physician focus
-- **CCS** (Certified Coding Specialist) — AHIMA, inpatient/hospital focus
-- **RHIT** (Registered Health Information Technician) — AHIMA
-- **RHIA** (Registered Health Information Administrator) — AHIMA senior credential
-- **CPB** (Certified Professional Biller) — AAPC, billing and reimbursement
-
-Continuing education (CEUs) required annually to maintain all credentials.
+## Study Resources
+- **MGMA DataDive** — practice management benchmarking
+- **Becker's Hospital Review** (beckershospitalreview.com) — free industry news
+- **HFMA** (hfma.org) — healthcare finance management resources
+- **CMS Quality Measures** (cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments) — official metrics

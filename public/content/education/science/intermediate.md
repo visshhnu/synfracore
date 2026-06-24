@@ -1,44 +1,74 @@
-# Science — Intermediate
+# Class 9-10 Science Intermediate Topics
 
-## From Concepts to Problems
+## Biology — Life Processes
 
-At the intermediate level, you apply fundamental knowledge to solve structured problems. This is where Placements/GATE/University questions at medium difficulty level fall.
+```
+NUTRITION:
+  Autotrophic: make own food | Heterotrophic: consume others
+  Photosynthesis: 6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂ (light + chlorophyll)
+    Light reactions (grana): water photolysis, ATP and NADPH formation
+    Dark reactions (stroma): CO₂ fixation, glucose synthesis
+  
+  Human nutrition: ingestion → digestion → absorption → assimilation → egestion
+    Mouth: salivary amylase (starch → maltose)
+    Stomach: pepsin (proteins), HCl (kills bacteria, activates pepsin)
+    Small intestine: trypsin (proteins), lipase (fats), bile (emulsifies fats)
+    Large intestine: water absorption, faeces formation
 
-## Topics at This Level
+RESPIRATION:
+  Cellular: glucose + O₂ → CO₂ + H₂O + energy (36-38 ATP)
+  Aerobic: with oxygen | complete oxidation | more ATP
+  Anaerobic: without oxygen | incomplete | less ATP (2 ATP)
+    In yeast: glucose → ethanol + CO₂
+    In muscle: glucose → lactic acid (during intense exercise)
+  
+  Human respiratory system:
+    Nose → Pharynx → Larynx → Trachea → Bronchi → Alveoli
+    Alveoli: site of gas exchange (O₂ in, CO₂ out) | huge surface area
 
-- Physics: Motion, Force, Energy
-- Chemistry: Matter, Reactions, Periodic Table
-- Biology: Cell, Life Processes, Genetics, Ecology
-- Scientific Method & Experiments
+EXCRETION:
+  Kidney: filters blood, forms urine (water, urea, salts)
+  Nephron: Bowman's capsule → PCT → Loop of Henle → DCT → Collecting duct
+  Dialysis: artificial kidney for kidney failure patients
+  
+NERVOUS SYSTEM:
+  Neuron: cell body + dendrites (receive) + axon (transmit)
+  Nerve impulse: electrical signal across neuron
+  Reflex arc: receptor → sensory nerve → spinal cord → motor nerve → effector
+  Brain: cerebrum (thinking) | cerebellum (balance) | medulla (automatic functions)
+```
 
-## Problem-Solving Strategy
+## Chemistry — Key Reactions
 
-For Science at intermediate level:
+```
+ACIDS AND BASES:
+  Acids: taste sour, turn blue litmus red, pH < 7, release H⁺ ions
+  Bases: taste bitter, slippery, turn red litmus blue, pH > 7, release OH⁻
+  pH scale: 0-6 acidic | 7 neutral | 8-14 basic/alkaline
+  
+  Neutralisation: Acid + Base → Salt + Water
+    HCl + NaOH → NaCl + H₂O
+  
+  Strong acids: HCl, H₂SO₄, HNO₃ (fully ionise)
+  Weak acids: CH₃COOH (acetic), H₂CO₃ (carbonic), HF (partially ionise)
 
-**1. Identify the type** — Which topic does this question belong to? (e.g., work-time, profit-loss, normalization)
+METALS AND NON-METALS:
+  Reactivity series: K > Ca > Na > Mg > Al > Zn > Fe > Pb > H > Cu > Hg > Ag > Au
+  Displacement: more reactive displaces less reactive from salt solution
+    Fe + CuSO₄ → FeSO₄ + Cu (iron is more reactive than copper)
+  
+  Extraction: metals above Na — electrolysis | Al-Fe — reduction | Cu,Hg — heating
 
-**2. Recall the approach** — What formula/method applies? Write it down.
+CARBON COMPOUNDS:
+  Carbon's special properties: catenation (C-C bonds), tetravalency (4 bonds)
+  Hydrocarbons: alkanes CₙH₂ₙ₊₂ | alkenes CₙH₂ₙ | alkynes CₙH₂ₙ₋₂
+  Functional groups: alcohol (-OH) | aldehyde (-CHO) | carboxylic acid (-COOH)
+    ester (-COO-) | amine (-NH₂)
+  Soaps vs detergents: soaps fail in hard water | detergents work in hard water
+```
 
-**3. Apply methodically** — Work step by step. Don't skip steps under time pressure — mistakes happen.
-
-**4. Verify** — Does your answer make sense? For MCQ, check if the answer is "in the ballpark."
-
-**5. Review wrong answers** — Every wrong answer reveals a gap. Fix the gap, not just the answer.
-
-## Practice Distribution
-
-For optimal preparation:
-- 60% time on problem solving (not reading)
-- 20% time on concept review
-- 20% time on analyzing mistakes
-
-## Key Formulas & Rules
-
-Study the **Cheatsheet** section for a compiled list of the most important formulas and rules for Science. The **Labs** section has intermediate MCQ sets that test exactly this level.
-
-## Transition to Advanced
-
-You're ready for advanced topics when you can:
-- Solve intermediate problems in under 2 minutes each
-- Identify the approach within 15 seconds of reading a problem
-- Score 75%+ consistently on intermediate MCQ sets
+## Study Resources
+- **NCERT Class 9-10 Science** — do all exercises, including additional exercises
+- **NCERT Exemplar** — for board toppers and competitive exam preparation
+- **Oswaal Question Banks** — chapter-wise practice with previous board questions
+- **YouTube: Vedantu Class 10** — free NCERT-based video explanations

@@ -1,41 +1,74 @@
-# NEET Physics — Overview
+# NEET Physics Overview
 
-## Physics in NEET
+## Role of Physics in NEET
 
-Physics contributes 180 marks (45 questions × 4 marks) — 25% of the total NEET score. Unlike Biology where NCERT is sufficient, Physics requires strong conceptual understanding and problem-solving.
+Physics in NEET carries 180 marks out of 720 total. While Biology is the most important subject (360 marks), Physics often determines the difference between getting into top medical colleges and settling for less.
 
-## High-Weightage Topics
+Many NEET aspirants — especially those with a biology background — find Physics challenging. However, with the right strategy, Physics can be made scoring.
 
-| Chapter | Avg Questions |
-|---|---|
-| Mechanics (Laws of Motion, Work-Energy) | 7-9 |
-| Modern Physics (Atomic, Nuclear) | 5-7 |
-| Electrostatics & Current Electricity | 6-8 |
-| Optics (Ray & Wave) | 4-6 |
-| Thermodynamics | 3-4 |
-| Oscillations & Waves | 3-4 |
-| Magnetic Effects & Electromagnetic Induction | 3-4 |
+## What Makes NEET Physics Different
 
-## Important Formulas (Master These First)
-- Newton's Laws: F=ma, momentum conservation
-- Work-Energy Theorem: W = ΔKE
-- Kinematics: v = u + at, s = ut + ½at², v² = u² + 2as
-- Ohm's Law: V = IR, power P = VI = I²R = V²/R
-- Coulomb's Law: F = kq₁q₂/r²
-- Lens formula: 1/f = 1/v - 1/u, Magnification m = v/u
-- Photoelectric effect: KE_max = hν - φ (work function)
+```
+NEET PHYSICS vs JEE PHYSICS:
+  NEET: NCERT level concepts | mostly formula application
+  JEE: deep concept application | multi-step complex problems
+  
+  NEET physics is accessible if you:
+    Master NCERT theory completely
+    Learn key formulas and when to apply them
+    Practice previous year questions (40-50% questions repeat patterns)
+    Focus on conceptual understanding, not complex derivations
 
-## NEET Physics Strategy
+MOST IMPORTANT CHAPTERS (by marks):
+  Modern Physics: 5-8 questions — highly predictable, formula-based
+  Optics (Ray + Wave): 5-7 questions — sign convention mastery needed
+  Current Electricity: 4-5 questions — Kirchhoff and formulas
+  Thermodynamics: 3-4 questions — conceptual + formula
+  Mechanics: 8-10 questions spread across chapters
 
-**Chapters to prioritize (high return on investment):**
-1. Mechanics — 7+ questions, foundational for everything else
-2. Modern Physics — mostly theory, easier to score
-3. Ray Optics — formula-based, consistent questions every year
-4. Current Electricity — formulaic, practice is key
+LEAST TIME-EFFICIENT (high effort, fewer marks):
+  Rotational mechanics (limited in NEET)
+  Electromagnetic induction advanced concepts
+  Focus time proportional to marks available
+```
 
-**Chapters that are time-consuming but necessary:**
-- Electromagnetic Induction
-- Oscillations
+## Study Materials
 
-## Labs Section
-Practice NEET Physics with our MCQ quiz sets featuring detailed solutions showing step-by-step working for every numerical problem.
+```
+NCERT PHYSICS (ABSOLUTELY MANDATORY):
+  Class 11: Chapters 1-15 (all)
+  Class 12: Chapters 1-15 (all)
+  Do all NCERT examples and exercises — many questions directly from here
+
+RECOMMENDED BOOKS:
+  DC Pandey Physics for NEET (Arihant): best supplementary for NEET
+  MTG NEET Champion Physics: quick revision with PYQ
+  Errorless Physics (Universal): comprehensive reference
+
+ONLINE RESOURCES:
+  PW (Physics Wallah): free complete NEET physics video lectures
+  NTA NEET Official PYQ: available on nta.ac.in for all years
+  Aakash iTutor: structured NEET preparation
+```
+
+## Month-wise Plan
+
+```
+MONTH 1-2: Class 11 Physics
+  Cover all chapters with NCERT + DC Pandey
+  Focus: mechanics, thermodynamics, waves
+
+MONTH 3-4: Class 12 Physics
+  Electrostatics, current, magnetic effects, optics, modern physics
+  Focus: daily formula revision, 10 PYQs per chapter
+
+MONTH 5-6: Revision + PYQ
+  Complete 3-4 PYQ papers per week
+  Identify weak chapters and revisit
+  Join full mock test series (NTA-pattern)
+
+LAST MONTH: Intensive revision
+  Formula sheet revision daily
+  Previous 5 years complete NEET papers
+  Maintain exam-day stamina (practice in exam time slot)
+```

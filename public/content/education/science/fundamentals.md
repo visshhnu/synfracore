@@ -1,43 +1,73 @@
-# Science — Fundamentals
+# Class 9-10 Science Fundamentals
 
-## Overview
+## Chemistry Fundamentals
 
-Science is a foundational subject for Placements/GATE/University. Mastering these fundamentals is essential before attempting intermediate or advanced topics.
+```
+MATTER AND ITS STATES:
+  Solid: fixed shape, volume | Liquid: fixed volume, shape of container
+  Gas: no fixed shape/volume | Plasma: ionised gas (stars, lightning, neon signs)
+  
+  Changes of state (with heat): Solid → Liquid (melting) → Gas (vaporization)
+  Reverse (with cooling): Gas → Liquid (condensation) → Solid (freezing)
+  Sublimation: solid directly to gas (dry ice, iodine, camphor, naphthalene)
+  
+  Latent heat: heat absorbed/released during state change (no temperature change)
 
-## Core Topics Covered
+ATOMS AND MOLECULES:
+  Law of Conservation of Mass: mass of reactants = mass of products
+  Law of Definite Proportions: compound has fixed mass ratio of elements
+  Mole concept: 1 mole = 6.022 × 10²³ particles
+  Molar mass = mass of 1 mole = molecular weight in grams
 
-- Physics: Motion, Force, Energy
-- Chemistry: Matter, Reactions, Periodic Table
-- Biology: Cell, Life Processes, Genetics, Ecology
-- Scientific Method & Experiments
+PERIODIC TABLE (first 20 elements — must know):
+  H, He, Li, Be, B, C, N, O, F, Ne, Na, Mg, Al, Si, P, S, Cl, Ar, K, Ca
+  Valency: group 1=1, group 2=2, group 13=3, group 14=4, group 15=3, group 16=2, group 17=1
 
-## Learning Approach
+CHEMICAL BONDING BASICS:
+  Ionic bond: metal loses electrons → cation | non-metal gains → anion
+    NaCl: Na loses 1e⁻ → Na⁺ | Cl gains 1e⁻ → Cl⁻
+  Covalent bond: non-metals share electrons
+    H₂O: O shares 2 pairs | CO₂: C shares 2 pairs with each O (double bonds)
+```
 
-**Step 1: Understand, don't memorize**
-Each concept in Science builds on the previous. Don't try to memorize formulas/rules before understanding why they work.
+## Physics Fundamentals
 
-**Step 2: Practice with examples**
-After each concept, solve at least 5 examples before moving on. Understanding isn't enough — you need speed and accuracy.
+```
+MOTION:
+  Distance: total path length (scalar)
+  Displacement: shortest distance, direction matters (vector)
+  Speed = distance/time (scalar) | Velocity = displacement/time (vector)
+  Acceleration = change in velocity / time | a = (v-u)/t
+  
+  Equations of motion:
+    v = u + at
+    s = ut + ½at²
+    v² = u² + 2as
 
-**Step 3: Use the Labs section**
-The MCQ quiz sets and flashcards in the Labs section are designed specifically for Science fundamentals. Complete all beginner-level questions before advancing.
+FORCE:
+  Newton's 1st Law: object at rest stays at rest unless net force acts
+  Newton's 2nd Law: F = ma (force = mass × acceleration)
+  Newton's 3rd Law: for every action, equal and opposite reaction
+  
+  Gravity: g = 9.8 m/s² (downward on Earth's surface)
+  Weight W = mg | Mass = same everywhere | Weight = varies by location
 
-## Study Schedule
+WORK AND ENERGY:
+  Work W = F × d × cosθ (θ = angle between force and displacement)
+  Kinetic Energy: KE = ½mv²
+  Potential Energy (gravitational): PE = mgh
+  Law of Conservation of Energy: total mechanical energy constant (no friction)
 
-| Week | Focus Area | Daily Time |
-|---|---|---|
-| Week 1 | First 2-3 topics from the list above | 1-2 hours |
-| Week 2 | Next 2-3 topics | 1-2 hours |
-| Week 3 | Remaining topics + revision | 1-2 hours |
-| Week 4 | MCQ practice + weak area review | 2 hours |
+ELECTRICITY:
+  Electric current I = Q/t (coulombs per second = Ampere)
+  Ohm's Law: V = IR (Voltage = Current × Resistance)
+  Power: P = VI = I²R = V²/R (Watts)
+  Series: same current, resistances add: R_total = R₁ + R₂ + R₃
+  Parallel: same voltage, conductances add: 1/R = 1/R₁ + 1/R₂ + 1/R₃
+```
 
-## Common Mistakes at This Level
-
-- Skipping the basics and jumping to shortcuts
-- Not solving enough practice problems
-- Reading without writing/working through examples
-- Ignoring errors instead of analyzing them
-
-## What Comes Next
-
-After fundamentals, move to the **Intermediate** section which covers application of these concepts to real problems and harder question patterns.
+## Study Resources
+- **NCERT Class 9 and 10 Science textbooks** — primary resource, read completely
+- **NCERT Exemplar Problems** — slightly harder problems for deeper understanding
+- **Khan Academy** (khanacademy.org) — free video explanations with practice
+- **PW Class 10 Science** — free video lectures matching NCERT syllabus

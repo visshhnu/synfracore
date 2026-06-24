@@ -1,40 +1,71 @@
-# Medical Coding Mock Exams — Intermediate
+# Medical Coding Mock Exams Intermediate Topics
 
-## Applying Medical Coding Mock Exams in Practice
+## E&M Documentation Intermediate
 
-At the intermediate level, you work with real scenarios and more complex situations.
+```
+2021 E&M CHANGES IMPACT ON DOCUMENTATION:
+  Old (pre-2021): required history, exam, and MDM documented to specific level
+  New (2021+): MDM OR total time determines level (history/exam no longer drive level)
+  
+  What this means for documentation:
+    Physicians no longer need to document extensive review of systems to hit 99215
+    BUT documentation still must support medical necessity for any service billed
+    MDM documentation needs: problems addressed, data reviewed/ordered, risk of treatment
+    Time documentation: total time on date of service (including all non-face-to-face work)
 
-## Key Processes
+MDM DOCUMENTATION EXAMPLES:
+  STRAIGHTFORWARD (99202/99212):
+    "Patient here for BP check. BP 128/82 on lisinopril. Continue current regimen."
+    One self-limited problem | Minimal data | Minimal risk
 
+  LOW COMPLEXITY (99203/99213):
+    "Patient with stable hypertension and type 2 DM for routine follow-up. 
+     HbA1c results reviewed (7.2%). BP controlled. Refill metformin and lisinopril."
+    Two stable chronic conditions | Reviewed test result | Low risk (prescription management)
 
+  MODERATE (99204/99214):
+    "New complaint of chest pain. Ordered EKG, troponin, CBC. Reviewed prior cardiology notes.
+     Risk of NSTEMI cannot be excluded. Prescribing aspirin, admit for observation."
+    New undiagnosed problem with uncertain prognosis | Independent interpretation | High risk
 
+TIME-BASED DOCUMENTATION:
+  "Total time spent on this encounter including pre- and post-work: 45 minutes"
+  Include: chart prep, face-to-face, ordering, documentation, care coordination
+  Do NOT include: time for services billed separately (procedures, tests)
+```
 
+## Claim Submission and Denials
 
-### Mock Exam Strategy\nApproach each mock exam like the real certification:\n- **Time discipline**: CPC has 5 hours 40 min for 150 questions (~2.3 min/question)\n- **Use your codebooks**: Every cert exam allows ICD-10-CM, CPT, HCPCS manuals\n- **Tab and highlight**: Organize codebooks with tabs for major sections\n- **Easy questions first**: Skip difficult questions, return with remaining time\n- **Never leave blank**: No negative marking on CPC — guess if running out of time\n\n### Common Exam Topics by Frequency\n1. E/M coding (Medical Decision Making) — always tested\n2. Surgical package (global days, modifiers)\n3. ICD-10-CM sequencing rules\n4. HCPCS modifiers (GY, GZ, KX, GA)\n5. Anatomy knowledge underlying procedure codes
+```
+CLAIM FORM ELEMENTS (CMS-1500):
+  Box 21: diagnosis codes (up to 12) — ICD-10-CM
+  Box 24: service lines — date, place of service, CPT, modifiers, diagnosis pointer, charge
+  Box 24J: rendering provider NPI
+  Box 33: billing provider NPI
 
-## Practice
+COMMON DENIAL REASONS AND FIXES:
+  CO-4: Procedure inconsistent with modifier — check modifier applicability
+  CO-11: Diagnosis inconsistent with procedure — verify correct dx pointer
+  CO-50: Non-covered service — check patient benefits, get ABN if needed
+  CO-97: Bundled into another service — check NCCI edits, add modifier if appropriate
+  PR-96: Non-covered charge — patient responsibility if not covered benefit
+  
+  APPEALS PROCESS:
+    Level 1: redetermination (original MAC) — 120 days to file
+    Level 2: reconsideration (QIC — Qualified Independent Contractor) — 180 days
+    Level 3: ALJ (Administrative Law Judge) hearing — 60 days
+    Level 4: Medicare Appeals Council — 60 days
+    Level 5: Federal District Court — 60 days (if amount meets threshold)
 
-Complete the Labs MCQ sets for this topic — they cover exactly the intermediate-level scenarios you will see in certification exams and real-world practice.
+PRIOR AUTHORIZATION:
+  Required for: high-cost procedures, elective surgery, specialty referrals
+  Get before service: retroactive auth usually not accepted
+  Document: auth number in billing notes
+  Appeal denied auth: clinical documentation + physician letter of medical necessity
+```
 
-## Practical Application
-
-Understanding this topic in depth requires applying it to real case scenarios. Work through the case studies in the Advanced section and use the MCQ quiz sets in the Labs section to test your knowledge.
-
-## Key Regulations to Know
-
-- **HIPAA Privacy Rule** — protects patient health information (PHI); applies to covered entities and business associates
-- **HIPAA Security Rule** — technical, physical, administrative safeguards for electronic PHI (ePHI)  
-- **CMS Conditions of Participation** — requirements for facilities participating in Medicare/Medicaid
-- **OIG Compliance Guidelines** — voluntary compliance program guidance for healthcare organizations
-- **False Claims Act** — civil and criminal penalties for fraudulent billing; qui tam provisions allow whistleblowers
-
-## Certification Preparation
-
-Most positions in this area recognize the following certifications:
-- **CPC** (Certified Professional Coder) — AAPC, outpatient/physician focus
-- **CCS** (Certified Coding Specialist) — AHIMA, inpatient/hospital focus
-- **RHIT** (Registered Health Information Technician) — AHIMA
-- **RHIA** (Registered Health Information Administrator) — AHIMA senior credential
-- **CPB** (Certified Professional Biller) — AAPC, billing and reimbursement
-
-Continuing education (CEUs) required annually to maintain all credentials.
+## Study Resources
+- **CMS Physician Fee Schedule** — RVU values, coverage, billing guidelines (free online)
+- **AAPC CPC Practice Exam** (aapc.com) — 150-question timed practice tests
+- **Decode HER** (decodher.com) — female-led coding education platform with scenarios
+- **Medical Billing and Coding Forum** (billerswebsite.com) — peer Q&A for coders

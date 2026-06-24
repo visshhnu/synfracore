@@ -1,46 +1,83 @@
-# Cloud Cost Optimisation Quick Reference
+# Cloud Cost Optimization Cheatsheet
 
 ## AWS Cost Commands
 ```bash
-# Cost Explorer
+# Current month spend by service
 aws ce get-cost-and-usage \
-  --time-period Start=2024-01-01,End=2024-01-31 \
-  --granularity MONTHLY --group-by Type=DIMENSION,Key=SERVICE
+  --time-period Start=2025-06-01,End=2025-06-30 \
+  --granularity MONTHLY \
+  --metrics BlendedCost \
+  --group-by Type=DIMENSION,Key=SERVICE
 
-# Compute Optimizer (right-sizing)
-aws compute-optimizer get-ec2-instance-recommendations
-aws compute-optimizer get-ecs-service-recommendations
-aws compute-optimizer get-lambda-function-recommendations
+# Cost by tag
+aws ce get-cost-and-usage \
+  --time-period Start=2025-06-01,End=2025-06-30 \
+  --granularity DAILY --metrics BlendedCost \
+  --group-by Type=TAG,Key=Environment
 
-# Trusted Advisor
-aws support describe-trusted-advisor-check-summaries \
-  --check-ids 'Qch7DwouX1'  # Cost optimisation checks
+# Rightsizing recommendations
+aws ce get-rightsizing-recommendation --service EC2
 
-# Find unused resources
-aws ec2 describe-volumes --filters Name=status,Values=available  # Unattached EBS
-aws ec2 describe-addresses --filters Name=allocation-id,Values=*  # Unused EIPs
-aws ec2 describe-snapshots --owner-ids self --filters Name=status,Values=completed
+# Reserved Instance utilisation
+aws ce get-reservation-utilization \
+  --time-period Start=2025-05-01,End=2025-06-01
+
+# Savings Plans recommendations
+aws ce get-savings-plans-purchase-recommendation \
+  --savings-plans-type COMPUTE_SP \
+  --term-in-years ONE_YEAR --payment-option NO_UPFRONT
+
+# Identify unused EBS volumes
+aws ec2 describe-volumes \
+  --filters Name=status,Values=available \
+  --query 'Volumes[].{ID:VolumeId,Size:Size,State:State}'
+
+# List unattached Elastic IPs
+aws ec2 describe-addresses \
+  --query 'Addresses[?!InstanceId].PublicIp'
 ```
 
-## Cost Saving Reference
+## Azure Cost Commands
+```bash
+# Cost by resource group
+az consumption usage list \
+  --start-date 2025-06-01 --end-date 2025-06-30 \
+  --query "[].{ResourceGroup:resourceGroup,Cost:pretaxCost,Currency:currency}" \
+  --output table
+
+# Advisor cost recommendations
+az advisor recommendation list --category Cost
+
+# Identify unattached disks
+az disk list --query "[?diskState=='Unattached'].{Name:name,Size:diskSizeGb,RG:resourceGroup}"
+
+# Identify unused public IPs
+az network public-ip list --query "[?ipAddress==null].{Name:name,RG:resourceGroup}"
 ```
-DISCOUNT OPTIONS:
-  On-Demand:      baseline (no discount)
-  Spot:           60-90% off (stateless/fault-tolerant workloads)
-  RI 1yr No-upfront: ~30% off  (predictable workloads)
-  RI 3yr All-upfront: ~60% off (long-running, stable)
-  Savings Plans: 17-66% off (flexible, compute or EC2)
 
-RIGHT SIZING (typically 20-40% savings):
-  Use Compute Optimizer → recommendations per service
-  Target: CPU 40-70%, Memory 40-80%
-  Resize DOWN then enable autoscaling
+## Key Optimization Strategies
+| Strategy | Savings | Effort |
+|----------|---------|--------|
+| Delete unused resources (idle EC2, unattached disks) | 10-30% | Low |
+| Rightsize oversized instances | 15-40% | Medium |
+| Reserved Instances / Savings Plans / Committed Use | 30-72% | Low (1-3yr commit) |
+| Spot/Preemptible/Spot VMs for fault-tolerant workloads | 60-90% | High |
+| Auto-scaling (scale in during low demand) | 20-50% | Medium |
+| S3/Blob lifecycle policies (move to cold storage) | 50-70% on cold data | Low |
+| Scheduled start/stop (dev/test environments) | 60-70% on non-prod | Low |
+| Data transfer optimization (same-region, CloudFront) | Variable | Medium |
+| Graviton/Arm instances (AWS) — 20% better price/perf | 20% | Low |
 
-QUICK WINS:
-  Delete unattached EBS volumes (immediately)
-  Release unassociated Elastic IPs ($3.60/month each)
-  Delete old snapshots (set lifecycle policies)
-  Stop dev/test at end of business hours (save 67%)
-  Delete unused load balancers (~$20/month each)
-  Clean up unused NAT Gateways ($35+/month each)
+## Quick Wins Checklist
+```
+☐ Enable Cost Explorer / Azure Cost Management / GCP Billing
+☐ Set up billing alerts (alert at 80% and 100% of budget)
+☐ Delete unattached EBS volumes and Azure Disks
+☐ Release unattached Elastic IPs / Azure Public IPs
+☐ Terminate stopped instances older than 30 days (verify first)
+☐ Enable S3 Intelligent-Tiering or lifecycle rules
+☐ Right-size instances flagged by Cost Explorer / Advisor
+☐ Purchase RIs/Savings Plans for baseline steady-state workloads
+☐ Tag all resources (enables cost allocation by team/project)
+☐ Stop dev/test instances on weekends (70% savings on non-prod)
 ```

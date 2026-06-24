@@ -1,48 +1,69 @@
-# JEE Chemistry — Intermediate
+# JEE Chemistry Intermediate Topics
 
-## From Concepts to Problems
+## Equilibrium and Ionic Equilibrium
 
-At the intermediate level, you apply fundamental knowledge to solve structured problems. This is where JEE questions at medium difficulty level fall.
+```
+CHEMICAL EQUILIBRIUM:
+  For aA + bB ⇌ cC + dD:
+    Kc = [C]^c[D]^d / ([A]^a[B]^b)
+    Kp = Kc(RT)^Δn where Δn = moles of gas products - moles of gas reactants
+  
+  Le Chatelier's Principle:
+    Add reactant → shifts right | Remove product → shifts right
+    Increase pressure → shifts to side with fewer moles of gas
+    Increase temperature → shifts in endothermic direction (absorbs heat)
+  
+  Degree of dissociation (α):
+    For A ⇌ nB: if initial moles = 1, at equilibrium: (1-α) A, nα B
+    Total moles at equilibrium = 1 - α + nα = 1 + (n-1)α
 
-## Topics at This Level
+IONIC EQUILIBRIUM:
+  pH = -log[H⁺] | pOH = -log[OH⁻] | pH + pOH = 14 at 25°C
+  
+  Strong acids: HCl, H₂SO₄, HNO₃, HBr, HI, HClO₄
+  Strong bases: NaOH, KOH, Ba(OH)₂, Ca(OH)₂
+  
+  Weak acid: Ka = [H⁺][A⁻]/[HA]
+    [H⁺] = √(Ka × C) for weak acid of concentration C
+    pH = ½(pKa - log C) = ½pKa + ½pC
+  
+  Buffer solution:
+    Henderson-Hasselbalch: pH = pKa + log([Salt]/[Acid])
+    Best buffer at pH = pKa (equal concentrations of acid and salt)
+  
+  Solubility product: Ksp = [Cation]^m [Anion]^n
+    Precipitation occurs when ionic product > Ksp
+    Common ion effect: decrease in solubility when common ion added
+```
 
-- Mole Concept & Stoichiometry
-- Chemical Bonding & Structure
-- Thermodynamics & Equilibrium
-- Electrochemistry
-- Organic Chemistry (GOC, Named Reactions)
-- Coordination Compounds
-- p-Block & d-Block Elements
-- Polymers & Biomolecules
+## Electrochemistry
 
-## Problem-Solving Strategy
+```
+GALVANIC CELL:
+  Cell notation: anode | anode solution || cathode solution | cathode
+    Anode: oxidation (negative electrode, loses electrons)
+    Cathode: reduction (positive electrode, gains electrons)
+  
+  EMF of cell: E_cell = E_cathode - E_anode (reduction potentials)
+  
+  Nernst equation: E = E° - (0.0592/n) log Q (at 25°C)
+    At equilibrium: E = 0, so E° = (0.0592/n) log K
+    Relation: ΔG° = -nFE° | ΔG° = -RT ln K
 
-For JEE Chemistry at intermediate level:
+ELECTROLYSIS:
+  Faraday's 1st law: mass deposited ∝ charge (Q = It)
+  Faraday's 2nd law: mass ∝ equivalent weight
+  
+  Mass deposited: m = (M × I × t) / (n × F)
+    where M = molar mass, n = n-factor, F = 96500 C/mol
+  
+  Products of electrolysis:
+    At cathode: cation with highest reduction potential reduced
+    At anode: anion with lowest oxidation potential oxidized (or O₂ from H₂O)
+```
 
-**1. Identify the type** — Which topic does this question belong to? (e.g., work-time, profit-loss, normalization)
-
-**2. Recall the approach** — What formula/method applies? Write it down.
-
-**3. Apply methodically** — Work step by step. Don't skip steps under time pressure — mistakes happen.
-
-**4. Verify** — Does your answer make sense? For MCQ, check if the answer is "in the ballpark."
-
-**5. Review wrong answers** — Every wrong answer reveals a gap. Fix the gap, not just the answer.
-
-## Practice Distribution
-
-For optimal preparation:
-- 60% time on problem solving (not reading)
-- 20% time on concept review
-- 20% time on analyzing mistakes
-
-## Key Formulas & Rules
-
-Study the **Cheatsheet** section for a compiled list of the most important formulas and rules for JEE Chemistry. The **Labs** section has intermediate MCQ sets that test exactly this level.
-
-## Transition to Advanced
-
-You're ready for advanced topics when you can:
-- Solve intermediate problems in under 2 minutes each
-- Identify the approach within 15 seconds of reading a problem
-- Score 75%+ consistently on intermediate MCQ sets
+## Study Resources
+- **JD Lee Concise Inorganic Chemistry** — comprehensive for inorganic + coordination
+- **MS Chauhan Organic Chemistry** — excellent for organic mechanisms and reactions
+- **NCERT Exemplar Chemistry** — extra problems beyond NCERT, JEE level
+- **Unacademy / Vedantu JEE Chemistry** — chapter-wise live and recorded sessions

@@ -1,53 +1,69 @@
-# GATE ECE — Certification Guide
+# GATE ECE Certification Guide
 
-## Why Get Certified in GATE ECE?
+## About GATE ECE
 
-Certifications validate your GATE ECE skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+| Detail | Info |
+|--------|------|
+| **Full Form** | Electronics and Communication Engineering |
+| **Conducted by** | IITs / IISc (rotates) |
+| **Duration** | 3 hours | **Marks** | 100 |
+| **Negative marking** | -0.33 (1-mark) / -0.67 (2-mark) |
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
-
-## Most Valuable Certifications
-
-Research current certifications for GATE ECE on these sources:
-
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
-
-## General Certification Strategy
-
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
-
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
+## Syllabus Overview
 
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+ENGINEERING MATHEMATICS (13%):
+  Linear Algebra, Calculus, Differential Equations
+  Complex Analysis, Probability and Statistics
+
+NETWORK THEORY (5%):
+  KCL, KVL, mesh/node analysis, Thevenin/Norton
+  Laplace transforms, transfer functions, frequency response
+
+ELECTRONIC DEVICES (5%):
+  PN junction, BJT, MOSFET, diodes
+  Biasing, small-signal models, op-amps
+
+ANALOG CIRCUITS (8%):
+  Amplifiers (BJT, MOSFET), feedback, oscillators
+  Filters, signal generators, power amplifiers
+
+DIGITAL CIRCUITS (6%):
+  Boolean algebra, combinational logic, sequential logic
+  ADC/DAC, memory devices, microprocessors
+
+SIGNALS AND SYSTEMS (10%):
+  LTI systems, convolution, Fourier/Laplace/Z-transforms
+  Sampling theorem, DTFT, DFT, FFT
+
+CONTROL SYSTEMS (8%):
+  Open/closed loop, transfer functions, block diagrams
+  Bode plots, Nyquist criterion, root locus, PID controllers
+
+COMMUNICATIONS (12%):
+  AM, FM modulation, noise, bandwidth
+  Digital modulation: ASK, FSK, PSK, QAM
+  Information theory, Shannon capacity
+
+ELECTROMAGNETICS (10%):
+  Maxwell equations, wave propagation, transmission lines
+  Antennas, waveguides, microwave circuits
+
+COMPUTER ORGANIZATION (4%):
+  Instruction set, pipelining, memory hierarchy
 ```
 
-## After Certification
+## Study Resources
+- **NPTEL ECE courses** (nptel.ac.in) — free IIT lectures
+- **Made Easy / ACE Academy** study material
+- **GFG GATE ECE** — notes and previous papers
+- **Previous year papers** (2015–2024) — most important
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## Revision Notes
+```
+GATE ECE: 100 marks | 65 questions | 3hr | Signals+Comms = 22% = most weightage
+FOURIER TRANSFORM: frequency domain analysis | convolution in time = multiply in freq
+SAMPLING: Nyquist rate = 2 × maximum frequency | aliasing if undersampled
+CONTROL: Bode plot gain/phase margins | root locus | Routh-Hurwitz for stability
+COMMUNICATIONS: Shannon capacity = B × log2(1 + SNR)
+```

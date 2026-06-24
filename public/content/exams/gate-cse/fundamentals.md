@@ -1,48 +1,60 @@
-# GATE CSE — Fundamentals
+# GATE Computer Science — Fundamentals
 
-## Overview
+## GATE CSE Fundamentals
 
-GATE CSE is a foundational subject for GATE. Mastering these fundamentals is essential before attempting intermediate or advanced topics.
+### Key Formulas and Concepts
 
-## Core Topics Covered
+```
+ASYMPTOTIC NOTATION:
+  O(f(n)): upper bound | Omega(f(n)): lower bound | Theta(f(n)): tight bound
+  Common complexities (increasing order):
+    O(1) < O(log n) < O(n) < O(n log n) < O(n^2) < O(n^3) < O(2^n) < O(n!)
 
-- Data Structures & Algorithms
-- Theory of Computation
-- Digital Logic
-- Computer Organization
-- Operating Systems
-- DBMS
-- Computer Networks
-- Discrete Mathematics
-- Programming (C)
+RECURRENCE RELATIONS — MASTER THEOREM:
+  T(n) = aT(n/b) + f(n)
+  Case 1: f(n) = O(n^(log_b(a) - ε)) → T(n) = Θ(n^log_b(a))
+  Case 2: f(n) = Θ(n^log_b(a)) → T(n) = Θ(n^log_b(a) × log n)
+  Case 3: f(n) = Ω(n^(log_b(a) + ε)) → T(n) = Θ(f(n))
 
-## Learning Approach
+SORTING COMPARISON:
+  Algorithm   Best      Average    Worst     Space   Stable
+  Bubble      O(n)      O(n^2)     O(n^2)    O(1)    Yes
+  Selection   O(n^2)    O(n^2)     O(n^2)    O(1)    No
+  Insertion   O(n)      O(n^2)     O(n^2)    O(1)    Yes
+  Merge       O(nlogn)  O(nlogn)   O(nlogn)  O(n)    Yes
+  Quick       O(nlogn)  O(nlogn)   O(n^2)    O(logn) No
+  Heap        O(nlogn)  O(nlogn)   O(nlogn)  O(1)    No
+  Counting    O(n+k)    O(n+k)     O(n+k)    O(k)    Yes
 
-**Step 1: Understand, don't memorize**
-Each concept in GATE CSE builds on the previous. Don't try to memorize formulas/rules before understanding why they work.
+GRAPH ALGORITHMS:
+  BFS: shortest path (unweighted) | level-order | connected components
+  DFS: cycle detection | topological sort | SCC (Kosaraju)
+  Dijkstra: O((V+E)logV) | non-negative weights | SSSP
+  Bellman-Ford: O(VE) | handles negative weights | detects negative cycle
+  Floyd-Warshall: O(V^3) | all-pairs shortest path
+  Prim/Kruskal: O(ElogV) | Minimum Spanning Tree
 
-**Step 2: Practice with examples**
-After each concept, solve at least 5 examples before moving on. Understanding isn't enough — you need speed and accuracy.
+PROCESS SCHEDULING:
+  FCFS: average wait = (sum of all wait times) / n
+  SJF: minimum average wait (non-preemptive optimal)
+  Round Robin: average = depends on quantum and burst times
+  
+  Example: P1(24ms) P2(3ms) P3(3ms) arrive at 0
+  FCFS: wait = 0, 24, 27 → avg = 17ms
+  SJF:  wait = 6, 0, 3 → avg = 3ms
 
-**Step 3: Use the Labs section**
-The MCQ quiz sets and flashcards in the Labs section are designed specifically for GATE CSE fundamentals. Complete all beginner-level questions before advancing.
+MEMORY — PAGE FAULT CALCULATION:
+  3 frames, reference string: 7,0,1,2,0,3,0,4,2,3,0,3,2
+  FIFO: count page faults step by step
+  LRU: evict least recently used
+  Optimal: evict page used furthest in future
+```
 
-## Study Schedule
-
-| Week | Focus Area | Daily Time |
-|---|---|---|
-| Week 1 | First 2-3 topics from the list above | 1-2 hours |
-| Week 2 | Next 2-3 topics | 1-2 hours |
-| Week 3 | Remaining topics + revision | 1-2 hours |
-| Week 4 | MCQ practice + weak area review | 2 hours |
-
-## Common Mistakes at This Level
-
-- Skipping the basics and jumping to shortcuts
-- Not solving enough practice problems
-- Reading without writing/working through examples
-- Ignoring errors instead of analyzing them
-
-## What Comes Next
-
-After fundamentals, move to the **Intermediate** section which covers application of these concepts to real problems and harder question patterns.
+## Revision Notes
+```
+MASTER THEOREM: memorise 3 cases | applies when T(n)=aT(n/b)+f(n)
+SORTING: merge sort only O(nlogn) stable | quick sort worst O(n^2) | heap in-place
+DIJKSTRA: non-negative weights only | Bellman-Ford: handles negatives
+GATE PATTERN: 2-mark questions carry double penalty (-0.67) | prioritise accuracy
+PAGE REPLACEMENT: Optimal (best) > LRU > FIFO | Belady's anomaly in FIFO
+```

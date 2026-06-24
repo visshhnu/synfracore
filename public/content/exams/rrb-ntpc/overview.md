@@ -1,51 +1,61 @@
-# RRB NTPC — Overview
+# RRB NTPC Overview
 
 ## What is RRB NTPC?
 
-RRB NTPC (Railway Recruitment Board — Non-Technical Popular Categories) is one of the largest government job recruitments in India. It offers positions like Junior Clerk, Accounts Clerk, Junior Time Keeper, Station Master, Goods Guard, and Senior Time Keeper across Indian Railways.
+RRB NTPC (Railway Recruitment Board Non-Technical Popular Categories) is one of India's most popular government job examinations, conducted by the Railway Recruitment Boards under the Ministry of Railways. It is called "Non-Technical" because the posts do not require specific technical/engineering qualifications.
 
-## Exam Pattern
+## Why RRB NTPC is Popular
 
-### CBT Stage 1 (Preliminary)
-| Section | Questions | Marks | Duration |
-|---|---|---|---|
-| Mathematics | 30 | 30 | 90 minutes |
-| General Intelligence & Reasoning | 30 | 30 | (combined) |
-| General Awareness | 40 | 40 | |
-| **Total** | **100** | **100** | |
+```
+REASONS FOR POPULARITY:
+  Large vacancies: 30,000-50,000 posts in each recruitment cycle
+  Low qualification: Class 12 or degree sufficient for most posts
+  Job security: government job with pension and lifetime benefits
+  Free railway travel: one of the best perks (pass for self and family)
+  Transfers: across India (some see as advantage, others disadvantage)
 
-### CBT Stage 2 (Mains)
-| Section | Questions | Marks | Duration |
-|---|---|---|---|
-| Mathematics | 35 | 35 | 90 minutes |
-| General Intelligence & Reasoning | 35 | 35 | |
-| General Awareness | 50 | 50 | |
-| **Total** | **120** | **120** | |
+COMPARED TO OTHER EXAMS:
+  vs SSC CGL: Similar difficulty, but railway-specific GK needed here
+  vs Banking: Less mathematics intensity, no banking awareness needed
+  vs UPSC: Much simpler, faster result, state-level postings possible
+  vs State PSC: Central government (RRB) vs state government
+```
 
-Negative marking: -1/3 for wrong answers.
+## Exam Stages
 
-## Subject-wise Preparation
+```
+STAGE 1 — CBT 1 (Common to all posts):
+  100 questions | 90 minutes | 100 marks
+  Qualifying test: top scorers called for CBT 2
+  Ratio: 20× the vacancy (e.g., 1000 vacancies → 20,000 appear in CBT 2)
 
-### Mathematics
-Focus areas: Number System, Ratio & Proportion, Percentage, Profit & Loss, Time & Work, Speed-Time-Distance, Simple & Compound Interest, Algebra basics, Geometry (area, volume), Statistics (mean, median, mode)
+STAGE 2 — CBT 2 (Post-specific):
+  Separate CBT 2 for different categories of posts
+  120 questions | 90 minutes | 120 marks
+  Ratio: 8× the vacancy called for next stage
 
-### Reasoning
-Focus areas: Number Series, Alphabetical Series, Coding-Decoding, Puzzles & Seating Arrangement, Blood Relations, Direction Sense, Syllogism, Analogies
+STAGE 3 — Skill/Typing Test (for select posts):
+  Typing test for: Junior Clerk cum Typist, Accounts Clerk cum Typist
+  Speed test for: Junior Time Keeper, Traffic Assistant
+  30 words per minute (English) or 25 wpm (Hindi) typically required
 
-### General Awareness
-Focus areas: Current Affairs (last 6 months), Indian History, Geography, Indian Polity (Constitution, Parliament), Railways GK (history, types of trains, zones), Science basics (Physics, Chemistry, Biology), Computer basics
+STAGE 4 — Document Verification:
+  Check original certificates: education, age, caste, medical fitness
+  Medical examination at Railway Hospital
+```
 
-## Study Plan (3 Months)
+## Expected Timeline
 
-**Month 1:** Mathematics foundation (number system, percentage, ratio)
-**Month 2:** Reasoning + complete remaining math chapters
-**Month 3:** General Awareness revision + mock tests daily
+```
+NOTIFICATION → EXAM → RESULT → JOINING: approximately 18-24 months
+  Due to scale (millions of applicants) and multiple stages
 
-## Resources
-- **Arihant RRB NTPC** — topic-wise preparation book
-- **Previous year papers** — most important (2016, 2019 papers)
-- **GKToday / AffairsCloud** — daily current affairs
-- **Unacademy / Testbook** — online mock tests
+NOTIFICATIONS: Check indianrailways.gov.in and all 21 RRB websites
+  Also check: rrbcdg.gov.in | rrbsecunderabad.nic.in | rrbmumbai.gov.in
+```
 
-## Labs Section
-Our MCQ quiz sets cover RRB NTPC Maths shortcuts, Reasoning patterns, and General Awareness MCQs in exactly the exam format.
+## Useful Links
+- **Indian Railways** (indianrailways.gov.in) — official ministry site
+- **RRB Central Delhi** (rrbcdg.gov.in) — RRB for Delhi zone
+- **IRCTC** (irctc.co.in) — ticket booking and candidate registration
+- **Indian Railway Statistics** — know key facts about IR network

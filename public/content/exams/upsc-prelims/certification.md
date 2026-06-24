@@ -1,53 +1,81 @@
-# UPSC Prelims — Certification Guide
+# UPSC Civil Services Prelims Certification Guide
 
-## Why Get Certified in UPSC Prelims?
+## About UPSC CSE Prelims
 
-Certifications validate your UPSC Prelims skills to employers who can't verify your knowledge otherwise. They're especially valuable when:
+| Detail | Info |
+|--------|------|
+| **Conducting Body** | Union Public Service Commission (UPSC) |
+| **Frequency** | Once a year (June) |
+| **Application** | February-March |
+| **Papers** | 2 papers (GS Paper 1 + CSAT) |
+| **Total Marks** | 400 (200 each) |
+| **Nature** | Qualifying — only GS Paper 1 marks count for merit |
 
-- **Career change**: proving skills you haven't used professionally yet
-- **Salary negotiation**: tangible proof of expertise
-- **Job searching**: many JDs list certifications as preferred or required
-- **Personal confidence**: structured studying fills knowledge gaps
+---
 
-## Most Valuable Certifications
-
-Research current certifications for UPSC Prelims on these sources:
-
-- **Official vendor website** — most authoritative and up-to-date
-- **LinkedIn job postings** — see what employers actually request
-- **Reddit r/devops, r/sysadmin** — community recommendations
-- **Credly** — badge platform used by most cert providers
-
-## General Certification Strategy
-
-### Phase 1: Foundation (2-4 weeks)
-- Complete this course's fundamentals, intermediate, and advanced sections
-- Build 2-3 hands-on projects
-- Read the official documentation
-
-### Phase 2: Exam Prep (2-4 weeks)
-- Get the official study guide for your target exam
-- Take a structured course (Udemy, KodeKloud, Linux Foundation)
-- Do practice exams until consistently scoring 80%+
-
-### Phase 3: Exam Execution
-- Schedule exam when scoring 85%+ on practice tests
-- Review weak areas 3 days before (don't cram night before)
-- Use all allowed time — don't rush
-- Flag uncertain questions and come back to them
-
-## Study Schedule Template
+## Paper 1 — General Studies (200 marks, 100 questions, 2 hrs)
 
 ```
-Week 1-2: Course + hands-on practice
-Week 3:   Practice exams + review wrong answers
-Week 4:   Mock exams, weak area review, schedule exam
-Exam day: Get good sleep, arrive early (or test environment ready)
+SYLLABUS BREAKDOWN:
+  Current events (national + international): 15-20 questions
+  History of India and freedom struggle: 15-20 questions
+  Indian and World Geography: 15-20 questions
+  Indian Polity and Governance: 10-15 questions
+  Economic and Social Development: 10-15 questions
+  Environment and Ecology: 10-15 questions
+  General Science: 5-10 questions
+
+MARKING: +2 for correct, -0.66 for wrong (negative marking)
+CUTOFF: typically 90-110/200 for general category
+
+HIGH YIELD TOPICS:
+  Ancient History: Harappan civilisation, Vedic age, Maurya, Gupta
+  Medieval History: Delhi Sultanate, Mughal empire, Bhakti/Sufi movements
+  Modern History: 1857 revolt, Congress formation, Gandhi movements, partition
+  Geography: monsoon, rivers, soil types, agriculture, mineral distribution
+  Polity: Constitution, Fundamental Rights, DPSP, Parliament, judiciary
+  Economy: GDP, inflation, monetary policy, banking, budget concepts
+  Environment: biodiversity, national parks, climate change, pollution
+  Science: physics/chemistry/bio basics, space (ISRO), defence
 ```
 
-## After Certification
+---
 
-- Add to LinkedIn with badge link
-- Add to resume with exam code and date
-- Share on LinkedIn when you pass (it builds network visibility)
-- Recertify before expiry (usually every 2-3 years)
+## Paper 2 — CSAT (200 marks, 80 questions, 2 hrs) — Qualifying only
+
+```
+Need 33% (66/200) to qualify — marks NOT counted for merit
+
+TOPICS:
+  Comprehension: English passages, inference, main idea
+  Interpersonal skills: communication, decision making
+  Logical reasoning: analogies, series, syllogisms
+  Analytical ability: data interpretation, puzzles
+  Basic numeracy: class 10 maths (percentages, ratio, profit/loss, time/work)
+  Data interpretation: tables, bar graphs, pie charts, line graphs
+
+STRATEGY: Score 80+ to be safe. Weak in maths? Focus on comprehension + reasoning.
+```
+
+---
+
+## Study Resources
+- **NCERT books (6-12)**: History, Geography, Polity, Economics, Science — mandatory
+- **Laxmikant Indian Polity** — best book for polity (read every page)
+- **Shankar IAS Environment** — best environment book for UPSC
+- **Vision IAS / Insights on India** — current affairs monthly magazines
+- **Previous year papers (2011-2024)** — most important practice resource
+
+## Revision Notes
+```
+UPSC PRELIMS: 2 papers | GS Paper 1 for merit | CSAT qualifying only
+NEGATIVE MARKING: -0.66 per wrong | skip if less than 33% confident
+CUTOFF: 90-110 general | varies by year and difficulty
+
+PRIORITY SUBJECTS: History > Polity > Geography > Economy > Environment > Science
+NCERT FIRST: read all NCERTs before reference books
+CURRENT AFFAIRS: 12 months before exam | The Hindu + PIB daily
+
+ATTEMPTS: general 6 | OBC 9 | SC/ST unlimited (up to age 37/35/37)
+AGE: 21-32 general | 21-35 OBC | 21-37 SC/ST
+```
