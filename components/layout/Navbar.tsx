@@ -257,7 +257,8 @@ export default function Navbar() {
         <div style={{ maxWidth: "1300px", margin: "0 auto", padding: "0 16px", height: "60px", display: "flex", alignItems: "center", gap: "6px" }}>
           <Link href="/" style={{ textDecoration: "none", flexShrink: 0, lineHeight: 0, marginRight: "4px" }}>
             <div className="logo-wrapper">
-              <Image src="/logo-main.webp" alt="SynfraCore" width={180} height={28} priority style={{ height: "26px", width: "auto", display: "block" }} />
+              <Image src="/logo-main.webp" alt="SynfraCore" width={180} height={28} priority className="logo-full" style={{ height: "26px", width: "auto", display: "block" }} />
+              <Image src="/logo-ac-icon.png" alt="SynfraCore" width={39} height={26} priority className="logo-icon" style={{ height: "28px", width: "auto", display: "none" }} />
             </div>
           </Link>
 
@@ -484,9 +485,13 @@ export default function Navbar() {
       <style>{`
         .desktop-nav { display: flex; align-items: center; gap: 1px; }
         .mobile-only { display: none; }
+        .logo-full { display: block; }
+        .logo-icon { display: none; }
         @media (max-width: 1024px) {
           .desktop-nav { display: none !important; }
           .mobile-only { display: flex !important; }
+          .logo-full { display: none !important; }
+          .logo-icon { display: block !important; }
         }
         html.light .logo-wrapper { background: #0F172A; padding: 4px 8px; border-radius: 8px; display: inline-flex; align-items: center; }
         html:not(.light) .logo-wrapper { display: inline-flex; align-items: center; }

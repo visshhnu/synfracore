@@ -57,27 +57,52 @@ Defaults are chosen to be safe, not optimal. Know the defaults, understand what 
 **Error Handling Basics**
 Read error messages completely — they almost always tell you exactly what is wrong. Know where logs are and how to read them. Understand the difference between transient errors (retry) and permanent errors (fix the code or config).
 
-### Hands-On Exercises
-1. Install and run the technology locally following the official getting-started guide
-2. Run the simplest possible working example
-3. Break it intentionally — introduce an error and read the error message
-4. Check the logs and understand what they show
-5. Change one configuration value and observe the effect
+## OASIS Data Collection Protocol
 
-### Key Terminology
-| Term | Definition |
-|------|-----------|
-| Node / Instance | A single running copy of the service |
-| Cluster | Multiple nodes working together |
-| Replica | A copy of data or a service for redundancy |
-| Partition | A subdivision of data or work |
-| Leader/Primary | The authoritative instance for writes |
-| Follower/Replica | Secondary instance that replicates from leader |
+### Start of Care (SOC)
+The SOC OASIS captures baseline functional status when a patient first begins home health. The clinician assesses:
+- Functional abilities (ambulation, transferring, bathing, dressing, eating, toileting)
+- Cognitive and behavioral patterns
+- Pain, vision, hearing, skin integrity
+- Medications and medication management ability
+- Equipment and supplies needed
 
-### First 30 Minutes Checklist
-- [ ] Verified installation works
-- [ ] Read the architecture overview in the official docs
-- [ ] Ran a hello-world example successfully
-- [ ] Understood what the example actually does
-- [ ] Located where logs are written
-- [ ] Found the configuration file and read what the main settings do
+### OASIS M Codes — High-Yield Items
+| OASIS Item | What it Captures | PDGM Impact |
+|-----------|-----------------|-------------|
+| M1800-M1860 | ADL/IADL function | Functional level (Low/Medium/High) |
+| M1021/M1023 | Primary/secondary diagnosis | Clinical group assignment |
+| M1033 | Risk for hospitalization | Comorbidity adjustment |
+| M0090 | Response date | Episode timing |
+
+## Homebound Status — Documentation Standards
+
+### What Qualifies
+A patient is homebound when leaving home requires a **considerable and taxing effort** due to illness, injury, or functional limitation. CMS requires specific documentation:
+- The **specific limitation** (non-weight-bearing, severe dyspnea, cognitive impairment)
+- The **effort required** (requires wheelchair, two-person assist, significant fatigue)
+- Not just "patient is weak" or "patient is elderly"
+
+### Allowable Absences
+Homebound patients may leave for:
+- Medical appointments (physician, therapy, dialysis, chemotherapy)
+- Religious services
+- Adult day care programs
+- Infrequent, short duration outings (barber, family event)
+These do not break homebound status if documented appropriately.
+
+## ICD-10-CM — Quick Reference for Home Health
+
+### Code Structure Review
+- Positions 1-3: Category (e.g., I50 = Heart failure)
+- Position 4: Etiology or body part
+- Position 5: Severity or laterality
+- Position 6: Additional specificity
+- Position 7: 7th character extensions (encounter type, laterality)
+
+### Placeholder X
+When a code requires a 7th character but has fewer than 6 characters, the letter X fills empty positions:
+```
+T45.X1XA — Poisoning by unspecified drugs, accidental (initial encounter)
+```
+The first X fills position 4, the second X fills position 5.

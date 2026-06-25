@@ -93,7 +93,7 @@ export default function Home() {
     <div style={{ background: "var(--bg)" }}>
 
       {/* ══════════════════ HERO ══════════════════ */}
-      <section className="line-grid" style={{ position: "relative", overflow: "hidden", padding: "100px 24px 96px" }}>
+      <section className="line-grid" style={{ position: "relative", overflow: "hidden", padding: "clamp(60px, 10vw, 100px) clamp(16px, 4vw, 24px) clamp(60px, 10vw, 96px)" }}>
         <div style={{ position: "absolute", top: "-120px", left: "-120px", width: "500px", height: "500px", background: "radial-gradient(circle, rgba(37,99,235,0.14) 0%, transparent 65%)", borderRadius: "50%", pointerEvents: "none" }} />
         <div style={{ position: "absolute", bottom: "-80px", right: "-80px", width: "400px", height: "400px", background: "radial-gradient(circle, rgba(124,58,237,0.10) 0%, transparent 65%)", borderRadius: "50%", pointerEvents: "none" }} />
 
@@ -142,6 +142,74 @@ export default function Home() {
                   WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", lineHeight: 1,
                 }}>{s.value}</div>
                 <div style={{ color: "var(--text-4)", fontSize: "13px", fontWeight: 500, marginTop: "6px", letterSpacing: "0.04em" }}>{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════ DOMAIN AUTO-SLIDER ══════════════════ */}
+      <section style={{ padding: "40px 0", background: "var(--bg-1)", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)", overflow: "hidden" }}>
+        <div style={{ textAlign: "center", marginBottom: "24px", padding: "0 24px" }}>
+          <div className="label" style={{ marginBottom: "8px" }}>What We Teach</div>
+          <p style={{ color: "var(--text-3)", fontSize: "15px" }}>
+            A-to-Z learning — from cloud infrastructure to competitive exams, medical coding to life essentials
+          </p>
+        </div>
+        {/* Sliding domain cards — infinite loop */}
+        <div className="domain-slider-wrap">
+          <div className="domain-slider-track">
+            {[
+              { icon: "🐳", name: "Docker", color: "#2496ED" },
+              { icon: "☸️", name: "Kubernetes", color: "#326CE5" },
+              { icon: "🌩️", name: "AWS", color: "#FF9900" },
+              { icon: "☁️", name: "Azure", color: "#0078D4" },
+              { icon: "🤖", name: "AI & LLMs", color: "#8B5CF6" },
+              { icon: "📐", name: "JEE Maths", color: "#EC4899" },
+              { icon: "🧬", name: "NEET Biology", color: "#10B981" },
+              { icon: "🏦", name: "Banking Exams", color: "#F59E0B" },
+              { icon: "🏠", name: "Home Health Coding", color: "#14B8A6" },
+              { icon: "🔒", name: "Cybersecurity", color: "#EF4444" },
+              { icon: "🗄️", name: "PostgreSQL", color: "#336791" },
+              { icon: "📊", name: "Power BI", color: "#F2C811" },
+              { icon: "🐧", name: "Linux", color: "#FCC624" },
+              { icon: "⚙️", name: "Terraform", color: "#7B42BC" },
+              { icon: "🎯", name: "UPSC Prep", color: "#3B82F6" },
+              { icon: "🧪", name: "GATE CSE", color: "#6366F1" },
+              { icon: "🌱", name: "Gut Health", color: "#22C55E" },
+              { icon: "💰", name: "Personal Finance", color: "#F59E0B" },
+              { icon: "🔬", name: "NEET Chemistry", color: "#06B6D4" },
+              { icon: "📡", name: "Networking", color: "#8B5CF6" },
+              // Duplicate for seamless loop
+              { icon: "🐳", name: "Docker", color: "#2496ED" },
+              { icon: "☸️", name: "Kubernetes", color: "#326CE5" },
+              { icon: "🌩️", name: "AWS", color: "#FF9900" },
+              { icon: "☁️", name: "Azure", color: "#0078D4" },
+              { icon: "🤖", name: "AI & LLMs", color: "#8B5CF6" },
+              { icon: "📐", name: "JEE Maths", color: "#EC4899" },
+              { icon: "🧬", name: "NEET Biology", color: "#10B981" },
+              { icon: "🏦", name: "Banking Exams", color: "#F59E0B" },
+              { icon: "🏠", name: "Home Health Coding", color: "#14B8A6" },
+              { icon: "🔒", name: "Cybersecurity", color: "#EF4444" },
+              { icon: "🗄️", name: "PostgreSQL", color: "#336791" },
+              { icon: "📊", name: "Power BI", color: "#F2C811" },
+              { icon: "🐧", name: "Linux", color: "#FCC624" },
+              { icon: "⚙️", name: "Terraform", color: "#7B42BC" },
+              { icon: "🎯", name: "UPSC Prep", color: "#3B82F6" },
+              { icon: "🧪", name: "GATE CSE", color: "#6366F1" },
+              { icon: "🌱", name: "Gut Health", color: "#22C55E" },
+              { icon: "💰", name: "Personal Finance", color: "#F59E0B" },
+              { icon: "🔬", name: "NEET Chemistry", color: "#06B6D4" },
+              { icon: "📡", name: "Networking", color: "#8B5CF6" },
+            ].map((d, i) => (
+              <div key={i} style={{
+                display: "flex", alignItems: "center", gap: "8px",
+                padding: "8px 16px", borderRadius: "40px",
+                background: `${d.color}12`, border: `1px solid ${d.color}30`,
+                whiteSpace: "nowrap", flexShrink: 0,
+              }}>
+                <span style={{ fontSize: "18px" }}>{d.icon}</span>
+                <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-2)" }}>{d.name}</span>
               </div>
             ))}
           </div>
@@ -330,7 +398,7 @@ export default function Home() {
       {/* ══════════════════ EDUCATION CTA ══════════════════ */}
       <section style={{ padding: "80px 24px", background: "var(--bg)" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 440px), 1fr))", gap: "24px" }}>
 
             {/* Education card */}
             <div style={{ padding: "36px", borderRadius: "20px", background: "linear-gradient(135deg,rgba(236,72,153,0.08),rgba(139,92,246,0.08))", border: "1px solid rgba(236,72,153,0.2)" }}>
