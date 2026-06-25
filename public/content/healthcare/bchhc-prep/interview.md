@@ -41,26 +41,20 @@ Primary diagnosis must: (1) directly relate to the skilled service need, (2) sup
 
 ## Interview Q&A
 
-**Q: What is the core problem this technology solves?**
-Frame your answer around the specific pain point: what was broken or missing before this tool existed, how it addresses that gap, and what the alternatives are. The best engineers understand why, not just how.
+**Q: What is the primary purpose of BCHHC certification?**
+The Board Certified Home Health Coder (BCHHC) credential validates expertise in ICD-10-CM coding specifically for the home health setting. It demonstrates competency in OASIS assessments, PDGM classification, and primary diagnosis selection — all of which directly determine Medicare reimbursement. Agencies require it to ensure accurate claim submission and compliance with CMS guidelines.
 
-**Q: How does this behave under failure conditions?**
-Discuss: graceful degradation, circuit breakers, retry logic, timeouts, and fallback strategies. What happens when a dependency is slow? When it is down entirely? When the network partitions? Production is defined by edge cases.
+**Q: How does accurate coding affect agency revenue under PDGM?**
+The primary ICD-10-CM diagnosis determines the PDGM clinical group (one of 12 groups). The clinical group is one of five factors that determine the 30-day payment period rate. A wrong primary diagnosis places the patient in the wrong clinical group, which can mean hundreds of dollars less per episode. Accurate coding is not optional — it is the revenue engine.
 
-**Q: What are the security considerations?**
-Authentication (who are you?), authorisation (what can you do?), encryption (data in transit and at rest), audit logging (what did you do?), secret management (passwords/keys never in code), and network isolation (who can reach this?).
+**Q: What is the difference between Excludes1 and Excludes2 in ICD-10-CM?**
+Excludes1 means the two conditions are mutually exclusive — you CANNOT code both together. The excluded code represents a condition that cannot occur simultaneously with the condition being coded. Excludes2 means the excluded condition is NOT part of the coded condition — both CAN be coded if both are present. Example: Excludes2 on I13.0 for N18.5 (CKD stage 5) means you CAN separately code stage 5 CKD if truly present alongside the combination code condition.
 
-**Q: How would you monitor this in production?**
-Three pillars: Metrics (Prometheus/Datadog — RED: Rate, Errors, Duration), Logs (structured JSON, centrally aggregated), Traces (distributed context for multi-service flows). Define your SLO first, then build alerting to protect it.
+**Q: Under PDGM, what is the difference between community and institutional admission source?**
+Institutional source: patient was discharged from a hospital, skilled nursing facility (SNF), or inpatient rehabilitation facility within 14 days before the home health start of care date. Community source: all other admissions — patient came directly from home, outpatient, or was not hospitalised in the 14-day lookback window. Institutional source generally results in slightly higher reimbursement, reflecting the higher acuity of recently hospitalised patients.
 
-**Q: How does this scale?**
-Horizontal scaling (more instances), vertical scaling (bigger instances), sharding/partitioning (splitting data), and caching (reducing repeated work). What is the bottleneck? Stateless services scale easily; stateful services require careful partitioning strategy.
+**Q: What is the LUPA threshold and why does it matter?**
+LUPA (Low Utilization Payment Adjustment) applies when visit counts in a 30-day period fall below the clinical group's minimum threshold (ranging from 2 to 6 visits depending on the group). When LUPA applies, payment switches from the standard episode rate to a per-visit rate, which is significantly lower. Coders must understand LUPA because clinical group assignment (driven by the primary diagnosis) determines the threshold. Accurate primary diagnosis selection protects against unexpected LUPA exposure.
 
-**Q: Walk me through your debugging process when something is wrong.**
-1. Check the current state and error messages. 2. Check logs around the time of failure. 3. Check recent changes (deployments, config changes). 4. Check resource utilisation (CPU, memory, disk, connections). 5. Isolate the component. 6. Reproduce in a lower environment. 7. Fix and verify.
-
-**Q: What is your deployment strategy for changes?**
-Never deploy big bang to production. Blue-green (instant rollback), canary (gradual traffic shift), or rolling (phased instance replacement). All require automated rollback triggers based on error rate metrics. Feature flags for long-running changes.
-
-**Q: How do you handle configuration across environments?**
-Environment variables for runtime config, secrets manager (Vault, AWS Secrets Manager) for sensitive values, config maps for non-sensitive structured config. Never commit secrets to git. Validate config at startup — fail fast rather than fail mysteriously later.
+**Q: Can you code the acute CVA in home health?**
+No. In home health, you never code the acute stroke (I60–I63 series). By the time a patient is on home health service, they are past the acute phase. Code the residual deficits using the I69.x sequela series. The sequela codes communicate that the deficit is a late effect of a prior cerebrovascular accident.

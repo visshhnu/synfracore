@@ -269,7 +269,7 @@ export default function SectionContent({ academy, technology, section, techName,
       {/* Share this page + community CTA */}
       <div style={{ maxWidth: "800px", marginTop: "40px", display: "flex", flexDirection: "column", gap: "12px" }}>
         <ShareButtons title={`${sectionLabel} — ${techName} | SynfraCore`} compact />
-        <TelegramBanner variant="card" />
+        <TelegramBanner variant="card" academy={academy} />
       </div>
     </div>
   );

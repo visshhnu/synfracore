@@ -77,11 +77,3 @@ EXAM FORMAT:
 ```
 
 ---
-
-## Study Resources
-
-- **GCFGlobal Excel Tutorial** (free, comprehensive basics to intermediate)
-- **ExcelJet** (exceljet.net) — formula reference with real-world examples
-- **Microsoft Learn** — official MOS certification preparation path
-- **Chandoo.org** — advanced Excel, Power Query, and data visualisation
-- **ExcelWithBusiness** (free course tier available)

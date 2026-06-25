@@ -97,16 +97,92 @@ const academyMeta: Record<string, {
     jobs: ["Security Engineer", "SOC Analyst", "Penetration Tester", "DevSecOps Engineer"],
     proofStats: [{ label: "Technologies", value: "20+" }, { label: "Certifications", value: "3" }, { label: "Lab scenarios", value: "50+" }],
   },
+  healthcare: {
+    desc: "Build a career in healthcare coding — ICD-10-CM, CPT, HCPCS, OASIS, PDGM, BCHHC certification, and healthcare administration.",
+    who: ["Aspiring medical coders", "Healthcare admin professionals", "Clinical staff moving into coding", "Students targeting BCHHC, CPC, or RHIT certifications"],
+    prereqs: ["Basic medical terminology (helpful but not required)", "Attention to detail"],
+    outcomes: [
+      "Code accurately using ICD-10-CM, CPT, and HCPCS code sets",
+      "Understand PDGM and home health reimbursement models",
+      "Prepare for BCHHC, CPC-H, and HCS-D certifications",
+      "Work confidently with OASIS assessments and clinical documentation",
+    ],
+    path: [
+      { phase: "Medical Coding Basics", topics: ["ICD-10-CM structure", "CPT fundamentals", "HCPCS Level II"], duration: "3–4 weeks" },
+      { phase: "Home Health", topics: ["OASIS types", "PDGM factors", "Homebound criteria"], duration: "3–4 weeks" },
+      { phase: "Specialised Coding", topics: ["Wound coding", "CVA sequela", "DM combos"], duration: "2–3 weeks" },
+      { phase: "Certification Prep", topics: ["BCHHC mock exams", "Timed practice", "Weak area review"], duration: "2 weeks" },
+    ],
+    jobs: ["Medical Coder", "Home Health Coder", "HIM Professional", "CDI Specialist", "Medical Billing Specialist"],
+    proofStats: [{ label: "Code sets", value: "3" }, { label: "Certifications", value: "5+" }, { label: "Practice cases", value: "50+" }],
+  },
+  essentials: {
+    desc: "Practical life knowledge everyone needs — gut health, nutrition, mental wellness, personal finance, hygiene, and first aid.",
+    who: ["Anyone who wants to live healthier", "Students building life skills", "Working professionals managing wellness", "Parents and caregivers"],
+    prereqs: ["No prior knowledge required"],
+    outcomes: [
+      "Understand your gut microbiome and how nutrition affects your health",
+      "Build sustainable mental health and stress management practices",
+      "Apply first aid confidently in emergencies",
+      "Take control of personal finance basics",
+    ],
+    path: [
+      { phase: "Physical Health", topics: ["Gut health", "Nutrition", "Sleep"], duration: "2 weeks" },
+      { phase: "Mental Wellness", topics: ["Stress management", "Mindfulness"], duration: "2 weeks" },
+      { phase: "Safety", topics: ["CPR basics", "First aid", "Emergency response"], duration: "1 week" },
+      { phase: "Finance", topics: ["Budgeting", "Saving", "Investment intro"], duration: "2 weeks" },
+    ],
+    jobs: [],
+    proofStats: [{ label: "Topics", value: "20+" }, { label: "Evidence-based guides", value: "50+" }],
+  },
+  education: {
+    desc: "Complete school and college preparation — CBSE/ICSE Class 6–12, core CS subjects, DSA, system design, and campus placement prep.",
+    who: ["Class 6–12 students", "Engineering students", "Job seekers preparing for placements", "Anyone brushing up on CS fundamentals"],
+    prereqs: ["No prior requirements for school topics", "Basic maths for CS subjects"],
+    outcomes: [
+      "Master Class 6–12 maths, science, and computer science",
+      "Build strong DSA foundations for coding interviews",
+      "Understand OS, DBMS, CN, and system design for GATE and placements",
+      "Be placement-ready for campus drives",
+    ],
+    path: [
+      { phase: "School Boards", topics: ["Maths", "Science", "Computer Science"], duration: "Ongoing" },
+      { phase: "Core CS", topics: ["DSA", "OS", "DBMS", "Computer Networks"], duration: "8–12 weeks" },
+      { phase: "Advanced", topics: ["System Design", "Java", "C++"], duration: "4–6 weeks" },
+      { phase: "Placement Prep", topics: ["Aptitude", "Reasoning", "HR", "Coding rounds"], duration: "3–4 weeks" },
+    ],
+    jobs: ["Software Engineer", "Backend Developer", "Any campus placement role"],
+    proofStats: [{ label: "Subjects", value: "15+" }, { label: "Practice problems", value: "500+" }],
+  },
+  exams: {
+    desc: "Structured preparation for India's major competitive exams — JEE, NEET, GATE, Banking (SBI/IBPS), SSC CGL, RRB NTPC, UPSC, and Defence exams.",
+    who: ["JEE/NEET aspirants", "GATE candidates", "Banking and government job seekers", "UPSC and defence exam aspirants"],
+    prereqs: ["Class 10–12 level foundation for most exams"],
+    outcomes: [
+      "Crack JEE Main/Advanced with topic-wise mastery",
+      "Qualify GATE CSE/ECE with structured subject preparation",
+      "Clear banking exams with quantitative, reasoning, and awareness preparation",
+      "Build UPSC foundation with GS, CSAT, and current affairs",
+    ],
+    path: [
+      { phase: "Choose your exam", topics: ["JEE", "NEET", "GATE", "Banking", "UPSC", "SSC", "RRB"], duration: "Day 1" },
+      { phase: "Subject mastery", topics: ["Topic-by-topic structured study"], duration: "3–6 months" },
+      { phase: "Practice", topics: ["Previous year questions", "Mock tests", "Time management"], duration: "2–3 months" },
+      { phase: "Revision", topics: ["Cheatsheets", "Formula lists", "Weak area focus"], duration: "Final month" },
+    ],
+    jobs: ["IIT/NIT seats", "MBBS seats", "M.Tech admissions", "Bank PO/Clerk", "Government officer"],
+    proofStats: [{ label: "Exams covered", value: "10+" }, { label: "Practice questions", value: "1000+" }],
+  },
 };
 
 const defaultMeta = {
-  desc: "Expert-written content with hands-on labs, real projects, and interview preparation.",
-  who: ["Engineers at all levels", "Students and job seekers", "Working professionals upskilling"],
-  prereqs: ["Basic computer knowledge", "Motivation to learn"],
-  outcomes: ["Master the core technologies in this domain", "Build real projects for your portfolio", "Prepare for interviews and certifications"],
+  desc: "Structured learning with practice questions, guides, and preparation material.",
+  who: ["Students and learners at all levels", "Working professionals upskilling", "Anyone motivated to learn"],
+  prereqs: ["Basic familiarity with the subject", "Motivation to learn"],
+  outcomes: ["Build strong foundational knowledge", "Apply learning through practice", "Prepare for assessments"],
   path: [],
   jobs: [],
-  proofStats: [{ label: "Topics", value: "50+" }, { label: "Interview Q&As", value: "50+" }],
+  proofStats: [{ label: "Topics", value: "50+" }, { label: "Practice Q&As", value: "50+" }],
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -125,8 +201,6 @@ export default async function AcademyPage({ params }: Props) {
   const { academy: aSlug } = await params;
   const academy = getAcademy(aSlug);
   if (!academy) redirect("/academies");
-  if (["education", "exams"].includes(aSlug)) redirect("/learn");
-
   const m = academyMeta[aSlug] || defaultMeta;
 
   return (
@@ -188,9 +262,11 @@ export default async function AcademyPage({ params }: Props) {
               <span style={{ color: "var(--text-4)", flexShrink: 0 }}>•</span>{p}
             </div>
           ))}
-          <div style={{ marginTop: "14px", padding: "10px", background: "rgba(16,185,129,0.06)", borderRadius: "8px", fontSize: "12px", color: "#10B981" }}>
-            💡 No prior experience? Start with <Link href="/academies/devops/linux" style={{ color: "#10B981", fontWeight: 700 }}>Linux Fundamentals</Link>
-          </div>
+          {["devops","cloud","databases","ai","data","security"].includes(aSlug) && (
+            <div style={{ marginTop: "14px", padding: "10px", background: "rgba(16,185,129,0.06)", borderRadius: "8px", fontSize: "12px", color: "#10B981" }}>
+              💡 No prior experience? Start with <Link href="/academies/devops/linux" style={{ color: "#10B981", fontWeight: 700 }}>Linux Fundamentals</Link>
+            </div>
+          )}
         </div>
       </div>
 

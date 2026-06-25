@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Tech Academies — DevOps, Cloud, AI, Security | SynfraCore",
-  description: "8 deep-dive academies: DevOps, Cloud, AI, Databases, Security, Healthcare, Platform Engineering, and Essentials. Structured paths from beginner to architect.",
+  description: "10 academies covering DevOps, Cloud, AI, Databases, Security, Healthcare, Education, Competitive Exams, and Life Essentials. Structured paths from beginner to expert.",
   alternates: { canonical: "https://synfracore.com/academies" },
 };
 
@@ -23,7 +23,7 @@ export default function AcademiesPage() {
 
       {/* Header */}
       <div style={{ marginBottom: "56px" }}>
-        <div className="badge badge-blue" style={{ marginBottom: "20px" }}>8 Tech Academies</div>
+        <div className="badge badge-blue" style={{ marginBottom: "20px" }}>{academies.length} Academies</div>
         <h1 className="display-lg" style={{ marginBottom: "16px" }}>
           Deep-Dive Learning Paths
         </h1>

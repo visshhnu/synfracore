@@ -128,21 +128,21 @@ export default async function SectionPage({ params }: Props) {
   const isInterview = section === "interview";
   const isOverview = section === "overview";
 
-  // Quiz questions for key sections
-  const quizData: Record<string, { q: string; opts: string[]; ans: number; exp: string }[]> = {
-    fundamentals: [
-      { q: `What is the primary purpose of ${tech.name}?`, opts: ["Version control", "The correct answer depends on the technology — check the overview", "Database management", "Network routing"], ans: 1, exp: `${tech.name} is a specialized tool — its primary purpose is explained in the Overview section above.` },
-      { q: "Which command is used to get help/documentation for most CLI tools?", opts: ["--help or -h flag", "man <command>", "info <command>", "All of the above"], ans: 3, exp: "Most Unix tools support --help/-h for quick help, man pages for detailed docs, and info for GNU tools. Always try --help first." },
-    ],
+  // Look up quiz from the proper quizzes data store (academy-aware)
+  // Only show quiz if the tech has specific quiz content registered
+  // Do NOT show generic DevOps quizzes on healthcare/education/essentials pages
+  const isTechAcademy = ["devops", "cloud", "databases", "ai", "data", "security"].includes(aSlug);
+
+  // Generic tech-only quiz questions — ONLY shown for tech academies, never for healthcare/education/essentials
+  const quizData: Record<string, { q: string; opts: string[]; ans: number; exp: string }[]> = isTechAcademy ? {
     interview: [
       { q: `What is the most important concept to understand about ${tech.name} for interviews?`, opts: ["Its version history", "Core architecture and how components interact", "Exact syntax of every command", "Its license type"], ans: 1, exp: "Interviewers primarily test whether you understand how the system works architecturally — not syntax memorization. Explain the 'why' behind design decisions." },
       { q: "How should you answer a scenario question you're unsure about?", opts: ["Say you don't know and stop", "Think aloud: state your reasoning, what you'd check, and how you'd approach it", "Guess confidently", "Ask the interviewer for the answer"], ans: 1, exp: "Thinking aloud demonstrates problem-solving ability. Interviewers value your reasoning process as much as the correct answer. State assumptions, describe your approach, and ask clarifying questions." },
-      { q: "Which best describes a production issue you've faced?", opts: ["Only mention successes", "Describe the problem, your diagnosis process, fix, and what you learned", "Avoid the question", "Give a very brief answer to avoid mistakes"], ans: 1, exp: "Interviewers love concrete examples. Use the STAR format (Situation, Task, Action, Result) and focus on your specific contribution and what you learned." },
     ],
     advanced: [
       { q: "What is the first step when optimizing a production system?", opts: ["Apply all optimizations immediately", "Measure first — identify the actual bottleneck with profiling/metrics", "Increase hardware resources", "Rewrite the system"], ans: 1, exp: "Premature optimization is a common mistake. Always measure to identify the actual bottleneck before making changes. Use metrics, profiling tools, and benchmarks to validate your findings." },
     ],
-  };
+  } : {}; // Non-tech academies: no generic quiz — only show quizzes from the proper quizzes data store
 
   const currentQuiz = quizData[section] || null;
 

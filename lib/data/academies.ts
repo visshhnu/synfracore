@@ -615,11 +615,11 @@ export const academies: Academy[] = [
   examsAcademy,
 ];
 
-// Kept for backward compatibility
-export const legacyAcademies: Academy[] = [educationAcademy, examsAcademy];
+// Kept only for any external backward-compat imports — education/exams are in main academies array
+export const legacyAcademies: Academy[] = [];
 
 export function getAcademy(slug: string): Academy | undefined {
-  return [...academies, ...legacyAcademies].find((a) => a.slug === slug);
+  return academies.find((a) => a.slug === slug);
 }
 
 export function getAllTechnologies(): Array<Technology & { academy: string; domain: string }> {
