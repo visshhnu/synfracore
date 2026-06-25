@@ -1,13 +1,52 @@
-# Personal Finance — Fundamentals
+# Personal Finance Fundamentals
 
-## Overview
+## Why Financial Literacy Matters
+Financial literacy enables: long-term security and independence, ability to handle emergencies without debt, freedom to make life choices without financial constraint, and wealth building over time. Poor financial management leads to debt spirals, stress, and missed opportunities. The fundamentals are straightforward but require consistent habits.
 
-This section contains comprehensive content for Personal Finance — Fundamentals. 
-Study materials are organized from fundamentals to advanced topics.
+## Income and Budgeting
 
-## Key Topics
+### Types of Income
+Active income: salary, wages, self-employment — requires ongoing time and effort.
+Passive income: rental income, dividends, interest, royalties — earned with minimal ongoing effort once set up.
+Portfolio income: capital gains from selling investments.
 
-- Review the fundamentals section to build a strong foundation
-- Practice problems and examples regularly
-- Use the cheatsheet for quick revision before exams
-- Focus on interview questions to test your understanding
+### The 50/30/20 Budget Rule
+Take-home salary divided as: 50% for needs (rent, food, utilities, transport, insurance, EMIs), 30% for wants (dining out, entertainment, hobbies, travel), 20% for savings and investments (emergency fund, mutual funds, extra debt repayment).
+Adjust ratios for high rent cities or aggressive savings goals.
+
+### Zero-Based Budgeting
+Assign every rupee of income a specific purpose — income minus all assigned amounts = 0. Forces intentional allocation. Every item must be justified each month. Good for those with variable income or persistent overspending patterns.
+
+## Banking and Payment Systems
+
+### Account Types (India)
+Savings account: 3-4% interest; for daily transactions and emergency fund.
+Fixed Deposit (FD): 6-7.5%; locked for a term; guaranteed return; DICGC-insured up to ₹5 lakh.
+Recurring Deposit (RD): 6-7%; monthly fixed deposits; forces saving discipline.
+PPF (Public Provident Fund): 7.1%; government-backed; 15-year lock-in; tax-free returns.
+
+### Digital Payments
+UPI: instant bank-to-bank via mobile (BHIM, PhonePe, Google Pay, Paytm); free; 24/7.
+IMPS: instant; up to ₹5 lakh per transaction; 24/7; small charge.
+NEFT: batch settlement every 30 minutes; 24/7 since 2019; free; any amount.
+RTGS: real-time; minimum ₹2 lakh; for large amounts; 24/7.
+
+## Debt Management
+
+### Good Debt vs Bad Debt
+Good debt: borrowed money that builds wealth or earning power — home loan (asset appreciates over time), education loan (increases future income significantly).
+Bad debt: borrowing for consumption that loses value — credit card balance (24-48% annual interest), personal loan for vacation, consumer EMIs for gadgets or appliances.
+
+### Credit Card Discipline
+Pay the FULL outstanding balance every month — never carry a balance.
+Credit card interest: 2-4% per MONTH = 24-48% per YEAR — the most powerful wealth destroyer available.
+Keep credit utilisation below 30% of credit limit (protects CIBIL score).
+Benefits (cashback, rewards, lounge access, insurance) only materialise when you pay no interest.
+
+## Insurance Basics — Non-Negotiable
+Term life insurance: pure death benefit; ₹1 crore cover at age 30 costs approximately ₹10,000-15,000/year. Mandatory if anyone depends financially on your income.
+Health insurance: family floater of ₹5-10 lakh minimum. Do not rely solely on employer-provided cover — it ends if you change jobs.
+Vehicle third-party: legally mandatory for all motor vehicles. Covers damage you cause to others.
+
+**Q: What is the relationship between risk and return in investing?**
+Higher potential return almost always comes with higher risk — this is the fundamental risk-return tradeoff in investing. Fixed deposits: low risk, predictable 6-7% return. Government bonds: low risk, slightly higher yield. Equity (stocks/equity mutual funds): high risk (can fall 30-50% in a year), but historically 10-14% annual returns over long periods in India. The key insight: RISK is mitigated by TIME for equity investments. A 1-year equity investment is risky; a 20-year equity SIP has historically delivered positive inflation-beating returns in almost all scenarios. Match your investment risk to your TIME HORIZON — not just your comfort level.

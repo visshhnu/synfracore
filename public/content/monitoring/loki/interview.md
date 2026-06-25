@@ -1,13 +1,61 @@
-# Loki — Interview
+# Loki Interview Questions
 
-## Overview
+**Q: How does Loki differ from Elasticsearch for log storage?**
+A: Loki indexes only labels (metadata), not log content. Raw log lines are stored compressed in chunks in object storage (S3/GCS). When you search, Loki fetches chunks matching the label selector and scans them for patterns. This makes Loki much cheaper (10–60x) because object storage is cheap and there is no heavy inverted index. Tradeoff: full-text search is slower for ad-hoc queries. Loki works best with structured, labeled logs where you filter by label first. ELK is better when you need fast full-text search across all fields.
 
-This section contains comprehensive content for Loki — Interview. 
-Study materials are organized from fundamentals to advanced topics.
+**Q: What is label cardinality and why does it matter in Loki?**
+A: Each unique combination of label values creates a separate log stream. High-cardinality labels (like request_id with millions of unique values) create millions of streams — overwhelming the index, increasing memory usage, and causing "too many streams" errors. Loki is designed for ~10,000–100,000 streams per tenant. Fix: use structured metadata (Loki 3.0) or parsed fields for high-cardinality data; keep labels to low-cardinality identifiers like env, service, namespace.
 
-## Key Topics
+**Q: Explain the LogQL pipeline — how does a query execute?**
+A: A LogQL query has two stages. Stream selector `{labels}` is evaluated against the index — Loki finds all chunks matching the label set (fast, indexed). Then pipeline stages `| json | level="error" | duration > 500` are applied to each log line in those chunks (sequential scan). This is why label selectivity matters: a narrow label selector means fewer chunks to scan. Pipeline stages execute left to right; put cheap string filters before expensive parsers.
 
-- Review the fundamentals section to build a strong foundation
-- Practice problems and examples regularly
-- Use the cheatsheet for quick revision before exams
-- Focus on interview questions to test your understanding
+**Q: How would you handle Loki at scale — 100 GB/day ingestion?**
+A: Switch to distributed mode: separate distributor, ingester, querier, query-frontend, compactor. Use S3 for chunk storage (TSDB schema). Tune ingestion limits (ingestion_rate_mb, max_streams_per_user). Enable Redis query result caching. Use query-frontend for request splitting (parallel query execution). Enable bloom filters for fast substring search. Set per-tenant retention policies. Monitor stream count and ingestion lag as primary health signals.
+
+**Q: How do you write alert rules in Loki?**
+A: Loki has a Ruler component that evaluates LogQL metric queries and sends alerts to Alertmanager (same as Prometheus alerting). Write alert rules in YAML files with LogQL expressions. Example: alert when error rate from parsed logs exceeds threshold over 5 minutes. Mount rule files in Loki config under ruler.storage.local.directory. Loki evaluates rules on the ruler_evaluation_interval. This enables log-based SLO alerting without shipping logs to a separate metrics system.
+
+**Q: What is the difference between Promtail, Alloy, and Vector for log shipping?**
+A: Promtail is Grafana's purpose-built agent for Loki — lightweight, supports Kubernetes autodiscovery and service discovery, pipeline stages for transformation. Grafana Alloy is the next-generation OpenTelemetry-native collector replacing Promtail — supports metrics, logs, traces, profiles in one agent. Vector is a high-performance Rust-based agent from Datadog — supports Kafka/Kinesis as sources and multiple sinks (Loki, Elasticsearch, S3), better for complex multi-destination routing. Choose Promtail for simple Loki-only setups, Alloy for LGTM stack, Vector for complex pipelines.
+
+**Q: How do you troubleshoot missing logs in Loki?**
+A: Step 1: Check Promtail targets — `curl http://promtail:9080/targets` — verify the file path is discovered and Promtail is running. Step 2: Check positions file — if the file position is ahead of actual log lines, Promtail skips already-read content. Delete positions file to reset. Step 3: Verify Loki received the push — check Loki distributor metrics `loki_distributor_received_samples_total`. Step 4: Check for rate limiting — `loki_distributor_limited_samples_total` > 0 means logs are being dropped. Step 5: Validate label names — Loki rejects logs with invalid label names.
+
+**Q: How does Loki's TSDB schema improve over the original BoltDB-based schema?**
+A: The original boltdb-shipper schema stored per-shard BoltDB files that were periodically uploaded to object storage. TSDB schema (v12/v13) stores index data as Prometheus TSDB-format blocks in object storage directly. Benefits: better query performance for range queries, smaller index size, better compaction, supports bloom filters for fast substring search, and more predictable memory usage. TSDB schema is the recommended schema for all new Loki deployments from version 2.8+.
+
+**Q: Explain the Loki write path — what happens when Promtail pushes a log line?**
+A: 1) Promtail sends HTTP POST to Loki distributor with label set + log lines. 2) Distributor validates labels (cardinality limits, label names), computes consistent hash of label set, and fans out to the N ingesters responsible for that stream (based on ring). 3) Ingesters buffer log chunks in memory, ordered by timestamp. 4) When a chunk is full (default 256KB) or flush timer fires, ingester compresses and uploads chunk to object storage (S3). 5) Index (stream → chunk mapping) is updated. 6) Queriers serve reads from both in-memory ingesters (recent data) and object store (historical).
+
+**Q: How would you set up log-based alerting for an SLO?**
+A: Define log-based SLI: parse status codes from logs, compute error ratio. In Loki ruler, write LogQL metric query: `sum(rate({service="api"} | json | status_code >= 500 [5m])) / sum(rate({service="api"}[5m]))`. Create alerting rule that fires when ratio > 0.001 for 5m (burn rate for 99.9% SLO). Set up multi-window alerting: fast burn (1h window, 14x burn rate) for urgent pages + slow burn (6h window, 5x burn rate) for warning. Route to Alertmanager with severity labels.
+
+**Q: How does Loki handle out-of-order log entries?**
+A: Loki accepts logs within a configurable out-of-order window (default: ingester window, typically a few minutes). Logs arriving too far out of order are rejected with a 400 error. The ingester sorts log lines within a chunk by timestamp before compression. If your application emits historical timestamps (log backfill), use the `max_chunk_age` and out-of-order ingestion settings. For bulk historical imports, use Loki's `logcli` batch push or the parallel push tool with timestamp within the allowed window. Structured metadata can carry original timestamps for display purposes.
+
+**Q: How would you debug a LogQL query that returns no results?**
+A: Step 1: Start with just the stream selector `{job="nginx"}` — does it return any logs? If no, the label doesn't exist. Step 2: Check label values with `logcli labels job` or Grafana label browser. Step 3: Verify time range — logs might exist outside the selected window. Step 4: Add pipeline stages one at a time — `|= "error"` — to find which filter eliminates all results. Step 5: Check for label value casing (Loki is case-sensitive). Step 6: If using json parser, verify the log format is actually JSON. Step 7: Check Loki limits — query length or line count limits might be truncating results.
+
+**Q: How do you use Loki's ruler for SLO alerting based on logs?**
+A: Define the SLI as a LogQL metric: error ratio = `sum(rate({service="api"} | json | status >= 500 [5m])) / sum(rate({service="api"}[5m]))`. Create a ruler rule that alerts when this ratio exceeds the error budget burn rate. For 99.9% SLO (0.1% error budget), a 14x burn rate alert over 1h means: `error_ratio > 0.014`. Configure the ruler to send to Alertmanager. This approach works when you can't instrument metrics directly but have structured logs with status codes or duration fields — common in legacy apps.
+
+**Q: What are Loki's rate limits and how do you troubleshoot limit errors?**
+A: Key limits: `ingestion_rate_mb` (MB/s per tenant, default 4MB), `ingestion_burst_size_mb` (burst allowance), `max_streams_per_user` (unique label combinations), `max_entries_limit_per_query` (log lines returned per query). Troubleshoot: check Loki metrics `loki_distributor_limited_samples_total` and `loki_ingester_streams_created_total`. In Grafana Explore: error 429 = rate limited. Fixes: reduce log volume (drop noisy logs at Promtail), increase limits in `limits_config` overrides for the tenant, optimize label set to reduce stream count. For query limits: split time range into smaller windows.
+
+**Q: How do you correlate Loki logs with Prometheus metrics in Grafana?**
+A: Use Grafana's data link feature: in a Prometheus panel, add a data link that opens Explore with a pre-built Loki query using the same label set. Example: metrics panel shows error rate for `{service="api"}` — data link opens Loki Explore with `{service="api"} |= "ERROR"` filtered to the same time window. Also: in Loki log details, enable "Derived fields" to parse trace_id from log lines and create a link to Tempo trace. Configure in Loki data source settings → Derived fields → regex + Tempo URL template.
+
+**Q: What metrics should you always monitor in production?**
+A: The four golden signals: Latency (P50, P95, P99 request duration), Traffic (requests per second), Errors (error rate as % of total requests), Saturation (CPU, memory, disk, connection pool utilization). Add: availability/uptime, queue depth and consumer lag, external dependency health (DB connections, third-party API latency). For infrastructure: disk I/O wait, network drops/retransmits, OOM kills, pod restarts. Key principle: alert on user-visible symptoms (latency, errors) not internal causes (CPU, memory) — unless saturation directly causes symptoms.
+
+**Q: How do you implement effective on-call alerting practices?**
+A: Every alert must be actionable — if no action needed, it's not an alert. Set thresholds that reflect real user impact. Use multi-window burn rate alerts for SLO-based oncall. Route by severity: P1 (production down) → immediate page; P2 (degraded) → page within 30m; P3 (warning) → Slack. Each alert must have a runbook link. Maintain an alert inventory — review quarterly, delete stale alerts. Track alert quality metrics: false positive rate, MTTA, alert volume per team. Postmortems should include "were alerts useful?" review.
+
+**Q: Explain the difference between observability and monitoring.**
+A: Monitoring = watching known, predefined metrics and alerting on thresholds you define in advance. It answers "is this thing I know about working?" Observability = ability to understand arbitrary internal state of a system from its external outputs (metrics, logs, traces). It answers "what is wrong and why?" — including for failure modes you didn't anticipate. Observable systems emit rich telemetry; monitoring consumes it. You can have monitoring without observability (dashboards but no drill-down) but not the reverse. Modern SRE practice aims for observable systems, not just monitored ones.
+
+**Q: How does Loki's compactor work and why is it important?**
+A: The compactor runs on a schedule and merges multiple small index chunks (created by ingesters) into larger, more query-efficient chunks. For TSDB schema, it also applies retention policies — deleting chunks that exceed the configured retention period. Without compaction, many small files accumulate in object storage, causing slow query performance (many S3 GET requests). Compaction reduces file count, speeds up queries, and enforces retention. In distributed Loki, only one compactor should run at a time (use ring-based leader election). Monitor: `loki_compactor_runs_completed_total` and retention deletion metrics.
+
+**Q: What is Loki's query acceleration with bloom filters?**
+A: Bloom filters are a probabilistic data structure that quickly answers "does this chunk possibly contain this substring?" without decompressing the chunk. Loki 3.0 added bloom filter support: the bloom build component creates bloom filters for each chunk and stores them in object storage. When a query contains a string filter (`|= "trace_id=abc123"`), the bloom gateway checks filters before fetching chunks — chunks that definitely don't contain the string are skipped entirely. This can dramatically reduce data scanned for high-selectivity filters (specific trace IDs, error codes) in large Loki deployments. Reduces query cost by avoiding unnecessary chunk decompression.
