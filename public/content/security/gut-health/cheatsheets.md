@@ -57,3 +57,77 @@
 ☑ 30 min movement daily (stimulates motility)
 ☑ 7-9 hours sleep (gut repairs overnight)
 ☑ Stress management practice daily
+
+## Cheatsheet
+
+### Core Operations Quick Reference
+
+```bash
+# Check status / health
+status | health | ping | info
+
+# View logs (most recent first)
+logs --tail=100 | journalctl -u service -n 100
+
+# Restart service
+restart | systemctl restart service
+
+# Apply configuration changes
+reload | apply | validate && restart
+
+# Check resource usage
+top | htop | free -h | df -h
+```
+
+### Troubleshooting Checklist
+```
+Is the service running?         → check status / ps aux
+Is the port listening?          → ss -tlnp | grep PORT
+Can you reach it?               → curl -v http://host:port/health
+Are there errors in logs?       → grep -i error /var/log/service.log
+Did something change recently?  → git log / deployment history
+Are resources exhausted?        → top / free / df / netstat
+Is the config valid?            → validate config / dry-run
+```
+
+### Configuration Best Practices
+| Setting | Never Do | Always Do |
+|---------|----------|-----------|
+| Passwords | Hardcode in source | Use secrets manager |
+| Ports | Expose all ports | Expose only required |
+| Log level | Leave at DEBUG in prod | Use INFO, DEBUG only for troubleshooting |
+| Timeouts | Leave as 0 (infinite) | Set explicit values per use case |
+| Resources | Leave as unlimited | Set memory/CPU limits |
+
+### Performance Quick Wins
+1. **Add missing indexes** — check slow query logs, EXPLAIN plans
+2. **Enable connection pooling** — avoid per-request connection creation
+3. **Add caching** — for data that is read frequently and changes rarely
+4. **Batch operations** — group small operations instead of one-at-a-time
+5. **Async processing** — move slow work off the critical request path
+
+### Security Baseline
+```bash
+# Verify TLS is configured
+openssl s_client -connect host:port
+
+# Check open ports (only expected ports should be open)
+ss -tlnp
+
+# Verify no default credentials are in use
+# Verify no sensitive data in logs
+grep -r "password\|secret\|token" /var/log/ | head -5
+
+# Check file permissions on config files
+ls -la /etc/service/config.*
+```
+
+### Key Metrics Dashboard
+| Metric | What to Watch | Alert If |
+|--------|--------------|----------|
+| Error rate | % of failed operations | > 1% |
+| Latency p99 | Slowest 1% of requests | > SLO threshold |
+| CPU usage | Processing capacity | > 80% sustained |
+| Memory usage | Heap / RAM utilisation | > 85% |
+| Disk usage | Storage capacity | > 80% |
+| Connection pool | Pool utilisation | > 90% |

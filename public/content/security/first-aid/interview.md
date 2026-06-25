@@ -43,3 +43,29 @@ Sit upright and lean SLIGHTLY FORWARD (not back — avoids blood going into thro
 **Q: What is the difference between a minor cut and a wound that needs medical attention?**
 Minor cut (handle yourself): superficial, edges close together, bleeding stops with pressure within 10 minutes, no signs of infection, not on face or over a joint, not caused by a bite or rusty object.
 Seek medical care for: bleeding not controlled after 10 minutes of direct pressure, wound edges gapping >1cm or won't stay closed, deep wounds (through all skin layers), wounds on face (for optimal cosmetic outcome), over joints (need to check for tendon involvement), caused by human or animal bite (infection risk), caused by dirty or rusty object (tetanus risk), any wound with signs of infection (increasing redness, warmth, swelling, pus, red streaks, fever).
+
+## Interview Q&A
+
+**Q: What is the core problem this technology solves?**
+Frame your answer around the specific pain point: what was broken or missing before this tool existed, how it addresses that gap, and what the alternatives are. The best engineers understand why, not just how.
+
+**Q: How does this behave under failure conditions?**
+Discuss: graceful degradation, circuit breakers, retry logic, timeouts, and fallback strategies. What happens when a dependency is slow? When it is down entirely? When the network partitions? Production is defined by edge cases.
+
+**Q: What are the security considerations?**
+Authentication (who are you?), authorisation (what can you do?), encryption (data in transit and at rest), audit logging (what did you do?), secret management (passwords/keys never in code), and network isolation (who can reach this?).
+
+**Q: How would you monitor this in production?**
+Three pillars: Metrics (Prometheus/Datadog — RED: Rate, Errors, Duration), Logs (structured JSON, centrally aggregated), Traces (distributed context for multi-service flows). Define your SLO first, then build alerting to protect it.
+
+**Q: How does this scale?**
+Horizontal scaling (more instances), vertical scaling (bigger instances), sharding/partitioning (splitting data), and caching (reducing repeated work). What is the bottleneck? Stateless services scale easily; stateful services require careful partitioning strategy.
+
+**Q: Walk me through your debugging process when something is wrong.**
+1. Check the current state and error messages. 2. Check logs around the time of failure. 3. Check recent changes (deployments, config changes). 4. Check resource utilisation (CPU, memory, disk, connections). 5. Isolate the component. 6. Reproduce in a lower environment. 7. Fix and verify.
+
+**Q: What is your deployment strategy for changes?**
+Never deploy big bang to production. Blue-green (instant rollback), canary (gradual traffic shift), or rolling (phased instance replacement). All require automated rollback triggers based on error rate metrics. Feature flags for long-running changes.
+
+**Q: How do you handle configuration across environments?**
+Environment variables for runtime config, secrets manager (Vault, AWS Secrets Manager) for sensitive values, config maps for non-sensitive structured config. Never commit secrets to git. Validate config at startup — fail fast rather than fail mysteriously later.

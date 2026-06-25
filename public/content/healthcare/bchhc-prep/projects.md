@@ -55,3 +55,51 @@ Patient has a post-surgical abdominal wound dehiscence with wound VAC in place. 
 
 5. What is the PDGM clinical group for L89.xx as primary diagnosis?
    - Answer: Wound Care
+
+## BCHHC Practice Case Studies
+
+### Case 1: CHF + CKD + Diabetes
+**Patient:** 74-year-old female, admitted to home health post-hospital for CHF management. Has T2DM on insulin, CKD stage 3, anemia of CKD, hypertension.
+
+**Code sequence:**
+- I13.0 — HTN with heart failure and CKD stages 1-4
+- I50.23 — Acute-on-chronic systolic heart failure
+- E11.22 — T2DM with diabetic CKD
+- N18.3 — CKD stage 3
+- D63.1 — Anemia in CKD
+- Z79.4 — Long-term insulin use
+
+**PDGM:** Early + Institutional + Cardiac/Circulatory + (functional from OASIS) + High comorbidity
+
+---
+
+### Case 2: Post-Stroke Rehabilitation
+**Patient:** 67-year-old right-handed male, 5 weeks post left MCA infarction. Right dominant hemiplegia, expressive aphasia. Admitted for PT/ST/SN.
+
+**Code sequence:**
+- I69.351 — Hemiplegia right dominant following cerebral infarction
+- I69.320 — Aphasia following cerebral infarction
+
+**PDGM:** Early + Institutional + Neuro/Stroke Rehab
+
+---
+
+### Case 3: Surgical Wound with Wound VAC
+**Patient:** Post-surgical abdominal wound dehiscence, wound VAC in place, no infection. History of T2DM and hypertension.
+
+**Code sequence:**
+- T81.31XA — Disruption of external operation wound, initial encounter (A = wound VAC = active treatment)
+- Z48.89 — Aftercare following other specified surgical procedures
+- E11.9 — T2DM (unspecified if no complications documented)
+- I10 — Hypertension (no cardiac/renal complications in this scenario)
+
+**PDGM:** Early + Institutional + Wound Care
+
+---
+
+### Practice Questions
+1. Which OASIS is completed within 24 hours of return from hospital? → ROC
+2. What 7th character when wound VAC is removed, dressing changes only? → D (subsequent, routine)
+3. OT evaluates for home health — can OT independently complete OASIS? → No
+4. HTN + CKD stage 5 + CHF: which combination code? → I13.11
+5. CVA 3 months ago with left hemiplegia — code the acute stroke or sequela? → Sequela (I69.354)

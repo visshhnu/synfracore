@@ -48,3 +48,47 @@ Effective treatment addresses all three dimensions.
 
 **Q: What is the role of sleep in mental health?**
 Bidirectional relationship: inadequate sleep worsens virtually all mental health conditions; mental health conditions worsen sleep. During sleep: the brain consolidates memories and learning, emotional memories are processed and regulated (particularly during REM sleep), the glymphatic system clears metabolic waste products (including amyloid-beta — relevant to Alzheimer's risk), stress hormones are regulated. Sleep deprivation effects: impaired emotional regulation (increased amygdala reactivity, reduced prefrontal control), increased anxiety and depression symptoms, impaired cognitive function, increased risk of psychosis with severe deprivation. Recommendation: 7-9 hours for adults; consistent timing is as important as duration.
+
+## Fundamentals
+
+### What You Need to Know First
+These are the building blocks. Master these before moving to intermediate topics. Every expert skipped fundamentals at some point and paid for it later.
+
+### Core Concepts
+
+**Architecture Overview**
+Understanding how a system is structured helps you reason about its behaviour. Know the main components, how they interact, and what each is responsible for. Draw it out — if you cannot sketch the architecture, you do not understand it yet.
+
+**The Basic Unit of Work**
+Every technology operates on some fundamental unit: a container, a query, a message, a record, a request. Understanding what this unit is and its lifecycle (creation → processing → completion/failure) explains most of the technology's behaviour.
+
+**Configuration Fundamentals**
+Defaults are chosen to be safe, not optimal. Know the defaults, understand what they mean, and know when to change them. Keep configuration in version control. Separate configuration from code.
+
+**Error Handling Basics**
+Read error messages completely — they almost always tell you exactly what is wrong. Know where logs are and how to read them. Understand the difference between transient errors (retry) and permanent errors (fix the code or config).
+
+### Hands-On Exercises
+1. Install and run the technology locally following the official getting-started guide
+2. Run the simplest possible working example
+3. Break it intentionally — introduce an error and read the error message
+4. Check the logs and understand what they show
+5. Change one configuration value and observe the effect
+
+### Key Terminology
+| Term | Definition |
+|------|-----------|
+| Node / Instance | A single running copy of the service |
+| Cluster | Multiple nodes working together |
+| Replica | A copy of data or a service for redundancy |
+| Partition | A subdivision of data or work |
+| Leader/Primary | The authoritative instance for writes |
+| Follower/Replica | Secondary instance that replicates from leader |
+
+### First 30 Minutes Checklist
+- [ ] Verified installation works
+- [ ] Read the architecture overview in the official docs
+- [ ] Ran a hello-world example successfully
+- [ ] Understood what the example actually does
+- [ ] Located where logs are written
+- [ ] Found the configuration file and read what the main settings do

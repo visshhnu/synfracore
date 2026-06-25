@@ -611,9 +611,11 @@ export const academies: Academy[] = [
   securityAcademy,
   healthcareAcademy,
   essentialsAcademy,
+  educationAcademy,
+  examsAcademy,
 ];
 
-// These academies redirect to /learn — kept for backward compatibility
+// Kept for backward compatibility
 export const legacyAcademies: Academy[] = [educationAcademy, examsAcademy];
 
 export function getAcademy(slug: string): Academy | undefined {

@@ -33,3 +33,29 @@ Coordination compounds contain a central metal atom/ion bonded to surrounding li
 
 **Q: What is the Born-Haber cycle and what does it calculate?**
 A thermodynamic cycle applying Hess's law to calculate lattice energy of ionic compounds — which cannot be measured directly. Steps for NaCl: sublimation of Na (endothermic), dissociation of Cl₂ (endothermic), ionisation of Na → Na⁺ (endothermic, IE₁), electron affinity of Cl → Cl⁻ (exothermic), lattice formation Na⁺ + Cl⁻ → NaCl(s) (exothermic, lattice energy). By Hess's law: ΔH_f = sum of all steps. Lattice energy = ΔH_f - (sublimation + ½ dissociation + IE₁ + EA). High lattice energy → more stable ionic compound, higher melting point, lower solubility.
+
+## Interview Q&A
+
+**Q: What is the core problem this technology solves?**
+Frame your answer around the specific pain point: what was broken or missing before this tool existed, how it addresses that gap, and what the alternatives are. The best engineers understand why, not just how.
+
+**Q: How does this behave under failure conditions?**
+Discuss: graceful degradation, circuit breakers, retry logic, timeouts, and fallback strategies. What happens when a dependency is slow? When it is down entirely? When the network partitions? Production is defined by edge cases.
+
+**Q: What are the security considerations?**
+Authentication (who are you?), authorisation (what can you do?), encryption (data in transit and at rest), audit logging (what did you do?), secret management (passwords/keys never in code), and network isolation (who can reach this?).
+
+**Q: How would you monitor this in production?**
+Three pillars: Metrics (Prometheus/Datadog — RED: Rate, Errors, Duration), Logs (structured JSON, centrally aggregated), Traces (distributed context for multi-service flows). Define your SLO first, then build alerting to protect it.
+
+**Q: How does this scale?**
+Horizontal scaling (more instances), vertical scaling (bigger instances), sharding/partitioning (splitting data), and caching (reducing repeated work). What is the bottleneck? Stateless services scale easily; stateful services require careful partitioning strategy.
+
+**Q: Walk me through your debugging process when something is wrong.**
+1. Check the current state and error messages. 2. Check logs around the time of failure. 3. Check recent changes (deployments, config changes). 4. Check resource utilisation (CPU, memory, disk, connections). 5. Isolate the component. 6. Reproduce in a lower environment. 7. Fix and verify.
+
+**Q: What is your deployment strategy for changes?**
+Never deploy big bang to production. Blue-green (instant rollback), canary (gradual traffic shift), or rolling (phased instance replacement). All require automated rollback triggers based on error rate metrics. Feature flags for long-running changes.
+
+**Q: How do you handle configuration across environments?**
+Environment variables for runtime config, secrets manager (Vault, AWS Secrets Manager) for sensitive values, config maps for non-sensitive structured config. Never commit secrets to git. Validate config at startup — fail fast rather than fail mysteriously later.
