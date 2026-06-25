@@ -39,7 +39,7 @@ const techDisplayNames: Record<string, string> = {
   "icd-10-cm": "ICD-10-CM Coding", cpt: "CPT Coding", hcpcs: "HCPCS Coding",
   "coding-guidelines": "Medical Coding Guidelines", "mock-exams": "Medical Coding Mock Exams",
   "home-health-coding": "Home Health Coding", "patient-documentation": "Patient Documentation",
-  "healthcare-admin": "Healthcare Administration", "gut-health": "Gut Health",
+  "healthcare-admin": "Healthcare Administration", "bchhc-prep": "BCHHC Certification Prep", "gut-health": "Gut Health",
   hygiene: "Hygiene", nutrition: "Nutrition", "mental-health": "Mental Health",
   "personal-finance": "Personal Finance", "first-aid": "First Aid",
   dsa: "Data Structures & Algorithms", "system-design": "System Design",
