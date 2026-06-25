@@ -2,92 +2,80 @@
 
 ## PDGM Deep Dive
 
+### Five PDGM Classification Factors
+1. **Timing**: Early (1st 30-day period) vs Late (2nd+ periods) — early pays more
+2. **Admission source**: Community (higher payment) vs Institutional (post-hospital)
+3. **Clinical grouping**: 12 groups based on primary diagnosis code
+4. **Functional level**: Low/Medium/High from OASIS functional items (ambulation, transfers, ADLs)
+5. **Comorbidity adjustment**: None/Low/High from secondary diagnoses
+
+### Clinical Groupings (12 Groups)
+- Musculoskeletal Rehab | Neuro/Stroke Rehab | Wound Care
+- Complex Medical/Surgical | Respiratory | Endocrine
+- Infectious Disease/Neoplasms | Cardiac/Circulatory | MMTA (Medication Mgmt)
+- Behavioural Health | Immobility | GI/GU
+
+### Low Utilization Payment Adjustment (LUPA)
+- If visits fall below LUPA threshold per 30-day period, payment switches to per-visit rate
+- Thresholds vary by clinical group (2-6 visits)
+- LUPA significantly reduces payment — avoid unnecessary LUPAs
+
+## Complex Coding Scenarios
+
+### CVA/Stroke in Home Health
+- Acute CVA (I60-I63): NEVER coded in home health — acute hospital setting only
+- Post-CVA home health: use I69.x sequela codes
+- I69.3-: Following cerebral infarction
+- I69.1-: Following non-traumatic subarachnoid hemorrhage
+- I69.2-: Following intracerebral hemorrhage
+- Code specific residuals: hemiplegia (I69.35x), aphasia (I69.32x), dysphagia (I69.39x)
+- 7th character for laterality and dominance in I69.35x codes
+
+### Wound Coding 7th Character Rules
+- **A** (Initial encounter): Active treatment — wound VAC, antibiotics for infection
+- **D** (Subsequent): Routine care during normal healing — no active treatment
+- **S** (Sequela): Late effect after acute phase
+- Key: Wound VAC presence changes D → A even if wound is healing
+
+### Diabetes and Wounds
 ```
-PDGM PAYMENT CALCULATION:
-  Base payment rate × PDGM case-mix weight × geographic wage index
-  
-  Case-mix determined by:
-    1. Admission source: community vs institutional (hospital/SNF in past 14 days)
-    2. Timing: early (first 30-day period) vs late (subsequent periods)
-    3. Clinical grouping: 12 groups based on primary diagnosis
-    4. Functional impairment: OASIS functional score (low/medium/high)
-    5. Comorbidity adjustment: none, low, or high (based on secondary diagnoses)
-  
-  COMORBIDITY ADJUSTMENT CATEGORIES:
-    Low: presence of specific secondary diagnoses from CMS list
-    High: two qualifying secondary diagnoses from different body systems
-    Check CMS PDGM grouper tool for current comorbidity lists
-
-  THERAPIES IN PDGM:
-    Therapy minutes NO LONGER drive payment (changed from old PPS)
-    Therapies still required if clinically indicated
-    Therapy disciplines: PT, OT, SLP
-    Clinical grouping considers need for therapy but not visit count
-
-LUPA (Low Utilization Payment Adjustment):
-  Applies when visits < threshold for the period
-  Threshold: 2-6 visits depending on PDGM case-mix group
-  LUPA payment = per-visit rate × actual visits (much lower than full episode rate)
-  Prevention: ensure minimum visits per group threshold are met when clinically justified
+E11.621  T2DM with foot ulcer (left foot)
+L97.412  Non-pressure chronic ulcer, left heel, fat layer exposed
+Z79.4    Long-term insulin use (if applicable)
 ```
+Never code E11.9 (unspecified DM) when wound present — specificity required for PDGM comorbidity.
 
-## OASIS Accuracy and Coding
+## Home Health Compliance
 
-```
-OASIS M1021 PRIMARY DIAGNOSIS:
-  Must reflect the primary reason for home health services
-  Use ICD-10-CM code most responsible for current home care need
-  NOT necessarily the reason for hospitalization
-  
-  Common M1021 errors:
-    Sequencing cardiac diagnosis when wound care is primary need
-    Using unspecified codes when specific code available (e.g., E11.9 vs E11.40)
-    Using surgical aftercare Z code when active wound requires wound care code first
+### OIG Focus Areas for Home Health
+- Homebound status documentation: most common audit finding
+- Physician oversight: timely 485 certifications and signatures
+- Therapy necessity: documentation supporting skilled therapy need
+- Duplicate billing: same patient billed by multiple agencies
 
-FUNCTIONAL SCORING (affects payment):
-  M1800-1860: assess ADLs using 0-6 scale (0=independent, 6=total dependence)
-  Items: grooming, upper body dressing, lower body dressing, bathing, toileting, transferring
-  Functional impairment score: sum of functional OASIS items
-  Low (0-6) | Medium (7-9) | High (10+) — higher impairment = higher payment
+### Documentation Audit Trail
+Every visit note must independently support:
+- Skilled need for THAT visit (not just "see care plan")
+- Specific skilled interventions performed
+- Patient's response and progress toward goals
+- Ongoing need for skilled services
+- Homebound status indicators
 
-DIAGNOSIS CODING TIPS FOR HOME HEALTH:
-  Wound diagnoses: always include laterality and stage/depth
-  Sequelae of CVA (I69.xxx): must specify affected side and type of deficit
-  V-A-C (vacuum-assisted closure) therapy: document device; affects code selection
-  Diabetes with complications: always code the specific complication, not just diabetes
-  Pain: not typically used as primary; code underlying condition instead
-```
+## Coding for Common HH Conditions
 
-## Quality Measures and Star Ratings
+### Wound Categories
+| Code | Type | Example |
+|------|------|---------|
+| L89.x | Pressure ulcer | Sacral stage 3 |
+| L97.x | Non-pressure lower limb | Diabetic foot |
+| T81.x | Post-procedural | Surgical wound dehiscence |
+| I83.x | Varicose veins with ulcer | Venous stasis |
 
-```
-HOME HEALTH COMPARE STAR RATINGS (CMS public reporting):
-  Based on OASIS outcomes + process measures + patient satisfaction (HHCAHPS)
-  
-  KEY OUTCOME MEASURES:
-    Improvement in ambulation | Improvement in bed transferring
-    Improvement in bathing | Improvement in pain | Improvement in shortness of breath
-    Hospitalization (unplanned) | Emergency department use without hospitalization
-  
-  PROCESS MEASURES:
-    Influenza immunization provided
-    Pneumococcal vaccination received
-    Depression assessment conducted
-    Drug education provided
-    Fall risk assessment conducted
-  
-  HHCAHPS (patient satisfaction):
-    Care of patients | Communication between providers and patients
-    Specific care issues | Overall rating of home health agency
-
-IMPACT ON REIMBURSEMENT:
-  VBP (Value-Based Purchasing): performance adjustments to Medicare payment
-  CMS reduces/increases payment based on quality performance
-  Accurate OASIS = accurate quality measure calculation = correct star rating
-```
-
-## Study Resources
-- **CMS PDGM Resources** (cms.gov/pdgm) — official grouper tool, payment files
-- **NAHC (National Association for Home Care)** — certification resources
-- **Coding Clinic for OASIS** — guidance for specific OASIS coding scenarios
-- **AAPC Home Health Coding Certification** — study guide and practice exams
+### HTN Combination Codes
+| Combination | Code |
+|-------------|------|
+| HTN + HF only | I11.0 (with HF) |
+| HTN + CKD 1-4 | I12.9 |
+| HTN + CKD 5/ESRD | I12.0 |
+| HTN + HF + CKD 1-4 | I13.0 |
+| HTN + HF + ESRD | I13.11 |

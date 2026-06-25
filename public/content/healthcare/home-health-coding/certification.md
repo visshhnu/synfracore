@@ -1,84 +1,131 @@
-# Home Health Coding Certification Guide
+# BCHHC — Home Health Coding Certification
 
-## Top Certifications
+## What is BCHHC?
 
-| Cert | Provider | Cost | Format |
-|------|----------|------|--------|
-| **CPC-H (Home Health)** | AAPC | $399 | 150 MCQ, 5h40m |
-| **HCS-D (Home Care Specialist – Documentation)** | NAHC | $375 | MCQ |
-| **HCS-O (OASIS)** | NAHC | $375 | MCQ |
-| **COS-C (OASIS Specialist – Clinical)** | NAHC | $350 | MCQ |
-| **RHIT** | AHIMA | $229 | MCQ |
+The **BCHHC (Board Certified Home Health Coder)** is a professional certification for home health medical coders, offered by the Board of Medical Specialty Coding & Compliance (BMSCC). It validates expertise in ICD-10-CM coding for home health, OASIS assessments, and the PDGM payment model.
 
 ---
 
-## Home Health Coding Overview
+## BCHHC Exam Overview
 
+| Detail | Info |
+|--------|------|
+| Certifying Body | BMSCC (Board of Medical Specialty Coding & Compliance) |
+| Exam Format | Multiple choice, case-based scenarios |
+| Prerequisites | Experience in home health coding recommended |
+| Renewal | Every 2 years with continuing education |
+| Focus Areas | ICD-10-CM, OASIS, PDGM, coding guidelines |
+
+---
+
+## Core Knowledge Areas
+
+### 1. ICD-10-CM for Home Health
+- Code structure and conventions (NEC, NOS, Excludes1, Excludes2)
+- Principal/primary diagnosis selection
+- Sequencing rules for home health setting
+- Combination codes (HTN+HF+CKD, DM+CKD)
+- Wound coding: pressure (L89), non-pressure (L97), post-surgical (T81)
+- 7th character selection: A (active treatment), D (subsequent), S (sequela)
+
+### 2. OASIS Assessments
+| Type | Trigger | Timing |
+|------|---------|--------|
+| SOC | First skilled visit | Within 5 days |
+| ROC | Returns from hospital | Within 24 hours |
+| REC | Recertification | Near end of 60-day episode |
+| SCIC | Acute change in condition | Within episode |
+| DC | Discharge | At last visit |
+
+**Who fills OASIS:** SN (RN/LPN), PT, SLP — OT cannot fill independently.
+
+### 3. PDGM — Patient-Driven Groupings Model
+Five classification factors per 30-day payment period:
+1. **Timing** — Early (1st period) vs Late (subsequent)
+2. **Admission source** — Community vs Institutional (post-hospital)
+3. **Clinical grouping** — 12 groups based on primary ICD-10-CM code
+4. **Functional level** — Low/Medium/High from OASIS functional items
+5. **Comorbidity adjustment** — None/Low/High from secondary diagnoses
+
+**12 PDGM Clinical Groups:**
+Musculoskeletal Rehab · Neuro/Stroke Rehab · Wound Care · Complex Medical/Surgical · Respiratory · Endocrine · Infectious Disease/Neoplasms · Cardiac/Circulatory · MMTA · Behavioural Health · Immobility · GI/GU
+
+### 4. Homebound Documentation
+- Leaving home requires considerable effort due to illness/injury
+- Brief absences allowed: medical appointments, religious services, adult day care
+- Must document specific limitation, distance/effort to leave, assistance needed
+- Examples: SOB on exertion, non-weight-bearing, severe cognitive impairment
+
+---
+
+## High-Yield Coding Scenarios
+
+### HTN + CHF + CKD Stage 3
 ```
-HOME HEALTH PPS (Prospective Payment System):
-  PDGM (Patient-Driven Groupings Model): current payment model since Jan 2020
-  30-day payment periods (replaced 60-day episodic under old PPS)
-  Groups patient by: admission source, timing, clinical grouping, functional level, comorbidities
-  
-OASIS (Outcome and Assessment Information Set):
-  Comprehensive assessment tool for Medicare home health patients
-  Completed at: start of care, resumption, follow-up, transfer, discharge
-  Drives: patient grouping, reimbursement, quality measures
-  
-  Key OASIS Items for Coding:
-    M1000: Prior care setting | M1011-M1017: Inpatient diagnoses
-    M1021/1023: Primary/other diagnoses (ICD-10-CM codes required)
-    M1030-1033: Therapies | M1041: Influenza vaccine
-    M1800-1860: Functional status items (ADLs: bathing, dressing, toileting)
+I13.0   HTN with HF and CKD stages 1–4
+I50.22  Chronic systolic heart failure
+N18.3   CKD stage 3
+Z79.4   Long-term insulin use (if applicable)
+```
+Never code I10 separately when I13.0 applies.
 
-ICD-10-CM IN HOME HEALTH:
-  Primary diagnosis: condition most responsible for home care need
-  Sequencing: follow ICD-10-CM official guidelines + PDGM grouping logic
-  V codes (Z codes): visit reason codes when no active disease
-  Secondary diagnoses: comorbidities that affect plan of care
-  Code to highest specificity — OASIS M1021 accepts up to 6 diagnoses
+### CVA Sequela in Home Health
+```
+I69.354  Hemiplegia left non-dominant (default if dominance not documented)
+I69.320  Aphasia following cerebral infarction
+```
+Never code the acute stroke (I63-) — sequela codes imply post-infarction.
+
+### Wound Dehiscence with Wound VAC
+```
+T81.31XA  Disruption of external operation wound — 7th char A (active treatment)
+Z48.89    Aftercare following surgery
+```
+Wound VAC present = active treatment = A. No wound VAC = D.
+
+### Diabetes Full Scenario
+Patient: T2DM + CKD stage 3 + anemia of CKD + insulin
+```
+E11.22  T2DM with diabetic CKD
+N18.3   CKD stage 3
+D63.1   Anemia in CKD
+Z79.4   Long-term insulin use
 ```
 
 ---
 
-## High-Frequency Home Health Diagnoses
+## Exam Preparation Strategy
 
-```
-WOUND CARE:
-  L89.xxx: Pressure ulcer (stage I-IV, unstageable, deep tissue)
-  L97.xxx: Non-pressure ulcer of lower limb
-  Z48.xxx: Encounter for aftercare following surgery (post-op wound)
-  
-CARDIAC/RESPIRATORY:
-  I50.xx: Heart failure (systolic, diastolic, combined)
-  J44.1: COPD with acute exacerbation
-  J96.xx: Respiratory failure
+### 6-Week Study Plan
+| Week | Focus |
+|------|-------|
+| 1–2 | ICD-10-CM conventions, NEC/NOS, Excludes1/2, combination codes |
+| 3 | OASIS types, timing, who fills, clinical documentation |
+| 4 | PDGM — 5 factors, 12 clinical groups, LUPA thresholds |
+| 5 | High-frequency coding scenarios: wounds, CVA, diabetes, HTN combos |
+| 6 | Mock exams + timed practice cases |
 
-NEUROLOGICAL:
-  G20: Parkinson's disease | G35: Multiple sclerosis
-  I69.xxx: Sequelae of stroke (specify deficits: hemiplegia, aphasia, dysphagia)
-  
-DIABETES:
-  E11.xxx: Type 2 DM (with complications specified)
-  E10.xxx: Type 1 DM
-  Common complications: neuropathy (E11.40), foot ulcer (E11.621), kidney (E11.21)
+### Key Resources
+- AAPC Home Health coding curriculum
+- CMS ICD-10-CM Official Guidelines (free on CMS.gov)
+- CMS PDGM Final Rule and fact sheets
+- OASIS Data Specifications (current version)
 
-ORTHOPEDIC/REHAB:
-  Z96.641: Presence of right artificial hip joint (post-hip replacement)
-  Z47.1: Aftercare following joint replacement surgery
-  M16.x: Osteoarthritis of hip | M17.x: Osteoarthritis of knee
-```
+---
 
-## Revision Notes
-```
-HOME HEALTH vs HOSPICE: home health = curative goal | hospice = comfort/palliative
-MEDICARE HOME HEALTH ELIGIBILITY: homebound status + skilled need + physician order
-HOMEBOUND: leaving home requires considerable effort; can leave briefly (e.g., medical appt)
-SKILLED NEED: requires skilled nurse or therapist (not just aide or companion)
+## Practice Questions
 
-PDGM CLINICAL GROUPS (12 groups by primary diagnosis):
-  MMTA (Medical Management, Treatment, Assessment) | Neuro/Stroke Rehab
-  Wound Care | Complex Medical/Surgical | Behavioral Health | Musculoskeletal Rehab
+**Q: A patient had a stroke 4 months ago. She now has right hemiplegia (non-dominant). What code?**
+I69.351 — Hemiplegia and hemiparesis following cerebral infarction, right non-dominant side.
 
-PAYMENT ADJUSTMENTS: comorbidities add to payment | functional impairment affects grouping
-LUPA (Low Utilization Payment Adjustment): fewer visits than threshold → reduced payment
+**Q: Wound VAC is removed. Dressing changes only. Which 7th character?**
+D — Subsequent encounter. No active wound VAC = routine healing.
+
+**Q: OT evaluates a patient for home health. Can OT complete the OASIS?**
+No. OT cannot independently complete the OASIS. SN, PT, and SLP can.
+
+**Q: Patient has HTN + ESRD + CHF. Which combination code?**
+I13.11 — Hypertensive heart and chronic kidney disease, heart failure, ESRD.
+
+**Q: Primary diagnosis places patient in Wound Care clinical group. What is needed?**
+A wound-related primary ICD-10-CM code — such as L89.x (pressure ulcer), L97.x (non-pressure ulcer), or T81.31xD (surgical wound dehiscence).

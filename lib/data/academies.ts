@@ -430,8 +430,9 @@ const healthcareAcademy: Academy = {
       description: "Home health coding, OASIS, patient care documentation",
       color: "#8B5CF6",
       technologies: [
-        { slug: "home-health-coding", name: "Home Health Coding", icon: "🏠", description: "OASIS assessments, home health PPS, HIPPS codes, PDGM payment model", level: "Intermediate", tags: ["Home Health", "OASIS", "PDGM"] },
-        { slug: "patient-documentation", name: "Patient Documentation", icon: "📄", description: "Clinical documentation improvement, CDI, query process, physician queries", level: "Intermediate", tags: ["CDI", "Documentation", "Queries"] },
+        { slug: "home-health-coding", name: "Home Health Coding", icon: "🏠", description: "OASIS assessments, PDGM payment model, HIPPS codes, primary diagnosis selection for home health", level: "Intermediate", tags: ["Home Health", "OASIS", "PDGM"] },
+        { slug: "patient-documentation", name: "Patient Documentation", icon: "📄", description: "Clinical documentation improvement, CDI, physician query process, SOAP notes, medical record compliance", level: "Intermediate", tags: ["CDI", "Documentation", "Queries"] },
+        { slug: "bchhc-prep", name: "BCHHC Certification Prep", icon: "🏆", description: "Board Certified Home Health Coder exam prep — OASIS, PDGM, ICD-10-CM coding scenarios, timed mock exams", level: "Advanced", tags: ["BCHHC", "Certification", "Home Health", "OASIS", "PDGM"] },
       ],
     },
     {

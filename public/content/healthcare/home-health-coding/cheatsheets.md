@@ -1,71 +1,65 @@
-# Home Health Coding — Quick Reference Cheatsheet
+# Home Health Coding Cheatsheet
 
-## Essential Formulas & Rules
+## OASIS Timing Reference
+| Assessment | Trigger | Window |
+|-----------|---------|--------|
+| SOC | First skilled visit | Within 5 days |
+| ROC | Returns from hospital | Within 24 hours |
+| REC | 60-day recertification | Near end of episode |
+| SCIC | Significant acute change | Within episode, no hospitalization |
+| Discharge | End of care | At last visit |
 
-### Core Topics
-**Home Health PPS (PDGM)**:
-  Key formula/rule: See fundamentals section for complete derivation
-  When to apply: When the problem mentions keywords related to home health pps (pdgm)
-**OASIS Assessment Tool**:
-  Key formula/rule: See fundamentals section for complete derivation
-  When to apply: When the problem mentions keywords related to oasis assessment tool
-**Primary Diagnosis Selection**:
-  Key formula/rule: See fundamentals section for complete derivation
-  When to apply: When the problem mentions keywords related to primary diagnosis selection
-**Functional Assessment Coding**:
-  Key formula/rule: See fundamentals section for complete derivation
-  When to apply: When the problem mentions keywords related to functional assessment coding
-**Comorbidity Adjustment**:
-  Key formula/rule: See fundamentals section for complete derivation
-  When to apply: When the problem mentions keywords related to comorbidity adjustment
-**LUPA & Episode Management**:
-  Key formula/rule: See fundamentals section for complete derivation
-  When to apply: When the problem mentions keywords related to lupa & episode management
+## Medicare HH Coverage Criteria
+1. Homebound (leaving requires considerable effort)
+2. Skilled service need (SN, PT, OT, SLP)
+3. Under physician care with certified POC (485)
+4. Services reasonable and necessary
 
-## Problem-Solving Templates
+## PDGM 5 Factors
+| Factor | Options |
+|--------|---------|
+| Timing | Early (1st period) / Late (2nd+) |
+| Admission source | Community / Institutional |
+| Clinical group | 12 groups (see below) |
+| Functional level | Low / Medium / High |
+| Comorbidity | None / Low / High |
 
-### Template 1: Identify → Apply → Verify
-1. Read the question completely
-2. Identify the topic/concept required
-3. Write the relevant formula
-4. Substitute known values
-5. Calculate step by step
-6. Verify units and reasonableness
+## 12 Clinical Groups (PDGM)
+1. Musculoskeletal Rehab
+2. Neuro/Stroke Rehab
+3. Wound Care
+4. Complex Medical/Surgical
+5. Respiratory
+6. Endocrine
+7. Infectious Disease/Neoplasms/Blood
+8. Cardiac/Circulatory
+9. MMTA (Medication Management)
+10. Behavioural Health
+11. Immobility
+12. GI/GU
 
-### Template 2: For MCQs
-1. Eliminate obviously wrong options first
-2. If 2 options remain, solve and check which matches
-3. Check if special conditions (edge cases) apply
+## HTN Combination Codes
+| Combo | Code |
+|-------|------|
+| HTN + HF | I11.0 |
+| HTN + CKD stages 1-4 | I12.9 |
+| HTN + CKD 5/ESRD | I12.0 |
+| HTN + HF + CKD 1-4 | I13.0 |
+| HTN + HF + ESRD | I13.11 |
 
-## Most Common Question Types
+## Wound 7th Characters
+| 7th | Meaning | Example |
+|----|---------|---------|
+| A | Initial/active treatment | Wound VAC in place, antibiotics active |
+| D | Subsequent/routine | Dressing changes, normal healing |
+| S | Sequela | Late effect after healing |
 
-| Type | What to Do | Time Budget |
-|---|---|---|
-| Direct formula | Apply formula directly | 30-60 sec |
-| Multi-step | Break into steps, apply each | 1-2 min |
-| Concept-based | Recall definition + example | 45 sec |
-| Data interpretation | Extract data, compute | 2-3 min |
-
-## Revision Strategy
-
-**1 month before exam:**
-- Complete all MCQ sets in Labs section
-- Identify weak areas from wrong answers
-- Focused practice on weak areas
-
-**1 week before:**
-- Only previous year papers
-- Time each session like real exam
-- Review this cheatsheet daily
-
-**1 day before:**
-- Light revision only — no new topics
-- Review flashcards once
-- Get good sleep
-
-## Labs Section
-
-The **Labs** section for Home Health Coding has:
-- Topic-wise MCQ quiz sets with detailed explanations
-- Flashcards for rapid formula/fact revision
-- Previous year-style questions
+## Common Primary Diagnoses by PDGM Group
+| Group | Common Primary Dx |
+|-------|-----------------|
+| Musculoskeletal | M17.11 (primary OA knee), S72.001D (hip fracture) |
+| Wound Care | L89.xx, L97.xx, T81.31xD |
+| Cardiac | I50.22, I13.0 |
+| Endocrine | E11.65, E11.621 |
+| Neuro/Stroke | I69.354, I69.320 |
+| MMTA | I10, E11.9, J44.1 |
