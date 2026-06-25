@@ -6,6 +6,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { academies } from "@/lib/data/academies";
 import Image from "next/image";
 
+// ── Language Switcher ─────────────────────────────────────
 function LanguageSwitcher() {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -35,7 +36,7 @@ function LanguageSwitcher() {
   return (
     <div ref={ref} style={{ position: "relative", flexShrink: 0 }}>
       <div id="google_translate_element" style={{ display: "none" }} />
-      <button onClick={() => setOpen(!open)} title="Translate" style={{ display: "flex", alignItems: "center", gap: "4px", background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "7px", padding: "5px 8px", cursor: "pointer", color: "var(--text-3)", fontFamily: "inherit" }}>
+      <button onClick={() => setOpen(o => !o)} title="Translate" style={{ display: "flex", alignItems: "center", gap: "4px", background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "7px", padding: "5px 8px", cursor: "pointer", color: "var(--text-3)", fontFamily: "inherit" }}>
         <Globe size={14} /><ChevronDown size={10} />
       </button>
       {open && (
@@ -52,6 +53,7 @@ function LanguageSwitcher() {
   );
 }
 
+// ── Desktop Search ────────────────────────────────────────
 function SearchBox() {
   const [q, setQ] = useState("");
   const [results, setResults] = useState<{ name: string; href: string; color: string; domain: string; tags: string[] }[]>([]);
@@ -99,9 +101,7 @@ function SearchBox() {
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-1)" }}>{r.name}</div>
                 <div style={{ fontSize: "11px", color: "var(--text-4)", marginTop: "1px" }}>{r.domain}</div>
-                <div style={{ display: "flex", gap: "3px", flexWrap: "wrap", marginTop: "3px" }}>
-                  {r.tags.slice(0, 3).map((tag, ti) => <span key={ti} style={{ fontSize: "10px", padding: "1px 5px", borderRadius: "4px", background: `${r.color}18`, color: r.color, fontWeight: 600 }}>{tag}</span>)}
-                </div>
+                <div style={{ display: "flex", gap: "3px", flexWrap: "wrap", marginTop: "3px" }}>{r.tags.slice(0, 3).map((tag, ti) => <span key={ti} style={{ fontSize: "10px", padding: "1px 5px", borderRadius: "4px", background: `${r.color}18`, color: r.color, fontWeight: 600 }}>{tag}</span>)}</div>
               </div>
               <span style={{ fontSize: "11px", color: r.color, fontWeight: 700, flexShrink: 0, marginTop: "2px" }}>→</span>
             </Link>
@@ -117,9 +117,11 @@ function SearchBox() {
   );
 }
 
-function MobileSearch({ onClose }: { onClose: () => void }) {
+// ── Mobile Search Overlay ─────────────────────────────────
+function MobileSearchOverlay({ onClose }: { onClose: () => void }) {
   const [q, setQ] = useState("");
   const [results, setResults] = useState<{ name: string; href: string; color: string; domain: string }[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
   const searchIndex = useMemo(() => {
     const idx: { name: string; tags: string[]; description: string; href: string; color: string; domain: string; academy: string }[] = [];
     for (const a of academies) {
@@ -132,51 +134,83 @@ function MobileSearch({ onClose }: { onClose: () => void }) {
     return idx;
   }, []);
   useEffect(() => {
+    setTimeout(() => inputRef.current?.focus(), 100);
+  }, []);
+  useEffect(() => {
     if (!q.trim()) { setResults([]); return; }
     const lq = q.toLowerCase();
-    setResults(searchIndex.filter(t => t.name.toLowerCase().includes(lq) || t.tags.some(tg => tg.toLowerCase().includes(lq)) || t.description.toLowerCase().includes(lq) || t.academy.toLowerCase().includes(lq) || t.domain.toLowerCase().includes(lq)).slice(0, 5).map(t => ({ name: t.name, href: t.href, color: t.color, domain: t.domain })));
+    setResults(searchIndex.filter(t => t.name.toLowerCase().includes(lq) || t.tags.some(tg => tg.toLowerCase().includes(lq)) || t.academy.toLowerCase().includes(lq) || t.domain.toLowerCase().includes(lq)).slice(0, 8).map(t => ({ name: t.name, href: t.href, color: t.color, domain: t.domain })));
   }, [q, searchIndex]);
   return (
-    <div>
-      <div style={{ display: "flex", gap: "6px", background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "8px", padding: "8px 10px", alignItems: "center" }}>
-        <Search size={13} color="var(--text-4)" />
-        <input value={q} onChange={e => setQ(e.target.value)} placeholder="Search topics, exams, tools..." style={{ background: "none", border: "none", outline: "none", fontSize: "13px", color: "var(--text-1)", width: "100%", fontFamily: "inherit" }} />
-        {q && <button onClick={() => setQ("")} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-4)", padding: 0, display: "flex" }}><X size={12} /></button>}
-      </div>
-      {results.length > 0 && (
-        <div style={{ marginTop: "6px", borderRadius: "8px", border: "1px solid var(--border)", overflow: "hidden" }}>
-          {results.map((r, i) => (
-            <Link key={i} href={r.href} onClick={onClose} style={{ display: "flex", alignItems: "center", gap: "8px", padding: "9px 10px", textDecoration: "none", borderTop: i > 0 ? "1px solid var(--border)" : "none" }}
+    <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.6)", zIndex: 10000, display: "flex", flexDirection: "column", padding: "60px 16px 24px", backdropFilter: "blur(4px)" }} onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
+      <div style={{ background: "var(--bg-1)", borderRadius: "14px", overflow: "hidden", maxHeight: "70vh", display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", gap: "10px", padding: "12px 14px", alignItems: "center", borderBottom: "1px solid var(--border)" }}>
+          <Search size={16} color="var(--text-4)" />
+          <input ref={inputRef} value={q} onChange={e => setQ(e.target.value)} placeholder="Search topics, exams, tools..." style={{ background: "none", border: "none", outline: "none", fontSize: "15px", color: "var(--text-1)", flex: 1, fontFamily: "inherit" }} />
+          <button onClick={onClose} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-3)", padding: "4px", display: "flex" }}><X size={18} /></button>
+        </div>
+        <div style={{ overflowY: "auto" }}>
+          {results.length > 0 ? results.map((r, i) => (
+            <Link key={i} href={r.href} onClick={onClose} style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 14px", textDecoration: "none", borderBottom: "1px solid var(--border)" }}
               onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--bg-2)"}
               onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "transparent"}>
-              <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: r.color, flexShrink: 0 }} />
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-1)" }}>{r.name}</div>
-                <div style={{ fontSize: "10px", color: "var(--text-4)" }}>{r.domain}</div>
+              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: r.color, flexShrink: 0 }} />
+              <div>
+                <div style={{ fontSize: "14px", fontWeight: 600, color: "var(--text-1)" }}>{r.name}</div>
+                <div style={{ fontSize: "11px", color: "var(--text-4)" }}>{r.domain}</div>
               </div>
-              <span style={{ fontSize: "11px", color: r.color, fontWeight: 700 }}>→</span>
+              <span style={{ marginLeft: "auto", fontSize: "12px", color: r.color, fontWeight: 700 }}>→</span>
             </Link>
-          ))}
+          )) : q ? (
+            <div style={{ padding: "24px", textAlign: "center", color: "var(--text-4)", fontSize: "14px" }}>No results for &quot;{q}&quot;</div>
+          ) : (
+            <div style={{ padding: "24px", textAlign: "center", color: "var(--text-4)", fontSize: "14px" }}>Start typing to search…</div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }
 
+// ── Constants ─────────────────────────────────────────────
 const NAV_LINKS = [
   { n: "Roadmaps", h: "/roadmaps" }, { n: "Labs", h: "/labs" },
   { n: "Certifications", h: "/certifications" }, { n: "Interview", h: "/interview" },
   { n: "AI Assistant", h: "/ai-assistant" }, { n: "Career", h: "/career" },
 ];
 
+// Dropdown groups — 4 equal columns
 const GROUPS = [
-  { label: "Tech & Engineering", color: "#3B82F6", icon: "⚙️", slugs: ["devops", "cloud", "databases", "ai", "data", "security"] },
-  { label: "Education & Exams",  color: "#F59E0B", icon: "🎓", slugs: ["education", "exams"] },
-  { label: "Health & Life Skills", color: "#F43F5E", icon: "🌿", slugs: ["healthcare", "essentials"] },
+  {
+    label: "Tech & Engineering", color: "#3B82F6", icon: "⚙️",
+    slugs: ["devops", "cloud", "databases", "ai", "data", "security"],
+  },
+  {
+    label: "Education & Exams", color: "#F59E0B", icon: "🎓",
+    slugs: ["education", "exams"],
+  },
+  {
+    label: "Health & Life Skills", color: "#F43F5E", icon: "🌿",
+    slugs: ["healthcare", "essentials"],
+  },
 ];
 
+// Planned domains (coming soon) — shown greyed in dropdown
+const COMING_SOON = [
+  { name: "Law & Legal Studies", icon: "⚖️", color: "#6B7280" },
+  { name: "Agriculture & Farming", icon: "🌾", color: "#6B7280" },
+  { name: "Finance & Commerce", icon: "💹", color: "#6B7280" },
+  { name: "Languages", icon: "🗣️", color: "#6B7280" },
+  { name: "State PSC Exams", icon: "🏛️", color: "#6B7280" },
+  { name: "Central Exams", icon: "📋", color: "#6B7280" },
+  { name: "Telecom & 5G", icon: "📡", color: "#6B7280" },
+  { name: "Professional Certs", icon: "🏅", color: "#6B7280" },
+];
+
+// ── Main Navbar ───────────────────────────────────────────
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [expandedAcademy, setExpandedAcademy] = useState<string | null>(null);
   const [dropOpen, setDropOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -201,9 +235,18 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    document.body.style.overflow = (mobileOpen || searchOpen) ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
-  }, [mobileOpen]);
+  }, [mobileOpen, searchOpen]);
+
+  // Close drawer on Escape
+  useEffect(() => {
+    const fn = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { setMobileOpen(false); setSearchOpen(false); setExpandedAcademy(null); setDropOpen(false); }
+    };
+    document.addEventListener("keydown", fn);
+    return () => document.removeEventListener("keydown", fn);
+  }, []);
 
   const academyMap = useMemo(() => Object.fromEntries(academies.map(a => [a.slug, a])), []);
   const closeDrawer = () => { setMobileOpen(false); setExpandedAcademy(null); };
@@ -218,6 +261,7 @@ export default function Navbar() {
             </div>
           </Link>
 
+          {/* Desktop nav */}
           <nav className="desktop-nav" style={{ display: "flex", alignItems: "center", flex: 1, gap: "1px" }}>
             <div onMouseEnter={() => { clearTimeout(dropTimer); setDropOpen(true); }} onMouseLeave={() => { dropTimer = setTimeout(() => setDropOpen(false), 200); }} style={{ position: "relative" }}>
               <button style={{ display: "flex", alignItems: "center", gap: "3px", color: dropOpen ? "var(--text-1)" : "var(--text-3)", fontSize: "13px", fontWeight: 500, padding: "5px 9px", borderRadius: "7px", background: dropOpen ? "var(--bg-2)" : "none", border: "none", cursor: "pointer", fontFamily: "inherit" }}>
@@ -232,13 +276,22 @@ export default function Navbar() {
             ))}
           </nav>
 
+          {/* Right controls */}
           <div style={{ display: "flex", alignItems: "center", gap: "6px", flexShrink: 0, marginLeft: "auto" }}>
             <div className="desktop-nav"><SearchBox /></div>
             <LanguageSwitcher />
             <ThemeToggle />
             <Link href="/academies" className="desktop-nav btn-primary" style={{ padding: "6px 14px", fontSize: "13px", borderRadius: "7px", whiteSpace: "nowrap" }}>Start Learning</Link>
-            <button className="mobile-only" onClick={() => setMobileOpen(true)} aria-label="Open menu" style={{ background: "none", border: "1px solid var(--border)", cursor: "pointer", color: "var(--text-2)", padding: "6px 8px", display: "flex", borderRadius: "8px" }}>
-              <Menu size={20} />
+            {/* Mobile: search icon */}
+            <button className="mobile-only" onClick={() => setSearchOpen(true)} aria-label="Search" style={{ background: "none", border: "1px solid var(--border)", cursor: "pointer", color: "var(--text-2)", padding: "6px 8px", display: "flex", borderRadius: "8px" }}>
+              <Search size={18} />
+            </button>
+            {/* Mobile: hamburger — toggles on/off */}
+            <button className="mobile-only"
+              onClick={() => { if (mobileOpen) { closeDrawer(); } else { setMobileOpen(true); } }}
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              style={{ background: "none", border: "1px solid var(--border)", cursor: "pointer", color: "var(--text-2)", padding: "6px 8px", display: "flex", borderRadius: "8px" }}>
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
@@ -246,34 +299,100 @@ export default function Navbar() {
         {/* Desktop mega dropdown */}
         {dropOpen && (
           <div onMouseEnter={() => { clearTimeout(dropTimer); setDropOpen(true); }} onMouseLeave={() => { dropTimer = setTimeout(() => setDropOpen(false), 200); }}
-            style={{ position: "absolute", left: 0, right: 0, top: "100%", background: "var(--bg-2)", borderBottom: "2px solid var(--border)", boxShadow: "0 20px 50px rgba(0,0,0,0.18)", zIndex: 300, padding: "22px 32px 18px" }}>
-            <div style={{ maxWidth: "1100px", margin: "0 auto", display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: "32px" }}>
-              {GROUPS.map(group => {
-                const grpAcademies = group.slugs.map(s => academyMap[s]).filter(Boolean);
-                return (
-                  <div key={group.label}>
-                    <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: group.color, marginBottom: "10px", display: "flex", alignItems: "center", gap: "5px" }}>
-                      <span>{group.icon}</span> {group.label}
-                    </div>
-                    {grpAcademies.map(a => (
-                      <Link key={a.slug} href={`/academies/${a.slug}`} onClick={() => setDropOpen(false)}
-                        style={{ textDecoration: "none", padding: "7px 9px", borderRadius: "8px", display: "block", marginBottom: "1px" }}
+            style={{ position: "absolute", left: 0, right: 0, top: "100%", background: "var(--bg-2)", borderBottom: "2px solid var(--border)", boxShadow: "0 20px 50px rgba(0,0,0,0.18)", zIndex: 300, padding: "20px 32px 16px" }}>
+            <div style={{ maxWidth: "1100px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "20px" }}>
+              {/* Col 1-2: Tech */}
+              <div style={{ gridColumn: "span 2" }}>
+                <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#3B82F6", marginBottom: "8px", display: "flex", alignItems: "center", gap: "5px" }}>
+                  ⚙️ Tech & Engineering
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2px" }}>
+                  {["devops", "cloud", "databases", "ai", "data", "security"].map(slug => {
+                    const a = academyMap[slug];
+                    if (!a) return null;
+                    return (
+                      <Link key={slug} href={`/academies/${slug}`} onClick={() => setDropOpen(false)}
+                        style={{ textDecoration: "none", padding: "6px 8px", borderRadius: "7px", display: "flex", alignItems: "center", gap: "7px" }}
                         onMouseEnter={e => { e.currentTarget.style.background = `${a.color}14`; }}
                         onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                          <span style={{ fontSize: "15px", flexShrink: 0 }}>{a.icon}</span>
-                          <div>
-                            <div style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-1)", lineHeight: 1.3 }}>{a.title}</div>
-                            <div style={{ fontSize: "11px", color: "var(--text-4)", marginTop: "1px" }}>{a.subtitle}</div>
-                          </div>
+                        <span style={{ fontSize: "14px", flexShrink: 0 }}>{a.icon}</span>
+                        <div>
+                          <div style={{ fontSize: "12px", fontWeight: 600, color: "var(--text-1)", lineHeight: 1.2 }}>{a.title}</div>
+                          <div style={{ fontSize: "10px", color: "var(--text-4)" }}>{a.subtitle}</div>
                         </div>
                       </Link>
-                    ))}
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Col 3: Education & Exams */}
+              <div>
+                <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#F59E0B", marginBottom: "8px", display: "flex", alignItems: "center", gap: "5px" }}>
+                  🎓 Education & Exams
+                </div>
+                {["education", "exams"].map(slug => {
+                  const a = academyMap[slug];
+                  if (!a) return null;
+                  return (
+                    <Link key={slug} href={`/academies/${slug}`} onClick={() => setDropOpen(false)}
+                      style={{ textDecoration: "none", padding: "6px 8px", borderRadius: "7px", display: "block", marginBottom: "2px" }}
+                      onMouseEnter={e => { e.currentTarget.style.background = `${a.color}14`; }}
+                      onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "7px" }}>
+                        <span style={{ fontSize: "14px" }}>{a.icon}</span>
+                        <div>
+                          <div style={{ fontSize: "12px", fontWeight: 600, color: "var(--text-1)", lineHeight: 1.2 }}>{a.title}</div>
+                          <div style={{ fontSize: "10px", color: "var(--text-4)" }}>{a.subtitle}</div>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+                {/* Coming soon */}
+                <div style={{ fontSize: "9px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--text-4)", margin: "10px 0 5px", paddingLeft: "8px" }}>Coming soon</div>
+                {COMING_SOON.slice(4, 6).map(cs => (
+                  <div key={cs.name} style={{ padding: "5px 8px", display: "flex", alignItems: "center", gap: "6px", opacity: 0.5 }}>
+                    <span style={{ fontSize: "12px" }}>{cs.icon}</span>
+                    <span style={{ fontSize: "11px", color: "var(--text-4)" }}>{cs.name}</span>
                   </div>
-                );
-              })}
+                ))}
+              </div>
+
+              {/* Col 4: Health + Coming Soon */}
+              <div>
+                <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#F43F5E", marginBottom: "8px", display: "flex", alignItems: "center", gap: "5px" }}>
+                  🌿 Health & Life
+                </div>
+                {["healthcare", "essentials"].map(slug => {
+                  const a = academyMap[slug];
+                  if (!a) return null;
+                  return (
+                    <Link key={slug} href={`/academies/${slug}`} onClick={() => setDropOpen(false)}
+                      style={{ textDecoration: "none", padding: "6px 8px", borderRadius: "7px", display: "block", marginBottom: "2px" }}
+                      onMouseEnter={e => { e.currentTarget.style.background = `${a.color}14`; }}
+                      onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "7px" }}>
+                        <span style={{ fontSize: "14px" }}>{a.icon}</span>
+                        <div>
+                          <div style={{ fontSize: "12px", fontWeight: 600, color: "var(--text-1)", lineHeight: 1.2 }}>{a.title}</div>
+                          <div style={{ fontSize: "10px", color: "var(--text-4)" }}>{a.subtitle}</div>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+                <div style={{ fontSize: "9px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--text-4)", margin: "10px 0 5px", paddingLeft: "8px" }}>Coming soon</div>
+                {COMING_SOON.slice(0, 4).map(cs => (
+                  <div key={cs.name} style={{ padding: "5px 8px", display: "flex", alignItems: "center", gap: "6px", opacity: 0.5 }}>
+                    <span style={{ fontSize: "12px" }}>{cs.icon}</span>
+                    <span style={{ fontSize: "11px", color: "var(--text-4)" }}>{cs.name}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div style={{ maxWidth: "1100px", margin: "14px auto 0", paddingTop: "12px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "center" }}>
+
+            <div style={{ maxWidth: "1100px", margin: "12px auto 0", paddingTop: "10px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "center" }}>
               <Link href="/academies" onClick={() => setDropOpen(false)} style={{ fontSize: "12px", fontWeight: 600, color: "#3B82F6", textDecoration: "none", padding: "7px 20px", background: "rgba(59,130,246,0.08)", borderRadius: "8px", border: "1px solid rgba(59,130,246,0.2)" }}>
                 View all {academies.length} academies →
               </Link>
@@ -282,6 +401,9 @@ export default function Navbar() {
         )}
       </header>
 
+      {/* Mobile search overlay */}
+      {searchOpen && <MobileSearchOverlay onClose={() => setSearchOpen(false)} />}
+
       {/* Mobile backdrop */}
       {mobileOpen && (
         <div onClick={closeDrawer} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.45)", zIndex: 9997, backdropFilter: "blur(2px)" }} />
@@ -289,8 +411,6 @@ export default function Navbar() {
 
       {/* Mobile slide-in drawer */}
       <div style={{ position: "fixed", top: 0, right: 0, bottom: 0, width: "min(300px, 88vw)", background: "var(--bg-1)", zIndex: 9998, transform: mobileOpen ? "translateX(0)" : "translateX(100%)", transition: "transform 0.28s cubic-bezier(0.4,0,0.2,1)", boxShadow: mobileOpen ? "-8px 0 40px rgba(0,0,0,0.2)" : "none", display: "flex", flexDirection: "column", overflowY: "auto", overflowX: "hidden" }}>
-
-        {/* Sticky drawer header */}
         <div style={{ position: "sticky", top: 0, zIndex: 2, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "13px 14px", borderBottom: "1px solid var(--border)", background: "var(--bg-1)", flexShrink: 0 }}>
           <span style={{ fontSize: "13px", fontWeight: 700, color: "var(--text-1)" }}>Navigation</span>
           <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
@@ -301,34 +421,27 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Search */}
-        <div style={{ padding: "10px 12px", borderBottom: "1px solid var(--border)" }}>
-          <MobileSearch onClose={closeDrawer} />
-        </div>
-
-        {/* Academies */}
         <div style={{ padding: "8px 12px 3px" }}>
           <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-4)", margin: 0 }}>Academies</p>
         </div>
 
         {academies.map(a => {
-          const isOpen = expandedAcademy === a.slug;
+          const isExpanded = expandedAcademy === a.slug;
           const techs = a.domains.flatMap(d => d.technologies || []);
           return (
             <div key={a.slug} style={{ borderBottom: "1px solid var(--border)" }}>
-              <button onClick={() => setExpandedAcademy(isOpen ? null : a.slug)}
+              <button onClick={() => setExpandedAcademy(isExpanded ? null : a.slug)}
                 style={{ width: "100%", display: "flex", alignItems: "center", gap: "10px", padding: "10px 12px", background: "none", border: "none", cursor: "pointer", textAlign: "left" }}>
                 <span style={{ fontSize: "16px", width: "22px", textAlign: "center", flexShrink: 0 }}>{a.icon}</span>
                 <div style={{ flex: 1, minWidth: 0, textAlign: "left" }}>
                   <div style={{ fontSize: "13px", fontWeight: 700, color: "var(--text-1)", lineHeight: 1.2 }}>{a.title}</div>
                   <div style={{ fontSize: "10px", color: a.color, marginTop: "1px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{a.subtitle}</div>
                 </div>
-                {techs.length > 0 && <ChevronRight size={14} color="var(--text-4)" style={{ transform: isOpen ? "rotate(90deg)" : "none", transition: "transform 0.18s", flexShrink: 0 }} />}
+                {techs.length > 0 && <ChevronRight size={14} color="var(--text-4)" style={{ transform: isExpanded ? "rotate(90deg)" : "none", transition: "transform 0.18s", flexShrink: 0 }} />}
               </button>
-              {isOpen && techs.length > 0 && (
+              {isExpanded && techs.length > 0 && (
                 <div style={{ background: "var(--bg-2)", paddingBottom: "4px" }}>
-                  <Link href={`/academies/${a.slug}`} onClick={closeDrawer}
-                    style={{ display: "block", padding: "7px 12px 7px 44px", textDecoration: "none" }}
+                  <Link href={`/academies/${a.slug}`} onClick={closeDrawer} style={{ display: "block", padding: "7px 12px 7px 44px", textDecoration: "none" }}
                     onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--bg-1)"}
                     onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "transparent"}>
                     <span style={{ fontSize: "11px", fontWeight: 600, color: a.color }}>View all {a.title} →</span>
@@ -343,9 +456,8 @@ export default function Navbar() {
                     </Link>
                   ))}
                   {techs.length > 10 && (
-                    <Link href={`/academies/${a.slug}`} onClick={closeDrawer}
-                      style={{ display: "block", padding: "4px 12px 4px 44px", fontSize: "11px", color: "var(--text-4)", textDecoration: "none" }}>
-                      + {techs.length - 10} more topics
+                    <Link href={`/academies/${a.slug}`} onClick={closeDrawer} style={{ display: "block", padding: "4px 12px 4px 44px", fontSize: "11px", color: "var(--text-4)", textDecoration: "none" }}>
+                      + {techs.length - 10} more
                     </Link>
                   )}
                 </div>
@@ -354,17 +466,14 @@ export default function Navbar() {
           );
         })}
 
-        {/* Platform links */}
         <div style={{ padding: "8px 12px 3px", marginTop: "2px" }}>
           <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-4)", margin: 0 }}>Platform</p>
         </div>
         {NAV_LINKS.map(item => (
-          <Link key={item.n} href={item.h} onClick={closeDrawer}
-            style={{ display: "block", color: "var(--text-2)", fontSize: "13px", fontWeight: 500, padding: "10px 12px", borderBottom: "1px solid var(--border)", textDecoration: "none" }}>
+          <Link key={item.n} href={item.h} onClick={closeDrawer} style={{ display: "block", color: "var(--text-2)", fontSize: "13px", fontWeight: 500, padding: "10px 12px", borderBottom: "1px solid var(--border)", textDecoration: "none" }}>
             {item.n}
           </Link>
         ))}
-
         <div style={{ padding: "14px 12px", marginTop: "auto", flexShrink: 0 }}>
           <Link href="/academies" onClick={closeDrawer} className="btn-primary" style={{ display: "flex", justifyContent: "center", padding: "11px", fontSize: "13px", borderRadius: "8px" }}>
             Start Learning Free

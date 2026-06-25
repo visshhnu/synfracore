@@ -220,20 +220,6 @@ export default async function SectionPage({ params }: Props) {
           {sectionData?.description}
         </p>
 
-        {isLabs ? (
-          <LabsSection academy={aSlug} technology={tSlug} techName={tech.name} accentColor={"#6366F1"} />
-        ) : (
-          <SectionContent
-                academy={aSlug}
-                technology={tSlug}
-                section={section}
-                techName={tech.name}
-                techIcon={tech.icon}
-                sectionLabel={sectionData?.label || section}
-                accentColor="#6366F1"
-              />
-        )}
-
         {/* Author badge */}
         <AuthorBadge techName={tech.name} section={section} accentColor="#6366F1" />
 
