@@ -51,7 +51,7 @@ export default function AboutPage() {
       </div>
 
       {/* Stats */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "16px", marginBottom: "64px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: "16px", marginBottom: "64px" }}>
         {stats.map(s => (
           <div key={s.label} style={{ background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "14px", padding: "24px", textAlign: "center" }}>
             <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "28px", fontWeight: 800, color: "#3B82F6", marginBottom: "6px" }}>{s.value}</div>
@@ -63,7 +63,7 @@ export default function AboutPage() {
       {/* What we cover */}
       <div style={{ marginBottom: "64px" }}>
         <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "24px", marginBottom: "24px" }}>What We Cover</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "12px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))", gap: "12px" }}>
           {academies.map(a => (
             <div key={a.name} style={{ background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "12px", padding: "18px" }}>
               <div style={{ display: "flex", gap: "10px", alignItems: "center", marginBottom: "8px" }}>
@@ -79,7 +79,7 @@ export default function AboutPage() {
       {/* Values */}
       <div style={{ marginBottom: "64px" }}>
         <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "24px", marginBottom: "24px" }}>Our Approach</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "20px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))", gap: "20px" }}>
           {values.map(v => (
             <div key={v.title} style={{ display: "flex", gap: "16px" }}>
               <span style={{ fontSize: "24px", flexShrink: 0, marginTop: "2px" }}>{v.icon}</span>

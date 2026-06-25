@@ -32,7 +32,7 @@ export default function RoadmapsPage() {
         </p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(440px, 1fr))", gap: "24px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 380px), 1fr))", gap: "24px" }}>
         {roadmaps.map((roadmap) => (
           <Link key={roadmap.slug} href={`/roadmaps/${roadmap.slug}`} style={{ textDecoration: "none" }}>
             <div style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "20px", padding: "32px", height: "100%", transition: "all 0.2s", cursor: "pointer" }}

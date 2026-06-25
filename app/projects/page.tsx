@@ -79,7 +79,7 @@ export default function ProjectsPage() {
       </div>
 
       {/* Stats */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px", marginBottom: "64px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))", gap: "16px", marginBottom: "64px" }}>
         {[
           { value: "300+", label: "Guided Projects", icon: "🏗️" },
           { value: "Beginner → Advanced", label: "All Skill Levels", icon: "📈" },
@@ -106,7 +106,7 @@ export default function ProjectsPage() {
             </Link>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "14px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))", gap: "14px" }}>
             {cat.projects.map(proj => (
               <Link key={proj.name} href={proj.link} style={{ textDecoration: "none" }}>
                 <div style={{ background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "14px", padding: "20px", height: "100%", display: "flex", flexDirection: "column", gap: "12px", transition: "border-color 0.2s" }}

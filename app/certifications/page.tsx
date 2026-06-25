@@ -83,7 +83,7 @@ export default function CertificationsPage() {
       </div>
 
       {/* Stats row */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "16px", marginBottom: "64px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: "16px", marginBottom: "64px" }}>
         {[
           { value: "13+", label: "Certifications Covered" },
           { value: "6", label: "Certification Providers" },
@@ -104,7 +104,7 @@ export default function CertificationsPage() {
             <div style={{ width: "4px", height: "24px", background: group.color, borderRadius: "2px" }}/>
             <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "20px" }}>{group.category}</h2>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "16px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))", gap: "16px" }}>
             {group.certs.map(cert => (
               <div key={cert.code} style={{ background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "16px", padding: "24px", display: "flex", flexDirection: "column", gap: "16px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
