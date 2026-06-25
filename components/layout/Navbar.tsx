@@ -187,25 +187,19 @@ const GROUPS = [
   },
   {
     label: "Education & Exams", color: "#F59E0B", icon: "🎓",
-    slugs: ["education", "exams"],
+    slugs: ["education", "exams", "state-psc", "central-exams"],
   },
   {
     label: "Health & Life Skills", color: "#F43F5E", icon: "🌿",
-    slugs: ["healthcare", "essentials"],
+    slugs: ["healthcare", "essentials", "economics", "finance"],
+  },
+  {
+    label: "Professional & Law", color: "#8B5CF6", icon: "🏛️",
+    slugs: ["law", "agriculture", "telecom", "professional-certs"],
   },
 ];
 
-// Planned domains (coming soon) — shown greyed in dropdown
-const COMING_SOON = [
-  { name: "Law & Legal Studies", icon: "⚖️", color: "#6B7280" },
-  { name: "Agriculture & Farming", icon: "🌾", color: "#6B7280" },
-  { name: "Finance & Commerce", icon: "💹", color: "#6B7280" },
-  { name: "Languages", icon: "🗣️", color: "#6B7280" },
-  { name: "State PSC Exams", icon: "🏛️", color: "#6B7280" },
-  { name: "Central Exams", icon: "📋", color: "#6B7280" },
-  { name: "Telecom & 5G", icon: "📡", color: "#6B7280" },
-  { name: "Professional Certs", icon: "🏅", color: "#6B7280" },
-];
+// All 18 academies are now live — no coming-soon placeholder needed
 
 // ── Main Navbar ───────────────────────────────────────────
 export default function Navbar() {
@@ -300,101 +294,36 @@ export default function Navbar() {
         {/* Desktop mega dropdown */}
         {dropOpen && (
           <div onMouseEnter={() => { clearTimeout(dropTimer); setDropOpen(true); }} onMouseLeave={() => { dropTimer = setTimeout(() => setDropOpen(false), 200); }}
-            style={{ position: "absolute", left: 0, right: 0, top: "100%", background: "var(--bg-2)", borderBottom: "2px solid var(--border)", boxShadow: "0 20px 50px rgba(0,0,0,0.18)", zIndex: 300, padding: "20px 32px 16px" }}>
-            <div style={{ maxWidth: "1100px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "20px" }}>
-              {/* Col 1-2: Tech */}
-              <div style={{ gridColumn: "span 2" }}>
-                <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#3B82F6", marginBottom: "8px", display: "flex", alignItems: "center", gap: "5px" }}>
-                  ⚙️ Tech & Engineering
-                </div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2px" }}>
-                  {["devops", "cloud", "databases", "ai", "data", "security"].map(slug => {
-                    const a = academyMap[slug];
-                    if (!a) return null;
-                    return (
-                      <Link key={slug} href={`/academies/${slug}`} onClick={() => setDropOpen(false)}
-                        style={{ textDecoration: "none", padding: "6px 8px", borderRadius: "7px", display: "flex", alignItems: "center", gap: "7px" }}
-                        onMouseEnter={e => { e.currentTarget.style.background = `${a.color}14`; }}
-                        onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
-                        <span style={{ fontSize: "14px", flexShrink: 0 }}>{a.icon}</span>
-                        <div>
-                          <div style={{ fontSize: "12px", fontWeight: 600, color: "var(--text-1)", lineHeight: 1.2 }}>{a.title}</div>
-                          <div style={{ fontSize: "10px", color: "var(--text-4)" }}>{a.subtitle}</div>
-                        </div>
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Col 3: Education & Exams */}
-              <div>
-                <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#F59E0B", marginBottom: "8px", display: "flex", alignItems: "center", gap: "5px" }}>
-                  🎓 Education & Exams
-                </div>
-                {["education", "exams"].map(slug => {
-                  const a = academyMap[slug];
-                  if (!a) return null;
-                  return (
-                    <Link key={slug} href={`/academies/${slug}`} onClick={() => setDropOpen(false)}
-                      style={{ textDecoration: "none", padding: "6px 8px", borderRadius: "7px", display: "block", marginBottom: "2px" }}
-                      onMouseEnter={e => { e.currentTarget.style.background = `${a.color}14`; }}
-                      onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "7px" }}>
-                        <span style={{ fontSize: "14px" }}>{a.icon}</span>
-                        <div>
-                          <div style={{ fontSize: "12px", fontWeight: 600, color: "var(--text-1)", lineHeight: 1.2 }}>{a.title}</div>
-                          <div style={{ fontSize: "10px", color: "var(--text-4)" }}>{a.subtitle}</div>
-                        </div>
-                      </div>
-                    </Link>
-                  );
-                })}
-                {/* Coming soon */}
-                <div style={{ fontSize: "9px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--text-4)", margin: "10px 0 5px", paddingLeft: "8px" }}>Coming soon</div>
-                {COMING_SOON.slice(4, 6).map(cs => (
-                  <div key={cs.name} style={{ padding: "5px 8px", display: "flex", alignItems: "center", gap: "6px", opacity: 0.5 }}>
-                    <span style={{ fontSize: "12px" }}>{cs.icon}</span>
-                    <span style={{ fontSize: "11px", color: "var(--text-4)" }}>{cs.name}</span>
+            style={{ position: "absolute", left: 0, right: 0, top: "100%", background: "var(--bg-2)", borderBottom: "2px solid var(--border)", boxShadow: "0 20px 50px rgba(0,0,0,0.18)", zIndex: 300, padding: "18px 32px 14px" }}>
+            <div style={{ maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: "16px" }}>
+              {GROUPS.map((group, gi) => {
+                const grpAcademies = group.slugs.map(s => academyMap[s]).filter(Boolean);
+                const isTech = gi === 0;
+                return (
+                  <div key={group.label}>
+                    <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: group.color, marginBottom: "8px", display: "flex", alignItems: "center", gap: "4px" }}>
+                      <span>{group.icon}</span> {group.label}
+                    </div>
+                    <div style={{ display: isTech ? "grid" : "block", gridTemplateColumns: isTech ? "1fr 1fr" : undefined, gap: isTech ? "2px" : undefined }}>
+                      {grpAcademies.map(a => (
+                        <Link key={a.slug} href={`/academies/${a.slug}`} onClick={() => setDropOpen(false)}
+                          style={{ textDecoration: "none", padding: "5px 7px", borderRadius: "7px", display: "flex", alignItems: "center", gap: "7px", marginBottom: isTech ? 0 : "2px" }}
+                          onMouseEnter={e => { e.currentTarget.style.background = `${a.color}14`; }}
+                          onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
+                          <span style={{ fontSize: "13px", flexShrink: 0 }}>{a.icon}</span>
+                          <div style={{ minWidth: 0 }}>
+                            <div style={{ fontSize: "11px", fontWeight: 600, color: "var(--text-1)", lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{a.title}</div>
+                            <div style={{ fontSize: "9px", color: "var(--text-4)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{a.subtitle}</div>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
                   </div>
-                ))}
-              </div>
-
-              {/* Col 4: Health + Coming Soon */}
-              <div>
-                <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#F43F5E", marginBottom: "8px", display: "flex", alignItems: "center", gap: "5px" }}>
-                  🌿 Health & Life
-                </div>
-                {["healthcare", "essentials"].map(slug => {
-                  const a = academyMap[slug];
-                  if (!a) return null;
-                  return (
-                    <Link key={slug} href={`/academies/${slug}`} onClick={() => setDropOpen(false)}
-                      style={{ textDecoration: "none", padding: "6px 8px", borderRadius: "7px", display: "block", marginBottom: "2px" }}
-                      onMouseEnter={e => { e.currentTarget.style.background = `${a.color}14`; }}
-                      onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "7px" }}>
-                        <span style={{ fontSize: "14px" }}>{a.icon}</span>
-                        <div>
-                          <div style={{ fontSize: "12px", fontWeight: 600, color: "var(--text-1)", lineHeight: 1.2 }}>{a.title}</div>
-                          <div style={{ fontSize: "10px", color: "var(--text-4)" }}>{a.subtitle}</div>
-                        </div>
-                      </div>
-                    </Link>
-                  );
-                })}
-                <div style={{ fontSize: "9px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--text-4)", margin: "10px 0 5px", paddingLeft: "8px" }}>Coming soon</div>
-                {COMING_SOON.slice(0, 4).map(cs => (
-                  <div key={cs.name} style={{ padding: "5px 8px", display: "flex", alignItems: "center", gap: "6px", opacity: 0.5 }}>
-                    <span style={{ fontSize: "12px" }}>{cs.icon}</span>
-                    <span style={{ fontSize: "11px", color: "var(--text-4)" }}>{cs.name}</span>
-                  </div>
-                ))}
-              </div>
+                );
+              })}
             </div>
-
-            <div style={{ maxWidth: "1100px", margin: "12px auto 0", paddingTop: "10px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "center" }}>
-              <Link href="/academies" onClick={() => setDropOpen(false)} style={{ fontSize: "12px", fontWeight: 600, color: "#3B82F6", textDecoration: "none", padding: "7px 20px", background: "rgba(59,130,246,0.08)", borderRadius: "8px", border: "1px solid rgba(59,130,246,0.2)" }}>
+            <div style={{ maxWidth: "1200px", margin: "12px auto 0", paddingTop: "10px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "center" }}>
+              <Link href="/academies" onClick={() => setDropOpen(false)} style={{ fontSize: "12px", fontWeight: 600, color: "#3B82F6", textDecoration: "none", padding: "6px 20px", background: "rgba(59,130,246,0.08)", borderRadius: "8px", border: "1px solid rgba(59,130,246,0.2)" }}>
                 View all {academies.length} academies →
               </Link>
             </div>
