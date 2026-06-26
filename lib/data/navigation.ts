@@ -44,17 +44,67 @@ export const certifications = [
 ];
 
 export const roadmaps = [
-  { slug: "devops-engineer", title: "DevOps Engineer", icon: "⚙️", duration: "6 months", steps: ["Linux", "Git & Shell", "Docker", "Kubernetes", "CI/CD", "Cloud (AWS/Azure)", "Monitoring", "IaC (Terraform)"] },
-  { slug: "cloud-architect", title: "Cloud Architect", icon: "☁️", duration: "8 months", steps: ["Cloud Fundamentals", "AWS Core Services", "Azure Core Services", "Networking & Security", "Architecture Patterns", "HA & DR", "Cost Optimization"] },
-  { slug: "platform-engineer", title: "Platform Engineer", icon: "🏗️", duration: "9 months", steps: ["Linux & Networking", "Kubernetes Advanced", "Terraform", "Helm", "ArgoCD / GitOps", "Service Mesh", "Observability"] },
-  { slug: "ai-engineer", title: "AI Engineer", icon: "🤖", duration: "6 months", steps: ["Python", "ML Fundamentals", "LLM Concepts", "Prompt Engineering", "LangChain", "RAG & Vector DBs", "AI Agents", "LLMOps"] },
-  { slug: "data-analyst", title: "Data Analyst", icon: "📊", duration: "4 months", steps: ["Excel Advanced", "SQL", "Python & Pandas", "Data Visualization", "Power BI", "Tableau", "Dashboarding"] },
-  { slug: "security-engineer", title: "Security Engineer", icon: "🛡️", duration: "7 months", steps: ["Security Fundamentals", "Network Security", "Cloud Security", "SIEM & SOC", "Pen Testing", "Ethical Hacking", "Incident Response"] },
-  { slug: "database-engineer", title: "Database Engineer", icon: "🗄️", duration: "6 months", steps: ["SQL Mastery", "PostgreSQL Advanced", "Redis & Caching", "MongoDB", "Database Design", "Performance Tuning", "Replication & HA", "Cloud Databases"] },
-  { slug: "data-engineer", title: "Data Engineer", icon: "⚙️", duration: "8 months", steps: ["Python & Pandas", "SQL Advanced", "Apache Kafka", "dbt", "Airflow", "Spark Basics", "Cloud Data Warehouses", "Pipeline Orchestration"] },
-  { slug: "healthcare-coder", title: "Healthcare Coder", icon: "🏥", duration: "5 months", steps: ["ICD-10-CM Basics", "CPT Procedure Codes", "HCPCS Level II", "Coding Guidelines", "Medical Terminology", "OASIS & PDGM", "CPC Exam Prep", "Compliance & Auditing"] },
-  { slug: "sre-engineer", title: "SRE / Reliability Engineer", icon: "📊", duration: "7 months", steps: ["Linux Deep Dive", "Kubernetes Production", "Prometheus & SLOs", "Incident Management", "Chaos Engineering", "Capacity Planning", "Automation", "On-Call Excellence"] },
+  // ── TECH TRACKS ────────────────────────────────────────────────────────────
+  { slug: "devops-engineer", title: "DevOps Engineer", icon: "⚙️", color: "#3B82F6", category: "tech", duration: "6 months",
+    steps: ["Linux & Shell", "Git & Docker", "Kubernetes", "CI/CD Pipelines", "Cloud (AWS/Azure)", "Monitoring & IaC"] },
+  { slug: "cloud-architect", title: "Cloud Architect", icon: "☁️", color: "#0EA5E9", category: "tech", duration: "8 months",
+    steps: ["Cloud Fundamentals", "AWS Core Services", "Azure Core Services", "Networking & Security", "Architecture Patterns", "HA & DR", "Cost Optimization"] },
+  { slug: "platform-engineer", title: "Platform Engineer", icon: "🏗️", color: "#6366F1", category: "tech", duration: "9 months",
+    steps: ["Linux & Networking", "Kubernetes Advanced", "Terraform", "Helm", "ArgoCD / GitOps", "Service Mesh", "Observability"] },
+  { slug: "ai-engineer", title: "AI Engineer", icon: "🤖", color: "#8B5CF6", category: "tech", duration: "6 months",
+    steps: ["Python Foundations", "ML Fundamentals", "LLM Concepts", "Prompt Engineering", "LangChain & RAG", "AI Agents", "LLMOps"] },
+  { slug: "data-analyst", title: "Data Analyst", icon: "📊", color: "#06B6D4", category: "tech", duration: "4 months",
+    steps: ["Excel Advanced", "SQL Mastery", "Python & Pandas", "Data Visualization", "Power BI", "Tableau", "Dashboarding"] },
+  { slug: "security-engineer", title: "Security Engineer", icon: "🛡️", color: "#EF4444", category: "tech", duration: "7 months",
+    steps: ["Security Fundamentals", "Network Security", "Cloud Security", "SIEM & SOC", "Pen Testing", "Ethical Hacking", "Incident Response"] },
+  { slug: "database-engineer", title: "Database Engineer", icon: "🗄️", color: "#10B981", category: "tech", duration: "6 months",
+    steps: ["SQL Mastery", "PostgreSQL Advanced", "Redis & Caching", "MongoDB", "Database Design", "Performance Tuning", "Cloud Databases"] },
+  { slug: "data-engineer", title: "Data Engineer", icon: "🔧", color: "#F59E0B", category: "tech", duration: "8 months",
+    steps: ["Python & Pandas", "SQL Advanced", "Apache Kafka", "dbt", "Airflow", "Spark Basics", "Cloud Data Warehouses"] },
+  { slug: "sre-engineer", title: "SRE / Reliability Engineer", icon: "📡", color: "#EC4899", category: "tech", duration: "7 months",
+    steps: ["Linux Deep Dive", "Kubernetes Production", "Prometheus & SLOs", "Incident Management", "Chaos Engineering", "Capacity Planning", "Automation"] },
+  { slug: "healthcare-coder", title: "Medical Coder (CPC/BCHHC)", icon: "🏥", color: "#14B8A6", category: "professional", duration: "6 months",
+    steps: ["Medical Terminology", "ICD-10-CM Fundamentals", "CPT Procedure Codes", "HCPCS Level II", "Coding Guidelines", "OASIS & PDGM", "CPC Exam Prep"] },
+
+  // ── LAW & LEGAL ────────────────────────────────────────────────────────────
+  { slug: "advocate-career", title: "Advocate / Legal Career", icon: "⚖️", color: "#6366F1", category: "law", duration: "3–5 years",
+    steps: ["LLB / LLB Hons Degree", "State Bar Council Enrollment", "AIBE Exam & Certificate", "Junior to Senior Advocate (2–4 yrs)", "Build Specialisation", "Independent Practice"] },
+  { slug: "judiciary-civil-judge", title: "Judiciary — Civil Judge", icon: "🏛️", color: "#A855F7", category: "law", duration: "1–2 years prep",
+    steps: ["LLB + Core Subjects", "Constitutional & Criminal Law", "Civil Law (CPC, Contract, TP)", "Prelims Practice (MCQ)", "Mains (Descriptive + Judgment Writing)", "Interview / Viva"] },
+
+  // ── GOVERNMENT / PSC ───────────────────────────────────────────────────────
+  { slug: "upsc-ias", title: "UPSC Civil Services (IAS/IPS)", icon: "🏛️", color: "#F59E0B", category: "government", duration: "2–4 years",
+    steps: ["Foundation: History, Polity, Geography", "Economy & Environment", "Prelims (GS + CSAT)", "Mains: GS Papers 1–4", "Optional Subject (2 papers)", "Essay + Ethics (GS4)", "Interview / Personality Test"] },
+  { slug: "banking-po", title: "Banking PO (SBI/IBPS)", icon: "🏦", color: "#10B981", category: "government", duration: "6–12 months",
+    steps: ["Quantitative Aptitude", "Reasoning Ability", "English Language", "General/Banking Awareness", "Prelims Exam", "Mains Exam", "Interview"] },
+  { slug: "state-psc-officer", title: "State PSC — Civil Services", icon: "🏛️", color: "#8B5CF6", category: "government", duration: "1–3 years",
+    steps: ["State GK + Language", "Indian Polity & History", "Prelims (state-specific)", "Mains + State-specific papers", "Judgment / Essay Writing", "Interview"] },
+
+  // ── FINANCE ────────────────────────────────────────────────────────────────
+  { slug: "ca-journey", title: "Chartered Accountant (CA)", icon: "📒", color: "#F59E0B", category: "finance", duration: "4–5 years",
+    steps: ["CA Foundation (4 papers)", "Register for Articleship", "CA Intermediate Group I (4 papers)", "CA Intermediate Group II (4 papers)", "3-Year Articleship + ICITSS", "CA Final Group I", "CA Final Group II + AICITSS"] },
+  { slug: "banking-finance-analyst", title: "Banking & Finance Analyst", icon: "💹", color: "#14B8A6", category: "finance", duration: "1–2 years",
+    steps: ["Accounting Basics", "Financial Markets (SEBI/NISM)", "Banking & RBI Framework", "Credit Analysis Fundamentals", "CA/MBA or NISM Certifications", "Role: Analyst / Relationship Manager"] },
+
+  // ── AGRICULTURE ────────────────────────────────────────────────────────────
+  { slug: "agricultural-officer", title: "Agricultural Officer (IBPS AFO / NABARD)", icon: "🌾", color: "#22C55E", category: "agriculture", duration: "1–2 years",
+    steps: ["Agronomy & Soil Science", "Crop Science & Horticulture", "Plant Pathology & Entomology", "Agricultural Economics & Policy", "Current Agri Schemes (PM-KISAN, MSP)", "IBPS AFO / NABARD Grade A Exam"] },
+
+  // ── TELECOM ────────────────────────────────────────────────────────────────
+  { slug: "telecom-engineer", title: "Telecom Engineer / BSNL JTO", icon: "📡", color: "#0EA5E9", category: "telecom", duration: "1–2 years",
+    steps: ["Electronics & Communication (ECE Basics)", "Transmission & Fiber Optics", "Mobile Networks (4G LTE / 5G NR)", "OSS/BSS & Network Management", "GATE ECE / BSNL JTO Exam", "Career: JTO, Network Engineer, RAN"] },
+
+  // ── EDUCATION ──────────────────────────────────────────────────────────────
+  { slug: "neet-medical", title: "NEET — Medical College Admission", icon: "🧬", color: "#F43F5E", category: "education", duration: "2 years",
+    steps: ["Biology (Botany + Zoology)", "Physics (Mechanics, Modern, Optics)", "Chemistry (Organic, Inorganic, Physical)", "NCERT Mastery (all chapters)", "Previous Year Questions (10 years)", "Mock Tests + Revision"] },
+  { slug: "jee-engineering", title: "JEE — Engineering Admission", icon: "🔬", color: "#3B82F6", category: "education", duration: "2 years",
+    steps: ["Mathematics (Calculus, Algebra, Coordinate)", "Physics (Mechanics, E&M, Modern)", "Chemistry (Organic, Inorganic, Physical)", "JEE Main Exam (Jan + Apr)", "JEE Advanced (IIT shortlist)", "JOSAA Counselling"] },
+
+  // ── WELLNESS ───────────────────────────────────────────────────────────────
+  { slug: "personal-wellness", title: "Personal Wellness & Life Skills", icon: "🌿", color: "#22C55E", category: "wellness", duration: "Ongoing",
+    steps: ["Morning Routine & Sleep", "Nutrition & Hydration", "Daily Movement", "Mental Health Practices", "Digital Safety & Privacy", "Personal Finance Basics", "First Aid & Emergency Preparedness"] },
 ];
+
 
 export const stats = [
   { value: "284+", label: "Chapters" },
