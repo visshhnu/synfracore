@@ -605,17 +605,25 @@ const examsAcademy: Academy = {
 
 // ── NEW PHASE 3 ACADEMIES ──────────────────────────────
 const lawAcademy: Academy = {
-  slug: "law", title: "Law & Legal Studies", subtitle: "CLAT · Judiciary · Legal Reasoning · Constitution",
+  slug: "law", title: "Law & Legal Studies", subtitle: "CLAT · Judiciary · Bar Exam · Constitution · Corporate Law",
   icon: "⚖️", color: "#6366F1",
-  description: "Legal fundamentals, Indian Constitution, IPC, contract law, CLAT preparation, and judiciary exam prep.",
-  domains: [{ slug: "legal-studies", name: "Legal Studies", icon: "📜", description: "Core law subjects", color: "#6366F1",
-    technologies: [
-      { slug: "legal-fundamentals", name: "Legal Fundamentals", icon: "📜", description: "Indian legal system, sources of law, court hierarchy, key acts", level: "Beginner", tags: ["Law", "IPC", "Constitution"] },
-      { slug: "constitutional-law", name: "Constitutional Law", icon: "🏛️", description: "Preamble, Fundamental Rights, DPSP, Amendment, federalism", level: "Intermediate", tags: ["Constitution", "FRs", "UPSC"] },
-      { slug: "clat-prep", name: "CLAT Preparation", icon: "🎯", description: "Legal reasoning, logical reasoning, English, GK for CLAT/AILET", level: "Intermediate", tags: ["CLAT", "AILET", "NLU"] },
-      { slug: "consumer-protection", name: "Consumer Protection", icon: "🛡️", description: "Consumer Protection Act 2019, COPRA, consumer forums, e-commerce", level: "Beginner", tags: ["Consumer Law", "COPRA"] },
-    ]
-  }],
+  description: "Complete legal education — fundamentals to bar exam, judiciary prep, constitutional law, criminal law, civil law, and corporate law.",
+  domains: [
+    { slug: "exams-practice", name: "Legal Exams & Practice", icon: "⚖️", description: "Bar exam, judiciary, legal career", color: "#6366F1",
+      technologies: [
+        { slug: "aibe-bar-exam", name: "AIBE & Bar Exam Prep", icon: "⚖️", description: "All India Bar Examination — syllabus, 100 MCQ strategy, open book tactics, enrollment to practice guide", level: "Intermediate", tags: ["AIBE", "Bar Exam", "BCI", "Advocate"] },
+        { slug: "judiciary-exams", name: "Judiciary Exams (Civil Judge/HJS)", icon: "🏛️", description: "Civil Judge and Higher Judicial Service exams — 3-stage pattern, judgment writing, viva preparation", level: "Advanced", tags: ["Judiciary", "Civil Judge", "HJS", "PCS J"] },
+        { slug: "clat-prep", name: "CLAT Preparation", icon: "🎯", description: "Legal reasoning, logical reasoning, English, GK for CLAT/AILET — NLU admission", level: "Intermediate", tags: ["CLAT", "AILET", "NLU"] },
+      ]
+    },
+    { slug: "core-law", name: "Core Law Subjects", icon: "📜", description: "Foundational legal subjects", color: "#8B5CF6",
+      technologies: [
+        { slug: "legal-fundamentals", name: "Legal Fundamentals", icon: "📜", description: "Indian legal system, court hierarchy, sources of law, limitation periods, Lok Adalat", level: "Beginner", tags: ["Law", "Courts", "Limitation"] },
+        { slug: "constitutional-law", name: "Constitutional Law", icon: "🏛️", description: "Preamble, Fundamental Rights, DPSP, Amendment, Basic Structure doctrine, federalism", level: "Intermediate", tags: ["Constitution", "FRs", "UPSC"] },
+        { slug: "consumer-protection", name: "Consumer Protection", icon: "🛡️", description: "Consumer Protection Act 2019, three-tier redressal, product liability, CCPA, e-commerce", level: "Beginner", tags: ["Consumer Law", "COPRA", "NCDRC"] },
+      ]
+    },
+  ],
   technologies: [],
 };
 
@@ -629,6 +637,8 @@ const agricultureAcademy: Academy = {
       { slug: "soil-science", name: "Soil Science", icon: "🌍", description: "Soil types, texture, structure, pH, nutrients, conservation, land management", level: "Intermediate", tags: ["Soil", "Fertility", "Conservation"] },
       { slug: "horticulture", name: "Horticulture", icon: "🍎", description: "Fruit crops, vegetable crops, floriculture, post-harvest management", level: "Intermediate", tags: ["Horticulture", "Crops", "Post-Harvest"] },
       { slug: "agri-business", name: "Agri-Business", icon: "📊", description: "Farm economics, APMC, agri-marketing, FPOs, NABARD schemes, food processing", level: "Advanced", tags: ["Agri-Business", "NABARD", "FPO"] },
+      { slug: "icar-ibps-afo", name: "ICAR JRF / IBPS AFO Exam Prep", icon: "🏆", description: "ICAR JRF, IBPS AFO, NABARD Grade A/B — syllabus, crop production, government schemes, MSP, PM-KISAN", level: "Intermediate", tags: ["ICAR", "IBPS AFO", "NABARD", "Exam"] },
+      { slug: "crop-science", name: "Crop Science & IPM", icon: "🌾", description: "Agronomy, major crop varieties, plant pathology, integrated pest management, fertiliser management", level: "Intermediate", tags: ["Agronomy", "Crop Production", "IPM", "Plant Pathology"] },
     ]
   }],
   technologies: [],
@@ -645,6 +655,9 @@ const financeAcademy: Academy = {
       { slug: "direct-tax", name: "Direct Tax & Income Tax", icon: "💳", description: "Income tax heads, deductions, TDS, ITR filing, advance tax", level: "Intermediate", tags: ["Income Tax", "TDS", "ITR"] },
       { slug: "financial-markets", name: "Financial Markets", icon: "📈", description: "Equity, debt, mutual funds, SEBI regulations, derivatives basics", level: "Advanced", tags: ["SEBI", "Stocks", "Mutual Funds"] },
       { slug: "ca-cs-foundation", name: "CA/CS/CMA Foundation", icon: "🏅", description: "ICAI/ICSI/ICMAI foundation syllabus — accounts, law, maths, economics", level: "Beginner", tags: ["CA", "CS", "CMA"] },
+      { slug: "ca-intermediate", name: "CA Intermediate", icon: "🏅", description: "CA Intermediate — Accounting Standards, Taxation, Audit, Corporate Law, Cost Accounting, Financial Management", level: "Advanced", tags: ["CA", "ICAI", "Articleship", "Accounting"] },
+      { slug: "banking-rbi", name: "Banking & RBI Deep Dive", icon: "🏦", description: "RBI monetary policy, Basel III, credit analysis, NPA management, SARFAESI, banking regulation", level: "Intermediate", tags: ["Banking", "RBI", "Credit", "NPA"] },
+      { slug: "sebi-nism", name: "SEBI & Financial Markets", icon: "📈", description: "Capital markets, NISM certifications, mutual funds, equity, derivatives, investor protection", level: "Intermediate", tags: ["SEBI", "NISM", "Mutual Funds", "Capital Markets"] },
     ]
   }],
   technologies: [],
@@ -660,6 +673,7 @@ const telecomAcademy: Academy = {
       { slug: "wireless-tech", name: "4G/5G & Wireless", icon: "📶", description: "4G LTE architecture, 5G NR, OFDM, beamforming, NR bands, use cases", level: "Intermediate", tags: ["5G", "LTE", "NR"] },
       { slug: "fiber-optics", name: "Fiber Optics", icon: "💡", description: "Fiber types, DWDM, splicing, FTTH/FTTX, optical network design", level: "Intermediate", tags: ["Fiber", "FTTH", "DWDM"] },
       { slug: "networking-protocols", name: "Telecom Networking", icon: "🌐", description: "TCP/IP for telecom, SIP, VoIP, MPLS, SD-WAN, IMS architecture", level: "Advanced", tags: ["SIP", "VoIP", "MPLS"] },
+      { slug: "bsnl-jto-prep", name: "BSNL JTO/JE Exam Prep", icon: "📻", description: "Electronics & Communication fundamentals, 4G/5G architecture, GATE strategy, BSNL direct exam pattern", level: "Intermediate", tags: ["BSNL", "JTO", "JE", "GATE", "ECE"] },
     ]
   }],
   technologies: [],
@@ -721,6 +735,8 @@ const economicsAcademy: Academy = {
       { slug: "macro-economics", name: "Macroeconomics", icon: "🌐", description: "National income, GDP, inflation, unemployment, fiscal policy, monetary policy", level: "Intermediate", tags: ["Macroeconomics", "GDP", "Inflation"] },
       { slug: "indian-economy", name: "Indian Economy", icon: "📈", description: "Planning, economic reforms 1991, sectors, poverty, inequality, budget, schemes", level: "Intermediate", tags: ["Indian Economy", "Reforms", "Budget"] },
       { slug: "international-trade", name: "International Trade", icon: "🌍", description: "BoP, forex, WTO, trade policy, globalisation, FDI/FII in India", level: "Advanced", tags: ["Trade", "WTO", "BoP", "Forex"] },
+      { slug: "budget-analysis", name: "Union Budget & Economic Survey", icon: "📋", description: "Fiscal deficit, capex, GDP measurement, inflation, government schemes — UPSC/Banking", level: "Intermediate", tags: ["Budget", "Fiscal Policy", "GDP", "UPSC"] },
+      { slug: "rbi-monetary-policy", name: "RBI & Monetary Policy", icon: "🏦", description: "MPC, repo rate, MCLR, G-Secs, BoP, monetary transmission — UPSC and banking exams", level: "Intermediate", tags: ["RBI", "Monetary Policy", "Inflation", "Banking"] },
     ]
   }],
   technologies: [],

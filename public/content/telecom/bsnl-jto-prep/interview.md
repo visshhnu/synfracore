@@ -1,0 +1,25 @@
+# JTO Interview & Technical Q&A
+
+**Q1: What is the difference between TDM and FDM?**
+A: TDM (Time Division Multiplexing) assigns each channel a time slot in a shared medium — channels take turns. Used in digital systems (E1/T1, SDH). FDM (Frequency Division Multiplexing) assigns each channel a different frequency band — channels run simultaneously. Used in analog systems (cable TV, FM radio). OFDM combines both: multiple subcarriers (FDM) with cyclic prefix for ISI resistance.
+
+**Q2: What is a guard band in FDM?**
+A: A small unused frequency band between adjacent channels to prevent interference (inter-channel crosstalk). In FM radio, guard bands exist between stations. In LTE OFDM, orthogonality of subcarriers eliminates the need for guard bands between them, but guard bands exist at band edges.
+
+**Q3: Explain handover types in mobile networks.**
+A: Hard handover: connection to old cell is broken before new cell connection is established (GSM). Soft handover: simultaneous connection to multiple cells during handover (CDMA). Softer handover: connection to two sectors of the same base station. LTE uses hard handover with X2 (eNodeB-to-eNodeB) or S1 (via core) depending on configuration.
+
+**Q4: What is a PIM (Passive Intermodulation)?**
+A: Unwanted mixing of signals in passive components (connectors, cables, antennas) that generates new frequencies at harmonics. Caused by loose connections, corrosion, or non-linear materials. Critical in base station antennas — PIM below -150 dBc typically required. Poor PIM causes noise floor rise, degrading uplink performance.
+
+**Q5: What is MIMO and why is it used in 5G?**
+A: Multiple Input Multiple Output — using multiple antennas at both transmitter and receiver. Benefits: spatial multiplexing (multiple data streams simultaneously = higher throughput), diversity gain (reliability), beamforming (directed signals = better SNR). 5G Massive MIMO uses 64 or more antennas at base station (64T64R). Beamforming directs energy precisely toward UE, reducing interference, improving capacity.
+
+**Q6: What is the difference between roaming and handover?**
+A: Handover (handoff): mobile moves between cells while maintaining an active call — transparent to user. Occurs within same network. Roaming: subscriber uses a visited network different from home network. Authentication via HLR/HSS — MAP protocol queries home network. User may be charged roaming rates.
+
+**Q7: What is latency and what causes it in telecom networks?**
+A: End-to-end delay for a packet to travel from source to destination. Components: propagation delay (speed of light in medium — fiber ≈ 5 µs/km), transmission delay (packet size/link rate), queuing delay (congestion at routers), processing delay (routing table lookup). 5G targets < 1ms user-plane latency by placing UPF close to RAN (edge computing, MEC).
+
+**Q8: Explain PDGM for Home Health billing.**
+A: Patient Driven Groupings Model — Medicare payment system for home health services effective January 2020. Groups patients by clinical characteristics, functional impairment, and comorbidities to determine reimbursement. Replaced OASIS-based HHPPS. 30-day payment periods. 432 PDGM groups determined by: timing (early/late), admission source (institutional/community), clinical grouping (9 categories), functional impairment level, comorbidity adjustment.

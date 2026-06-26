@@ -1,307 +1,116 @@
-# Digital Safety & Privacy
+# Digital Safety & Online Privacy
 
-> **Protect yourself — data privacy, scams, AI risks, UPI fraud, photo safety**
+## Why Digital Safety Matters
 
-**Category:** Human Essentials  
-**Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
-
----
-
-## What is Digital Safety & Privacy?
-
-When an app is free, you are the product. Every photo you upload trains AI models \u2014 your face becomes data forever. Information shared with AI tools (health symptoms, finances, family names) is stored and used for training. Assume everything you share online is public and permanent.
-
-## Why Digital Safety & Privacy?
-
-Your face is the most sensitive biometric data you own \u2014 it cannot be changed like a password. Deepfake technology can put your face in any video. Every photo contains hidden EXIF data with exact GPS coordinates, date, and your phone model \u2014 revealing your home address to anyone who downloads it.
+Every connected device is an entry point for attackers. Your smartphone, laptop, social media accounts, email, and banking apps are all targets. Digital literacy means understanding the threats and protecting yourself.
 
 ---
 
-## Learning Modules
+## Most Common Online Threats
 
-### Module 01 — Your Data Is the Product
-*What companies collect and why it matters*
+### Phishing
+Fake emails/messages impersonating trusted entities (bank, UIDAI, IRCTC, IT Department) to steal credentials.
 
-When an app is free, you are the product. Every photo you upload trains AI models \u2014 your face becomes data forever. Information shared with AI tools (health symptoms, finances, family names) is stored and used for training. Assume everything you share online is public and permanent.
+**Spotting phishing:**
+- Sender email domain doesn't match organisation (e.g. support@incometax-helpdesk.xyz vs incometax.gov.in)
+- Urgent language: "Your account will be suspended in 24 hours"
+- Links that look legitimate but redirect differently (hover over link to check real URL)
+- Requests for OTP, password, CVV — no legitimate organisation asks for these
+- Poor grammar, generic greeting ("Dear User" instead of your name)
 
-**Topics covered:**
+**Phishing variants:**
+- **Smishing:** Via SMS — fake delivery OTP, fake bank alert
+- **Vishing:** Via voice call — fake bank/TRAI/CBI officer
+- **Spear phishing:** Targeted, personalised — uses your name, role, employer
 
-- Every free app collects and sells your data — 🟢 Beginner
-- Uploading photos trains AI models forever — 🟢 Beginner
-- What AI chatbots do with your information — 🟢 Beginner
-- Data brokers — companies that sell your profile — 🟡 Intermediate
+### Social Engineering
+Manipulating people rather than systems. Common scenarios:
+- "I'm from your bank's fraud department. To reverse an unauthorised transaction, please share the OTP sent to your phone." — Always hang up and call the official bank number.
+- Fake job offers asking for advance deposits, document fees
+- Fake lottery/prize money — "You've won ₹25 lakhs, pay ₹500 processing fee"
 
-```bash
-# WHAT IS COLLECTED:
-# Social media: messages, photos, location, contacts
-# Free apps: contacts list, location, microphone
-# AI chatbots: conversations used to train models
+### Password Attacks
+- **Brute force:** Try all combinations — countered by strong passwords and account lockout
+- **Dictionary attack:** Try common words/passwords — countered by complex passwords
+- **Credential stuffing:** Use passwords stolen from one breach to try on other sites — countered by unique passwords per site
+- **Shoulder surfing:** Watching you type — use privacy screens in public
 
-# RULES:
-# Never share with AI what you would not put on a billboard
-# Never upload your Aadhaar, PAN, passport to any app
-# Never give children photos to any AI photo editor
-# Delete apps you do not use (they still collect data)
-```
-
-### Module 02 — Photo Safety
-*Why uploading personal photos is dangerous*
-
-Your face is the most sensitive biometric data you own \u2014 it cannot be changed like a password. Deepfake technology can put your face in any video. Every photo contains hidden EXIF data with exact GPS coordinates, date, and your phone model \u2014 revealing your home address to anyone who downloads it.
-
-**Topics covered:**
-
-- Face data is permanent — like a fingerprint — 🟢 Beginner
-- Deepfakes — your face in videos you never made — 🟢 Beginner
-- EXIF data: location hidden inside every photo — 🟡 Intermediate
-- Family and children photo risks — 🟢 Beginner
-
-```bash
-# PHOTO RULES:
-
-# Turn off location for camera app:
-# Settings > Camera > Location = OFF
-# This removes GPS coordinates from all future photos
-
-# AI photo editors (FaceApp, Lensa, Remini):
-# Your face is stored on their servers permanently
-# Used to train face recognition AI
-# Sold to unknown third parties
-# RULE: Never use AI photo editors with your real face
-
-# Children online:
-# Never post school name, uniform, location with child photos
-# Never post children photos publicly
-# Deepfakes can be made from as few as 5 photos
-
-# Deepfake fraud (happening in India):
-# Voice cloned from 3 seconds of audio
-# Used to call family members asking for money
-# Always verify by calling back on known number
-```
-
-### Module 03 — Social Engineering & Scams
-*Hackers trick you — they do not break passwords*
-
-80% of successful hacking involves no technical skill \u2014 just tricking people. Hackers create urgency (your account will be blocked, your relative is in trouble) so you act without thinking. Once they have your OTP or UPI PIN, your money is gone in seconds. The weapon is not malware \u2014 it is your trust and your fear.
-
-**Topics covered:**
-
-- Social engineering — the real way hackers work — 🟢 Beginner
-- Phishing: fake emails, sites, calls — 🟢 Beginner
-- WhatsApp and Telegram scams in India — 🟢 Beginner
-- KYC update scams — most common in India — 🟢 Beginner
-- Fake job and investment scams — 🟢 Beginner
-
-```bash
-# ACTIVE SCAMS IN INDIA:
-
-# 1. FAKE KYC / BANK CALL:
-# 'Your account will be blocked, update KYC now'
-# They ask for Aadhaar + OTP + selfie
-# BANK NEVER ASKS FOR OTP ON PHONE. Hang up.
-
-# 2. WHATSAPP FAMILY SCAM:
-# Unknown number: 'It is me, I changed my number'
-# Builds trust 1-2 days, then asks for urgent money
-# FIX: Call back on OLD number to verify
-
-# 3. SCREEN SHARE SCAM:
-# 'Let me help you on AnyDesk or TeamViewer'
-# Once you share screen they see your banking app
-# NEVER share screen with unknown person
-
-# 4. COURIER / CBI SCAM:
-# 'Package in your name has drugs, pay fine to avoid arrest'
-# No government agency ever asks for online payment
-
-# 5. PART-TIME JOB SCAM:
-# 'Earn 5000/day liking YouTube videos'
-# Pays small amount first to build trust
-# Then asks you to invest to get bigger tasks
-# Your investment is gone
-```
-
-### Module 04 — UPI & Financial Safety
-*Never lose money to online fraud*
-
-The most important UPI rule: RECEIVING money never requires entering PIN. If someone asks you to enter PIN to receive money, you are actually sending money. OTP is the key to your entire bank account \u2014 no bank, no government, no company will ever ask for your OTP. Anyone who asks for it is a criminal.
-
-**Topics covered:**
-
-- UPI PIN rules — the one thing that saves you — 🟢 Beginner
-- Strong passwords and password managers — 🟢 Beginner
-- Two-factor authentication (2FA) — 🟢 Beginner
-- What to do if you are scammed — 🟢 Beginner
-
-```bash
-# UPI GOLDEN RULES:
-
-# NEVER enter PIN to RECEIVE money
-# Entering PIN = SENDING money
-# Scammers send collect request, say 'approve to get money'
-# Approving = you PAY them
-
-# NEVER share with ANYONE:
-# UPI PIN, OTP, Net banking password, Card CVV
-# No exception. Ever. For any reason.
-
-# STRONG PASSWORDS:
-# BAD: name123, 12345678, date of birth
-# GOOD: Three random words + numbers + symbol
-#       Example: Tree!Mountain4Blue#River
-# Use Bitwarden (free) to store all passwords
-# Different password for email, bank, WhatsApp
-
-# ENABLE 2FA on:
-# Gmail, banking apps, WhatsApp
-# Even if someone has your password they cannot login
-
-# IF SCAMMED - ACT IN FIRST HOUR:
-# 1. Call 1930 (Cyber Crime helpline)
-# 2. Call your bank helpline to freeze account
-# 3. Report at cybercrime.gov.in
-# Money can be recovered if reported within 1 hour
-```
-
-### Module 05 — Safe Digital Habits
-*Simple rules that protect every day*
-
-Digital safety is simple habits, not complex knowledge. Check app permissions monthly. Never do banking on public WiFi. Update your phone. Teaching elderly parents the one rule that prevents 90% of scams is more valuable than any security software.
-
-**Topics covered:**
-
-- App permissions audit — 🟢 Beginner
-- Public WiFi dangers — 🟢 Beginner
-- Phone security basics — 🟢 Beginner
-- Teaching elderly and children — 🟢 Beginner
-
-```bash
-# MONTHLY CHECKLIST (5 minutes):
-# Settings > Apps > each app > Permissions
-# Deny microphone, contacts, location for apps that do not need them
-# A torch app does not need your contacts
-
-# PUBLIC WIFI:
-# NEVER: banking, UPI, email login
-# SAFE: reading news, YouTube
-# Use mobile data for anything sensitive
-
-# PHONE SECURITY:
-# 6-digit PIN (not just fingerprint)
-# Enable Find My Device
-# Enable Remote Wipe
-# Keep OS and apps updated
-
-# TEACH ELDERLY FAMILY (one rule):
-# Print and put on wall:
-# IF ANYONE calls asking for OTP, PIN, Aadhaar,
-# or money \u2014 HANG UP and call family directly
-# Practice this scenario monthly
-# Most fraud victims are elderly people who trusted a call
-```
+### Malware
+Malicious software that damages or steals from your device:
+- **Virus:** Attaches to files, spreads when file is shared
+- **Ransomware:** Encrypts your files, demands payment. Notable: WannaCry (2017), encrypted 200,000+ systems
+- **Spyware:** Logs keystrokes, takes screenshots, reads messages
+- **Adware:** Displays unwanted ads, may lead to malicious sites
+- **RAT (Remote Access Trojan):** Attacker can remotely control your device
 
 ---
 
-## Production Example
+## Protective Measures
 
-```bash
-# Digital Safety \u2014 Do This Today
+### Passwords & Authentication
+- **Strong password:** 12+ characters, mix of uppercase, lowercase, numbers, symbols
+- **Passphrase:** Easier to remember — "Chai@Morning!2024" is strong and memorable
+- **Never reuse passwords:** Each account needs a unique password
+- **Password manager:** LastPass, Bitwarden, 1Password — stores and generates strong passwords
+- **Two-Factor Authentication (2FA):** Even if password is stolen, attacker can't login without second factor
+  - Authenticator app (Google Authenticator, Authy) — better than SMS OTP
+  - Hardware key (YubiKey) — strongest
+  - SMS OTP — better than nothing, but vulnerable to SIM swap attacks
 
-# PHONE:
-# [ ] Camera location = OFF
-# [ ] 2FA enabled on Gmail and bank
-# [ ] Remove unused app permissions
-# [ ] Set 6-digit PIN
+### Device Security
+- **Screen lock:** PIN/pattern/biometric. Auto-lock after 30 seconds.
+- **Encryption:** Android: Settings → Security → Encrypt. iPhone: automatic when passcode set.
+- **Software updates:** 85% of successful attacks exploit known vulnerabilities with patches available. Update immediately.
+- **Antivirus:** Microsoft Defender (Windows) — adequate. Malwarebytes for scanning. Avoid fake antivirus pop-ups.
+- **Firewall:** Enable Windows Firewall or Mac firewall.
 
-# PASSWORDS:
-# [ ] Install Bitwarden (free password manager)
-# [ ] Check email leak: haveibeenpwned.com
-# [ ] Unique passwords for bank and email
-
-# PHOTOS:
-# [ ] No AI photo editors with your real face
-# [ ] Children photos = private only
-
-# FINANCIAL:
-# [ ] Save 1930 in contacts (Cyber Crime India)
-# [ ] Remember: PIN to receive = you are sending
-# [ ] OTP = never share with anyone ever
-
-# IF SCAMMED:
-# Call 1930 within the first hour
-# Report at cybercrime.gov.in
-# Call bank to freeze account immediately
-```
+### Network Security
+- **Home Wi-Fi:** Use WPA3 (or WPA2 minimum). Change default router password. Hide SSID optional but not essential.
+- **Public Wi-Fi:** Never access banking or email on open public Wi-Fi without VPN
+- **VPN (Virtual Private Network):** Encrypts traffic between your device and VPN server. NordVPN, ProtonVPN, ExpressVPN. Free VPNs often log and sell data — avoid.
+- **HTTPS:** Always check for padlock + https:// before entering any personal data on a website.
 
 ---
 
-## Interview Prep
+## India-Specific Digital Laws
 
-!!! tip "PSR Formula"
-    Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
+### IT Act 2000 & Amendments
 
-### Common Interview Questions
+**Sec 43:** Damage to computer system — civil penalty up to ₹1 crore
+**Sec 66:** Computer related offences — imprisonment up to 3 years and/or fine
+**Sec 66A (struck down):** Offensive online communication — removed by Supreme Court in *Shreya Singhal (2015)*
+**Sec 66C:** Identity theft — imprisonment up to 3 years, fine ₹1 lakh
+**Sec 66D:** Cheating by personation using computer — same penalties
+**Sec 66E:** Violation of privacy (capturing/transmitting private images without consent) — imprisonment up to 3 years
+**Sec 67:** Obscene material online — imprisonment up to 5 years
+**Sec 69:** Government power to intercept/monitor — requires Home Secretary order
+**Sec 79:** Safe harbour for intermediaries — platforms not liable for user content if they comply with takedown notices
 
-??? question "What is Digital Safety & Privacy and why would you use it in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "How does Digital Safety & Privacy work internally? Explain the architecture."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "What are the main components of Digital Safety & Privacy?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "How do you handle failures in Digital Safety & Privacy?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "What is your production experience with Digital Safety & Privacy?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "How do you monitor and observe Digital Safety & Privacy in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "What are the security considerations for Digital Safety & Privacy?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "How does Digital Safety & Privacy compare to alternatives?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "Explain Your Data Is the Product in Digital Safety & Privacy."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "Explain Photo Safety in Digital Safety & Privacy."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+### DPDP Act 2023 (Digital Personal Data Protection)
+- Data fiduciary must obtain explicit consent for personal data processing
+- Data principal rights: right to information, correction, erasure, grievance redressal, nomination
+- Significant Data Fiduciaries (large companies): additional obligations
+- Data Protection Board: adjudicates disputes
+- Penalties: up to ₹250 crore for violations
 
 ---
 
-## Official Resources
+## How to Report Cybercrime in India
 
-- [Cyber Crime India — Report Online](https://cybercrime.gov.in/)
-- [Have I Been Pwned — Check Email Leak](https://haveibeenpwned.com/)
-- [Bitwarden — Free Password Manager](https://bitwarden.com/)
-- [CERT-IN India Cyber Security](https://www.cert-in.org.in/)
+**Cybercrime Portal:** cybercrime.gov.in
+**Cyber Helpline:** 1930 (national helpline for financial fraud — report within 24 hours to block money)
+**Local police:** File FIR at nearest police station. Cyber cells in major cities.
+
+**Golden rule for financial fraud:** If money has been transferred fraudulently, call 1930 IMMEDIATELY. Banks can flag and hold fraudulent transactions if reported within a few hours.
 
 ---
 
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*
+## Privacy Settings — Quick Actions
+
+**Google Account:** myaccount.google.com → Data & Privacy → review what's saved
+**Facebook:** Settings → Privacy → restrict post visibility, disable location
+**WhatsApp:** Settings → Privacy → Who can see last seen, profile photo, status → set to Contacts only
+**Instagram:** Settings → Privacy → Private Account → approve followers
+**LinkedIn:** Settings → Privacy → restrict who sees your connections, activity
+
+**App permissions (Android/iOS):** Settings → Apps → review camera, microphone, location permissions. Revoke any app that doesn't need them.
