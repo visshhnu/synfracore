@@ -9,6 +9,7 @@ import LabsSection from "@/components/tech/LabsSection";
 import AuthorBadge from "@/components/tech/AuthorBadge";
 import WhatNext from "@/components/tech/WhatNext";
 import QuickQuiz from "@/components/tech/QuickQuiz";
+import ProgressTracker from "@/components/tech/ProgressTracker";
 
 type Props = {
   params: Promise<{ academy: string; technology: string; section: string }>;
@@ -222,6 +223,15 @@ export default async function SectionPage({ params }: Props) {
 
         {/* Author badge */}
         <AuthorBadge techName={tech.name} section={section} accentColor="#6366F1" />
+
+        {/* Progress tracking */}
+        <ProgressTracker
+          academy={aSlug}
+          technology={tSlug}
+          section={section}
+          techName={tech.name}
+          accentColor={academy.color || "#6366F1"}
+        />
 
         {/* Main content */}
         {isLabs ? (

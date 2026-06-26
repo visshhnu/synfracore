@@ -1,6 +1,6 @@
 # OpenShift — Interview Questions
 
-Real questions from enterprise OCP interviews — HPE, Vodafone, Nokia, telecom, banking production experience with OCP 4.14-4.16.
+Real questions from enterprise OCP interviews — telecom, banking, cloud-native production, banking production experience with OCP 4.14-4.16.
 
 ---
 
@@ -353,14 +353,14 @@ syncPolicy:
 ```
 
 **What is drift in ArgoCD?**
-Drift is when the actual cluster state differs from Git. Caused by: manual `oc apply`, manual `oc edit`, auto-scaling changing replica counts, mutation webhooks changing resources. With `selfHeal: true`, ArgoCD detects and reverts drift within the sync interval. Without selfHeal, drift is only reported, not fixed. At HPE, selfHeal was enabled for all production apps — any manual change was automatically reverted within 3 minutes.
+Drift is when the actual cluster state differs from Git. Caused by: manual `oc apply`, manual `oc edit`, auto-scaling changing replica counts, mutation webhooks changing resources. With `selfHeal: true`, ArgoCD detects and reverts drift within the sync interval. Without selfHeal, drift is only reported, not fixed. In a large enterprise telecom org, selfHeal was enabled for all production apps — any manual change was automatically reverted within 3 minutes.
 
 ---
 
 ## Image Push → Deployment Flow
 
 **How deployment happens after image is pushed to Quay?**
-At HPE/telecom, the full flow was:
+In a large telecom deployment, the full flow was:
 ```
 1. Developer merges PR to main branch
 2. Jenkins pipeline triggers (webhook from Bitbucket/GitHub)

@@ -108,9 +108,9 @@ openshift-pipelines      — Tekton (if OpenShift Pipelines operator installed)
 
 **Golden rule:** Never deploy application workloads in namespaces starting with `openshift-` or `kube-`.
 
-## OCP in the Real World — HPE / Telecom
+## OCP in the Real World — Enterprise Telecom
 
-At HPE, OCP 4.16 ran the Dubai Unified (DU)/Vodafone UAE telecom provisioning platform:
+In a large telecom organisation, OCP 4.16 ran the unified telecom provisioning platform:
 - 3 environments: dev, test, prod
 - 50+ pods per environment
 - Microservices: Service Order Management (SOM), Catalog (COM/CFS), Resource Fulfillment (RFS)

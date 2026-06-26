@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { getAcademy } from "@/lib/data/academies";
 import { ArrowRight, CheckCircle, Clock, BookOpen, FlaskConical, Trophy } from "lucide-react";
+import AcademyProgress from "@/components/tech/AcademyProgress";
+import { techSections } from "@/lib/data/navigation";
 
 type Props = { params: Promise<{ academy: string }> };
 
@@ -212,6 +214,14 @@ export default async function AcademyPage({ params }: Props) {
         <Link href="/academies" style={{ color: "var(--text-4)", textDecoration: "none" }}>Academies</Link>›
         <span style={{ color: "var(--text-2)" }}>{academy.title}</span>
       </nav>
+
+      {/* Progress tracker */}
+      <AcademyProgress
+        academy={aSlug}
+        topics={academy.domains.flatMap(d => d.technologies).map(t => ({ slug: t.slug, name: t.name }))}
+        sections={techSections.map(s => s.slug)}
+        accentColor={academy.color || "#3B82F6"}
+      />
 
       {/* Hero */}
       <div style={{ marginBottom: "40px" }}>
