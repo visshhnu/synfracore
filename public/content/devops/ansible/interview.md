@@ -1,0 +1,119 @@
+# Ansible Interview Q&A
+
+Ansible | Datadog | Splunk)
+
+## 1. Your Interview Strategy
+
+### Your Strength Areas
+
+Based on your current experience and the JD, your strongest areas are:
+
+- Kubernetes / OCP operations
+
+- Monitoring using Grafana
+
+- Incident handling
+
+- Held order troubleshooting
+
+- Health checks and operational monitoring
+
+- CI/CD exposure
+
+- Azure + AKS basics
+
+- Terraform fundamentals
+
+- Production support mindset
+
+### Main Gap Areas to Focus Tonight
+
+You should focus heavily on: 1. Ansible troubleshooting 2. Datadog concepts 3. Splunk basics 4. CI/CD architecture discussion 5. Troubleshooting scenarios 6. Azure architecture understanding 7. End-to-end production incident flow
+
+# 2. How to Position Yourself in the Interview
+
+You should present yourself as:
+
+“A DevOps Engineer with strong production operations and Kubernetes support experience, actively involved in monitoring, troubleshooting, deployments, health checks, incident management, CI/CD support, and infrastructure automation.”
+
+DO NOT say:
+
+- “I only know Grafana.”
+
+- “I don’t know Datadog.”
+
+- “I didn’t work on Ansible.”
+
+Instead say:
+
+“Currently we use Grafana extensively for monitoring and alert visualization, but I understand Datadog concepts because the monitoring principles are similar — metrics collection, dashboards, alerting, logs, traces, and incident correlation.”
+
+That answer is strong and professional.
+
+# 3. Grafana vs Datadog (MOST IMPORTANT FOR YOU)
+
+This question is VERY likely.
+
+## How to Answer
+
+### Best Answer
+
+“Currently in my project we mainly use Grafana for dashboard visualization and operational monitoring. We monitor application health, resource utilization, pod metrics, order flow, and infrastructure metrics.
+
+Datadog provides similar capabilities but with a more integrated SaaS observability approach. Apart from dashboards and metrics, Datadog also provides APM, distributed tracing, log management, anomaly detection, synthetic monitoring, and infrastructure correlation in a single platform.
+
+Conceptually both tools focus on observability and proactive monitoring. Since I already work extensively with Grafana dashboards, alerts, troubleshooting, and production monitoring, adapting to Datadog is straightforward.”
+
+## Technical Difference Table
+
+| Feature | Grafana | Datadog |
+| --- | --- | --- |
+| Dashboarding | Strong | Strong |
+| SaaS Monitoring | Limited | Excellent |
+| APM | External integrations | Native |
+| Log Management | Loki/Elastic | Native |
+| Tracing | Tempo/Jaeger | Native |
+| Infrastructure Monitoring | Good | Excellent |
+| Cost | Open-source friendly | Expensive |
+| Ease of Setup | More manual | Easier |
+| Alert Correlation | Moderate | Strong |
+| Cloud-native Integration | Good | Excellent |
+
+# 4. Datadog Deep Understanding
+
+## What is Datadog?
+
+Datadog is a cloud-based observability and monitoring platform used for:
+
+- Infrastructure monitoring
+
+- Application monitoring
+
+- Log management
+
+- Distributed tracing
+
+- Alerting
+
+- Security monitoring
+
+- Incident
+
+---
+
+## Additional Interview Questions
+
+**Q: What is idempotency and how does Ansible achieve it?**
+Idempotency means running a playbook multiple times produces the same result. Ansible modules check current state before acting — `apt: name=nginx state=present` only installs if not already installed.
+
+**Q: Ansible vs Chef vs Puppet vs SaltStack?**
+- Ansible: Agentless (SSH), YAML, push-based. Best for ad-hoc + cloud automation.
+- Chef: Agent-based, Ruby DSL, pull-based. Complex but powerful for large fleets.
+- Puppet: Agent-based, Puppet DSL, pull-based. Mature, enterprise-focused.
+- SaltStack: Agent+agentless, YAML+Python, very fast at scale.
+
+**Q: What are handlers in Ansible?**
+Tasks triggered only when notified — typically for service restarts after config changes. They run once at end of play, even if notified multiple times.
+
+**Q: How do you manage different environments (dev/staging/prod)?**
+Use separate inventory files per environment. Use group_vars/host_vars for environment-specific variables. Use ansible-vault for secrets. Use --limit to target specific hosts.
