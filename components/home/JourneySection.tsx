@@ -2,12 +2,12 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 const steps = [
-  { icon: "[R]", label: "Learn", desc: "Structured knowledge base" },
-  { icon: "[L]", label: "Practice", desc: "Hands-on labs" },
-  { icon: "[P]", label: "Build", desc: "Real projects" },
-  { icon: "[T]", label: "Troubleshoot", desc: "Fix real issues" },
-  { icon: "[C]", label: "Certify", desc: "Get certified" },
-  { icon: ">", label: "Get Hired", desc: "Career ready" },
+  { icon: "📖", label: "Learn", desc: "Structured knowledge base" },
+  { icon: "🧪", label: "Practice", desc: "Hands-on labs" },
+  { icon: "🏗️", label: "Build", desc: "Real projects" },
+  { icon: "🔧", label: "Troubleshoot", desc: "Fix real issues" },
+  { icon: "🏆", label: "Certify", desc: "Get certified" },
+  { icon: "💼", label: "Get Hired", desc: "Career ready" },
 ];
 
 export default function JourneySection() {

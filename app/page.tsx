@@ -9,7 +9,7 @@ import { ArrowRight, BookOpen, FlaskConical, Code2, Trophy, Wrench, Bot, CheckCi
 // Role-based paths
 const roles = [
   {
-    icon: ">",
+    icon: "🌱",
     title: "Absolute Beginner",
     desc: "No prior experience. Start from zero.",
     path: "Linux basics → Shell scripting → Git → Docker → Cloud fundamentals",
@@ -17,7 +17,7 @@ const roles = [
     color: "#10B981",
   },
   {
-    icon: ">",
+    icon: "💼",
     title: "Job Seeker",
     desc: "Preparing for interviews and placements.",
     path: "Interview Q&A → Resume tips → Mock scenarios → Certification prep",
@@ -33,7 +33,7 @@ const roles = [
     color: "#8B5CF6",
   },
   {
-    icon: "[P]",
+    icon: "🏗️",
     title: "Architect / Lead",
     desc: "Design production systems.",
     path: "HA/DR design → Multi-cloud → Security → Cost optimisation → Team leadership",
@@ -41,7 +41,7 @@ const roles = [
     color: "#F59E0B",
   },
   {
-    icon: ">",
+    icon: "📚",
     title: "Exam Preparer",
     desc: "JEE, NEET, GATE, Banking, UPSC.",
     path: "Chapter-wise notes → PYQs → MCQ practice → Revision notes",
@@ -49,7 +49,7 @@ const roles = [
     color: "#EC4899",
   },
   {
-    icon: ">",
+    icon: "🎯",
     title: "Certification Seeker",
     desc: "AWS, Azure, GCP, CKA, CKAD.",
     path: "Domain study → Practice questions → Exam tips → Mock tests",
@@ -60,32 +60,32 @@ const roles = [
 
 // What you'll learn journey
 const journey = [
-  { step: "01", title: "Learn", desc: "Expert-written chapter-by-chapter content with real examples", icon: "[R]" },
-  { step: "02", title: "Practice", desc: "Hands-on labs from beginner to production-grade scenarios", icon: "[L]" },
-  { step: "03", title: "Build", desc: "Real projects that go straight to your portfolio", icon: "[P]" },
+  { step: "01", title: "Learn", desc: "Expert-written chapter-by-chapter content with real examples", icon: "📖" },
+  { step: "02", title: "Practice", desc: "Hands-on labs from beginner to production-grade scenarios", icon: "🧪" },
+  { step: "03", title: "Build", desc: "Real projects that go straight to your portfolio", icon: "🏗️" },
   { step: "04", title: "Test Yourself", desc: "MCQs, PYQs, and scenario-based questions", icon: "✅" },
-  { step: "05", title: "Get Certified", desc: "Structured prep for 13 industry certifications", icon: "[C]" },
-  { step: "06", title: "Get Hired", desc: "Interview Q&A, resume tips, and career roadmaps", icon: ">" },
+  { step: "05", title: "Get Certified", desc: "Structured prep for 13 industry certifications", icon: "🏆" },
+  { step: "06", title: "Get Hired", desc: "Interview Q&A, resume tips, and career roadmaps", icon: "💼" },
 ];
 
 // Tech domains
 const domains = [
-  { name: "DevOps", icon: "⚙", topics: ["Docker","Kubernetes","Helm","Jenkins","ArgoCD","GitOps"], href: "/academies/devops", color: "#F59E0B" },
-  { name: "Cloud", icon: "☁", topics: ["AWS","Azure","GCP","Multi-cloud","Cost Opt"], href: "/academies/cloud", color: "#3B82F6" },
-  { name: "AI & Data", icon: "*", topics: ["LLMs","RAG","MLOps","LangChain","Agents"], href: "/academies/ai", color: "#8B5CF6" },
-  { name: "Security", icon: "*", topics: ["DevSecOps","Zero Trust","RBAC","Vault","SAST"], href: "/academies/security", color: "#EF4444" },
-  { name: "Platform Eng", icon: "*", topics: ["IDP","Backstage","Golden Paths","SRE"], href: "/academies/devops", color: "#10B981" },
-  { name: "Academy (Edu)", icon: ">", topics: ["JEE","NEET","GATE","Banking","UPSC"], href: "/learn", color: "#EC4899" },
+  { name: "DevOps", icon: "⚙️", topics: ["Docker","Kubernetes","Helm","Jenkins","ArgoCD","GitOps"], href: "/academies/devops", color: "#F59E0B" },
+  { name: "Cloud", icon: "☁️", topics: ["AWS","Azure","GCP","Multi-cloud","Cost Opt"], href: "/academies/cloud", color: "#3B82F6" },
+  { name: "AI & Data", icon: "🤖", topics: ["LLMs","RAG","MLOps","LangChain","Agents"], href: "/academies/ai", color: "#8B5CF6" },
+  { name: "Security", icon: "🔒", topics: ["DevSecOps","Zero Trust","RBAC","Vault","SAST"], href: "/academies/security", color: "#EF4444" },
+  { name: "Platform Eng", icon: "🏛️", topics: ["IDP","Backstage","Golden Paths","SRE"], href: "/academies/devops", color: "#10B981" },
+  { name: "Academy (Edu)", icon: "📚", topics: ["JEE","NEET","GATE","Banking","UPSC"], href: "/learn", color: "#EC4899" },
 ];
 
 // Proof points
 const proofPoints = [
-  { icon: "[N]", stat: "284+", label: "Education chapters", sub: "Class 10 to UPSC — expert-written" },
-  { icon: "*", stat: "890+", label: "Tech topics", sub: "Docker to Kubernetes to Platform Eng" },
-  { icon: "*", stat: "13", label: "Certifications", sub: "AWS, Azure, GCP, CKA, CKAD and more" },
-  { icon: "[M]", stat: "8+", label: "Career roadmaps", sub: "From beginner to architect" },
-  { icon: "[L]", stat: "500+", label: "Labs & projects", sub: "Hands-on practice scenarios" },
-  { icon: "[Q]", stat: "100+", label: "Interview Q&As", sub: "Real questions with detailed answers" },
+  { icon: "📝", stat: "284+", label: "Education chapters", sub: "Class 10 to UPSC — expert-written" },
+  { icon: "💻", stat: "890+", label: "Tech topics", sub: "Docker to Kubernetes to Platform Eng" },
+  { icon: "🎓", stat: "13", label: "Certifications", sub: "AWS, Azure, GCP, CKA, CKAD and more" },
+  { icon: "🗺️", stat: "8+", label: "Career roadmaps", sub: "From beginner to architect" },
+  { icon: "🧪", stat: "500+", label: "Labs & projects", sub: "Hands-on practice scenarios" },
+  { icon: "💬", stat: "100+", label: "Interview Q&As", sub: "Real questions with detailed answers" },
 ];
 
 export default function Home() {
@@ -125,7 +125,7 @@ export default function Home() {
               Explore Tech Academies <ArrowRight size={17} />
             </Link>
             <Link href="/learn" className="btn-secondary" style={{ fontSize: "15px", padding: "14px 32px" }}>
-              + Browse Education
+              📚 Browse Education
             </Link>
             <Link href="/roadmaps" className="btn-secondary" style={{ fontSize: "15px", padding: "14px 32px" }}>
               View Roadmaps
@@ -160,47 +160,47 @@ export default function Home() {
         <div className="domain-slider-wrap">
           <div className="domain-slider-track">
             {[
-              { icon: ">", name: "Docker", color: "#2496ED" },
-              { icon: "☸", name: "Kubernetes", color: "#326CE5" },
-              { icon: ">", name: "AWS", color: "#FF9900" },
-              { icon: "☁", name: "Azure", color: "#0078D4" },
-              { icon: "*", name: "AI & LLMs", color: "#8B5CF6" },
-              { icon: "*", name: "JEE Maths", color: "#EC4899" },
-              { icon: "*", name: "NEET Biology", color: "#10B981" },
-              { icon: "*", name: "Banking Exams", color: "#F59E0B" },
-              { icon: "*", name: "Home Health Coding", color: "#14B8A6" },
-              { icon: "*", name: "Cybersecurity", color: "#EF4444" },
-              { icon: "*", name: "PostgreSQL", color: "#336791" },
-              { icon: "*", name: "Power BI", color: "#F2C811" },
-              { icon: "*", name: "Linux", color: "#FCC624" },
-              { icon: "⚙", name: "Terraform", color: "#7B42BC" },
-              { icon: ">", name: "UPSC Prep", color: "#3B82F6" },
-              { icon: "[L]", name: "GATE CSE", color: "#6366F1" },
-              { icon: ">", name: "Gut Health", color: "#22C55E" },
-              { icon: ">", name: "Personal Finance", color: "#F59E0B" },
-              { icon: "*", name: "NEET Chemistry", color: "#06B6D4" },
-              { icon: "*", name: "Networking", color: "#8B5CF6" },
+              { icon: "🐳", name: "Docker", color: "#2496ED" },
+              { icon: "☸️", name: "Kubernetes", color: "#326CE5" },
+              { icon: "🌩️", name: "AWS", color: "#FF9900" },
+              { icon: "☁️", name: "Azure", color: "#0078D4" },
+              { icon: "🤖", name: "AI & LLMs", color: "#8B5CF6" },
+              { icon: "📐", name: "JEE Maths", color: "#EC4899" },
+              { icon: "🧬", name: "NEET Biology", color: "#10B981" },
+              { icon: "🏦", name: "Banking Exams", color: "#F59E0B" },
+              { icon: "🏠", name: "Home Health Coding", color: "#14B8A6" },
+              { icon: "🔒", name: "Cybersecurity", color: "#EF4444" },
+              { icon: "🗄️", name: "PostgreSQL", color: "#336791" },
+              { icon: "📊", name: "Power BI", color: "#F2C811" },
+              { icon: "🐧", name: "Linux", color: "#FCC624" },
+              { icon: "⚙️", name: "Terraform", color: "#7B42BC" },
+              { icon: "🎯", name: "UPSC Prep", color: "#3B82F6" },
+              { icon: "🧪", name: "GATE CSE", color: "#6366F1" },
+              { icon: "🌱", name: "Gut Health", color: "#22C55E" },
+              { icon: "💰", name: "Personal Finance", color: "#F59E0B" },
+              { icon: "🔬", name: "NEET Chemistry", color: "#06B6D4" },
+              { icon: "📡", name: "Networking", color: "#8B5CF6" },
               // Duplicate for seamless loop
-              { icon: ">", name: "Docker", color: "#2496ED" },
-              { icon: "☸", name: "Kubernetes", color: "#326CE5" },
-              { icon: ">", name: "AWS", color: "#FF9900" },
-              { icon: "☁", name: "Azure", color: "#0078D4" },
-              { icon: "*", name: "AI & LLMs", color: "#8B5CF6" },
-              { icon: "*", name: "JEE Maths", color: "#EC4899" },
-              { icon: "*", name: "NEET Biology", color: "#10B981" },
-              { icon: "*", name: "Banking Exams", color: "#F59E0B" },
-              { icon: "*", name: "Home Health Coding", color: "#14B8A6" },
-              { icon: "*", name: "Cybersecurity", color: "#EF4444" },
-              { icon: "*", name: "PostgreSQL", color: "#336791" },
-              { icon: "*", name: "Power BI", color: "#F2C811" },
-              { icon: "*", name: "Linux", color: "#FCC624" },
-              { icon: "⚙", name: "Terraform", color: "#7B42BC" },
-              { icon: ">", name: "UPSC Prep", color: "#3B82F6" },
-              { icon: "[L]", name: "GATE CSE", color: "#6366F1" },
-              { icon: ">", name: "Gut Health", color: "#22C55E" },
-              { icon: ">", name: "Personal Finance", color: "#F59E0B" },
-              { icon: "*", name: "NEET Chemistry", color: "#06B6D4" },
-              { icon: "*", name: "Networking", color: "#8B5CF6" },
+              { icon: "🐳", name: "Docker", color: "#2496ED" },
+              { icon: "☸️", name: "Kubernetes", color: "#326CE5" },
+              { icon: "🌩️", name: "AWS", color: "#FF9900" },
+              { icon: "☁️", name: "Azure", color: "#0078D4" },
+              { icon: "🤖", name: "AI & LLMs", color: "#8B5CF6" },
+              { icon: "📐", name: "JEE Maths", color: "#EC4899" },
+              { icon: "🧬", name: "NEET Biology", color: "#10B981" },
+              { icon: "🏦", name: "Banking Exams", color: "#F59E0B" },
+              { icon: "🏠", name: "Home Health Coding", color: "#14B8A6" },
+              { icon: "🔒", name: "Cybersecurity", color: "#EF4444" },
+              { icon: "🗄️", name: "PostgreSQL", color: "#336791" },
+              { icon: "📊", name: "Power BI", color: "#F2C811" },
+              { icon: "🐧", name: "Linux", color: "#FCC624" },
+              { icon: "⚙️", name: "Terraform", color: "#7B42BC" },
+              { icon: "🎯", name: "UPSC Prep", color: "#3B82F6" },
+              { icon: "🧪", name: "GATE CSE", color: "#6366F1" },
+              { icon: "🌱", name: "Gut Health", color: "#22C55E" },
+              { icon: "💰", name: "Personal Finance", color: "#F59E0B" },
+              { icon: "🔬", name: "NEET Chemistry", color: "#06B6D4" },
+              { icon: "📡", name: "Networking", color: "#8B5CF6" },
             ].map((d, i) => (
               <div key={i} style={{
                 display: "flex", alignItems: "center", gap: "8px",
@@ -402,7 +402,7 @@ export default function Home() {
 
             {/* Education card */}
             <div style={{ padding: "36px", borderRadius: "20px", background: "linear-gradient(135deg,rgba(236,72,153,0.08),rgba(139,92,246,0.08))", border: "1px solid rgba(236,72,153,0.2)" }}>
-              <div style={{ fontSize: "40px", marginBottom: "12px" }}>*</div>
+              <div style={{ fontSize: "40px", marginBottom: "12px" }}>📚</div>
               <h3 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 800, fontSize: "22px", marginBottom: "10px" }}>Education Academy</h3>
               <p style={{ color: "var(--text-3)", fontSize: "15px", lineHeight: 1.7, marginBottom: "20px" }}>
                 284+ chapters across Class 10, Class 12, JEE, NEET, GATE, Banking, UPSC, SSC, Defence, Career, and Finance. With PYQs, MCQs, and revision notes.
@@ -419,7 +419,7 @@ export default function Home() {
 
             {/* Interview card */}
             <div style={{ padding: "36px", borderRadius: "20px", background: "linear-gradient(135deg,rgba(59,130,246,0.08),rgba(16,185,129,0.08))", border: "1px solid rgba(59,130,246,0.2)" }}>
-              <div style={{ fontSize: "40px", marginBottom: "12px" }}>[Q]</div>
+              <div style={{ fontSize: "40px", marginBottom: "12px" }}>💬</div>
               <h3 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 800, fontSize: "22px", marginBottom: "10px" }}>Interview Preparation</h3>
               <p style={{ color: "var(--text-3)", fontSize: "15px", lineHeight: 1.7, marginBottom: "20px" }}>
                 100+ real interview questions with detailed answers for Kubernetes, Terraform, Ansible, Docker, Jenkins, Helm, Prometheus, Linux, and more.

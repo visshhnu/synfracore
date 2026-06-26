@@ -412,8 +412,7 @@ export default async function RoadmapDetailPage({ params }: Props) {
           {detail.techLinks.map(t => (
             <Link key={t.slug} href={`/academies/${t.academy}/${t.slug}/overview`} style={{ textDecoration: "none" }}>
               <div style={{ padding: "10px 14px", borderRadius: "8px", border: "1px solid var(--border)", fontSize: "13px", color: "var(--text-2)", fontWeight: 500, transition: "all 0.15s", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "6px" }}
-                onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = color; (e.currentTarget as HTMLDivElement).style.color = color; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "var(--border)"; (e.currentTarget as HTMLDivElement).style.color = "var(--text-2)"; }}>
+>
                 {t.name} <ArrowRight size={12} />
               </div>
             </Link>

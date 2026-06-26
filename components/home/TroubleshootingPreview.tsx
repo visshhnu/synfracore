@@ -2,12 +2,12 @@ import Link from "next/link";
 import { Wrench, ArrowRight } from "lucide-react";
 
 const issues = [
-  { tech: "Kubernetes", issue: "CrashLoopBackOff", icon: "☸", color: "#3B82F6", severity: "High" },
-  { tech: "Terraform", issue: "State Lock Error", icon: "[P]", color: "#8B5CF6", severity: "Medium" },
-  { tech: "Jenkins", issue: "Build Pipeline Failure", icon: "*", color: "#F59E0B", severity: "High" },
-  { tech: "Docker", issue: "Container Exit Code 137", icon: ">", color: "#06B6D4", severity: "Medium" },
-  { tech: "AWS IAM", issue: "Access Denied Exception", icon: ">", color: "#F43F5E", severity: "High" },
-  { tech: "ArgoCD", issue: "App OutOfSync / Sync Failed", icon: ">", color: "#EC4899", severity: "Medium" },
+  { tech: "Kubernetes", issue: "CrashLoopBackOff", icon: "☸️", color: "#3B82F6", severity: "High" },
+  { tech: "Terraform", issue: "State Lock Error", icon: "🏗️", color: "#8B5CF6", severity: "Medium" },
+  { tech: "Jenkins", issue: "Build Pipeline Failure", icon: "🤖", color: "#F59E0B", severity: "High" },
+  { tech: "Docker", issue: "Container Exit Code 137", icon: "🐳", color: "#06B6D4", severity: "Medium" },
+  { tech: "AWS IAM", issue: "Access Denied Exception", icon: "🔐", color: "#F43F5E", severity: "High" },
+  { tech: "ArgoCD", issue: "App OutOfSync / Sync Failed", icon: "🔄", color: "#EC4899", severity: "Medium" },
 ];
 
 const severityStyle = {

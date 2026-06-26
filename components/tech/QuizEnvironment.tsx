@@ -105,7 +105,7 @@ function MCQQuiz({ set, accentColor, onComplete }: { set: QuizSet; accentColor: 
     return (
       <div style={{ textAlign: "center", padding: "40px 20px" }}>
         <div style={{ fontSize: "72px", marginBottom: "16px" }}>
-          {pctScore >= 90 ? "[C]" : pctScore >= 75 ? ">" : pctScore >= 60 ? ">" : ">"}
+          {pctScore >= 90 ? "🏆" : pctScore >= 75 ? "🎯" : pctScore >= 60 ? "📚" : "💪"}
         </div>
         <h3 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "28px", fontWeight: 800, color: gradeColor, marginBottom: "8px" }}>{grade}</h3>
         <div style={{ fontSize: "48px", fontWeight: 800, color: gradeColor, marginBottom: "8px" }}>{pctScore}%</div>
@@ -151,7 +151,7 @@ function MCQQuiz({ set, accentColor, onComplete }: { set: QuizSet; accentColor: 
                 </div>
               ))}
               <div style={{ marginTop: "10px", padding: "10px 14px", background: `${accentColor}11`, border: `1px solid ${accentColor}22`, borderRadius: "8px", fontSize: "13px", color: "var(--text-3)" }}>
-                [R] {q.explanation}
+                📖 {q.explanation}
               </div>
             </div>
           );
@@ -267,8 +267,8 @@ function FlashcardDeck({ set, accentColor }: { set: QuizSet; accentColor: string
       {/* Stats */}
       <div style={{ display: "flex", gap: "12px", marginBottom: "24px", flexWrap: "wrap" }}>
         <div style={{ background: "#3FB95022", border: "1px solid #3FB95044", padding: "8px 16px", borderRadius: "8px", fontSize: "13px", color: "#3FB950" }}>✓ Known: {known.size}</div>
-        <div style={{ background: "#F5900022", border: "1px solid #F5900044", padding: "8px 16px", borderRadius: "8px", fontSize: "13px", color: "#F59000" }}>+ Study: {studying.size}</div>
-        <div style={{ background: "var(--bg-1)", border: "1px solid var(--border)", padding: "8px 16px", borderRadius: "8px", fontSize: "13px", color: "var(--text-4)" }}>+ Remaining: {remaining.length - known.size - studying.size}</div>
+        <div style={{ background: "#F5900022", border: "1px solid #F5900044", padding: "8px 16px", borderRadius: "8px", fontSize: "13px", color: "#F59000" }}>📚 Study: {studying.size}</div>
+        <div style={{ background: "var(--bg-1)", border: "1px solid var(--border)", padding: "8px 16px", borderRadius: "8px", fontSize: "13px", color: "var(--text-4)" }}>📇 Remaining: {remaining.length - known.size - studying.size}</div>
       </div>
 
       {/* Progress */}
@@ -299,7 +299,7 @@ function FlashcardDeck({ set, accentColor }: { set: QuizSet; accentColor: string
       {flipped ? (
         <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
           <button onClick={markStudy} style={{ background: "#F5900022", border: "1px solid #F5900044", color: "#F59000", padding: "12px 28px", borderRadius: "12px", cursor: "pointer", fontSize: "14px", fontWeight: 700 }}>
-            + Need to study
+            📚 Need to study
           </button>
           <button onClick={markKnown} style={{ background: "#3FB95022", border: "1px solid #3FB95044", color: "#3FB950", padding: "12px 28px", borderRadius: "12px", cursor: "pointer", fontSize: "14px", fontWeight: 700 }}>
             ✓ I know this
@@ -373,7 +373,7 @@ export default function QuizEnvironment({ sets, accentColor = "#3B82F6", techNam
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "16px" }}>
         {sets.map(set => {
           const result = scores[set.id];
-          const typeIcon = set.type === "mcq" ? "❓" : set.type === "flashcard" ? ">" : "✏";
+          const typeIcon = set.type === "mcq" ? "❓" : set.type === "flashcard" ? "📇" : "✏️";
           const typeLabel = set.type === "mcq" ? "MCQ Quiz" : set.type === "flashcard" ? "Flashcards" : "Fill in Blank";
           const itemCount = set.questions?.length || set.flashcards?.length || 0;
           return (

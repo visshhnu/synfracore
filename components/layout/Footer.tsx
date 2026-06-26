@@ -145,7 +145,7 @@ export default function Footer() {
             {/* Contact */}
             <div style={{ marginTop: "20px" }}>
               <a href="mailto:hello@synfracore.com" style={{ fontSize: "13px", color: "var(--text-4)", textDecoration: "none", display: "flex", alignItems: "center", gap: "6px" }}>
-                <span>✉</span> hello@synfracore.com
+                <span>✉️</span> hello@synfracore.com
               </a>
             </div>
           </div>

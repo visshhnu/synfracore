@@ -1,212 +1,186 @@
-"use client";
 import Link from "next/link";
-import { ArrowRight, TrendingUp } from "lucide-react";
-export const runtime = "edge";
+import { ArrowRight, Briefcase, TrendingUp, MapPin, DollarSign } from "lucide-react";
 
-const CAREER_CLUSTERS = [
+export const metadata = {
+  title: "Career Guide — SynfraCore",
+  description: "Career paths, salary guides, and job search strategies for tech professionals in India",
+};
+
+const careerPaths = [
   {
-    cluster: "Tech & Engineering",
+    title: "DevOps Engineer",
+    icon: "⚙️",
     color: "#3B82F6",
-    icon: "⚙",
-    description: "Software, DevOps, Cloud, AI, Data, Security — highest-paying careers in India's IT sector",
-    careers: [
-      { title: "DevOps Engineer", icon: "⚙", salary: "₹8L–₹35L", demand: "Very High", roadmap: "/roadmaps/devops-engineer", academy: "/academies/devops", skills: ["Linux", "Docker", "Kubernetes", "CI/CD", "Cloud"], entry: "B.Tech/BSc + self-learning" },
-      { title: "Cloud Architect", icon: "☁", salary: "₹15L–₹60L", demand: "Very High", roadmap: "/roadmaps/cloud-architect", academy: "/academies/cloud", skills: ["AWS/Azure/GCP", "Terraform", "Security", "Cost Opt."], entry: "3+ yrs cloud experience" },
-      { title: "AI Engineer", icon: "*", salary: "₹18L–₹80L", demand: "Extremely High", roadmap: "/roadmaps/ai-engineer", academy: "/academies/ai", skills: ["Python", "LLMs", "RAG", "LangChain", "LLMOps"], entry: "Software/Data background" },
-      { title: "Data Analyst", icon: "*", salary: "₹5L–₹25L", demand: "High", roadmap: "/roadmaps/data-analyst", academy: "/academies/data", skills: ["SQL", "Python", "Power BI", "Excel"], entry: "Any degree + SQL/Python" },
-      { title: "Security Engineer", icon: "*", salary: "₹10L–₹45L", demand: "High", roadmap: "/roadmaps/security-engineer", academy: "/academies/security", skills: ["Network Security", "SIEM", "Pen Testing", "Cloud Sec."], entry: "IT background + CEH/OSCP" },
-      { title: "SRE / Platform Engineer", icon: "*", salary: "₹20L–₹90L", demand: "Very High", roadmap: "/roadmaps/sre-engineer", academy: "/academies/devops", skills: ["Kubernetes", "SLOs", "Incident Mgmt", "Observability"], entry: "3+ yrs DevOps/Cloud" },
-    ],
+    salaryRange: "₹6L – ₹40L",
+    demand: "Very High",
+    roadmapLink: "/roadmaps/devops-engineer",
+    roleLink: "/careers/devops-engineer",
+    skills: ["Linux", "Docker", "Kubernetes", "CI/CD", "Terraform", "Cloud"],
+    companies: ["Infosys", "TCS", "Wipro", "Amazon", "Microsoft", "Google"],
+    jobTitles: ["DevOps Engineer", "Platform Engineer", "SRE", "Infrastructure Engineer"],
   },
   {
-    cluster: "Law & Legal",
-    color: "#6366F1",
-    icon: "⚖",
-    description: "Advocate, judiciary, corporate counsel, legal analyst — one of India's oldest and most respected professions",
-    careers: [
-      { title: "Advocate / Litigator", icon: "⚖", salary: "₹3L–₹50L+ (variable)", demand: "Stable", roadmap: "/roadmaps/advocate-career", academy: "/academies/law", skills: ["Court procedure", "Drafting", "Legal research", "AIBE"], entry: "LLB degree + Bar Council enrollment" },
-      { title: "Civil Judge / Judicial Officer", icon: "*", salary: "₹13L–₹25L (govt)", demand: "Competitive exam", roadmap: "/roadmaps/judiciary-civil-judge", academy: "/academies/law", skills: ["Constitutional law", "CPC", "Criminal law", "Judgment writing"], entry: "LLB + State PSC exam" },
-      { title: "Corporate Counsel", icon: ">", salary: "₹8L–₹35L", demand: "Growing", roadmap: "/roadmaps/advocate-career", academy: "/academies/law", skills: ["Company law", "Contract drafting", "M&A", "SEBI/RBI compliance"], entry: "LLB + 2–5 yrs litigation" },
-      { title: "Legal Analyst (Tech/BFSI)", icon: "*", salary: "₹4L–₹15L", demand: "Growing", roadmap: "/roadmaps/advocate-career", academy: "/academies/law", skills: ["IT Act", "DPDP Act", "Fintech regulation", "Contract review"], entry: "LLB + domain interest" },
-    ],
-  },
-  {
-    cluster: "Government & Civil Services",
+    title: "Cloud Architect",
+    icon: "☁️",
     color: "#F59E0B",
-    icon: "*",
-    description: "IAS, IPS, State PSC, Banking PO — prestige, security, and the opportunity to serve millions",
-    careers: [
-      { title: "IAS / IPS / IFS (UPSC)", icon: "*", salary: "₹56K–₹2.5L/mo (govt) + perks", demand: "Extremely Competitive", roadmap: "/roadmaps/upsc-ias", academy: "/academies/exams", skills: ["General Studies I–IV", "Optional subject", "Essay", "Interview"], entry: "Any graduation + UPSC exam" },
-      { title: "State PSC Officer", icon: "*", salary: "₹35K–₹1.5L/mo", demand: "Competitive", roadmap: "/roadmaps/state-psc-officer", academy: "/academies/state-psc", skills: ["State GK", "State language", "Polity", "Economy"], entry: "Graduation + State PSC exam" },
-      { title: "Banking PO (SBI/IBPS)", icon: "*", salary: "₹52K–₹95K/mo", demand: "High (annual exam)", roadmap: "/roadmaps/banking-po", academy: "/academies/exams", skills: ["Quant aptitude", "Reasoning", "Banking awareness", "English"], entry: "Graduation + IBPS/SBI exam" },
-      { title: "RBI Grade B Officer", icon: "*", salary: "₹1.08L–₹1.36L/mo", demand: "Very Competitive", roadmap: "/roadmaps/banking-po", academy: "/academies/finance", skills: ["Economics", "Finance & Management", "ESI", "English writing"], entry: "Graduation 60%+ + RBI exam" },
-    ],
+    salaryRange: "₹15L – ₹80L",
+    demand: "Very High",
+    roadmapLink: "/roadmaps/cloud-architect",
+    roleLink: "/careers/cloud-architect",
+    skills: ["AWS/Azure/GCP", "Networking", "Security", "Terraform", "Cost Optimization"],
+    companies: ["Amazon", "Microsoft", "Google", "Accenture", "Deloitte", "KPMG"],
+    jobTitles: ["Cloud Architect", "Solutions Architect", "Cloud Engineer"],
   },
   {
-    cluster: "Finance & Commerce",
-    color: "#14B8A6",
-    icon: "*",
-    description: "CA, banking analyst, financial markets, SEBI — India's growing financial sector needs qualified professionals",
-    careers: [
-      { title: "Chartered Accountant (CA)", icon: "*", salary: "₹7L–₹50L+", demand: "Always High", roadmap: "/roadmaps/ca-journey", academy: "/academies/finance", skills: ["Audit", "Taxation", "Ind AS", "Corporate law", "Finance"], entry: "CA Foundation → Intermediate → Final + Articleship" },
-      { title: "Banking Analyst / RM", icon: "*", salary: "₹5L–₹25L", demand: "High", roadmap: "/roadmaps/banking-finance-analyst", academy: "/academies/finance", skills: ["Credit analysis", "Financial modelling", "Banking regulation", "Excel"], entry: "B.Com/MBA Finance + NISM certs" },
-      { title: "Equity / Investment Analyst", icon: ">", salary: "₹8L–₹40L", demand: "Moderate", roadmap: "/roadmaps/banking-finance-analyst", academy: "/academies/finance", skills: ["Company research", "Valuation (DCF, P/E)", "Bloomberg", "CFA"], entry: "MBA Finance or CA + CFA Level 1" },
-      { title: "Tax Consultant / GST Expert", icon: ">", salary: "₹4L–₹25L (own practice: higher)", demand: "High", roadmap: "/roadmaps/ca-journey", academy: "/academies/finance", skills: ["Income Tax", "GST", "TDS", "ITR filing", "Litigation"], entry: "CA / CS / B.Com + experience" },
-    ],
-  },
-  {
-    cluster: "Healthcare",
-    color: "#F43F5E",
-    icon: "*",
-    description: "Medical coding, hospital administration, health IT — India's healthcare outsourcing industry grows 8%/year",
-    careers: [
-      { title: "Medical Coder (CPC)", icon: "*", salary: "₹3L–₹12L (India) | $45K–$85K (remote)", demand: "Very High", roadmap: "/roadmaps/healthcare-coder", academy: "/academies/healthcare", skills: ["ICD-10-CM", "CPT", "HCPCS", "Medical terminology", "OASIS"], entry: "Any graduate + CPC certification" },
-      { title: "Home Health Coder (BCHHC)", icon: "*", salary: "₹4L–₹15L", demand: "Growing", roadmap: "/roadmaps/healthcare-coder", academy: "/academies/healthcare", skills: ["OASIS", "PDGM", "Home health ICD-10", "BCHHC exam"], entry: "Medical coding experience + BCHHC cert" },
-      { title: "Healthcare IT Analyst", icon: ">", salary: "₹5L–₹20L", demand: "Growing", roadmap: "/roadmaps/healthcare-coder", academy: "/academies/healthcare", skills: ["EHR systems", "HL7/FHIR", "Data analytics", "HIPAA"], entry: "IT/Health background" },
-    ],
-  },
-  {
-    cluster: "Agriculture",
-    color: "#22C55E",
-    icon: "*",
-    description: "Agricultural officer, NABARD, ICAR — India's ₹30L crore agriculture sector needs qualified professionals",
-    careers: [
-      { title: "Agricultural Field Officer (IBPS AFO)", icon: "*", salary: "₹36K–₹64K/mo (bank)", demand: "Good (annual exam)", roadmap: "/roadmaps/agricultural-officer", academy: "/academies/agriculture", skills: ["Agronomy", "Crop science", "Agri economics", "Govt schemes"], entry: "B.Sc Agriculture + IBPS AFO exam" },
-      { title: "NABARD Development Manager", icon: ">", salary: "₹44,500+/mo (Grade A)", demand: "Competitive", roadmap: "/roadmaps/agricultural-officer", academy: "/academies/agriculture", skills: ["Agricultural finance", "Rural development", "MFI", "NABARD schemes"], entry: "Agriculture/Finance degree + NABARD exam" },
-      { title: "ICAR Scientist / JRF", icon: "*", salary: "₹31K–₹35K/mo (fellowship) + career", demand: "Moderate", roadmap: "/roadmaps/agricultural-officer", academy: "/academies/agriculture", skills: ["Research methodology", "Subject specialisation", "Publications"], entry: "B.Sc Agriculture 55% + ICAR JRF exam" },
-    ],
-  },
-  {
-    cluster: "Telecom",
-    color: "#0EA5E9",
-    icon: "*",
-    description: "BSNL JTO, network engineer, 5G specialist — India's telecom sector is in the middle of a 5G build-out",
-    careers: [
-      { title: "BSNL JTO / JE", icon: "*", salary: "₹60,000+/mo (govt)", demand: "Good (GATE/Direct)", roadmap: "/roadmaps/telecom-engineer", academy: "/academies/telecom", skills: ["Electronics", "4G/5G", "Transmission", "OSS/BSS"], entry: "B.Tech ECE + GATE/BSNL JTO exam" },
-      { title: "Network Engineer (Private Telco)", icon: "*", salary: "₹6L–₹25L", demand: "High", roadmap: "/roadmaps/telecom-engineer", academy: "/academies/telecom", skills: ["Routing/Switching", "5G NR", "MPLS", "Vendor tools"], entry: "B.Tech ECE/CSE + CCNA/CCNP" },
-      { title: "5G Solutions Architect", icon: ">", salary: "₹20L–₹50L", demand: "Growing", roadmap: "/roadmaps/telecom-engineer", academy: "/academies/telecom", skills: ["5G Core (AMF/SMF/UPF)", "Network slicing", "Cloud-native", "Kubernetes"], entry: "5+ yrs telecom + cloud skills" },
-    ],
-  },
-  {
-    cluster: "Education",
+    title: "AI/ML Engineer",
+    icon: "🤖",
     color: "#8B5CF6",
-    icon: "*",
-    description: "CTET/TET teacher, NEET/JEE exam pathway, EdTech — education is one of India's largest employment sectors",
-    careers: [
-      { title: "NEET → MBBS Doctor", icon: "*", salary: "₹1.5L–₹2.5L/mo (resident) | ₹15L–₹1Cr+ (specialist)", demand: "Always High", roadmap: "/roadmaps/neet-medical", academy: "/academies/exams", skills: ["Biology", "Physics", "Chemistry", "Clinical rotation"], entry: "Class 12 PCB + NEET exam" },
-      { title: "JEE → Engineering (IIT/NIT)", icon: "*", salary: "₹10L–₹1.5Cr+ (placement)", demand: "Always High", roadmap: "/roadmaps/jee-engineering", academy: "/academies/exams", skills: ["Maths", "Physics", "Chemistry", "B.Tech specialisation"], entry: "Class 12 PCM + JEE Main + Advanced" },
-      { title: "School Teacher (CTET/TET)", icon: ">", salary: "₹35K–₹80K/mo (govt school)", demand: "Stable", roadmap: null, academy: "/academies/central-exams", skills: ["Subject mastery", "Pedagogy", "Child development", "State language"], entry: "Graduation + B.Ed + CTET/State TET" },
-      { title: "EdTech Content Creator", icon: "*", salary: "₹4L–₹20L", demand: "Growing", roadmap: null, academy: "/academies/education", skills: ["Subject expertise", "Video creation", "Content structuring"], entry: "Any subject expertise + content skills" },
-    ],
+    salaryRange: "₹12L – ₹80L",
+    demand: "Extremely High",
+    roadmapLink: "/roadmaps/ai-engineer",
+    roleLink: "/careers/ai-engineer",
+    skills: ["Python", "LLM APIs", "RAG", "AI Agents", "LLMOps", "Prompt Engineering"],
+    companies: ["OpenAI", "Anthropic", "Google", "Microsoft", "Startups", "Consulting"],
+    jobTitles: ["AI Engineer", "ML Engineer", "LLM Engineer", "AI Product Engineer"],
   },
   {
-    cluster: "Personal Wellness",
-    color: "#A855F7",
-    icon: "*",
-    description: "Health, nutrition, first aid, mental wellness, digital safety — foundational life skills for everyone",
-    careers: [
-      { title: "Life Skills Development", icon: "*", salary: "Not a job — quality of life multiplier", demand: "Personal priority", roadmap: "/roadmaps/personal-wellness", academy: "/academies/essentials", skills: ["Sleep", "Nutrition", "Movement", "Mental health", "Finance"], entry: "Open to everyone — start today" },
-    ],
+    title: "Data Analyst",
+    icon: "📊",
+    color: "#06B6D4",
+    salaryRange: "₹4L – ₹25L",
+    demand: "High",
+    roadmapLink: "/roadmaps/data-analyst",
+    skills: ["SQL", "Python/Pandas", "Excel", "Power BI/Tableau", "Statistics"],
+    companies: ["Banks", "E-commerce", "FMCG", "Healthcare", "Consulting", "Tech"],
+    jobTitles: ["Data Analyst", "Business Analyst", "BI Developer", "Analytics Engineer"],
   },
+  {
+    title: "Security Engineer",
+    icon: "🛡️",
+    color: "#EF4444",
+    salaryRange: "₹8L – ₹50L",
+    demand: "High",
+    roadmapLink: "/roadmaps/security-engineer",
+    skills: ["Network Security", "Cloud Security", "SIEM", "Ethical Hacking", "Compliance"],
+    companies: ["Banks", "Government", "Consulting", "Tech Companies", "MSSPs"],
+    jobTitles: ["Security Engineer", "SOC Analyst", "Penetration Tester", "Cloud Security Engineer"],
+  },
+  {
+    title: "Platform Engineer",
+    icon: "🏗️",
+    color: "#10B981",
+    salaryRange: "₹20L – ₹80L",
+    demand: "High",
+    roadmapLink: "/roadmaps/platform-engineer",
+    roleLink: "/careers/platform-engineer",
+    skills: ["Kubernetes", "GitOps", "Service Mesh", "Developer Tooling", "Observability"],
+    companies: ["Unicorns", "Product Companies", "Scale-ups", "Enterprise Tech"],
+    jobTitles: ["Platform Engineer", "Staff Engineer", "Infrastructure Lead"],
+  },
+];
+
+const jobSearchTips = [
+  { step: "1", title: "Build Your Portfolio", desc: "3+ GitHub projects with clear READMEs. Employers check GitHub before interviews." },
+  { step: "2", title: "Get Certified", desc: "1-2 relevant certifications prove skills to employers who can't verify them otherwise." },
+  { step: "3", title: "Optimize LinkedIn", desc: "Complete profile, relevant headline, post content in your domain weekly." },
+  { step: "4", title: "Apply Strategically", desc: "Apply to 20+ roles. Expect 3-5 interviews per offer. Numbers game — don't get discouraged." },
+  { step: "5", title: "Prepare for Interviews", desc: "System design + technical + behavioral. All three matter equally for mid/senior roles." },
+  { step: "6", title: "Negotiate Salary", desc: "Always negotiate. First offer is rarely final. Research market rates on Glassdoor/Levels.fyi." },
 ];
 
 export default function CareerPage() {
   return (
     <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "56px 24px" }}>
-      {/* Header */}
-      <div style={{ textAlign: "center", marginBottom: "56px" }}>
-        <div style={{ display: "inline-block", background: "rgba(99,102,241,0.1)", border: "1px solid rgba(99,102,241,0.2)", borderRadius: "20px", padding: "6px 16px", fontSize: "13px", color: "#6366F1", fontWeight: 600, marginBottom: "16px" }}>
-          9 Career Clusters · All Domains
+      <div style={{ textAlign: "center", marginBottom: "64px" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.2)", borderRadius: "20px", padding: "6px 16px", fontSize: "13px", color: "#3B82F6", fontWeight: 600, marginBottom: "20px" }}>
+          <Briefcase size={14}/> Career in Tech
         </div>
-        <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(28px,5vw,52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
-          Career Guide
+        <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
+          Your Tech Career Guide
         </h1>
-        <p style={{ color: "var(--text-4)", fontSize: "17px", maxWidth: "640px", margin: "0 auto", lineHeight: 1.6 }}>
-          Every career cluster, every domain. Find where you want to go, then follow the roadmap to get there.
+        <p style={{ color: "var(--text-4)", fontSize: "18px", maxWidth: "580px", margin: "0 auto", lineHeight: 1.7 }}>
+          Salary ranges, career paths, job search strategies, and step-by-step roadmaps for every tech role
         </p>
       </div>
 
-      {/* Career clusters */}
-      {CAREER_CLUSTERS.map(cluster => (
-        <div key={cluster.cluster} style={{ marginBottom: "48px" }}>
-          {/* Cluster header */}
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px", paddingBottom: "12px", borderBottom: `2px solid ${cluster.color}30` }}>
-            <span style={{ fontSize: "24px" }}>{cluster.icon}</span>
-            <div>
-              <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "20px", fontWeight: 800, marginBottom: "2px" }}>{cluster.cluster}</h2>
-              <p style={{ color: "var(--text-4)", fontSize: "13px", margin: 0 }}>{cluster.description}</p>
-            </div>
-          </div>
-
-          {/* Career cards */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 320px), 1fr))", gap: "14px" }}>
-            {cluster.careers.map(career => (
-              <div key={career.title} style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "14px", padding: "20px", borderLeft: `3px solid ${cluster.color}`, transition: "all 0.15s" }}
-                onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.boxShadow = `0 4px 20px ${cluster.color}18`; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.boxShadow = "none"; }}>
-
-                <div style={{ display: "flex", gap: "10px", alignItems: "flex-start", marginBottom: "12px" }}>
-                  <span style={{ fontSize: "22px", flexShrink: 0 }}>{career.icon}</span>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontWeight: 700, fontSize: "14px", marginBottom: "4px" }}>{career.title}</div>
-                    <div style={{ display: "flex", gap: "6px", alignItems: "center", flexWrap: "wrap" }}>
-                      <span style={{ fontSize: "11px", color: "#10B981", fontWeight: 700 }}>{career.salary}</span>
-                      <span style={{ fontSize: "10px", padding: "1px 7px", borderRadius: "10px", background: cluster.color + "15", color: cluster.color, fontWeight: 600 }}>{career.demand}</span>
-                    </div>
+      {/* Career Paths Grid */}
+      <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "24px", marginBottom: "24px" }}>Career Paths & Salaries (India 2025)</h2>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(360px, 1fr))", gap: "20px", marginBottom: "64px" }}>
+        {careerPaths.map(path => (
+          <div key={path.title} style={{ background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "16px", padding: "24px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "16px" }}>
+              <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+                <span style={{ fontSize: "32px" }}>{path.icon}</span>
+                <div>
+                  <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "18px", marginBottom: "4px" }}>{path.title}</h3>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <span style={{ display: "flex", alignItems: "center", gap: "4px", color: "#10B981", fontSize: "13px", fontWeight: 600 }}>
+                      <DollarSign size={12}/>{path.salaryRange}
+                    </span>
+                    <span style={{ background: path.demand === "Extremely High" ? "#8B5CF622" : path.demand === "Very High" ? "#3B82F622" : "#10B98122", color: path.demand === "Extremely High" ? "#8B5CF6" : path.demand === "Very High" ? "#3B82F6" : "#10B981", padding: "1px 6px", borderRadius: "4px", fontSize: "10px", fontWeight: 700 }}>
+                      {path.demand} Demand
+                    </span>
                   </div>
                 </div>
-
-                {/* Skills */}
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "4px", marginBottom: "12px" }}>
-                  {career.skills.map(s => (
-                    <span key={s} style={{ fontSize: "10px", padding: "2px 7px", borderRadius: "8px", background: "var(--bg-1)", border: "1px solid var(--border)", color: "var(--text-4)" }}>{s}</span>
-                  ))}
-                </div>
-
-                {/* Entry point */}
-                <div style={{ fontSize: "11px", color: "var(--text-4)", marginBottom: "12px", paddingTop: "8px", borderTop: "1px solid var(--border)" }}>
-                  <span style={{ fontWeight: 600, color: "var(--text-3)" }}>Entry: </span>{career.entry}
-                </div>
-
-                {/* Links */}
-                <div style={{ display: "flex", gap: "8px" }}>
-                  {career.roadmap && (
-                    <Link href={career.roadmap} style={{ textDecoration: "none", flex: 1 }}>
-                      <div style={{ padding: "7px 10px", borderRadius: "8px", background: cluster.color, color: "white", fontSize: "11px", fontWeight: 700, textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center", gap: "4px" }}>
-                        <TrendingUp size={11} /> Roadmap
-                      </div>
-                    </Link>
-                  )}
-                  <Link href={career.academy} style={{ textDecoration: "none", flex: 1 }}>
-                    <div style={{ padding: "7px 10px", borderRadius: "8px", background: "var(--bg-1)", border: "1px solid var(--border)", color: "var(--text-2)", fontSize: "11px", fontWeight: 600, textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center", gap: "4px" }}>
-                      Start Learning <ArrowRight size={11} />
-                    </div>
-                  </Link>
-                </div>
               </div>
-            ))}
-          </div>
-        </div>
-      ))}
+            </div>
 
-      {/* Bottom CTA */}
-      <div style={{ marginTop: "48px", padding: "36px", background: "linear-gradient(135deg, rgba(99,102,241,0.08), rgba(59,130,246,0.08))", borderRadius: "20px", border: "1px solid rgba(99,102,241,0.2)", textAlign: "center" }}>
-        <h3 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 800, fontSize: "22px", marginBottom: "10px" }}>
-          Not sure which path to take?
-        </h3>
-        <p style={{ color: "var(--text-4)", fontSize: "14px", marginBottom: "20px", maxWidth: "480px", margin: "0 auto 20px" }}>
-          Browse all 22 structured roadmaps or explore an academy to see what each domain covers in detail.
+            <div style={{ marginBottom: "12px" }}>
+              <div style={{ fontSize: "11px", color: "var(--text-4)", fontWeight: 600, letterSpacing: "0.08em", marginBottom: "6px" }}>KEY SKILLS</div>
+              <div style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}>
+                {path.skills.map(s => (
+                  <span key={s} style={{ background: `${path.color}15`, color: path.color, padding: "2px 7px", borderRadius: "4px", fontSize: "11px", fontWeight: 600 }}>{s}</span>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ marginBottom: "16px" }}>
+              <div style={{ fontSize: "11px", color: "var(--text-4)", fontWeight: 600, letterSpacing: "0.08em", marginBottom: "6px" }}>JOB TITLES</div>
+              <div style={{ fontSize: "13px", color: "var(--text-3)" }}>{path.jobTitles.join(" · ")}</div>
+            </div>
+
+            {(path as any).roleLink && (
+              <Link href={(path as any).roleLink} style={{ display: "flex", alignItems: "center", gap: "6px", background: path.color, color: "white", padding: "10px 16px", borderRadius: "10px", textDecoration: "none", fontSize: "13px", fontWeight: 700, marginBottom: "8px" }}>
+                Full Career Guide →
+              </Link>
+            )}
+            <Link href={path.roadmapLink} style={{ display: "flex", alignItems: "center", gap: "6px", background: `${path.color}15`, color: path.color, border: `1px solid ${path.color}33`, padding: "10px 16px", borderRadius: "10px", textDecoration: "none", fontSize: "13px", fontWeight: 600 }}>
+              <TrendingUp size={14}/> View Learning Roadmap <ArrowRight size={13} style={{ marginLeft: "auto" }}/>
+            </Link>
+          </div>
+        ))}
+      </div>
+
+      {/* Job Search Tips */}
+      <div style={{ background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "20px", padding: "40px", marginBottom: "48px" }}>
+        <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "24px", marginBottom: "32px" }}>
+          Job Search Strategy
+        </h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 270px), 1fr))", gap: "20px" }}>
+          {jobSearchTips.map(tip => (
+            <div key={tip.step} style={{ display: "flex", gap: "16px" }}>
+              <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: "linear-gradient(135deg, #3B82F6, #8B5CF6)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", fontWeight: 700, color: "#fff", flexShrink: 0 }}>{tip.step}</div>
+              <div>
+                <h4 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "15px", marginBottom: "4px" }}>{tip.title}</h4>
+                <p style={{ color: "var(--text-4)", fontSize: "13px", lineHeight: 1.6 }}>{tip.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Interview Prep CTA */}
+      <div style={{ textAlign: "center", background: "linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1))", border: "1px solid rgba(59,130,246,0.2)", borderRadius: "20px", padding: "48px 32px" }}>
+        <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "28px", fontWeight: 800, marginBottom: "12px" }}>Interview Preparation</h2>
+        <p style={{ color: "var(--text-4)", fontSize: "16px", maxWidth: "500px", margin: "0 auto 28px", lineHeight: 1.7 }}>
+          Every technology has a dedicated Interview Q&A section with the most asked questions and detailed answers.
         </p>
-        <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
-          <Link href="/roadmaps" style={{ textDecoration: "none" }}>
-            <div style={{ padding: "10px 24px", borderRadius: "10px", background: "#6366F1", color: "white", fontSize: "14px", fontWeight: 700, display: "flex", alignItems: "center", gap: "6px" }}>
-              <TrendingUp size={15} /> All 22 Roadmaps
-            </div>
+        <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
+          <Link href="/interview" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg, #3B82F6, #8B5CF6)", color: "#fff", padding: "14px 32px", borderRadius: "12px", fontSize: "15px", fontWeight: 700, textDecoration: "none" }}>
+            Interview Questions <ArrowRight size={16}/>
           </Link>
-          <Link href="/academies" style={{ textDecoration: "none" }}>
-            <div style={{ padding: "10px 24px", borderRadius: "10px", border: "1px solid var(--border)", color: "var(--text-2)", fontSize: "14px", fontWeight: 600, display: "flex", alignItems: "center", gap: "6px" }}>
-              Browse Academies <ArrowRight size={15} />
-            </div>
+          <Link href="/roadmaps" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "var(--bg-2)", border: "1px solid var(--border)", color: "var(--text-1)", padding: "14px 32px", borderRadius: "12px", fontSize: "15px", fontWeight: 600, textDecoration: "none" }}>
+            View Roadmaps
           </Link>
         </div>
       </div>

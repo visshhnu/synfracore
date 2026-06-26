@@ -12,12 +12,12 @@ export default function AuthorBadge({ techName, section, accentColor = "#6366F1"
   const isCert = section === "certification";
 
   const badge = isInterview
-    ? { text: "Verified by practitioners with 5+ years production experience", icon: "[Q]" }
+    ? { text: "Verified by practitioners with 5+ years production experience", icon: "💬" }
     : isLabs
-    ? { text: "Tested in real environments. All scenarios are production-validated.", icon: "[L]" }
+    ? { text: "Tested in real environments. All scenarios are production-validated.", icon: "🧪" }
     : isCert
-    ? { text: "Aligned with official exam objectives. Updated for current exam versions.", icon: "[C]" }
-    : { text: "Written by senior engineers. Reviewed for technical accuracy.", icon: "✍" };
+    ? { text: "Aligned with official exam objectives. Updated for current exam versions.", icon: "🏆" }
+    : { text: "Written by senior engineers. Reviewed for technical accuracy.", icon: "✍️" };
 
   return (
     <div style={{

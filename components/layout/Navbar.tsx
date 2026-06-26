@@ -179,23 +179,23 @@ const NAV_LINKS = [
   { n: "AI Assistant", h: "/ai-assistant" }, { n: "Career", h: "/career" },
 ];
 
-// Dropdown groups — 4 columns, each group is its own column
+// Dropdown groups — 4 equal columns
 const GROUPS = [
   {
-    label: "Tech & Engineering", color: "#3B82F6", icon: "⚙",
-    slugs: ["devops", "cloud", "databases", "ai", "data", "security", "telecom"],
+    label: "Tech & Engineering", color: "#3B82F6", icon: "⚙️",
+    slugs: ["devops", "cloud", "databases", "ai", "data", "security"],
   },
   {
-    label: "Education & Exams", color: "#F59E0B", icon: "*",
-    slugs: ["education", "exams", "state-psc", "central-exams", "professional-certs"],
+    label: "Education & Exams", color: "#F59E0B", icon: "🎓",
+    slugs: ["education", "exams", "state-psc", "central-exams"],
   },
   {
-    label: "Health & Life Skills", color: "#F43F5E", icon: "*",
-    slugs: ["healthcare", "essentials", "agriculture"],
+    label: "Health & Life Skills", color: "#F43F5E", icon: "🌿",
+    slugs: ["healthcare", "essentials", "economics", "finance"],
   },
   {
-    label: "Professional & Law", color: "#8B5CF6", icon: "*",
-    slugs: ["law", "finance", "economics"],
+    label: "Professional & Law", color: "#8B5CF6", icon: "🏛️",
+    slugs: ["law", "agriculture", "telecom", "professional-certs"],
   },
 ];
 
@@ -251,18 +251,12 @@ export default function Navbar() {
         <div style={{ maxWidth: "1300px", margin: "0 auto", padding: "0 16px", height: "60px", display: "flex", alignItems: "center", gap: "6px" }}>
           <Link href="/" style={{ textDecoration: "none", flexShrink: 0, lineHeight: 0, marginRight: "4px" }}>
             <div className="logo-wrapper">
-              {/* Dark mode: light/white logo — full when not scrolled, icon when scrolled */}
-              <Image src="/logo-full-nav.webp" alt="SynfraCore" width={160} height={28} priority
-                className={scrolled ? "logo-full-img logo-scrolled-hide" : "logo-full-img"}
-                style={{ height: "28px", width: "auto" }} />
-              {/* Light mode: dark-colored logo — full when not scrolled, icon when scrolled */}
-              <Image src="/logo-main.webp" alt="SynfraCore" width={160} height={28} priority
-                className={scrolled ? "logo-light-img logo-scrolled-hide" : "logo-light-img"}
-                style={{ height: "28px", width: "auto" }} />
-              {/* Icon only — shown on mobile OR when scrolled */}
-              <Image src="/logo-ac-icon.webp" alt="SynfraCore" width={32} height={28} priority
-                className={scrolled ? "logo-icon-img logo-scrolled-show" : "logo-icon-img"}
-                style={{ height: "28px", width: "auto" }} />
+              <Image src="/logo-transparent.webp" alt="SynfraCore" width={160} height={24} priority
+                className={scrolled ? "logo-full logo-scrolled-hide" : "logo-full"}
+                style={{ height: "24px", width: "auto", display: "block" }} />
+              <Image src="/logo-ac-icon.webp" alt="AC" width={36} height={28} priority
+                className={scrolled ? "logo-icon logo-scrolled-show" : "logo-icon"}
+                style={{ height: "28px", width: "auto", display: "none" }} />
             </div>
           </Link>
 
@@ -301,42 +295,41 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Desktop mega dropdown — 4 independent columns, one per category */}
+        {/* Desktop mega dropdown — single unified grid */}
         {dropOpen && (
           <div onMouseEnter={() => { clearTimeout(dropTimer); setDropOpen(true); }} onMouseLeave={() => { dropTimer = setTimeout(() => setDropOpen(false), 200); }}
             style={{ position: "absolute", left: 0, right: 0, top: "100%", background: "var(--bg-2)", borderBottom: "2px solid var(--border)", boxShadow: "0 20px 50px rgba(0,0,0,0.18)", zIndex: 300, padding: "16px 32px 12px" }}>
             <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-              {/* 4 columns — each group is its own column */}
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0 20px" }}>
+              {/* Group labels row */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0 12px", marginBottom: "10px", paddingBottom: "8px", borderBottom: "1px solid var(--border)" }}>
                 {GROUPS.map(group => (
-                  <div key={group.label}>
-                    {/* Column header */}
-                    <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: group.color, display: "flex", alignItems: "center", gap: "4px", marginBottom: "8px", paddingBottom: "6px", borderBottom: `1px solid ${group.color}30` }}>
-                      <span>{group.icon}</span> {group.label}
-                    </div>
-                    {/* Academies in this column */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
-                      {group.slugs.map(slug => {
-                        const a = academyMap[slug];
-                        if (!a) return null;
-                        return (
-                          <Link key={a.slug} href={`/academies/${a.slug}`} onClick={() => setDropOpen(false)}
-                            style={{ textDecoration: "none", padding: "5px 7px", borderRadius: "7px", display: "flex", alignItems: "center", gap: "7px" }}
-                            onMouseEnter={e => { e.currentTarget.style.background = `${a.color}14`; }}
-                            onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
-                            <span style={{ fontSize: "13px", flexShrink: 0 }}>{a.icon}</span>
-                            <div style={{ minWidth: 0 }}>
-                              <div style={{ fontSize: "11px", fontWeight: 600, color: "var(--text-1)", lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{a.title}</div>
-                              <div style={{ fontSize: "9px", color: "var(--text-4)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{a.subtitle}</div>
-                            </div>
-                          </Link>
-                        );
-                      })}
-                    </div>
+                  <div key={group.label} style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: group.color, display: "flex", alignItems: "center", gap: "4px" }}>
+                    <span>{group.icon}</span> {group.label}
                   </div>
                 ))}
               </div>
-              <div style={{ marginTop: "12px", paddingTop: "8px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "center" }}>
+              {/* Single unified grid — all academies, 4 equal columns */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "2px 12px" }}>
+                {GROUPS.map(group =>
+                  group.slugs.map(slug => {
+                    const a = academyMap[slug];
+                    if (!a) return null;
+                    return (
+                      <Link key={a.slug} href={`/academies/${a.slug}`} onClick={() => setDropOpen(false)}
+                        style={{ textDecoration: "none", padding: "5px 7px", borderRadius: "7px", display: "flex", alignItems: "center", gap: "7px" }}
+                        onMouseEnter={e => { e.currentTarget.style.background = `${a.color}14`; }}
+                        onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
+                        <span style={{ fontSize: "13px", flexShrink: 0 }}>{a.icon}</span>
+                        <div style={{ minWidth: 0 }}>
+                          <div style={{ fontSize: "11px", fontWeight: 600, color: "var(--text-1)", lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{a.title}</div>
+                          <div style={{ fontSize: "9px", color: "var(--text-4)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{a.subtitle}</div>
+                        </div>
+                      </Link>
+                    );
+                  })
+                )}
+              </div>
+              <div style={{ marginTop: "10px", paddingTop: "8px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "center" }}>
                 <Link href="/academies" onClick={() => setDropOpen(false)} style={{ fontSize: "12px", fontWeight: 600, color: "#3B82F6", textDecoration: "none", padding: "5px 18px", background: "rgba(59,130,246,0.08)", borderRadius: "8px", border: "1px solid rgba(59,130,246,0.2)" }}>
                   View all {academies.length} academies →
                 </Link>
@@ -424,7 +417,7 @@ export default function Navbar() {
             Start Learning Free
           </Link>
           <Link href="/roadmaps" onClick={closeDrawer} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "6px", padding: "10px", fontSize: "13px", borderRadius: "8px", textDecoration: "none", background: "var(--bg-2)", color: "var(--text-2)", border: "1px solid var(--border)", fontWeight: 600 }}>
-            [M] Learning Roadmaps
+            🗺️ Learning Roadmaps
           </Link>
         </div>
       </div>
@@ -432,30 +425,18 @@ export default function Navbar() {
       <style>{`
         .desktop-nav { display: flex; align-items: center; gap: 1px; }
         .mobile-only { display: none; }
+        .logo-full { display: block; }
+        .logo-icon { display: none; }
         @media (max-width: 1024px) {
           .desktop-nav { display: none !important; }
           .mobile-only { display: flex !important; }
-          .logo-scrolled-hide { display: none !important; }
-          .logo-scrolled-show { display: block !important; }
+          .logo-full { display: none !important; }
+          .logo-icon { display: block !important; }
         }
         .logo-wrapper { display: inline-flex; align-items: center; }
-
-        /* DARK MODE (default): show light logo, hide dark logo and icon */
-        .logo-full-img   { display: block; }
-        .logo-light-img  { display: none; }
-        .logo-icon-img   { display: none; }
-
-        /* Scroll state: hide full logo, show icon */
-        .logo-scrolled-hide { display: none !important; }
-        .logo-scrolled-show { display: block !important; }
-
-        /* LIGHT MODE: hide light logo, show dark logo */
-        html.light .logo-full-img  { display: none; }
-        html.light .logo-light-img { display: block; }
-        html.light .logo-icon-img  { display: none; }
-        /* In light mode when scrolled — icon still shows (overrides above) */
-        html.light .logo-icon-img.logo-scrolled-show { display: block !important; }
-        html.light .logo-light-img.logo-scrolled-hide { display: none !important; }
+        /* In light mode, if logo is white-on-transparent, invert it to dark */
+        html.light .logo-full { filter: brightness(0); }
+        html.light .logo-icon { filter: brightness(0); }
       `}</style>
     </>
   );

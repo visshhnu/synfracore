@@ -18,7 +18,7 @@ const roles: Record<string, {
   resume: string[];
 }> = {
   "platform-engineer": {
-    title: "Platform Engineer", icon: "*", color: "#8B5CF6",
+    title: "Platform Engineer", icon: "🏛️", color: "#8B5CF6",
     tagline: "Build the internal developer platform that makes teams 10x faster",
     salary: "₹20L – ₹90L", demand: "Extremely High",
     description: "Platform Engineers build and maintain the internal developer platform — the golden paths, self-service infrastructure, and tooling that lets application teams deploy, observe, and operate without deep infra expertise.",
@@ -51,7 +51,7 @@ const roles: Record<string, {
     ],
   },
   "devops-engineer": {
-    title: "DevOps Engineer", icon: "⚙", color: "#F59E0B",
+    title: "DevOps Engineer", icon: "⚙️", color: "#F59E0B",
     tagline: "Bridge dev and ops — automate everything, deploy continuously",
     salary: "₹6L – ₹40L", demand: "Very High",
     description: "DevOps Engineers own CI/CD pipelines, deployment automation, and production reliability — sitting at the intersection of development and operations to ensure code reaches production reliably and frequently.",
@@ -84,7 +84,7 @@ const roles: Record<string, {
     ],
   },
   "sre-engineer": {
-    title: "Site Reliability Engineer (SRE)", icon: "*", color: "#10B981",
+    title: "Site Reliability Engineer (SRE)", icon: "🔬", color: "#10B981",
     tagline: "Keep systems reliable at scale — SLOs, incident response, eliminating toil",
     salary: "₹20L – ₹90L", demand: "Extremely High",
     description: "SREs apply software engineering to operations — defining SLIs/SLOs, owning incident management, writing runbooks, eliminating toil through automation, and ensuring production reliability at scale.",
@@ -116,7 +116,7 @@ const roles: Record<string, {
     ],
   },
   "cloud-architect": {
-    title: "Cloud Architect", icon: "☁", color: "#3B82F6",
+    title: "Cloud Architect", icon: "☁️", color: "#3B82F6",
     tagline: "Design scalable, secure, cost-efficient cloud infrastructure for the enterprise",
     salary: "₹15L – ₹80L", demand: "Very High",
     description: "Cloud Architects design cloud strategy — choosing services, defining networking, setting security posture, optimising costs, and ensuring HA/DR across AWS, Azure, and GCP.",
@@ -148,7 +148,7 @@ const roles: Record<string, {
     ],
   },
   "ai-engineer": {
-    title: "AI Engineer", icon: "*", color: "#8B5CF6",
+    title: "AI Engineer", icon: "🤖", color: "#8B5CF6",
     tagline: "Build production AI — RAG pipelines, agents, LLMOps, AI-powered products",
     salary: "₹18L – ₹80L", demand: "Extremely High",
     description: "AI Engineers build systems that bring AI into production — RAG pipelines, AI agents, model serving, evaluation frameworks, and AI-powered features. The fastest-growing engineering role in 2025.",
@@ -232,7 +232,7 @@ export default async function RolePage({ params }: Props) {
 
       {/* Skills */}
       <section style={{ marginBottom: "40px" }}>
-        <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "18px", marginBottom: "16px" }}>* Required Skills</h2>
+        <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "18px", marginBottom: "16px" }}>🛠️ Required Skills</h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "10px" }}>
           {r.skills.map(s => (
             <Link key={s.name} href={s.link} style={{ textDecoration: "none" }}>
@@ -247,7 +247,7 @@ export default async function RolePage({ params }: Props) {
 
       {/* Learning path */}
       <section style={{ marginBottom: "40px" }}>
-        <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "18px", marginBottom: "16px" }}>[M] Step-by-Step Learning Path</h2>
+        <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "18px", marginBottom: "16px" }}>🗺️ Step-by-Step Learning Path</h2>
         <div style={{ display: "flex", flexDirection: "column" }}>
           {r.path.map((phase, i) => (
             <div key={i} style={{ display: "flex", alignItems: "flex-start" }}>
@@ -275,7 +275,7 @@ export default async function RolePage({ params }: Props) {
 
       {/* Interview questions */}
       <section style={{ marginBottom: "40px" }}>
-        <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "18px", marginBottom: "16px" }}>[Q] Key Interview Questions</h2>
+        <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "18px", marginBottom: "16px" }}>💬 Key Interview Questions</h2>
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           {r.interviews.map((q, i) => (
             <div key={i} style={{ padding: "16px 18px", borderRadius: "10px", border: "1px solid var(--border)", background: "var(--bg-1)", display: "flex", gap: "12px", alignItems: "flex-start" }}>
@@ -294,7 +294,7 @@ export default async function RolePage({ params }: Props) {
       {/* Certs + Companies */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px", marginBottom: "40px" }}>
         <section style={{ padding: "24px", borderRadius: "12px", border: "1px solid var(--border)", background: "var(--bg-1)" }}>
-          <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "16px", marginBottom: "14px" }}>[C] Target Certifications</h2>
+          <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "16px", marginBottom: "14px" }}>🏆 Target Certifications</h2>
           {r.certs.map((c, i) => (
             <div key={i} style={{ display: "flex", gap: "8px", marginBottom: "8px", fontSize: "13px", color: "var(--text-2)" }}>
               <CheckCircle size={14} color="#10B981" style={{ marginTop: "2px", flexShrink: 0 }} />
@@ -306,7 +306,7 @@ export default async function RolePage({ params }: Props) {
           </div>
         </section>
         <section style={{ padding: "24px", borderRadius: "12px", border: "1px solid var(--border)", background: "var(--bg-1)" }}>
-          <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "16px", marginBottom: "14px" }}>* Companies Hiring</h2>
+          <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "16px", marginBottom: "14px" }}>🏢 Companies Hiring</h2>
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
             {[...new Set(r.companies)].slice(0, 8).map(c => (
               <span key={c} style={{ fontSize: "12px", padding: "4px 10px", borderRadius: "20px", background: "var(--bg-2)", color: "var(--text-3)", fontWeight: 600 }}>{c}</span>
@@ -317,7 +317,7 @@ export default async function RolePage({ params }: Props) {
 
       {/* Resume bullets */}
       <section style={{ padding: "24px", borderRadius: "12px", background: "linear-gradient(135deg,rgba(59,130,246,0.05),rgba(139,92,246,0.05))", border: "1px solid rgba(59,130,246,0.15)", marginBottom: "40px" }}>
-        <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "16px", marginBottom: "8px" }}>* Sample Resume Bullets</h2>
+        <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "16px", marginBottom: "8px" }}>📄 Sample Resume Bullets</h2>
         <p style={{ color: "var(--text-4)", fontSize: "12px", marginBottom: "14px" }}>Adapt these — always quantify results from your real experience.</p>
         {r.resume.map((b, i) => (
           <div key={i} style={{ display: "flex", gap: "10px", marginBottom: "10px", fontSize: "13px", color: "var(--text-2)", lineHeight: 1.6 }}>

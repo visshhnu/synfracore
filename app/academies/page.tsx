@@ -93,7 +93,7 @@ export default function AcademiesPage() {
       <div style={{ marginTop: "48px", padding: "28px 32px", borderRadius: "16px", background: "linear-gradient(135deg,rgba(236,72,153,0.06),rgba(139,92,246,0.06))", border: "1px solid rgba(236,72,153,0.15)", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "20px" }}>
         <div>
           <div style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 800, fontSize: "18px", marginBottom: "6px" }}>
-            + Also preparing for exams?
+            📚 Also preparing for exams?
           </div>
           <div style={{ color: "var(--text-3)", fontSize: "14px" }}>
             JEE · NEET · GATE · Banking · UPSC · SSC · Defence · Class 10 · Class 12

@@ -19,12 +19,12 @@ export default async function CertificationDetailPage({ params }: Props) {
   if (!cert) notFound();
 
   const sections = [
-    { icon: "[S]", title: "Exam Overview", desc: "Domains, format, and what to expect" },
-    { icon: ">", title: "Study Plan", desc: "8-12 week structured preparation" },
-    { icon: ">", title: "Resources", desc: "Free and paid study materials" },
-    { icon: ">", title: "Practice Questions", desc: "Domain-by-domain question banks" },
-    { icon: "*", title: "Exam Tips", desc: "Strategies for exam day success" },
-    { icon: ">", title: "After Certification", desc: "Career paths and next steps" },
+    { icon: "📋", title: "Exam Overview", desc: "Domains, format, and what to expect" },
+    { icon: "📅", title: "Study Plan", desc: "8-12 week structured preparation" },
+    { icon: "📚", title: "Resources", desc: "Free and paid study materials" },
+    { icon: "🔥", title: "Practice Questions", desc: "Domain-by-domain question banks" },
+    { icon: "💡", title: "Exam Tips", desc: "Strategies for exam day success" },
+    { icon: "🎯", title: "After Certification", desc: "Career paths and next steps" },
   ];
 
   return (
