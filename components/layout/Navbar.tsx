@@ -251,13 +251,17 @@ export default function Navbar() {
         <div style={{ maxWidth: "1300px", margin: "0 auto", padding: "0 16px", height: "60px", display: "flex", alignItems: "center", gap: "6px" }}>
           <Link href="/" style={{ textDecoration: "none", flexShrink: 0, lineHeight: 0, marginRight: "4px" }}>
             <div className="logo-wrapper">
-              {/* Full logo — visible on desktop */}
+              {/* Dark mode: light/white logo — full when not scrolled, icon when scrolled */}
               <Image src="/logo-full-nav.webp" alt="SynfraCore" width={160} height={28} priority
-                className="logo-full"
-                style={{ height: "28px", width: "auto", display: "block" }} />
-              {/* Icon-only logo — visible on mobile */}
-              <Image src="/logo-ac-icon.webp" alt="AC" width={32} height={28} priority
-                className="logo-icon"
+                className={scrolled ? "logo-full-img logo-scrolled-hide" : "logo-full-img"}
+                style={{ height: "28px", width: "auto" }} />
+              {/* Light mode: dark-colored logo — full when not scrolled, icon when scrolled */}
+              <Image src="/logo-main.webp" alt="SynfraCore" width={160} height={28} priority
+                className={scrolled ? "logo-light-img logo-scrolled-hide" : "logo-light-img"}
+                style={{ height: "28px", width: "auto" }} />
+              {/* Icon only — shown on mobile OR when scrolled */}
+              <Image src="/logo-ac-icon.webp" alt="SynfraCore" width={32} height={28} priority
+                className={scrolled ? "logo-icon-img logo-scrolled-show" : "logo-icon-img"}
                 style={{ height: "28px", width: "auto" }} />
             </div>
           </Link>
@@ -428,21 +432,30 @@ export default function Navbar() {
       <style>{`
         .desktop-nav { display: flex; align-items: center; gap: 1px; }
         .mobile-only { display: none; }
-        .logo-full { display: block; }
-        .logo-icon { display: none; }
         @media (max-width: 1024px) {
           .desktop-nav { display: none !important; }
           .mobile-only { display: flex !important; }
-          .logo-full { display: none !important; }
-          .logo-icon { display: block !important; }
+          .logo-scrolled-hide { display: none !important; }
+          .logo-scrolled-show { display: block !important; }
         }
         .logo-wrapper { display: inline-flex; align-items: center; }
-        /* logo-full-nav is a light-colored logo — great on dark nav bg */
-        /* Default (dark mode): show as-is */
-        .logo-full, .logo-icon { filter: none; }
-        /* Light mode: re-color to brand teal so it is visible on white bg */
-        html.light .logo-full { filter: brightness(0) saturate(100%) invert(30%) sepia(90%) saturate(500%) hue-rotate(175deg) brightness(85%); }
-        html.light .logo-icon { filter: brightness(0) saturate(100%) invert(30%) sepia(90%) saturate(500%) hue-rotate(175deg) brightness(85%); }
+
+        /* DARK MODE (default): show light logo, hide dark logo and icon */
+        .logo-full-img   { display: block; }
+        .logo-light-img  { display: none; }
+        .logo-icon-img   { display: none; }
+
+        /* Scroll state: hide full logo, show icon */
+        .logo-scrolled-hide { display: none !important; }
+        .logo-scrolled-show { display: block !important; }
+
+        /* LIGHT MODE: hide light logo, show dark logo */
+        html.light .logo-full-img  { display: none; }
+        html.light .logo-light-img { display: block; }
+        html.light .logo-icon-img  { display: none; }
+        /* In light mode when scrolled — icon still shows (overrides above) */
+        html.light .logo-icon-img.logo-scrolled-show { display: block !important; }
+        html.light .logo-light-img.logo-scrolled-hide { display: none !important; }
       `}</style>
     </>
   );

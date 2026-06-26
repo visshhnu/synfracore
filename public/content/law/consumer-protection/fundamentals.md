@@ -1,81 +1,69 @@
-# Consumer Protection Law — Fundamentals
+# Consumer Protection — Fundamentals
 
-Consumer Protection Act 2019, COPRA, consumer forums, remedies, e-commerce regulations, and product liability.
+## Defect vs Deficiency
 
-Detailed content for fundamentals of Consumer Protection Law covering key concepts, practice questions, and exam preparation material.
+| | Defect | Deficiency |
+|-|--------|-----------|
+| What | Fault, imperfection in **goods** | Shortcoming in **service** |
+| Examples | Mobile with faulty battery, spoilt food | Bank wrong debit, builder delay, hospital negligence |
+| Standard | Compared to merchantable quality / seller's representation | Compared to promised/standard service |
 
-## Key Topics
-This section covers the core fundamentals content for Consumer Protection Law. Work through the overview first, then fundamentals, intermediate, and advanced sections in order.
+---
 
-## Study Note
-For Consumer Protection Law, focus on understanding principles and their application to fact scenarios — this is how both CLAT and judiciary exams test your knowledge.
+## Unfair Trade Practices (Section 2(47))
 
-## Core Concepts
-This section covers the foundational knowledge required for this topic. Work through each concept systematically before moving to intermediate topics.
+1. **False representation** — lying about quality, grade, standard, style, model
+2. **False facts** — misleading claims about competitor's product
+3. **Free gift offers** — bait advertisements
+4. **Hoarding** — stockpiling to raise prices
+5. **Spurious goods** — fake products passed off as genuine
+6. **Pyramid schemes** — MLM fraud schemes
 
-## Key Principles
-- Understand the basic theory and definitions
-- Learn the regulatory framework and key bodies involved
-- Practice with simple examples before complex scenarios
-- Use the cheatsheet for quick reference during revision
+---
 
-## Getting Started
-Begin by reading the overview, then work through this fundamentals section. Each concept builds on the previous one. Do not skip ahead — the foundation matters.
+## Warranties in Consumer Law
 
-## Self-Assessment
-After completing this section, you should be able to:
-- Define the core terms and concepts
-- Explain the basic structure and framework
-- Answer beginner-level questions on this topic
-- Identify the key regulations, acts, or standards that apply
+**Express warranty:** Written/verbal promise by seller about the product.
+**Implied warranty:**
+- Of **merchantability** — product is fit for its ordinary purpose
+- Of **fitness for purpose** — if buyer specifies purpose, product must serve it
 
-## Common Beginner Questions
-**Q: Where should I start?** Start with the overview and this fundamentals section. Read official sources alongside these notes.
-**Q: How long will this take?** Budget 2-3 hours for a solid foundation.
-**Q: What resources supplement this?** Official textbooks, government websites, and exam-specific guides.
+**Disclaimer clauses:** Cannot waive liability for personal injury caused by defective product.
 
-## Detailed Study Notes
+---
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+## Mediation under CPA 2019
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+New mandatory mediation step:
+- Commission can refer parties to mediation if there are reasonable chances of settlement
+- 5 working days for parties to opt out
+- Mediation Centre attached to each Commission
+- If mediated settlement: recorded by mediator, placed before Commission, Commission passes order
+- If no settlement: returned to Commission for adjudication
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+---
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
+## Important Definitions
 
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
+**Consumer dispute:** A dispute where person alleges any of these defects/deficiencies.
 
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
+**Complainant:** Consumer, any recognised consumer association, one or more consumers (class action), Central/State Government.
 
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
+**Opposite party:** Trader / Manufacturer / Service provider against whom complaint is made.
 
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+**Goods:** Every kind of movable property (includes growing crops, stocks, shares, actionable claims are excluded).
+
+**Services:** Services of any description which are made available to potential users — banking, financing, insurance, transport, processing, supply of electrical or gas, boarding/lodging, construction, entertainment, amusement — but does NOT include services rendered free of charge.
+
+---
+
+## Common Exam Questions
+
+**Q: A doctor provides service free of charge. Can a patient file consumer complaint?**  
+A: No — free services are excluded from "service" definition under CPA 2019.
+
+**Q: Can a person file complaint for a product bought 3 years ago?**  
+A: No — limitation is 2 years from cause of action. But court can condone delay if sufficient cause shown.
+
+**Q: What is the distinction between District Forum (old) and District Commission (new)?**  
+A: CPA 2019 renamed "District Forum" to "District Consumer Disputes Redressal Commission" and increased its pecuniary limit from ₹20 lakh to ₹1 crore.

@@ -1,67 +1,114 @@
 # Legal Fundamentals — Core Concepts
 
-## Indian Contract Act 1872 — Essentials of a Valid Contract
-1. **Offer and Acceptance**: Clear proposal + unqualified acceptance
-2. **Consideration**: Something of value exchanged by both parties
-3. **Capacity**: Parties must be of sound mind, majority age (18+), not disqualified by law
-4. **Free Consent**: No coercion, undue influence, fraud, misrepresentation, or mistake
-5. **Lawful Object**: Purpose must not be illegal, immoral, or against public policy
-6. **Legal Formalities**: Some contracts require stamp duty, registration (e.g., property)
+## Basic Legal Terminology
 
-## Indian Penal Code 1860 — Key Offences
-| Section | Offence | Punishment |
-|---------|---------|-----------|
-| 302 | Murder | Death or life imprisonment |
-| 304 | Culpable homicide not amounting to murder | Up to 10 years |
-| 376 | Rape | Minimum 7 years |
-| 378/379 | Theft/Punishment for theft | Up to 3 years |
-| 420 | Cheating | Up to 7 years |
-| 498A | Cruelty by husband/relatives | Up to 3 years |
+**Jurisdiction:** Court's authority to hear a case. Three types:
+- **Subject-matter jurisdiction** — what type of cases the court can hear
+- **Territorial jurisdiction** — geographic area the court covers
+- **Pecuniary jurisdiction** — monetary value of cases the court can handle
 
-## Constitutional Rights (Part III — Fundamental Rights)
-- **Article 12-13**: Definition of State, laws inconsistent with FRs are void
-- **Article 14**: Right to equality
-- **Article 19**: Six freedoms (speech, assembly, association, movement, residence, profession)
-- **Article 21**: Right to life and personal liberty (most expanded by Supreme Court)
-- **Article 32**: Right to constitutional remedies — "soul of Constitution"
+**Cause of Action:** The set of facts that gives a person the right to seek legal remedy.
 
-## Writs (Article 32/226)
-| Writ | Purpose | Against Whom |
-|------|---------|-------------|
-| Habeas Corpus | Produce detained person | Any detaining authority |
-| Mandamus | Compel performance of duty | Public officials/bodies |
-| Prohibition | Stop inferior court from exceeding jurisdiction | Inferior courts/tribunals |
-| Certiorari | Quash illegal order | Inferior courts/tribunals |
-| Quo Warranto | Challenge unlawful assumption of office | Person claiming public office |
+**Plaintiff / Complainant:** Person who brings the legal action.
 
-## Legal Reasoning for CLAT
-CLAT legal reasoning tests: (1) reading a legal principle, (2) applying it to a given fact situation, (3) reaching a conclusion.
+**Defendant / Respondent:** Person against whom the action is brought.
 
-Example:
-*Principle*: A person who, by negligence, causes damage to another is liable to pay compensation.
-*Facts*: X, while reversing his car, did not check his mirrors and hit Y's bicycle.
-*Conclusion*: X is liable to compensate Y for the damage.
+**Locus Standi:** Legal standing — right to bring a case before a court (e.g., PIL can be filed by any public-spirited citizen).
 
-## Core Concepts
-This section covers the foundational knowledge required for this topic. Work through each concept systematically before moving to intermediate topics.
+**Prima Facie Case:** Sufficient evidence to proceed to trial on the face of it.
 
-## Key Principles
-- Understand the basic theory and definitions
-- Learn the regulatory framework and key bodies involved
-- Practice with simple examples before complex scenarios
-- Use the cheatsheet for quick reference during revision
+---
 
-## Getting Started
-Begin by reading the overview, then work through this fundamentals section. Each concept builds on the previous one. Do not skip ahead — the foundation matters.
+## Types of Law
 
-## Self-Assessment
-After completing this section, you should be able to:
-- Define the core terms and concepts
-- Explain the basic structure and framework
-- Answer beginner-level questions on this topic
-- Identify the key regulations, acts, or standards that apply
+| Type | Nature | Examples |
+|------|--------|---------|
+| Substantive Law | Defines rights, duties, offences | IPC, Contract Act, Constitution |
+| Procedural Law | How to enforce substantive law | CrPC, CPC, Evidence Act |
+| Public Law | State vs Citizen | Constitutional, Administrative, Criminal |
+| Private Law | Individual vs Individual | Contract, Tort, Family Law |
 
-## Common Beginner Questions
-**Q: Where should I start?** Start with the overview and this fundamentals section. Read official sources alongside these notes.
-**Q: How long will this take?** Budget 2-3 hours for a solid foundation.
-**Q: What resources supplement this?** Official textbooks, government websites, and exam-specific guides.
+---
+
+## Cognizable vs Non-Cognizable Offences
+
+| | Cognizable | Non-Cognizable |
+|-|-----------|---------------|
+| FIR | Can be registered | Cannot — needs complaint to Magistrate |
+| Arrest | Police can arrest without warrant | Warrant required |
+| Investigation | Police can investigate without Magistrate order | Need Magistrate's order |
+| Examples | Murder, Robbery, Rape, Dacoity | Cheating, Defamation, Assault |
+
+---
+
+## Bailable vs Non-Bailable Offences
+
+**Bailable:** Bail is a right — police or Magistrate must grant it.  
+**Non-Bailable:** Bail is a privilege — court has discretion. Factors: nature of crime, criminal history, flight risk, tampering with evidence.
+
+---
+
+## Types of Evidence
+
+1. **Direct Evidence:** Eyewitness testimony, CCTV footage, confession
+2. **Circumstantial Evidence:** Inferred from circumstances (fingerprints, motive, opportunity)
+3. **Documentary Evidence:** Written documents, emails, contracts
+4. **Expert Evidence:** Medical, forensic, financial expert testimony
+5. **Electronic Evidence:** WhatsApp messages, emails, digital records (Section 65B certificate required)
+
+**Burden of Proof:**
+- Criminal: Prosecution must prove **beyond reasonable doubt**
+- Civil: Plaintiff must prove **on balance of probabilities**
+
+---
+
+## Key Acts to Know
+
+| Act | Year | Coverage |
+|-----|------|---------|
+| Indian Contract Act | 1872 | Contracts, offer, acceptance, consideration, breach |
+| Transfer of Property Act | 1882 | Sale, mortgage, lease, gift, exchange of property |
+| Indian Evidence Act | 1872 → BSA 2023 | Rules of evidence in courts |
+| Limitation Act | 1963 | Time limits to file suits/appeals |
+| Specific Relief Act | 1963 | When courts can compel performance of contract |
+| Arbitration & Conciliation Act | 1996 | Alternative dispute resolution |
+| Legal Services Authorities Act | 1987 | Free legal aid, Lok Adalat |
+
+---
+
+## Limitation Periods (Important for Exams)
+
+| Suit / Action | Limitation Period |
+|--------------|-----------------|
+| Money suit (simple contract) | 3 years |
+| Suit on promissory note | 3 years |
+| Suit to set aside fraud | 3 years from discovery |
+| Suit for recovery of possession of immovable property | 12 years |
+| Suit by/against government | 30 years |
+| Consumer complaint | 2 years |
+| Criminal appeal | 30–90 days (varies) |
+
+---
+
+## Lok Adalat — People's Court
+
+Under Legal Services Authorities Act 1987:
+- Pre-litigation settlement OR pending case settlement
+- Award is **final and binding** — deemed a decree of civil court
+- **No appeal** lies against Lok Adalat award
+- **No court fee** — refunded if settled via Lok Adalat
+- Covers: motor accident claims, matrimonial disputes (except divorce), labour disputes, compoundable offences
+
+---
+
+## Right to Free Legal Aid (Article 39A)
+
+Available to:
+- Women and children
+- SC/ST members
+- Persons with disability
+- Victims of mass disaster, violence, flood, drought
+- Persons in custody
+- Persons with annual income below threshold (₹3 lakh for SC; varies by state)
+
+Through: **DLSA** (District Legal Services Authority) → **SLSA** (State) → **NALSA** (National)

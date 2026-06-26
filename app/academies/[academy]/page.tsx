@@ -192,10 +192,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const academy = getAcademy(aSlug);
   if (!academy) return { title: "Academy | SynfraCore" };
   const m = academyMeta[aSlug] || defaultMeta;
+  const ogUrl = `https://synfracore.com/api/og?academy=${aSlug}&title=${encodeURIComponent(academy.title)}&subtitle=${encodeURIComponent(academy.subtitle || "")}`;
   return {
     title: `${academy.title} Academy — Structured Learning Path | SynfraCore`,
     description: m.desc,
     alternates: { canonical: `https://synfracore.com/academies/${aSlug}` },
+    openGraph: {
+      title: `${academy.title} | SynfraCore`,
+      description: m.desc,
+      url: `https://synfracore.com/academies/${aSlug}`,
+      siteName: "SynfraCore",
+      images: [{ url: ogUrl, width: 1200, height: 630, alt: academy.title }],
+      type: "website",
+    },
+    twitter: { card: "summary_large_image", title: `${academy.title} | SynfraCore`, description: m.desc, images: [ogUrl] },
   };
 }
 

@@ -1,81 +1,105 @@
 # Constitutional Law — Fundamentals
 
-Indian Constitution structure, Preamble, Fundamental Rights, DPSP, Fundamental Duties, Amendment procedure, federal structure.
+## Preamble — Identity of the Constitution
 
-Detailed content for fundamentals of Constitutional Law covering key concepts, practice questions, and exam preparation material.
+"WE, THE PEOPLE OF INDIA, having solemnly resolved to constitute India into a **SOVEREIGN SOCIALIST SECULAR DEMOCRATIC REPUBLIC** and to secure to all its citizens:
 
-## Key Topics
-This section covers the core fundamentals content for Constitutional Law. Work through the overview first, then fundamentals, intermediate, and advanced sections in order.
+**JUSTICE** — Social, Economic, Political  
+**LIBERTY** — of thought, expression, belief, faith and worship  
+**EQUALITY** — of status and opportunity  
+**FRATERNITY** — assuring dignity of the individual and unity and integrity of the Nation..."
 
-## Study Note
-For Constitutional Law, focus on understanding principles and their application to fact scenarios — this is how both CLAT and judiciary exams test your knowledge.
+**Key words added by 42nd Amendment (1976):** Socialist, Secular, Integrity
 
-## Core Concepts
-This section covers the foundational knowledge required for this topic. Work through each concept systematically before moving to intermediate topics.
+**Legal status of Preamble:** Not enforceable in court but is a key to understanding constitutional intent. Part of Constitution but cannot override specific provisions (*Berubari Union case 1960, Kesavananda Bharati 1973*).
 
-## Key Principles
-- Understand the basic theory and definitions
-- Learn the regulatory framework and key bodies involved
-- Practice with simple examples before complex scenarios
-- Use the cheatsheet for quick reference during revision
+---
 
-## Getting Started
-Begin by reading the overview, then work through this fundamentals section. Each concept builds on the previous one. Do not skip ahead — the foundation matters.
+## Article 12 — Definition of "State"
 
-## Self-Assessment
-After completing this section, you should be able to:
-- Define the core terms and concepts
-- Explain the basic structure and framework
-- Answer beginner-level questions on this topic
-- Identify the key regulations, acts, or standards that apply
+For enforcement of FRs, "State" includes:
+- Government of India and Parliament
+- Government and Legislature of States
+- All local or other authorities within India
+- Authorities under control of Government of India
 
-## Common Beginner Questions
-**Q: Where should I start?** Start with the overview and this fundamentals section. Read official sources alongside these notes.
-**Q: How long will this take?** Budget 2-3 hours for a solid foundation.
-**Q: What resources supplement this?** Official textbooks, government websites, and exam-specific guides.
+**Why matters:** FRs are only against the "State" — not private parties. BCCI, Clubs, Private Companies generally not "State" unless they discharge public functions.
 
-## Detailed Study Notes
+---
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+## Article 13 — Laws Inconsistent with FRs
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+- Pre-constitutional laws (void to the extent inconsistent with FRs)
+- Future laws made in violation of FRs are void
+- "Law" includes ordinances, orders, bye-laws, rules, regulations, notifications, customs
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+This gives courts the power of **Judicial Review** over legislation.
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
+---
 
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
+## Article 21 — Expanded Scope
 
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
+Post *Maneka Gandhi (1978)*: Procedure must be:
+- **Just** — not arbitrary
+- **Fair** — reasonable
+- **Reasonable** — not oppressive
 
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
+Rights read into Art 21 by courts:
+- Right to live with human dignity
+- Right to livelihood
+- Right to health and medical care
+- Right to education (*now Art 21A*)
+- Right to privacy (*K.S. Puttaswamy, 2017*)
+- Right to speedy trial
+- Right to legal aid
+- Right against solitary confinement
 
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+---
+
+## Article 32 — Writs in Detail
+
+| Writ | Meaning | Used When |
+|------|---------|----------|
+| Habeas Corpus | "Produce the body" | Illegal detention, unlawful arrest |
+| Mandamus | "We command" | Public authority fails to perform duty |
+| Prohibition | Forbid | Inferior court exceeds jurisdiction |
+| Certiorari | "To be certified" | Quash inferior court's order for error/excess |
+| Quo Warranto | "By what authority" | Challenge to a person holding public office |
+
+**Art 32 (SC)** vs **Art 226 (HC):** HC has wider jurisdiction — can issue writs even for non-FR violations (any legal right). SC only for FR violation. But SC writ is enforceable nationwide.
+
+---
+
+## Separation of Powers
+
+India does not have strict separation (unlike USA) but functional separation:
+- **Legislature:** Parliament (Lok Sabha + Rajya Sabha) + State Legislatures
+- **Executive:** President, PM, Cabinet, Civil Services
+- **Judiciary:** SC, HCs, District Courts + Tribunals
+
+**Checks and balances:**
+- President can send bills back (except money bills)
+- Parliament can impeach President/SC judges
+- SC/HCs can strike down unconstitutional laws (judicial review)
+
+---
+
+## Parliamentary System Features
+
+- **PM is head of government** (President is nominal head)
+- **PM must have confidence of Lok Sabha**
+- **Cabinet collectively responsible to Lok Sabha**
+- No fixed term for PM — continues as long as LS confidence
+- President acts on aid and advice of Cabinet (Art 74)
+
+---
+
+## President vs Governor
+
+| | President | Governor |
+|-|-----------|---------|
+| Elected by | Electoral College (elected MPs + MLAs) | Appointed by President |
+| Term | 5 years | 5 years (pleasure of President) |
+| Oath administered by | Chief Justice of India | Chief Justice of HC |
+| Can be removed | Impeachment (Art 61) | At will of President |
+| Discretionary powers | Very limited | Can reserve bill for President, appoint CM in hung Assembly |

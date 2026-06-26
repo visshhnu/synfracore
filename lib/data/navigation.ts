@@ -62,3 +62,22 @@ export const stats = [
   { value: "890+", label: "Tech Topics" },
   { value: "13", label: "Certifications" },
 ];
+
+// Sections shown for non-technical knowledge domains (law, exams, education, etc.)
+export const nonTechSections = [
+  { slug: "overview",       label: "Overview",     icon: "📖", description: "What it covers, why it matters, and how to use this guide" },
+  { slug: "fundamentals",   label: "Fundamentals", icon: "🔤", description: "Core concepts, definitions, and foundational knowledge" },
+  { slug: "intermediate",   label: "Intermediate", icon: "⚡", description: "Applied knowledge, case studies, and worked examples" },
+  { slug: "advanced",       label: "Advanced",     icon: "🚀", description: "In-depth analysis, higher-order topics, and expert-level content" },
+  { slug: "notes",          label: "Notes",        icon: "📝", description: "Key takeaways, mnemonics, and revision points" },
+  { slug: "cheatsheets",    label: "Quick Ref",    icon: "📋", description: "At-a-glance summaries, tables, and quick reference cards" },
+  { slug: "interview",      label: "Practice Q&A", icon: "💬", description: "Practice questions, past paper patterns, and model answers" },
+  { slug: "faq",            label: "FAQ",          icon: "❓", description: "Frequently asked questions with clear, concise answers" },
+];
+
+// Academies that use nonTechSections instead of techSections
+export const nonTechAcademyIds = [
+  "law", "exams", "education", "state-psc", "central-exams",
+  "finance", "economics", "agriculture", "essentials", "healthcare",
+  "telecom", "professional-certs",
+];

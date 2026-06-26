@@ -3,7 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { getAcademy, getTechnology } from "@/lib/data/academies";
-import { techSections } from "@/lib/data/navigation";
+import { techSections, nonTechSections, nonTechAcademyIds } from "@/lib/data/navigation";
 import SectionContent from "@/components/tech/SectionContent";
 import LabsSection from "@/components/tech/LabsSection";
 import AuthorBadge from "@/components/tech/AuthorBadge";
@@ -85,6 +85,8 @@ const sectionTitles: Record<string, string> = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { academy: aSlug, technology: tSlug, section } = await params;
+  const isNonTech = nonTechAcademyIds.includes(aSlug);
+  const activeSections = isNonTech ? nonTechSections : techSections;
   const tech = getTechnology(aSlug, tSlug);
   const techName = tech?.name || techDisplayNames[tSlug] || tSlug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
   const sectionLabel = sectionTitles[section] || section.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
@@ -105,25 +107,32 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: canonicalUrl,
       type: "article",
       siteName: "SynfraCore",
+      images: [{
+        url: `https://synfracore.com/api/og?academy=${aSlug}&title=${encodeURIComponent(techName)}&section=${encodeURIComponent(sectionLabel)}&subtitle=${encodeURIComponent(description.slice(0, 80))}`,
+        width: 1200, height: 630, alt: `${techName} ${sectionLabel}`,
+      }],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: `${techName} ${sectionLabel} | SynfraCore`,
       description,
+      images: [`https://synfracore.com/api/og?academy=${aSlug}&title=${encodeURIComponent(techName)}&section=${encodeURIComponent(sectionLabel)}`],
     },
   };
 }
 
 export default async function SectionPage({ params }: Props) {
   const { academy: aSlug, technology: tSlug, section } = await params;
+  const isNonTech = nonTechAcademyIds.includes(aSlug);
+  const activeSections = isNonTech ? nonTechSections : techSections;
   const academy = getAcademy(aSlug);
   const tech = getTechnology(aSlug, tSlug);
   if (!academy || !tech) redirect("/academies");
 
-  const sectionData = techSections.find((s) => s.slug === section);
-  const currentIndex = techSections.findIndex((s) => s.slug === section);
-  const prevSection = currentIndex > 0 ? techSections[currentIndex - 1] : null;
-  const nextSection = currentIndex < techSections.length - 1 ? techSections[currentIndex + 1] : null;
+  const sectionData = activeSections.find((s) => s.slug === section);
+  const currentIndex = activeSections.findIndex((s) => s.slug === section);
+  const prevSection = currentIndex > 0 ? activeSections[currentIndex - 1] : null;
+  const nextSection = currentIndex < activeSections.length - 1 ? activeSections[currentIndex + 1] : null;
 
   const isLabs = section === "labs";
   const isInterview = section === "interview";
@@ -147,8 +156,24 @@ export default async function SectionPage({ params }: Props) {
 
   const currentQuiz = quizData[section] || null;
 
+  // Schema.org structured data
+  const schemaJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": `${tech.name} — ${sectionData?.label || section}`,
+    "description": sectionData?.description || `Learn ${tech.name}`,
+    "provider": { "@type": "Organization", "name": "SynfraCore", "url": "https://synfracore.com" },
+    "educationalLevel": tech.level || "Beginner",
+    "url": `https://synfracore.com/academies/${aSlug}/${tSlug}/${section}`,
+    "isAccessibleForFree": true,
+    "inLanguage": "en",
+    "teaches": tech.tags || [],
+  };
+
   return (
-    <div style={{ display: "flex", gap: "0", minHeight: "80vh" }}>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }} />
+      <div style={{ display: "flex", gap: "0", minHeight: "80vh" }}>
       {/* Sidebar */}
       <aside
         style={{
@@ -174,7 +199,7 @@ export default async function SectionPage({ params }: Props) {
           </div>
         </div>
         <nav>
-          {techSections.map((s) => (
+          {activeSections.map((s) => (
             <Link
               key={s.slug}
               href={`/academies/${aSlug}/${tSlug}/${s.slug}`}
@@ -279,5 +304,6 @@ export default async function SectionPage({ params }: Props) {
         </div>
       </main>
     </div>
+    </>
   );
 }

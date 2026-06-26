@@ -1,83 +1,130 @@
-# Consumer Protection Law — Overview
+# Consumer Protection Law — India
 
-Consumer Protection Act 2019, COPRA, consumer forums, remedies, e-commerce regulations, and product liability.
+## Consumer Protection Act 2019 (CPA 2019)
 
-Detailed content for overview of Consumer Protection Law covering key concepts, practice questions, and exam preparation material.
+Replaced the Consumer Protection Act 1986. Came into force **20 July 2020**. Introduces e-commerce, product liability, mediation, and Central Consumer Protection Authority (CCPA).
 
-## Key Topics
-This section covers the core overview content for Consumer Protection Law. Work through the overview first, then fundamentals, intermediate, and advanced sections in order.
+---
 
-## Study Note
-For Consumer Protection Law, focus on understanding principles and their application to fact scenarios — this is how both CLAT and judiciary exams test your knowledge.
+## Who is a "Consumer"?
 
-## Learning Path
-This section follows a structured approach from fundamentals to advanced topics. Each module builds on the previous one.
+A person who:
+1. **Buys goods** for personal use (not for resale/commercial use)
+2. **Hires services** for personal use (not for commercial purpose)
+3. **Beneficiary of goods/services** bought by someone else
 
-## Who This Is For
-Students and professionals at all levels who want to build knowledge in this domain — whether for exam preparation, career advancement, or general knowledge.
+**Not a consumer:** Someone who buys goods for resale or for commercial manufacturing purposes.
 
-## How to Study
-1. Start with the **Fundamentals** section to build a solid base
-2. Move to **Intermediate** for applied knowledge and scenarios
-3. Use **Advanced** for exam-level depth and complex topics
-4. Practise with **Interview Q&A** for exams and assessments
-5. Use the **Cheatsheet** for last-minute revision before the exam
+---
 
-## Key Features of This Section
-- Structured notes aligned with official syllabus
-- Practice questions after key concepts
-- Cheatsheets for quick revision
-- Interview and exam Q&A format
-- Current and updated content
+## Three-Tier Redressal Structure
 
-## Getting Started
-Click **Fundamentals** to begin your learning journey with this topic. Work systematically through each section for the best results.
+```
+NATIONAL CONSUMER DISPUTES REDRESSAL COMMISSION (NCDRC)
+  — New Delhi
+  — Pecuniary: complaints where value > ₹2 crore
+  — Appeals from State Commission
+        ↓
+STATE CONSUMER DISPUTES REDRESSAL COMMISSION (SCDRC)
+  — State level (each State has one)
+  — Pecuniary: ₹1 crore to ₹2 crore
+  — Appeals from District Commission
+        ↓
+DISTRICT CONSUMER DISPUTES REDRESSAL COMMISSION (DCDRC)
+  — District level
+  — Pecuniary: up to ₹1 crore
+  — First forum for most consumer complaints
+```
 
-## Assessment Strategy
-For objective exams: understand > memorise. For descriptive/written exams: structure your answers clearly. For interviews: demonstrate reasoning, not just recall.
+**Appeal chain:** District → State → National → Supreme Court (on questions of law)
 
-## Detailed Study Notes
+---
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+## What Can You Complain About?
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+- **Defective goods** — manufacturing defect, deterioration, impurity
+- **Deficient services** — shortcoming, inadequacy, fault in services promised
+- **Unfair trade practices** — false representation, misleading ads, fake discounts
+- **Restrictive trade practices** — practices that manipulate prices/supply
+- **Overcharging** — charging above MRP or agreed price
+- **E-commerce violations** — fake reviews, non-delivery, fraud sellers
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+---
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
+## Product Liability (New in CPA 2019)
 
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
+If a product causes harm, **three parties** can be held liable:
 
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
+1. **Product Manufacturer** — defective design, inadequate instructions
+2. **Product Service Provider** — incorrect repair/maintenance
+3. **Product Seller** — sold knowingly defective product, altered product
 
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
+Even if manufacturer is not at fault, seller can be liable if they exercised substantial control over product design.
 
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+---
+
+## CCPA — Central Consumer Protection Authority
+
+New body created by CPA 2019:
+- Powers: investigate, recall products, cancel licences, impose penalties
+- Can take **suo motu** cognizance
+- Chief Commissioner + Commissioners appointed by Centre
+- Can issue safety notices, stop unfair trade practices
+
+---
+
+## How to File a Consumer Complaint
+
+**Step 1:** Send written notice to seller/service provider (try to resolve)
+**Step 2:** If unresolved, file complaint with appropriate Commission
+**Step 3:** Complaint must include: complainant details, opposite party details, facts, relief sought, supporting documents
+**Step 4:** File within **2 years** of cause of action (limitation period)
+
+**Online filing:** e-DAAKHIL portal (edaakhil.nic.in)
+
+---
+
+## E-Commerce Seller Obligations (New)
+
+E-commerce platforms must:
+- Display seller details, country of origin, price breakup
+- Acknowledge complaints within 48 hours, resolve within 1 month
+- Not manipulate prices or suppress reviews
+- Provide return/refund policy clearly
+
+---
+
+## Reliefs Available to Consumer
+
+- **Repair/Replace** defective goods
+- **Refund** of price paid
+- **Compensation** for loss/injury suffered
+- **Removal of deficiency** in service
+- **Punitive damages** in appropriate cases
+- **Discontinuation** of unfair trade practice
+- Adequate costs to the complainant
+
+---
+
+## Key Time Limits
+
+| Stage | Time Limit |
+|-------|-----------|
+| File complaint | Within 2 years of cause of action |
+| Admission/rejection | Within 21 days of filing |
+| Response from opposite party | 30 days |
+| Mediation attempt | 5 days from referral |
+| Final order | Ideally within 3–5 months |
+
+---
+
+## Practice Questions
+
+**Q1.** A person buys a mixer-grinder from an e-commerce site. It stops working in 20 days. What can they do?
+**A:** File a consumer complaint for defective goods under CPA 2019. First send legal notice, then file at District Consumer Commission (if value ≤ ₹1 crore). Relief: replacement or refund + compensation.
+
+**Q2.** Can a company be a "consumer" under CPA 2019?
+**A:** A company buying goods/services exclusively for personal use (not commercial) can qualify. But if the purchase is for commercial purpose, they are NOT a consumer.
+
+**Q3.** What is the pecuniary jurisdiction of the State Commission?
+**A:** ₹1 crore to ₹2 crore. Below ₹1 crore → District Commission. Above ₹2 crore → NCDRC.
