@@ -139,7 +139,7 @@ export default function LabsPage() {
         <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "22px", marginBottom: "24px", display: "flex", alignItems: "center", gap: "10px" }}>
           <Terminal size={20}/> Interactive Lab Environments
         </h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))", gap: "20px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "20px" }}>
           {labCategories.map(cat => (
             <div key={cat.academy} style={{ background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "16px", padding: "24px" }}>
               {/* Header */}

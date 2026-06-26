@@ -602,6 +602,130 @@ const examsAcademy: Academy = {
 // ─────────────────────────────────────────────────────────
 // EXPORTED DATA
 // ─────────────────────────────────────────────────────────
+
+// ── NEW PHASE 3 ACADEMIES ──────────────────────────────
+const lawAcademy: Academy = {
+  slug: "law", title: "Law & Legal Studies", subtitle: "CLAT · Judiciary · Legal Reasoning · Constitution",
+  icon: "⚖️", color: "#6366F1",
+  description: "Legal fundamentals, Indian Constitution, IPC, contract law, CLAT preparation, and judiciary exam prep.",
+  domains: [{ slug: "legal-studies", name: "Legal Studies", icon: "📜", description: "Core law subjects", color: "#6366F1",
+    technologies: [
+      { slug: "legal-fundamentals", name: "Legal Fundamentals", icon: "📜", description: "Indian legal system, sources of law, court hierarchy, key acts", level: "Beginner", tags: ["Law", "IPC", "Constitution"] },
+      { slug: "constitutional-law", name: "Constitutional Law", icon: "🏛️", description: "Preamble, Fundamental Rights, DPSP, Amendment, federalism", level: "Intermediate", tags: ["Constitution", "FRs", "UPSC"] },
+      { slug: "clat-prep", name: "CLAT Preparation", icon: "🎯", description: "Legal reasoning, logical reasoning, English, GK for CLAT/AILET", level: "Intermediate", tags: ["CLAT", "AILET", "NLU"] },
+      { slug: "consumer-protection", name: "Consumer Protection", icon: "🛡️", description: "Consumer Protection Act 2019, COPRA, consumer forums, e-commerce", level: "Beginner", tags: ["Consumer Law", "COPRA"] },
+    ]
+  }],
+  technologies: [],
+};
+
+const agricultureAcademy: Academy = {
+  slug: "agriculture", title: "Agriculture & Organic Farming", subtitle: "Farming · Soil Science · Organic · Agri-Business",
+  icon: "🌾", color: "#22C55E",
+  description: "Organic farming principles, soil science, horticulture, agri-business, and ICAR/IBPS AFO/NABARD exam preparation.",
+  domains: [{ slug: "farming", name: "Farming & Agriculture", icon: "🌱", description: "Core agriculture subjects", color: "#22C55E",
+    technologies: [
+      { slug: "organic-farming", name: "Organic Farming", icon: "🌿", description: "Organic principles, certification (PGS, India Organic), natural inputs, soil biology", level: "Beginner", tags: ["Organic", "Sustainable", "Certification"] },
+      { slug: "soil-science", name: "Soil Science", icon: "🌍", description: "Soil types, texture, structure, pH, nutrients, conservation, land management", level: "Intermediate", tags: ["Soil", "Fertility", "Conservation"] },
+      { slug: "horticulture", name: "Horticulture", icon: "🍎", description: "Fruit crops, vegetable crops, floriculture, post-harvest management", level: "Intermediate", tags: ["Horticulture", "Crops", "Post-Harvest"] },
+      { slug: "agri-business", name: "Agri-Business", icon: "📊", description: "Farm economics, APMC, agri-marketing, FPOs, NABARD schemes, food processing", level: "Advanced", tags: ["Agri-Business", "NABARD", "FPO"] },
+    ]
+  }],
+  technologies: [],
+};
+
+const financeAcademy: Academy = {
+  slug: "finance", title: "Finance & Commerce", subtitle: "CA/CS/CMA · GST · Taxation · Accounting · Investments",
+  icon: "💹", color: "#F59E0B",
+  description: "Financial accounting, GST, direct taxation, financial markets, and CA/CS/CMA foundation preparation.",
+  domains: [{ slug: "finance-core", name: "Finance & Accounting", icon: "💰", description: "Core finance subjects", color: "#F59E0B",
+    technologies: [
+      { slug: "accounting-basics", name: "Financial Accounting", icon: "📒", description: "Journal entries, ledger, trial balance, final accounts, ratio analysis", level: "Beginner", tags: ["Accounting", "CA Foundation", "B.Com"] },
+      { slug: "gst-taxation", name: "GST & Indirect Tax", icon: "🧾", description: "GST framework, GSTR filing, ITC, composition scheme, place of supply", level: "Intermediate", tags: ["GST", "Tax", "GSTR"] },
+      { slug: "direct-tax", name: "Direct Tax & Income Tax", icon: "💳", description: "Income tax heads, deductions, TDS, ITR filing, advance tax", level: "Intermediate", tags: ["Income Tax", "TDS", "ITR"] },
+      { slug: "financial-markets", name: "Financial Markets", icon: "📈", description: "Equity, debt, mutual funds, SEBI regulations, derivatives basics", level: "Advanced", tags: ["SEBI", "Stocks", "Mutual Funds"] },
+      { slug: "ca-cs-foundation", name: "CA/CS/CMA Foundation", icon: "🏅", description: "ICAI/ICSI/ICMAI foundation syllabus — accounts, law, maths, economics", level: "Beginner", tags: ["CA", "CS", "CMA"] },
+    ]
+  }],
+  technologies: [],
+};
+
+const telecomAcademy: Academy = {
+  slug: "telecom", title: "Telecom & 5G", subtitle: "5G · Networking · Fiber Optics · Wireless · JTO/JE",
+  icon: "📡", color: "#0EA5E9",
+  description: "Telecom fundamentals, 5G architecture, fiber optics, wireless technologies, and BSNL JTO/JE exam preparation.",
+  domains: [{ slug: "telecom-tech", name: "Telecom Technology", icon: "📶", description: "Core telecom technologies", color: "#0EA5E9",
+    technologies: [
+      { slug: "telecom-fundamentals", name: "Telecom Fundamentals", icon: "📡", description: "Telecom history, GSM/CDMA, spectrum, switching, signaling protocols", level: "Beginner", tags: ["Telecom", "GSM", "Spectrum"] },
+      { slug: "wireless-tech", name: "4G/5G & Wireless", icon: "📶", description: "4G LTE architecture, 5G NR, OFDM, beamforming, NR bands, use cases", level: "Intermediate", tags: ["5G", "LTE", "NR"] },
+      { slug: "fiber-optics", name: "Fiber Optics", icon: "💡", description: "Fiber types, DWDM, splicing, FTTH/FTTX, optical network design", level: "Intermediate", tags: ["Fiber", "FTTH", "DWDM"] },
+      { slug: "networking-protocols", name: "Telecom Networking", icon: "🌐", description: "TCP/IP for telecom, SIP, VoIP, MPLS, SD-WAN, IMS architecture", level: "Advanced", tags: ["SIP", "VoIP", "MPLS"] },
+    ]
+  }],
+  technologies: [],
+};
+
+const statePscAcademy: Academy = {
+  slug: "state-psc", title: "State PSC Exams", subtitle: "TNPSC · KPSC · MPSC · APPSC · TSPSC",
+  icon: "🏛️", color: "#8B5CF6",
+  description: "Comprehensive preparation for all major state public service commission exams — Group I, II, III, and IV posts.",
+  domains: [{ slug: "state-civil-services", name: "State Civil Services", icon: "🏛️", description: "State PSC exam preparation", color: "#8B5CF6",
+    technologies: [
+      { slug: "tnpsc", name: "TNPSC Prep", icon: "🏛️", description: "Tamil Nadu PSC — Samacheer Kalvi, Tamil language, state-specific GK, Group I-IV", level: "Beginner", tags: ["TNPSC", "Tamil Nadu", "State PSC"] },
+      { slug: "kpsc", name: "KPSC Prep", icon: "🏛️", description: "Karnataka PSC — Kannada language, state history/geography/economy, FDA/SDA/KAS", level: "Beginner", tags: ["KPSC", "Karnataka", "KAS"] },
+      { slug: "mpsc", name: "MPSC Prep", icon: "🏛️", description: "Maharashtra PSC — Marathi language, state-specific content, Group A/B posts", level: "Beginner", tags: ["MPSC", "Maharashtra", "MCS"] },
+      { slug: "appsc", name: "APPSC Prep", icon: "🏛️", description: "Andhra Pradesh PSC — Telugu medium, AP history/economy, Group I/II/III/IV", level: "Beginner", tags: ["APPSC", "Andhra Pradesh"] },
+      { slug: "tspsc", name: "TSPSC Prep", icon: "🏛️", description: "Telangana PSC — Telugu medium, Telangana movement, TS economy, Group I/II/III/IV", level: "Beginner", tags: ["TSPSC", "Telangana"] },
+    ]
+  }],
+  technologies: [],
+};
+
+const centralExamsAcademy: Academy = {
+  slug: "central-exams", title: "Central Govt Exams", subtitle: "CTET · TET · PSU Technical · NDA · CDS",
+  icon: "📋", color: "#EC4899",
+  description: "CTET, TET teaching exams, PSU technical recruitment (BHEL, NTPC, ONGC), NDA, and other central government examinations.",
+  domains: [{ slug: "central-recruitment", name: "Central Recruitment", icon: "📋", description: "Central government examination preparation", color: "#EC4899",
+    technologies: [
+      { slug: "ctet-paper1", name: "CTET Paper I", icon: "👶", description: "Primary level (Class I-V) — Child Development, Pedagogy, Language I & II, Maths, EVS", level: "Beginner", tags: ["CTET", "TET", "Teaching"] },
+      { slug: "ctet-paper2", name: "CTET Paper II", icon: "📚", description: "Elementary level (Class VI-VIII) — CDP, Languages, Science/Social Studies/Maths", level: "Intermediate", tags: ["CTET", "Elementary", "Teaching"] },
+      { slug: "psu-technical", name: "PSU Technical Exams", icon: "🏭", description: "BHEL, NTPC, ONGC, BEL, GAIL — technical + aptitude + HR rounds", level: "Intermediate", tags: ["PSU", "BHEL", "NTPC", "ONGC"] },
+      { slug: "nda-prep", name: "NDA Preparation", icon: "🎖️", description: "NDA Maths + GAT — detailed topic-wise preparation with PYQs", level: "Intermediate", tags: ["NDA", "Defence", "UPSC"] },
+    ]
+  }],
+  technologies: [],
+};
+
+const professionalCertsAcademy: Academy = {
+  slug: "professional-certs", title: "Professional Certifications", subtitle: "PMP · ITIL · Scrum · Six Sigma · HR",
+  icon: "🏅", color: "#14B8A6",
+  description: "Non-tech professional certifications — PMP, ITIL 4, Scrum Master, Six Sigma, SHRM HR, PRINCE2 project management.",
+  domains: [{ slug: "professional-development", name: "Professional Development", icon: "🏅", description: "Industry certifications", color: "#14B8A6",
+    technologies: [
+      { slug: "pmp", name: "PMP Certification", icon: "📊", description: "Project Management Professional — PMBOK 7, predictive/agile/hybrid, 180-question exam", level: "Advanced", tags: ["PMP", "PMI", "Project Management"] },
+      { slug: "itil", name: "ITIL 4 Foundation", icon: "⚙️", description: "IT service management — ITIL 4 SVS, four dimensions, practices, 40-MCQ exam", level: "Beginner", tags: ["ITIL", "ITSM", "Service Management"] },
+      { slug: "scrum", name: "Scrum & Agile", icon: "🔄", description: "CSM, PSM I, SAFe — Scrum framework, sprints, roles, ceremonies, Agile manifesto", level: "Beginner", tags: ["Scrum", "Agile", "CSM", "PSM"] },
+      { slug: "six-sigma", name: "Six Sigma", icon: "📉", description: "DMAIC methodology, Green Belt, Black Belt — quality management and process improvement", level: "Intermediate", tags: ["Six Sigma", "DMAIC", "Quality"] },
+    ]
+  }],
+  technologies: [],
+};
+
+const economicsAcademy: Academy = {
+  slug: "economics", title: "Economics", subtitle: "Micro · Macro · Indian Economy · RBI Policy · Budget",
+  icon: "📊", color: "#F97316",
+  description: "Microeconomics, macroeconomics, Indian economy, RBI monetary policy, budget analysis, and international trade for UPSC, banking exams, and MBA.",
+  domains: [{ slug: "economics-core", name: "Economics", icon: "📊", description: "Core economics subjects", color: "#F97316",
+    technologies: [
+      { slug: "micro-economics", name: "Microeconomics", icon: "🔍", description: "Demand/supply, elasticity, market structures, consumer theory, production", level: "Beginner", tags: ["Microeconomics", "Demand", "Supply"] },
+      { slug: "macro-economics", name: "Macroeconomics", icon: "🌐", description: "National income, GDP, inflation, unemployment, fiscal policy, monetary policy", level: "Intermediate", tags: ["Macroeconomics", "GDP", "Inflation"] },
+      { slug: "indian-economy", name: "Indian Economy", icon: "📈", description: "Planning, economic reforms 1991, sectors, poverty, inequality, budget, schemes", level: "Intermediate", tags: ["Indian Economy", "Reforms", "Budget"] },
+      { slug: "international-trade", name: "International Trade", icon: "🌍", description: "BoP, forex, WTO, trade policy, globalisation, FDI/FII in India", level: "Advanced", tags: ["Trade", "WTO", "BoP", "Forex"] },
+    ]
+  }],
+  technologies: [],
+};
+
 export const academies: Academy[] = [
   devopsAcademy,
   cloudAcademy,
@@ -613,6 +737,15 @@ export const academies: Academy[] = [
   essentialsAcademy,
   educationAcademy,
   examsAcademy,
+  // Phase 3 new academies
+  lawAcademy,
+  agricultureAcademy,
+  financeAcademy,
+  telecomAcademy,
+  statePscAcademy,
+  centralExamsAcademy,
+  professionalCertsAcademy,
+  economicsAcademy,
 ];
 
 // Kept only for any external backward-compat imports — education/exams are in main academies array

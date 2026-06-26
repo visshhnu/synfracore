@@ -83,7 +83,7 @@ export default function CertificationsPage() {
       </div>
 
       {/* Stats row */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: "16px", marginBottom: "64px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 200px), 1fr))", gap: "16px", marginBottom: "64px" }}>
         {[
           { value: "13+", label: "Certifications Covered" },
           { value: "6", label: "Certification Providers" },

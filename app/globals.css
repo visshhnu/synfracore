@@ -846,13 +846,3 @@ html.light .hover-row:hover  { background: #F1F5F9 !important; }
 }
 .domain-slider-wrap::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
 .domain-slider-wrap::after { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
-
-/* ══ REVERSE SLIDER (Row 2 scrolls right) ════════════════ */
-@keyframes slide-right {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
-}
-.domain-slider-reverse {
-  animation: slide-right 35s linear infinite !important;
-}
-.domain-slider-wrap:hover .domain-slider-track { animation-play-state: paused; }

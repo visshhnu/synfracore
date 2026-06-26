@@ -148,91 +148,71 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════════════ ACADEMY VISUAL SHOWCASE ══════════════════ */}
-      <section style={{ padding: "0", background: "var(--bg)", overflow: "hidden", borderTop: "1px solid var(--border)" }}>
-
-        {/* Row 1: slow scroll left */}
-        <div className="domain-slider-wrap" style={{ padding: "16px 0 0" }}>
+      {/* ══════════════════ DOMAIN AUTO-SLIDER ══════════════════ */}
+      <section style={{ padding: "40px 0", background: "var(--bg-1)", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)", overflow: "hidden" }}>
+        <div style={{ textAlign: "center", marginBottom: "24px", padding: "0 24px" }}>
+          <div className="label" style={{ marginBottom: "8px" }}>What We Teach</div>
+          <p style={{ color: "var(--text-3)", fontSize: "15px" }}>
+            A-to-Z learning — from cloud infrastructure to competitive exams, medical coding to life essentials
+          </p>
+        </div>
+        {/* Sliding domain cards — infinite loop */}
+        <div className="domain-slider-wrap">
           <div className="domain-slider-track">
             {[
-              { icon: "🐳", name: "Docker", desc: "Containers & images", color: "#2496ED", href: "/academies/devops/docker" },
-              { icon: "☸️", name: "Kubernetes", desc: "Container orchestration", color: "#326CE5", href: "/academies/devops/kubernetes" },
-              { icon: "🌩️", name: "AWS", desc: "Cloud infrastructure", color: "#FF9900", href: "/academies/cloud/aws-ec2" },
-              { icon: "☁️", name: "Azure", desc: "Microsoft cloud platform", color: "#0078D4", href: "/academies/cloud/azure-vms" },
-              { icon: "🤖", name: "AI & LLMs", desc: "LangChain, RAG, Agents", color: "#8B5CF6", href: "/academies/ai/rag" },
-              { icon: "🔒", name: "Cybersecurity", desc: "SOC, ethical hacking", color: "#EF4444", href: "/academies/security/ethical-hacking" },
-              { icon: "⚙️", name: "Terraform", desc: "Infrastructure as code", color: "#7B42BC", href: "/academies/devops/terraform" },
-              { icon: "🐧", name: "Linux", desc: "Servers & shell scripting", color: "#FCC624", href: "/academies/devops/linux" },
-              { icon: "🗄️", name: "PostgreSQL", desc: "Relational databases", color: "#336791", href: "/academies/databases/postgresql" },
-              { icon: "📊", name: "Power BI", desc: "Data visualisation & BI", color: "#F2C811", href: "/academies/data/power-bi" },
-              // duplicate for loop
-              { icon: "🐳", name: "Docker", desc: "Containers & images", color: "#2496ED", href: "/academies/devops/docker" },
-              { icon: "☸️", name: "Kubernetes", desc: "Container orchestration", color: "#326CE5", href: "/academies/devops/kubernetes" },
-              { icon: "🌩️", name: "AWS", desc: "Cloud infrastructure", color: "#FF9900", href: "/academies/cloud/aws-ec2" },
-              { icon: "☁️", name: "Azure", desc: "Microsoft cloud platform", color: "#0078D4", href: "/academies/cloud/azure-vms" },
-              { icon: "🤖", name: "AI & LLMs", desc: "LangChain, RAG, Agents", color: "#8B5CF6", href: "/academies/ai/rag" },
-              { icon: "🔒", name: "Cybersecurity", desc: "SOC, ethical hacking", color: "#EF4444", href: "/academies/security/ethical-hacking" },
-              { icon: "⚙️", name: "Terraform", desc: "Infrastructure as code", color: "#7B42BC", href: "/academies/devops/terraform" },
-              { icon: "🐧", name: "Linux", desc: "Servers & shell scripting", color: "#FCC624", href: "/academies/devops/linux" },
-              { icon: "🗄️", name: "PostgreSQL", desc: "Relational databases", color: "#336791", href: "/academies/databases/postgresql" },
-              { icon: "📊", name: "Power BI", desc: "Data visualisation & BI", color: "#F2C811", href: "/academies/data/power-bi" },
+              { icon: "🐳", name: "Docker", color: "#2496ED" },
+              { icon: "☸️", name: "Kubernetes", color: "#326CE5" },
+              { icon: "🌩️", name: "AWS", color: "#FF9900" },
+              { icon: "☁️", name: "Azure", color: "#0078D4" },
+              { icon: "🤖", name: "AI & LLMs", color: "#8B5CF6" },
+              { icon: "📐", name: "JEE Maths", color: "#EC4899" },
+              { icon: "🧬", name: "NEET Biology", color: "#10B981" },
+              { icon: "🏦", name: "Banking Exams", color: "#F59E0B" },
+              { icon: "🏠", name: "Home Health Coding", color: "#14B8A6" },
+              { icon: "🔒", name: "Cybersecurity", color: "#EF4444" },
+              { icon: "🗄️", name: "PostgreSQL", color: "#336791" },
+              { icon: "📊", name: "Power BI", color: "#F2C811" },
+              { icon: "🐧", name: "Linux", color: "#FCC624" },
+              { icon: "⚙️", name: "Terraform", color: "#7B42BC" },
+              { icon: "🎯", name: "UPSC Prep", color: "#3B82F6" },
+              { icon: "🧪", name: "GATE CSE", color: "#6366F1" },
+              { icon: "🌱", name: "Gut Health", color: "#22C55E" },
+              { icon: "💰", name: "Personal Finance", color: "#F59E0B" },
+              { icon: "🔬", name: "NEET Chemistry", color: "#06B6D4" },
+              { icon: "📡", name: "Networking", color: "#8B5CF6" },
+              // Duplicate for seamless loop
+              { icon: "🐳", name: "Docker", color: "#2496ED" },
+              { icon: "☸️", name: "Kubernetes", color: "#326CE5" },
+              { icon: "🌩️", name: "AWS", color: "#FF9900" },
+              { icon: "☁️", name: "Azure", color: "#0078D4" },
+              { icon: "🤖", name: "AI & LLMs", color: "#8B5CF6" },
+              { icon: "📐", name: "JEE Maths", color: "#EC4899" },
+              { icon: "🧬", name: "NEET Biology", color: "#10B981" },
+              { icon: "🏦", name: "Banking Exams", color: "#F59E0B" },
+              { icon: "🏠", name: "Home Health Coding", color: "#14B8A6" },
+              { icon: "🔒", name: "Cybersecurity", color: "#EF4444" },
+              { icon: "🗄️", name: "PostgreSQL", color: "#336791" },
+              { icon: "📊", name: "Power BI", color: "#F2C811" },
+              { icon: "🐧", name: "Linux", color: "#FCC624" },
+              { icon: "⚙️", name: "Terraform", color: "#7B42BC" },
+              { icon: "🎯", name: "UPSC Prep", color: "#3B82F6" },
+              { icon: "🧪", name: "GATE CSE", color: "#6366F1" },
+              { icon: "🌱", name: "Gut Health", color: "#22C55E" },
+              { icon: "💰", name: "Personal Finance", color: "#F59E0B" },
+              { icon: "🔬", name: "NEET Chemistry", color: "#06B6D4" },
+              { icon: "📡", name: "Networking", color: "#8B5CF6" },
             ].map((d, i) => (
-              <a key={i} href={d.href} style={{ textDecoration: "none", display: "flex", flexDirection: "column", alignItems: "center", gap: "8px", padding: "16px 20px", borderRadius: "16px", background: `${d.color}10`, border: `1px solid ${d.color}25`, flexShrink: 0, width: "140px", transition: "transform 0.2s, background 0.2s" }}
-                onMouseEnter={e => { e.currentTarget.style.background = `${d.color}20`; e.currentTarget.style.transform = "translateY(-3px)"; }}
-                onMouseLeave={e => { e.currentTarget.style.background = `${d.color}10`; e.currentTarget.style.transform = "none"; }}>
-                <div style={{ width: "52px", height: "52px", borderRadius: "14px", background: `${d.color}20`, border: `1px solid ${d.color}30`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "26px" }}>{d.icon}</div>
-                <div style={{ textAlign: "center" }}>
-                  <div style={{ fontSize: "13px", fontWeight: 700, color: "var(--text-1)", lineHeight: 1.2 }}>{d.name}</div>
-                  <div style={{ fontSize: "10px", color: "var(--text-4)", marginTop: "2px" }}>{d.desc}</div>
-                </div>
-              </a>
+              <div key={i} style={{
+                display: "flex", alignItems: "center", gap: "8px",
+                padding: "8px 16px", borderRadius: "40px",
+                background: `${d.color}12`, border: `1px solid ${d.color}30`,
+                whiteSpace: "nowrap", flexShrink: 0,
+              }}>
+                <span style={{ fontSize: "18px" }}>{d.icon}</span>
+                <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-2)" }}>{d.name}</span>
+              </div>
             ))}
           </div>
-        </div>
-
-        {/* Row 2: scroll right (reverse) */}
-        <div className="domain-slider-wrap" style={{ padding: "12px 0 16px" }}>
-          <div className="domain-slider-track domain-slider-reverse">
-            {[
-              { icon: "📐", name: "JEE Maths", desc: "IIT entrance prep", color: "#EC4899", href: "/academies/exams/jee-maths" },
-              { icon: "🧬", name: "NEET Biology", desc: "Medical entrance", color: "#10B981", href: "/academies/exams/neet-biology" },
-              { icon: "🏦", name: "Banking Exams", desc: "SBI PO, IBPS, RBI", color: "#F59E0B", href: "/academies/exams/banking-exams" },
-              { icon: "🏠", name: "Home Health Coding", desc: "OASIS, PDGM, BCHHC", color: "#14B8A6", href: "/academies/healthcare/home-health-coding" },
-              { icon: "🎯", name: "UPSC Prep", desc: "IAS, IPS, IFS", color: "#3B82F6", href: "/academies/exams/upsc-prelims" },
-              { icon: "🧪", name: "GATE CSE", desc: "M.Tech & PSU prep", color: "#6366F1", href: "/academies/exams/gate-cse" },
-              { icon: "🌱", name: "Gut Health", desc: "Microbiome & nutrition", color: "#22C55E", href: "/academies/essentials/gut-health" },
-              { icon: "⚖️", name: "Law & CLAT", desc: "Legal studies & NLU", color: "#6366F1", href: "/academies/law/clat-prep" },
-              { icon: "💹", name: "Finance & GST", desc: "CA, accounts, tax", color: "#F59E0B", href: "/academies/finance/gst-taxation" },
-              { icon: "📡", name: "5G & Telecom", desc: "Networks & wireless", color: "#0EA5E9", href: "/academies/telecom/wireless-tech" },
-              // duplicate for loop
-              { icon: "📐", name: "JEE Maths", desc: "IIT entrance prep", color: "#EC4899", href: "/academies/exams/jee-maths" },
-              { icon: "🧬", name: "NEET Biology", desc: "Medical entrance", color: "#10B981", href: "/academies/exams/neet-biology" },
-              { icon: "🏦", name: "Banking Exams", desc: "SBI PO, IBPS, RBI", color: "#F59E0B", href: "/academies/exams/banking-exams" },
-              { icon: "🏠", name: "Home Health Coding", desc: "OASIS, PDGM, BCHHC", color: "#14B8A6", href: "/academies/healthcare/home-health-coding" },
-              { icon: "🎯", name: "UPSC Prep", desc: "IAS, IPS, IFS", color: "#3B82F6", href: "/academies/exams/upsc-prelims" },
-              { icon: "🧪", name: "GATE CSE", desc: "M.Tech & PSU prep", color: "#6366F1", href: "/academies/exams/gate-cse" },
-              { icon: "🌱", name: "Gut Health", desc: "Microbiome & nutrition", color: "#22C55E", href: "/academies/essentials/gut-health" },
-              { icon: "⚖️", name: "Law & CLAT", desc: "Legal studies & NLU", color: "#6366F1", href: "/academies/law/clat-prep" },
-              { icon: "💹", name: "Finance & GST", desc: "CA, accounts, tax", color: "#F59E0B", href: "/academies/finance/gst-taxation" },
-              { icon: "📡", name: "5G & Telecom", desc: "Networks & wireless", color: "#0EA5E9", href: "/academies/telecom/wireless-tech" },
-            ].map((d, i) => (
-              <a key={i} href={d.href} style={{ textDecoration: "none", display: "flex", flexDirection: "column", alignItems: "center", gap: "8px", padding: "16px 20px", borderRadius: "16px", background: `${d.color}10`, border: `1px solid ${d.color}25`, flexShrink: 0, width: "140px", transition: "transform 0.2s, background 0.2s" }}
-                onMouseEnter={e => { e.currentTarget.style.background = `${d.color}20`; e.currentTarget.style.transform = "translateY(-3px)"; }}
-                onMouseLeave={e => { e.currentTarget.style.background = `${d.color}10`; e.currentTarget.style.transform = "none"; }}>
-                <div style={{ width: "52px", height: "52px", borderRadius: "14px", background: `${d.color}20`, border: `1px solid ${d.color}30`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "26px" }}>{d.icon}</div>
-                <div style={{ textAlign: "center" }}>
-                  <div style={{ fontSize: "13px", fontWeight: 700, color: "var(--text-1)", lineHeight: 1.2 }}>{d.name}</div>
-                  <div style={{ fontSize: "10px", color: "var(--text-4)", marginTop: "2px" }}>{d.desc}</div>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-
-        <div style={{ textAlign: "center", padding: "8px 24px 24px" }}>
-          <p style={{ color: "var(--text-4)", fontSize: "13px" }}>
-            18 academies · 1,500+ topics · All free · Click any card to explore
-          </p>
         </div>
       </section>
 
@@ -246,7 +226,7 @@ export default function Home() {
               Pick your path — we'll take you from where you are to where you want to be.
             </p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))", gap: "16px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "16px" }}>
             {roles.map(r => (
               <Link key={r.title} href={r.cta} style={{ textDecoration: "none" }}>
                 <div className="card-hover" style={{
@@ -361,7 +341,7 @@ export default function Home() {
               All Academies <ArrowRight size={14} />
             </Link>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))", gap: "16px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "16px" }}>
             {academies.slice(0, 6).map(a => (
               <Link key={a.slug} href={`/academies/${a.slug}`} style={{ textDecoration: "none" }}>
                 <div className="card-hover" style={{ padding: "24px", borderRadius: "14px", border: "1px solid var(--border)", background: "var(--bg-1)", cursor: "pointer" }}>
