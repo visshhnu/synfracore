@@ -4,8 +4,6 @@ import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { getAcademy } from "@/lib/data/academies";
 import { ArrowRight, CheckCircle, Clock, BookOpen, FlaskConical, Trophy } from "lucide-react";
-import AcademyProgress from "@/components/tech/AcademyProgress";
-import { techSections } from "@/lib/data/navigation";
 
 type Props = { params: Promise<{ academy: string }> };
 
@@ -192,20 +190,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const academy = getAcademy(aSlug);
   if (!academy) return { title: "Academy | SynfraCore" };
   const m = academyMeta[aSlug] || defaultMeta;
-  const ogUrl = `https://synfracore.com/api/og?academy=${aSlug}&title=${encodeURIComponent(academy.title)}&subtitle=${encodeURIComponent(academy.subtitle || "")}`;
   return {
     title: `${academy.title} Academy — Structured Learning Path | SynfraCore`,
     description: m.desc,
     alternates: { canonical: `https://synfracore.com/academies/${aSlug}` },
-    openGraph: {
-      title: `${academy.title} | SynfraCore`,
-      description: m.desc,
-      url: `https://synfracore.com/academies/${aSlug}`,
-      siteName: "SynfraCore",
-      images: [{ url: ogUrl, width: 1200, height: 630, alt: academy.title }],
-      type: "website",
-    },
-    twitter: { card: "summary_large_image", title: `${academy.title} | SynfraCore`, description: m.desc, images: [ogUrl] },
   };
 }
 
@@ -224,14 +212,6 @@ export default async function AcademyPage({ params }: Props) {
         <Link href="/academies" style={{ color: "var(--text-4)", textDecoration: "none" }}>Academies</Link>›
         <span style={{ color: "var(--text-2)" }}>{academy.title}</span>
       </nav>
-
-      {/* Progress tracker */}
-      <AcademyProgress
-        academy={aSlug}
-        topics={academy.domains.flatMap(d => d.technologies).map(t => ({ slug: t.slug, name: t.name }))}
-        sections={techSections.map(s => s.slug)}
-        accentColor={academy.color || "#3B82F6"}
-      />
 
       {/* Hero */}
       <div style={{ marginBottom: "40px" }}>
@@ -263,7 +243,7 @@ export default async function AcademyPage({ params }: Props) {
         {/* Who this is for */}
         <div style={{ padding: "24px", borderRadius: "12px", border: "1px solid var(--border)", background: "var(--bg-1)" }}>
           <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "15px", marginBottom: "14px", display: "flex", alignItems: "center", gap: "8px" }}>
-            + Who This Is For
+            👤 Who This Is For
           </h2>
           {m.who.map((w, i) => (
             <div key={i} style={{ display: "flex", gap: "8px", marginBottom: "8px", fontSize: "13px", color: "var(--text-3)" }}>
@@ -275,7 +255,7 @@ export default async function AcademyPage({ params }: Props) {
         {/* Prerequisites */}
         <div style={{ padding: "24px", borderRadius: "12px", border: "1px solid var(--border)", background: "var(--bg-1)" }}>
           <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "15px", marginBottom: "14px" }}>
-            [S] Prerequisites
+            📋 Prerequisites
           </h2>
           {m.prereqs.map((p, i) => (
             <div key={i} style={{ display: "flex", gap: "8px", marginBottom: "8px", fontSize: "13px", color: "var(--text-3)" }}>
@@ -284,7 +264,7 @@ export default async function AcademyPage({ params }: Props) {
           ))}
           {["devops","cloud","databases","ai","data","security"].includes(aSlug) && (
             <div style={{ marginTop: "14px", padding: "10px", background: "rgba(16,185,129,0.06)", borderRadius: "8px", fontSize: "12px", color: "#10B981" }}>
-              * No prior experience? Start with <Link href="/academies/devops/linux" style={{ color: "#10B981", fontWeight: 700 }}>Linux Fundamentals</Link>
+              💡 No prior experience? Start with <Link href="/academies/devops/linux" style={{ color: "#10B981", fontWeight: 700 }}>Linux Fundamentals</Link>
             </div>
           )}
         </div>
@@ -293,7 +273,7 @@ export default async function AcademyPage({ params }: Props) {
       {/* What you'll be able to do */}
       <div style={{ padding: "24px", borderRadius: "12px", border: "1px solid var(--border)", background: "var(--bg-1)", marginBottom: "40px" }}>
         <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "16px", marginBottom: "16px" }}>
-          + What You'll Be Able to Do
+          🎯 What You'll Be Able to Do
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "10px" }}>
           {m.outcomes.map((o, i) => (
@@ -309,7 +289,7 @@ export default async function AcademyPage({ params }: Props) {
       {m.path.length > 0 && (
         <div style={{ marginBottom: "40px" }}>
           <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "18px", marginBottom: "20px" }}>
-            [M] Recommended Learning Path
+            🗺️ Recommended Learning Path
           </h2>
           <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
             {m.path.map((phase, i) => (
@@ -342,7 +322,7 @@ export default async function AcademyPage({ params }: Props) {
       {/* Job roles */}
       {m.jobs.length > 0 && (
         <div style={{ padding: "20px 24px", borderRadius: "12px", background: "linear-gradient(135deg,rgba(59,130,246,0.06),rgba(139,92,246,0.06))", border: "1px solid rgba(59,130,246,0.15)", marginBottom: "40px", display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
-          <div style={{ fontWeight: 700, fontSize: "14px", color: "var(--text-1)", whiteSpace: "nowrap" }}>+ Jobs you can target:</div>
+          <div style={{ fontWeight: 700, fontSize: "14px", color: "var(--text-1)", whiteSpace: "nowrap" }}>💼 Jobs you can target:</div>
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
             {m.jobs.map(j => (
               <span key={j} style={{ fontSize: "12px", padding: "4px 12px", borderRadius: "20px", background: "var(--bg-2)", color: "var(--text-2)", fontWeight: 600, border: "1px solid var(--border)" }}>{j}</span>
@@ -356,7 +336,7 @@ export default async function AcademyPage({ params }: Props) {
 
       {/* Domain grid */}
       <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "18px", marginBottom: "20px" }}>
-        + Explore Topics
+        📚 Explore Topics
       </h2>
       {academy.domains.map((domain) => (
         <div key={domain.slug} style={{ marginBottom: "36px" }}>

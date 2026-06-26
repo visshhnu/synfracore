@@ -613,9 +613,9 @@ const lawAcademy: Academy = {
       { slug: "legal-fundamentals", name: "Legal Fundamentals", icon: "📜", description: "Indian legal system, sources of law, court hierarchy, key acts", level: "Beginner", tags: ["Law", "IPC", "Constitution"] },
       { slug: "constitutional-law", name: "Constitutional Law", icon: "🏛️", description: "Preamble, Fundamental Rights, DPSP, Amendment, federalism", level: "Intermediate", tags: ["Constitution", "FRs", "UPSC"] },
       { slug: "clat-prep", name: "CLAT Preparation", icon: "🎯", description: "Legal reasoning, logical reasoning, English, GK for CLAT/AILET", level: "Intermediate", tags: ["CLAT", "AILET", "NLU"] },
-      { slug: "aibe-bar-exam", name: "AIBE & Bar Exam Prep", icon: "⚖", description: "All India Bar Examination — syllabus, 100 MCQ strategy, open book tactics, enrollment to practice guide", level: "Intermediate", tags: ["AIBE", "Bar Exam", "BCI", "Advocate"] },
-      { slug: "judiciary-exams", name: "Judiciary Exams (Civil Judge/HJS)", icon: "🏛", description: "Civil Judge and Higher Judicial Service exams — 3-stage pattern, judgment writing, viva preparation", level: "Advanced", tags: ["Judiciary", "Civil Judge", "HJS", "PCS J"] },
-      { slug: "consumer-protection", name: "Consumer Protection", icon: "🛡", description: "Consumer Protection Act 2019, three-tier redressal, product liability, CCPA, e-commerce", level: "Beginner", tags: ["Consumer Law", "COPRA", "NCDRC"] },
+      { slug: "aibe-bar-exam", name: "AIBE & Bar Exam Prep", icon: "⚖️", description: "All India Bar Examination — syllabus, 100 MCQ strategy, open book tactics, enrollment to practice guide", level: "Intermediate", tags: ["AIBE", "Bar Exam", "BCI", "Advocate"] },
+      { slug: "judiciary-exams", name: "Judiciary Exams (Civil Judge/HJS)", icon: "🏛️", description: "Civil Judge and Higher Judicial Service exams — 3-stage pattern, judgment writing, viva preparation", level: "Advanced", tags: ["Judiciary", "Civil Judge", "HJS", "PCS J"] },
+      { slug: "consumer-protection", name: "Consumer Protection", icon: "🛡️", description: "Consumer Protection Act 2019, three-tier redressal, product liability, CCPA, e-commerce", level: "Beginner", tags: ["Consumer Law", "COPRA", "NCDRC"] },
       { slug: "consumer-protection", name: "Consumer Protection", icon: "🛡️", description: "Consumer Protection Act 2019, COPRA, consumer forums, e-commerce", level: "Beginner", tags: ["Consumer Law", "COPRA"] },
     ]
   }],
@@ -650,9 +650,9 @@ const financeAcademy: Academy = {
       { slug: "direct-tax", name: "Direct Tax & Income Tax", icon: "💳", description: "Income tax heads, deductions, TDS, ITR filing, advance tax", level: "Intermediate", tags: ["Income Tax", "TDS", "ITR"] },
       { slug: "financial-markets", name: "Financial Markets", icon: "📈", description: "Equity, debt, mutual funds, SEBI regulations, derivatives basics", level: "Advanced", tags: ["SEBI", "Stocks", "Mutual Funds"] },
       { slug: "ca-cs-foundation", name: "CA/CS/CMA Foundation", icon: "🏅", description: "ICAI/ICSI/ICMAI foundation syllabus — accounts, law, maths, economics", level: "Beginner", tags: ["CA", "CS", "CMA"] },
-      { slug: "ca-intermediate", name: "CA Intermediate", icon: "🏅", description: "CA Intermediate — Accounting Standards, Taxation, Audit, Corporate Law, Cost Accounting, Financial Management", level: "Advanced", tags: ["CA", "ICAI", "Articleship"] },
-      { slug: "banking-rbi", name: "Banking & RBI Deep Dive", icon: "🏦", description: "RBI monetary policy, Basel III, credit analysis, NPA management, SARFAESI, banking regulation", level: "Intermediate", tags: ["Banking", "RBI", "Credit"] },
-      { slug: "sebi-nism", name: "SEBI & Financial Markets", icon: "📈", description: "Capital markets, NISM certifications, mutual funds, equity, derivatives, investor protection", level: "Intermediate", tags: ["SEBI", "NISM", "Mutual Funds"] },
+      { slug: "ca-intermediate", name: "CA Intermediate", icon: "🏅", description: "CA Intermediate — Accounting Standards, Taxation, Audit, Corporate Law, Cost Accounting, Financial Management", level: "Advanced", tags: ["CA", "ICAI", "Articleship", "Accounting"] },
+      { slug: "banking-rbi", name: "Banking & RBI Deep Dive", icon: "🏦", description: "RBI monetary policy, Basel III, credit analysis, NPA management, SARFAESI, banking regulation", level: "Intermediate", tags: ["Banking", "RBI", "Credit", "NPA"] },
+      { slug: "sebi-nism", name: "SEBI & Financial Markets", icon: "📈", description: "Capital markets, NISM certifications, mutual funds, equity, derivatives, investor protection", level: "Intermediate", tags: ["SEBI", "NISM", "Mutual Funds", "Capital Markets"] },
     ]
   }],
   technologies: [],
@@ -731,7 +731,8 @@ const economicsAcademy: Academy = {
       { slug: "indian-economy", name: "Indian Economy", icon: "📈", description: "Planning, economic reforms 1991, sectors, poverty, inequality, budget, schemes", level: "Intermediate", tags: ["Indian Economy", "Reforms", "Budget"] },
       { slug: "international-trade", name: "International Trade", icon: "🌍", description: "BoP, forex, WTO, trade policy, globalisation, FDI/FII in India", level: "Advanced", tags: ["Trade", "WTO", "BoP", "Forex"] },
       { slug: "budget-analysis", name: "Union Budget & Economic Survey", icon: "📋", description: "Fiscal deficit, capex, GDP measurement, inflation, government schemes — UPSC/Banking", level: "Intermediate", tags: ["Budget", "Fiscal Policy", "GDP", "UPSC"] },
-      { slug: "rbi-monetary-policy", name: "RBI & Monetary Policy", icon: "🏦", description: "MPC, repo rate, MCLR, G-Secs, BoP, monetary transmission — UPSC and banking exams", level: "Intermediate", tags: ["RBI", "Monetary Policy", "Inflation", "Banking"] },    ]
+      { slug: "rbi-monetary-policy", name: "RBI & Monetary Policy", icon: "🏦", description: "MPC, repo rate, MCLR, G-Secs, BoP, monetary transmission — UPSC and banking exams", level: "Intermediate", tags: ["RBI", "Monetary Policy", "Inflation", "Banking"] },
+    ]
   }],
   technologies: [],
 };

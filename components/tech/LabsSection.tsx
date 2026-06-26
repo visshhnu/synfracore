@@ -74,7 +74,7 @@ export default function LabsSection({ academy, technology, techName, accentColor
     );
   }
 
-  const emptyIcon = useQuiz ? "❓" : "[L]";
+  const emptyIcon = useQuiz ? "❓" : "🧪";
   const emptyTitle = useQuiz ? "Practice Sets Coming Soon" : "Labs Coming Soon";
   const emptyDesc = useQuiz
     ? `MCQ quizzes and flashcards for ${techName} are being prepared. Check back soon.`

@@ -63,7 +63,7 @@ export const stats = [
   { value: "13", label: "Certifications" },
 ];
 
-// Sections for non-technical knowledge domains (law, exams, education, etc.)
+// Sections for non-technical knowledge domains
 export const nonTechSections = [
   { slug: "overview",     label: "Overview",     icon: "📖", description: "What it covers and why it matters" },
   { slug: "fundamentals", label: "Fundamentals", icon: "🔤", description: "Core concepts and foundational knowledge" },
@@ -75,7 +75,6 @@ export const nonTechSections = [
   { slug: "faq",          label: "FAQ",          icon: "❓", description: "Frequently asked questions" },
 ];
 
-// Academies that use nonTechSections instead of techSections
 export const nonTechAcademyIds = [
   "law", "exams", "education", "state-psc", "central-exams",
   "finance", "economics", "agriculture", "essentials", "healthcare",

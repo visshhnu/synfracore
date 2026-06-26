@@ -42,11 +42,11 @@ export default async function TechnologyPage({ params }: Props) {
 
   // Section metadata — context-aware by academy type
   const sectionInfo: Record<string, { icon: string; label: string; time: string; desc: string; what: string[] }> = {
-    overview:    { icon: "[R]", label: "Overview",       time: "10 min",  desc: "What it is, why it matters, and where it fits",
+    overview:    { icon: "📖", label: "Overview",       time: "10 min",  desc: "What it is, why it matters, and where it fits",
       what: isTech ? ["Core concept", "Architecture", "Key use cases", "When to use it"]
           : isHealth ? ["What it covers", "Why it matters", "Key topics", "Who this is for"]
           : ["Exam overview", "Syllabus", "Pattern", "Scoring"] },
-    fundamentals:{ icon: "[F]", label: "Fundamentals",   time: "2–3 hrs", desc: "Core concepts from the ground up",
+    fundamentals:{ icon: "🔤", label: "Fundamentals",   time: "2–3 hrs", desc: "Core concepts from the ground up",
       what: isTech ? ["Installation", "Core commands", "Basic concepts", "First project"]
           : isHealth ? ["Core concepts", "Key definitions", "Essential facts", "Foundations"]
           : ["Core topics", "Key concepts", "Formula lists", "Basic problems"] },
@@ -54,33 +54,33 @@ export default async function TechnologyPage({ params }: Props) {
       what: isTech ? ["Production patterns", "Best practices", "Common pitfalls", "Real examples"]
           : isHealth ? ["Applied concepts", "Case studies", "Common scenarios", "Deeper understanding"]
           : ["Moderate problems", "Previous year questions", "Topic-wise practice", "Strategy"] },
-    advanced:    { icon: "[^]", label: "Advanced",       time: "6–8 hrs", desc: "Expert-level mastery",
+    advanced:    { icon: "🚀", label: "Advanced",       time: "6–8 hrs", desc: "Expert-level mastery",
       what: isTech ? ["Scale challenges", "Security", "Performance", "Enterprise patterns"]
           : isHealth ? ["Advanced scenarios", "Complex cases", "Expert knowledge", "Certification prep"]
           : ["Hard problems", "Advanced topics", "Exam strategy", "Time management"] },
-    labs:        { icon: "[L]", label: "Hands-on Labs",  time: "3–5 hrs", desc: "Practical exercises and scenarios",
+    labs:        { icon: "🧪", label: "Hands-on Labs",  time: "3–5 hrs", desc: "Practical exercises and scenarios",
       what: isTech ? ["Setup lab", "Step-by-step tasks", "Troubleshooting", "Validation"]
           : isHealth ? ["Practice scenarios", "Case-based exercises", "Apply knowledge", "Self-assessment"]
           : ["Practice sets", "Mock tests", "Timed exercises", "Answer analysis"] },
-    projects:    { icon: "[P]", label: "Projects",       time: "5–10 hrs", desc: "Portfolio-ready projects and case studies",
+    projects:    { icon: "🏗️", label: "Projects",       time: "5–10 hrs", desc: "Portfolio-ready projects and case studies",
       what: isTech ? ["Project spec", "Architecture", "Step-by-step build", "Portfolio tips"]
           : isHealth ? ["Case studies", "Real scenarios", "Coding exercises", "Portfolio work"]
           : ["Full mock test", "Topic project", "Study plan", "Progress tracker"] },
-    interview:   { icon: "[Q]", label: "Interview Q&A",  time: "2–3 hrs", desc: "Most-asked questions with detailed answers",
+    interview:   { icon: "💬", label: "Interview Q&A",  time: "2–3 hrs", desc: "Most-asked questions with detailed answers",
       what: isTech ? ["Core concepts", "Scenario questions", "Architecture Qs", "Gotchas"]
           : isHealth ? ["Certification Q&A", "Exam-style questions", "Key definitions", "Quick review"]
           : ["Frequently asked", "Short answer", "Key topics", "Viva prep"] },
-    troubleshooting:{ icon: "[T]", label: "Troubleshooting", time: "2 hrs", desc: "Debug issues and fix common mistakes",
+    troubleshooting:{ icon: "🔧", label: "Troubleshooting", time: "2 hrs", desc: "Debug issues and fix common mistakes",
       what: isTech ? ["Common errors", "Debug workflow", "RCA examples", "Fix patterns"]
           : isHealth ? ["Common mistakes", "Misconceptions", "Tricky topics", "Clarifications"]
           : ["Common mistakes", "Error analysis", "Weak areas", "Correction guide"] },
-    certification:{ icon: "[C]", label: "Certification", time: "4–6 hrs", desc: "Exam guide and preparation strategies",
+    certification:{ icon: "🏆", label: "Certification", time: "4–6 hrs", desc: "Exam guide and preparation strategies",
       what: ["Exam objectives", "Study plan", "Practice questions", "Readiness check"] },
-    cheatsheets: { icon: "[S]", label: "Cheatsheet",     time: "15 min",  desc: "Quick reference for revision and review",
+    cheatsheets: { icon: "📋", label: "Cheatsheet",     time: "15 min",  desc: "Quick reference for revision and review",
       what: isTech ? ["Key commands", "Syntax reference", "Common patterns", "Quick lookups"]
           : isHealth ? ["Key formulas", "Quick definitions", "Code lists", "At-a-glance guide"]
           : ["Formula sheet", "Key facts", "Topic summary", "Quick revision"] },
-    roadmap:     { icon: "[M]", label: "Roadmap",        time: "5 min",   desc: "Structured learning path from start to mastery",
+    roadmap:     { icon: "🗺️", label: "Roadmap",        time: "5 min",   desc: "Structured learning path from start to mastery",
       what: isTech ? ["Phase 1: Basics", "Phase 2: Practice", "Phase 3: Production", "Phase 4: Expert"]
           : isHealth ? ["Week 1–2: Foundation", "Week 3–4: Core", "Week 5–6: Advanced", "Week 7–8: Exam prep"]
           : ["Month 1: Basics", "Month 2: Practice", "Month 3: Mock tests", "Month 4: Final prep"] },
@@ -117,7 +117,7 @@ export default async function TechnologyPage({ params }: Props) {
         {/* Quick info row */}
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", fontSize: "13px", color: "var(--text-4)" }}>
           <span style={{ display: "flex", alignItems: "center", gap: "5px" }}><BookOpen size={13} /> {domain?.name}</span>
-          <span style={{ display: "flex", alignItems: "center", gap: "5px" }}>{tech.level} level</span>
+          <span style={{ display: "flex", alignItems: "center", gap: "5px" }}>🎯 {tech.level} level</span>
           {tech.tags?.slice(0, 4).map(t => (
             <span key={t} style={{ padding: "2px 8px", borderRadius: "10px", background: "var(--bg-2)", fontWeight: 500 }}>{t}</span>
           ))}
@@ -171,7 +171,7 @@ export default async function TechnologyPage({ params }: Props) {
 
       {/* Suggested path */}
       <div style={{ padding: "20px 24px", borderRadius: "12px", background: "linear-gradient(135deg,rgba(59,130,246,0.05),rgba(16,185,129,0.05))", border: "1px solid rgba(59,130,246,0.15)", marginBottom: "32px" }}>
-        <div style={{ fontWeight: 700, fontSize: "14px", marginBottom: "12px" }}>+ Suggested learning sequence</div>
+        <div style={{ fontWeight: 700, fontSize: "14px", marginBottom: "12px" }}>📍 Suggested learning sequence</div>
         <div style={{ display: "flex", gap: "6px", alignItems: "center", flexWrap: "wrap", fontSize: "12px" }}>
           {["Overview", "Fundamentals", "Intermediate", "Labs", "Advanced", "Projects", "Interview Q&A", "Certification"].map((s, i, arr) => (
             <span key={s} style={{ display: "flex", alignItems: "center", gap: "6px" }}>
