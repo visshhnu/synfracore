@@ -42,3 +42,35 @@ OSS manages the **technical operation of the network**. Think of it as the IT sy
 - **Fault Management** — detect, correlate, and resolve network alarms. When a fibre is cut, thousands of alarms fire. Fault management correlates them to show one root cause instead of 10,000 symptoms. TeMIP does this.
 
 - **Configuration Management** — track and push configuration to networ
+
+## Quick Reference — Telco
+
+### Key Points for Revision
+
+- Review the overview section for core architecture and fundamentals
+- Practice commands/configurations from the cheatsheet section
+- Use interview Q&A for active recall before exams or interviews
+- Cross-reference with related tools in the telecom academy
+
+### Related Topics
+
+Explore these connected topics to build complete understanding:
+- Overview and Architecture
+- Fundamentals and Core Concepts
+- Advanced Patterns and Production Usage
+- Interview Preparation Q&A
+- Quick Reference Cheatsheet
+
+### Practice Approach
+
+1. Read the overview to understand *what* and *why*
+2. Work through fundamentals for *how*
+3. Attempt hands-on labs or configurations
+4. Test yourself with interview questions
+5. Keep cheatsheet accessible for quick reference during work
+
+### Further Learning
+
+Connect this topic to the broader telecom ecosystem. 
+Each tool in this academy is designed to work with others —
+understanding the integration points is what separates intermediate from senior practitioners.

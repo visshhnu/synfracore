@@ -45,3 +45,35 @@ A: Under Sec 16 Advocates Act, a High Court or Supreme Court may designate an ad
 
 **Q14: What is an amicus curiae?**
 A: "Friend of the court" — an advocate appointed by the court to assist in cases where a party is unrepresented or in public interest matters. Does not represent any party but provides legal assistance to the court. Common in PIL matters and death penalty cases.
+
+## Quick Reference — Aibe Bar Exam
+
+### Key Points for Revision
+
+- Review the overview section for core architecture and fundamentals
+- Practice commands/configurations from the cheatsheet section
+- Use interview Q&A for active recall before exams or interviews
+- Cross-reference with related tools in the law academy
+
+### Related Topics
+
+Explore these connected topics to build complete understanding:
+- Overview and Architecture
+- Fundamentals and Core Concepts
+- Advanced Patterns and Production Usage
+- Interview Preparation Q&A
+- Quick Reference Cheatsheet
+
+### Practice Approach
+
+1. Read the overview to understand *what* and *why*
+2. Work through fundamentals for *how*
+3. Attempt hands-on labs or configurations
+4. Test yourself with interview questions
+5. Keep cheatsheet accessible for quick reference during work
+
+### Further Learning
+
+Connect this topic to the broader law ecosystem. 
+Each tool in this academy is designed to work with others —
+understanding the integration points is what separates intermediate from senior practitioners.
