@@ -251,12 +251,14 @@ export default function Navbar() {
         <div style={{ maxWidth: "1300px", margin: "0 auto", padding: "0 16px", height: "60px", display: "flex", alignItems: "center", gap: "6px" }}>
           <Link href="/" style={{ textDecoration: "none", flexShrink: 0, lineHeight: 0, marginRight: "4px" }}>
             <div className="logo-wrapper">
-              <Image src="/logo-transparent.webp" alt="SynfraCore" width={160} height={24} priority
-                className={scrolled ? "logo-full logo-scrolled-hide" : "logo-full"}
-                style={{ height: "24px", width: "auto", display: "block" }} />
-              <Image src="/logo-ac-icon.webp" alt="AC" width={36} height={28} priority
-                className={scrolled ? "logo-icon logo-scrolled-show" : "logo-icon"}
-                style={{ height: "28px", width: "auto", display: "none" }} />
+              {/* Full logo — visible on desktop */}
+              <Image src="/logo-full-nav.webp" alt="SynfraCore" width={160} height={28} priority
+                className="logo-full"
+                style={{ height: "28px", width: "auto", display: "block" }} />
+              {/* Icon-only logo — visible on mobile */}
+              <Image src="/logo-ac-icon.webp" alt="AC" width={32} height={28} priority
+                className="logo-icon"
+                style={{ height: "28px", width: "auto" }} />
             </div>
           </Link>
 
@@ -435,9 +437,12 @@ export default function Navbar() {
           .logo-icon { display: block !important; }
         }
         .logo-wrapper { display: inline-flex; align-items: center; }
-        /* In light mode, if logo is white-on-transparent, invert it to dark */
-        html.light .logo-full { filter: brightness(0); }
-        html.light .logo-icon { filter: brightness(0); }
+        /* logo-full-nav is a light-colored logo — great on dark nav bg */
+        /* Default (dark mode): show as-is */
+        .logo-full, .logo-icon { filter: none; }
+        /* Light mode: re-color to brand teal so it is visible on white bg */
+        html.light .logo-full { filter: brightness(0) saturate(100%) invert(30%) sepia(90%) saturate(500%) hue-rotate(175deg) brightness(85%); }
+        html.light .logo-icon { filter: brightness(0) saturate(100%) invert(30%) sepia(90%) saturate(500%) hue-rotate(175deg) brightness(85%); }
       `}</style>
     </>
   );
