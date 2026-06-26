@@ -4,7 +4,7 @@ import { Terminal, Code2, Database, FlaskConical, BookOpen, ArrowRight, Zap, Pla
 
 const labCategories = [
   {
-    academy: "devops", label: "DevOps Labs", icon: "⚙️", color: "#3B82F6",
+    academy: "devops", label: "DevOps Labs", icon: "⚙", color: "#3B82F6",
     interface: "Terminal",
     description: "Real CLI commands for Linux, Docker, Kubernetes, Terraform, and more",
     labs: [
@@ -19,7 +19,7 @@ const labCategories = [
     ],
   },
   {
-    academy: "cloud", label: "Cloud Labs", icon: "☁️", color: "#F59E0B",
+    academy: "cloud", label: "Cloud Labs", icon: "☁", color: "#F59E0B",
     interface: "Terminal",
     description: "AWS CLI, Azure CLI, and GCP commands for real cloud architectures",
     labs: [
@@ -32,7 +32,7 @@ const labCategories = [
     ],
   },
   {
-    academy: "databases", label: "Database Labs", icon: "🗄️", color: "#10B981",
+    academy: "databases", label: "Database Labs", icon: "*", color: "#10B981",
     interface: "SQL Console",
     description: "Interactive SQL console with table output, query optimization labs",
     labs: [
@@ -45,7 +45,7 @@ const labCategories = [
     ],
   },
   {
-    academy: "ai", label: "AI/ML Labs", icon: "🤖", color: "#8B5CF6",
+    academy: "ai", label: "AI/ML Labs", icon: "*", color: "#8B5CF6",
     interface: "Code Editor",
     description: "Python code labs for Claude API, RAG systems, and AI agents",
     labs: [
@@ -56,7 +56,7 @@ const labCategories = [
     ],
   },
   {
-    academy: "data", label: "Data Analytics Labs", icon: "📊", color: "#06B6D4",
+    academy: "data", label: "Data Analytics Labs", icon: "*", color: "#06B6D4",
     interface: "Code Editor",
     description: "Pandas data analysis, SQL analytics, Power BI DAX",
     labs: [
@@ -65,7 +65,7 @@ const labCategories = [
     ],
   },
   {
-    academy: "security", label: "Security Labs", icon: "🛡️", color: "#EF4444",
+    academy: "security", label: "Security Labs", icon: "*", color: "#EF4444",
     interface: "Terminal",
     description: "Trivy scanning, nmap, TLS analysis, SIEM detection rules",
     labs: [
@@ -79,22 +79,22 @@ const labCategories = [
 
 const quizCategories = [
   {
-    academy: "exams", label: "Competitive Exams", icon: "📝", color: "#F59E0B",
+    academy: "exams", label: "Competitive Exams", icon: "[N]", color: "#F59E0B",
     firstTech: "neet-biology",
     techs: ["GATE CSE", "JEE Maths/Physics", "NEET Bio/Physics", "UPSC", "Banking", "SSC", "RRB NTPC"],
   },
   {
-    academy: "healthcare", label: "Medical Coding", icon: "🏥", color: "#10B981",
+    academy: "healthcare", label: "Medical Coding", icon: "*", color: "#10B981",
     firstTech: "icd-10-cm",
     techs: ["ICD-10-CM", "CPT Codes", "HCPCS Level II", "Coding Guidelines", "Home Health"],
   },
   {
-    academy: "essentials", label: "Life Essentials", icon: "💡", color: "#8B5CF6",
+    academy: "essentials", label: "Life Essentials", icon: "*", color: "#8B5CF6",
     firstTech: "gut-health",
     techs: ["Nutrition", "Mental Health", "First Aid", "Personal Finance", "Hygiene"],
   },
   {
-    academy: "education", label: "CS Education", icon: "🎓", color: "#3B82F6",
+    academy: "education", label: "CS Education", icon: "*", color: "#3B82F6",
     firstTech: "dsa",
     techs: ["DSA", "OS", "DBMS", "Computer Networks", "System Design", "Java", "C++"],
   },

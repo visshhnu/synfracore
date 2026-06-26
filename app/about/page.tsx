@@ -13,25 +13,25 @@ const stats = [
 ];
 
 const values = [
-  { icon: "🎯", title: "Practical First", desc: "Every concept is backed by labs you can run, projects you can build, and interview questions you can answer. Theory without practice is useless." },
-  { icon: "📈", title: "Career-Focused", desc: "Content is structured around what gets you hired and promoted — not what's academically interesting. Real job requirements drive every topic we cover." },
-  { icon: "🌍", title: "Built for India", desc: "Salaries, job market data, and career paths reflect the Indian tech industry. We include cloud certifications, GATE, NEET, and government exam prep alongside DevOps and AI." },
-  { icon: "🚀", title: "From Zero to Architect", desc: "Each technology has a clear path: Installation → Fundamentals → Intermediate → Advanced → Projects → Certification. No prerequisite knowledge assumed without being stated." },
-  { icon: "💡", title: "Open Access", desc: "Core content is free. We believe access to quality technical education should not depend on your ability to pay ₹50,000 for a bootcamp." },
-  { icon: "🔄", title: "Always Current", desc: "Tech moves fast. We update content when tools release major versions, when job market demands shift, and when better explanations emerge." },
+  { icon: ">", title: "Practical First", desc: "Every concept is backed by labs you can run, projects you can build, and interview questions you can answer. Theory without practice is useless." },
+  { icon: ">", title: "Career-Focused", desc: "Content is structured around what gets you hired and promoted — not what's academically interesting. Real job requirements drive every topic we cover." },
+  { icon: "[W]", title: "Built for India", desc: "Salaries, job market data, and career paths reflect the Indian tech industry. We include cloud certifications, GATE, NEET, and government exam prep alongside DevOps and AI." },
+  { icon: "[^]", title: "From Zero to Architect", desc: "Each technology has a clear path: Installation → Fundamentals → Intermediate → Advanced → Projects → Certification. No prerequisite knowledge assumed without being stated." },
+  { icon: "*", title: "Open Access", desc: "Core content is free. We believe access to quality technical education should not depend on your ability to pay ₹50,000 for a bootcamp." },
+  { icon: ">", title: "Always Current", desc: "Tech moves fast. We update content when tools release major versions, when job market demands shift, and when better explanations emerge." },
 ];
 
 const academies = [
-  { icon: "⚙️", name: "DevOps", techs: "Linux, Docker, Kubernetes, Terraform, Ansible, Jenkins, ArgoCD" },
-  { icon: "☁️", name: "Cloud", techs: "AWS, Azure, GCP — 20 services with hands-on labs" },
-  { icon: "🗄️", name: "Databases", techs: "PostgreSQL, Redis, MongoDB, MySQL, Cassandra, Elasticsearch" },
-  { icon: "🤖", name: "AI Engineering", techs: "LLMs, RAG, LangChain, AI Agents, Prompt Engineering, LLMOps" },
-  { icon: "📊", name: "Data Analytics", techs: "SQL, Pandas, Power BI, Tableau" },
-  { icon: "🛡️", name: "Security", techs: "Network Security, Ethical Hacking, SOC, SIEM, Pen Testing" },
-  { icon: "🏥", name: "Healthcare Coding", techs: "ICD-10-CM, CPT, HCPCS, OASIS, PDGM — CPC exam prep" },
-  { icon: "💡", name: "Life Essentials", techs: "Nutrition, Mental Health, Personal Finance, First Aid" },
-  { icon: "🎓", name: "CS Education", techs: "DSA, OS, DBMS, System Design, Java, C, C++" },
-  { icon: "📝", name: "Competitive Exams", techs: "GATE CSE/ECE, JEE, NEET, UPSC, SSC CGL, RRB NTPC" },
+  { icon: "⚙", name: "DevOps", techs: "Linux, Docker, Kubernetes, Terraform, Ansible, Jenkins, ArgoCD" },
+  { icon: "☁", name: "Cloud", techs: "AWS, Azure, GCP — 20 services with hands-on labs" },
+  { icon: "*", name: "Databases", techs: "PostgreSQL, Redis, MongoDB, MySQL, Cassandra, Elasticsearch" },
+  { icon: "*", name: "AI Engineering", techs: "LLMs, RAG, LangChain, AI Agents, Prompt Engineering, LLMOps" },
+  { icon: "*", name: "Data Analytics", techs: "SQL, Pandas, Power BI, Tableau" },
+  { icon: "*", name: "Security", techs: "Network Security, Ethical Hacking, SOC, SIEM, Pen Testing" },
+  { icon: "*", name: "Healthcare Coding", techs: "ICD-10-CM, CPT, HCPCS, OASIS, PDGM — CPC exam prep" },
+  { icon: "*", name: "Life Essentials", techs: "Nutrition, Mental Health, Personal Finance, First Aid" },
+  { icon: "*", name: "CS Education", techs: "DSA, OS, DBMS, System Design, Java, C, C++" },
+  { icon: "[N]", name: "Competitive Exams", techs: "GATE CSE/ECE, JEE, NEET, UPSC, SSC CGL, RRB NTPC" },
 ];
 
 export default function AboutPage() {

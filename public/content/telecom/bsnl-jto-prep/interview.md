@@ -23,3 +23,19 @@ A: End-to-end delay for a packet to travel from source to destination. Component
 
 **Q8: Explain PDGM for Home Health billing.**
 A: Patient Driven Groupings Model — Medicare payment system for home health services effective January 2020. Groups patients by clinical characteristics, functional impairment, and comorbidities to determine reimbursement. Replaced OASIS-based HHPPS. 30-day payment periods. 432 PDGM groups determined by: timing (early/late), admission source (institutional/community), clinical grouping (9 categories), functional impairment level, comorbidity adjustment.
+
+
+**Q: What is the purpose of a guard band in FDM?**
+Prevents interference between adjacent frequency channels. Provides frequency separation so signals don't bleed into neighbouring channels.
+
+**Q: What is VSWR and ideal value?**
+Voltage Standing Wave Ratio — measures impedance mismatch on transmission line. VSWR=1 = perfect match (all power transferred). VSWR=2 = about 11% power reflected. Target VSWR < 1.5 for antenna systems.
+
+**Q: What is the Nyquist sampling theorem?**
+Sampling rate must be at least twice the maximum signal frequency to reconstruct the original signal without aliasing. Voice telephony: 4kHz bandwidth → 8kHz sampling rate → 8000 samples/sec × 8 bits = 64kbps per voice channel (G.711).
+
+**Q: What is ATM in telecom?**
+Asynchronous Transfer Mode: cell-based switching using fixed 53-byte cells (5-byte header + 48-byte payload). Used in legacy backbone networks. Replaced by IP/MPLS in modern networks.
+
+**Q: Explain different types of optical fiber connectors.**
+SC (Subscriber Connector): push-pull, used in data centers. LC (Lucent Connector): small form factor, common in high-density. FC (Ferrule Connector): threaded, used in high-vibration environments. ST (Straight Tip): bayonet mount, older installations. MTP/MPO: multi-fiber (12 or 24 fibers), trunk cables in data centers.

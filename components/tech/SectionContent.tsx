@@ -104,7 +104,7 @@ function renderMarkdown(content: string) {
         warning: ["#F59E0B", "rgba(245,158,11,0.08)", "rgba(245,158,11,0.2)"],
         danger:  ["#EF4444", "rgba(239,68,68,0.08)",  "rgba(239,68,68,0.2)"],
       };
-      const icons: Record<string, string> = { tip: "💡", info: "ℹ️", note: "📝", warning: "⚠️", danger: "🚫" };
+      const icons: Record<string, string> = { tip: "*", info: "ℹ", note: "[N]", warning: "⚠", danger: "*" };
       const [color, bg, border] = colors[type] || colors.info;
       elements.push(
         <div key={`callout-${i}`} style={{ margin: "20px 0", padding: "16px 20px", background: bg, border: `1px solid ${border}`, borderLeft: `4px solid ${color}`, borderRadius: "0 12px 12px 0" }}>

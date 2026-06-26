@@ -7,31 +7,31 @@ export const metadata = {
 
 const channels = [
   {
-    icon: "✈️", name: "Telegram", handle: "t.me/synfracore", color: "#0088CC",
+    icon: "✈", name: "Telegram", handle: "t.me/synfracore", color: "#0088CC",
     href: "https://t.me/synfracore",
     desc: "Daily tips, job alerts, Q&A, and quick help from the community",
     members: "Growing", cta: "Join Channel",
   },
   {
-    icon: "💼", name: "LinkedIn", handle: "linkedin.com/company/synfracore", color: "#0077B5",
+    icon: ">", name: "LinkedIn", handle: "linkedin.com/company/synfracore", color: "#0077B5",
     href: "https://linkedin.com/company/synfracore",
     desc: "Career updates, industry news, and professional networking",
     members: "Growing", cta: "Follow Page",
   },
   {
-    icon: "🐙", name: "GitHub", handle: "github.com/synfracore", color: "#888",
+    icon: ">", name: "GitHub", handle: "github.com/synfracore", color: "#888",
     href: "https://github.com/synfracore",
     desc: "Open-source tools, code examples from the courses, and contributions",
     members: "Growing", cta: "Follow & Star",
   },
   {
-    icon: "▶️", name: "YouTube", handle: "@synfracore", color: "#FF0000",
+    icon: "▶", name: "YouTube", handle: "@synfracore", color: "#FF0000",
     href: "https://youtube.com/@synfracore",
     desc: "Video walkthroughs, lab demos, and interview preparation sessions",
     members: "Growing", cta: "Subscribe",
   },
   {
-    icon: "🐦", name: "Twitter / X", handle: "@synfracore", color: "#1DA1F2",
+    icon: ">", name: "Twitter / X", handle: "@synfracore", color: "#1DA1F2",
     href: "https://twitter.com/synfracore",
     desc: "Quick updates, one-liners, and industry commentary",
     members: "Growing", cta: "Follow",
@@ -39,12 +39,12 @@ const channels = [
 ];
 
 const discussions = [
-  { emoji: "💬", topic: "I finally passed CKA after 3 attempts — here's what worked", replies: 24, tag: "Kubernetes" },
-  { emoji: "🔧", topic: "Terraform state file got corrupted in production — solved", replies: 18, tag: "Terraform" },
-  { emoji: "💰", topic: "My AWS bill went from ₹80k to ₹12k/month — cost optimization tips", replies: 31, tag: "AWS" },
-  { emoji: "🤖", topic: "Built a RAG system for our internal docs — lessons learned", replies: 15, tag: "AI" },
-  { emoji: "🎯", topic: "Got promoted from L2 to L3 — how I prepared my portfolio", replies: 42, tag: "Career" },
-  { emoji: "⚠️", topic: "PostgreSQL OOM kill in production — RCA and fix", replies: 19, tag: "Databases" },
+  { emoji: "[Q]", topic: "I finally passed CKA after 3 attempts — here's what worked", replies: 24, tag: "Kubernetes" },
+  { emoji: "[T]", topic: "Terraform state file got corrupted in production — solved", replies: 18, tag: "Terraform" },
+  { emoji: ">", topic: "My AWS bill went from ₹80k to ₹12k/month — cost optimization tips", replies: 31, tag: "AWS" },
+  { emoji: "*", topic: "Built a RAG system for our internal docs — lessons learned", replies: 15, tag: "AI" },
+  { emoji: ">", topic: "Got promoted from L2 to L3 — how I prepared my portfolio", replies: 42, tag: "Career" },
+  { emoji: "⚠", topic: "PostgreSQL OOM kill in production — RCA and fix", replies: 19, tag: "Databases" },
 ];
 
 export default function CommunityPage() {
@@ -105,7 +105,7 @@ export default function CommunityPage() {
 
       {/* CTA */}
       <div style={{ textAlign: "center", background: "linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1))", border: "1px solid rgba(59,130,246,0.2)", borderRadius: "20px", padding: "48px 32px" }}>
-        <div style={{ fontSize: "36px", marginBottom: "16px" }}>✈️</div>
+        <div style={{ fontSize: "36px", marginBottom: "16px" }}>✈</div>
         <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: "26px", marginBottom: "12px" }}>Start with Telegram</h2>
         <p style={{ color: "var(--text-4)", fontSize: "15px", maxWidth: "440px", margin: "0 auto 24px", lineHeight: 1.7 }}>
           The most active community channel. Get daily DevOps tips, ask questions, and share what you're building.

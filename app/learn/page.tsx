@@ -51,7 +51,7 @@ export default function LearnPage() {
 
       {/* Learning method strip */}
       <div style={{ background: "linear-gradient(135deg,rgba(59,130,246,0.06),rgba(139,92,246,0.06))", border: "1px solid var(--border)", borderRadius: "14px", padding: "14px 24px", marginBottom: "48px", display: "flex", gap: "0", overflowX: "auto", alignItems: "center" }}>
-        {["📖 Learn","✏️ Practice","🔄 Recall","🧪 Test","📊 Analyse","🔁 Repeat"].map((step, i) => (
+        {["[R] Learn","✏ Practice","> Recall","[L] Test","* Analyse","> Repeat"].map((step, i) => (
           <div key={i} style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
             <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-2)", padding: "0 14px", whiteSpace: "nowrap" }}>{step}</span>
             {i < 5 && <span style={{ color: "var(--text-4)", opacity: 0.4 }}>›</span>}
@@ -123,8 +123,8 @@ export default function LearnPage() {
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))", gap: "12px" }}>
             {[
-              { icon: "⚖️", name: "Law Academy", desc: "Constitutional · Corporate · Cyber Law" },
-              { icon: "🌾", name: "Agriculture", desc: "Agri-science · Rural development" },
+              { icon: "⚖", name: "Law Academy", desc: "Constitutional · Corporate · Cyber Law" },
+              { icon: "*", name: "Agriculture", desc: "Agri-science · Rural development" },
             ].map(b => (
               <div key={b.name} style={{ padding: "18px 20px", borderRadius: "10px", border: "1px dashed var(--border)", background: "var(--bg)", opacity: 0.65, display: "flex", alignItems: "center", gap: "12px" }}>
                 <span style={{ fontSize: "24px" }}>{b.icon}</span>

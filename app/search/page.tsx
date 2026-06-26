@@ -793,7 +793,7 @@ export default function SearchPage() {
         <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
           {results.length === 0 && (
             <div style={{ textAlign: "center", padding: "60px 20px", color: "var(--text-4)" }}>
-              <div style={{ fontSize: "40px", marginBottom: "12px" }}>🔍</div>
+              <div style={{ fontSize: "40px", marginBottom: "12px" }}>*</div>
               <div style={{ fontWeight: 600, marginBottom: "6px" }}>No results for &quot;{query}&quot;</div>
               <div style={{ fontSize: "13px" }}>Try different keywords or browse a category above</div>
             </div>

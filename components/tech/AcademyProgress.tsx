@@ -45,7 +45,7 @@ export default function AcademyProgress({ academy, topics, sections, accentColor
       onClick={() => setExpanded(true)}
       style={{ fontSize: "12px", color: "var(--text-4)", background: "none", border: "1px dashed var(--border)", padding: "6px 14px", borderRadius: "8px", cursor: "pointer", marginBottom: "20px" }}
     >
-      📊 Track your progress in this academy
+      * Track your progress in this academy
     </button>
   );
 
@@ -56,7 +56,7 @@ export default function AcademyProgress({ academy, topics, sections, accentColor
     }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "10px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <span style={{ fontSize: "16px" }}>📊</span>
+          <span style={{ fontSize: "16px" }}>*</span>
           <span style={{ fontWeight: 700, fontSize: "14px", color: "var(--text-1)" }}>Your Progress</span>
         </div>
         <span style={{ fontSize: "22px", fontWeight: 800, color: accentColor }}>{totalProgress}%</span>
@@ -72,7 +72,7 @@ export default function AcademyProgress({ academy, topics, sections, accentColor
 
       <div style={{ display: "flex", gap: "16px", fontSize: "12px", color: "var(--text-4)", marginBottom: expanded ? "16px" : "0" }}>
         <span>✅ {completed} complete</span>
-        <span>🔄 {inProgress} in progress</span>
+        <span>~ {inProgress} in progress</span>
         <span>⬜ {topics.length - completed - inProgress} not started</span>
         <button onClick={() => setExpanded(!expanded)} style={{ marginLeft: "auto", background: "none", border: "none", color: "var(--text-4)", cursor: "pointer", fontSize: "11px" }}>
           {expanded ? "▲ collapse" : "▼ details"}

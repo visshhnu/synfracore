@@ -125,7 +125,7 @@ export default function ContactPage() {
 
       {/* Response time */}
       <div style={{ background: "linear-gradient(135deg, rgba(59,130,246,0.08), rgba(139,92,246,0.08))", border: "1px solid rgba(59,130,246,0.15)", borderRadius: "14px", padding: "24px" }}>
-        <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "15px", marginBottom: "8px" }}>⏱️ Response Times</h3>
+        <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "15px", marginBottom: "8px" }}>⏱ Response Times</h3>
         <div style={{ display: "flex", flexDirection: "column", gap: "6px", fontSize: "14px", color: "var(--text-4)" }}>
           <div>General questions: <strong style={{ color: "var(--text-2)" }}>within 24 hours</strong></div>
           <div>Support issues: <strong style={{ color: "var(--text-2)" }}>within 12 hours</strong></div>

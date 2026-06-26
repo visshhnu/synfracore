@@ -19,19 +19,19 @@ function buildHtml(c: DigestContent): string {
       <div style="display:inline-block;background:linear-gradient(135deg,#3B82F6,#8B5CF6);border-radius:12px;padding:10px 18px;margin-bottom:10px;">
         <span style="color:white;font-weight:800;font-size:18px;">SynfraCore</span>
       </div>
-      <h1 style="color:#F1F5F9;font-size:22px;font-weight:800;margin:0 0 4px;">Weekly Digest 📬</h1>
+      <h1 style="color:#F1F5F9;font-size:22px;font-weight:800;margin:0 0 4px;">Weekly Digest ></h1>
       <p style="color:#64748B;font-size:13px;margin:0;">${c.weekOf}</p>
     </div>
 
     <div style="background:linear-gradient(135deg,rgba(59,130,246,0.1),rgba(139,92,246,0.1));border:1px solid rgba(59,130,246,0.2);border-radius:14px;padding:24px;margin-bottom:20px;">
-      <div style="font-size:11px;color:#3B82F6;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">📌 THIS WEEK'S FOCUS</div>
+      <div style="font-size:11px;color:#3B82F6;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">> THIS WEEK'S FOCUS</div>
       <h2 style="color:#F1F5F9;font-size:18px;font-weight:700;margin:0 0 10px;">${c.topStory.title}</h2>
       <p style="color:#94A3B8;font-size:14px;line-height:1.7;margin:0 0 14px;">${c.topStory.summary}</p>
       <a href="${c.topStory.link}" style="color:#60A5FA;text-decoration:none;font-weight:600;font-size:13px;">Read more →</a>
     </div>
 
     <div style="margin-bottom:20px;">
-      <div style="font-size:11px;color:#8B5CF6;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">📚 NEW ARTICLES</div>
+      <div style="font-size:11px;color:#8B5CF6;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">> NEW ARTICLES</div>
       ${c.articles.map(a => `
         <div style="border-bottom:1px solid #1E2D47;padding:12px 0;">
           <span style="display:inline-block;background:rgba(59,130,246,0.1);color:#60A5FA;font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px;margin-bottom:6px;">${a.tag}</span>

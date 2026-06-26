@@ -5,7 +5,7 @@ const featuredLabs = [
   {
     title: "Deploy a 3-Tier App on Kubernetes",
     tech: "Kubernetes",
-    icon: "☸️",
+    icon: "☸",
     level: "Intermediate",
     duration: "2 hours",
     desc: "Build frontend, backend, and database pods with services and ingress",
@@ -16,7 +16,7 @@ const featuredLabs = [
   {
     title: "Zero-Downtime Deploy with ArgoCD",
     tech: "ArgoCD",
-    icon: "🔄",
+    icon: ">",
     level: "Advanced",
     duration: "3 hours",
     desc: "Implement GitOps CD pipeline with blue-green deployment strategy",
@@ -27,7 +27,7 @@ const featuredLabs = [
   {
     title: "Terraform AWS VPC from Scratch",
     tech: "Terraform",
-    icon: "🏗️",
+    icon: "[P]",
     level: "Intermediate",
     duration: "1.5 hours",
     desc: "Create a production VPC with public/private subnets, NAT gateway, and routing",
@@ -38,7 +38,7 @@ const featuredLabs = [
   {
     title: "Build a RAG Pipeline with LangChain",
     tech: "LangChain",
-    icon: "⛓️",
+    icon: "⛓",
     level: "Advanced",
     duration: "2.5 hours",
     desc: "Ingest documents, embed to Chroma, and query with GPT-4 using RAG",
@@ -49,7 +49,7 @@ const featuredLabs = [
   {
     title: "Prometheus + Grafana Stack",
     tech: "Prometheus",
-    icon: "🔥",
+    icon: ">",
     level: "Intermediate",
     duration: "1 hour",
     desc: "Full monitoring stack with alerting rules and custom Grafana dashboards",
@@ -60,7 +60,7 @@ const featuredLabs = [
   {
     title: "AWS EKS Cluster with Fargate",
     tech: "EKS",
-    icon: "☸️",
+    icon: "☸",
     level: "Advanced",
     duration: "3 hours",
     desc: "Production EKS cluster, IRSA, ALB ingress, and autoscaling setup",

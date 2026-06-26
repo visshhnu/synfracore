@@ -10,16 +10,16 @@ interface Props {
 }
 
 const sectionFlow = [
-  { slug: "overview",        label: "Overview",        icon: "📖", desc: "What it is and why it matters" },
-  { slug: "fundamentals",    label: "Fundamentals",    icon: "🔤", desc: "Core concepts from scratch" },
+  { slug: "overview",        label: "Overview",        icon: "[R]", desc: "What it is and why it matters" },
+  { slug: "fundamentals",    label: "Fundamentals",    icon: "[F]", desc: "Core concepts from scratch" },
   { slug: "intermediate",    label: "Intermediate",    icon: "⚡", desc: "Real-world patterns and practices" },
-  { slug: "advanced",        label: "Advanced",        icon: "🚀", desc: "Production hardening and scale" },
-  { slug: "labs",            label: "Hands-on Labs",   icon: "🧪", desc: "Practice in real environments" },
-  { slug: "projects",        label: "Projects",        icon: "🏗️", desc: "Portfolio-ready builds" },
-  { slug: "interview",       label: "Interview Prep",  icon: "💬", desc: "Questions with detailed answers" },
-  { slug: "troubleshooting", label: "Troubleshooting", icon: "🔧", desc: "Debug real production issues" },
-  { slug: "certification",   label: "Certification",   icon: "🏆", desc: "Exam prep and practice" },
-  { slug: "cheatsheets",     label: "Cheatsheet",      icon: "📋", desc: "Quick reference guide" },
+  { slug: "advanced",        label: "Advanced",        icon: "[^]", desc: "Production hardening and scale" },
+  { slug: "labs",            label: "Hands-on Labs",   icon: "[L]", desc: "Practice in real environments" },
+  { slug: "projects",        label: "Projects",        icon: "[P]", desc: "Portfolio-ready builds" },
+  { slug: "interview",       label: "Interview Prep",  icon: "[Q]", desc: "Questions with detailed answers" },
+  { slug: "troubleshooting", label: "Troubleshooting", icon: "[T]", desc: "Debug real production issues" },
+  { slug: "certification",   label: "Certification",   icon: "[C]", desc: "Exam prep and practice" },
+  { slug: "cheatsheets",     label: "Cheatsheet",      icon: "[S]", desc: "Quick reference guide" },
 ];
 
 export default function WhatNext({ academy, technology, currentSection, techName, accentColor = "#6366F1" }: Props) {

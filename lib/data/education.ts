@@ -33,7 +33,7 @@ export const class10Subjects: Subject[] = [
   {
     slug: "maths",
     name: "Mathematics",
-    icon: "📐",
+    icon: "*",
     description: "CBSE Class 10 Mathematics — complete chapter-wise study material, solved examples, PYQs, and MCQ practice",
     chapters: [
       { slug: "real-numbers", title: "Real Numbers", description: "Euclid's division lemma, fundamental theorem of arithmetic, irrational numbers", topics: ["Euclid's Algorithm","HCF and LCM","Irrational Numbers","Decimal Expansions"], pyqYears: ["2023","2022","2021","2020"] },
@@ -56,7 +56,7 @@ export const class10Subjects: Subject[] = [
   {
     slug: "science",
     name: "Science",
-    icon: "🔬",
+    icon: "*",
     description: "CBSE Class 10 Science — Physics, Chemistry, Biology with NCERT solutions, experiments, and board exam prep",
     chapters: [
       { slug: "chemical-reactions", title: "Chemical Reactions and Equations", description: "Types of chemical reactions, balancing equations", topics: ["Combination Reaction","Decomposition","Displacement","Double Displacement","Redox","Balancing Equations"], pyqYears: ["2023","2022","2021","2020"] },
@@ -78,7 +78,7 @@ export const class10Subjects: Subject[] = [
   {
     slug: "english",
     name: "English",
-    icon: "📚",
+    icon: ">",
     description: "CBSE Class 10 English — First Flight, Footprints without Feet, grammar, writing skills",
     chapters: [
       { slug: "a-letter-to-god", title: "A Letter to God", description: "Short story about faith and humanity by G.L. Fuentes", topics: ["Summary","Character Sketch","Themes","Important Questions","Vocabulary"] },
@@ -90,7 +90,7 @@ export const class10Subjects: Subject[] = [
   {
     slug: "social",
     name: "Social Science",
-    icon: "🌍",
+    icon: "[W]",
     description: "CBSE Class 10 Social Science — History, Geography, Political Science, Economics",
     chapters: [
       { slug: "rise-of-nationalism", title: "The Rise of Nationalism in Europe", description: "French Revolution, rise of nation states, nationalist movements", topics: ["French Revolution","Idea of Nation","Nationalism and Imperialism","Major Events","Important Dates"] },
@@ -109,7 +109,7 @@ export const jeeSubjects: Subject[] = [
   {
     slug: "maths",
     name: "Mathematics",
-    icon: "📐",
+    icon: "*",
     description: "JEE Maths — complete chapter-wise coverage with PYQs, tricks, and problem-solving techniques",
     chapters: [
       { slug: "sets-relations", title: "Sets, Relations and Functions", description: "Foundation of JEE Maths", topics: ["Sets","Types of Relations","Functions","Composition of Functions","Inverse Functions"], pyqYears: ["2024","2023","2022","2021","2020"] },
@@ -149,7 +149,7 @@ export const jeeSubjects: Subject[] = [
   {
     slug: "chemistry",
     name: "Chemistry",
-    icon: "🧪",
+    icon: "[L]",
     description: "JEE Chemistry — physical, organic, inorganic with all important reactions and mechanisms",
     chapters: [
       { slug: "atomic-structure", title: "Atomic Structure", description: "Quantum numbers, electronic configuration, orbitals", topics: ["Bohr Model","Quantum Numbers","Aufbau Principle","Electronic Configuration","Orbitals"], pyqYears: ["2024","2023","2022","2021","2020"] },
@@ -170,7 +170,7 @@ export const gateCseSubjects: Subject[] = [
   {
     slug: "dsa",
     name: "Data Structures & Algorithms",
-    icon: "🌲",
+    icon: ">",
     description: "GATE CSE DSA — arrays, linked lists, trees, graphs, sorting with GATE PYQs",
     chapters: [
       { slug: "arrays-strings", title: "Arrays and Strings", description: "Operations, searching, sorting, 2D arrays", topics: ["Array Operations","Searching","Sorting Algorithms","2D Arrays","String Operations","Pattern Matching"], pyqYears: ["2024","2023","2022","2021","2020"] },
@@ -185,7 +185,7 @@ export const gateCseSubjects: Subject[] = [
   {
     slug: "os",
     name: "Operating Systems",
-    icon: "⚙️",
+    icon: "⚙",
     description: "GATE CSE OS — processes, memory, file systems, synchronisation",
     chapters: [
       { slug: "process-management", title: "Process Management", description: "Process states, PCB, scheduling algorithms", topics: ["Process States","PCB","Context Switch","Scheduling Algorithms","FCFS","SJF","Round Robin","Priority"], pyqYears: ["2024","2023","2022","2021","2020"] },
@@ -197,7 +197,7 @@ export const gateCseSubjects: Subject[] = [
   {
     slug: "dbms",
     name: "DBMS",
-    icon: "🗄️",
+    icon: "*",
     description: "GATE CSE DBMS — ER model, relational algebra, SQL, normalisation, transactions",
     chapters: [
       { slug: "er-model", title: "ER Model", description: "Entities, relationships, attributes, mapping to tables", topics: ["Entities and Attributes","Relationships","Cardinality","ER to Relational Mapping","Weak Entities"], pyqYears: ["2024","2023","2022","2021"] },
@@ -215,7 +215,7 @@ export const bankingSubjects: Subject[] = [
   {
     slug: "quant",
     name: "Quantitative Aptitude",
-    icon: "🔢",
+    icon: ">",
     description: "Banking Quant — Number System to Data Interpretation with 500+ practice questions",
     chapters: [
       { slug: "number-system", title: "Number System", description: "Types of numbers, divisibility, LCM, HCF", topics: ["Types of Numbers","Divisibility Rules","LCM and HCF","Fractions","Decimals","Surds and Indices"], pyqYears: ["2024","2023","2022","2021"] },
@@ -231,7 +231,7 @@ export const bankingSubjects: Subject[] = [
   {
     slug: "reasoning",
     name: "Reasoning Ability",
-    icon: "🧠",
+    icon: ">",
     description: "Banking Reasoning — Puzzles to syllogisms with exam-pattern practice",
     chapters: [
       { slug: "puzzles-seating", title: "Puzzles and Seating Arrangement", description: "Linear, circular, complex arrangements — highest weightage topic", topics: ["Linear Arrangement","Circular Arrangement","Floor Puzzle","Box Puzzle","Month/Day Puzzle","Complex Puzzles"] },
@@ -245,7 +245,7 @@ export const bankingSubjects: Subject[] = [
   {
     slug: "english",
     name: "English Language",
-    icon: "📝",
+    icon: "[N]",
     description: "Banking English — Reading comprehension, grammar, vocabulary",
     chapters: [
       { slug: "reading-comprehension", title: "Reading Comprehension", description: "Main idea, inference, vocabulary from context", topics: ["Main Idea","Tone and Attitude","Inference","Vocabulary in Context","Title","Factual Questions"] },
@@ -257,7 +257,7 @@ export const bankingSubjects: Subject[] = [
   {
     slug: "awareness",
     name: "Banking Awareness and GA",
-    icon: "🏦",
+    icon: "*",
     description: "Banking and Financial Awareness — RBI, types of banks, current affairs",
     chapters: [
       { slug: "banking-basics", title: "Banking Basics", description: "Types of banks, RBI functions, monetary policy", topics: ["Types of Banks","RBI Functions","Monetary Policy Tools (Repo/CRR/SLR)","SEBI","NABARD","NHB"] },
@@ -274,7 +274,7 @@ export const neetSubjects = [
   {
     slug: "biology",
     name: "Biology",
-    icon: "🧬",
+    icon: "*",
     description: "NEET Biology — Botany and Zoology with NCERT-based chapter-wise content, PYQs, and MCQs",
     chapters: [
       { slug: "cell-biology", title: "Cell — The Unit of Life", description: "Cell theory, prokaryotic vs eukaryotic, organelles, plasma membrane", topics: ["Cell Theory","Prokaryotic Cell","Eukaryotic Cell","Plasma Membrane","Nucleus","Mitochondria","Chloroplast","ER","Golgi","Lysosome"], pyqYears: ["2023","2022","2021","2020","2019"] },
@@ -302,7 +302,7 @@ export const neetSubjects = [
   {
     slug: "chemistry",
     name: "Chemistry",
-    icon: "🧪",
+    icon: "[L]",
     description: "NEET Chemistry — Physical, Organic, and Inorganic with NEET PYQs",
     chapters: [
       { slug: "chemical-bonding", title: "Chemical Bonding and Molecular Structure", description: "VSEPR theory, hybridisation, molecular orbital theory, bond parameters", topics: ["Ionic Bond","Covalent Bond","VSEPR Theory","Hybridisation","MO Theory","Hydrogen Bond","Bond Parameters"], pyqYears: ["2023","2022","2021","2020"] },
@@ -321,7 +321,7 @@ export const sscSubjects = [
   {
     slug: "quant",
     name: "Quantitative Aptitude",
-    icon: "🔢",
+    icon: ">",
     description: "Number system, percentage, profit-loss, time-work, speed-distance, and DI for SSC",
     chapters: [
       { slug: "number-system-hcf-lcm", title: "Number System, HCF and LCM", description: "Types of numbers, divisibility rules, HCF, LCM, and word problems", topics: ["Number Types","Divisibility Rules","HCF","LCM","Word Problems"], pyqYears: ["2023","2022","2021","2020"] },
@@ -335,7 +335,7 @@ export const sscSubjects = [
   {
     slug: "reasoning",
     name: "Reasoning Ability",
-    icon: "🧩",
+    icon: "*",
     description: "Series, analogy, classification, matrix, and logical reasoning for SSC",
     chapters: [
       { slug: "series-analogy", title: "Series and Analogy", description: "Number series, letter series, word/number/letter analogy patterns", topics: ["Number Series","Letter Series","Word Analogy","Number Analogy","Letter Analogy"], pyqYears: ["2023","2022","2021","2020"] },
@@ -346,7 +346,7 @@ export const sscSubjects = [
   {
     slug: "english",
     name: "English",
-    icon: "📝",
+    icon: "[N]",
     description: "Vocabulary, grammar, reading comprehension, and cloze test for SSC",
     chapters: [
       { slug: "vocabulary-grammar", title: "Vocabulary and Grammar", description: "Synonyms, antonyms, idioms, one-word substitution, error detection, sentence improvement", topics: ["Synonyms","Antonyms","Idioms","One-word Substitution","Error Detection","Sentence Improvement"], pyqYears: ["2023","2022","2021","2020"] },
@@ -356,7 +356,7 @@ export const sscSubjects = [
   {
     slug: "gk",
     name: "General Awareness",
-    icon: "🌐",
+    icon: "*",
     description: "Static GK and current affairs — History, Polity, Geography, Science, Economy",
     chapters: [
       { slug: "general-awareness", title: "General Awareness", description: "Indian History, Polity, Geography, Science, Economy, and Current Affairs for SSC", topics: ["Indian History","Polity","Geography","Physics","Chemistry","Biology","Economy","Awards"], pyqYears: ["2023","2022","2021","2020"] },
@@ -370,7 +370,7 @@ export const careerSubjects = [
   {
     slug: "resume",
     name: "Resume Building",
-    icon: "📄",
+    icon: "*",
     description: "ATS-optimised resume writing, format, action verbs, and common mistakes",
     chapters: [
       { slug: "resume-building", title: "Resume Building", description: "ATS-optimised resume format, structure for fresher and experienced, quantification tips", topics: ["ATS Optimisation","Resume Format","Action Verbs","Quantification","Common Mistakes"], pyqYears: [] },
@@ -379,7 +379,7 @@ export const careerSubjects = [
   {
     slug: "interview",
     name: "Interview Preparation",
-    icon: "🤝",
+    icon: ">",
     description: "STAR method, common HR questions, technical interview tips, salary negotiation",
     chapters: [
       { slug: "interview-preparation", title: "Interview Preparation", description: "STAR method, HR questions, technical interview strategy, salary negotiation framework", topics: ["STAR Method","HR Questions","Technical Interview","Salary Negotiation","Interview Day Checklist"], pyqYears: [] },
@@ -388,7 +388,7 @@ export const careerSubjects = [
   {
     slug: "aptitude",
     name: "Aptitude",
-    icon: "🧮",
+    icon: ">",
     description: "Quantitative aptitude fundamentals for campus placement — TCS, Infosys, Wipro pattern",
     chapters: [
       { slug: "aptitude-fundamentals", title: "Aptitude Fundamentals", description: "Number system, percentage, ratios, probability, permutation, geometry for placement tests", topics: ["Number System","Percentage","Ratio","Probability","Permutation","Company Patterns"], pyqYears: [] },
@@ -397,7 +397,7 @@ export const careerSubjects = [
   {
     slug: "placement",
     name: "Placement Training",
-    icon: "🎓",
+    icon: "*",
     description: "Complete campus placement guide — aptitude, GD, technical, HR, and salary negotiation",
     chapters: [
       { slug: "placement-training", title: "Placement Training — Complete Guide", description: "Campus recruitment process, GD tips, technical interview by role, HR framework", topics: ["Aptitude Strategy","Group Discussion","Technical Interview","HR Interview","Salary Negotiation","Resources"], pyqYears: [] },
@@ -411,7 +411,7 @@ export const financeSubjects = [
   {
     slug: "accounting",
     name: "Accounting",
-    icon: "📊",
+    icon: "*",
     description: "Accounting fundamentals — double entry, journal, ledger, financial statements",
     chapters: [
       { slug: "accounting-basics", title: "Accounting Fundamentals", description: "Accounting equation, double entry system, journal, ledger, trial balance, financial statements", topics: ["Accounting Equation","Double Entry","Journal","Ledger","Trial Balance","Financial Statements","Accounting Concepts"], pyqYears: [] },
@@ -420,7 +420,7 @@ export const financeSubjects = [
   {
     slug: "stock-market",
     name: "Stock Market",
-    icon: "📈",
+    icon: ">",
     description: "Stock market basics — BSE, NSE, SENSEX, NIFTY, fundamental and technical analysis",
     chapters: [
       { slug: "stock-market-basics", title: "Stock Market Fundamentals", description: "Primary and secondary markets, SENSEX, NIFTY, fundamental analysis, technical analysis, SEBI", topics: ["Markets","Indices","Fundamental Analysis","Technical Analysis","SEBI Regulations","How to Invest"], pyqYears: [] },
@@ -429,7 +429,7 @@ export const financeSubjects = [
   {
     slug: "banking-finance",
     name: "Banking & Finance",
-    icon: "💳",
+    icon: ">",
     description: "Banking products, investment instruments, mutual funds, insurance, retirement planning",
     chapters: [
       { slug: "investment-basics", title: "Investment and Banking Products", description: "Banking deposits, loans, equity, mutual funds, fixed income, insurance, retirement products", topics: ["Banking Deposits","Loans","CIBIL Score","Equity","Mutual Funds","Fixed Income","Insurance","NPS","EPF"], pyqYears: [] },
@@ -438,7 +438,7 @@ export const financeSubjects = [
   {
     slug: "economics",
     name: "Economics",
-    icon: "🏦",
+    icon: "*",
     description: "Macroeconomics — GDP, inflation, monetary policy, fiscal policy, balance of payments",
     chapters: [
       { slug: "macro-economics", title: "Macroeconomics and Indian Economy", description: "National income, inflation, monetary policy, fiscal policy, balance of payments for finance roles", topics: ["GDP","National Income","Inflation","Monetary Policy","Fiscal Policy","Balance of Payments","Key Concepts"], pyqYears: [] },
@@ -452,7 +452,7 @@ export const defenceSubjects = [
   {
     slug: "nda",
     name: "NDA",
-    icon: "⚔️",
+    icon: "⚔",
     description: "NDA exam preparation — Mathematics (300 marks) and General Ability Test (600 marks)",
     chapters: [
       { slug: "mathematics", title: "NDA Mathematics", description: "Algebra, calculus, matrices, trigonometry, statistics, analytical geometry for NDA Paper I", topics: ["Algebra","Matrices","Trigonometry","Calculus","Statistics","Probability","Analytical Geometry","Vectors"], pyqYears: ["2023","2022","2021","2020"] },
@@ -462,7 +462,7 @@ export const defenceSubjects = [
   {
     slug: "cds",
     name: "CDS",
-    icon: "🎖️",
+    icon: ">",
     description: "Combined Defence Services exam — English, General Knowledge, Elementary Mathematics",
     chapters: [
       { slug: "cds-exam", title: "CDS Complete Guide", description: "English, GK (Polity, History, Geography, Science), and Elementary Mathematics for CDS", topics: ["English","Indian Polity","History","Geography","Science & Tech","Elementary Maths","Defence Awareness"], pyqYears: ["2023","2022","2021","2020"] },
@@ -474,7 +474,7 @@ export const upscSubjects = [
   {
     slug: "prelims",
     name: "Prelims GS",
-    icon: "📜",
+    icon: ">",
     description: "UPSC Prelims General Studies Paper 1 — History, Polity, Economy, Geography, Environment, Science",
     chapters: [
       { slug: "history-polity", title: "Indian History and Indian Polity", description: "Ancient, Medieval, Modern India history + Constitutional framework, Fundamental Rights, DPSP for UPSC Prelims", topics: ["Ancient India","Medieval India","Mughal Empire","Freedom Struggle","Constitution","Fundamental Rights","DPSP","Parliament"], pyqYears: ["2023","2022","2021","2020","2019"] },
@@ -504,7 +504,7 @@ export const educationBoards: EducationBoard[] = [
     slug: "class-10",
     name: "Class 10 (CBSE/ICSE)",
     shortName: "Class 10",
-    icon: "📘",
+    icon: "*",
     color: "#10B981",
     tagline: "Board Exam Preparation",
     description: "Complete CBSE Class 10 preparation — all subjects chapter-wise with NCERT solutions, PYQs 2020-2024, MCQ practice, and revision notes",
@@ -515,7 +515,7 @@ export const educationBoards: EducationBoard[] = [
     slug: "jee",
     name: "JEE Main & Advanced",
     shortName: "JEE",
-    icon: "⚗️",
+    icon: "⚗",
     color: "#F59E0B",
     tagline: "IIT Entrance Preparation",
     description: "Comprehensive JEE preparation — Physics, Chemistry, Maths with chapter-wise PYQs from 2015-2024, concept clarity, and problem-solving techniques",
@@ -526,7 +526,7 @@ export const educationBoards: EducationBoard[] = [
     slug: "gate-cse",
     name: "GATE CSE",
     shortName: "GATE CSE",
-    icon: "💻",
+    icon: "*",
     color: "#8B5CF6",
     tagline: "IIT M.Tech & PSU Jobs",
     description: "GATE Computer Science preparation — DSA, OS, DBMS, CN, Algorithms, TOC, COA with PYQs 2014-2024 and subject-wise mock tests",
@@ -537,7 +537,7 @@ export const educationBoards: EducationBoard[] = [
     slug: "banking",
     name: "Banking Exams (SBI/IBPS)",
     shortName: "Banking",
-    icon: "🏦",
+    icon: "*",
     color: "#3B82F6",
     tagline: "SBI PO, IBPS PO/Clerk, RRB",
     description: "Complete Banking exam preparation — Quantitative Aptitude, Reasoning, English, and Banking Awareness with sectional mock tests",
@@ -548,7 +548,7 @@ export const educationBoards: EducationBoard[] = [
     slug: "upsc",
     name: "UPSC Civil Services",
     shortName: "UPSC",
-    icon: "🏛️",
+    icon: "*",
     color: "#EF4444",
     tagline: "IAS, IPS, IFS Preparation",
     description: "UPSC Prelims and Mains preparation — GS Paper 1 & 2 (CSAT), essay writing, current affairs with structured chapter-wise content",
@@ -559,7 +559,7 @@ export const educationBoards: EducationBoard[] = [
     slug: "neet",
     name: "NEET",
     shortName: "NEET",
-    icon: "🧬",
+    icon: "*",
     color: "#EC4899",
     tagline: "MBBS/BDS Medical Entrance",
     description: "NEET preparation — Biology (Botany + Zoology), Physics, Chemistry with NCERT-focused chapter-wise content and PYQs 2015-2024",
@@ -570,7 +570,7 @@ export const educationBoards: EducationBoard[] = [
     slug: "ssc",
     name: "SSC CGL/CHSL",
     shortName: "SSC",
-    icon: "📋",
+    icon: "[S]",
     color: "#14B8A6",
     tagline: "Government Job Preparation",
     description: "SSC CGL and CHSL preparation — Quant, English, Reasoning, GK for Tier I and Tier II",
@@ -581,7 +581,7 @@ export const educationBoards: EducationBoard[] = [
     slug: "defence",
     name: "Defence Exams",
     shortName: "Defence",
-    icon: "⚔️",
+    icon: "⚔",
     color: "#F59E0B",
     tagline: "NDA · CDS · AFCAT",
     description: "Complete preparation for NDA, CDS, and AFCAT defence exams — Mathematics, General Ability Test, English, and GK with previous year questions",
@@ -592,7 +592,7 @@ export const educationBoards: EducationBoard[] = [
     slug: "career",
     name: "Career Academy",
     shortName: "Career",
-    icon: "🎯",
+    icon: ">",
     color: "#8B5CF6",
     tagline: "Resume · Interview · Aptitude · Placement",
     description: "Complete career preparation — resume building, interview techniques, aptitude for placements, and campus recruitment training",
@@ -603,7 +603,7 @@ export const educationBoards: EducationBoard[] = [
     slug: "finance",
     name: "Finance & Commerce",
     shortName: "Finance",
-    icon: "🏦",
+    icon: "*",
     color: "#F59E0B",
     tagline: "Accounting · Stock Market · Economics",
     description: "Finance fundamentals — accounting, stock markets, macroeconomics, and investment basics for finance careers and personal finance",
@@ -614,7 +614,7 @@ export const educationBoards: EducationBoard[] = [
     slug: "class-12",
     name: "Class 12 (CBSE/ICSE)",
     shortName: "Class 12",
-    icon: "📗",
+    icon: ">",
     color: "#6366F1",
     tagline: "Board + JEE/NEET Foundation",
     description: "Class 12 board preparation aligned with JEE/NEET — Maths, Physics, Chemistry, Biology, CS",
@@ -630,7 +630,7 @@ export const class12Subjects = [
   {
     slug: "maths",
     name: "Mathematics",
-    icon: "📐",
+    icon: "*",
     description: "Class 12 Maths — Relations, Matrices, Calculus, Probability for CBSE boards and JEE foundation",
     chapters: [
       { slug: "relations-functions", title: "Relations and Functions", description: "Types of relations, types of functions, composition, inverse functions, binary operations", topics: ["Types of Relations","Equivalence Relation","One-one Functions","Onto Functions","Composition","Inverse Functions"], pyqYears: ["2023","2022","2021","2020"] },
@@ -659,7 +659,7 @@ export const class12Subjects = [
   {
     slug: "chemistry",
     name: "Chemistry",
-    icon: "🧪",
+    icon: "[L]",
     description: "Class 12 Chemistry — Electrochemistry, Organic Nitrogen Compounds for CBSE boards",
     chapters: [
       { slug: "electrochemistry-board", title: "Electrochemistry", description: "EMF of cells, Nernst equation, conductance, Faraday's laws of electrolysis", topics: ["Electrochemical Cells","Standard EMF","Nernst Equation","Conductance","Faraday's Laws","Electrolysis"], pyqYears: ["2023","2022","2021","2020"] },
@@ -671,7 +671,7 @@ export const class12Subjects = [
   {
     slug: "biology",
     name: "Biology",
-    icon: "🧬",
+    icon: "*",
     description: "Class 12 Biology — Reproduction, Genetics and Evolution for CBSE boards and NEET",
     chapters: [
       { slug: "reproduction", title: "Reproduction in Organisms and Flowering Plants", description: "Asexual and sexual reproduction, flower structure, pollination, double fertilisation, human reproduction", topics: ["Asexual Reproduction","Flower Structure","Pollination","Double Fertilisation","Embryo Sac","Human Reproduction","Menstrual Cycle"], pyqYears: ["2023","2022","2021","2020"] },
@@ -689,7 +689,7 @@ export const financeExtraSubjects = [
   {
     slug: "taxation",
     name: "Taxation",
-    icon: "📋",
+    icon: "[S]",
     description: "Income Tax and GST fundamentals — slabs, deductions, GST rates, ITC",
     chapters: [
       { slug: "taxation-gst", title: "Taxation — Income Tax and GST", description: "Income tax heads, deductions (80C, 80D), GST structure, rates, ITC, returns", topics: ["Income Tax Heads","80C Deductions","Tax Slabs","GST Structure","GST Rates","Input Tax Credit","GST Returns"], pyqYears: [] },

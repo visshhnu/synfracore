@@ -5,7 +5,7 @@ import { ArrowRight, Star, Clock, Layers } from "lucide-react";
 
 const projectCategories = [
   {
-    academy: "devops", label: "DevOps", color: "#3B82F6", icon: "⚙️",
+    academy: "devops", label: "DevOps", color: "#3B82F6", icon: "⚙",
     description: "CI/CD pipelines, container orchestration, infrastructure automation",
     projects: [
       { name: "Zero-Downtime Kubernetes Deployment", level: "Intermediate", tech: ["Kubernetes","Helm","ArgoCD"], time: "3 days", link: "/academies/devops/kubernetes/projects" },
@@ -15,7 +15,7 @@ const projectCategories = [
     ],
   },
   {
-    academy: "cloud", label: "Cloud", color: "#F59E0B", icon: "☁️",
+    academy: "cloud", label: "Cloud", color: "#F59E0B", icon: "☁",
     description: "Serverless applications, multi-region architectures, cost optimization",
     projects: [
       { name: "3-Tier AWS Architecture", level: "Beginner", tech: ["AWS","EC2","RDS","S3"], time: "2 days", link: "/academies/cloud/aws-ec2/projects" },
@@ -25,7 +25,7 @@ const projectCategories = [
     ],
   },
   {
-    academy: "ai", label: "AI Engineering", color: "#8B5CF6", icon: "🤖",
+    academy: "ai", label: "AI Engineering", color: "#8B5CF6", icon: "*",
     description: "LLM applications, RAG systems, autonomous agents",
     projects: [
       { name: "Domain Expert Chatbot", level: "Beginner", tech: ["Claude API","Python","Streamlit"], time: "2 days", link: "/academies/ai/ai-fundamentals/projects" },
@@ -35,7 +35,7 @@ const projectCategories = [
     ],
   },
   {
-    academy: "databases", label: "Databases", color: "#10B981", icon: "🗄️",
+    academy: "databases", label: "Databases", color: "#10B981", icon: "*",
     description: "Schema design, query optimization, scalability patterns",
     projects: [
       { name: "E-Commerce PostgreSQL Schema", level: "Beginner", tech: ["PostgreSQL","SQL","Indexes"], time: "2 days", link: "/academies/databases/postgresql/projects" },
@@ -44,7 +44,7 @@ const projectCategories = [
     ],
   },
   {
-    academy: "security", label: "Security", color: "#EF4444", icon: "🛡️",
+    academy: "security", label: "Security", color: "#EF4444", icon: "*",
     description: "Security scanning, CSPM, threat detection, hardening",
     projects: [
       { name: "Container Security Pipeline", level: "Intermediate", tech: ["Trivy","Gitleaks","GitHub Actions"], time: "2 days", link: "/academies/security/security-fundamentals/projects" },
@@ -52,7 +52,7 @@ const projectCategories = [
     ],
   },
   {
-    academy: "data", label: "Data Analytics", color: "#06B6D4", icon: "📊",
+    academy: "data", label: "Data Analytics", color: "#06B6D4", icon: "*",
     description: "Dashboards, data pipelines, business intelligence",
     projects: [
       { name: "Sales Analytics Dashboard", level: "Beginner", tech: ["Power BI","DAX","Excel"], time: "2 days", link: "/academies/data/power-bi/projects" },
@@ -81,8 +81,8 @@ export default function ProjectsPage() {
       {/* Stats */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))", gap: "16px", marginBottom: "64px" }}>
         {[
-          { value: "300+", label: "Guided Projects", icon: "🏗️" },
-          { value: "Beginner → Advanced", label: "All Skill Levels", icon: "📈" },
+          { value: "300+", label: "Guided Projects", icon: "[P]" },
+          { value: "Beginner → Advanced", label: "All Skill Levels", icon: ">" },
           { value: "GitHub Ready", label: "Portfolio-worthy", icon: "⭐" },
         ].map(stat => (
           <div key={stat.label} style={{ background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "14px", padding: "24px", textAlign: "center" }}>

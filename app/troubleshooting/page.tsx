@@ -3,25 +3,25 @@ import Link from "next/link";
 export const metadata = { title: "Troubleshooting Hub — SynfraCore" };
 
 const commonIssues = [
-  { tech: "Kubernetes", icon: "☸️", issue: "CrashLoopBackOff", color: "#3B82F6" },
-  { tech: "Jenkins", icon: "🤖", issue: "Build Pipeline Failure", color: "#F59E0B" },
-  { tech: "Terraform", icon: "🏗️", issue: "State Lock Issues", color: "#8B5CF6" },
-  { tech: "AWS IAM", icon: "🔐", issue: "Permission Denied Errors", color: "#F43F5E" },
-  { tech: "Docker", icon: "🐳", issue: "Container Exit Codes", color: "#06B6D4" },
+  { tech: "Kubernetes", icon: "☸", issue: "CrashLoopBackOff", color: "#3B82F6" },
+  { tech: "Jenkins", icon: "*", issue: "Build Pipeline Failure", color: "#F59E0B" },
+  { tech: "Terraform", icon: "[P]", issue: "State Lock Issues", color: "#8B5CF6" },
+  { tech: "AWS IAM", icon: ">", issue: "Permission Denied Errors", color: "#F43F5E" },
+  { tech: "Docker", icon: ">", issue: "Container Exit Codes", color: "#06B6D4" },
   { tech: "Nginx", icon: "⚡", issue: "502 Bad Gateway", color: "#10B981" },
-  { tech: "Git", icon: "🔀", issue: "Merge Conflicts", color: "#F97316" },
-  { tech: "Ansible", icon: "🎭", issue: "SSH Connection Failures", color: "#EAB308" },
-  { tech: "ArgoCD", icon: "🔄", issue: "Sync Failed", color: "#EC4899" },
-  { tech: "Prometheus", icon: "🔥", issue: "Targets Down", color: "#F43F5E" },
-  { tech: "EKS", icon: "☸️", issue: "Node Not Ready", color: "#FF9900" },
-  { tech: "Terraform", icon: "🏗️", issue: "Plan/Apply Drift", color: "#8B5CF6" },
+  { tech: "Git", icon: ">", issue: "Merge Conflicts", color: "#F97316" },
+  { tech: "Ansible", icon: ">", issue: "SSH Connection Failures", color: "#EAB308" },
+  { tech: "ArgoCD", icon: ">", issue: "Sync Failed", color: "#EC4899" },
+  { tech: "Prometheus", icon: ">", issue: "Targets Down", color: "#F43F5E" },
+  { tech: "EKS", icon: "☸", issue: "Node Not Ready", color: "#FF9900" },
+  { tech: "Terraform", icon: "[P]", issue: "Plan/Apply Drift", color: "#8B5CF6" },
 ];
 
 const categories = [
   { name: "Common Errors", icon: "❌", desc: "Frequent error messages decoded" },
-  { name: "Root Cause Analysis", icon: "🔍", desc: "Systematic investigation guides" },
-  { name: "Fix Procedures", icon: "🔧", desc: "Step-by-step remediation" },
-  { name: "Production Incidents", icon: "🚨", desc: "Real incident post-mortems" },
+  { name: "Root Cause Analysis", icon: "*", desc: "Systematic investigation guides" },
+  { name: "Fix Procedures", icon: "[T]", desc: "Step-by-step remediation" },
+  { name: "Production Incidents", icon: ">", desc: "Real incident post-mortems" },
   { name: "Best Practices", icon: "✅", desc: "Prevent issues before they occur" },
 ];
 

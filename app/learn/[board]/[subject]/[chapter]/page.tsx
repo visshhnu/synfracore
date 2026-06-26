@@ -117,7 +117,7 @@ export default async function ChapterPage({ params }: Props) {
             marginBottom: "24px", padding: "8px 14px", borderRadius: "8px",
             background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.2)"
           }}>
-            <span style={{ color: "#10B981", fontWeight: 700, fontSize: "12px" }}>📋 PYQs Available:</span>
+            <span style={{ color: "#10B981", fontWeight: 700, fontSize: "12px" }}>[S] PYQs Available:</span>
             <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
               {chapter.pyqYears.map(y => (
                 <span key={y} style={{
@@ -133,7 +133,7 @@ export default async function ChapterPage({ params }: Props) {
         <div className="mobile-chapter-nav" style={{ marginBottom: "20px", display: "none" }}>
           <details style={{ border: "1px solid var(--border)", borderRadius: "10px", padding: "10px 14px" }}>
             <summary style={{ cursor: "pointer", fontSize: "13px", fontWeight: 600, color: "var(--text-2)", userSelect: "none" }}>
-              📚 All chapters in {subject.name} ({chapters.length})
+              + All chapters in {subject.name} ({chapters.length})
             </summary>
             <div style={{ marginTop: "10px", display: "flex", flexDirection: "column", gap: "2px" }}>
               {chapters.map((c, i) => (

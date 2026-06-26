@@ -8,7 +8,7 @@ export const metadata = {
 
 const interviewTracks = [
   {
-    label: "DevOps & Platform", academy: "devops", color: "#3B82F6", icon: "⚙️",
+    label: "DevOps & Platform", academy: "devops", color: "#3B82F6", icon: "⚙",
     techs: [
       { name: "Linux", slug: "linux" }, { name: "Docker", slug: "docker" }, { name: "Kubernetes", slug: "kubernetes" },
       { name: "Terraform", slug: "terraform" }, { name: "Ansible", slug: "ansible" }, { name: "Jenkins", slug: "jenkins" },
@@ -17,7 +17,7 @@ const interviewTracks = [
     ],
   },
   {
-    label: "Cloud (AWS/Azure/GCP)", academy: "cloud", color: "#F59E0B", icon: "☁️",
+    label: "Cloud (AWS/Azure/GCP)", academy: "cloud", color: "#F59E0B", icon: "☁",
     techs: [
       { name: "AWS EC2", slug: "aws-ec2" }, { name: "AWS S3", slug: "aws-s3" }, { name: "AWS VPC", slug: "aws-vpc" },
       { name: "AWS IAM", slug: "aws-iam" }, { name: "AWS Lambda", slug: "aws-lambda" }, { name: "AWS EKS", slug: "aws-eks" },
@@ -26,7 +26,7 @@ const interviewTracks = [
     ],
   },
   {
-    label: "Databases", academy: "databases", color: "#10B981", icon: "🗄️",
+    label: "Databases", academy: "databases", color: "#10B981", icon: "*",
     techs: [
       { name: "PostgreSQL", slug: "postgresql" }, { name: "MySQL", slug: "mysql" }, { name: "Redis", slug: "redis" },
       { name: "MongoDB", slug: "mongodb" }, { name: "Elasticsearch", slug: "elasticsearch" },
@@ -34,7 +34,7 @@ const interviewTracks = [
     ],
   },
   {
-    label: "AI Engineering", academy: "ai", color: "#8B5CF6", icon: "🤖",
+    label: "AI Engineering", academy: "ai", color: "#8B5CF6", icon: "*",
     techs: [
       { name: "AI Fundamentals", slug: "ai-fundamentals" }, { name: "Prompt Engineering", slug: "prompt-engineering" },
       { name: "LangChain", slug: "langchain" }, { name: "RAG Systems", slug: "rag" },
@@ -42,14 +42,14 @@ const interviewTracks = [
     ],
   },
   {
-    label: "Data Analytics", academy: "data", color: "#06B6D4", icon: "📊",
+    label: "Data Analytics", academy: "data", color: "#06B6D4", icon: "*",
     techs: [
       { name: "SQL Analytics", slug: "sql" }, { name: "Pandas", slug: "pandas" },
       { name: "Power BI", slug: "power-bi" }, { name: "Tableau", slug: "tableau" },
     ],
   },
   {
-    label: "Security", academy: "security", color: "#EF4444", icon: "🛡️",
+    label: "Security", academy: "security", color: "#EF4444", icon: "*",
     techs: [
       { name: "Security Fundamentals", slug: "security-fundamentals" },
       { name: "Network Security", slug: "network-security" },
@@ -60,12 +60,12 @@ const interviewTracks = [
 ];
 
 const tips = [
-  { icon: "🎯", title: "STAR Method", desc: "Situation, Task, Action, Result — structure all behavioral answers" },
-  { icon: "💡", title: "Think Out Loud", desc: "Interviewers want to hear your reasoning, not just the final answer" },
-  { icon: "📐", title: "Draw It Out", desc: "Architecture questions: always sketch a diagram before explaining" },
+  { icon: ">", title: "STAR Method", desc: "Situation, Task, Action, Result — structure all behavioral answers" },
+  { icon: "*", title: "Think Out Loud", desc: "Interviewers want to hear your reasoning, not just the final answer" },
+  { icon: "*", title: "Draw It Out", desc: "Architecture questions: always sketch a diagram before explaining" },
   { icon: "❓", title: "Ask Clarifying Questions", desc: "Never assume — ask about scale, constraints, and use case" },
-  { icon: "🔢", title: "Quantify Everything", desc: '"Reduced deploy time by 60%" beats "made deployments faster"' },
-  { icon: "⚠️", title: "Know Your Trade-offs", desc: "Every answer should mention pros, cons, and when NOT to use it" },
+  { icon: ">", title: "Quantify Everything", desc: '"Reduced deploy time by 60%" beats "made deployments faster"' },
+  { icon: "⚠", title: "Know Your Trade-offs", desc: "Every answer should mention pros, cons, and when NOT to use it" },
 ];
 
 export default function InterviewPage() {
@@ -88,8 +88,8 @@ export default function InterviewPage() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "16px", marginBottom: "64px" }}>
         {[
           { value: "1000+", label: "Questions", icon: "❓" },
-          { value: "101", label: "Technologies", icon: "🛠️" },
-          { value: "3 Levels", label: "Beginner to Architect", icon: "📈" },
+          { value: "101", label: "Technologies", icon: "*" },
+          { value: "3 Levels", label: "Beginner to Architect", icon: ">" },
           { value: "Real Answers", label: "Not just questions", icon: "✅" },
         ].map(stat => (
           <div key={stat.label} style={{ background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "14px", padding: "20px", textAlign: "center" }}>

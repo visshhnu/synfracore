@@ -1,0 +1,1 @@
+eBPF programs run in a sandboxed VM in the kernel. Verified by kernel verifier before loading — cannot crash the kernel or access arbitrary memory. Types: tracepoints, kprobes, uprobes, XDP (network), socket filters. Tools: bpftrace (tracing), Cilium (networking), Falco (security), Pixie (observability).

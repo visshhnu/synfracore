@@ -182,19 +182,19 @@ const NAV_LINKS = [
 // Dropdown groups — 4 columns, each group is its own column
 const GROUPS = [
   {
-    label: "Tech & Engineering", color: "#3B82F6", icon: "⚙️",
+    label: "Tech & Engineering", color: "#3B82F6", icon: "⚙",
     slugs: ["devops", "cloud", "databases", "ai", "data", "security", "telecom"],
   },
   {
-    label: "Education & Exams", color: "#F59E0B", icon: "🎓",
+    label: "Education & Exams", color: "#F59E0B", icon: "*",
     slugs: ["education", "exams", "state-psc", "central-exams", "professional-certs"],
   },
   {
-    label: "Health & Life Skills", color: "#F43F5E", icon: "🌿",
+    label: "Health & Life Skills", color: "#F43F5E", icon: "*",
     slugs: ["healthcare", "essentials", "agriculture"],
   },
   {
-    label: "Professional & Law", color: "#8B5CF6", icon: "🏛️",
+    label: "Professional & Law", color: "#8B5CF6", icon: "*",
     slugs: ["law", "finance", "economics"],
   },
 ];
@@ -424,7 +424,7 @@ export default function Navbar() {
             Start Learning Free
           </Link>
           <Link href="/roadmaps" onClick={closeDrawer} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "6px", padding: "10px", fontSize: "13px", borderRadius: "8px", textDecoration: "none", background: "var(--bg-2)", color: "var(--text-2)", border: "1px solid var(--border)", fontWeight: 600 }}>
-            🗺️ Learning Roadmaps
+            [M] Learning Roadmaps
           </Link>
         </div>
       </div>

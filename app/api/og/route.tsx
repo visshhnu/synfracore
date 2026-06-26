@@ -18,16 +18,16 @@ export async function GET(request: Request) {
     "central-exams": "#FBBF24", "professional-certs": "#84CC16",
   };
   const iconMap: Record<string, string> = {
-    devops: "⚙️", cloud: "☁️", databases: "🗄️", ai: "🤖",
-    data: "📊", security: "🛡️", healthcare: "🏥",
-    essentials: "🌿", education: "🎓", exams: "📝",
-    law: "⚖️", finance: "💹", economics: "📈",
-    agriculture: "🌾", telecom: "📡", "state-psc": "🏛️",
-    "central-exams": "📋", "professional-certs": "🏅",
+    devops: "⚙", cloud: "☁", databases: "*", ai: "*",
+    data: "*", security: "*", healthcare: "*",
+    essentials: "*", education: "*", exams: "[N]",
+    law: "⚖", finance: "*", economics: ">",
+    agriculture: "*", telecom: "*", "state-psc": "*",
+    "central-exams": "[S]", "professional-certs": "*",
   };
 
   const color  = colorMap[academy]  || "#3B82F6";
-  const icon   = iconMap[academy]   || "📚";
+  const icon   = iconMap[academy]   || ">";
   const sectionLabel = section ? ` — ${section}` : "";
 
   return new ImageResponse(

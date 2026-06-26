@@ -380,11 +380,11 @@ function LabCard({ lab, accentColor }: { lab: Lab; accentColor: string }) {
                         onClick={() => setShowHint(prev => { const n = new Set(prev); if(n.has(step.id)) n.delete(step.id); else n.add(step.id); return n; })}
                         style={{ background: "none", border: `1px solid ${accentColor}44`, color: accentColor, padding: "4px 12px", borderRadius: "6px", cursor: "pointer", fontSize: "12px", marginBottom: "8px" }}
                       >
-                        {hinted ? "Hide hint" : "💡 Show hint"}
+                        {hinted ? "Hide hint" : "* Show hint"}
                       </button>
                       {hinted && (
                         <div style={{ background: "#F59E0B11", border: "1px solid #F59E0B33", borderRadius: "8px", padding: "12px 16px", fontSize: "13px", color: "var(--text-3)" }}>
-                          💡 {step.hint}
+                          * {step.hint}
                         </div>
                       )}
                     </div>
@@ -393,7 +393,7 @@ function LabCard({ lab, accentColor }: { lab: Lab; accentColor: string }) {
                   {/* Explanation */}
                   {step.explanation && (
                     <div style={{ background: `${accentColor}0d`, border: `1px solid ${accentColor}22`, borderRadius: "8px", padding: "12px 16px", marginTop: "10px", fontSize: "13px", color: "var(--text-3)", lineHeight: 1.6 }}>
-                      <strong style={{ color: accentColor }}>📖 Why: </strong>{step.explanation}
+                      <strong style={{ color: accentColor }}>[R] Why: </strong>{step.explanation}
                     </div>
                   )}
                 </div>
@@ -423,7 +423,7 @@ function LabCard({ lab, accentColor }: { lab: Lab; accentColor: string }) {
             <div style={{ marginTop: "20px", background: "#3FB95022", border: "1px solid #3FB95044", borderRadius: "12px", padding: "16px 20px", display: "flex", alignItems: "center", gap: "12px" }}>
               <CheckCircle size={24} color="#3FB950"/>
               <div>
-                <div style={{ fontWeight: 700, color: "#3FB950", marginBottom: "2px" }}>Lab Complete! 🎉</div>
+                <div style={{ fontWeight: 700, color: "#3FB950", marginBottom: "2px" }}>Lab Complete!</div>
                 <div style={{ fontSize: "13px", color: "var(--text-3)" }}>All steps completed. You can try the next lab or review any step.</div>
               </div>
             </div>

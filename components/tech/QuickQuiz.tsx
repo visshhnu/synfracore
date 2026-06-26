@@ -54,7 +54,7 @@ export default function QuickQuiz({ questions, techName, accentColor = "#6366F1"
   if (done) return (
     <div style={{ padding: "28px", borderRadius: "14px", border: `2px solid ${accentColor}30`, background: accentColor + "06", textAlign: "center" }}>
       <div style={{ fontSize: "48px", marginBottom: "12px" }}>
-        {pct >= 80 ? "🏆" : pct >= 60 ? "📈" : "📚"}
+        {pct >= 80 ? "[C]" : pct >= 60 ? ">" : ">"}
       </div>
       <h3 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 800, fontSize: "22px", marginBottom: "8px" }}>
         {pct >= 80 ? "Excellent!" : pct >= 60 ? "Good job!" : "Keep studying!"}

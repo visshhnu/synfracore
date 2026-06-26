@@ -1,0 +1,1 @@
+FluxCD uses pull-based GitOps — the cluster fetches from Git, not the CI pushing to cluster. This improves security (no cluster credentials in CI). Reconciliation loop runs every 1-5 minutes by default.
