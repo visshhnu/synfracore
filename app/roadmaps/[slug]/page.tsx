@@ -215,7 +215,7 @@ export default async function RoadmapDetailPage({ params }: Props) {
         )}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: details ? "1fr 320px" : "1fr", gap: "32px", alignItems: "start" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "32px", alignItems: "start" }}>
         {/* Main: Steps */}
         <div>
           <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "20px", marginBottom: "24px" }}>
