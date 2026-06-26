@@ -291,41 +291,45 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Desktop mega dropdown */}
+        {/* Desktop mega dropdown — single unified grid */}
         {dropOpen && (
           <div onMouseEnter={() => { clearTimeout(dropTimer); setDropOpen(true); }} onMouseLeave={() => { dropTimer = setTimeout(() => setDropOpen(false), 200); }}
-            style={{ position: "absolute", left: 0, right: 0, top: "100%", background: "var(--bg-2)", borderBottom: "2px solid var(--border)", boxShadow: "0 20px 50px rgba(0,0,0,0.18)", zIndex: 300, padding: "18px 32px 14px" }}>
-            <div style={{ maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "12px" }}>
-              {GROUPS.map((group, gi) => {
-                const grpAcademies = group.slugs.map(s => academyMap[s]).filter(Boolean);
-                const isTech = gi === 0;
-                return (
-                  <div key={group.label} style={{ gridColumn: isTech ? "span 2" : undefined }}>
-                    <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: group.color, marginBottom: "8px", display: "flex", alignItems: "center", gap: "4px" }}>
-                      <span>{group.icon}</span> {group.label}
-                    </div>
-                    <div style={{ display: isTech ? "grid" : "block", gridTemplateColumns: isTech ? "1fr 1fr 1fr" : undefined, gap: isTech ? "2px" : undefined }}>
-                      {grpAcademies.map(a => (
-                        <Link key={a.slug} href={`/academies/${a.slug}`} onClick={() => setDropOpen(false)}
-                          style={{ textDecoration: "none", padding: "5px 7px", borderRadius: "7px", display: "flex", alignItems: "center", gap: "7px", marginBottom: isTech ? 0 : "2px" }}
-                          onMouseEnter={e => { e.currentTarget.style.background = `${a.color}14`; }}
-                          onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
-                          <span style={{ fontSize: "13px", flexShrink: 0 }}>{a.icon}</span>
-                          <div style={{ minWidth: 0 }}>
-                            <div style={{ fontSize: "11px", fontWeight: 600, color: "var(--text-1)", lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{a.title}</div>
-                            <div style={{ fontSize: "9px", color: "var(--text-4)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{a.subtitle}</div>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
+            style={{ position: "absolute", left: 0, right: 0, top: "100%", background: "var(--bg-2)", borderBottom: "2px solid var(--border)", boxShadow: "0 20px 50px rgba(0,0,0,0.18)", zIndex: 300, padding: "16px 32px 12px" }}>
+            <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+              {/* Group labels row */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0 12px", marginBottom: "10px", paddingBottom: "8px", borderBottom: "1px solid var(--border)" }}>
+                {GROUPS.map(group => (
+                  <div key={group.label} style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: group.color, display: "flex", alignItems: "center", gap: "4px" }}>
+                    <span>{group.icon}</span> {group.label}
                   </div>
-                );
-              })}
-            </div>
-            <div style={{ maxWidth: "1200px", margin: "12px auto 0", paddingTop: "10px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "center" }}>
-              <Link href="/academies" onClick={() => setDropOpen(false)} style={{ fontSize: "12px", fontWeight: 600, color: "#3B82F6", textDecoration: "none", padding: "6px 20px", background: "rgba(59,130,246,0.08)", borderRadius: "8px", border: "1px solid rgba(59,130,246,0.2)" }}>
-                View all {academies.length} academies →
-              </Link>
+                ))}
+              </div>
+              {/* Single unified grid — all academies, 4 equal columns */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "2px 12px" }}>
+                {GROUPS.map(group =>
+                  group.slugs.map(slug => {
+                    const a = academyMap[slug];
+                    if (!a) return null;
+                    return (
+                      <Link key={a.slug} href={`/academies/${a.slug}`} onClick={() => setDropOpen(false)}
+                        style={{ textDecoration: "none", padding: "5px 7px", borderRadius: "7px", display: "flex", alignItems: "center", gap: "7px" }}
+                        onMouseEnter={e => { e.currentTarget.style.background = `${a.color}14`; }}
+                        onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
+                        <span style={{ fontSize: "13px", flexShrink: 0 }}>{a.icon}</span>
+                        <div style={{ minWidth: 0 }}>
+                          <div style={{ fontSize: "11px", fontWeight: 600, color: "var(--text-1)", lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{a.title}</div>
+                          <div style={{ fontSize: "9px", color: "var(--text-4)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{a.subtitle}</div>
+                        </div>
+                      </Link>
+                    );
+                  })
+                )}
+              </div>
+              <div style={{ marginTop: "10px", paddingTop: "8px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "center" }}>
+                <Link href="/academies" onClick={() => setDropOpen(false)} style={{ fontSize: "12px", fontWeight: 600, color: "#3B82F6", textDecoration: "none", padding: "5px 18px", background: "rgba(59,130,246,0.08)", borderRadius: "8px", border: "1px solid rgba(59,130,246,0.2)" }}>
+                  View all {academies.length} academies →
+                </Link>
+              </div>
             </div>
           </div>
         )}
