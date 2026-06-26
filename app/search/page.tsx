@@ -1,8 +1,8 @@
 "use client";
 export const runtime = "edge";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 
 interface Result {
   title: string;
@@ -13,139 +13,827 @@ interface Result {
 }
 
 const searchIndex: Result[] = [
-  // Tech academies
-  { title: "Kubernetes Overview", url: "/academies/devops/kubernetes/overview", category: "DevOps", tags: ["kubernetes","k8s","containers","orchestration"], color: "#326CE5" },
-  { title: "Kubernetes Interview Q&A", url: "/academies/devops/kubernetes/interview", category: "DevOps", tags: ["kubernetes","interview","k8s","jobs"], color: "#326CE5" },
-  { title: "Kubernetes Advanced — HA/DR/RBAC", url: "/academies/devops/kubernetes/advanced", category: "DevOps", tags: ["kubernetes","ha","dr","rbac","production"], color: "#326CE5" },
-  { title: "Terraform Interview Q&A", url: "/academies/devops/terraform/interview", category: "DevOps", tags: ["terraform","iac","infrastructure","interview"], color: "#7B42BC" },
-  { title: "Ansible Interview Q&A", url: "/academies/devops/ansible/interview", category: "DevOps", tags: ["ansible","configuration","automation","interview"], color: "#EE0000" },
-  { title: "Docker Interview Q&A", url: "/academies/devops/docker/interview", category: "DevOps", tags: ["docker","containers","images","interview"], color: "#2496ED" },
-  { title: "Jenkins Interview Q&A", url: "/academies/devops/jenkins/interview", category: "DevOps", tags: ["jenkins","cicd","pipeline","interview"], color: "#D33833" },
-  { title: "Helm Interview Q&A", url: "/academies/devops/helm/interview", category: "DevOps", tags: ["helm","kubernetes","charts","interview"], color: "#0F1689" },
-  { title: "Prometheus Interview Q&A", url: "/academies/devops/prometheus/interview", category: "DevOps", tags: ["prometheus","monitoring","metrics","interview"], color: "#E6522C" },
-  { title: "Linux Interview Q&A", url: "/academies/devops/linux/interview", category: "DevOps", tags: ["linux","shell","commands","interview"], color: "#FCC624" },
-  { title: "ArgoCD Interview Q&A", url: "/academies/devops/argocd/interview", category: "DevOps", tags: ["argocd","gitops","cicd","interview"], color: "#EF7B4D" },
-  { title: "Shell Scripting Interview Q&A", url: "/academies/devops/shell-scripting/interview", category: "DevOps", tags: ["shell","bash","scripting","interview"], color: "#4EAA25" },
-  { title: "Git Interview Q&A", url: "/academies/devops/git/interview", category: "DevOps", tags: ["git","version control","github","interview"], color: "#F05032" },
-  { title: "AI Engineering Interview Q&A", url: "/academies/ai/llm-engineering/interview", category: "AI", tags: ["llm","rag","ai","agents","interview","langchain"], color: "#8B5CF6" },
-  // Education
-  { title: "Class 10 — All Subjects", url: "/learn/class-10", category: "Education", tags: ["class 10","cbse","maths","science","board exam"], color: "#10B981" },
-  { title: "JEE Main & Advanced Prep", url: "/learn/jee", category: "Education", tags: ["jee","iit","engineering","entrance"], color: "#F59E0B" },
-  { title: "NEET Biology/Physics/Chemistry", url: "/learn/neet", category: "Education", tags: ["neet","medical","biology","physics","chemistry"], color: "#EC4899" },
-  { title: "GATE CSE Preparation", url: "/learn/gate-cse", category: "Education", tags: ["gate","computer science","cse","exam"], color: "#6366F1" },
-  { title: "Banking Exams (SBI/IBPS)", url: "/learn/banking", category: "Education", tags: ["banking","sbi","ibps","bank po","quant"], color: "#3B82F6" },
-  { title: "UPSC Civil Services", url: "/learn/upsc", category: "Education", tags: ["upsc","ias","ips","civil services","prelims"], color: "#EF4444" },
-  { title: "SSC CGL/CHSL", url: "/learn/ssc", category: "Education", tags: ["ssc","cgl","chsl","government job"], color: "#14B8A6" },
-  { title: "Defence Exams (NDA/CDS)", url: "/learn/defence", category: "Education", tags: ["nda","cds","defence","military"], color: "#F59E0B" },
-  { title: "Class 12 — All Subjects", url: "/learn/class-12", category: "Education", tags: ["class 12","cbse","board exam","physics","chemistry"], color: "#6366F1" },
-  // Career roles
-  { title: "Platform Engineer Career Path", url: "/careers/platform-engineer", category: "Career", tags: ["platform engineer","career","salary","roadmap"], color: "#8B5CF6" },
-  { title: "DevOps Engineer Career Path", url: "/careers/devops-engineer", category: "Career", tags: ["devops engineer","career","salary","roadmap"], color: "#F59E0B" },
-  { title: "SRE Career Path", url: "/careers/sre-engineer", category: "Career", tags: ["sre","site reliability","career","salary"], color: "#10B981" },
-  { title: "Cloud Architect Career Path", url: "/careers/cloud-architect", category: "Career", tags: ["cloud architect","aws","azure","career","salary"], color: "#3B82F6" },
-  { title: "AI Engineer Career Path", url: "/careers/ai-engineer", category: "Career", tags: ["ai engineer","ml","llm","career","salary"], color: "#8B5CF6" },
-  // Certifications
-  { title: "AWS Solutions Architect Prep", url: "/certifications/aws-saa", category: "Cert", tags: ["aws","solutions architect","certification","saa-c03"], color: "#FF9900" },
-  { title: "CKA — Kubernetes Admin Cert", url: "/certifications/cka", category: "Cert", tags: ["cka","kubernetes","certification","exam"], color: "#326CE5" },
-  { title: "Terraform Associate Cert", url: "/certifications/terraform-associate", category: "Cert", tags: ["terraform","hashicorp","certification","exam"], color: "#7B42BC" },
+  { title: "Linux — Overview", url: "/academies/devops/linux/overview", category: "DevOps", tags: ["os", "shell", "admin", "linux", "devops", "overview"], color: "#3B82F6" },
+  { title: "Linux Learning Roadmap", url: "/academies/devops/linux/roadmap", category: "DevOps", tags: ["os", "shell", "admin", "linux", "devops", "roadmap"], color: "#3B82F6" },
+  { title: "Linux Hands-on Labs", url: "/academies/devops/linux/labs", category: "DevOps", tags: ["os", "shell", "admin", "linux", "devops", "labs"], color: "#3B82F6" },
+  { title: "Linux Interview Q&A", url: "/academies/devops/linux/interview", category: "DevOps", tags: ["os", "shell", "admin", "linux", "devops", "interview"], color: "#3B82F6" },
+  { title: "Linux FAQ", url: "/academies/devops/linux/faq", category: "DevOps", tags: ["os", "shell", "admin", "linux", "devops", "faq"], color: "#3B82F6" },
+  { title: "Networking — Overview", url: "/academies/devops/networking/overview", category: "DevOps", tags: ["tcp/ip", "dns", "security", "networking", "devops", "overview"], color: "#3B82F6" },
+  { title: "Networking Learning Roadmap", url: "/academies/devops/networking/roadmap", category: "DevOps", tags: ["tcp/ip", "dns", "security", "networking", "devops", "roadmap"], color: "#3B82F6" },
+  { title: "Networking Hands-on Labs", url: "/academies/devops/networking/labs", category: "DevOps", tags: ["tcp/ip", "dns", "security", "networking", "devops", "labs"], color: "#3B82F6" },
+  { title: "Networking Interview Q&A", url: "/academies/devops/networking/interview", category: "DevOps", tags: ["tcp/ip", "dns", "security", "networking", "devops", "interview"], color: "#3B82F6" },
+  { title: "Networking FAQ", url: "/academies/devops/networking/faq", category: "DevOps", tags: ["tcp/ip", "dns", "security", "networking", "devops", "faq"], color: "#3B82F6" },
+  { title: "Shell Scripting — Overview", url: "/academies/devops/shell-scripting/overview", category: "DevOps", tags: ["bash", "automation", "shell scripting", "devops", "overview"], color: "#3B82F6" },
+  { title: "Shell Scripting Learning Roadmap", url: "/academies/devops/shell-scripting/roadmap", category: "DevOps", tags: ["bash", "automation", "shell scripting", "devops", "roadmap"], color: "#3B82F6" },
+  { title: "Shell Scripting Hands-on Labs", url: "/academies/devops/shell-scripting/labs", category: "DevOps", tags: ["bash", "automation", "shell scripting", "devops", "labs"], color: "#3B82F6" },
+  { title: "Shell Scripting Interview Q&A", url: "/academies/devops/shell-scripting/interview", category: "DevOps", tags: ["bash", "automation", "shell scripting", "devops", "interview"], color: "#3B82F6" },
+  { title: "Shell Scripting FAQ", url: "/academies/devops/shell-scripting/faq", category: "DevOps", tags: ["bash", "automation", "shell scripting", "devops", "faq"], color: "#3B82F6" },
+  { title: "Docker — Overview", url: "/academies/devops/docker/overview", category: "DevOps", tags: ["containers", "oci", "images", "docker", "devops", "overview"], color: "#3B82F6" },
+  { title: "Docker Learning Roadmap", url: "/academies/devops/docker/roadmap", category: "DevOps", tags: ["containers", "oci", "images", "docker", "devops", "roadmap"], color: "#3B82F6" },
+  { title: "Docker Hands-on Labs", url: "/academies/devops/docker/labs", category: "DevOps", tags: ["containers", "oci", "images", "docker", "devops", "labs"], color: "#3B82F6" },
+  { title: "Docker Interview Q&A", url: "/academies/devops/docker/interview", category: "DevOps", tags: ["containers", "oci", "images", "docker", "devops", "interview"], color: "#3B82F6" },
+  { title: "Docker FAQ", url: "/academies/devops/docker/faq", category: "DevOps", tags: ["containers", "oci", "images", "docker", "devops", "faq"], color: "#3B82F6" },
+  { title: "Kubernetes — Overview", url: "/academies/devops/kubernetes/overview", category: "DevOps", tags: ["orchestration", "cncf", "k8s", "kubernetes", "devops", "overview"], color: "#3B82F6" },
+  { title: "Kubernetes Learning Roadmap", url: "/academies/devops/kubernetes/roadmap", category: "DevOps", tags: ["orchestration", "cncf", "k8s", "kubernetes", "devops", "roadmap"], color: "#3B82F6" },
+  { title: "Kubernetes Hands-on Labs", url: "/academies/devops/kubernetes/labs", category: "DevOps", tags: ["orchestration", "cncf", "k8s", "kubernetes", "devops", "labs"], color: "#3B82F6" },
+  { title: "Kubernetes Interview Q&A", url: "/academies/devops/kubernetes/interview", category: "DevOps", tags: ["orchestration", "cncf", "k8s", "kubernetes", "devops", "interview"], color: "#3B82F6" },
+  { title: "Kubernetes FAQ", url: "/academies/devops/kubernetes/faq", category: "DevOps", tags: ["orchestration", "cncf", "k8s", "kubernetes", "devops", "faq"], color: "#3B82F6" },
+  { title: "Helm — Overview", url: "/academies/devops/helm/overview", category: "DevOps", tags: ["k8s", "charts", "packaging", "helm", "devops", "overview"], color: "#3B82F6" },
+  { title: "Helm Learning Roadmap", url: "/academies/devops/helm/roadmap", category: "DevOps", tags: ["k8s", "charts", "packaging", "helm", "devops", "roadmap"], color: "#3B82F6" },
+  { title: "Helm Hands-on Labs", url: "/academies/devops/helm/labs", category: "DevOps", tags: ["k8s", "charts", "packaging", "helm", "devops", "labs"], color: "#3B82F6" },
+  { title: "Helm Interview Q&A", url: "/academies/devops/helm/interview", category: "DevOps", tags: ["k8s", "charts", "packaging", "helm", "devops", "interview"], color: "#3B82F6" },
+  { title: "Helm FAQ", url: "/academies/devops/helm/faq", category: "DevOps", tags: ["k8s", "charts", "packaging", "helm", "devops", "faq"], color: "#3B82F6" },
+  { title: "Git & GitHub — Overview", url: "/academies/devops/git/overview", category: "DevOps", tags: ["vcs", "branching", "collaboration", "git & github", "devops", "overview"], color: "#3B82F6" },
+  { title: "Git & GitHub Learning Roadmap", url: "/academies/devops/git/roadmap", category: "DevOps", tags: ["vcs", "branching", "collaboration", "git & github", "devops", "roadmap"], color: "#3B82F6" },
+  { title: "Git & GitHub Hands-on Labs", url: "/academies/devops/git/labs", category: "DevOps", tags: ["vcs", "branching", "collaboration", "git & github", "devops", "labs"], color: "#3B82F6" },
+  { title: "Git & GitHub Interview Q&A", url: "/academies/devops/git/interview", category: "DevOps", tags: ["vcs", "branching", "collaboration", "git & github", "devops", "interview"], color: "#3B82F6" },
+  { title: "Git & GitHub FAQ", url: "/academies/devops/git/faq", category: "DevOps", tags: ["vcs", "branching", "collaboration", "git & github", "devops", "faq"], color: "#3B82F6" },
+  { title: "Jenkins — Overview", url: "/academies/devops/jenkins/overview", category: "DevOps", tags: ["ci/cd", "pipelines", "automation", "jenkins", "devops", "overview"], color: "#3B82F6" },
+  { title: "Jenkins Learning Roadmap", url: "/academies/devops/jenkins/roadmap", category: "DevOps", tags: ["ci/cd", "pipelines", "automation", "jenkins", "devops", "roadmap"], color: "#3B82F6" },
+  { title: "Jenkins Hands-on Labs", url: "/academies/devops/jenkins/labs", category: "DevOps", tags: ["ci/cd", "pipelines", "automation", "jenkins", "devops", "labs"], color: "#3B82F6" },
+  { title: "Jenkins Interview Q&A", url: "/academies/devops/jenkins/interview", category: "DevOps", tags: ["ci/cd", "pipelines", "automation", "jenkins", "devops", "interview"], color: "#3B82F6" },
+  { title: "Jenkins FAQ", url: "/academies/devops/jenkins/faq", category: "DevOps", tags: ["ci/cd", "pipelines", "automation", "jenkins", "devops", "faq"], color: "#3B82F6" },
+  { title: "ArgoCD — Overview", url: "/academies/devops/argocd/overview", category: "DevOps", tags: ["gitops", "cd", "kubernetes", "argocd", "devops", "overview"], color: "#3B82F6" },
+  { title: "ArgoCD Learning Roadmap", url: "/academies/devops/argocd/roadmap", category: "DevOps", tags: ["gitops", "cd", "kubernetes", "argocd", "devops", "roadmap"], color: "#3B82F6" },
+  { title: "ArgoCD Hands-on Labs", url: "/academies/devops/argocd/labs", category: "DevOps", tags: ["gitops", "cd", "kubernetes", "argocd", "devops", "labs"], color: "#3B82F6" },
+  { title: "ArgoCD Interview Q&A", url: "/academies/devops/argocd/interview", category: "DevOps", tags: ["gitops", "cd", "kubernetes", "argocd", "devops", "interview"], color: "#3B82F6" },
+  { title: "ArgoCD FAQ", url: "/academies/devops/argocd/faq", category: "DevOps", tags: ["gitops", "cd", "kubernetes", "argocd", "devops", "faq"], color: "#3B82F6" },
+  { title: "Terraform — Overview", url: "/academies/devops/terraform/overview", category: "DevOps", tags: ["iac", "hashicorp", "provisioning", "terraform", "devops", "overview"], color: "#3B82F6" },
+  { title: "Terraform Learning Roadmap", url: "/academies/devops/terraform/roadmap", category: "DevOps", tags: ["iac", "hashicorp", "provisioning", "terraform", "devops", "roadmap"], color: "#3B82F6" },
+  { title: "Terraform Hands-on Labs", url: "/academies/devops/terraform/labs", category: "DevOps", tags: ["iac", "hashicorp", "provisioning", "terraform", "devops", "labs"], color: "#3B82F6" },
+  { title: "Terraform Interview Q&A", url: "/academies/devops/terraform/interview", category: "DevOps", tags: ["iac", "hashicorp", "provisioning", "terraform", "devops", "interview"], color: "#3B82F6" },
+  { title: "Terraform FAQ", url: "/academies/devops/terraform/faq", category: "DevOps", tags: ["iac", "hashicorp", "provisioning", "terraform", "devops", "faq"], color: "#3B82F6" },
+  { title: "Ansible — Overview", url: "/academies/devops/ansible/overview", category: "DevOps", tags: ["config mgmt", "automation", "agentless", "ansible", "devops", "overview"], color: "#3B82F6" },
+  { title: "Ansible Learning Roadmap", url: "/academies/devops/ansible/roadmap", category: "DevOps", tags: ["config mgmt", "automation", "agentless", "ansible", "devops", "roadmap"], color: "#3B82F6" },
+  { title: "Ansible Hands-on Labs", url: "/academies/devops/ansible/labs", category: "DevOps", tags: ["config mgmt", "automation", "agentless", "ansible", "devops", "labs"], color: "#3B82F6" },
+  { title: "Ansible Interview Q&A", url: "/academies/devops/ansible/interview", category: "DevOps", tags: ["config mgmt", "automation", "agentless", "ansible", "devops", "interview"], color: "#3B82F6" },
+  { title: "Ansible FAQ", url: "/academies/devops/ansible/faq", category: "DevOps", tags: ["config mgmt", "automation", "agentless", "ansible", "devops", "faq"], color: "#3B82F6" },
+  { title: "Prometheus — Overview", url: "/academies/devops/prometheus/overview", category: "DevOps", tags: ["metrics", "cncf", "promql", "prometheus", "devops", "overview"], color: "#3B82F6" },
+  { title: "Prometheus Learning Roadmap", url: "/academies/devops/prometheus/roadmap", category: "DevOps", tags: ["metrics", "cncf", "promql", "prometheus", "devops", "roadmap"], color: "#3B82F6" },
+  { title: "Prometheus Hands-on Labs", url: "/academies/devops/prometheus/labs", category: "DevOps", tags: ["metrics", "cncf", "promql", "prometheus", "devops", "labs"], color: "#3B82F6" },
+  { title: "Prometheus Interview Q&A", url: "/academies/devops/prometheus/interview", category: "DevOps", tags: ["metrics", "cncf", "promql", "prometheus", "devops", "interview"], color: "#3B82F6" },
+  { title: "Prometheus FAQ", url: "/academies/devops/prometheus/faq", category: "DevOps", tags: ["metrics", "cncf", "promql", "prometheus", "devops", "faq"], color: "#3B82F6" },
+  { title: "Grafana — Overview", url: "/academies/devops/grafana/overview", category: "DevOps", tags: ["dashboards", "visualization", "alerts", "grafana", "devops", "overview"], color: "#3B82F6" },
+  { title: "Grafana Learning Roadmap", url: "/academies/devops/grafana/roadmap", category: "DevOps", tags: ["dashboards", "visualization", "alerts", "grafana", "devops", "roadmap"], color: "#3B82F6" },
+  { title: "Grafana Hands-on Labs", url: "/academies/devops/grafana/labs", category: "DevOps", tags: ["dashboards", "visualization", "alerts", "grafana", "devops", "labs"], color: "#3B82F6" },
+  { title: "Grafana Interview Q&A", url: "/academies/devops/grafana/interview", category: "DevOps", tags: ["dashboards", "visualization", "alerts", "grafana", "devops", "interview"], color: "#3B82F6" },
+  { title: "Grafana FAQ", url: "/academies/devops/grafana/faq", category: "DevOps", tags: ["dashboards", "visualization", "alerts", "grafana", "devops", "faq"], color: "#3B82F6" },
+  { title: "ELK Stack — Overview", url: "/academies/devops/elk-stack/overview", category: "DevOps", tags: ["logging", "search", "kibana", "elk stack", "devops", "overview"], color: "#3B82F6" },
+  { title: "ELK Stack Learning Roadmap", url: "/academies/devops/elk-stack/roadmap", category: "DevOps", tags: ["logging", "search", "kibana", "elk stack", "devops", "roadmap"], color: "#3B82F6" },
+  { title: "ELK Stack Hands-on Labs", url: "/academies/devops/elk-stack/labs", category: "DevOps", tags: ["logging", "search", "kibana", "elk stack", "devops", "labs"], color: "#3B82F6" },
+  { title: "ELK Stack Interview Q&A", url: "/academies/devops/elk-stack/interview", category: "DevOps", tags: ["logging", "search", "kibana", "elk stack", "devops", "interview"], color: "#3B82F6" },
+  { title: "ELK Stack FAQ", url: "/academies/devops/elk-stack/faq", category: "DevOps", tags: ["logging", "search", "kibana", "elk stack", "devops", "faq"], color: "#3B82F6" },
+  { title: "Python — Overview", url: "/academies/devops/python/overview", category: "DevOps", tags: ["scripting", "boto3", "automation", "python", "devops", "overview"], color: "#3B82F6" },
+  { title: "Python Learning Roadmap", url: "/academies/devops/python/roadmap", category: "DevOps", tags: ["scripting", "boto3", "automation", "python", "devops", "roadmap"], color: "#3B82F6" },
+  { title: "Python Hands-on Labs", url: "/academies/devops/python/labs", category: "DevOps", tags: ["scripting", "boto3", "automation", "python", "devops", "labs"], color: "#3B82F6" },
+  { title: "Python Interview Q&A", url: "/academies/devops/python/interview", category: "DevOps", tags: ["scripting", "boto3", "automation", "python", "devops", "interview"], color: "#3B82F6" },
+  { title: "Python FAQ", url: "/academies/devops/python/faq", category: "DevOps", tags: ["scripting", "boto3", "automation", "python", "devops", "faq"], color: "#3B82F6" },
+  { title: "Nginx — Overview", url: "/academies/devops/nginx/overview", category: "DevOps", tags: ["web server", "proxy", "load balancer", "nginx", "devops", "overview"], color: "#3B82F6" },
+  { title: "Nginx Learning Roadmap", url: "/academies/devops/nginx/roadmap", category: "DevOps", tags: ["web server", "proxy", "load balancer", "nginx", "devops", "roadmap"], color: "#3B82F6" },
+  { title: "Nginx Hands-on Labs", url: "/academies/devops/nginx/labs", category: "DevOps", tags: ["web server", "proxy", "load balancer", "nginx", "devops", "labs"], color: "#3B82F6" },
+  { title: "Nginx Interview Q&A", url: "/academies/devops/nginx/interview", category: "DevOps", tags: ["web server", "proxy", "load balancer", "nginx", "devops", "interview"], color: "#3B82F6" },
+  { title: "Nginx FAQ", url: "/academies/devops/nginx/faq", category: "DevOps", tags: ["web server", "proxy", "load balancer", "nginx", "devops", "faq"], color: "#3B82F6" },
+  { title: "OpenShift (OCP) — Overview", url: "/academies/devops/openshift/overview", category: "DevOps", tags: ["ocp", "enterprise k8s", "red hat", "telecom", "openshift (ocp)", "devops", "overview"], color: "#3B82F6" },
+  { title: "OpenShift (OCP) Learning Roadmap", url: "/academies/devops/openshift/roadmap", category: "DevOps", tags: ["ocp", "enterprise k8s", "red hat", "telecom", "openshift (ocp)", "devops", "roadmap"], color: "#3B82F6" },
+  { title: "OpenShift (OCP) Hands-on Labs", url: "/academies/devops/openshift/labs", category: "DevOps", tags: ["ocp", "enterprise k8s", "red hat", "telecom", "openshift (ocp)", "devops", "labs"], color: "#3B82F6" },
+  { title: "OpenShift (OCP) Interview Q&A", url: "/academies/devops/openshift/interview", category: "DevOps", tags: ["ocp", "enterprise k8s", "red hat", "telecom", "openshift (ocp)", "devops", "interview"], color: "#3B82F6" },
+  { title: "OpenShift (OCP) FAQ", url: "/academies/devops/openshift/faq", category: "DevOps", tags: ["ocp", "enterprise k8s", "red hat", "telecom", "openshift (ocp)", "devops", "faq"], color: "#3B82F6" },
+  { title: "IAM — Overview", url: "/academies/cloud/aws-iam/overview", category: "Cloud", tags: ["security", "identity", "rbac", "iam", "cloud", "overview"], color: "#0EA5E9" },
+  { title: "IAM Learning Roadmap", url: "/academies/cloud/aws-iam/roadmap", category: "Cloud", tags: ["security", "identity", "rbac", "iam", "cloud", "roadmap"], color: "#0EA5E9" },
+  { title: "IAM Hands-on Labs", url: "/academies/cloud/aws-iam/labs", category: "Cloud", tags: ["security", "identity", "rbac", "iam", "cloud", "labs"], color: "#0EA5E9" },
+  { title: "IAM Interview Q&A", url: "/academies/cloud/aws-iam/interview", category: "Cloud", tags: ["security", "identity", "rbac", "iam", "cloud", "interview"], color: "#0EA5E9" },
+  { title: "IAM FAQ", url: "/academies/cloud/aws-iam/faq", category: "Cloud", tags: ["security", "identity", "rbac", "iam", "cloud", "faq"], color: "#0EA5E9" },
+  { title: "EC2 — Overview", url: "/academies/cloud/aws-ec2/overview", category: "Cloud", tags: ["compute", "vms", "auto-scaling", "ec2", "cloud", "overview"], color: "#0EA5E9" },
+  { title: "EC2 Learning Roadmap", url: "/academies/cloud/aws-ec2/roadmap", category: "Cloud", tags: ["compute", "vms", "auto-scaling", "ec2", "cloud", "roadmap"], color: "#0EA5E9" },
+  { title: "EC2 Hands-on Labs", url: "/academies/cloud/aws-ec2/labs", category: "Cloud", tags: ["compute", "vms", "auto-scaling", "ec2", "cloud", "labs"], color: "#0EA5E9" },
+  { title: "EC2 Interview Q&A", url: "/academies/cloud/aws-ec2/interview", category: "Cloud", tags: ["compute", "vms", "auto-scaling", "ec2", "cloud", "interview"], color: "#0EA5E9" },
+  { title: "EC2 FAQ", url: "/academies/cloud/aws-ec2/faq", category: "Cloud", tags: ["compute", "vms", "auto-scaling", "ec2", "cloud", "faq"], color: "#0EA5E9" },
+  { title: "VPC — Overview", url: "/academies/cloud/aws-vpc/overview", category: "Cloud", tags: ["networking", "security", "subnets", "vpc", "cloud", "overview"], color: "#0EA5E9" },
+  { title: "VPC Learning Roadmap", url: "/academies/cloud/aws-vpc/roadmap", category: "Cloud", tags: ["networking", "security", "subnets", "vpc", "cloud", "roadmap"], color: "#0EA5E9" },
+  { title: "VPC Hands-on Labs", url: "/academies/cloud/aws-vpc/labs", category: "Cloud", tags: ["networking", "security", "subnets", "vpc", "cloud", "labs"], color: "#0EA5E9" },
+  { title: "VPC Interview Q&A", url: "/academies/cloud/aws-vpc/interview", category: "Cloud", tags: ["networking", "security", "subnets", "vpc", "cloud", "interview"], color: "#0EA5E9" },
+  { title: "VPC FAQ", url: "/academies/cloud/aws-vpc/faq", category: "Cloud", tags: ["networking", "security", "subnets", "vpc", "cloud", "faq"], color: "#0EA5E9" },
+  { title: "S3 — Overview", url: "/academies/cloud/aws-s3/overview", category: "Cloud", tags: ["storage", "object store", "cdn", "s3", "cloud", "overview"], color: "#0EA5E9" },
+  { title: "S3 Learning Roadmap", url: "/academies/cloud/aws-s3/roadmap", category: "Cloud", tags: ["storage", "object store", "cdn", "s3", "cloud", "roadmap"], color: "#0EA5E9" },
+  { title: "S3 Hands-on Labs", url: "/academies/cloud/aws-s3/labs", category: "Cloud", tags: ["storage", "object store", "cdn", "s3", "cloud", "labs"], color: "#0EA5E9" },
+  { title: "S3 Interview Q&A", url: "/academies/cloud/aws-s3/interview", category: "Cloud", tags: ["storage", "object store", "cdn", "s3", "cloud", "interview"], color: "#0EA5E9" },
+  { title: "S3 FAQ", url: "/academies/cloud/aws-s3/faq", category: "Cloud", tags: ["storage", "object store", "cdn", "s3", "cloud", "faq"], color: "#0EA5E9" },
+  { title: "RDS & Aurora — Overview", url: "/academies/cloud/aws-rds/overview", category: "Cloud", tags: ["database", "mysql", "postgresql", "rds & aurora", "cloud", "overview"], color: "#0EA5E9" },
+  { title: "RDS & Aurora Learning Roadmap", url: "/academies/cloud/aws-rds/roadmap", category: "Cloud", tags: ["database", "mysql", "postgresql", "rds & aurora", "cloud", "roadmap"], color: "#0EA5E9" },
+  { title: "RDS & Aurora Hands-on Labs", url: "/academies/cloud/aws-rds/labs", category: "Cloud", tags: ["database", "mysql", "postgresql", "rds & aurora", "cloud", "labs"], color: "#0EA5E9" },
+  { title: "RDS & Aurora Interview Q&A", url: "/academies/cloud/aws-rds/interview", category: "Cloud", tags: ["database", "mysql", "postgresql", "rds & aurora", "cloud", "interview"], color: "#0EA5E9" },
+  { title: "RDS & Aurora FAQ", url: "/academies/cloud/aws-rds/faq", category: "Cloud", tags: ["database", "mysql", "postgresql", "rds & aurora", "cloud", "faq"], color: "#0EA5E9" },
+  { title: "Lambda — Overview", url: "/academies/cloud/aws-lambda/overview", category: "Cloud", tags: ["serverless", "faas", "event-driven", "lambda", "cloud", "overview"], color: "#0EA5E9" },
+  { title: "Lambda Learning Roadmap", url: "/academies/cloud/aws-lambda/roadmap", category: "Cloud", tags: ["serverless", "faas", "event-driven", "lambda", "cloud", "roadmap"], color: "#0EA5E9" },
+  { title: "Lambda Hands-on Labs", url: "/academies/cloud/aws-lambda/labs", category: "Cloud", tags: ["serverless", "faas", "event-driven", "lambda", "cloud", "labs"], color: "#0EA5E9" },
+  { title: "Lambda Interview Q&A", url: "/academies/cloud/aws-lambda/interview", category: "Cloud", tags: ["serverless", "faas", "event-driven", "lambda", "cloud", "interview"], color: "#0EA5E9" },
+  { title: "Lambda FAQ", url: "/academies/cloud/aws-lambda/faq", category: "Cloud", tags: ["serverless", "faas", "event-driven", "lambda", "cloud", "faq"], color: "#0EA5E9" },
+  { title: "EKS — Overview", url: "/academies/cloud/aws-eks/overview", category: "Cloud", tags: ["kubernetes", "managed", "irsa", "eks", "cloud", "overview"], color: "#0EA5E9" },
+  { title: "EKS Learning Roadmap", url: "/academies/cloud/aws-eks/roadmap", category: "Cloud", tags: ["kubernetes", "managed", "irsa", "eks", "cloud", "roadmap"], color: "#0EA5E9" },
+  { title: "EKS Hands-on Labs", url: "/academies/cloud/aws-eks/labs", category: "Cloud", tags: ["kubernetes", "managed", "irsa", "eks", "cloud", "labs"], color: "#0EA5E9" },
+  { title: "EKS Interview Q&A", url: "/academies/cloud/aws-eks/interview", category: "Cloud", tags: ["kubernetes", "managed", "irsa", "eks", "cloud", "interview"], color: "#0EA5E9" },
+  { title: "EKS FAQ", url: "/academies/cloud/aws-eks/faq", category: "Cloud", tags: ["kubernetes", "managed", "irsa", "eks", "cloud", "faq"], color: "#0EA5E9" },
+  { title: "CloudFormation — Overview", url: "/academies/cloud/cloudformation/overview", category: "Cloud", tags: ["iac", "templates", "cdk", "cloudformation", "cloud", "overview"], color: "#0EA5E9" },
+  { title: "CloudFormation Learning Roadmap", url: "/academies/cloud/cloudformation/roadmap", category: "Cloud", tags: ["iac", "templates", "cdk", "cloudformation", "cloud", "roadmap"], color: "#0EA5E9" },
+  { title: "CloudFormation Hands-on Labs", url: "/academies/cloud/cloudformation/labs", category: "Cloud", tags: ["iac", "templates", "cdk", "cloudformation", "cloud", "labs"], color: "#0EA5E9" },
+  { title: "CloudFormation Interview Q&A", url: "/academies/cloud/cloudformation/interview", category: "Cloud", tags: ["iac", "templates", "cdk", "cloudformation", "cloud", "interview"], color: "#0EA5E9" },
+  { title: "CloudFormation FAQ", url: "/academies/cloud/cloudformation/faq", category: "Cloud", tags: ["iac", "templates", "cdk", "cloudformation", "cloud", "faq"], color: "#0EA5E9" },
+  { title: "Route53 — Overview", url: "/academies/cloud/route53/overview", category: "Cloud", tags: ["dns", "routing", "ha", "route53", "cloud", "overview"], color: "#0EA5E9" },
+  { title: "Route53 Learning Roadmap", url: "/academies/cloud/route53/roadmap", category: "Cloud", tags: ["dns", "routing", "ha", "route53", "cloud", "roadmap"], color: "#0EA5E9" },
+  { title: "Route53 Hands-on Labs", url: "/academies/cloud/route53/labs", category: "Cloud", tags: ["dns", "routing", "ha", "route53", "cloud", "labs"], color: "#0EA5E9" },
+  { title: "Route53 Interview Q&A", url: "/academies/cloud/route53/interview", category: "Cloud", tags: ["dns", "routing", "ha", "route53", "cloud", "interview"], color: "#0EA5E9" },
+  { title: "Route53 FAQ", url: "/academies/cloud/route53/faq", category: "Cloud", tags: ["dns", "routing", "ha", "route53", "cloud", "faq"], color: "#0EA5E9" },
+  { title: "Entra ID — Overview", url: "/academies/cloud/azure-entra/overview", category: "Cloud", tags: ["identity", "sso", "rbac", "entra id", "cloud", "overview"], color: "#0EA5E9" },
+  { title: "Entra ID Learning Roadmap", url: "/academies/cloud/azure-entra/roadmap", category: "Cloud", tags: ["identity", "sso", "rbac", "entra id", "cloud", "roadmap"], color: "#0EA5E9" },
+  { title: "Entra ID Hands-on Labs", url: "/academies/cloud/azure-entra/labs", category: "Cloud", tags: ["identity", "sso", "rbac", "entra id", "cloud", "labs"], color: "#0EA5E9" },
+  { title: "Entra ID Interview Q&A", url: "/academies/cloud/azure-entra/interview", category: "Cloud", tags: ["identity", "sso", "rbac", "entra id", "cloud", "interview"], color: "#0EA5E9" },
+  { title: "Entra ID FAQ", url: "/academies/cloud/azure-entra/faq", category: "Cloud", tags: ["identity", "sso", "rbac", "entra id", "cloud", "faq"], color: "#0EA5E9" },
+  { title: "Virtual Machines — Overview", url: "/academies/cloud/azure-vms/overview", category: "Cloud", tags: ["compute", "vms", "scale sets", "virtual machines", "cloud", "overview"], color: "#0EA5E9" },
+  { title: "Virtual Machines Learning Roadmap", url: "/academies/cloud/azure-vms/roadmap", category: "Cloud", tags: ["compute", "vms", "scale sets", "virtual machines", "cloud", "roadmap"], color: "#0EA5E9" },
+  { title: "Virtual Machines Hands-on Labs", url: "/academies/cloud/azure-vms/labs", category: "Cloud", tags: ["compute", "vms", "scale sets", "virtual machines", "cloud", "labs"], color: "#0EA5E9" },
+  { title: "Virtual Machines Interview Q&A", url: "/academies/cloud/azure-vms/interview", category: "Cloud", tags: ["compute", "vms", "scale sets", "virtual machines", "cloud", "interview"], color: "#0EA5E9" },
+  { title: "Virtual Machines FAQ", url: "/academies/cloud/azure-vms/faq", category: "Cloud", tags: ["compute", "vms", "scale sets", "virtual machines", "cloud", "faq"], color: "#0EA5E9" },
+  { title: "VNets — Overview", url: "/academies/cloud/azure-vnets/overview", category: "Cloud", tags: ["networking", "nsg", "peering", "vnets", "cloud", "overview"], color: "#0EA5E9" },
+  { title: "VNets Learning Roadmap", url: "/academies/cloud/azure-vnets/roadmap", category: "Cloud", tags: ["networking", "nsg", "peering", "vnets", "cloud", "roadmap"], color: "#0EA5E9" },
+  { title: "VNets Hands-on Labs", url: "/academies/cloud/azure-vnets/labs", category: "Cloud", tags: ["networking", "nsg", "peering", "vnets", "cloud", "labs"], color: "#0EA5E9" },
+  { title: "VNets Interview Q&A", url: "/academies/cloud/azure-vnets/interview", category: "Cloud", tags: ["networking", "nsg", "peering", "vnets", "cloud", "interview"], color: "#0EA5E9" },
+  { title: "VNets FAQ", url: "/academies/cloud/azure-vnets/faq", category: "Cloud", tags: ["networking", "nsg", "peering", "vnets", "cloud", "faq"], color: "#0EA5E9" },
+  { title: "AKS — Overview", url: "/academies/cloud/azure-aks/overview", category: "Cloud", tags: ["kubernetes", "managed", "workload identity", "aks", "cloud", "overview"], color: "#0EA5E9" },
+  { title: "AKS Learning Roadmap", url: "/academies/cloud/azure-aks/roadmap", category: "Cloud", tags: ["kubernetes", "managed", "workload identity", "aks", "cloud", "roadmap"], color: "#0EA5E9" },
+  { title: "AKS Hands-on Labs", url: "/academies/cloud/azure-aks/labs", category: "Cloud", tags: ["kubernetes", "managed", "workload identity", "aks", "cloud", "labs"], color: "#0EA5E9" },
+  { title: "AKS Interview Q&A", url: "/academies/cloud/azure-aks/interview", category: "Cloud", tags: ["kubernetes", "managed", "workload identity", "aks", "cloud", "interview"], color: "#0EA5E9" },
+  { title: "AKS FAQ", url: "/academies/cloud/azure-aks/faq", category: "Cloud", tags: ["kubernetes", "managed", "workload identity", "aks", "cloud", "faq"], color: "#0EA5E9" },
+  { title: "Azure DevOps — Overview", url: "/academies/cloud/azure-devops/overview", category: "Cloud", tags: ["ci/cd", "pipelines", "boards", "azure devops", "cloud", "overview"], color: "#0EA5E9" },
+  { title: "Azure DevOps Learning Roadmap", url: "/academies/cloud/azure-devops/roadmap", category: "Cloud", tags: ["ci/cd", "pipelines", "boards", "azure devops", "cloud", "roadmap"], color: "#0EA5E9" },
+  { title: "Azure DevOps Hands-on Labs", url: "/academies/cloud/azure-devops/labs", category: "Cloud", tags: ["ci/cd", "pipelines", "boards", "azure devops", "cloud", "labs"], color: "#0EA5E9" },
+  { title: "Azure DevOps Interview Q&A", url: "/academies/cloud/azure-devops/interview", category: "Cloud", tags: ["ci/cd", "pipelines", "boards", "azure devops", "cloud", "interview"], color: "#0EA5E9" },
+  { title: "Azure DevOps FAQ", url: "/academies/cloud/azure-devops/faq", category: "Cloud", tags: ["ci/cd", "pipelines", "boards", "azure devops", "cloud", "faq"], color: "#0EA5E9" },
+  { title: "GKE — Overview", url: "/academies/cloud/gke/overview", category: "Cloud", tags: ["kubernetes", "google", "autopilot", "gke", "cloud", "overview"], color: "#0EA5E9" },
+  { title: "GKE Learning Roadmap", url: "/academies/cloud/gke/roadmap", category: "Cloud", tags: ["kubernetes", "google", "autopilot", "gke", "cloud", "roadmap"], color: "#0EA5E9" },
+  { title: "GKE Hands-on Labs", url: "/academies/cloud/gke/labs", category: "Cloud", tags: ["kubernetes", "google", "autopilot", "gke", "cloud", "labs"], color: "#0EA5E9" },
+  { title: "GKE Interview Q&A", url: "/academies/cloud/gke/interview", category: "Cloud", tags: ["kubernetes", "google", "autopilot", "gke", "cloud", "interview"], color: "#0EA5E9" },
+  { title: "GKE FAQ", url: "/academies/cloud/gke/faq", category: "Cloud", tags: ["kubernetes", "google", "autopilot", "gke", "cloud", "faq"], color: "#0EA5E9" },
+  { title: "BigQuery — Overview", url: "/academies/cloud/bigquery/overview", category: "Cloud", tags: ["data warehouse", "analytics", "sql", "bigquery", "cloud", "overview"], color: "#0EA5E9" },
+  { title: "BigQuery Learning Roadmap", url: "/academies/cloud/bigquery/roadmap", category: "Cloud", tags: ["data warehouse", "analytics", "sql", "bigquery", "cloud", "roadmap"], color: "#0EA5E9" },
+  { title: "BigQuery Hands-on Labs", url: "/academies/cloud/bigquery/labs", category: "Cloud", tags: ["data warehouse", "analytics", "sql", "bigquery", "cloud", "labs"], color: "#0EA5E9" },
+  { title: "BigQuery Interview Q&A", url: "/academies/cloud/bigquery/interview", category: "Cloud", tags: ["data warehouse", "analytics", "sql", "bigquery", "cloud", "interview"], color: "#0EA5E9" },
+  { title: "BigQuery FAQ", url: "/academies/cloud/bigquery/faq", category: "Cloud", tags: ["data warehouse", "analytics", "sql", "bigquery", "cloud", "faq"], color: "#0EA5E9" },
+  { title: "Cloud Run — Overview", url: "/academies/cloud/cloud-run/overview", category: "Cloud", tags: ["serverless", "containers", "faas", "cloud run", "cloud", "overview"], color: "#0EA5E9" },
+  { title: "Cloud Run Learning Roadmap", url: "/academies/cloud/cloud-run/roadmap", category: "Cloud", tags: ["serverless", "containers", "faas", "cloud run", "cloud", "roadmap"], color: "#0EA5E9" },
+  { title: "Cloud Run Hands-on Labs", url: "/academies/cloud/cloud-run/labs", category: "Cloud", tags: ["serverless", "containers", "faas", "cloud run", "cloud", "labs"], color: "#0EA5E9" },
+  { title: "Cloud Run Interview Q&A", url: "/academies/cloud/cloud-run/interview", category: "Cloud", tags: ["serverless", "containers", "faas", "cloud run", "cloud", "interview"], color: "#0EA5E9" },
+  { title: "Cloud Run FAQ", url: "/academies/cloud/cloud-run/faq", category: "Cloud", tags: ["serverless", "containers", "faas", "cloud run", "cloud", "faq"], color: "#0EA5E9" },
+  { title: "Cloud Security — Overview", url: "/academies/cloud/cloud-security/overview", category: "Cloud", tags: ["security", "cspm", "compliance", "cloud security", "cloud", "overview"], color: "#0EA5E9" },
+  { title: "Cloud Security Learning Roadmap", url: "/academies/cloud/cloud-security/roadmap", category: "Cloud", tags: ["security", "cspm", "compliance", "cloud security", "cloud", "roadmap"], color: "#0EA5E9" },
+  { title: "Cloud Security Hands-on Labs", url: "/academies/cloud/cloud-security/labs", category: "Cloud", tags: ["security", "cspm", "compliance", "cloud security", "cloud", "labs"], color: "#0EA5E9" },
+  { title: "Cloud Security Interview Q&A", url: "/academies/cloud/cloud-security/interview", category: "Cloud", tags: ["security", "cspm", "compliance", "cloud security", "cloud", "interview"], color: "#0EA5E9" },
+  { title: "Cloud Security FAQ", url: "/academies/cloud/cloud-security/faq", category: "Cloud", tags: ["security", "cspm", "compliance", "cloud security", "cloud", "faq"], color: "#0EA5E9" },
+  { title: "Cost Optimization — Overview", url: "/academies/cloud/cost-optimization/overview", category: "Cloud", tags: ["finops", "cost", "reserved", "cost optimization", "cloud", "overview"], color: "#0EA5E9" },
+  { title: "Cost Optimization Learning Roadmap", url: "/academies/cloud/cost-optimization/roadmap", category: "Cloud", tags: ["finops", "cost", "reserved", "cost optimization", "cloud", "roadmap"], color: "#0EA5E9" },
+  { title: "Cost Optimization Hands-on Labs", url: "/academies/cloud/cost-optimization/labs", category: "Cloud", tags: ["finops", "cost", "reserved", "cost optimization", "cloud", "labs"], color: "#0EA5E9" },
+  { title: "Cost Optimization Interview Q&A", url: "/academies/cloud/cost-optimization/interview", category: "Cloud", tags: ["finops", "cost", "reserved", "cost optimization", "cloud", "interview"], color: "#0EA5E9" },
+  { title: "Cost Optimization FAQ", url: "/academies/cloud/cost-optimization/faq", category: "Cloud", tags: ["finops", "cost", "reserved", "cost optimization", "cloud", "faq"], color: "#0EA5E9" },
+  { title: "Landing Zones — Overview", url: "/academies/cloud/landing-zones/overview", category: "Cloud", tags: ["enterprise", "governance", "multi-account", "landing zones", "cloud", "overview"], color: "#0EA5E9" },
+  { title: "Landing Zones Learning Roadmap", url: "/academies/cloud/landing-zones/roadmap", category: "Cloud", tags: ["enterprise", "governance", "multi-account", "landing zones", "cloud", "roadmap"], color: "#0EA5E9" },
+  { title: "Landing Zones Hands-on Labs", url: "/academies/cloud/landing-zones/labs", category: "Cloud", tags: ["enterprise", "governance", "multi-account", "landing zones", "cloud", "labs"], color: "#0EA5E9" },
+  { title: "Landing Zones Interview Q&A", url: "/academies/cloud/landing-zones/interview", category: "Cloud", tags: ["enterprise", "governance", "multi-account", "landing zones", "cloud", "interview"], color: "#0EA5E9" },
+  { title: "Landing Zones FAQ", url: "/academies/cloud/landing-zones/faq", category: "Cloud", tags: ["enterprise", "governance", "multi-account", "landing zones", "cloud", "faq"], color: "#0EA5E9" },
+  { title: "PostgreSQL — Overview", url: "/academies/databases/postgresql/overview", category: "Databases", tags: ["sql", "acid", "mvcc", "postgresql", "databases", "overview"], color: "#10B981" },
+  { title: "PostgreSQL Learning Roadmap", url: "/academies/databases/postgresql/roadmap", category: "Databases", tags: ["sql", "acid", "mvcc", "postgresql", "databases", "roadmap"], color: "#10B981" },
+  { title: "PostgreSQL Hands-on Labs", url: "/academies/databases/postgresql/labs", category: "Databases", tags: ["sql", "acid", "mvcc", "postgresql", "databases", "labs"], color: "#10B981" },
+  { title: "PostgreSQL Interview Q&A", url: "/academies/databases/postgresql/interview", category: "Databases", tags: ["sql", "acid", "mvcc", "postgresql", "databases", "interview"], color: "#10B981" },
+  { title: "PostgreSQL FAQ", url: "/academies/databases/postgresql/faq", category: "Databases", tags: ["sql", "acid", "mvcc", "postgresql", "databases", "faq"], color: "#10B981" },
+  { title: "MySQL — Overview", url: "/academies/databases/mysql/overview", category: "Databases", tags: ["sql", "innodb", "replication", "mysql", "databases", "overview"], color: "#10B981" },
+  { title: "MySQL Learning Roadmap", url: "/academies/databases/mysql/roadmap", category: "Databases", tags: ["sql", "innodb", "replication", "mysql", "databases", "roadmap"], color: "#10B981" },
+  { title: "MySQL Hands-on Labs", url: "/academies/databases/mysql/labs", category: "Databases", tags: ["sql", "innodb", "replication", "mysql", "databases", "labs"], color: "#10B981" },
+  { title: "MySQL Interview Q&A", url: "/academies/databases/mysql/interview", category: "Databases", tags: ["sql", "innodb", "replication", "mysql", "databases", "interview"], color: "#10B981" },
+  { title: "MySQL FAQ", url: "/academies/databases/mysql/faq", category: "Databases", tags: ["sql", "innodb", "replication", "mysql", "databases", "faq"], color: "#10B981" },
+  { title: "SQL Mastery — Overview", url: "/academies/databases/sql/overview", category: "Databases", tags: ["sql", "queries", "analytics", "sql mastery", "databases", "overview"], color: "#10B981" },
+  { title: "SQL Mastery Learning Roadmap", url: "/academies/databases/sql/roadmap", category: "Databases", tags: ["sql", "queries", "analytics", "sql mastery", "databases", "roadmap"], color: "#10B981" },
+  { title: "SQL Mastery Hands-on Labs", url: "/academies/databases/sql/labs", category: "Databases", tags: ["sql", "queries", "analytics", "sql mastery", "databases", "labs"], color: "#10B981" },
+  { title: "SQL Mastery Interview Q&A", url: "/academies/databases/sql/interview", category: "Databases", tags: ["sql", "queries", "analytics", "sql mastery", "databases", "interview"], color: "#10B981" },
+  { title: "SQL Mastery FAQ", url: "/academies/databases/sql/faq", category: "Databases", tags: ["sql", "queries", "analytics", "sql mastery", "databases", "faq"], color: "#10B981" },
+  { title: "Oracle Database — Overview", url: "/academies/databases/oracle/overview", category: "Databases", tags: ["oracle", "pl/sql", "enterprise", "oracle database", "databases", "overview"], color: "#10B981" },
+  { title: "Oracle Database Learning Roadmap", url: "/academies/databases/oracle/roadmap", category: "Databases", tags: ["oracle", "pl/sql", "enterprise", "oracle database", "databases", "roadmap"], color: "#10B981" },
+  { title: "Oracle Database Hands-on Labs", url: "/academies/databases/oracle/labs", category: "Databases", tags: ["oracle", "pl/sql", "enterprise", "oracle database", "databases", "labs"], color: "#10B981" },
+  { title: "Oracle Database Interview Q&A", url: "/academies/databases/oracle/interview", category: "Databases", tags: ["oracle", "pl/sql", "enterprise", "oracle database", "databases", "interview"], color: "#10B981" },
+  { title: "Oracle Database FAQ", url: "/academies/databases/oracle/faq", category: "Databases", tags: ["oracle", "pl/sql", "enterprise", "oracle database", "databases", "faq"], color: "#10B981" },
+  { title: "MongoDB — Overview", url: "/academies/databases/mongodb/overview", category: "Databases", tags: ["document", "nosql", "atlas", "mongodb", "databases", "overview"], color: "#10B981" },
+  { title: "MongoDB Learning Roadmap", url: "/academies/databases/mongodb/roadmap", category: "Databases", tags: ["document", "nosql", "atlas", "mongodb", "databases", "roadmap"], color: "#10B981" },
+  { title: "MongoDB Hands-on Labs", url: "/academies/databases/mongodb/labs", category: "Databases", tags: ["document", "nosql", "atlas", "mongodb", "databases", "labs"], color: "#10B981" },
+  { title: "MongoDB Interview Q&A", url: "/academies/databases/mongodb/interview", category: "Databases", tags: ["document", "nosql", "atlas", "mongodb", "databases", "interview"], color: "#10B981" },
+  { title: "MongoDB FAQ", url: "/academies/databases/mongodb/faq", category: "Databases", tags: ["document", "nosql", "atlas", "mongodb", "databases", "faq"], color: "#10B981" },
+  { title: "Cassandra — Overview", url: "/academies/databases/cassandra/overview", category: "Databases", tags: ["wide-column", "distributed", "cql", "cassandra", "databases", "overview"], color: "#10B981" },
+  { title: "Cassandra Learning Roadmap", url: "/academies/databases/cassandra/roadmap", category: "Databases", tags: ["wide-column", "distributed", "cql", "cassandra", "databases", "roadmap"], color: "#10B981" },
+  { title: "Cassandra Hands-on Labs", url: "/academies/databases/cassandra/labs", category: "Databases", tags: ["wide-column", "distributed", "cql", "cassandra", "databases", "labs"], color: "#10B981" },
+  { title: "Cassandra Interview Q&A", url: "/academies/databases/cassandra/interview", category: "Databases", tags: ["wide-column", "distributed", "cql", "cassandra", "databases", "interview"], color: "#10B981" },
+  { title: "Cassandra FAQ", url: "/academies/databases/cassandra/faq", category: "Databases", tags: ["wide-column", "distributed", "cql", "cassandra", "databases", "faq"], color: "#10B981" },
+  { title: "DynamoDB — Overview", url: "/academies/databases/dynamodb/overview", category: "Databases", tags: ["aws", "serverless", "nosql", "dynamodb", "databases", "overview"], color: "#10B981" },
+  { title: "DynamoDB Learning Roadmap", url: "/academies/databases/dynamodb/roadmap", category: "Databases", tags: ["aws", "serverless", "nosql", "dynamodb", "databases", "roadmap"], color: "#10B981" },
+  { title: "DynamoDB Hands-on Labs", url: "/academies/databases/dynamodb/labs", category: "Databases", tags: ["aws", "serverless", "nosql", "dynamodb", "databases", "labs"], color: "#10B981" },
+  { title: "DynamoDB Interview Q&A", url: "/academies/databases/dynamodb/interview", category: "Databases", tags: ["aws", "serverless", "nosql", "dynamodb", "databases", "interview"], color: "#10B981" },
+  { title: "DynamoDB FAQ", url: "/academies/databases/dynamodb/faq", category: "Databases", tags: ["aws", "serverless", "nosql", "dynamodb", "databases", "faq"], color: "#10B981" },
+  { title: "Redis — Overview", url: "/academies/databases/redis/overview", category: "Databases", tags: ["cache", "pub/sub", "in-memory", "redis", "databases", "overview"], color: "#10B981" },
+  { title: "Redis Learning Roadmap", url: "/academies/databases/redis/roadmap", category: "Databases", tags: ["cache", "pub/sub", "in-memory", "redis", "databases", "roadmap"], color: "#10B981" },
+  { title: "Redis Hands-on Labs", url: "/academies/databases/redis/labs", category: "Databases", tags: ["cache", "pub/sub", "in-memory", "redis", "databases", "labs"], color: "#10B981" },
+  { title: "Redis Interview Q&A", url: "/academies/databases/redis/interview", category: "Databases", tags: ["cache", "pub/sub", "in-memory", "redis", "databases", "interview"], color: "#10B981" },
+  { title: "Redis FAQ", url: "/academies/databases/redis/faq", category: "Databases", tags: ["cache", "pub/sub", "in-memory", "redis", "databases", "faq"], color: "#10B981" },
+  { title: "Elasticsearch — Overview", url: "/academies/databases/elasticsearch/overview", category: "Databases", tags: ["search", "full-text", "elk", "elasticsearch", "databases", "overview"], color: "#10B981" },
+  { title: "Elasticsearch Learning Roadmap", url: "/academies/databases/elasticsearch/roadmap", category: "Databases", tags: ["search", "full-text", "elk", "elasticsearch", "databases", "roadmap"], color: "#10B981" },
+  { title: "Elasticsearch Hands-on Labs", url: "/academies/databases/elasticsearch/labs", category: "Databases", tags: ["search", "full-text", "elk", "elasticsearch", "databases", "labs"], color: "#10B981" },
+  { title: "Elasticsearch Interview Q&A", url: "/academies/databases/elasticsearch/interview", category: "Databases", tags: ["search", "full-text", "elk", "elasticsearch", "databases", "interview"], color: "#10B981" },
+  { title: "Elasticsearch FAQ", url: "/academies/databases/elasticsearch/faq", category: "Databases", tags: ["search", "full-text", "elk", "elasticsearch", "databases", "faq"], color: "#10B981" },
+  { title: "AI Fundamentals — Overview", url: "/academies/ai/ai-fundamentals/overview", category: "AI & ML", tags: ["ml", "neural networks", "concepts", "ai fundamentals", "ai", "ai & ml", "overview"], color: "#8B5CF6" },
+  { title: "AI Fundamentals Learning Roadmap", url: "/academies/ai/ai-fundamentals/roadmap", category: "AI & ML", tags: ["ml", "neural networks", "concepts", "ai fundamentals", "ai", "ai & ml", "roadmap"], color: "#8B5CF6" },
+  { title: "AI Fundamentals Hands-on Labs", url: "/academies/ai/ai-fundamentals/labs", category: "AI & ML", tags: ["ml", "neural networks", "concepts", "ai fundamentals", "ai", "ai & ml", "labs"], color: "#8B5CF6" },
+  { title: "AI Fundamentals Interview Q&A", url: "/academies/ai/ai-fundamentals/interview", category: "AI & ML", tags: ["ml", "neural networks", "concepts", "ai fundamentals", "ai", "ai & ml", "interview"], color: "#8B5CF6" },
+  { title: "AI Fundamentals FAQ", url: "/academies/ai/ai-fundamentals/faq", category: "AI & ML", tags: ["ml", "neural networks", "concepts", "ai fundamentals", "ai", "ai & ml", "faq"], color: "#8B5CF6" },
+  { title: "Prompt Engineering — Overview", url: "/academies/ai/prompt-engineering/overview", category: "AI & ML", tags: ["prompts", "llms", "techniques", "prompt engineering", "ai", "ai & ml", "overview"], color: "#8B5CF6" },
+  { title: "Prompt Engineering Learning Roadmap", url: "/academies/ai/prompt-engineering/roadmap", category: "AI & ML", tags: ["prompts", "llms", "techniques", "prompt engineering", "ai", "ai & ml", "roadmap"], color: "#8B5CF6" },
+  { title: "Prompt Engineering Hands-on Labs", url: "/academies/ai/prompt-engineering/labs", category: "AI & ML", tags: ["prompts", "llms", "techniques", "prompt engineering", "ai", "ai & ml", "labs"], color: "#8B5CF6" },
+  { title: "Prompt Engineering Interview Q&A", url: "/academies/ai/prompt-engineering/interview", category: "AI & ML", tags: ["prompts", "llms", "techniques", "prompt engineering", "ai", "ai & ml", "interview"], color: "#8B5CF6" },
+  { title: "Prompt Engineering FAQ", url: "/academies/ai/prompt-engineering/faq", category: "AI & ML", tags: ["prompts", "llms", "techniques", "prompt engineering", "ai", "ai & ml", "faq"], color: "#8B5CF6" },
+  { title: "LangChain — Overview", url: "/academies/ai/langchain/overview", category: "AI & ML", tags: ["llms", "framework", "lcel", "langchain", "ai", "ai & ml", "overview"], color: "#8B5CF6" },
+  { title: "LangChain Learning Roadmap", url: "/academies/ai/langchain/roadmap", category: "AI & ML", tags: ["llms", "framework", "lcel", "langchain", "ai", "ai & ml", "roadmap"], color: "#8B5CF6" },
+  { title: "LangChain Hands-on Labs", url: "/academies/ai/langchain/labs", category: "AI & ML", tags: ["llms", "framework", "lcel", "langchain", "ai", "ai & ml", "labs"], color: "#8B5CF6" },
+  { title: "LangChain Interview Q&A", url: "/academies/ai/langchain/interview", category: "AI & ML", tags: ["llms", "framework", "lcel", "langchain", "ai", "ai & ml", "interview"], color: "#8B5CF6" },
+  { title: "LangChain FAQ", url: "/academies/ai/langchain/faq", category: "AI & ML", tags: ["llms", "framework", "lcel", "langchain", "ai", "ai & ml", "faq"], color: "#8B5CF6" },
+  { title: "RAG Systems — Overview", url: "/academies/ai/rag/overview", category: "AI & ML", tags: ["rag", "embeddings", "vector db", "rag systems", "ai", "ai & ml", "overview"], color: "#8B5CF6" },
+  { title: "RAG Systems Learning Roadmap", url: "/academies/ai/rag/roadmap", category: "AI & ML", tags: ["rag", "embeddings", "vector db", "rag systems", "ai", "ai & ml", "roadmap"], color: "#8B5CF6" },
+  { title: "RAG Systems Hands-on Labs", url: "/academies/ai/rag/labs", category: "AI & ML", tags: ["rag", "embeddings", "vector db", "rag systems", "ai", "ai & ml", "labs"], color: "#8B5CF6" },
+  { title: "RAG Systems Interview Q&A", url: "/academies/ai/rag/interview", category: "AI & ML", tags: ["rag", "embeddings", "vector db", "rag systems", "ai", "ai & ml", "interview"], color: "#8B5CF6" },
+  { title: "RAG Systems FAQ", url: "/academies/ai/rag/faq", category: "AI & ML", tags: ["rag", "embeddings", "vector db", "rag systems", "ai", "ai & ml", "faq"], color: "#8B5CF6" },
+  { title: "AI Agents — Overview", url: "/academies/ai/ai-agents/overview", category: "AI & ML", tags: ["agents", "react", "tool use", "ai agents", "ai", "ai & ml", "overview"], color: "#8B5CF6" },
+  { title: "AI Agents Learning Roadmap", url: "/academies/ai/ai-agents/roadmap", category: "AI & ML", tags: ["agents", "react", "tool use", "ai agents", "ai", "ai & ml", "roadmap"], color: "#8B5CF6" },
+  { title: "AI Agents Hands-on Labs", url: "/academies/ai/ai-agents/labs", category: "AI & ML", tags: ["agents", "react", "tool use", "ai agents", "ai", "ai & ml", "labs"], color: "#8B5CF6" },
+  { title: "AI Agents Interview Q&A", url: "/academies/ai/ai-agents/interview", category: "AI & ML", tags: ["agents", "react", "tool use", "ai agents", "ai", "ai & ml", "interview"], color: "#8B5CF6" },
+  { title: "AI Agents FAQ", url: "/academies/ai/ai-agents/faq", category: "AI & ML", tags: ["agents", "react", "tool use", "ai agents", "ai", "ai & ml", "faq"], color: "#8B5CF6" },
+  { title: "LLMOps — Overview", url: "/academies/ai/llmops/overview", category: "AI & ML", tags: ["llmops", "production", "monitoring", "ai", "ai & ml", "overview"], color: "#8B5CF6" },
+  { title: "LLMOps Learning Roadmap", url: "/academies/ai/llmops/roadmap", category: "AI & ML", tags: ["llmops", "production", "monitoring", "ai", "ai & ml", "roadmap"], color: "#8B5CF6" },
+  { title: "LLMOps Hands-on Labs", url: "/academies/ai/llmops/labs", category: "AI & ML", tags: ["llmops", "production", "monitoring", "ai", "ai & ml", "labs"], color: "#8B5CF6" },
+  { title: "LLMOps Interview Q&A", url: "/academies/ai/llmops/interview", category: "AI & ML", tags: ["llmops", "production", "monitoring", "ai", "ai & ml", "interview"], color: "#8B5CF6" },
+  { title: "LLMOps FAQ", url: "/academies/ai/llmops/faq", category: "AI & ML", tags: ["llmops", "production", "monitoring", "ai", "ai & ml", "faq"], color: "#8B5CF6" },
+  { title: "OpenAI API — Overview", url: "/academies/ai/openai/overview", category: "AI & ML", tags: ["openai", "gpt-4", "api", "openai api", "ai", "ai & ml", "overview"], color: "#8B5CF6" },
+  { title: "OpenAI API Learning Roadmap", url: "/academies/ai/openai/roadmap", category: "AI & ML", tags: ["openai", "gpt-4", "api", "openai api", "ai", "ai & ml", "roadmap"], color: "#8B5CF6" },
+  { title: "OpenAI API Hands-on Labs", url: "/academies/ai/openai/labs", category: "AI & ML", tags: ["openai", "gpt-4", "api", "openai api", "ai", "ai & ml", "labs"], color: "#8B5CF6" },
+  { title: "OpenAI API Interview Q&A", url: "/academies/ai/openai/interview", category: "AI & ML", tags: ["openai", "gpt-4", "api", "openai api", "ai", "ai & ml", "interview"], color: "#8B5CF6" },
+  { title: "OpenAI API FAQ", url: "/academies/ai/openai/faq", category: "AI & ML", tags: ["openai", "gpt-4", "api", "openai api", "ai", "ai & ml", "faq"], color: "#8B5CF6" },
+  { title: "Excel & Advanced Excel — Overview", url: "/academies/data/excel/overview", category: "Data", tags: ["excel", "pivot", "power query", "excel & advanced excel", "data", "overview"], color: "#06B6D4" },
+  { title: "Excel & Advanced Excel Learning Roadmap", url: "/academies/data/excel/roadmap", category: "Data", tags: ["excel", "pivot", "power query", "excel & advanced excel", "data", "roadmap"], color: "#06B6D4" },
+  { title: "Excel & Advanced Excel Hands-on Labs", url: "/academies/data/excel/labs", category: "Data", tags: ["excel", "pivot", "power query", "excel & advanced excel", "data", "labs"], color: "#06B6D4" },
+  { title: "Excel & Advanced Excel Interview Q&A", url: "/academies/data/excel/interview", category: "Data", tags: ["excel", "pivot", "power query", "excel & advanced excel", "data", "interview"], color: "#06B6D4" },
+  { title: "Excel & Advanced Excel FAQ", url: "/academies/data/excel/faq", category: "Data", tags: ["excel", "pivot", "power query", "excel & advanced excel", "data", "faq"], color: "#06B6D4" },
+  { title: "Pandas & Python Analytics — Overview", url: "/academies/data/pandas/overview", category: "Data", tags: ["pandas", "python", "eda", "pandas & python analytics", "data", "overview"], color: "#06B6D4" },
+  { title: "Pandas & Python Analytics Learning Roadmap", url: "/academies/data/pandas/roadmap", category: "Data", tags: ["pandas", "python", "eda", "pandas & python analytics", "data", "roadmap"], color: "#06B6D4" },
+  { title: "Pandas & Python Analytics Hands-on Labs", url: "/academies/data/pandas/labs", category: "Data", tags: ["pandas", "python", "eda", "pandas & python analytics", "data", "labs"], color: "#06B6D4" },
+  { title: "Pandas & Python Analytics Interview Q&A", url: "/academies/data/pandas/interview", category: "Data", tags: ["pandas", "python", "eda", "pandas & python analytics", "data", "interview"], color: "#06B6D4" },
+  { title: "Pandas & Python Analytics FAQ", url: "/academies/data/pandas/faq", category: "Data", tags: ["pandas", "python", "eda", "pandas & python analytics", "data", "faq"], color: "#06B6D4" },
+  { title: "Power BI — Overview", url: "/academies/data/power-bi/overview", category: "Data", tags: ["power bi", "dax", "dashboards", "data", "overview"], color: "#06B6D4" },
+  { title: "Power BI Learning Roadmap", url: "/academies/data/power-bi/roadmap", category: "Data", tags: ["power bi", "dax", "dashboards", "data", "roadmap"], color: "#06B6D4" },
+  { title: "Power BI Hands-on Labs", url: "/academies/data/power-bi/labs", category: "Data", tags: ["power bi", "dax", "dashboards", "data", "labs"], color: "#06B6D4" },
+  { title: "Power BI Interview Q&A", url: "/academies/data/power-bi/interview", category: "Data", tags: ["power bi", "dax", "dashboards", "data", "interview"], color: "#06B6D4" },
+  { title: "Power BI FAQ", url: "/academies/data/power-bi/faq", category: "Data", tags: ["power bi", "dax", "dashboards", "data", "faq"], color: "#06B6D4" },
+  { title: "Tableau — Overview", url: "/academies/data/tableau/overview", category: "Data", tags: ["tableau", "viz", "dashboards", "data", "overview"], color: "#06B6D4" },
+  { title: "Tableau Learning Roadmap", url: "/academies/data/tableau/roadmap", category: "Data", tags: ["tableau", "viz", "dashboards", "data", "roadmap"], color: "#06B6D4" },
+  { title: "Tableau Hands-on Labs", url: "/academies/data/tableau/labs", category: "Data", tags: ["tableau", "viz", "dashboards", "data", "labs"], color: "#06B6D4" },
+  { title: "Tableau Interview Q&A", url: "/academies/data/tableau/interview", category: "Data", tags: ["tableau", "viz", "dashboards", "data", "interview"], color: "#06B6D4" },
+  { title: "Tableau FAQ", url: "/academies/data/tableau/faq", category: "Data", tags: ["tableau", "viz", "dashboards", "data", "faq"], color: "#06B6D4" },
+  { title: "SQL Mastery — Overview", url: "/academies/data/sql/overview", category: "Data", tags: ["sql", "analytics", "joins", "sql mastery", "data", "overview"], color: "#06B6D4" },
+  { title: "SQL Mastery Learning Roadmap", url: "/academies/data/sql/roadmap", category: "Data", tags: ["sql", "analytics", "joins", "sql mastery", "data", "roadmap"], color: "#06B6D4" },
+  { title: "SQL Mastery Hands-on Labs", url: "/academies/data/sql/labs", category: "Data", tags: ["sql", "analytics", "joins", "sql mastery", "data", "labs"], color: "#06B6D4" },
+  { title: "SQL Mastery Interview Q&A", url: "/academies/data/sql/interview", category: "Data", tags: ["sql", "analytics", "joins", "sql mastery", "data", "interview"], color: "#06B6D4" },
+  { title: "SQL Mastery FAQ", url: "/academies/data/sql/faq", category: "Data", tags: ["sql", "analytics", "joins", "sql mastery", "data", "faq"], color: "#06B6D4" },
+  { title: "Security Fundamentals — Overview", url: "/academies/security/security-fundamentals/overview", category: "Security", tags: ["cia", "threats", "crypto", "security fundamentals", "security", "overview"], color: "#EF4444" },
+  { title: "Security Fundamentals Learning Roadmap", url: "/academies/security/security-fundamentals/roadmap", category: "Security", tags: ["cia", "threats", "crypto", "security fundamentals", "security", "roadmap"], color: "#EF4444" },
+  { title: "Security Fundamentals Hands-on Labs", url: "/academies/security/security-fundamentals/labs", category: "Security", tags: ["cia", "threats", "crypto", "security fundamentals", "security", "labs"], color: "#EF4444" },
+  { title: "Security Fundamentals Interview Q&A", url: "/academies/security/security-fundamentals/interview", category: "Security", tags: ["cia", "threats", "crypto", "security fundamentals", "security", "interview"], color: "#EF4444" },
+  { title: "Security Fundamentals FAQ", url: "/academies/security/security-fundamentals/faq", category: "Security", tags: ["cia", "threats", "crypto", "security fundamentals", "security", "faq"], color: "#EF4444" },
+  { title: "Network Security — Overview", url: "/academies/security/network-security/overview", category: "Security", tags: ["firewalls", "ids", "tls", "network security", "security", "overview"], color: "#EF4444" },
+  { title: "Network Security Learning Roadmap", url: "/academies/security/network-security/roadmap", category: "Security", tags: ["firewalls", "ids", "tls", "network security", "security", "roadmap"], color: "#EF4444" },
+  { title: "Network Security Hands-on Labs", url: "/academies/security/network-security/labs", category: "Security", tags: ["firewalls", "ids", "tls", "network security", "security", "labs"], color: "#EF4444" },
+  { title: "Network Security Interview Q&A", url: "/academies/security/network-security/interview", category: "Security", tags: ["firewalls", "ids", "tls", "network security", "security", "interview"], color: "#EF4444" },
+  { title: "Network Security FAQ", url: "/academies/security/network-security/faq", category: "Security", tags: ["firewalls", "ids", "tls", "network security", "security", "faq"], color: "#EF4444" },
+  { title: "Ethical Hacking — Overview", url: "/academies/security/ethical-hacking/overview", category: "Security", tags: ["pen test", "oscp", "exploitation", "ethical hacking", "security", "overview"], color: "#EF4444" },
+  { title: "Ethical Hacking Learning Roadmap", url: "/academies/security/ethical-hacking/roadmap", category: "Security", tags: ["pen test", "oscp", "exploitation", "ethical hacking", "security", "roadmap"], color: "#EF4444" },
+  { title: "Ethical Hacking Hands-on Labs", url: "/academies/security/ethical-hacking/labs", category: "Security", tags: ["pen test", "oscp", "exploitation", "ethical hacking", "security", "labs"], color: "#EF4444" },
+  { title: "Ethical Hacking Interview Q&A", url: "/academies/security/ethical-hacking/interview", category: "Security", tags: ["pen test", "oscp", "exploitation", "ethical hacking", "security", "interview"], color: "#EF4444" },
+  { title: "Ethical Hacking FAQ", url: "/academies/security/ethical-hacking/faq", category: "Security", tags: ["pen test", "oscp", "exploitation", "ethical hacking", "security", "faq"], color: "#EF4444" },
+  { title: "SOC Operations — Overview", url: "/academies/security/soc/overview", category: "Security", tags: ["soc", "mitre", "incident response", "soc operations", "security", "overview"], color: "#EF4444" },
+  { title: "SOC Operations Learning Roadmap", url: "/academies/security/soc/roadmap", category: "Security", tags: ["soc", "mitre", "incident response", "soc operations", "security", "roadmap"], color: "#EF4444" },
+  { title: "SOC Operations Hands-on Labs", url: "/academies/security/soc/labs", category: "Security", tags: ["soc", "mitre", "incident response", "soc operations", "security", "labs"], color: "#EF4444" },
+  { title: "SOC Operations Interview Q&A", url: "/academies/security/soc/interview", category: "Security", tags: ["soc", "mitre", "incident response", "soc operations", "security", "interview"], color: "#EF4444" },
+  { title: "SOC Operations FAQ", url: "/academies/security/soc/faq", category: "Security", tags: ["soc", "mitre", "incident response", "soc operations", "security", "faq"], color: "#EF4444" },
+  { title: "SIEM — Overview", url: "/academies/security/siem/overview", category: "Security", tags: ["siem", "splunk", "sentinel", "security", "overview"], color: "#EF4444" },
+  { title: "SIEM Learning Roadmap", url: "/academies/security/siem/roadmap", category: "Security", tags: ["siem", "splunk", "sentinel", "security", "roadmap"], color: "#EF4444" },
+  { title: "SIEM Hands-on Labs", url: "/academies/security/siem/labs", category: "Security", tags: ["siem", "splunk", "sentinel", "security", "labs"], color: "#EF4444" },
+  { title: "SIEM Interview Q&A", url: "/academies/security/siem/interview", category: "Security", tags: ["siem", "splunk", "sentinel", "security", "interview"], color: "#EF4444" },
+  { title: "SIEM FAQ", url: "/academies/security/siem/faq", category: "Security", tags: ["siem", "splunk", "sentinel", "security", "faq"], color: "#EF4444" },
+  { title: "ICD-10-CM — Overview", url: "/academies/healthcare/icd-10-cm/overview", category: "Healthcare", tags: ["icd-10", "diagnosis", "cms", "icd-10-cm", "healthcare", "overview"], color: "#F43F5E" },
+  { title: "ICD-10-CM Learning Roadmap", url: "/academies/healthcare/icd-10-cm/roadmap", category: "Healthcare", tags: ["icd-10", "diagnosis", "cms", "icd-10-cm", "healthcare", "roadmap"], color: "#F43F5E" },
+  { title: "ICD-10-CM Hands-on Labs", url: "/academies/healthcare/icd-10-cm/labs", category: "Healthcare", tags: ["icd-10", "diagnosis", "cms", "icd-10-cm", "healthcare", "labs"], color: "#F43F5E" },
+  { title: "ICD-10-CM Interview Q&A", url: "/academies/healthcare/icd-10-cm/interview", category: "Healthcare", tags: ["icd-10", "diagnosis", "cms", "icd-10-cm", "healthcare", "interview"], color: "#F43F5E" },
+  { title: "ICD-10-CM FAQ", url: "/academies/healthcare/icd-10-cm/faq", category: "Healthcare", tags: ["icd-10", "diagnosis", "cms", "icd-10-cm", "healthcare", "faq"], color: "#F43F5E" },
+  { title: "CPT Codes — Overview", url: "/academies/healthcare/cpt/overview", category: "Healthcare", tags: ["cpt", "e/m", "surgery", "cpt codes", "healthcare", "overview"], color: "#F43F5E" },
+  { title: "CPT Codes Learning Roadmap", url: "/academies/healthcare/cpt/roadmap", category: "Healthcare", tags: ["cpt", "e/m", "surgery", "cpt codes", "healthcare", "roadmap"], color: "#F43F5E" },
+  { title: "CPT Codes Hands-on Labs", url: "/academies/healthcare/cpt/labs", category: "Healthcare", tags: ["cpt", "e/m", "surgery", "cpt codes", "healthcare", "labs"], color: "#F43F5E" },
+  { title: "CPT Codes Interview Q&A", url: "/academies/healthcare/cpt/interview", category: "Healthcare", tags: ["cpt", "e/m", "surgery", "cpt codes", "healthcare", "interview"], color: "#F43F5E" },
+  { title: "CPT Codes FAQ", url: "/academies/healthcare/cpt/faq", category: "Healthcare", tags: ["cpt", "e/m", "surgery", "cpt codes", "healthcare", "faq"], color: "#F43F5E" },
+  { title: "HCPCS Level II — Overview", url: "/academies/healthcare/hcpcs/overview", category: "Healthcare", tags: ["hcpcs", "dme", "medicare", "hcpcs level ii", "healthcare", "overview"], color: "#F43F5E" },
+  { title: "HCPCS Level II Learning Roadmap", url: "/academies/healthcare/hcpcs/roadmap", category: "Healthcare", tags: ["hcpcs", "dme", "medicare", "hcpcs level ii", "healthcare", "roadmap"], color: "#F43F5E" },
+  { title: "HCPCS Level II Hands-on Labs", url: "/academies/healthcare/hcpcs/labs", category: "Healthcare", tags: ["hcpcs", "dme", "medicare", "hcpcs level ii", "healthcare", "labs"], color: "#F43F5E" },
+  { title: "HCPCS Level II Interview Q&A", url: "/academies/healthcare/hcpcs/interview", category: "Healthcare", tags: ["hcpcs", "dme", "medicare", "hcpcs level ii", "healthcare", "interview"], color: "#F43F5E" },
+  { title: "HCPCS Level II FAQ", url: "/academies/healthcare/hcpcs/faq", category: "Healthcare", tags: ["hcpcs", "dme", "medicare", "hcpcs level ii", "healthcare", "faq"], color: "#F43F5E" },
+  { title: "Coding Guidelines — Overview", url: "/academies/healthcare/coding-guidelines/overview", category: "Healthcare", tags: ["guidelines", "ogcr", "hcc", "coding guidelines", "healthcare", "overview"], color: "#F43F5E" },
+  { title: "Coding Guidelines Learning Roadmap", url: "/academies/healthcare/coding-guidelines/roadmap", category: "Healthcare", tags: ["guidelines", "ogcr", "hcc", "coding guidelines", "healthcare", "roadmap"], color: "#F43F5E" },
+  { title: "Coding Guidelines Hands-on Labs", url: "/academies/healthcare/coding-guidelines/labs", category: "Healthcare", tags: ["guidelines", "ogcr", "hcc", "coding guidelines", "healthcare", "labs"], color: "#F43F5E" },
+  { title: "Coding Guidelines Interview Q&A", url: "/academies/healthcare/coding-guidelines/interview", category: "Healthcare", tags: ["guidelines", "ogcr", "hcc", "coding guidelines", "healthcare", "interview"], color: "#F43F5E" },
+  { title: "Coding Guidelines FAQ", url: "/academies/healthcare/coding-guidelines/faq", category: "Healthcare", tags: ["guidelines", "ogcr", "hcc", "coding guidelines", "healthcare", "faq"], color: "#F43F5E" },
+  { title: "Mock Exams & CPC Prep — Overview", url: "/academies/healthcare/mock-exams/overview", category: "Healthcare", tags: ["cpc", "ccs", "certification", "mock exams & cpc prep", "healthcare", "overview"], color: "#F43F5E" },
+  { title: "Mock Exams & CPC Prep Learning Roadmap", url: "/academies/healthcare/mock-exams/roadmap", category: "Healthcare", tags: ["cpc", "ccs", "certification", "mock exams & cpc prep", "healthcare", "roadmap"], color: "#F43F5E" },
+  { title: "Mock Exams & CPC Prep Hands-on Labs", url: "/academies/healthcare/mock-exams/labs", category: "Healthcare", tags: ["cpc", "ccs", "certification", "mock exams & cpc prep", "healthcare", "labs"], color: "#F43F5E" },
+  { title: "Mock Exams & CPC Prep Interview Q&A", url: "/academies/healthcare/mock-exams/interview", category: "Healthcare", tags: ["cpc", "ccs", "certification", "mock exams & cpc prep", "healthcare", "interview"], color: "#F43F5E" },
+  { title: "Mock Exams & CPC Prep FAQ", url: "/academies/healthcare/mock-exams/faq", category: "Healthcare", tags: ["cpc", "ccs", "certification", "mock exams & cpc prep", "healthcare", "faq"], color: "#F43F5E" },
+  { title: "Home Health Coding — Overview", url: "/academies/healthcare/home-health-coding/overview", category: "Healthcare", tags: ["home health", "oasis", "pdgm", "home health coding", "healthcare", "overview"], color: "#F43F5E" },
+  { title: "Home Health Coding Learning Roadmap", url: "/academies/healthcare/home-health-coding/roadmap", category: "Healthcare", tags: ["home health", "oasis", "pdgm", "home health coding", "healthcare", "roadmap"], color: "#F43F5E" },
+  { title: "Home Health Coding Hands-on Labs", url: "/academies/healthcare/home-health-coding/labs", category: "Healthcare", tags: ["home health", "oasis", "pdgm", "home health coding", "healthcare", "labs"], color: "#F43F5E" },
+  { title: "Home Health Coding Interview Q&A", url: "/academies/healthcare/home-health-coding/interview", category: "Healthcare", tags: ["home health", "oasis", "pdgm", "home health coding", "healthcare", "interview"], color: "#F43F5E" },
+  { title: "Home Health Coding FAQ", url: "/academies/healthcare/home-health-coding/faq", category: "Healthcare", tags: ["home health", "oasis", "pdgm", "home health coding", "healthcare", "faq"], color: "#F43F5E" },
+  { title: "Patient Documentation — Overview", url: "/academies/healthcare/patient-documentation/overview", category: "Healthcare", tags: ["cdi", "documentation", "queries", "patient documentation", "healthcare", "overview"], color: "#F43F5E" },
+  { title: "Patient Documentation Learning Roadmap", url: "/academies/healthcare/patient-documentation/roadmap", category: "Healthcare", tags: ["cdi", "documentation", "queries", "patient documentation", "healthcare", "roadmap"], color: "#F43F5E" },
+  { title: "Patient Documentation Hands-on Labs", url: "/academies/healthcare/patient-documentation/labs", category: "Healthcare", tags: ["cdi", "documentation", "queries", "patient documentation", "healthcare", "labs"], color: "#F43F5E" },
+  { title: "Patient Documentation Interview Q&A", url: "/academies/healthcare/patient-documentation/interview", category: "Healthcare", tags: ["cdi", "documentation", "queries", "patient documentation", "healthcare", "interview"], color: "#F43F5E" },
+  { title: "Patient Documentation FAQ", url: "/academies/healthcare/patient-documentation/faq", category: "Healthcare", tags: ["cdi", "documentation", "queries", "patient documentation", "healthcare", "faq"], color: "#F43F5E" },
+  { title: "BCHHC Certification Prep — Overview", url: "/academies/healthcare/bchhc-prep/overview", category: "Healthcare", tags: ["bchhc", "certification", "home health", "oasis", "pdgm", "bchhc certification prep", "healthcare", "overview"], color: "#F43F5E" },
+  { title: "BCHHC Certification Prep Learning Roadmap", url: "/academies/healthcare/bchhc-prep/roadmap", category: "Healthcare", tags: ["bchhc", "certification", "home health", "oasis", "pdgm", "bchhc certification prep", "healthcare", "roadmap"], color: "#F43F5E" },
+  { title: "BCHHC Certification Prep Hands-on Labs", url: "/academies/healthcare/bchhc-prep/labs", category: "Healthcare", tags: ["bchhc", "certification", "home health", "oasis", "pdgm", "bchhc certification prep", "healthcare", "labs"], color: "#F43F5E" },
+  { title: "BCHHC Certification Prep Interview Q&A", url: "/academies/healthcare/bchhc-prep/interview", category: "Healthcare", tags: ["bchhc", "certification", "home health", "oasis", "pdgm", "bchhc certification prep", "healthcare", "interview"], color: "#F43F5E" },
+  { title: "BCHHC Certification Prep FAQ", url: "/academies/healthcare/bchhc-prep/faq", category: "Healthcare", tags: ["bchhc", "certification", "home health", "oasis", "pdgm", "bchhc certification prep", "healthcare", "faq"], color: "#F43F5E" },
+  { title: "Healthcare Administration — Overview", url: "/academies/healthcare/healthcare-admin/overview", category: "Healthcare", tags: ["revenue cycle", "rcm", "compliance", "healthcare administration", "healthcare", "overview"], color: "#F43F5E" },
+  { title: "Healthcare Administration Learning Roadmap", url: "/academies/healthcare/healthcare-admin/roadmap", category: "Healthcare", tags: ["revenue cycle", "rcm", "compliance", "healthcare administration", "healthcare", "roadmap"], color: "#F43F5E" },
+  { title: "Healthcare Administration Hands-on Labs", url: "/academies/healthcare/healthcare-admin/labs", category: "Healthcare", tags: ["revenue cycle", "rcm", "compliance", "healthcare administration", "healthcare", "labs"], color: "#F43F5E" },
+  { title: "Healthcare Administration Interview Q&A", url: "/academies/healthcare/healthcare-admin/interview", category: "Healthcare", tags: ["revenue cycle", "rcm", "compliance", "healthcare administration", "healthcare", "interview"], color: "#F43F5E" },
+  { title: "Healthcare Administration FAQ", url: "/academies/healthcare/healthcare-admin/faq", category: "Healthcare", tags: ["revenue cycle", "rcm", "compliance", "healthcare administration", "healthcare", "faq"], color: "#F43F5E" },
+  { title: "Gut Health — Overview", url: "/academies/essentials/gut-health/overview", category: "Life Skills", tags: ["gut", "microbiome", "nutrition", "gut health", "essentials", "life skills", "overview"], color: "#EC4899" },
+  { title: "Gut Health Learning Roadmap", url: "/academies/essentials/gut-health/roadmap", category: "Life Skills", tags: ["gut", "microbiome", "nutrition", "gut health", "essentials", "life skills", "roadmap"], color: "#EC4899" },
+  { title: "Gut Health Hands-on Labs", url: "/academies/essentials/gut-health/labs", category: "Life Skills", tags: ["gut", "microbiome", "nutrition", "gut health", "essentials", "life skills", "labs"], color: "#EC4899" },
+  { title: "Gut Health Interview Q&A", url: "/academies/essentials/gut-health/interview", category: "Life Skills", tags: ["gut", "microbiome", "nutrition", "gut health", "essentials", "life skills", "interview"], color: "#EC4899" },
+  { title: "Gut Health FAQ", url: "/academies/essentials/gut-health/faq", category: "Life Skills", tags: ["gut", "microbiome", "nutrition", "gut health", "essentials", "life skills", "faq"], color: "#EC4899" },
+  { title: "Hygiene & Sanitation — Overview", url: "/academies/essentials/hygiene/overview", category: "Life Skills", tags: ["hygiene", "prevention", "daily health", "hygiene & sanitation", "essentials", "life skills", "overview"], color: "#EC4899" },
+  { title: "Hygiene & Sanitation Learning Roadmap", url: "/academies/essentials/hygiene/roadmap", category: "Life Skills", tags: ["hygiene", "prevention", "daily health", "hygiene & sanitation", "essentials", "life skills", "roadmap"], color: "#EC4899" },
+  { title: "Hygiene & Sanitation Hands-on Labs", url: "/academies/essentials/hygiene/labs", category: "Life Skills", tags: ["hygiene", "prevention", "daily health", "hygiene & sanitation", "essentials", "life skills", "labs"], color: "#EC4899" },
+  { title: "Hygiene & Sanitation Interview Q&A", url: "/academies/essentials/hygiene/interview", category: "Life Skills", tags: ["hygiene", "prevention", "daily health", "hygiene & sanitation", "essentials", "life skills", "interview"], color: "#EC4899" },
+  { title: "Hygiene & Sanitation FAQ", url: "/academies/essentials/hygiene/faq", category: "Life Skills", tags: ["hygiene", "prevention", "daily health", "hygiene & sanitation", "essentials", "life skills", "faq"], color: "#EC4899" },
+  { title: "Nutrition Basics — Overview", url: "/academies/essentials/nutrition/overview", category: "Life Skills", tags: ["nutrition", "diet", "wellness", "nutrition basics", "essentials", "life skills", "overview"], color: "#EC4899" },
+  { title: "Nutrition Basics Learning Roadmap", url: "/academies/essentials/nutrition/roadmap", category: "Life Skills", tags: ["nutrition", "diet", "wellness", "nutrition basics", "essentials", "life skills", "roadmap"], color: "#EC4899" },
+  { title: "Nutrition Basics Hands-on Labs", url: "/academies/essentials/nutrition/labs", category: "Life Skills", tags: ["nutrition", "diet", "wellness", "nutrition basics", "essentials", "life skills", "labs"], color: "#EC4899" },
+  { title: "Nutrition Basics Interview Q&A", url: "/academies/essentials/nutrition/interview", category: "Life Skills", tags: ["nutrition", "diet", "wellness", "nutrition basics", "essentials", "life skills", "interview"], color: "#EC4899" },
+  { title: "Nutrition Basics FAQ", url: "/academies/essentials/nutrition/faq", category: "Life Skills", tags: ["nutrition", "diet", "wellness", "nutrition basics", "essentials", "life skills", "faq"], color: "#EC4899" },
+  { title: "Mental Wellness — Overview", url: "/academies/essentials/mental-health/overview", category: "Life Skills", tags: ["mental health", "mindfulness", "sleep", "mental wellness", "essentials", "life skills", "overview"], color: "#EC4899" },
+  { title: "Mental Wellness Learning Roadmap", url: "/academies/essentials/mental-health/roadmap", category: "Life Skills", tags: ["mental health", "mindfulness", "sleep", "mental wellness", "essentials", "life skills", "roadmap"], color: "#EC4899" },
+  { title: "Mental Wellness Hands-on Labs", url: "/academies/essentials/mental-health/labs", category: "Life Skills", tags: ["mental health", "mindfulness", "sleep", "mental wellness", "essentials", "life skills", "labs"], color: "#EC4899" },
+  { title: "Mental Wellness Interview Q&A", url: "/academies/essentials/mental-health/interview", category: "Life Skills", tags: ["mental health", "mindfulness", "sleep", "mental wellness", "essentials", "life skills", "interview"], color: "#EC4899" },
+  { title: "Mental Wellness FAQ", url: "/academies/essentials/mental-health/faq", category: "Life Skills", tags: ["mental health", "mindfulness", "sleep", "mental wellness", "essentials", "life skills", "faq"], color: "#EC4899" },
+  { title: "Personal Finance — Overview", url: "/academies/essentials/personal-finance/overview", category: "Life Skills", tags: ["finance", "budgeting", "savings", "personal finance", "essentials", "life skills", "overview"], color: "#EC4899" },
+  { title: "Personal Finance Learning Roadmap", url: "/academies/essentials/personal-finance/roadmap", category: "Life Skills", tags: ["finance", "budgeting", "savings", "personal finance", "essentials", "life skills", "roadmap"], color: "#EC4899" },
+  { title: "Personal Finance Hands-on Labs", url: "/academies/essentials/personal-finance/labs", category: "Life Skills", tags: ["finance", "budgeting", "savings", "personal finance", "essentials", "life skills", "labs"], color: "#EC4899" },
+  { title: "Personal Finance Interview Q&A", url: "/academies/essentials/personal-finance/interview", category: "Life Skills", tags: ["finance", "budgeting", "savings", "personal finance", "essentials", "life skills", "interview"], color: "#EC4899" },
+  { title: "Personal Finance FAQ", url: "/academies/essentials/personal-finance/faq", category: "Life Skills", tags: ["finance", "budgeting", "savings", "personal finance", "essentials", "life skills", "faq"], color: "#EC4899" },
+  { title: "First Aid & Emergency — Overview", url: "/academies/essentials/first-aid/overview", category: "Life Skills", tags: ["first aid", "cpr", "emergency", "first aid & emergency", "essentials", "life skills", "overview"], color: "#EC4899" },
+  { title: "First Aid & Emergency Learning Roadmap", url: "/academies/essentials/first-aid/roadmap", category: "Life Skills", tags: ["first aid", "cpr", "emergency", "first aid & emergency", "essentials", "life skills", "roadmap"], color: "#EC4899" },
+  { title: "First Aid & Emergency Hands-on Labs", url: "/academies/essentials/first-aid/labs", category: "Life Skills", tags: ["first aid", "cpr", "emergency", "first aid & emergency", "essentials", "life skills", "labs"], color: "#EC4899" },
+  { title: "First Aid & Emergency Interview Q&A", url: "/academies/essentials/first-aid/interview", category: "Life Skills", tags: ["first aid", "cpr", "emergency", "first aid & emergency", "essentials", "life skills", "interview"], color: "#EC4899" },
+  { title: "First Aid & Emergency FAQ", url: "/academies/essentials/first-aid/faq", category: "Life Skills", tags: ["first aid", "cpr", "emergency", "first aid & emergency", "essentials", "life skills", "faq"], color: "#EC4899" },
+  { title: "Mathematics — Overview", url: "/academies/education/maths/overview", category: "Education", tags: ["cbse", "icse", "maths", "mathematics", "education", "overview"], color: "#F59E0B" },
+  { title: "Mathematics Learning Roadmap", url: "/academies/education/maths/roadmap", category: "Education", tags: ["cbse", "icse", "maths", "mathematics", "education", "roadmap"], color: "#F59E0B" },
+  { title: "Mathematics Hands-on Labs", url: "/academies/education/maths/labs", category: "Education", tags: ["cbse", "icse", "maths", "mathematics", "education", "labs"], color: "#F59E0B" },
+  { title: "Mathematics Interview Q&A", url: "/academies/education/maths/interview", category: "Education", tags: ["cbse", "icse", "maths", "mathematics", "education", "interview"], color: "#F59E0B" },
+  { title: "Mathematics FAQ", url: "/academies/education/maths/faq", category: "Education", tags: ["cbse", "icse", "maths", "mathematics", "education", "faq"], color: "#F59E0B" },
+  { title: "Science — Overview", url: "/academies/education/science/overview", category: "Education", tags: ["physics", "chemistry", "biology", "science", "education", "overview"], color: "#F59E0B" },
+  { title: "Science Learning Roadmap", url: "/academies/education/science/roadmap", category: "Education", tags: ["physics", "chemistry", "biology", "science", "education", "roadmap"], color: "#F59E0B" },
+  { title: "Science Hands-on Labs", url: "/academies/education/science/labs", category: "Education", tags: ["physics", "chemistry", "biology", "science", "education", "labs"], color: "#F59E0B" },
+  { title: "Science Interview Q&A", url: "/academies/education/science/interview", category: "Education", tags: ["physics", "chemistry", "biology", "science", "education", "interview"], color: "#F59E0B" },
+  { title: "Science FAQ", url: "/academies/education/science/faq", category: "Education", tags: ["physics", "chemistry", "biology", "science", "education", "faq"], color: "#F59E0B" },
+  { title: "Computer Science — Overview", url: "/academies/education/cs-school/overview", category: "Education", tags: ["python", "cs", "coding", "computer science", "education", "overview"], color: "#F59E0B" },
+  { title: "Computer Science Learning Roadmap", url: "/academies/education/cs-school/roadmap", category: "Education", tags: ["python", "cs", "coding", "computer science", "education", "roadmap"], color: "#F59E0B" },
+  { title: "Computer Science Hands-on Labs", url: "/academies/education/cs-school/labs", category: "Education", tags: ["python", "cs", "coding", "computer science", "education", "labs"], color: "#F59E0B" },
+  { title: "Computer Science Interview Q&A", url: "/academies/education/cs-school/interview", category: "Education", tags: ["python", "cs", "coding", "computer science", "education", "interview"], color: "#F59E0B" },
+  { title: "Computer Science FAQ", url: "/academies/education/cs-school/faq", category: "Education", tags: ["python", "cs", "coding", "computer science", "education", "faq"], color: "#F59E0B" },
+  { title: "Data Structures & Algorithms — Overview", url: "/academies/education/dsa/overview", category: "Education", tags: ["dsa", "placement", "leetcode", "data structures & algorithms", "education", "overview"], color: "#F59E0B" },
+  { title: "Data Structures & Algorithms Learning Roadmap", url: "/academies/education/dsa/roadmap", category: "Education", tags: ["dsa", "placement", "leetcode", "data structures & algorithms", "education", "roadmap"], color: "#F59E0B" },
+  { title: "Data Structures & Algorithms Hands-on Labs", url: "/academies/education/dsa/labs", category: "Education", tags: ["dsa", "placement", "leetcode", "data structures & algorithms", "education", "labs"], color: "#F59E0B" },
+  { title: "Data Structures & Algorithms Interview Q&A", url: "/academies/education/dsa/interview", category: "Education", tags: ["dsa", "placement", "leetcode", "data structures & algorithms", "education", "interview"], color: "#F59E0B" },
+  { title: "Data Structures & Algorithms FAQ", url: "/academies/education/dsa/faq", category: "Education", tags: ["dsa", "placement", "leetcode", "data structures & algorithms", "education", "faq"], color: "#F59E0B" },
+  { title: "Operating Systems — Overview", url: "/academies/education/os/overview", category: "Education", tags: ["os", "gate", "processes", "operating systems", "education", "overview"], color: "#F59E0B" },
+  { title: "Operating Systems Learning Roadmap", url: "/academies/education/os/roadmap", category: "Education", tags: ["os", "gate", "processes", "operating systems", "education", "roadmap"], color: "#F59E0B" },
+  { title: "Operating Systems Hands-on Labs", url: "/academies/education/os/labs", category: "Education", tags: ["os", "gate", "processes", "operating systems", "education", "labs"], color: "#F59E0B" },
+  { title: "Operating Systems Interview Q&A", url: "/academies/education/os/interview", category: "Education", tags: ["os", "gate", "processes", "operating systems", "education", "interview"], color: "#F59E0B" },
+  { title: "Operating Systems FAQ", url: "/academies/education/os/faq", category: "Education", tags: ["os", "gate", "processes", "operating systems", "education", "faq"], color: "#F59E0B" },
+  { title: "DBMS — Overview", url: "/academies/education/dbms/overview", category: "Education", tags: ["dbms", "sql", "gate", "education", "overview"], color: "#F59E0B" },
+  { title: "DBMS Learning Roadmap", url: "/academies/education/dbms/roadmap", category: "Education", tags: ["dbms", "sql", "gate", "education", "roadmap"], color: "#F59E0B" },
+  { title: "DBMS Hands-on Labs", url: "/academies/education/dbms/labs", category: "Education", tags: ["dbms", "sql", "gate", "education", "labs"], color: "#F59E0B" },
+  { title: "DBMS Interview Q&A", url: "/academies/education/dbms/interview", category: "Education", tags: ["dbms", "sql", "gate", "education", "interview"], color: "#F59E0B" },
+  { title: "DBMS FAQ", url: "/academies/education/dbms/faq", category: "Education", tags: ["dbms", "sql", "gate", "education", "faq"], color: "#F59E0B" },
+  { title: "Computer Networks — Overview", url: "/academies/education/cn/overview", category: "Education", tags: ["networks", "gate", "protocols", "computer networks", "education", "overview"], color: "#F59E0B" },
+  { title: "Computer Networks Learning Roadmap", url: "/academies/education/cn/roadmap", category: "Education", tags: ["networks", "gate", "protocols", "computer networks", "education", "roadmap"], color: "#F59E0B" },
+  { title: "Computer Networks Hands-on Labs", url: "/academies/education/cn/labs", category: "Education", tags: ["networks", "gate", "protocols", "computer networks", "education", "labs"], color: "#F59E0B" },
+  { title: "Computer Networks Interview Q&A", url: "/academies/education/cn/interview", category: "Education", tags: ["networks", "gate", "protocols", "computer networks", "education", "interview"], color: "#F59E0B" },
+  { title: "Computer Networks FAQ", url: "/academies/education/cn/faq", category: "Education", tags: ["networks", "gate", "protocols", "computer networks", "education", "faq"], color: "#F59E0B" },
+  { title: "System Design — Overview", url: "/academies/education/system-design/overview", category: "Education", tags: ["system design", "interviews", "lld/hld", "education", "overview"], color: "#F59E0B" },
+  { title: "System Design Learning Roadmap", url: "/academies/education/system-design/roadmap", category: "Education", tags: ["system design", "interviews", "lld/hld", "education", "roadmap"], color: "#F59E0B" },
+  { title: "System Design Hands-on Labs", url: "/academies/education/system-design/labs", category: "Education", tags: ["system design", "interviews", "lld/hld", "education", "labs"], color: "#F59E0B" },
+  { title: "System Design Interview Q&A", url: "/academies/education/system-design/interview", category: "Education", tags: ["system design", "interviews", "lld/hld", "education", "interview"], color: "#F59E0B" },
+  { title: "System Design FAQ", url: "/academies/education/system-design/faq", category: "Education", tags: ["system design", "interviews", "lld/hld", "education", "faq"], color: "#F59E0B" },
+  { title: "Placement Preparation — Overview", url: "/academies/education/placement-prep/overview", category: "Education", tags: ["placement", "aptitude", "hr", "placement preparation", "education", "overview"], color: "#F59E0B" },
+  { title: "Placement Preparation Learning Roadmap", url: "/academies/education/placement-prep/roadmap", category: "Education", tags: ["placement", "aptitude", "hr", "placement preparation", "education", "roadmap"], color: "#F59E0B" },
+  { title: "Placement Preparation Hands-on Labs", url: "/academies/education/placement-prep/labs", category: "Education", tags: ["placement", "aptitude", "hr", "placement preparation", "education", "labs"], color: "#F59E0B" },
+  { title: "Placement Preparation Interview Q&A", url: "/academies/education/placement-prep/interview", category: "Education", tags: ["placement", "aptitude", "hr", "placement preparation", "education", "interview"], color: "#F59E0B" },
+  { title: "Placement Preparation FAQ", url: "/academies/education/placement-prep/faq", category: "Education", tags: ["placement", "aptitude", "hr", "placement preparation", "education", "faq"], color: "#F59E0B" },
+  { title: "Java Programming — Overview", url: "/academies/education/java/overview", category: "Education", tags: ["java", "oop", "spring", "java programming", "education", "overview"], color: "#F59E0B" },
+  { title: "Java Programming Learning Roadmap", url: "/academies/education/java/roadmap", category: "Education", tags: ["java", "oop", "spring", "java programming", "education", "roadmap"], color: "#F59E0B" },
+  { title: "Java Programming Hands-on Labs", url: "/academies/education/java/labs", category: "Education", tags: ["java", "oop", "spring", "java programming", "education", "labs"], color: "#F59E0B" },
+  { title: "Java Programming Interview Q&A", url: "/academies/education/java/interview", category: "Education", tags: ["java", "oop", "spring", "java programming", "education", "interview"], color: "#F59E0B" },
+  { title: "Java Programming FAQ", url: "/academies/education/java/faq", category: "Education", tags: ["java", "oop", "spring", "java programming", "education", "faq"], color: "#F59E0B" },
+  { title: "C Programming — Overview", url: "/academies/education/c-programming/overview", category: "Education", tags: ["c", "pointers", "systems", "c programming", "education", "overview"], color: "#F59E0B" },
+  { title: "C Programming Learning Roadmap", url: "/academies/education/c-programming/roadmap", category: "Education", tags: ["c", "pointers", "systems", "c programming", "education", "roadmap"], color: "#F59E0B" },
+  { title: "C Programming Hands-on Labs", url: "/academies/education/c-programming/labs", category: "Education", tags: ["c", "pointers", "systems", "c programming", "education", "labs"], color: "#F59E0B" },
+  { title: "C Programming Interview Q&A", url: "/academies/education/c-programming/interview", category: "Education", tags: ["c", "pointers", "systems", "c programming", "education", "interview"], color: "#F59E0B" },
+  { title: "C Programming FAQ", url: "/academies/education/c-programming/faq", category: "Education", tags: ["c", "pointers", "systems", "c programming", "education", "faq"], color: "#F59E0B" },
+  { title: "C++ Programming — Overview", url: "/academies/education/cpp/overview", category: "Education", tags: ["c++", "stl", "oop", "c++ programming", "education", "overview"], color: "#F59E0B" },
+  { title: "C++ Programming Learning Roadmap", url: "/academies/education/cpp/roadmap", category: "Education", tags: ["c++", "stl", "oop", "c++ programming", "education", "roadmap"], color: "#F59E0B" },
+  { title: "C++ Programming Hands-on Labs", url: "/academies/education/cpp/labs", category: "Education", tags: ["c++", "stl", "oop", "c++ programming", "education", "labs"], color: "#F59E0B" },
+  { title: "C++ Programming Interview Q&A", url: "/academies/education/cpp/interview", category: "Education", tags: ["c++", "stl", "oop", "c++ programming", "education", "interview"], color: "#F59E0B" },
+  { title: "C++ Programming FAQ", url: "/academies/education/cpp/faq", category: "Education", tags: ["c++", "stl", "oop", "c++ programming", "education", "faq"], color: "#F59E0B" },
+  { title: "NEET Biology — Overview", url: "/academies/exams/neet-biology/overview", category: "Exams", tags: ["neet", "biology", "medical", "neet biology", "exams", "overview"], color: "#F97316" },
+  { title: "NEET Biology Learning Roadmap", url: "/academies/exams/neet-biology/roadmap", category: "Exams", tags: ["neet", "biology", "medical", "neet biology", "exams", "roadmap"], color: "#F97316" },
+  { title: "NEET Biology Hands-on Labs", url: "/academies/exams/neet-biology/labs", category: "Exams", tags: ["neet", "biology", "medical", "neet biology", "exams", "labs"], color: "#F97316" },
+  { title: "NEET Biology Interview Q&A", url: "/academies/exams/neet-biology/interview", category: "Exams", tags: ["neet", "biology", "medical", "neet biology", "exams", "interview"], color: "#F97316" },
+  { title: "NEET Biology FAQ", url: "/academies/exams/neet-biology/faq", category: "Exams", tags: ["neet", "biology", "medical", "neet biology", "exams", "faq"], color: "#F97316" },
+  { title: "NEET Physics — Overview", url: "/academies/exams/neet-physics/overview", category: "Exams", tags: ["neet", "physics", "medical", "neet physics", "exams", "overview"], color: "#F97316" },
+  { title: "NEET Physics Learning Roadmap", url: "/academies/exams/neet-physics/roadmap", category: "Exams", tags: ["neet", "physics", "medical", "neet physics", "exams", "roadmap"], color: "#F97316" },
+  { title: "NEET Physics Hands-on Labs", url: "/academies/exams/neet-physics/labs", category: "Exams", tags: ["neet", "physics", "medical", "neet physics", "exams", "labs"], color: "#F97316" },
+  { title: "NEET Physics Interview Q&A", url: "/academies/exams/neet-physics/interview", category: "Exams", tags: ["neet", "physics", "medical", "neet physics", "exams", "interview"], color: "#F97316" },
+  { title: "NEET Physics FAQ", url: "/academies/exams/neet-physics/faq", category: "Exams", tags: ["neet", "physics", "medical", "neet physics", "exams", "faq"], color: "#F97316" },
+  { title: "NEET Chemistry — Overview", url: "/academies/exams/neet-chemistry/overview", category: "Exams", tags: ["neet", "chemistry", "medical", "neet chemistry", "exams", "overview"], color: "#F97316" },
+  { title: "NEET Chemistry Learning Roadmap", url: "/academies/exams/neet-chemistry/roadmap", category: "Exams", tags: ["neet", "chemistry", "medical", "neet chemistry", "exams", "roadmap"], color: "#F97316" },
+  { title: "NEET Chemistry Hands-on Labs", url: "/academies/exams/neet-chemistry/labs", category: "Exams", tags: ["neet", "chemistry", "medical", "neet chemistry", "exams", "labs"], color: "#F97316" },
+  { title: "NEET Chemistry Interview Q&A", url: "/academies/exams/neet-chemistry/interview", category: "Exams", tags: ["neet", "chemistry", "medical", "neet chemistry", "exams", "interview"], color: "#F97316" },
+  { title: "NEET Chemistry FAQ", url: "/academies/exams/neet-chemistry/faq", category: "Exams", tags: ["neet", "chemistry", "medical", "neet chemistry", "exams", "faq"], color: "#F97316" },
+  { title: "JEE Mathematics — Overview", url: "/academies/exams/jee-maths/overview", category: "Exams", tags: ["jee", "maths", "iit", "jee mathematics", "exams", "overview"], color: "#F97316" },
+  { title: "JEE Mathematics Learning Roadmap", url: "/academies/exams/jee-maths/roadmap", category: "Exams", tags: ["jee", "maths", "iit", "jee mathematics", "exams", "roadmap"], color: "#F97316" },
+  { title: "JEE Mathematics Hands-on Labs", url: "/academies/exams/jee-maths/labs", category: "Exams", tags: ["jee", "maths", "iit", "jee mathematics", "exams", "labs"], color: "#F97316" },
+  { title: "JEE Mathematics Interview Q&A", url: "/academies/exams/jee-maths/interview", category: "Exams", tags: ["jee", "maths", "iit", "jee mathematics", "exams", "interview"], color: "#F97316" },
+  { title: "JEE Mathematics FAQ", url: "/academies/exams/jee-maths/faq", category: "Exams", tags: ["jee", "maths", "iit", "jee mathematics", "exams", "faq"], color: "#F97316" },
+  { title: "JEE Physics — Overview", url: "/academies/exams/jee-physics/overview", category: "Exams", tags: ["jee", "physics", "iit", "jee physics", "exams", "overview"], color: "#F97316" },
+  { title: "JEE Physics Learning Roadmap", url: "/academies/exams/jee-physics/roadmap", category: "Exams", tags: ["jee", "physics", "iit", "jee physics", "exams", "roadmap"], color: "#F97316" },
+  { title: "JEE Physics Hands-on Labs", url: "/academies/exams/jee-physics/labs", category: "Exams", tags: ["jee", "physics", "iit", "jee physics", "exams", "labs"], color: "#F97316" },
+  { title: "JEE Physics Interview Q&A", url: "/academies/exams/jee-physics/interview", category: "Exams", tags: ["jee", "physics", "iit", "jee physics", "exams", "interview"], color: "#F97316" },
+  { title: "JEE Physics FAQ", url: "/academies/exams/jee-physics/faq", category: "Exams", tags: ["jee", "physics", "iit", "jee physics", "exams", "faq"], color: "#F97316" },
+  { title: "JEE Chemistry — Overview", url: "/academies/exams/jee-chemistry/overview", category: "Exams", tags: ["jee", "chemistry", "iit", "jee chemistry", "exams", "overview"], color: "#F97316" },
+  { title: "JEE Chemistry Learning Roadmap", url: "/academies/exams/jee-chemistry/roadmap", category: "Exams", tags: ["jee", "chemistry", "iit", "jee chemistry", "exams", "roadmap"], color: "#F97316" },
+  { title: "JEE Chemistry Hands-on Labs", url: "/academies/exams/jee-chemistry/labs", category: "Exams", tags: ["jee", "chemistry", "iit", "jee chemistry", "exams", "labs"], color: "#F97316" },
+  { title: "JEE Chemistry Interview Q&A", url: "/academies/exams/jee-chemistry/interview", category: "Exams", tags: ["jee", "chemistry", "iit", "jee chemistry", "exams", "interview"], color: "#F97316" },
+  { title: "JEE Chemistry FAQ", url: "/academies/exams/jee-chemistry/faq", category: "Exams", tags: ["jee", "chemistry", "iit", "jee chemistry", "exams", "faq"], color: "#F97316" },
+  { title: "GATE CSE — Overview", url: "/academies/exams/gate-cse/overview", category: "Exams", tags: ["gate", "cse", "m.tech", "gate cse", "exams", "overview"], color: "#F97316" },
+  { title: "GATE CSE Learning Roadmap", url: "/academies/exams/gate-cse/roadmap", category: "Exams", tags: ["gate", "cse", "m.tech", "gate cse", "exams", "roadmap"], color: "#F97316" },
+  { title: "GATE CSE Hands-on Labs", url: "/academies/exams/gate-cse/labs", category: "Exams", tags: ["gate", "cse", "m.tech", "gate cse", "exams", "labs"], color: "#F97316" },
+  { title: "GATE CSE Interview Q&A", url: "/academies/exams/gate-cse/interview", category: "Exams", tags: ["gate", "cse", "m.tech", "gate cse", "exams", "interview"], color: "#F97316" },
+  { title: "GATE CSE FAQ", url: "/academies/exams/gate-cse/faq", category: "Exams", tags: ["gate", "cse", "m.tech", "gate cse", "exams", "faq"], color: "#F97316" },
+  { title: "GATE ECE — Overview", url: "/academies/exams/gate-ece/overview", category: "Exams", tags: ["gate", "ece", "m.tech", "gate ece", "exams", "overview"], color: "#F97316" },
+  { title: "GATE ECE Learning Roadmap", url: "/academies/exams/gate-ece/roadmap", category: "Exams", tags: ["gate", "ece", "m.tech", "gate ece", "exams", "roadmap"], color: "#F97316" },
+  { title: "GATE ECE Hands-on Labs", url: "/academies/exams/gate-ece/labs", category: "Exams", tags: ["gate", "ece", "m.tech", "gate ece", "exams", "labs"], color: "#F97316" },
+  { title: "GATE ECE Interview Q&A", url: "/academies/exams/gate-ece/interview", category: "Exams", tags: ["gate", "ece", "m.tech", "gate ece", "exams", "interview"], color: "#F97316" },
+  { title: "GATE ECE FAQ", url: "/academies/exams/gate-ece/faq", category: "Exams", tags: ["gate", "ece", "m.tech", "gate ece", "exams", "faq"], color: "#F97316" },
+  { title: "Banking Exams (SBI/IBPS) — Overview", url: "/academies/exams/banking-exams/overview", category: "Exams", tags: ["banking", "sbi", "ibps", "banking exams (sbi/ibps)", "exams", "overview"], color: "#F97316" },
+  { title: "Banking Exams (SBI/IBPS) Learning Roadmap", url: "/academies/exams/banking-exams/roadmap", category: "Exams", tags: ["banking", "sbi", "ibps", "banking exams (sbi/ibps)", "exams", "roadmap"], color: "#F97316" },
+  { title: "Banking Exams (SBI/IBPS) Hands-on Labs", url: "/academies/exams/banking-exams/labs", category: "Exams", tags: ["banking", "sbi", "ibps", "banking exams (sbi/ibps)", "exams", "labs"], color: "#F97316" },
+  { title: "Banking Exams (SBI/IBPS) Interview Q&A", url: "/academies/exams/banking-exams/interview", category: "Exams", tags: ["banking", "sbi", "ibps", "banking exams (sbi/ibps)", "exams", "interview"], color: "#F97316" },
+  { title: "Banking Exams (SBI/IBPS) FAQ", url: "/academies/exams/banking-exams/faq", category: "Exams", tags: ["banking", "sbi", "ibps", "banking exams (sbi/ibps)", "exams", "faq"], color: "#F97316" },
+  { title: "SSC CGL — Overview", url: "/academies/exams/ssc-cgl/overview", category: "Exams", tags: ["ssc", "cgl", "government", "ssc cgl", "exams", "overview"], color: "#F97316" },
+  { title: "SSC CGL Learning Roadmap", url: "/academies/exams/ssc-cgl/roadmap", category: "Exams", tags: ["ssc", "cgl", "government", "ssc cgl", "exams", "roadmap"], color: "#F97316" },
+  { title: "SSC CGL Hands-on Labs", url: "/academies/exams/ssc-cgl/labs", category: "Exams", tags: ["ssc", "cgl", "government", "ssc cgl", "exams", "labs"], color: "#F97316" },
+  { title: "SSC CGL Interview Q&A", url: "/academies/exams/ssc-cgl/interview", category: "Exams", tags: ["ssc", "cgl", "government", "ssc cgl", "exams", "interview"], color: "#F97316" },
+  { title: "SSC CGL FAQ", url: "/academies/exams/ssc-cgl/faq", category: "Exams", tags: ["ssc", "cgl", "government", "ssc cgl", "exams", "faq"], color: "#F97316" },
+  { title: "RRB NTPC — Overview", url: "/academies/exams/rrb-ntpc/overview", category: "Exams", tags: ["railway", "rrb", "government", "rrb ntpc", "exams", "overview"], color: "#F97316" },
+  { title: "RRB NTPC Learning Roadmap", url: "/academies/exams/rrb-ntpc/roadmap", category: "Exams", tags: ["railway", "rrb", "government", "rrb ntpc", "exams", "roadmap"], color: "#F97316" },
+  { title: "RRB NTPC Hands-on Labs", url: "/academies/exams/rrb-ntpc/labs", category: "Exams", tags: ["railway", "rrb", "government", "rrb ntpc", "exams", "labs"], color: "#F97316" },
+  { title: "RRB NTPC Interview Q&A", url: "/academies/exams/rrb-ntpc/interview", category: "Exams", tags: ["railway", "rrb", "government", "rrb ntpc", "exams", "interview"], color: "#F97316" },
+  { title: "RRB NTPC FAQ", url: "/academies/exams/rrb-ntpc/faq", category: "Exams", tags: ["railway", "rrb", "government", "rrb ntpc", "exams", "faq"], color: "#F97316" },
+  { title: "UPSC Prelims — Overview", url: "/academies/exams/upsc-prelims/overview", category: "Exams", tags: ["upsc", "ias", "cse", "upsc prelims", "exams", "overview"], color: "#F97316" },
+  { title: "UPSC Prelims Learning Roadmap", url: "/academies/exams/upsc-prelims/roadmap", category: "Exams", tags: ["upsc", "ias", "cse", "upsc prelims", "exams", "roadmap"], color: "#F97316" },
+  { title: "UPSC Prelims Hands-on Labs", url: "/academies/exams/upsc-prelims/labs", category: "Exams", tags: ["upsc", "ias", "cse", "upsc prelims", "exams", "labs"], color: "#F97316" },
+  { title: "UPSC Prelims Interview Q&A", url: "/academies/exams/upsc-prelims/interview", category: "Exams", tags: ["upsc", "ias", "cse", "upsc prelims", "exams", "interview"], color: "#F97316" },
+  { title: "UPSC Prelims FAQ", url: "/academies/exams/upsc-prelims/faq", category: "Exams", tags: ["upsc", "ias", "cse", "upsc prelims", "exams", "faq"], color: "#F97316" },
+  { title: "UPSC Mains — Overview", url: "/academies/exams/upsc-mains/overview", category: "Exams", tags: ["upsc", "ias", "mains", "upsc mains", "exams", "overview"], color: "#F97316" },
+  { title: "UPSC Mains Learning Roadmap", url: "/academies/exams/upsc-mains/roadmap", category: "Exams", tags: ["upsc", "ias", "mains", "upsc mains", "exams", "roadmap"], color: "#F97316" },
+  { title: "UPSC Mains Hands-on Labs", url: "/academies/exams/upsc-mains/labs", category: "Exams", tags: ["upsc", "ias", "mains", "upsc mains", "exams", "labs"], color: "#F97316" },
+  { title: "UPSC Mains Interview Q&A", url: "/academies/exams/upsc-mains/interview", category: "Exams", tags: ["upsc", "ias", "mains", "upsc mains", "exams", "interview"], color: "#F97316" },
+  { title: "UPSC Mains FAQ", url: "/academies/exams/upsc-mains/faq", category: "Exams", tags: ["upsc", "ias", "mains", "upsc mains", "exams", "faq"], color: "#F97316" },
+  { title: "Legal Fundamentals — Overview", url: "/academies/law/legal-fundamentals/overview", category: "Law", tags: ["law", "ipc", "constitution", "legal fundamentals", "overview"], color: "#A855F7" },
+  { title: "Legal Fundamentals Learning Roadmap", url: "/academies/law/legal-fundamentals/roadmap", category: "Law", tags: ["law", "ipc", "constitution", "legal fundamentals", "roadmap"], color: "#A855F7" },
+  { title: "Legal Fundamentals Hands-on Labs", url: "/academies/law/legal-fundamentals/labs", category: "Law", tags: ["law", "ipc", "constitution", "legal fundamentals", "labs"], color: "#A855F7" },
+  { title: "Legal Fundamentals Interview Q&A", url: "/academies/law/legal-fundamentals/interview", category: "Law", tags: ["law", "ipc", "constitution", "legal fundamentals", "interview"], color: "#A855F7" },
+  { title: "Legal Fundamentals FAQ", url: "/academies/law/legal-fundamentals/faq", category: "Law", tags: ["law", "ipc", "constitution", "legal fundamentals", "faq"], color: "#A855F7" },
+  { title: "Constitutional Law — Overview", url: "/academies/law/constitutional-law/overview", category: "Law", tags: ["constitution", "frs", "upsc", "constitutional law", "law", "overview"], color: "#A855F7" },
+  { title: "Constitutional Law Learning Roadmap", url: "/academies/law/constitutional-law/roadmap", category: "Law", tags: ["constitution", "frs", "upsc", "constitutional law", "law", "roadmap"], color: "#A855F7" },
+  { title: "Constitutional Law Hands-on Labs", url: "/academies/law/constitutional-law/labs", category: "Law", tags: ["constitution", "frs", "upsc", "constitutional law", "law", "labs"], color: "#A855F7" },
+  { title: "Constitutional Law Interview Q&A", url: "/academies/law/constitutional-law/interview", category: "Law", tags: ["constitution", "frs", "upsc", "constitutional law", "law", "interview"], color: "#A855F7" },
+  { title: "Constitutional Law FAQ", url: "/academies/law/constitutional-law/faq", category: "Law", tags: ["constitution", "frs", "upsc", "constitutional law", "law", "faq"], color: "#A855F7" },
+  { title: "CLAT Preparation — Overview", url: "/academies/law/clat-prep/overview", category: "Law", tags: ["clat", "ailet", "nlu", "clat preparation", "law", "overview"], color: "#A855F7" },
+  { title: "CLAT Preparation Learning Roadmap", url: "/academies/law/clat-prep/roadmap", category: "Law", tags: ["clat", "ailet", "nlu", "clat preparation", "law", "roadmap"], color: "#A855F7" },
+  { title: "CLAT Preparation Hands-on Labs", url: "/academies/law/clat-prep/labs", category: "Law", tags: ["clat", "ailet", "nlu", "clat preparation", "law", "labs"], color: "#A855F7" },
+  { title: "CLAT Preparation Interview Q&A", url: "/academies/law/clat-prep/interview", category: "Law", tags: ["clat", "ailet", "nlu", "clat preparation", "law", "interview"], color: "#A855F7" },
+  { title: "CLAT Preparation FAQ", url: "/academies/law/clat-prep/faq", category: "Law", tags: ["clat", "ailet", "nlu", "clat preparation", "law", "faq"], color: "#A855F7" },
+  { title: "Consumer Protection — Overview", url: "/academies/law/consumer-protection/overview", category: "Law", tags: ["consumer law", "copra", "consumer protection", "law", "overview"], color: "#A855F7" },
+  { title: "Consumer Protection Learning Roadmap", url: "/academies/law/consumer-protection/roadmap", category: "Law", tags: ["consumer law", "copra", "consumer protection", "law", "roadmap"], color: "#A855F7" },
+  { title: "Consumer Protection Hands-on Labs", url: "/academies/law/consumer-protection/labs", category: "Law", tags: ["consumer law", "copra", "consumer protection", "law", "labs"], color: "#A855F7" },
+  { title: "Consumer Protection Interview Q&A", url: "/academies/law/consumer-protection/interview", category: "Law", tags: ["consumer law", "copra", "consumer protection", "law", "interview"], color: "#A855F7" },
+  { title: "Consumer Protection FAQ", url: "/academies/law/consumer-protection/faq", category: "Law", tags: ["consumer law", "copra", "consumer protection", "law", "faq"], color: "#A855F7" },
+  { title: "Organic Farming — Overview", url: "/academies/agriculture/organic-farming/overview", category: "Agriculture", tags: ["organic", "sustainable", "certification", "organic farming", "agriculture", "overview"], color: "#22C55E" },
+  { title: "Organic Farming Learning Roadmap", url: "/academies/agriculture/organic-farming/roadmap", category: "Agriculture", tags: ["organic", "sustainable", "certification", "organic farming", "agriculture", "roadmap"], color: "#22C55E" },
+  { title: "Organic Farming Hands-on Labs", url: "/academies/agriculture/organic-farming/labs", category: "Agriculture", tags: ["organic", "sustainable", "certification", "organic farming", "agriculture", "labs"], color: "#22C55E" },
+  { title: "Organic Farming Interview Q&A", url: "/academies/agriculture/organic-farming/interview", category: "Agriculture", tags: ["organic", "sustainable", "certification", "organic farming", "agriculture", "interview"], color: "#22C55E" },
+  { title: "Organic Farming FAQ", url: "/academies/agriculture/organic-farming/faq", category: "Agriculture", tags: ["organic", "sustainable", "certification", "organic farming", "agriculture", "faq"], color: "#22C55E" },
+  { title: "Soil Science — Overview", url: "/academies/agriculture/soil-science/overview", category: "Agriculture", tags: ["soil", "fertility", "conservation", "soil science", "agriculture", "overview"], color: "#22C55E" },
+  { title: "Soil Science Learning Roadmap", url: "/academies/agriculture/soil-science/roadmap", category: "Agriculture", tags: ["soil", "fertility", "conservation", "soil science", "agriculture", "roadmap"], color: "#22C55E" },
+  { title: "Soil Science Hands-on Labs", url: "/academies/agriculture/soil-science/labs", category: "Agriculture", tags: ["soil", "fertility", "conservation", "soil science", "agriculture", "labs"], color: "#22C55E" },
+  { title: "Soil Science Interview Q&A", url: "/academies/agriculture/soil-science/interview", category: "Agriculture", tags: ["soil", "fertility", "conservation", "soil science", "agriculture", "interview"], color: "#22C55E" },
+  { title: "Soil Science FAQ", url: "/academies/agriculture/soil-science/faq", category: "Agriculture", tags: ["soil", "fertility", "conservation", "soil science", "agriculture", "faq"], color: "#22C55E" },
+  { title: "Horticulture — Overview", url: "/academies/agriculture/horticulture/overview", category: "Agriculture", tags: ["horticulture", "crops", "post-harvest", "agriculture", "overview"], color: "#22C55E" },
+  { title: "Horticulture Learning Roadmap", url: "/academies/agriculture/horticulture/roadmap", category: "Agriculture", tags: ["horticulture", "crops", "post-harvest", "agriculture", "roadmap"], color: "#22C55E" },
+  { title: "Horticulture Hands-on Labs", url: "/academies/agriculture/horticulture/labs", category: "Agriculture", tags: ["horticulture", "crops", "post-harvest", "agriculture", "labs"], color: "#22C55E" },
+  { title: "Horticulture Interview Q&A", url: "/academies/agriculture/horticulture/interview", category: "Agriculture", tags: ["horticulture", "crops", "post-harvest", "agriculture", "interview"], color: "#22C55E" },
+  { title: "Horticulture FAQ", url: "/academies/agriculture/horticulture/faq", category: "Agriculture", tags: ["horticulture", "crops", "post-harvest", "agriculture", "faq"], color: "#22C55E" },
+  { title: "Agri-Business — Overview", url: "/academies/agriculture/agri-business/overview", category: "Agriculture", tags: ["agri-business", "nabard", "fpo", "agriculture", "overview"], color: "#22C55E" },
+  { title: "Agri-Business Learning Roadmap", url: "/academies/agriculture/agri-business/roadmap", category: "Agriculture", tags: ["agri-business", "nabard", "fpo", "agriculture", "roadmap"], color: "#22C55E" },
+  { title: "Agri-Business Hands-on Labs", url: "/academies/agriculture/agri-business/labs", category: "Agriculture", tags: ["agri-business", "nabard", "fpo", "agriculture", "labs"], color: "#22C55E" },
+  { title: "Agri-Business Interview Q&A", url: "/academies/agriculture/agri-business/interview", category: "Agriculture", tags: ["agri-business", "nabard", "fpo", "agriculture", "interview"], color: "#22C55E" },
+  { title: "Agri-Business FAQ", url: "/academies/agriculture/agri-business/faq", category: "Agriculture", tags: ["agri-business", "nabard", "fpo", "agriculture", "faq"], color: "#22C55E" },
+  { title: "Financial Accounting — Overview", url: "/academies/finance/accounting-basics/overview", category: "Finance", tags: ["accounting", "ca foundation", "b.com", "financial accounting", "finance", "overview"], color: "#14B8A6" },
+  { title: "Financial Accounting Learning Roadmap", url: "/academies/finance/accounting-basics/roadmap", category: "Finance", tags: ["accounting", "ca foundation", "b.com", "financial accounting", "finance", "roadmap"], color: "#14B8A6" },
+  { title: "Financial Accounting Hands-on Labs", url: "/academies/finance/accounting-basics/labs", category: "Finance", tags: ["accounting", "ca foundation", "b.com", "financial accounting", "finance", "labs"], color: "#14B8A6" },
+  { title: "Financial Accounting Interview Q&A", url: "/academies/finance/accounting-basics/interview", category: "Finance", tags: ["accounting", "ca foundation", "b.com", "financial accounting", "finance", "interview"], color: "#14B8A6" },
+  { title: "Financial Accounting FAQ", url: "/academies/finance/accounting-basics/faq", category: "Finance", tags: ["accounting", "ca foundation", "b.com", "financial accounting", "finance", "faq"], color: "#14B8A6" },
+  { title: "GST & Indirect Tax — Overview", url: "/academies/finance/gst-taxation/overview", category: "Finance", tags: ["gst", "tax", "gstr", "gst & indirect tax", "finance", "overview"], color: "#14B8A6" },
+  { title: "GST & Indirect Tax Learning Roadmap", url: "/academies/finance/gst-taxation/roadmap", category: "Finance", tags: ["gst", "tax", "gstr", "gst & indirect tax", "finance", "roadmap"], color: "#14B8A6" },
+  { title: "GST & Indirect Tax Hands-on Labs", url: "/academies/finance/gst-taxation/labs", category: "Finance", tags: ["gst", "tax", "gstr", "gst & indirect tax", "finance", "labs"], color: "#14B8A6" },
+  { title: "GST & Indirect Tax Interview Q&A", url: "/academies/finance/gst-taxation/interview", category: "Finance", tags: ["gst", "tax", "gstr", "gst & indirect tax", "finance", "interview"], color: "#14B8A6" },
+  { title: "GST & Indirect Tax FAQ", url: "/academies/finance/gst-taxation/faq", category: "Finance", tags: ["gst", "tax", "gstr", "gst & indirect tax", "finance", "faq"], color: "#14B8A6" },
+  { title: "Direct Tax & Income Tax — Overview", url: "/academies/finance/direct-tax/overview", category: "Finance", tags: ["income tax", "tds", "itr", "direct tax & income tax", "finance", "overview"], color: "#14B8A6" },
+  { title: "Direct Tax & Income Tax Learning Roadmap", url: "/academies/finance/direct-tax/roadmap", category: "Finance", tags: ["income tax", "tds", "itr", "direct tax & income tax", "finance", "roadmap"], color: "#14B8A6" },
+  { title: "Direct Tax & Income Tax Hands-on Labs", url: "/academies/finance/direct-tax/labs", category: "Finance", tags: ["income tax", "tds", "itr", "direct tax & income tax", "finance", "labs"], color: "#14B8A6" },
+  { title: "Direct Tax & Income Tax Interview Q&A", url: "/academies/finance/direct-tax/interview", category: "Finance", tags: ["income tax", "tds", "itr", "direct tax & income tax", "finance", "interview"], color: "#14B8A6" },
+  { title: "Direct Tax & Income Tax FAQ", url: "/academies/finance/direct-tax/faq", category: "Finance", tags: ["income tax", "tds", "itr", "direct tax & income tax", "finance", "faq"], color: "#14B8A6" },
+  { title: "Financial Markets — Overview", url: "/academies/finance/financial-markets/overview", category: "Finance", tags: ["sebi", "stocks", "mutual funds", "financial markets", "finance", "overview"], color: "#14B8A6" },
+  { title: "Financial Markets Learning Roadmap", url: "/academies/finance/financial-markets/roadmap", category: "Finance", tags: ["sebi", "stocks", "mutual funds", "financial markets", "finance", "roadmap"], color: "#14B8A6" },
+  { title: "Financial Markets Hands-on Labs", url: "/academies/finance/financial-markets/labs", category: "Finance", tags: ["sebi", "stocks", "mutual funds", "financial markets", "finance", "labs"], color: "#14B8A6" },
+  { title: "Financial Markets Interview Q&A", url: "/academies/finance/financial-markets/interview", category: "Finance", tags: ["sebi", "stocks", "mutual funds", "financial markets", "finance", "interview"], color: "#14B8A6" },
+  { title: "Financial Markets FAQ", url: "/academies/finance/financial-markets/faq", category: "Finance", tags: ["sebi", "stocks", "mutual funds", "financial markets", "finance", "faq"], color: "#14B8A6" },
+  { title: "CA/CS/CMA Foundation — Overview", url: "/academies/finance/ca-cs-foundation/overview", category: "Finance", tags: ["ca", "cs", "cma", "ca/cs/cma foundation", "finance", "overview"], color: "#14B8A6" },
+  { title: "CA/CS/CMA Foundation Learning Roadmap", url: "/academies/finance/ca-cs-foundation/roadmap", category: "Finance", tags: ["ca", "cs", "cma", "ca/cs/cma foundation", "finance", "roadmap"], color: "#14B8A6" },
+  { title: "CA/CS/CMA Foundation Hands-on Labs", url: "/academies/finance/ca-cs-foundation/labs", category: "Finance", tags: ["ca", "cs", "cma", "ca/cs/cma foundation", "finance", "labs"], color: "#14B8A6" },
+  { title: "CA/CS/CMA Foundation Interview Q&A", url: "/academies/finance/ca-cs-foundation/interview", category: "Finance", tags: ["ca", "cs", "cma", "ca/cs/cma foundation", "finance", "interview"], color: "#14B8A6" },
+  { title: "CA/CS/CMA Foundation FAQ", url: "/academies/finance/ca-cs-foundation/faq", category: "Finance", tags: ["ca", "cs", "cma", "ca/cs/cma foundation", "finance", "faq"], color: "#14B8A6" },
+  { title: "Telecom Fundamentals — Overview", url: "/academies/telecom/telecom-fundamentals/overview", category: "Telecom", tags: ["telecom", "gsm", "spectrum", "telecom fundamentals", "overview"], color: "#6366F1" },
+  { title: "Telecom Fundamentals Learning Roadmap", url: "/academies/telecom/telecom-fundamentals/roadmap", category: "Telecom", tags: ["telecom", "gsm", "spectrum", "telecom fundamentals", "roadmap"], color: "#6366F1" },
+  { title: "Telecom Fundamentals Hands-on Labs", url: "/academies/telecom/telecom-fundamentals/labs", category: "Telecom", tags: ["telecom", "gsm", "spectrum", "telecom fundamentals", "labs"], color: "#6366F1" },
+  { title: "Telecom Fundamentals Interview Q&A", url: "/academies/telecom/telecom-fundamentals/interview", category: "Telecom", tags: ["telecom", "gsm", "spectrum", "telecom fundamentals", "interview"], color: "#6366F1" },
+  { title: "Telecom Fundamentals FAQ", url: "/academies/telecom/telecom-fundamentals/faq", category: "Telecom", tags: ["telecom", "gsm", "spectrum", "telecom fundamentals", "faq"], color: "#6366F1" },
+  { title: "4G/5G & Wireless — Overview", url: "/academies/telecom/wireless-tech/overview", category: "Telecom", tags: ["5g", "lte", "nr", "4g/5g & wireless", "telecom", "overview"], color: "#6366F1" },
+  { title: "4G/5G & Wireless Learning Roadmap", url: "/academies/telecom/wireless-tech/roadmap", category: "Telecom", tags: ["5g", "lte", "nr", "4g/5g & wireless", "telecom", "roadmap"], color: "#6366F1" },
+  { title: "4G/5G & Wireless Hands-on Labs", url: "/academies/telecom/wireless-tech/labs", category: "Telecom", tags: ["5g", "lte", "nr", "4g/5g & wireless", "telecom", "labs"], color: "#6366F1" },
+  { title: "4G/5G & Wireless Interview Q&A", url: "/academies/telecom/wireless-tech/interview", category: "Telecom", tags: ["5g", "lte", "nr", "4g/5g & wireless", "telecom", "interview"], color: "#6366F1" },
+  { title: "4G/5G & Wireless FAQ", url: "/academies/telecom/wireless-tech/faq", category: "Telecom", tags: ["5g", "lte", "nr", "4g/5g & wireless", "telecom", "faq"], color: "#6366F1" },
+  { title: "Fiber Optics — Overview", url: "/academies/telecom/fiber-optics/overview", category: "Telecom", tags: ["fiber", "ftth", "dwdm", "fiber optics", "telecom", "overview"], color: "#6366F1" },
+  { title: "Fiber Optics Learning Roadmap", url: "/academies/telecom/fiber-optics/roadmap", category: "Telecom", tags: ["fiber", "ftth", "dwdm", "fiber optics", "telecom", "roadmap"], color: "#6366F1" },
+  { title: "Fiber Optics Hands-on Labs", url: "/academies/telecom/fiber-optics/labs", category: "Telecom", tags: ["fiber", "ftth", "dwdm", "fiber optics", "telecom", "labs"], color: "#6366F1" },
+  { title: "Fiber Optics Interview Q&A", url: "/academies/telecom/fiber-optics/interview", category: "Telecom", tags: ["fiber", "ftth", "dwdm", "fiber optics", "telecom", "interview"], color: "#6366F1" },
+  { title: "Fiber Optics FAQ", url: "/academies/telecom/fiber-optics/faq", category: "Telecom", tags: ["fiber", "ftth", "dwdm", "fiber optics", "telecom", "faq"], color: "#6366F1" },
+  { title: "Telecom Networking — Overview", url: "/academies/telecom/networking-protocols/overview", category: "Telecom", tags: ["sip", "voip", "mpls", "telecom networking", "telecom", "overview"], color: "#6366F1" },
+  { title: "Telecom Networking Learning Roadmap", url: "/academies/telecom/networking-protocols/roadmap", category: "Telecom", tags: ["sip", "voip", "mpls", "telecom networking", "telecom", "roadmap"], color: "#6366F1" },
+  { title: "Telecom Networking Hands-on Labs", url: "/academies/telecom/networking-protocols/labs", category: "Telecom", tags: ["sip", "voip", "mpls", "telecom networking", "telecom", "labs"], color: "#6366F1" },
+  { title: "Telecom Networking Interview Q&A", url: "/academies/telecom/networking-protocols/interview", category: "Telecom", tags: ["sip", "voip", "mpls", "telecom networking", "telecom", "interview"], color: "#6366F1" },
+  { title: "Telecom Networking FAQ", url: "/academies/telecom/networking-protocols/faq", category: "Telecom", tags: ["sip", "voip", "mpls", "telecom networking", "telecom", "faq"], color: "#6366F1" },
+  { title: "TNPSC Prep — Overview", url: "/academies/state-psc/tnpsc/overview", category: "State PSC", tags: ["tnpsc", "tamil nadu", "state psc", "tnpsc prep", "state-psc", "overview"], color: "#FB923C" },
+  { title: "TNPSC Prep Learning Roadmap", url: "/academies/state-psc/tnpsc/roadmap", category: "State PSC", tags: ["tnpsc", "tamil nadu", "state psc", "tnpsc prep", "state-psc", "roadmap"], color: "#FB923C" },
+  { title: "TNPSC Prep Hands-on Labs", url: "/academies/state-psc/tnpsc/labs", category: "State PSC", tags: ["tnpsc", "tamil nadu", "state psc", "tnpsc prep", "state-psc", "labs"], color: "#FB923C" },
+  { title: "TNPSC Prep Interview Q&A", url: "/academies/state-psc/tnpsc/interview", category: "State PSC", tags: ["tnpsc", "tamil nadu", "state psc", "tnpsc prep", "state-psc", "interview"], color: "#FB923C" },
+  { title: "TNPSC Prep FAQ", url: "/academies/state-psc/tnpsc/faq", category: "State PSC", tags: ["tnpsc", "tamil nadu", "state psc", "tnpsc prep", "state-psc", "faq"], color: "#FB923C" },
+  { title: "KPSC Prep — Overview", url: "/academies/state-psc/kpsc/overview", category: "State PSC", tags: ["kpsc", "karnataka", "kas", "kpsc prep", "state-psc", "state psc", "overview"], color: "#FB923C" },
+  { title: "KPSC Prep Learning Roadmap", url: "/academies/state-psc/kpsc/roadmap", category: "State PSC", tags: ["kpsc", "karnataka", "kas", "kpsc prep", "state-psc", "state psc", "roadmap"], color: "#FB923C" },
+  { title: "KPSC Prep Hands-on Labs", url: "/academies/state-psc/kpsc/labs", category: "State PSC", tags: ["kpsc", "karnataka", "kas", "kpsc prep", "state-psc", "state psc", "labs"], color: "#FB923C" },
+  { title: "KPSC Prep Interview Q&A", url: "/academies/state-psc/kpsc/interview", category: "State PSC", tags: ["kpsc", "karnataka", "kas", "kpsc prep", "state-psc", "state psc", "interview"], color: "#FB923C" },
+  { title: "KPSC Prep FAQ", url: "/academies/state-psc/kpsc/faq", category: "State PSC", tags: ["kpsc", "karnataka", "kas", "kpsc prep", "state-psc", "state psc", "faq"], color: "#FB923C" },
+  { title: "MPSC Prep — Overview", url: "/academies/state-psc/mpsc/overview", category: "State PSC", tags: ["mpsc", "maharashtra", "mcs", "mpsc prep", "state-psc", "state psc", "overview"], color: "#FB923C" },
+  { title: "MPSC Prep Learning Roadmap", url: "/academies/state-psc/mpsc/roadmap", category: "State PSC", tags: ["mpsc", "maharashtra", "mcs", "mpsc prep", "state-psc", "state psc", "roadmap"], color: "#FB923C" },
+  { title: "MPSC Prep Hands-on Labs", url: "/academies/state-psc/mpsc/labs", category: "State PSC", tags: ["mpsc", "maharashtra", "mcs", "mpsc prep", "state-psc", "state psc", "labs"], color: "#FB923C" },
+  { title: "MPSC Prep Interview Q&A", url: "/academies/state-psc/mpsc/interview", category: "State PSC", tags: ["mpsc", "maharashtra", "mcs", "mpsc prep", "state-psc", "state psc", "interview"], color: "#FB923C" },
+  { title: "MPSC Prep FAQ", url: "/academies/state-psc/mpsc/faq", category: "State PSC", tags: ["mpsc", "maharashtra", "mcs", "mpsc prep", "state-psc", "state psc", "faq"], color: "#FB923C" },
+  { title: "APPSC Prep — Overview", url: "/academies/state-psc/appsc/overview", category: "State PSC", tags: ["appsc", "andhra pradesh", "appsc prep", "state-psc", "state psc", "overview"], color: "#FB923C" },
+  { title: "APPSC Prep Learning Roadmap", url: "/academies/state-psc/appsc/roadmap", category: "State PSC", tags: ["appsc", "andhra pradesh", "appsc prep", "state-psc", "state psc", "roadmap"], color: "#FB923C" },
+  { title: "APPSC Prep Hands-on Labs", url: "/academies/state-psc/appsc/labs", category: "State PSC", tags: ["appsc", "andhra pradesh", "appsc prep", "state-psc", "state psc", "labs"], color: "#FB923C" },
+  { title: "APPSC Prep Interview Q&A", url: "/academies/state-psc/appsc/interview", category: "State PSC", tags: ["appsc", "andhra pradesh", "appsc prep", "state-psc", "state psc", "interview"], color: "#FB923C" },
+  { title: "APPSC Prep FAQ", url: "/academies/state-psc/appsc/faq", category: "State PSC", tags: ["appsc", "andhra pradesh", "appsc prep", "state-psc", "state psc", "faq"], color: "#FB923C" },
+  { title: "TSPSC Prep — Overview", url: "/academies/state-psc/tspsc/overview", category: "State PSC", tags: ["tspsc", "telangana", "tspsc prep", "state-psc", "state psc", "overview"], color: "#FB923C" },
+  { title: "TSPSC Prep Learning Roadmap", url: "/academies/state-psc/tspsc/roadmap", category: "State PSC", tags: ["tspsc", "telangana", "tspsc prep", "state-psc", "state psc", "roadmap"], color: "#FB923C" },
+  { title: "TSPSC Prep Hands-on Labs", url: "/academies/state-psc/tspsc/labs", category: "State PSC", tags: ["tspsc", "telangana", "tspsc prep", "state-psc", "state psc", "labs"], color: "#FB923C" },
+  { title: "TSPSC Prep Interview Q&A", url: "/academies/state-psc/tspsc/interview", category: "State PSC", tags: ["tspsc", "telangana", "tspsc prep", "state-psc", "state psc", "interview"], color: "#FB923C" },
+  { title: "TSPSC Prep FAQ", url: "/academies/state-psc/tspsc/faq", category: "State PSC", tags: ["tspsc", "telangana", "tspsc prep", "state-psc", "state psc", "faq"], color: "#FB923C" },
+  { title: "CTET Paper I — Overview", url: "/academies/central-exams/ctet-paper1/overview", category: "Central Exams", tags: ["ctet", "tet", "teaching", "ctet paper i", "central-exams", "central exams", "overview"], color: "#FBBF24" },
+  { title: "CTET Paper I Learning Roadmap", url: "/academies/central-exams/ctet-paper1/roadmap", category: "Central Exams", tags: ["ctet", "tet", "teaching", "ctet paper i", "central-exams", "central exams", "roadmap"], color: "#FBBF24" },
+  { title: "CTET Paper I Hands-on Labs", url: "/academies/central-exams/ctet-paper1/labs", category: "Central Exams", tags: ["ctet", "tet", "teaching", "ctet paper i", "central-exams", "central exams", "labs"], color: "#FBBF24" },
+  { title: "CTET Paper I Interview Q&A", url: "/academies/central-exams/ctet-paper1/interview", category: "Central Exams", tags: ["ctet", "tet", "teaching", "ctet paper i", "central-exams", "central exams", "interview"], color: "#FBBF24" },
+  { title: "CTET Paper I FAQ", url: "/academies/central-exams/ctet-paper1/faq", category: "Central Exams", tags: ["ctet", "tet", "teaching", "ctet paper i", "central-exams", "central exams", "faq"], color: "#FBBF24" },
+  { title: "CTET Paper II — Overview", url: "/academies/central-exams/ctet-paper2/overview", category: "Central Exams", tags: ["ctet", "elementary", "teaching", "ctet paper ii", "central-exams", "central exams", "overview"], color: "#FBBF24" },
+  { title: "CTET Paper II Learning Roadmap", url: "/academies/central-exams/ctet-paper2/roadmap", category: "Central Exams", tags: ["ctet", "elementary", "teaching", "ctet paper ii", "central-exams", "central exams", "roadmap"], color: "#FBBF24" },
+  { title: "CTET Paper II Hands-on Labs", url: "/academies/central-exams/ctet-paper2/labs", category: "Central Exams", tags: ["ctet", "elementary", "teaching", "ctet paper ii", "central-exams", "central exams", "labs"], color: "#FBBF24" },
+  { title: "CTET Paper II Interview Q&A", url: "/academies/central-exams/ctet-paper2/interview", category: "Central Exams", tags: ["ctet", "elementary", "teaching", "ctet paper ii", "central-exams", "central exams", "interview"], color: "#FBBF24" },
+  { title: "CTET Paper II FAQ", url: "/academies/central-exams/ctet-paper2/faq", category: "Central Exams", tags: ["ctet", "elementary", "teaching", "ctet paper ii", "central-exams", "central exams", "faq"], color: "#FBBF24" },
+  { title: "PSU Technical Exams — Overview", url: "/academies/central-exams/psu-technical/overview", category: "Central Exams", tags: ["psu", "bhel", "ntpc", "ongc", "psu technical exams", "central-exams", "central exams", "overview"], color: "#FBBF24" },
+  { title: "PSU Technical Exams Learning Roadmap", url: "/academies/central-exams/psu-technical/roadmap", category: "Central Exams", tags: ["psu", "bhel", "ntpc", "ongc", "psu technical exams", "central-exams", "central exams", "roadmap"], color: "#FBBF24" },
+  { title: "PSU Technical Exams Hands-on Labs", url: "/academies/central-exams/psu-technical/labs", category: "Central Exams", tags: ["psu", "bhel", "ntpc", "ongc", "psu technical exams", "central-exams", "central exams", "labs"], color: "#FBBF24" },
+  { title: "PSU Technical Exams Interview Q&A", url: "/academies/central-exams/psu-technical/interview", category: "Central Exams", tags: ["psu", "bhel", "ntpc", "ongc", "psu technical exams", "central-exams", "central exams", "interview"], color: "#FBBF24" },
+  { title: "PSU Technical Exams FAQ", url: "/academies/central-exams/psu-technical/faq", category: "Central Exams", tags: ["psu", "bhel", "ntpc", "ongc", "psu technical exams", "central-exams", "central exams", "faq"], color: "#FBBF24" },
+  { title: "NDA Preparation — Overview", url: "/academies/central-exams/nda-prep/overview", category: "Central Exams", tags: ["nda", "defence", "upsc", "nda preparation", "central-exams", "central exams", "overview"], color: "#FBBF24" },
+  { title: "NDA Preparation Learning Roadmap", url: "/academies/central-exams/nda-prep/roadmap", category: "Central Exams", tags: ["nda", "defence", "upsc", "nda preparation", "central-exams", "central exams", "roadmap"], color: "#FBBF24" },
+  { title: "NDA Preparation Hands-on Labs", url: "/academies/central-exams/nda-prep/labs", category: "Central Exams", tags: ["nda", "defence", "upsc", "nda preparation", "central-exams", "central exams", "labs"], color: "#FBBF24" },
+  { title: "NDA Preparation Interview Q&A", url: "/academies/central-exams/nda-prep/interview", category: "Central Exams", tags: ["nda", "defence", "upsc", "nda preparation", "central-exams", "central exams", "interview"], color: "#FBBF24" },
+  { title: "NDA Preparation FAQ", url: "/academies/central-exams/nda-prep/faq", category: "Central Exams", tags: ["nda", "defence", "upsc", "nda preparation", "central-exams", "central exams", "faq"], color: "#FBBF24" },
+  { title: "PMP Certification — Overview", url: "/academies/professional-certs/pmp/overview", category: "Certifications", tags: ["pmp", "pmi", "project management", "pmp certification", "professional-certs", "certifications", "overview"], color: "#84CC16" },
+  { title: "PMP Certification Learning Roadmap", url: "/academies/professional-certs/pmp/roadmap", category: "Certifications", tags: ["pmp", "pmi", "project management", "pmp certification", "professional-certs", "certifications", "roadmap"], color: "#84CC16" },
+  { title: "PMP Certification Hands-on Labs", url: "/academies/professional-certs/pmp/labs", category: "Certifications", tags: ["pmp", "pmi", "project management", "pmp certification", "professional-certs", "certifications", "labs"], color: "#84CC16" },
+  { title: "PMP Certification Interview Q&A", url: "/academies/professional-certs/pmp/interview", category: "Certifications", tags: ["pmp", "pmi", "project management", "pmp certification", "professional-certs", "certifications", "interview"], color: "#84CC16" },
+  { title: "PMP Certification FAQ", url: "/academies/professional-certs/pmp/faq", category: "Certifications", tags: ["pmp", "pmi", "project management", "pmp certification", "professional-certs", "certifications", "faq"], color: "#84CC16" },
+  { title: "ITIL 4 Foundation — Overview", url: "/academies/professional-certs/itil/overview", category: "Certifications", tags: ["itil", "itsm", "service management", "itil 4 foundation", "professional-certs", "certifications", "overview"], color: "#84CC16" },
+  { title: "ITIL 4 Foundation Learning Roadmap", url: "/academies/professional-certs/itil/roadmap", category: "Certifications", tags: ["itil", "itsm", "service management", "itil 4 foundation", "professional-certs", "certifications", "roadmap"], color: "#84CC16" },
+  { title: "ITIL 4 Foundation Hands-on Labs", url: "/academies/professional-certs/itil/labs", category: "Certifications", tags: ["itil", "itsm", "service management", "itil 4 foundation", "professional-certs", "certifications", "labs"], color: "#84CC16" },
+  { title: "ITIL 4 Foundation Interview Q&A", url: "/academies/professional-certs/itil/interview", category: "Certifications", tags: ["itil", "itsm", "service management", "itil 4 foundation", "professional-certs", "certifications", "interview"], color: "#84CC16" },
+  { title: "ITIL 4 Foundation FAQ", url: "/academies/professional-certs/itil/faq", category: "Certifications", tags: ["itil", "itsm", "service management", "itil 4 foundation", "professional-certs", "certifications", "faq"], color: "#84CC16" },
+  { title: "Scrum & Agile — Overview", url: "/academies/professional-certs/scrum/overview", category: "Certifications", tags: ["scrum", "agile", "csm", "psm", "scrum & agile", "professional-certs", "certifications", "overview"], color: "#84CC16" },
+  { title: "Scrum & Agile Learning Roadmap", url: "/academies/professional-certs/scrum/roadmap", category: "Certifications", tags: ["scrum", "agile", "csm", "psm", "scrum & agile", "professional-certs", "certifications", "roadmap"], color: "#84CC16" },
+  { title: "Scrum & Agile Hands-on Labs", url: "/academies/professional-certs/scrum/labs", category: "Certifications", tags: ["scrum", "agile", "csm", "psm", "scrum & agile", "professional-certs", "certifications", "labs"], color: "#84CC16" },
+  { title: "Scrum & Agile Interview Q&A", url: "/academies/professional-certs/scrum/interview", category: "Certifications", tags: ["scrum", "agile", "csm", "psm", "scrum & agile", "professional-certs", "certifications", "interview"], color: "#84CC16" },
+  { title: "Scrum & Agile FAQ", url: "/academies/professional-certs/scrum/faq", category: "Certifications", tags: ["scrum", "agile", "csm", "psm", "scrum & agile", "professional-certs", "certifications", "faq"], color: "#84CC16" },
+  { title: "Six Sigma — Overview", url: "/academies/professional-certs/six-sigma/overview", category: "Certifications", tags: ["six sigma", "dmaic", "quality", "professional-certs", "certifications", "overview"], color: "#84CC16" },
+  { title: "Six Sigma Learning Roadmap", url: "/academies/professional-certs/six-sigma/roadmap", category: "Certifications", tags: ["six sigma", "dmaic", "quality", "professional-certs", "certifications", "roadmap"], color: "#84CC16" },
+  { title: "Six Sigma Hands-on Labs", url: "/academies/professional-certs/six-sigma/labs", category: "Certifications", tags: ["six sigma", "dmaic", "quality", "professional-certs", "certifications", "labs"], color: "#84CC16" },
+  { title: "Six Sigma Interview Q&A", url: "/academies/professional-certs/six-sigma/interview", category: "Certifications", tags: ["six sigma", "dmaic", "quality", "professional-certs", "certifications", "interview"], color: "#84CC16" },
+  { title: "Six Sigma FAQ", url: "/academies/professional-certs/six-sigma/faq", category: "Certifications", tags: ["six sigma", "dmaic", "quality", "professional-certs", "certifications", "faq"], color: "#84CC16" },
+  { title: "Microeconomics — Overview", url: "/academies/economics/micro-economics/overview", category: "Economics", tags: ["microeconomics", "demand", "supply", "economics", "overview"], color: "#64748B" },
+  { title: "Microeconomics Learning Roadmap", url: "/academies/economics/micro-economics/roadmap", category: "Economics", tags: ["microeconomics", "demand", "supply", "economics", "roadmap"], color: "#64748B" },
+  { title: "Microeconomics Hands-on Labs", url: "/academies/economics/micro-economics/labs", category: "Economics", tags: ["microeconomics", "demand", "supply", "economics", "labs"], color: "#64748B" },
+  { title: "Microeconomics Interview Q&A", url: "/academies/economics/micro-economics/interview", category: "Economics", tags: ["microeconomics", "demand", "supply", "economics", "interview"], color: "#64748B" },
+  { title: "Microeconomics FAQ", url: "/academies/economics/micro-economics/faq", category: "Economics", tags: ["microeconomics", "demand", "supply", "economics", "faq"], color: "#64748B" },
+  { title: "Macroeconomics — Overview", url: "/academies/economics/macro-economics/overview", category: "Economics", tags: ["macroeconomics", "gdp", "inflation", "economics", "overview"], color: "#64748B" },
+  { title: "Macroeconomics Learning Roadmap", url: "/academies/economics/macro-economics/roadmap", category: "Economics", tags: ["macroeconomics", "gdp", "inflation", "economics", "roadmap"], color: "#64748B" },
+  { title: "Macroeconomics Hands-on Labs", url: "/academies/economics/macro-economics/labs", category: "Economics", tags: ["macroeconomics", "gdp", "inflation", "economics", "labs"], color: "#64748B" },
+  { title: "Macroeconomics Interview Q&A", url: "/academies/economics/macro-economics/interview", category: "Economics", tags: ["macroeconomics", "gdp", "inflation", "economics", "interview"], color: "#64748B" },
+  { title: "Macroeconomics FAQ", url: "/academies/economics/macro-economics/faq", category: "Economics", tags: ["macroeconomics", "gdp", "inflation", "economics", "faq"], color: "#64748B" },
+  { title: "Indian Economy — Overview", url: "/academies/economics/indian-economy/overview", category: "Economics", tags: ["indian economy", "reforms", "budget", "economics", "overview"], color: "#64748B" },
+  { title: "Indian Economy Learning Roadmap", url: "/academies/economics/indian-economy/roadmap", category: "Economics", tags: ["indian economy", "reforms", "budget", "economics", "roadmap"], color: "#64748B" },
+  { title: "Indian Economy Hands-on Labs", url: "/academies/economics/indian-economy/labs", category: "Economics", tags: ["indian economy", "reforms", "budget", "economics", "labs"], color: "#64748B" },
+  { title: "Indian Economy Interview Q&A", url: "/academies/economics/indian-economy/interview", category: "Economics", tags: ["indian economy", "reforms", "budget", "economics", "interview"], color: "#64748B" },
+  { title: "Indian Economy FAQ", url: "/academies/economics/indian-economy/faq", category: "Economics", tags: ["indian economy", "reforms", "budget", "economics", "faq"], color: "#64748B" },
+  { title: "International Trade — Overview", url: "/academies/economics/international-trade/overview", category: "Economics", tags: ["trade", "wto", "bop", "forex", "international trade", "economics", "overview"], color: "#64748B" },
+  { title: "International Trade Learning Roadmap", url: "/academies/economics/international-trade/roadmap", category: "Economics", tags: ["trade", "wto", "bop", "forex", "international trade", "economics", "roadmap"], color: "#64748B" },
+  { title: "International Trade Hands-on Labs", url: "/academies/economics/international-trade/labs", category: "Economics", tags: ["trade", "wto", "bop", "forex", "international trade", "economics", "labs"], color: "#64748B" },
+  { title: "International Trade Interview Q&A", url: "/academies/economics/international-trade/interview", category: "Economics", tags: ["trade", "wto", "bop", "forex", "international trade", "economics", "interview"], color: "#64748B" },
+  { title: "International Trade FAQ", url: "/academies/economics/international-trade/faq", category: "Economics", tags: ["trade", "wto", "bop", "forex", "international trade", "economics", "faq"], color: "#64748B" }
 ];
+
+const ALL_CATEGORIES = ["All", "AI & ML", "Agriculture", "Central Exams", "Certifications", "Cloud", "Data", "Databases", "DevOps", "Economics", "Education", "Exams", "Finance", "Healthcare", "Law", "Life Skills", "Security", "State PSC", "Telecom"];
 
 export default function SearchPage() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Result[]>([]);
   const [activeCategory, setActiveCategory] = useState("All");
-
-  const categories = ["All", "DevOps", "Education", "Career", "AI", "Cert"];
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (!query.trim() && activeCategory === "All") {
-      setResults(searchIndex.slice(0, 12));
-      return;
-    }
-    const q = query.toLowerCase();
+    inputRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
+    const q = query.toLowerCase().trim();
     const filtered = searchIndex.filter(r => {
       const matchCat = activeCategory === "All" || r.category === activeCategory;
-      const matchQuery = !q || r.title.toLowerCase().includes(q) || r.tags.some(t => t.includes(q));
-      return matchCat && matchQuery;
+      if (!matchCat) return false;
+      if (!q) return true;
+      return r.title.toLowerCase().includes(q) || r.tags.some(t => t.includes(q)) || r.category.toLowerCase().includes(q);
     });
-    setResults(filtered);
+    setResults(q || activeCategory !== "All" ? filtered : filtered.slice(0, 18));
   }, [query, activeCategory]);
 
+  const groupColors: Record<string, string> = {
+    "DevOps": "#3B82F6", "Cloud": "#0EA5E9", "Databases": "#10B981", "AI & ML": "#8B5CF6",
+    "Data": "#06B6D4", "Security": "#EF4444", "Telecom": "#6366F1",
+    "Education": "#F59E0B", "Exams": "#F97316", "State PSC": "#FB923C",
+    "Central Exams": "#FBBF24", "Certifications": "#84CC16",
+    "Healthcare": "#F43F5E", "Life Skills": "#EC4899", "Agriculture": "#22C55E",
+    "Law": "#A855F7", "Finance": "#14B8A6", "Economics": "#64748B",
+  };
+
   return (
-    <div style={{ maxWidth: "800px", margin: "0 auto", padding: "56px 24px" }}>
-      <div style={{ textAlign: "center", marginBottom: "40px" }}>
-        <h1 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 800, fontSize: "36px", marginBottom: "12px" }}>
-          Search SynfraCore
-        </h1>
-        <p style={{ color: "var(--text-3)", fontSize: "16px" }}>
-          Find content across tech academies, education boards, career paths, and certifications
-        </p>
-      </div>
+    <div style={{ minHeight: "100vh", paddingTop: "80px", paddingBottom: "60px" }}>
+      <div style={{ maxWidth: "900px", margin: "0 auto", padding: "0 20px" }}>
+        {/* Header */}
+        <div style={{ textAlign: "center", marginBottom: "36px" }}>
+          <h1 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 800, fontSize: "clamp(28px,5vw,44px)", marginBottom: "10px", background: "linear-gradient(135deg,#3B82F6,#8B5CF6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+            Search SynfraCore
+          </h1>
+          <p style={{ color: "var(--text-3)", fontSize: "16px" }}>
+            685+ topics across 18 academies — DevOps, Cloud, AI, Exams, Law &amp; more
+          </p>
+        </div>
 
-      {/* Search input */}
-      <div style={{ position: "relative", marginBottom: "24px" }}>
-        <Search size={18} style={{ position: "absolute", left: "16px", top: "50%", transform: "translateY(-50%)", color: "var(--text-4)" }} />
-        <input
-          autoFocus
-          value={query}
-          onChange={e => setQuery(e.target.value)}
-          placeholder="Search topics, exams, tools, careers..."
-          style={{
-            width: "100%", padding: "16px 16px 16px 48px", borderRadius: "12px",
-            border: "2px solid var(--border)", background: "var(--bg-1)",
-            fontSize: "16px", color: "var(--text-1)", outline: "none",
-            boxSizing: "border-box",
-          }}
-        />
-      </div>
+        {/* Search bar */}
+        <div style={{ position: "relative", marginBottom: "20px" }}>
+          <Search size={20} style={{ position: "absolute", left: "18px", top: "50%", transform: "translateY(-50%)", color: "var(--text-4)" }} />
+          <input
+            ref={inputRef}
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            placeholder="Search topics, exams, tools, careers... e.g. kubernetes, UPSC, Docker"
+            style={{
+              width: "100%", padding: "18px 48px 18px 52px", borderRadius: "14px",
+              border: "2px solid var(--border)", background: "var(--bg-1)",
+              fontSize: "15px", color: "var(--text-1)", outline: "none", boxSizing: "border-box",
+              transition: "border-color 0.2s",
+            }}
+            onFocus={e => e.target.style.borderColor = "#3B82F6"}
+            onBlur={e => e.target.style.borderColor = "var(--border)"}
+          />
+          {query && (
+            <button onClick={() => setQuery("")} style={{ position: "absolute", right: "16px", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "var(--text-4)", display: "flex" }}>
+              <X size={16} />
+            </button>
+          )}
+        </div>
 
-      {/* Category filters */}
-      <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "32px" }}>
-        {categories.map(cat => (
-          <button key={cat} onClick={() => setActiveCategory(cat)} style={{
-            padding: "6px 16px", borderRadius: "20px", fontSize: "13px", fontWeight: 600,
-            border: "1px solid var(--border)", cursor: "pointer",
-            background: activeCategory === cat ? "var(--accent)" : "var(--bg-2)",
-            color: activeCategory === cat ? "white" : "var(--text-3)",
-          }}>
-            {cat}
-          </button>
-        ))}
-      </div>
+        {/* Category filters */}
+        <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "28px" }}>
+          {ALL_CATEGORIES.map(cat => (
+            <button key={cat} onClick={() => setActiveCategory(cat)} style={{
+              padding: "5px 13px", borderRadius: "20px", fontSize: "12px", fontWeight: 600,
+              border: "1px solid var(--border)", cursor: "pointer", transition: "all 0.15s",
+              background: activeCategory === cat ? (groupColors[cat] || "#3B82F6") : "var(--bg-2)",
+              color: activeCategory === cat ? "white" : "var(--text-3)",
+              borderColor: activeCategory === cat ? "transparent" : "var(--border)",
+            }}>
+              {cat}
+            </button>
+          ))}
+        </div>
 
-      {/* Results */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-        {results.length === 0 && (
-          <div style={{ textAlign: "center", padding: "48px", color: "var(--text-4)" }}>
-            No results for &quot;{query}&quot; — try different keywords
+        {/* Result count */}
+        <div style={{ fontSize: "12px", color: "var(--text-4)", marginBottom: "14px" }}>
+          {query || activeCategory !== "All" ? `${results.length} results` : `Showing popular topics · ${searchIndex.length} total`}
+        </div>
+
+        {/* Results */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+          {results.length === 0 && (
+            <div style={{ textAlign: "center", padding: "60px 20px", color: "var(--text-4)" }}>
+              <div style={{ fontSize: "40px", marginBottom: "12px" }}>🔍</div>
+              <div style={{ fontWeight: 600, marginBottom: "6px" }}>No results for &quot;{query}&quot;</div>
+              <div style={{ fontSize: "13px" }}>Try different keywords or browse a category above</div>
+            </div>
+          )}
+          {results.map(r => (
+            <Link key={r.url} href={r.url} style={{ textDecoration: "none" }}>
+              <div style={{
+                padding: "13px 18px", borderRadius: "10px", border: "1px solid var(--border)",
+                background: "var(--bg-1)", display: "flex", alignItems: "center", gap: "14px",
+                cursor: "pointer", transition: "all 0.15s",
+              }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = r.color; e.currentTarget.style.background = r.color + "08"; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--border)"; e.currentTarget.style.background = "var(--bg-1)"; }}
+              >
+                <div style={{ width: "3px", height: "36px", borderRadius: "2px", background: r.color, flexShrink: 0 }} />
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "3px", flexWrap: "wrap" }}>
+                    <span style={{ fontWeight: 700, fontSize: "14px", color: "var(--text-1)" }}>{r.title}</span>
+                    <span style={{ fontSize: "10px", padding: "2px 7px", borderRadius: "20px", background: r.color + "18", color: r.color, fontWeight: 700, flexShrink: 0 }}>{r.category}</span>
+                  </div>
+                  <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
+                    {r.tags.slice(0, 5).map(t => (
+                      <span key={t} style={{ fontSize: "10px", padding: "1px 6px", borderRadius: "4px", background: "var(--bg-2)", color: "var(--text-4)" }}>{t}</span>
+                    ))}
+                  </div>
+                </div>
+                <span style={{ color: "var(--text-4)", fontSize: "14px", flexShrink: 0 }}>→</span>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {!query && activeCategory === "All" && results.length > 0 && (
+          <div style={{ textAlign: "center", marginTop: "20px" }}>
+            <button onClick={() => setActiveCategory("All")} style={{ fontSize: "13px", color: "#3B82F6", background: "none", border: "none", cursor: "pointer" }}>
+              Type to search all {searchIndex.length} topics across 18 academies
+            </button>
           </div>
         )}
-        {results.map(r => (
-          <Link key={r.url} href={r.url} style={{ textDecoration: "none" }}>
-            <div className="card-hover" style={{ padding: "16px 20px", borderRadius: "10px", border: "1px solid var(--border)", background: "var(--bg-1)", display: "flex", alignItems: "center", gap: "14px", cursor: "pointer" }}>
-              <div style={{ width: "4px", height: "40px", borderRadius: "2px", background: r.color, flexShrink: 0 }} />
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "4px", flexWrap: "wrap" }}>
-                  <span style={{ fontWeight: 700, fontSize: "15px", color: "var(--text-1)" }}>{r.title}</span>
-                  <span style={{ fontSize: "10px", padding: "2px 8px", borderRadius: "20px", background: r.color + "15", color: r.color, fontWeight: 700, flexShrink: 0 }}>{r.category}</span>
-                </div>
-                <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
-                  {r.tags.slice(0, 4).map(t => (
-                    <span key={t} style={{ fontSize: "11px", padding: "1px 6px", borderRadius: "4px", background: "var(--bg-2)", color: "var(--text-4)" }}>{t}</span>
-                  ))}
-                </div>
-              </div>
-              <span style={{ color: "var(--text-4)", fontSize: "16px", flexShrink: 0 }}>→</span>
-            </div>
-          </Link>
-        ))}
       </div>
-
-      {!query && activeCategory === "All" && (
-        <p style={{ textAlign: "center", color: "var(--text-4)", fontSize: "13px", marginTop: "24px" }}>
-          Showing popular content · Type to search all {searchIndex.length} topics
-        </p>
-      )}
     </div>
   );
 }
