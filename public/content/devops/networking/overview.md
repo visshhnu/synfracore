@@ -473,3 +473,56 @@ kubectl get secret myapp-tls-secret -n production \\\\
 ---
 
 *Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*
+
+---
+
+## OSI Model — Reference Table
+
+| Layer | Number | Name | Key Protocols | DevOps Relevance |
+|-------|--------|------|---------------|-----------------|
+| Application | 7 | Application | HTTP, HTTPS, DNS, SMTP, SSH | All web traffic, APIs, kubectl |
+| Presentation | 6 | Presentation | TLS/SSL, JPEG, JSON | TLS termination at load balancer |
+| Session | 5 | Session | NetBIOS, RPC | Connection management |
+| Transport | 4 | Transport | TCP, UDP | Load balancer L4, port-based routing |
+| Network | 3 | Network | IP, ICMP, BGP | Routing, VPC, subnet design |
+| Data Link | 2 | Data Link | Ethernet, MAC, ARP | Switch-level, overlay networks |
+| Physical | 1 | Physical | Copper, Fiber, WiFi | Data center cabling |
+
+**Remember:** "All People Seem To Need Data Processing" (7 → 1)
+
+---
+
+## TCP vs UDP — Comparison Table
+
+| Property | TCP | UDP |
+|----------|-----|-----|
+| Connection | Connection-oriented (3-way handshake) | Connectionless |
+| Reliability | Guaranteed delivery (retransmit on loss) | Best-effort (may drop packets) |
+| Order | In-order delivery | No ordering guarantee |
+| Speed | Slower (ACK overhead) | Faster (no ACK wait) |
+| Use cases | HTTP, HTTPS, SSH, databases, email | DNS, streaming video, VoIP, gaming |
+| K8s relevance | Most services (API server, databases) | CoreDNS queries, monitoring UDP |
+
+### Concrete Scenarios
+
+1. **Video streaming (YouTube/Netflix)** → UDP: slight packet loss = minor glitch. Waiting for retransmit = freezing.
+2. **Bank payment API** → TCP: every byte must arrive in order. Cannot lose a transaction.
+3. **DNS query** → UDP: single packet, fast response. If lost, client retries immediately.
+4. **SSH session** → TCP: guaranteed in-order delivery of keystrokes matters.
+5. **Kubernetes liveness probe (HTTP)** → TCP: kubelet opens TCP connection, checks response.
+6. **Prometheus scrape** → TCP/HTTP: reliable metric collection matters for alerting accuracy.
+
+---
+
+## Kubernetes Networking Quick Reference
+
+```
+Pod → Service (ClusterIP) → kube-proxy (iptables/IPVS) → Pod
+External → LoadBalancer Service → NodePort → ClusterIP → Pod
+External → Ingress Controller → ClusterIP Service → Pod
+Pod ↔ Pod (same node): directly via CNI (Flannel/Calico/Cilium)
+Pod ↔ Pod (different node): via overlay network (VXLAN/BGP)
+```
+
+DNS pattern: `<service>.<namespace>.svc.cluster.local`
+Example: `postgres.production.svc.cluster.local`

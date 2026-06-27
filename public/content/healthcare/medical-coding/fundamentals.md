@@ -76,3 +76,46 @@ Medicare eligibility: Age 65+, ESRD (End Stage Renal Disease), ALS, or disabilit
 REC OASIS→
 Another 60 days→
 🏠 Di
+
+---
+
+## Human Body Systems — Essential Foundation for Medical Coders
+
+Before learning ICD-10 codes, every medical coder needs to understand the body systems that the codes describe.
+
+### 11 Body Systems
+
+| System | Key Organs | Common Conditions Coded |
+|--------|-----------|------------------------|
+| Musculoskeletal | Bones, muscles, joints, cartilage | Fractures (S-codes), arthritis (M-codes), back pain |
+| Cardiovascular | Heart, arteries, veins, blood | Hypertension (I10), Heart failure (I50), MI (I21) |
+| Respiratory | Lungs, bronchi, trachea, diaphragm | Pneumonia (J18), COPD (J44), Asthma (J45) |
+| Digestive/GI | Stomach, intestines, liver, pancreas | GERD (K21), Appendicitis (K37), Diabetes complications |
+| Nervous | Brain, spinal cord, nerves | Stroke (I63/I64), Epilepsy (G40), Parkinson's (G20) |
+| Endocrine | Thyroid, pancreas, adrenal, pituitary | Diabetes (E11), Hypothyroidism (E03), Obesity (E66) |
+| Genitourinary | Kidneys, bladder, urethra | UTI (N39.0), Kidney failure (N17-N19), Dialysis |
+| Reproductive | Uterus, ovaries, prostate | Pregnancy (Z34), OB complications, Prostate (N40) |
+| Integumentary | Skin, hair, nails, sweat glands | Pressure ulcers (L89), Cellulitis (L03), Burns (T20-T32) |
+| Immune/Lymphatic | Lymph nodes, spleen, thymus, bone marrow | HIV (B20), Lymphoma (C81-C96), Sepsis (A41) |
+| Sensory | Eyes, ears, nose, skin receptors | Glaucoma (H40), Hearing loss (H90), Cataracts (H26) |
+
+### Why This Matters for Coding
+
+- ICD-10-CM chapters are organized BY body system (Chapter 1 = Infectious, Chapter 9 = Circulatory, etc.)
+- Knowing which system an organ belongs to tells you which ICD-10 chapter to look in
+- Medical documentation uses anatomical terms — "myocardial" = heart muscle, "hepatic" = liver
+
+### Medical Terminology Roots
+
+| Root | Meaning | Example |
+|------|---------|---------|
+| cardio | heart | cardiomyopathy |
+| hepato | liver | hepatitis |
+| nephro | kidney | nephropathy |
+| pneumo | lung | pneumonia |
+| osteo | bone | osteoporosis |
+| arthro | joint | arthritis |
+| neuro | nerve | neuropathy |
+| derm/cutane | skin | dermatitis |
+| gastr | stomach | gastritis |
+| cephalo | head/brain | encephalopathy |

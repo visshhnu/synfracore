@@ -251,10 +251,10 @@ export default function Navbar() {
         <div style={{ maxWidth: "1300px", margin: "0 auto", padding: "0 16px", height: "60px", display: "flex", alignItems: "center", gap: "6px" }}>
           <Link href="/" style={{ textDecoration: "none", flexShrink: 0, lineHeight: 0, marginRight: "4px" }}>
             <div className="logo-wrapper">
-              <Image src="/logo-transparent.webp" alt="SynfraCore" width={160} height={24} priority
+              <Image src="/logo-synfracore-full.png" alt="SynfraCore" width={160} height={24} priority
                 className={scrolled ? "logo-full logo-scrolled-hide" : "logo-full"}
                 style={{ height: "24px", width: "auto", display: scrolled ? "none" : "block" }} />
-              <Image src="/logo-ac-icon.webp" alt="AC" width={36} height={28} priority
+              <Image src="/logo-ac-mark.png" alt="AC" width={36} height={28} priority
                 className={scrolled ? "logo-icon logo-scrolled-show" : "logo-icon"}
                 style={{ height: "28px", width: "auto", display: scrolled ? "block" : "none" }} />
             </div>
@@ -435,9 +435,9 @@ export default function Navbar() {
           .logo-icon { display: block !important; }
         }
         .logo-wrapper { display: inline-flex; align-items: center; }
-        /* In light mode, invert white logo to dark */
-        html.light .logo-full { filter: brightness(0); }
-        html.light .logo-icon { filter: brightness(0); }
+        /* Light/dark mode: logos have transparent-friendly design */
+        html.light .logo-full { opacity: 0.95; }
+        html.light .logo-icon { opacity: 0.95; }
       `}</style>
     </>
   );
