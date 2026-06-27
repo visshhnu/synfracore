@@ -416,7 +416,8 @@ const healthcareAcademy: Academy = {
       description: "Professional medical coding — ICD-10, CPT, HCPCS, billing, compliance",
       color: "#F43F5E",
       technologies: [
-        { slug: "icd-10-cm", name: "ICD-10-CM", icon: "📋", description: "International Classification of Diseases — structure, guidelines, sequencing, POA, HCC", level: "Beginner", tags: ["ICD-10", "Diagnosis", "CMS"] },
+        { slug: "medical-coding", name: "Medical Coding Overview", icon: "🏥", description: "Introduction to medical coding — ICD-10-CM, CPT, HCPCS, career path, CPC certification overview", level: "Beginner", tags: ["Medical Coding", "CPC", "ICD-10", "Overview"] },
+      { slug: "icd-10-cm", name: "ICD-10-CM", icon: "📋", description: "International Classification of Diseases — structure, guidelines, sequencing, POA, HCC", level: "Beginner", tags: ["ICD-10", "Diagnosis", "CMS"] },
         { slug: "cpt", name: "CPT Codes", icon: "🔬", description: "Current Procedural Terminology — E/M, surgery, global package, modifiers, NCCI", level: "Intermediate", tags: ["CPT", "E/M", "Surgery"] },
         { slug: "hcpcs", name: "HCPCS Level II", icon: "💊", description: "HCPCS — DME, drugs, ambulance, ABN, coverage determinations, modifiers", level: "Intermediate", tags: ["HCPCS", "DME", "Medicare"] },
         { slug: "coding-guidelines", name: "Coding Guidelines", icon: "📖", description: "OGCR, inpatient vs outpatient, UHDDS, uncertain diagnoses, sequencing rules", level: "Intermediate", tags: ["Guidelines", "OGCR", "HCC"] },
@@ -468,7 +469,8 @@ const essentialsAcademy: Academy = {
       description: "Gut health, nutrition, hygiene, and preventive care",
       color: "#10B981",
       technologies: [
-        { slug: "gut-health", name: "Gut Health", icon: "🦠", description: "Microbiome, digestion, probiotics, gut-brain connection, and foods for a healthy gut", level: "Beginner", tags: ["Gut", "Microbiome", "Nutrition"] },
+        { slug: "human-essentials", name: "Human Essentials", icon: "🌱", description: "Foundational life skills — health habits, sleep, routines, wellness frameworks for daily life", level: "Beginner", tags: ["Life Skills", "Wellness", "Habits", "Routines"] },
+      { slug: "gut-health", name: "Gut Health", icon: "🦠", description: "Microbiome, digestion, probiotics, gut-brain connection, and foods for a healthy gut", level: "Beginner", tags: ["Gut", "Microbiome", "Nutrition"] },
         { slug: "hygiene", name: "Hygiene & Sanitation", icon: "🧼", description: "Personal hygiene, sanitation practices, infection prevention, and daily health routines", level: "Beginner", tags: ["Hygiene", "Prevention", "Daily Health"] },
         { slug: "nutrition", name: "Nutrition Basics", icon: "🥗", description: "Macronutrients, micronutrients, meal planning, reading labels, and balanced diet fundamentals", level: "Beginner", tags: ["Nutrition", "Diet", "Wellness"] },
         { slug: "mental-health", name: "Mental Wellness", icon: "🧠", description: "Stress management, mindfulness, sleep health, and building emotional resilience", level: "Beginner", tags: ["Mental Health", "Mindfulness", "Sleep"] },
@@ -482,7 +484,8 @@ const essentialsAcademy: Academy = {
       color: "#3B82F6",
       technologies: [
         { slug: "personal-finance", name: "Personal Finance", icon: "💰", description: "Budgeting, saving, investing basics, credit scores, and financial planning for everyone", level: "Beginner", tags: ["Finance", "Budgeting", "Savings"] },
-        { slug: "first-aid", name: "First Aid & Emergency", icon: "🚑", description: "CPR, first aid basics, emergency response, and home health management", level: "Beginner", tags: ["First Aid", "CPR", "Emergency"] },
+        { slug: "digital-safety", name: "Digital Safety & Privacy", icon: "🔒", description: "Passwords, 2FA, phishing prevention, UPI fraud protection, device security — India-specific cyber safety guide", level: "Beginner", tags: ["Cybersecurity", "Privacy", "2FA", "UPI Safety"] },
+      { slug: "first-aid", name: "First Aid & Emergency", icon: "🚑", description: "CPR, first aid basics, emergency response, and home health management", level: "Beginner", tags: ["First Aid", "CPR", "Emergency"] },
       ],
     },
   ],
@@ -568,7 +571,8 @@ const examsAcademy: Academy = {
       description: "Graduate Aptitude Test in Engineering",
       color: "#8B5CF6",
       technologies: [
-        { slug: "gate-cse", name: "GATE CSE", icon: "💻", description: "DSA, OS, DBMS, CN, Algorithms, Compiler Design, Theory of Computation", level: "Advanced", tags: ["GATE", "CSE", "M.Tech"] },
+        { slug: "gate", name: "GATE Overview & PYQ", icon: "🎓", description: "GATE exam overview, previous year questions, strategy, and score vs rank analysis for all branches", level: "Intermediate", tags: ["GATE", "PYQ", "PSU", "M.Tech"] },
+      { slug: "gate-cse", name: "GATE CSE", icon: "💻", description: "DSA, OS, DBMS, CN, Algorithms, Compiler Design, Theory of Computation", level: "Advanced", tags: ["GATE", "CSE", "M.Tech"] },
         { slug: "gate-ece", name: "GATE ECE", icon: "📡", description: "Signals, Networks, Electronics, Communications, Electromagnetics", level: "Advanced", tags: ["GATE", "ECE", "M.Tech"] },
       ],
     },
@@ -580,7 +584,8 @@ const examsAcademy: Academy = {
       color: "#10B981",
       technologies: [
         { slug: "banking-exams", name: "Banking Exams (SBI/IBPS)", icon: "🏦", description: "Quantitative aptitude, reasoning, English, banking awareness for SBI PO, IBPS PO/Clerk", level: "Beginner", tags: ["Banking", "SBI", "IBPS"] },
-        { slug: "ssc-cgl", name: "SSC CGL", icon: "📋", description: "Tier I & II — Quant, English, GK, Reasoning for SSC CGL and CHSL", level: "Beginner", tags: ["SSC", "CGL", "Government"] },
+        { slug: "ssc-exam", name: "SSC Exam Guide & PYQ", icon: "🏛️", description: "SSC CGL, CHSL, MTS, CPO overview, previous year questions, section strategy, cut-offs", level: "Beginner", tags: ["SSC", "CGL", "CHSL", "PYQ"] },
+      { slug: "ssc-cgl", name: "SSC CGL", icon: "📋", description: "Tier I & II — Quant, English, GK, Reasoning for SSC CGL and CHSL", level: "Beginner", tags: ["SSC", "CGL", "Government"] },
         { slug: "rrb-ntpc", name: "RRB NTPC", icon: "🚂", description: "Mathematics, GI & Reasoning, General Awareness for Railway exams", level: "Beginner", tags: ["Railway", "RRB", "Government"] },
       ],
     },
@@ -592,7 +597,8 @@ const examsAcademy: Academy = {
       color: "#F43F5E",
       technologies: [
         { slug: "upsc-prelims", name: "UPSC Prelims", icon: "🏛️", description: "GS Paper I & II (CSAT) — History, Geography, Polity, Economy, Science, Current Affairs", level: "Advanced", tags: ["UPSC", "IAS", "CSE"] },
-        { slug: "upsc-mains", name: "UPSC Mains", icon: "✍️", description: "Essay, GS Papers I-IV, Optional subject strategy and answer writing", level: "Advanced", tags: ["UPSC", "IAS", "Mains"] },
+        { slug: "state-psc", name: "State PSC Guide & PYQ", icon: "🏛️", description: "State PSC exams guide — TNPSC, KPSC, MPSC, APPSC, TSPSC — pattern, syllabus, previous year questions", level: "Intermediate", tags: ["State PSC", "TNPSC", "KPSC", "PYQ"] },
+      { slug: "upsc-mains", name: "UPSC Mains", icon: "✍️", description: "Essay, GS Papers I-IV, Optional subject strategy and answer writing", level: "Advanced", tags: ["UPSC", "IAS", "Mains"] },
       ],
     },
   ],
@@ -616,7 +622,6 @@ const lawAcademy: Academy = {
       { slug: "aibe-bar-exam", name: "AIBE & Bar Exam Prep", icon: "⚖️", description: "All India Bar Examination — syllabus, 100 MCQ strategy, open book tactics, enrollment to practice guide", level: "Intermediate", tags: ["AIBE", "Bar Exam", "BCI", "Advocate"] },
       { slug: "judiciary-exams", name: "Judiciary Exams (Civil Judge/HJS)", icon: "🏛️", description: "Civil Judge and Higher Judicial Service exams — 3-stage pattern, judgment writing, viva preparation", level: "Advanced", tags: ["Judiciary", "Civil Judge", "HJS", "PCS J"] },
       { slug: "consumer-protection", name: "Consumer Protection", icon: "🛡️", description: "Consumer Protection Act 2019, three-tier redressal, product liability, CCPA, e-commerce", level: "Beginner", tags: ["Consumer Law", "COPRA", "NCDRC"] },
-      { slug: "consumer-protection", name: "Consumer Protection", icon: "🛡️", description: "Consumer Protection Act 2019, COPRA, consumer forums, e-commerce", level: "Beginner", tags: ["Consumer Law", "COPRA"] },
     ]
   }],
   technologies: [],
@@ -664,6 +669,7 @@ const telecomAcademy: Academy = {
   description: "Telecom fundamentals, 5G architecture, fiber optics, wireless technologies, and BSNL JTO/JE exam preparation.",
   domains: [{ slug: "telecom-tech", name: "Telecom Technology", icon: "📶", description: "Core telecom technologies", color: "#0EA5E9",
     technologies: [
+      { slug: "telco", name: "Telecom Industry Overview", icon: "📶", description: "Telecom industry structure, OSS/BSS, 4G/5G rollout in India, Jio, Airtel, BSNL ecosystem and career paths", level: "Beginner", tags: ["Telecom", "Industry", "5G", "Jio", "BSNL"] },
       { slug: "telecom-fundamentals", name: "Telecom Fundamentals", icon: "📡", description: "Telecom history, GSM/CDMA, spectrum, switching, signaling protocols", level: "Beginner", tags: ["Telecom", "GSM", "Spectrum"] },
       { slug: "wireless-tech", name: "4G/5G & Wireless", icon: "📶", description: "4G LTE architecture, 5G NR, OFDM, beamforming, NR bands, use cases", level: "Intermediate", tags: ["5G", "LTE", "NR"] },
       { slug: "fiber-optics", name: "Fiber Optics", icon: "💡", description: "Fiber types, DWDM, splicing, FTTH/FTTX, optical network design", level: "Intermediate", tags: ["Fiber", "FTTH", "DWDM"] },
