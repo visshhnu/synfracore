@@ -3,7 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { getAcademy, getTechnology } from "@/lib/data/academies";
-import { techSections } from "@/lib/data/navigation";
+import { techSections, nonTechSections, nonTechAcademyIds } from "@/lib/data/navigation";
 import SectionContent from "@/components/tech/SectionContent";
 import LabsSection from "@/components/tech/LabsSection";
 import AuthorBadge from "@/components/tech/AuthorBadge";
@@ -119,10 +119,12 @@ export default async function SectionPage({ params }: Props) {
   const tech = getTechnology(aSlug, tSlug);
   if (!academy || !tech) redirect("/academies");
 
-  const sectionData = techSections.find((s) => s.slug === section);
-  const currentIndex = techSections.findIndex((s) => s.slug === section);
-  const prevSection = currentIndex > 0 ? techSections[currentIndex - 1] : null;
-  const nextSection = currentIndex < techSections.length - 1 ? techSections[currentIndex + 1] : null;
+  const isNonTech = nonTechAcademyIds.includes(aSlug);
+  const activeSections = isNonTech ? nonTechSections : techSections;
+  const sectionData = activeSections.find((s) => s.slug === section);
+  const currentIndex = activeSections.findIndex((s) => s.slug === section);
+  const prevSection = currentIndex > 0 ? activeSections[currentIndex - 1] : null;
+  const nextSection = currentIndex < activeSections.length - 1 ? activeSections[currentIndex + 1] : null;
 
   const isLabs = section === "labs";
   const isInterview = section === "interview";
@@ -173,7 +175,7 @@ export default async function SectionPage({ params }: Props) {
           </div>
         </div>
         <nav>
-          {techSections.map((s) => (
+          {activeSections.map((s) => (
             <Link
               key={s.slug}
               href={`/academies/${aSlug}/${tSlug}/${s.slug}`}

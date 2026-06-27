@@ -253,10 +253,10 @@ export default function Navbar() {
             <div className="logo-wrapper">
               <Image src="/logo-transparent.webp" alt="SynfraCore" width={160} height={24} priority
                 className={scrolled ? "logo-full logo-scrolled-hide" : "logo-full"}
-                style={{ height: "24px", width: "auto" }} />
+                style={{ height: "24px", width: "auto", display: scrolled ? "none" : "block" }} />
               <Image src="/logo-ac-icon.webp" alt="AC" width={36} height={28} priority
                 className={scrolled ? "logo-icon logo-scrolled-show" : "logo-icon"}
-                style={{ height: "28px", width: "auto" }} />
+                style={{ height: "28px", width: "auto", display: scrolled ? "block" : "none" }} />
             </div>
           </Link>
 
@@ -428,16 +428,11 @@ export default function Navbar() {
         .mobile-only { display: none; }
         .logo-full { display: block; }
         .logo-icon { display: none; }
-        /* Scroll: hide full logo, show icon */
-        .logo-scrolled-hide { display: none !important; }
-        .logo-scrolled-show { display: block !important; }
         @media (max-width: 1024px) {
           .desktop-nav { display: none !important; }
           .mobile-only { display: flex !important; }
           .logo-full { display: none !important; }
           .logo-icon { display: block !important; }
-          /* On mobile, scroll-show keeps icon visible */
-          .logo-scrolled-show { display: block !important; }
         }
         .logo-wrapper { display: inline-flex; align-items: center; }
         /* In light mode, invert white logo to dark */

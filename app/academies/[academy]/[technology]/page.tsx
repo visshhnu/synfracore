@@ -3,7 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { getAcademy } from "@/lib/data/academies";
-import { techSections } from "@/lib/data/navigation";
+import { techSections, nonTechSections, nonTechAcademyIds } from "@/lib/data/navigation";
 import { ArrowRight, Clock, Target, BookOpen } from "lucide-react";
 
 type Props = { params: Promise<{ academy: string; technology: string }> };
@@ -86,9 +86,13 @@ export default async function TechnologyPage({ params }: Props) {
           : ["Month 1: Basics", "Month 2: Practice", "Month 3: Mock tests", "Month 4: Final prep"] },
   };
 
-  const availableSections = techSections.filter(s =>
-    ["overview","fundamentals","intermediate","advanced","labs","projects","interview","troubleshooting","certification","cheatsheets"].includes(s.slug)
-  );
+  const isNonTech = nonTechAcademyIds.includes(aSlug);
+  const activeSections = isNonTech ? nonTechSections : techSections;
+  const availableSections = isNonTech
+    ? nonTechSections
+    : techSections.filter(s =>
+        ["overview","fundamentals","intermediate","advanced","labs","projects","interview","troubleshooting","certification","cheatsheets"].includes(s.slug)
+      );
 
   return (
     <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "40px 24px" }}>

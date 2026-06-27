@@ -23,6 +23,7 @@ export const techSections = [
   { slug: "certification", label: "Certification", icon: "🏆", description: "Exam guides, practice questions, and prep strategies" },
   { slug: "cheatsheets", label: "Cheatsheets", icon: "📋", description: "Quick reference — commands, syntax, and patterns" },
   { slug: "notes", label: "Notes", icon: "📝", description: "Key takeaways, tips, and important points to remember" },
+  { slug: "pyq",                  label: "PYQ",       icon: "📝", description: "Previous Year Questions with detailed solutions" },
   { slug: "real-world-scenarios", label: "Real World", icon: "🌍", description: "Production stories, incidents, and how experts solve them" },
   { slug: "faq", label: "FAQ", icon: "❓", description: "Frequently asked questions and clear answers" },
 ];
@@ -122,6 +123,7 @@ export const nonTechSections = [
   { slug: "notes",        label: "Notes",        icon: "📝", description: "Key takeaways and revision points" },
   { slug: "cheatsheets",  label: "Quick Ref",    icon: "📋", description: "At-a-glance summaries and tables" },
   { slug: "interview",    label: "Practice Q&A", icon: "💬", description: "Practice questions and model answers" },
+  { slug: "pyq",          label: "PYQ",          icon: "📝", description: "Previous Year Questions with detailed solutions" },
   { slug: "faq",          label: "FAQ",          icon: "❓", description: "Frequently asked questions" },
 ];
 
