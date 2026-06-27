@@ -583,6 +583,7 @@ const examsAcademy: Academy = {
       description: "SBI PO, IBPS, SSC CGL, RRB, and insurance exams",
       color: "#10B981",
       technologies: [
+        { slug: "banking-exam", name: "Banking PO Exam Prep & PYQ", icon: "🏦", description: "Previous year questions and practice for SBI PO, IBPS PO, Clerk, RBI Grade B with exam strategy", level: "Intermediate", tags: ["Banking", "PYQ", "SBI", "IBPS"] },
         { slug: "banking-exams", name: "Banking Exams (SBI/IBPS)", icon: "🏦", description: "Quantitative aptitude, reasoning, English, banking awareness for SBI PO, IBPS PO/Clerk", level: "Beginner", tags: ["Banking", "SBI", "IBPS"] },
         { slug: "ssc-exam", name: "SSC Exam Guide & PYQ", icon: "🏛️", description: "SSC CGL, CHSL, MTS, CPO overview, previous year questions, section strategy, cut-offs", level: "Beginner", tags: ["SSC", "CGL", "CHSL", "PYQ"] },
       { slug: "ssc-cgl", name: "SSC CGL", icon: "📋", description: "Tier I & II — Quant, English, GK, Reasoning for SSC CGL and CHSL", level: "Beginner", tags: ["SSC", "CGL", "Government"] },

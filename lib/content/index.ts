@@ -6,7 +6,7 @@ const contentRegistry = new Map<string, string>([
   ["devops/linux/advanced","infrastructure/linux/advanced"],
   ["devops/linux/cheatsheets","infrastructure/linux/cheatsheets"],
   ["devops/linux/interview","infrastructure/linux/interview"],
-  ["devops/networking/overview","infrastructure/networking/overview"],
+  ["devops/networking/overview","devops/networking/overview"],
   ["devops/shell-scripting/overview","infrastructure/shell-scripting/overview"],
   ["devops/docker/overview","infrastructure/docker/overview"],
   ["devops/docker/fundamentals","infrastructure/docker/fundamentals"],
@@ -154,7 +154,7 @@ const contentRegistry = new Map<string, string>([
   ["devops/ansible/fundamentals","infrastructure/ansible/fundamentals"],
 
   // Networking depth
-  ["devops/networking/fundamentals","infrastructure/networking/fundamentals"],
+  ["devops/networking/fundamentals","devops/networking/fundamentals"],
   // Git depth
   ["devops/git/fundamentals","infrastructure/git/fundamentals"],
   // Prometheus depth
@@ -214,8 +214,8 @@ const contentRegistry = new Map<string, string>([
   ["cloud/cloud-run/fundamentals","cloud/cloud-run/fundamentals"],
   ["devops/networking/intermediate","infrastructure/networking/intermediate"],
   ["devops/networking/advanced","infrastructure/networking/advanced"],
-  ["devops/networking/interview","infrastructure/networking/interview"],
-  ["devops/networking/cheatsheets","infrastructure/networking/cheatsheets"],
+  ["devops/networking/interview","devops/networking/interview"],
+  ["devops/networking/cheatsheets","devops/networking/cheatsheets"],
   ["devops/shell-scripting/advanced","infrastructure/shell-scripting/advanced"],
   ["devops/shell-scripting/interview","infrastructure/shell-scripting/interview"],
   ["devops/shell-scripting/cheatsheets","infrastructure/shell-scripting/cheatsheets"],
@@ -1935,6 +1935,11 @@ const contentRegistry = new Map<string, string>([
   ["telecom/telco/intermediate","telecom/telco/intermediate"],
   ["telecom/telco/interview","telecom/telco/interview"],
   ["telecom/telco/overview","telecom/telco/overview"],
+  ["devops/docker/troubleshooting","devops/docker/troubleshooting"],
+  ["devops/ansible/troubleshooting","devops/ansible/troubleshooting"],
+  ["devops/terraform/troubleshooting","devops/terraform/troubleshooting"],
+  ["devops/jenkins/troubleshooting","devops/jenkins/troubleshooting"],
+  ["devops/helm/troubleshooting","devops/helm/troubleshooting"],
 ]);
 
 export function hasContent(a: string, t: string, s: string): boolean {
