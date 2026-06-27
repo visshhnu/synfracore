@@ -8,6 +8,7 @@ import SectionContent from "@/components/tech/SectionContent";
 import LabsSection from "@/components/tech/LabsSection";
 import AuthorBadge from "@/components/tech/AuthorBadge";
 import WhatNext from "@/components/tech/WhatNext";
+import ProgressTracker from "@/components/tech/ProgressTracker";
 import QuickQuiz from "@/components/tech/QuickQuiz";
 
 type Props = {
@@ -229,6 +230,14 @@ export default async function SectionPage({ params }: Props) {
         {isLabs ? (
           <LabsSection academy={aSlug} technology={tSlug} techName={tech.name} accentColor={"#6366F1"} />
         ) : (
+          <>
+          <ProgressTracker
+            academy={aSlug}
+            technology={tSlug}
+            section={section}
+            techName={tech.name}
+            accentColor="#3B82F6"
+          />
           <SectionContent
             academy={aSlug}
             technology={tSlug}
@@ -238,6 +247,7 @@ export default async function SectionPage({ params }: Props) {
             sectionLabel={sectionData?.label || section}
             accentColor="#6366F1"
           />
+          </>
         )}
 
         {/* Quick Quiz */}

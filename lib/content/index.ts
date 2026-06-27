@@ -1940,6 +1940,11 @@ const contentRegistry = new Map<string, string>([
   ["devops/terraform/troubleshooting","devops/terraform/troubleshooting"],
   ["devops/jenkins/troubleshooting","devops/jenkins/troubleshooting"],
   ["devops/helm/troubleshooting","devops/helm/troubleshooting"],
+  ["devops/argocd/troubleshooting","devops/argocd/troubleshooting"],
+  ["devops/git/troubleshooting","devops/git/troubleshooting"],
+  ["devops/grafana/troubleshooting","devops/grafana/troubleshooting"],
+  ["devops/linux/troubleshooting","devops/linux/troubleshooting"],
+  ["devops/prometheus/troubleshooting","devops/prometheus/troubleshooting"],
 ]);
 
 export function hasContent(a: string, t: string, s: string): boolean {
