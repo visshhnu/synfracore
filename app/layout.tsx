@@ -24,13 +24,13 @@ export const metadata: Metadata = {
     siteName: "SynfraCore",
     title: "SynfraCore — Learn DevOps, Cloud & AI",
     description: "Master DevOps, Cloud, AI, Databases, and Security with interactive labs and real projects. India's most comprehensive tech learning platform.",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "SynfraCore Learning Platform" }],
+    images: [{ url: "/og-image.svg", width: 1200, height: 630, alt: "SynfraCore Learning Platform" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "SynfraCore — Learn DevOps, Cloud & AI",
     description: "Master DevOps, Cloud, AI, and Security with interactive labs and real projects.",
-    images: ["/og-image.png"],
+    images: ["/og-image.svg"],
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
   icons: {
@@ -50,18 +50,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Fonts: load after page renders — no render blocking */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
-          rel="stylesheet"
-          id="google-fonts"
-          media="print"
-        />
-        <script dangerouslySetInnerHTML={{ __html: `document.getElementById('google-fonts').media='all';` }} />
-        <link rel="dns-prefetch" href="https://translate.google.com" />
-        <link rel="dns-prefetch" href="https://translate.googleapis.com" />
+        {/* Self-hosted fonts — eliminates Google DNS lookup + render blocking */}
+        <style dangerouslySetInnerHTML={{ __html: `
+          @font-face{font-family:'Inter';src:url('/fonts/inter-400.woff2') format('woff2');font-weight:400;font-display:swap;}
+          @font-face{font-family:'Inter';src:url('/fonts/inter-500.woff2') format('woff2');font-weight:500;font-display:swap;}
+          @font-face{font-family:'Inter';src:url('/fonts/inter-600.woff2') format('woff2');font-weight:600;font-display:swap;}
+          @font-face{font-family:'Plus Jakarta Sans';src:url('/fonts/pjs-600.woff2') format('woff2');font-weight:600;font-display:swap;}
+          @font-face{font-family:'Plus Jakarta Sans';src:url('/fonts/pjs-700.woff2') format('woff2');font-weight:700;font-display:swap;}
+          @font-face{font-family:'Plus Jakarta Sans';src:url('/fonts/pjs-800.woff2') format('woff2');font-weight:800;font-display:swap;}
+          @font-face{font-family:'JetBrains Mono';src:url('/fonts/jbm-400.woff2') format('woff2');font-weight:400;font-display:swap;}
+          @font-face{font-family:'JetBrains Mono';src:url('/fonts/jbm-500.woff2') format('woff2');font-weight:500;font-display:swap;}
+        ` }} />
+        <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/pjs-700.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem('theme');if(t==='light')document.documentElement.classList.add('light');}catch(e){}` }} />
         <style>{`.goog-te-banner-frame,.skiptranslate{display:none!important}body{top:0!important}`}</style>
         <WebSiteJsonLd />
