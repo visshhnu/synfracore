@@ -8,53 +8,73 @@ export const metadata = {
 
 const certGroups = [
   {
-    category: "Cloud — AWS",
-    color: "#FF9900",
+    category: "Cloud — AWS", color: "#FF9900",
     certs: [
-      { name: "AWS Cloud Practitioner", code: "CLF-C02", level: "Foundational", time: "1-2 months", link: "/academies/cloud/aws-ec2/certification", topics: ["Cloud Concepts", "Security & Compliance", "Core Services", "Billing"] },
-      { name: "AWS Solutions Architect Associate", code: "SAA-C03", level: "Associate", time: "3 months", link: "/academies/cloud/aws-ec2/certification", topics: ["Resilient Architectures", "High Performance", "Secure Design", "Cost Optimization"] },
-      { name: "AWS DevOps Engineer Professional", code: "DOP-C02", level: "Professional", time: "6 months", link: "/academies/cloud/aws-eks/certification", topics: ["SDLC Automation", "Config Management", "Monitoring & Logging", "Incident Response"] },
+      { id: "aws-ccp",  name: "AWS Cloud Practitioner",           code: "CLF-C02", level: "Foundational", time: "1-2 months",
+        topics: ["Cloud Concepts", "Security & Compliance", "Core Services", "Billing"],
+        modules: [{ label: "Cloud Fundamentals", href: "/academies/cloud/cloud-fundamentals/overview" }, { label: "AWS IAM", href: "/academies/cloud/aws-iam/overview" }] },
+      { id: "aws-saa",  name: "AWS Solutions Architect Associate", code: "SAA-C03", level: "Associate",    time: "3 months",
+        topics: ["Resilient Architectures", "High Performance", "Secure Design", "Cost Optimization"],
+        modules: [{ label: "AWS EC2", href: "/academies/cloud/aws-ec2/overview" }, { label: "AWS VPC", href: "/academies/cloud/aws-vpc/overview" }, { label: "AWS IAM", href: "/academies/cloud/aws-iam/overview" }] },
+      { id: "aws-dop",  name: "AWS DevOps Engineer Professional",  code: "DOP-C02", level: "Professional", time: "6 months",
+        topics: ["SDLC Automation", "Config Management", "Monitoring & Logging", "Incident Response"],
+        modules: [{ label: "AWS EKS", href: "/academies/cloud/aws-eks/overview" }, { label: "CI/CD Jenkins", href: "/academies/devops/jenkins/overview" }, { label: "ArgoCD", href: "/academies/devops/argocd/overview" }] },
     ],
   },
   {
-    category: "Cloud — Azure",
-    color: "#0078D4",
+    category: "Cloud — Azure", color: "#0078D4",
     certs: [
-      { name: "Azure Fundamentals", code: "AZ-900", level: "Foundational", time: "1 month", link: "/academies/cloud/azure-vms/certification", topics: ["Cloud Concepts", "Azure Services", "Security", "Pricing"] },
-      { name: "Azure Administrator", code: "AZ-104", level: "Associate", time: "3 months", link: "/academies/cloud/azure-vms/certification", topics: ["Identity", "Governance", "Storage", "Networking", "Compute"] },
-      { name: "Azure DevOps Engineer Expert", code: "AZ-400", level: "Expert", time: "6 months", link: "/academies/cloud/azure-devops/certification", topics: ["Source Control", "CI/CD", "Dependency Management", "Security"] },
+      { id: "az-900", name: "Azure Fundamentals",              code: "AZ-900", level: "Foundational", time: "1 month",
+        topics: ["Cloud Concepts", "Azure Services", "Security", "Pricing"],
+        modules: [{ label: "Azure VMs", href: "/academies/cloud/azure-vms/overview" }, { label: "Cloud Fundamentals", href: "/academies/cloud/cloud-fundamentals/overview" }] },
+      { id: "az-104", name: "Azure Administrator",             code: "AZ-104", level: "Associate",    time: "3 months",
+        topics: ["Identity", "Governance", "Storage", "Networking", "Compute"],
+        modules: [{ label: "Azure VMs", href: "/academies/cloud/azure-vms/overview" }, { label: "Azure VNets", href: "/academies/cloud/azure-vnets/overview" }, { label: "Azure Entra ID", href: "/academies/cloud/azure-entra/overview" }] },
+      { id: "az-305", name: "Azure Solutions Architect Expert", code: "AZ-305", level: "Expert",       time: "5 months",
+        topics: ["Identity & Access", "Data Storage", "Business Continuity", "Infrastructure"],
+        modules: [{ label: "Azure AKS", href: "/academies/cloud/azure-aks/overview" }, { label: "Azure VMs", href: "/academies/cloud/azure-vms/overview" }, { label: "Azure DevOps", href: "/academies/cloud/azure-devops/overview" }] },
     ],
   },
   {
-    category: "Kubernetes & Cloud Native",
-    color: "#326CE5",
+    category: "Kubernetes & Cloud Native", color: "#326CE5",
     certs: [
-      { name: "Kubernetes & Cloud Native Associate", code: "KCNA", level: "Foundational", time: "1-2 months", link: "/academies/devops/kubernetes/certification", topics: ["K8s Fundamentals", "Cloud Native", "Container Orchestration"] },
-      { name: "Certified Kubernetes Administrator", code: "CKA", level: "Professional", time: "3 months", link: "/academies/devops/kubernetes/certification", topics: ["Cluster Setup", "Workloads", "Networking", "Storage", "Troubleshooting"] },
-      { name: "Certified Kubernetes App Developer", code: "CKAD", level: "Professional", time: "2 months", link: "/academies/devops/kubernetes/certification", topics: ["App Design", "Deployment", "Observability", "Configuration", "Networking"] },
+      { id: "kcna", name: "Kubernetes & Cloud Native Associate", code: "KCNA", level: "Foundational", time: "1-2 months",
+        topics: ["K8s Fundamentals", "Cloud Native", "Container Orchestration"],
+        modules: [{ label: "Kubernetes Fundamentals", href: "/academies/devops/kubernetes/fundamentals" }, { label: "Docker", href: "/academies/devops/docker/overview" }] },
+      { id: "cka",  name: "Certified Kubernetes Administrator",   code: "CKA",  level: "Professional", time: "3 months",
+        topics: ["Cluster Setup", "Workloads", "Networking", "Storage", "Troubleshooting"],
+        modules: [{ label: "Kubernetes Advanced", href: "/academies/devops/kubernetes/advanced" }, { label: "Kubernetes Troubleshooting", href: "/academies/devops/kubernetes/troubleshooting" }] },
+      { id: "ckad", name: "Certified Kubernetes App Developer",   code: "CKAD", level: "Professional", time: "2 months",
+        topics: ["App Design", "Deployment", "Observability", "Configuration", "Networking"],
+        modules: [{ label: "Kubernetes Intermediate", href: "/academies/devops/kubernetes/intermediate" }, { label: "Helm", href: "/academies/devops/helm/overview" }] },
+      { id: "cks",  name: "Certified Kubernetes Security Specialist", code: "CKS", level: "Expert",   time: "4 months",
+        topics: ["Cluster Hardening", "System Hardening", "Supply Chain Security", "Runtime Security"],
+        modules: [{ label: "DevSecOps", href: "/academies/security/devsecops/overview" }, { label: "Kubernetes Security", href: "/academies/devops/kubernetes/advanced" }] },
     ],
   },
   {
-    category: "HashiCorp",
-    color: "#7B42BC",
+    category: "Infrastructure & DevOps", color: "#7B42BC",
     certs: [
-      { name: "Terraform Associate", code: "003", level: "Associate", time: "2 months", link: "/academies/devops/terraform/certification", topics: ["IaC Concepts", "Terraform Workflow", "State Management", "Modules", "Terraform Cloud"] },
+      { id: "terraform-associate", name: "Terraform Associate",                     code: "003",    level: "Associate",    time: "2 months",
+        topics: ["IaC Concepts", "Terraform Workflow", "State Management", "Modules"],
+        modules: [{ label: "Terraform", href: "/academies/devops/terraform/overview" }] },
+      { id: "rhcsa",               name: "Red Hat Certified System Administrator",  code: "EX200",  level: "Professional", time: "3 months",
+        topics: ["Essential Tools", "File Systems", "Networking", "Users & Security"],
+        modules: [{ label: "Linux", href: "/academies/devops/linux/overview" }, { label: "Shell Scripting", href: "/academies/devops/shell-scripting/overview" }] },
+      { id: "rhce",                name: "Red Hat Certified Engineer",              code: "EX294",  level: "Expert",       time: "5 months",
+        topics: ["Ansible Automation", "System Roles", "Inventory Management", "Playbooks"],
+        modules: [{ label: "Ansible", href: "/academies/devops/ansible/overview" }] },
     ],
   },
   {
-    category: "Red Hat",
-    color: "#EE0000",
+    category: "Security", color: "#EF4444",
     certs: [
-      { name: "Red Hat Certified System Administrator", code: "RHCSA", level: "Professional", time: "3 months", link: "/academies/devops/linux/certification", topics: ["Essential Tools", "File Systems", "Networking", "Users & Security", "Containers"] },
-      { name: "Red Hat Certified Engineer", code: "RHCE", level: "Expert", time: "5 months", link: "/academies/devops/ansible/certification", topics: ["Ansible Automation", "System Roles", "Inventory Management", "Playbooks"] },
-    ],
-  },
-  {
-    category: "Security",
-    color: "#10B981",
-    certs: [
-      { name: "CompTIA Security+", code: "SY0-701", level: "Associate", time: "2 months", link: "/academies/security/security-fundamentals/certification", topics: ["Threats & Vulnerabilities", "Architecture", "Implementation", "Incident Response", "Governance"] },
-      { name: "Certified Ethical Hacker", code: "CEH", level: "Professional", time: "4 months", link: "/academies/security/ethical-hacking/certification", topics: ["Footprinting", "Scanning", "Exploitation", "Post-Exploitation", "Reporting"] },
+      { id: "comptia-sec-plus", name: "CompTIA Security+", code: "SY0-701", level: "Associate",    time: "2 months",
+        topics: ["Threats & Vulnerabilities", "Architecture", "Implementation", "Incident Response"],
+        modules: [{ label: "Security Fundamentals", href: "/academies/security/security-fundamentals/overview" }, { label: "Network Security", href: "/academies/security/network-security/overview" }] },
+      { id: "ceh",              name: "Certified Ethical Hacker", code: "CEH",  level: "Professional", time: "4 months",
+        topics: ["Footprinting", "Scanning", "Exploitation", "Post-Exploitation", "Reporting"],
+        modules: [{ label: "Ethical Hacking", href: "/academies/security/ethical-hacking/overview" }, { label: "Pen Testing", href: "/academies/security/pen-testing/overview" }] },
     ],
   },
 ];
@@ -124,8 +144,20 @@ export default function CertificationsPage() {
                     <span key={t} style={{ background: "var(--bg-2)", border: "1px solid var(--border)", padding: "2px 8px", borderRadius: "4px", fontSize: "11px", color: "var(--text-4)" }}>{t}</span>
                   ))}
                 </div>
+                {(cert as {modules?: {label:string;href:string}[]}).modules?.length && (
+                  <div style={{ borderTop: "1px solid var(--border)", paddingTop: "10px" }}>
+                    <div style={{ fontSize: "10px", color: "var(--text-4)", fontWeight: 700, marginBottom: "6px", letterSpacing: "0.06em", textTransform: "uppercase" }}>Study Modules</div>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                      {(cert as {modules?: {label:string;href:string}[]}).modules!.map((m) => (
+                        <a key={m.label} href={m.href} style={{ fontSize: "11px", padding: "3px 10px", borderRadius: "8px", border: "1px solid var(--border)", color: "var(--text-3)", textDecoration: "none" }}>
+                          {m.label} →
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
-                <Link href={cert.link} style={{ display: "flex", alignItems: "center", gap: "6px", background: `${group.color}15`, color: group.color, border: `1px solid ${group.color}33`, padding: "10px 16px", borderRadius: "10px", textDecoration: "none", fontSize: "13px", fontWeight: 600, marginTop: "auto" }}>
+                <Link href={`/certifications/${cert.id}`} style={{ display: "flex", alignItems: "center", gap: "6px", background: `${group.color}15`, color: group.color, border: `1px solid ${group.color}33`, padding: "10px 16px", borderRadius: "10px", textDecoration: "none", fontSize: "13px", fontWeight: 600, marginTop: "auto" }}>
                   <CheckCircle size={14}/> View Study Guide <ArrowRight size={13} style={{ marginLeft: "auto" }}/>
                 </Link>
               </div>

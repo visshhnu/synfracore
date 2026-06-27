@@ -1,6 +1,6 @@
 # Kubernetes Troubleshooting Guide
 
-## CrashLoopBackOff
+## Issue 1: CrashLoopBackOff
 
 **Symptoms:** Pod status shows \`CrashLoopBackOff\`. Pod keeps restarting.
 
@@ -22,7 +22,7 @@ kubectl logs <pod-name> --previous # Logs from crashed container
 
 ---
 
-## Pod Stuck in Pending
+## Issue 2: Pod Stuck in Pending
 
 **Symptoms:** Pod stays in \`Pending\` state, never starts.
 
@@ -57,7 +57,7 @@ kubectl describe pod <pod-name>   # Look at Events
 
 ---
 
-## ImagePullBackOff / ErrImagePull
+## Issue 3: ImagePullBackOff / ErrImagePull
 
 \`\`\`bash
 kubectl describe pod <pod-name>   # Shows exact error
@@ -79,7 +79,7 @@ kubectl describe pod <pod-name>   # Shows exact error
 
 ---
 
-## Service Not Routing Traffic
+## Issue 4: Service Not Routing Traffic
 
 \`\`\`bash
 # 1. Check service exists and has correct selector
@@ -100,7 +100,7 @@ kubectl run debug --image=curlimages/curl --rm -it -- \
 
 ---
 
-## Node NotReady
+## Issue 5: Node NotReady
 
 \`\`\`bash
 kubectl describe node <node-name>   # Check conditions and events
@@ -118,7 +118,7 @@ sudo systemctl restart containerd
 
 ---
 
-## Debugging Toolkit
+## Issue 6: Debugging Toolkit
 
 \`\`\`bash
 # Create a debug pod

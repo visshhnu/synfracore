@@ -1945,6 +1945,12 @@ const contentRegistry = new Map<string, string>([
   ["devops/grafana/troubleshooting","devops/grafana/troubleshooting"],
   ["devops/linux/troubleshooting","devops/linux/troubleshooting"],
   ["devops/prometheus/troubleshooting","devops/prometheus/troubleshooting"],
+  ["cloud/aws-ec2/troubleshooting","cloud/aws-ec2/troubleshooting"],
+  ["cloud/aws-iam/troubleshooting","cloud/aws-iam/troubleshooting"],
+  ["cloud/aws-vpc/troubleshooting","cloud/aws-vpc/troubleshooting"],
+  ["databases/postgresql/troubleshooting","databases/postgresql/troubleshooting"],
+  ["databases/redis/troubleshooting","databases/redis/troubleshooting"],
+  ["databases/mongodb/troubleshooting","databases/mongodb/troubleshooting"],
 ]);
 
 export function hasContent(a: string, t: string, s: string): boolean {

@@ -1,288 +1,162 @@
-# OpenShift — Troubleshooting Guide
+# OpenShift Troubleshooting Guide
 
-## Production Troubleshooting Patterns
+## Issue 1: Pod stuck in Error or CrashLoopBackOff in OpenShift
 
-**DevOps — 30**
+**Symptom:** `oc get pods` shows `STATUS: CrashLoopBackOff` or `Error`. Pod keeps restarting.
 
-**Timeline: 30 days aggressive, 60 days max** **Profile: 11 years | Kubernetes/OpenShift | Terraform | ****ArgoCD**** | Jenkins | Azure/AWS**
+**Root cause:** Application crash, missing ConfigMap/Secret, or Security Context Constraint (SCC) blocking container execution.
 
-**SECTION 1 — TOOL COMPARISON **
+**Debug steps:**
+```bash
+# Check pod events and status
+oc describe pod <pod-name> -n <project>
 
-This is critical. You need to know both your current tool AND the market equivalent so you can speak to in interviews.
+# Read container logs
+oc logs <pod-name> -n <project>
+oc logs <pod-name> -n <project> --previous
 
-| **Category** | **Your Current Tool** | **Market Standard Alternatives** | **What to Say in Interviews** |
-| --- | --- | --- | --- |
-| Log Monitoring | ELK (Elasticsearch, Logstash, Kibana) + Graylog | **Splunk**, **Datadog Logs**, Loki+Grafana, New Relic | "I use ELK/Graylog in production. I understand Splunk's SPL query model and Datadog's log pipelines — same principles, different syntax." |
-| Metrics/Monitoring | Prometheus + Grafana | **Datadog**, **New Relic**, AppDynamics, Dynatrace | "I run Prometheus/Grafana at scale. Datadog is essentially managed Prometheus with better UI — I can onboard quickly." |
-| CI/CD | Jenkins + Azure DevOps | **GitHub Actions**, **GitLab CI**, CircleCI, TeamCity | "I've built Jenkins pipelines as code and Azure DevOps. GitHub Actions uses same YAML-based pipeline concepts." |
-| GitOps | ArgoCD | **FluxCD**, Spinnaker | "ArgoCD and FluxCD are both CNCF GitOps tools. ArgoCD gives better UI visibility; FluxCD is more Kubernetes-native." |
-| IaC | Terraform | **OpenTofu** (Terraform fork), Pulumi, AWS CDK, ARM | "I use Terraform. OpenTofu is the open-source fork — same HCL syntax, drop-in replacement." |
-| Container Platform | Kubernetes + OpenShift OCP 4.16 | **EKS**, **AKS**, GKE, Rancher | "OpenShift is enterprise Kubernetes with RBAC, SCC, and Operator Framework on top. EKS/AKS are simpler — easier, not harder." |
-| Config Management | Ansible | **Chef**, **Puppet**, SaltStack | "Ansible is agentless, YAML-based. Chef/Puppet are more complex — Ansible is actually the industry default now." |
-| Secret Management | (not on resume — ADD THIS) | **HashiCorp**** Vault**, AWS Secrets Manager, Azure Key Vault | "I work with Azure Key Vault in production. HashiCorp Vault is the open-source standard — same concept." |
-| Service Mesh | (not on resume — ADD THIS) | **Istio**, Linkerd, Consul Connect | "I understand service mesh concepts from managing microservice platforms at HPE/Vodafone scale." |
-| Container Registry | (add to resume) | ECR, ACR, Harbor, JFrog Artifactory | "I use ACR (Azure Container Registry) for image management in our Azure pipelines." |
+# Check SCC violations (common in OpenShift)
+oc get events -n <project> | grep SCC
+oc get pod <pod-name> -o yaml | grep -i scc
+```
 
-**SECTION 2 — DEEP DIVE: TOOL-BY-TOOL INTERVIEW Q****&****A**
+**Fix:**
+```bash
+# SCC issue: pod needs elevated privileges
+oc adm policy add-scc-to-serviceaccount anyuid -z default -n <project>
+# Or create ServiceAccount and bind specific SCC
+oc create sa myapp-sa -n <project>
+oc adm policy add-scc-to-serviceaccount privileged -z myapp-sa -n <project>
 
-**2.1 KUBERNETES — Deep Troubleshooting**
+# Then update deployment to use SA
+oc set serviceaccount deployment/myapp myapp-sa -n <project>
+```
 
-**Q: Pod is in ****CrashLoopBackOff****. How do you troubleshoot?**
-
-# Step 1: Check pod status and events
-
-kubectl get pod <pod-name> -n <namespace>
-
-kubectl describe pod <pod-name> -n <namespace>
-
-# Step 2: Check logs — current and previous crash
-
-kubectl logs <pod-name> -n <namespace>
-
-kubectl logs <pod-name> -n <namespace> --previous
-
-# Step 3: Check resource limits (OOMKilled is common cause)
-
-kubectl get pod <pod-name> -o jsonpath='{.spec.containers[*].resources}'
-
-# Step 4: Exec into pod if it starts briefly
-
-kubectl exec -it <pod-name> -- /bin/sh
-
-# Step 5: Check ConfigMaps/Secrets mounted correctly
-
-kubectl get configmap <name> -o yaml
-
-kubectl get secret <name> -o yaml | base64 --decode
-
-**Your answer:** "In our HPE/Vodafone environment running 50+ pods, I dealt with this regularly. Most common causes were OOMKilled (fix: adjust memory limits), missing environment variables from misconfigured secrets, or application startup failures. I always check --previous logs first as the current logs may be empty after restart."
-
-**Q: Node is ****NotReady****. What do you do?**
-
-# Step 1: Check node status
-
-kubectl get nodes
-
-kubectl describe node <node-name>
-
-# Step 2: Check node conditions
-
-kubectl get node <node-name> -o jsonpath='{.status.conditions}'
-
-# Step 3: SSH to node and check kubelet
-
-systemctl status kubelet
-
-journalctl -u kubelet -n 100
-
-# Step 4: Check disk/memory pressure
-
-df -h
-
-free -m
-
-top
-
-# Step 5: Check container runtime
-
-systemctl status containerd   # or docker
-
-crictl ps
-
-# Step 6: Check network plugin (CNI)
-
-kubectl get pods -n kube-system | grep -i cni
-
-**Your answer:** "Common causes are kubelet crash, disk pressure, memory pressure, or CNI plugin failure. I check kubelet logs first — in our production environment this was usually disk pressure on /var/lib/docker or a network plugin issue."
-
-**Q: Deployment is stuck — pods not rolling out. How do you debug?**
-
-# Check rollout status
-
-kubectl rollout status deployment/<name> -n <namespace>
-
-# Check deployment events
-
-kubectl describe deployment <name> -n <namespace>
-
-# Check if new ReplicaSet is created
-
-kubectl get rs -n <namespace>
-
-# Check if image pull is failing
-
-kubectl get events -n <namespace> --sort-by='.lastTimestamp'
-
-# Rollback if needed
-
-kubectl rollout undo deployment/<name> -n <namespace>
-
-# Check rollout history
-
-kubectl rollout history deployment/<name> -n <namespace>
-
-**Q: How do you debug a service that is not reachable inside the cluster?**
-
-# Step 1: Check service exists and has endpoints
-
-kubectl get svc <service-name> -n <namespace>
-
-kubectl get endpoints <service-name> -n <namespace>
-
-# Step 2: Check pod labels match service selector
-
-kubectl get pods --show-labels -n <namespace>
-
-kubectl describe svc <service-name> -n <namespace>
-
-# Step 3: Test connectivity from another pod
-
-kubectl run test-pod --image=busybox --rm -it -- wget -qO- http://<service-name>:<port>
-
-# Step 4: Check NetworkPolicy blocking traffic
-
-kubectl get networkpolicy -n <namespace>
-
-# Step 5: Check kube-proxy
-
-kubectl get pods -n kube-system | grep kube-proxy
-
-kubectl logs -n kube-system <kube-proxy-pod>
-
-**Q: How do you handle ****PersistentVolume**** issues — pod stuck in Pending?**
-
-# Check PVC status
-
-kubectl get pvc -n <namespace>
-
-kubectl describe pvc <pvc-name> -n <namespace>
-
-# Check StorageClass
-
-kubectl get storageclass
-
-kubectl describe storageclass <name>
-
-# Check PV availability
-
-kubectl get pv
-
-# Common issues:
-
-# 1. StorageClass not found → check spelling in PVC spec
-
-# 2. No available PV matching request → check capacity/access mode
-
-# 3. PV in Released state → manually delete and recreate
-
-**2.2 OPENSHIFT — Corporate Interview Q****&****A**
-
-**Q: How is OpenShift different from vanilla Kubernetes?**
-
-"OpenShift adds enterprise security, developer workflow, and operational tooling on top of Kubernetes:
-
-- **Security Context Constraints (SCC)**: OpenShift's RBAC extension. Pods cannot run as root by default — stricter than vanilla K8s PodSecurityPolicy.
-
-- **Routes vs Ingress**: OpenShift uses Routes natively (HAProxy-based). Ingress works too but Routes are idiomatic OCP.
-
-- **Operators**: Red Hat Operator Framework is built-in. Lifecycle management of complex apps via CRDs.
-
-- **Built-in Registry**: OpenShift has an internal container registry out of the box.
-
-- **oc**** CLI**: Extended kubectl with OCP-specific commands.
-
-- **Image Streams**: OCP-native image versioning that auto-triggers deployments on image updates."
-
-**Q: How do you create a project and deploy an app in OpenShift?**
-
-# Create new project (namespace in OCP)
-
-oc new-project my-project
-
-# Deploy from image
-
-oc new-app --image=nginx:latest --name=my-app
-
-# Expose as route
-
-oc expose svc/my-app
-
-# Check route
-
-oc get route
-
-# Check deployment
-
-oc get pods
-
-oc logs -f <pod-name>
-
-# Scale
-
-oc scale deployment/my-app --replicas=3
-
-**Q: SCC — a pod fails with "unable to validate against any security context constraint". How do you fix?**
-
-# Check what SCCs are available
-
-oc get scc
-
-# Check what SCC a pod needs
-
-oc adm policy who-can use scc anyuid
-
-# Add SCC to service account (example: allow anyuid for legacy app)
-
-oc adm policy add-scc-to-user anyuid -z <service-account-name> -n <namespace>
-
-# Check which SCC a running pod is using
-
-oc get pod <pod-name> -o jsonpath='{.metadata.annotations.openshift\.io/scc}'
-
-**2.3 TERRAFORM — Deep Q****&****A**
-
-**Q: Explain Terraform state and why it matters.**
-
-"Ter
+**Prevention:** Use custom SCC with minimal permissions instead of `anyuid`. Use `oc adm policy who-can use scc/anyuid` to audit.
 
 ---
 
-## OCP-Specific Troubleshooting
+## Issue 2: Route not accessible — 503 Application Not Available
 
+**Symptom:** Accessing the OpenShift Route URL returns `503 Application Not Available` or HAProxy timeout.
+
+**Root cause:** Service has no healthy endpoints, wrong target port in Route, or Pod not in Ready state.
+
+**Debug steps:**
 ```bash
-# Cluster health
-oc get clusteroperators
-oc get clusterversion
-oc describe clusterversion version
+# Check if service has endpoints
+oc get endpoints <service-name> -n <project>
 
-# Node issues
-oc debug node/<node-name>
-oc adm node-logs <node-name> -u kubelet
+# Check route → service mapping
+oc describe route <route-name> -n <project>
+# Look for: Service, Target Port, TLS settings
 
-# etcd health
-oc rsh -n openshift-etcd etcd-<master-node>
-etcdctl endpoint health --cluster
+# Check pod readiness
+oc get pods -n <project> -o wide
+oc describe pod <pod-name> | grep -A5 "Readiness"
 
-# Operator issues
-oc get co   # clusteroperators — check DEGRADED column
-oc describe co <operator-name>
-
-# Registry issues
-oc get pods -n openshift-image-registry
-oc logs -n openshift-image-registry deployment/image-registry
-
-# Ingress/Router
-oc get pods -n openshift-ingress
-oc logs -n openshift-ingress <router-pod>
+# Test service directly from within cluster
+oc run test --image=busybox --restart=Never -- wget -O- http://<service>:<port>
 ```
 
-## Common Error Patterns
+**Fix:**
+```bash
+# Ensure Route target port matches container port
+oc patch route myapp -p '{"spec":{"port":{"targetPort":"8080-tcp"}}}'
 
-| Error | Likely Cause | Fix |
-|-------|-------------|-----|
-| CrashLoopBackOff | App crash, OOMKilled, bad config | Check --previous logs, resource limits |
-| ImagePullBackOff | Wrong image name, registry auth | Check imagePullSecret, image tag |
-| Pending pod | Resource shortage, node selector mismatch | Check node resources, affinity rules |
-| SCC violation | Pod needs higher privilege | Add appropriate SCC to ServiceAccount |
-| Route not working | Router not running, service mismatch | Check router pods, service selectors |
-| Upgrade stuck | Cluster operator degraded | Check co status, resolve degraded operators |
+# Add readinessProbe if missing
+oc set probe deployment/myapp   --readiness --get-url=http://:8080/health   --period-seconds=10 --failure-threshold=3
+```
+
+---
+
+## Issue 3: ImagePullBackOff — cannot pull from internal registry
+
+**Symptom:** Pod shows `ImagePullBackOff`. Event shows `unauthorized: authentication required`.
+
+**Root cause:** Missing pull secret, wrong registry URL, or image not pushed to correct project namespace.
+
+**Debug steps:**
+```bash
+# Check pod events
+oc describe pod <pod-name> | grep -A5 "Events"
+
+# Verify image exists in registry
+oc get imagestream -n <project>
+oc get imagestreamtag <name>:<tag> -n <project>
+
+# Check pull secret
+oc get secrets -n <project> | grep pull
+oc get sa default -n <project> -o yaml | grep imagePullSecret
+```
+
+**Fix:**
+```bash
+# Link pull secret to service account
+oc secrets link default <pull-secret-name> --for=pull -n <project>
+
+# For external registry: create secret
+oc create secret docker-registry my-registry-secret   --docker-server=registry.example.com   --docker-username=user   --docker-password=pass   -n <project>
+oc secrets link default my-registry-secret --for=pull
+```
+
+---
+
+## Issue 4: Builds failing — BuildConfig stuck or erroring
+
+**Symptom:** `oc get builds` shows `Failed` or `Pending`. Source-to-Image (S2I) builds fail.
+
+**Debug steps:**
+```bash
+# Check build logs
+oc logs build/<build-name> -n <project>
+oc logs bc/<buildconfig-name> -n <project>
+
+# Get build events
+oc describe build <build-name> -n <project>
+
+# Check builder pod
+oc get pods -n <project> | grep build
+oc logs <build-pod-name> -n <project>
+```
+
+**Fix:**
+```bash
+# Trigger new build with more verbosity
+oc start-build <buildconfig-name> --follow -n <project>
+
+# If S2I fails on dependencies: clear cache
+oc start-build <buildconfig-name> --build-arg=NOCACHE=1
+
+# Fix resource limits if OOMKilled
+oc set resources bc/<name> --limits=memory=1Gi --requests=memory=512Mi
+```
+
+---
+
+## Issue 5: Project namespace stuck in Terminating
+
+**Symptom:** `oc get projects` shows project stuck in `Terminating` for hours.
+
+**Root cause:** Finalizers on resources (often custom resources) blocking namespace deletion.
+
+**Debug steps:**
+```bash
+# Check what's still in the namespace
+oc get all -n <project>
+oc api-resources --verbs=list --namespaced -o name |   xargs -I{} oc get {} -n <project> 2>/dev/null | grep -v "No resources"
+
+# Check for stuck finalizers
+oc get namespace <project> -o yaml | grep finalizers -A5
+```
+
+**Fix:**
+```bash
+# Remove finalizers from stuck resources (example: CRD instances)
+oc patch <resource>/<name> -n <project>   -p '{"metadata":{"finalizers":[]}}' --type=merge
+
+# Nuclear option: force remove namespace finalizer
+kubectl get namespace <project> -o json |   jq '.spec.finalizers = []' |   kubectl replace --raw /api/v1/namespaces/<project>/finalize -f -
+```
+
+**Prevention:** Always delete CRD instances before the CRD itself. Use `oc delete namespace` and wait for completion before recreating.

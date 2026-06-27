@@ -42,16 +42,20 @@ export const certifications = [
   { id: "terraform-associate", name: "Terraform Associate", code: "003", provider: "HashiCorp", color: "#7B42BC", level: "Associate" },
   { id: "rhcsa", name: "Red Hat Certified System Administrator", code: "EX200", provider: "Red Hat", color: "#EE0000", level: "Professional" },
   { id: "rhce", name: "Red Hat Certified Engineer", code: "EX294", provider: "Red Hat", color: "#EE0000", level: "Expert" },
+  { id: "aws-dop", name: "AWS DevOps Engineer Professional", code: "DOP-C02", provider: "AWS", color: "#FF9900", level: "Professional" },
+  { id: "az-400", name: "Azure DevOps Engineer Expert", code: "AZ-400", provider: "Azure", color: "#0078D4", level: "Expert" },
+  { id: "comptia-sec-plus", name: "CompTIA Security+", code: "SY0-701", provider: "CompTIA", color: "#EF4444", level: "Associate" },
+  { id: "ceh", name: "Certified Ethical Hacker", code: "CEH", provider: "EC-Council", color: "#EF4444", level: "Professional" },
 ];
 
 export const roadmaps = [
   // ── TECH TRACKS ────────────────────────────────────────────────────────────
   { slug: "devops-engineer", title: "DevOps Engineer", icon: "⚙️", color: "#3B82F6", category: "tech", duration: "6 months",
-    steps: ["Linux & Shell", "Git & Docker", "Kubernetes", "CI/CD Pipelines", "Cloud (AWS/Azure)", "Monitoring & IaC"] },
+    steps: ["Linux", "Shell Scripting", "Git", "Docker", "Kubernetes", "CI/CD Pipelines", "Cloud — AWS", "Cloud — Azure", "Monitoring", "IaC with Terraform"] },
   { slug: "cloud-architect", title: "Cloud Architect", icon: "☁️", color: "#0EA5E9", category: "tech", duration: "8 months",
     steps: ["Cloud Fundamentals", "AWS Core Services", "Azure Core Services", "Networking & Security", "Architecture Patterns", "HA & DR", "Cost Optimization"] },
   { slug: "platform-engineer", title: "Platform Engineer", icon: "🏗️", color: "#6366F1", category: "tech", duration: "9 months",
-    steps: ["Linux & Networking", "Kubernetes Advanced", "Terraform", "Helm", "ArgoCD / GitOps", "Service Mesh", "Observability"] },
+    steps: ["Linux", "Networking", "Kubernetes Advanced", "Terraform", "Helm", "ArgoCD / GitOps", "Service Mesh", "Observability"] },
   { slug: "ai-engineer", title: "AI Engineer", icon: "🤖", color: "#8B5CF6", category: "tech", duration: "6 months",
     steps: ["Python Foundations", "ML Fundamentals", "LLM Concepts", "Prompt Engineering", "LangChain & RAG", "AI Agents", "LLMOps"] },
   { slug: "data-analyst", title: "Data Analyst", icon: "📊", color: "#06B6D4", category: "tech", duration: "4 months",
