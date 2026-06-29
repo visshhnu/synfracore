@@ -40,9 +40,10 @@ function LanguageSwitcher() {
         <Globe size={14} /><ChevronDown size={10} />
       </button>
       {open && (
-        <div style={{ position: "absolute", top: "calc(100% + 6px)", right: 0, background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "10px", boxShadow: "0 12px 32px rgba(0,0,0,0.25)", zIndex: 600, minWidth: "150px", maxHeight: "280px", overflowY: "auto" }}>
+        <div className="notranslate" style={{ position: "absolute", top: "calc(100% + 6px)", right: 0, background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "10px", boxShadow: "0 12px 32px rgba(0,0,0,0.25)", zIndex: 600, minWidth: "150px", maxHeight: "280px", overflowY: "auto" }}>
           {langs.map(l => (
-            <button key={l.code} onClick={() => translate(l.code)} style={{ display: "block", width: "100%", padding: "8px 14px", background: "none", border: "none", borderBottom: "1px solid var(--border)", cursor: "pointer", color: "var(--text-2)", fontSize: "13px", fontFamily: "inherit", textAlign: "left" }}
+            <button key={l.code} onClick={() => translate(l.code)} translate="no"
+              style={{ display: "block", width: "100%", padding: "8px 14px", background: "none", border: "none", borderBottom: "1px solid var(--border)", cursor: "pointer", color: "var(--text-2)", fontSize: "13px", fontFamily: "inherit", textAlign: "left" }}
               onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--bg-1)"}
               onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "none"}
             >{l.label}</button>

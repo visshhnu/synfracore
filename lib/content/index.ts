@@ -1951,6 +1951,16 @@ const contentRegistry = new Map<string, string>([
   ["databases/postgresql/troubleshooting","databases/postgresql/troubleshooting"],
   ["databases/redis/troubleshooting","databases/redis/troubleshooting"],
   ["databases/mongodb/troubleshooting","databases/mongodb/troubleshooting"],
+  ["data/data-visualization/overview","data/data-visualization/overview"],
+  ["data/dashboarding/overview","data/dashboarding/overview"],
+  ["security/cloud-security/overview","security/cloud-security/overview"],
+  ["security/incident-response/overview","security/incident-response/overview"],
+  ["databases/database-design/overview","databases/database-design/overview"],
+  ["databases/performance-tuning/overview","databases/performance-tuning/overview"],
+  ["data/dbt/overview","data/dbt/overview"],
+  ["data/airflow/overview","data/airflow/overview"],
+  ["data/spark/overview","data/spark/overview"],
+  ["essentials/sleep-health/overview","essentials/sleep-health/overview"],
 ]);
 
 export function hasContent(a: string, t: string, s: string): boolean {

@@ -132,6 +132,30 @@ export default function Home() {
             </Link>
           </div>
 
+          {/* Roadmap quick tiles */}
+          <div style={{ marginBottom: "48px" }}>
+            <div style={{ fontSize: "12px", fontWeight: 700, color: "var(--text-4)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "14px" }}>
+              Popular Learning Paths
+            </div>
+            <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+              {[
+                { icon: "⚙️", label: "DevOps Engineer",      slug: "devops-engineer",     color: "#3B82F6" },
+                { icon: "☁️", label: "Cloud Architect",       slug: "cloud-architect",      color: "#0EA5E9" },
+                { icon: "🤖", label: "AI Engineer",           slug: "ai-engineer",          color: "#8B5CF6" },
+                { icon: "🏛️", label: "UPSC Civil Services",   slug: "upsc-ias",             color: "#F59E0B" },
+                { icon: "🏦", label: "Banking PO",            slug: "banking-po",           color: "#10B981" },
+                { icon: "⚖️", label: "Advocate / LLB",        slug: "advocate-career",      color: "#6366F1" },
+              ].map(rm => (
+                <a key={rm.slug} href={`/roadmaps/${rm.slug}`}
+                  style={{ display: "flex", alignItems: "center", gap: "8px", padding: "8px 16px", borderRadius: "10px", background: "var(--bg-2)", border: `1px solid ${rm.color}30`, textDecoration: "none", transition: "border-color 0.15s" }}>
+                  <span style={{ fontSize: "16px" }}>{rm.icon}</span>
+                  <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-2)", whiteSpace: "nowrap" }}>{rm.label}</span>
+                  <span style={{ color: rm.color, fontSize: "12px", fontWeight: 700 }}>→</span>
+                </a>
+              ))}
+            </div>
+          </div>
+
           {/* Stats row */}
           <div style={{ display: "flex", gap: "0", flexWrap: "wrap", borderTop: "1px solid var(--border)", paddingTop: "40px" }}>
             {stats.map((s, i) => (
