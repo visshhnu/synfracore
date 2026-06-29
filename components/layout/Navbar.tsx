@@ -175,7 +175,7 @@ function MobileSearchOverlay({ onClose }: { onClose: () => void }) {
 
 // ── Constants ─────────────────────────────────────────────
 const NAV_LINKS = [
-  { n: "Roadmaps", h: "/roadmaps" }, { n: "Labs", h: "/labs" },
+  { n: "Roadmaps", h: "/roadmaps" }, { n: "Academies", h: "/academies" }, { n: "Labs", h: "/labs" },
   { n: "Certifications", h: "/certifications" }, { n: "Interview", h: "/interview" }, { n: "PYQs", h: "/pyqs" },
   { n: "AI Assistant", h: "/ai-assistant" }, { n: "Career", h: "/career" },
 ];
@@ -359,6 +359,11 @@ export default function Navbar() {
               <X size={16} />
             </button>
           </div>
+        </div>
+
+        {/* Mobile search — only visible inside drawer */}
+        <div style={{ padding: "10px 12px", borderBottom: "1px solid var(--border)" }}>
+          <SearchBox />
         </div>
 
         <div style={{ padding: "8px 12px 3px" }}>

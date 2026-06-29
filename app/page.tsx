@@ -98,37 +98,24 @@ export default function Home() {
         <div style={{ position: "absolute", bottom: "-80px", right: "-80px", width: "400px", height: "400px", background: "radial-gradient(circle, rgba(124,58,237,0.10) 0%, transparent 65%)", borderRadius: "50%", pointerEvents: "none" }} />
 
         <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative" }}>
-          <div className="badge badge-blue" style={{ marginBottom: "28px" }}>
-            <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#34D399", display: "inline-block", animation: "pulse-dot 2s infinite" }} />
-            Learn Anything. Crack Every Exam. Get Hired.
-          </div>
-
-          <h1 className="display-xl" style={{ marginBottom: "24px", maxWidth: "860px" }}>
-            From{" "}<span className="grad-blue">Beginner</span>{" "}to{" "}
-            <span className="grad-blue">Job-Ready</span>
-            <br />
-            <span style={{ color: "var(--text-2)", fontWeight: 700 }}>
-              Tech · Exams · Certifications
-            </span>
+          <h1 className="display-xl" style={{ marginBottom: "16px", maxWidth: "900px" }}>
+            Learn Anything.{" "}<span className="grad-blue">Crack Every Exam.</span>{" "}Get Hired
           </h1>
 
-          <p className="body-lg" style={{ maxWidth: "600px", marginBottom: "16px" }}>
-            Expert-written content for DevOps, Cloud, AI, and Platform Engineering —
-            plus structured chapter-wise prep for JEE, NEET, GATE, Banking, UPSC, and SSC.
-          </p>
-          <p style={{ color: "var(--text-4)", fontSize: "15px", maxWidth: "560px", marginBottom: "44px" }}>
-            Hands-on labs · Real interview Q&As · PYQs · MCQ practice · Certification prep — all in one place.
+          <p className="body-lg" style={{ maxWidth: "620px", marginBottom: "8px", fontWeight: 600, color: "var(--text-2)", fontSize: "20px" }}>
+            From Beginner to Job-Ready — Tech · Exams · Certifications
           </p>
 
-          <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", marginBottom: "64px" }}>
-            <Link href="/academies" className="btn-primary" style={{ fontSize: "15px", padding: "14px 32px" }}>
-              Explore Tech Academies <ArrowRight size={17} />
+          <p style={{ color: "var(--text-4)", fontSize: "15px", maxWidth: "620px", marginBottom: "40px" }}>
+            Expert-written content for DevOps, Cloud, AI · JEE, NEET, GATE, Banking, UPSC, SSC · Hands-on labs · Interview Q&As · PYQs · Certification prep — all free.
+          </p>
+
+          <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", marginBottom: "40px" }}>
+            <Link href="/roadmaps" className="btn-primary" style={{ fontSize: "15px", padding: "14px 32px" }}>
+              Browse Roadmaps <ArrowRight size={17} />
             </Link>
-            <Link href="/learn" className="btn-secondary" style={{ fontSize: "15px", padding: "14px 32px" }}>
-              📚 Browse Education
-            </Link>
-            <Link href="/roadmaps" className="btn-secondary" style={{ fontSize: "15px", padding: "14px 32px" }}>
-              View Roadmaps
+            <Link href="/academies" className="btn-secondary" style={{ fontSize: "15px", padding: "14px 32px" }}>
+              Explore Academies
             </Link>
           </div>
 
