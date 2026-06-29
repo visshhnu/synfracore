@@ -186,7 +186,9 @@ const cloudAcademy: Academy = {
       description: "Multi-cloud, FinOps, security, and enterprise architecture",
       color: "#6366F1",
       technologies: [
-        { slug: "cloud-security", name: "Cloud Security", icon: "🔒", description: "CSPM, IAM best practices, encryption, compliance, guardrails", level: "Advanced", tags: ["Security", "CSPM", "Compliance"] },
+              { slug: "architecture-patterns", name: "Architecture Patterns", icon: "🏛️", description: "Multi-cloud architecture patterns: multi-AZ, hub-and-spoke, strangler fig, CQRS, saga, serverless event-driven", level: "Advanced", tags: ["Architecture", "Patterns", "Multi-Cloud", "Design"] },
+      { slug: "networking-security", name: "Cloud Networking & Security", icon: "🔒", description: "VPC/VNet design, security groups, NACLs, NSGs, Zero Trust, WAF, encryption at rest and in transit", level: "Intermediate", tags: ["VPC", "Security Groups", "NSG", "Zero Trust", "Encryption"] },
+      { slug: "cloud-security", name: "Cloud Security", icon: "🔒", description: "CSPM, IAM best practices, encryption, compliance, guardrails", level: "Advanced", tags: ["Security", "CSPM", "Compliance"] },
         { slug: "cost-optimization", name: "Cost Optimization", icon: "💰", description: "FinOps — rightsizing, reservations, savings plans, spot, tagging", level: "Intermediate", tags: ["FinOps", "Cost", "Reserved"] },
         { slug: "landing-zones", name: "Landing Zones", icon: "🏢", description: "Enterprise foundations — multi-account, governance, account vending", level: "Advanced", tags: ["Enterprise", "Governance", "Multi-Account"] },
       ],

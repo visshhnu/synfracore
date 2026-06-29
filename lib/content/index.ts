@@ -1961,6 +1961,16 @@ const contentRegistry = new Map<string, string>([
   ["data/airflow/overview","data/airflow/overview"],
   ["data/spark/overview","data/spark/overview"],
   ["essentials/sleep-health/overview","essentials/sleep-health/overview"],
+  ["devops/cicd/overview","devops/cicd/overview"],
+  ["cloud/architecture-patterns/overview","cloud/architecture-patterns/overview"],
+  ["cloud/networking-security/overview","cloud/networking-security/overview"],
+  ["exams/upsc-ethics/overview","exams/upsc-ethics/overview"],
+  ["exams/upsc-optional/overview","exams/upsc-optional/overview"],
+  ["exams/neet-mocktests/overview","exams/neet-mocktests/overview"],
+  ["exams/jee-advanced/overview","exams/jee-advanced/overview"],
+  ["devops/chaos-engineering/overview","devops/chaos-engineering/overview"],
+  ["devops/automation/overview","devops/automation/overview"],
+  ["essentials/daily-movement/overview","essentials/daily-movement/overview"],
 ]);
 
 export function hasContent(a: string, t: string, s: string): boolean {

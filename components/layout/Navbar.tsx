@@ -175,7 +175,7 @@ function MobileSearchOverlay({ onClose }: { onClose: () => void }) {
 
 // ── Constants ─────────────────────────────────────────────
 const NAV_LINKS = [
-  { n: "Roadmaps", h: "/roadmaps" }, { n: "Academies", h: "/academies" }, { n: "Labs", h: "/labs" },
+  { n: "Roadmaps", h: "/roadmaps" }, { n: "Labs", h: "/labs" },
   { n: "Certifications", h: "/certifications" }, { n: "Interview", h: "/interview" }, { n: "PYQs", h: "/pyqs" },
   { n: "AI Assistant", h: "/ai-assistant" }, { n: "Career", h: "/career" },
 ];
