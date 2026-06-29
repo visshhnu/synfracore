@@ -1,0 +1,15 @@
+# robots.txt — synfracore.com
+
+User-agent: *
+Allow: /
+
+# Block internal API routes
+Disallow: /api/
+Disallow: /_next/
+Disallow: /search?q=
+
+# Block utility pages
+Disallow: /privacy
+Disallow: /terms
+
+Sitemap: https://synfracore.com/sitemap.xml
