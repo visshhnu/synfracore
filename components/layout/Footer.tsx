@@ -99,11 +99,8 @@ export default function Footer() {
 
           {/* Brand column */}
           <div>
-            <Link href="/" style={{ display: "inline-flex", alignItems: "center", gap: "10px", textDecoration: "none", marginBottom: "16px" }}>
-              <div className="logo-pill" style={{ display: "flex", alignItems: "center" }}>
-                <Image src="/logo-ac-icon.png" alt="SynfraCore" width={49} height={32} style={{ height: "28px", width: "auto" }} />
-              </div>
-              <span style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "17px", fontWeight: 800, color: "var(--text-1)" }}>SynfraCore</span>
+            <Link href="/" style={{ display: "inline-flex", alignItems: "center", textDecoration: "none", marginBottom: "16px" }}>
+              <Image src="/logo-full.png" alt="SynfraCore" width={632} height={500} style={{ height: "56px", width: "auto" }} />
             </Link>
             <p style={{ color: "var(--text-4)", fontSize: "13px", lineHeight: 1.75, maxWidth: "260px", marginBottom: "20px" }}>
               The world&apos;s most comprehensive tech learning ecosystem. Built for practitioners, by practitioners. Education should be free.

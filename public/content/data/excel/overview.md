@@ -2,6 +2,56 @@
 
 Excel is the most widely used data tool in the world. From entry-level analysts to CFOs, everyone uses Excel. Mastering it means faster work, fewer errors, and better insights.
 
+## Why Excel — And Why It Still Matters in 2026
+
+Every data tool eventually has to answer to a spreadsheet. Power BI dashboards get sanity-checked in Excel. Finance teams build entire budgets in it. Startups run their first CRM in a shared sheet before they can afford real software. Excel wins because of three things no other tool matches as well: **zero setup cost** (it's already on every business laptop), **a formula language everyone half-knows already**, and **total flexibility** — you can model literally anything in a grid before deciding it deserves a proper database or app.
+
+## Where Excel Is Actually Used (By Role)
+
+| Role | What they do in Excel |
+|---|---|
+| Financial Analyst | Build 3-statement models, DCF valuations, variance analysis vs budget |
+| Operations Manager | Track inventory, shift schedules, SLA compliance dashboards |
+| HR / People Ops | Headcount planning, compensation bands, attrition tracking |
+| Marketing Analyst | Campaign ROI, cohort retention tables, budget pacing |
+| Supply Chain Analyst | Demand forecasting, reorder point calculations, vendor scorecards |
+| Small Business Owner | Full bookkeeping, invoicing, cash flow forecasting |
+
+If you can't yet picture *who* uses a formula and *why*, the formula is just trivia. The functions below are grouped by what they're actually for — not just syntax.
+
+## Case Study 1 — Building a Regional Sales Dashboard
+
+**Scenario**: You're a data analyst at a retail chain. Leadership wants to see which regions are underperforming *before* the quarterly review, not during it.
+
+1. **Raw data**: A 15,000-row export of `Date, Region, Product Category, Revenue, Units Sold` from the POS system.
+2. **Clean it**: Remove duplicate transaction IDs (`Data → Remove Duplicates`), fix inconsistent region names with `Find & Replace`, convert the `Date` text column to real dates with `Text to Columns`.
+3. **Summarise it**: Build a Pivot Table — Rows: Region, Columns: Month, Values: Sum of Revenue. Add a calculated field for `Revenue / Units Sold` = Average Selling Price.
+4. **Visualise it**: A Pivot Chart (combo: bars for revenue, line for units sold) connected to a Region slicer.
+5. **The insight**: One region shows flat revenue but rising units sold — meaning average selling price is quietly dropping. That's the sentence leadership actually needed, and Excel got you there in an afternoon.
+
+## Case Study 2 — Reconciling Two Messy Data Sources
+
+**Scenario**: Finance gives you a list of "expected payments" and the bank gives you "actual payments received." You need to flag what's missing.
+
+```excel
+// Use XLOOKUP to check if each expected payment actually arrived
+=XLOOKUP(A2, BankData[Reference], BankData[Amount], "MISSING")
+
+// Then flag mismatches where amounts differ
+=IF(B2<>C2, "AMOUNT MISMATCH", "OK")
+```
+
+This two-formula pattern — lookup, then compare — is one of the single most common real-world Excel tasks in finance and operations, far more common than any exotic array formula.
+
+## Sample Practice Datasets & Scenarios
+
+Practice with realistic, messy scenarios rather than clean textbook data — that's where the actual skill is:
+
+- **E-commerce order data**: 3 months of orders with some duplicate rows, inconsistent date formats, and a few negative "refund" rows to handle — build a monthly revenue-by-category dashboard.
+- **Employee attendance log**: Raw check-in/check-out timestamps — calculate hours worked per employee per week, flag anyone under 40 hours, using `NETWORKDAYS` and time arithmetic.
+- **Survey responses**: 200 rows of Likert-scale (1–5) answers across 10 questions — use `COUNTIFS` to build a response-distribution summary and a stacked bar chart.
+- **Loan/EMI schedule**: Given principal, rate, and tenure, build an amortisation table using `PMT`, `IPMT`, and `PPMT` — a genuinely common finance-analyst take-home test.
+
 ## Essential Functions
 
 ```excel

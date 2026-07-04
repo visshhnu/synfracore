@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SynfraCore — Dashboard Wireframe</title>
+<style>
+  :root{
+    --bg:#0B1120;
+    --surface:#131B2E;
+    --surface-2:#1A2540;
+    --teal:#22D3B8;
+    --amber:#F5A623;
+    --text:#E6EAF2;
+    --muted:#8B96AC;
+    --border:#22304D;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .display{font-family:'Space Grotesk','Inter',sans-serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+
+  /* ---------- Top bar ---------- */
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 32px;border-bottom:1px solid var(--border);
+  }
+  .logo{display:flex;align-items:center;gap:10px;}
+  .logo .mark{
+    width:28px;height:28px;border-radius:8px;
+    background:linear-gradient(135deg,var(--teal),var(--amber));
+  }
+  .logo span{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:18px;letter-spacing:0.2px;}
+  .search{
+    flex:1;max-width:420px;margin:0 32px;
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:10px;padding:9px 14px;color:var(--muted);font-size:13px;
+  }
+  .profile{display:flex;align-items:center;gap:10px;}
+  .avatar{width:34px;height:34px;border-radius:50%;background:var(--surface-2);border:1px solid var(--border);}
+
+  .layout{display:flex;}
+  .sidebar{
+    width:210px;padding:24px 12px;border-right:1px solid var(--border);
+    min-height:calc(100vh - 65px);
+  }
+  .sidebar .item{
+    padding:10px 14px;border-radius:8px;font-size:14px;color:var(--muted);
+    margin-bottom:2px;cursor:default;
+  }
+  .sidebar .item.active{background:var(--surface);color:var(--text);font-weight:600;border-left:2px solid var(--teal);}
+
+  .main{flex:1;padding:32px 40px;}
+
+  /* ---------- Hero: the progress ring hub ---------- */
+  .hero{
+    display:flex;align-items:center;gap:48px;
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:20px;padding:36px 44px;margin-bottom:28px;
+  }
+  .ring-wrap{position:relative;flex-shrink:0;}
+  .ring-label{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    text-align:center;
+  }
+  .ring-label .num{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;}
+  .ring-label .lbl{font-size:11px;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase;}
+  .hero-copy h1{font-family:'Space Grotesk',sans-serif;font-size:24px;margin:0 0 8px;}
+  .hero-copy p{color:var(--muted);font-size:14px;line-height:1.6;margin:0 0 16px;max-width:420px;}
+  .streak{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--surface-2);border:1px solid var(--border);
+    padding:8px 14px;border-radius:10px;font-size:13px;
+  }
+  .streak .fire{color:var(--amber);font-weight:700;}
+
+  /* ---------- Academy grid ---------- */
+  .section-title{
+    font-family:'Space Grotesk',sans-serif;font-size:14px;color:var(--muted);
+    text-transform:uppercase;letter-spacing:0.8px;margin:8px 0 14px;
+  }
+  .academy-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px;
+  }
+  .academy-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:14px;
+    padding:18px;position:relative;overflow:hidden;
+  }
+  .academy-card .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
+  .academy-card .name{font-weight:600;font-size:15px;}
+  .academy-card .tag{font-size:11px;color:var(--muted);}
+  .academy-card .dot{width:10px;height:10px;border-radius:50%;}
+  .bar-bg{height:6px;background:var(--surface-2);border-radius:4px;overflow:hidden;margin-bottom:8px;}
+  .bar-fill{height:100%;border-radius:4px;}
+  .academy-card .meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);}
+
+  /* ---------- Two-column: challenges + certs ---------- */
+  .cols{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;}
+  .panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;}
+  .panel h3{font-family:'Space Grotesk',sans-serif;font-size:15px;margin:0 0 14px;}
+  .challenge-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:12px 0;border-bottom:1px solid var(--border);font-size:13px;
+  }
+  .challenge-row:last-child{border-bottom:none;}
+  .pill{
+    font-size:11px;padding:4px 10px;border-radius:20px;font-weight:600;
+    background:rgba(34,211,184,0.12);color:var(--teal);white-space:nowrap;
+  }
+  .tier-tag{
+    display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:0.4px;
+    padding:2px 7px;border-radius:5px;margin-right:8px;vertical-align:middle;
+  }
+  .tier-tag.micro{background:rgba(124,156,245,0.15);color:#7C9CF5;}
+  .tier-tag.skill{background:rgba(34,211,184,0.15);color:var(--teal);}
+  .tier-tag.build{background:rgba(245,166,35,0.15);color:var(--amber);}
+  .tier-tag.exam{background:rgba(230,106,255,0.15);color:#D68CFF;}
+  .cert-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+  .cert-item:last-child{border-bottom:none;}
+  .cert-icon{width:34px;height:34px;border-radius:8px;background:var(--surface-2);flex-shrink:0;}
+  .cert-item .t{font-size:13px;font-weight:600;}
+  .cert-item .d{font-size:11px;color:var(--muted);}
+
+  .annot{
+    font-size:11px;color:var(--muted);text-align:center;margin-top:28px;
+    border-top:1px dashed var(--border);padding-top:16px;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo"><div class="mark"></div><span>SynfraCore</span></div>
+  <div class="search">Search any academy, course, or lesson…</div>
+  <div class="profile">
+    <div class="avatar"></div>
+  </div>
+</div>
+
+<div class="layout">
+  <div class="sidebar">
+    <div class="item active">🏠 Dashboard</div>
+    <div class="item">📚 All Academies</div>
+    <div class="item">🏆 Challenges</div>
+    <div class="item">🎓 Certificates</div>
+    <div class="item">🧑‍💻 Portfolio</div>
+    <div class="item">⚙️ Settings</div>
+  </div>
+
+  <div class="main">
+
+    <!-- SIGNATURE ELEMENT: one ring, segmented by academy —
+         replaces the generic "separate progress bar per app" pattern -->
+    <div class="hero">
+      <div class="ring-wrap">
+        <svg width="150" height="150" viewBox="0 0 150 150">
+          <circle cx="75" cy="75" r="62" fill="none" stroke="#1A2540" stroke-width="14"/>
+          <!-- segments: DevOps, Cloud, Exam-Prep — one ring, not three bars -->
+          <circle cx="75" cy="75" r="62" fill="none" stroke="#22D3B8" stroke-width="14"
+                  stroke-dasharray="130 260" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 75 75)"/>
+          <circle cx="75" cy="75" r="62" fill="none" stroke="#F5A623" stroke-width="14"
+                  stroke-dasharray="80 260" stroke-dashoffset="-130" stroke-linecap="round" transform="rotate(-90 75 75)"/>
+          <circle cx="75" cy="75" r="62" fill="none" stroke="#7C9CF5" stroke-width="14"
+                  stroke-dasharray="40 260" stroke-dashoffset="-210" stroke-linecap="round" transform="rotate(-90 75 75)"/>
+        </svg>
+        <div class="ring-label">
+          <div class="num">62%</div>
+          <div class="lbl">Overall</div>
+        </div>
+      </div>
+      <div class="hero-copy">
+        <h1>Welcome back, Aditi</h1>
+        <p>One ring, every skill. This tracks your progress across every academy you're enrolled in — no separate dashboards, no separate logins.</p>
+        <div class="streak"><span class="fire">🔥 12-day streak</span> · 2,340 XP · Level 7</div>
+      </div>
+    </div>
+
+    <div class="section-title">Your Academies</div>
+    <div class="academy-grid">
+      <div class="academy-card">
+        <div class="top"><div><div class="name">DevOps</div><div class="tag">42 / 68 lessons</div></div><div class="dot" style="background:#22D3B8"></div></div>
+        <div class="bar-bg"><div class="bar-fill" style="width:62%;background:#22D3B8"></div></div>
+        <div class="meta"><span>62% complete</span><span>3 labs left</span></div>
+      </div>
+      <div class="academy-card">
+        <div class="top"><div><div class="name">Cloud &amp; AI</div><div class="tag">28 / 54 lessons</div></div><div class="dot" style="background:#F5A623"></div></div>
+        <div class="bar-bg"><div class="bar-fill" style="width:52%;background:#F5A623"></div></div>
+        <div class="meta"><span>52% complete</span><span>1 cert available</span></div>
+      </div>
+      <div class="academy-card">
+        <div class="top"><div><div class="name">GATE Exam Prep</div><div class="tag">15 / 90 lessons</div></div><div class="dot" style="background:#7C9CF5"></div></div>
+        <div class="bar-bg"><div class="bar-fill" style="width:17%;background:#7C9CF5"></div></div>
+        <div class="meta"><span>17% complete</span><span>Just started</span></div>
+      </div>
+    </div>
+
+    <div class="cols">
+      <div class="panel">
+        <h3>Challenges for you <span style="color:var(--muted);font-weight:400;font-size:11px;">— matched to your level, not everyone's</span></h3>
+        <div class="challenge-row">
+          <span><span class="tier-tag micro">DAILY · MICRO</span>Find your OS version, current directory &amp; logged-in user</span>
+          <span class="pill">2 min · 20 XP</span>
+        </div>
+        <div class="challenge-row">
+          <span><span class="tier-tag skill">WEEKLY · SKILL</span>Write a shell script that backs up a folder &amp; logs the time</span>
+          <span class="pill">DevOps · 120 XP</span>
+        </div>
+        <div class="challenge-row">
+          <span><span class="tier-tag build">BUILD</span>Deploy a 3-tier app on AWS in under 2 hrs</span>
+          <span class="pill" style="opacity:.5;background:none;color:var(--muted);border:1px solid var(--border)">Locked · reach Intermediate</span>
+        </div>
+        <div class="challenge-row">
+          <span><span class="tier-tag exam">EXAM SPRINT</span>20 timed GATE-level DS problems</span>
+          <span class="pill">Exam Prep · 100 XP</span>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Certificates</h3>
+        <div class="cert-item"><div class="cert-icon"></div><div><div class="t">Docker Fundamentals</div><div class="d">Issued Jun 2026</div></div></div>
+        <div class="cert-item"><div class="cert-icon"></div><div><div class="t">Linux Essentials</div><div class="d">Issued May 2026</div></div></div>
+      </div>
+    </div>
+
+    <div class="annot">Wireframe — layout &amp; hierarchy reference for build. Content, avatars, and numbers are placeholders.</div>
+  </div>
+</div>
+
+</body>
+</html>

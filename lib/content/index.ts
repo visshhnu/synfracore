@@ -1971,6 +1971,18 @@ const contentRegistry = new Map<string, string>([
   ["devops/chaos-engineering/overview","devops/chaos-engineering/overview"],
   ["devops/automation/overview","devops/automation/overview"],
   ["essentials/daily-movement/overview","essentials/daily-movement/overview"],
+  ["databases/cloud-databases/overview","databases/cloud-databases/overview"],
+  ["law/legal-career-growth/overview","law/legal-career-growth/overview"],
+  ["law/civil-law-procedure/overview","law/civil-law-procedure/overview"],
+  ["exams/upsc-interview/overview","exams/upsc-interview/overview"],
+  ["finance/ca-articleship/overview","finance/ca-articleship/overview"],
+  ["finance/ca-final/overview","finance/ca-final/overview"],
+  ["finance/credit-analysis/overview","finance/credit-analysis/overview"],
+  ["devops/capacity-planning/overview","devops/capacity-planning/overview"],
+  ["healthcare/medical-terminology/overview","healthcare/medical-terminology/overview"],
+  ["healthcare/anatomy-physiology/overview","healthcare/anatomy-physiology/overview"],
+  ["data/cloud-data-warehouses/overview","data/cloud-data-warehouses/overview"],
+  ["ai/python-for-ai/overview","ai/python-for-ai/overview"],
 ]);
 
 export function hasContent(a: string, t: string, s: string): boolean {

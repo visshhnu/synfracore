@@ -69,7 +69,7 @@ export const roadmaps = [
   { slug: "sre-engineer", title: "SRE / Reliability Engineer", icon: "📡", color: "#EC4899", category: "tech", duration: "7 months",
     steps: ["Linux Deep Dive", "Kubernetes Production", "Prometheus & SLOs", "Incident Management", "Chaos Engineering", "Capacity Planning", "Automation"] },
   { slug: "healthcare-coder", title: "Medical Coder (CPC/BCHHC)", icon: "🏥", color: "#14B8A6", category: "professional", duration: "6 months",
-    steps: ["Medical Terminology", "ICD-10-CM Fundamentals", "CPT Procedure Codes", "HCPCS Level II", "Coding Guidelines", "OASIS & PDGM", "CPC Exam Prep"] },
+    steps: ["Anatomy & Physiology", "Medical Terminology", "ICD-10-CM Fundamentals", "CPT Procedure Codes", "HCPCS Level II", "Coding Guidelines", "OASIS & PDGM", "CPC Exam Prep", "BCHHC Certification Prep"] },
 
   // ── LAW & LEGAL ────────────────────────────────────────────────────────────
   { slug: "advocate-career", title: "Advocate / Legal Career", icon: "⚖️", color: "#6366F1", category: "law", duration: "3–5 years",

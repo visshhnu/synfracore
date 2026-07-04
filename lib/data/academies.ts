@@ -62,6 +62,7 @@ const devopsAcademy: Academy = {
         { slug: "docker", name: "Docker", icon: "🐳", description: "Containerisation, Docker Compose, multi-stage builds, and best practices", level: "Intermediate", tags: ["Containers", "OCI", "Images"] },
         { slug: "kubernetes", name: "Kubernetes", icon: "☸️", description: "Container orchestration — Pods, Deployments, Services, networking, and production ops", level: "Advanced", tags: ["Orchestration", "CNCF", "K8s"] },
         { slug: "helm", name: "Helm", icon: "⛵", description: "Kubernetes package manager — chart development, templates, and values management", level: "Advanced", tags: ["K8s", "Charts", "Packaging"] },
+        { slug: "istio", name: "Service Mesh — Istio", icon: "🕸️", description: "Service mesh — traffic management, mTLS, observability, and canary rollouts with Istio", level: "Advanced", tags: ["Istio", "Service Mesh", "K8s"] },
       ],
     },
     {
@@ -71,6 +72,7 @@ const devopsAcademy: Academy = {
       description: "Automated pipelines and GitOps delivery",
       color: "#8B5CF6",
       technologies: [
+        { slug: "cicd", name: "CI/CD Pipelines", icon: "🔄", description: "CI/CD fundamentals — pipeline stages, build/test/deploy automation, tool comparison (Jenkins, GitHub Actions, GitLab CI)", level: "Beginner", tags: ["CI/CD", "Pipelines", "Automation"] },
         { slug: "git", name: "Git & GitHub", icon: "🔀", description: "Version control, branching strategies, PRs, and collaborative workflows", level: "Beginner", tags: ["VCS", "Branching", "Collaboration"] },
         { slug: "jenkins", name: "Jenkins", icon: "🤖", description: "CI/CD pipelines, declarative Jenkinsfiles, shared libraries, and Kubernetes agents", level: "Intermediate", tags: ["CI/CD", "Pipelines", "Automation"] },
         { slug: "argocd", name: "ArgoCD", icon: "🔄", description: "GitOps continuous delivery — App of Apps, sync waves, multi-cluster management", level: "Advanced", tags: ["GitOps", "CD", "Kubernetes"] },
@@ -97,6 +99,12 @@ const devopsAcademy: Academy = {
         { slug: "prometheus", name: "Prometheus", icon: "🔥", description: "Metrics collection, PromQL, alerting rules, and recording rules", level: "Intermediate", tags: ["Metrics", "CNCF", "PromQL"] },
         { slug: "grafana", name: "Grafana", icon: "📊", description: "Dashboards, visualization, alerts, and unified observability", level: "Intermediate", tags: ["Dashboards", "Visualization", "Alerts"] },
         { slug: "elk-stack", name: "ELK Stack", icon: "🔍", description: "Elasticsearch, Logstash, Kibana — centralized log management and analytics", level: "Advanced", tags: ["Logging", "Search", "Kibana"] },
+        { slug: "ha-dr", name: "HA & Disaster Recovery", icon: "🛟", description: "High availability and disaster recovery — RTO/RPO, multi-AZ/region failover, backup strategy", level: "Advanced", tags: ["HA", "DR", "Resilience"] },
+        { slug: "incident", name: "Incident Management", icon: "🚨", description: "Incident response process — severity levels, on-call, postmortems, communication during outages", level: "Intermediate", tags: ["Incident", "On-Call", "SRE"] },
+        { slug: "chaos-engineering", name: "Chaos Engineering", icon: "🌀", description: "Deliberately injecting failure to test resilience — chaos experiments, blast radius, game days", level: "Advanced", tags: ["Chaos", "Resilience", "SRE"] },
+        { slug: "capacity-planning", name: "Capacity Planning", icon: "📐", description: "Forecasting resource needs — load testing, scaling thresholds, cost-aware headroom planning", level: "Advanced", tags: ["Capacity", "Scaling", "SRE"] },
+        { slug: "automation", name: "SRE Automation", icon: "🤖", description: "Automating operational toil away — runbooks as code, auto-remediation, self-healing systems", level: "Advanced", tags: ["Automation", "Toil", "SRE"] },
+        { slug: "kafka", name: "Apache Kafka", icon: "📨", description: "Distributed event streaming — topics, partitions, consumer groups, exactly-once semantics", level: "Advanced", tags: ["Kafka", "Streaming", "Events"] },
       ],
     },
     {
@@ -142,6 +150,7 @@ const cloudAcademy: Academy = {
       description: "The world's leading cloud platform — 200+ services",
       color: "#F59E0B",
       technologies: [
+        { slug: "aws", name: "AWS Core Services Overview", icon: "🟠", description: "Broad AWS overview — compute, storage, networking, and databases together, not just one service", level: "Beginner", tags: ["AWS", "Overview", "Core Services"] },
         { slug: "aws-iam", name: "IAM", icon: "🔐", description: "Identity and Access Management — users, roles, policies, OIDC, SCP", level: "Beginner", tags: ["Security", "Identity", "RBAC"] },
         { slug: "aws-ec2", name: "EC2", icon: "🖥️", description: "Virtual machines, auto-scaling, launch templates, spot instances", level: "Beginner", tags: ["Compute", "VMs", "Auto-Scaling"] },
         { slug: "aws-vpc", name: "VPC", icon: "🕸️", description: "Virtual Private Cloud — subnets, routing, NAT, security groups, endpoints", level: "Intermediate", tags: ["Networking", "Security", "Subnets"] },
@@ -160,6 +169,7 @@ const cloudAcademy: Academy = {
       description: "Microsoft's enterprise cloud platform",
       color: "#3B82F6",
       technologies: [
+        { slug: "azure", name: "Azure Core Services Overview", icon: "🔵", description: "Broad Azure overview — compute, networking, identity, and databases together, not just VMs", level: "Beginner", tags: ["Azure", "Overview", "Core Services"] },
         { slug: "azure-entra", name: "Entra ID", icon: "🛡️", description: "Azure AD — SSO, MFA, RBAC, conditional access, managed identity", level: "Intermediate", tags: ["Identity", "SSO", "RBAC"] },
         { slug: "azure-vms", name: "Virtual Machines", icon: "💻", description: "Azure VMs, scale sets, availability zones, spot VMs, Bastion", level: "Beginner", tags: ["Compute", "VMs", "Scale Sets"] },
         { slug: "azure-vnets", name: "VNets", icon: "🕸️", description: "Virtual Networks, peering, NSGs, private endpoints, ExpressRoute", level: "Intermediate", tags: ["Networking", "NSG", "Peering"] },
@@ -186,6 +196,8 @@ const cloudAcademy: Academy = {
       description: "Multi-cloud, FinOps, security, and enterprise architecture",
       color: "#6366F1",
       technologies: [
+              { slug: "cloud-fundamentals", name: "Cloud Fundamentals", icon: "☁️", description: "What cloud computing actually is — IaaS/PaaS/SaaS, shared responsibility, regions/AZs, core service categories", level: "Beginner", tags: ["Cloud", "Fundamentals", "IaaS"] },
+              { slug: "multi-cloud", name: "Multi-Cloud Strategy", icon: "🌐", description: "Multi-cloud and hybrid-cloud strategy — portability, vendor lock-in tradeoffs, workload placement", level: "Advanced", tags: ["Multi-Cloud", "Strategy", "Hybrid"] },
               { slug: "architecture-patterns", name: "Architecture Patterns", icon: "🏛️", description: "Multi-cloud architecture patterns: multi-AZ, hub-and-spoke, strangler fig, CQRS, saga, serverless event-driven", level: "Advanced", tags: ["Architecture", "Patterns", "Multi-Cloud", "Design"] },
       { slug: "networking-security", name: "Cloud Networking & Security", icon: "🔒", description: "VPC/VNet design, security groups, NACLs, NSGs, Zero Trust, WAF, encryption at rest and in transit", level: "Intermediate", tags: ["VPC", "Security Groups", "NSG", "Zero Trust", "Encryption"] },
       { slug: "cloud-security", name: "Cloud Security", icon: "🔒", description: "CSPM, IAM best practices, encryption, compliance, guardrails", level: "Advanced", tags: ["Security", "CSPM", "Compliance"] },
@@ -219,6 +231,8 @@ const databasesAcademy: Academy = {
         { slug: "mysql", name: "MySQL", icon: "🐬", description: "World's most popular open-source relational database — InnoDB, replication", level: "Beginner", tags: ["SQL", "InnoDB", "Replication"] },
         { slug: "sql", name: "SQL Mastery", icon: "📊", description: "SQL from basics to advanced — window functions, CTEs, query optimisation", level: "Beginner", tags: ["SQL", "Queries", "Analytics"] },
         { slug: "oracle", name: "Oracle Database", icon: "🔴", description: "Oracle DB — PL/SQL, performance tuning, RAC, Data Guard, enterprise features", level: "Advanced", tags: ["Oracle", "PL/SQL", "Enterprise"] },
+        { slug: "database-design", name: "Database Design", icon: "🧮", description: "Schema design, normalization, ER modelling, indexing strategy — designing databases that scale", level: "Intermediate", tags: ["Schema", "Normalization", "Design"] },
+        { slug: "performance-tuning", name: "Performance Tuning", icon: "⚙️", description: "Query optimisation, indexing, execution plans, connection pooling, and diagnosing slow queries", level: "Advanced", tags: ["Performance", "Indexing", "Query Plans"] },
       ],
     },
     {
@@ -231,6 +245,7 @@ const databasesAcademy: Academy = {
         { slug: "mongodb", name: "MongoDB", icon: "🍃", description: "Document database — schema design, aggregation pipeline, Atlas, indexing", level: "Intermediate", tags: ["Document", "NoSQL", "Atlas"] },
         { slug: "cassandra", name: "Cassandra", icon: "👁️", description: "Wide-column distributed database — CQL, consistency levels, partitioning", level: "Advanced", tags: ["Wide-column", "Distributed", "CQL"] },
         { slug: "dynamodb", name: "DynamoDB", icon: "⚡", description: "AWS managed NoSQL — partition keys, GSI, streams, DAX caching", level: "Intermediate", tags: ["AWS", "Serverless", "NoSQL"] },
+        { slug: "cloud-databases", name: "Cloud Databases", icon: "☁️", description: "Managed cloud databases across providers — RDS/Aurora, DynamoDB, Cosmos DB, Cloud SQL/Spanner compared", level: "Intermediate", tags: ["Cloud", "Managed DB", "Multi-Cloud"] },
       ],
     },
     {
@@ -276,6 +291,7 @@ const aiAcademy: Academy = {
       color: "#8B5CF6",
       technologies: [
         { slug: "ai-fundamentals", name: "AI Fundamentals", icon: "🧠", description: "ML concepts, neural networks, model types — from zero to AI-ready", level: "Beginner", tags: ["ML", "Neural Networks", "Concepts"] },
+        { slug: "python-for-ai", name: "Python Foundations for AI", icon: "🐍", description: "Python for AI/ML work — data types, functions, OOP, working with JSON/APIs, intro to numpy. Not infra scripting.", level: "Beginner", tags: ["Python", "AI", "Foundations"] },
         { slug: "prompt-engineering", name: "Prompt Engineering", icon: "✍️", description: "Zero-shot, few-shot, CoT, ReAct, system prompts — master LLM communication", level: "Beginner", tags: ["Prompts", "LLMs", "Techniques"] },
       ],
     },
@@ -286,6 +302,7 @@ const aiAcademy: Academy = {
       description: "Build production LLM-powered applications",
       color: "#EC4899",
       technologies: [
+        { slug: "llm-engineering", name: "LLM Engineering", icon: "🧩", description: "The discipline of building production LLM applications — model selection, context management, evaluation, cost control", level: "Intermediate", tags: ["LLM", "Engineering", "Production"] },
         { slug: "langchain", name: "LangChain", icon: "🔗", description: "LLM framework — chains, LCEL, memory, tools, structured output", level: "Intermediate", tags: ["LLMs", "Framework", "LCEL"] },
         { slug: "rag", name: "RAG Systems", icon: "📚", description: "Retrieval Augmented Generation — chunking, embeddings, vector DBs, evaluation", level: "Intermediate", tags: ["RAG", "Embeddings", "Vector DB"] },
         { slug: "ai-agents", name: "AI Agents", icon: "🤖", description: "Autonomous agents — ReAct, tool use, multi-agent, memory systems, production", level: "Advanced", tags: ["Agents", "ReAct", "Tool Use"] },
@@ -337,6 +354,8 @@ const dataAcademy: Academy = {
       technologies: [
         { slug: "power-bi", name: "Power BI", icon: "📊", description: "Microsoft BI — DAX, data modelling, star schema, RLS, publish", level: "Intermediate", tags: ["Power BI", "DAX", "Dashboards"] },
         { slug: "tableau", name: "Tableau", icon: "🎨", description: "Tableau Desktop and Server — calculated fields, LOD expressions, dashboards", level: "Intermediate", tags: ["Tableau", "Viz", "Dashboards"] },
+        { slug: "data-visualization", name: "Data Visualization", icon: "📈", description: "Visualization principles — choosing the right chart, avoiding misleading graphs, storytelling with data", level: "Intermediate", tags: ["Visualization", "Charts", "Storytelling"] },
+        { slug: "dashboarding", name: "Dashboarding", icon: "📋", description: "Designing effective dashboards — KPI selection, layout, drill-downs, refresh strategy across BI tools", level: "Intermediate", tags: ["Dashboards", "KPI", "BI"] },
       ],
     },
     {
@@ -347,6 +366,10 @@ const dataAcademy: Academy = {
       color: "#8B5CF6",
       technologies: [
         { slug: "sql", name: "SQL Mastery", icon: "💾", description: "SQL from SELECT to window functions, CTEs, performance tuning", level: "Beginner", tags: ["SQL", "Analytics", "Joins"] },
+        { slug: "dbt", name: "dbt", icon: "🔧", description: "Analytics engineering with dbt — models, tests, macros, incremental builds, documentation", level: "Intermediate", tags: ["dbt", "Analytics Engineering", "SQL"] },
+        { slug: "airflow", name: "Apache Airflow", icon: "🌬️", description: "Workflow orchestration — DAGs, operators, scheduling, sensors, production pipeline patterns", level: "Intermediate", tags: ["Airflow", "Orchestration", "Pipelines"] },
+        { slug: "spark", name: "Apache Spark", icon: "⚡", description: "Distributed data processing — RDDs, DataFrames, partitioning, cluster tuning basics", level: "Advanced", tags: ["Spark", "Big Data", "Distributed"] },
+        { slug: "cloud-data-warehouses", name: "Cloud Data Warehouses", icon: "🏬", description: "Cloud data warehousing across vendors — BigQuery, Redshift, Synapse, Snowflake compared, not one vendor only", level: "Intermediate", tags: ["Data Warehouse", "BigQuery", "Redshift", "Snowflake"] },
       ],
     },
   ],
@@ -383,6 +406,7 @@ const securityAcademy: Academy = {
       color: "#F59E0B",
       technologies: [
         { slug: "ethical-hacking", name: "Ethical Hacking", icon: "🎯", description: "Recon, scanning, exploitation, privilege escalation, reporting — OSCP prep", level: "Advanced", tags: ["Pen Test", "OSCP", "Exploitation"] },
+        { slug: "pen-testing", name: "Penetration Testing", icon: "🔓", description: "Structured pen testing methodology — scoping, rules of engagement, reporting, remediation verification", level: "Advanced", tags: ["Pen Test", "Methodology", "Reporting"] },
       ],
     },
     {
@@ -394,6 +418,8 @@ const securityAcademy: Academy = {
       technologies: [
         { slug: "soc", name: "SOC Operations", icon: "👁️", description: "SOC tiers, MITRE ATT&CK, alert triage, incident response playbooks", level: "Intermediate", tags: ["SOC", "MITRE", "Incident Response"] },
         { slug: "siem", name: "SIEM", icon: "📡", description: "Splunk, Microsoft Sentinel — KQL, SIEM rules, threat hunting", level: "Intermediate", tags: ["SIEM", "Splunk", "Sentinel"] },
+        { slug: "cloud-security", name: "Cloud Security", icon: "🔐", description: "Securing cloud workloads — CSPM, IAM hardening, encryption, shared-responsibility, compliance guardrails", level: "Advanced", tags: ["Cloud Security", "CSPM", "Compliance"] },
+        { slug: "incident-response", name: "Incident Response", icon: "🚑", description: "IR lifecycle — preparation, detection, containment, eradication, recovery, and post-incident review", level: "Advanced", tags: ["Incident Response", "IR", "Forensics"] },
       ],
     },
   ],
@@ -418,6 +444,8 @@ const healthcareAcademy: Academy = {
       description: "Professional medical coding — ICD-10, CPT, HCPCS, billing, compliance",
       color: "#F43F5E",
       technologies: [
+        { slug: "anatomy-physiology", name: "Anatomy & Physiology", icon: "🫀", description: "Body systems fundamentals for coders — skeletal, muscular, cardiovascular, respiratory, and more — the prerequisite for medical terminology", level: "Beginner", tags: ["Anatomy", "Physiology", "Body Systems"] },
+        { slug: "medical-terminology", name: "Medical Terminology", icon: "🔤", description: "The word-building system of medicine — prefixes, roots, suffixes — read and decode any medical term", level: "Beginner", tags: ["Terminology", "Word Roots", "Prefixes"] },
         { slug: "medical-coding", name: "Medical Coding Overview", icon: "🏥", description: "Introduction to medical coding — ICD-10-CM, CPT, HCPCS, career path, CPC certification overview", level: "Beginner", tags: ["Medical Coding", "CPC", "ICD-10", "Overview"] },
       { slug: "icd-10-cm", name: "ICD-10-CM", icon: "📋", description: "International Classification of Diseases — structure, guidelines, sequencing, POA, HCC", level: "Beginner", tags: ["ICD-10", "Diagnosis", "CMS"] },
         { slug: "cpt", name: "CPT Codes", icon: "🔬", description: "Current Procedural Terminology — E/M, surgery, global package, modifiers, NCCI", level: "Intermediate", tags: ["CPT", "E/M", "Surgery"] },
@@ -476,6 +504,8 @@ const essentialsAcademy: Academy = {
         { slug: "hygiene", name: "Hygiene & Sanitation", icon: "🧼", description: "Personal hygiene, sanitation practices, infection prevention, and daily health routines", level: "Beginner", tags: ["Hygiene", "Prevention", "Daily Health"] },
         { slug: "nutrition", name: "Nutrition Basics", icon: "🥗", description: "Macronutrients, micronutrients, meal planning, reading labels, and balanced diet fundamentals", level: "Beginner", tags: ["Nutrition", "Diet", "Wellness"] },
         { slug: "mental-health", name: "Mental Wellness", icon: "🧠", description: "Stress management, mindfulness, sleep health, and building emotional resilience", level: "Beginner", tags: ["Mental Health", "Mindfulness", "Sleep"] },
+        { slug: "sleep-health", name: "Sleep & Morning Routine", icon: "😴", description: "Sleep cycles, sleep hygiene, and building a consistent morning routine for energy and focus", level: "Beginner", tags: ["Sleep", "Routine", "Recovery"] },
+        { slug: "daily-movement", name: "Daily Movement", icon: "🏃", description: "Building a sustainable daily movement habit — walking, mobility, strength basics for non-athletes", level: "Beginner", tags: ["Movement", "Exercise", "Habits"] },
       ],
     },
     {
@@ -564,6 +594,8 @@ const examsAcademy: Academy = {
         { slug: "jee-maths", name: "JEE Mathematics", icon: "📐", description: "Calculus, algebra, coordinate geometry, probability — JEE Main and Advanced", level: "Advanced", tags: ["JEE", "Maths", "IIT"] },
         { slug: "jee-physics", name: "JEE Physics", icon: "⚡", description: "Mechanics, electrostatics, optics, modern physics — JEE complete coverage", level: "Advanced", tags: ["JEE", "Physics", "IIT"] },
         { slug: "jee-chemistry", name: "JEE Chemistry", icon: "🧪", description: "Organic, inorganic, physical chemistry for JEE Main and Advanced", level: "Advanced", tags: ["JEE", "Chemistry", "IIT"] },
+        { slug: "jee-advanced", name: "JEE Advanced & JoSAA Counselling", icon: "🎓", description: "JEE Advanced exam structure, topic weightage vs JEE Main, and the full JoSAA seat-allocation process", level: "Advanced", tags: ["JEE Advanced", "IIT", "JoSAA"] },
+        { slug: "neet-mocktests", name: "NEET Mock Tests & Revision", icon: "📝", description: "NEET mock test strategy, time management, and structured revision planning", level: "Advanced", tags: ["NEET", "Mock Tests", "Revision"] },
       ],
     },
     {
@@ -602,6 +634,8 @@ const examsAcademy: Academy = {
         { slug: "upsc-prelims", name: "UPSC Prelims", icon: "🏛️", description: "GS Paper I & II (CSAT) — History, Geography, Polity, Economy, Science, Current Affairs", level: "Advanced", tags: ["UPSC", "IAS", "CSE"] },
         { slug: "state-psc", name: "State PSC Guide & PYQ", icon: "🏛️", description: "State PSC exams guide — TNPSC, KPSC, MPSC, APPSC, TSPSC — pattern, syllabus, previous year questions", level: "Intermediate", tags: ["State PSC", "TNPSC", "KPSC", "PYQ"] },
       { slug: "upsc-mains", name: "UPSC Mains", icon: "✍️", description: "Essay, GS Papers I-IV, Optional subject strategy and answer writing", level: "Advanced", tags: ["UPSC", "IAS", "Mains"] },
+      { slug: "upsc-ethics", name: "Essay + Ethics (GS4)", icon: "🖋️", description: "Essay writing strategy and GS Paper IV Ethics, Integrity & Aptitude — case studies and model answers", level: "Advanced", tags: ["UPSC", "Ethics", "Essay"] },
+      { slug: "upsc-interview", name: "UPSC Interview / Personality Test", icon: "🎤", description: "UPSC Personality Test — DAF-based questioning, mock panel prep, do's and don'ts for the interview stage", level: "Advanced", tags: ["UPSC", "Interview", "Personality Test"] },
       ],
     },
   ],
@@ -625,6 +659,8 @@ const lawAcademy: Academy = {
       { slug: "aibe-bar-exam", name: "AIBE & Bar Exam Prep", icon: "⚖️", description: "All India Bar Examination — syllabus, 100 MCQ strategy, open book tactics, enrollment to practice guide", level: "Intermediate", tags: ["AIBE", "Bar Exam", "BCI", "Advocate"] },
       { slug: "judiciary-exams", name: "Judiciary Exams (Civil Judge/HJS)", icon: "🏛️", description: "Civil Judge and Higher Judicial Service exams — 3-stage pattern, judgment writing, viva preparation", level: "Advanced", tags: ["Judiciary", "Civil Judge", "HJS", "PCS J"] },
       { slug: "consumer-protection", name: "Consumer Protection", icon: "🛡️", description: "Consumer Protection Act 2019, three-tier redressal, product liability, CCPA, e-commerce", level: "Beginner", tags: ["Consumer Law", "COPRA", "NCDRC"] },
+      { slug: "civil-law-procedure", name: "Civil Law (CPC, Contract, TP)", icon: "📜", description: "Code of Civil Procedure, Indian Contract Act, and Transfer of Property Act — core substantive civil law", level: "Intermediate", tags: ["CPC", "Contract Act", "Civil Law"] },
+      { slug: "legal-career-growth", name: "Legal Career Growth", icon: "📈", description: "From junior advocate to independent practice — court procedure, drafting, choosing a specialisation, building a client base", level: "Intermediate", tags: ["Career", "Practice", "Specialisation"] },
     ]
   }],
   technologies: [],
@@ -661,6 +697,9 @@ const financeAcademy: Academy = {
       { slug: "ca-intermediate", name: "CA Intermediate", icon: "🏅", description: "CA Intermediate — Accounting Standards, Taxation, Audit, Corporate Law, Cost Accounting, Financial Management", level: "Advanced", tags: ["CA", "ICAI", "Articleship", "Accounting"] },
       { slug: "banking-rbi", name: "Banking & RBI Deep Dive", icon: "🏦", description: "RBI monetary policy, Basel III, credit analysis, NPA management, SARFAESI, banking regulation", level: "Intermediate", tags: ["Banking", "RBI", "Credit", "NPA"] },
       { slug: "sebi-nism", name: "SEBI & Financial Markets", icon: "📈", description: "Capital markets, NISM certifications, mutual funds, equity, derivatives, investor protection", level: "Intermediate", tags: ["SEBI", "NISM", "Mutual Funds", "Capital Markets"] },
+      { slug: "ca-articleship", name: "CA Articleship", icon: "📇", description: "Registering for and completing the 3-year CA articleship — ICITSS/AICITSS, principal selection, training structure", level: "Intermediate", tags: ["CA", "Articleship", "ICAI"] },
+      { slug: "ca-final", name: "CA Final", icon: "🎓", description: "CA Final Groups I & II — Financial Reporting, SFM, Advanced Auditing, Corporate Law, Direct & Indirect Tax, Cost Management", level: "Advanced", tags: ["CA", "CA Final", "ICAI"] },
+      { slug: "credit-analysis", name: "Credit Analysis", icon: "🔍", description: "Credit analysis fundamentals — the 5 Cs of credit, financial ratio analysis for lending, NPA assessment, credit rating basics", level: "Intermediate", tags: ["Credit Analysis", "Lending", "Ratios"] },
     ]
   }],
   technologies: [],

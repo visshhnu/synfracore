@@ -5,6 +5,7 @@ import { Menu, X, ChevronDown, ChevronRight, Search, Globe } from "lucide-react"
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { academies } from "@/lib/data/academies";
 import Image from "next/image";
+import { useAuth, SignInButton, UserButton } from "@clerk/nextjs";
 
 // ── Language Switcher ─────────────────────────────────────
 function LanguageSwitcher() {
@@ -209,10 +210,11 @@ export default function Navbar() {
   const [expandedAcademy, setExpandedAcademy] = useState<string | null>(null);
   const [dropOpen, setDropOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { isLoaded, isSignedIn } = useAuth();
   let dropTimer: ReturnType<typeof setTimeout>;
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 40);
+    const fn = () => setScrolled(window.scrollY > 80);
     window.addEventListener("scroll", fn, { passive: true });
     return () => window.removeEventListener("scroll", fn);
   }, []);
@@ -249,15 +251,16 @@ export default function Navbar() {
   return (
     <>
       <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 9999, background: "var(--bg-1)", backdropFilter: "blur(16px)", borderBottom: "1px solid var(--border)", boxShadow: scrolled ? "0 2px 20px rgba(0,0,0,0.12)" : "none", transition: "box-shadow 0.2s" }}>
-        <div style={{ maxWidth: "1300px", margin: "0 auto", padding: "0 16px", height: "60px", display: "flex", alignItems: "center", gap: "6px" }}>
+        <div style={{ maxWidth: "1300px", margin: "0 auto", padding: "0 16px", height: scrolled ? "48px" : "60px", transition: "height 0.2s ease", display: "flex", alignItems: "center", gap: "6px" }}>
           <Link href="/" style={{ textDecoration: "none", flexShrink: 0, lineHeight: 0, marginRight: "4px" }}>
             <div className="logo-wrapper">
-              <Image src="/logo-synfracore-full.png" alt="SynfraCore" width={160} height={24} priority
-                className={scrolled ? "logo-full logo-scrolled-hide" : "logo-full"}
-                style={{ height: "24px", width: "auto", display: scrolled ? "none" : "block" }} />
-              <Image src="/logo-ac-mark.png" alt="AC" width={36} height={28} priority
-                className={scrolled ? "logo-icon logo-scrolled-show" : "logo-icon"}
-                style={{ height: "28px", width: "auto", display: scrolled ? "block" : "none" }} />
+              <Image src="/logo-compact-pill.png" alt="SynfraCore" width={631} height={231} priority
+                className={`logo-pill${scrolled ? " is-hidden" : ""}`}
+                style={{ height: "32px", width: "auto" }} />
+              <div className={`logo-mark${scrolled ? " is-visible" : ""}`}>
+                <Image src="/favicon-32x32.png" alt="" width={32} height={32} priority style={{ height: "24px", width: "24px", borderRadius: "6px" }} />
+                <span>Synfracore</span>
+              </div>
             </div>
           </Link>
 
@@ -281,16 +284,25 @@ export default function Navbar() {
             <div className="desktop-nav"><SearchBox /></div>
             <LanguageSwitcher />
             <ThemeToggle />
+            {isLoaded && (isSignedIn ? (
+              <UserButton />
+            ) : (
+              <SignInButton mode="modal">
+                <button className="desktop-nav" style={{ background: "none", border: "1px solid var(--border)", borderRadius: "7px", padding: "5px 12px", fontSize: "13px", fontWeight: 600, color: "var(--text-2)", cursor: "pointer", fontFamily: "inherit", whiteSpace: "nowrap" }}>
+                  Sign In
+                </button>
+              </SignInButton>
+            ))}
             <Link href="/academies" className="desktop-nav btn-primary" style={{ padding: "6px 14px", fontSize: "13px", borderRadius: "7px", whiteSpace: "nowrap" }}>Start Learning</Link>
             {/* Mobile: search icon */}
-            <button className="mobile-only" onClick={() => setSearchOpen(true)} aria-label="Search" style={{ background: "none", border: "1px solid var(--border)", cursor: "pointer", color: "var(--text-2)", padding: "6px 8px", display: "flex", borderRadius: "8px" }}>
+            <button className="mobile-only" onClick={() => setSearchOpen(true)} aria-label="Search" style={{ background: "none", border: "1px solid var(--border)", cursor: "pointer", color: "var(--text-2)", padding: "6px 8px", borderRadius: "8px" }}>
               <Search size={18} />
             </button>
             {/* Mobile: hamburger — toggles on/off */}
             <button className="mobile-only"
               onClick={() => { if (mobileOpen) { closeDrawer(); } else { setMobileOpen(true); } }}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
-              style={{ background: "none", border: "1px solid var(--border)", cursor: "pointer", color: "var(--text-2)", padding: "6px 8px", display: "flex", borderRadius: "8px" }}>
+              style={{ background: "none", border: "1px solid var(--border)", cursor: "pointer", color: "var(--text-2)", padding: "6px 8px", borderRadius: "8px" }}>
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
@@ -420,6 +432,13 @@ export default function Navbar() {
           </Link>
         ))}
         <div style={{ padding: "14px 12px 8px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "8px" }}>
+          {isLoaded && !isSignedIn && (
+            <SignInButton mode="modal">
+              <button onClick={closeDrawer} style={{ display: "flex", justifyContent: "center", padding: "10px", fontSize: "13px", borderRadius: "8px", background: "var(--bg-2)", color: "var(--text-2)", border: "1px solid var(--border)", fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>
+                Sign In
+              </button>
+            </SignInButton>
+          )}
           <Link href="/academies" onClick={closeDrawer} className="btn-primary" style={{ display: "flex", justifyContent: "center", padding: "11px", fontSize: "13px", borderRadius: "8px" }}>
             Start Learning Free
           </Link>
@@ -432,18 +451,18 @@ export default function Navbar() {
       <style>{`
         .desktop-nav { display: flex; align-items: center; gap: 1px; }
         .mobile-only { display: none; }
-        .logo-full { display: block; }
-        .logo-icon { display: none; }
+        .logo-wrapper { display: inline-flex; align-items: center; }
+        .logo-pill { display: block; }
+        .logo-pill.is-hidden { display: none; }
+        .logo-mark { display: none; flex-direction: column; align-items: center; gap: 1px; line-height: 1; }
+        .logo-mark.is-visible { display: flex; }
+        .logo-mark span { font-size: 8px; font-weight: 700; letter-spacing: 0.03em; color: var(--text-1); white-space: nowrap; }
         @media (max-width: 1024px) {
           .desktop-nav { display: none !important; }
           .mobile-only { display: flex !important; }
-          .logo-full { display: none !important; }
-          .logo-icon { display: block !important; }
+          .logo-pill { display: none !important; }
+          .logo-mark { display: flex !important; }
         }
-        .logo-wrapper { display: inline-flex; align-items: center; }
-        /* Light/dark mode: logos have transparent-friendly design */
-        html.light .logo-full { opacity: 0.95; }
-        html.light .logo-icon { opacity: 0.95; }
       `}</style>
     </>
   );

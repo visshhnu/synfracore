@@ -88,8 +88,9 @@ export function OrganizationJsonLd() {
     "@type": "Organization",
     "name": "SynfraCore",
     "url": "https://synfracore.com",
-    "logo": "https://synfracore.com/icon-32.png",
-    "description": "Tech learning platform for DevOps, Cloud, AI, and more.",
+    "logo": "https://synfracore.com/android-chrome-512x512.png",
+    "description": "Practitioner-built learning platform for DevOps, Cloud, AI, Security, and career readiness. Expert content, hands-on labs, interview prep, and certification guides.",
+    "knowsAbout": ["DevOps", "Kubernetes", "Cloud Computing", "AWS", "Azure", "Terraform", "Ansible", "Platform Engineering", "AI Engineering"],
     "sameAs": [
       "https://t.me/synfracore",
       "https://github.com/visshhnu/synfracore",

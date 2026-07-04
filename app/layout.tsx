@@ -1,5 +1,6 @@
 export const runtime = "edge";
 import type { Metadata } from "next";
+import { ClerkProvider } from "@clerk/nextjs";
 
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
@@ -38,7 +39,8 @@ export const metadata: Metadata = {
       { url: "/favicon.ico", sizes: "any" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/logo-ac-mark-512.png", sizes: "512x512", type: "image/png" },
+      { url: "/android-chrome-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/android-chrome-512x512.png", sizes: "512x512", type: "image/png" },
     ],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
     shortcut: "/favicon.ico",
@@ -48,7 +50,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
       <head>
         {/* Self-hosted fonts — eliminates Google DNS lookup + render blocking */}
         <style dangerouslySetInnerHTML={{ __html: `
@@ -67,21 +70,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <style>{`.goog-te-banner-frame,.skiptranslate{display:none!important}body{top:0!important}`}</style>
         <WebSiteJsonLd />
         <OrganizationJsonLd />
-
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "SynfraCore",
-              "url": "https://synfracore.com",
-              "description": "Practitioner-built learning platform for DevOps, Cloud, AI, Security, and career readiness. Expert content, hands-on labs, interview prep, and certification guides.",
-              "sameAs": ["https://t.me/synfracore"],
-              "knowsAbout": ["DevOps", "Kubernetes", "Cloud Computing", "AWS", "Azure", "Terraform", "Ansible", "Platform Engineering", "AI Engineering"],
-            })
-          }}
-        />
       </head>
       <body suppressHydrationWarning style={{ margin: 0, minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--bg)", color: "var(--text-2)" }}>
         <ThemeProvider>
@@ -91,6 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
         </ThemeProvider>
       </body>
-    </html>
+      </html>
+    </ClerkProvider>
   );
 }
