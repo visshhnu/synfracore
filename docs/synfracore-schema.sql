@@ -10,7 +10,7 @@
 
 -- ---------- IDENTITY (the "one account" core) ----------
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     id              TEXT PRIMARY KEY,           -- Clerk user ID (the `sub` claim) — NOT a generated UUID
     email           TEXT UNIQUE NOT NULL,
     full_name       TEXT NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE users (
 -- ---------- CONTENT STRUCTURE ----------
 -- academy > course > module > lesson  (4 levels, always)
 
-CREATE TABLE academies (
+CREATE TABLE IF NOT EXISTS academies (
     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     slug        TEXT UNIQUE NOT NULL,        -- 'devops', 'cloud-ai', 'neet'
     name        TEXT NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE academies (
     sort_order  INT DEFAULT 0
 );
 
-CREATE TABLE courses (
+CREATE TABLE IF NOT EXISTS courses (
     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     academy_id  UUID NOT NULL REFERENCES academies(id) ON DELETE CASCADE,
     slug        TEXT NOT NULL,
@@ -47,14 +47,14 @@ CREATE TABLE courses (
     UNIQUE(academy_id, slug)
 );
 
-CREATE TABLE modules (
+CREATE TABLE IF NOT EXISTS modules (
     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     course_id   UUID NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
     title       TEXT NOT NULL,
     sort_order  INT DEFAULT 0
 );
 
-CREATE TABLE lessons (
+CREATE TABLE IF NOT EXISTS lessons (
     id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     module_id       UUID NOT NULL REFERENCES modules(id) ON DELETE CASCADE,
     title           TEXT NOT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE lessons (
 
 -- ---------- PROGRESS ENGINE (powers the "one ring" dashboard) ----------
 
-CREATE TABLE progress (
+CREATE TABLE IF NOT EXISTS progress (
     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id     TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     lesson_id   UUID NOT NULL REFERENCES lessons(id) ON DELETE CASCADE,
@@ -94,9 +94,9 @@ CREATE TABLE progress (
     completed_at TIMESTAMPTZ,
     UNIQUE(user_id, lesson_id)
 );
-CREATE INDEX idx_progress_user ON progress(user_id);
+CREATE INDEX IF NOT EXISTS idx_progress_user ON progress(user_id);
 
-CREATE TABLE certificates (
+CREATE TABLE IF NOT EXISTS certificates (
     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id     TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     course_id   UUID NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
@@ -107,7 +107,7 @@ CREATE TABLE certificates (
 
 -- ---------- GAMIFICATION ----------
 
-CREATE TABLE xp_ledger (
+CREATE TABLE IF NOT EXISTS xp_ledger (
     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id     TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     academy_id  UUID NOT NULL REFERENCES academies(id),
@@ -115,16 +115,16 @@ CREATE TABLE xp_ledger (
     reason      TEXT NOT NULL,          -- 'lesson_completed', 'challenge_won', etc.
     created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
 );
-CREATE INDEX idx_xp_user ON xp_ledger(user_id);
+CREATE INDEX IF NOT EXISTS idx_xp_user ON xp_ledger(user_id);
 
-CREATE TABLE streaks (
+CREATE TABLE IF NOT EXISTS streaks (
     user_id             TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
     current_streak_days INT NOT NULL DEFAULT 0,
     longest_streak_days INT NOT NULL DEFAULT 0,
     last_activity_date  DATE
 );
 
-CREATE TABLE challenges (
+CREATE TABLE IF NOT EXISTS challenges (
     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     academy_id  UUID NOT NULL REFERENCES academies(id),
     title       TEXT NOT NULL,
@@ -138,7 +138,7 @@ CREATE TABLE challenges (
     xp_reward   INT NOT NULL DEFAULT 100
 );
 
-CREATE TABLE challenge_submissions (
+CREATE TABLE IF NOT EXISTS challenge_submissions (
     id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     challenge_id  UUID NOT NULL REFERENCES challenges(id) ON DELETE CASCADE,
     user_id       TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -148,14 +148,14 @@ CREATE TABLE challenge_submissions (
     UNIQUE(challenge_id, user_id)
 );
 
-CREATE TABLE badges (
+CREATE TABLE IF NOT EXISTS badges (
     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     slug        TEXT UNIQUE NOT NULL,
     name        TEXT NOT NULL,
     icon_url    TEXT
 );
 
-CREATE TABLE user_badges (
+CREATE TABLE IF NOT EXISTS user_badges (
     user_id     TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     badge_id    UUID NOT NULL REFERENCES badges(id) ON DELETE CASCADE,
     earned_at   TIMESTAMPTZ NOT NULL DEFAULT now(),
@@ -164,7 +164,7 @@ CREATE TABLE user_badges (
 
 -- ---------- MONETIZATION ----------
 
-CREATE TABLE plans (
+CREATE TABLE IF NOT EXISTS plans (
     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     slug        TEXT UNIQUE NOT NULL,      -- 'free', 'academy-pass', 'all-access', 'institutional'
     name        TEXT NOT NULL,
@@ -173,7 +173,7 @@ CREATE TABLE plans (
     billing_period TEXT NOT NULL DEFAULT 'monthly'  -- monthly | yearly | one_time
 );
 
-CREATE TABLE subscriptions (
+CREATE TABLE IF NOT EXISTS subscriptions (
     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id     TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     plan_id     UUID NOT NULL REFERENCES plans(id),
@@ -182,7 +182,7 @@ CREATE TABLE subscriptions (
     started_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
     expires_at  TIMESTAMPTZ
 );
-CREATE INDEX idx_subscriptions_user ON subscriptions(user_id);
+CREATE INDEX IF NOT EXISTS idx_subscriptions_user ON subscriptions(user_id);
 
 -- ============================================================
 -- NOTES FOR IMPLEMENTATION (hand this whole file + these notes

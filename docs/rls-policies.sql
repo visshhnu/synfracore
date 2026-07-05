@@ -11,14 +11,17 @@
 -- ---------- users ----------
 alter table users enable row level security;
 
+drop policy if exists "user reads own record" on users;
 create policy "user reads own record"
   on users for select
   using ( (select auth.jwt()->>'sub') = id );
 
+drop policy if exists "user inserts own record" on users;
 create policy "user inserts own record"
   on users for insert
   with check ( (select auth.jwt()->>'sub') = id );
 
+drop policy if exists "user updates own record" on users;
 create policy "user updates own record"
   on users for update
   using ( (select auth.jwt()->>'sub') = id )
@@ -27,14 +30,17 @@ create policy "user updates own record"
 -- ---------- progress ----------
 alter table progress enable row level security;
 
+drop policy if exists "user reads own progress" on progress;
 create policy "user reads own progress"
   on progress for select
   using ( (select auth.jwt()->>'sub') = user_id );
 
+drop policy if exists "user inserts own progress" on progress;
 create policy "user inserts own progress"
   on progress for insert
   with check ( (select auth.jwt()->>'sub') = user_id );
 
+drop policy if exists "user updates own progress" on progress;
 create policy "user updates own progress"
   on progress for update
   using ( (select auth.jwt()->>'sub') = user_id )
@@ -43,6 +49,7 @@ create policy "user updates own progress"
 -- ---------- certificates ----------
 alter table certificates enable row level security;
 
+drop policy if exists "user reads own certificates" on certificates;
 create policy "user reads own certificates"
   on certificates for select
   using ( (select auth.jwt()->>'sub') = user_id );
@@ -50,6 +57,7 @@ create policy "user reads own certificates"
 -- ---------- xp_ledger ----------
 alter table xp_ledger enable row level security;
 
+drop policy if exists "user reads own xp" on xp_ledger;
 create policy "user reads own xp"
   on xp_ledger for select
   using ( (select auth.jwt()->>'sub') = user_id );
@@ -57,10 +65,12 @@ create policy "user reads own xp"
 -- ---------- streaks ----------
 alter table streaks enable row level security;
 
+drop policy if exists "user reads own streak" on streaks;
 create policy "user reads own streak"
   on streaks for select
   using ( (select auth.jwt()->>'sub') = user_id );
 
+drop policy if exists "user updates own streak" on streaks;
 create policy "user updates own streak"
   on streaks for update
   using ( (select auth.jwt()->>'sub') = user_id )
@@ -69,10 +79,12 @@ create policy "user updates own streak"
 -- ---------- challenge_submissions ----------
 alter table challenge_submissions enable row level security;
 
+drop policy if exists "user reads own submissions" on challenge_submissions;
 create policy "user reads own submissions"
   on challenge_submissions for select
   using ( (select auth.jwt()->>'sub') = user_id );
 
+drop policy if exists "user inserts own submission" on challenge_submissions;
 create policy "user inserts own submission"
   on challenge_submissions for insert
   with check ( (select auth.jwt()->>'sub') = user_id );
@@ -80,6 +92,7 @@ create policy "user inserts own submission"
 -- ---------- user_badges ----------
 alter table user_badges enable row level security;
 
+drop policy if exists "user reads own badges" on user_badges;
 create policy "user reads own badges"
   on user_badges for select
   using ( (select auth.jwt()->>'sub') = user_id );
@@ -87,6 +100,7 @@ create policy "user reads own badges"
 -- ---------- subscriptions ----------
 alter table subscriptions enable row level security;
 
+drop policy if exists "user reads own subscriptions" on subscriptions;
 create policy "user reads own subscriptions"
   on subscriptions for select
   using ( (select auth.jwt()->>'sub') = user_id );
@@ -104,10 +118,17 @@ alter table challenges enable row level security;
 alter table badges enable row level security;
 alter table plans enable row level security;
 
+drop policy if exists "public reads academies" on academies;
 create policy "public reads academies" on academies for select using ( true );
+drop policy if exists "public reads courses" on courses;
 create policy "public reads courses" on courses for select using ( true );
+drop policy if exists "public reads modules" on modules;
 create policy "public reads modules" on modules for select using ( true );
+drop policy if exists "public reads lessons" on lessons;
 create policy "public reads lessons" on lessons for select using ( true );
+drop policy if exists "public reads challenges" on challenges;
 create policy "public reads challenges" on challenges for select using ( true );
+drop policy if exists "public reads badges" on badges;
 create policy "public reads badges" on badges for select using ( true );
+drop policy if exists "public reads plans" on plans;
 create policy "public reads plans" on plans for select using ( true );

@@ -100,7 +100,8 @@ export default function Footer() {
           {/* Brand column */}
           <div>
             <Link href="/" style={{ display: "inline-flex", alignItems: "center", textDecoration: "none", marginBottom: "16px" }}>
-              <Image src="/logo-full.png" alt="SynfraCore" width={632} height={500} style={{ height: "56px", width: "auto" }} />
+              <Image src="/logo-full.png" alt="SynfraCore" width={632} height={500} className="footer-logo-desktop" style={{ height: "56px", width: "auto" }} />
+              <Image src="/logo-compact-pill.png" alt="SynfraCore" width={631} height={231} className="footer-logo-mobile" style={{ height: "44px", width: "auto" }} />
             </Link>
             <p style={{ color: "var(--text-4)", fontSize: "13px", lineHeight: 1.75, maxWidth: "260px", marginBottom: "20px" }}>
               The world&apos;s most comprehensive tech learning ecosystem. Built for practitioners, by practitioners. Education should be free.
@@ -209,6 +210,8 @@ export default function Footer() {
 
       {/* Mobile footer CSS */}
       <style>{`
+        .footer-logo-desktop { display: inline-block; }
+        .footer-logo-mobile { display: none; }
         @media (max-width: 768px) {
           footer > div > div:first-child {
             grid-template-columns: 1fr 1fr !important;
@@ -217,6 +220,8 @@ export default function Footer() {
           footer > div > div:first-child > div:first-child {
             grid-column: 1 / -1;
           }
+          .footer-logo-desktop { display: none; }
+          .footer-logo-mobile { display: inline-block; }
         }
         @media (max-width: 480px) {
           footer > div > div:first-child {

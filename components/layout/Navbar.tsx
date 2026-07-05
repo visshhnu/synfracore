@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect, useRef, useMemo } from "react";
-import { Menu, X, ChevronDown, ChevronRight, Search, Globe } from "lucide-react";
+import { Menu, X, ChevronDown, ChevronRight, Search, Globe, LayoutDashboard, LogIn } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { academies } from "@/lib/data/academies";
 import Image from "next/image";
@@ -285,13 +285,30 @@ export default function Navbar() {
             <LanguageSwitcher />
             <ThemeToggle />
             {isLoaded && (isSignedIn ? (
-              <UserButton />
+              <>
+                <Link href="/dashboard" className="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "5px", color: "var(--text-2)", fontSize: "13px", fontWeight: 600, padding: "5px 10px", borderRadius: "7px", textDecoration: "none", whiteSpace: "nowrap" }}>
+                  <LayoutDashboard size={14} /> Dashboard
+                </Link>
+                {/* Mobile: dashboard icon — same auth-state visibility as the desktop link, not buried in the drawer */}
+                <Link href="/dashboard" className="mobile-only" aria-label="Dashboard" style={{ background: "none", border: "1px solid var(--border)", color: "var(--text-2)", padding: "6px 8px", borderRadius: "8px" }}>
+                  <LayoutDashboard size={18} />
+                </Link>
+                <UserButton />
+              </>
             ) : (
-              <SignInButton mode="modal">
-                <button className="desktop-nav" style={{ background: "none", border: "1px solid var(--border)", borderRadius: "7px", padding: "5px 12px", fontSize: "13px", fontWeight: 600, color: "var(--text-2)", cursor: "pointer", fontFamily: "inherit", whiteSpace: "nowrap" }}>
-                  Sign In
-                </button>
-              </SignInButton>
+              <>
+                <SignInButton mode="modal">
+                  <button className="desktop-nav" style={{ background: "none", border: "1px solid var(--border)", borderRadius: "7px", padding: "5px 12px", fontSize: "13px", fontWeight: 600, color: "var(--text-2)", cursor: "pointer", fontFamily: "inherit", whiteSpace: "nowrap" }}>
+                    Sign In
+                  </button>
+                </SignInButton>
+                {/* Mobile: sign-in icon — was only reachable via the hamburger drawer before, one tap away now like everything else in this bar */}
+                <SignInButton mode="modal">
+                  <button className="mobile-only" aria-label="Sign In" style={{ background: "none", border: "1px solid var(--border)", cursor: "pointer", color: "var(--text-2)", padding: "6px 8px", borderRadius: "8px", fontFamily: "inherit" }}>
+                    <LogIn size={18} />
+                  </button>
+                </SignInButton>
+              </>
             ))}
             <Link href="/academies" className="desktop-nav btn-primary" style={{ padding: "6px 14px", fontSize: "13px", borderRadius: "7px", whiteSpace: "nowrap" }}>Start Learning</Link>
             {/* Mobile: search icon */}
@@ -432,13 +449,17 @@ export default function Navbar() {
           </Link>
         ))}
         <div style={{ padding: "14px 12px 8px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "8px" }}>
-          {isLoaded && !isSignedIn && (
+          {isLoaded && (isSignedIn ? (
+            <Link href="/dashboard" onClick={closeDrawer} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "6px", padding: "10px", fontSize: "13px", borderRadius: "8px", background: "var(--bg-2)", color: "var(--text-2)", border: "1px solid var(--border)", fontWeight: 600, textDecoration: "none" }}>
+              <LayoutDashboard size={14} /> Dashboard
+            </Link>
+          ) : (
             <SignInButton mode="modal">
               <button onClick={closeDrawer} style={{ display: "flex", justifyContent: "center", padding: "10px", fontSize: "13px", borderRadius: "8px", background: "var(--bg-2)", color: "var(--text-2)", border: "1px solid var(--border)", fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>
                 Sign In
               </button>
             </SignInButton>
-          )}
+          ))}
           <Link href="/academies" onClick={closeDrawer} className="btn-primary" style={{ display: "flex", justifyContent: "center", padding: "11px", fontSize: "13px", borderRadius: "8px" }}>
             Start Learning Free
           </Link>

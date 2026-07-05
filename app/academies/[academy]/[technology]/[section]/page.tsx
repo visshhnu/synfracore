@@ -10,6 +10,7 @@ import AuthorBadge from "@/components/tech/AuthorBadge";
 import WhatNext from "@/components/tech/WhatNext";
 import ProgressTracker from "@/components/tech/ProgressTracker";
 import QuickQuiz from "@/components/tech/QuickQuiz";
+import SectionQuiz from "@/components/quiz/SectionQuiz";
 
 type Props = {
   params: Promise<{ academy: string; technology: string; section: string }>;
@@ -255,6 +256,11 @@ export default async function SectionPage({ params }: Props) {
           <div style={{ marginTop: "40px" }}>
             <QuickQuiz questions={currentQuiz} techName={tech.name} accentColor="#6366F1" />
           </div>
+        )}
+
+        {/* Verification quiz — real, DB-backed questions, invisible until a section has some */}
+        {!isLabs && (
+          <SectionQuiz academy={aSlug} technology={tSlug} section={section} techName={tech.name} accentColor="#6366F1" />
         )}
 
         {/* What's next */}

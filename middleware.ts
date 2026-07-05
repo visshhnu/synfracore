@@ -1,4 +1,4 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 // clerkMiddleware() throws synchronously on every request if its keys aren't
@@ -12,11 +12,27 @@ const hasClerkKeys = Boolean(
   process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY && process.env.CLERK_SECRET_KEY
 );
 
-export default hasClerkKeys ? clerkMiddleware() : () => NextResponse.next();
+// Only these routes require sign-in. Every academy/roadmap/marketing page
+// stays public by design — "all domains remain explorable" is a product
+// decision, not just a UI default.
+const isProtectedRoute = createRouteMatcher([
+  "/dashboard(.*)",
+  "/onboarding(.*)",
+  "/admin(.*)",
+  "/profile(.*)",
+]);
+
+export default hasClerkKeys
+  ? clerkMiddleware(async (auth, req) => {
+      if (isProtectedRoute(req)) {
+        await auth.protect();
+      }
+    })
+  : () => NextResponse.next();
 
 export const config = {
   matcher: [
-    "/((?!_next|.*\\.(?:html?|css|js|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    "/((?!_next|.*\\.(?:html?|css|js|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest|md)).*)",
     "/(api|trpc)(.*)",
   ],
 };
