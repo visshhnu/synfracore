@@ -16,6 +16,14 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 31536000, // 1 year cache
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Clerk avatar URLs (currentUser().imageUrl / profile.avatar_url) are
+    // remote — next/image throws at render time for any hostname not
+    // whitelisted here, which was crashing /dashboard for every signed-in
+    // user (Clerk auto-generates an avatar even for email/OTP sign-in).
+    remotePatterns: [
+      { protocol: "https", hostname: "img.clerk.com" },
+      { protocol: "https", hostname: "images.clerk.dev" },
+    ],
   },
   // Target modern browsers — eliminates legacy JS polyfills
   experimental: {

@@ -1,7 +1,6 @@
 export const runtime = "edge";
 
 import Link from "next/link";
-import Image from "next/image";
 import { currentUser } from "@clerk/nextjs/server";
 import { ensureUserRecord } from "@/lib/supabase/ensureUser";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -35,20 +34,40 @@ function timeAgo(iso: string): string {
   return `${days}d ago`;
 }
 
-export default async function DashboardPage() {
-  const [profile, clerkUser] = await Promise.all([ensureUserRecord(), currentUser()]);
+const EMPTY_QUIZ_SUMMARY = { totalAttempts: 0, averageScorePct: 0, weakTopics: [] };
 
-  const supabase = createSupabaseServerClient();
+export default async function DashboardPage() {
+  // ensureUserRecord() and currentUser() are independently safe (both catch
+  // their own errors internally) — but currentUser() failing shouldn't take
+  // down profile lookup or vice versa, so Promise.all is still fine here.
+  const [profile, clerkUser] = await Promise.all([ensureUserRecord(), currentUser()]);
   const userId = clerkUser?.id ?? "";
-  const [domainPrefs, progressSummary, recentActivity, bookmarks, quizSummary] = userId
-    ? await Promise.all([
+
+  // Page-level safety net: even with every individual query function already
+  // catching its own errors (queries.ts) and createSupabaseServerClient()
+  // now guarding its accessToken callback, a client-construction failure
+  // here (bad env var, unexpected throw) must not crash the whole page —
+  // fall back to empty state exactly like "no data yet" would look.
+  let domainPrefs: Awaited<ReturnType<typeof getDomainPreferences>> = [];
+  let progressSummary: Awaited<ReturnType<typeof getProgressSummary>> = [];
+  let recentActivity: Awaited<ReturnType<typeof getRecentActivity>> = [];
+  let bookmarks: Awaited<ReturnType<typeof getBookmarks>> = [];
+  let quizSummary: Awaited<ReturnType<typeof getQuizSummary>> = EMPTY_QUIZ_SUMMARY;
+
+  if (userId) {
+    try {
+      const supabase = createSupabaseServerClient();
+      [domainPrefs, progressSummary, recentActivity, bookmarks, quizSummary] = await Promise.all([
         getDomainPreferences(supabase, userId),
         getProgressSummary(supabase, userId),
         getRecentActivity(supabase, userId, 6),
         getBookmarks(supabase, userId, 5),
         getQuizSummary(supabase, userId),
-      ])
-    : [[], [], [], [], { totalAttempts: 0, averageScorePct: 0, weakTopics: [] }];
+      ]);
+    } catch (err) {
+      console.error("Dashboard data fetch failed — rendering empty state instead of crashing:", err);
+    }
+  }
 
   const displayName = profile?.full_name || clerkUser?.fullName || clerkUser?.firstName || "there";
   const avatarUrl = profile?.avatar_url || clerkUser?.imageUrl;
@@ -84,7 +103,13 @@ export default async function DashboardPage() {
       {/* Welcome / identity */}
       <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "32px" }}>
         {avatarUrl ? (
-          <Image src={avatarUrl} alt={displayName} width={56} height={56} style={{ borderRadius: "50%", height: "56px", width: "56px", objectFit: "cover" }} />
+          // Plain <img>, not next/image: avatar URLs come from Clerk/Supabase
+          // and next/image throws at render time for any hostname not in
+          // next.config.ts's remotePatterns — that exact mismatch is what
+          // was crashing this page. A 56px avatar gains nothing from Next's
+          // optimization pipeline; not worth re-introducing the risk.
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={avatarUrl} alt={displayName} width={56} height={56} style={{ borderRadius: "50%", height: "56px", width: "56px", objectFit: "cover" }} />
         ) : (
           <div style={{ width: "56px", height: "56px", borderRadius: "50%", background: "var(--bg-2)", border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "22px", fontWeight: 700, color: "var(--text-3)" }}>
             {displayName.charAt(0).toUpperCase()}
@@ -175,7 +200,8 @@ export default async function DashboardPage() {
         {progressAcademies.length > 0 ? (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "14px" }}>
             {progressAcademies.map(a => {
-              const summary = progressSummary.find(p => p.academySlug === a.slug)!;
+              const summary = progressSummary.find(p => p.academySlug === a.slug);
+              if (!summary) return null;
               const pct = summary.touched > 0 ? Math.round((summary.completed / summary.touched) * 100) : 0;
               return (
                 <Link key={a.slug} href={`/academies/${a.slug}`} style={{ textDecoration: "none", display: "block", padding: "14px", borderRadius: "12px", border: "1px solid var(--border)", background: "var(--bg-1)" }}>
