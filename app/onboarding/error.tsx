@@ -1,0 +1,34 @@
+"use client";
+import { useEffect } from "react";
+import Link from "next/link";
+
+export default function OnboardingError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+  useEffect(() => {
+    console.error("Onboarding error boundary caught:", error);
+  }, [error]);
+
+  return (
+    <div style={{ maxWidth: "560px", margin: "80px auto", padding: "0 24px", textAlign: "center" }}>
+      <div style={{ fontSize: "40px", marginBottom: "16px" }}>⚠️</div>
+      <h1 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "22px", fontWeight: 800, marginBottom: "10px" }}>
+        Couldn't load onboarding
+      </h1>
+      <p style={{ color: "var(--text-3)", fontSize: "14px", lineHeight: 1.6, marginBottom: "24px" }}>
+        This step is optional anyway — you can skip it for now and everything else on the site still works normally.
+      </p>
+      {error.digest && (
+        <p style={{ color: "var(--text-4)", fontSize: "11px", marginBottom: "24px", fontFamily: "monospace" }}>
+          Error reference: {error.digest}
+        </p>
+      )}
+      <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
+        <button onClick={() => reset()} className="btn-primary" style={{ padding: "10px 24px", borderRadius: "8px", fontSize: "14px", fontWeight: 700, border: "none", cursor: "pointer" }}>
+          Try again
+        </button>
+        <Link href="/dashboard" style={{ padding: "10px 24px", borderRadius: "8px", fontSize: "14px", fontWeight: 600, background: "var(--bg-2)", border: "1px solid var(--border)", color: "var(--text-2)", textDecoration: "none" }}>
+          Skip to dashboard
+        </Link>
+      </div>
+    </div>
+  );
+}

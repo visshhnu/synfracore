@@ -37,10 +37,20 @@ function timeAgo(iso: string): string {
 const EMPTY_QUIZ_SUMMARY = { totalAttempts: 0, averageScorePct: 0, weakTopics: [] };
 
 export default async function DashboardPage() {
-  // ensureUserRecord() and currentUser() are independently safe (both catch
-  // their own errors internally) — but currentUser() failing shouldn't take
-  // down profile lookup or vice versa, so Promise.all is still fine here.
-  const [profile, clerkUser] = await Promise.all([ensureUserRecord(), currentUser()]);
+  // currentUser() is a real network call to Clerk's backend API (heavier
+  // than the session check middleware already did) and was previously
+  // called twice per page load — once here, once again inside
+  // ensureUserRecord() — with neither call guarded. Clerk's dev/test keys
+  // (the console warning you're seeing) have strict rate limits, so two
+  // unguarded calls per load made an intermittent throw here twice as
+  // likely. Fetch it once, safely, and hand it to ensureUserRecord().
+  let clerkUser: Awaited<ReturnType<typeof currentUser>> = null;
+  try {
+    clerkUser = await currentUser();
+  } catch (err) {
+    console.error("currentUser() failed — rendering dashboard in a degraded, signed-out-looking state instead of crashing:", err);
+  }
+  const profile = await ensureUserRecord(clerkUser);
   const userId = clerkUser?.id ?? "";
 
   // Page-level safety net: even with every individual query function already
