@@ -19,18 +19,18 @@ type ClerkUser = Awaited<ReturnType<typeof currentUser>>;
 // Clerk's backend API — Clerk's dev/test keys have strict rate limits, and
 // two currentUser() calls per page load makes hitting that limit twice as
 // likely. Falls back to fetching it itself if not passed.
-export async function ensureUserRecord(preloadedUser?: ClerkUser): Promise<Profile | null> {
-  // Everything below — the currentUser() fetch (a real network call to
-  // Clerk, can fail/throw on rate limits or backend issues), client
-  // construction (accessToken callback calls Clerk's auth().getToken(),
-  // which can itself throw), and the actual Supabase network call — was
-  // previously unguarded, unlike every read function in queries.ts. A throw
-  // here happens before any page content renders, producing Next's generic
-  // "Application error: a server-side exception has occurred" for the
-  // whole /dashboard page. Wrap all of it.
+export type EnsureUserResult = { profile: Profile | null; errorMessage: string | null };
+
+// Returns the raw error message alongside the profile — NOT just logged
+// server-side — specifically so it can be surfaced directly on the
+// dashboard page. console.error() alone goes to Cloudflare's function logs,
+// which aren't visible from a browser and weren't being checked; we've been
+// guessing at root causes for several rounds now without this. Showing the
+// literal Postgres/Supabase error on-screen ends the guessing immediately.
+export async function ensureUserRecord(preloadedUser?: ClerkUser): Promise<EnsureUserResult> {
   try {
     const user = preloadedUser !== undefined ? preloadedUser : await currentUser();
-    if (!user) return null;
+    if (!user) return { profile: null, errorMessage: null };
 
     const supabase = createSupabaseServerClient();
     const { data, error } = await supabase
@@ -50,12 +50,13 @@ export async function ensureUserRecord(preloadedUser?: ClerkUser): Promise<Profi
       .single();
 
     if (error) {
-      console.error("ensureUserRecord failed (has docs/learner-platform-schema.sql been run against Supabase yet?):", error);
-      return null;
+      console.error("ensureUserRecord failed:", error);
+      return { profile: null, errorMessage: `[${error.code ?? "?"}] ${error.message}${error.hint ? ` — hint: ${error.hint}` : ""}` };
     }
-    return data as Profile;
+    return { profile: data as Profile, errorMessage: null };
   } catch (err) {
-    console.error("ensureUserRecord threw (not just a query error — check Clerk/Supabase client construction):", err);
-    return null;
+    console.error("ensureUserRecord threw:", err);
+    const message = err instanceof Error ? err.message : String(err);
+    return { profile: null, errorMessage: `Threw (not a query error): ${message}` };
   }
 }

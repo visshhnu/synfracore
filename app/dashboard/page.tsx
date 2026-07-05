@@ -50,7 +50,7 @@ export default async function DashboardPage() {
   } catch (err) {
     console.error("currentUser() failed — rendering dashboard in a degraded, signed-out-looking state instead of crashing:", err);
   }
-  const profile = await ensureUserRecord(clerkUser);
+  const { profile, errorMessage: syncError } = await ensureUserRecord(clerkUser);
   const userId = clerkUser?.id ?? "";
 
   // Page-level safety net: even with every individual query function already
@@ -96,6 +96,16 @@ export default async function DashboardPage() {
 
   return (
     <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "40px 24px 64px" }}>
+
+      {/* Temporary diagnostic banner — remove once user-row sync is confirmed
+          working. Shows the literal Supabase/Postgres error instead of only
+          logging it server-side, since that log wasn't visible/checked. */}
+      {syncError && (
+        <div style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.3)", borderRadius: "12px", padding: "14px 18px", marginBottom: "20px" }}>
+          <div style={{ fontWeight: 700, fontSize: "13px", color: "#F87171", marginBottom: "4px" }}>⚠️ Profile sync failed (diagnostic — this banner is temporary)</div>
+          <div style={{ fontSize: "12px", color: "var(--text-3)", fontFamily: "monospace", wordBreak: "break-word" }}>{syncError}</div>
+        </div>
+      )}
 
       {/* Onboarding prompt */}
       {!onboardingCompleted && (

@@ -12,7 +12,7 @@ export default async function AdminPage() {
   // actually gates this page happens here, against our own Supabase `role`
   // column (not Clerk's org/role system, which this project doesn't use).
   // 404 rather than redirect, so a non-admin can't tell the page exists.
-  const profile = await ensureUserRecord();
+  const { profile } = await ensureUserRecord();
   if (!profile || profile.role !== "admin") notFound();
 
   const supabase = createSupabaseServerClient();

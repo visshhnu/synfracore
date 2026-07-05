@@ -11,7 +11,7 @@ export const metadata = { title: "Get started | SynfraCore" };
 type Props = { searchParams: Promise<{ error?: string }> };
 
 export default async function OnboardingPage({ searchParams }: Props) {
-  const profile = await ensureUserRecord();
+  const { profile } = await ensureUserRecord();
   const { userId } = await auth();
   const { error } = await searchParams;
 
