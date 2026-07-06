@@ -53,10 +53,14 @@ export default async function OnboardingPage({ searchParams }: Props) {
           Couldn't save that — please try again. If it keeps happening, the database may not be fully set up yet.
         </div>
       )}
+      {/* Full error text is logged server-side by ensureUserRecord() (visible
+          in Cloudflare's Functions logs) — never rendered here. Rendering
+          the raw Clerk/Postgres error was a temporary diagnostic measure;
+          it exposed internal auth/integration details to end users. */}
       {syncError && (
         <div style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.3)", borderRadius: "12px", padding: "14px 18px", marginBottom: "20px" }}>
-          <div style={{ fontWeight: 700, fontSize: "13px", color: "#F87171", marginBottom: "4px" }}>⚠️ Profile sync failed (diagnostic — temporary)</div>
-          <div style={{ fontSize: "12px", color: "var(--text-3)", fontFamily: "monospace", wordBreak: "break-word" }}>{syncError}</div>
+          <div style={{ fontWeight: 700, fontSize: "13px", color: "#F87171" }}>⚠️ We couldn't sync your profile just now</div>
+          <div style={{ fontSize: "12px", color: "var(--text-3)", marginTop: "4px" }}>Your account is signed in — this only affects a few personalised fields. Try refreshing in a moment.</div>
         </div>
       )}
       <div style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "16px", padding: "28px" }}>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { Menu, X, ChevronDown, ChevronRight, Search, Globe, LayoutDashboard, LogIn } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useTheme } from "@/components/ThemeProvider";
 import { academies } from "@/lib/data/academies";
 import Image from "next/image";
 import { useAuth, SignInButton, UserButton } from "@clerk/nextjs";
@@ -211,6 +212,7 @@ export default function Navbar() {
   const [dropOpen, setDropOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { isLoaded, isSignedIn } = useAuth();
+  const { theme } = useTheme();
   let dropTimer: ReturnType<typeof setTimeout>;
 
   useEffect(() => {
@@ -254,9 +256,13 @@ export default function Navbar() {
         <div style={{ maxWidth: "1300px", margin: "0 auto", padding: "0 16px", height: scrolled ? "48px" : "60px", transition: "height 0.2s ease", display: "flex", alignItems: "center", gap: "6px" }}>
           <Link href="/" style={{ textDecoration: "none", flexShrink: 0, lineHeight: 0, marginRight: "4px" }}>
             <div className="logo-wrapper">
-              <Image src="/logo-compact-pill.png" alt="SynfraCore" width={631} height={231} priority
+              {/* Full lockup (mark + "Synfracore" wordmark on a rounded card).
+                  Two theme-specific source files — each already has its 4
+                  outer corners keyed to transparent, so only the rounded
+                  card itself shows against the navbar, no square artifact. */}
+              <Image src={theme === "light" ? "/logo-light-full.png" : "/logo-dark-full.png"} alt="SynfraCore" width={2339} height={1857} priority
                 className={`logo-pill${scrolled ? " is-hidden" : ""}`}
-                style={{ height: "32px", width: "auto" }} />
+                style={{ height: "42px", width: "auto" }} />
               <div className={`logo-mark${scrolled ? " is-visible" : ""}`}>
                 {/* Transparent, card-free mark — gradient-filled glyph, no
                     bounding box, reads on both light and dark themes since

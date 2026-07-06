@@ -2,6 +2,7 @@
 import { NewsletterSignup } from "@/components/growth/NewsletterSignup";
 import Link from "next/link";
 import Image from "next/image";
+import { useTheme } from "@/components/ThemeProvider";
 
 const academyLinks = [
   { name: "DevOps", href: "/academies/devops" },
@@ -90,6 +91,8 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const { theme } = useTheme();
+  const logoSrc = theme === "light" ? "/logo-light-full.png" : "/logo-dark-full.png";
   return (
     <footer style={{ background: "var(--bg-1)", borderTop: "1px solid var(--border)" }}>
       <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "56px 16px 0" }}>
@@ -100,8 +103,11 @@ export default function Footer() {
           {/* Brand column */}
           <div>
             <Link href="/" style={{ display: "inline-flex", alignItems: "center", textDecoration: "none", marginBottom: "16px" }}>
-              <Image src="/logo-full.png" alt="SynfraCore" width={632} height={500} className="footer-logo-desktop" style={{ height: "56px", width: "auto" }} />
-              <Image src="/logo-compact-pill.png" alt="SynfraCore" width={631} height={231} className="footer-logo-mobile" style={{ height: "44px", width: "auto" }} />
+              {/* Both source files already have their 4 outer corners keyed
+                  transparent, so only the rounded card renders — no square
+                  artifact against the footer background. */}
+              <Image src={logoSrc} alt="SynfraCore" width={2339} height={1857} className="footer-logo-desktop" style={{ height: "56px", width: "auto" }} />
+              <Image src={logoSrc} alt="SynfraCore" width={2339} height={1857} className="footer-logo-mobile" style={{ height: "44px", width: "auto" }} />
             </Link>
             <p style={{ color: "var(--text-4)", fontSize: "13px", lineHeight: 1.75, maxWidth: "260px", marginBottom: "20px" }}>
               The world&apos;s most comprehensive tech learning ecosystem. Built for practitioners, by practitioners. Education should be free.
