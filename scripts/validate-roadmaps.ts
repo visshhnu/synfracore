@@ -34,6 +34,30 @@ const BANNED_MISMATCHES: { roadmap: string; stepIncludes: string; bannedAcademy:
   // Generic form of the "narrowed to one compute service" bug, checked across all roadmaps below too.
 ];
 
+// Shared targets confirmed VALID by manual semantic review (2026-07 pass) —
+// each has genuinely-broad, dedicated content covering every mapped step, not
+// a fallback for missing content. Rule 5 skips these specific pairs; any NEW
+// collision not listed here still fails the build. Do not add to this list
+// just to silence a failure — only after confirming the target page actually
+// covers every step's distinct meaning.
+const ALLOWED_SHARED_TARGETS: { roadmap: string; href: string; reason: string }[] = [
+  {
+    roadmap: "ca-journey",
+    href: "finance/ca-articleship/overview",
+    reason: "Registering for articleship and living through the 3-year period are sequential stages of one continuous process, not separate subjects — the page has dedicated sections for both ('Registering for Articleship' and 'What the 3 Years Actually Look Like').",
+  },
+  {
+    roadmap: "ca-journey",
+    href: "finance/ca-intermediate/overview",
+    reason: "Page is an explicit 'Complete Guide' with dedicated, substantial Group I (40 lines) and Group II (28 lines) syllabus sections — both groups fully covered, not a fallback.",
+  },
+  {
+    roadmap: "ca-journey",
+    href: "finance/ca-final/overview",
+    reason: "Page title is literally 'CA Final — Group I & Group II' with dedicated sections for each — the shared target is the intended design, not a missing-content fallback.",
+  },
+];
+
 const failures: Failure[] = [];
 
 function fail(roadmap: string, step: string, reason: string) {
@@ -92,7 +116,8 @@ for (const rm of roadmaps) {
 
   // Rule 5: collapsed steps — two different steps in the same roadmap must not
   // resolve to the identical URL. (Same page reused across DIFFERENT roadmaps
-  // is fine; the same page reused for DIFFERENT steps within one roadmap is not.)
+  // is fine; the same page reused for DIFFERENT steps within one roadmap is not,
+  // unless explicitly confirmed valid in ALLOWED_SHARED_TARGETS.)
   const seenHrefs = new Map<string, string>(); // href -> first step name that used it
   detail.techLinks.forEach((t: RoadmapTechLink, i: number) => {
     if (!t.academy || !t.slug) return;
@@ -100,11 +125,14 @@ for (const rm of roadmaps) {
     const href = `${t.academy}/${t.slug}/${t.section || "overview"}`;
     const firstStep = seenHrefs.get(href);
     if (firstStep && firstStep !== step) {
-      fail(
-        rm.slug,
-        step,
-        `Collapsed step: "${step}" resolves to the same URL (${href}) as an earlier step "${firstStep}" in this roadmap.`
-      );
+      const allowed = ALLOWED_SHARED_TARGETS.some(a => a.roadmap === rm.slug && a.href === href);
+      if (!allowed) {
+        fail(
+          rm.slug,
+          step,
+          `Collapsed step: "${step}" resolves to the same URL (${href}) as an earlier step "${firstStep}" in this roadmap.`
+        );
+      }
     } else {
       seenHrefs.set(href, step);
     }

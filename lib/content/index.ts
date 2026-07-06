@@ -1694,6 +1694,7 @@ const contentRegistry = new Map<string, string>([
   ["finance/banking-rbi/intermediate","finance/banking-rbi/intermediate"],
   ["finance/banking-rbi/interview","finance/banking-rbi/interview"],
   ["finance/banking-rbi/overview","finance/banking-rbi/overview"],
+  ["finance/banking-rbi/notes","finance/banking-rbi/notes"],
   ["finance/ca-intermediate/advanced","finance/ca-intermediate/advanced"],
   ["finance/ca-intermediate/fundamentals","finance/ca-intermediate/fundamentals"],
   ["finance/ca-intermediate/intermediate","finance/ca-intermediate/intermediate"],

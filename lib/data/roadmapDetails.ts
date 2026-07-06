@@ -308,7 +308,7 @@ export const roadmapDetails: Record<string, RoadmapDetail> = {
       { name: "Banking & RBI Framework", academy: "finance", slug: "banking-rbi" },
       { name: "Credit Analysis Fundamentals", academy: "finance", slug: "credit-analysis" },
       { name: "CA/MBA or NISM Certifications", academy: "finance", slug: "ca-cs-foundation" },
-      { name: "Role: Analyst / RM", academy: "finance", slug: "banking-rbi" },
+      { name: "Role: Analyst / RM", academy: "finance", slug: "banking-rbi", section: "notes" },
     ],
     salaryRange: "₹5L – ₹25L (India, varies widely by role and firm)", jobTitles: ["Credit Analyst", "Equity Analyst", "Relationship Manager", "Risk Analyst"],
     topEmployers: ["HDFC Bank", "ICICI Bank", "Kotak Mahindra", "SBI", "SEBI", "RBI", "AMCs"],
