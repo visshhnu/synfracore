@@ -596,6 +596,7 @@ const examsAcademy: Academy = {
         { slug: "jee-chemistry", name: "JEE Chemistry", icon: "🧪", description: "Organic, inorganic, physical chemistry for JEE Main and Advanced", level: "Advanced", tags: ["JEE", "Chemistry", "IIT"] },
         { slug: "jee-advanced", name: "JEE Advanced & JoSAA Counselling", icon: "🎓", description: "JEE Advanced exam structure, topic weightage vs JEE Main, and the full JoSAA seat-allocation process", level: "Advanced", tags: ["JEE Advanced", "IIT", "JoSAA"] },
         { slug: "neet-mocktests", name: "NEET Mock Tests & Revision", icon: "📝", description: "NEET mock test strategy, time management, and structured revision planning", level: "Advanced", tags: ["NEET", "Mock Tests", "Revision"] },
+        { slug: "jee-main", name: "JEE Main Exam Guide", icon: "🧮", description: "JEE Main exam structure, NTA normalisation, JEE Main vs Advanced, application process", level: "Intermediate", tags: ["JEE Main", "NTA", "Engineering"] },
       ],
     },
     {
@@ -619,6 +620,10 @@ const examsAcademy: Academy = {
       technologies: [
         { slug: "banking-exam", name: "Banking PO Exam Prep & PYQ", icon: "🏦", description: "Previous year questions and practice for SBI PO, IBPS PO, Clerk, RBI Grade B with exam strategy", level: "Intermediate", tags: ["Banking", "PYQ", "SBI", "IBPS"] },
         { slug: "banking-exams", name: "Banking Exams (SBI/IBPS)", icon: "🏦", description: "Quantitative aptitude, reasoning, English, banking awareness for SBI PO, IBPS PO/Clerk", level: "Beginner", tags: ["Banking", "SBI", "IBPS"] },
+        { slug: "quant-aptitude", name: "Quantitative Aptitude", icon: "🔢", description: "Quantitative Aptitude for banking and SSC exams — simplification, DI, percentages, time & work, speed techniques", level: "Beginner", tags: ["Banking", "SSC", "Quant"] },
+        { slug: "reasoning-ability", name: "Reasoning Ability", icon: "🧩", description: "Reasoning for banking and SSC exams — puzzles, seating arrangement, syllogism, coding-decoding", level: "Beginner", tags: ["Banking", "SSC", "Reasoning"] },
+        { slug: "english-language", name: "English Language", icon: "🔤", description: "English for banking and SSC exams — reading comprehension, cloze test, error spotting, para jumbles", level: "Beginner", tags: ["Banking", "SSC", "English"] },
+        { slug: "banking-awareness", name: "General & Banking Awareness", icon: "📰", description: "Banking and general awareness — RBI functions, monetary policy, static GK, current affairs, govt schemes", level: "Beginner", tags: ["Banking", "SSC", "Awareness"] },
         { slug: "ssc-exam", name: "SSC Exam Guide & PYQ", icon: "🏛️", description: "SSC CGL, CHSL, MTS, CPO overview, previous year questions, section strategy, cut-offs", level: "Beginner", tags: ["SSC", "CGL", "CHSL", "PYQ"] },
       { slug: "ssc-cgl", name: "SSC CGL", icon: "📋", description: "Tier I & II — Quant, English, GK, Reasoning for SSC CGL and CHSL", level: "Beginner", tags: ["SSC", "CGL", "Government"] },
         { slug: "rrb-ntpc", name: "RRB NTPC", icon: "🚂", description: "Mathematics, GI & Reasoning, General Awareness for Railway exams", level: "Beginner", tags: ["Railway", "RRB", "Government"] },

@@ -8,6 +8,9 @@
 //   2. steps.length !== techLinks.length for a roadmap (labels and links drifted apart).
 //   3. A techLink is missing academy/slug/name entirely.
 //   4. A known banned mismatch (previously-confirmed wrong pairing) has resurfaced.
+//   5. Two DIFFERENT steps within the same roadmap resolve to the identical
+//      {academy}/{slug}/{section||overview} URL — this is the "collapsed steps"
+//      class of bug (multiple distinct steps silently routed to one page).
 //
 // Extend this by adding to BANNED_MISMATCHES as new bad pairings are found.
 
@@ -84,6 +87,26 @@ for (const rm of roadmaps) {
       ) {
         fail(rm.slug, step, `Banned mismatch resurfaced: "${step}" -> ${t.academy}/${t.slug}`);
       }
+    }
+  });
+
+  // Rule 5: collapsed steps — two different steps in the same roadmap must not
+  // resolve to the identical URL. (Same page reused across DIFFERENT roadmaps
+  // is fine; the same page reused for DIFFERENT steps within one roadmap is not.)
+  const seenHrefs = new Map<string, string>(); // href -> first step name that used it
+  detail.techLinks.forEach((t: RoadmapTechLink, i: number) => {
+    if (!t.academy || !t.slug) return;
+    const step = rm.steps[i] ?? `techLinks[${i}]`;
+    const href = `${t.academy}/${t.slug}/${t.section || "overview"}`;
+    const firstStep = seenHrefs.get(href);
+    if (firstStep && firstStep !== step) {
+      fail(
+        rm.slug,
+        step,
+        `Collapsed step: "${step}" resolves to the same URL (${href}) as an earlier step "${firstStep}" in this roadmap.`
+      );
+    } else {
+      seenHrefs.set(href, step);
     }
   });
 }

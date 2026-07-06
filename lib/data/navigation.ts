@@ -83,7 +83,7 @@ export const roadmaps = [
   { slug: "banking-po", title: "Banking PO (SBI/IBPS)", icon: "🏦", color: "#10B981", category: "government", duration: "6–12 months",
     steps: ["Quantitative Aptitude", "Reasoning Ability", "English Language", "General/Banking Awareness", "Prelims Exam", "Mains Exam", "Interview"] },
   { slug: "state-psc-officer", title: "State PSC — Civil Services", icon: "🏛️", color: "#8B5CF6", category: "government", duration: "1–3 years",
-    steps: ["State GK + Language", "Indian Polity & History", "Prelims (state-specific)", "Mains + State-specific papers", "Judgment / Essay Writing", "Interview"] },
+    steps: ["State GK + Language", "Indian Polity & History", "Prelims (state-specific)", "Mains + State-specific papers", "Mains — Essay & Answer Writing", "Interview"] },
 
   // ── FINANCE ────────────────────────────────────────────────────────────────
   { slug: "ca-journey", title: "Chartered Accountant (CA)", icon: "📒", color: "#F59E0B", category: "finance", duration: "4–5 years",

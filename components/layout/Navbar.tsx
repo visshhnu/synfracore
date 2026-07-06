@@ -258,7 +258,10 @@ export default function Navbar() {
                 className={`logo-pill${scrolled ? " is-hidden" : ""}`}
                 style={{ height: "32px", width: "auto" }} />
               <div className={`logo-mark${scrolled ? " is-visible" : ""}`}>
-                <Image src="/favicon-32x32.png" alt="" width={32} height={32} priority style={{ height: "24px", width: "24px", borderRadius: "6px" }} />
+                {/* Transparent, card-free mark — gradient-filled glyph, no
+                    bounding box, reads on both light and dark themes since
+                    it's colored rather than a plain white cutout. */}
+                <Image src="/logo-ac-mark-transparent.png" alt="" width={128} height={128} priority style={{ height: "26px", width: "26px" }} />
                 <span>Synfracore</span>
               </div>
             </div>

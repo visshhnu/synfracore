@@ -11,14 +11,31 @@ export const metadata = { title: "Get started | SynfraCore" };
 type Props = { searchParams: Promise<{ error?: string }> };
 
 export default async function OnboardingPage({ searchParams }: Props) {
-  const { profile } = await ensureUserRecord();
-  const { userId } = await auth();
+  // auth() itself was called unguarded here before — same class of bug as
+  // dashboard/page.tsx's old currentUser() call. Wrap it rather than assume
+  // it can't fail.
+  let userId: string | null = null;
+  try {
+    userId = (await auth()).userId;
+  } catch (err) {
+    console.error("auth() failed in onboarding:", err);
+  }
+
+  const { profile, errorMessage: syncError } = await ensureUserRecord();
   const { error } = await searchParams;
 
+  // Same fix as dashboard/page.tsx: createSupabaseServerClient() + the query
+  // were previously called directly, unguarded — if client construction
+  // threw, nothing here caught it, crashing the whole page instead of
+  // falling back to "no existing preferences yet".
   let existingDomains: string[] = [];
   if (userId) {
-    const supabase = createSupabaseServerClient();
-    existingDomains = await getDomainPreferences(supabase, userId);
+    try {
+      const supabase = createSupabaseServerClient();
+      existingDomains = await getDomainPreferences(supabase, userId);
+    } catch (err) {
+      console.error("Failed to load existing domain preferences — continuing with an empty list:", err);
+    }
   }
 
   return (
@@ -34,6 +51,12 @@ export default async function OnboardingPage({ searchParams }: Props) {
       {error && (
         <div style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.25)", borderRadius: "12px", padding: "14px 18px", marginBottom: "20px", fontSize: "13px", color: "#F87171" }}>
           Couldn't save that — please try again. If it keeps happening, the database may not be fully set up yet.
+        </div>
+      )}
+      {syncError && (
+        <div style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.3)", borderRadius: "12px", padding: "14px 18px", marginBottom: "20px" }}>
+          <div style={{ fontWeight: 700, fontSize: "13px", color: "#F87171", marginBottom: "4px" }}>⚠️ Profile sync failed (diagnostic — temporary)</div>
+          <div style={{ fontSize: "12px", color: "var(--text-3)", fontFamily: "monospace", wordBreak: "break-word" }}>{syncError}</div>
         </div>
       )}
       <div style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "16px", padding: "28px" }}>

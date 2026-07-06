@@ -1,85 +1,30 @@
-# Constitutional Law — Intermediate
+# Criminal Law — BNS / IPC Fundamentals
 
-Indian Constitution structure, Preamble, Fundamental Rights, DPSP, Fundamental Duties, Amendment procedure, federal structure.
+## From IPC to BNS: What Changed
 
-Detailed content for intermediate of Constitutional Law covering key concepts, practice questions, and exam preparation material.
+The Bharatiya Nyaya Sanhita (BNS) 2023 replaced the Indian Penal Code (IPC) 1860 as India's primary substantive criminal law, effective July 2024. The structure of offences is broadly similar but renumbered, and several new offences were added (organised crime, terrorism, mob lynching as an aggravated murder category).
 
-## Key Topics
-This section covers the core intermediate content for Constitutional Law. Work through the overview first, then fundamentals, intermediate, and advanced sections in order.
+## Categories of Offences
 
-## Study Note
-For Constitutional Law, focus on understanding principles and their application to fact scenarios — this is how both CLAT and judiciary exams test your knowledge.
+| Category | Examples | BNS Chapter |
+|---|---|---|
+| Offences against the human body | Murder, culpable homicide, hurt, assault | Ch. VI |
+| Offences against property | Theft, extortion, robbery, criminal breach of trust | Ch. VII |
+| Offences against women and children | Rape, dowry death, cruelty by husband/relatives | Ch. V |
+| Offences against the State | Waging war, sedition-equivalent provisions | Ch. VII (renamed) |
+| Economic offences | Cheating, forgery, criminal breach of trust | Ch. VII |
 
-## Building Deeper Understanding
-With the fundamentals in place, this section covers applied knowledge, real-world scenarios, and exam-level complexity.
+## Key Doctrines Every Judiciary Aspirant Must Know
 
-## Applied Concepts
-- Connect foundational theory to practical applications
-- Understand how rules and principles interact in real cases
-- Analyse scenarios and draw reasoned conclusions
-- Identify exceptions, edge cases, and nuances
+- **Mens rea and actus reus** — no crime without both a guilty mind and a guilty act, subject to statutory strict-liability exceptions.
+- **Common intention (Section 3(5) BNS / erstwhile S.34 IPC)** — where several persons share a common intention, each is liable for the act as if done by them alone.
+- **General exceptions** — private defence, necessity, consent, and insanity remain available defences under BNS Chapter III, largely mirroring IPC Chapter IV.
+- **Attempt, abetment, and criminal conspiracy** — inchoate offences that are punishable even where the substantive offence is not completed.
 
-## Practice Approach
-At this level, practice is key. For each concept:
-1. Understand the principle
-2. See it applied to a sample problem
-3. Solve a practice problem independently
-4. Check your answer and understand any errors
+## Criminal Procedure — What Judiciary Exams Test Alongside BNS
 
-## Common Intermediate Mistakes
-- Applying rules without reading the full context
-- Missing exceptions or special cases
-- Confusing similar concepts or terms
-- Not practising enough past questions
+The Bharatiya Nagarik Suraksha Sanhita (BNSS) replaced the CrPC. Aspirants are typically tested on: arrest procedure and safeguards, bail (regular, anticipatory, default bail under the erstwhile S.167 CrPC / BNSS equivalent), framing of charges, and the trial process for sessions vs magistrate courts.
 
-## Progress Check
-You are ready for advanced topics when you can:
-- Solve moderately difficult problems without looking at notes
-- Explain concepts to someone else
-- Identify the relevant framework for any given scenario
+## How This Fits the Judiciary Syllabus
 
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Most civil judge exams pair Constitutional Law and Criminal Law (BNS + BNSS + Evidence Act) as a single paper or a tightly linked paper group — which is why this technology covers both: use the Overview section for Constitutional Law and this section for Criminal Law.
