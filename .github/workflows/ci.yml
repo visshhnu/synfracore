@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Roadmap routing validator
+        run: npm run validate:roadmaps
+
+      - name: TypeScript
+        run: npx tsc --noEmit
+
+      # NOTE: eslint.config.mjs currently resolves to an effectively empty
+      # config for most file globs (dynamic-route bracket directories confuse
+      # its glob matching) — this step will pass today regardless of real
+      # lint issues. Kept in CI so it starts enforcing automatically once
+      # that config gap is fixed, rather than needing this workflow revisited.
+      - name: Lint
+        run: npm run lint

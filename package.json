@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "pages:build": "npx @cloudflare/next-on-pages@1",
+    "predeploy": "npm run validate:roadmaps",
     "deploy": "npm run pages:build && wrangler pages deploy",
     "validate:roadmaps": "node scripts/run-validate-roadmaps.mjs"
   },
