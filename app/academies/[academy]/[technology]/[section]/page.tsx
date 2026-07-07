@@ -1,9 +1,11 @@
 export const runtime = "edge";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import type { Metadata } from "next";
 import { getAcademy, getTechnology } from "@/lib/data/academies";
 import { techSections, nonTechSections, nonTechAcademyIds } from "@/lib/data/navigation";
+import { hasContent, fetchContent } from "@/lib/content";
 import SectionContent from "@/components/tech/SectionContent";
 import LabsSection from "@/components/tech/LabsSection";
 import AuthorBadge from "@/components/tech/AuthorBadge";
@@ -157,6 +159,22 @@ export default async function SectionPage({ params }: Props) {
 
   const canonicalUrl = `https://synfracore.com/academies/${aSlug}/${tSlug}/${section}`;
 
+  // Resolve lesson content server-side instead of leaving it to a client-side
+  // fetch — real lesson text is now present in the initial HTML (crawlers,
+  // slow-JS clients), instead of only a loading skeleton. Skipped for Labs,
+  // which never renders SectionContent at all. Server-side fetch() has no
+  // implicit page origin the way a browser request does, so the base URL is
+  // built explicitly from the incoming request's own Host header — this
+  // works unmodified in local dev (localhost) and behind Cloudflare
+  // (synfracore.com) without a hardcoded domain.
+  let initialContent: string | null = null;
+  if (!isLabs && hasContent(aSlug, tSlug, section)) {
+    const hdrs = await headers();
+    const host = hdrs.get("host") ?? "synfracore.com";
+    const protocol = host.startsWith("localhost") || host.startsWith("127.0.0.1") ? "http" : "https";
+    initialContent = await fetchContent(aSlug, tSlug, section, `${protocol}://${host}`);
+  }
+
   return (
     <div style={{ display: "flex", gap: "0", minHeight: "80vh" }}>
       <CourseJsonLd
@@ -268,6 +286,7 @@ export default async function SectionPage({ params }: Props) {
             techIcon={tech.icon}
             sectionLabel={sectionData?.label || section}
             accentColor="#6366F1"
+            initialContent={initialContent}
           />
           </>
         )}

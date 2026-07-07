@@ -120,11 +120,16 @@ ${lines}
 export function hasContent(a: string, t: string, s: string): boolean {
   return contentRegistry.has(\`\${a}/\${t}/\${s}\`);
 }
-export async function fetchContent(a: string, t: string, s: string): Promise<string | null> {
+// baseUrl is empty ("" -> relative fetch) for the existing client-side call
+// sites, and an absolute origin (e.g. "https://synfracore.com") when called
+// from a Server Component — server-side fetch() has no implicit page origin
+// the way a browser request does, so a relative "/content/..." URL would
+// fail there. See app/academies/[academy]/[technology]/[section]/page.tsx.
+export async function fetchContent(a: string, t: string, s: string, baseUrl = ""): Promise<string | null> {
   const filePath = contentRegistry.get(\`\${a}/\${t}/\${s}\`);
   if (!filePath) return null;
   try {
-    const res = await fetch(\`/content/\${filePath}.md\`);
+    const res = await fetch(\`\${baseUrl}/content/\${filePath}.md\`);
     if (!res.ok) return null;
     return await res.text();
   } catch { return null; }

@@ -13,6 +13,13 @@ type Props = {
   techIcon: string;
   sectionLabel: string;
   accentColor: string;
+  // Resolved server-side (the parent Server Component already knows whether
+  // content exists and, if so, its text) so real lesson text is present in
+  // the initial HTML for crawlers/slow-JS clients instead of only appearing
+  // after a client-side fetch. Optional so this component still works
+  // standalone if ever used without a server-resolving parent — in that
+  // case it falls back to the original client-side fetch behavior.
+  initialContent?: string | null;
 };
 
 function formatInline(text: string): string {
@@ -174,15 +181,33 @@ function buildPrompt(techName: string, section: string): string {
   return map[section] || `Write comprehensive ${section} content for ${techName} in clear markdown with code examples.`;
 }
 
-export default function SectionContent({ academy, technology, section, techName, techIcon, sectionLabel, accentColor }: Props) {
-  const [preContent, setPreContent] = useState<string | null>(null);
+export default function SectionContent({ academy, technology, section, techName, techIcon, sectionLabel, accentColor, initialContent }: Props) {
+  // Server already resolved this (parent passed the prop, even if its value
+  // is null — "checked, nothing registered"). Skip the client fetch/loading
+  // flash entirely in that case; real content (or the honest empty state)
+  // is already known at first render.
+  const hasInitial = initialContent !== undefined;
+  const [preContent, setPreContent] = useState<string | null>(initialContent ?? null);
   const [aiContent, setAiContent] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!hasInitial);
   const [aiLoading, setAiLoading] = useState(false);
   const [error, setError] = useState("");
-  const [mode, setMode] = useState<"pre" | "ai" | "empty">("empty");
+  const [mode, setMode] = useState<"pre" | "ai" | "empty">(hasInitial ? (initialContent ? "pre" : "empty") : "empty");
 
   useEffect(() => {
+    if (hasInitial) {
+      // Re-sync from the prop on every section/technology change too, not
+      // just on mount — Next.js App Router re-renders this component with
+      // new props when navigating between sibling [section] routes; it
+      // doesn't necessarily remount it, so a mount-only useState initializer
+      // would show stale content after such a navigation.
+      setPreContent(initialContent ?? null);
+      setAiContent("");
+      setError("");
+      setMode(initialContent ? "pre" : "empty");
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     setPreContent(null);
     setAiContent("");
@@ -192,7 +217,7 @@ export default function SectionContent({ academy, technology, section, techName,
       else setMode("empty");
       setLoading(false);
     });
-  }, [academy, technology, section]);
+  }, [academy, technology, section, hasInitial, initialContent]);
 
   const generateAI = async (force = false) => {
     const cacheKey = `ai:${academy}:${technology}:${section}`;
