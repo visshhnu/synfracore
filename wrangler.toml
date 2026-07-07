@@ -23,6 +23,12 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL = "/"
 # per-user metering) is ready to ship.
 AI_ASSISTANT_ENABLED = "false"
 
+# Sentry error tracking (instrumentation.ts, instrumentation-client.ts) —
+# public/safe to commit (write-only ingest endpoint, not a secret). Empty
+# means Sentry.init() is never called — no-op, zero cost, until a real
+# Sentry project exists and this is filled in.
+NEXT_PUBLIC_SENTRY_DSN = ""
+
 [[kv_namespaces]]
 binding = "BLOG_KV"
 id = "57d60b769fbe4ae6be430d9dc4975f00"
