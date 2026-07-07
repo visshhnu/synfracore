@@ -65,6 +65,21 @@ const nextConfig: NextConfig = {
           { key: "Cache-Control", value: "public, max-age=3600, stale-while-revalidate=86400" },
         ],
       },
+      {
+        // /privacy and /terms render dynamically on every request (Stage 3
+        // F2) because ClerkProvider sits in the root Server Component layout
+        // — true static generation would need a ClerkProvider-free root
+        // layout, which (per the shared Navbar's hard useAuth()/SignInButton
+        // dependency) means restructuring every route under route groups,
+        // not just these two. Deferred as its own deliberate project. This
+        // is the cheap partial mitigation instead: an explicit cache policy
+        // so repeat visits and Cloudflare's edge skip re-rendering content
+        // that changes maybe a few times a year.
+        source: "/:page(privacy|terms)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400" },
+        ],
+      },
     ];
   },
 };
