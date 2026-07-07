@@ -110,6 +110,10 @@ Whenever a slug is renamed, do **all** of these, not just the code change:
    done for the `infrastructure → devops` case — this fixes navigation for
    humans clicking old links, but does **not** substitute for step 3.
 
+**If a slug is renamed a second time**, build the old-slug/new-slug alias
+CLI described in the Phase 1.2 commit instead of doing it manually again —
+one occurrence was a one-off; two is a pattern worth automating.
+
 `slug_aliases` is currently a record of renames only — no application code
 consults it as a runtime fallback yet. If step 3 is ever skipped by
 mistake, that table at least preserves *what* the old slug used to mean,
