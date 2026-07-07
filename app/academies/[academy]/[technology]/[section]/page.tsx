@@ -11,6 +11,7 @@ import WhatNext from "@/components/tech/WhatNext";
 import ProgressTracker from "@/components/tech/ProgressTracker";
 import QuickQuiz from "@/components/tech/QuickQuiz";
 import SectionQuiz from "@/components/quiz/SectionQuiz";
+import { CourseJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 type Props = {
   params: Promise<{ academy: string; technology: string; section: string }>;
@@ -150,8 +151,24 @@ export default async function SectionPage({ params }: Props) {
 
   const currentQuiz = quizData[section] || null;
 
+  const canonicalUrl = `https://synfracore.com/academies/${aSlug}/${tSlug}/${section}`;
+
   return (
     <div style={{ display: "flex", gap: "0", minHeight: "80vh" }}>
+      <CourseJsonLd
+        name={`${tech.name} — ${sectionData?.label || section}`}
+        description={tech.description}
+        url={canonicalUrl}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: "https://synfracore.com" },
+          { name: "Academies", url: "https://synfracore.com/academies" },
+          { name: academy.title, url: `https://synfracore.com/academies/${aSlug}` },
+          { name: tech.name, url: `https://synfracore.com/academies/${aSlug}/${tSlug}` },
+          { name: sectionData?.label || section, url: canonicalUrl },
+        ]}
+      />
       {/* Sidebar */}
       <aside
         style={{
