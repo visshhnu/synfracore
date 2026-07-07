@@ -110,9 +110,17 @@ Whenever a slug is renamed, do **all** of these, not just the code change:
    done for the `infrastructure → devops` case — this fixes navigation for
    humans clicking old links, but does **not** substitute for step 3.
 
-**If a slug is renamed a second time**, build the old-slug/new-slug alias
-CLI described in the Phase 1.2 commit instead of doing it manually again —
-one occurrence was a one-off; two is a pattern worth automating.
+**If a slug is renamed a second time**, build a single CLI that updates
+BOTH of the two places a rename is currently tracked in one step — don't
+fix one without the other:
+1. The `slug_aliases` DB table (this section, for database rows).
+2. `scripts/generate-content-registry.mjs`'s `ALIAS_ROOTS` map (for content
+   folder paths on disk — see the Phase 1.3/1.4 commit).
+
+These exist separately today because only one rename has ever happened.
+A second rename is a pattern worth automating — and worth unifying, since
+right now nothing reminds a future maintainer that both need updating,
+not just one.
 
 `slug_aliases` is currently a record of renames only — no application code
 consults it as a runtime fallback yet. If step 3 is ever skipped by
