@@ -10,7 +10,8 @@
     "pages:build": "npx @cloudflare/next-on-pages@1",
     "predeploy": "npm run validate:roadmaps",
     "deploy": "npm run pages:build && wrangler pages deploy",
-    "validate:roadmaps": "node scripts/run-validate-roadmaps.mjs"
+    "validate:roadmaps": "node scripts/run-validate-roadmaps.mjs",
+    "generate:content-registry": "node scripts/generate-content-registry.mjs"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.5.12",

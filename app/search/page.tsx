@@ -1,8 +1,12 @@
 "use client";
 export const runtime = "edge";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { Search } from "lucide-react";
+import { academies, getAllTechnologies } from "@/lib/data/academies";
+import { certifications, techSections, nonTechSections, nonTechAcademyIds } from "@/lib/data/navigation";
+import { educationBoards } from "@/lib/data/education";
+import { hasContent } from "@/lib/content";
 
 interface Result {
   title: string;
@@ -12,50 +16,81 @@ interface Result {
   color: string;
 }
 
-const searchIndex: Result[] = [
-  // Tech academies
-  { title: "Kubernetes Overview", url: "/academies/devops/kubernetes/overview", category: "DevOps", tags: ["kubernetes","k8s","containers","orchestration"], color: "#326CE5" },
-  { title: "Kubernetes Interview Q&A", url: "/academies/devops/kubernetes/interview", category: "DevOps", tags: ["kubernetes","interview","k8s","jobs"], color: "#326CE5" },
-  { title: "Kubernetes Advanced — HA/DR/RBAC", url: "/academies/devops/kubernetes/advanced", category: "DevOps", tags: ["kubernetes","ha","dr","rbac","production"], color: "#326CE5" },
-  { title: "Terraform Interview Q&A", url: "/academies/devops/terraform/interview", category: "DevOps", tags: ["terraform","iac","infrastructure","interview"], color: "#7B42BC" },
-  { title: "Ansible Interview Q&A", url: "/academies/devops/ansible/interview", category: "DevOps", tags: ["ansible","configuration","automation","interview"], color: "#EE0000" },
-  { title: "Docker Interview Q&A", url: "/academies/devops/docker/interview", category: "DevOps", tags: ["docker","containers","images","interview"], color: "#2496ED" },
-  { title: "Jenkins Interview Q&A", url: "/academies/devops/jenkins/interview", category: "DevOps", tags: ["jenkins","cicd","pipeline","interview"], color: "#D33833" },
-  { title: "Helm Interview Q&A", url: "/academies/devops/helm/interview", category: "DevOps", tags: ["helm","kubernetes","charts","interview"], color: "#0F1689" },
-  { title: "Prometheus Interview Q&A", url: "/academies/devops/prometheus/interview", category: "DevOps", tags: ["prometheus","monitoring","metrics","interview"], color: "#E6522C" },
-  { title: "Linux Interview Q&A", url: "/academies/devops/linux/interview", category: "DevOps", tags: ["linux","shell","commands","interview"], color: "#FCC624" },
-  { title: "ArgoCD Interview Q&A", url: "/academies/devops/argocd/interview", category: "DevOps", tags: ["argocd","gitops","cicd","interview"], color: "#EF7B4D" },
-  { title: "Shell Scripting Interview Q&A", url: "/academies/devops/shell-scripting/interview", category: "DevOps", tags: ["shell","bash","scripting","interview"], color: "#4EAA25" },
-  { title: "Git Interview Q&A", url: "/academies/devops/git/interview", category: "DevOps", tags: ["git","version control","github","interview"], color: "#F05032" },
-  { title: "AI Engineering Interview Q&A", url: "/academies/ai/llm-engineering/interview", category: "AI", tags: ["llm","rag","ai","agents","interview","langchain"], color: "#8B5CF6" },
-  // Education
-  { title: "Class 10 — All Subjects", url: "/learn/class-10", category: "Education", tags: ["class 10","cbse","maths","science","board exam"], color: "#10B981" },
-  { title: "JEE Main & Advanced Prep", url: "/learn/jee", category: "Education", tags: ["jee","iit","engineering","entrance"], color: "#F59E0B" },
-  { title: "NEET Biology/Physics/Chemistry", url: "/learn/neet", category: "Education", tags: ["neet","medical","biology","physics","chemistry"], color: "#EC4899" },
-  { title: "GATE CSE Preparation", url: "/learn/gate-cse", category: "Education", tags: ["gate","computer science","cse","exam"], color: "#6366F1" },
-  { title: "Banking Exams (SBI/IBPS)", url: "/learn/banking", category: "Education", tags: ["banking","sbi","ibps","bank po","quant"], color: "#3B82F6" },
-  { title: "UPSC Civil Services", url: "/learn/upsc", category: "Education", tags: ["upsc","ias","ips","civil services","prelims"], color: "#EF4444" },
-  { title: "SSC CGL/CHSL", url: "/learn/ssc", category: "Education", tags: ["ssc","cgl","chsl","government job"], color: "#14B8A6" },
-  { title: "Defence Exams (NDA/CDS)", url: "/learn/defence", category: "Education", tags: ["nda","cds","defence","military"], color: "#F59E0B" },
-  { title: "Class 12 — All Subjects", url: "/learn/class-12", category: "Education", tags: ["class 12","cbse","board exam","physics","chemistry"], color: "#6366F1" },
-  // Career roles
+// Career role pages (app/careers/[role]/page.tsx) hold their data as a
+// local, unexported const — same shape of gap blog posts had before
+// lib/data/blogPosts.ts was split out. Preserved here by hand for now
+// rather than silently dropped; extracting it the same way blog was
+// extracted is a reasonable follow-up, not done in this pass.
+const careerEntries: Result[] = [
   { title: "Platform Engineer Career Path", url: "/careers/platform-engineer", category: "Career", tags: ["platform engineer","career","salary","roadmap"], color: "#8B5CF6" },
   { title: "DevOps Engineer Career Path", url: "/careers/devops-engineer", category: "Career", tags: ["devops engineer","career","salary","roadmap"], color: "#F59E0B" },
   { title: "SRE Career Path", url: "/careers/sre-engineer", category: "Career", tags: ["sre","site reliability","career","salary"], color: "#10B981" },
   { title: "Cloud Architect Career Path", url: "/careers/cloud-architect", category: "Career", tags: ["cloud architect","aws","azure","career","salary"], color: "#3B82F6" },
   { title: "AI Engineer Career Path", url: "/careers/ai-engineer", category: "Career", tags: ["ai engineer","ml","llm","career","salary"], color: "#8B5CF6" },
-  // Certifications
-  { title: "AWS Solutions Architect Prep", url: "/certifications/aws-saa", category: "Cert", tags: ["aws","solutions architect","certification","saa-c03"], color: "#FF9900" },
-  { title: "CKA — Kubernetes Admin Cert", url: "/certifications/cka", category: "Cert", tags: ["cka","kubernetes","certification","exam"], color: "#326CE5" },
-  { title: "Terraform Associate Cert", url: "/certifications/terraform-associate", category: "Cert", tags: ["terraform","hashicorp","certification","exam"], color: "#7B42BC" },
 ];
+
+// Generated from the real catalog instead of a hand-picked ~30-entry list
+// (which had already drifted far from the real ~200-technology catalog —
+// see docs/audit/04-data-scalability.md Finding 3/4). Technology-level
+// granularity (one entry per technology, not per section) is a deliberate
+// bundle-size trade-off: the real catalog has 1,850 registered sections,
+// and shipping all of them to this client-rendered page's bundle wasn't
+// judged worth it for search — see docs/audit/06-roadmap.md. Going to
+// section-level later is additive (loop one level deeper using the same
+// data sources), not a rework of this.
+function buildSearchIndex(): Result[] {
+  const index: Result[] = [];
+  const academyBySlug = new Map(academies.map((a) => [a.slug, a]));
+
+  for (const t of getAllTechnologies()) {
+    const academy = academyBySlug.get(t.academy);
+    if (!academy) continue;
+    const sections = nonTechAcademyIds.includes(t.academy) ? nonTechSections : techSections;
+    const firstRegistered = sections.find((s) => hasContent(t.academy, t.slug, s.slug));
+    if (!firstRegistered) continue; // no registered content at all for this technology
+    index.push({
+      title: t.name,
+      url: `/academies/${t.academy}/${t.slug}/${firstRegistered.slug}`,
+      category: academy.title,
+      tags: (t.tags || []).map((x) => x.toLowerCase()),
+      color: academy.color,
+    });
+  }
+
+  for (const c of certifications) {
+    index.push({
+      title: c.name,
+      url: `/certifications/${c.id}`,
+      category: "Certifications",
+      tags: [c.provider.toLowerCase(), c.level.toLowerCase(), c.code.toLowerCase()],
+      color: c.color,
+    });
+  }
+
+  for (const b of educationBoards) {
+    index.push({
+      title: b.name,
+      url: `/learn/${b.slug}`,
+      category: "Education",
+      tags: [b.shortName.toLowerCase()],
+      color: b.color,
+    });
+  }
+
+  return [...index, ...careerEntries];
+}
+
+const searchIndex: Result[] = buildSearchIndex();
 
 export default function SearchPage() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Result[]>([]);
   const [activeCategory, setActiveCategory] = useState("All");
 
-  const categories = ["All", "DevOps", "Education", "Career", "AI", "Cert"];
+  // Derived from the actual generated index rather than a hand-picked
+  // subset — stays correct as academies are added/renamed instead of
+  // silently missing new categories.
+  const categories = useMemo(() => ["All", ...new Set(searchIndex.map((r) => r.category))], []);
 
   useEffect(() => {
     if (!query.trim() && activeCategory === "All") {
@@ -65,7 +100,11 @@ export default function SearchPage() {
     const q = query.toLowerCase();
     const filtered = searchIndex.filter(r => {
       const matchCat = activeCategory === "All" || r.category === activeCategory;
-      const matchQuery = !q || r.title.toLowerCase().includes(q) || r.tags.some(t => t.includes(q));
+      // Also match the category name itself (e.g. "agriculture" typed as a
+      // query correctly finds every Agriculture-academy entry even though
+      // none of those technologies' own names/tags contain that word —
+      // caught during manual verification of this exact change).
+      const matchQuery = !q || r.title.toLowerCase().includes(q) || r.tags.some(t => t.includes(q)) || r.category.toLowerCase().includes(q);
       return matchCat && matchQuery;
     });
     setResults(filtered);

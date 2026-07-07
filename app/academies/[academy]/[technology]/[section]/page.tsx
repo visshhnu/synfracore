@@ -59,6 +59,8 @@ const techDisplayNames: Record<string, string> = {
 
 const sectionDescriptions: Record<string, (tech: string) => string> = {
   overview: (t) => `What is ${t}? Architecture, core concepts, and why it matters in 2025. Complete overview for beginners and experienced engineers.`,
+  prerequisites: (t) => `What you need to know or set up before learning ${t} — background knowledge, tools, and accounts to have ready.`,
+  installation: (t) => `Step-by-step ${t} installation guide — get a working setup with common install issues covered.`,
   fundamentals: (t) => `${t} fundamentals — core concepts, commands, and hands-on examples. Learn ${t} from scratch with real-world practice.`,
   intermediate: (t) => `Intermediate ${t} — real-world patterns, best practices, and deeper topics. Take your ${t} skills to the next level.`,
   advanced: (t) => `Advanced ${t} — production patterns, performance tuning, and security hardening. Expert-level ${t} for senior engineers.`,
@@ -73,6 +75,8 @@ const sectionDescriptions: Record<string, (tech: string) => string> = {
 
 const sectionTitles: Record<string, string> = {
   overview: "Overview",
+  prerequisites: "Prerequisites",
+  installation: "Installation",
   fundamentals: "Fundamentals",
   intermediate: "Intermediate",
   advanced: "Advanced",

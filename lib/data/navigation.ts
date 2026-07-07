@@ -12,6 +12,8 @@ export const navigation = [
 
 export const techSections = [
   { slug: "overview", label: "Overview", icon: "📖", description: "What it is, why it matters, architecture and key concepts" },
+  { slug: "prerequisites", label: "Prerequisites", icon: "✅", description: "What to know or set up before starting" },
+  { slug: "installation", label: "Installation", icon: "⚙️", description: "Step-by-step setup and installation guide" },
   { slug: "fundamentals", label: "Fundamentals", icon: "🔤", description: "Core concepts and commands — hands-on from the start" },
   { slug: "intermediate", label: "Intermediate", icon: "⚡", description: "Real-world patterns, best practices, and deeper topics" },
   { slug: "advanced", label: "Advanced", icon: "🚀", description: "Production patterns, performance, security hardening" },
