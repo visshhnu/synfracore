@@ -1,6 +1,5 @@
 "use client";
 import { useEffect } from "react";
-import * as Sentry from "@sentry/nextjs";
 
 // The last line of defense — catches exceptions in the ROOT layout itself
 // (ClerkProvider, etc.), which route-level error.tsx files (dashboard,
@@ -12,7 +11,6 @@ import * as Sentry from "@sentry/nextjs";
 export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
     console.error("Global error boundary caught (root layout failure):", error);
-    Sentry.captureException(error);
   }, [error]);
 
   return (

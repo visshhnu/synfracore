@@ -1,7 +1,6 @@
 "use client";
 import { useEffect } from "react";
 import Link from "next/link";
-import * as Sentry from "@sentry/nextjs";
 
 // Next.js's route-segment error boundary — catches ANY unhandled exception
 // thrown while rendering /dashboard (and anything nested under it), no
@@ -15,7 +14,6 @@ import * as Sentry from "@sentry/nextjs";
 export default function DashboardError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
     console.error("Dashboard error boundary caught:", error);
-    Sentry.captureException(error);
   }, [error]);
 
   return (

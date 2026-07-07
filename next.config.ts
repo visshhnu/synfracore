@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-import { withSentryConfig } from "@sentry/nextjs";
 
 const nextConfig: NextConfig = {
   async redirects() {
@@ -57,13 +56,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-// withSentryConfig's sourcemap-upload step needs SENTRY_ORG/SENTRY_PROJECT/
-// SENTRY_AUTH_TOKEN to actually upload anything — it degrades to a no-op
-// (skips upload, logs a notice) rather than failing the build when those
-// aren't set, so this is safe to ship before a Sentry project exists yet.
-export default withSentryConfig(nextConfig, {
-  silent: true,
-  widenClientFileUpload: true,
-  disableLogger: true,
-  automaticVercelMonitors: false, // deployed on Cloudflare Pages, not Vercel
-});
+export default nextConfig;
