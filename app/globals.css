@@ -3,6 +3,17 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
+/* Several inputs/textareas across the app (search boxes, chat input, comment
+   box, newsletter signup, lab editor) set outline:none inline with nothing
+   replacing it — leaving keyboard users with zero visible focus indicator
+   (WCAG 2.4.7). This restores one globally rather than touching each file. */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 /* ── DARK MODE (default) ── */
 :root {
   --bg:        #04080F;
