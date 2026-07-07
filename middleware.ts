@@ -1,5 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
 // clerkMiddleware() throws synchronously on every request if its keys aren't
 // configured in the deployment environment (confirmed against @clerk/nextjs
@@ -22,13 +22,32 @@ const isProtectedRoute = createRouteMatcher([
   "/profile(.*)",
 ]);
 
+// /privacy and /terms render dynamically on every request (Cloudflare
+// compiles them into a Function, like nearly every route here), which means
+// next.config.ts's headers() rule for them never applies — Cloudflare Pages'
+// _headers mechanism (what next-on-pages compiles headers() into) explicitly
+// does not apply to Function-rendered routes, only genuinely static assets.
+// Confirmed via a live check: the header showed in local `next dev` but was
+// absent on production. Setting it here instead works because middleware
+// runs on every request, Function-rendered or not, and can mutate the
+// outgoing response directly.
+const CACHEABLE_PATHS = new Set(["/privacy", "/terms"]);
+
+function withCacheHeaders(req: NextRequest, res: NextResponse) {
+  if (CACHEABLE_PATHS.has(new URL(req.url).pathname)) {
+    res.headers.set("Cache-Control", "public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400");
+  }
+  return res;
+}
+
 export default hasClerkKeys
   ? clerkMiddleware(async (auth, req) => {
       if (isProtectedRoute(req)) {
         await auth.protect();
       }
+      return withCacheHeaders(req, NextResponse.next());
     })
-  : () => NextResponse.next();
+  : (req: NextRequest) => withCacheHeaders(req, NextResponse.next());
 
 export const config = {
   matcher: [
