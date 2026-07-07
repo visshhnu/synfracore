@@ -33,14 +33,23 @@ database**, connected via Supabase's native Third-Party Auth integration
   which this project does not use.
 
 ## Environment variables (set in `.env.local`, never commit this file)
+Full list with descriptions lives in `.env.example` (safe to commit — names
+only, no real values) — copy it to `.env.local` and fill in real values.
 ```
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
 CLERK_SECRET_KEY=
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=        # Clerk webhook sync only — server-only, never NEXT_PUBLIC_
+CLERK_WEBHOOK_SIGNING_SECRET=     # Clerk webhook sync only
+ANTHROPIC_API_KEY=                # /api/ai — server-only
+AI_ASSISTANT_ENABLED=false        # /api/ai kill switch — "true" to enable, defaults closed
+RESEND_API_KEY=                   # /api/digest, /api/subscribe — both degrade gracefully if unset
+DIGEST_SECRET=                    # /api/digest shared secret
 ```
-Real values live only in `.env.local` and in the Vercel/host dashboard for
-production — never in this file, never in a commit, never pasted into chat.
+Real values live only in `.env.local` and in the Cloudflare Pages dashboard
+(or as `wrangler pages secret put <NAME>` for the non-`NEXT_PUBLIC_` secrets)
+for production — never in this file, never in a commit, never pasted into chat.
 
 ## Setup steps (do these once, in order)
 1. Supabase: create a project if not already done → copy Project URL + anon key.
