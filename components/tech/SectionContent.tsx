@@ -208,13 +208,13 @@ export default function SectionContent({ academy, technology, section, techName,
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: "claude-sonnet-4-6",
-          max_tokens: 1000,
           system: `You are SynfraAI, an expert ${techName} engineer created by SynfraCore. Write accurate, practical, production-relevant content in clean markdown with code examples in fenced code blocks with language tags.`,
           messages: [{ role: "user", content: buildPrompt(techName, section) }],
         }),
       });
       const data = await res.json();
+      if (res.status === 401) { setError("Sign in to generate AI content."); return; }
+      if (data.status === "coming_soon") { setError(data.message || "SynfraCore AI Assistant launching soon."); return; }
       const text = data.content?.[0]?.text || "";
       if (!text) throw new Error("Empty response");
       setAiContent(text);

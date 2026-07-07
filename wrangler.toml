@@ -17,6 +17,12 @@ NEXT_PUBLIC_CLERK_SIGN_UP_URL = "/sign-up"
 NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL = "/"
 NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL = "/"
 
+# Kill switch for /api/ai (app/api/ai/route.ts) — while "false" (the safe
+# default), the endpoint never calls Anthropic at all, at any cost, even for
+# signed-in users. Flip to "true" only once the real SynfraAI tutor (with
+# per-user metering) is ready to ship.
+AI_ASSISTANT_ENABLED = "false"
+
 [[kv_namespaces]]
 binding = "BLOG_KV"
 id = "57d60b769fbe4ae6be430d9dc4975f00"
