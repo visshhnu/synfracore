@@ -17,13 +17,18 @@ Synthesizes every finding from Stages 1–5 (`docs/audit/01-*.md` through `05-*.
 
 ---
 
-## Reverted — Sentry (error tracking, Stage 5 F3, High) — likely incompatible with the Cloudflare deploy pipeline
+## Reverted — Sentry (error tracking, Stage 5 F3, High) — CONFIRMED: fixed the Cloudflare deploy failure
 
-**Update**: Sentry was installed (fully wired, deliberately inert — no DSN set) and then **reverted** after a real Cloudflare Pages deploy failure: `ERROR: A duplicated identifier has been detected in the same function file, aborting.`, from `@cloudflare/next-on-pages`'s own bundling step. Best diagnosis (not confirmed by local reproduction — `next-on-pages` doesn't run reliably on Windows at all, so this couldn't be verified locally): Sentry's `instrumentation.ts` + webpack route-wrapping is a known category of friction with community edge adapters, and this project's adapter version was already flagged (Stage 2 Finding 6) as untested against the Next.js version in use.
+**Update**: Sentry was installed (fully wired, deliberately inert — no DSN set) and then **reverted** after a real Cloudflare Pages deploy failure: `ERROR: A duplicated identifier has been detected in the same function file, aborting.`, from `@cloudflare/next-on-pages`'s own bundling step. Diagnosis: Sentry's `instrumentation.ts` + webpack route-wrapping is a known category of friction with community edge adapters, and this project's adapter version was already flagged (Stage 2 Finding 6) as untested against the Next.js version in use.
 
-Since Sentry was fully inert anyway (zero functional value, added only bundle-size cost), reverting was the safe, no-loss move to unblock deployment rather than debugging a diagnosis that couldn't be locally verified. The revert is itself safely revertible — re-apply Sentry once `next-on-pages` compatibility is confirmed (e.g. after an adapter upgrade, or tested via a preview/branch deploy before merging to main).
+**Confirmed fixed**: redeployed after the revert — `Success: Your site was deployed!`, build log shows all 41 edge function routes compiled and uploaded cleanly. The diagnosis was correct.
 
-**Before re-attempting Sentry**: verify compatibility with `@cloudflare/next-on-pages` specifically (not just plain `next build`) *before* merging to main — a branch/preview deploy is the right way to test this, not main.
+The revert is safely re-appliable — re-apply Sentry once `next-on-pages` compatibility is confirmed (e.g. after an adapter upgrade, or tested via a preview/branch deploy before merging to main). **Before re-attempting Sentry**: verify compatibility with `@cloudflare/next-on-pages` specifically (not just plain `next build`) *before* merging to main — a branch/preview deploy is the right way to test this, not main.
+
+## New finding — `public/_redirects`'s www→non-www rule has never worked
+**Severity: Low**
+
+The confirmed-good deploy log also surfaced this: `Found invalid redirect lines: #2: https://www.synfracore.com/* https://synfracore.com/:splat 301! ... Only relative URLs are allowed.` Cloudflare Pages' `_redirects` file matches on path only, not hostname — a full-URL source line is silently rejected at every deploy and always has been. Removed the dead line (kept the working `/home /` redirect) rather than leave a permanently-rejected line generating a warning on every future deploy. **Real fix still needed** (manual, Cloudflare dashboard): Rules → Redirect Rules → match hostname `www.synfracore.com` → redirect to `synfracore.com`, preserving path. Not urgent unless `www.synfracore.com` is getting real traffic today.
 
 ---
 

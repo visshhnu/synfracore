@@ -1,5 +1,11 @@
-# Redirect www to non-www (canonical)
-https://www.synfracore.com/* https://synfracore.com/:splat 301!
+# www -> non-www is NOT expressible here — Cloudflare Pages' _redirects
+# format only matches on path, not hostname, so a full-URL source line is
+# silently rejected at every deploy ("invalid redirect line... skipping
+# absolute URL"). This has never actually redirected anything. The real
+# fix is a Cloudflare dashboard Redirect Rule (Rules -> Redirect Rules ->
+# match hostname = www.synfracore.com -> redirect to synfracore.com,
+# preserving path) — a manual step, not something expressible in this
+# file. See docs/audit/06-roadmap.md.
 
 # Home redirect
 /home / 301
