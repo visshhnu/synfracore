@@ -17,13 +17,13 @@ Synthesizes every finding from Stages 1–5 (`docs/audit/01-*.md` through `05-*.
 
 ---
 
-## In progress — installed but deliberately inert (decision recorded so it isn't lost)
+## Reverted — Sentry (error tracking, Stage 5 F3, High) — likely incompatible with the Cloudflare deploy pipeline
 
-**Error tracking (Stage 5 F3, High)**: `@sentry/nextjs` is installed and fully wired — `instrumentation.ts`, `instrumentation-client.ts`, `next.config.ts`'s `withSentryConfig` wrapper, and all 4 error boundaries (`global-error.tsx`, `dashboard`/`admin`/`onboarding` `error.tsx`) already call `Sentry.captureException` alongside their existing `console.error`. **`NEXT_PUBLIC_SENTRY_DSN` is deliberately left empty** (`.env.example`, `wrangler.toml`), which makes every `Sentry.init()` call a no-op — zero behavior change, zero cost, today.
+**Update**: Sentry was installed (fully wired, deliberately inert — no DSN set) and then **reverted** after a real Cloudflare Pages deploy failure: `ERROR: A duplicated identifier has been detected in the same function file, aborting.`, from `@cloudflare/next-on-pages`'s own bundling step. Best diagnosis (not confirmed by local reproduction — `next-on-pages` doesn't run reliably on Windows at all, so this couldn't be verified locally): Sentry's `instrumentation.ts` + webpack route-wrapping is a known category of friction with community edge adapters, and this project's adapter version was already flagged (Stage 2 Finding 6) as untested against the Next.js version in use.
 
-**Why it's inert, not activated**: a full production build with Sentry installed showed a real bundle-size cost — shared JS 103 kB → 181 kB, middleware 90.8 kB → 177 kB — landing directly on top of Stage 3's already-flagged bundle-size findings (F1 Critical, F2 High). Decision made: **defer activation (fill in the DSN) until Phase 2 below lands**, specifically so the SSR fix (2.1) isn't measured against a baseline that already carries Sentry's weight, and so there's a clean before/after comparison once it does.
+Since Sentry was fully inert anyway (zero functional value, added only bundle-size cost), reverting was the safe, no-loss move to unblock deployment rather than debugging a diagnosis that couldn't be locally verified. The revert is itself safely revertible — re-apply Sentry once `next-on-pages` compatibility is confirmed (e.g. after an adapter upgrade, or tested via a preview/branch deploy before merging to main).
 
-**To activate later**: create a Sentry project, add the real DSN to `.env.local` (dev) and the Cloudflare Pages dashboard / `wrangler.toml` (prod), redeploy. No code changes needed at that point — everything is already wired, only the DSN value flips it on.
+**Before re-attempting Sentry**: verify compatibility with `@cloudflare/next-on-pages` specifically (not just plain `next build`) *before* merging to main — a branch/preview deploy is the right way to test this, not main.
 
 ---
 
@@ -112,7 +112,7 @@ These don't need to happen now — they're documented so a future decision to bu
 4. **1.5** dead-directory/file cleanup
 5. **1.6** content cache headers
 6. **2.1** server-side content fetching (the Critical SEO fix)
-7. **Activate Sentry** (fill in `NEXT_PUBLIC_SENTRY_DSN`) — right after 2.1, for a clean before/after bundle-size comparison
+7. **Re-evaluate Sentry** — reverted after a Cloudflare deploy failure (likely `next-on-pages` incompatibility); test compatibility on a branch/preview deploy before re-attempting on main
 8. **2.2** ClerkProvider route-group split (higher risk — isolate from 2.1)
 9. **3.1** admin query scaling fix
 10. **3.3** middleware fail-closed fix
