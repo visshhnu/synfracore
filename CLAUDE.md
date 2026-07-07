@@ -78,6 +78,44 @@ and `difficulty`. Always filter what's shown to a user by matching their
 average completed-lesson difficulty — never surface an advanced challenge
 to a beginner. Leaderboards must be filtered by tier, never global.
 
+## Renaming a slug (academy/technology/section) — MANDATORY procedure
+`academy_slug`/`technology_slug`/`section_slug` are stored as plain TEXT in
+every user-data table (`lesson_progress`, `bookmarks`, `quiz_attempts`,
+`recent_activity`) — not a foreign key to a stable ID. Renaming a slug in
+`lib/data/academies.ts`/`lib/data/navigation.ts` without also fixing the
+already-written rows **silently orphans that data** — a user's progress
+under the old slug becomes permanently unreachable, since every query
+filters by the new slug going forward. This already happened once
+(`infrastructure` → `devops`, see the redirect in `next.config.ts`) and
+happened to orphan zero rows — that was luck, not a safeguard.
+
+Whenever a slug is renamed, do **all** of these, not just the code change:
+1. Update the slug in code (`academies.ts`/`navigation.ts`/wherever it's defined).
+2. Insert a row into `slug_aliases` recording the rename (see
+   `docs/slug-aliases-schema.sql`):
+   ```sql
+   INSERT INTO slug_aliases (slug_type, old_slug, new_slug)
+   VALUES ('academy', 'old-slug-here', 'new-slug-here');
+   ```
+3. Backfill every affected table so existing rows point at the new slug —
+   this is the step that actually prevents data loss:
+   ```sql
+   UPDATE lesson_progress   SET academy_slug = 'new-slug-here' WHERE academy_slug = 'old-slug-here';
+   UPDATE bookmarks         SET academy_slug = 'new-slug-here' WHERE academy_slug = 'old-slug-here';
+   UPDATE quiz_attempts     SET academy_slug = 'new-slug-here' WHERE academy_slug = 'old-slug-here';
+   UPDATE recent_activity   SET academy_slug = 'new-slug-here' WHERE academy_slug = 'old-slug-here';
+   ```
+   (Adjust column name to `technology_slug`/`section_slug` if that's what's being renamed.)
+4. Add the URL-level redirect in `next.config.ts` (`redirects()`), as already
+   done for the `infrastructure → devops` case — this fixes navigation for
+   humans clicking old links, but does **not** substitute for step 3.
+
+`slug_aliases` is currently a record of renames only — no application code
+consults it as a runtime fallback yet. If step 3 is ever skipped by
+mistake, that table at least preserves *what* the old slug used to mean,
+making manual recovery possible later even though it won't happen
+automatically.
+
 ## Do not
 - Do not use Supabase Auth alongside Clerk — pick one identity system (Clerk).
 - Do not commit `.env.local` or any real key.
