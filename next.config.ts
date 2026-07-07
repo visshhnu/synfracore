@@ -52,6 +52,19 @@ const nextConfig: NextConfig = {
           { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
       },
+      {
+        // Lesson content (public/content/**/*.md) is fetched client-side on
+        // every content-page visit (components/tech/SectionContent.tsx) and
+        // had no explicit cache policy at all before this — the one asset
+        // type in that hot path with the least caching of any static asset
+        // category here. Not "immutable" like the hashed /_next/static/
+        // assets above: content can change without its URL changing, so a
+        // moderate max-age with revalidation is the safer choice.
+        source: "/content/(.*)\\.md",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=3600, stale-while-revalidate=86400" },
+        ],
+      },
     ];
   },
 };
