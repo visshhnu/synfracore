@@ -43,6 +43,19 @@ Every signed-in user's `ensureUserRecord()` call (`lib/supabase/ensureUser.ts`) 
 
 Nothing to revert if this is ever undone — it's Supabase dashboard state, not a file in this repo.
 
+## FIXED — `app/api/blog`'s Cloudflare KV access never actually worked (likes/comments likely never persisted)
+**Severity: High (silent data-loss on a public-facing feature) — discovered 2026-07-08 during Phase 3.4 live verification, not part of the original 6-stage audit; the underlying bug predates this entire engagement**
+
+`app/api/blog/route.ts` read its `BLOG_KV` Cloudflare KV binding as `(globalThis as any).BLOG_KV`. That binding was genuinely configured correctly in the Cloudflare Pages dashboard the whole time (confirmed via screenshot: Settings → Bindings → KV namespace → `BLOG_KV`) — but `@cloudflare/next-on-pages` compiles Next.js into the ES-modules Workers format, where bindings arrive via the fetch handler's `env` argument, not as JS globals (global-as-binding is only true of the legacy Service Worker Workers format). So `kv` was `undefined` on every single request in production, silently, the whole time — meaning the blog like/comment counters have most likely never actually persisted a single interaction, ever. Every "like" click and every comment submission appeared to succeed (the code's own `if (!kv) return { success: true, likes: 1, ... }` fallback is indistinguishable from a real response to a user), but nothing was ever saved.
+
+**Confirmed live** (not just inferred): 21 rapid POST requests to `/api/blog` all returned the identical `{"success":true,"likes":1,"comments":[]}` — never incrementing. To rule out this being Cloudflare KV's own eventual-consistency staleness (a legitimate alternative explanation for "reads looking stale under rapid hits"), sent a second write to the same fresh test slug ~90 seconds later — well past KV's documented worst-case propagation window — and it *still* showed `likes:1`, confirming the binding was never reachable from the code at all, not merely slow to converge.
+
+**Fixed** (2026-07-08, code change, part of Phase 3.4): added `getBlogKv()` to `lib/rateLimit.ts`, using `@cloudflare/next-on-pages`'s own documented `getOptionalRequestContext().env.BLOG_KV` API instead of the broken global reference. Both `app/api/blog/route.ts` and `app/api/subscribe/route.ts` (added in this same phase) now go through it.
+
+**Why this wasn't caught by the original audit**: same category as the Clerk/Supabase finding above — the code *looked* internally consistent (checks for `kv` being falsy, degrades gracefully, matches its own comment "Falls back gracefully if KV not configured") and the Cloudflare dashboard binding was genuinely present, so nothing about either the code or the config in isolation looked wrong. The bug only exists in the gap between them — Next.js-on-Cloudflare's specific binding-access convention — and only surfaces by actually exercising the endpoint live and checking whether data really persists across requests, not by reading either side alone.
+
+**Not yet confirmed**: this fix is committed but not yet deployed/live-verified as of this writing — needs a push + the same live re-test (rapid-fire + delayed-recheck) to confirm real persistence and that Phase 3.4's rate limiting now actually engages.
+
 ---
 
 ## Phase 1 — Cheap, high-value, do next (no architectural risk)
