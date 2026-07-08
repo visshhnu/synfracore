@@ -1,4 +1,11 @@
-export const runtime = "edge";
+// Duplicate of app/(app)/not-found.tsx, not a shared import — Next.js
+// requires a not-found.tsx to exist per root layout once there's more than
+// one (a single top-level app/not-found.tsx errors with "doesn't have a
+// root layout" the moment any route in either group calls notFound(),
+// confirmed via a real dev-server hit on /dashboard while unauthenticated —
+// Clerk's auth.protect() calls notFound() internally by default). No
+// `export const runtime = "edge"` here, matching this group's own layout,
+// which is deliberately edge-runtime-free so its pages can stay static.
 import Link from "next/link";
 
 export default function NotFound() {
