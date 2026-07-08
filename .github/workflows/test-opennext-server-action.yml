@@ -32,6 +32,22 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Remove @cloudflare/next-on-pages (dependency-conflict test)
+        # First attempt failed at the esbuild bundling step with "Invalid
+        # alias name" — three different esbuild versions coexist in
+        # node_modules (0.15.18 from next-on-pages, 0.25.4 from OpenNext's
+        # own @opennextjs/aws dependency, 0.28.1 from wrangler), and the
+        # hoisted top-level one was the old 0.15.18, which predates esbuild's
+        # `alias` build option entirely. Removing next-on-pages here (this
+        # ephemeral CI job only — never committed) tests whether that
+        # hoisting conflict, an artifact of installing both adapters
+        # side-by-side for this POC, was the actual cause.
+        run: |
+          npm uninstall @cloudflare/next-on-pages
+          npm dedupe || true
+          echo "--- esbuild versions after removal ---"
+          npm ls esbuild || true
+
       - name: Prepare OpenNext-compatible wrangler config
         run: |
           mv wrangler.toml wrangler.toml.pages-bak
