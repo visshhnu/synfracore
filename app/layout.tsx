@@ -1,13 +1,4 @@
-// No `export const runtime = "edge"` here anymore (Phase 3.9) — it used to
-// sit here and every route inherited it, which is the actual reason nearly
-// every route in the app was dynamic (confirmed via a real build, not
-// ClerkProvider as originally suspected — see docs/audit/06-roadmap.md 3.7's
-// update and 3.9). Routes that genuinely need per-request dynamic execution
-// under @cloudflare/next-on-pages (Cloudflare Workers only support the edge
-// runtime, not Node.js) now opt in explicitly with their own
-// `export const runtime = "edge";` — grep the codebase for that exact string
-// to find the current list. Don't add it back here "to be safe": that
-// silently reverts every route below this layout back to dynamic-only.
+export const runtime = "edge";
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 

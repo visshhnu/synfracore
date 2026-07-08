@@ -1,3 +1,4 @@
+export const runtime = "edge";
 import { TelegramBanner } from "@/components/growth/TelegramBanner";
 import { NewsletterSignup } from "@/components/growth/NewsletterSignup";
 import Link from "next/link";
