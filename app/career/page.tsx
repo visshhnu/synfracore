@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { ArrowRight, TrendingUp } from "lucide-react";
-export const runtime = "edge";
 
 const CAREER_CLUSTERS = [
   {

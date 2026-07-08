@@ -3,7 +3,6 @@ import Link from "next/link";
 import { roadmaps } from "@/lib/data/navigation";
 import { Clock } from "lucide-react";
 import { useState } from "react";
-export const runtime = "edge";
 
 const CATEGORIES = [
   { id: "all",         label: "All Paths",   color: "#6B7280" },

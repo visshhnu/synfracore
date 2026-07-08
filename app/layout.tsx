@@ -1,4 +1,24 @@
-export const runtime = "edge";
+// No `export const runtime = "edge"` here anymore (Phase 3.9) — it used to
+// sit here and every route inherited it, which is the actual reason nearly
+// every route in the app was dynamic (confirmed via a real build, not
+// ClerkProvider as originally suspected — see docs/audit/06-roadmap.md 3.7's
+// update and 3.9). Routes that genuinely need per-request dynamic execution
+// under @cloudflare/next-on-pages (Cloudflare Workers only support the edge
+// runtime, not Node.js) now opt in explicitly with their own
+// `export const runtime = "edge";` — grep the codebase for that exact string
+// to find the current list. Don't add it back here "to be safe": that
+// silently reverts every route below this layout back to dynamic-only.
+//
+// This ClerkProvider (no `dynamic` prop) is what lets the static pages below
+// stay static — Clerk's own docs confirm regular ClerkProvider doesn't force
+// dynamic rendering by itself. Auth-critical dynamic routes (dashboard,
+// admin, onboarding, sign-in, sign-up) each have their own nested layout.tsx
+// wrapping a <ClerkProvider dynamic> (via components/layout/
+// DynamicClerkBoundary.tsx) instead of relying on this shared, non-dynamic
+// instance — see that file's comment for why: mixing static and dynamic
+// pages under one shared root ClerkProvider caused a real, confirmed
+// regression the first time this was attempted (stale auth state on
+// protected routes, sign-in requiring a manual refresh).
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 
