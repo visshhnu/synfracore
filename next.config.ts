@@ -75,3 +75,7 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
+// TEMPORARILY DISABLED to isolate the esbuild "Invalid alias name" error —
+// import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+// initOpenNextCloudflareForDev();

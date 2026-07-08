@@ -1,4 +1,3 @@
-export const runtime = "edge";
 
 import { verifyWebhook } from "@clerk/nextjs/webhooks";
 import { createClient } from "@supabase/supabase-js";

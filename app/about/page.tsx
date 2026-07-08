@@ -1,5 +1,4 @@
 import Link from "next/link";
-export const runtime = "edge";
 export const metadata = {
   title: "About SynfraCore",
   description: "SynfraCore is India's most comprehensive tech learning platform — DevOps, Cloud, AI, Databases, Security and more. Learn who we are and what we are building.",

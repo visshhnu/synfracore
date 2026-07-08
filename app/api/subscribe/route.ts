@@ -1,4 +1,3 @@
-export const runtime = "edge";
 
 import { getBlogKv, getClientIp, isRateLimited } from "@/lib/rateLimit";
 
