@@ -2,9 +2,11 @@ export const runtime = "edge";
 
 // Blog reactions API — stores likes per slug in Cloudflare KV
 // KV binding: BLOG_KV (add in Cloudflare Pages settings)
-// Falls back gracefully if KV not configured
+// Falls back gracefully if KV not configured — see lib/rateLimit.ts's
+// getBlogKv() for why this must go through getOptionalRequestContext()
+// rather than a plain global reference.
 
-import { getClientIp, isRateLimited } from "@/lib/rateLimit";
+import { getBlogKv, getClientIp, isRateLimited } from "@/lib/rateLimit";
 
 // No auth on this endpoint by design (public reactions), so per-IP rate
 // limiting is the only abuse control available (Stage 2 F5) — a scripted
@@ -18,7 +20,7 @@ export async function GET(request: Request) {
   if (!slug) return Response.json({ error: "Missing slug" }, { status: 400 });
 
   try {
-    const kv = (globalThis as any).BLOG_KV;
+    const kv = getBlogKv();
     if (!kv) return Response.json({ likes: 0, comments: [] });
 
     const [likesRaw, commentsRaw] = await Promise.all([
@@ -41,7 +43,7 @@ export async function POST(request: Request) {
   if (!slug || !action) return Response.json({ error: "Missing params" }, { status: 400 });
 
   try {
-    const kv = (globalThis as any).BLOG_KV;
+    const kv = getBlogKv();
     if (!kv) return Response.json({ success: true, likes: 1, comments: [] });
 
     const ip = getClientIp(request);

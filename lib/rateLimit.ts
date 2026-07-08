@@ -12,6 +12,30 @@
 // kv-missing fallback) — a missing binding should degrade gracefully, not
 // take down the endpoint.
 
+import { getOptionalRequestContext } from "@cloudflare/next-on-pages";
+
+// Confirmed live (2026-07-08) that (globalThis as any).BLOG_KV — the access
+// pattern app/api/blog/route.ts had used since before this file existed —
+// never actually works under @cloudflare/next-on-pages: it compiles Next.js
+// into the ES-modules Workers format, where bindings arrive via the fetch
+// handler's `env` argument, not as globals (that's only true of the legacy
+// Service Worker format). The binding was genuinely present in the
+// Cloudflare Pages dashboard the whole time; the code just could never see
+// it. getOptionalRequestContext() is next-on-pages' own documented API for
+// reaching that `env` from inside a Next.js route handler — returns
+// undefined (rather than throwing) outside a real Cloudflare request
+// context, e.g. local `next dev`, so the existing "degrade gracefully"
+// fallbacks below still apply there unchanged.
+declare global {
+  interface CloudflareEnv {
+    BLOG_KV?: KVNamespaceLike;
+  }
+}
+
+export function getBlogKv(): KVNamespaceLike | undefined {
+  return getOptionalRequestContext()?.env?.BLOG_KV;
+}
+
 export function getClientIp(request: Request): string {
   return (
     request.headers.get("cf-connecting-ip") ??
