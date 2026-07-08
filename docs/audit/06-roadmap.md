@@ -159,6 +159,27 @@ These are all non-breaking, small, and either close a proven pain point or preve
 
 **Not urgent today** (the app deploys and runs fine on the current adapter), but should be picked up well before the next time a Next.js security patch forces this same choice again — reactively doing an adapter migration under CVE time pressure is a worse position than doing it deliberately now.
 
+**Update (2026-07-08) — attempted a local-only proof of concept, blocked on Windows, but surfaced a bigger, separate finding.** Explored on a dedicated branch (`phase-3.8-opennext-poc`, committed but not merged, pushed to GitHub as a reference — no production/domain changes attempted, per the agreed scope). Two things came out of it:
+
+**1. Confirmed this is a genuine Pages→Workers product migration, not a drop-in adapter swap.** `@opennextjs/cloudflare` deploys to Cloudflare *Workers*, not Cloudflare *Pages* — a different hosting product. A real migration needs: a new `wrangler.toml`/`.jsonc` in the Workers config format; all five secrets (`CLERK_SECRET_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`, `CLERK_WEBHOOK_SIGNING_SECRET`, `DIGEST_SECRET`) manually re-entered into a new Workers project (Cloudflare's own docs confirm these don't carry over automatically); the `BLOG_KV` binding reconfigured there too; and a deliberate custom-domain cutover for `synfracore.com` from the Pages project to the new Workers one (Cloudflare recommends validating on a preview/`workers.dev` URL first, then cutting over — no promise of zero downtime).
+
+**2. Could not get a working local build.** `npx opennextjs-cloudflare build` fails consistently with `esbuild: Invalid alias name: "next/dist/compiled/{node-fetch,ws,@ampproject/toolbox-optimizer,edge-runtime}"`, reproduced identically across three different configurations (ruling out the next.config.ts dev-init call, the coexisting Pages `wrangler.toml`, and the config file's name as the cause). OpenNext's own build output includes an explicit warning: *"OpenNext is not fully compatible with Windows... could encounter unpredictable failures during runtime"* — the same class of limitation `@cloudflare/next-on-pages` already has on this machine (established earlier this engagement: `spawn npx ENOENT`). This doesn't rule out OpenNext working via Cloudflare's own remote (Linux) build environment — the current adapter has never worked locally on Windows either, only via Cloudflare's CI — but it does mean this can't be locally verified before pushing, same constraint as today.
+
+**3. A separate, more promising finding for 3.7's actual goal, discovered as a byproduct.** Per OpenNext's setup instructions, every `export const runtime = "edge"` export was removed across the app (required for OpenNext regardless). Rebuilding with plain `next build` (no OpenNext, no route groups, no multi-root-layout) — just edge runtime removed, on top of unmodified `main` — produced **20 of 42 routes going genuinely `○ Static`** (`/`, `/about`, `/academies`, `/ai-assistant`, `/blog`, `/career`, `/careers`, `/certifications`, `/community`, `/contact`, `/interview`, `/labs`, `/learn`, `/privacy`, `/projects`, `/pyqs`, `/roadmaps`, `/search`, `/terms`, `/troubleshooting`), a much bigger win than 3.7's original two-page scope. Confirmed the app still works correctly this way: `/dashboard` and `/admin` signed-out still show the real custom 404 (not a generic fallback), because this approach never introduces a second root layout — it sidesteps 3.7's entire `notFound()`/multi-root-layout blocker by construction, since there's only ever one root layout. **This suggests a much smaller, safer path to most of 3.7's value** — see 3.9 below.
+
+---
+
+### 3.9 Invert the edge-runtime pattern: opt in per-route instead of inheriting it site-wide
+*Discovered during Phase 3.8 (2026-07-08) as a byproduct of the OpenNext POC, named here as its own pre-scoped project — a likely-better alternative to 3.7's route-group approach, not a duplicate of it* — `export const runtime = "edge"` sits in the single root layout today and every route inherits it, which (per 3.7's corrected diagnosis) is the actual reason nearly every route is dynamic — not `ClerkProvider`. Confirmed via a real build: removing it entirely (with no other changes — no route groups, no second root layout) makes 20 of 42 routes go genuinely static, and the app still works correctly, including `/dashboard`/`/admin`'s signed-out 404 behavior (which 3.7's route-group approach broke).
+
+**Proposed approach**: remove `runtime = "edge"` from the root layout, then explicitly re-add `export const runtime = "edge";` only to the routes that genuinely need per-request dynamic execution under `@cloudflare/next-on-pages` (the ones already showing `ƒ` for real data-dependent reasons — `/dashboard`, `/admin`, `/onboarding`, `/academies/[academy]/...`, `/api/*`, etc.) — inverting today's "opt out" pattern to an explicit "opt in" one.
+
+**Why this is likely better than 3.7's route-group approach**: no multi-root-layout at all, so no `not-found.tsx`/`global-error.tsx` ambiguity to solve — 3.7's entire confirmed blocker doesn't exist here by construction. No Navbar changes needed (already established in 3.7's investigation). Much smaller diff than moving every route into groups.
+
+**What's not yet verified**: this was tested with `plain next build` only, not through the actual `@cloudflare/next-on-pages` bundling step — needs the same branch + preview-deploy verification discipline as 3.5/3.7 before trusting it live. Also needs to double check every route currently relying on the *inherited* edge runtime doesn't have some non-obvious dependency on it beyond what a route-by-route audit would catch.
+
+**Sequencing note**: probably supersedes 3.7 rather than sitting alongside it — worth deciding explicitly whether to attempt this instead of 3.7's route-group approach, not both.
+
 ---
 
 ## Phase 4 — Forward-looking, no action needed yet (flagged per your explicit ask, not urgent)
@@ -192,6 +213,7 @@ These don't need to happen now — they're documented so a future decision to bu
 12. **3.5** Next/adapter version reconciliation
 13. **3.2** dead-schema superseded-marking (+ verified-empty check before any drop)
 14. **3.6** steps/techLinks merge (breaking — last, once CI is proven out)
-15. **3.7** ClerkProvider + Navbar Clerk-hook decoupling (its own project — unblocks static rendering site-wide, not just 2 pages)
-16. **3.8** `@cloudflare/next-on-pages` → `@opennextjs/cloudflare` migration (its own project — the durable fix for 3.5's recurring conflict, not urgent but shouldn't wait for the next CVE to force it)
-17. Phase 4 items — revisit if/when their underlying feature is actually prioritized
+15. **3.9** invert the edge-runtime pattern (opt-in per route) — likely supersedes 3.7, decide explicitly which one to actually pursue
+16. **3.7** ClerkProvider + Navbar Clerk-hook decoupling (its own project — unblocks static rendering site-wide, not just 2 pages; see 3.9 for a probably-better alternative)
+17. **3.8** `@cloudflare/next-on-pages` → `@opennextjs/cloudflare` migration (its own project — the durable fix for 3.5's recurring conflict, not urgent but shouldn't wait for the next CVE to force it; local build currently blocked on this Windows machine, see its own update)
+18. Phase 4 items — revisit if/when their underlying feature is actually prioritized
