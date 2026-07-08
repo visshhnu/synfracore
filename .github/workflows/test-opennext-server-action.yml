@@ -1,0 +1,73 @@
+name: Test OpenNext Server Action (Phase 3.8 investigation)
+
+# Temporary, throwaway workflow — answers one narrow question before
+# committing to the full Phase 3.8 migration: does @opennextjs/cloudflare
+# avoid the confirmed @cloudflare/next-on-pages limitation where a Next.js
+# Server Action POST to a page without `runtime = "edge"` returns 405?
+# See docs/audit/06-roadmap.md's consolidated 3.7/3.8/3.9 finding.
+#
+# Runs on GitHub's Linux runner specifically to bypass the Windows
+# incompatibility that blocked the local OpenNext build during the original
+# 3.8 POC. No Cloudflare deploy, no secrets, no production risk — wrangler
+# dev runs Cloudflare's local Workers simulator entirely within this job.
+#
+# Scoped to this one branch only — does not affect the main CI workflow or
+# any other branch.
+
+on:
+  push:
+    branches: [phase-3.8-opennext-ci-test]
+  workflow_dispatch: {}
+
+jobs:
+  test-server-action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Prepare OpenNext-compatible wrangler config
+        run: |
+          mv wrangler.toml wrangler.toml.pages-bak
+          cp wrangler.opennext.jsonc wrangler.jsonc
+          cat wrangler.jsonc
+
+      - name: Build with @opennextjs/cloudflare
+        id: build
+        run: npx opennextjs-cloudflare build
+
+      - name: Start wrangler dev (local Workers simulator, no deploy)
+        run: |
+          npx wrangler dev --port 8787 --local > wrangler-dev.log 2>&1 &
+          echo "Started wrangler dev in background"
+
+      - name: Wait for wrangler dev to be ready
+        run: |
+          for i in $(seq 1 30); do
+            if curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8787/ | grep -qE "^[0-9]+$"; then
+              echo "wrangler dev is responding"
+              break
+            fi
+            echo "Waiting for wrangler dev... ($i/30)"
+            sleep 2
+          done
+          cat wrangler-dev.log
+
+      - name: Run the Server Action test
+        run: node scripts/test-opennext-server-action.mjs
+
+      - name: Dump wrangler dev log on failure
+        if: failure()
+        run: cat wrangler-dev.log || true
+
+      - name: Restore original wrangler.toml (cosmetic, job ends anyway)
+        if: always()
+        run: |
+          rm -f wrangler.jsonc
+          mv wrangler.toml.pages-bak wrangler.toml || true
