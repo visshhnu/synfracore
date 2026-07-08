@@ -4,6 +4,14 @@ export const runtime = "edge";
 // KV binding: BLOG_KV (add in Cloudflare Pages settings)
 // Falls back gracefully if KV not configured
 
+import { getClientIp, isRateLimited } from "@/lib/rateLimit";
+
+// No auth on this endpoint by design (public reactions), so per-IP rate
+// limiting is the only abuse control available (Stage 2 F5) — a scripted
+// loop otherwise has zero friction to spam likes/comments on any post.
+const RATE_LIMIT = 20;
+const RATE_LIMIT_WINDOW_SECONDS = 600; // 10 minutes
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const slug = searchParams.get("slug");
@@ -35,6 +43,11 @@ export async function POST(request: Request) {
   try {
     const kv = (globalThis as any).BLOG_KV;
     if (!kv) return Response.json({ success: true, likes: 1, comments: [] });
+
+    const ip = getClientIp(request);
+    if (await isRateLimited(kv, `ratelimit:blog:${ip}`, RATE_LIMIT, RATE_LIMIT_WINDOW_SECONDS)) {
+      return Response.json({ error: "Too many requests — please slow down." }, { status: 429 });
+    }
 
     if (action === "like") {
       const current = await kv.get(`likes:${slug}`);

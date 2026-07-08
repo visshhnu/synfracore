@@ -1,11 +1,27 @@
 export const runtime = "edge";
 
+import { getClientIp, isRateLimited } from "@/lib/rateLimit";
+
+// No auth on this endpoint by design (public newsletter signup), and unlike
+// /api/blog, a successful request here actually sends a real email — via
+// the company's own domain — to whatever address is supplied, with no
+// confirmation step (Stage 2 F5). Stricter and longer-window than the blog
+// endpoint's limit since the abuse cost per request is much higher.
+const RATE_LIMIT = 5;
+const RATE_LIMIT_WINDOW_SECONDS = 3600; // 1 hour
+
 export async function POST(request: Request) {
   try {
     const { email } = await request.json();
 
     if (!email || !email.includes("@") || !email.includes(".")) {
       return Response.json({ error: "Invalid email address" }, { status: 400 });
+    }
+
+    const kv = (globalThis as any).BLOG_KV;
+    const ip = getClientIp(request);
+    if (await isRateLimited(kv, `ratelimit:subscribe:${ip}`, RATE_LIMIT, RATE_LIMIT_WINDOW_SECONDS)) {
+      return Response.json({ error: "Too many requests — please try again later." }, { status: 429 });
     }
 
     const RESEND_API_KEY = process.env.RESEND_API_KEY;
