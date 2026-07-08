@@ -30,6 +30,19 @@ The revert is safely re-appliable — re-apply Sentry once `next-on-pages` compa
 
 The confirmed-good deploy log also surfaced this: `Found invalid redirect lines: #2: https://www.synfracore.com/* https://synfracore.com/:splat 301! ... Only relative URLs are allowed.` Cloudflare Pages' `_redirects` file matches on path only, not hostname — a full-URL source line is silently rejected at every deploy and always has been. Removed the dead line (kept the working `/home /` redirect) rather than leave a permanently-rejected line generating a warning on every future deploy. **Real fix still needed** (manual, Cloudflare dashboard): Rules → Redirect Rules → match hostname `www.synfracore.com` → redirect to `synfracore.com`, preserving path. Not urgent unless `www.synfracore.com` is getting real traffic today.
 
+## FIXED — Clerk ↔ Supabase Third-Party Auth integration was never configured
+**Severity: Critical (production-impacting) — discovered 2026-07-08 during Phase 3.1 live verification, not part of the original 6-stage audit**
+
+Every signed-in user's `ensureUserRecord()` call (`lib/supabase/ensureUser.ts`) was silently failing on **every** page load that calls it (`/dashboard`, `/onboarding`), for **every** user, the entire time — not a Phase 3.1 regression, not specific to one account. Symptom: a generic "We couldn't sync your profile just now" banner on `/dashboard`; the real error, only visible in server logs, was PostgREST returning `PGRST301: No suitable key was found to decode the JWT`.
+
+**Root cause**: CLAUDE.md's own documented setup step ("Supabase: Authentication → Sign In / Providers → Add provider → Clerk → paste the Clerk domain") had never actually been completed in the Supabase dashboard. Supabase had no way to verify the signature of the JWTs Clerk was issuing, so it rejected all of them at the PostgREST layer — before RLS, before any query logic, before any application code ran at all. Since every `users` row is only ever created via this same upsert path, this also means **no user who signed in before this fix ever got a `users` row created**, and every one of `getProfile()`/`getProgressSummary()`/`getBookmarks()`/`getQuizSummary()`/etc. (`lib/supabase/queries.ts`) had been silently returning empty defaults for that same reason — not because those users had no data, but because the sync that would have created their row never succeeded.
+
+**Fixed** (2026-07-08, dashboard configuration, not a code change): registered the Clerk domain `engaged-bobcat-8.clerk.accounts.dev` under Supabase → Authentication → Sign In / Providers → Third-Party Auth → Clerk. Confirmed fixed live: a real `users` row was created immediately on next `/dashboard` visit, sync banner gone, `/admin` renders correctly for the now-admin account.
+
+**Why this wasn't caught by the original audit**: the audit reviewed code and RLS policy *text* against CLAUDE.md's documented architecture, correctly found the code matched the documented pattern, and had no way to check the *live* Supabase dashboard's actual provider configuration — this class of bug only surfaces by actually signing in and checking server logs, which is exactly what happened here.
+
+Nothing to revert if this is ever undone — it's Supabase dashboard state, not a file in this repo.
+
 ---
 
 ## Phase 1 — Cheap, high-value, do next (no architectural risk)
