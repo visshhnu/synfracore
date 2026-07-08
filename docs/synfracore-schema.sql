@@ -1,4 +1,32 @@
 -- ============================================================
+-- SUPERSEDED (2026-07-08) — see docs/audit/06-roadmap.md 3.2.
+--
+-- The real, in-use schema is docs/learner-platform-schema.sql, which
+-- builds on the SAME `users` table this file defines but uses a
+-- different content-progress model (lesson_progress/quiz_attempts/
+-- bookmarks/recent_activity/roadmap_progress, keyed by
+-- academy_slug/technology_slug/section_slug TEXT, not the
+-- academy_id/course_id/module_id/lesson_id UUID chain below).
+--
+-- Confirmed via a full codebase grep (2026-07-08): none of the 14
+-- non-`users` tables below (academies, courses, modules, lessons,
+-- progress, certificates, xp_ledger, streaks, challenges,
+-- challenge_submissions, badges, user_badges, plans, subscriptions)
+-- are queried anywhere in application code. `users` itself IS real —
+-- it's the one table this file and learner-platform-schema.sql
+-- actually share.
+--
+-- Do NOT build new features against the 14 tables below — they
+-- reflect an earlier content-modeling approach that was superseded
+-- before the app code was written against it, not a legacy system
+-- still in use. Only drop them after confirming zero rows in
+-- production first (see the verification query recommended alongside
+-- this notice); this file is left in place, not deleted, so the
+-- historical design intent stays discoverable rather than vanishing
+-- outright.
+-- ============================================================
+
+-- ============================================================
 -- SynfraCore — Unified Platform Database Schema
 -- PostgreSQL 15+ / Supabase-compatible
 --
