@@ -1,13 +1,16 @@
 export const runtime = "edge";
 
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ensureUserRecord } from "@/lib/supabase/ensureUser";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { getAllUsersForAdmin } from "@/lib/supabase/queries";
+import { getAllUsersForAdmin, getAdminUserStats } from "@/lib/supabase/queries";
 
 export const metadata = { title: "Admin | SynfraCore" };
 
-export default async function AdminPage() {
+type Props = { searchParams: Promise<{ page?: string }> };
+
+export default async function AdminPage({ searchParams }: Props) {
   // Middleware only enforces "is signed in" for /admin — the role check that
   // actually gates this page happens here, against our own Supabase `role`
   // column (not Clerk's org/role system, which this project doesn't use).
@@ -15,10 +18,17 @@ export default async function AdminPage() {
   const { profile } = await ensureUserRecord();
   if (!profile || profile.role !== "admin") notFound();
 
-  const supabase = createSupabaseServerClient();
-  const users = await getAllUsersForAdmin(supabase);
+  const { page: pageParam } = await searchParams;
+  const page = Math.max(1, Number(pageParam) || 1);
 
-  const onboardedCount = users.filter(u => u.onboarding_completed).length;
+  const supabase = createSupabaseServerClient();
+  const [{ users, totalCount }, stats] = await Promise.all([
+    getAllUsersForAdmin(supabase, page),
+    getAdminUserStats(supabase),
+  ]);
+
+  const pageSize = 50;
+  const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
 
   return (
     <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "40px 24px 64px" }}>
@@ -31,9 +41,9 @@ export default async function AdminPage() {
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "12px", marginBottom: "28px" }}>
         {[
-          { label: "Total users", value: users.length },
-          { label: "Onboarded", value: onboardedCount },
-          { label: "Not onboarded", value: users.length - onboardedCount },
+          { label: "Total users", value: stats.totalCount },
+          { label: "Onboarded", value: stats.onboardedCount },
+          { label: "Not onboarded", value: stats.totalCount - stats.onboardedCount },
         ].map(s => (
           <div key={s.label} style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "12px", padding: "16px" }}>
             <div style={{ fontSize: "24px", fontWeight: 800, color: "var(--text-1)" }}>{s.value}</div>
@@ -82,6 +92,22 @@ export default async function AdminPage() {
           </div>
         )}
       </div>
+
+      {totalPages > 1 && (
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "12px", marginTop: "20px", fontSize: "13px", color: "var(--text-3)" }}>
+          {page > 1 ? (
+            <Link href={`/admin?page=${page - 1}`} style={{ padding: "6px 14px", borderRadius: "7px", border: "1px solid var(--border)", color: "var(--text-2)", textDecoration: "none" }}>← Prev</Link>
+          ) : (
+            <span style={{ padding: "6px 14px", borderRadius: "7px", border: "1px solid var(--border)", color: "var(--text-4)" }}>← Prev</span>
+          )}
+          <span>Page {page} of {totalPages}</span>
+          {page < totalPages ? (
+            <Link href={`/admin?page=${page + 1}`} style={{ padding: "6px 14px", borderRadius: "7px", border: "1px solid var(--border)", color: "var(--text-2)", textDecoration: "none" }}>Next →</Link>
+          ) : (
+            <span style={{ padding: "6px 14px", borderRadius: "7px", border: "1px solid var(--border)", color: "var(--text-4)" }}>Next →</span>
+          )}
+        </div>
+      )}
     </div>
   );
 }

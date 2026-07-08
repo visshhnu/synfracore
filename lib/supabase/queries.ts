@@ -255,13 +255,55 @@ export async function submitQuizAttempt(
 // ── Admin queries — rely on the is_admin() RLS policy; a non-admin caller
 // simply gets an empty/own-row-only result set back, never an error. ──
 
-export type AdminUserRow = Profile & { domainCount: number; progressCount: number; quizAttemptCount: number };
+export type AdminUserStats = { totalCount: number; onboardedCount: number };
 
-export async function getAllUsersForAdmin(supabase: SupabaseClient): Promise<AdminUserRow[]> {
+// head:true means Postgres does an index-only count, no rows returned — this
+// stays cheap at any table size, unlike counting the (now-paginated) current
+// page's users, which would only reflect whichever 50 rows are on screen.
+export async function getAdminUserStats(supabase: SupabaseClient): Promise<AdminUserStats> {
   try {
-    const { data: users, error } = await supabase.from("users").select("*").order("created_at", { ascending: false });
+    const [{ count: totalCount, error: totalErr }, { count: onboardedCount, error: onboardedErr }] = await Promise.all([
+      supabase.from("users").select("*", { count: "exact", head: true }),
+      supabase.from("users").select("*", { count: "exact", head: true }).eq("onboarding_completed", true),
+    ]);
+    if (totalErr) throw totalErr;
+    if (onboardedErr) throw onboardedErr;
+    return { totalCount: totalCount ?? 0, onboardedCount: onboardedCount ?? 0 };
+  } catch (err) {
+    console.error("getAdminUserStats failed:", err);
+    return { totalCount: 0, onboardedCount: 0 };
+  }
+}
+
+export type AdminUserRow = Profile & { domainCount: number; progressCount: number; quizAttemptCount: number };
+export type AdminUserPage = { users: AdminUserRow[]; totalCount: number };
+
+const ADMIN_PAGE_SIZE = 50;
+
+// Builds a { user_id -> row count } map in one pass instead of re-filtering
+// the whole array per user (was O(users x rows); this is O(rows)) — the
+// query itself only ever pulls user_id, so this is the cheap side of the
+// original problem. The other side (unbounded .select on `users`) is fixed
+// below via .range() pagination. See docs/audit/06-roadmap.md 3.1 /
+// docs/audit/04-data-scalability.md F2 for the full history of why this
+// mattered enough to fix even though it's fine at today's user count.
+function countByUserId(rows: { user_id: string }[] | null | undefined): Map<string, number> {
+  const counts = new Map<string, number>();
+  for (const r of rows ?? []) counts.set(r.user_id, (counts.get(r.user_id) ?? 0) + 1);
+  return counts;
+}
+
+export async function getAllUsersForAdmin(supabase: SupabaseClient, page = 1): Promise<AdminUserPage> {
+  try {
+    const from = (page - 1) * ADMIN_PAGE_SIZE;
+    const to = from + ADMIN_PAGE_SIZE - 1;
+    const { data: users, count: totalCount, error } = await supabase
+      .from("users")
+      .select("*", { count: "exact" })
+      .order("created_at", { ascending: false })
+      .range(from, to);
     if (error) throw error;
-    if (!users || users.length === 0) return [];
+    if (!users || users.length === 0) return { users: [], totalCount: totalCount ?? 0 };
 
     const ids = users.map(u => u.id);
     const [{ data: prefs }, { data: progress }, { data: quiz }] = await Promise.all([
@@ -270,16 +312,21 @@ export async function getAllUsersForAdmin(supabase: SupabaseClient): Promise<Adm
       supabase.from("quiz_attempts").select("user_id").in("user_id", ids),
     ]);
 
-    const count = (rows: { user_id: string }[] | null | undefined, id: string) => (rows ?? []).filter(r => r.user_id === id).length;
+    const prefCounts = countByUserId(prefs);
+    const progressCounts = countByUserId(progress);
+    const quizCounts = countByUserId(quiz);
 
-    return (users as Profile[]).map(u => ({
-      ...u,
-      domainCount: count(prefs, u.id),
-      progressCount: count(progress, u.id),
-      quizAttemptCount: count(quiz, u.id),
-    }));
+    return {
+      totalCount: totalCount ?? users.length,
+      users: (users as Profile[]).map(u => ({
+        ...u,
+        domainCount: prefCounts.get(u.id) ?? 0,
+        progressCount: progressCounts.get(u.id) ?? 0,
+        quizAttemptCount: quizCounts.get(u.id) ?? 0,
+      })),
+    };
   } catch (err) {
     console.error("getAllUsersForAdmin failed:", err);
-    return [];
+    return { users: [], totalCount: 0 };
   }
 }
