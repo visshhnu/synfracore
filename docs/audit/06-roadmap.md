@@ -212,6 +212,7 @@ These don't need to happen now — they're documented so a future decision to bu
 - **Analytics** (*Stage 5 F4*) — no usage visibility across 2,000+ pages. Not blocking anything, but worth prioritizing once other Phase 1/2 items free up bandwidth, since it would inform *which* future content/architecture work actually matters most.
 - **Offline/PWA behavior** (*Stage 5 F10*) — manifest exists, no service worker, no real offline capability. Only worth building if "view previously-opened lessons offline" becomes an explicit product goal.
 - **`roadmap_progress` table** (*Stage 4 F5*) — built, RLS'd, indexed, never wired to a feature. Either build roadmap-step progress tracking against it, or note it explicitly as reserved so it isn't accidentally dropped alongside Phase 3.2's genuinely-dead tables.
+- **Set an explicit `afterSignOutUrl` on `<UserButton />`** (*discovered 2026-07-08, investigating the 3.9 revert*) — `components/layout/Navbar.tsx`'s `<UserButton />` has no `afterSignOutUrl` configured, so signing out currently flashes the real 404 page for whatever protected route you were on (e.g. `/dashboard`) before Clerk's own default navigation takes you home — two separate, expected steps, not a bug. Confirmed pre-existing (identical on the commit right before Phase 3.9, via `git diff`), unrelated to any Phase 3 work. Not urgent — cosmetic only — but a one-line fix (`<UserButton afterSignOutUrl="/" />` or similar) whenever this UX is worth smoothing over.
 
 ---
 
