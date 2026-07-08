@@ -78,17 +78,17 @@ export default async function RoadmapDetailPage({ params }: Props) {
       <div style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "16px", padding: "28px", marginBottom: "24px" }}>
         <div style={{ fontWeight: 700, fontSize: "16px", marginBottom: "24px", color }}>Step-by-step roadmap</div>
         <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
-          {rm.steps.map((step, i) => (
-            <div key={step} style={{ display: "flex", gap: "16px" }}>
+          {detail.steps.map((s, i) => (
+            <div key={s.label} style={{ display: "flex", gap: "16px" }}>
               <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0, width: "32px" }}>
                 <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: i === 0 ? color : "var(--bg-1)", border: `2px solid ${i === 0 ? color : "var(--border)"}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", fontWeight: 700, color: i === 0 ? "white" : "var(--text-4)", flexShrink: 0 }}>
                   {i + 1}
                 </div>
-                {i < rm.steps.length - 1 && <div style={{ width: "2px", flex: 1, background: "var(--border)", minHeight: "20px" }} />}
+                {i < detail.steps.length - 1 && <div style={{ width: "2px", flex: 1, background: "var(--border)", minHeight: "20px" }} />}
               </div>
               <div style={{ paddingBottom: "20px", flex: 1 }}>
                 <div style={{ fontWeight: i === 0 ? 700 : 500, fontSize: "14px", color: i === 0 ? "var(--text-1)" : "var(--text-2)", paddingTop: "6px" }}>
-                  {step}
+                  {s.label}
                 </div>
               </div>
             </div>
@@ -100,7 +100,7 @@ export default async function RoadmapDetailPage({ params }: Props) {
       <div style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "16px", padding: "28px", marginBottom: "24px" }}>
         <div style={{ fontWeight: 700, fontSize: "16px", marginBottom: "18px", color }}>Start learning — content pages</div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: "8px" }}>
-          {detail.techLinks.map(t => (
+          {detail.steps.map(s => s.techLink).map(t => (
             <Link key={`${t.academy}-${t.slug}-${t.name}`} href={`/academies/${t.academy}/${t.slug}/${t.section || "overview"}`} style={{ textDecoration: "none" }}>
               <div style={{ padding: "10px 14px", borderRadius: "8px", border: "1px solid var(--border)", fontSize: "13px", color: "var(--text-2)", fontWeight: 500, display: "flex", alignItems: "center", justifyContent: "space-between", gap: "6px" }}>
                 {t.name} <ArrowRight size={12} />

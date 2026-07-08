@@ -81,6 +81,37 @@ for (const rm of roadmaps) {
     );
   }
 
+  // Rule 6 (Phase 3.6 transition window): navigation.ts's steps[]/
+  // roadmapDetails.ts's techLinks[] are being superseded by the merged
+  // detail.steps[] shape ({label, techLink}[]), but all three are kept in
+  // sync deliberately during the transition (see docs/audit/06-roadmap.md
+  // 3.6) — the whole point of the merge is that label/link pairs can't
+  // drift apart by construction, which only holds if the merged shape is
+  // actually what gets hand-edited going forward. This check exists so a
+  // stray edit to the OLD arrays (instead of the new one) still gets caught
+  // immediately, not silently ignored during the window before the old
+  // arrays are deleted for good.
+  if (!detail.steps) {
+    fail(rm.slug, "(entire roadmap)", "Missing the merged detail.steps[] field — every roadmap must have it during the Phase 3.6 transition window.");
+  } else {
+    if (detail.steps.length !== rm.steps.length) {
+      fail(rm.slug, "(entire roadmap)", `detail.steps.length (${detail.steps.length}) !== navigation.ts steps.length (${rm.steps.length}) — merged shape has drifted from the old label array.`);
+    }
+    if (detail.steps.length !== detail.techLinks.length) {
+      fail(rm.slug, "(entire roadmap)", `detail.steps.length (${detail.steps.length}) !== detail.techLinks.length (${detail.techLinks.length}) — merged shape has drifted from the old techLinks array.`);
+    }
+    detail.steps.forEach((s, i) => {
+      const oldLabel = rm.steps[i];
+      if (oldLabel !== undefined && s.label !== oldLabel) {
+        fail(rm.slug, s.label, `Merged step label "${s.label}" !== navigation.ts steps[${i}] "${oldLabel}" — edited one array without the other.`);
+      }
+      const oldTechLink = detail.techLinks[i];
+      if (oldTechLink && JSON.stringify(s.techLink) !== JSON.stringify(oldTechLink)) {
+        fail(rm.slug, s.label, `Merged step's techLink != old techLinks[${i}] — edited one array without the other. merged=${JSON.stringify(s.techLink)} old=${JSON.stringify(oldTechLink)}`);
+      }
+    });
+  }
+
   detail.techLinks.forEach((t: RoadmapTechLink, i: number) => {
     const step = rm.steps[i] ?? `techLinks[${i}] (no matching step label)`;
 
