@@ -115,6 +115,10 @@ These are all non-breaking, small, and either close a proven pain point or preve
 ### 3.5 Reconcile the Next.js / `@cloudflare/next-on-pages` version mismatch
 *Stage 2 F6 (Medium)* — `next@15.5.19` exceeds what `@cloudflare/next-on-pages@1.13.16` has been tested against (`<=15.5.2`). Not a known CVE, but a real deploy-stability risk running an unvalidated combination. Resolve deliberately (pin `next` down, or find/wait for an adapter release validated against the newer version) in an isolated branch with a full deploy-preview test, independent of other work.
 
+**Update (2026-07-08) — this finding's own premise ("not a known CVE") had gone stale by execution time, and the originally-recommended fix would have been actively dangerous.** By the time this was actually worked on, `next-on-pages`'s entire declared-compatible range (`<=15.5.2`) had become the *vulnerable* side of **CVE-2025-66478** ("React2Shell") — a CVSS 10.0, pre-authentication RCE in React Server Components, disclosed December 2025, affecting exactly this app's architecture (App Router + RSC), actively exploited in the wild. The 15.5.x line's patch landed at `15.5.7`, above the adapter's stated ceiling — meaning there is no version of Next.js that is simultaneously within `next-on-pages`' tested range and patched against this CVE. Pinning down to comply with the adapter (as this item originally suggested) would have reintroduced a critical, live RCE.
+
+**What was actually done**: pinned `next`/`eslint-config-next` to an exact `15.5.20` (latest 15.5.x patch, well past the `15.5.7` fix) instead of the floating `^15.3.3` that had let this drift silently in the first place. The `next-on-pages` peer-dependency warning is now expected to persist permanently — it should not be "fixed" by downgrading, since that direction is the actively dangerous one. See 3.8 below for the durable fix to this recurring tension.
+
 ### 3.6 Merge `steps[]`/`techLinks[]` into one linked structure
 *Stage 1 F7 (Medium, but explicitly Breaking)* — The structural root cause of essentially every roadmap-routing bug fixed across this entire engagement. Fix is well-understood (merge into `{label, techLink}[]` per roadmap) but is a genuine breaking change touching core roadmap data and its consumers. **Sequence this last among the structural fixes**, once Phase 1.1's CI is in place to catch any regression during the migration, and follow the phased migration already laid out in Stage 1 (add new shape alongside old → migrate consumer → delete old shape only after a full release cycle proves it out).
 
@@ -129,6 +133,15 @@ These are all non-breaking, small, and either close a proven pain point or preve
 **Interim mitigation already shipped** (Phase 2.2, commit `2805c85`): a `Cache-Control` header on `/privacy` and `/terms` set via `middleware.ts` (not `next.config.ts` — see that commit for why `next.config.ts`'s `headers()` silently no-ops on Cloudflare for any dynamically-rendered route). This cuts repeat-visit cost on two pages; it does **not** change their rendering mode and does nothing for the other 38+ dynamic routes.
 
 **Do not re-derive this from scratch next time performance/SEO work comes up** — start from this item.
+
+### 3.8 Migrate off `@cloudflare/next-on-pages` to `@opennextjs/cloudflare`
+*Discovered during Phase 3.5 (2026-07-08), named here as its own pre-scoped project — not something to attempt inside a routine dependency bump* — `@cloudflare/next-on-pages` is **Cloudflare's own deprecated adapter** (its install output says so directly: `Please use the OpenNext adapter instead: https://opennext.js.org/cloudflare`), and per 3.5 above, it's already latest (`1.13.16`) with no newer release in progress to track current Next.js versions. Its declared peer range for Next.js (`>=14.3.0 && <=15.5.2`) is now frozen in the past.
+
+**Why this isn't a one-time fix**: 3.5 wasn't a fluke — it's the first instance of a structural, recurring conflict. Next.js ships security patches on its own schedule (this project already hit one CVSS-10.0 RCE within one audit cycle); a deprecated, unmaintained adapter's peer range does not move to track them. Every future Next.js security patch has some chance of landing outside whatever range `next-on-pages` was last tested against, forcing the exact same choice this finding faced: stay compliant with the adapter and risk running vulnerable code, or go out-of-range and carry an unacknowledged (if currently harmless) deploy-stability risk. Neither is sustainable as a repeating pattern for a platform meant to run 10-12+ years.
+
+**Recommended fix**: migrate to `@opennextjs/cloudflare` (the actively maintained, Cloudflare-endorsed successor) as its own deliberate project — not bundled with a routine version bump, since adapter migrations change the actual build/deploy pipeline (`wrangler.toml`, the `pages:build`/`deploy` scripts in `package.json`, possibly KV/binding access patterns like the one just fixed in Phase 3.4). Test via a branch + preview deploy before merging to main, same caution already called out for 3.5 itself.
+
+**Not urgent today** (the app deploys and runs fine on the current adapter), but should be picked up well before the next time a Next.js security patch forces this same choice again — reactively doing an adapter migration under CVE time pressure is a worse position than doing it deliberately now.
 
 ---
 
@@ -164,4 +177,5 @@ These don't need to happen now — they're documented so a future decision to bu
 13. **3.2** dead-schema superseded-marking (+ verified-empty check before any drop)
 14. **3.6** steps/techLinks merge (breaking — last, once CI is proven out)
 15. **3.7** ClerkProvider + Navbar Clerk-hook decoupling (its own project — unblocks static rendering site-wide, not just 2 pages)
-16. Phase 4 items — revisit if/when their underlying feature is actually prioritized
+16. **3.8** `@cloudflare/next-on-pages` → `@opennextjs/cloudflare` migration (its own project — the durable fix for 3.5's recurring conflict, not urgent but shouldn't wait for the next CVE to force it)
+17. Phase 4 items — revisit if/when their underlying feature is actually prioritized
