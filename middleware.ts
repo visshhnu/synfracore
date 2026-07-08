@@ -40,6 +40,24 @@ function withCacheHeaders(req: NextRequest, res: NextResponse) {
   return res;
 }
 
+// Stage 2 F4: this exact "no Clerk keys" state already caused one production
+// incident (missing CLERK_SECRET_KEY on Cloudflare Pages — the onboarding
+// page showed a raw Clerk internal error to real visitors). At the time, no
+// unauthorized data was exposed only because currentUser()/auth() calls
+// inside dashboard/admin/onboarding also fail without Clerk configured, and
+// those pages' own null-profile / notFound() checks happened to catch it —
+// an accidental second layer, not a designed one. Keep the no-crash
+// pass-through for public routes (clerkMiddleware() itself throws
+// synchronously without keys, which would otherwise take down the whole
+// site), but protected routes must fail closed on their own, not rely on
+// downstream pages continuing to compensate correctly forever.
+function fallbackMiddleware(req: NextRequest) {
+  if (isProtectedRoute(req)) {
+    return NextResponse.redirect(new URL("/sign-in", req.url));
+  }
+  return withCacheHeaders(req, NextResponse.next());
+}
+
 export default hasClerkKeys
   ? clerkMiddleware(async (auth, req) => {
       if (isProtectedRoute(req)) {
@@ -47,7 +65,7 @@ export default hasClerkKeys
       }
       return withCacheHeaders(req, NextResponse.next());
     })
-  : (req: NextRequest) => withCacheHeaders(req, NextResponse.next());
+  : fallbackMiddleware;
 
 export const config = {
   matcher: [
