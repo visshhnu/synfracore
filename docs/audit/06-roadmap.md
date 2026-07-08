@@ -182,6 +182,24 @@ These are all non-breaking, small, and either close a proven pain point or preve
 
 ---
 
+## Phase 3 close-out (2026-07-08)
+
+**Shipped and live**, one item at a time, each its own commit, each build/tsc-verified and (where rendering was affected) live-verified on synfracore.com before moving on:
+- **3.1** — admin user-list pagination + O(rows) counting, plus the Clerk↔Supabase Third-Party Auth gap and the `app/api/blog` KV-access bug it surfaced along the way (both separately recorded, both fixed).
+- **3.3** — auth middleware now fails closed, not open, when Clerk keys are missing.
+- **3.4** — per-IP rate limiting on `/api/blog` and `/api/subscribe`, verified live end-to-end (real incrementing, real 429).
+- **3.5** — the Next.js/`next-on-pages` version reconciliation that turned out to be a live CVSS-10.0 RCE near-miss (CVE-2025-66478) rather than the "not a known CVE" the original finding assumed — pinned to a patched version instead of downgrading into the vulnerable range.
+- **3.2** — `docs/synfracore-schema.sql` marked superseded; confirmed all 14 dead tables are empty in production; deliberately left in place (not dropped) pending a real decision on the gamification/XP/challenges roadmap.
+- **3.6** — `steps[]`/`techLinks[]` merged into one linked structure across all 22 roadmaps/152 steps, closing the root cause of essentially every roadmap-routing bug fixed this entire engagement.
+
+**Investigated, deferred, findings preserved** (not shipped — both need a decision before either is picked back up):
+- **3.7** — ClerkProvider/Navbar decoupling. Corrected a wrong diagnosis (it's `runtime = "edge"`, not ClerkProvider) but hit a real, confirmed regression: `notFound()` calls from Clerk's `auth.protect()` break under multiple root layouts. Branch `phase-3.7-static-marketing-pages`, pushed, not merged.
+- **3.8** — `@opennextjs/cloudflare` migration. Confirmed it's a genuine Pages→Workers hosting migration, not an adapter swap; local build blocked by an OpenNext-acknowledged Windows incompatibility. Branch `phase-3.8-opennext-poc`, pushed, not merged.
+
+**Queued as the next lead**: **3.9**, surfaced as a byproduct of the 3.8 investigation — remove `runtime = "edge"` from the root layout and opt specific routes back in, instead of 3.7's route-group split. Confirmed via a real build to unlock static generation for 20 of 42 routes (vs. 3.7's 2) while sidestepping 3.7's `notFound()` blocker entirely, since it never introduces a second root layout. Not yet verified through the actual `next-on-pages` bundling step or live — that's the starting point for next session.
+
+---
+
 ## Phase 4 — Forward-looking, no action needed yet (flagged per your explicit ask, not urgent)
 
 These don't need to happen now — they're documented so a future decision to build the underlying feature starts from an informed position instead of zero.
