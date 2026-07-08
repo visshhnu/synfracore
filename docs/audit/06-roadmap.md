@@ -92,6 +92,18 @@ These are all non-breaking, small, and either close a proven pain point or preve
 ### 3.6 Merge `steps[]`/`techLinks[]` into one linked structure
 *Stage 1 F7 (Medium, but explicitly Breaking)* — The structural root cause of essentially every roadmap-routing bug fixed across this entire engagement. Fix is well-understood (merge into `{label, techLink}[]` per roadmap) but is a genuine breaking change touching core roadmap data and its consumers. **Sequence this last among the structural fixes**, once Phase 1.1's CI is in place to catch any regression during the migration, and follow the phased migration already laid out in Stage 1 (add new shape alongside old → migrate consumer → delete old shape only after a full release cycle proves it out).
 
+### 3.7 Remove the `ClerkProvider` + Navbar Clerk-hook coupling that blocks all static rendering
+*Discovered during Phase 2.2 (2026-07-08), named here as its own pre-scoped project — not a "performance" sub-task* — Every route in the app renders dynamically (confirmed: only 3 of 41 routes are static in the production build) because `<ClerkProvider>` sits in the root Server Component layout (`app/layout.tsx`) and resolves auth state via `headers()`/`cookies()` during SSR, which forces the entire tree dynamic under Next.js's rules. This is not fixable by a small per-page change: `components/layout/Navbar.tsx` — rendered on every single page — hard-depends on Clerk's `useAuth()` hook plus `<SignInButton>`/`<UserButton>`, all of which throw without a `<ClerkProvider>` ancestor. So no page can be made genuinely static without also solving Navbar's dependency.
+
+**What the real fix requires** (scoped during Phase 2.2, not yet started):
+1. Move every existing route under route groups — Next.js only allows one root-layout scheme per app, so introducing a second, `ClerkProvider`-free root layout (for genuinely static pages) means every current route needs to live in *some* group, not just the new one.
+2. Build that second, `ClerkProvider`-free root layout with its own `<html>`/`<body>` for static-eligible pages (starting candidates: `/privacy`, `/terms`, `/about`, `/contact`).
+3. Build a static-safe Navbar variant for that layout whose Sign In/Dashboard slot is its own small client island with a locally-scoped `<ClerkProvider>` — confirmed safe: Clerk supports nested providers sharing the same session, and the existing Navbar already gates that slot behind `isLoaded &&`, so there's no new loading-flash regression to design around.
+
+**Interim mitigation already shipped** (Phase 2.2, commit `2805c85`): a `Cache-Control` header on `/privacy` and `/terms` set via `middleware.ts` (not `next.config.ts` — see that commit for why `next.config.ts`'s `headers()` silently no-ops on Cloudflare for any dynamically-rendered route). This cuts repeat-visit cost on two pages; it does **not** change their rendering mode and does nothing for the other 38+ dynamic routes.
+
+**Do not re-derive this from scratch next time performance/SEO work comes up** — start from this item.
+
 ---
 
 ## Phase 4 — Forward-looking, no action needed yet (flagged per your explicit ask, not urgent)
@@ -125,4 +137,5 @@ These don't need to happen now — they're documented so a future decision to bu
 12. **3.5** Next/adapter version reconciliation
 13. **3.2** dead-schema superseded-marking (+ verified-empty check before any drop)
 14. **3.6** steps/techLinks merge (breaking — last, once CI is proven out)
-15. Phase 4 items — revisit if/when their underlying feature is actually prioritized
+15. **3.7** ClerkProvider + Navbar Clerk-hook decoupling (its own project — unblocks static rendering site-wide, not just 2 pages)
+16. Phase 4 items — revisit if/when their underlying feature is actually prioritized
