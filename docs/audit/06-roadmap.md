@@ -150,6 +150,8 @@ These are all non-breaking, small, and either close a proven pain point or preve
 
 **Do not re-derive this from scratch next time performance/SEO work comes up** — start from this item.
 
+**Update (2026-07-09) — the real blocker turned out to be adapter-wide, not specific to this item's route-group approach. See "CONFIRMED — Static rendering is structurally blocked..." after 3.9 below: `@cloudflare/next-on-pages` can't correctly route the Server Action Clerk's SDK fires globally on sign-in, which blocks *any* static page on this adapter, not just the ones this item was trying to convert. 3.8 is now the prerequisite for this item, not a separate alternative to it.**
+
 ### 3.8 Migrate off `@cloudflare/next-on-pages` to `@opennextjs/cloudflare`
 *Discovered during Phase 3.5 (2026-07-08), named here as its own pre-scoped project — not something to attempt inside a routine dependency bump* — `@cloudflare/next-on-pages` is **Cloudflare's own deprecated adapter** (its install output says so directly: `Please use the OpenNext adapter instead: https://opennext.js.org/cloudflare`), and per 3.5 above, it's already latest (`1.13.16`) with no newer release in progress to track current Next.js versions. Its declared peer range for Next.js (`>=14.3.0 && <=15.5.2`) is now frozen in the past.
 
@@ -167,6 +169,8 @@ These are all non-breaking, small, and either close a proven pain point or preve
 
 **3. A separate, more promising finding for 3.7's actual goal, discovered as a byproduct.** Per OpenNext's setup instructions, every `export const runtime = "edge"` export was removed across the app (required for OpenNext regardless). Rebuilding with plain `next build` (no OpenNext, no route groups, no multi-root-layout) — just edge runtime removed, on top of unmodified `main` — produced **20 of 42 routes going genuinely `○ Static`** (`/`, `/about`, `/academies`, `/ai-assistant`, `/blog`, `/career`, `/careers`, `/certifications`, `/community`, `/contact`, `/interview`, `/labs`, `/learn`, `/privacy`, `/projects`, `/pyqs`, `/roadmaps`, `/search`, `/terms`, `/troubleshooting`), a much bigger win than 3.7's original two-page scope. Confirmed the app still works correctly this way: `/dashboard` and `/admin` signed-out still show the real custom 404 (not a generic fallback), because this approach never introduces a second root layout — it sidesteps 3.7's entire `notFound()`/multi-root-layout blocker by construction, since there's only ever one root layout. **This suggests a much smaller, safer path to most of 3.7's value** — see 3.9 below.
 
+**Update (2026-07-09) — 3.9 attempted that exact path and hit a new, adapter-wide blocker (Clerk's Server Action needs edge runtime everywhere, not scopeable), fully written up in the consolidated finding right after 3.9. That finding elevates this item (3.8) from "not urgent today" to the actual prerequisite for static rendering to work on this app at all — see there for the full reasoning before picking this back up.**
+
 ---
 
 ### 3.9 Invert the edge-runtime pattern: opt in per-route instead of inheriting it site-wide
@@ -179,6 +183,34 @@ These are all non-breaking, small, and either close a proven pain point or preve
 **What's not yet verified**: this was tested with `plain next build` only, not through the actual `@cloudflare/next-on-pages` bundling step — needs the same branch + preview-deploy verification discipline as 3.5/3.7 before trusting it live. Also needs to double check every route currently relying on the *inherited* edge runtime doesn't have some non-obvious dependency on it beyond what a route-by-route audit would catch.
 
 **Sequencing note**: probably supersedes 3.7 rather than sitting alongside it — worth deciding explicitly whether to attempt this instead of 3.7's route-group approach, not both.
+
+**Update (2026-07-09) — attempted, made things worse, root cause now conclusively identified. See the consolidated finding immediately below — this is not a 3.9-specific problem, it's the same wall 3.7 and 3.8 each hit independently.**
+
+---
+
+## CONFIRMED — Static rendering is structurally blocked on `@cloudflare/next-on-pages` until 3.8 is done (2026-07-09)
+
+Three independent attempts — 3.7 (route groups), 3.9 (edge-runtime opt-in), and 3.8's own POC — each separately tried to get *any* page statically generated while staying on the current adapter, and each hit a different symptom of the exact same underlying incompatibility. This time it was investigated to the actual root cause, confirmed directly in source and live, not just inferred from a symptom.
+
+**The root cause**: Clerk's own SDK (`@clerk/nextjs`) uses a genuine Next.js Server Action internally — `invalidateCacheAction` in `node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js`:
+```js
+"use server";
+async function invalidateCacheAction() {
+  void (await cookies()).delete(`__clerk_invalidate_cache_cookie_${Date.now()}`);
+}
+```
+`ClerkProvider.js` fires this from `window.__internal_onBeforeSetActive` on sign-in (and other "set active" events — sign-out is explicitly skipped on Next 15/16, which is why sign-in and sign-out symptoms differed slightly in testing). `@cloudflare/next-on-pages` has a confirmed, independently-documented limitation (real GitHub issues/discussions on the adapter's own repo, not speculation): **Server Actions return a 405 on any page that doesn't have `runtime = "edge"`.** Since `ClerkProvider` must be global — Navbar renders sign-in/sign-up on every page, by design, not a mistake — this Server Action can fire from wherever the user happens to be standing when they sign in. That means **every single page needs `runtime = "edge"` for Clerk to function correctly on this adapter, which is fundamentally incompatible with any page being statically generated at all** — not a scoping problem fixable with a more careful `ClerkProvider` placement.
+
+**Confirmed live, not just in theory**: pushed a fix attempt (`phase-3.9-clerk-static-investigation`, implementing Clerk's own officially-documented `<ClerkProvider dynamic>` + `<Suspense>` pattern for the five auth-critical routes) to a real Cloudflare preview deploy. It made things *worse*, not better — sign-in hung indefinitely with no message, `/dashboard`/`/admin`/`/onboarding` stopped working, and the browser console showed exactly the `405` + "unexpected response" signature this documented limitation produces. Traced the mechanism directly in `node_modules/@clerk/nextjs`'s source afterward to confirm it precisely, rather than stopping at "the symptom matches."
+
+**How this ties 3.7, 3.8, and 3.9 together** — each was solving the same goal and hit a different face of the same wall:
+- **3.7** (route groups, multiple root layouts): blocked by `notFound()` ambiguity — a *routing* symptom of trying to isolate static pages from the rest of the app.
+- **3.9** (edge-runtime opt-in, single root layout): looked correct through every check that didn't involve a real signed-in browser session — build output, curl, even the first live `curl`-based check — until actual sign-in/sign-out testing surfaced the Server Action 405. This is the one that got furthest before failing, precisely because the failure mode only manifests through real Clerk interaction, which none of the earlier verification steps exercised.
+- **3.8** (`@opennextjs/cloudflare`): uses Node.js runtime via Cloudflare's `nodejs_compat` flag, not `next-on-pages`' per-route edge-Function compilation model — very likely does **not** have this specific Server-Actions-need-edge-runtime limitation, since the limitation is specific to how `next-on-pages` compiles routes, not to Next.js or Clerk themselves.
+
+**This elevates 3.8 from "nice to eventually do, the durable fix for 3.5's recurring CVE-drift conflict" to the actual prerequisite for static rendering to ever work on this app at all.** It is no longer a parallel, optional improvement sitting alongside 3.7/3.9 — it is the *only* known path off this wall. Until 3.8 is actually completed (a real, working, live deploy — not just the local POC already attempted, which remains blocked on this Windows machine per its own entry above), static rendering for this app is not achievable on the current adapter. Full stop.
+
+**Do not attempt any further static-page work on the current adapter** — no route groups, no edge-runtime removal, no variation or combination of either — until 3.8 is actually done. Every such attempt from this point forward is a known, confirmed dead end on `@cloudflare/next-on-pages`, not worth re-investigating from scratch. (If 3.8 itself is eventually completed and turns out to have some *comparable* limitation, that would need to be established freshly at that point — not assumed one way or the other from here.)
 
 ---
 
@@ -232,7 +264,6 @@ These don't need to happen now — they're documented so a future decision to bu
 12. **3.5** Next/adapter version reconciliation
 13. **3.2** dead-schema superseded-marking (+ verified-empty check before any drop)
 14. **3.6** steps/techLinks merge (breaking — last, once CI is proven out)
-15. **3.9** invert the edge-runtime pattern (opt-in per route) — likely supersedes 3.7, decide explicitly which one to actually pursue
-16. **3.7** ClerkProvider + Navbar Clerk-hook decoupling (its own project — unblocks static rendering site-wide, not just 2 pages; see 3.9 for a probably-better alternative)
-17. **3.8** `@cloudflare/next-on-pages` → `@opennextjs/cloudflare` migration (its own project — the durable fix for 3.5's recurring conflict, not urgent but shouldn't wait for the next CVE to force it; local build currently blocked on this Windows machine, see its own update)
-18. Phase 4 items — revisit if/when their underlying feature is actually prioritized
+15. **3.8** `@cloudflare/next-on-pages` → `@opennextjs/cloudflare` migration — **now the prerequisite for 3.7 and 3.9, not a parallel item.** Confirmed (2026-07-09): static rendering is structurally impossible on the current adapter regardless of approach (Clerk's globally-fired Server Action 405s on any non-edge page) — see the consolidated finding after 3.9. Local build still blocked on this Windows machine; needs verification via Cloudflare's own remote build before this can move further.
+16. **3.7 / 3.9** ClerkProvider decoupling / edge-runtime opt-in — **both confirmed dead ends on the current adapter, do not retry either until 3.8 is actually done.** Kept here only as historical record of what was tried; not actionable on their own anymore.
+17. Phase 4 items — revisit if/when their underlying feature is actually prioritized
