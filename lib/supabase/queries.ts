@@ -44,7 +44,14 @@ export type OnboardingInput = {
   domains: string[];
 };
 
-export async function saveOnboarding(supabase: SupabaseClient, userId: string, input: OnboardingInput): Promise<boolean> {
+// TEMPORARY DIAGNOSTIC (2026-07-09): errorMessage added to the return value
+// solely to surface the real failure live, mirroring the same
+// pattern already used once before in this codebase (see the removed
+// "raw Clerk/Postgres error" banner referenced in app/onboarding/page.tsx's
+// comment). Revert to a plain boolean return once the live save failure is
+// diagnosed — don't leave this shipped long-term, same reasoning as before
+// (internal auth/integration error text shouldn't reach end users).
+export async function saveOnboarding(supabase: SupabaseClient, userId: string, input: OnboardingInput): Promise<{ ok: boolean; errorMessage: string | null }> {
   try {
     const { error: userErr } = await supabase
       .from("users")
@@ -66,10 +73,13 @@ export async function saveOnboarding(supabase: SupabaseClient, userId: string, i
     }
 
     await recordActivity(supabase, userId, "onboarding_completed", {});
-    return true;
+    return { ok: true, errorMessage: null };
   } catch (err) {
     console.error("saveOnboarding failed:", err);
-    return false;
+    const message = err instanceof Error ? err.message : JSON.stringify(err);
+    const code = (err as { code?: string })?.code;
+    const hint = (err as { hint?: string })?.hint;
+    return { ok: false, errorMessage: `[${code ?? "?"}] ${message}${hint ? ` — hint: ${hint}` : ""}` };
   }
 }
 

@@ -8,7 +8,7 @@ import OnboardingForm from "./OnboardingForm";
 
 export const metadata = { title: "Get started | SynfraCore" };
 
-type Props = { searchParams: Promise<{ error?: string }> };
+type Props = { searchParams: Promise<{ error?: string; debug?: string }> };
 
 export default async function OnboardingPage({ searchParams }: Props) {
   // auth() itself was called unguarded here before — same class of bug as
@@ -22,7 +22,7 @@ export default async function OnboardingPage({ searchParams }: Props) {
   }
 
   const { profile, errorMessage: syncError } = await ensureUserRecord();
-  const { error } = await searchParams;
+  const { error, debug } = await searchParams;
 
   // Same fix as dashboard/page.tsx: createSupabaseServerClient() + the query
   // were previously called directly, unguarded — if client construction
@@ -51,6 +51,14 @@ export default async function OnboardingPage({ searchParams }: Props) {
       {error && (
         <div style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.25)", borderRadius: "12px", padding: "14px 18px", marginBottom: "20px", fontSize: "13px", color: "#F87171" }}>
           Couldn't save that — please try again. If it keeps happening, the database may not be fully set up yet.
+          {/* TEMPORARY DIAGNOSTIC (2026-07-09) — remove this block once the
+              live save failure is diagnosed, see queries.ts/actions.ts's
+              matching comments. */}
+          {debug && (
+            <div style={{ marginTop: "10px", fontFamily: "monospace", fontSize: "11px", wordBreak: "break-word", color: "var(--text-3)" }}>
+              Debug: {debug}
+            </div>
+          )}
         </div>
       )}
       {/* Full error text is logged server-side by ensureUserRecord() (visible

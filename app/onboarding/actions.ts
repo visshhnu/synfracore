@@ -49,11 +49,15 @@ export async function submitOnboarding(formData: FormData) {
   // returns false, but client construction itself throwing (or any other
   // unexpected failure here) would still crash the action outright.
   let ok = false;
+  let errorMessage: string | null = null;
   try {
     const supabase = createSupabaseServerClient();
-    ok = await saveOnboarding(supabase, userId, input);
+    const result = await saveOnboarding(supabase, userId, input);
+    ok = result.ok;
+    errorMessage = result.errorMessage;
   } catch (err) {
     console.error("submitOnboarding: unexpected failure:", err);
+    errorMessage = err instanceof Error ? err.message : String(err);
   }
 
   // saveOnboarding already logs the underlying error server-side — this is
@@ -61,7 +65,10 @@ export async function submitOnboarding(formData: FormData) {
   // it didn't, or the user has no idea their answers weren't saved.
   // (redirect() throws internally by design — kept outside the try/catch
   // above so it isn't accidentally swallowed by it.)
-  redirect(ok ? "/dashboard" : "/onboarding?error=1");
+  // TEMPORARY DIAGNOSTIC (2026-07-09): errorMessage passed via query param
+  // so it can be seen live — revert once the save failure is diagnosed, see
+  // lib/supabase/queries.ts's matching temporary comment.
+  redirect(ok ? "/dashboard" : `/onboarding?error=1&debug=${encodeURIComponent(errorMessage ?? "unknown")}`);
 }
 
 export async function skipOnboarding() {
