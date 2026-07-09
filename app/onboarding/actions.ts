@@ -10,6 +10,19 @@ import { saveOnboarding, type OnboardingInput } from "@/lib/supabase/queries";
 // — it was unguarded here, which meant a transient auth() failure crashed
 // this entire Server Action and surfaced app/onboarding/error.tsx's generic
 // boundary instead of the existing, more graceful "?error=1" state.
+//
+// A failed/empty result here does NOT reliably mean "signed out" — confirmed
+// live (2026-07-09): auth() can fail transiently inside this Server Action
+// for a genuinely signed-in user. The original code (and this function's
+// first version) redirected straight to /sign-in whenever userId was falsy,
+// which is wrong for that transient case: Clerk's own <SignIn/> component
+// detects the still-active session and auto-redirects to afterSignInUrl
+// ("/"), producing a confusing sign-in-flash-then-home bounce — plus a
+// hydration error from the server briefly rendering /sign-in's content
+// before the client immediately tears it down to redirect. Callers should
+// redirect to /onboarding?error=1 instead, which is correct either way:
+// shows the existing retry banner if the user really is signed in, or lets
+// middleware's own (already-correct, stable) 404 handle it if they're not.
 async function getUserIdSafely(): Promise<string | null> {
   try {
     return (await auth()).userId;
@@ -21,7 +34,7 @@ async function getUserIdSafely(): Promise<string | null> {
 
 export async function submitOnboarding(formData: FormData) {
   const userId = await getUserIdSafely();
-  if (!userId) redirect("/sign-in");
+  if (!userId) redirect("/onboarding?error=1");
 
   const input: OnboardingInput = {
     learnerType: String(formData.get("learnerType") ?? ""),
@@ -53,7 +66,7 @@ export async function submitOnboarding(formData: FormData) {
 
 export async function skipOnboarding() {
   const userId = await getUserIdSafely();
-  if (!userId) redirect("/sign-in");
+  if (!userId) redirect("/onboarding?error=1");
 
   // Skipping still marks onboarding as "seen" so the dashboard prompt doesn't
   // nag forever — access to everything was never gated on this either way.
