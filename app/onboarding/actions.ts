@@ -23,18 +23,33 @@ import { saveOnboarding, type OnboardingInput } from "@/lib/supabase/queries";
 // redirect to /onboarding?error=1 instead, which is correct either way:
 // shows the existing retry banner if the user really is signed in, or lets
 // middleware's own (already-correct, stable) 404 handle it if they're not.
-async function getUserIdSafely(): Promise<string | null> {
+// TEMPORARY DIAGNOSTIC (2026-07-09): return value widened to carry the raw
+// failure reason — confirmed live that the URL after a failed submit had
+// NO debug param at all, meaning this function's own auth() call is what's
+// failing (returning falsy), not saveOnboarding() — never got that far.
+// Revert to a plain string|null return once diagnosed, matching the
+// temporary comments in queries.ts and page.tsx.
+async function getUserIdSafely(): Promise<{ userId: string | null; debug: string | null }> {
   try {
-    return (await auth()).userId;
+    const result = await auth();
+    if (!result.userId) {
+      return { userId: null, debug: `auth() returned no userId (sessionId=${result.sessionId ?? "null"})` };
+    }
+    return { userId: result.userId, debug: null };
   } catch (err) {
     console.error("auth() failed in an onboarding Server Action:", err);
-    return null;
+    const message = err instanceof Error ? err.message : String(err);
+    return { userId: null, debug: `auth() threw: ${message}` };
   }
 }
 
+function toErrorUrl(debug: string | null): string {
+  return `/onboarding?error=1&debug=${encodeURIComponent(debug ?? "unknown")}`;
+}
+
 export async function submitOnboarding(formData: FormData) {
-  const userId = await getUserIdSafely();
-  if (!userId) redirect("/onboarding?error=1");
+  const { userId, debug: authDebug } = await getUserIdSafely();
+  if (!userId) redirect(toErrorUrl(authDebug));
 
   const input: OnboardingInput = {
     learnerType: String(formData.get("learnerType") ?? ""),
@@ -68,12 +83,12 @@ export async function submitOnboarding(formData: FormData) {
   // TEMPORARY DIAGNOSTIC (2026-07-09): errorMessage passed via query param
   // so it can be seen live — revert once the save failure is diagnosed, see
   // lib/supabase/queries.ts's matching temporary comment.
-  redirect(ok ? "/dashboard" : `/onboarding?error=1&debug=${encodeURIComponent(errorMessage ?? "unknown")}`);
+  redirect(ok ? "/dashboard" : toErrorUrl(errorMessage));
 }
 
 export async function skipOnboarding() {
-  const userId = await getUserIdSafely();
-  if (!userId) redirect("/onboarding?error=1");
+  const { userId, debug: authDebug } = await getUserIdSafely();
+  if (!userId) redirect(toErrorUrl(authDebug));
 
   // Skipping still marks onboarding as "seen" so the dashboard prompt doesn't
   // nag forever — access to everything was never gated on this either way.
