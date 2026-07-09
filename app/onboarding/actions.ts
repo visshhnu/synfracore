@@ -1,45 +1,47 @@
 "use server";
 
-import { auth } from "@clerk/nextjs/server";
+import { auth, clerkClient } from "@clerk/nextjs/server";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { saveOnboarding, type OnboardingInput } from "@/lib/supabase/queries";
 
-// auth() can throw (the same class of bug already fixed in
-// app/onboarding/page.tsx and app/dashboard/page.tsx — see their comments)
-// — it was unguarded here, which meant a transient auth() failure crashed
-// this entire Server Action and surfaced app/onboarding/error.tsx's generic
-// boundary instead of the existing, more graceful "?error=1" state.
+// Confirmed live (2026-07-09): auth()'s AsyncLocalStorage context reliably
+// fails to reach this Server Action on this Cloudflare adapter, even though
+// the exact same clerkMiddleware() run correctly protects this route on the
+// page render (onboarding/page.tsx's own auth() call works). This is a known,
+// unresolved Clerk/Cloudflare issue — reproduces on both
+// @cloudflare/next-on-pages (what we're on) and @opennextjs/cloudflare (the
+// planned 3.8 migration target), so migrating will NOT fix it:
+// https://github.com/opennextjs/opennextjs-cloudflare/issues/524
 //
-// A failed/empty result here does NOT reliably mean "signed out" — confirmed
-// live (2026-07-09): auth() can fail transiently inside this Server Action
-// for a genuinely signed-in user. The original code (and this function's
-// first version) redirected straight to /sign-in whenever userId was falsy,
-// which is wrong for that transient case: Clerk's own <SignIn/> component
-// detects the still-active session and auto-redirects to afterSignInUrl
-// ("/"), producing a confusing sign-in-flash-then-home bounce — plus a
-// hydration error from the server briefly rendering /sign-in's content
-// before the client immediately tears it down to redirect. Callers should
-// redirect to /onboarding?error=1 instead, which is correct either way:
-// shows the existing retry banner if the user really is signed in, or lets
-// middleware's own (already-correct, stable) 404 handle it if they're not.
-// TEMPORARY DIAGNOSTIC (2026-07-09): return value widened to carry the raw
-// failure reason — confirmed live that the URL after a failed submit had
-// NO debug param at all, meaning this function's own auth() call is what's
-// failing (returning falsy), not saveOnboarding() — never got that far.
-// Revert to a plain string|null return once diagnosed, matching the
-// temporary comments in queries.ts and page.tsx.
+// Workaround: since middleware already ran for this request (that's the only
+// reason this page was reachable at all), the session cookie IS present —
+// only the in-process context handoff into the Server Action is broken. Fall
+// back to verifying that cookie manually via clerkClient().authenticateRequest(),
+// which reads the cookie directly instead of relying on the broken handoff.
 async function getUserIdSafely(): Promise<{ userId: string | null; debug: string | null }> {
   try {
     const result = await auth();
-    if (!result.userId) {
-      return { userId: null, debug: `auth() returned no userId (sessionId=${result.sessionId ?? "null"})` };
-    }
-    return { userId: result.userId, debug: null };
+    if (result.userId) return { userId: result.userId, debug: null };
   } catch (err) {
-    console.error("auth() failed in an onboarding Server Action:", err);
+    console.error("auth() failed in an onboarding Server Action, trying manual fallback:", err);
+  }
+
+  try {
+    const hdrs = await headers();
+    const request = new Request("https://synfracore.com/", {
+      headers: { cookie: hdrs.get("cookie") ?? "" },
+    });
+    const client = await clerkClient();
+    const state = await client.authenticateRequest(request);
+    const manualAuth = state.toAuth();
+    if (manualAuth?.userId) return { userId: manualAuth.userId, debug: null };
+    return { userId: null, debug: `manual fallback found no session (status=${state.status})` };
+  } catch (err) {
+    console.error("Manual auth fallback also failed in an onboarding Server Action:", err);
     const message = err instanceof Error ? err.message : String(err);
-    return { userId: null, debug: `auth() threw: ${message}` };
+    return { userId: null, debug: `manual fallback threw: ${message}` };
   }
 }
 
