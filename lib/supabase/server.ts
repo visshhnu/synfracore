@@ -1,5 +1,5 @@
-import { auth } from "@clerk/nextjs/server";
 import { createClient } from "@supabase/supabase-js";
+import { getAuthSafely } from "@/lib/clerk/authFallback";
 
 // Server-side Supabase client (Server Components, Route Handlers, Server
 // Actions) — authenticated via Clerk's native Third-Party Auth integration.
@@ -9,19 +9,15 @@ export function createSupabaseServerClient() {
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
-      // Swallow auth() failures here rather than letting them reject inside
-      // supabase-js's request pipeline — every caller (ensureUserRecord,
-      // dashboard/page.tsx's other queries) already handles a missing/failed
-      // token as "unauthenticated", so returning null is strictly safer than
-      // letting an exception escape from inside this callback.
-      accessToken: async () => {
-        try {
-          return (await auth()).getToken();
-        } catch (err) {
-          console.error("accessToken callback failed:", err);
-          return null;
-        }
-      },
+      // getAuthSafely() already swallows auth() failures and falls back to
+      // manually verifying the session cookie (needed specifically inside
+      // Server Actions on this Cloudflare adapter — see its own comment).
+      // Without that fallback here, this callback silently returned null on
+      // every Server Action call, which meant Supabase sent requests with no
+      // Clerk JWT attached — Postgres saw auth.jwt()->>'sub' as null, so any
+      // RLS-enabled table (e.g. user_domain_preferences) rejected the write
+      // with a 42501, even though the caller was genuinely signed in.
+      accessToken: async () => (await getAuthSafely()).token,
     }
   );
 }
