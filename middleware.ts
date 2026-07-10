@@ -22,6 +22,20 @@ const isProtectedRoute = createRouteMatcher([
   "/profile(.*)",
 ]);
 
+// Product decision (2026-07-10, resolves 3.7's open question): /dashboard and
+// /onboarding redirect a signed-out visitor to /sign-in explicitly — there's
+// nothing sensitive about confirming these pages exist, and that's normal UX
+// for any app. /admin deliberately does NOT get this treatment: no reason to
+// confirm to a signed-out visitor that an admin panel exists at this URL, so
+// it keeps auth.protect()'s other (notFound-for-non-page-requests) behavior
+// untouched. Note this is orthogonal to admin/page.tsx's own notFound() call,
+// which hides the panel from signed-in non-admins — a separate check this
+// middleware-level decision doesn't affect either way.
+const isRedirectOnSignedOut = createRouteMatcher([
+  "/dashboard(.*)",
+  "/onboarding(.*)",
+]);
+
 // /privacy and /terms render dynamically on every request (Cloudflare
 // compiles them into a Function, like nearly every route here), which means
 // next.config.ts's headers() rule for them never applies — Cloudflare Pages'
@@ -61,7 +75,11 @@ function fallbackMiddleware(req: NextRequest) {
 export default hasClerkKeys
   ? clerkMiddleware(async (auth, req) => {
       if (isProtectedRoute(req)) {
-        await auth.protect();
+        if (isRedirectOnSignedOut(req)) {
+          await auth.protect({ unauthenticatedUrl: new URL("/sign-in", req.url).toString() });
+        } else {
+          await auth.protect();
+        }
       }
       return withCacheHeaders(req, NextResponse.next());
     })
