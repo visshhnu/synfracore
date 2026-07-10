@@ -5,13 +5,9 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { saveOnboarding, type OnboardingInput } from "@/lib/supabase/queries";
 import { getAuthSafely } from "@/lib/clerk/authFallback";
 
-function toErrorUrl(debug: string | null): string {
-  return `/onboarding?error=1&debug=${encodeURIComponent(debug ?? "unknown")}`;
-}
-
 export async function submitOnboarding(formData: FormData) {
-  const { userId, debug: authDebug } = await getAuthSafely();
-  if (!userId) redirect(toErrorUrl(authDebug));
+  const { userId } = await getAuthSafely();
+  if (!userId) redirect("/onboarding?error=1");
 
   const input: OnboardingInput = {
     learnerType: String(formData.get("learnerType") ?? ""),
@@ -26,15 +22,11 @@ export async function submitOnboarding(formData: FormData) {
   // returns false, but client construction itself throwing (or any other
   // unexpected failure here) would still crash the action outright.
   let ok = false;
-  let errorMessage: string | null = null;
   try {
     const supabase = createSupabaseServerClient();
-    const result = await saveOnboarding(supabase, userId, input);
-    ok = result.ok;
-    errorMessage = result.errorMessage;
+    ok = await saveOnboarding(supabase, userId, input);
   } catch (err) {
     console.error("submitOnboarding: unexpected failure:", err);
-    errorMessage = err instanceof Error ? err.message : String(err);
   }
 
   // saveOnboarding already logs the underlying error server-side — this is
@@ -42,15 +34,12 @@ export async function submitOnboarding(formData: FormData) {
   // it didn't, or the user has no idea their answers weren't saved.
   // (redirect() throws internally by design — kept outside the try/catch
   // above so it isn't accidentally swallowed by it.)
-  // TEMPORARY DIAGNOSTIC (2026-07-09): errorMessage passed via query param
-  // so it can be seen live — revert once the save failure is diagnosed, see
-  // lib/supabase/queries.ts's matching temporary comment.
-  redirect(ok ? "/dashboard" : toErrorUrl(errorMessage));
+  redirect(ok ? "/dashboard" : "/onboarding?error=1");
 }
 
 export async function skipOnboarding() {
-  const { userId, debug: authDebug } = await getAuthSafely();
-  if (!userId) redirect(toErrorUrl(authDebug));
+  const { userId } = await getAuthSafely();
+  if (!userId) redirect("/onboarding?error=1");
 
   // Skipping still marks onboarding as "seen" so the dashboard prompt doesn't
   // nag forever — access to everything was never gated on this either way.
