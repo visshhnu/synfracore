@@ -12,29 +12,55 @@ const hasClerkKeys = Boolean(
   process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY && process.env.CLERK_SECRET_KEY
 );
 
-// Only these routes require sign-in. Every academy/roadmap/marketing page
-// stays public by design — "all domains remain explorable" is a product
-// decision, not just a UI default.
+// Routes that require sign-in AND get their signed-out handling enforced
+// here, at the middleware level, via auth.protect(). Every academy/roadmap/
+// marketing page stays public by design — "all domains remain explorable" is
+// a product decision, not just a UI default. /admin is NOT in this list —
+// see the comment above its own definition below for why.
 const isProtectedRoute = createRouteMatcher([
   "/dashboard(.*)",
   "/onboarding(.*)",
-  "/admin(.*)",
   "/profile(.*)",
 ]);
 
 // Product decision (2026-07-10, resolves 3.7's open question): /dashboard and
 // /onboarding redirect a signed-out visitor to /sign-in explicitly — there's
 // nothing sensitive about confirming these pages exist, and that's normal UX
-// for any app. /admin deliberately does NOT get this treatment: no reason to
-// confirm to a signed-out visitor that an admin panel exists at this URL, so
-// it keeps auth.protect()'s other (notFound-for-non-page-requests) behavior
-// untouched. Note this is orthogonal to admin/page.tsx's own notFound() call,
-// which hides the panel from signed-in non-admins — a separate check this
-// middleware-level decision doesn't affect either way.
+// for any app.
 const isRedirectOnSignedOut = createRouteMatcher([
   "/dashboard(.*)",
   "/onboarding(.*)",
 ]);
+
+// /admin deliberately does NOT go through auth.protect() here at all — this
+// is a second, distinct fix (2026-07-11), not just "leave it as the other
+// branch of the above decision". auth.protect()'s default (no explicit
+// redirect) signed-out behavior calls notFound() from *middleware*, which
+// Clerk implements as an internal NextResponse.rewrite() to a deliberately
+// nonexistent path (`/clerk_<timestamp>`) — relying on Next.js's normal
+// "no matching route" handling to render our custom not-found.tsx. Confirmed
+// live (2026-07-11) that this specific rewrite-to-a-fake-path pattern doesn't
+// work correctly on @cloudflare/next-on-pages: multiple independent, already-
+// filed issues against the adapter (cloudflare/next-on-pages#177, #283, #546)
+// document exactly this — a rewrite to a path that isn't a real route falls
+// through to default/home-page handling instead of the intended not-found
+// page. Live testing confirmed the exact symptom: a signed-out visit to
+// /admin briefly flashed the real 404, then fell through to the homepage —
+// on both a cold fresh visit and right after sign-out, ruling out the
+// separate, already-documented afterSignOutUrl quirk (Phase 4) as the cause.
+// This means /admin's "hide via 404" design intent likely never worked
+// reliably in production on this adapter — not a regression from any of
+// today's or yesterday's changes (confirmed via git diff that this exact
+// auth.protect() call was byte-identical before and after the 3.7 fix).
+//
+// The fix: don't rely on middleware's notFound()-via-fake-rewrite mechanism
+// at all for /admin. clerkMiddleware() below still runs for every request
+// (it's not scoped to isProtectedRoute — see the matcher config at the
+// bottom), so Clerk's auth context is still correctly established for
+// /admin; admin/page.tsx's own Server Component calls notFound() directly
+// (already did, for the signed-in-but-not-admin role check) — a native,
+// officially-supported use of notFound() that doesn't go through this
+// broken middleware rewrite path, and correctly renders a stable 404.
 
 // /privacy and /terms render dynamically on every request (Cloudflare
 // compiles them into a Function, like nearly every route here), which means

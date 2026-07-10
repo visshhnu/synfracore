@@ -11,10 +11,16 @@ export const metadata = { title: "Admin | SynfraCore" };
 type Props = { searchParams: Promise<{ page?: string }> };
 
 export default async function AdminPage({ searchParams }: Props) {
-  // Middleware only enforces "is signed in" for /admin — the role check that
-  // actually gates this page happens here, against our own Supabase `role`
-  // column (not Clerk's org/role system, which this project doesn't use).
-  // 404 rather than redirect, so a non-admin can't tell the page exists.
+  // Both "is signed in" AND "is admin" are enforced right here, not in
+  // middleware (see middleware.ts's comment on why /admin is deliberately
+  // excluded from its auth.protect() call). ensureUserRecord() returns a
+  // null profile for a signed-out visitor (currentUser() resolves to null);
+  // the role check below then covers signed-in non-admins too, against our
+  // own Supabase `role` column (not Clerk's org/role system, which this
+  // project doesn't use). Both cases call notFound() directly from this
+  // Server Component — a native use of notFound() that renders a real,
+  // stable 404 rather than a redirect, so nobody can tell this page exists
+  // unless they're actually an admin.
   const { profile } = await ensureUserRecord();
   if (!profile || profile.role !== "admin") notFound();
 
