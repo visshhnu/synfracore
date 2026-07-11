@@ -22,11 +22,11 @@ The complete Apache Spark curriculum covers:
 ## Quick Start
 
 ```bash
-# Install spark
-pip install spark
+# Install PySpark (the Python API for Spark — most common entry point)
+pip install pyspark
 
 # Verify installation
-spark --version
+pyspark --version
 ```
 
 ---
