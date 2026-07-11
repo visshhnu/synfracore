@@ -262,6 +262,26 @@ async function invalidateCacheAction() {
 
 ---
 
+## INCIDENT — Contaminated content discovered site-wide: scraped chatbot UI chrome + apparent personal data (2026-07-11)
+
+**What happened**: while filling missing tabs for Phase 4 Part A2's top-10 list, `devops/kubernetes/intermediate.md` was found to contain ~19 empty fenced code blocks, a cut-off/garbled sentence, a verbatim scraped chatbot-widget UI dump ("🤖 AI Assistant / Ask anything about this topic / Clear / 👋 Hi! I have read this page..."), and — most seriously — a section headed "Prepared for: Senior DevOps Engineer (7+ Years)" / "Your Profile at a Glance" containing a first-person career narrative with real-sounding employer names, framed as one specific individual's personalized document, not generic course content.
+
+**Scope, confirmed by a repo-wide grep for 5 independent markers** (a "Prepared for:" header, "Your Profile at a Glance", two distinct employer-name mentions in first-person narrative context, and the chatbot-widget UI text): **49 files total**, concentrated in `devops/` (spread across ansible, argo-rollouts, argocd, azure-devops, elk, helm, incident, jenkins, keda, kubernetes, linux, openshift, platform-engineering, prometheus, python, terraform) with smaller counts in `cloud/`, `ai/`, `data/`, `education/`, `essentials/`, `law/`, `security/`, `telecom/`.
+
+**Root cause, traced via `git log --diff-filter=A`**: this predates the current engagement entirely — nothing in this session caused it. 41 of 46 traced files came from two commits, `6323ba4` ("v108 gap domains and roadmap for all domains") and `5b88e92` ("v109 fix for roadmaps"), both dated **2026-06-26**, part of a rapid "v96"–"v119" sequence of bulk content-generation commits over ~48 hours (one commit's own message: *"18 academies, 1597 files, 0 thin, new domains"*). 46 of the contaminated files (and 46 *other*, uncontaminated files) carry a `"Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev)"` footer attribution — strongly suggesting content was bulk-imported from that external site, and whatever process did the import captured **rendered page output including that site's embedded AI-assistant widget UI chrome** (confirmed NOT a match for this repo's own current `SynfraAI Assistant` widget text in `app/ai-assistant/AIAssistantClient.tsx` — different product, different UI copy), and in at least one case what may have been a real conversation session with it. The exact tool/script that performed the June 26 import is not identified — git history shows *when* and *how much*, not *what ran it*.
+
+**Remediation, in order**:
+1. **Emergency takedown, commit `3148728`**: `devops/kubernetes/intermediate.md` replaced with a placeholder immediately upon discovery, pushed before anything else.
+2. **Bulk takedown, commit `fca8dc0`**: all remaining 48 grep-matched files replaced with placeholders, pushed immediately — safety-first, before any individual verification, since a false-positive placeholder costs nothing and a real exposure staying live does.
+3. **Guardrail, commit `02f93af`**: `scripts/validate-content-quality.mjs` added, hard-failing `npm run predeploy` and CI (`.github/workflows/ci.yml`) on any of the 4 markers proven to map exactly to this incident with zero false positives (`Prepared for:`, `Your Profile at a Glance`, and the two chatbot-widget UI phrases). Two other candidate markers — empty fenced code blocks and an abrupt-ending heuristic — were tested and found far broader than the incident (120 and 157 files respectively, overwhelmingly unrelated pre-existing content gaps in academies with zero contamination hits); hard-failing on either would block every future deploy on a large separate backlog, so both are kept WARN-only (printed, non-blocking) instead.
+4. **Pending**: individual verification of all 49 placeholder files (real hit → rewrite with real content at the established quality bar; false positive → restore original content, note why the marker matched incorrectly to refine the guardrail).
+5. **Pending, not yet started**: checking whether any contaminated URLs were indexed by Google (Search Console / `site:synfracore.com`) — content already crawled/cached may need Search Console's URL removal tool as an extra step beyond fixing the source.
+6. **Pending, not yet started**: whether this needs to go beyond an engineering fix — if the personal data is a real, identifiable individual's and the repo is/was public, that may be a conversation for whoever owns data-handling/privacy decisions, not just a content cleanup.
+
+**Do not run whatever process generated the June 26 "v108/v109 gap domains" content again until its exact identity and behavior are understood** — the guardrail above will now catch a recurrence of this specific pattern, but that's a safety net, not a substitute for knowing what produced it.
+
+---
+
 ## Phase 4 — Forward-looking, no action needed yet (flagged per your explicit ask, not urgent)
 
 These don't need to happen now — they're documented so a future decision to build the underlying feature starts from an informed position instead of zero.
