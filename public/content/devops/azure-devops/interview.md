@@ -1,3 +1,22 @@
-# devops / azure-devops
+# Azure DevOps Pipelines — Interview Q&A
 
-_This page is temporarily unavailable while it is reviewed. It was flagged by an automated scan for content that may not belong here and is pending individual verification._
+**Q: How is Azure DevOps different from GitHub Actions or GitLab CI, beyond "it's Microsoft's version"?**
+A: Azure DevOps is a full project-lifecycle platform — Boards (agile planning), Repos (Git hosting), Pipelines (CI/CD), Artifacts (packages), and Test Plans, all integrated — not just a CI/CD tool. GitHub Actions is comparatively focused on CI/CD and open-source-friendly marketplace actions. GitLab CI sits in between — also all-in-one, with strong built-in security scanning. The real decision driver isn't feature checklists, it's organizational context: Azure DevOps makes the most sense for teams already deep in Microsoft/Azure tooling needing enterprise RBAC and audit requirements.
+
+**Q: Explain the relationship between stages, jobs, and steps in an Azure Pipeline.**
+A: Stages run sequentially by default (each depends on the previous unless configured otherwise) and represent major pipeline phases — Build, then Deploy-Staging, then Deploy-Production. Jobs within a stage run in parallel by default, each on its own agent. Steps within a job run sequentially on that same agent. This three-level structure is what lets you parallelize independent work (running tests and a security scan simultaneously as separate jobs) while still enforcing real ordering where it matters (deployment only after build succeeds).
+
+**Q: What are pipeline templates, and why do they matter at scale?**
+A: Templates are reusable YAML files — the direct equivalent of Jenkins Shared Libraries or GitHub Actions reusable workflows. Without them, an organization with 50 microservices ends up with 50 near-identical pipeline YAML files, and a change to the standard deploy process means editing all 50. A template centralizes that logic once; each service's pipeline becomes a thin file that references the template with its own specific parameters.
+
+**Q: How would you take a pipeline from 45 minutes down to under 15?**
+A: In order of typical impact: parallelize independent stages/jobs that were running sequentially for no real reason (test + lint + security scan can usually run simultaneously), add dependency caching (`Cache@2` for npm/pip/Maven — a fresh install on every run is a common, large, avoidable cost), use Docker layer caching for image builds via BuildKit, and consider self-hosted agents with pre-installed tooling if Microsoft-hosted agent spin-up time (which includes fresh tool installation) is a meaningful fraction of total pipeline time. A strong answer diagnoses which of these actually applies to a *specific* slow pipeline rather than applying all of them reflexively.
+
+**Q: When would you choose Bicep over Terraform for Azure infrastructure, or vice versa?**
+A: Terraform is the right default for anything long-term or multi-cloud — larger community, more mature state management, works the same way regardless of cloud provider. Bicep is Azure-native, cleaner than raw ARM JSON, and reasonable for quick, Azure-only resources where you don't want Terraform's provider/state overhead. Raw ARM JSON should essentially never be hand-written today — it's the legacy format both Bicep and Terraform's AzureRM provider exist to abstract away from.
+
+**Q: How do Environments and approval gates work in Azure Pipelines, and why does that matter for production deploys?**
+A: An Environment (`environment: production` in a deployment job) is a named target that can have approval gates and checks configured against it — a manual approval requirement, a business-hours restriction, a required check against another system. This is what turns "deploy to production" from an unconditional pipeline step into a genuinely gated one, without needing custom scripting to implement the gate — it's a first-class pipeline concept, and the same mechanism used to distinguish Continuous Delivery (gated) from Continuous Deployment (ungated) in the broader CI/CD sense.
+
+**Q: A pipeline works fine when triggered manually but fails intermittently on automatic triggers — what would you check?**
+A: Check whether the failure correlates with concurrent runs — a common real cause is multiple triggered runs competing for the same shared resource (a deployment slot, a database migration lock, a rate-limited external API) that a manual, one-at-a-time trigger pattern never exposed. Also check trigger configuration itself — path filters and branch filters that behave differently than expected can cause a pipeline to fire on unintended events, producing runs that look like "the same pipeline" but are actually running against unexpected inputs.
