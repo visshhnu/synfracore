@@ -1,3 +1,22 @@
-# devops / jenkins
+# Jenkins — Interview Q&A
 
-_This page is temporarily unavailable while it is reviewed. It was flagged by an automated scan for content that may not belong here and is pending individual verification._
+**Q: Why should the Jenkins controller never run build jobs directly?**
+A: The controller schedules jobs and serves the UI for the entire Jenkins instance — if it also runs build jobs, a single hung, memory-heavy, or malicious build can degrade or take down the controller itself, affecting every other job on the instance, not just the one build. Agent isolation exists specifically to contain that blast radius: a bad build can crash an agent without touching the controller's own stability.
+
+**Q: What's the actual difference between Declarative and Scripted Pipeline syntax?**
+A: Declarative Pipeline uses a structured, opinionated format (`pipeline { stages { ... } }`) that's easier to read, validate, and lint before running — most of what you need for a standard CI/CD pipeline fits cleanly within it. Scripted Pipeline is full Groovy code with more flexibility for genuinely complex, non-standard logic, at the cost of being harder to read and validate statically. The practical guidance: default to Declarative; drop into Scripted (or a Declarative `script {}` block, which allows Groovy inline) only for the specific parts that genuinely need that flexibility.
+
+**Q: How do you keep secrets out of a Jenkinsfile while still using them in a pipeline?**
+A: Reference credentials by ID from Jenkins' Credentials Store (or an external secrets manager like Vault), never as literal values in the Jenkinsfile: `environment { DOCKER_CREDS = credentials('docker-hub-creds') }`. This keeps the pipeline definition itself fully reviewable and safe to have in a public or widely-readable repository, since it never contains an actual secret value — only a reference to where one lives.
+
+**Q: What's a Shared Library, and what problem does it actually solve?**
+A: A Shared Library centralizes common pipeline logic (build steps, deploy steps, notification logic) in one versioned Git repository, referenced from individual Jenkinsfiles via `@Library`. Without it, an organization with many services ends up with many near-identical Jenkinsfiles, and a process change (adding a security scan step, say) means editing every single one. With a Shared Library, that change happens once, in the library, and every consuming pipeline picks it up on its next run (or on their next version bump, if pinned to a specific tag).
+
+**Q: You need to add a security scan to every pipeline across 50 services — how would you actually do that without editing 50 Jenkinsfiles?**
+A: This is exactly the scenario a Shared Library exists for — add the scan step once to the library's shared build function, tag a new library version, and update each service's `@Library` reference (or, if unpinned/floating on a branch, it applies automatically on the next run — though pinning to explicit tags is the safer default, see the versioning tradeoff). The alternative — manually editing 50 separate Jenkinsfiles — is exactly the maintenance burden Shared Libraries are designed to eliminate.
+
+**Q: Why use Kubernetes agents instead of a fixed pool of static build servers?**
+A: Kubernetes agents provision a fresh pod per build — no idle cost when nothing's building, a clean environment on every single build (no state or leftover artifacts carrying over from a previous build on a shared static agent), and the ability to use a different container image per job matching that job's actual tooling needs. The real cost is per-build pod startup latency (commonly 10-30 seconds), which static, always-running agents don't have — a genuine tradeoff between elasticity/cost and per-build startup overhead, not a strictly-better choice in every situation.
+
+**Q: A pipeline that used to take 10 minutes now takes 40 — how do you actually diagnose this, not just guess?**
+A: Start with the Stage View or Blue Ocean's timeline, which shows real per-stage timing directly — don't guess at the cause before looking at actual data. Common real causes in roughly descending likelihood: dependency caching broke or was never configured (a full reinstall on every build), a new stage was added that could run in parallel with an existing one but doesn't, agent provisioning overhead increased (a Kubernetes agent pod startup got slower, or a static agent pool got busier), or a specific step's underlying dependency (an external API call, a slow test) genuinely got slower and needs its own investigation, separate from the pipeline configuration itself.
