@@ -47,6 +47,6 @@ jobs:
 | Strategy | Downtime | Rollback Speed |
 |---------|---------|---------------|
 | Rolling update | No | Slow |
-| Blue/Green | No | Instant |
-| Canary | No | Instant |
+| Blue/Green | No | Instant (atomic traffic switch back) |
+| Canary | No | Fast, but only with automated monitoring + rollback wired up — not instant by default |
 | Recreate | Yes | Slow |
