@@ -1,0 +1,19 @@
+# Database Design — Real World
+
+## The 32-bit primary key overflow — a well-documented, recurring pattern across many companies
+
+A genuinely common, real failure pattern that multiple companies have publicly written about over the years: a table's primary key is defined as a 32-bit integer (`INT`/`SERIAL` in PostgreSQL, `INT` in MySQL) rather than a 64-bit one, and years later, as the table's row count approaches roughly 2.1 billion (the signed 32-bit integer maximum), new inserts start failing outright once the counter is exhausted — often discovered in production, under real load, rather than caught ahead of time. > **Note (unverified specifics):** exact companies, dates, and precise row counts for individual publicized instances of this are best confirmed against those companies' own engineering blog posts rather than this summary — the general pattern (32-bit primary keys silently approaching their ceiling on a fast-growing table) is the well-documented, widely-cited part, and several companies have written detailed public postmortems about hitting exactly this limit.
+
+**Lesson directly relevant to this page:** this is a design decision made once, early, when a table was small, that becomes an emergency years later at a scale nobody was thinking about at design time. The concrete takeaway many teams draw from this: default to `BIGINT`/64-bit primary keys for any table with realistic potential for high growth, since the storage cost difference is minor and the alternative (migrating a live, massive production table's primary key type under time pressure) is a genuinely difficult, high-risk operation to perform after the fact.
+
+## Instagram's distributed ID generation — a real, public engineering design solution
+
+Instagram's engineering team publicly wrote about the sharding and ID-generation challenge directly relevant to this page's Advanced section: once data is sharded across many separate database instances, a simple auto-incrementing integer primary key no longer works globally, since each shard would generate colliding IDs independently. Their publicly documented solution combined a timestamp, a shard identifier, and a per-shard auto-incrementing sequence into a single composite ID — generated without needing a coordinating service, while still preserving rough chronological ordering and shard traceability directly from the ID itself. > **Note:** this is a real, publicly published engineering approach (via Instagram's own engineering blog); exact implementation details are best confirmed against that original source if you're implementing something similar, rather than relying on this summary alone.
+
+**Lesson directly relevant to this page:** this is a concrete, real answer to exactly the "how do you generate unique keys across shards" problem this page's Advanced section raises abstractly — worth studying directly as a real, working design rather than only reasoning about the problem in the abstract.
+
+## A general pattern worth naming: the `ON DELETE CASCADE` chain nobody fully traced
+
+Not a single named incident, but a common, recurring real mistake: a foreign key is defined with `ON DELETE CASCADE` for convenience early in a schema's life, and over time, more tables get added with their own `CASCADE` foreign keys pointing (directly or transitively) back toward the original table — until a single delete, intended to remove one row, cascades through several tables and removes far more data than anyone reviewing that one delete statement anticipated.
+
+**Lesson:** this page's Troubleshooting section covers tracing the full cascade chain before adding `CASCADE` for exactly this reason — a foreign key's `ON DELETE` behavior is a decision with consequences that can compound silently as a schema grows, not a one-time, isolated choice.

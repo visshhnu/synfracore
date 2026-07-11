@@ -1,0 +1,12 @@
+# Database Design — Key Takeaways
+
+- **Every normal form fixes a specific anomaly** — update, insertion, or deletion — not an arbitrary rule. Being able to name which anomaly a normalization step prevents is what separates real understanding from memorized definitions.
+- **Foreign keys are enforced database guarantees, not documentation** — they reject invalid data unconditionally, regardless of what application code does or doesn't check, which is precisely their value over relying on application-level validation alone.
+- **Every index has a real write and storage cost, not just a read benefit** — indexing based on actual query patterns, not defensively "just in case," is the correct default.
+- **Composite index column order is not arbitrary** — leading column should be the highest-selectivity equality condition; this determines which queries the index actually serves efficiently.
+- **Denormalization is a deliberate, measured tradeoff, not a shortcut** — it trades some duplicate data and update-anomaly risk for avoiding a specific, confirmed join-performance cost; done without measurement, it just reintroduces normalization's original problems for no confirmed benefit.
+- **`EXPLAIN ANALYZE` should be a habit from the first query you write, not something reached for only when something's already slow** — reading query plans is the actual skill; index type definitions alone don't build it.
+- **Read replica lag is a designed tradeoff, not a bug** — the design question is which specific reads can tolerate it, not whether it exists at all.
+- **Partitioning splits a table within one database instance; sharding splits data across multiple instances entirely** — sharding is a much bigger architectural commitment (shard-key choice is hard to change later, cross-shard queries are expensive) and shouldn't be adopted before the scale genuinely requires it.
+- **Multi-tenant isolation has three real approaches with a real isolation-vs-operational-cost tradeoff** — shared table with `tenant_id` (plus database-level row-level security, not just application-code discipline) is the common default; schema/database-per-tenant trade operational simplicity for stronger isolation.
+- **Real evaluation of this skill is almost always a live design exercise, not a certification exam** — hands-on practice with genuinely non-trivial schemas matters more here than in most other technologies on this site.
