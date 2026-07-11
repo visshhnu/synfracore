@@ -1,0 +1,19 @@
+# Quantitative Aptitude FAQ
+
+**Q: I'm weak in math generally — how long does it realistically take to get exam-ready in Quant?**
+A: This varies a lot by starting point and daily practice time, so treat any specific timeline as a rough guide, not a guarantee — for someone starting from a weak base with consistent daily practice, building solid fundamentals typically takes meaningfully longer than for someone with a stronger existing math background. The more reliable signal than a calendar estimate: track topic-wise accuracy and speed (Overview's study approach) and progress from Fundamentals to timed practice only once individual topics are genuinely solid — rushing to timed mocks before fundamentals are secure tends to build bad habits (guessing, panic) that are harder to undo later than the extra fundamentals time would have cost.
+
+**Q: Should I focus on memorizing formulas or understanding the underlying logic?**
+A: Both, but in a specific order — understand the logic first (why a formula works, not just what it says), because that's what lets you apply it correctly to a slightly unfamiliar question variant. Formula memorization is what makes you *fast* once the logic is already solid — pure memorization without understanding breaks down the moment a question doesn't exactly match the memorized pattern, which is common, since exam questions deliberately vary surface details.
+
+**Q: Is Vedic Math worth learning for these exams?**
+A: Selectively, yes — specific Vedic Math techniques for multiplication, squaring numbers close to a round number, and certain division shortcuts can genuinely save real time on specific calculation types. It's not a substitute for the core topic knowledge (Profit & Loss, DI, Time & Work) this page covers — think of it as a speed layer on top of solid fundamentals, not a replacement for them, and not worth chasing exhaustively across every possible Vedic technique when your time is better spent on core topic mastery first.
+
+**Q: How important is Data Interpretation compared to the other topics, really?**
+A: Very — Overview's weightage table shows it carrying among the heaviest question counts, and it gets heavier still in Mains-level exams specifically. A candidate strong in every other topic but weak in DI specifically will underperform relative to their actual math ability, simply because DI's weightage is high enough that weakness there caps overall section performance — dedicated DI practice (see Intermediate/Advanced) is not optional if you're weak there, regardless of strength elsewhere.
+
+**Q: Calculator isn't allowed in these exams — how do people actually calculate fast without one?**
+A: Through the specific techniques this page covers repeatedly, not raw natural speed — memorized squares/cubes/tables (Cheatsheet), percentage-to-fraction shortcuts, approximation for DI elimination questions (Intermediate), and Vedic Math techniques for specific calculation types all exist precisely because mental calculation speed without a calculator is a trainable skill, built through deliberate practice of these specific techniques, not an innate ability some people simply have and others don't.
+
+**Q: I keep making careless mistakes even when I know the method — how do I fix this?**
+A: This is usually a speed-accuracy tradeoff problem, not a knowledge gap — check whether your careless mistakes cluster around specific situations (rushing on the last few questions of a timed set, misreading which base a percentage should apply to — see Fundamentals' Profit & Loss note). Deliberately slow down slightly on your practice sets to identify exactly where errors happen, fix that specific pattern, then rebuild speed — trying to fix "carelessness" as a vague, general problem is much harder than identifying and drilling the specific recurring error pattern underneath it.
