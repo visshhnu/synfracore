@@ -22,11 +22,12 @@ The complete Apache Airflow curriculum covers:
 ## Quick Start
 
 ```bash
-# Install airflow
-pip install airflow
+# Install Apache Airflow — note the actual PyPI package name is
+# "apache-airflow", not "airflow" (that's a different, unrelated package)
+pip install apache-airflow
 
 # Verify installation
-airflow --version
+airflow version
 ```
 
 ---

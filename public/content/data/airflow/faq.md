@@ -1,0 +1,19 @@
+# Apache Airflow FAQ
+
+**Q: Is Airflow the same as a cron job, just with a UI?**
+A: No — this is a common oversimplification. Cron only handles scheduling (run this at this time); Airflow additionally handles task dependencies within a workflow, retry logic, failure alerting, historical run tracking/monitoring, and — critically — the ability to re-run just one failed task within a larger otherwise-successful pipeline, none of which cron provides. Airflow is closer to "a scheduler plus a full workflow dependency and observability system" than "cron with a dashboard."
+
+**Q: Do I need to learn Airflow if I'm already using dbt for transformations?**
+A: They solve different problems and commonly work together, not in competition — dbt handles SQL-based transformation logic within a data warehouse; Airflow orchestrates the broader pipeline dbt is one part of (extracting data before dbt runs, triggering dbt at the right time relative to other steps, handling failures/retries at the pipeline level). A common real production pattern is Airflow triggering dbt runs as one task within a larger DAG, not choosing one tool over the other.
+
+**Q: What's the actual difference between Airflow's TaskFlow API (`@task` decorator) and the traditional Operator-based style?**
+A: They're two syntaxes for largely the same underlying capability — TaskFlow (the `@task` decorator style, seen in Advanced's dynamic task mapping example) is more concise for pure-Python task logic and handles XCom passing more implicitly/naturally, reducing boilerplate compared to manually calling `xcom_push`/`xcom_pull`. The traditional Operator style (`PythonOperator(...)`) remains fully supported and is still common, especially for non-Python operators (BashOperator, provider-specific operators) where TaskFlow's Python-specific conveniences don't apply the same way. Modern Airflow code commonly mixes both styles as appropriate, rather than treating one as fully deprecated.
+
+**Q: How does Airflow handle time zones, and is this actually as confusing as it seems?**
+A: Genuinely one of the more commonly confusing areas, worth taking seriously rather than assuming intuition will suffice. Airflow's internal scheduling logic operates in UTC by default; DAGs need explicit timezone handling (via `pendulum` timezone-aware datetime objects) if you need a schedule expressed in a specific local timezone (e.g., "run at 9am New York time," accounting for daylight saving transitions). Assuming naive datetime handling will "just work" for a timezone-sensitive schedule is a common, real source of subtly wrong run times, especially around DST transitions twice a year.
+
+**Q: Should every data pipeline use Airflow, or is it overkill for simple cases?**
+A: Overkill for genuinely simple cases — a single, infrequent script with no real dependency structure or retry/monitoring needs doesn't need Airflow's operational overhead (running the scheduler, webserver, metadata database) just to execute it. Airflow earns its complexity once you have multiple interdependent steps, need reliable retry/alerting behavior, or need to reason about and monitor a pipeline's historical execution — a single cron-triggered script remains a perfectly reasonable choice below that threshold.
+
+**Q: Is Airflow suitable for real-time/streaming data pipelines?**
+A: Not natively — Airflow is fundamentally a batch/scheduled orchestrator, built around discrete DAG Runs at scheduled intervals, not continuous stream processing. For genuinely real-time/streaming needs, a dedicated streaming framework (Spark Structured Streaming, Flink, Kafka Streams) is the correct tool — Airflow can still play a role orchestrating *around* a streaming system (deploying it, monitoring its health via sensors, triggering periodic batch jobs that consume from a stream's output), but it's not itself a stream-processing engine.
