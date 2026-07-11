@@ -1,0 +1,12 @@
+# CI/CD Pipelines — Key Takeaways
+
+- **CI/CD is not one thing** — Continuous Integration (automated build+test on every merge), Continuous Delivery (always release-ready, human approves the release), and Continuous Deployment (no human gate at all) are three distinct, commonly-conflated concepts. Most real organizations practice Delivery, not full Deployment.
+- **The value is in the gates, not the automation alone** — a pipeline that automates deployment without automated testing gates is just a fast way to ship broken code. The testing/verification steps between stages are the actual point.
+- **Pipelines are defined as code, versioned alongside the application** — this means pipeline changes go through the same review process as code changes, and a given commit's build behavior is reproducible even from an old checkout.
+- **Caching and parallelization are the biggest levers for pipeline speed** — most slow pipelines are slow because of missing dependency caching or a serial test suite, not because CI/CD is inherently slow.
+- **Rollback strategy must be designed before it's needed, not improvised during an incident** — "how do we undo this in under 2 minutes" is as important a design question as the deploy path itself.
+- **Secrets belong in the platform's secrets store, scoped to only the jobs that need them** — never hardcoded in the pipeline file, and ideally short-lived (OIDC-federated) rather than static long-lived keys.
+- **Progressive delivery (canary, blue-green) exists to limit blast radius** — canary limits how many users see a bad deploy before it's caught; blue-green gives instant, complete rollback via a routing switch, not a redeploy.
+- **GitOps shifts deployment authority into the cluster itself** — the CI pipeline updates a Git repo; a controller inside the cluster pulls the change. This removes direct production credentials from the CI/CD platform entirely.
+- **The pipeline itself is a security-sensitive attack surface**, not just a productivity tool — a compromised pipeline with production write access is a supply-chain risk, which is why pinning third-party actions to commit SHAs and scoping credentials tightly both matter at scale.
+- **Deployment frequency correlates with organizational health because it forces small changes** — the metric itself isn't the goal; small, frequent, well-tested changes are inherently easier to review and roll back than large, infrequent ones.
