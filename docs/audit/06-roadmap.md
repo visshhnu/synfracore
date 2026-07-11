@@ -280,6 +280,43 @@ async function invalidateCacheAction() {
 
 **Do not run whatever process generated the June 26 "v108/v109 gap domains" content again until its exact identity and behavior are understood** — the guardrail above will now catch a recurrence of this specific pattern, but that's a safety net, not a substitute for knowing what produced it.
 
+**Follow-up — all 45 confirmed-real-hit files rewritten (2026-07-11)**: completed across 5 batches (commits `94c4ec5`, `231472c`, `ff16895`, `c4ee71d`, `9810feb`), each individually verified against `tsc --noEmit`, the guardrail script, and a full `npm run build` before commit. This item is closed.
+
+### Related but separate finding — scraped page-UI chrome, 23 files (2026-07-11)
+
+While reading sibling tabs for the batch-5 rewrite above, `devops/elk/fundamentals.md` and three other files (`law/law/fundamentals.md`, `security/devsecops/fundamentals.md`, `telecom/telco/intermediate.md` — the last of these was one of the 5 confirmed *false positives* for the contamination incident's own markers, per the section above; it has a separate, real defect of this different kind) were found live with a **different** scrape defect: literal page-chrome text (concatenated tab labels like `BeginnerEngineerProductionArchitect`/`BeginnerIntermediateAdvanced`, and breadcrumb lines like `Monitoring › ELK Stack`) embedded directly in the markdown body, plus empty `Copy`-labeled code fences and mid-sentence cutoffs. Not part of the scoped 45 above — none of these 4 hit any of the incident's 4 hard-fail markers.
+
+Testing the actual chrome-text signature against the full corpus surfaced **23 files total** carrying this pattern (the 4 above, already rewritten in commit `17452a8`, plus **19 more**, overwhelmingly `fundamentals.md` tabs, spread across `ai/`, `cloud/`, `data/`, `devops/`, `essentials/`, `healthcare/`):
+```
+ai/ai-learning/fundamentals.md
+cloud/aws/fundamentals.md
+cloud/cloud-fundamentals/fundamentals.md
+cloud/gcp/fundamentals.md
+data/python-mis-advanced/fundamentals.md
+data/python-mis/fundamentals.md
+devops/argocd/fundamentals.md
+devops/datadog/fundamentals.md
+devops/docker/intermediate.md
+devops/github-actions/fundamentals.md
+devops/gitlab-ci/fundamentals.md
+devops/ha-dr/fundamentals.md
+devops/harbor/fundamentals.md
+devops/istio/fundamentals.md
+devops/kafka/fundamentals.md
+devops/loki/fundamentals.md
+devops/networking/fundamentals.md
+devops/platform-engineering/fundamentals.md
+devops/prometheus/fundamentals.md
+devops/slo/fundamentals.md
+devops/splunk/fundamentals.md
+essentials/human-essentials/fundamentals.md
+healthcare/medical-coding/fundamentals.md
+```
+
+**Guardrail extended, commit pending**: unlike `empty_code_block`/`abrupt_cutoff` (kept WARN-only above — too broad, mostly unrelated pre-existing content gaps), this chrome-text signature is essentially zero-false-positive — that exact text only appears from a scrape, never from written prose or a legitimate table. Added as a 5th `HARD_FAIL` marker, `ui_chrome_dump`, in `scripts/validate-content-quality.mjs`. The 19 not-yet-rewritten files above are listed in that script's `UI_CHROME_DUMP_KNOWN_EXCEPTIONS` allowlist so CI/predeploy stay green in the meantime — **any new file matching this pattern that isn't on that list fails the build immediately**. Rewrite each file with the same treatment as the 45 above, then remove its path from the exceptions list as it's closed out; the list should reach zero entries when this item is done.
+
+**Not yet scheduled** — sits behind item 4 (A2's remaining 25 Overview-only technologies) and item 5 (the 73-file Quick Reference/boilerplate batch) in current priority order.
+
 ---
 
 ## Phase 4 — Forward-looking, no action needed yet (flagged per your explicit ask, not urgent)

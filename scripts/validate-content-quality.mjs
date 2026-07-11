@@ -47,7 +47,52 @@ const HARD_FAIL_MARKERS = [
   { key: "profile_glance", label: '"Your Profile at a Glance" personalized-profile section', re: /Your Profile.*at a Glance/ },
   { key: "chatbot_ask_topic", label: 'Chatbot widget UI chrome ("Ask anything about this topic")', re: /Ask anything about this topic/ },
   { key: "chatbot_greeting", label: 'Chatbot widget greeting ("Hi! I have read this page")', re: /Hi!\s*I have read this page/ },
+  {
+    key: "ui_chrome_dump",
+    label: "Scraped page-UI chrome (tab labels or breadcrumb line dumped into markdown)",
+    // Distinct, separately-discovered defect (2026-07-11, found via manual
+    // sibling-tab review, not the original contamination scan): a page-chrome
+    // scrape left literal tab-label text ("BeginnerEngineerProductionArchitect")
+    // or a breadcrumb line ("Monitoring › ELK Stack") embedded in the
+    // markdown body. Unlike empty_code_block/abrupt_cutoff below, this text
+    // only ever appears from a scrape — no legitimate prose produces it — so
+    // it hard-fails despite being a different defect from the original
+    // incident. See docs/audit/06-roadmap.md for the tracked cleanup item.
+    re: /BeginnerEngineerProductionArchitect|BeginnerIntermediateAdvanced|^[A-Za-z& ]+ › [A-Za-z& ]+$/m,
+  },
 ];
+
+// Known pre-existing ui_chrome_dump hits, found 2026-07-11, not yet rewritten
+// (tracked as its own roadmap item, separate from the 45-file contamination
+// incident). Exempted here so CI/predeploy stay green while that cleanup is
+// pending — any NEW file matching this marker that isn't on this list still
+// hard-fails immediately. Remove a path from this list as each file gets
+// rewritten; the list should reach zero entries when the item is closed.
+const UI_CHROME_DUMP_KNOWN_EXCEPTIONS = new Set([
+  "ai/ai-learning/fundamentals.md",
+  "cloud/aws/fundamentals.md",
+  "cloud/cloud-fundamentals/fundamentals.md",
+  "cloud/gcp/fundamentals.md",
+  "data/python-mis-advanced/fundamentals.md",
+  "data/python-mis/fundamentals.md",
+  "devops/argocd/fundamentals.md",
+  "devops/datadog/fundamentals.md",
+  "devops/docker/intermediate.md",
+  "devops/github-actions/fundamentals.md",
+  "devops/gitlab-ci/fundamentals.md",
+  "devops/ha-dr/fundamentals.md",
+  "devops/harbor/fundamentals.md",
+  "devops/istio/fundamentals.md",
+  "devops/kafka/fundamentals.md",
+  "devops/loki/fundamentals.md",
+  "devops/networking/fundamentals.md",
+  "devops/platform-engineering/fundamentals.md",
+  "devops/prometheus/fundamentals.md",
+  "devops/slo/fundamentals.md",
+  "devops/splunk/fundamentals.md",
+  "essentials/human-essentials/fundamentals.md",
+  "healthcare/medical-coding/fundamentals.md",
+]);
 
 // WARN only — real signal, but with real false-positive risk and/or a scope
 // far broader than the confirmed incident (see comment above). Printed for
@@ -103,7 +148,11 @@ for (const file of files) {
   const content = readFileSync(file, "utf8");
   const relPath = relative(CONTENT_ROOT, file).replace(/\\/g, "/");
 
-  const hardHits = HARD_FAIL_MARKERS.filter((m) => m.re.test(content));
+  const hardHits = HARD_FAIL_MARKERS.filter((m) => {
+    if (!m.re.test(content)) return false;
+    if (m.key === "ui_chrome_dump" && UI_CHROME_DUMP_KNOWN_EXCEPTIONS.has(relPath)) return false;
+    return true;
+  });
   if (hardHits.length > 0) {
     hardFailFiles.push({ file: relPath, markers: hardHits.map((m) => m.key) });
     hardFailCount++;
