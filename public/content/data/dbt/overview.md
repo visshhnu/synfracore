@@ -22,8 +22,10 @@ The complete dbt (data build tool) curriculum covers:
 ## Quick Start
 
 ```bash
-# Install dbt
-pip install dbt
+# Install dbt — note the actual PyPI package is "dbt-core" plus an
+# adapter for your warehouse (e.g. dbt-postgres, dbt-snowflake,
+# dbt-bigquery) — "pip install dbt" alone is not the correct package
+pip install dbt-core dbt-postgres   # swap dbt-postgres for your warehouse's adapter
 
 # Verify installation
 dbt --version

@@ -53,8 +53,18 @@ const MARKERS = [
 const perMarkerFiles = new Map(MARKERS.map((m) => [m.key, []]));
 const perFileMarkers = new Map(); // relPath -> [marker keys]
 
+// Strip fenced code blocks before matching — otherwise a bash comment like
+// "# Install kube-prometheus-stack" inside a ```bash block false-positives
+// against the "generic quick-start heading" marker, which is meant to catch
+// an actual markdown H1 (Spark/Airflow/dbt's real, bad pattern), not a shell
+// comment inside an otherwise-legitimate, well-written code sample.
+function stripCodeFences(text) {
+  return text.replace(/```[\s\S]*?```/g, "");
+}
+
 for (const file of files) {
-  const content = readFileSync(file, "utf8");
+  const rawContent = readFileSync(file, "utf8");
+  const content = stripCodeFences(rawContent);
   const relPath = relative(CONTENT_ROOT, file).replace(/\\/g, "/");
   const hitKeys = [];
   for (const m of MARKERS) {

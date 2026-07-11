@@ -1,126 +1,55 @@
-**Docker and Kubernetes** course
+# Docker — Fundamentals
 
----
+## Images vs. containers — the distinction that trips up beginners
 
-## **Docker and Kubernetes Course Content**  
+An image is a read-only template — a snapshot of a filesystem plus metadata (default command, exposed ports, environment variables) — built once from a Dockerfile. A container is a running (or stopped) instance of an image, with its own writable layer on top. The relationship is the same as a class and an object: one image can spawn any number of independent containers, each with their own runtime state, none of which mutate the underlying image.
 
-### **Course Overview**  
-This course is designed to take you from **absolute beginner to an advanced level** in **Docker and Kubernetes**. Unlike traditional duration-based courses, this is a **real-world, scenario-driven** training designed to make you a **Docker and Kubernetes Champion**.  
+```bash
+docker images          # list images (the templates)
+docker ps -a           # list containers (running or stopped instances)
+docker run nginx       # creates and starts a NEW container from the nginx image
+docker run nginx       # running this again creates a SECOND, independent container
+```
 
-We focus on:  
- **Step-by-step learning with PDFs**  
- **Real-world industry use cases**  
- **Interview preparation (Q&A PDFs)**  
- **Private WhatsApp group for discussions**  
- **1:1 sessions to solve queries**  
- **Lifelong support, not just a course**  
+## Writing a Dockerfile — the instructions that actually matter
 
----
+```dockerfile
+FROM node:20-slim
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev
+COPY . .
+EXPOSE 3000
+CMD ["node", "server.js"]
+```
 
-## **Docker Course Content (Beginner to Advanced)**  
+Each instruction (`FROM`, `RUN`, `COPY`) creates a new, cached layer. **Layer ordering is a real performance decision, not arbitrary**: `COPY package*.json ./` and `RUN npm ci` happen *before* `COPY . .` deliberately — dependency installation is expensive and rarely changes, while application code changes constantly. Docker's build cache reuses a layer if its inputs haven't changed, so ordering slow-changing steps first means a code-only change re-triggers only the fast final `COPY` and `CMD` layers, not a full dependency reinstall.
 
-### **Module 1: The World Before Containers**  
-- Evolution of computing: Bare Metal → VMs → Containers  
-- Why Containers?  
-- Introduction to Linux Features: **Namespaces, cgroups, chroot, seccomp**  
-- Understanding Containerization vs. Virtualization  
+## `CMD` vs `ENTRYPOINT` — a genuinely common point of confusion
 
-### **Module 2: Getting Started with Docker**  
-- Installing Docker on Windows/Mac/Linux  
-- Understanding **Docker Daemon, CLI, and Docker Architecture**  
-- Running your first container: `docker run hello-world`  
-- Basic Docker Commands: `ps, logs, exec, inspect, rm, rmi, stop`  
-- Understanding Docker Images vs. Containers  
+`CMD` provides a default command, fully overridable by whatever's passed at `docker run` (`docker run myimage echo hi` replaces the `CMD` entirely). `ENTRYPOINT` sets the command that always runs — arguments passed at `docker run` are appended to it, not replacing it. Combining both is a common real pattern: `ENTRYPOINT ["python", "app.py"]` with `CMD ["--verbose"]` as a default, overridable argument — the entrypoint (what always runs) stays fixed, while the default flags can be swapped per invocation.
 
-### **Module 3: Deep Dive into Docker Images & Registries**  
-- Dockerfile: Writing, Building, and Best Practices  
-- Multi-stage builds  
-- Pushing and pulling images from **Docker Hub, ECR, ACR, GCR**  
-- Image security and signing  
+## Volumes vs. bind mounts — both persist data, for different reasons
 
-### **Module 4: Docker Networking**  
-- Bridge, Host, Overlay, None networks  
-- Exposing containers to the outside world  
-- Running multiple containers using Docker Network  
+A **volume** is storage managed entirely by Docker, stored in Docker's own managed area on the host — the correct choice for data a container needs to persist across restarts/recreations (a database's data directory) without caring exactly where on the host filesystem it physically lives. A **bind mount** maps a specific host path directly into the container — the correct choice when you need to actually see/edit the files from the host (mounting your source code directory into a container during local development, so edits show up without rebuilding the image).
 
-### **Module 5: Docker Volumes & Persistent Storage**  
-- Bind mounts vs. Named Volumes  
-- Sharing data between containers  
-- Using Persistent Storage solutions  
+```bash
+docker run -v mydata:/var/lib/postgresql/data postgres     # named volume
+docker run -v $(pwd)/src:/app/src myapp                    # bind mount
+```
 
-### **Module 6: Docker Compose & Orchestration**  
-- Writing `docker-compose.yml`  
-- Deploying multi-container applications  
-- Scaling services with Docker Compose  
-- Handling environment variables  
+## Networking basics: how containers actually reach each other
 
-### **Module 7: Docker Security**  
-- Docker Daemon Security Best Practices  
-- User permissions and running containers securely  
-- Scanning Docker images for vulnerabilities  
+By default, containers on the same user-defined Docker network can reach each other by container name — Docker's embedded DNS resolves it, no manual IP tracking needed:
 
-### **Module 8: Docker Swarm**  
-- What is Docker Swarm?  
-- Creating and Managing Swarm Clusters  
-- Scaling Applications with Swarm  
+```bash
+docker network create mynet
+docker run --network mynet --name db postgres
+docker run --network mynet myapp   # myapp can reach postgres at hostname "db"
+```
 
-### **Module 9: Real-World Docker Use Cases**  
-- Deploying a Python, Java, Go Microservices App  
-- Deploying a Database with Persistent Storage  
-- CI/CD Pipeline with Docker  
+The default `bridge` network (used if you don't create one explicitly) does *not* provide this name-based resolution between containers — this is exactly why Docker Compose creates a dedicated network for your services automatically, and why containers run without `--network` sometimes can't reach each other by name the way tutorials assume.
 
-### **Bonus: Interview Preparation for Docker**  
-- Common Docker Interview Questions & Answers  
-- Scenario-Based Q&A  
-- Troubleshooting Docker in Production  
+## Why "it works in the container but the port isn't reachable" is almost always a publishing issue
 
----
-
-## **Kubernetes Course Content (Beginner to Advanced)**  
-
-### **Module 1: Introduction to Kubernetes**  
-- What is Kubernetes & Why Do We Need It?  
-- Understanding Kubernetes Architecture  
-- Master Node vs. Worker Nodes  
-- Installation & Setup (Minikube, K3s, Kind, EKS, AKS, GKE)  
-
-### **Module 2: Core Kubernetes Concepts**  
-- Pods, ReplicaSets, Deployments  
-- Services: ClusterIP, NodePort, LoadBalancer, Ingress  
-- Namespaces and Labels  
-
-### **Module 3: Kubernetes Networking Deep Dive**  
-- Kubernetes CNI Plugins Explained  
-- How Kubernetes Services work with Networking  
-- Kube-Proxy: iptables, IPVS, Userspace  
-
-### **Module 4: Managing Applications in Kubernetes**  
-- ConfigMaps & Secrets  
-- Horizontal Pod Autoscaling (HPA)  
-- Rolling Updates and Rollbacks  
-
-### **Module 5: Kubernetes Storage**  
-- Persistent Volumes & Persistent Volume Claims  
-- Storage Classes  
-- Dynamic Provisioning  
-
-### **Module 6: Kubernetes Security Best Practices**  
-- Role-Based Access Control (RBAC)  
-- Network Policies  
-- Pod Security Standards  
-
-### **Module 7: Advanced Kubernetes Topics**  
-- Operators & Custom Resource Definitions (CRDs)  
-- Service Mesh (Istio, Linkerd)  
-- Kubernetes Logging & Monitoring (Prometheus, Grafana, ELK)  
-
-### **Module 8: Multi-Cloud Kubernetes Deployment**  
-- Deploying Kubernetes on AWS, Azure, GCP, OCI  
-- Managing Kubernetes Clusters with GitOps (ArgoCD, FluxCD)  
-
-### **Bonus: Kubernetes Interview Preparation**  
-- Kubernetes Scenario-Based Questions & Answers  
-- Troubleshooting Kubernetes in Production  
-- Case Studies from Real-World Use Cases  
-
----
+A container's `EXPOSE`'d port is documentation/metadata — it does *not*, by itself, make the port reachable from the host. `-p host_port:container_port` (or Compose's `ports:` mapping) is what actually publishes a port to the host. Confusing `EXPOSE` with actually publishing a port is a common, specific source of "my app is running but I can't connect to it" confusion for people new to Docker.
