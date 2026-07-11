@@ -1,117 +1,60 @@
-# ELK Stack Complete Guide
+# ELK Stack — Fundamentals
 
-Monitoring › ELK Stack
-📋**ELK Stack**
-BeginnerEngineerProductionArchitectCentralised logging — Elasticsearch, Logstash, Kibana, Filebeat
-[What is ELK](#sec-what)[Components](#sec-components)[Logstash](#sec-logstash)[ILM](#sec-ilm)[Troubleshoot](#sec-troubleshoot)[Interview Q&A](#sec-interview)
+## The problem centralized logging actually solves
 
+With one server, `tail -f app.log` is a perfectly reasonable way to debug an error. With 50 pods spread across a Kubernetes cluster, that approach breaks down completely — an error happened somewhere, but which pod, which node, at what exact time, and what else was happening around it in other services at that same moment? Centralized logging exists specifically to answer that: every service ships its logs to one searchable store, so debugging a distributed system means one search across everything, not SSH-ing into 50 machines one at a time hoping to find the right one.
 
-## 📋 What is ELK Stack?›
+## The three components, and what each one actually does
 
-
-#### The Logging Problem
-
-With 50 pods running, logs are spread across 50 different places. An error happens — which pod? Which container? What time exactly? ELK centralises ALL logs in one place with full-text search, filtering, and visualisation.
-
-
-#### ELK Components
-
-| Component | Role | Analogy |
+| Component | Role | Rough analogy |
 |---|---|---|
-| Elasticsearch | Stores and indexes logs for fast search | The database |
-| Logstash | Collects, transforms, routes logs | The ETL pipeline |
-| Kibana | Web UI for search, dashboards, alerts | The dashboard (like Grafana for logs) |
-| Filebeat | Lightweight log shipper on every node | The collector (replaces Logstash for simple cases) |
+| Elasticsearch | Stores logs as indexed JSON documents, provides fast full-text search | The database, purpose-built for search |
+| Logstash | Collects logs, parses/transforms them, routes them to a destination | The ETL pipeline |
+| Kibana | Web UI for searching logs, building dashboards, configuring alerts | The dashboard layer — Grafana's equivalent, but for logs rather than metrics |
 
+**Filebeat** is a fourth piece worth knowing from day one, even though it's not in the "ELK" name: a lightweight log shipper (a few MB, versus Logstash's several hundred) that runs as a DaemonSet on every Kubernetes node, tails container log files, and forwards them onward — either directly to Elasticsearch for simple cases, or to Logstash first when the logs need real parsing/enrichment. Most production setups use Filebeat for collection and reserve Logstash specifically for the transformation work Filebeat alone can't do.
 
-#### ELK vs Loki vs Splunk
+## Getting logs in: the basic pipeline
 
-|  | ELK | Loki | Splunk |
-|---|---|---|---|
-| Indexing | Full-text indexes every word | Labels only (cheaper) | Full-text + ML |
-| Storage cost | High | Low (10x cheaper) | Very high |
-| Search power | Excellent | Good for labels, slow for content | Excellent + ML |
-| License | SSPL (paid for production), OpenSearch = Apache 2.0 | Free/open source | Paid enterprise |
-| Best for | Complex log analysis, telecom, SIEM | Kubernetes-native, Grafana teams | Enterprise compliance, SIEM |
+```yaml
+# filebeat.yml — the minimal setup for shipping Kubernetes pod logs
+filebeat.inputs:
+  - type: container
+    paths:
+      - /var/log/containers/*.log
+    processors:
+      - add_kubernetes_metadata:
+          host: ${NODE_NAME}
+          matchers:
+            - logs_path:
+                logs_path: "/var/log/containers/"
 
+output.elasticsearch:
+  hosts: ["elasticsearch:9200"]
+  username: "elastic"
+  password: "${ELASTIC_PASSWORD}"
+```
+This is the entire mechanism for the common case: Filebeat watches the standard container log path, automatically attaches Kubernetes metadata (pod name, namespace, labels) to each log line so it's filterable later, and ships directly to Elasticsearch — no separate Logstash pipeline needed unless the raw log text itself needs parsing into structured fields first.
 
-Install ELK on KubernetesCopy
+## When you actually need Logstash instead of shipping directly
+
+Direct Filebeat → Elasticsearch works well when logs are already structured (a service emitting JSON log lines). It stops being sufficient the moment logs are unstructured free text that needs to become searchable fields — a raw Nginx access log line, for instance, is just one long string until something parses `client_ip`, `status`, and `response_time` out of it into separate, individually-searchable fields. That parsing step (via Logstash's `grok` filter, which matches a line against a regex-based pattern) is Logstash's actual reason for existing in a modern pipeline: everything Filebeat can already do on its own, you don't need Logstash for.
+
+## Elasticsearch: what "indexing" a log actually means
+
+Every log entry becomes a JSON document, and every field within it (`level`, `service`, `message`, `status`) gets analyzed and added to an inverted index — a structure mapping each distinct term back to every document containing it, which is what makes full-text search across millions of log lines return in milliseconds instead of scanning every line sequentially. Documents are grouped into **indices** (typically one per day, e.g. `app-logs-2026.07.11`), and each index is split into **shards** distributed across the cluster — this is both how Elasticsearch scales beyond a single machine and the reason cluster health has three states worth knowing immediately: **Green** (every shard, primary and replica, is assigned and healthy), **Yellow** (primaries are fine but a replica isn't assigned — common and low-risk on a single-node dev cluster), **Red** (a primary shard itself is unassigned — that data is genuinely unavailable right now and needs immediate attention).
+
+## Kibana: the basic workflow
+
+Kibana's **Discover** view is the starting point for essentially all log investigation — a live, filterable view over raw log documents, searched using KQL (Kibana Query Language), which is deliberately simpler than Elasticsearch's underlying JSON query syntax:
 
 ```
-
+level: ERROR AND service: "payment-api"
+status: 500
+message: "OutOfMemory*"
 ```
+The practical habit worth building early: validate a search query in Discover until it reliably surfaces exactly the events you're after, *then* save it as the basis for a dashboard panel — building a visualization directly, without first confirming the underlying query is actually correct in Discover, is a common way to end up with a dashboard that looks fine but is quietly filtering on the wrong thing.
 
+## Why this stack isn't free, and what to plan for early
 
-## 🔧 Components Deep Dive›
-
-
-Elasticsearch health + Filebeat config + Kibana queriesCopy
-
-```
-
-```
-
-
-## 🔄 Logstash Pipeline›
-
-
-#### When to use Logstash vs direct Filebeat→Elasticsearch
-
-
-- **Use direct Filebeat → Elasticsearch** when logs are already structured (JSON), you don't need transformation, and you want simplicity
-
-- **Use Logstash** when you need grok parsing (unstructured text), enrichment (GeoIP, add fields), filtering (drop health checks), or routing to multiple destinations
-
-
-Logstash pipeline with Kafka input, grok parsing, outputCopy
-
-```
-
-```
-
-
-## ♻️ Index Lifecycle Management›
-
-
-#### Why ILM is non-negotiable in production
-
-Without ILM: indices grow forever. After 6 months your disk is full, cluster turns RED, all log ingestion stops. With ILM: hot (recent, fast SSD) → warm (compressed, slower disk) → cold (frozen, object storage) → delete. Automatic. Zero manual cleanup.
-
-
-ILM policy — hot/warm/cold/deleteCopy
-
-```
-
-```
-
-
-## 🔍 Troubleshooting›
-
-
-Cluster RED, no data, OOM — fixesCopy
-
-```
-
-```
-
-
-## 🎯 Interview Questions›
-
-
-All
-Architect
-Engineer
-Production
-
-
-ELK · ENGINEER
-What is ELK stack and what does each component do?
-ELK stands for Elasticsearch, Logstash, Kibana. Elasticsearch is the distributed search and storage engine — it stores all logs as JSON documents indexed for fast full-text search. Think of it as a database specifically designed for logs. Logstash is the data processing pipeline — it collects logs from sources (files, Kafka, syslog), transforms them (parse unstructured text into structured fields using grok patterns, enrich with GeoIP, filter noise), and outputs to Elasticsearch. Kibana is the web UI — you search logs, build dashboards, set up alerts. In modern production setups, Filebeat replaces Logstash for simple log shipping — it is lightweight (10MB vs 500MB), runs as a DaemonSet on every Kubernetes node, automatically collects pod logs and adds Kubernetes metadata. Logstash is still used when you need complex parsing or routing to multiple destinations. OpenSearch is the free open-source fork of Elasticsearch that many teams now prefer after Elastic changed licensing in 2021.
-
-ELK · PRODUCTION
-Elasticsearch cluster is RED. Walk through your troubleshooting.
-RED means some primary shards are unassigned — that data is temporarily unavailable. Systematic approach. Step 1: identify extent. curl elasticsearch:9200/_cluster/health shows how many unassigned shards. Step 2: find why. curl elasticsearch:9200/_cluster/allocation/explain explains exactly why each shard is unassigned. Most common causes: disk usage above 85% watermark (Elasticsearch stops allocating new shards when disk > 85%), node offline (check kubectl get pods in logging namespace), shard count exceeds node count (you have 2 nodes but 3 replicas configured — impossible to assign). Step 3: fix root cause. For disk: delete old indices (curl -X DELETE elasticsearch:9200/app-logs-2024-01-*), or temporarily disable disk threshold. For node: bring it back or reduce replica count. Step 4: retry allocation. curl -X POST elasticsearch:9200/_cluster/reroute?retry_failed=true. Prevention: ILM policy to auto-delete indices older than 30 days. Monitoring alert at 75% disk before hitting 85% watermark.
-
-ELK · ARCHITECT
-ELK vs Loki vs Splunk — when would you choose each?
-ELK (Elasticsearch): full-text search, complex log analytics, dashboard-heavy. Best when you need to search in
+Elasticsearch's full-text indexing is powerful but genuinely expensive — every field of every log line gets tokenized and indexed, which is a real, ongoing storage and compute cost that scales directly with log volume. Two habits keep this manageable from the start rather than becoming a crisis later: mark fields you only ever need for exact-match filtering (not full-text search) as `keyword` type instead of the default analyzed text, and set up an Index Lifecycle Management (ILM) policy from day one so old indices automatically age out to cheaper storage and eventually delete, rather than accumulating on the most expensive tier indefinitely (ILM specifics are covered on the Intermediate tab). Skipping ILM is the single most common reason a healthy ELK deployment turns into a full-disk incident months later — not a hypothetical, a routine operational failure mode worth designing against from the first deployment.
