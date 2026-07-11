@@ -1,0 +1,19 @@
+# General & Banking Awareness FAQ
+
+**Q: This page keeps saying "verify current figures" instead of just giving me the numbers — why not just include them?**
+A: Because repo rate, CRR, SLR, the RBI Governor, and scheme parameters all change — sometimes every few months (rates, via MPC meetings), sometimes less frequently but still over time (officeholders, scheme parameters) — and a specific number stated on this page would be accurate only briefly, then silently wrong for as long as this page exists without being updated. Static study material that states specific current figures without a clear "as of" date is a common, real way candidates end up memorizing outdated information confidently — this page deliberately avoids that trap rather than giving you a false sense of certainty about numbers that have likely already changed.
+
+**Q: Where should I actually get current rates and current-affairs information, then?**
+A: RBI's own official website for monetary policy figures (repo rate, CRR, SLR — updated after every MPC meeting), and a dated, regularly-updated current-affairs compilation (monthly compilations are the format Overview specifically recommends, over scattered daily news) for scheme updates, appointments, and recent banking-sector developments. The key habit: check the *date* of whatever source you're using, and prefer sources updated within the last few weeks for anything time-sensitive.
+
+**Q: How is this section actually different from a general current affairs / GK section in other exams?**
+A: Overview flags this directly: banking/general awareness for these specific exams skews heavily toward banking-sector and finance-ministry news specifically, more than generic national/international current affairs — a candidate who's well-read on general news but hasn't specifically tracked RBI policy changes, banking scheme updates, and finance-sector appointments will underperform relative to their general knowledge level, because the actual question distribution is weighted toward this specific sector, not general awareness broadly.
+
+**Q: Is it worth memorizing every government scheme's exact benefit amount and eligibility threshold?**
+A: Generally not the highest-leverage use of prep time — Intermediate covers this directly: questions more commonly test a scheme's *objective and target beneficiary group* ("which scheme addresses X problem") than exact numeric benefit thresholds. Exact figures are also exactly the kind of thing that gets revised, making them both lower-yield to memorize and higher-risk to memorize confidently from potentially outdated material. Prioritize understanding scheme purposes over memorizing precise numeric benefit details.
+
+**Q: How close to the exam date should I do my final current-affairs revision?**
+A: Overview recommends intensive revision of the last 3 months specifically in the final fortnight before the exam, since banking awareness questions skew toward recent events far more than static/historical GK does. This isn't a topic where front-loading all your prep months in advance and coasting works well — the recency-weighted nature of this specific section means a genuinely current final-stretch revision matters more here than in most other exam sections.
+
+**Q: I'm strong on the structural/conceptual side (repo vs. reverse repo, CRR vs. SLR) but weak on pure current-affairs recall — is that a real gap?**
+A: Yes, and it's a common, specific gap worth naming directly — conceptual understanding (this page's Fundamentals/Intermediate/Advanced content) and current-affairs recall (which this page deliberately doesn't provide, per the notes throughout) are genuinely separate skills requiring separate preparation tracks. Being strong on one doesn't substitute for the other in this section specifically, unlike some other exam sections where conceptual strength alone can carry you through most questions.
