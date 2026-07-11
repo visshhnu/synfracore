@@ -1,18 +1,8 @@
-# AI Learning
+# AI Learning — Fundamentals
 
-Domains › AI Learning
-🤖**AI Learning**
-BeginnerPractitionerAdvancedArchitectLLMs, MLOps, RAG, AI Agents, MLOps pipelines, AI in DevOps — from awareness to production deployment
-[What is AI](#sec-what)[How LLMs Work](#sec-llm)[MLOps](#sec-mlops)[RAG](#sec-rag)[AI Agents](#sec-agents)[AI in DevOps](#sec-devops-ai)[Roadmap](#sec-roadmap-ai)
+## AI Is Not Just a Chatbot
 
-
-## 🤖 What is AI — Beyond the Chatbot›
-
-
-#### AI is not just a chatbot — it is an entirely new computing paradigm
-
-When most people say "AI" they mean ChatGPT or Gemini — conversational bots. That is one small application. Artificial Intelligence covers: machine learning, deep learning, computer vision, NLP, reinforcement learning, and large language models. Each of these has been transforming industries for years before ChatGPT made it visible to everyone.
-
+When most people say "AI" they mean ChatGPT or Gemini — conversational bots. That's one small application. Artificial Intelligence covers machine learning, deep learning, computer vision, NLP, reinforcement learning, and large language models — each has been transforming industries for years before ChatGPT made it visible to everyone.
 
 | AI Branch | What it does | Real application |
 |---|---|---|
@@ -25,46 +15,26 @@ When most people say "AI" they mean ChatGPT or Gemini — conversational bots. T
 | Reinforcement Learning | Learns by trial and error with rewards | AlphaGo, robotics, RLHF for LLMs |
 | MLOps | Running ML models in production reliably | Model serving, monitoring, retraining pipelines |
 
+## How LLMs Actually Work
 
-## 🧠 How LLMs Actually Work›
+A Large Language Model is a neural network with billions of parameters trained to predict what token (word fragment) comes next. Training ingests trillions of tokens from the internet and books, adjusting billions of parameters to predict better — the result is a model that has compressed human written knowledge into its weights.
 
-
-#### The mechanics behind ChatGPT, Claude, and Gemini
-
-A Large Language Model is a neural network with billions of parameters trained to predict what token (word fragment) comes next. Training: ingest trillions of tokens from the internet and books, adjust billions of parameters to predict better. Result: a model that has compressed human written knowledge into its weights.
-
-
-#### The 3-stage training process
-
-
-- **Pre-training** — raw internet text, predict next tokens. Billions of examples. Weeks on thousands of GPUs. Cost: $50M-100M for frontier models.
-
+**The 3-stage training process:**
+- **Pre-training** — raw internet text, predict next tokens. Billions of examples, weeks on thousands of GPUs, $50M-100M for frontier models.
 - **Instruction Tuning (SFT)** — fine-tune on human-written Q&A pairs. Teaches the model to answer helpfully, not just autocomplete.
+- **RLHF** — humans rank model responses. A reward model learns human preferences, and the LLM is trained via reinforcement learning to score higher against it. This is what makes Claude/GPT behave as assistants rather than raw autocomplete engines.
 
-- **RLHF** — humans rank model responses. Reward model learns human preferences. LLM trained via RL to score higher. This is what makes Claude/GPT behave as assistants.
+**Why LLMs hallucinate:** LLMs don't look things up — they predict plausible-sounding text based on patterns. For frequent training-data topics this is reliable; for obscure facts, recent events, or specific numbers they generate confident-sounding wrong answers. The fix is Retrieval-Augmented Generation (RAG), grounding answers in real documents rather than the model's own memorized weights.
 
+**Key concepts:**
+- **Context window** — how much text the model processes at once (4K to 2M tokens). Larger context is more expensive but lets the model reason over more data.
+- **Temperature** — 0 means deterministic (always the same answer); 1+ means creative and varied. Use 0 for code generation, ~0.7 for creative writing.
+- **Embeddings** — convert text to vectors where similar meaning produces similar vectors, used for semantic search and RAG retrieval.
+- **Tokens** — roughly 1 token ≈ 4 characters. Pricing is per token; a word like "tokenisation" is typically 2-3 tokens.
 
-#### Why LLMs hallucinate — the core limitation
+## MLOps — Running ML in Production
 
-LLMs do not look things up. They predict plausible-sounding text based on patterns. For frequent training data topics: reliable. For obscure facts, recent events, specific numbers: they generate confident-sounding wrong answers. Fix: use RAG (Retrieval-Augmented Generation) to ground answers in real documents.
-
-
-#### Key concepts
-
-
-- **Context window** — how much text the model processes at once (4K to 2M tokens). Larger = more expensive but can reason over more data.
-
-- **Temperature** — 0 = always same answer (deterministic). 1+ = creative, varied. Use 0 for code, 0.7 for creative writing.
-
-- **Embeddings** — convert text to vectors. Similar meaning = similar vectors. Used for semantic search and RAG.
-
-- **Tokens** — 1 token ≈ 4 characters. Pricing is per token. "tokenisation" = 2-3 tokens.
-
-
-## ⚙️ MLOps — Running ML in Production›
-
-
-#### MLOps = DevOps for Machine Learning. Your DevOps skills transfer directly.
+MLOps is DevOps for machine learning — existing DevOps skills transfer directly, just applied to a different artifact (a model instead of an application binary).
 
 | DevOps concept | MLOps equivalent |
 |---|---|
@@ -76,146 +46,60 @@ LLMs do not look things up. They predict plausible-sounding text based on patter
 | A/B testing | Champion/challenger model testing |
 | Rollback | Model version rollback if performance drops |
 
+**MLOps tools stack:**
+- **MLflow** (experiment tracking) — logs parameters, metrics, and artifacts; compares runs; registers models. Open-source, runs anywhere.
+- **Kubeflow** (ML pipelines on K8s) — Kubernetes-native ML workflows where each pipeline step is a container.
+- **Hugging Face** (model hub) — the "GitHub for ML models," 500K+ pre-trained models, fine-tune and deploy directly.
+- **vLLM** (LLM serving) — high-throughput inference serving Llama, Mistral, Qwen at 10-20x speed versus naive serving; essential for production LLM deployment on K8s.
+- **Evidently** (model monitoring) — data drift detection, model quality metrics, visual dashboards.
+- **Ray** (distributed ML) — scales training and serving across machines via Ray Train + Ray Serve.
 
-#### MLOps tools stack
+## RAG — Give LLMs Your Data
 
-🔬
+Raw LLMs only know their training data. RAG lets them answer questions about your own documents — internal wikis, runbooks, codebase, customer data — by retrieving relevant content at query time.
 
-MLflowExperiment Tracking
-Track experiments: log parameters, metrics, artifacts. Compare runs. Register models. Open-source, runs anywhere.
+**How RAG works:**
+1. **Index** — split documents into chunks, convert each to an embedding vector, store in a vector database (Pinecone, ChromaDB, pgvector).
+2. **Retrieve** — a user's question is converted to an embedding, the most similar chunks are found, and the top-K are retrieved.
+3. **Generate** — the retrieved chunks plus the question are sent to the LLM, producing an answer grounded in your actual documents.
 
-🏭
-
-KubeflowML Pipelines on K8s
-Kubernetes-native ML workflows. Each pipeline step is a container. Build train-evaluate-deploy pipelines.
-
-🤗
-
-Hugging FaceModel Hub
-GitHub for ML models. 500K+ pre-trained models. Fine-tune and deploy. Every major LLM available here.
-
-⚡
-
-vLLMLLM Serving
-High-throughput LLM inference. Serves Llama, Mistral, Qwen at 10-20x speed. Essential for production LLM deployment on K8s.
-
-📊
-
-EvidentlyModel Monitoring
-Data drift detection, model quality metrics, visual dashboards. Open-source.
-
-🔧
-
-RayDistributed ML
-Scale training and serving across machines. Ray Train + Ray Serve.
-
-
-## 🔍 RAG — Give LLMs Your Data›
-
-
-#### RAG = Retrieval-Augmented Generation
-
-Raw LLMs only know their training data. RAG lets them answer questions about your documents — internal wikis, runbooks, codebase, customer data — by retrieving relevant content at query time.
-
-
-#### How RAG works
-
-
-- **Index** — split documents into chunks → convert each to embedding vector → store in vector database (Pinecone, ChromaDB, pgvector)
-
-- **Retrieve** — user asks question → convert to embedding → find most similar chunks → retrieve top-K
-
-- **Generate** — send retrieved chunks + question to LLM → answer grounded in your documents
-
-
-```
+```python
 from langchain.vectorstores import Chroma
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.chains import RetrievalQA
 
 vectordb = Chroma.from_documents(docs, OpenAIEmbeddings())
-qa = RetrievalQA.from_chain_type(llm=llm,
-retriever=vectordb.as_retriever(search_kwargs={"k": 4}))
-result = qa.run("What is the TeMIP alarm resync procedure?")
+qa = RetrievalQA.from_chain_type(
+    llm=llm,
+    retriever=vectordb.as_retriever(search_kwargs={"k": 4})
+)
+result = qa.run("What is the alarm resync procedure?")
 ```
 
+**DevOps RAG use cases:** a runbook assistant that answers questions from your actual runbooks; an incident assistant that ingests recent alerts and logs to suggest a probable root cause; code review that retrieves your team's coding standards and checks new code against them; a security policy checker that checks infrastructure configs against compliance policies.
 
-#### DevOps RAG use cases
+## AI Agents — Autonomous Action
 
+A chatbot responds; an AI agent executes tasks by calling tools, making decisions, and taking multi-step actions autonomously. Components: an LLM (the "brain"), tools (what it can call), memory (context), and planning.
 
-- Runbook assistant — ask questions, get answers from your actual runbooks
+- **Incident Response Agent** — an alert fires, the agent queries the metrics API, checks recent deployments, searches runbooks, posts analysis to Slack, and creates a Jira ticket — zero human needed for L1 triage.
+- **Cost Optimisation Agent** — scans AWS/Azure weekly, identifies idle resources, calculates savings, and creates a PR to resize, applied after human approval.
+- **PR Review Agent** — reviews code, checks standards, runs a security scan, and summarises for the human reviewer, cutting review time significantly.
 
-- Incident assistant — feed recent alerts and logs, get probable root cause
-
-- Code review — retrieve coding standards, check new code against them
-
-- Security policy checker — check infrastructure configs against compliance policies
-
-
-## 🤝 AI Agents — Autonomous Action›
-
-
-#### Agents take actions, not just answer questions
-
-A chatbot responds. An AI Agent executes tasks by calling tools, making decisions, and taking multi-step actions autonomously. Components: LLM (brain) + tools (what it can call) + memory (context) + planning.
-
-
-🔧
-
-Incident Response AgentAutonomous
-Alert fires → queries metrics API → checks recent deployments → searches runbooks → posts analysis to Slack → creates Jira ticket. Zero human for L1 triage.
-
-💰
-
-Cost Optimisation AgentWeekly
-Scans AWS/Azure → identifies idle resources → calculates savings → creates PR to resize → applies after approval.
-
-📝
-
-PR Review AgentAssisted
-Reviews code → checks standards → runs security scan → summarises for reviewer. Cuts review time 40%.
-#### Agent frameworks
-
-
-- **LangGraph** — stateful multi-agent workflows. Best for complex, multi-step pipelines.
-
-- **CrewAI** — multi-agent teams with roles (researcher, coder, reviewer) that collaborate.
-
+**Agent frameworks:**
+- **LangGraph** — stateful multi-agent workflows, best for complex multi-step pipelines.
+- **CrewAI** — multi-agent teams with defined roles (researcher, coder, reviewer) that collaborate.
 - **AutoGen (Microsoft)** — conversational agents that talk to each other to solve problems.
-
 - **Semantic Kernel** — enterprise-grade agent SDK for Python and .NET.
 
+## AI Tools for DevOps Engineers — Use Today
 
-## ⚡ AI Tools for DevOps Engineers — Use Today›
+- **GitHub Copilot** (coding) — autocompletes code as you type, generates tests, writes docstrings, suggests fixes.
+- **Cursor** (IDE) — an AI-first code editor that lets you chat with your entire codebase and ask it to refactor, debug, or write from scratch.
+- **Datadog AI / Dynatrace Davis** (monitoring) — AI root cause analysis that correlates metrics, traces, and logs to identify root cause automatically.
+- **GitHub Advanced Security** (security) — AI-powered SAST that understands code semantics, producing far fewer false positives than pattern-matching scanners.
+- **AWS CodeWhisperer** (coding, free for individuals) — specialised in AWS SDK code, with security scanning included.
 
-
-🐙
-
-GitHub CopilotCoding
-Autocompletes code as you type. Generates tests, writes docstrings, suggests fixes. ₹1,600/month.
-
-🖥️
-
-CursorIDE
-AI-first code editor. Chat with your entire codebase. Ask it to refactor, debug, write from scratch.
-
-📊
-
-Datadog AI / Dynatrace DavisMonitoring
-AI root cause analysis. Correlates metrics, traces, logs. Identifies root cause automatically.
-
-🔒
-
-GitHub Advanced SecuritySecurity
-AI-powered SAST. Understands code semantics, far fewer false positives.
-
-🚀
-
-AWS CodeWhispererCoding (Free)
-Free for individuals. Specialised in AWS SDK code. Security scanning included.
-#### Prompt engineering that actually works
-
-
-- **Be specific about context**: "K8s 1.29 on EKS, pod in OOMKilled. Here is pod spec: [spec]. What are likely causes?"
-
-- **Ask for step-by-step**: "Think through this step by step before answering" — reduces errors significan
+**Prompt engineering that actually works:**
+- Be specific about context: "K8s 1.29 on EKS, pod in OOMKilled. Here is the pod spec: [spec]. What are the likely causes?" — a vague prompt gets a vague, generic answer.
+- Ask for step-by-step reasoning: "Think through this step by step before answering" measurably reduces errors, since it forces the model to work through intermediate reasoning rather than jumping straight to a plausible-sounding conclusion.

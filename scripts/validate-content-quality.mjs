@@ -69,16 +69,6 @@ const HARD_FAIL_MARKERS = [
 // hard-fails immediately. Remove a path from this list as each file gets
 // rewritten; the list should reach zero entries when the item is closed.
 const UI_CHROME_DUMP_KNOWN_EXCEPTIONS = new Set([
-  "ai/ai-learning/fundamentals.md",
-  "cloud/aws/fundamentals.md",
-  "cloud/cloud-fundamentals/fundamentals.md",
-  "cloud/gcp/fundamentals.md",
-  "data/python-mis-advanced/fundamentals.md",
-  "data/python-mis/fundamentals.md",
-  "devops/argocd/fundamentals.md",
-  "devops/datadog/fundamentals.md",
-  "devops/docker/intermediate.md",
-  "devops/github-actions/fundamentals.md",
   "devops/gitlab-ci/fundamentals.md",
   "devops/ha-dr/fundamentals.md",
   "devops/harbor/fundamentals.md",

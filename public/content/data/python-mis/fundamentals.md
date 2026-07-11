@@ -1,128 +1,125 @@
-# Python for MIS
+# Python for MIS — Fundamentals
 
-MIS › Python for MIS
-🐍**Python for MIS**
-BeginnerIntermediateAdvancedFrom Excel expert to Python data analyst — step by step, zero to job-ready
-[Why Python?](#sec-why)[Setup](#sec-setup)[Pandas](#sec-pandas)[Automation](#sec-automation)[SQL](#sec-sql)[Power BI](#sec-powerbi)[Interview Q&A](#sec-interview-mis)[Roadmap](#sec-roadmap-py)
+## Why Python? The Honest Case for MIS Professionals
 
-
-## 💡 Why Python? The Honest Case for MIS Professionals›
-
-
-#### Before you start: you already have the hardest skill
-
-You understand the data. You know what numbers matter to management. You know which teams send wrong formats, which KPIs are calculated which way, what exceptions exist. A fresh Python programmer does not know any of that. You do. Python is just the tool that lets you act on that knowledge in seconds instead of hours.
-
-
-#### The real-life comparison
+**Before you start: you already have the hardest skill.** You understand the data. You know what numbers matter to management, which teams send wrong formats, which KPIs are calculated which way, what exceptions exist. A fresh Python programmer knows none of that — you do. Python is just the tool that lets you act on that knowledge in seconds instead of hours.
 
 | Current — Excel manual | Future — Python automated |
 |---|---|
 | Open 8 region files, copy-paste into master — 2 hours | Python reads all 8 files, merges — 3 seconds |
-| VLOOKUP breaks when someone adds a row above | pd.merge() never breaks regardless of row order |
-| Rebuild pivot table every Monday | groupby() recalculates automatically on new data |
-| Email report manually with attachment | Python emails report automatically at 8am Monday |
-| Formula shows wrong result — 30min debugging | Python error message tells you exactly what is wrong |
+| VLOOKUP breaks when someone adds a row above | `pd.merge()` never breaks regardless of row order |
+| Rebuild the pivot table every Monday | `groupby()` recalculates automatically on new data |
+| Email the report manually with an attachment | Python emails the report automatically at 8am Monday |
+| Formula shows a wrong result — 30 min debugging | Python's error message tells you exactly what's wrong |
 
+## Setup — Python Running in 15 Minutes
 
-## ⚙️ Setup — Python Running in 15 Minutes›
+**Step 1 — Install Python:** go to `python.org/downloads`, click Download Python 3.11, run the installer, and **check the box "Add Python to PATH"** — this is critical, don't miss it — then click Install Now.
 
+**Step 2 — Verify it worked:** press Windows + R, type `cmd`, press Enter, then type `python --version` — it should show `Python 3.11.x`.
 
-#### Install Python and VS Code
+**Step 3 — Install VS Code:** go to `code.visualstudio.com`, download and install, then in VS Code open the Extensions sidebar (Ctrl+Shift+X), search "Python," and install Microsoft's Python extension.
 
-##### Step 1 — Install Python
-
-
-- Go to `python.org/downloads` — click Download Python 3.11
-
-- Run the installer
-
-- **Check the box: Add Python to PATH** — this is critical, do not miss it
-
-- Click Install Now, wait, click Close
-
-
-##### Step 2 — Verify it worked
-
-
-- Press Windows + R, type `cmd`, press Enter
-
-- Type: `python --version` — should show Python 3.11.x
-
-
-##### Step 3 — Install VS Code (your editor)
-
-
-- Go to `code.visualstudio.com`, download and install
-
-- In VS Code: Extensions sidebar (Ctrl+Shift+X) — search Python — install Microsoft's Python extension
-
-
-##### Step 4 — Install pandas
-
-```
+**Step 4 — Install pandas:**
+```bash
 pip install pandas openpyxl xlrd plotly
 ```
 
-
-##### Step 5 — First script test
-
-```
+**Step 5 — First script test:**
+```python
 import pandas as pd
 print("Python is working!")
 print("pandas version:", pd.__version__)
 ```
 
+## Pandas — Your Excel Replacement
 
-## 🐼 Pandas — Your Excel Replacement›
+A DataFrame is an Excel sheet in Python. Every Excel task maps to a pandas operation — once you know five operations (read, filter, groupby, merge, write) you can automate 80% of your MIS work.
 
+**DataFrame = Excel sheet with superpowers:** `df` is your data, `df.head()` shows the first 5 rows, `df['Revenue']` is one column, `df[['Revenue','Dept']]` is two columns, `df.shape` gives (rows, columns).
 
-#### The most important library for MIS professionals
+```python
+import pandas as pd
 
-A DataFrame is an Excel sheet in Python. Every Excel task maps to a Pandas operation. Once you know five operations — read, filter, groupby, merge, write — you can automate 80% of your MIS work.
+# Read
+df = pd.read_excel("monthly_sales.xlsx")
 
+# Filter
+south_region = df[df["Region"] == "South"]
 
-**🧠 DataFrame = Excel Sheet with Superpowers**df = DataFrame (your data). df.head() = see first 5 rows. df['Revenue'] = one column. df[['Revenue','Dept']] = two columns. df.shape = (rows, columns).
+# Groupby — the pivot table equivalent
+by_dept = df.groupby("Dept")["Revenue"].sum()
 
+# Merge — the VLOOKUP equivalent
+combined = pd.merge(sales_df, hr_df, on="Employee_ID", how="left")
 
-Read, filter, groupby, merge, write — complete examplesCopy
-
+# Write
+combined.to_excel("combined_report.xlsx", index=False)
 ```
 
-```
-
-
-#### Quick reference — most used Pandas code
+**Quick reference — most used pandas code:**
 
 | Task | Code | Excel equivalent |
 |---|---|---|
-| Read Excel | df = pd.read_excel("file.xlsx") | Open file |
-| Filter rows | df[df["Region"] == "South"] | Filter button |
-| Group and sum | df.groupby("Dept")["Rev"].sum() | PivotTable |
-| VLOOKUP | pd.merge(df1, df2, on="ID", how="left") | VLOOKUP |
-| New column | df["Pct"] = df["Actual"] / df["Target"] | Formula column |
-| Sort | df.sort_values("Revenue", ascending=False) | Sort Z-A |
-| Save Excel | df.to_excel("output.xlsx", index=False) | Save As |
+| Read Excel | `df = pd.read_excel("file.xlsx")` | Open file |
+| Filter rows | `df[df["Region"] == "South"]` | Filter button |
+| Group and sum | `df.groupby("Dept")["Rev"].sum()` | PivotTable |
+| VLOOKUP | `pd.merge(df1, df2, on="ID", how="left")` | VLOOKUP |
+| New column | `df["Pct"] = df["Actual"] / df["Target"]` | Formula column |
+| Sort | `df.sort_values("Revenue", ascending=False)` | Sort Z-A |
+| Save Excel | `df.to_excel("output.xlsx", index=False)` | Save As |
 
+## Automation
 
-## 🤖 Automation›
+Once your Python script consolidates files and calculates KPIs, schedule it to run automatically. Schedule it once — every Monday at 8am it runs, and the report is done and emailed by the time you arrive.
 
+```python
+import glob
+import pandas as pd
+import smtplib
+from email.message import EmailMessage
 
-#### Scripts that run without you
+def run_weekly_report():
+    files = glob.glob("team_reports/*.xlsx")
+    combined = pd.concat([pd.read_excel(f) for f in files], ignore_index=True)
+    summary = combined.groupby("Dept").agg(Total=("Revenue", "sum"))
+    summary.to_excel("weekly_summary.xlsx")
 
-Once your Python script consolidates files and calculates KPIs, schedule it to run automatically. You schedule it once. Every Monday at 8am it runs. You arrive and the report is done and emailed.
+    msg = EmailMessage()
+    msg["Subject"] = "Weekly Sales Summary"
+    msg["From"] = "reports@company.com"
+    msg["To"] = "manager@company.com"
+    msg.set_content("Attached is this week's automated report.")
+    with open("weekly_summary.xlsx", "rb") as f:
+        msg.add_attachment(f.read(), maintype="application",
+                            subtype="octet-stream", filename="weekly_summary.xlsx")
+    with smtplib.SMTP("smtp.company.com", 587) as server:
+        server.starttls()
+        server.login("reports@company.com", "app_password")
+        server.send_message(msg)
 
-
-Consolidate files + generate Excel + send email + scheduleCopy
-
+if __name__ == "__main__":
+    run_weekly_report()
 ```
+Scheduled via Windows Task Scheduler (weekly, Monday 8am) or `cron` (`0 8 * * 1`) on a server — the script itself doesn't need to know about scheduling, the OS-level scheduler simply runs it at the configured time.
 
+## SQL Basics
+
+SQL is how you ask a database "give me all sales from January for the South region." Once you know `SELECT`, `WHERE`, `GROUP BY`, and `JOIN`, you can get any data directly without waiting for IT or a colleague to export a CSV for you.
+
+```python
+import pandas as pd
+from sqlalchemy import create_engine
+
+engine = create_engine("postgresql://user:pass@host:5432/salesdb")
+
+query = """
+SELECT region, SUM(revenue) AS total_revenue
+FROM sales
+WHERE order_date >= '2026-01-01'
+GROUP BY region
+ORDER BY total_revenue DESC
+"""
+df = pd.read_sql(query, engine)
 ```
-
-
-## 🗄️ SQL Basics›
-
-
-#### Query databases directly — stop waiting for CSV exports
-
-SQL is how you ask a database "give me all sales from January for the South region". Once you know SELECT, WHERE, GROUP BY, and JOIN, you can get any data directly without waiting for IT or a colleague to ex
+This single pattern — write SQL, load directly into a DataFrame — replaces the "ask IT for an export, wait a day, open the CSV" cycle entirely, and can be scheduled the same way the file-consolidation automation above is.
