@@ -1,3 +1,11 @@
-# devops / openshift
+# OpenShift — Key Takeaways
 
-_This page is temporarily unavailable while it is reviewed. It was flagged by an automated scan for content that may not belong here and is pending individual verification._
+- **OCP is Kubernetes plus a batteries-included platform layer** — built-in CI/CD (Tekton), integrated monitoring, a web console, OAuth, and the Operator framework are all part of the platform, not add-ons you assemble yourself.
+- **Routes, not Ingress, are OCP's native external-traffic mechanism** — more powerful than vanilla Ingress (three distinct TLS modes: Edge, Passthrough, Re-encrypt), and it's the one OCP-specific networking concept worth knowing cold before an OCP-specific interview.
+- **SCCs (Security Context Constraints) replace PodSecurityPolicy** — stricter by default than vanilla Kubernetes; the default `restricted` SCC blocks running as root, and the most common day-1 OCP error ("unable to validate against any security context constraint") is almost always fixed by binding the right SCC to the pod's ServiceAccount, not by loosening security broadly.
+- **Never use the `privileged` SCC in production** — it exists for genuinely privileged workloads (node-level agents), not as a quick fix for a permission error; reaching for it defeats the security model OCP is built around.
+- **CVO manages OCP version upgrades; MCO manages OS-level node configuration** — these are two distinct, easily-confused operators. Applying a `MachineConfig` change triggers a real, disruptive rolling node drain and reboot — plan for that, don't treat it as a lightweight config change.
+- **OLM (Operator Lifecycle Manager) governs how operators install and upgrade** — set the Subscription's approval strategy to `Manual` for production operators specifically, so an upstream operator upgrade can't silently apply itself on your timeline instead of yours.
+- **`oc` is a superset of `kubectl`**, not a replacement — every `kubectl` command works; `oc`-specific commands (`oc new-project`, `oc adm`, `oc debug`, routes) are the OCP-native additions worth learning deliberately rather than assuming `kubectl` habits cover everything.
+- **`DeploymentConfig` is a legacy, OCP-specific alternative to the standard `Deployment`** — modern OCP work should default to standard Kubernetes `Deployment` objects for portability; `DeploymentConfig` is worth recognizing in older codebases, not adopting for new work.
+- **Infrastructure nodes exist specifically to reduce licensing cost** — running platform components (registry, monitoring, router) on dedicated Infrastructure nodes rather than Worker nodes is a real, common cost-optimization pattern in OCP specifically, not just a general best practice.
