@@ -22,6 +22,9 @@ jobs:
       - name: Roadmap routing validator
         run: npm run validate:roadmaps
 
+      - name: Content quality guardrail (contamination check)
+        run: npm run validate:content-quality
+
       - name: TypeScript
         run: npx tsc --noEmit
 
