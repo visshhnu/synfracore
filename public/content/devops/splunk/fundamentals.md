@@ -1,18 +1,8 @@
-# Splunk
+# Splunk — Fundamentals
 
-Monitoring › Splunk
-📊**Splunk**
-BeginnerEngineerProductionArchitectEnterprise log management and SIEM — SPL queries, forwarders, cost control
-[What is Splunk](#sec-what)[SPL Queries](#sec-spl)[Interview Q&A](#sec-interview)
+## What is Splunk?
 
-
-## 📊 What is Splunk?›
-
-
-#### The Splunk Architecture
-
-Splunk works differently from ELK. Instead of Filebeat agents, Splunk uses Universal Forwarders — lightweight agents that ship data to Indexers. Indexers store and index data in Splunk's proprietary format. Search Heads provide the user interface and run searches distributed across indexers.
-
+Splunk works differently from ELK. Instead of Filebeat agents, Splunk uses Universal Forwarders — lightweight agents that ship data to Indexers. Indexers store and index data in Splunk's proprietary format, and Search Heads provide the user interface and run searches distributed across indexers.
 
 | Component | Role | ELK equivalent |
 |---|---|---|
@@ -21,56 +11,74 @@ Splunk works differently from ELK. Instead of Filebeat agents, Splunk uses Unive
 | Search Head | Query engine, dashboards, alerts | Kibana |
 | Deployment Server | Manages forwarder configuration at scale | No direct equivalent |
 
-
-#### When to choose Splunk vs ELK vs Loki
+**When to choose Splunk vs. ELK vs. Loki:**
 
 | Splunk | ELK | Loki |
 |---|---|---|
 | Enterprise SIEM, compliance, regulated industry (telco, banking) | Complex log analytics, full-text search, custom dashboards | Cost-sensitive, K8s-native, Grafana teams |
 
+**Real scenario — large telco operations:** in a major telco's network operations, Splunk is the standard tool. Network management platform events, alarm management logs, and network element logs all flow into Splunk. NOC (Network Operations Centre) teams use Splunk dashboards to correlate network alarms with service degradation — a BSS (Business Support System) outage generates thousands of events, and Splunk's `transaction` command groups them by session ID, showing the full chain of events leading to the failure in one view rather than thousands of disconnected log lines.
 
-**Real Scenario — Vodafone Telco**In large telco environments like Vodafone, Splunk is the standard for network operations. TeMIP platform events, alarm management logs, and network element logs all flow into Splunk. NOC (Network Operations Centre) teams use Splunk dashboards to correlate network alarms with service degradation. A BSS (Business Support System) outage generates thousands of events — Splunk's transaction command groups them by session ID and shows the full chain of events leading to the failure.
+## SPL — Search Processing Language
 
+Every SPL search is a pipeline: search → filter → transform → aggregate → visualise. The pipe `|` symbol passes results from one command to the next — understanding this pipeline model is the key to writing effective SPL.
 
-## 🔍 SPL — Search Processing Language›
+```spl
+# Core commands, chained via the pipe
+index=production sourcetype=payment_logs
+| search log_level=ERROR
+| stats count by error_type
+| sort -count
+| head 10
 
+# stats — aggregate, like SQL GROUP BY
+index=production sourcetype=access_combined
+| stats avg(response_time) as avg_latency, count as requests by service
 
-#### SPL is powerful, SQL-like, pipe-based
+# eval — compute a new field
+index=production sourcetype=payment
+| eval success_rate = (successful_txns/total_txns)*100
+| where success_rate < 95
 
-Every SPL search is a pipeline: search → filter → transform → aggregate → visualise. The pipe `|` symbol passes results from one command to the next. Understanding this pipeline model is the key to writing effective SPL.
+# timechart — aggregate over time buckets, for trend visualization
+index=production sourcetype=access_combined status=5*
+| timechart span=5m count by service
 
-
-Core SPL commands with real examplesCopy
-
+# transaction — group related events into one logical unit by a shared field
+index=production sourcetype=payment_logs
+| transaction session_id maxspan=5m
+| where duration > 30
 ```
 
+**Production SPL queries — error counting and latency analysis:**
+```spl
+# Error rate by service, last 15 minutes
+index=production earliest=-15m
+| stats count(eval(status>=500)) as errors, count as total by service
+| eval error_rate = round((errors/total)*100, 2)
+| sort -error_rate
+
+# P95 latency per endpoint
+index=production sourcetype=access_combined earliest=-1h
+| stats p95(response_time) as p95_latency by endpoint
+| sort -p95_latency
+| head 10
+
+# Correlate a specific incident window across two source types
+(index=production sourcetype=payment log_level=ERROR)
+OR (index=production sourcetype=database host=db-01)
+| eval source_system = if(sourcetype="payment", "Payment API", "Database")
+| table _time, source_system, message
+| sort _time
 ```
 
+## Interview Questions
 
-Production SPL queries — error counting, latency analysisCopy
+**What is Splunk and how does it differ from ELK?**
+Splunk is a commercial log management and SIEM platform — Universal Forwarders (lightweight agents) ship data to Splunk indexers, which store and index logs; Search Heads provide dashboards and run its own SPL query language, which is generally considered more SQL-like and expressive for ad-hoc analysis than Kibana's KQL. Key differences from ELK: Splunk is fully managed with no Elasticsearch cluster tuning or shard management required, and it has built-in alerting, machine learning, and SIEM capabilities out of the box. Cost is the other major difference — Splunk charges by data ingestion volume (GB/day), which gets expensive at scale, while ELK is open-source but requires significant operational expertise to run well. In practice, ELK is the right choice for teams comfortable with Kubernetes operations and wanting cost control; Splunk is the right choice when enterprise SIEM, compliance reporting, or a team without ELK expertise is the actual constraint. At telco/banking scale, Splunk is common specifically because of compliance requirements — regulators want auditable log trails, and Splunk's audit capabilities are mature.
 
-```
+**How do you use Splunk for troubleshooting a production incident?**
+During an incident, Splunk is the fastest path from symptom to root cause. Scenario: payment errors spike at 14:23. First search — `index=production sourcetype=payment log_level=ERROR earliest=-15m` — to see what errors appeared in the last 15 minutes; the errors show a database connection timeout. Second search — `index=production sourcetype=database host=db-01 earliest=-30m` — to correlate, revealing database logs showing disk I/O saturation starting at 14:21, two minutes before the payment errors. Third search — find what caused the I/O spike: `index=production sourcetype=batch host=db-01` reveals a quarterly batch job that started at 14:18 and triggered a full table scan. Root cause identified in about 8 minutes. Resolution: kill the batch job, database I/O normalises, payment errors stop. Post-incident, create a Splunk alert that fires when batch jobs run during business hours, to prevent recurrence — this is the real value of Splunk, correlating events across multiple systems quickly during high-pressure incidents rather than manually grepping separate log files on separate hosts.
 
-```
-
-
-## 🎯 Interview Questions›
-
-
-All
-Architect
-Engineer
-Production
-
-
-SPLUNK · ENGINEER
-What is Splunk and how does it differ from ELK?
-Splunk is a commercial log management and SIEM platform. You install forwarders (lightweight agents) on servers, they ship data to Splunk indexers, which store and index logs. Kibana shows dashboards; Splunk has its own SPL query language which is more SQL-like and powerful for ad-hoc analysis. Key differences from ELK: Splunk is fully managed (no Elasticsearch cluster tuning, no shard management). SPL is generally considered more expressive than KQL for complex queries. Splunk has built-in alerting, machine learning, and SIEM capabilities. Cost: Splunk charges by data ingestion volume (GB/day) — expensive at scale. ELK is open-source but requires significant operational expertise. In my experience: ELK is the right choice for teams comfortable with Kubernetes operations and wanting cost control. Splunk is the right choice when you need enterprise SIEM, compliance reporting, or have a team without ELK expertise. At Vodafone-scale telco environments, Splunk is common because of compliance requirements — regulators want auditable log trails and Splunk's audit capabilities are mature.
-
-SPLUNK · PRODUCTION
-How do you use Splunk for troubleshooting a production incident?
-During an incident, Splunk is your fastest path from symptom to root cause. Scenario: payment errors spiking at 14:23. First search: index=production sourcetype=payment log_level=ERROR earliest=-15m to see what errors appeared in the last 15 minutes. The errors show database connection timeout. Second search: index=production sourcetype=database host=db-01 earliest=-30m to correlate. Found: database logs show disk I/O saturation starting at 14:21 — two minutes before payment errors. Third search: find what caused the I/O spike. index=production sourcetype=batch host=db-01 to find batch jobs. Found: a batch job that runs quarterly started at 14:18 and triggered a full table scan. Root cause identified in 8 minutes. Resolution: kill the batch job, database I/O normalises, payment errors stop. Post-incident: create a Splunk alert that fires when batch jobs run during business hours to prevent recurrence. This is the real value of Splunk — correlating events across multiple systems quickly during high-pressure incidents.
-
-SPLUNK · ARCHITECT
-How do you control Splunk costs at enterprise scale?
-Splunk pricing is based on daily ingestion volume — at enterprise scale this can be hundreds of thousands of dollars per year. Cost control strategy: First, filter at the forwarder level. Universal Forwarder has nullQueue routing — send noisy logs (health checks, debug logs, verbose framework output) to null instead of Splunk. This reduces volume by 20-40% with no loss of useful data. Second, use summary indexing — pre-compute commo
+**How do you control Splunk costs at enterprise scale?**
+Splunk pricing is based on daily ingestion volume — at enterprise scale this can run hundreds of thousands of dollars per year, so cost control is a real, ongoing discipline. First, filter at the forwarder level: Universal Forwarder supports `nullQueue` routing, sending noisy logs (health checks, debug logs, verbose framework output) to null instead of Splunk, which typically reduces volume by 20-40% with no loss of genuinely useful data. Second, use summary indexing — pre-compute common aggregations (hourly error counts, daily transaction summaries) once via a scheduled search, and query the small summary index for routine dashboards instead of re-scanning full raw event volume on every dashboard load. Third, set data retention policies deliberately by sourcetype — genuinely compliance-critical logs might need years of retention, while verbose debug logs might only need days, and treating all data with the same retention policy wastes real storage cost on data nobody will ever query again. Fourth, review index usage regularly — an index nobody has queried in months is a real, ongoing cost with zero value, and identifying these requires periodic audit, not just leaving indexes running indefinitely by default.

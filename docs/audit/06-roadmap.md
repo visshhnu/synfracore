@@ -313,9 +313,9 @@ essentials/human-essentials/fundamentals.md
 healthcare/medical-coding/fundamentals.md
 ```
 
-**Guardrail extended, commit pending**: unlike `empty_code_block`/`abrupt_cutoff` (kept WARN-only above — too broad, mostly unrelated pre-existing content gaps), this chrome-text signature is essentially zero-false-positive — that exact text only appears from a scrape, never from written prose or a legitimate table. Added as a 5th `HARD_FAIL` marker, `ui_chrome_dump`, in `scripts/validate-content-quality.mjs`. The 19 not-yet-rewritten files above are listed in that script's `UI_CHROME_DUMP_KNOWN_EXCEPTIONS` allowlist so CI/predeploy stay green in the meantime — **any new file matching this pattern that isn't on that list fails the build immediately**. Rewrite each file with the same treatment as the 45 above, then remove its path from the exceptions list as it's closed out; the list should reach zero entries when this item is done.
+**Guardrail extended (commit `e8c740f`)**: unlike `empty_code_block`/`abrupt_cutoff` (kept WARN-only above — too broad, mostly unrelated pre-existing content gaps), this chrome-text signature is essentially zero-false-positive — that exact text only appears from a scrape, never from written prose or a legitimate table. Added as a 5th `HARD_FAIL` marker, `ui_chrome_dump`, in `scripts/validate-content-quality.mjs`, with the 19 not-yet-rewritten files initially allowlisted in `UI_CHROME_DUMP_KNOWN_EXCEPTIONS` so CI/predeploy stayed green while the rewrite was pending.
 
-**Not yet scheduled** — sits behind item 5 (the 73-file Quick Reference/boilerplate batch) in current priority order. (Was behind item 4 too — item 4 closed 2026-07-12, see below.)
+**CLOSED (2026-07-12)**: all 23 files (the original 4 plus the 19 found via the corpus-wide signature test) rewritten across 3 batches (commits `e1613f2`, `3a58808`, and the batch containing this doc update), each verified with `tsc --noEmit`, the guardrail, `validate:roadmaps`, and a full `npm run build` before commit. `UI_CHROME_DUMP_KNOWN_EXCEPTIONS` is now an empty `Set([])` — any file anywhere in the corpus matching this chrome-text signature fails the build immediately, with no allowlist remaining to mask a recurrence.
 
 ---
 
@@ -331,7 +331,11 @@ Every batch was verified with `tsc --noEmit`, the content-quality guardrail, `np
 
 **Note on `pyq` for non-exam non-tech technologies** (sleep-health, daily-movement, ca-articleship, credit-analysis): `nonTechSections` applies the same 9-tab set uniformly across all `nonTechAcademyIds`, including lifestyle/professional topics with no real "previous year exam questions" to draw from. For these, `pyq.md` was reframed honestly as a scenario-based "knowledge check" (explicitly labeled as such, not claiming exam provenance) rather than fabricating fake past-paper questions — worth knowing if this pattern is revisited later.
 
-Next in priority order: item 5 (73-file Quick Reference/boilerplate batch), then the 19-file `ui_chrome_dump` cleanup tracked above.
+The `ui_chrome_dump` cleanup tracked above closed the same day (2026-07-12) — see that section. Next in priority order: **item 5** (the 73-file Quick Reference/boilerplate batch — logged as a real, not-yet-started backlog item, not urgent; see below).
+
+## Item 5 — 73-file Quick Reference/boilerplate batch: BACKLOG, not started
+
+From the original `scripts/audit-content-quality.mjs` templated-pattern audit (placeholder_answer, boilerplate_quickref, promo_course/champion/whatsapp, generic_curriculum_template, generic_quickstart_install markers) — 73 files flagged for generic "Quick Reference" footer boilerplate, promotional copy, and similar low-substance patterns, separate from both the contamination incident (item 3, closed) and the chrome-dump cleanup (closed 2026-07-12). No files have been touched yet. Real, tracked work — not urgent. Revisit after the Question Bank feature (Phase 4 Part B) is built, per explicit direction.
 
 ---
 
@@ -344,6 +348,7 @@ These don't need to happen now — they're documented so a future decision to bu
 - **Payments/entitlements** (*Stage 5 F8*) — correctly not built yet per `CLAUDE.md`'s own phasing. When built, design against `learner-platform-schema.sql`'s real tables, not by resurrecting the dead `plans`/`subscriptions` tables from Finding 3.2's schema.
 - **Content publishing workflow** (*Stage 5 F9*) — every content change currently requires a developer + git commit + redeploy. Worth its own deliberate scoping exercise (a git-based CMS like Tina/Decap is the lowest-effort option given content is already markdown-in-git) once content velocity from non-developers becomes a real bottleneck.
 - **Feature-flag system** (*Stage 5 F7*) — one ad-hoc env var (`AI_ASSISTANT_ENABLED`) is the only precedent. Fine until a need arises for percentage rollout or no-redeploy toggling — the existing `BLOG_KV` namespace is a viable low-effort intermediate step when that need arrives.
+- **A3 publish gate — `is_beginner_ready` coverage for empty tabs** — `is_beginner_ready` exists today only as a generated column in `docs/synfracore-schema.sql` (checked directly, 2026-07-12): no application code, script, or CI check references it anywhere. It is unrelated to `validate-content-quality.mjs` (which checks for scraped/contaminated text patterns, not tab-completeness against the beginner-readiness criteria — hook, analogy, diagram, annotated example, "try it" prompt). If a real publish gate enforcing `is_beginner_ready` is wanted, it needs to be built from scratch — deferred, not urgent, revisit after the Question Bank feature is built.
 - **Analytics** (*Stage 5 F4*) — no usage visibility across 2,000+ pages. Not blocking anything, but worth prioritizing once other Phase 1/2 items free up bandwidth, since it would inform *which* future content/architecture work actually matters most.
 - **Offline/PWA behavior** (*Stage 5 F10*) — manifest exists, no service worker, no real offline capability. Only worth building if "view previously-opened lessons offline" becomes an explicit product goal.
 - **`roadmap_progress` table** (*Stage 4 F5*) — built, RLS'd, indexed, never wired to a feature. Either build roadmap-step progress tracking against it, or note it explicitly as reserved so it isn't accidentally dropped alongside Phase 3.2's genuinely-dead tables.

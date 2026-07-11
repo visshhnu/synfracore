@@ -68,11 +68,7 @@ const HARD_FAIL_MARKERS = [
 // pending — any NEW file matching this marker that isn't on this list still
 // hard-fails immediately. Remove a path from this list as each file gets
 // rewritten; the list should reach zero entries when the item is closed.
-const UI_CHROME_DUMP_KNOWN_EXCEPTIONS = new Set([
-  "devops/splunk/fundamentals.md",
-  "essentials/human-essentials/fundamentals.md",
-  "healthcare/medical-coding/fundamentals.md",
-]);
+const UI_CHROME_DUMP_KNOWN_EXCEPTIONS = new Set([]);
 
 // WARN only — real signal, but with real false-positive risk and/or a scope
 // far broader than the confirmed incident (see comment above). Printed for
