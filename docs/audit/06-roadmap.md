@@ -315,7 +315,23 @@ healthcare/medical-coding/fundamentals.md
 
 **Guardrail extended, commit pending**: unlike `empty_code_block`/`abrupt_cutoff` (kept WARN-only above — too broad, mostly unrelated pre-existing content gaps), this chrome-text signature is essentially zero-false-positive — that exact text only appears from a scrape, never from written prose or a legitimate table. Added as a 5th `HARD_FAIL` marker, `ui_chrome_dump`, in `scripts/validate-content-quality.mjs`. The 19 not-yet-rewritten files above are listed in that script's `UI_CHROME_DUMP_KNOWN_EXCEPTIONS` allowlist so CI/predeploy stay green in the meantime — **any new file matching this pattern that isn't on that list fails the build immediately**. Rewrite each file with the same treatment as the 45 above, then remove its path from the exceptions list as it's closed out; the list should reach zero entries when this item is done.
 
-**Not yet scheduled** — sits behind item 4 (A2's remaining 25 Overview-only technologies) and item 5 (the 73-file Quick Reference/boilerplate batch) in current priority order.
+**Not yet scheduled** — sits behind item 5 (the 73-file Quick Reference/boilerplate batch) in current priority order. (Was behind item 4 too — item 4 closed 2026-07-12, see below.)
+
+---
+
+## Item 4 — A2's remaining Overview-only technologies: CLOSED (2026-07-12)
+
+All 25 technologies flagged by `scripts/audit-content.mjs` as Overview-only at the start of this item now have full tab sets — 11 tech-academy technologies (17-tab set) and 14 non-tech technologies (9-tab set), filled across 34 total A2 batches (9 from the original top-10 pass, plus these 25) since Phase 4 A2 began. `node scripts/audit-content.mjs` confirms **0 Overview-only technologies remain**.
+
+**Tech-academy technologies (commits `02715f3`–`e91033b`)**: devops/chaos-engineering, devops/capacity-planning, devops/automation, cloud/networking-security, databases/performance-tuning, databases/cloud-databases, data/data-visualization, data/dashboarding, data/dbt, data/cloud-data-warehouses, security/incident-response — 7 tabs each (fundamentals, intermediate, advanced, troubleshooting, cheatsheets, notes, interview).
+
+**Non-tech technologies (commits `bb6d133`–`6856eba`)**: healthcare/anatomy-physiology, healthcare/medical-terminology, essentials/sleep-health, essentials/daily-movement, exams/neet-mocktests, exams/jee-main, exams/reasoning-ability, exams/english-language, exams/upsc-ethics, exams/upsc-interview, law/civil-law-procedure, finance/ca-articleship, finance/ca-final, finance/credit-analysis — 8 tabs each (fundamentals, intermediate, advanced, notes, cheatsheets, interview, pyq, faq).
+
+Every batch was verified with `tsc --noEmit`, the content-quality guardrail, `npm run validate:roadmaps`, and a full `npm run build` before commit, one technology per commit, pushed after explicit confirmation each time — same protocol as the contamination-incident rewrites.
+
+**Note on `pyq` for non-exam non-tech technologies** (sleep-health, daily-movement, ca-articleship, credit-analysis): `nonTechSections` applies the same 9-tab set uniformly across all `nonTechAcademyIds`, including lifestyle/professional topics with no real "previous year exam questions" to draw from. For these, `pyq.md` was reframed honestly as a scenario-based "knowledge check" (explicitly labeled as such, not claiming exam provenance) rather than fabricating fake past-paper questions — worth knowing if this pattern is revisited later.
+
+Next in priority order: item 5 (73-file Quick Reference/boilerplate batch), then the 19-file `ui_chrome_dump` cleanup tracked above.
 
 ---
 
