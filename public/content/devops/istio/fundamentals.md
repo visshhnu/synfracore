@@ -1,202 +1,123 @@
-# Istio
+# Istio — Fundamentals
 
-Containers › Istio
-🕸️**Istio**
-BeginnerEngineerProductionArchitectService mesh — traffic management, mTLS, circuit breaking, canary deployments
-[What is Istio](#sec-what)[Traffic Management](#sec-traffic)[mTLS & Security](#sec-security)[Interview Q&A](#sec-interview)
-
-
-## 🕸️ What is Istio?›
-
-
-#### Why service mesh?
+## What is Istio?
 
 | Without Istio | With Istio |
 |---|---|
-| Each service implements retries, timeouts | Envoy sidecar handles all traffic policies |
+| Each service implements its own retries, timeouts | An Envoy sidecar handles all traffic policies |
 | Plain HTTP between pods (insecure) | Automatic mTLS between all services |
-| Manual canary deployment code | Weight-based routing in VirtualService |
-| Add tracing SDK to each service | Automatic trace headers propagation |
-| No circuit breaking | Outlier detection in DestinationRule |
+| Manual canary deployment code | Weight-based routing in a VirtualService |
+| Add a tracing SDK to each service | Automatic trace header propagation |
+| No circuit breaking | Outlier detection in a DestinationRule |
 
-
-Install Istio + enable sidecar injectionCopy
-
+```bash
+istioctl install --set profile=default -y
+kubectl label namespace production istio-injection=enabled
+# every new pod in "production" now gets an Envoy sidecar automatically
 ```
 
+## Traffic Management
+
+```yaml
+# VirtualService — 90/10 canary split, plus retries and a beta-user override
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata: { name: payment-api }
+spec:
+  hosts: [payment-api]
+  http:
+    - match:
+        - headers: { x-canary-user: { exact: "true" } }
+      route: [{ destination: { host: payment-api, subset: v2 } }]
+    - route:
+        - destination: { host: payment-api, subset: v1 }
+          weight: 90
+        - destination: { host: payment-api, subset: v2 }
+          weight: 10
+      retries: { attempts: 3, perTryTimeout: 5s, retryOn: 5xx,reset,connect-failure }
+      timeout: 30s
+      fault:
+        delay: { percentage: { value: 1.0 }, fixedDelay: 2s }  # chaos-test 1% of traffic
+---
+# DestinationRule — subsets plus a circuit breaker
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata: { name: payment-api }
+spec:
+  host: payment-api
+  trafficPolicy:
+    outlierDetection:
+      consecutive5xxErrors: 5
+      interval: 30s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 50
+  subsets:
+    - name: v1
+      labels: { version: v1 }
+    - name: v2
+      labels: { version: v2 }
 ```
 
+## mTLS & Authorization
 
-## 🔀 Traffic Management›
-
-
-VirtualService canary + retries + fault injection + circuit breakerCopy
-
+```yaml
+# Enforce strict mTLS mesh-wide
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata: { name: default, namespace: istio-system }
+spec:
+  mtls: { mode: STRICT }
+---
+# Only allow the order-service to call payment-api on this specific path
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata: { name: payment-api-authz, namespace: production }
+spec:
+  selector: { matchLabels: { app: payment-api } }
+  action: ALLOW
+  rules:
+    - from:
+        - source: { principals: ["cluster.local/ns/production/sa/order-service"] }
+      to:
+        - operation: { paths: ["/api/v1/charge"], methods: ["POST"] }
 ```
 
-```
-
-
-## 🔒 mTLS & Authorization›
-
-
-PeerAuthentication mTLS + AuthorizationPolicy + JWTCopy
-
-```
-
-```
-
-
-## 🏗️ Istio Architecture — Control Plane and Data Plane›
-
-
-#### Two planes — one manages, one handles traffic
+## Istio Architecture — Control Plane and Data Plane
 
 | Component | Plane | What it does |
 |---|---|---|
-| istiod | Control Plane | The brain: manages Envoy config, issues mTLS certs, handles service discovery. One istiod manages the whole mesh. |
-| Envoy sidecar | Data Plane | A proxy injected into every pod. Intercepts all inbound/outbound traffic. Enforces policies, collects telemetry. |
-| Pilot | Control Plane (inside istiod) | Converts Istio config (VirtualService, DestinationRule) into Envoy xDS config and pushes to sidecars. |
-| Citadel | Control Plane (inside istiod) | Certificate Authority — issues and rotates mTLS certificates for every service. |
-| Galley | Control Plane (inside istiod) | Validates Istio config before applying. |
+| istiod | Control Plane | The brain — manages Envoy config, issues mTLS certs, handles service discovery; one istiod manages the whole mesh |
+| Envoy sidecar | Data Plane | A proxy injected into every pod, intercepting all inbound/outbound traffic, enforcing policies, collecting telemetry |
+| Pilot | Control Plane (inside istiod) | Converts Istio config (VirtualService, DestinationRule) into Envoy xDS config and pushes it to sidecars |
+| Citadel | Control Plane (inside istiod) | Certificate Authority — issues and rotates mTLS certificates for every service |
+| Galley | Control Plane (inside istiod) | Validates Istio config before it's applied |
 
-
-#### Sidecar injection — automatic vs manual
-
-```
-# Enable automatic injection for a namespace
-kubectl label namespace production istio-injection=enabled
-
-# After labeling: every new pod gets an Envoy sidecar injected automatically
-# Verify: kubectl describe pod mypod -n production
-# You will see two containers: your-app AND istio-proxy
-
-# Manual injection (without namespace label)
+```bash
+# Manual injection, without a namespace label
 istioctl kube-inject -f deployment.yaml | kubectl apply -f -
+# Verify a pod actually got the sidecar: it should show TWO containers
+kubectl describe pod mypod -n production   # your-app AND istio-proxy
 ```
 
+## Circuit Breaker — What Outlier Detection Does
 
-## 🔀 Traffic Management — VirtualService and DestinationRule›
+When a pod returns 5 consecutive 5xx errors within 30 seconds, Istio ejects it from the load-balancing pool for 30 seconds — traffic stops going to that pod, it can recover, and it's re-admitted afterward. This prevents a single failing pod from degrading the whole service, without needing any application-level circuit-breaker code.
 
+## mTLS and Observability
 
-#### The two core Istio objects for traffic control
+With Istio, every service-to-service call is automatically encrypted and mutually authenticated with no code changes required — Envoy sidecars handle the TLS handshake, and each service has a SPIFFE-format identity certificate issued by Citadel.
 
-**VirtualService** = routing rules. Where does traffic go? Split percentages, match on headers, retry logic.
-
-**DestinationRule** = what happens after routing. Connection pools, outlier detection, load balancing, mTLS mode.
-
-
-```
-# VirtualService — route 90% to v1, 10% to v2 (canary)
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-name: payment-api
-spec:
-hosts:
-- payment-api                  # matches the K8s Service name
-http:
-- match:
-- headers:
-x-canary-user:
-exact: "true"          # beta users always get v2
-route:
-- destination:
-host: payment-api
-subset: v2
-- route:                       # everyone else: 90/10 split
-- destination:
-host: payment-api
-subset: v1
-weight: 90
-- destination:
-host: payment-api
-subset: v2
-weight: 10
-retries:
-attempts: 3
-perTryTimeout: 5s
-retryOn: 5xx,reset,connect-failure
-timeout: 30s
-
----
-# DestinationRule — define subsets and circuit breaker
-apiVersion: networking.istio.io/v1alpha3
-kind: DestinationRule
-metadata:
-name: payment-api
-spec:
-host: payment-api
-trafficPolicy:
-connectionPool:
-http:
-http2MaxRequests: 1000
-http1MaxPendingRequests: 100
-outlierDetection:             # circuit breaker
-consecutive5xxErrors: 5     # eject after 5 consecutive 5xx
-interval: 30s
-baseEjectionTime: 30s
-maxEjectionPercent: 50      # eject max 50% of endpoints
-subsets:
-- name: v1
-labels:
-version: v1
-- name: v2
-labels:
-version: v2
-```
-
-
-#### Circuit breaker — what outlier detection does
-
-When a pod returns 5 consecutive 5xx errors in 30 seconds, Istio ejects it from the load balancing pool for 30 seconds. Traffic stops going to that pod. It can recover and be re-admitted. This prevents a single failing pod from degrading the whole service.
-
-
-## 🔐 mTLS and Observability›
-
-
-#### mTLS — automatic mutual TLS between all services
-
-With Istio, every service-to-service call is automatically encrypted and mutually authenticated — no code changes required. Envoy sidecars handle the TLS handshake. Each service has a SPIFFE-format identity certificate issued by Citadel.
-
-
-```
-# Enforce strict mTLS across entire mesh
-apiVersion: security.istio.io/v1beta1
-kind: PeerAuthentication
-metadata:
-name: default
-namespace: istio-system    # applies mesh-wide
-spec:
-mtls:
-mode: STRICT   # reject all non-mTLS traffic
-
-# Allow permissive (both mTLS and plaintext) during migration
-# mode: PERMISSIVE
-```
-
-
-#### Built-in observability — the three signals
+**Built-in observability — the three signals:**
 
 | Signal | What Istio provides | Where to view |
 |---|---|---|
-| Metrics | Request rate, error rate, latency (P50/P95/P99) per service pair — automatically from every Envoy sidecar | Prometheus + Grafana (Istio dashboards built-in) |
+| Metrics | Request rate, error rate, latency (P50/P95/P99) per service pair, automatically from every Envoy sidecar | Prometheus + Grafana (Istio dashboards built-in) |
 | Traces | Distributed traces across microservices — Envoy propagates trace headers | Jaeger or Zipkin |
 | Logs | Access logs for every request — source, destination, status code, duration | ELK or Loki |
 
+Zero instrumentation is required — install Istio, label the namespaces, and every service automatically gets request metrics, traces, and logs. This is Istio's biggest operational value: instant observability across all microservices without changing a single line of application code.
 
-Zero instrumentation required. Install Istio, label namespaces — every service automatically gets request metrics, traces, and logs. This is Istio's biggest operational value: instant observability across all microservices without changing any application code.
+## Interview Questions
 
-
-## 🎯 Interview Questions›
-
-
-All
-Architect
-Engineer
-Production
-
-
-ISTIO · ARCHITECT
-What is a service mesh and when do you actually need Istio?
-A service mesh is a dedicated infrastructure layer for managing service-to-service communication. It handles traffic management (retries, timeouts, circuit breaking, canary deployments), security (mTLS between all services, authorization policies), and observability (distributed tracing, metrics per service pair) without requiring changes to application code. The sidecar proxy (Envoy in Istio) is injected into every pod and intercepts all traffic. When do you NEED Istio: more than 5 microservices with cross-cutting concerns (you do not want to implement retries and circuit breaking in every service), need mTLS b
+**What is a service mesh and when do you actually need Istio?**
+A service mesh is a dedicated infrastructure layer for managing service-to-service communication — it handles traffic management (retries, timeouts, circuit breaking, canary deployments), security (mTLS between all services, authorization policies), and observability (distributed tracing, per-service-pair metrics), all without requiring changes to application code. The sidecar proxy (Envoy, in Istio's case) is injected into every pod and intercepts all traffic. Istio genuinely becomes necessary once there are more than roughly 5 microservices with real cross-cutting concerns — you don't want to reimplement retries and circuit breaking inside every individual service — and specifically once mTLS between all services, fine-grained traffic-splitting for canary deployments, or automatic distributed tracing without an SDK in every service become genuine requirements. For a smaller number of services, or where these specific needs aren't yet real, Istio's operational complexity (an extra control plane, sidecar resource overhead, a genuinely non-trivial learning curve) can outweigh its benefit — it's a deliberate architectural investment, not a default every Kubernetes cluster should reach for.

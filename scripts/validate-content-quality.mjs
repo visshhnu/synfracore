@@ -69,16 +69,6 @@ const HARD_FAIL_MARKERS = [
 // hard-fails immediately. Remove a path from this list as each file gets
 // rewritten; the list should reach zero entries when the item is closed.
 const UI_CHROME_DUMP_KNOWN_EXCEPTIONS = new Set([
-  "devops/gitlab-ci/fundamentals.md",
-  "devops/ha-dr/fundamentals.md",
-  "devops/harbor/fundamentals.md",
-  "devops/istio/fundamentals.md",
-  "devops/kafka/fundamentals.md",
-  "devops/loki/fundamentals.md",
-  "devops/networking/fundamentals.md",
-  "devops/platform-engineering/fundamentals.md",
-  "devops/prometheus/fundamentals.md",
-  "devops/slo/fundamentals.md",
   "devops/splunk/fundamentals.md",
   "essentials/human-essentials/fundamentals.md",
   "healthcare/medical-coding/fundamentals.md",
