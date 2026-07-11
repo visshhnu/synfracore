@@ -1,0 +1,21 @@
+# Capacity Planning — Troubleshooting
+
+## Autoscaler triggered, but new capacity came online too late
+
+If a scale-out event fires correctly but the service still breaches SLO before new replicas are actually serving traffic, the gap is almost always in one of two places: the scaling trigger's evaluation window is too slow relative to how fast the real traffic ramp is (a 5-minute sustained-CPU trigger genuinely cannot react in time to a spike that fully arrives in 90 seconds), or new instances take longer to become ready than assumed — a slow application startup, a cold cache, or a readiness probe with an overly generous initial delay all mean the autoscaler technically "reacted" while the pod still wasn't actually able to serve traffic for another minute or two. Measuring the *real*, end-to-end time from trigger to actually-serving-traffic — not just time-to-schedule — is what reveals which of these is the actual bottleneck.
+
+## Thundering herd: scale-out itself causes a secondary outage
+
+A scale-out event that adds 20 new replicas simultaneously can cause a real secondary failure if every new replica performs the same expensive startup action at once — 20 simultaneous connection-pool initializations against a database, 20 simultaneous cache-warming queries, 20 simultaneous config-fetch calls to a shared service. The database or shared dependency that was fine under steady-state load can be genuinely overwhelmed by the *scaling event itself*, not by the original traffic spike. The fix is staggering startup work (jittered delays before expensive initialization, connection pools that ramp up gradually rather than opening every connection at once) rather than assuming a scale-out is free of side effects on shared dependencies.
+
+## Load test results don't match real production behavior
+
+A load test that passes cleanly but doesn't predict real production issues almost always has a traffic-pattern mismatch, not a tooling problem: synthetic load generators commonly send uniform, evenly-distributed requests, while real traffic is bursty and unevenly distributed across users/endpoints/regions. A load test hitting one endpoint uniformly at 500 RPS is a meaningfully different test than real traffic that's 90% reads on three hot endpoints with occasional bursts — the second pattern stresses caching behavior, connection pooling, and specific hot-path code paths in ways the first never will. Building a load test profile from actual production traffic logs (relative endpoint frequency, request size distribution, realistic user session patterns), not a uniform synthetic script, is what closes this gap.
+
+## Headroom looked sufficient on paper, ran out anyway
+
+When a service that was provisioned with an apparently reasonable margin (say, 30% above measured peak) still runs out of capacity, the root cause is usually that the *forecast peak itself* was measured wrong, not that the margin was too small. Common causes: the peak measurement window missed a recurring but infrequent spike (a monthly batch job, an end-of-quarter traffic pattern) because the historical data sampled didn't cover a long enough period to include it; or genuine organic growth since the last measurement outpaced the margin before the next scheduled capacity review caught it. This is the direct argument for treating capacity review as continuous (see the Advanced tab) rather than periodic — a margin that was correct six months ago silently erodes as real growth continues between reviews.
+
+## Cost review reveals significant, longstanding over-provisioning
+
+Discovering that a service has been running with far more headroom than it ever actually needed — sometimes well after the fact, during a cost review — is a common and specifically avoidable failure mode, not a sign the original provisioning decision was unreasonable at the time. The actual fix isn't just resizing once and moving on; it's the same continuous-review discipline from the Advanced tab applied in the other direction: track actual peak-versus-provisioned-capacity as an ongoing metric, not just at initial sizing time, so both under- and over-provisioning get caught by routine review rather than by a lucky cost audit or an actual incident, whichever happens to notice first.
