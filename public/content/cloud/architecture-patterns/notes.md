@@ -1,0 +1,12 @@
+# Cloud Architecture Patterns — Key Takeaways
+
+- **Every pattern here solves a specific, named problem** — learn the problem before the pattern name; "Saga" and "CQRS" as vocabulary without the underlying problem they solve is trivia, not usable architecture judgment.
+- **Multi-AZ Active-Active means both zones serve real traffic simultaneously**, not one idle standby — an untested failover path is a common, real production risk; active-active catches problems continuously instead of only during an actual failover event.
+- **Hub-and-Spoke exists because N VPCs peering directly becomes an N² routing problem** — centralizing through a hub turns "add a new VPC" into one new connection instead of updating every existing spoke.
+- **Strangler Fig's routing layer alone isn't sufficient for a safe migration** — shadow traffic comparison and feature-flag-controlled routing are what actually make a migration reversible and low-risk, not just "route some paths to the new service."
+- **CQRS trades a single consistent data model for two differently-optimized ones, plus real eventual-consistency lag** — justified by genuine read/write asymmetry, not a default choice for any service with a database.
+- **Saga replaces distributed transactions with compensating transactions** — and compensating transactions can themselves fail, which needs explicit retry/escalation design, not an assumption they always succeed.
+- **Multi-region is not "extra-safe Multi-AZ"** — it protects against a different failure class (regional-scale events) and introduces real, unavoidable tradeoffs (cross-region latency, conflict resolution for concurrent writes) that Multi-AZ doesn't have.
+- **Partial failure, not total outage, is the more common real production failure mode** — circuit breakers, bulkheads, and pre-decided graceful degradation exist specifically because "the dependency is either up or down" is the wrong mental model for most real incidents.
+- **Every resilience pattern has a real, articulable cost** — being able to state the specific cost tradeoff of a pattern (not just that it exists) is what separates surface familiarity from usable architectural judgment, and it's exactly what senior-level interviews probe for.
+- **This is one of the more certification-relevant technologies on this site** — AWS/Azure/GCP's architect-level certifications test this page's core skill (scenario-based tradeoff reasoning) directly, more than most other technologies map to a single dominant credential.

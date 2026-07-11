@@ -1,0 +1,19 @@
+# Cloud Architecture Patterns — Real World
+
+## Slack, January 2021 — when Hub-and-Spoke networking hits a scaling wall
+
+As people returned to work after the 2020/2021 holiday period, Slack experienced a significant outage caused by an interaction between its architecture and AWS Transit Gateway — the hub in a Hub-and-Spoke networking setup (see Fundamentals). Slack's own public postmortem described a scaling problem: as traffic surged past prior peak levels, the Transit Gateway configuration hit capacity limits that hadn't been exercised at that scale before, and the resulting network degradation cascaded into broader service issues. > **Note (unverified specifics):** exact outage duration and precise technical root-cause detail are best confirmed against Slack's own published incident postmortem rather than this summary — the general shape (Transit Gateway hitting an unanticipated scaling limit under a real traffic surge) is the well-documented, citable part.
+
+**Lesson directly relevant to this page's Hub-and-Spoke pattern:** centralizing networking through a hub solves the N² peering problem (Fundamentals) — but it also means the hub itself is now a shared scaling bottleneck for every spoke's traffic, not just a convenience. A pattern that solves one problem (routing complexity) can introduce a different one (a new, shared capacity limit) — evaluating a pattern's benefit without also evaluating its new failure mode is incomplete architecture reasoning.
+
+## AWS us-east-1, November 2020 — cascading failure from front-end capacity exhaustion
+
+AWS's own major us-east-1 region incident in November 2020 (affecting Kinesis and, through it, numerous other AWS services and countless downstream customer applications depending on them) stemmed from a capacity addition to a front-end fleet that triggered thread-count exhaustion across the service's servers, which then cascaded into broader unavailability as retries and reconnection attempts from dependent services added further load to an already-degraded system. > **Note (unverified specifics):** exact timeline and duration are best confirmed against AWS's own published post-event summary rather than this description.
+
+**Lesson directly relevant to this page's patterns:** this is a textbook case for why circuit breakers and bulkheads (see Advanced) matter — many affected downstream services made the underlying incident *worse* for themselves by retrying aggressively against an already-overloaded dependency instead of failing fast and backing off, which is exactly the failure mode circuit breakers are designed to prevent. It's also a real-world illustration of why relying on a single region's services, even ones marketed as highly available, doesn't protect against every failure class — multi-region designs (see Intermediate/Advanced) exist specifically for this category of event, at the real cost/complexity tradeoff those sections describe.
+
+## A general, widely-observed pattern worth naming: the Strangler Fig migration that never finishes
+
+Not a single named incident, but a genuinely common organizational pattern worth flagging honestly as a pattern rather than a specific case: Strangler Fig migrations are designed to be incremental, but "incremental" migrations without a firm deadline or organizational pressure to complete them frequently stall indefinitely — the legacy system keeps handling a shrinking-but-persistent slice of traffic for years, and the organization ends up maintaining *both* the legacy system and the new one long-term, which is close to the worst outcome the pattern was meant to avoid.
+
+**Lesson:** the technical pattern (routing layer, incremental cutover) is necessary but not sufficient — a real migration needs an explicit completion target and organizational ownership to actually retire the legacy system, or the pattern's incrementalism becomes a way to indefinitely defer finishing rather than a way to migrate safely.
