@@ -362,13 +362,29 @@ export async function gradeAttempt(
   }
 }
 
+// An attempt submitted with fewer than this fraction of questions answered
+// doesn't unlock the correct-answer/explanation review for questions that
+// were never attempted — otherwise a single-question, immediate submit
+// exposes the entire premium answer key for a 100-question paper for almost
+// no real effort. Answered questions are always reviewable regardless of
+// this threshold; this only gates the ones a learner skipped. Purely a
+// query-layer decision — no schema change, nothing persisted — since
+// "answered %" is fully derivable from the (immutable, post-submission)
+// attempt_responses rows every time this is computed.
+const FULL_REVIEW_COMPLETION_THRESHOLD = 0.8;
+
 export type AttemptResultQuestion = {
   id: string;
   question_text: string;
   options: QuestionOption[];
   selectedOptionId: string | null;
-  correctOptionId: string;
   isCorrect: boolean;
+  // Unanswered + attempt didn't meet the completion threshold. When true,
+  // correctOptionId/explanation/sourceNote are never populated with the real
+  // values below — not a UI-hides-it convention, the answer key data for
+  // this question genuinely never leaves getAttemptResults().
+  reviewLocked: boolean;
+  correctOptionId: string;
   explanation: string;
   sourceNote: string | null;
 };
@@ -378,6 +394,8 @@ export type AttemptResults = {
   paperId: string;
   score: number;
   total: number;
+  answeredCount: number;
+  fullReviewUnlocked: boolean;
   timeTakenSeconds: number | null;
   questions: AttemptResultQuestion[];
 };
@@ -436,21 +454,30 @@ export async function getAttemptResults(
 
     const orderedQuestionIds = (attempt.question_order as string[]).filter((qid) => responseByQuestion.has(qid));
 
+    const answeredCount = responses.filter((r) => r.selected_option_id !== null).length;
+    const fullReviewUnlocked =
+      responses.length === 0 || answeredCount / responses.length >= FULL_REVIEW_COMPLETION_THRESHOLD;
+
     const resultQuestions: AttemptResultQuestion[] = orderedQuestionIds.map((qid) => {
       const response = responseByQuestion.get(qid)!;
       const answer = answerByQuestion.get(qid);
       const orderedOptions = (response.shown_option_order as string[])
         .map((oid) => optionById.get(oid))
         .filter((o): o is QuestionOption => Boolean(o));
+
+      const isUnanswered = response.selected_option_id === null;
+      const reviewLocked = isUnanswered && !fullReviewUnlocked;
+
       return {
         id: qid,
         question_text: questionTextById.get(qid) ?? "",
         options: orderedOptions,
         selectedOptionId: response.selected_option_id as string | null,
-        correctOptionId: answer?.correctOptionId ?? "",
         isCorrect: Boolean(response.is_correct),
-        explanation: answer?.explanation ?? "",
-        sourceNote: answer?.sourceNote ?? null,
+        reviewLocked,
+        correctOptionId: reviewLocked ? "" : answer?.correctOptionId ?? "",
+        explanation: reviewLocked ? "" : answer?.explanation ?? "",
+        sourceNote: reviewLocked ? null : answer?.sourceNote ?? null,
       };
     });
 
@@ -459,6 +486,8 @@ export async function getAttemptResults(
       paperId: attempt.paper_id as string,
       score: (attempt.score as number) ?? 0,
       total: (attempt.total as number) ?? resultQuestions.length,
+      answeredCount,
+      fullReviewUnlocked,
       timeTakenSeconds: attempt.time_taken_seconds as number | null,
       questions: resultQuestions,
     };
