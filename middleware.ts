@@ -21,15 +21,27 @@ const isProtectedRoute = createRouteMatcher([
   "/dashboard(.*)",
   "/onboarding(.*)",
   "/profile(.*)",
+  "/question-bank/[^/]+/attempt(.*)",
 ]);
 
 // Product decision (2026-07-10, resolves 3.7's open question): /dashboard and
 // /onboarding redirect a signed-out visitor to /sign-in explicitly — there's
 // nothing sensitive about confirming these pages exist, and that's normal UX
-// for any app.
+// for any app. /question-bank/[paperSlug]/attempt(.*) joins this list for the
+// same reason (2026-07-13): the practice/results screens are meaningless
+// without a signed-in attempt owner, so there's nothing to hide by confirming
+// the URL shape exists — unlike /admin below. Note this is defense-in-depth
+// only: the actual "can't start a paper" enforcement lives in
+// startAttemptAction (app/question-bank/actions.ts), since the Start button's
+// request is a Server Action POST against the (public) paper landing page
+// URL, not a navigation to /attempt/... — middleware never sees that URL
+// until after the action has already decided to redirect there. The catalog
+// (/question-bank) and a paper's landing page (/question-bank/[paperSlug])
+// deliberately stay OUT of this matcher — both remain publicly browsable.
 const isRedirectOnSignedOut = createRouteMatcher([
   "/dashboard(.*)",
   "/onboarding(.*)",
+  "/question-bank/[^/]+/attempt(.*)",
 ]);
 
 // /admin deliberately does NOT go through auth.protect() here at all — this

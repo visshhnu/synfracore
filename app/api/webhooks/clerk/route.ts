@@ -1,16 +1,15 @@
 export const runtime = "edge";
 
 import { verifyWebhook } from "@clerk/nextjs/webhooks";
-import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
+import { createServiceRoleClient } from "@/lib/supabase/serviceRole";
 
 // Real-time Clerk -> Supabase user sync. Unlike every other Supabase write in
 // this codebase, a webhook has no end-user session/JWT to satisfy the
 // "(select auth.jwt()->>'sub') = id" RLS policies — so this route needs the
 // Supabase service-role key (bypasses RLS; server-only, never NEXT_PUBLIC_,
-// never sent to the browser). This is a new requirement beyond CLAUDE.md's
-// original env var list, because webhooks are the one case that fundamentally
-// can't carry a user's own JWT.
+// never sent to the browser). See lib/supabase/serviceRole.ts for the shared
+// client and its other consumer (the question-bank grading Server Actions).
 //
 // Setup (both required, or this route just never gets called — harmless):
 //   1. Add SUPABASE_SERVICE_ROLE_KEY (from Supabase dashboard -> Settings ->
@@ -23,13 +22,6 @@ import { NextRequest, NextResponse } from "next/server";
 // This is the "instant sync" layer. lib/supabase/ensureUser.ts's
 // ensureUserRecord() is the always-on guaranteed fallback that needs no
 // extra setup — the dashboard works correctly even before this is configured.
-
-function createServiceRoleClient() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
-}
 
 type ClerkEmailAddress = { id: string; email_address: string };
 type ClerkUserPayload = {
