@@ -36,6 +36,30 @@ psql "$SUPABASE_DB_URL" -c "SELECT count(*) FROM question_options;"   -- expect 
 psql "$SUPABASE_DB_URL" -c "SELECT count(*) FROM question_answers;"   -- expect 1000
 ```
 
+## 1a. Verify `service_role` actually has table-level access (don't skip this)
+
+This bit for real (2026-07-13): `service_role` had `REFERENCES`/`TRIGGER`/
+`TRUNCATE` on every question-bank table but not `SELECT`/`INSERT`/`UPDATE`/
+`DELETE`, so every grading Server Action failed with "permission denied for
+table X" despite RLS being configured correctly. `schema.sql` now includes
+an explicit `GRANT` block specifically to prevent this on a fresh apply, but
+confirm it actually landed:
+
+```sql
+SELECT grantee, table_name, privilege_type
+FROM information_schema.role_table_grants
+WHERE table_schema = 'public'
+  AND grantee = 'service_role'
+  AND table_name IN ('question_papers', 'questions', 'question_options', 'question_answers', 'paper_attempts', 'attempt_responses')
+ORDER BY table_name, privilege_type;
+```
+
+Every one of the 6 tables should show `SELECT`, `INSERT`, `UPDATE`, and
+`DELETE` for `service_role`. If any are missing, re-run just the `GRANT`
+block from `schema.sql` (it's idempotent, safe to run alone) — table-level
+GRANTs are a prerequisite Postgres evaluates *before* RLS policies, so a
+perfectly correct RLS policy still fails outright without this.
+
 ## 2. Verify `question_answers` is actually unreadable as anon/authenticated
 
 Don't just trust the policy exists — hit the real PostgREST API with the
@@ -50,10 +74,13 @@ curl -i "$SUPABASE_URL/rest/v1/question_answers?select=*" \
   -H "Authorization: Bearer $SUPABASE_ANON_KEY"
 ```
 
-The schema file has no explicit `GRANT`/`REVOKE` statements, so which of
-two outcomes you'll see isn't knowable from static inspection alone —
-both are "secure," but they mean different things, so note which one you
-actually get:
+The schema file has no explicit `GRANT`/`REVOKE` statements for `anon`/
+`authenticated` (only for `service_role`, added after the incident noted in
+§1a — that one was necessary because service_role's queries must actually
+succeed, whereas anon/authenticated are supposed to get nothing back from
+this specific table either way), so which of two outcomes you'll see for
+this check isn't knowable from static inspection alone — both are "secure,"
+but they mean different things, so note which one you actually get:
 
 - **`200 OK` with `[]`** — table-level SELECT is granted (Supabase's
   default for `public` schema tables), but RLS silently filters every row
