@@ -21,7 +21,7 @@ const isProtectedRoute = createRouteMatcher([
   "/dashboard(.*)",
   "/onboarding(.*)",
   "/profile(.*)",
-  "/question-bank/[^/]+/attempt(.*)",
+  "/question-bank/:paperSlug/attempt(.*)",
 ]);
 
 // Product decision (2026-07-10, resolves 3.7's open question): /dashboard and
@@ -41,7 +41,7 @@ const isProtectedRoute = createRouteMatcher([
 const isRedirectOnSignedOut = createRouteMatcher([
   "/dashboard(.*)",
   "/onboarding(.*)",
-  "/question-bank/[^/]+/attempt(.*)",
+  "/question-bank/:paperSlug/attempt(.*)",
 ]);
 
 // /admin deliberately does NOT go through auth.protect() here at all — this
