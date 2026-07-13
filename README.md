@@ -12,7 +12,7 @@
 
 ## 18 Academies · 200+ Technologies · 17 Certifications
 
-Counts above are verified against `lib/data/academies.ts`/`lib/data/navigation.ts` directly — treat those files as the live source of truth rather than this number, since it will drift as content is added. Academies include DevOps, Cloud, Databases, AI, Data, Security, Healthcare, Essentials, Education, Exams, Law, Agriculture, Finance, Telecom, Economics, State PSC, Central Exams, and Professional Certs.
+Counts above are verified against `lib/data/academies.ts`/`lib/data/navigation.ts` directly — treat those files as the live source of truth rather than this number, since it will drift as content is added. Academies include DevOps, Cloud, Databases, AI, Data, Security, Healthcare, Essentials, Education, Exams, Law, Agriculture, Finance, Telecom, Economics, State PSC, Central Exams and Professional Certs.
 
 ## Deploy to Cloudflare Pages
 

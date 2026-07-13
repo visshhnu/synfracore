@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git reset *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git checkout *)",
+      "Bash(grep -n \"^### 3.7\\\\|^### 3.8\\\\|^---$\" docs/audit/06-roadmap.md)",
+      "Bash(git push *)",
+      "WebSearch",
+      "WebFetch(domain:opennext.js.org)",
+      "WebFetch(domain:developers.cloudflare.com)",
+      "Bash(npx wrangler *)",
+      "Bash(npm install *)",
+      "Bash(npx opennextjs-cloudflare *)",
+      "WebFetch(domain:github.com)",
+      "Bash(rm -rf .open-next)",
+      "Bash(mv wrangler.toml wrangler.toml.bak)",
+      "Bash(cp wrangler.opennext.jsonc wrangler.jsonc)",
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:3000/dashboard)",
+      "Bash(awk '{print $5}')",
+      "Bash(powershell -Command \"Stop-Process -Id 23848 -Force\")"
+    ]
+  }
+}
