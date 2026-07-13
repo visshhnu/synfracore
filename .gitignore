@@ -9,3 +9,5 @@ out/
 npm-debug.log*
 tsconfig.tsbuildinfo
 package-lock.json
+docs/bchhc/
+.claude/settings.json
