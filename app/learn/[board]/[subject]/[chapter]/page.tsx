@@ -1,8 +1,10 @@
 export const runtime = "edge";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { headers } from "next/headers";
 import { getBoard, getSubject, getChapter } from "@/lib/data/education";
 import { redirect } from "next/navigation";
+import { hasContent, fetchContent } from "@/lib/content";
 import SectionContent from "@/components/tech/SectionContent";
 
 type Props = { params: Promise<{ board: string; subject: string; chapter: string }> };
@@ -37,6 +39,20 @@ export default async function ChapterPage({ params }: Props) {
   const idx = chapters.findIndex(c => c.slug === cSlug);
   const prev = idx > 0 ? chapters[idx - 1] : null;
   const next = idx < chapters.length - 1 ? chapters[idx + 1] : null;
+
+  // Resolve lesson content server-side, same fix applied to
+  // app/academies/[academy]/[technology]/[section]/page.tsx — without this,
+  // real chapter text only appears after a client-side fetch, so crawlers
+  // and slow-JS clients only ever see the loading skeleton.
+  const contentAcademy = "education";
+  const contentTechnology = `${bSlug}/${sSlug}`;
+  let initialContent: string | null = null;
+  if (hasContent(contentAcademy, contentTechnology, cSlug)) {
+    const hdrs = await headers();
+    const host = hdrs.get("host") ?? "synfracore.com";
+    const protocol = host.startsWith("localhost") || host.startsWith("127.0.0.1") ? "http" : "https";
+    initialContent = await fetchContent(contentAcademy, contentTechnology, cSlug, `${protocol}://${host}`);
+  }
 
   return (
     <div style={{ display: "flex", minHeight: "80vh" }}>
@@ -156,13 +172,14 @@ export default async function ChapterPage({ params }: Props) {
 
         {/* Chapter content — rendered from pre-written markdown */}
         <SectionContent
-          academy="education"
-          technology={`${bSlug}/${sSlug}`}
+          academy={contentAcademy}
+          technology={contentTechnology}
           section={cSlug}
           techName={chapter.title}
           techIcon={subject.icon}
           sectionLabel={chapter.title}
           accentColor={board.color}
+          initialContent={initialContent}
         />
 
         {/* Prev / Next navigation */}
