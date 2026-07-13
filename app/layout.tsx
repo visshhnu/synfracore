@@ -70,6 +70,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <style>{`.goog-te-banner-frame,.skiptranslate{display:none!important}body{top:0!important}`}</style>
         <WebSiteJsonLd />
         <OrganizationJsonLd />
+        {/* Cloudflare Web Analytics — no cookies, no persistent client
+            identifiers, data stays in Cloudflare's own dashboard (Analytics
+            & Logs → Web Analytics). The beacon token is not a secret (it's
+            embedded in this public HTML either way) but is still only
+            rendered when set, so local/preview builds without it don't
+            report traffic under the production site's token. */}
+        {process.env.NEXT_PUBLIC_CF_BEACON_TOKEN && (
+          <script
+            defer
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon={`{"token": "${process.env.NEXT_PUBLIC_CF_BEACON_TOKEN}"}`}
+          />
+        )}
       </head>
       <body suppressHydrationWarning style={{ margin: 0, minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--bg)", color: "var(--text-2)" }}>
         <ThemeProvider>
