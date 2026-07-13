@@ -46,10 +46,52 @@ ANTHROPIC_API_KEY=                # /api/ai — server-only
 AI_ASSISTANT_ENABLED=false        # /api/ai kill switch — "true" to enable, defaults closed
 RESEND_API_KEY=                   # /api/digest, /api/subscribe — both degrade gracefully if unset
 DIGEST_SECRET=                    # /api/digest shared secret
+NEXT_PUBLIC_CF_BEACON_TOKEN=      # Cloudflare Web Analytics beacon token — app/layout.tsx, no-op if unset
 ```
 Real values live only in `.env.local` and in the Cloudflare Pages dashboard
 (or as `wrangler pages secret put <NAME>` for the non-`NEXT_PUBLIC_` secrets)
 for production — never in this file, never in a commit, never pasted into chat.
+
+## Deploying to production — MANDATORY pre-deploy checklist (no exceptions)
+This exists because of a real incident (2026-07-13, see `docs/audit/06-roadmap.md`'s
+7th symptom): the homepage went down in production for hours because a build was
+run from a Windows-mounted WSL drive path, and because a `wrangler.toml` edit
+introduced a duplicate secret binding that silently broke deploys until it was
+finally diffed. Both were avoidable. Follow this exactly, every time, not just
+when something feels risky — the incident that prompted this felt like a routine
+analytics change right up until the site went down.
+
+1. **Build only from a native WSL/Linux filesystem path — never `/mnt/d/synfracore`
+   or any other Windows-mounted drive path.** Native filesystem builds are also
+   ~2-4x faster (confirmed: ~50s vs ~120-200s), which is a useful tell if a build
+   is unexpectedly slow — it may mean you're on the wrong filesystem. If working
+   from `D:\synfracore` on Windows, sync to a native WSL path first (e.g.
+   `rsync -a --delete --exclude='.next' --exclude='.vercel' --exclude='.git'
+   --exclude='node_modules' /mnt/d/synfracore/ ~/synfracore-build/`, plus
+   `.env.local` separately since it's excluded by most `.gitignore`-style syncs),
+   then run `npm run pages:build` and `wrangler pages deploy` from that native
+   path, not from `/mnt/d`.
+2. **Any `wrangler.toml` edit must be diffed and reviewed before deploying** —
+   run `git diff -- wrangler.toml` and actually read it. This file's `[vars]`
+   block is easy to corrupt silently (a malformed TOML line, or a value
+   duplicated as both a plain var and a Dashboard Secret, both happened the
+   same night) and `wrangler` doesn't always fail loudly on the former.
+3. **After every deploy, before considering it done, check all of the
+   following — not just the one feature that was being worked on:**
+   - Homepage (`/`) returns 200 with real content (not a blank/error page).
+   - At least one nested content page (e.g. an `/academies/...` or
+     `/learn/...` page) returns 200 with real content.
+   - The question-bank Start flow works signed-in (`/question-bank/<paper>` →
+     click Start → an attempt is actually created).
+   - Sign-in and sign-out both complete successfully.
+   - The Academies dropdown in the navbar actually expands (hover/click) —
+     this is a real browser/JS check, not just an HTTP status check.
+4. **A deploy is not verified until ALL of the above pass — not just the
+   specific feature that was being changed.** The homepage incident above
+   happened while working on an unrelated analytics feature; the homepage
+   itself hadn't been touched, and would have been broken for hours longer
+   if it hadn't been checked independently of the feature actually being
+   shipped.
 
 ## Setup steps (do these once, in order)
 1. Supabase: create a project if not already done → copy Project URL + anon key.
