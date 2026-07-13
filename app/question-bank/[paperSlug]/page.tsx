@@ -7,7 +7,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getPaperBySlug, getLatestInProgressAttempt, getLatestSubmittedAttempt } from "@/lib/supabase/questionBank";
-import { startAttemptAction } from "@/app/question-bank/actions";
+import StartButton from "@/components/question-bank/StartButton";
 
 type Props = { params: Promise<{ paperSlug: string }>; searchParams: Promise<{ error?: string; locked?: string }> };
 
@@ -25,9 +25,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 // Public landing page — full description visible and the "Start" control
 // clickable regardless of auth state (no separate signed-out branch here);
-// startAttemptAction itself handles the sign-in redirect if needed. Shows
-// "Continue attempt" / "View last results" for a signed-in user who already
-// has attempt history for this paper.
+// StartButton's own /api/question-bank/start call handles the sign-in
+// redirect if needed. Shows "Continue attempt" / "View last results" for a
+// signed-in user who already has attempt history for this paper.
 export default async function PaperLandingPage({ params, searchParams }: Props) {
   const { paperSlug } = await params;
   const { error, locked } = await searchParams;
@@ -37,8 +37,12 @@ export default async function PaperLandingPage({ params, searchParams }: Props) 
   if (!paper) notFound();
 
   const user = await currentUser().catch(() => null);
-  const inProgress = user ? await getLatestInProgressAttempt(supabase, user.id, paper.id) : null;
-  const lastSubmitted = user ? await getLatestSubmittedAttempt(supabase, user.id, paper.id) : null;
+  const [inProgress, lastSubmitted] = user
+    ? await Promise.all([
+        getLatestInProgressAttempt(supabase, user.id, paper.id),
+        getLatestSubmittedAttempt(supabase, user.id, paper.id),
+      ])
+    : [null, null];
 
   return (
     <div style={{ maxWidth: "760px", margin: "0 auto", padding: "40px 24px" }}>
@@ -79,9 +83,7 @@ export default async function PaperLandingPage({ params, searchParams }: Props) 
           {inProgress ? (
             <Link href={`/question-bank/${paperSlug}/attempt/${inProgress.id}`} className="btn-primary">Continue attempt <ArrowRight size={15} /></Link>
           ) : (
-            <form action={startAttemptAction.bind(null, paperSlug)}>
-              <button type="submit" className="btn-primary">Start practice exam <ArrowRight size={15} /></button>
-            </form>
+            <StartButton paperSlug={paperSlug} />
           )}
           {lastSubmitted && (
             <Link href={`/question-bank/${paperSlug}/attempt/${lastSubmitted.id}/results`} className="btn-secondary">

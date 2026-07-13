@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { CheckCircle2 } from "lucide-react";
 import QuestionNavigator from "./QuestionNavigator";
-import { saveAnswerAction, submitAttemptAction } from "@/app/question-bank/actions";
 
 export type AttemptQuestion = {
   id: string;
@@ -26,11 +26,13 @@ type Props = {
 // client-side grading exists anywhere in this component, by design (see
 // docs/question-bank-schema.sql's answer-security model).
 export default function AttemptRunner({ attemptId, paperSlug, questions, initialSelections }: Props) {
+  const router = useRouter();
   const [selections, setSelections] = useState<Record<string, string | null>>(initialSelections);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [saveFailedFor, setSaveFailedFor] = useState<string | null>(null);
   const [confirmingSubmit, setConfirmingSubmit] = useState(false);
-  const [isSubmitting, startSubmitTransition] = useTransition();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [, startNavTransition] = useTransition();
 
   const current = questions[currentIndex];
   const answeredCount = Object.values(selections).filter(Boolean).length;
@@ -38,22 +40,47 @@ export default function AttemptRunner({ attemptId, paperSlug, questions, initial
     questions.map((q, i) => (selections[q.id] ? i : -1)).filter((i) => i >= 0)
   );
 
+  // Calls the /api/question-bank/save-answer Route Handler via fetch()
+  // rather than a Server Action — see docs/audit/06-roadmap.md's 6th
+  // symptom entry (2026-07-13): a correctly-dispatched Server Action still
+  // 404s on this adapter, from inside Next.js's own action-verification
+  // code, before the action body ever runs.
   function handleSelect(optionId: string) {
     setSelections((s) => ({ ...s, [current.id]: optionId }));
     setSaveFailedFor(null);
-    saveAnswerAction(attemptId, current.id, optionId).then((ok) => {
-      if (!ok) setSaveFailedFor(current.id);
-    });
+    fetch("/api/question-bank/save-answer", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ attemptId, questionId: current.id, optionId }),
+    })
+      .then((res) => res.json())
+      .then((data: { ok?: boolean }) => {
+        if (!data.ok) setSaveFailedFor(current.id);
+      })
+      .catch(() => setSaveFailedFor(current.id));
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     if (answeredCount < questions.length && !confirmingSubmit) {
       setConfirmingSubmit(true);
       return;
     }
-    startSubmitTransition(() => {
-      submitAttemptAction(attemptId, paperSlug);
-    });
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("/api/question-bank/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ attemptId, paperSlug }),
+      });
+      const data: { redirectTo?: string } = await res.json();
+      if (data.redirectTo) {
+        startNavTransition(() => router.push(data.redirectTo!));
+      } else {
+        setIsSubmitting(false);
+      }
+    } catch {
+      setIsSubmitting(false);
+    }
   }
 
   return (
