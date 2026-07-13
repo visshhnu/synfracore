@@ -16,7 +16,6 @@ NEXT_PUBLIC_CLERK_SIGN_IN_URL = "/sign-in"
 NEXT_PUBLIC_CLERK_SIGN_UP_URL = "/sign-up"
 NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL = "/"
 NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL = "/"
-NEXT_SERVER_ACTIONS_ENCRYPTION_KEY = "lARRdU/F+75ClsqGW/6tJloilJAa69QGp8cwPh0LxvE="
 
 # Kill switch for /api/ai (app/api/ai/route.ts) — while "false" (the safe
 # default), the endpoint never calls Anthropic at all, at any cost, even for
