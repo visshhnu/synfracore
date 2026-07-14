@@ -9,7 +9,7 @@ pages_build_output_dir = ".vercel/output/static"
 # the opposite (genuinely sensitive) and must stay a Dashboard-only Secret —
 # never add it here.
 [vars]
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = "pk_test_ZW5nYWdlZC1ib2JjYXQtOC5jbGVyay5hY2NvdW50cy5kZXYk"
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = "pk_live_Y2xlcmsuc3luZnJhY29yZS5jb20k"
 NEXT_PUBLIC_SUPABASE_URL = "https://jlbyduuutwxcjaxtgsdw.supabase.co"
 NEXT_PUBLIC_SUPABASE_ANON_KEY = "sb_publishable_yDwcAvvY2eX2hchsUaf8ww_aXXO4wfZ"
 NEXT_PUBLIC_CLERK_SIGN_IN_URL = "/sign-in"
