@@ -356,6 +356,27 @@ html, body {
   }
 }
 
+/* ══ QUESTION-BANK ATTEMPT RUNNER MOBILE FIX ═══════════════
+   AttemptRunner's 260px-navigator / 1fr-content grid left the
+   content pane cropped to ~115px on mobile viewports. Stack to
+   a single column, with the question content pane FIRST (the
+   thing being read/answered) and the 1-100 navigator grid below
+   it, since scrolling past 100 number buttons to reach the
+   question on every load is worse than scrolling down once to
+   jump to a different question. */
+@media (max-width: 768px) {
+  .attempt-runner-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .attempt-runner-grid > div:first-child {
+    position: static !important;
+    order: 2;
+  }
+  .attempt-runner-grid > div:last-child {
+    order: 1;
+  }
+}
+
 /* ══ LIGHT MODE LOGO FIX ═══════════════════════════════════ */
 /* AC logo has white/blue on transparent — needs dark bg in light mode */
 html.light .logo-pill {

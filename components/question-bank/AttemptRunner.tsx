@@ -84,7 +84,7 @@ export default function AttemptRunner({ attemptId, paperSlug, questions, initial
   }
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "260px 1fr", gap: "24px", alignItems: "start" }}>
+    <div className="attempt-runner-grid" style={{ display: "grid", gridTemplateColumns: "260px 1fr", gap: "24px", alignItems: "start" }}>
       {/* Left rail: progress + navigator */}
       <div style={{ position: "sticky", top: "20px" }}>
         <div style={{ marginBottom: "14px", padding: "12px 14px", borderRadius: "10px", background: "var(--bg-2)", border: "1px solid var(--border)" }}>
