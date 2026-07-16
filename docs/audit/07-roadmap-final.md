@@ -706,6 +706,12 @@ at least once and was never caught by desktop-only verification.
    just because it happens to self-recover.
 5. **C5 — Launch Question Bank properly** (NF-10): nav + footer + homepage
    links, sitemap entries, per-paper metadata — only after C2 is fixed.
+   **2026-07-16: explicitly deferred, not attempted.** C2 is only
+   partially fixed (the hardcoded-URL smell), not the underlying Symptom
+   8/11 mechanism, which needs D1 (also deferred). Driving more signed-out
+   traffic into Question Bank before that's genuinely fixed means more
+   visitors hit the broken sign-in handoff, not fewer — re-evaluate once
+   D1 lands or Symptom 8/11 gets a real fix independent of it.
 
 ### Phase D — Structural platform work (branch + preview only; this quarter)
 1. **D1 — OpenNext migration** (OP-2). **Re-assessed 2026-07-16 (see Part 4a
