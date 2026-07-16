@@ -55,11 +55,24 @@ detailed below.
 
 ## Part 2 — Carried-over items from `06-roadmap.md` (OP-1 through OP-7): re-verified today
 
-- **OP-1 · Symptom 8 sign-in redirect race — still open.** `getAuthSafely()`'s
-  fallback at [`lib/clerk/authFallback.ts:33`](../../lib/clerk/authFallback.ts#L33)
-  still hardcodes `new Request("https://synfracore.com/", ...)` instead of the real
-  incoming URL. Confirmed all 8 call sites are affected (they all go through this
-  shared helper, none builds its own fallback): `app/api/question-bank/submit/route.ts`,
+- **OP-1 · Symptom 8 sign-in redirect race — hardcoded-URL smell fixed
+  2026-07-16 (C2); the redirect race itself is not fully resolved.**
+  `getAuthSafely()`'s fallback at `lib/clerk/authFallback.ts` no longer
+  hardcodes `https://synfracore.com/` — it now builds the Request from the
+  real incoming `host`/`x-forwarded-host` and `x-forwarded-proto` headers,
+  so this fallback works correctly on any domain (previews, a future domain
+  change) instead of silently breaking off of the exact production hostname.
+  **New evidence tonight strongly suggests Symptom 8 and Symptom 11 are the
+  same underlying mechanism, not two separate bugs**: live console capture of
+  an actual sign-in attempt from `/sign-in?redirect_url=...` showed
+  `setActive` (Clerk's own internal call, not app code) triggering a POST
+  back to the current URL that 404s, immediately followed by "An unexpected
+  response was received from the server" — the identical signature already
+  documented for Symptom 11's `invalidateCacheAction` failure. If confirmed,
+  fixing Symptom 11 (which needs D1, deferred — see Part 4a) would also
+  resolve Symptom 8, and no further page-level work on Symptom 8 specifically
+  is worth doing until then. Originally confirmed all 8 call sites go through
+  this shared helper: `app/api/question-bank/submit/route.ts`,
   `app/api/question-bank/save-answer/route.ts`, `app/api/question-bank/start/route.ts`,
   `app/question-bank/[paperSlug]/attempt/[attemptId]/page.tsx`,
   `app/question-bank/[paperSlug]/attempt/[attemptId]/results/page.tsx`,

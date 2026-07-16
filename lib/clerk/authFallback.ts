@@ -30,7 +30,17 @@ export async function getAuthSafely(): Promise<AuthFallbackResult> {
 
   try {
     const hdrs = await headers();
-    const request = new Request("https://synfracore.com/", {
+    // Was hardcoded to "https://synfracore.com/" — OP-1's flagged code smell.
+    // Clerk's authenticateRequest() validates the request's Origin/Host
+    // against the URL it's given (confirmed live: a mismatch produces "The
+    // Request HTTP Origin header must be equal to or a subdomain of the
+    // requesting URL"), so a hardcoded URL silently breaks this fallback on
+    // any host other than the literal production domain — previews, a future
+    // domain change, or a misconfigured environment would all fail here with
+    // no indication why. Build it from the real incoming request instead.
+    const host = hdrs.get("x-forwarded-host") ?? hdrs.get("host") ?? "synfracore.com";
+    const proto = hdrs.get("x-forwarded-proto") ?? "https";
+    const request = new Request(`${proto}://${host}/`, {
       headers: { cookie: hdrs.get("cookie") ?? "" },
     });
     const client = await clerkClient();
