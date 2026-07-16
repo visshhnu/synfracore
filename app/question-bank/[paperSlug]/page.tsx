@@ -4,10 +4,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { currentUser } from "@clerk/nextjs/server";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getPaperBySlug, getLatestInProgressAttempt, getLatestSubmittedAttempt } from "@/lib/supabase/questionBank";
-import StartButton from "@/components/question-bank/StartButton";
+import AttemptStatusButtons from "@/components/question-bank/AttemptStatusButtons";
 
 type Props = { params: Promise<{ paperSlug: string }>; searchParams: Promise<{ error?: string; locked?: string }> };
 
@@ -80,16 +80,7 @@ export default async function PaperLandingPage({ params, searchParams }: Props) 
         )}
 
         <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", alignItems: "center" }}>
-          {inProgress ? (
-            <Link href={`/question-bank/${paperSlug}/attempt/${inProgress.id}`} className="btn-primary">Continue attempt <ArrowRight size={15} /></Link>
-          ) : (
-            <StartButton paperSlug={paperSlug} />
-          )}
-          {lastSubmitted && (
-            <Link href={`/question-bank/${paperSlug}/attempt/${lastSubmitted.id}/results`} className="btn-secondary">
-              View last results ({lastSubmitted.score}/{lastSubmitted.total})
-            </Link>
-          )}
+          <AttemptStatusButtons paperSlug={paperSlug} initial={{ inProgress, lastSubmitted }} />
         </div>
       </div>
     </div>
