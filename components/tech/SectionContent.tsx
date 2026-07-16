@@ -20,6 +20,14 @@ type Props = {
   // standalone if ever used without a server-resolving parent — in that
   // case it falls back to the original client-side fetch behavior.
   initialContent?: string | null;
+  // This page's own canonical URL, passed down from the parent Server
+  // Component (which already computes one for generateMetadata's
+  // `alternates.canonical`). Threaded into ShareButtons instead of letting
+  // it fall back to `window.location.href` — that fallback runs during SSR
+  // too, where `window` is undefined, baking the hardcoded "https://
+  // synfracore.com" default into the initial HTML; client-side hydration
+  // doesn't reliably correct it afterward (see NF-2 in the roadmap).
+  pageUrl?: string;
 };
 
 function formatInline(text: string): string {
@@ -181,7 +189,7 @@ function buildPrompt(techName: string, section: string): string {
   return map[section] || `Write comprehensive ${section} content for ${techName} in clear markdown with code examples.`;
 }
 
-export default function SectionContent({ academy, technology, section, techName, techIcon, sectionLabel, accentColor, initialContent }: Props) {
+export default function SectionContent({ academy, technology, section, techName, techIcon, sectionLabel, accentColor, initialContent, pageUrl }: Props) {
   // Server already resolved this (parent passed the prop, even if its value
   // is null — "checked, nothing registered"). Skip the client fetch/loading
   // flash entirely in that case; real content (or the honest empty state)
@@ -293,7 +301,11 @@ export default function SectionContent({ academy, technology, section, techName,
       <article style={{ maxWidth: "800px" }}>{renderMarkdown(preContent)}</article>
       {/* Share this page + community CTA */}
       <div style={{ maxWidth: "800px", marginTop: "40px", display: "flex", flexDirection: "column", gap: "12px" }}>
-        <ShareButtons title={`${sectionLabel} — ${techName} | SynfraCore`} compact />
+        <ShareButtons
+          title={sectionLabel === techName ? `${techName} | SynfraCore` : `${sectionLabel} — ${techName} | SynfraCore`}
+          url={pageUrl}
+          compact
+        />
         <TelegramBanner variant="card" academy={academy} />
       </div>
     </div>

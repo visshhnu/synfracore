@@ -287,6 +287,7 @@ export default async function SectionPage({ params }: Props) {
             sectionLabel={sectionData?.label || section}
             accentColor="#6366F1"
             initialContent={initialContent}
+            pageUrl={`https://synfracore.com/academies/${aSlug}/${tSlug}/${section}`}
           />
           </>
         )}
