@@ -690,7 +690,16 @@ at least once and was never caught by desktop-only verification.
 3. **C3 — Investigate Symptom 9** properly (nested route 404): needs the same
    live-tail/instrumentation approach that solved Symptom 6 — static reading
    found nothing this pass. Elevated priority given it blocks a real,
-   in-progress feature.
+   in-progress feature. **2026-07-16: ruled out one theory.** Checked
+   whether Cloudflare Pages' `_redirects` file rule-ordering (a documented
+   next-on-pages routing quirk for nested dynamic routes) was the cause —
+   it isn't; this project's actual generated `_redirects` file has only 2
+   unrelated entries (a www→non-www comment, a `/home` redirect), meaning
+   routing for this path lives inside the compiled `_worker.js`, not
+   `_redirects`. Genuine next step requires `wrangler pages deployment tail`
+   running live while someone actually reproduces the bug in a browser —
+   deferred, no working Clerk auth session (local or preview) available to
+   trigger this without that.
 4. **C4 — Symptom 10 root-cause fix**: the Clerk retry-storm is a whole-site
    availability risk (re-confirmed live today), materially more severe than
    most other open items — do not let it sit behind lower-severity work
