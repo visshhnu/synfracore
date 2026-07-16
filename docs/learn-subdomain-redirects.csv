@@ -1,0 +1,52 @@
+source_url,target_url,status_code,notes
+https://learn.synfracore.com/,https://synfracore.com/learn,301,homepage of old platform -> new Academy hub
+https://learn.synfracore.com/interview.html,https://synfracore.com/interview,301,direct match
+https://learn.synfracore.com/learnwithvishnu.html,https://synfracore.com/about,301,old-brand about page -> new About page
+https://learn.synfracore.com/roadmap.html,https://synfracore.com/roadmaps,301,direct match
+https://learn.synfracore.com/agriculture/organic-farming.html,https://synfracore.com/academies/agriculture/organic-farming,301,direct match
+https://learn.synfracore.com/cicd/argo-rollouts.html,https://synfracore.com/academies/devops/argocd,301,GAP: no argo-rollouts page yet -- nearest is argocd
+https://learn.synfracore.com/cicd/argocd.html,https://synfracore.com/academies/devops/argocd,301,direct match
+https://learn.synfracore.com/cicd/azure-devops.html,https://synfracore.com/academies/cloud/azure-devops,301,direct match
+https://learn.synfracore.com/cicd/fluxcd.html,https://synfracore.com/academies/devops,301,GAP: no fluxcd page -- hub fallback
+https://learn.synfracore.com/cicd/gitlab-ci.html,https://synfracore.com/academies/devops,301,GAP: no gitlab-ci page -- hub fallback
+https://learn.synfracore.com/cicd/tekton.html,https://synfracore.com/academies/devops,301,GAP: no tekton page -- hub fallback
+https://learn.synfracore.com/cloud/aws.html,https://synfracore.com/academies/cloud/aws,301,direct match
+https://learn.synfracore.com/cloud/azure.html,https://synfracore.com/academies/cloud/azure,301,direct match
+https://learn.synfracore.com/cloud/cloud-fundamentals.html,https://synfracore.com/academies/cloud/cloud-fundamentals,301,direct match
+https://learn.synfracore.com/cloud/gcp.html,https://synfracore.com/academies/cloud/gke,301,GAP: no general GCP page -- nearest is GKE (has gke/bigquery/cloud-run instead)
+https://learn.synfracore.com/cloud/multi-cloud.html,https://synfracore.com/academies/cloud/multi-cloud,301,direct match
+https://learn.synfracore.com/containers/ebpf.html,https://synfracore.com/academies/devops,301,GAP: no ebpf page -- hub fallback
+https://learn.synfracore.com/containers/harbor.html,https://synfracore.com/academies/devops,301,GAP: no harbor page -- hub fallback
+https://learn.synfracore.com/containers/istio.html,https://synfracore.com/academies/devops/istio,301,direct match
+https://learn.synfracore.com/containers/keda.html,https://synfracore.com/academies/devops,301,GAP: no keda page -- hub fallback
+https://learn.synfracore.com/devops/ansible.html,https://synfracore.com/academies/devops/ansible,301,direct match
+https://learn.synfracore.com/devops/docker.html,https://synfracore.com/academies/devops/docker,301,direct match
+https://learn.synfracore.com/devops/github-actions.html,https://synfracore.com/academies/devops,301,GAP: no github-actions page -- hub fallback
+https://learn.synfracore.com/devops/helm.html,https://synfracore.com/academies/devops/helm,301,direct match
+https://learn.synfracore.com/devops/jenkins.html,https://synfracore.com/academies/devops/jenkins,301,direct match
+https://learn.synfracore.com/devops/kubernetes.html,https://synfracore.com/academies/devops/kubernetes,301,direct match
+https://learn.synfracore.com/devops/linux.html,https://synfracore.com/academies/devops/linux,301,direct match
+https://learn.synfracore.com/devops/openshift.html,https://synfracore.com/academies/devops/openshift,301,direct match
+https://learn.synfracore.com/devops/python-devops.html,https://synfracore.com/academies/devops/python,301,direct match (slug is "python" not "python-devops")
+https://learn.synfracore.com/devops/terraform.html,https://synfracore.com/academies/devops/terraform,301,direct match
+https://learn.synfracore.com/domains/ai-learning.html,https://synfracore.com/academies/ai,301,GAP: no general ai-learning page -- academy hub fallback (closest tech is ai-fundamentals)
+https://learn.synfracore.com/domains/human-essentials.html,https://synfracore.com/academies/essentials/human-essentials,301,direct match
+https://learn.synfracore.com/domains/law.html,https://synfracore.com/academies/law,301,GAP: no general law overview page -- academy hub fallback
+https://learn.synfracore.com/domains/medical-coding.html,https://synfracore.com/academies/healthcare/medical-coding,301,direct match
+https://learn.synfracore.com/domains/telco.html,https://synfracore.com/academies/telecom/telco,301,direct match
+https://learn.synfracore.com/mis/index.html,https://synfracore.com/academies,301,GAP: no MIS academy exists at all -- academies hub fallback
+https://learn.synfracore.com/mis/python-mis-advanced.html,https://synfracore.com/academies/devops/python,301,GAP: no MIS academy -- nearest topical match is Python
+https://learn.synfracore.com/mis/python-mis.html,https://synfracore.com/academies/devops/python,301,GAP: no MIS academy -- nearest topical match is Python
+https://learn.synfracore.com/monitoring/datadog.html,https://synfracore.com/academies/devops,301,GAP: datadog page existed but was deleted as dead/unreachable content (A9) -- hub fallback until rewritten
+https://learn.synfracore.com/monitoring/elk.html,https://synfracore.com/academies/devops/elk-stack,301,direct match (slug is "elk-stack" not "elk")
+https://learn.synfracore.com/monitoring/loki.html,https://synfracore.com/academies/devops,301,GAP: loki page existed but was deleted as dead/unreachable content (A9) -- hub fallback until rewritten
+https://learn.synfracore.com/monitoring/prometheus.html,https://synfracore.com/academies/devops/prometheus,301,direct match
+https://learn.synfracore.com/monitoring/slo.html,https://synfracore.com/academies/devops,301,GAP: no SLO page -- hub fallback
+https://learn.synfracore.com/monitoring/splunk.html,https://synfracore.com/academies/devops,301,GAP: no splunk page -- hub fallback
+https://learn.synfracore.com/networking/kafka.html,https://synfracore.com/academies/devops/kafka,301,direct match
+https://learn.synfracore.com/networking/networking.html,https://synfracore.com/academies/devops/networking,301,direct match
+https://learn.synfracore.com/security/devsecops.html,https://synfracore.com/academies/security,301,GAP: no devsecops page -- academy hub fallback
+https://learn.synfracore.com/security/digital-safety.html,https://synfracore.com/academies/essentials/digital-safety,301,direct match
+https://learn.synfracore.com/sre/ha-dr.html,https://synfracore.com/academies/devops/ha-dr,301,direct match
+https://learn.synfracore.com/sre/incident.html,https://synfracore.com/academies/devops/incident,301,direct match
+https://learn.synfracore.com/sre/platform-engineering.html,https://synfracore.com/academies/devops,301,GAP: no platform-engineering page -- hub fallback
