@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { getAcademy } from "@/lib/data/academies";
 import { ArrowRight, CheckCircle, Clock, BookOpen, FlaskConical, Trophy } from "lucide-react";
+import { pageMetadata } from "@/lib/seo/metadata";
 
 type Props = { params: Promise<{ academy: string }> };
 
@@ -188,13 +189,14 @@ const defaultMeta = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { academy: aSlug } = await params;
   const academy = getAcademy(aSlug);
-  if (!academy) return { title: "Academy" };
+  if (!academy) return pageMetadata({ title: "Academy", description: "Academy not found.", path: `/academies/${aSlug}` });
   const m = academyMeta[aSlug] || defaultMeta;
-  return {
+  return pageMetadata({
     title: `${academy.title} Academy — Structured Learning Path`,
     description: m.desc,
-    alternates: { canonical: `https://synfracore.com/academies/${aSlug}` },
-  };
+    path: `/academies/${aSlug}`,
+    ogImageParams: { academy: aSlug, title: academy.title, subtitle: "Structured Learning Path" },
+  });
 }
 
 export default async function AcademyPage({ params }: Props) {

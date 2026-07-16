@@ -4,6 +4,7 @@ import { roadmapDetails } from "@/lib/data/roadmapDetails";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Clock, ArrowRight, BookOpen, Target, TrendingUp, Users, Briefcase } from "lucide-react";
+import { pageMetadata } from "@/lib/seo/metadata";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -11,12 +12,13 @@ type Props = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const rm = roadmaps.find(r => r.slug === slug);
-  if (!rm) return { title: "Roadmap | SynfraCore" };
+  if (!rm) return pageMetadata({ title: "Roadmap", description: "Career roadmap not found.", path: `/roadmaps/${slug}` });
   const detail = roadmapDetails[slug];
-  return {
+  return pageMetadata({
     title: `${rm.title} Roadmap`,
     description: detail?.description || `Complete learning roadmap for ${rm.title}`,
-  };
+    path: `/roadmaps/${slug}`,
+  });
 }
 
 export default async function RoadmapDetailPage({ params }: Props) {

@@ -13,6 +13,7 @@ import WhatNext from "@/components/tech/WhatNext";
 import ProgressTracker from "@/components/tech/ProgressTracker";
 import QuickQuiz from "@/components/tech/QuickQuiz";
 import SectionQuiz from "@/components/quiz/SectionQuiz";
+import { pageMetadata } from "@/lib/seo/metadata";
 import { CourseJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 type Props = {
@@ -100,26 +101,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = descFn ? descFn(techName) : `${techName} ${sectionLabel} — learn ${techName} with real examples and hands-on practice at SynfraCore.`;
 
   const title = `${techName} ${sectionLabel}`;
-  const canonicalUrl = `https://synfracore.com/academies/${aSlug}/${tSlug}/${section}`;
 
-  return {
+  return pageMetadata({
     title,
     description,
     keywords: [techName, sectionLabel, `learn ${techName}`, `${techName} tutorial`, `${techName} course`, "DevOps", "SynfraCore"],
-    alternates: { canonical: canonicalUrl },
-    openGraph: {
-      title: `${techName} ${sectionLabel} | SynfraCore`,
-      description,
-      url: canonicalUrl,
-      type: "article",
-      siteName: "SynfraCore",
-    },
-    twitter: {
-      card: "summary",
-      title: `${techName} ${sectionLabel} | SynfraCore`,
-      description,
-    },
-  };
+    path: `/academies/${aSlug}/${tSlug}/${section}`,
+    ogImageParams: { academy: aSlug, title: techName, section: sectionLabel },
+  });
 }
 
 export default async function SectionPage({ params }: Props) {

@@ -6,6 +6,7 @@ import { NewsletterSignup } from "@/components/growth/NewsletterSignup";
 import { TelegramBanner } from "@/components/growth/TelegramBanner";
 import { BlogReactions } from "@/components/blog/BlogReactions";
 import { articles } from "@/lib/data/blogPosts";
+import { pageMetadata } from "@/lib/seo/metadata";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -19,8 +20,8 @@ const tagColors: Record<string, string> = {
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const article = articles[slug];
-  if (!article) return { title: "Article Not Found" };
-  return { title: `${article.title} — Blog`, description: article.title };
+  if (!article) return pageMetadata({ title: "Article Not Found", description: "This blog post doesn't exist.", path: `/blog/${slug}` });
+  return pageMetadata({ title: `${article.title} — Blog`, description: article.title, path: `/blog/${slug}` });
 }
 
 function formatInlineBlog(text: string): string {

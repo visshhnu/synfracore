@@ -6,6 +6,7 @@ import { getBoard, getSubject, getChapter } from "@/lib/data/education";
 import { redirect } from "next/navigation";
 import { hasContent, fetchContent } from "@/lib/content";
 import SectionContent from "@/components/tech/SectionContent";
+import { pageMetadata } from "@/lib/seo/metadata";
 
 type Props = { params: Promise<{ board: string; subject: string; chapter: string }> };
 
@@ -14,18 +15,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const board = getBoard(bSlug);
   const subject = getSubject(bSlug, sSlug);
   const chapter = getChapter(bSlug, sSlug, cSlug);
-  if (!board || !subject || !chapter) return { title: "Learn" };
-  return {
+  if (!board || !subject || !chapter) return pageMetadata({ title: "Learn", description: "Chapter not found.", path: `/learn/${bSlug}/${sSlug}/${cSlug}` });
+  return pageMetadata({
     title: `${chapter.title} — ${subject.name} | ${board.shortName}`,
     description: `${chapter.description}. Topics: ${chapter.topics.join(", ")}. Free study material with PYQs, MCQs, and revision notes.`,
     keywords: [chapter.title, subject.name, board.shortName, "CBSE", "Class 10", "JEE", "GATE", "SynfraCore"],
-    alternates: { canonical: `https://synfracore.com/learn/${bSlug}/${sSlug}/${cSlug}` },
-    openGraph: {
-      title: `${chapter.title} — ${board.shortName} | SynfraCore`,
-      description: chapter.description,
-      url: `https://synfracore.com/learn/${bSlug}/${sSlug}/${cSlug}`,
-    },
-  };
+    path: `/learn/${bSlug}/${sSlug}/${cSlug}`,
+    ogImageParams: { title: chapter.title, subtitle: `${subject.name} · ${board.shortName}` },
+  });
 }
 
 export default async function ChapterPage({ params }: Props) {

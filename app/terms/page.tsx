@@ -1,7 +1,10 @@
-export const metadata = {
+import { pageMetadata } from "@/lib/seo/metadata";
+
+export const metadata = pageMetadata({
   title: "Terms of Service",
   description: "Terms and conditions for using SynfraCore learning platform.",
-};
+  path: "/terms",
+});
 
 export default function TermsPage() {
   const sections = [

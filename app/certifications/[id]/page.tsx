@@ -2,6 +2,7 @@ export const runtime = "edge";
 import { certifications } from "@/lib/data/navigation";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { pageMetadata } from "@/lib/seo/metadata";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -277,13 +278,13 @@ const certDetail: Record<string, {
 export async function generateMetadata({ params }: Props) {
   const { id } = await params;
   const cert = certifications.find((c) => c.id === id);
-  if (!cert) return {};
+  if (!cert) return pageMetadata({ title: "Certification", description: "Certification not found.", path: `/certifications/${id}` });
   const detail = certDetail[id];
-  return {
+  return pageMetadata({
     title: `${cert.name} (${cert.code}) Study Guide`,
     description: `Complete ${cert.name} exam guide: ${detail?.domains?.[0]?.name ?? "exam domains"}, study plan, practice questions, and tips. Pass on your first attempt.`,
-    alternates: { canonical: `https://synfracore.com/certifications/${id}` },
-  };
+    path: `/certifications/${id}`,
+  });
 }
 
 export default async function CertificationDetailPage({ params }: Props) {

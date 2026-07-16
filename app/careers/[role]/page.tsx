@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ArrowRight, CheckCircle, Clock } from "lucide-react";
+import { pageMetadata } from "@/lib/seo/metadata";
 
 type Props = { params: Promise<{ role: string }> };
 
@@ -185,12 +186,12 @@ const roles: Record<string, {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { role } = await params;
   const r = roles[role];
-  if (!r) return { title: "Career" };
-  return {
+  if (!r) return pageMetadata({ title: "Career", description: "Career path not found.", path: `/careers/${role}` });
+  return pageMetadata({
     title: `${r.title} Career Path — Skills, Roadmap, Salary`,
     description: `Complete ${r.title} guide: required skills, step-by-step roadmap, salary ${r.salary}, interview questions, certifications, and resume bullets.`,
-    alternates: { canonical: `https://synfracore.com/careers/${role}` },
-  };
+    path: `/careers/${role}`,
+  });
 }
 
 export default async function RolePage({ params }: Props) {

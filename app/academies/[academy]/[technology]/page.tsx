@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { getAcademy } from "@/lib/data/academies";
 import { techSections, nonTechSections, nonTechAcademyIds } from "@/lib/data/navigation";
 import { ArrowRight, Clock, Target, BookOpen } from "lucide-react";
+import { pageMetadata } from "@/lib/seo/metadata";
 
 type Props = { params: Promise<{ academy: string; technology: string }> };
 
@@ -12,17 +13,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { academy: aSlug, technology: tSlug } = await params;
   const academy = getAcademy(aSlug);
   const tech = academy?.domains.flatMap(d => d.technologies).find(t => t.slug === tSlug);
-  if (!academy || !tech) return { title: "Not found" };
-  return {
+  if (!academy || !tech) return pageMetadata({ title: "Not found", description: "Technology not found.", path: `/academies/${aSlug}/${tSlug}` });
+  return pageMetadata({
     title: `${tech.name} — Complete Guide | ${academy.title}`,
     description: `Learn ${tech.name} from scratch to production. Overview, fundamentals, intermediate patterns, advanced topics, hands-on labs, real projects, interview prep, and certification guide.`,
     keywords: [tech.name, `learn ${tech.name}`, `${tech.name} tutorial`, `${tech.name} interview questions`, `${tech.name} certification`, "SynfraCore"],
-    alternates: { canonical: `https://synfracore.com/academies/${aSlug}/${tSlug}` },
-    openGraph: {
-      title: `${tech.name} — Complete Guide | SynfraCore`,
-      description: tech.description,
-    },
-  };
+    path: `/academies/${aSlug}/${tSlug}`,
+    ogImageParams: { academy: aSlug, title: tech.name, subtitle: `${academy.title} · Complete Guide` },
+  });
 }
 
 export default async function TechnologyPage({ params }: Props) {

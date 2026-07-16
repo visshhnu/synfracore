@@ -2,13 +2,14 @@ export const runtime = "edge";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { educationBoards } from "@/lib/data/education";
+import { pageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Academy — Chapter-wise Learning for Every Exam",
   description: "284+ chapters across Class 10, Class 12, JEE, NEET, GATE CSE, Banking, UPSC, SSC, Defence, Career, and Finance. Expert-written with PYQs, MCQs, and revision notes.",
   keywords: ["JEE preparation","NEET preparation","GATE CSE","Banking exam","Class 10 CBSE","UPSC","SSC CGL","SynfraCore Academy"],
-  alternates: { canonical: "https://synfracore.com/learn" },
-};
+  path: "/learn",
+});
 
 const categories = [
   { id: "all", label: "All Boards" },
