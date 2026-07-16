@@ -1,7 +1,10 @@
-export const metadata = {
+import { pageMetadata } from "@/lib/seo/metadata";
+
+export const metadata = pageMetadata({
   title: "Privacy Policy",
   description: "How SynfraCore collects, uses, and protects your personal information.",
-};
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   const sections = [
@@ -41,7 +44,7 @@ export default function PrivacyPage() {
   return (
     <div style={{ maxWidth: "760px", margin: "0 auto", padding: "56px 24px" }}>
       <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(28px,4vw,44px)", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: "8px" }}>Privacy Policy</h1>
-      <p style={{ color: "var(--text-4)", fontSize: "14px", marginBottom: "40px" }}>Last updated: January 2025 · Contact: hello@synfracore.com</p>
+      <p style={{ color: "var(--text-4)", fontSize: "14px", marginBottom: "40px" }}>Last updated: July 2026 · Contact: hello@synfracore.com</p>
       <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
         {sections.map(s => (
           <div key={s.title}>
