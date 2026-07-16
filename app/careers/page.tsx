@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Mail } from "lucide-react";
 export const runtime = "edge";
-export const metadata = { title: "Careers | SynfraCore", description: "Join SynfraCore and help build the future of tech education in India." };
+export const metadata = { title: "Careers", description: "Join SynfraCore and help build the future of tech education in India." };
 const openRoles = [
   { title: "Senior Content Engineer — DevOps", type: "Contract", location: "Remote (India)", skills: ["Kubernetes", "Terraform", "CI/CD", "Technical Writing"] },
   { title: "AI/ML Content Engineer", type: "Contract", location: "Remote (India)", skills: ["LLMs", "Python", "RAG", "LangChain"] },

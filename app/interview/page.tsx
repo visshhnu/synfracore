@@ -1,10 +1,18 @@
 import Link from "next/link";
 import { MessageSquare, ArrowRight, Star, Target, Zap } from "lucide-react";
+import { academies } from "@/lib/data/academies";
+import { pageMetadata } from "@/lib/seo/metadata";
 
-export const metadata = {
-  title: "Interview Preparation | SynfraCore",
-  description: "1000+ DevOps, Cloud, Database and AI interview questions with detailed answers across 101 technologies.",
-};
+const totalTechnologies = academies.reduce(
+  (sum, a) => sum + a.domains.reduce((dSum, d) => dSum + d.technologies.length, 0),
+  0
+);
+
+export const metadata = pageMetadata({
+  title: "Interview Preparation",
+  description: `1000+ DevOps, Cloud, Database and AI interview questions with detailed answers across ${totalTechnologies} technologies.`,
+  path: "/interview",
+});
 
 const interviewTracks = [
   {
@@ -88,7 +96,7 @@ export default function InterviewPage() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "16px", marginBottom: "64px" }}>
         {[
           { value: "1000+", label: "Questions", icon: "❓" },
-          { value: "101", label: "Technologies", icon: "🛠️" },
+          { value: `${totalTechnologies}`, label: "Technologies", icon: "🛠️" },
           { value: "3 Levels", label: "Beginner to Architect", icon: "📈" },
           { value: "Real Answers", label: "Not just questions", icon: "✅" },
         ].map(stat => (

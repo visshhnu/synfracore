@@ -5,8 +5,8 @@ import { academies } from "@/lib/data/academies";
 import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Tech Academies — DevOps, Cloud, AI, Security | SynfraCore",
-  description: "10 academies covering DevOps, Cloud, AI, Databases, Security, Healthcare, Education, Competitive Exams, and Life Essentials. Structured paths from beginner to expert.",
+  title: "Tech Academies — DevOps, Cloud, AI, Security",
+  description: `${academies.length} academies covering DevOps, Cloud, AI, Databases, Security, Healthcare, Education, Competitive Exams, and Life Essentials. Structured paths from beginner to expert.`,
   alternates: { canonical: "https://synfracore.com/academies" },
 };
 

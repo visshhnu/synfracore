@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Privacy Policy | SynfraCore",
+  title: "Privacy Policy",
   description: "How SynfraCore collects, uses, and protects your personal information.",
 };
 

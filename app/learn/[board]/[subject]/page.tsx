@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { board: bSlug, subject: sSlug } = await params;
   const board = getBoard(bSlug);
   const subject = getSubject(bSlug, sSlug);
-  if (!board || !subject) return { title: "Learn | SynfraCore" };
+  if (!board || !subject) return { title: "Learn" };
   return {
     title: `${subject.name} — ${board.shortName}`,
     description: subject.description,

@@ -13,7 +13,7 @@ import {
 } from "@/lib/supabase/queries";
 import { academies } from "@/lib/data/academies";
 
-export const metadata = { title: "Dashboard | SynfraCore" };
+export const metadata = { title: "Dashboard" };
 
 const ACTIVITY_LABELS: Record<string, string> = {
   lesson_viewed: "Viewed",

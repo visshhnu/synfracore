@@ -8,7 +8,7 @@ import { getPaperCatalog, getLatestInProgressAttempt, getLatestSubmittedAttempt 
 import PaperCard from "@/components/question-bank/PaperCard";
 
 export const metadata: Metadata = {
-  title: "Question Bank | SynfraCore",
+  title: "Question Bank",
   description: "Full-length practice exams with instant scoring and detailed explanations.",
   alternates: { canonical: "https://synfracore.com/question-bank" },
 };

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   keywords: ["DevOps blog", "Kubernetes", "Docker", "AWS", "AI engineering", "medical coding", "JEE preparation"],
   alternates: { canonical: "https://synfracore.com/blog" },
   openGraph: {
-    title: "Blog | SynfraCore",
+    title: "Blog",
     description: "Practical articles for tech professionals and learners — DevOps, Cloud, AI, Security, Health, Education and more.",
     url: "https://synfracore.com/blog",
     type: "website",

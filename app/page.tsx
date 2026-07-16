@@ -3,7 +3,8 @@ import { TelegramBanner } from "@/components/growth/TelegramBanner";
 import { NewsletterSignup } from "@/components/growth/NewsletterSignup";
 import Link from "next/link";
 import { academies } from "@/lib/data/academies";
-import { certifications, stats } from "@/lib/data/navigation";
+import { certifications, stats, roadmaps } from "@/lib/data/navigation";
+import { educationBoards } from "@/lib/data/education";
 import { ArrowRight, BookOpen, FlaskConical, Code2, Trophy, Wrench, Bot, CheckCircle, Users, Target, Zap } from "lucide-react";
 
 // Role-based paths
@@ -78,12 +79,19 @@ const domains = [
   { name: "Academy (Edu)", icon: "📚", topics: ["JEE","NEET","GATE","Banking","UPSC"], href: "/learn", color: "#EC4899" },
 ];
 
-// Proof points
+// Proof points — chapters/tech topics/certifications/roadmaps derived from
+// real data (was a third independent hardcoded stats source disagreeing with
+// both the main stats row above and app/about/page.tsx, see NF-6/B1). Labs &
+// projects and Interview Q&As are left as-is — no reliable per-item count
+// source exists for those yet.
+const totalChapters = educationBoards.reduce((sum, b) => sum + b.subjects.reduce((s, sub) => s + sub.chapters.length, 0), 0);
+const totalTechTopics = academies.reduce((sum, a) => sum + a.domains.reduce((s, d) => s + d.technologies.length, 0), 0);
+
 const proofPoints = [
-  { icon: "📝", stat: "284+", label: "Education chapters", sub: "Class 10 to UPSC — expert-written" },
-  { icon: "💻", stat: "890+", label: "Tech topics", sub: "Docker to Kubernetes to Platform Eng" },
-  { icon: "🎓", stat: "13", label: "Certifications", sub: "AWS, Azure, GCP, CKA, CKAD and more" },
-  { icon: "🗺️", stat: "8+", label: "Career roadmaps", sub: "From beginner to architect" },
+  { icon: "📝", stat: `${totalChapters}+`, label: "Education chapters", sub: "Class 10 to UPSC — expert-written" },
+  { icon: "💻", stat: `${totalTechTopics}+`, label: "Tech topics", sub: "Docker to Kubernetes to Platform Eng" },
+  { icon: "🎓", stat: `${certifications.length}`, label: "Certifications", sub: "AWS, Azure, GCP, CKA, CKAD and more" },
+  { icon: "🗺️", stat: `${roadmaps.length}+`, label: "Career roadmaps", sub: "From beginner to architect" },
   { icon: "🧪", stat: "500+", label: "Labs & projects", sub: "Hands-on practice scenarios" },
   { icon: "💬", stat: "100+", label: "Interview Q&As", sub: "Real questions with detailed answers" },
 ];
@@ -377,7 +385,7 @@ export default function Home() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "36px", flexWrap: "wrap", gap: "16px" }}>
             <div>
               <div className="label" style={{ marginBottom: "10px" }}>Certification Prep</div>
-              <h2 className="display-md">13 Certifications Covered</h2>
+              <h2 className="display-md">{certifications.length} Certifications Covered</h2>
               <p style={{ color: "var(--text-3)", fontSize: "15px", marginTop: "8px" }}>
                 Structured study guides, practice questions, and exam tips.
               </p>
@@ -416,7 +424,7 @@ export default function Home() {
               <div style={{ fontSize: "40px", marginBottom: "12px" }}>📚</div>
               <h3 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 800, fontSize: "22px", marginBottom: "10px" }}>Education Academy</h3>
               <p style={{ color: "var(--text-3)", fontSize: "15px", lineHeight: 1.7, marginBottom: "20px" }}>
-                284+ chapters across Class 10, Class 12, JEE, NEET, GATE, Banking, UPSC, SSC, Defence, Career, and Finance. With PYQs, MCQs, and revision notes.
+                {totalChapters}+ chapters across Class 10, Class 12, JEE, NEET, GATE, Banking, UPSC, SSC, Defence, Career, and Finance. With PYQs, MCQs, and revision notes.
               </p>
               <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "24px" }}>
                 {["Class 10","Class 12","JEE","NEET","GATE","Banking","UPSC","SSC","Defence"].map(b => (

@@ -9,7 +9,7 @@ type Props = { params: Promise<{ board: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { board: slug } = await params;
   const board = getBoard(slug);
-  if (!board) return { title: "Learn | SynfraCore" };
+  if (!board) return { title: "Learn" };
   return {
     title: `${board.name} Preparation`,
     description: board.description,

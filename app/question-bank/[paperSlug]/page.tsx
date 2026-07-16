@@ -15,9 +15,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { paperSlug } = await params;
   const supabase = createSupabaseServerClient();
   const paper = await getPaperBySlug(supabase, paperSlug);
-  if (!paper) return { title: "Practice Paper | SynfraCore" };
+  if (!paper) return { title: "Practice Paper" };
   return {
-    title: `${paper.title} | SynfraCore`,
+    title: paper.title,
     description: `${paper.question_count}-question practice exam — ${paper.focus_tags.join(", ")}.`,
     alternates: { canonical: `https://synfracore.com/question-bank/${paperSlug}` },
   };
