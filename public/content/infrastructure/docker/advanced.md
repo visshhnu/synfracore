@@ -4,8 +4,7 @@
 
 Containers are **ephemeral and immutable** — when a container is removed, all data inside it is gone. Volumes solve this.
 
-**Key principle from the notes:**
-> Containers are usually immutable and ephemeral — just fancy buzzwords for unchanging and temporary or disposable. Containers are Ephemeral and once a container is removed, it is gone.
+Containers are immutable and ephemeral — unchanging once built, and temporary or disposable at runtime. Once a container is removed, everything inside it is gone with it.
 
 The fundamental goal: **separate container lifecycle from data lifecycle**.
 
@@ -45,7 +44,7 @@ docker volume rm mydata
 docker volume prune
 ```
 
-**Facts about volumes (from the notes):**
+**Key facts about volumes:**
 - A data volume is a specially designed directory in the container
 - It is initialized when the container is created
 - By default, it is NOT deleted when the container is stopped
@@ -299,7 +298,7 @@ docker service update \
 
 ## Docker in CI/CD Pipeline (Jenkins)
 
-Complete pipeline from the notes — build, push, deploy:
+A complete build-push-deploy pipeline:
 
 ```groovy
 // Jenkinsfile
@@ -309,7 +308,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/org/regapp.git'
+                git branch: 'main', url: 'https://github.com/org/myapp.git'
             }
         }
 
@@ -321,7 +320,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t saifshah/regapp:latest .'
+                sh 'docker build -t myregistry/myapp:latest .'
             }
         }
 
@@ -334,7 +333,7 @@ pipeline {
                 )]) {
                     sh '''
                         docker login -u $DOCKER_USER -p $DOCKER_PASS
-                        docker push saifshah/regapp:latest
+                        docker push myregistry/myapp:latest
                     '''
                 }
             }
@@ -344,7 +343,7 @@ pipeline {
             steps {
                 sh 'kubectl apply -f kube_deploy.yml'
                 sh 'kubectl apply -f kube_service.yml'
-                sh 'kubectl rollout status deployment/saifshah-regapp'
+                sh 'kubectl rollout status deployment/myapp'
             }
         }
     }
@@ -363,20 +362,20 @@ pipeline {
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: saifshah-regapp
+  name: myapp
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: saifshah-regapp
+      app: myapp
   template:
     metadata:
       labels:
-        app: saifshah-regapp
+        app: myapp
     spec:
       containers:
-      - name: regapp
-        image: saifshah/regapp:latest
+      - name: myapp
+        image: myregistry/myapp:latest
         ports:
         - containerPort: 8080
 
@@ -385,10 +384,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: saifshah-service
+  name: myapp-service
 spec:
   selector:
-    app: saifshah-regapp
+    app: myapp
   ports:
   - name: nginxport
     port: 80

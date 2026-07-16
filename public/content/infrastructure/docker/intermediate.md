@@ -75,7 +75,7 @@ HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
 
 ### Real Dockerfile: Tomcat on CentOS
 
-Exact Dockerfile from the notes — deploying Tomcat 9 on CentOS:
+A real-world Dockerfile — deploying Tomcat 9 on CentOS:
 
 ```dockerfile
 FROM centos
@@ -135,12 +135,12 @@ CMD ["python3", "app.py"]
 
 ## Docker Image Layers
 
-An image is made of stacked layers — like an onion (Duckietown):
+An image is made of stacked layers — like an onion:
 
 ```
 docker images family tree:
 ┌─────────────────────────────┐
-│    afdaniele/tensorflow      │  ← final image (your customization)
+│    myapp/tensorflow          │  ← final image (your customization)
 ├─────────────────────────────┤
 │    intermediate layers       │  ← pip install tensorflow, etc.
 ├─────────────────────────────┤
@@ -152,7 +152,7 @@ Dockerfile that creates this layered structure:
 ```dockerfile
 FROM python:3.6
 
-MAINTAINER Andrea F. Daniele <afdaniele@ttic.edu>
+LABEL maintainer="team@example.com"
 
 RUN pip3 install tensorflow
 
@@ -197,20 +197,20 @@ Your machine ──────────────────→ Docker Hu
 docker login                          # login to Docker Hub
 
 # Tag image with your username/repo:tag
-docker tag mytomcat saifshah/regapp:v1
-docker tag mytomcat saifshah/regapp:latest
+docker tag mytomcat myregistry/myapp:v1
+docker tag mytomcat myregistry/myapp:latest
 
 # Push to Docker Hub
-docker push saifshah/regapp:v1
-docker push saifshah/regapp:latest
+docker push myregistry/myapp:v1
+docker push myregistry/myapp:latest
 
 # Pull from Docker Hub (any machine)
-docker pull saifshah/regapp:v1
-docker run -d -p 8080:8080 saifshah/regapp:v1
+docker pull myregistry/myapp:v1
+docker run -d -p 8080:8080 myregistry/myapp:v1
 
-# Real output from notes — images after build and tag:
-# regapp         v1       15574dfecf93   7 hours ago   510MB
-# saifshah/regapp latest  15574dfecf93   7 hours ago   510MB
+# Example output — images after build and tag:
+# myapp          v1       15574dfecf93   7 hours ago   510MB
+# myregistry/myapp latest  15574dfecf93   7 hours ago   510MB
 # tomcat         latest   6a1271dfce51  43 hours ago   680MB
 # centos         latest   5d0da3dc9764  8 months ago   231MB
 ```
@@ -256,7 +256,7 @@ CMD ["java", "-jar", "app.jar"]
 
 ## Jenkins + Docker CI/CD Pipeline
 
-From the notes — complete CI/CD flow with Docker:
+A complete CI/CD flow with Docker:
 
 ```
 Developer pushes code
@@ -269,7 +269,7 @@ Jenkins copies WAR to Docker host via SSH
       ↓
 Ansible playbook runs on Docker host:
   - Builds Docker image (FROM centos + WAR)
-  - Tags image (saifshah/regapp:latest)
+  - Tags image (myregistry/myapp:latest)
   - Pushes to Docker Hub
       ↓
 Deploy to Kubernetes (EKS):
@@ -284,16 +284,16 @@ Application running on EKS cluster
 [root@EKS_Bootstrap_Server ~]# kubectl get all
 
 NAME                                           READY  STATUS   RESTARTS  AGE
-pod/saifshah-regapp-67dc7d6554-m4ck9          1/1    Running  0         27s
-pod/saifshah-regapp-67dc7d6554-rr58w          1/1    Running  0         27s
-pod/saifshah-regapp-67dc7d6554-x24cx          1/1    Running  0         27s
+pod/myapp-67dc7d6554-m4ck9          1/1    Running  0         27s
+pod/myapp-67dc7d6554-rr58w          1/1    Running  0         27s
+pod/myapp-67dc7d6554-x24cx          1/1    Running  0         27s
 
 NAME                    TYPE          CLUSTER-IP      EXTERNAL-IP                   PORT(S)
 service/kubernetes      ClusterIP     10.100.0.1      <none>                        443/TCP
-service/saifshah-service LoadBalancer 10.100.156.66  a5cc757300061...amazonaws.com  8080:30620/TCP
+service/myapp-service   LoadBalancer  10.100.156.66  a5cc757300061...amazonaws.com  8080:30620/TCP
 
-NAME                              READY  UP-TO-DATE  AVAILABLE  AGE
-deployment.apps/saifshah-regapp   3/3    3           3          27s
+NAME                        READY  UP-TO-DATE  AVAILABLE  AGE
+deployment.apps/myapp       3/3    3           3          27s
 ```
 
 ## .dockerignore — Exclude Files from Build Context

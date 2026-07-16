@@ -1,6 +1,6 @@
 # Kubernetes — Intermediate
 
-## Core K8s Objects (TechWorld with Nana)
+## Core K8s Objects
 
 As a K8s user, your main goal is to deploy and run applications with **high availability**. To do this you need to understand the core objects:
 
@@ -17,7 +17,7 @@ As a K8s user, your main goal is to deploy and run applications with **high avai
 
 ## Administrator vs User — Two Learning Paths
 
-From the Nana roadmap: there are two sides to Kubernetes — learning both is important but tackle one at a time.
+There are two sides to Kubernetes — learning both is important but tackle one at a time.
 
 **K8s User** — deploy and manage applications:
 - Write Deployment and Service manifests
@@ -69,14 +69,14 @@ kubectl delete pod nginx-pod      # delete pod
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: saifshah-regapp
+  name: myapp
   labels:
-    app: saifshah-regapp
+    app: myapp
 spec:
   replicas: 3                      # run 3 copies
   selector:
     matchLabels:
-      app: saifshah-regapp
+      app: myapp
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -85,11 +85,11 @@ spec:
   template:
     metadata:
       labels:
-        app: saifshah-regapp
+        app: myapp
     spec:
       containers:
-      - name: regapp
-        image: saifshah/regapp:latest
+      - name: myapp
+        image: myregistry/myapp:latest
         ports:
         - containerPort: 8080
         resources:
@@ -124,15 +124,15 @@ spec:
 ```bash
 kubectl apply -f deployment.yaml
 kubectl get deployments
-kubectl rollout status deployment/saifshah-regapp  # watch rollout
-kubectl rollout history deployment/saifshah-regapp  # view history
-kubectl rollout undo deployment/saifshah-regapp     # rollback
+kubectl rollout status deployment/myapp  # watch rollout
+kubectl rollout history deployment/myapp  # view history
+kubectl rollout undo deployment/myapp     # rollback
 
 # Update image (triggers rolling update)
-kubectl set image deployment/saifshah-regapp regapp=saifshah/regapp:v2
+kubectl set image deployment/myapp myapp=myregistry/myapp:v2
 
 # Scale
-kubectl scale deployment saifshah-regapp --replicas=5
+kubectl scale deployment myapp --replicas=5
 ```
 
 ## Service
@@ -143,10 +143,10 @@ kubectl scale deployment saifshah-regapp --replicas=5
 apiVersion: v1
 kind: Service
 metadata:
-  name: saifshah-service
+  name: myapp-service
 spec:
   selector:
-    app: saifshah-regapp            # targets pods with this label
+    app: myapp            # targets pods with this label
   ports:
   - name: nginx-port
     port: 80                        # port the service listens on
@@ -165,13 +165,13 @@ spec:
 ```bash
 kubectl apply -f service.yaml
 kubectl get services
-kubectl get svc saifshah-service    # check EXTERNAL-IP (cloud LB IP)
-kubectl describe service saifshah-service
+kubectl get svc myapp-service    # check EXTERNAL-IP (cloud LB IP)
+kubectl describe service myapp-service
 
-# Real output from the notes (EKS deployment):
+# Example output (EKS-style LoadBalancer provisioning):
 # NAME                TYPE           CLUSTER-IP      EXTERNAL-IP                              PORT(S)
 # kubernetes          ClusterIP      10.100.0.1      <none>                                   443/TCP
-# saifshah-service    LoadBalancer   10.100.156.66   a5cc757...us-east-1.elb.amazonaws.com    8080:30620/TCP
+# myapp-service       LoadBalancer   10.100.156.66   a5cc757...us-east-1.elb.amazonaws.com    8080:30620/TCP
 ```
 
 ## ConfigMap and Secrets
@@ -221,7 +221,7 @@ kubectl get configmap app-config
 kubectl describe secret db-secret
 ```
 
-## Deployment Strategies (from Nana roadmap)
+## Deployment Strategies
 
 **Rolling Update (default):**
 - Replace pods one at a time
