@@ -123,7 +123,7 @@ export default async function BlogPost({ params }: Props) {
   return (
     <div style={{ maxWidth: "760px", margin: "0 auto", padding: "48px 24px" }}>
       <div style={{ display: "flex", gap: "8px", alignItems: "center", fontSize: "13px", color: "var(--text-4)", marginBottom: "32px" }}>
-        <a href="/blog" style={{ color: "var(--text-4)", textDecoration: "none" }}>Blog</a>
+        <Link href="/blog" style={{ color: "var(--text-4)", textDecoration: "none" }}>Blog</Link>
         <span>/</span>
         <span style={{ background: `${color}18`, color, padding: "2px 8px", borderRadius: "4px", fontWeight: 700 }}>{article.tag}</span>
       </div>
@@ -156,10 +156,10 @@ export default async function BlogPost({ params }: Props) {
 
       {/* Article footer nav */}
       <div style={{ marginTop: "40px", paddingTop: "32px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
-        <a href="/blog" style={{ color: "var(--text-4)", textDecoration: "none", fontSize: "14px" }}>← All articles</a>
-        <a href="/academies" style={{ background: `${color}18`, color, padding: "8px 16px", borderRadius: "8px", textDecoration: "none", fontSize: "13px", fontWeight: 700 }}>
+        <Link href="/blog" style={{ color: "var(--text-4)", textDecoration: "none", fontSize: "14px" }}>← All articles</Link>
+        <Link href="/academies" style={{ background: `${color}18`, color, padding: "8px 16px", borderRadius: "8px", textDecoration: "none", fontSize: "13px", fontWeight: 700 }}>
           Start Learning {article.tag} →
-        </a>
+        </Link>
       </div>
     </div>
   );

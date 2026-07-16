@@ -11,7 +11,7 @@ export default function OnboardingError({ error, reset }: { error: Error & { dig
     <div style={{ maxWidth: "560px", margin: "80px auto", padding: "0 24px", textAlign: "center" }}>
       <div style={{ fontSize: "40px", marginBottom: "16px" }}>⚠️</div>
       <h1 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "22px", fontWeight: 800, marginBottom: "10px" }}>
-        Couldn't load onboarding
+        Couldn&apos;t load onboarding
       </h1>
       <p style={{ color: "var(--text-3)", fontSize: "14px", lineHeight: 1.6, marginBottom: "24px" }}>
         This step is optional anyway — you can skip it for now and everything else on the site still works normally.

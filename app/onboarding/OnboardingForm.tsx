@@ -98,7 +98,7 @@ export default function OnboardingForm({ existingDomains }: { existingDomains: s
       {/* Domains of interest */}
       <div>
         <label style={{ fontSize: "13px", fontWeight: 700, color: "var(--text-1)", marginBottom: "6px", display: "block" }}>
-          Domains you're interested in <span style={{ color: "var(--text-4)", fontWeight: 400 }}>(pick as many as you like)</span>
+          Domains you&apos;re interested in <span style={{ color: "var(--text-4)", fontWeight: 400 }}>(pick as many as you like)</span>
         </label>
         <p style={{ fontSize: "12px", color: "var(--text-4)", marginBottom: "10px" }}>
           This only personalizes your dashboard — every academy stays open to browse regardless of what you pick here.

@@ -30,9 +30,9 @@ export default async function RoadmapDetailPage({ params }: Props) {
   return (
     <div style={{ maxWidth: "1000px", margin: "0 auto", padding: "48px 24px" }}>
       <nav style={{ fontSize: "12px", color: "var(--text-4)", marginBottom: "28px", display: "flex", gap: "6px", alignItems: "center" }}>
-        <a href="/" style={{ color: "var(--text-4)", textDecoration: "none" }}>Home</a>
+        <Link href="/" style={{ color: "var(--text-4)", textDecoration: "none" }}>Home</Link>
         <span>›</span>
-        <a href="/roadmaps" style={{ color: "var(--text-4)", textDecoration: "none" }}>Roadmaps</a>
+        <Link href="/roadmaps" style={{ color: "var(--text-4)", textDecoration: "none" }}>Roadmaps</Link>
         <span>›</span>
         <span style={{ color: "var(--text-2)" }}>{rm.title}</span>
       </nav>

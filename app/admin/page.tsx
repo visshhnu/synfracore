@@ -42,7 +42,7 @@ export default async function AdminPage({ searchParams }: Props) {
         Admin — Learner Overview
       </h1>
       <p style={{ color: "var(--text-4)", fontSize: "13px", marginBottom: "28px" }}>
-        Visible only to accounts with role = 'admin'. Every learner still only ever sees their own data — this view is powered by the is_admin() RLS policy, not a service-role bypass.
+        Visible only to accounts with role = &apos;admin&apos;. Every learner still only ever sees their own data — this view is powered by the is_admin() RLS policy, not a service-role bypass.
       </p>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "12px", marginBottom: "28px" }}>

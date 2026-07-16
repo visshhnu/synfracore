@@ -51,7 +51,7 @@ export default function ResultsSummary({ results }: Props) {
 
             {q.reviewLocked ? (
               <p style={{ fontSize: "12.5px", color: "var(--text-4)", marginLeft: "27px", fontStyle: "italic" }}>
-                Not answered — complete more of the paper to unlock this question's review.
+                Not answered — complete more of the paper to unlock this question&apos;s review.
               </p>
             ) : (
               <>

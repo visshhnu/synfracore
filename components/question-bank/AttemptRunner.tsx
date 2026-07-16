@@ -129,7 +129,7 @@ export default function AttemptRunner({ attemptId, paperSlug, questions, initial
         </div>
 
         {saveFailedFor === current.id && (
-          <p style={{ fontSize: "12px", color: "#F87171", marginTop: "10px" }}>⚠️ This answer wasn't saved — check your connection and reselect.</p>
+          <p style={{ fontSize: "12px", color: "#F87171", marginTop: "10px" }}>⚠️ This answer wasn&apos;t saved — check your connection and reselect.</p>
         )}
 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "24px", paddingTop: "20px", borderTop: "1px solid var(--border)" }}>

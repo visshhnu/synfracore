@@ -8,6 +8,14 @@ import { academies } from "@/lib/data/academies";
 import Image from "next/image";
 import { useAuth, SignInButton, UserButton } from "@clerk/nextjs";
 
+// Minimal shape for the untyped third-party Google Translate widget global —
+// only the members this component actually touches.
+type GoogleTranslateWindow = Window & {
+  __gtLoaded?: boolean;
+  googleTranslateElementInit?: () => void;
+  google?: { translate: { TranslateElement: new (opts: Record<string, unknown>, id: string) => unknown } };
+};
+
 // ── Language Switcher ─────────────────────────────────────
 function LanguageSwitcher() {
   const [open, setOpen] = useState(false);
@@ -73,7 +81,7 @@ function SearchBox() {
     for (const a of academies) {
       for (const d of (a.domains || [])) {
         for (const t of (d.technologies || [])) {
-          idx.push({ name: t.name, tags: t.tags || [], description: (t as any).description || "", href: `/academies/${a.slug}/${t.slug}`, color: a.color, domain: d.name, academy: a.title });
+          idx.push({ name: t.name, tags: t.tags || [], description: t.description || "", href: `/academies/${a.slug}/${t.slug}`, color: a.color, domain: d.name, academy: a.title });
         }
       }
     }
@@ -130,7 +138,7 @@ function MobileSearchOverlay({ onClose }: { onClose: () => void }) {
     for (const a of academies) {
       for (const d of (a.domains || [])) {
         for (const t of (d.technologies || [])) {
-          idx.push({ name: t.name, tags: t.tags || [], description: (t as any).description || "", href: `/academies/${a.slug}/${t.slug}`, color: a.color, domain: d.name, academy: a.title });
+          idx.push({ name: t.name, tags: t.tags || [], description: t.description || "", href: `/academies/${a.slug}/${t.slug}`, color: a.color, domain: d.name, academy: a.title });
         }
       }
     }
@@ -222,10 +230,11 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    if (typeof window === "undefined" || (window as any).__gtLoaded) return;
-    (window as any).__gtLoaded = true;
-    (window as any).googleTranslateElementInit = function () {
-      try { new (window as any).google.translate.TranslateElement({ pageLanguage: "en", autoDisplay: false }, "google_translate_element"); } catch {}
+    const w = window as GoogleTranslateWindow;
+    if (typeof window === "undefined" || w.__gtLoaded) return;
+    w.__gtLoaded = true;
+    w.googleTranslateElementInit = function () {
+      try { new w.google!.translate.TranslateElement({ pageLanguage: "en", autoDisplay: false }, "google_translate_element"); } catch {}
     };
     const s = document.createElement("script");
     s.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
@@ -434,7 +443,7 @@ export default function Navbar() {
                       style={{ display: "flex", alignItems: "center", gap: "7px", padding: "6px 12px 6px 44px", textDecoration: "none" }}
                       onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--bg-1)"}
                       onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "transparent"}>
-                      <span style={{ fontSize: "11px" }}>{(tech as any).icon || "·"}</span>
+                      <span style={{ fontSize: "11px" }}>{tech.icon || "·"}</span>
                       <span style={{ fontSize: "12px", color: "var(--text-2)", fontWeight: 500 }}>{tech.name}</span>
                     </Link>
                   ))}

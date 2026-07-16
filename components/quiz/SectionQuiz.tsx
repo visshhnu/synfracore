@@ -116,7 +116,7 @@ export default function SectionQuiz({ academy, technology, section, techName, ac
         <div style={{ marginTop: "18px", padding: "12px 16px", borderRadius: "10px", background: `${accentColor}10`, border: `1px solid ${accentColor}30`, fontSize: "13px", fontWeight: 700, color: "var(--text-1)" }}>
           You scored {score}/{questions.length} {saving && "— saving…"}
           {!userId && isLoaded && <span style={{ fontWeight: 400, color: "var(--text-4)", display: "block", marginTop: "4px" }}>Sign in to save your quiz results to your dashboard.</span>}
-          {saveFailed && userId && <span style={{ fontWeight: 400, color: "#F87171", display: "block", marginTop: "4px" }}>⚠️ Your score wasn't saved — a connection or database issue. Your answers above are still correct, this attempt just won't show up on your dashboard.</span>}
+          {saveFailed && userId && <span style={{ fontWeight: 400, color: "#F87171", display: "block", marginTop: "4px" }}>⚠️ Your score wasn&apos;t saved — a connection or database issue. Your answers above are still correct, this attempt just won&apos;t show up on your dashboard.</span>}
         </div>
       )}
     </div>

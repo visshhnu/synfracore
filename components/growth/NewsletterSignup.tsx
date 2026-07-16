@@ -109,7 +109,7 @@ export function NewsletterSignup({ variant = "full", context }: Props) {
       </p>
       {status === "done" ? (
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", color: "#10B981", fontSize: "16px", fontWeight: 600 }}>
-          <CheckCircle size={20}/> You're in! Check your inbox for the welcome email.
+          <CheckCircle size={20}/> You&apos;re in! Check your inbox for the welcome email.
         </div>
       ) : (
         <>

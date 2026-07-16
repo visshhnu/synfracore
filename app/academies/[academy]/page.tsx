@@ -273,7 +273,7 @@ export default async function AcademyPage({ params }: Props) {
       {/* What you'll be able to do */}
       <div style={{ padding: "24px", borderRadius: "12px", border: "1px solid var(--border)", background: "var(--bg-1)", marginBottom: "40px" }}>
         <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "16px", marginBottom: "16px" }}>
-          🎯 What You'll Be Able to Do
+          🎯 What You&apos;ll Be Able to Do
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "10px" }}>
           {m.outcomes.map((o, i) => (

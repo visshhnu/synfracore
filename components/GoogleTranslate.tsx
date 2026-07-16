@@ -1,6 +1,13 @@
 "use client";
 import { useEffect } from "react";
 
+// Minimal shape for the untyped third-party Google Translate widget global —
+// only the members this component actually touches.
+type GoogleTranslateWindow = Window & {
+  googleTranslateElementInit?: () => void;
+  google?: { translate: { TranslateElement: new (opts: Record<string, unknown>, id: string) => unknown } };
+};
+
 export function GoogleTranslate() {
   useEffect(() => {
     // Only run on client - prevents hydration mismatch (#418)
@@ -9,9 +16,10 @@ export function GoogleTranslate() {
     script.async = true;
     document.head.appendChild(script);
 
-    (window as any).googleTranslateElementInit = function () {
+    const w = window as GoogleTranslateWindow;
+    w.googleTranslateElementInit = function () {
       try {
-        new (window as any).google.translate.TranslateElement(
+        new w.google!.translate.TranslateElement(
           { pageLanguage: "en", includedLanguages: "te,hi,kn,ta,ml,ar,es,pt,zh-TW,fr,de,ja", autoDisplay: false },
           "google_translate_element"
         );

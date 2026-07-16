@@ -103,7 +103,7 @@ export default async function DashboardPage() {
           it exposed internal auth/integration details to end users. */}
       {syncError && (
         <div style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.3)", borderRadius: "12px", padding: "14px 18px", marginBottom: "20px" }}>
-          <div style={{ fontWeight: 700, fontSize: "13px", color: "#F87171" }}>⚠️ We couldn't sync your profile just now</div>
+          <div style={{ fontWeight: 700, fontSize: "13px", color: "#F87171" }}>⚠️ We couldn&apos;t sync your profile just now</div>
           <div style={{ fontSize: "12px", color: "var(--text-3)", marginTop: "4px" }}>Your account is signed in — this only affects a few personalised fields. Try refreshing in a moment.</div>
         </div>
       )}
@@ -113,7 +113,7 @@ export default async function DashboardPage() {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", flexWrap: "wrap", background: "linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1))", border: "1px solid rgba(99,102,241,0.25)", borderRadius: "14px", padding: "18px 22px", marginBottom: "28px" }}>
           <div>
             <div style={{ fontWeight: 700, fontSize: "14px", color: "var(--text-1)", marginBottom: "2px" }}>Personalize your dashboard</div>
-            <div style={{ fontSize: "13px", color: "var(--text-3)" }}>Tell us what you're learning for — takes under a minute, and never restricts what you can access.</div>
+            <div style={{ fontSize: "13px", color: "var(--text-3)" }}>Tell us what you&apos;re learning for — takes under a minute, and never restricts what you can access.</div>
           </div>
           <Link href="/onboarding" className="btn-primary" style={{ padding: "9px 20px", borderRadius: "8px", fontSize: "13px", fontWeight: 700, whiteSpace: "nowrap" }}>
             Get started →
@@ -183,7 +183,7 @@ export default async function DashboardPage() {
             </Link>
           ) : (
             <div style={{ textAlign: "center", padding: "24px 16px" }}>
-              <p style={{ color: "var(--text-4)", fontSize: "13px", marginBottom: "14px" }}>You haven't started a lesson yet — pick any academy and jump in.</p>
+              <p style={{ color: "var(--text-4)", fontSize: "13px", marginBottom: "14px" }}>You haven&apos;t started a lesson yet — pick any academy and jump in.</p>
               <Link href="/academies" className="btn-primary" style={{ padding: "9px 20px", borderRadius: "8px", fontSize: "13px", fontWeight: 700 }}>Browse academies</Link>
             </div>
           )}

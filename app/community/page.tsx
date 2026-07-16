@@ -56,7 +56,7 @@ export default function CommunityPage() {
           Join the Community
         </h1>
         <p style={{ color: "var(--text-4)", fontSize: "18px", maxWidth: "560px", margin: "0 auto", lineHeight: 1.7 }}>
-          Connect with DevOps engineers, cloud architects, and AI practitioners. Share what you're building, get unstuck faster, and grow your career together.
+          Connect with DevOps engineers, cloud architects, and AI practitioners. Share what you&apos;re building, get unstuck faster, and grow your career together.
         </p>
       </div>
 
@@ -108,7 +108,7 @@ export default function CommunityPage() {
         <div style={{ fontSize: "36px", marginBottom: "16px" }}>✈️</div>
         <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: "26px", marginBottom: "12px" }}>Start with Telegram</h2>
         <p style={{ color: "var(--text-4)", fontSize: "15px", maxWidth: "440px", margin: "0 auto 24px", lineHeight: 1.7 }}>
-          The most active community channel. Get daily DevOps tips, ask questions, and share what you're building.
+          The most active community channel. Get daily DevOps tips, ask questions, and share what you&apos;re building.
         </p>
         <a href="https://t.me/synfracore" target="_blank" rel="noopener noreferrer"
           style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "#0088CC", color: "#fff", padding: "14px 32px", borderRadius: "12px", fontSize: "15px", fontWeight: 700, textDecoration: "none" }}>

@@ -234,7 +234,7 @@ export default function Home() {
             <div className="label" style={{ marginBottom: "12px" }}>Start Here</div>
             <h2 className="display-md" style={{ marginBottom: "12px" }}>Who Are You?</h2>
             <p style={{ color: "var(--text-3)", fontSize: "16px", maxWidth: "500px", margin: "0 auto" }}>
-              Pick your path — we'll take you from where you are to where you want to be.
+              Pick your path — we&apos;ll take you from where you are to where you want to be.
             </p>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "16px" }}>
