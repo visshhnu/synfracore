@@ -82,11 +82,22 @@ detailed below.
     but **zero application code references it** — confirmed by grep across `app/`,
     `lib/`, `components/`. Matches CLAUDE.md's own note that it's not consulted at
     runtime yet.
-  - *1.3 registry auto-generation*: `scripts/generate-content-registry.mjs` exists
-    and works, but is **not wired into any build step** — only a standalone
-    `npm run generate:content-registry`, not called from `build`/`predeploy`/`deploy`.
-  - *1.4 search-index auto-generation*: **does not exist.** `app/search/page.tsx`
-    still has a hand-maintained hardcoded `searchIndex` array.
+  - *1.3 registry auto-generation*: **fixed 2026-07-16 (B3).**
+    `scripts/generate-content-registry.mjs` existed and worked, but wasn't
+    wired into any build step. `npm run pages:build` — the script CLAUDE.md's
+    documented deploy process actually calls, not `npm run deploy` — now runs
+    `generate:content-registry` first. Verified: running it against the
+    already-stale registry (before A9's directory deletions were reflected)
+    correctly dropped the 24 now-deleted `monitoring/*` entries.
+  - *1.4 search-index auto-generation*: **correction, 2026-07-16 — this
+    session's original finding was wrong.** `app/search/page.tsx`'s
+    `searchIndex` is not a hardcoded array — it's the return value of
+    `buildSearchIndex()`, which iterates `getAllTechnologies()`,
+    `certifications`, and `educationBoards` live at module load. Confirmed via
+    direct grep that no literal `searchIndex = [...]` array exists anywhere in
+    the codebase. This sub-item is already done; the original audit
+    misread the `const searchIndex: Result[] = buildSearchIndex();`
+    declaration without checking what the function body actually does.
   - *1.5 dead-directory cleanup*: **confirmed, two concrete findings.**
     (a) `public/content/{education` is a malformed, empty junk directory
     (containing an equally malformed empty subdirectory literally named
