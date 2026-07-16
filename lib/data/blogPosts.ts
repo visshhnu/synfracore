@@ -68,28 +68,6 @@ export const articles: Record<string, { title: string; tag: string; date: string
       "The NAT Gateway costs ~$0.05/hour. Run `terraform destroy` when you are done learning to avoid charges.",
     ]
   },
-  "devops-salary-india-2025": {
-    title: "DevOps Engineer Salaries in India 2025: City-wise, Experience-wise Breakdown",
-    tag: "Career", date: "February 2025", readTime: "5 min read",
-    body: [
-      "## Salary Ranges by Experience",
-      "Data from Naukri, LinkedIn, Glassdoor, and community surveys (2024-2025).",
-      "## Junior DevOps Engineer (0-2 years)",
-      "Bangalore: ₹6-12 LPA | Hyderabad: ₹5-10 LPA | Pune: ₹5-9 LPA | Mumbai: ₹6-11 LPA | Remote: ₹5-10 LPA",
-      "What gets you to the higher end: Kubernetes certification (CKA), AWS/Azure cert, actual project experience.",
-      "## Mid-Level (2-5 years)",
-      "Bangalore: ₹15-28 LPA | Hyderabad: ₹12-24 LPA | Pune: ₹12-22 LPA | Remote: ₹14-25 LPA",
-      "Key differentiators: owning production systems, cloud certifications (AWS SAA), team lead experience.",
-      "## Senior DevOps / Platform Engineer (5-8 years)",
-      "Bangalore: ₹28-50 LPA | Remote: ₹25-45 LPA. Architecture decisions, mentoring, and incident ownership define this level.",
-      "## Skills That Increase Salary",
-      "| Skill | Salary Bump |\n|---|---|\n| Kubernetes (CKA certified) | +20-35% |\n| AWS Solutions Architect | +15-25% |\n| Platform Engineering | +25-40% |\n| AI/ML infra (LLMOps) | +30-50% |",
-      "## Product vs Service Companies",
-      "Product companies (Flipkart, Swiggy, CRED, Razorpay): 30-60% above market. MNC product offices (Google, Microsoft, Amazon): 2-4x market rate. MNC services (TCS, Infosys): usually at or below market rate.",
-      "## How to Move Up Faster",
-      "1. Certifications matter at 0-3 years (unlock resume filters). 2. Build real projects on GitHub — not tutorials. 3. Contribute to internal projects that go to production. 4. Study one level above your current role.",
-    ]
-  },
   "cka-exam-guide": {
     title: "CKA Exam Guide 2025: What I Wish I Knew Before Studying",
     tag: "Kubernetes", date: "March 2025", readTime: "12 min read",

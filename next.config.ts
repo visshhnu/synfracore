@@ -8,6 +8,14 @@ const nextConfig: NextConfig = {
         destination: "/academies/devops/:path*",
         permanent: true,
       },
+      {
+        // NF-12: 2025 salary post superseded by the 2026 one (more current
+        // data, more cities, better structured) -- redirect rather than a
+        // silent 404, and stops the two competing for the same search intent.
+        source: "/blog/devops-salary-india-2025",
+        destination: "/blog/devops-salary-india-2026",
+        permanent: true,
+      },
     ];
   },
   // Optimize images

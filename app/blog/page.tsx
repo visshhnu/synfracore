@@ -79,7 +79,6 @@ const articles = [
   { slug: "upsc-prelims-strategy-2026", title: "UPSC Prelims 2026: Strategy to Clear GS Paper 1 and CSAT", date: "Mar 2026", tag: "Education" },
   { slug: "icd10-coding-guide-2026", title: "ICD-10-CM Coding 2026: Complete Beginner to Professional Guide", date: "Jan 2026", tag: "Healthcare" },
   { slug: "medical-coding-interview-2026", title: "Medical Coding Interview Questions 2026: Top 40 With Answers", date: "Feb 2026", tag: "Healthcare" },
-  { slug: "devops-salary-india-2025", title: "DevOps Engineer Salary in India 2025: Breakdown", date: "Jan 2025", tag: "Career" },
   { slug: "cka-exam-guide", title: "CKA Exam Guide: How to Pass Certified Kubernetes Administrator", date: "Jan 2026", tag: "DevOps" },
 ];
 
