@@ -65,12 +65,34 @@ analytics change right up until the site went down.
    or any other Windows-mounted drive path.** Native filesystem builds are also
    ~2-4x faster (confirmed: ~50s vs ~120-200s), which is a useful tell if a build
    is unexpectedly slow — it may mean you're on the wrong filesystem. If working
-   from `D:\synfracore` on Windows, sync to a native WSL path first (e.g.
-   `rsync -a --delete --exclude='.next' --exclude='.vercel' --exclude='.git'
-   --exclude='node_modules' /mnt/d/synfracore/ ~/synfracore-build/`, plus
-   `.env.local` separately since it's excluded by most `.gitignore`-style syncs),
-   then run `npm run pages:build` and `wrangler pages deploy` from that native
-   path, not from `/mnt/d`.
+   from `D:\synfracore` on Windows, sync to a native WSL path first: `rsync -a
+   --delete --exclude='.next' --exclude='.vercel' --exclude='.git'
+   --exclude='node_modules' /mnt/d/synfracore/ ~/synfracore-build/`, then run
+   `npm run pages:build` and `wrangler pages deploy` from that native path, not
+   from `/mnt/d`.
+   - **`.env.local` MUST be copied fresh — `cp /mnt/d/synfracore/.env.local
+     ~/synfracore-build/.env.local` — on every single build, no exceptions,
+     even if you're confident nothing in it changed.** It's excluded from the
+     rsync above (most `.gitignore`-style excludes catch it) and is NOT a
+     one-time setup step — a real incident (2026-07-15) happened because a
+     stale native-directory `.env.local` sat unsynced across several builds
+     after a Clerk key rotation, silently baking the OLD dev-mode publishable
+     key back into production and breaking sign-in/sign-out for hours,
+     specifically *because* someone (an earlier build) had correctly synced it
+     once and every later build assumed that was still good enough. It wasn't.
+     `NEXT_PUBLIC_*` values are baked into the client bundle from whatever
+     `.env.local` the build machine has at build time — completely
+     independent of `wrangler.toml`'s `[vars]` or Cloudflare's dashboard
+     secrets, which only affect server-side runtime reads, not the client
+     bundle. After copying, verify with `grep CLERK_PUBLISHABLE_KEY
+     ~/synfracore-build/.env.local` and confirm it matches
+     `d:\synfracore\.env.local` before building.
+   - If a deploy goes out with a wrong/stale env-derived value anyway (same
+     failure mode as above), a stale `.next` build cache can also be the
+     cause even with a correct `.env.local` — `rm -rf .next .vercel` in the
+     native build directory before rebuilding to rule this out; confirmed
+     this exact class of bug twice now (once for the 7th roadmap symptom's
+     RSC-manifest paths, once for this Clerk key regression).
 2. **Any `wrangler.toml` edit must be diffed and reviewed before deploying** —
    run `git diff -- wrangler.toml` and actually read it. This file's `[vars]`
    block is easy to corrupt silently (a malformed TOML line, or a value
@@ -175,3 +197,13 @@ automatically.
 - Do not commit `.env.local` or any real key.
 - Do not launch new academies beyond the 3 flagship ones until the auth +
   dashboard shell is stable (see phased plan in `/docs`).
+- **Do not sign in or sign out from a `/question-bank` page** (the paper
+  landing page or an attempt page) until Symptom 10/11 is fixed
+  (`docs/audit/07-roadmap-final.md`). Clerk's SDK dispatches an internal
+  Server Action to invalidate Next's RSC cache after any `setActive()`/
+  `signOut()` call, which 404s on `@cloudflare/next-on-pages` and can
+  crash hydration (React error #418) — worse, it can also trigger a
+  retry storm severe enough to trip Cloudflare Worker limits and cause
+  intermittent 503s **site-wide**, not just on that page. Sign in/out
+  from any other page instead; the structural fix is the OpenNext
+  migration (OP-2/D1).
