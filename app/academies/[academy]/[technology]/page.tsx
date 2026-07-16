@@ -85,12 +85,12 @@ export default async function TechnologyPage({ params }: Props) {
   };
 
   const isNonTech = nonTechAcademyIds.includes(aSlug);
-  const activeSections = isNonTech ? nonTechSections : techSections;
-  const availableSections = isNonTech
-    ? nonTechSections
-    : techSections.filter(s =>
-        ["overview","fundamentals","intermediate","advanced","labs","projects","interview","troubleshooting","certification","cheatsheets"].includes(s.slug)
-      );
+  // Was filtered down to 10 hardcoded slugs, hiding Prerequisites,
+  // Installation, Roadmap, Notes, PYQ, Real World, and FAQ from this grid
+  // even though the sidebar (app/academies/[academy]/[technology]/[section]/
+  // page.tsx) already links to the full, unfiltered list (NF-11) — same
+  // source list as the sidebar now, no separate filter to drift out of sync.
+  const availableSections = isNonTech ? nonTechSections : techSections;
 
   return (
     <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "40px 24px" }}>
