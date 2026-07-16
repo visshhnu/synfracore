@@ -1,13 +1,22 @@
 import Link from "next/link";
+import { academies as allAcademies } from "@/lib/data/academies";
 export const runtime = "edge";
 export const metadata = {
   title: "About SynfraCore",
   description: "SynfraCore is India's most comprehensive tech learning platform — DevOps, Cloud, AI, Databases, Security and more. Learn who we are and what we are building.",
 };
 
+// Derived from academies.ts, not hand-maintained — this page previously had
+// its own separate hardcoded stats array (101/10) disagreeing with both the
+// homepage's (890+/11) and the actual data (201/18) — see NF-6.
+const totalTechnologies = allAcademies.reduce(
+  (sum, a) => sum + a.domains.reduce((dSum, d) => dSum + d.technologies.length, 0),
+  0
+);
+
 const stats = [
-  { value: "101", label: "Technologies" },
-  { value: "10", label: "Learning Academies" },
+  { value: `${totalTechnologies}`, label: "Technologies" },
+  { value: `${allAcademies.length}`, label: "Learning Academies" },
   { value: "5,000+", label: "Content Pages" },
   { value: "100%", label: "Free to Start" },
 ];
@@ -46,7 +55,7 @@ export default function AboutPage() {
           SynfraCore is a tech learning platform built for engineers who want to go deep — not just watch videos, but actually build things, pass certifications, and get hired into better roles.
         </p>
         <p style={{ color: "var(--text-4)", fontSize: "18px", lineHeight: 1.8, marginTop: "16px" }}>
-          We cover 101 technologies across DevOps, Cloud, AI, Databases, Security, Healthcare Coding, and more — each with a complete learning path from installation guides to advanced architecture to interview preparation.
+          We cover {totalTechnologies} technologies across DevOps, Cloud, AI, Databases, Security, Healthcare Coding, and more — each with a complete learning path from installation guides to advanced architecture to interview preparation.
         </p>
       </div>
 

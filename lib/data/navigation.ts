@@ -1,3 +1,6 @@
+import { academies } from "./academies";
+import { educationBoards } from "./education";
+
 export const navigation = [
   { name: "Academies", href: "/academies" },
   { name: "Roadmaps", href: "/roadmaps" },
@@ -113,11 +116,26 @@ export const roadmaps = [
 ];
 
 
+// Derived from the actual data at import time, not hand-maintained — this is
+// the 5th instance of the hand-maintained-vs-source-of-truth drift pattern
+// (registry, sitemap, search index, steps/techLinks, now marketing stats —
+// see docs/audit/07-roadmap-final.md NF-6). Confirmed live 2026-07-16: the
+// real counts were 18 academies (not 11), 201 technologies (not 890+), 17
+// certifications (not 13) — every one of these was wrong by a wide margin.
+const totalTechnologies = academies.reduce(
+  (sum, a) => sum + a.domains.reduce((dSum, d) => dSum + d.technologies.length, 0),
+  0
+);
+const totalChapters = educationBoards.reduce(
+  (sum, b) => sum + b.subjects.reduce((sSum, s) => sSum + s.chapters.length, 0),
+  0
+);
+
 export const stats = [
-  { value: "284+", label: "Chapters" },
-  { value: "11", label: "Academies" },
-  { value: "890+", label: "Tech Topics" },
-  { value: "13", label: "Certifications" },
+  { value: `${totalChapters}+`, label: "Chapters" },
+  { value: `${academies.length}`, label: "Academies" },
+  { value: `${totalTechnologies}+`, label: "Tech Topics" },
+  { value: `${certifications.length}`, label: "Certifications" },
 ];
 
 // Sections for non-technical knowledge domains

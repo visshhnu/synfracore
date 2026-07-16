@@ -4,9 +4,17 @@ import Link from "next/link";
 import { educationBoards } from "@/lib/data/education";
 import { pageMetadata } from "@/lib/seo/metadata";
 
+const liveBoardSlugs = ["class-10","class-12","jee","gate-cse","banking","neet","upsc","defence","ssc","career","finance"];
+// Same derivation the page component uses for its on-page count (line 35
+// below) -- this was previously a hardcoded "284+" in the meta description
+// alone, stale the moment any board's chapter count changed (see NF-6).
+const metaChapterCount = educationBoards
+  .filter(b => liveBoardSlugs.includes(b.slug))
+  .reduce((acc, b) => acc + b.subjects.reduce((a, s) => a + s.chapters.length, 0), 0);
+
 export const metadata: Metadata = pageMetadata({
   title: "Academy — Chapter-wise Learning for Every Exam",
-  description: "284+ chapters across Class 10, Class 12, JEE, NEET, GATE CSE, Banking, UPSC, SSC, Defence, Career, and Finance. Expert-written with PYQs, MCQs, and revision notes.",
+  description: `${metaChapterCount}+ chapters across Class 10, Class 12, JEE, NEET, GATE CSE, Banking, UPSC, SSC, Defence, Career, and Finance. Expert-written with PYQs, MCQs, and revision notes.`,
   keywords: ["JEE preparation","NEET preparation","GATE CSE","Banking exam","Class 10 CBSE","UPSC","SSC CGL","SynfraCore Academy"],
   path: "/learn",
 });
@@ -26,10 +34,8 @@ const boardCategory: Record<string, string> = {
   "career": "career", "finance": "career",
 };
 
-const liveBoards = ["class-10","class-12","jee","gate-cse","banking","neet","upsc","defence","ssc","career","finance"];
-
 export default function LearnPage() {
-  const live = educationBoards.filter(b => liveBoards.includes(b.slug));
+  const live = educationBoards.filter(b => liveBoardSlugs.includes(b.slug));
   const soon: typeof educationBoards = [];
 
   const totalChapters = live.reduce((acc, b) => acc + b.subjects.reduce((a, s) => a + s.chapters.length, 0), 0);
