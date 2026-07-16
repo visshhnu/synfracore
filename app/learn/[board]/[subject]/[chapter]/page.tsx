@@ -14,9 +14,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const board = getBoard(bSlug);
   const subject = getSubject(bSlug, sSlug);
   const chapter = getChapter(bSlug, sSlug, cSlug);
-  if (!board || !subject || !chapter) return { title: "Learn | SynfraCore" };
+  if (!board || !subject || !chapter) return { title: "Learn" };
   return {
-    title: `${chapter.title} — ${subject.name} | ${board.shortName} | SynfraCore`,
+    title: `${chapter.title} — ${subject.name} | ${board.shortName}`,
     description: `${chapter.description}. Topics: ${chapter.topics.join(", ")}. Free study material with PYQs, MCQs, and revision notes.`,
     keywords: [chapter.title, subject.name, board.shortName, "CBSE", "Class 10", "JEE", "GATE", "SynfraCore"],
     alternates: { canonical: `https://synfracore.com/learn/${bSlug}/${sSlug}/${cSlug}` },
@@ -180,6 +180,7 @@ export default async function ChapterPage({ params }: Props) {
           sectionLabel={chapter.title}
           accentColor={board.color}
           initialContent={initialContent}
+          pageUrl={`https://synfracore.com/learn/${bSlug}/${sSlug}/${cSlug}`}
         />
 
         {/* Prev / Next navigation */}

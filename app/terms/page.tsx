@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Terms of Service | SynfraCore",
+  title: "Terms of Service",
   description: "Terms and conditions for using SynfraCore learning platform.",
 };
 

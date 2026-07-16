@@ -188,10 +188,10 @@ const defaultMeta = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { academy: aSlug } = await params;
   const academy = getAcademy(aSlug);
-  if (!academy) return { title: "Academy | SynfraCore" };
+  if (!academy) return { title: "Academy" };
   const m = academyMeta[aSlug] || defaultMeta;
   return {
-    title: `${academy.title} Academy — Structured Learning Path | SynfraCore`,
+    title: `${academy.title} Academy — Structured Learning Path`,
     description: m.desc,
     alternates: { canonical: `https://synfracore.com/academies/${aSlug}` },
   };

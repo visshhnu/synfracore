@@ -6,7 +6,7 @@ import { getDomainPreferences } from "@/lib/supabase/queries";
 import { auth } from "@clerk/nextjs/server";
 import OnboardingForm from "./OnboardingForm";
 
-export const metadata = { title: "Get started | SynfraCore" };
+export const metadata = { title: "Get started" };
 
 type Props = { searchParams: Promise<{ error?: string }> };
 

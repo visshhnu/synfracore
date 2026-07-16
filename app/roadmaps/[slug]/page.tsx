@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props) {
   if (!rm) return { title: "Roadmap | SynfraCore" };
   const detail = roadmapDetails[slug];
   return {
-    title: `${rm.title} Roadmap | SynfraCore`,
+    title: `${rm.title} Roadmap`,
     description: detail?.description || `Complete learning roadmap for ${rm.title}`,
   };
 }

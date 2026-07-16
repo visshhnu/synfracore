@@ -280,7 +280,7 @@ export async function generateMetadata({ params }: Props) {
   if (!cert) return {};
   const detail = certDetail[id];
   return {
-    title: `${cert.name} (${cert.code}) Study Guide — SynfraCore`,
+    title: `${cert.name} (${cert.code}) Study Guide`,
     description: `Complete ${cert.name} exam guide: ${detail?.domains?.[0]?.name ?? "exam domains"}, study plan, practice questions, and tips. Pass on your first attempt.`,
     alternates: { canonical: `https://synfracore.com/certifications/${id}` },
   };

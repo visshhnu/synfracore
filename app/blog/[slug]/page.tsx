@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const article = articles[slug];
   if (!article) return { title: "Article Not Found" };
-  return { title: `${article.title} | SynfraCore Blog`, description: article.title };
+  return { title: `${article.title} — Blog`, description: article.title };
 }
 
 function formatInlineBlog(text: string): string {
@@ -141,7 +141,7 @@ export default async function BlogPost({ params }: Props) {
 
       {/* Share buttons */}
       <div style={{ marginTop: "32px" }}>
-        <ShareButtons title={article.title} />
+        <ShareButtons title={article.title} url={`https://synfracore.com/blog/${slug}`} />
       </div>
 
       {/* Newsletter signup */}

@@ -185,9 +185,9 @@ const roles: Record<string, {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { role } = await params;
   const r = roles[role];
-  if (!r) return { title: "Career | SynfraCore" };
+  if (!r) return { title: "Career" };
   return {
-    title: `${r.title} Career Path — Skills, Roadmap, Salary | SynfraCore`,
+    title: `${r.title} Career Path — Skills, Roadmap, Salary`,
     description: `Complete ${r.title} guide: required skills, step-by-step roadmap, salary ${r.salary}, interview questions, certifications, and resume bullets.`,
     alternates: { canonical: `https://synfracore.com/careers/${role}` },
   };

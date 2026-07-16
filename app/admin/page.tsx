@@ -6,7 +6,7 @@ import { ensureUserRecord } from "@/lib/supabase/ensureUser";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getAllUsersForAdmin, getAdminUserStats } from "@/lib/supabase/queries";
 
-export const metadata = { title: "Admin | SynfraCore" };
+export const metadata = { title: "Admin" };
 
 type Props = { searchParams: Promise<{ page?: string }> };
 
