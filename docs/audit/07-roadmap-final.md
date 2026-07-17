@@ -782,6 +782,55 @@ re-discovered from scratch:
    across several academies (not just auth flows) before any future
    domain cutover.
 
+### Post-revert: one narrow next-on-pages-native fix attempted and disproved (2026-07-18)
+
+With D1 paused, tried a small, targeted, `next-on-pages`-native fix for
+Symptom 11 instead of a platform migration — matching how the onboarding
+auth bug was fixed earlier (a code-level fix, not an adapter swap). Found
+a real structural difference: `components/question-bank/StartButton.tsx`
+was the only sign-in entry point in the app that navigated to the
+standalone `/sign-in?redirect_url=...` page (`router.push`); every other
+entry point (`Navbar.tsx`'s `<SignInButton mode="modal">`) uses Clerk's
+modal, which never navigates away from the current page. Hypothesis: if
+Symptom 11's reproduction was tied to landing on that specific URL shape,
+switching `StartButton.tsx` to `useClerk().openSignIn()` (modal, in place)
+should avoid it.
+
+**Built, deployed to a genuine Cloudflare Pages preview, and tested with
+a real Playwright browser session** — not local `next dev` (the bug is
+adapter-specific and doesn't reproduce there) and not just markup/response
+checks. A pre-created test account (Clerk Backend API, bypassing Turnstile)
+signed in end-to-end through the modal: email → password → new-device OTP
+(6-digit code, confirmed "✓ Success" in a captured screenshot) →
+`setActive()` actively resolving.
+
+**Disproved, with direct evidence**: the modal successfully kept the user
+on `/question-bank/bchhc-practice-1` throughout — confirmed via URL
+tracking, it never navigated to `/sign-in` — but the crash fired anyway at
+the exact `setActive()` moment: `pageerror: "An unexpected response was
+received from the server"` plus a `404`, the precise Symptom 11 signature,
+caught live by the test's console/page-error listeners. This means the
+original hypothesis (landing on `/sign-in?redirect_url=...` specifically
+is what triggers the crash) was **wrong** — the crash is not about which
+page you're on relative to `/sign-in`. The more likely factor, consistent
+with rather than contradicting the pre-existing investigation: **both the
+sign-in page (with its `redirect_url` query param) and
+`/question-bank/[paperSlug]` are dynamic routes**, and Clerk's internal
+`invalidateCacheAction()` Server Action fails to dispatch correctly on a
+dynamic route under `next-on-pages`, regardless of which one or how it
+was reached (full navigation vs. in-place modal).
+
+**Conclusion, now precisely (not just previously) confirmed**: no small,
+`next-on-pages`-native fix is currently known for Symptom 11. D1 remains
+the only identified structural fix, and it stays paused (see above) —
+this is not a contradiction of that decision, it's independent
+confirmation that the decision was reasoning about the right trade-off.
+**Standing mitigation unchanged**: CLAUDE.md's existing instruction to
+avoid signing in/out specifically from question-bank pages remains the
+correct, current answer. This is being left as a known, understood,
+mitigated limitation — not something to keep chasing with further
+page-level attempts absent a new idea.
+
 ---
 
 ## Part 5 — Findings from the v2 draft, verified today (NF-1 through NF-12)
