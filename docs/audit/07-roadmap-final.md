@@ -299,7 +299,8 @@ assumption actually holds:
   around this pattern, confirming it's recognized, not a one-off report.
   **Whether D1 fixes Symptom 10/11 specifically (a different Clerk code path —
   the internal cache-invalidation action, not the auth-detection issue #524
-  describes) is genuinely unconfirmed either way.**
+  describes) was genuinely unconfirmed either way at the time this was
+  written. Since confirmed via an isolated repro — see Part 4c below.**
 - **Scope is larger than this roadmap previously described**, confirmed by
   reading OpenNext's actual Cloudflare migration docs rather than assuming from
   the summary already in this file: 50 files repo-wide use
@@ -323,6 +324,158 @@ stays in place. Before the next D1 attempt: re-check #524 and #281 for updates,
 and consider filing a minimal repro against current versions (Next.js 15.5.x)
 if upstream status is still unclear, per the roadmap's own "don't brute-force"
 rule.
+
+---
+
+## Part 4b — Symptom 12 (2026-07-17): the Clerk-migration self-heal fix itself was broken, twice in a row, both times a database-privilege gap the app-code fix couldn't see
+
+### Symptom 12 · `relink_user_id()` (the self-heal function built to fix Symptom 3's Clerk test-to-live migration, see `06-roadmap.md`) silently failed for every account after the first one — RESOLVED
+
+**Context**: earlier this session, `synfracore@gmail.com`'s account was manually
+re-linked from its old Clerk test-mode id to its new live-mode id via raw SQL
+(`lib/supabase/ensureUser.ts`'s `tryRelinkByEmail()` + a new `relink_user_id()`
+Postgres function were then built to make this self-healing for every other
+account going forward — see `06-roadmap.md`'s account-migration entry for that
+build). It was verified working for `synfracore@gmail.com` and deployed. It
+then failed for the next two accounts that actually exercised it
+(`visshnu9999@gmail.com`, `pillipratima@gmail.com`) — **twice, for two
+different reasons**, neither visible from reading the application code, both
+found only via live `wrangler pages deployment tail` capture of the function's
+own error, matching this project's established rule: get the real error before
+theorizing.
+
+**Failure 1 — missing GRANT, not a code bug.** Live tail on a real sign-in
+attempt showed:
+```
+"code": "42501",
+"hint": "Grant the required privileges to the current role with: GRANT UPDATE ON public.users TO service_role;",
+"message": "permission denied for table users"
+```
+`relink_user_id()` is a plain (non-`SECURITY DEFINER`) function, so its internal
+`UPDATE` statements run as whatever role calls it — `service_role`. Earlier in
+this same session, `service_role` had only been granted `SELECT` (via a broad
+`GRANT SELECT ON ALL TABLES IN SCHEMA public TO service_role`, done to unblock
+read-only diagnostic queries) — never `UPDATE` or `INSERT`. The function had
+been *tested* (for `synfracore@gmail.com`, via manual SQL run directly as the
+`postgres`/superuser role in the SQL Editor, which bypasses this entirely) but
+never actually *exercised through the app* until a real second account hit it,
+so this gap was invisible until then. **Fix**: `GRANT UPDATE, INSERT ON
+public.users TO service_role;` plus `UPDATE` on the four dependent tables.
+
+**Failure 2 — the function's own table list was incomplete, found immediately
+after fixing Failure 1.** Same live-tail technique, next attempt:
+```
+"code": "23503",
+"details": "Key (id)=(user_...) is still referenced from table \"quiz_attempts\".",
+"message": "update or delete on table \"users\" violates foreign key constraint \"quiz_attempts_user_id_fkey\" on table \"quiz_attempts\""
+```
+`relink_user_id()` had been written to cover exactly the three tables
+`synfracore@gmail.com`'s specific account happened to have rows in
+(`user_domain_preferences`, `recent_activity`, `paper_attempts`) — not the full,
+complete list of every table with a `user_id REFERENCES users(id)` foreign key.
+`quiz_attempts` (and, latent but unexercised so far, `lesson_progress`,
+`roadmap_progress`, `bookmarks`) were never included, so any account with data
+in one of the omitted tables would hit the identical class of failure the
+function was built to prevent. **This is the same root mistake as Failure 1,
+one level up**: the fix was validated against one specific account's data
+shape instead of the schema's actual, complete dependency graph. **Fix**:
+rewrote `relink_user_id()` to cover all seven tables that reference
+`users(id)` (confirmed via `grep -n "REFERENCES users(id)"` across
+`docs/learner-platform-schema.sql` and `docs/question-bank-schema.sql`, not
+assumed from memory), and made all seven's FKs `DEFERRABLE INITIALLY DEFERRED`
+(the four not already set from the `synfracore@gmail.com` fix needed the same
+treatment — see `06-roadmap.md` for why plain sequential `UPDATE`s can't
+re-point a primary key referenced by non-deferrable FKs at all, regardless of
+statement order).
+
+**Verified**: `visshnu9999@gmail.com` re-linked successfully immediately after
+both fixes landed — confirmed via direct Supabase query (`id` changed from the
+old test-mode value, `updated_at` bumped to the current timestamp) — not just
+"no error shown," per this project's standing rule to confirm data state
+directly rather than trust a lack of a visible error.
+
+**Lesson for any future self-heal / data-migration code on this project**:
+test it against the schema's full dependency graph, not just whichever single
+account happens to be on hand to test with. A fix "confirmed working" against
+one account's data shape is not confirmed complete — the next account with a
+different data shape is a real, separate test case, not a formality.
+
+---
+
+## Part 4c — 2026-07-17: isolated OpenNext+Clerk repro, confirming Symptom 2/6/8/10/11's fix path
+
+Part 4a left this open: "Whether D1 fixes Symptom 10/11 specifically... is
+genuinely unconfirmed either way." Rather than commit to the full 50-file
+production migration on that uncertainty, built a minimal, throwaway,
+completely separate repro to test the specific mechanism directly, deployed
+via `@opennextjs/cloudflare` to its own Cloudflare Worker
+(`opennext-clerk-repro.vishvibeofficial.workers.dev`) — **no production code,
+config, or deploy pipeline touched.** Exact production package versions
+(`@clerk/nextjs@7.5.12`, `next@15.5.20`, `react@19.2.4`), `clerkMiddleware()`,
+and — critically — a route protected with `auth.protect()` mirroring
+`middleware.ts`'s real `isRedirectOnSignedOut` pattern, to keep the repro
+honest rather than artificially clean.
+
+**Method note on tooling**: no browser automation was available at the start
+of this session (no sudo for Playwright's system deps in this WSL
+environment). Worked around it without sudo by downloading the ~23 required
+`.deb` packages via `apt-get download` (doesn't require root) and extracting
+them locally via `dpkg -x` into a user-owned directory, pointed at via
+`LD_LIBRARY_PATH`. Cloudflare Turnstile (Clerk's bot-protection on sign-up)
+initially blocked scripted interaction entirely, even with correct
+coordinates — resolved by using Clerk's own first-party `@clerk/testing`
+package, which issues a server-verified Testing Token that Clerk's frontend
+recognizes and bypasses Turnstile for (`captcha_bypass: true`, confirmed in
+the API response), rather than trying to defeat the CAPTCHA.
+
+**Result — clean on every real interaction tested:**
+- Fresh sign-up + email verification → `setActive()` fires → session created,
+  `isSignedIn: true`. No 404, no "unexpected response" error, no React #418.
+- Sign-in with an existing verified account (including a forced new-device
+  verification challenge) → same clean result.
+- **Sign-out from the middleware-protected route** (the closest analogue to
+  the actual production failure — signing out from
+  `/question-bank/.../attempt/<uuid>`, not the homepage) → `signOut()` fires
+  → clean transition to `isSignedIn: false`, middleware correctly bounced the
+  page back to `/`, **UI updated in place with no manual refresh needed** —
+  the exact symptom that was breaking in production.
+
+**Two things checked specifically because they were flagged as open
+questions, not assumed:**
+1. **Initiator of the one anomaly seen** (`net::ERR_ABORTED` on a POST to the
+   app's own origin, observed once during initial testing): attempted to
+   capture via Chrome DevTools Protocol's `Network.requestWillBeSent`/
+   `loadingFailed` events across 3 additional sign-in/out cycles. **Did not
+   reproduce even once** in those 3 attempts — meaning no definitive
+   Initiator stack trace was obtained either confirming or ruling out a
+   benign cause. Treat as: a real but low-frequency, non-reliably-reproducing
+   event, most consistent with a superseded/cancelled soft-navigation (the
+   working theory going in), but **not proven** — worth instrumenting for
+   specifically once D1 work actually starts, not treated as closed.
+2. **Whether `getAuthSafely()`'s server-side fallback pattern (used at all 8
+   production call sites) could make production behave differently than this
+   minimal repro**: `getAuthSafely()` only affects how the *server* reads an
+   already-established session (a workaround for `auth()`'s broken
+   AsyncLocalStorage handoff to Server Actions/Route Handlers — Symptom 3).
+   The mechanism under test here — Clerk's *client-side* SDK firing an
+   internal Server Action after `setActive()`/`signOut()` — is entirely
+   upstream of that; it fires from the browser before any of our server code
+   runs. **This is a reasoned conclusion from how the two mechanisms compose,
+   not something independently re-tested against the literal 8 call sites**
+   — the isolated repro deliberately doesn't include them, since including
+   production's exact server code would defeat the point of a minimal
+   repro. Flagged as a remaining verification item, not asserted as proven.
+
+**Bottom line**: this is real evidence that D1 (`@opennextjs/cloudflare`)
+resolves the specific mechanism behind Symptoms 2, 6, 8, 10, and 11 — tested
+against production's real middleware/`auth.protect()` shape, not just the
+simplest possible Clerk integration. It is not a guarantee that migrating the
+full production app will be friction-free (issue #524's auth-detection bug is
+still real and separate, per Part 4a — `getAuthSafely()` stays needed
+regardless of migration status), and the two items above remain open
+verification work for whenever D1 is actually planned as its own dedicated
+project, not started tonight. The repro stays live and untouched as a
+reference until then.
 
 ---
 
@@ -714,18 +867,27 @@ at least once and was never caught by desktop-only verification.
    D1 lands or Symptom 8/11 gets a real fix independent of it.
 
 ### Phase D — Structural platform work (branch + preview only; this quarter)
-1. **D1 — OpenNext migration** (OP-2). **Re-assessed 2026-07-16 (see Part 4a
-   below) — payoff is confirmed partial, not full, and scope is larger than
-   this roadmap previously described.** Search upstream issues for the
-   esbuild alias error first; if unresolved, file a minimal repro and pause —
-   don't brute-force. Once building, validate on a `workers.dev` preview with
-   the full Phase-0 checklist plus a Server Action test and a
-   middleware-rewrite test. Budget this as its own dedicated project, not a
-   quick swap — 50+ files need `export const runtime = "edge"` removed,
-   `wrangler.toml` needs a full rewrite, an R2 bucket needs manual setup in
-   the Cloudflare dashboard for the incremental cache, and
-   `lib/rateLimit.ts`'s `BLOG_KV` binding access needs rewriting for the
-   Workers `env` argument pattern instead of a `globalThis` read.
+1. **D1 — OpenNext migration** (OP-2). **Re-assessed 2026-07-16 (Part 4a) —
+   payoff confirmed partial, not full, scope larger than previously
+   described. Payoff re-assessed upward 2026-07-17 (Part 4c): an isolated
+   repro confirmed D1 resolves Symptoms 2/6/8/10/11's shared mechanism
+   (Clerk's internal cache-invalidation Server Action), tested against a
+   real `auth.protect()`-protected route matching production's actual
+   middleware shape — not just the simplest possible Clerk integration.
+   Two items remain open for when this is actually planned: the Initiator of
+   a rare `net::ERR_ABORTED` seen once and not reproduced since, and formal
+   confirmation that `getAuthSafely()`'s 8 call sites don't interact with
+   this differently (reasoned as unlikely — it's server-side-only — but not
+   independently re-tested).** Search upstream issues for the esbuild alias
+   error first; if unresolved, file a minimal repro and pause — don't
+   brute-force. Once building, validate on a `workers.dev` preview with the
+   full Phase-0 checklist plus a Server Action test and a middleware-rewrite
+   test. Budget this as its own dedicated project, not a quick swap — 50+
+   files need `export const runtime = "edge"` removed, `wrangler.toml` needs
+   a full rewrite, an R2 bucket needs manual setup in the Cloudflare
+   dashboard for the incremental cache, and `lib/rateLimit.ts`'s `BLOG_KV`
+   binding access needs rewriting for the Workers `env` argument pattern
+   instead of a `globalThis` read.
 2. **D2 — Static rendering** for eligible routes, only after D1.
 3. **D3 — Sentry re-activation** (OP-3), after D1, with a before/after bundle
    measurement.
