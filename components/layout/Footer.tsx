@@ -22,6 +22,7 @@ const platformLinks = [
   { name: "Projects", href: "/projects" },
   { name: "Roadmaps", href: "/roadmaps" },
   { name: "Certifications", href: "/certifications" },
+  { name: "BCHHC Exam Prep", href: "/academies/healthcare/bchhc-prep" },
   { name: "Interview Hub", href: "/interview" },
   { name: "Troubleshooting", href: "/troubleshooting" },
   { name: "AI Assistant", href: "/ai-assistant" },
