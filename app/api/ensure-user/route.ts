@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { NextResponse } from "next/server";
 import { getAuthSafely } from "@/lib/clerk/authFallback";
 import { ensureUserRowExists } from "@/lib/supabase/ensureUser";

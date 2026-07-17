@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 interface DigestContent {
   weekOf: string;
   topStory: { title: string; summary: string; link: string };

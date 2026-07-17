@@ -1,4 +1,5 @@
 import Link from "next/link";
+export const runtime = "edge";
 export const metadata = {
   title: "Community — SynfraCore",
   description: "Join the SynfraCore community. Connect with DevOps engineers, cloud architects, and AI practitioners on Telegram, LinkedIn, and GitHub.",

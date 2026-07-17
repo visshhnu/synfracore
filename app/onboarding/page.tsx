@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { ensureUserRecord } from "@/lib/supabase/ensureUser";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getDomainPreferences } from "@/lib/supabase/queries";

@@ -1,3 +1,4 @@
+export const runtime = "edge";
 import { certifications } from "@/lib/data/navigation";
 import { notFound } from "next/navigation";
 import Link from "next/link";

@@ -1,3 +1,4 @@
+export const runtime = "edge";
 import { roadmaps } from "@/lib/data/navigation";
 import { roadmapDetails } from "@/lib/data/roadmapDetails";
 import { notFound } from "next/navigation";

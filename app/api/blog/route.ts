@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 // Blog reactions API — stores likes per slug in Cloudflare KV
 // KV binding: BLOG_KV (add in Cloudflare Pages settings)
 // Falls back gracefully if KV not configured — see lib/rateLimit.ts's

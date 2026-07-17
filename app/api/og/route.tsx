@@ -1,3 +1,4 @@
+export const runtime = "edge";
 import { ImageResponse } from "next/og";
 
 // Dynamic OG image for each academy — /api/og?academy=devops&title=Kubernetes&section=Overview

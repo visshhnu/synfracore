@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 export type Technology = {
   slug: string;
   name: string;

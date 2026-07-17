@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { auth } from "@clerk/nextjs/server";
 
 // Locked to the site's own origin — this endpoint is never meant to be

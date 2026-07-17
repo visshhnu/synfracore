@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 export type LabStep = {
   id: string;
   title: string;

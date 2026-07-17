@@ -1,3 +1,4 @@
+export const runtime = "edge";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { academies } from "@/lib/data/academies";

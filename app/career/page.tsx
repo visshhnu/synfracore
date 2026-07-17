@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
 import { ArrowRight, TrendingUp } from "lucide-react";
+export const runtime = "edge";
+
 const CAREER_CLUSTERS = [
   {
     cluster: "Tech & Engineering", color: "#3B82F6", icon: "⚙️",

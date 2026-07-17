@@ -1,0 +1,28 @@
+name = "synfracore"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".vercel/output/static"
+
+# Public, non-secret values only — every NEXT_PUBLIC_* var is inlined into the
+# client-side JS bundle at build time regardless of where it's stored, so
+# there's nothing to protect by keeping these out of git. CLERK_SECRET_KEY is
+# the opposite (genuinely sensitive) and must stay a Dashboard-only Secret —
+# never add it here.
+[vars]
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = "pk_live_Y2xlcmsuc3luZnJhY29yZS5jb20k"
+NEXT_PUBLIC_SUPABASE_URL = "https://jlbyduuutwxcjaxtgsdw.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY = "sb_publishable_yDwcAvvY2eX2hchsUaf8ww_aXXO4wfZ"
+NEXT_PUBLIC_CLERK_SIGN_IN_URL = "/sign-in"
+NEXT_PUBLIC_CLERK_SIGN_UP_URL = "/sign-up"
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL = "/"
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL = "/"
+
+# Kill switch for /api/ai (app/api/ai/route.ts) — while "false" (the safe
+# default), the endpoint never calls Anthropic at all, at any cost, even for
+# signed-in users. Flip to "true" only once the real SynfraAI tutor (with
+# per-user metering) is ready to ship.
+AI_ASSISTANT_ENABLED = "false"
+
+[[kv_namespaces]]
+binding = "BLOG_KV"
+id = "57d60b769fbe4ae6be430d9dc4975f00"
