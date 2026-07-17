@@ -1,5 +1,13 @@
 # Stage 6 — Consolidated Roadmap
 
+> **DEPRECATED as of 2026-07-15.** This file is superseded by
+> [`07-roadmap-final.md`](07-roadmap-final.md), which re-verifies every open
+> item here against the live site/codebase, adds the 2026-07-15 Clerk
+> dev-to-production migration incident plus two new symptoms (9, 10), and adds
+> a full content-coverage audit. Kept in place for its detailed symptom 1–8
+> incident history, which `07-roadmap-final.md` condenses but does not
+> replace — read this file for full original detail on any symptom.
+
 Synthesizes every finding from Stages 1–5 (`docs/audit/01-*.md` through `05-*.md`) into one sequenced, dependency-aware action plan. Findings already fixed during this engagement are recapped for a complete record, not repeated as open work. Severities are carried over unchanged from their originating stage.
 
 ---

@@ -7,9 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "pages:build": "npm run generate:content-registry && npx @cloudflare/next-on-pages@1",
+    "pages:build": "npm run generate:content-registry && opennextjs-cloudflare build",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "predeploy": "npm run validate:roadmaps && npm run validate:content-quality",
-    "deploy": "npm run pages:build && wrangler pages deploy",
+    "deploy": "npm run pages:build && wrangler deploy",
     "validate:roadmaps": "node scripts/run-validate-roadmaps.mjs",
     "validate:content-quality": "node scripts/validate-content-quality.mjs",
     "generate:content-registry": "node scripts/generate-content-registry.mjs"
@@ -29,14 +30,16 @@
     "react-markdown": "^10.1.0"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^1.13.16",
+    "@opennextjs/cloudflare": "1.20.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "esbuild": "^0.28.1",
     "eslint": "^9",
     "eslint-config-next": "15.5.20",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "4.111.0"
   }
 }

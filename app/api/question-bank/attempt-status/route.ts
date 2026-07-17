@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import { NextRequest, NextResponse } from "next/server";
 import { getAuthSafely } from "@/lib/clerk/authFallback";
 import { createSupabaseServerClient } from "@/lib/supabase/server";

@@ -83,3 +83,10 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
+// Lets `next dev` see Cloudflare bindings (BLOG_KV) locally, the same way
+// they're available in the deployed Worker — without this, local dev's
+// getCloudflareContext() calls (lib/rateLimit.ts) would silently return no
+// bindings, masking a real config issue until it's actually deployed.
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+initOpenNextCloudflareForDev();

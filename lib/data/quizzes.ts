@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 export type QuizQuestion = {
   id: string;
   question: string;

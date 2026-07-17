@@ -1,9 +1,8 @@
-export const runtime = "edge";
-
 import { NextRequest, NextResponse } from "next/server";
 import { getAuthSafely } from "@/lib/clerk/authFallback";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { createServiceRoleClient } from "@/lib/supabase/serviceRole";
+import { ensureUserRowExists } from "@/lib/supabase/ensureUser";
 import { hasActivePremiumAccess } from "@/lib/billing/access";
 import { getPaperBySlug, getLatestInProgressAttempt, startAttempt } from "@/lib/supabase/questionBank";
 
@@ -32,6 +31,13 @@ export async function POST(req: NextRequest) {
   if (!userId) {
     return NextResponse.json({ redirectTo: `/sign-in?redirect_url=${encodeURIComponent(`/question-bank/${paperSlug}`)}` });
   }
+
+  // Guarantees a users row exists for this Clerk id before any question-bank
+  // write — including self-healing an existing test-mode account that's
+  // never visited /dashboard (which is the only other place this runs). See
+  // lib/supabase/ensureUser.ts's ensureUserRowExists() for why this can't
+  // just reuse ensureUserRecord().
+  await ensureUserRowExists(userId);
 
   const publicClient = createSupabaseServerClient();
   const paper = await getPaperBySlug(publicClient, paperSlug);

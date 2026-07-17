@@ -13,11 +13,13 @@
 //
 // Run with: node scripts/audit-content.mjs
 
-import { statSync, mkdtempSync, writeFileSync, rmSync } from "node:fs";
+import { statSync, mkdtempSync, writeFileSync, rmSync, readFileSync, mkdirSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { buildSync } from "esbuild";
 import { createRequire } from "node:module";
+import { fromMarkdown } from "mdast-util-from-markdown";
+import { toString as mdastToString } from "mdast-util-to-string";
 
 const require = createRequire(import.meta.url);
 const ROOT = process.cwd();
@@ -143,5 +145,314 @@ if (noContentAtAll.length === 0) {
 
 console.log(`\n--- Overview-only technologies (${overviewOnly.length}) ---`);
 for (const r of overviewOnly) console.log(`  ${r.academy}/${r.tech}`);
+
+// ── Gap-detection pass (comprehensive-gaps.json) ───────────────────────────
+//
+// Goes deeper than file-existence: parses each technology's markdown files
+// into an mdast tree and checks, per technology, whether each of 10
+// content categories is present, "thin" (exists but is negligible), or
+// missing outright. Read-only — writes only the JSON report below, never
+// touches content/code files.
+//
+// Categories fall into two detection strategies:
+//  - "file" categories map to a conventional dedicated filename (e.g.
+//    pyq.md, faq.md). If that file doesn't exist, we still search every
+//    other file belonging to the technology for a heading that matches —
+//    some technologies embed e.g. FAQ content as a heading inside
+//    overview.md/fundamentals.md instead of a dedicated file.
+//  - "heading" categories (Architectural Diagrams, Code Implementations,
+//    Quiz Blocks) have no dedicated-filename convention anywhere in this
+//    content tree, so they're detected purely via heading match, with a
+//    fenced-code-block fallback for Code Implementations (content teams
+//    often write code without a heading that literally says "Implementation").
+//
+// "thin" means: the file/section exists but its word count falls below a
+// threshold, or it contains an explicit placeholder phrase ("coming soon",
+// "TBD", etc). "missing" means no dedicated file AND no matching heading
+// (and, for Code Implementations, no fenced code blocks either) was found
+// anywhere in the technology's markdown files.
+
+const FILE_THIN_WORD_THRESHOLD = 80;
+const HEADING_THIN_WORD_THRESHOLD = 50;
+const CODE_PRESENT_THRESHOLD = 4;
+const PLACEHOLDER_RE = /coming soon|to be added|not yet available|under construction|\btbd\b|\btodo\b|placeholder/i;
+
+// `applicability: "techOnly"` mirrors lib/data/navigation.ts exactly:
+// real-world-scenarios, prerequisites, and labs appear in techSections but
+// NOT nonTechSections, so those tabs don't exist at all for non-tech
+// academies — treating a missing file there as a "gap" would misprioritize
+// content work for a tab the product never renders. pyq/faq/notes/interview
+// appear in both lists ("all").
+const FILE_CATEGORIES = [
+  { key: "realWorld", label: "Real World", filename: "real-world-scenarios.md", headingRegex: /real[\s-]?world|case stud|use case/i, applicability: "techOnly" },
+  { key: "pyq", label: "PYQ", filename: "pyq.md", headingRegex: /\bpyqs?\b|previous year|past paper/i, applicability: "all" },
+  { key: "faq", label: "FAQ", filename: "faq.md", headingRegex: /\bfaqs?\b|frequently asked/i, applicability: "all" },
+  { key: "notes", label: "Notes", filename: "notes.md", headingRegex: /revision notes|key takeaway|\bnotes\b/i, applicability: "all" },
+  { key: "prerequisites", label: "Prerequisites", filename: "prerequisites.md", headingRegex: /prerequisite/i, applicability: "techOnly" },
+  { key: "labScenarios", label: "Lab Scenarios", filename: "labs.md", headingRegex: /\blabs?\b|hands[\s-]?on/i, applicability: "techOnly" },
+  { key: "interviewMatrices", label: "Interview Matrices", filename: "interview.md", headingRegex: /interview/i, applicability: "all" },
+];
+
+const HEADING_CATEGORIES = [
+  { key: "architecturalDiagrams", label: "Architectural Diagrams", headingRegex: /architecture|diagram/i, codeBlockFallback: false },
+  { key: "codeImplementations", label: "Code Implementations", headingRegex: /implementation|code example|code walkthrough|code snippet/i, codeBlockFallback: true },
+  { key: "quizBlocks", label: "Quiz Blocks", headingRegex: /\bquiz(zes)?\b/i, codeBlockFallback: false },
+];
+
+const ALL_GAP_CATEGORY_KEYS = [...FILE_CATEGORIES, ...HEADING_CATEGORIES].map((c) => c.key);
+
+function wordCount(str) {
+  const t = str.trim();
+  return t ? t.split(/\s+/).length : 0;
+}
+
+// Collects each heading in a file's mdast tree along with the word/code
+// count of the body that follows it, up to (but not including) the next
+// heading of equal-or-shallower depth. mdast headings are flat siblings of
+// the content that follows them, not containers, so this walk is required
+// to know where each heading's "section" ends.
+function extractHeadingSections(tree) {
+  const children = tree.children;
+  const sections = [];
+  children.forEach((node, idx) => {
+    if (node.type !== "heading") return;
+    let end = children.length;
+    for (let j = idx + 1; j < children.length; j++) {
+      if (children[j].type === "heading" && children[j].depth <= node.depth) {
+        end = j;
+        break;
+      }
+    }
+    const bodyNodes = children.slice(idx + 1, end);
+    const bodyText = bodyNodes.map((n) => mdastToString(n)).join(" ");
+    sections.push({
+      text: mdastToString(node),
+      depth: node.depth,
+      line: node.position?.start?.line ?? null,
+      wordCount: wordCount(bodyText),
+      codeCount: bodyNodes.filter((n) => n.type === "code").length,
+    });
+  });
+  return sections;
+}
+
+// Every markdown file that actually exists on disk for one technology,
+// keyed by filename (e.g. "overview.md"), each parsed into an mdast tree.
+// Reads directly off disk (not the ALL_SECTION_META slug list above) so
+// non-conventional filenames are also picked up.
+function listTechFiles(academy, tech) {
+  const roots = ALIAS_ROOTS[academy] || [academy];
+  const files = new Map();
+  for (const root of roots) {
+    const dir = join(CONTENT_ROOT, root, tech);
+    let names;
+    try {
+      names = readdirSync(dir);
+    } catch {
+      continue;
+    }
+    for (const name of names) {
+      if (!name.endsWith(".md") || files.has(name)) continue;
+      const relPath = `public/content/${root}/${tech}/${name}`;
+      const content = readFileSync(join(dir, name), "utf8");
+      files.set(name, {
+        relPath,
+        content,
+        lineCount: content.split("\n").length,
+        tree: fromMarkdown(content),
+      });
+    }
+  }
+  return files;
+}
+
+// IMPORTANT: status here must match what the live site actually renders for
+// this tab (hasContent()/fetchContent() in
+// app/academies/[academy]/[technology]/[section]/page.tsx checks for the
+// dedicated file's existence, nothing else). A heading that merely *mentions*
+// this category inside some other tab's file (e.g. a "Revision Notes"
+// wrap-up section inside interview.md) does NOT make the Notes tab render
+// content — so it must never promote status past "missing". Those mentions
+// are still surfaced under `relatedMentionsElsewhere` as raw material a
+// content writer can draw from, but they are explicitly NOT evidence of
+// presence. (This distinction is the fix for the Part 6 vs. first-draft
+// gap-report discrepancy — see docs/audit/07-roadmap-final.md Part 6.)
+function evaluateFileCategory(cat, files, isNonTech) {
+  if (cat.applicability === "techOnly" && isNonTech) {
+    return {
+      status: "not-applicable",
+      structure: "not-applicable",
+      evidence: [{ file: null, note: `${cat.label} is not an applicable tab for non-technical academies (absent from nonTechSections in lib/data/navigation.ts) — excluded from gap counts to match product reality` }],
+    };
+  }
+
+  const relatedMentionsElsewhere = [];
+  for (const [name, file] of files) {
+    if (name === cat.filename) continue;
+    for (const h of extractHeadingSections(file.tree)) {
+      if (cat.headingRegex.test(h.text)) {
+        relatedMentionsElsewhere.push({ file: file.relPath, line: h.line, heading: h.text, wordCount: h.wordCount });
+      }
+    }
+  }
+
+  const dedicated = files.get(cat.filename);
+  if (dedicated) {
+    const words = wordCount(mdastToString(dedicated.tree));
+    const placeholder = PLACEHOLDER_RE.test(dedicated.content);
+    const status = placeholder || words < FILE_THIN_WORD_THRESHOLD ? "thin" : "present";
+    return {
+      status,
+      structure: "dedicated-file",
+      evidence: [
+        {
+          file: dedicated.relPath,
+          line: 1,
+          lineCount: dedicated.lineCount,
+          wordCount: words,
+          note: placeholder
+            ? "dedicated file exists but contains a placeholder phrase (e.g. 'coming soon'/'TBD')"
+            : status === "thin"
+              ? `dedicated file exists but word count (${words}) is below the thin threshold (${FILE_THIN_WORD_THRESHOLD})`
+              : "dedicated file exists with substantive content",
+        },
+      ],
+      ...(relatedMentionsElsewhere.length ? { relatedMentionsElsewhere } : {}),
+    };
+  }
+
+  return {
+    status: "missing",
+    structure: "none",
+    evidence: [{ file: null, note: `no ${cat.filename} file for this technology — the site's ${cat.label} tab renders empty regardless of mentions elsewhere` }],
+    ...(relatedMentionsElsewhere.length
+      ? { relatedMentionsElsewhere, note: `no dedicated ${cat.filename}, but related content exists in other tabs (see relatedMentionsElsewhere) that a content writer could draw from` }
+      : {}),
+  };
+}
+
+function evaluateHeadingCategory(cat, files) {
+  const hits = [];
+  for (const [, file] of files) {
+    for (const h of extractHeadingSections(file.tree)) {
+      if (cat.headingRegex.test(h.text)) {
+        hits.push({ file: file.relPath, line: h.line, heading: h.text, wordCount: h.wordCount, codeCount: h.codeCount });
+      }
+    }
+  }
+
+  if (hits.length > 0) {
+    const totalWords = hits.reduce((s, h) => s + h.wordCount, 0);
+    const totalCode = hits.reduce((s, h) => s + h.codeCount, 0);
+    const thin = cat.key === "codeImplementations" ? totalCode === 0 || totalWords < HEADING_THIN_WORD_THRESHOLD : totalWords < HEADING_THIN_WORD_THRESHOLD;
+    return {
+      status: thin ? "thin" : "present",
+      structure: "heading-match",
+      evidence: hits.map((h) => ({
+        file: h.file,
+        line: h.line,
+        heading: h.heading,
+        wordCount: h.wordCount,
+        ...(cat.key === "codeImplementations" ? { codeBlockCount: h.codeCount } : {}),
+      })),
+    };
+  }
+
+  if (cat.codeBlockFallback) {
+    let totalCode = 0;
+    const perFile = [];
+    for (const [, file] of files) {
+      const count = file.tree.children.filter((n) => n.type === "code" && n.lang).length;
+      if (count > 0) {
+        perFile.push({ file: file.relPath, line: null, codeBlockCount: count });
+        totalCode += count;
+      }
+    }
+    if (totalCode > 0) {
+      return {
+        status: totalCode >= CODE_PRESENT_THRESHOLD ? "present" : "thin",
+        structure: "code-block-fallback",
+        evidence: perFile.map((p) => ({ ...p, note: "no heading matched this category; counted via fenced code blocks with a language tag in this file instead" })),
+      };
+    }
+  }
+
+  return {
+    status: "missing",
+    structure: "none",
+    evidence: [{ file: null, note: "no heading matching this category (and, where applicable, no fenced code blocks) found in any existing file for this technology" }],
+  };
+}
+
+const gapAcademies = new Map();
+const gapTotals = Object.fromEntries(ALL_GAP_CATEGORY_KEYS.map((k) => [k, { present: 0, thin: 0, missing: 0, notApplicable: 0 }]));
+
+for (const t of perTechRows) {
+  const files = listTechFiles(t.academy, t.tech);
+  const gaps = {};
+  for (const cat of FILE_CATEGORIES) gaps[cat.key] = evaluateFileCategory(cat, files, t.isNonTech);
+  for (const cat of HEADING_CATEGORIES) gaps[cat.key] = evaluateHeadingCategory(cat, files);
+
+  for (const key of ALL_GAP_CATEGORY_KEYS) {
+    const status = gaps[key].status;
+    gapTotals[key][status === "not-applicable" ? "notApplicable" : status] += 1;
+  }
+
+  const gapKeys = Object.keys(gaps).filter((k) => gaps[k].status === "missing" || gaps[k].status === "thin");
+  const techEntry = {
+    slug: t.tech,
+    title: t.title,
+    isNonTech: t.isNonTech,
+    filesFound: [...files.keys()].sort(),
+    gapSummary: {
+      missing: Object.keys(gaps).filter((k) => gaps[k].status === "missing"),
+      thin: Object.keys(gaps).filter((k) => gaps[k].status === "thin"),
+    },
+    hasGaps: gapKeys.length > 0,
+    categories: gaps,
+  };
+
+  if (!gapAcademies.has(t.academy)) gapAcademies.set(t.academy, []);
+  gapAcademies.get(t.academy).push(techEntry);
+}
+
+const comprehensiveGapsReport = {
+  generatedAt: new Date().toISOString(),
+  readOnly: true,
+  categoriesChecked: [...FILE_CATEGORIES, ...HEADING_CATEGORIES].map((c) => ({ key: c.key, label: c.label })),
+  statusDefinitions: {
+    present: "For file categories (Real World, PYQ, FAQ, Notes, Prerequisites, Lab Scenarios, Interview Matrices): the dedicated file that the live site's tab actually reads (hasContent()/fetchContent()) exists with substantive content. For heading-only categories (Architectural Diagrams, Code Implementations, Quiz Blocks), there is no dedicated file/tab in the product today, so 'present' means a matching heading (or, for Code Implementations, enough fenced code blocks) was found.",
+    thin: "Same source as 'present' (dedicated file, or matching heading/code-block evidence) but below the word/code thresholds below, or containing an explicit placeholder phrase ('coming soon'/'TBD'/etc) — treat as needing expansion, not ground-zero creation.",
+    missing: "For file categories: no dedicated file exists, so the live site's tab renders empty — this is true even if related content happens to be mentioned inside a *different* tab's file (see relatedMentionsElsewhere on each entry, which is supplementary raw material only, never counted toward 'present'). For heading-only categories: no matching heading (and, where applicable, no fenced code blocks) found anywhere in the technology's files.",
+    "not-applicable": "Only used for Real World, Prerequisites, and Lab Scenarios on non-technical academies — those tabs don't exist in the product's navigation for non-tech content (see nonTechSections in lib/data/navigation.ts), so absence isn't a content gap and is excluded from missing/thin counts.",
+  },
+  thresholds: {
+    fileThinWordCount: FILE_THIN_WORD_THRESHOLD,
+    headingSectionThinWordCount: HEADING_THIN_WORD_THRESHOLD,
+    codeBlockPresentCount: CODE_PRESENT_THRESHOLD,
+    placeholderPattern: PLACEHOLDER_RE.source,
+  },
+  totals: {
+    technologiesScanned: perTechRows.length,
+    byCategory: gapTotals,
+  },
+  academies: Object.fromEntries([...gapAcademies.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([academy, techs]) => [academy, { technologies: techs }])),
+};
+
+const auditDir = join(ROOT, "docs/audit");
+mkdirSync(auditDir, { recursive: true });
+const gapsOutPath = join(auditDir, "comprehensive-gaps.json");
+writeFileSync(gapsOutPath, JSON.stringify(comprehensiveGapsReport, null, 2));
+
+console.log(`\n--- Comprehensive gap-detection pass ---`);
+console.log(`  Written: docs/audit/comprehensive-gaps.json`);
+console.log(`  ("present %" below = present / (present+thin+missing), i.e. excluding not-applicable — cross-check against docs/audit/07-roadmap-final.md Part 6)`);
+for (const key of ALL_GAP_CATEGORY_KEYS) {
+  const { present, thin, missing, notApplicable } = gapTotals[key];
+  const applicable = present + thin + missing;
+  const pct = applicable ? ((present / applicable) * 100).toFixed(0) : "n/a";
+  const label = [...FILE_CATEGORIES, ...HEADING_CATEGORIES].find((c) => c.key === key).label;
+  console.log(`  ${label.padEnd(24)} present ${String(present).padStart(3)}  thin ${String(thin).padStart(3)}  missing ${String(missing).padStart(3)}  n/a ${String(notApplicable).padStart(3)}  (${pct}% present of ${applicable} applicable)`);
+}
 
 console.log("\nDone.\n");

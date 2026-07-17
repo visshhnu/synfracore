@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import { redirect } from "next/navigation";
 import { getAuthSafely } from "@/lib/clerk/authFallback";
 import { createSupabaseServerClient } from "@/lib/supabase/server";

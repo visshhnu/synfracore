@@ -44,6 +44,16 @@ export default function SectionQuiz({ academy, technology, section, techName, ac
     setSubmitted(true);
     if (!isLoaded || !userId) return;
     setSaving(true);
+    // Guarantees a users row exists for this Clerk id before the direct
+    // client-side RLS insert below — this write never goes through a server
+    // route, so nothing else does this for it. See app/api/ensure-user and
+    // lib/supabase/ensureUser.ts's ensureUserRowExists() for why.
+    try {
+      await fetch("/api/ensure-user", { method: "POST" });
+    } catch {
+      // Non-fatal — proceed anyway; if the row genuinely doesn't exist, the
+      // insert below will fail on its own foreign key with a clear error.
+    }
     const ok = await submitQuizAttempt(supabase, userId, {
       academySlug: academy,
       technologySlug: technology,

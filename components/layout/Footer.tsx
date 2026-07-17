@@ -102,7 +102,7 @@ export default function Footer() {
 
           {/* Brand column */}
           <div>
-            <Link href="/" style={{ display: "inline-flex", alignItems: "center", textDecoration: "none", marginBottom: "16px" }}>
+            <Link href="/" prefetch={false} style={{ display: "inline-flex", alignItems: "center", textDecoration: "none", marginBottom: "16px" }}>
               {/* Both source files already have their 4 outer corners keyed
                   transparent, so only the rounded card renders — no square
                   artifact against the footer background. */}
@@ -160,7 +160,7 @@ export default function Footer() {
             <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "9px" }}>
               {academyLinks.map(l => (
                 <li key={l.name}>
-                  <Link href={l.href} style={{ color: "var(--text-3)", fontSize: "13px", textDecoration: "none", transition: "color 0.15s" }}
+                  <Link href={l.href} prefetch={false} style={{ color: "var(--text-3)", fontSize: "13px", textDecoration: "none", transition: "color 0.15s" }}
                     onMouseEnter={e => (e.target as HTMLElement).style.color = "var(--text-1)"}
                     onMouseLeave={e => (e.target as HTMLElement).style.color = "var(--text-3)"}>
                     {l.name}
@@ -176,7 +176,7 @@ export default function Footer() {
             <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "9px" }}>
               {platformLinks.map(l => (
                 <li key={l.name}>
-                  <Link href={l.href} style={{ color: "var(--text-3)", fontSize: "13px", textDecoration: "none", transition: "color 0.15s" }}
+                  <Link href={l.href} prefetch={false} style={{ color: "var(--text-3)", fontSize: "13px", textDecoration: "none", transition: "color 0.15s" }}
                     onMouseEnter={e => (e.target as HTMLElement).style.color = "var(--text-1)"}
                     onMouseLeave={e => (e.target as HTMLElement).style.color = "var(--text-3)"}>
                     {l.name}
@@ -192,7 +192,7 @@ export default function Footer() {
             <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "9px" }}>
               {companyLinks.map(l => (
                 <li key={l.name}>
-                  <Link href={l.href} style={{ color: "var(--text-3)", fontSize: "13px", textDecoration: "none", transition: "color 0.15s" }}
+                  <Link href={l.href} prefetch={false} style={{ color: "var(--text-3)", fontSize: "13px", textDecoration: "none", transition: "color 0.15s" }}
                     onMouseEnter={e => (e.target as HTMLElement).style.color = "var(--text-1)"}
                     onMouseLeave={e => (e.target as HTMLElement).style.color = "var(--text-3)"}>
                     {l.name}
