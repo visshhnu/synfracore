@@ -635,6 +635,155 @@ not code shipped now:
 
 ---
 
+## Part 4e — 2026-07-17/18: D1 (OpenNext) migration reverted, PAUSED INDEFINITELY
+
+**Status: paused, not abandoned.** The migration is not being pursued
+right now given the risk/time cost discovered below, weighed against a
+week already spent on this investigation — but it remains a documented,
+viable option to come back to later, not a dead end. If revisited, the
+root cause of what broke and the fix direction are already understood
+(see below) and would not need re-discovering.
+
+### Why it was attempted
+
+Part 4a/4c established that Symptoms 2, 6, 8, 10, and 11 all shared one
+underlying mechanism: Clerk's client-side SDK firing an internal
+cache-invalidation Server Action after `setActive()`/`signOut()`, which
+404s under `@cloudflare/next-on-pages` and can crash hydration (React
+error #418) — occasionally severely enough to trigger a retry storm that
+trips Cloudflare Worker limits and causes intermittent whole-site 503s.
+An isolated repro (Part 4c) gave real evidence that `@opennextjs/cloudflare`
+(D1) resolves this mechanism, which is why the full migration was
+attempted as a dedicated, branch-only effort rather than more
+investigation on `next-on-pages`.
+
+### What was confirmed genuinely fixed
+
+Verified directly on a Cloudflare preview Worker running the full app
+under OpenNext, not just the minimal Part 4c repro:
+- **Symptom 6** — genuine Server Action dispatch, confirmed via an
+  isolated authenticated Supabase mutation test.
+- **Symptom 9** — question-bank landing-page 404 on sign-in, confirmed
+  clean.
+- **Symptom 10** — whole-site 503 flapping under repeated auth actions,
+  confirmed clean (this was actually fixed by the `prefetch={false}`
+  change, which is adapter-independent and has been kept — see below).
+- **Symptom 11** — Clerk's internal cache-invalidation Server Action
+  404ing and crashing hydration on sign-in/out from a question-bank page,
+  confirmed clean: UI updated in place, no manual refresh, no React #418.
+
+These are real, reproduced results — the mechanism these symptoms share
+genuinely does not occur under OpenNext. That part of the hypothesis was
+right.
+
+### What broke
+
+A site-wide content-loading regression, found only after the full
+production migration and domain cutover (not caught by the preview
+testing above, which focused on the auth symptoms specifically) — root
+cause precisely identified, not just observed:
+
+`lib/content/index.ts`'s `fetchContent()` does not read content files
+from disk (`fs.readFileSync`); it makes an HTTP `fetch()` call **from
+inside the Worker, to the Worker's own public hostname**
+(`app/academies/[academy]/[technology]/[section]/page.tsx` builds
+`baseUrl` from the incoming request's `Host` header and fetches
+`${baseUrl}/content/{path}.md` during SSR). This self-referential
+loopback fetch behaves differently — and unreliably — under the
+`@opennextjs/cloudflare` Worker runtime versus `next-on-pages`. The
+static assets themselves were confirmed correctly bundled (`.open-next/
+assets/content/...` served real files at `200`); the failure was
+specifically in the Worker calling itself mid-request. Made worse by a
+second, independent bug found in the same code path: `fetchContent()`
+wraps the whole thing in `catch { return null }`, so any failure —
+network, timeout, or otherwise — silently collapses to "no content
+exists yet," rendering the honest-looking but wrong empty-state UI
+instead of an error. This is why it wasn't caught immediately: the page
+returns a clean `200`, not a 5xx.
+
+### The decision to revert
+
+Once found, two paths existed: fix `fetchContent()` (the real fix
+direction: use OpenNext's `ASSETS` binding directly instead of an HTTP
+self-fetch, avoiding the loopback entirely — see below) and re-verify,
+or revert to the known-good baseline and re-attempt later. Chose to
+revert, for reasons of accumulated risk and time cost, not because the
+fix direction was unclear:
+
+- This was the second unexpected, site-wide production issue found
+  during this migration in one night (the first being the DNS/domain
+  cutover complications documented implicitly in the commit history
+  around this time), on top of a full week already spent on the D1
+  investigation (Part 4a through 4d).
+- The content regression was found *after* the domain had already been
+  cut over to the Worker — meaning the preview-only verification process
+  (Step 3 of the original migration plan) had a real gap: it verified
+  the auth symptoms thoroughly but didn't catch a content-loading issue
+  that only manifested under real production traffic patterns.
+- Re-fixing and re-verifying would mean a third cutover attempt in the
+  same session, each with its own DNS propagation and domain-binding
+  risk (independently confirmed nontrivial tonight — see the DNS
+  record/Cloudflare-incident troubleshooting around this same time).
+- The underlying goal (fixing Symptoms 2/6/8/10/11) has a smaller,
+  narrower, lower-risk path available: a targeted code fix on
+  `next-on-pages` itself, matching how the onboarding auth bug was
+  already fixed once before, rather than a platform migration. See the
+  next section of this roadmap for that work.
+
+### The revert
+
+**Commit `4e25255`** ("revert: undo D1/OpenNext migration, stay on
+next-on-pages permanently") is the clean revert. Surgical, not a blind
+`git revert` of the whole migration merge — it restores exactly the
+adapter-critical material (`export const runtime = "edge"` on all 51
+routes that had it, `package.json`, `wrangler.toml`/`wrangler.jsonc`,
+`next.config.ts`, `lib/rateLimit.ts`) while deliberately keeping two
+things that turned out to be real, adapter-independent fixes discovered
+during the migration work:
+- The `prefetch={false}` fix on `Navbar.tsx`/`Footer.tsx` for Symptom
+  10's 503 flapping — already documented as live on production *before*
+  the D1 work started, so this isn't OpenNext-specific and is worth
+  keeping regardless of adapter.
+- The Symptom 12 `relink_user_id` self-heal fix (`lib/supabase/
+  ensureUser.ts`, `docs/relink-user-id-fix.sql`, `app/api/ensure-user/
+  route.ts`, `components/quiz/SectionQuiz.tsx`) — unrelated to D1
+  entirely.
+
+One additional finding surfaced during the revert itself, worth
+recording: `app/not-found.tsx`'s diagnostic instrumentation (built
+during Part 4d for the unresolved hydrate-then-404 investigation) could
+not simply have its edge-runtime export restored — `next-on-pages`
+does not support runtime logic (`headers()` calls) in the special
+`_not-found` route at all, confirmed by the local build itself
+refusing to produce output with it in place. That instrumentation and
+its two supporting files (`components/NotFoundDiagnosticsBeacon.tsx`,
+`app/api/diagnostics/not-found/route.ts`) were removed as part of the
+revert, since they cannot run on the adapter being kept. The
+underlying hydrate-then-404 finding from Part 4d remains unresolved and
+unreproduced either way — it was never confirmed to be an OpenNext-only
+issue, so it's still a real, if rare, open item independent of the
+adapter decision.
+
+### If this is revisited later
+
+Both open questions from a prior attempt would be pre-answered, not
+re-discovered from scratch:
+1. **The content-loading fix**: replace `fetchContent()`'s
+   self-referential HTTP `fetch()` with OpenNext's `ASSETS` binding
+   (`env.ASSETS.fetch(request)` or equivalent) called directly inside
+   the Worker, never crossing back out to the public hostname. This was
+   identified and agreed as the correct architectural fix, not yet
+   implemented.
+2. **The auth mechanism fix**: already proven working end-to-end on a
+   full preview deployment (Symptoms 6/9/10/11), not just the minimal
+   Part 4c repro — no re-verification of *that* part would be needed,
+   only the content-loading fix and a fresh, more thorough Step 3
+   verification pass that specifically includes content-page checks
+   across several academies (not just auth flows) before any future
+   domain cutover.
+
+---
+
 ## Part 5 — Findings from the v2 draft, verified today (NF-1 through NF-12)
 
 Legend: ✅ CONFIRMED live/in code exactly as v2 described · ⚠️ PARTIALLY confirmed
@@ -1023,27 +1172,23 @@ at least once and was never caught by desktop-only verification.
    D1 lands or Symptom 8/11 gets a real fix independent of it.
 
 ### Phase D — Structural platform work (branch + preview only; this quarter)
-1. **D1 — OpenNext migration** (OP-2). **Re-assessed 2026-07-16 (Part 4a) —
-   payoff confirmed partial, not full, scope larger than previously
-   described. Payoff re-assessed upward 2026-07-17 (Part 4c): an isolated
-   repro confirmed D1 resolves Symptoms 2/6/8/10/11's shared mechanism
-   (Clerk's internal cache-invalidation Server Action), tested against a
-   real `auth.protect()`-protected route matching production's actual
-   middleware shape — not just the simplest possible Clerk integration.
-   Two items remain open for when this is actually planned: the Initiator of
-   a rare `net::ERR_ABORTED` seen once and not reproduced since, and formal
-   confirmation that `getAuthSafely()`'s 8 call sites don't interact with
-   this differently (reasoned as unlikely — it's server-side-only — but not
-   independently re-tested).** Search upstream issues for the esbuild alias
-   error first; if unresolved, file a minimal repro and pause — don't
-   brute-force. Once building, validate on a `workers.dev` preview with the
-   full Phase-0 checklist plus a Server Action test and a middleware-rewrite
-   test. Budget this as its own dedicated project, not a quick swap — 50+
-   files need `export const runtime = "edge"` removed, `wrangler.toml` needs
-   a full rewrite, an R2 bucket needs manual setup in the Cloudflare
-   dashboard for the incremental cache, and `lib/rateLimit.ts`'s `BLOG_KV`
-   binding access needs rewriting for the Workers `env` argument pattern
-   instead of a `globalThis` read.
+1. **D1 — OpenNext migration** (OP-2). **PAUSED INDEFINITELY as of
+   2026-07-17/18 — attempted in full, reverted, not abandoned. See Part 4e
+   for the complete writeup: the auth mechanism fix (Symptoms 6/9/10/11)
+   was confirmed genuinely working on a full preview deployment, but a
+   site-wide content-loading regression (`fetchContent()`'s
+   self-referential fetch behaving unreliably under the Worker runtime)
+   was found only after production cutover. Reverted via commit `4e25255`
+   rather than attempting a second fix/cutover in the same session, given
+   the accumulated risk and a week already spent on this investigation.
+   The narrower goal (fixing Symptoms 2/6/8/10/11) is being pursued
+   instead as a small, targeted `next-on-pages`-native code fix — see
+   Part 4f. If D1 is revisited later, both the content-loading fix
+   (use OpenNext's `ASSETS` binding instead of the self-fetch) and the
+   auth-mechanism confirmation are already done — no re-discovery needed,
+   only re-implementation and a more thorough Step 3 verification pass
+   that explicitly covers content pages, not just auth flows, before any
+   future domain cutover.**
 2. **D2 — Static rendering** for eligible routes, only after D1.
 3. **D3 — Sentry re-activation** (OP-3), after D1, with a before/after bundle
    measurement.
