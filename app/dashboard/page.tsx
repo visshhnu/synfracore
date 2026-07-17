@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import Link from "next/link";
 import { currentUser } from "@clerk/nextjs/server";
 import { ensureUserRecord } from "@/lib/supabase/ensureUser";

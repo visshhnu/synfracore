@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import { getBlogKv, getClientIp, isRateLimited } from "@/lib/rateLimit";
 
 // No auth on this endpoint by design (public newsletter signup), and unlike

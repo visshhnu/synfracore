@@ -105,7 +105,7 @@ function SearchBox() {
         <div style={{ position: "absolute", top: "calc(100% + 6px)", left: 0, width: "300px", background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "12px", boxShadow: "0 16px 40px rgba(0,0,0,0.2)", zIndex: 500, overflow: "hidden" }}>
           <div style={{ padding: "6px 12px 4px", fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--text-4)" }}>{results.length} result{results.length !== 1 ? "s" : ""}</div>
           {results.map((r, i) => (
-            <Link key={i} href={r.href} onClick={() => { setOpen(false); setQ(""); }} style={{ display: "flex", alignItems: "flex-start", gap: "10px", padding: "9px 12px", textDecoration: "none", borderTop: "1px solid var(--border)" }}
+            <Link key={i} href={r.href} prefetch={false} onClick={() => { setOpen(false); setQ(""); }} style={{ display: "flex", alignItems: "flex-start", gap: "10px", padding: "9px 12px", textDecoration: "none", borderTop: "1px solid var(--border)" }}
               onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--bg-1)"}
               onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "transparent"}>
               <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: r.color, flexShrink: 0, marginTop: "5px" }} />
@@ -117,7 +117,7 @@ function SearchBox() {
               <span style={{ fontSize: "11px", color: r.color, fontWeight: 700, flexShrink: 0, marginTop: "2px" }}>→</span>
             </Link>
           ))}
-          <Link href="/academies" onClick={() => { setOpen(false); setQ(""); }} style={{ display: "block", padding: "8px 12px", textAlign: "center", borderTop: "1px solid var(--border)", fontSize: "12px", color: "#3B82F6", fontWeight: 600, textDecoration: "none" }}
+          <Link href="/academies" prefetch={false} onClick={() => { setOpen(false); setQ(""); }} style={{ display: "block", padding: "8px 12px", textAlign: "center", borderTop: "1px solid var(--border)", fontSize: "12px", color: "#3B82F6", fontWeight: 600, textDecoration: "none" }}
             onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--bg-1)"}
             onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "transparent"}>
             Browse all academies →
@@ -162,7 +162,7 @@ function MobileSearchOverlay({ onClose }: { onClose: () => void }) {
         </div>
         <div style={{ overflowY: "auto" }}>
           {results.length > 0 ? results.map((r, i) => (
-            <Link key={i} href={r.href} onClick={onClose} style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 14px", textDecoration: "none", borderBottom: "1px solid var(--border)" }}
+            <Link key={i} href={r.href} prefetch={false} onClick={onClose} style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 14px", textDecoration: "none", borderBottom: "1px solid var(--border)" }}
               onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--bg-2)"}
               onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "transparent"}>
               <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: r.color, flexShrink: 0 }} />
@@ -263,7 +263,7 @@ export default function Navbar() {
     <>
       <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 9999, background: "var(--bg-1)", backdropFilter: "blur(16px)", borderBottom: "1px solid var(--border)", boxShadow: scrolled ? "0 2px 20px rgba(0,0,0,0.12)" : "none", transition: "box-shadow 0.2s" }}>
         <div style={{ maxWidth: "1300px", margin: "0 auto", padding: "0 16px", height: scrolled ? "48px" : "60px", transition: "height 0.2s ease", display: "flex", alignItems: "center", gap: "6px" }}>
-          <Link href="/" style={{ textDecoration: "none", flexShrink: 0, lineHeight: 0, marginRight: "4px" }}>
+          <Link href="/" prefetch={false} style={{ textDecoration: "none", flexShrink: 0, lineHeight: 0, marginRight: "4px" }}>
             <div className="logo-wrapper">
               {/* Full lockup (mark + "Synfracore" wordmark on a rounded card).
                   Two theme-specific source files — each already has its 4
@@ -290,7 +290,7 @@ export default function Navbar() {
               </button>
             </div>
             {NAV_LINKS.map(item => (
-              <Link key={item.n} href={item.h} style={{ color: "var(--text-3)", fontSize: "13px", fontWeight: 500, padding: "5px 9px", borderRadius: "7px", textDecoration: "none", whiteSpace: "nowrap" }}
+              <Link key={item.n} href={item.h} prefetch={false} style={{ color: "var(--text-3)", fontSize: "13px", fontWeight: 500, padding: "5px 9px", borderRadius: "7px", textDecoration: "none", whiteSpace: "nowrap" }}
                 onMouseEnter={e => { (e.target as HTMLElement).style.color = "var(--text-1)"; (e.target as HTMLElement).style.background = "var(--bg-2)"; }}
                 onMouseLeave={e => { (e.target as HTMLElement).style.color = "var(--text-3)"; (e.target as HTMLElement).style.background = "transparent"; }}
               >{item.n}</Link>
@@ -362,7 +362,7 @@ export default function Navbar() {
                         const a = academyMap[slug];
                         if (!a) return null;
                         return (
-                          <Link key={a.slug} href={`/academies/${a.slug}`} onClick={() => setDropOpen(false)}
+                          <Link key={a.slug} href={`/academies/${a.slug}`} prefetch={false} onClick={() => setDropOpen(false)}
                             style={{ textDecoration: "none", padding: "5px 7px", borderRadius: "7px", display: "flex", alignItems: "center", gap: "7px" }}
                             onMouseEnter={e => { e.currentTarget.style.background = `${a.color}14`; }}
                             onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
@@ -379,7 +379,7 @@ export default function Navbar() {
                 ))}
               </div>
               <div style={{ marginTop: "10px", paddingTop: "8px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "center" }}>
-                <Link href="/academies" onClick={() => setDropOpen(false)} style={{ fontSize: "12px", fontWeight: 600, color: "#3B82F6", textDecoration: "none", padding: "5px 18px", background: "rgba(59,130,246,0.08)", borderRadius: "8px", border: "1px solid rgba(59,130,246,0.2)" }}>
+                <Link href="/academies" prefetch={false} onClick={() => setDropOpen(false)} style={{ fontSize: "12px", fontWeight: 600, color: "#3B82F6", textDecoration: "none", padding: "5px 18px", background: "rgba(59,130,246,0.08)", borderRadius: "8px", border: "1px solid rgba(59,130,246,0.2)" }}>
                   View all {academies.length} academies →
                 </Link>
               </div>
@@ -433,13 +433,13 @@ export default function Navbar() {
               </button>
               {isExpanded && techs.length > 0 && (
                 <div style={{ background: "var(--bg-2)", paddingBottom: "4px" }}>
-                  <Link href={`/academies/${a.slug}`} onClick={closeDrawer} style={{ display: "block", padding: "7px 12px 7px 44px", textDecoration: "none" }}
+                  <Link href={`/academies/${a.slug}`} prefetch={false} onClick={closeDrawer} style={{ display: "block", padding: "7px 12px 7px 44px", textDecoration: "none" }}
                     onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--bg-1)"}
                     onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "transparent"}>
                     <span style={{ fontSize: "11px", fontWeight: 600, color: a.color }}>View all {a.title} →</span>
                   </Link>
                   {techs.slice(0, 10).map(tech => (
-                    <Link key={tech.slug} href={`/academies/${a.slug}/${tech.slug}`} onClick={closeDrawer}
+                    <Link key={tech.slug} href={`/academies/${a.slug}/${tech.slug}`} prefetch={false} onClick={closeDrawer}
                       style={{ display: "flex", alignItems: "center", gap: "7px", padding: "6px 12px 6px 44px", textDecoration: "none" }}
                       onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--bg-1)"}
                       onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "transparent"}>
@@ -448,7 +448,7 @@ export default function Navbar() {
                     </Link>
                   ))}
                   {techs.length > 10 && (
-                    <Link href={`/academies/${a.slug}`} onClick={closeDrawer} style={{ display: "block", padding: "4px 12px 4px 44px", fontSize: "11px", color: "var(--text-4)", textDecoration: "none" }}>
+                    <Link href={`/academies/${a.slug}`} prefetch={false} onClick={closeDrawer} style={{ display: "block", padding: "4px 12px 4px 44px", fontSize: "11px", color: "var(--text-4)", textDecoration: "none" }}>
                       + {techs.length - 10} more
                     </Link>
                   )}
@@ -462,7 +462,7 @@ export default function Navbar() {
           <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-4)", margin: 0 }}>Platform</p>
         </div>
         {NAV_LINKS.map(item => (
-          <Link key={item.n} href={item.h} onClick={closeDrawer} style={{ display: "block", color: "var(--text-2)", fontSize: "13px", fontWeight: 500, padding: "10px 12px", borderBottom: "1px solid var(--border)", textDecoration: "none" }}>
+          <Link key={item.n} href={item.h} prefetch={false} onClick={closeDrawer} style={{ display: "block", color: "var(--text-2)", fontSize: "13px", fontWeight: 500, padding: "10px 12px", borderBottom: "1px solid var(--border)", textDecoration: "none" }}>
             {item.n}
           </Link>
         ))}
@@ -481,7 +481,7 @@ export default function Navbar() {
           <Link href="/academies" onClick={closeDrawer} className="btn-primary" style={{ display: "flex", justifyContent: "center", padding: "11px", fontSize: "13px", borderRadius: "8px" }}>
             Start Learning Free
           </Link>
-          <Link href="/roadmaps" onClick={closeDrawer} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "6px", padding: "10px", fontSize: "13px", borderRadius: "8px", textDecoration: "none", background: "var(--bg-2)", color: "var(--text-2)", border: "1px solid var(--border)", fontWeight: 600 }}>
+          <Link href="/roadmaps" prefetch={false} onClick={closeDrawer} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "6px", padding: "10px", fontSize: "13px", borderRadius: "8px", textDecoration: "none", background: "var(--bg-2)", color: "var(--text-2)", border: "1px solid var(--border)", fontWeight: 600 }}>
             🗺️ Learning Roadmaps
           </Link>
         </div>

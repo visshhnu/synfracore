@@ -479,6 +479,162 @@ reference until then.
 
 ---
 
+## Part 4d — 2026-07-17: full D1 (OpenNext) migration executed and merged
+
+Following Part 4c's isolated repro, executed the full production migration
+from `@cloudflare/next-on-pages` to `@opennextjs/cloudflare` on branch
+`feat/d1-opennext-migration`, per Phase 0 rules (dedicated branch, native WSL
+build, Cloudflare preview verified before any production deploy).
+
+**Migration mechanics**: removed `@cloudflare/next-on-pages`; added exact-pinned
+`@opennextjs/cloudflare@1.20.1` and `wrangler@4.111.0`; replaced
+`wrangler.toml` with `wrangler.jsonc`; removed `export const runtime = "edge"`
+from all 51 files that had it (confirmed as a hard OpenNext build-blocker);
+swapped `getOptionalRequestContext()` for `getCloudflareContext()` in
+`lib/rateLimit.ts`'s KV access; added `initOpenNextCloudflareForDev()` to
+`next.config.ts` for local binding access. Build and deploy both confirmed
+working end-to-end against a dedicated preview Worker
+(`synfracore-d1-preview`, kept fully separate from the production `synfracore`
+project throughout).
+
+### Symptom 10 fix — Link prefetching under load, confirmed root cause and fix
+
+The whole-site 503 flapping seen under repeated sign-in/out cycles (Symptom
+10) was root-caused to Next.js's own aggressive `<Link>` prefetching in
+`Navbar.tsx`/`Footer.tsx` — not present in Part 4c's minimal repro because
+that repro didn't carry this app's real nav complexity (Academies dropdown,
+mobile drawer, footer link columns). Fixed by adding `prefetch={false}` to
+all secondary links (kept default prefetch only on the 2-3 most
+likely-next-clicked links: Dashboard and "Start Learning"). Confirmed via
+controlled before/after A/B testing on the preview Worker: 4 sequential
+sign-in/out cycles went from 2/4 producing 503s to 0/4, repeated across two
+independent runs (8 total clean cycles post-fix vs. the prior 2-4 failing
+cycles pre-fix).
+
+### Symptom 6 fix — confirmed via isolated Server Action test
+
+Built a temporary, isolated test route performing a real authenticated
+Supabase mutation via a genuine `"use server"` Server Action (not a Route
+Handler), to verify Symptom 6 independently of the unrelated bug found below.
+Confirmed clean: the mutation succeeded, no 404, no hydration crash. This
+test route was deleted before merge — it was scaffolding only, not part of
+the shipped app.
+
+### Symptom 9/11 fix — confirmed
+
+Sign-in from the question-bank landing page and sign-out from an attempt page
+both completed cleanly on the preview Worker: UI updated in place, no
+manual refresh needed, no React #418 — the exact prior failure modes. The
+Academies dropdown was also re-verified expanding correctly (visual check).
+
+### New finding — unreproducible hydrate-then-404 on question-bank landing pages
+
+During Step 3 verification, `/question-bank/[paperSlug]` was observed once to
+server-render correctly and then have its content swap to the `not-found.tsx`
+UI shortly after — the URL stayed correct throughout, so a URL-only check
+(the level of verification originally used to call Symptom 8 "passed") would
+have missed this; it was only caught by actually reading page content, not
+just the URL and console. The mechanism looks like a second, client-triggered
+Flight/RSC request to the same route returning a 404 after the initial
+server render succeeded.
+
+**Reproduction effort**: 74+ targeted attempts across varied stress patterns
+(simultaneous tabs, cache-disabled rapid reload, throttled network, repeated
+navigation cycles, and the techniques suggested by a second AI's independent
+review of this finding — see below) did not reproduce it again. Two things
+were ruled out directly rather than assumed:
+- **Not present on production** (`next-on-pages`) — confirmed genuinely new
+  under OpenNext, not a pre-existing bug that happened to be noticed now.
+- **Not a general dynamic-route problem under OpenNext** — every other
+  `[param]`-shaped route tested (7 others, including `/academies/devops`)
+  stayed clean across the same stress patterns.
+
+**Second opinion sought**: given 34 consecutive clean reproduction attempts
+at that point, a second AI's independent analysis was obtained and reviewed
+in full. It proposed additional targeted reproduction techniques (tried,
+still no reproduction — see above), specific Worker-level diagnostic
+logging, and a Sentry field spec. Its overall assessment, used here close to
+verbatim as the residual-risk framing for this decision:
+
+> **Confidence in each hypothesis** (independent review, 2026-07-17):
+>
+> | Hypothesis | Confidence |
+> |---|---|
+> | Race between OpenNext's dynamic-route resolution and Next's client router on a soft navigation | Moderate |
+> | Transient KV/cache-binding miss during the adapter's route matching | Low-moderate |
+> | Cloudflare edge-level retry/redirect artifact on a specific colo | Low |
+> | Genuine upstream bug in `@opennextjs/cloudflare` or Next.js's Flight request handling | Low-moderate |
+> | Confounded by unrelated client state (stale service worker, browser extension, etc.) | Low |
+>
+> Given the 34 consecutive clean attempts, I would not hold up the migration
+> over this. I'd ship with enhanced observability (Sentry plus targeted
+> Worker logging for 404s on Flight requests) and wait for the next real
+> occurrence. If it happens again with the full request headers captured,
+> there's a good chance you'll have enough evidence to either isolate a
+> configuration issue or file a high-quality reproducible bug against
+> `@opennextjs/cloudflare` or Next.js.
+
+**Decision**: accepted as a residual, monitored risk rather than a merge
+blocker — go, contingent on the diagnostic instrumentation below being in
+place first (it is) and kept live for at least 1-2 release cycles even if the
+bug never recurs, rather than removed prematurely because it looks unused.
+
+### Diagnostic instrumentation shipped (live now, on `main`)
+
+Two-sided logging, verified end-to-end via a controlled known-404 test
+(confirmed both halves fire and are visible via `wrangler tail`):
+
+- **Server-side** (`app/not-found.tsx`): logs on every render of the
+  not-found page — `accept`, `rsc`, `next-router-state-tree` length,
+  `next-router-prefetch`, `purpose`, `priority`, `user-agent`, and the
+  correlation fields below. This runs as part of resolving the actual
+  failing request, so its `headers()` reflect that real request, not a
+  reconstruction after the fact.
+- **Client-side** (`components/NotFoundDiagnosticsBeacon.tsx` →
+  `app/api/diagnostics/not-found/route.ts`): fires a `sendBeacon` with the
+  real `window.location.href`, `document.referrer`, and navigation type
+  (`navigate`/`reload`/`back_forward`/`prerender`) — the piece the server
+  side can't see.
+- **Correlation fields**, added specifically so a future recurrence can be
+  matched across both logs: `cfRay` (exact match between the two logs),
+  `pathname` (best-effort guess server-side via the `next-url` header;
+  authoritative on the beacon side, derived from the client's actual
+  `window.location`), and millisecond-precision `timestamp`/`receivedAt`
+  (ISO 8601, approximate match — the two logs fire a few ms apart on
+  server vs. client).
+
+### Sentry-readiness spec (documentation only — NOT installed in this branch)
+
+Per explicit instruction, Sentry stays a separate D3 task (see Phase D).
+`@sentry/nextjs` is confirmed not installed anywhere in this codebase (OP-3
+finding, still true). This is a spec to implement against when D3 starts,
+not code shipped now:
+
+- **Fields to capture on every `not-found` event**, matching what the
+  instrumentation above already collects so no data collected tonight goes
+  to waste once Sentry lands:
+  - Current URL (`window.location.href` — beacon already has this).
+  - Previous/referrer URL (`document.referrer` — beacon already has this).
+  - Cloudflare request ID / Ray ID (`cf-ray` — both server and beacon logs
+    already have this as `cfRay`; add as a Sentry tag, not just breadcrumb
+    data, so it's filterable in the Sentry UI).
+  - Navigation type: hard vs. soft nav (`performance.getEntriesByType
+    ("navigation")[0].type` — beacon already captures this).
+  - Pathname, using the same correlation-field approach above (authoritative
+    from `window.location.pathname` client-side).
+- **Implementation shape**: wrap the existing `console.error("[not-found]",
+  ...)` and `console.error("[not-found-beacon]", ...)` calls with
+  `Sentry.captureMessage()` (or `captureException` if this is later found to
+  correlate with an actual thrown error) carrying the same JSON payload as
+  `extra` context, plus `cfRay` as an indexed `tag`. Both call sites are
+  already isolated (`app/not-found.tsx`, `app/api/diagnostics/not-found/
+  route.ts`) so this is a small, additive change when D3 starts — no
+  restructuring needed.
+- **Do not** install `@sentry/nextjs`, add a `sentry.client.config.ts`/
+  `sentry.server.config.ts`, or wire a DSN in this branch. That's D3's scope.
+
+---
+
 ## Part 5 — Findings from the v2 draft, verified today (NF-1 through NF-12)
 
 Legend: ✅ CONFIRMED live/in code exactly as v2 described · ⚠️ PARTIALLY confirmed
