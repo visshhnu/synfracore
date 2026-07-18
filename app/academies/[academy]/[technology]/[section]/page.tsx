@@ -171,7 +171,10 @@ export default async function SectionPage({ params }: Props) {
   // question_papers row (technologyExamTypeMap in lib/data/navigation.ts is
   // just the registry of which exam_type to look for; existence is checked
   // live here, not assumed from the map alone, so a mapped-but-empty entry
-  // never shows a tab that leads nowhere real).
+  // never shows a tab that leads nowhere real). Links to /question-bank (the
+  // full catalog), not a single paper — linking straight into one paper hid
+  // the other 9 BCHHC papers from a user who only found this tab (confirmed
+  // live 2026-07-18).
   const examType = technologyExamTypeMap[`${aSlug}/${tSlug}`];
   const practiceExamPaper = examType
     ? await getFirstPaperByExamType(createSupabaseServerClient(), examType)
@@ -242,7 +245,7 @@ export default async function SectionPage({ params }: Props) {
           ))}
           {practiceExamPaper && (
             <Link
-              href={`/question-bank/${practiceExamPaper.slug}`}
+              href="/question-bank"
               prefetch={false}
               style={{
                 display: "flex",

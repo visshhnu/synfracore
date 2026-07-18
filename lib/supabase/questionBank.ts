@@ -79,10 +79,12 @@ export async function getPaperCatalog(supabase: SupabaseClient): Promise<Questio
   }
 }
 
-// Backs the technology sidebar's conditional "Practice Exams" tab (see
-// technologyExamTypeMap in lib/data/navigation.ts) — one representative
-// paper to link into, not a full listing (the breadcrumb back to
-// /question-bank already covers browsing the rest of that exam_type's papers).
+// Backs the technology sidebar/landing-page's conditional "Practice Exams"
+// tab (see technologyExamTypeMap in lib/data/navigation.ts) — used purely as
+// an existence check (does this exam_type have any real papers?), not to
+// link into a specific one. The tab itself links to /question-bank, the full
+// catalog — linking straight into a single paper hid the other 9 BCHHC
+// papers from a user who only found the tab (confirmed live 2026-07-18).
 export async function getFirstPaperByExamType(supabase: SupabaseClient, examType: string): Promise<QuestionPaper | null> {
   try {
     const { data, error } = await supabase

@@ -97,6 +97,9 @@ export default async function TechnologyPage({ params }: Props) {
   // Practice Exams card — same registry-driven check as the sidebar
   // (app/academies/[academy]/[technology]/[section]/page.tsx), so both
   // "same place Overview/Fundamentals/etc. appear" locations stay in sync.
+  // Links to /question-bank (the full catalog), not a single paper — see
+  // that file's comment for why (confirmed live 2026-07-18: linking straight
+  // into one paper hid the other 9 BCHHC papers from the user).
   const examType = technologyExamTypeMap[`${aSlug}/${tSlug}`];
   const practiceExamPaper = examType
     ? await getFirstPaperByExamType(createSupabaseServerClient(), examType)
@@ -179,7 +182,7 @@ export default async function TechnologyPage({ params }: Props) {
             );
           })}
           {practiceExamPaper && (
-            <Link href={`/question-bank/${practiceExamPaper.slug}`} prefetch={false} style={{ textDecoration: "none" }}>
+            <Link href="/question-bank" prefetch={false} style={{ textDecoration: "none" }}>
               <div className="card-hover" style={{
                 padding: "20px", borderRadius: "12px",
                 border: "1px solid rgba(245,158,11,0.3)",
