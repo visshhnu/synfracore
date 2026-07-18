@@ -1367,10 +1367,25 @@ turned out to be *partially* done: the underlying mechanism was fixed, but
 **Net effect: Phase A is done except A1's 4-page remainder.**
 
 ### Phase B — Correctness at the data layer (next 1–2 weeks)
-1. **B1 — Single source of truth for displayed stats** (NF-6): a build-time
-   `stats.ts` derived from `academies.ts`/registry/roadmaps; fixes the
-   confirmed 18-vs-11 academy-count drift as its first concrete case. Add a
-   CI check that fails if a known stat literal reappears in JSX.
+1. ~~**B1 — hardcoded stats drift + CI guard**~~ (NF-6) — **RESOLVED
+   2026-07-18.** The core NF-6 drift (890+/11/13 vs real 201/18/17) was
+   already fixed everywhere checked initially — `lib/data/navigation.ts`'s
+   `stats`, `app/page.tsx`, and `app/about/page.tsx` all compute their
+   totals dynamically, just via 3 independent implementations rather than
+   one shared `stats.ts` file. That consolidation is a real, low-priority
+   nice-to-have, deliberately not done tonight (the underlying bug is
+   already fixed in each place; low value for the effort). What genuinely
+   remained: `components/home/CertificationsSection.tsx` still hardcoded
+   `"13 Certifications"` — a live instance of the bug an initial manual
+   grep missed. Fixed (now `{certifications.length}`, matching an import
+   the file already had) — this component is currently unrendered
+   anywhere in `app/`, so unverifiable via a live page, but verified via
+   typecheck and the real current count (17). Added the requested CI
+   guard (`scripts/validate-no-hardcoded-stats.mjs`, wired into
+   `predeploy` and CI) — deliberately narrow (the exact historical wrong
+   values, not general JSX analysis), and it proved itself immediately:
+   it's what caught the `CertificationsSection.tsx` instance in the first
+   place, confirmed failing before the fix and clean after.
 2. **B2 — Rewrite Terms/Privacy** (NF-8) to match the real product; remove
    billing/refund language until payments exist; re-date past January 2025.
 3. ~~**B3 — Phase-1 closure follow-through**~~ (OP-7) — **CORRECTION
@@ -1476,8 +1491,9 @@ publish gate if/when the content-quality program needs it.
 3. ~~**C4 — Symptom 10 whole-site-outage root cause**~~ — **RESOLVED
    2026-07-18**, re-verified directly on production. See Part 4/Part 8's
    C4 entry above.
-4. B1 stats source-of-truth · B2 legal pages · ~~B3 Phase-1 closure~~
-   (done, corrected 2026-07-18) · B4 Search Console · B5 content-thinness
+4. ~~B1 stats source-of-truth~~ (done, 2026-07-18) · B2 legal pages ·
+   ~~B3 Phase-1 closure~~ (done, corrected 2026-07-18) · B4 Search
+   Console · B5 content-thinness
    pass
 5. **C1 — learn.synfracore.com decision** (highest-leverage single SEO call)
 6. C2 Symptom 8 fix → C3 Symptom 9 investigation → C5 Question Bank launch
