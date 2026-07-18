@@ -79,6 +79,27 @@ export async function getPaperCatalog(supabase: SupabaseClient): Promise<Questio
   }
 }
 
+// Backs the technology sidebar's conditional "Practice Exams" tab (see
+// technologyExamTypeMap in lib/data/navigation.ts) — one representative
+// paper to link into, not a full listing (the breadcrumb back to
+// /question-bank already covers browsing the rest of that exam_type's papers).
+export async function getFirstPaperByExamType(supabase: SupabaseClient, examType: string): Promise<QuestionPaper | null> {
+  try {
+    const { data, error } = await supabase
+      .from("question_papers")
+      .select("id, slug, title, exam_type, focus_tags, question_count, difficulty, is_premium, sort_order")
+      .eq("exam_type", examType)
+      .order("sort_order", { ascending: true })
+      .limit(1)
+      .maybeSingle();
+    if (error) throw error;
+    return data as QuestionPaper | null;
+  } catch (err) {
+    console.error("getFirstPaperByExamType failed:", err);
+    return null;
+  }
+}
+
 export async function getPaperBySlug(supabase: SupabaseClient, slug: string): Promise<QuestionPaper | null> {
   try {
     const { data, error } = await supabase

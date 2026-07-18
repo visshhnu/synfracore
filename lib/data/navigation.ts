@@ -33,6 +33,18 @@ export const techSections = [
   { slug: "faq", label: "FAQ", icon: "❓", description: "Frequently asked questions and clear answers" },
 ];
 
+// Maps "academySlug/technologySlug" to the question_papers.exam_type value
+// (docs/question-bank-schema.sql: 'bchhc' | 'cpc' (future)) that technology's
+// real practice exams are registered under. Drives the sidebar's conditional
+// "Practice Exams" tab in app/academies/[academy]/[technology]/[section]/
+// page.tsx — a technology only gets the tab if it has an entry here AND at
+// least one matching row actually exists in question_papers (checked live,
+// not assumed from this map alone). Extend this map, not the page component,
+// when a new technology gets real question-bank papers (e.g. VLSI, AEE, CPC).
+export const technologyExamTypeMap: Record<string, string> = {
+  "healthcare/bchhc-prep": "bchhc",
+};
+
 export const certifications = [
   { id: "aws-ccp", name: "AWS Cloud Practitioner", code: "CLF-C02", provider: "AWS", color: "#FF9900", level: "Foundational" },
   { id: "aws-saa", name: "AWS Solutions Architect Associate", code: "SAA-C03", provider: "AWS", color: "#FF9900", level: "Associate" },

@@ -4,8 +4,11 @@ import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import type { Metadata } from "next";
 import { getAcademy, getTechnology } from "@/lib/data/academies";
-import { techSections, nonTechSections, nonTechAcademyIds } from "@/lib/data/navigation";
+import { techSections, nonTechSections, nonTechAcademyIds, technologyExamTypeMap } from "@/lib/data/navigation";
 import { hasContent, fetchContent } from "@/lib/content";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getFirstPaperByExamType } from "@/lib/supabase/questionBank";
+import { Sparkles } from "lucide-react";
 import SectionContent from "@/components/tech/SectionContent";
 import LabsSection from "@/components/tech/LabsSection";
 import AuthorBadge from "@/components/tech/AuthorBadge";
@@ -164,6 +167,16 @@ export default async function SectionPage({ params }: Props) {
     initialContent = await fetchContent(aSlug, tSlug, section, `${protocol}://${host}`);
   }
 
+  // Sidebar "Practice Exams" tab — only for technologies with a real
+  // question_papers row (technologyExamTypeMap in lib/data/navigation.ts is
+  // just the registry of which exam_type to look for; existence is checked
+  // live here, not assumed from the map alone, so a mapped-but-empty entry
+  // never shows a tab that leads nowhere real).
+  const examType = technologyExamTypeMap[`${aSlug}/${tSlug}`];
+  const practiceExamPaper = examType
+    ? await getFirstPaperByExamType(createSupabaseServerClient(), examType)
+    : null;
+
   return (
     <div style={{ display: "flex", gap: "0", minHeight: "80vh" }}>
       <CourseJsonLd
@@ -227,6 +240,30 @@ export default async function SectionPage({ params }: Props) {
               {s.label}
             </Link>
           ))}
+          {practiceExamPaper && (
+            <Link
+              href={`/question-bank/${practiceExamPaper.slug}`}
+              prefetch={false}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "8px 10px",
+                borderRadius: "6px",
+                marginBottom: "2px",
+                textDecoration: "none",
+                fontSize: "13px",
+                fontWeight: 400,
+                color: "var(--text-3)",
+              }}
+            >
+              <span style={{ fontSize: "14px" }}>📝</span>
+              Practice Exams
+              <span style={{ display: "flex", alignItems: "center", gap: "2px", marginLeft: "auto", fontSize: "9px", fontWeight: 700, padding: "2px 7px", borderRadius: "20px", background: "rgba(245,158,11,0.12)", color: "#F59E0B", whiteSpace: "nowrap" }}>
+                <Sparkles size={9} /> Premium
+              </span>
+            </Link>
+          )}
         </nav>
       </aside>
 
