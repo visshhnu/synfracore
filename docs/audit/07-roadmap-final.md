@@ -87,9 +87,15 @@ detailed below.
   Not independently re-verifiable from this session (needs Search Console access).
 - **OP-5 · 73-file boilerplate batch — confirmed not started.** `06-roadmap.md`
   itself says "no files touched yet"; nothing in the repo contradicts that.
-- **OP-6 · `afterSignOutUrl` — confirmed still missing.**
-  [`components/layout/Navbar.tsx:305`](../../components/layout/Navbar.tsx#L305) has
-  bare `<UserButton />`, no props.
+- **OP-6 · `afterSignOutUrl` — CORRECTION 2026-07-18: already resolved,
+  this entry was stale.** `Navbar.tsx`'s bare `<UserButton />` (no props) is
+  correct, not a bug — commit `9e147da` (2026-07-16) already fixed the
+  underlying issue at the `ClerkProvider` level (`app/layout.tsx`:
+  `<ClerkProvider afterSignOutUrl="/">`), after confirming `afterSignOutUrl`
+  moved to be a provider-level-only option on this Clerk SDK version, not a
+  per-component `UserButton` prop — adding it to `UserButton` directly fails
+  typecheck (`TS2322`, re-confirmed live tonight). This entry should have
+  been marked resolved after that commit; it wasn't. No code change needed.
 - **OP-7 · Phase-1 closure — mixed, now precisely known:**
   - *1.2 slug_aliases*: table/schema doc exists (`docs/slug-aliases-schema.sql`),
     but **zero application code references it** — confirmed by grep across `app/`,
@@ -1281,7 +1287,9 @@ at least once and was never caught by desktop-only verification.
 4. **A4 — NF-11 one-line fix**: delete the hardcoded 10-slug filter in
    `app/academies/[academy]/[technology]/page.tsx:90-95` so the hub grid
    matches the sidebar's full 17-tab list.
-5. **A5 — `afterSignOutUrl` one-liner** (OP-6) on `Navbar.tsx:305`.
+5. ~~**A5 — `afterSignOutUrl` one-liner** (OP-6)~~ — already resolved
+   (commit `9e147da`, 2026-07-16); OP-6's "still missing" note was stale,
+   corrected 2026-07-18 (Part 2).
 6. **A6 — NF-5 scoped provenance fix**: rewrite the 4 identified files
    (`infrastructure/docker/{intermediate,advanced}.md`,
    `infrastructure/kubernetes/{intermediate,fundamentals}.md`) to original
