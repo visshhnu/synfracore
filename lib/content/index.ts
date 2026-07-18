@@ -2137,18 +2137,38 @@ const contentRegistry = new Map<string, string>([
 export function hasContent(a: string, t: string, s: string): boolean {
   return contentRegistry.has(`${a}/${t}/${s}`);
 }
-// baseUrl is empty ("" -> relative fetch) for the existing client-side call
-// sites, and an absolute origin (e.g. "https://synfracore.com") when called
-// from a Server Component — server-side fetch() has no implicit page origin
-// the way a browser request does, so a relative "/content/..." URL would
-// fail there. See app/academies/[academy]/[technology]/[section]/page.tsx.
-export async function fetchContent(a: string, t: string, s: string, baseUrl = ""): Promise<string | null> {
+// Client-side only (relative fetch — the browser supplies the origin). Do
+// NOT call this from a Server Component; see fetchContentEdge() below.
+export async function fetchContent(a: string, t: string, s: string): Promise<string | null> {
   const filePath = contentRegistry.get(`${a}/${t}/${s}`);
   if (!filePath) return null;
   try {
-    const res = await fetch(`${baseUrl}/content/${filePath}.md`);
+    const res = await fetch(`/content/${filePath}.md`);
     if (!res.ok) return null;
     return await res.text();
-  } catch { return null; }
+  } catch (err) {
+    console.error(`fetchContent failed for ${a}/${t}/${s}:`, err);
+    return null;
+  }
+}
+// Server-side only. A Worker fetching its own public hostname during request
+// handling is unreliable under @opennextjs/cloudflare (proved intermittent
+// under real traffic); reading the co-located ASSETS binding instead avoids
+// the network round-trip entirely. See
+// app/academies/[academy]/[technology]/[section]/page.tsx and
+// app/learn/[board]/[subject]/[chapter]/page.tsx for call sites.
+export async function fetchContentEdge(a: string, t: string, s: string): Promise<string | null> {
+  const filePath = contentRegistry.get(`${a}/${t}/${s}`);
+  if (!filePath) return null;
+  try {
+    const { getCloudflareContext } = await import("@opennextjs/cloudflare");
+    const { env } = getCloudflareContext();
+    const res = await env.ASSETS.fetch(new Request(`https://assets.local/content/${filePath}.md`));
+    if (!res.ok) return null;
+    return await res.text();
+  } catch (err) {
+    console.error(`fetchContentEdge failed for ${a}/${t}/${s}:`, err);
+    return null;
+  }
 }
 export function getContent(_a: string, _t: string, _s: string): string | null { return null; }

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { headers } from "next/headers";
 import { getBoard, getSubject, getChapter } from "@/lib/data/education";
 import { redirect } from "next/navigation";
-import { hasContent, fetchContent } from "@/lib/content";
+import { hasContent, fetchContentEdge } from "@/lib/content";
 import SectionContent from "@/components/tech/SectionContent";
 import { pageMetadata } from "@/lib/seo/metadata";
 
@@ -44,10 +43,7 @@ export default async function ChapterPage({ params }: Props) {
   const contentTechnology = `${bSlug}/${sSlug}`;
   let initialContent: string | null = null;
   if (hasContent(contentAcademy, contentTechnology, cSlug)) {
-    const hdrs = await headers();
-    const host = hdrs.get("host") ?? "synfracore.com";
-    const protocol = host.startsWith("localhost") || host.startsWith("127.0.0.1") ? "http" : "https";
-    initialContent = await fetchContent(contentAcademy, contentTechnology, cSlug, `${protocol}://${host}`);
+    initialContent = await fetchContentEdge(contentAcademy, contentTechnology, cSlug);
   }
 
   return (
