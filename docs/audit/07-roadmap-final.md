@@ -1373,11 +1373,18 @@ turned out to be *partially* done: the underlying mechanism was fixed, but
    CI check that fails if a known stat literal reappears in JSX.
 2. **B2 — Rewrite Terms/Privacy** (NF-8) to match the real product; remove
    billing/refund language until payments exist; re-date past January 2025.
-3. **B3 — Phase-1 closure follow-through** (OP-7): wire
-   `generate-content-registry.mjs` into the build step; build a real
-   search-index generator to replace the hardcoded `searchIndex` array in
-   `app/search/page.tsx`; ~~verify/complete 1.5's dead-directory
-   cleanup~~ (already done, see Part 2's OP-7 correction, 2026-07-18).
+3. ~~**B3 — Phase-1 closure follow-through**~~ (OP-7) — **CORRECTION
+   2026-07-18: all 3 sub-items confirmed done, re-verified against actual
+   code tonight, not just Part 2's 2026-07-16 finding.** (a)
+   `generate-content-registry.mjs` is wired into `pages:build`
+   (`package.json:10`, runs before the `next-on-pages` build). (b)
+   `app/search/page.tsx`'s `searchIndex` is genuinely dynamic —
+   `const searchIndex: Result[] = buildSearchIndex();` (line 83), not a
+   hardcoded array; Part 2's original "still hardcoded" finding was wrong
+   from the start (self-corrected same session, 2026-07-16), it just never
+   propagated to this Phase B entry. (c) dead-directory cleanup — already
+   done, commit `bf8f5f0`, corrected in Part 2 tonight. Nothing left open
+   in B3.
 4. **B4 — Search Console pass** (OP-4): verify contamination phrases aren't
    indexed; submit the regenerated sitemap.
 5. **B5 — Content thinness pass**: use Part 6's per-tab numbers (Real World
@@ -1469,8 +1476,9 @@ publish gate if/when the content-quality program needs it.
 3. ~~**C4 — Symptom 10 whole-site-outage root cause**~~ — **RESOLVED
    2026-07-18**, re-verified directly on production. See Part 4/Part 8's
    C4 entry above.
-4. B1 stats source-of-truth · B2 legal pages · B3 Phase-1 closure · B4 Search
-   Console · B5 content-thinness pass
+4. B1 stats source-of-truth · B2 legal pages · ~~B3 Phase-1 closure~~
+   (done, corrected 2026-07-18) · B4 Search Console · B5 content-thinness
+   pass
 5. **C1 — learn.synfracore.com decision** (highest-leverage single SEO call)
 6. C2 Symptom 8 fix → C3 Symptom 9 investigation → C5 Question Bank launch
 7. ~~**D1 — OpenNext migration**~~ — **PAUSED INDEFINITELY as of
