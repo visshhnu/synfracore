@@ -833,6 +833,153 @@ page-level attempts absent a new idea.
 
 ---
 
+## Part 4f — D1 Retry Readiness (documentation only — no code changes, no retry attempted tonight)
+
+**Status: still paused.** Raised again 2026-07-18 because the new Practice
+Exams tab (Part 4e's aftermath) makes question-bank attempt pages more
+discoverable, increasing real-user exposure to Symptom 11 — but decided
+explicitly **not** to re-attempt D1 tonight, right after an outage, without
+preparation. This section exists so a future attempt starts from everything
+already known, not from scratch. Nothing here has been implemented or
+tested — it's a plan, not a result.
+
+### 1. The exact content-loading fix
+
+Root cause (Part 4e): `lib/content/index.ts`'s `fetchContent()` makes an
+HTTP `fetch()` call **from inside the Worker, to the Worker's own public
+hostname** (`${baseUrl}/content/${filePath}.md`, where `baseUrl` is built
+from the incoming request's own `Host` header in
+`app/academies/[academy]/[technology]/[section]/page.tsx`). This
+self-referential loopback fetch is unreliable under
+`@opennextjs/cloudflare`'s Worker runtime specifically.
+
+**Fix**: replace the self-fetch with OpenNext's `ASSETS` binding, called
+directly inside the Worker — never crossing back out to the public
+hostname:
+
+```ts
+// lib/content/index.ts — fetchContent(), OpenNext-era version
+import { getCloudflareContext } from "@opennextjs/cloudflare";
+
+export async function fetchContent(a: string, t: string, s: string): Promise<string | null> {
+  const filePath = contentRegistry.get(`${a}/${t}/${s}`);
+  if (!filePath) return null;
+  try {
+    const { env } = getCloudflareContext();
+    const res = await env.ASSETS.fetch(new Request(`https://assets.local/content/${filePath}.md`));
+    if (!res.ok) return null;
+    return await res.text();
+  } catch (err) {
+    console.error(`fetchContent failed for ${a}/${t}/${s}:`, err); // was a silent catch — see below
+    return null;
+  }
+}
+```
+
+The exact binding-call syntax should be re-checked against
+`@opennextjs/cloudflare`'s current docs when this is attempted (API surface
+for asset bindings has shifted between versions before — see the pinned
+`1.20.1` used in the original attempt). The `baseUrl` parameter and the
+server-side `headers()`/host-detection logic in the calling page component
+become unnecessary and should be removed, not left dangling.
+
+**Also fix while touching this function** (found during Part 4e's
+investigation, not yet fixed): the `catch { return null; }` block silently
+swallows the real failure reason, making a genuine error indistinguishable
+from "this lesson has no content yet." Log the actual error (as sketched
+above) before returning `null`, so a future regression here is diagnosable
+from `wrangler tail` instead of requiring another multi-hour investigation.
+
+### 2. Required, expanded Step 3 checklist
+
+**This is the change that matters most — the original Step 3 verification
+process had a real gap, not just bad luck.** It thoroughly verified the
+auth symptoms (6/9/10/11) via a dedicated preview and real browser testing,
+but never specifically tested content-page rendering across a meaningful
+sample — the content-loading regression was only found after the domain
+had already been cut over to real production traffic.
+
+Before any future domain cutover, Step 3 **must** additionally include:
+- **Content rendering verified on at least 5 different academies/
+  technologies**, not just one (Docker was the only one checked live
+  during the original attempt, purely incidentally). Suggested spread:
+  one from each of DevOps, Cloud, Healthcare, Data, and one non-tech
+  academy (e.g. Education or Exams) — deliberately varied, not five
+  DevOps technologies.
+- For each, confirm real lesson text renders (not the "coming soon"
+  empty-state fallback) — check actual body content, not just HTTP status.
+  A `200` with the wrong content is exactly how this regression hid
+  (Part 4e).
+- Repeat the check 3-5 times per page, not once — Part 4e's own
+  post-fix testing showed this failure mode is intermittent (roughly
+  1-in-3 in one measurement), not consistently reproducible on the first
+  try. A single clean check is not sufficient evidence.
+- Only proceed to domain cutover once this expanded content check passes
+  cleanly, in addition to the existing auth-symptom checklist.
+
+### 3. DNS/domain-cutover lessons from tonight
+
+Cloudflare Pages and Cloudflare Workers custom domains are mutually
+exclusive per hostname, and moving between them is a real, multi-step
+operation with a real outage window — not a single API call. What was
+learned the hard way tonight:
+
+- **The exact DNS record type to expect**: the production apex record is a
+  **CNAME** (`synfracore.com → synfracore.pages.dev`, proxied) when
+  Pages owns the hostname. Confirmed via a full zone export during
+  tonight's incident.
+- **Claiming the hostname for a Worker requires the Pages-side custom
+  domain binding removed first**, and — critically, this is the part that
+  caused tonight's outage — **removing that binding does not delete the
+  underlying DNS record, but does immediately break serving**, because
+  Pages stops recognizing the hostname while the record still points at
+  Pages' now-unclaimed infrastructure. There is a real gap between
+  "Pages binding removed" and "Worker successfully claims the hostname,"
+  during which the site is down. Budget for this, don't assume it's
+  instant.
+- **The rollback command** (Pages side, tested and confirmed working
+  tonight):
+  ```
+  POST /accounts/{account_id}/pages/projects/{project}/domains
+  Body: {"name": "synfracore.com"}
+  ```
+  This re-adds the Pages custom domain binding. If the underlying DNS
+  record still exists (most rollback scenarios), this resolves in
+  roughly 5-15 seconds. If the DNS record was also deleted, expect a
+  slower, less predictable propagation — tonight's second rollback (after
+  the CNAME had been deleted) took several minutes and briefly appeared
+  stuck before resolving, including one false alarm caused by a stale
+  local DNS resolver, not an actual problem.
+- **Caution, explicitly**: do not delete the CNAME record before
+  confirming the Worker's custom-domain claim has actually succeeded and
+  is serving real traffic. Tonight's sequence — delete the CNAME, then
+  attempt the Worker claim — created an avoidable window where neither
+  side was serving. The safer order: claim the domain for the Worker
+  *first* (Cloudflare will report the conflict, e.g. error 100117
+  "Hostname already has externally managed DNS records," rather than
+  silently succeeding), resolve that conflict deliberately, and only then
+  proceed — rather than preemptively clearing the old record.
+- An unrelated, active Cloudflare platform incident ("POST requests not
+  succeeding," confirmed via cloudflarestatus.com) made tonight's cutover
+  meaningfully worse and harder to diagnose in the moment. Check Cloudflare's
+  status page before starting a cutover, and if something looks stuck
+  in a way that doesn't match the mechanics above, check there again
+  before assuming it's something local.
+
+### 4. Timing recommendation
+
+Attempt this on a session with **enough contiguous, uninterrupted time to
+see the full cutover through in one sitting** — not squeezed between other
+tasks, and not late at night immediately after unrelated work (tonight's
+attempt followed directly after a production outage from earlier work on
+the same night, which is not the ideal state to start a domain cutover
+from). Based on tonight's actual timings: budget for a multi-hour session
+covering the full migration re-application, the expanded Step 3 checklist
+above, and the domain cutover with its real (not theoretical) outage-window
+risk — not a quick evening add-on.
+
+---
+
 ## Part 5 — Findings from the v2 draft, verified today (NF-1 through NF-12)
 
 Legend: ✅ CONFIRMED live/in code exactly as v2 described · ⚠️ PARTIALLY confirmed
