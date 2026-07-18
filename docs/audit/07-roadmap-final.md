@@ -222,7 +222,7 @@ Symptoms 6 and 7, but a distinct mechanism from either. Diagnosing this further
 needs the live-tail/instrumentation approach that resolved Symptom 6, not more
 static reading. **Explicitly distinct from Symptom 8** — do not conflate.
 
-### Symptom 10 · Retry-storm resource exhaustion causing intermittent whole-site 503s (open, currently active/self-mitigating — RE-CONFIRMED LIVE TODAY)
+### Symptom 10 · Retry-storm resource exhaustion causing intermittent whole-site 503s (RESOLVED 2026-07-18 — see Part 4d's fix and the C4 recheck below)
 A Clerk client-side retry loop generated enough load to trip Cloudflare Worker
 resource limits (Cloudflare error 1102), causing an intermittent 503/200 flap
 across the **entire site**, not just one route.
@@ -241,8 +241,32 @@ avoid signing IN from a question-bank/attempt page** — the same class of
 Clerk-internal-action failure reproduces on sign-in there too, not just
 sign-out.
 
-Given the whole-site blast radius, this needs priority attention ahead of most
-other open items — see Part 6 priority order.
+Given the whole-site blast radius, this needed priority attention ahead of
+most other open items — see Part 6 priority order.
+
+**RESOLVED 2026-07-18 (C4 recheck)**: the `prefetch={false}` fix on
+`Navbar.tsx`/`Footer.tsx` (Part 4d, kept intact through the D1 revert —
+Part 4e — since it's adapter-independent) was re-verified directly against
+**production**, not just a preview, tonight. Method: a real disposable
+Clerk account created via the live Backend API, a genuine sign-in attempt
+against `synfracore.com` (reached the point of submitting real credentials
+before hitting an expected new-device email-verification wall, which
+wasn't completed — no real inbox access, and bypassing it wasn't
+attempted), while polling `/`, `/academies/devops`, `/learn`, and `/about`
+throughout. **Result: 0 failures across 48 real production requests**
+(20 baseline + 28 during live auth-flow activity), consistent with the
+original preview A/B result (8 failures → 0 after the fix). Test account
+deleted after. Marking this resolved — the whole-site 503 blast radius
+this symptom describes has real, current evidence against it recurring,
+on production, not just a preview.
+
+One unrelated thing surfaced during this recheck, noted for the record but
+**not** conflated with this resolution: a single React error `#418`
+(hydration mismatch) fired once during the sign-in attempt, before
+`setActive()` ever ran — doesn't match Symptom 11's documented mechanism
+(which requires `setActive()`/`signOut()` completing), so it's more likely
+an unrelated hydration hiccup than a recurrence of Symptom 11. Not
+investigated further tonight; flagged in case it recurs.
 
 ### Symptom 11 · Clerk's internal cache-invalidation Server Action 404s on sign-in/out while on a question-bank/attempt page, crashing hydration (open, reproduced live 2026-07-16)
 Reproduced live with full console evidence on both directions:
@@ -1386,10 +1410,10 @@ turned out to be *partially* done: the underlying mechanism was fixed, but
    running live while someone actually reproduces the bug in a browser —
    deferred, no working Clerk auth session (local or preview) available to
    trigger this without that.
-4. **C4 — Symptom 10 root-cause fix**: the Clerk retry-storm is a whole-site
-   availability risk (re-confirmed live today), materially more severe than
-   most other open items — do not let it sit behind lower-severity work
-   just because it happens to self-recover.
+4. ~~**C4 — Symptom 10 root-cause fix**~~ — **RESOLVED 2026-07-18**, the
+   `prefetch={false}` fix re-verified directly on production (0/48 real
+   requests failed during a live sign-in attempt). See Symptom 10's entry
+   above for the full recheck writeup.
 5. **C5 — Launch Question Bank properly** (NF-10): nav + footer + homepage
    links, sitemap entries, per-paper metadata — only after C2 is fixed.
    **2026-07-16: explicitly deferred, not attempted.** C2 is only
@@ -1442,9 +1466,9 @@ publish gate if/when the content-quality program needs it.
    bucket (share fix, OG/Twitter fix, hub-tab one-liner, sign-out URL,
    scoped provenance rewrite, Class 12, Symptom-10 warning doc,
    dead-directory deletion, duplicate-blog-post fix) was already shipped.
-3. **C4 — Symptom 10 whole-site-outage root cause** (elevated above its old
-   position given the live re-confirmation today — this is a standing
-   availability risk, not just an SEO/content item)
+3. ~~**C4 — Symptom 10 whole-site-outage root cause**~~ — **RESOLVED
+   2026-07-18**, re-verified directly on production. See Part 4/Part 8's
+   C4 entry above.
 4. B1 stats source-of-truth · B2 legal pages · B3 Phase-1 closure · B4 Search
    Console · B5 content-thinness pass
 5. **C1 — learn.synfracore.com decision** (highest-leverage single SEO call)
