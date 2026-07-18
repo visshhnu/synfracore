@@ -1386,8 +1386,13 @@ turned out to be *partially* done: the underlying mechanism was fixed, but
    values, not general JSX analysis), and it proved itself immediately:
    it's what caught the `CertificationsSection.tsx` instance in the first
    place, confirmed failing before the fix and clean after.
-2. **B2 — Rewrite Terms/Privacy** (NF-8) to match the real product; remove
-   billing/refund language until payments exist; re-date past January 2025.
+2. ~~**B2 — Rewrite Terms/Privacy**~~ (NF-8) — **CORRECTION 2026-07-18:
+   already done, commit `c54a20a`.** Both `/terms` and `/privacy` now show
+   "Last updated: July 2026" (re-verified live on production tonight, not
+   just in source); `/terms`' Pricing section explicitly states
+   "SynfraCore is currently free to use — there is no paid subscription
+   tier today," with no billing/refund language for a nonexistent
+   product. Nothing left open.
 3. ~~**B3 — Phase-1 closure follow-through**~~ (OP-7) — **CORRECTION
    2026-07-18: all 3 sub-items confirmed done, re-verified against actual
    code tonight, not just Part 2's 2026-07-16 finding.** (a)
@@ -1491,8 +1496,9 @@ publish gate if/when the content-quality program needs it.
 3. ~~**C4 — Symptom 10 whole-site-outage root cause**~~ — **RESOLVED
    2026-07-18**, re-verified directly on production. See Part 4/Part 8's
    C4 entry above.
-4. ~~B1 stats source-of-truth~~ (done, 2026-07-18) · B2 legal pages ·
-   ~~B3 Phase-1 closure~~ (done, corrected 2026-07-18) · B4 Search
+4. ~~B1 stats source-of-truth~~ (done, 2026-07-18) · ~~B2 legal pages~~
+   (done, corrected 2026-07-18) · ~~B3 Phase-1 closure~~ (done, corrected
+   2026-07-18) · B4 Search
    Console · B5 content-thinness
    pass
 5. **C1 — learn.synfracore.com decision** (highest-leverage single SEO call)
