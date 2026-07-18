@@ -25,6 +25,9 @@ jobs:
       - name: Content quality guardrail (contamination check)
         run: npm run validate:content-quality
 
+      - name: Hardcoded stats guardrail (NF-6)
+        run: npm run validate:no-hardcoded-stats
+
       - name: TypeScript
         run: npx tsc --noEmit
 
