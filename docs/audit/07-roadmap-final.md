@@ -1278,48 +1278,69 @@ at least once and was never caught by desktop-only verification.
    a validator marker the same day.
 
 ### Phase A — Quick, high-value correctness fixes (this week, each ≤ half a day)
-1. **A1 — Fix the doubled title suffix** (NF-1): remove the manual
-   `| SynfraCore` append from the 10+ page-level metadata exports listed
-   above; let the layout template handle it. Verify on all 5 route types
-   checked live today.
-2. **A2 — Fix the share component** (NF-2): build the URL from the page's own
-   canonical/params, dedupe the WhatsApp/Twitter text. One shared component.
-3. **A3 — Fix OG/Twitter metadata** (NF-3): replace `og-image.svg` with a
-   1200×630 PNG; make every page's `og:title`/`og:url` and — critically, since
-   this leak is universal even on pages with correct OG — `twitter:title`/
-   `twitter:description` inherit from that page's own metadata, never a root
-   default. Validate with X/LinkedIn/Facebook debugger tools.
-4. **A4 — NF-11 one-line fix**: delete the hardcoded 10-slug filter in
-   `app/academies/[academy]/[technology]/page.tsx:90-95` so the hub grid
-   matches the sidebar's full 17-tab list.
-5. ~~**A5 — `afterSignOutUrl` one-liner** (OP-6)~~ — already resolved
-   (commit `9e147da`, 2026-07-16); OP-6's "still missing" note was stale,
-   corrected 2026-07-18 (Part 2).
-6. **A6 — NF-5 scoped provenance fix**: rewrite the 4 identified files
-   (`infrastructure/docker/{intermediate,advanced}.md`,
-   `infrastructure/kubernetes/{intermediate,fundamentals}.md`) to original
-   voice with generic image names; add `TechWorld`/`Nana`/`saifshah`/`from
-   the notes` as HARD_FAIL markers to the content validator (corpus-wide grep
-   already confirms no other hits, so HARD_FAIL from day one is safe here,
-   unlike NF-4's dropped WARN-first plan).
-7. **A7 — Hide or "Coming soon"-label the Class 12 board** (NF-7, confirmed
-   empty subject-badge area on `/learn` today): one-line filter, or a badge,
-   per the original recommendation.
-8. **A8 — Symptom 10 mitigation note**: add the "don't sign out from a
-   question-bank page" interim warning somewhere a developer will actually
-   see it (CLAUDE.md's Do-Not section is the natural place) — currently
-   undocumented anywhere in the repo.
+
+**CORRECTION 2026-07-18: re-verified against actual code, not just commit/
+branch history — every item below except A1 was already done, in some cases
+days ago, and this section had never been updated to reflect it.** A1 itself
+turned out to be *partially* done: the underlying mechanism was fixed, but
+4 pages never got migrated to it. See below for exact evidence.
+
+1. **A1 — doubled title suffix** (NF-1) — **partially done, real remaining
+   scope identified 2026-07-18**: the fix mechanism landed correctly
+   (`app/layout.tsx`'s template already appends `| SynfraCore` once, and
+   pages using the `pageMetadata()` helper — about, blog, learn,
+   certifications/[id], etc. — are clean), but `app/community/page.tsx`,
+   `app/contact/page.tsx`, `app/certifications/page.tsx`, and
+   `app/troubleshooting/page.tsx` still hardcode a manual
+   `"X — SynfraCore"` title via a plain `export const metadata` instead of
+   `pageMetadata()`, doubling to `"Community — SynfraCore | SynfraCore"`
+   etc. Small, scoped, still open.
+2. ~~**A2 — share component**~~ (NF-2) — confirmed done. `components/
+   growth/ShareButtons.tsx` only falls back to `window.location.href` when
+   no `url` prop is given; both call sites (`app/blog/[slug]/page.tsx`,
+   `components/tech/SectionContent.tsx`) now pass an explicit page URL.
+3. ~~**A3 — OG/Twitter metadata**~~ (NF-3) — confirmed done.
+   `app/api/og/route.tsx` uses `ImageResponse` (real rendered PNG), not
+   the old SVG. `lib/seo/metadata.ts`'s `pageMetadata()` sets `twitter:
+   { title, description, images }` explicitly per page, not inherited
+   from a root default — its own comment documents this was exactly the
+   NF-3 fix.
+4. ~~**A4 — NF-11 hub tab parity**~~ — confirmed done (and independently
+   re-confirmed 2026-07-18 while building the Practice Exams tab): the
+   hardcoded 10-slug filter in `app/academies/[academy]/[technology]/
+   page.tsx` is gone; `availableSections` now uses the same unfiltered
+   `techSections`/`nonTechSections` list as the sidebar.
+5. ~~**A5 — `afterSignOutUrl` one-liner**~~ (OP-6) — confirmed done
+   (commit `9e147da`, 2026-07-16); corrected in the roadmap 2026-07-18.
+6. ~~**A6 — NF-5 content provenance**~~ — confirmed done. Zero hits for
+   `TechWorld`/`Nana`/`saifshah`/`from the notes` in the 4 originally
+   flagged files, and zero hits corpus-wide across all of
+   `public/content` (only unrelated coincidental matches, e.g. "Nana
+   Sahib", "banana"). The HARD_FAIL validator markers were not added —
+   worth doing if this content area gets touched again, but not urgent
+   given the corpus is already clean.
+7. ~~**A7 — Class 12 board**~~ (NF-7) — confirmed done. `class-12` is in
+   `app/learn/page.tsx`'s `liveBoardSlugs`, not the "coming soon" bucket;
+   `lib/data/education.ts` has a fully populated `class12Subjects` (4
+   subjects, real chapters, descriptions, `pyqYears`) — not an empty stub.
+8. ~~**A8 — Symptom 10 mitigation note**~~ — confirmed done. Present in
+   `CLAUDE.md`'s "## Do not" section with a full explanation of the
+   Clerk/adapter crash and 503-storm risk.
 9. Drop NF-4 (duplicated table separators) from the roadmap entirely — not
    reproducible; no validator or fix needed.
-10. ~~**A9 — Delete the two dead content directories** (OP-7's 1.5)~~ —
-    already done, commit `bf8f5f0` (2026-07-16); re-confirmed on disk
-    2026-07-18. See Part 2's OP-7 correction.
-11. **A10 — Canonicalize the duplicate blog post** (NF-12, confirmed):
-    `devops-salary-india-2025` vs `devops-salary-india-2026` — archive or
-    redirect the older one.
+10. ~~**A9 — Delete the two dead content directories**~~ (OP-7's 1.5) —
+    confirmed done, commit `bf8f5f0` (2026-07-16); corrected in the
+    roadmap 2026-07-18.
+11. ~~**A10 — Canonicalize the duplicate blog post**~~ (NF-12) — confirmed
+    done. `lib/data/blogPosts.ts`/`app/blog/page.tsx` only list the 2026
+    slug; `next.config.ts` has a permanent redirect from
+    `/blog/devops-salary-india-2025` to the 2026 post, citing NF-12
+    explicitly in its own comment.
 12. Drop NF-12's other three sub-items ("World's"/"India's" messaging
     conflict, garbled logo alt text, footer raw-URL link text) — none
     reproduced against today's live site.
+
+**Net effect: Phase A is done except A1's 4-page remainder.**
 
 ### Phase B — Correctness at the data layer (next 1–2 weeks)
 1. **B1 — Single source of truth for displayed stats** (NF-6): a build-time
@@ -1414,9 +1435,13 @@ publish gate if/when the content-quality program needs it.
 ## Part 8 — One-page priority order
 
 1. Part 0 mobile fix — awaiting your manual mobile-viewport confirmation
-2. A1–A10 (this week — title fix, share fix, OG/Twitter fix, hub-tab
-   one-liner, sign-out URL, scoped provenance rewrite, Class 12 hide/label,
-   Symptom-10 warning doc, dead-directory deletion, duplicate-blog-post fix)
+2. ~~A1–A10~~ — **CORRECTION 2026-07-18: re-verified against actual code,
+   all done except A1's remainder** (4 pages — community, contact,
+   certifications index, troubleshooting — still double their title
+   suffix; see Phase A above for exact evidence). Everything else in this
+   bucket (share fix, OG/Twitter fix, hub-tab one-liner, sign-out URL,
+   scoped provenance rewrite, Class 12, Symptom-10 warning doc,
+   dead-directory deletion, duplicate-blog-post fix) was already shipped.
 3. **C4 — Symptom 10 whole-site-outage root cause** (elevated above its old
    position given the live re-confirmation today — this is a standing
    availability risk, not just an SEO/content item)
@@ -1424,8 +1449,11 @@ publish gate if/when the content-quality program needs it.
    Console · B5 content-thinness pass
 5. **C1 — learn.synfracore.com decision** (highest-leverage single SEO call)
 6. C2 Symptom 8 fix → C3 Symptom 9 investigation → C5 Question Bank launch
-7. **D1 — OpenNext migration** (prerequisite for D2/D3)
-8. D2 static rendering → D3 Sentry → D4 analytics depth
+7. ~~**D1 — OpenNext migration**~~ — **PAUSED INDEFINITELY as of
+   2026-07-17/18** (attempted in full, reverted; see Part 4e/4f). Not a
+   current prerequisite for D2/D3 while paused.
+8. D2 static rendering → D3 Sentry → D4 analytics depth (all blocked
+   behind D1, which is paused — see above)
 9. Phase E as/when prioritized
 
 ---
