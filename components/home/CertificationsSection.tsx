@@ -28,7 +28,7 @@ export default function CertificationsSection() {
               marginBottom: "16px",
             }}
           >
-            13 Certifications
+            {certifications.length} Certifications
           </span>
           <h2
             style={{

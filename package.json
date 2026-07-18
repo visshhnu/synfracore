@@ -8,10 +8,11 @@
     "start": "next start",
     "lint": "eslint",
     "pages:build": "npm run generate:content-registry && npx @cloudflare/next-on-pages@1",
-    "predeploy": "npm run validate:roadmaps && npm run validate:content-quality",
+    "predeploy": "npm run validate:roadmaps && npm run validate:content-quality && npm run validate:no-hardcoded-stats",
     "deploy": "npm run pages:build && wrangler pages deploy",
     "validate:roadmaps": "node scripts/run-validate-roadmaps.mjs",
     "validate:content-quality": "node scripts/validate-content-quality.mjs",
+    "validate:no-hardcoded-stats": "node scripts/validate-no-hardcoded-stats.mjs",
     "generate:content-registry": "node scripts/generate-content-registry.mjs"
   },
   "dependencies": {
