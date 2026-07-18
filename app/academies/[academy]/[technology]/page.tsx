@@ -2,9 +2,11 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { getAcademy } from "@/lib/data/academies";
-import { techSections, nonTechSections, nonTechAcademyIds } from "@/lib/data/navigation";
-import { ArrowRight, Clock, Target, BookOpen } from "lucide-react";
+import { techSections, nonTechSections, nonTechAcademyIds, technologyExamTypeMap } from "@/lib/data/navigation";
+import { ArrowRight, Clock, Target, BookOpen, Sparkles } from "lucide-react";
 import { pageMetadata } from "@/lib/seo/metadata";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getFirstPaperByExamType } from "@/lib/supabase/questionBank";
 
 type Props = { params: Promise<{ academy: string; technology: string }> };
 
@@ -91,6 +93,17 @@ export default async function TechnologyPage({ params }: Props) {
   // source list as the sidebar now, no separate filter to drift out of sync.
   const availableSections = isNonTech ? nonTechSections : techSections;
 
+  // Practice Exams card — same registry-driven check as the sidebar
+  // (app/academies/[academy]/[technology]/[section]/page.tsx), so both
+  // "same place Overview/Fundamentals/etc. appear" locations stay in sync.
+  // Links to /question-bank (the full catalog), not a single paper — see
+  // that file's comment for why (confirmed live 2026-07-18: linking straight
+  // into one paper hid the other 9 BCHHC papers from the user).
+  const examType = technologyExamTypeMap[`${aSlug}/${tSlug}`];
+  const practiceExamPaper = examType
+    ? await getFirstPaperByExamType(createSupabaseServerClient(), examType)
+    : null;
+
   return (
     <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "40px 24px" }}>
 
@@ -167,6 +180,25 @@ export default async function TechnologyPage({ params }: Props) {
               </Link>
             );
           })}
+          {practiceExamPaper && (
+            <Link href="/question-bank" prefetch={false} style={{ textDecoration: "none" }}>
+              <div className="card-hover" style={{
+                padding: "20px", borderRadius: "12px",
+                border: "1px solid rgba(245,158,11,0.3)",
+                background: "rgba(245,158,11,0.05)",
+                cursor: "pointer", position: "relative"
+              }}>
+                <span style={{ position: "absolute", top: "10px", right: "10px", display: "flex", alignItems: "center", gap: "2px", fontSize: "10px", fontWeight: 700, padding: "2px 7px", borderRadius: "4px", background: "rgba(245,158,11,0.12)", color: "#F59E0B" }}>
+                  <Sparkles size={9} /> Premium
+                </span>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+                  <span style={{ fontSize: "20px" }}>📝</span>
+                  <span style={{ fontWeight: 700, fontSize: "14px", color: "var(--text-1)" }}>Practice Exams</span>
+                </div>
+                <p style={{ fontSize: "12px", color: "var(--text-3)", lineHeight: 1.5, margin: "0 0 10px" }}>Timed mock exams with real exam-style questions — track your score and review explanations.</p>
+              </div>
+            </Link>
+          )}
         </div>
       </div>
 
