@@ -1407,12 +1407,58 @@ turned out to be *partially* done: the underlying mechanism was fixed, but
    in B3.
 4. **B4 — Search Console pass** (OP-4): verify contamination phrases aren't
    indexed; submit the regenerated sitemap.
-5. **B5 — Content thinness pass**: use Part 6's per-tab numbers (Real World
-   8%, PYQ 12%, FAQ 12%, Notes 20%, Prerequisites 20%) to prioritize which
-   tabs get written next, academy-by-academy, rather than treating "coverage"
-   as a single number. Also fold in the 68-file "Quick Reference" boilerplate
-   batch and the 45-file "Add your answer here" placeholder batch found in
-   Part 6 — these were not previously tracked as a discrete item.
+5. **B5 — Content thinness pass — planning done 2026-07-18, no content
+   written yet.** This is genuinely large-scope content-authoring work,
+   not a code fix — scoped tonight to verification + a concrete priority
+   list only, deliberately not attempted as a squeeze-in. Re-ran both
+   underlying scripts fresh tonight (`scripts/audit-content.mjs`,
+   `scripts/audit-content-quality.mjs`) to confirm Part 6's numbers are
+   still current, not stale: per-tab coverage matches closely (Real World
+   7-8%, PYQ 12%, FAQ 12%, Notes 20%, Prerequisites 20%), and the
+   boilerplate/placeholder batch counts are **exactly unchanged** — still
+   68 "Quick Reference" boilerplate files and 45 unfilled "Add your
+   answer here" placeholders (118 total files, same as Part 6). Nothing
+   has drifted since this was written.
+
+   **Concrete academy-by-academy priority order** (missing-count across
+   the 5 worst tabs — Real World/PYQ/FAQ/Notes/Prerequisites — per
+   academy, computed from `docs/audit/comprehensive-gaps.json`):
+
+   | Academy | Techs | Total missing | RealWorld/PYQ/FAQ/Notes/Prereq |
+   |---|---|---|---|
+   | cloud | 26 | **125** | 25/26/25/24/25 |
+   | devops | 25 | **104** | 24/25/24/18/13 |
+   | databases | 12 | 54 | 11/12/11/9/11 |
+   | exams | 26 | 47 | 0/11/18/18/0 |
+   | data | 11 | 43 | 9/11/9/5/9 |
+   | ai | 9 | 41 | 8/9/8/8/8 |
+   | education | 12 | 36 | 0/12/12/12/0 |
+   | security | 8 | 35 | 7/8/7/6/7 |
+   | healthcare | 12 | 30 | 0/10/10/10/0 |
+   | essentials | 10 | 24 | 0/8/8/8/0 |
+   | finance | 11 | 23 | 0/8/8/7/0 |
+   | agriculture | 6 | 18 | 0/6/6/6/0 |
+   | economics | 6 | 18 | 0/6/6/6/0 |
+   | telecom | 6 | 17 | 0/6/6/5/0 |
+   | law | 8 | 16 | 0/6/5/5/0 |
+   | state-psc | 5 | 15 | 0/5/5/5/0 |
+   | central-exams | 4 | 12 | 0/4/4/4/0 |
+   | professional-certs | 4 | 12 | 0/4/4/4/0 |
+
+   (Non-technical academies show `0` for Real World and Prerequisites —
+   those tabs aren't applicable there, not a gap, per `nonTechSections`
+   in `lib/data/navigation.ts`.)
+
+   **`cloud` and `devops` alone account for 229 of ~510 total missing
+   entries (~45%) across all 18 academies** — by a wide margin the
+   highest-leverage place to start writing, not because they're the
+   worst *percentage* (several non-tech academies have lower % coverage)
+   but because they have both the most technologies and all 5 tabs
+   applicable (Real World/Prerequisites are N/A for non-tech academies,
+   so a "missing" count there structurally can't compete). Recommended
+   order when this work actually starts: `cloud` first, `devops` second,
+   then `databases`/`exams`/`data`/`ai` as a second tier — everything
+   below that has a much smaller absolute footprint per academy.
 
 ### Phase C — Strategic decisions (need explicit sign-off; this month)
 1. **C1 — Decide `learn.synfracore.com`'s fate** (NF-9, confirmed live today
