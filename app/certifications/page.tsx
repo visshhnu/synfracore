@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { Award, ExternalLink, Clock, CheckCircle, ArrowRight } from "lucide-react";
+import { pageMetadata } from "@/lib/seo/metadata";
 
-export const metadata = {
-  title: "Certifications — SynfraCore",
+export const metadata = pageMetadata({
+  title: "Certifications",
   description: "Certification guides for AWS, Kubernetes, Terraform, Azure, GCP, and more",
-};
+  path: "/certifications",
+});
 
 const certGroups = [
   {

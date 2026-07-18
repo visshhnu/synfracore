@@ -1,6 +1,11 @@
 import Link from "next/link";
+import { pageMetadata } from "@/lib/seo/metadata";
 
-export const metadata = { title: "Troubleshooting Hub — SynfraCore" };
+export const metadata = pageMetadata({
+  title: "Troubleshooting Hub",
+  description: "Debug common production issues across Kubernetes, Jenkins, Terraform, AWS IAM, Docker, and more — root cause analysis and tested fixes.",
+  path: "/troubleshooting",
+});
 
 const commonIssues = [
   { tech: "Kubernetes", icon: "☸️", issue: "CrashLoopBackOff", color: "#3B82F6" },

@@ -1,9 +1,11 @@
 import { Mail, ExternalLink } from "lucide-react";
+import { pageMetadata } from "@/lib/seo/metadata";
 
-export const metadata = {
-  title: "Contact — SynfraCore",
+export const metadata = pageMetadata({
+  title: "Contact",
   description: "Get in touch with SynfraCore. Email, social media, and support channels.",
-};
+  path: "/contact",
+});
 
 const channels = [
   {

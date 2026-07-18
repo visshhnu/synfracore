@@ -1,9 +1,11 @@
 import Link from "next/link";
+import { pageMetadata } from "@/lib/seo/metadata";
 export const runtime = "edge";
-export const metadata = {
-  title: "Community — SynfraCore",
+export const metadata = pageMetadata({
+  title: "Community",
   description: "Join the SynfraCore community. Connect with DevOps engineers, cloud architects, and AI practitioners on Telegram, LinkedIn, and GitHub.",
-};
+  path: "/community",
+});
 
 const channels = [
   {
