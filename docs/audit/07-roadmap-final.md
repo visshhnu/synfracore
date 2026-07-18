@@ -117,21 +117,26 @@ detailed below.
     the codebase. This sub-item is already done; the original audit
     misread the `const searchIndex: Result[] = buildSearchIndex();`
     declaration without checking what the function body actually does.
-  - *1.5 dead-directory cleanup*: **confirmed, two concrete findings.**
-    (a) `public/content/{education` is a malformed, empty junk directory
+  - *1.5 dead-directory cleanup*: **CORRECTION 2026-07-18: already done,
+    this entry was stale.** Both directories described below were deleted
+    in commit `bf8f5f0` (2026-07-16, "chore(content): delete two dead
+    content directories (OP-7's 1.5)") — same findings, same reasoning,
+    re-confirmed live tonight (`public/content/monitoring` no longer
+    exists on disk; the malformed junk directory doesn't either). This
+    entry should have been marked resolved after that commit; it wasn't.
+    No further action needed. Original findings, kept for the record:
+    (a) `public/content/{education` was a malformed, empty junk directory
     (containing an equally malformed empty subdirectory literally named
     `{java,c-programming,cpp},exams`) — a failed shell brace-expansion,
-    0 files, safe to delete outright, zero data risk.
-    (b) `public/content/monitoring/` (24 files: `datadog`, `elk-stack`,
-    `grafana`, `loki` subfolders) is genuinely orphaned — it is **not** in
-    `ALIAS_ROOTS` in `scripts/generate-content-registry.mjs` (only
-    `devops: ["devops", "infrastructure"]` is registered), so the registry
-    never scans it and no page ever renders it. Checked for data-loss risk
-    before recommending deletion: `elk-stack`'s content is safely duplicated
-    under `devops/elk-stack` and `infrastructure/elk-stack` already (plus a
-    stray `devops/elk`), and `loki` is not a registered technology slug in
-    `academies.ts` at all — so `monitoring/` is pure dead weight, not a
-    content-loss bug. Safe to delete entirely.
+    0 files, zero data risk. (b) `public/content/monitoring/` (24 files:
+    `datadog`, `elk-stack`, `grafana`, `loki` subfolders) was genuinely
+    orphaned — not in `ALIAS_ROOTS` in `scripts/generate-content-
+    registry.mjs` (only `devops: ["devops", "infrastructure"]` is
+    registered), so the registry never scanned it and no page ever
+    rendered it. `elk-stack`'s content was already safely duplicated
+    under `devops/elk-stack` and `infrastructure/elk-stack`, and `loki`
+    was not a registered technology slug in `academies.ts` at all —
+    pure dead weight, not a content-loss bug.
   - *1.6 content cache headers*: **confirmed shipped** —
     [`next.config.ts:63-66`](../../next.config.ts#L63) has the
     `/content/(.*)\.md` rule with `Cache-Control: public, max-age=3600,
@@ -1306,12 +1311,9 @@ at least once and was never caught by desktop-only verification.
    undocumented anywhere in the repo.
 9. Drop NF-4 (duplicated table separators) from the roadmap entirely — not
    reproducible; no validator or fix needed.
-10. **A9 — Delete the two dead content directories** (OP-7's 1.5, confirmed):
-    `public/content/{education` (malformed empty junk dir) and
-    `public/content/monitoring/` (24 orphaned files, confirmed safely
-    duplicated elsewhere for `elk-stack`, confirmed `loki` isn't even a
-    registered technology). Zero data-loss risk either way — both are
-    unreachable through the registry today.
+10. ~~**A9 — Delete the two dead content directories** (OP-7's 1.5)~~ —
+    already done, commit `bf8f5f0` (2026-07-16); re-confirmed on disk
+    2026-07-18. See Part 2's OP-7 correction.
 11. **A10 — Canonicalize the duplicate blog post** (NF-12, confirmed):
     `devops-salary-india-2025` vs `devops-salary-india-2026` — archive or
     redirect the older one.
@@ -1329,7 +1331,8 @@ at least once and was never caught by desktop-only verification.
 3. **B3 — Phase-1 closure follow-through** (OP-7): wire
    `generate-content-registry.mjs` into the build step; build a real
    search-index generator to replace the hardcoded `searchIndex` array in
-   `app/search/page.tsx`; verify/complete 1.5's dead-directory cleanup.
+   `app/search/page.tsx`; ~~verify/complete 1.5's dead-directory
+   cleanup~~ (already done, see Part 2's OP-7 correction, 2026-07-18).
 4. **B4 — Search Console pass** (OP-4): verify contamination phrases aren't
    indexed; submit the regenerated sitemap.
 5. **B5 — Content thinness pass**: use Part 6's per-tab numbers (Real World
