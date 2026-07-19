@@ -1747,6 +1747,81 @@ fix applied this time to avoid repeating the regression that caused the
 undertaking — flagged here for an explicit decision, not undertaken
 unilaterally.
 
+### Part 4k — D1/OpenNext re-attempt: reconciliation and pre-cutover verification (2026-07-19)
+
+Per Part 4j's finding that both traces are Symptom 10/11's mechanism and
+D1/OpenNext already directly resolves it (Part 4c/4d), began a re-attempt.
+No DNS changes, no cutover, no merge to `main` yet — reconciliation and
+preview-only verification only.
+
+**Reconciliation.** `reconcile/d1-main-sync` was 47 commits stale (last
+synced before today's `AuthStateSync` work). Diffed file-by-file against
+`main` rather than merging/rebasing blindly, since a blind merge would
+have dragged in `main`'s next-on-pages-specific reversions (`export const
+runtime = "edge"` on ~40 routes, `wrangler.toml`, `package.json`'s adapter
+deps, `lib/rateLimit.ts`'s `getOptionalRequestContext()`,
+`app/not-found.tsx`'s plain-form revert, the `fetchContent()` self-fetch
+reversion) — all of which must stay excluded, since they're the exact
+things this branch correctly diverges from `main` on. After excluding
+those, the only genuine application-level differences were: `components/
+auth/AuthStateSync.tsx` (new, brought over as-is — its logic doesn't
+reference next-on-pages, so it runs as an inert safety net if OpenNext's
+fix holds), `app/layout.tsx`'s mount of it, and a one-line Footer nav
+link. The soft-nav-stall `prefetch={false}` fix and the Practice Exams/B1/
+A1 fixes were already reconciled in prior commits. Verified via full
+file-level diff against `main` that only confirmed-adapter-specific
+differences remained after this commit (`79d7faf`).
+
+**Pre-cutover verification, isolated Worker preview
+(`synfracore-d1-verify.vishvibeofficial.workers.dev`, dev-instance Clerk
+keys — production keys can't load on a non-`synfracore.com` origin, so
+this stage is necessarily dev-key-scoped; the decisive test is post-cutover
+on the real domain):**
+
+- **Content-loading fix**: 5 academies × 5 repeats, real content body
+  checked (not just HTTP status) — 25/25 clean, zero
+  `fetchContentEdge failed` errors.
+- **Client-visible not-found swap — first actual measurement of Part
+  4f.5's previously-unmeasured risk.** One occurrence on the very first
+  test of the session (homepage, fresh Worker, `waitUntil: "networkidle"`
+  — title swapped to "Page Not Found", `window.Clerk` never loaded, 0 Sign
+  In buttons). A `waitUntil: "load"` retry on the same URL rendered
+  correctly; a full-logging repeat of the `networkidle` case also came back
+  clean. 35 further repeats (25 across the 5-academy matrix, 10 more on
+  homepage specifically) found no further occurrences. **Total: 1/36
+  (2.8%)**, later extended to 1/56 (1.8%) with 20 more live-tailed
+  homepage attempts, none of which reproduced it.
+  - **Server-side tail correlation attempted, found not useful**: live
+    `wrangler tail` on the Worker during the 20 follow-up attempts showed
+    the `[not-found]` diagnostic `console.error` firing on **every single
+    request** (20/20), including all 20 that rendered correctly
+    client-side — reconfirming Part 4f.5's original finding ("fires on
+    effectively every request... a different signal than a client-visible
+    failure") on this freshly-reconciled branch. This means the server log
+    cannot discriminate the rare client-visible-failure case from the
+    normal case; a live tail during the original occurrence would not have
+    isolated it either. No `cfRay`/timing signature unique to the failing
+    case was identified — the one clean repro (title: "Page Not Found",
+    `window.Clerk` unloaded) is the only confirmed detail of that instance,
+    consistent with the client-router-race hypothesis but not proof of it.
+  - **Assessment**: real, non-zero, low-incidence (~2-3% across 56 trials,
+    preview-quiet conditions, single browser, no concurrent load) — the
+    first real number where Part 4f.5 had none. Not a blocker on its own,
+    but not zero either; needs real-traffic eyes post-cutover, not
+    preview-only confidence (folded into the Step 3 monitoring checklist
+    below).
+- **Core D1 work (Clerk auth, sign-in/out, Server Actions)**: decisive
+  zero-latency test via a fresh `+clerk_test` account (works on this dev
+  instance) — `attempt_second_factor` → 200, **Server Action
+  cache-invalidation POST → 200** (not 404) on both sign-in and sign-out,
+  session populated correctly, UI updated in place, no reload needed.
+  Directly reconfirms Part 4c/4d: Symptom 10/11's mechanism does not occur
+  under OpenNext, now re-verified on the current, reconciled branch.
+
+**Both of Part 4f.5's original "NOT READY" reasons are now cleared** — the
+regressions are reconciled, and the previously-unknown client-visible risk
+now has a real (low) measured rate instead of "unmeasured."
+
 ---
 
 ## Part 5 — Findings from the v2 draft, verified today (NF-1 through NF-12)
