@@ -2638,6 +2638,205 @@ publish gate if/when the content-quality program needs it.
 
 ---
 
+## Part 8a — Forward plan: content depth, quiz/interview UX, new verticals, access strategy (planned 2026-07-19, for tomorrow — no code changes yet)
+
+Drafted from a same-night conversation about what to prioritize next, after
+tonight's D1 cutover and monitoring window. **This is a plan for review, not
+executed work** — no code changes were made writing this section. Grounded
+against the actual current codebase (see per-item notes below), not guessed.
+
+### Sequencing, explicit
+
+1. **Finish today's open items first**: the 24-48h post-cutover monitoring
+   window (Part 4k/4l — `wrangler tail` + periodic real-browser checks,
+   report due at the 24h and 48h marks) and the friend's still-unresolved
+   Google-auth 400 (Part 4j — likely a Clerk Dashboard OAuth redirect-URI
+   issue, not yet investigated).
+2. **Content-gap/consistency work already prioritized** (Part 6/6a's B5
+   thin-tab pass on `devops`/`cloud`, and the C1 migration of the 13 new
+   `learn.synfracore.com` topics — see below) **and the quiz component work**
+   come next.
+3. **New verticals (VLSI, AEE, Aeronautical/Aerospace) are the last phase**,
+   per explicit instruction — scaffolding only until the enterprise-grade
+   content gap above is closed.
+
+### 1. Per-section quiz ("as you go") — mostly already built, this is a content gap, not a component gap
+
+**Correction to the original framing**: a reusable, DB-backed, per-section
+quiz component **already exists and is already mounted on every lesson
+section** — `components/quiz/SectionQuiz.tsx`, rendered from
+`app/academies/[academy]/[technology]/[section]/page.tsx:327-330` for every
+section except Labs, keyed by `academy_slug`/`technology_slug`/`section_slug`
+against the `quiz_questions` table, with attempts recorded in
+`quiz_attempts` (`docs/learner-platform-schema.sql:104-114`) tied to the
+existing `user_id`/progress model. There's also a separate, older,
+hardcoded `lib/data/quizzes.ts` system (keyed by tech slug only, no
+per-section granularity) used for exam-paper-style technologies
+(GATE/JEE/NEET/banking/UPSC/etc.) — that one is intentionally different and
+out of scope here.
+
+**What's actually needed, then, isn't a new component — it's**:
+- Auditing how many `[academy, technology, section]` combinations actually
+  have rows in `quiz_questions` today vs. how many are silently empty
+  (`SectionQuiz.tsx`'s own doc comment says it's "invisible until a section
+  has some" — meaning empty sections just show nothing, not a placeholder,
+  so the actual coverage gap has likely never been measured).
+- Once measured, populating `quiz_questions` for gapped sections is a
+  content task, not an engineering one.
+- If the existing UX (visibility, retry behavior, scoring display) needs
+  changes, that's a small, scoped `SectionQuiz.tsx` update, not new
+  architecture.
+
+**Effort estimate**: 0.5 day to build the coverage-measurement query/report;
+content population effort depends entirely on what that reveals — could be
+anywhere from a few dozen to a few hundred missing question sets.
+
+### 2. Interview Q&A show/hide toggle
+
+**Current state, confirmed**: answers are always visible today. The
+Interview tab has no dedicated component — it routes through the same
+generic `SectionContent.tsx` → `renderMarkdown()` path as every other tab,
+and content is stored as plain bold markdown (`**Q9. …**` immediately
+followed by `**A:** …`, e.g. `public/content/devops/kubernetes/interview.md:7-9`),
+rendered with zero special-casing.
+
+**Proposed approach**: add Q/A-pair detection to `renderMarkdown()` (or a
+new small wrapper component used only for the interview section) that
+recognizes a `**Q…**` line immediately followed by a `**A:**` line/block,
+and renders the pair as a `<details>`/`<summary>`-based (or simple
+`useState`-toggled) collapsed-by-default block instead of plain paragraphs.
+Two implementation options, for your call:
+- **Content-format change**: introduce an explicit `:::qa` markdown
+  extension (matching the existing `:::callout` pattern already supported
+  in `SectionContent.tsx`) and require new/edited interview content to use
+  it — clean, but needs a pass over existing interview `.md` files to
+  convert them.
+- **Pattern-detection only**: keep content as plain `**Q**`/`**A**` pairs,
+  detect the pattern at render time — no content-file changes needed, but
+  slightly more fragile (relies on the exact bold-Q-then-bold-A adjacency
+  holding across all existing files; worth a quick scan for exceptions
+  before committing to this approach).
+
+**Effort estimate**: 0.5-1 day for the component + render-path change;
+additional time only if the content-format-change option is chosen and a
+content pass is needed.
+
+### 3. C1 content mapping — `learn.synfracore.com` → current site
+
+Per the existing Part 6a audit (already done, not new research): **13
+genuinely new topics**, each mapping to a specific existing academy (not a
+new one):
+
+| New topic | Source | → Academy/domain |
+|---|---|---|
+| `gitlab-ci` | `cicd/gitlab-ci.html` | `devops` |
+| `fluxcd` | `cicd/fluxcd.html` | `devops` |
+| `tekton` | `cicd/tekton.html` | `devops` |
+| `github-actions` | `devops/github-actions.html` (largest, 3,500-4,500 words) | `devops` |
+| `ebpf` | `containers/ebpf.html` | `devops` |
+| `harbor` | `containers/harbor.html` | `devops` |
+| `keda` | `containers/keda.html` | `devops` |
+| `datadog` | `monitoring/datadog.html` (thinnest, ~800-1,000 words) | `devops` |
+| `loki` | `monitoring/loki.html` | `devops` |
+| `splunk` | `monitoring/splunk.html` | `devops` |
+| `slo` | `monitoring/slo.html` | `devops` (or fold into an existing observability tech) |
+| `devsecops` | `security/devsecops.html` | `security` |
+| `platform-engineering` | `sre/platform-engineering.html` | `devops`, or a new `sre` domain within it |
+
+The other **34 topics already exist** as registered technologies — no new
+page needed, only a targeted extraction pass for thin tabs (Real World,
+Troubleshooting, Notes), folded into the already-planned B5 thin-tab work,
+not a separate track. Per the existing audit's own effort estimate:
+**6.5-13 days** for the 13 new topics (0.5-1 day each, full editorial pass
+including the mandatory beginner-ready fields from `CLAUDE.md`'s Content
+rules), **34-68 hours** for the 34 existing ones (1-2 hrs each). Manual,
+per-page review only — no bulk/automated migration, per the audit's own
+explicit recommendation (this project already had one templated-content
+quality problem; don't reintroduce that pattern).
+
+### 4. New verticals — VLSI, AEE, Aeronautical/Aerospace (scaffolding only)
+
+Structure to follow, matching the existing pattern
+(`lib/data/academies.ts:1-28`, e.g. `devopsAcademy` at lines 33-131):
+
+```ts
+export const vlsiAcademy: Academy = {
+  slug: "vlsi", title: "...", subtitle: "...", icon: "...", color: "...",
+  description: "...",
+  domains: [
+    { slug: "...", name: "...", icon: "...", description: "...", color: "...",
+      technologies: [
+        { slug: "...", name: "...", icon: "...", description: "...",
+          level: "Beginner" | "Intermediate" | "Advanced", tags: [...] },
+        // ...
+      ],
+    },
+  ],
+};
+```
+then appended to the `academies` array (`lib/data/academies.ts:791-811`,
+same place `lawAcademy` onward — "Phase 3 new academies" — were added).
+For Aeronautical/Aerospace specifically, given the stated interest in
+"how our universe will work," "space/orbital mechanics," "what jobs are
+available," and a track accessible to younger/beginner students: this
+likely needs its own domain breakdown (e.g. foundational physics/math →
+aerodynamics → propulsion → orbital mechanics/astrodynamics → careers) design
+before technology-level scaffolding — worth a short separate planning pass
+once this phase starts, not decided here.
+
+**Scope for tomorrow, if started**: academy/domain/technology entries only
+(the data structure), using placeholder descriptions — no actual lesson
+content. Content generation is explicitly a later, separate phase.
+
+**Effort estimate**: 0.5-1 day per academy for scaffolding (structure
+only), assuming the domain/technology breakdown is decided in advance;
+content generation is untimed here since it's out of scope for this phase.
+
+### 5. Access strategy — revised, no hard gate
+
+**Decision, as stated**: all content stays fully public and indexable
+(`index, follow` unchanged everywhere) — no login wall on any tab, ever.
+Replace the "must log in for anything beyond Overview" framing entirely.
+
+**Proposed mechanism**: a soft, dismissible login-nudge modal/banner —
+appears once per session (or after an engagement signal, e.g. completing a
+section — ties naturally into the existing `lesson_progress` table, which
+already tracks per-section completion), framed around progress tracking
+("Create an account to save your progress across courses"), not access
+restriction. Must be trivially dismissible (single click, no dark patterns),
+must never cover/block underlying content, and must not re-nag repeatedly
+within the same visit — a `localStorage` or session-scoped dismissal flag
+is sufficient, no backend needed for the dismissal state itself.
+
+**Effort estimate**: 0.5-1 day (a modal/banner component + a dismissal-state
+hook + a trigger condition, e.g. on `lesson_progress` insert or a timer).
+
+### 6. Hero-page value-prop options (drafts only, for you to pick/revise)
+
+Three short tagline/subheading directions around "one account, one place,
+every course" as a differentiator — not final copy, just options to react
+to:
+1. *"One login. Every course, every exam, every certification — all in one
+   place."* (breadth-first, enumerates the payoff)
+2. *"Stop juggling five different platforms. Your entire learning journey,
+   one account."* (pain-point-first, contrasts against the fragmented
+   status quo)
+3. *"DevOps to Aerospace, School to Career — one SynfraCore account tracks
+   it all."* (range-first, emphasizes the unusually wide subject span as
+   the differentiator)
+
+### Rough total effort, this phase excluding new-verticals content generation
+
+Quiz coverage audit (0.5d) + Interview toggle (0.5-1d) + C1's 13-new-topic
+migration (6.5-13d) + C1's 34-existing thin-tab pass (34-68h ≈ 4-8.5d,
+already folded into B5) + access-strategy modal (0.5-1d) + new-verticals
+scaffolding (0.5-1d per academy, structure only) ≈ **roughly 2-3 weeks** of
+sequenced work before new-vertical content generation even begins, most of
+it being the C1 content migration (already the largest identified item
+before tonight's conversation, not a new estimate).
+
+---
+
 ## Part 9 — Prior incident history (symptoms 1–8, condensed from `06-roadmap.md`)
 
 Preserved so this document is fully self-contained; `06-roadmap.md` remains on
