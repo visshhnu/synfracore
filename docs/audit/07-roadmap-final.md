@@ -2741,9 +2741,9 @@ new one):
 | `datadog` | `monitoring/datadog.html` (thinnest, ~800-1,000 words) | `devops` |
 | `loki` | `monitoring/loki.html` | `devops` |
 | `splunk` | `monitoring/splunk.html` | `devops` |
-| `slo` | `monitoring/slo.html` | `devops` (or fold into an existing observability tech) |
+| `slo` | `monitoring/slo.html` | fold into `devops/prometheus` as a new tab/section, not a standalone technology **(decided 2026-07-19)** |
 | `devsecops` | `security/devsecops.html` | `security` |
-| `platform-engineering` | `sre/platform-engineering.html` | `devops`, or a new `sre` domain within it |
+| `platform-engineering` | `sre/platform-engineering.html` | `devops` (technology entry, not a new academy) **(decided 2026-07-19)** |
 
 The other **34 topics already exist** as registered technologies — no new
 page needed, only a targeted extraction pass for thin tabs (Real World,
@@ -2806,9 +2806,9 @@ version is actually built):
 | Datadog | `learn.synfracore.com/monitoring/datadog.html` | `synfracore.com/academies/devops/datadog/overview` (not yet created) | Needs more content first — thinnest guide (~800-1,000 words), likely fastest to reach parity |
 | Loki | `learn.synfracore.com/monitoring/loki.html` | `synfracore.com/academies/devops/loki/overview` (not yet created) | Needs more content first |
 | Splunk | `learn.synfracore.com/monitoring/splunk.html` | `synfracore.com/academies/devops/splunk/overview` (not yet created) | Needs more content first |
-| SLO | `learn.synfracore.com/monitoring/slo.html` | `synfracore.com/academies/devops/slo/overview` (not yet created, or folded into an existing observability tech's tab) | Needs more content first — target page itself undecided |
+| SLO | `learn.synfracore.com/monitoring/slo.html` | `synfracore.com/academies/devops/prometheus` — new tab/section on the existing Prometheus technology, not a standalone page **(decided 2026-07-19)** | Needs more content first |
 | DevSecOps | `learn.synfracore.com/security/devsecops.html` | `synfracore.com/academies/security/devsecops/overview` (not yet created) | Needs more content first |
-| Platform Engineering | `learn.synfracore.com/sre/platform-engineering.html` | `synfracore.com/academies/devops/platform-engineering/overview` (not yet created, domain placement undecided) | Needs more content first |
+| Platform Engineering | `learn.synfracore.com/sre/platform-engineering.html` | `synfracore.com/academies/devops/platform-engineering/overview` — new technology entry under the existing DevOps academy, not a new top-level academy **(decided 2026-07-19)** | Needs more content first |
 
 **Process going forward**: as each guide's new-site pages are built and
 reach genuine parity, update this table's status to "ready for canonical,"
