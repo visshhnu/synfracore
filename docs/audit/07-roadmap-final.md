@@ -2541,11 +2541,11 @@ turned out to be *partially* done: the underlying mechanism was fixed, but
    below that has a much smaller absolute footprint per academy.
 
 ### Phase C — Strategic decisions (need explicit sign-off; this month)
-1. **C1 — Decide `learn.synfracore.com`'s fate** (NF-9, confirmed live today
-   still serving the full old platform, unmanaged). Recommended: map its top
-   URLs to synfracore.com equivalents and 301 the subdomain; `noindex` it
-   immediately if not ready to commit. Highest-leverage single SEO decision
-   available.
+1. ~~**C1 — Decide `learn.synfracore.com`'s fate**~~ — **DECIDED
+   2026-07-19: stays live indefinitely (permanent, not the redirect
+   originally recommended here).** Superseded by the per-guide
+   `rel="canonical"` plan (added only at content parity, per guide) in
+   Part 8a's C1 section — see the parity-tracking table there.
 2. **C2 — Resolve Symptom 8** (OP-1): instrumented browser session to capture
    the `sign_ins` 400 body and `/sign-in` POST 404 body; fix the
    `getAuthSafely()` hardcoded-URL smell across all 8 confirmed call sites in
@@ -2627,7 +2627,9 @@ publish gate if/when the content-quality program needs it.
    2026-07-18) · B4 Search
    Console · B5 content-thinness
    pass
-5. **C1 — learn.synfracore.com decision** (highest-leverage single SEO call)
+5. ~~**C1 — learn.synfracore.com decision**~~ — **DECIDED 2026-07-19**,
+   see Part 8a's C1 section (stays live; per-guide canonical tags at
+   parity, not a redirect)
 6. C2 Symptom 8 fix → C3 Symptom 9 investigation → C5 Question Bank launch
 7. ~~**D1 — OpenNext migration**~~ — **PAUSED INDEFINITELY as of
    2026-07-17/18** (attempted in full, reverted; see Part 4e/4f). Not a
@@ -2754,41 +2756,65 @@ per-page review only — no bulk/automated migration, per the audit's own
 explicit recommendation (this project already had one templated-content
 quality problem; don't reintroduce that pattern).
 
-**`learn.synfracore.com`'s current status, confirmed** (not yet decided
-between "stays live," "redirects," or "sunsets" — this needs a decision
-before migration work begins, not after): still fully live today, serving
-the complete old platform, unredirected, un-`noindex`ed (NF-9). The
-2026-07-18 decision (Part 6a) was explicitly "not a redirect — extract
-content first," which was correct for the inventory/extraction phase but
-leaves the domain's own fate genuinely undecided. Phase C's existing C1
-item already recommends the right shape: **map top URLs to their
-synfracore.com equivalents and 301 the subdomain once its content is
-migrated; `noindex` it immediately if not ready to commit to that** — and
-a precomputed mapping already exists at `docs/learn-subdomain-redirects.csv`
-(e.g. `learn.synfracore.com/` → `synfracore.com/learn`), just not wired up
-anywhere yet.
+**`learn.synfracore.com`'s status — revised 2026-07-19: stays live
+indefinitely.** This is a permanent decision, not a temporary state pending
+a later redirect/sunset call — the earlier framing in this section
+(and in Phase C's original C1 item, `07-roadmap-final.md:2544-2547`, and
+the unwired `docs/learn-subdomain-redirects.csv`) proposed 301 redirects;
+**that approach is superseded.** No redirect will be built. The domain
+keeps serving its own traffic on its own terms.
 
-**One real mechanical wrinkle worth flagging now**: `learn.synfracore.com`
-is a CNAME to `learnwithvishnu.pages.dev` — a **separate Cloudflare Pages
-project**, not part of this repo. `next.config.ts`'s `redirects()` (the
-mechanism used for the existing `infrastructure → devops` slug redirect)
-only redirects *within* this app — it can't 301 traffic arriving at a
-different origin before it ever reaches this codebase. Actually redirecting
-`learn.synfracore.com` requires one of: (a) access to the
-`learnwithvishnu.pages.dev` Pages project itself, to add redirect logic
-there, or (b) repointing the `learn.synfracore.com` CNAME at a small,
-dedicated redirect-only Worker in this Cloudflare account instead. Confirm
-which is actually feasible (do we have access to the other Pages project?)
-before finalizing this as part of the C1 migration plan, not after content
-work is already done — this determines whether the redirect step is a
-5-minute DNS/Worker change or blocked entirely without external access.
+**Mechanism instead: `rel="canonical"` on the old page, added only once
+the new-site equivalent is at genuine content parity or better — not
+before, and not as part of migration itself.** For each of the 13 guides,
+once its new synfracore.com page(s) cover everything the old mega-page did
+(not merely "a page now exists"), add a canonical tag on the
+`learn.synfracore.com` page pointing at the new URL. This tells search
+engines which version is authoritative for ranking, without touching
+traffic, without removing the old page, and without a redirect's binary
+all-or-nothing timing. Until parity is reached, the old page stays fully
+self-canonical (or unchanged) — no canonical tag pointing at a thinner
+new-site page.
 
-**Sequencing implication**: decide the domain's fate (redirect vs. sunset
-vs. stays live) *before* starting the 13-topic content migration, not
-after — if the decision is "redirect once migrated," the per-topic content
-work should track which `learn.` URL each new synfracore.com page
-replaces (the CSV mapping already has this), so the redirect list can be
-finalized incrementally rather than reconstructed at the end.
+**Sequencing, explicit**: content-parity check happens *before* any
+canonical tag is added, per guide, not in bulk. If the new site's
+split-tab version is currently thinner than the old mega-page for a given
+guide, don't add the canonical yet — flag it "migration incomplete" and
+hold until Track B's content work closes that specific gap. This makes the
+canonical rollout incremental and content-driven, not a single flag-day
+event.
+
+**The 34 already-existing topics need no canonical change at all** — these
+were never true duplicates, just overlapping subject coverage between two
+platforms, which is normal and not a redirect/canonical situation.
+
+**Parity tracking table** (all 13 checked against the current technology
+registry, `lib/data/academies.ts`, 2026-07-19 — **none have been migrated
+yet**, so every row is currently "needs more content first"; this table is
+the tracking artifact Track B should update as each guide's new-site
+version is actually built):
+
+| Guide | Old URL | Proposed new URL | Parity status |
+|---|---|---|---|
+| GitLab CI | `learn.synfracore.com/cicd/gitlab-ci.html` | `synfracore.com/academies/devops/gitlab-ci/overview` (not yet created) | Needs more content first — new page doesn't exist yet |
+| FluxCD | `learn.synfracore.com/cicd/fluxcd.html` | `synfracore.com/academies/devops/fluxcd/overview` (not yet created) | Needs more content first |
+| Tekton | `learn.synfracore.com/cicd/tekton.html` | `synfracore.com/academies/devops/tekton/overview` (not yet created) | Needs more content first |
+| GitHub Actions | `learn.synfracore.com/devops/github-actions.html` | `synfracore.com/academies/devops/github-actions/overview` (not yet created) | Needs more content first — largest guide (3,500-4,500 words), likely slowest to reach parity |
+| eBPF | `learn.synfracore.com/containers/ebpf.html` | `synfracore.com/academies/devops/ebpf/overview` (not yet created) | Needs more content first |
+| Harbor | `learn.synfracore.com/containers/harbor.html` | `synfracore.com/academies/devops/harbor/overview` (not yet created) | Needs more content first |
+| KEDA | `learn.synfracore.com/containers/keda.html` | `synfracore.com/academies/devops/keda/overview` (not yet created) | Needs more content first |
+| Datadog | `learn.synfracore.com/monitoring/datadog.html` | `synfracore.com/academies/devops/datadog/overview` (not yet created) | Needs more content first — thinnest guide (~800-1,000 words), likely fastest to reach parity |
+| Loki | `learn.synfracore.com/monitoring/loki.html` | `synfracore.com/academies/devops/loki/overview` (not yet created) | Needs more content first |
+| Splunk | `learn.synfracore.com/monitoring/splunk.html` | `synfracore.com/academies/devops/splunk/overview` (not yet created) | Needs more content first |
+| SLO | `learn.synfracore.com/monitoring/slo.html` | `synfracore.com/academies/devops/slo/overview` (not yet created, or folded into an existing observability tech's tab) | Needs more content first — target page itself undecided |
+| DevSecOps | `learn.synfracore.com/security/devsecops.html` | `synfracore.com/academies/security/devsecops/overview` (not yet created) | Needs more content first |
+| Platform Engineering | `learn.synfracore.com/sre/platform-engineering.html` | `synfracore.com/academies/devops/platform-engineering/overview` (not yet created, domain placement undecided) | Needs more content first |
+
+**Process going forward**: as each guide's new-site pages are built and
+reach genuine parity, update this table's status to "ready for canonical,"
+add the tag on the old page, then mark it "canonical added [date]." Don't
+batch this — evaluate and act per guide as Track B's content work
+completes each one.
 
 ### New: Technical SEO — structured data, sitemap, internal linking
 
@@ -2913,10 +2939,10 @@ scaffolding (0.5-1d per academy, structure only) ≈ **roughly 2.5-3.5
 weeks** of sequenced work before new-vertical content generation even
 begins, most of it being the C1 content migration (already the largest
 identified item before tonight's conversation, not a new estimate). The
-`learn.synfracore.com` redirect decision (domain fate + feasibility check
-on the separate Pages project access) should be resolved before the C1
-migration starts, not folded into its time estimate — it's a decision, not
-build work.
+`learn.synfracore.com`'s fate is now decided (stays live indefinitely,
+2026-07-19) and needs no separate resolution step — the per-guide
+canonical-tag work is small (minutes per guide) and happens naturally as
+each guide reaches parity, not a separate project phase.
 
 ---
 
