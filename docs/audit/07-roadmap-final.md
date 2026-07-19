@@ -1822,6 +1822,72 @@ on the real domain):**
 regressions are reconciled, and the previously-unknown client-visible risk
 now has a real (low) measured rate instead of "unmeasured."
 
+### Part 4l — Domain cutover executed, main reset, parity audit (2026-07-19)
+
+**Cutover.** Two attempts. Attempt 1 (remove only the Pages custom-domain
+binding, then retry the Worker claim): the claim 409-conflicted 14/14 times
+over a 90s poll with zero drift in the error
+(`code=100117, "already has externally managed DNS records"`), proving the
+underlying CNAME record itself — not a binding-release propagation delay —
+was the blocker. Auto-rolled-back cleanly (~2min outage both times tested).
+Attempt 2, after building and dry-run-testing a real CNAME-recreation
+fallback against a disposable subdomain: deleted the CNAME record directly,
+polled the claim API, **succeeded on the first attempt, ~6 second outage**.
+`synfracore.com` has been live on the `synfracore` Worker (D1/OpenNext)
+since **2026-07-19T16:49:47Z**.
+
+**Post-cutover verification.** Homepage/content/dropdown all pass
+automatically. Sign-in/out: automated headless-browser attempts repeatedly
+failed post-cutover in a new way (code typed, no `attempt_second_factor`
+ever fired) — initially assumed to be the familiar OTP-staleness-from-relay
+pattern, but this was wrong: real first-person testing (trusted session,
+incognito, **normal, non-instant OTP entry timing**) succeeded cleanly on
+both sign-in and sign-out. Since real timing also worked, staleness doesn't
+explain the automated failures — the more likely cause is Clerk/Cloudflare
+treating synthetic Playwright input differently from real interaction, a
+limitation of the test method, not a production defect. **Real-user testing
+is the authoritative result here: Symptom 10/11 is confirmed resolved on
+real production.**
+
+**`main` reset to match reality.** `main` and `reconcile/d1-main-sync` had
+diverged in an unmergeable way — both branches modified the same ~40 files
+for incompatible adapters (`export const runtime = "edge"` additions vs.
+removals, etc.), so a real `git merge` silently mis-resolved several files
+(confirmed: it reintroduced the `edge` runtime line into `app/layout.tsx`).
+Aborted the merge. Verified explicitly, by content (not just commit-hash
+reachability) — `components/auth/AuthStateSync.tsx` is byte-identical
+between `main` and `reconcile/d1-main-sync`, including the modal-scoping
+fix — that nothing from `main`'s 47 unreachable-by-hash commits was
+actually missing, then `git reset --hard`
+`main` to `reconcile/d1-main-sync`'s tip (`63dcbbc`). Confirmed post-reset:
+fresh `npm install && npm run pages:build` from the new `main` succeeds
+cleanly; the live Worker's code matches this tip (no rebuild happened
+between the last `wrangler deploy` and the successful claim — confirmed via
+deployment timestamps, corroborated by `AuthStateSync` itself visibly
+firing in live post-cutover testing, code that only exists in this
+reconciled state).
+
+**Parity audit** (re-verifying Part 4f.5's originally-flagged regressions,
+live on production, not just in a file diff):
+- NF-6/B1 hardcoded-stats fix: live count is dynamic (`17 Certifications`
+  today), not the hardcoded `13` regression. Guardrail script
+  (`scripts/validate-no-hardcoded-stats.mjs`) and its CI step both present.
+- A1 title-suffix fix: all 4 previously-regressed pages
+  (`/certifications`, `/community`, `/contact`, `/troubleshooting`) show a
+  single, correct title suffix, not doubled.
+- Practice Exams feature: sidebar tab and landing-page card both present
+  and rendering on `/academies/healthcare/bchhc-prep`; Footer's "BCHHC Exam
+  Prep" link present.
+- Content spot-check, 5 academies (DevOps, Cloud, Healthcare, Data, AI):
+  5/5 render real content, zero not-found swaps in this pass.
+
+**Status: D1/OpenNext migration is live in production.** Symptom 10/11
+(both the academies-page and BCHHC manifestations) confirmed resolved.
+Monitoring commitment from Part 4k carries forward: watch specifically for
+the client-visible not-found swap pattern (rare, ~1-2% in preview-quiet
+conditions, unverified under real concurrent traffic) over the next
+24-48h.
+
 ---
 
 ## Part 5 — Findings from the v2 draft, verified today (NF-1 through NF-12)
