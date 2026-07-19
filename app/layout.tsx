@@ -7,6 +7,7 @@ import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { CopyProtection } from "@/components/CopyProtection";
 import { WebSiteJsonLd, OrganizationJsonLd } from "@/components/seo/JsonLd";
+import AuthStateSync from "@/components/auth/AuthStateSync";
 
 export const metadata: Metadata = {
   title: { default: "SynfraCore — Learn DevOps, Cloud & AI", template: "%s | SynfraCore" },
@@ -85,6 +86,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body suppressHydrationWarning style={{ margin: 0, minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--bg)", color: "var(--text-2)" }}>
         <ThemeProvider>
+          <AuthStateSync />
           <CopyProtection />
           <Navbar />
           <main style={{ flex: 1, paddingTop: "64px" }}>{children}</main>
