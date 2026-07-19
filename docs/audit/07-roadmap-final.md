@@ -2754,6 +2754,84 @@ per-page review only — no bulk/automated migration, per the audit's own
 explicit recommendation (this project already had one templated-content
 quality problem; don't reintroduce that pattern).
 
+**`learn.synfracore.com`'s current status, confirmed** (not yet decided
+between "stays live," "redirects," or "sunsets" — this needs a decision
+before migration work begins, not after): still fully live today, serving
+the complete old platform, unredirected, un-`noindex`ed (NF-9). The
+2026-07-18 decision (Part 6a) was explicitly "not a redirect — extract
+content first," which was correct for the inventory/extraction phase but
+leaves the domain's own fate genuinely undecided. Phase C's existing C1
+item already recommends the right shape: **map top URLs to their
+synfracore.com equivalents and 301 the subdomain once its content is
+migrated; `noindex` it immediately if not ready to commit to that** — and
+a precomputed mapping already exists at `docs/learn-subdomain-redirects.csv`
+(e.g. `learn.synfracore.com/` → `synfracore.com/learn`), just not wired up
+anywhere yet.
+
+**One real mechanical wrinkle worth flagging now**: `learn.synfracore.com`
+is a CNAME to `learnwithvishnu.pages.dev` — a **separate Cloudflare Pages
+project**, not part of this repo. `next.config.ts`'s `redirects()` (the
+mechanism used for the existing `infrastructure → devops` slug redirect)
+only redirects *within* this app — it can't 301 traffic arriving at a
+different origin before it ever reaches this codebase. Actually redirecting
+`learn.synfracore.com` requires one of: (a) access to the
+`learnwithvishnu.pages.dev` Pages project itself, to add redirect logic
+there, or (b) repointing the `learn.synfracore.com` CNAME at a small,
+dedicated redirect-only Worker in this Cloudflare account instead. Confirm
+which is actually feasible (do we have access to the other Pages project?)
+before finalizing this as part of the C1 migration plan, not after content
+work is already done — this determines whether the redirect step is a
+5-minute DNS/Worker change or blocked entirely without external access.
+
+**Sequencing implication**: decide the domain's fate (redirect vs. sunset
+vs. stays live) *before* starting the 13-topic content migration, not
+after — if the decision is "redirect once migrated," the per-topic content
+work should track which `learn.` URL each new synfracore.com page
+replaces (the CSV mapping already has this), so the redirect list can be
+finalized incrementally rather than reconstructed at the end.
+
+### New: Technical SEO — structured data, sitemap, internal linking
+
+**Structured data — refine, not build from scratch.** `Course` and
+`BreadcrumbList` JSON-LD are already emitted on every technology/section
+page (`components/seo/JsonLd.tsx`, wired in
+`app/academies/[academy]/[technology]/[section]/page.tsx:180-189`);
+`WebSite`/`Organization` are already site-wide via the root layout. No
+`LearningResource` type exists yet. Proposal: evaluate whether adding
+`LearningResource` (schema.org's more granular type for an individual
+lesson/section, as distinct from `Course` covering the whole technology)
+is worth the added markup — check Google's current rich-results
+guidance for which type it actually surfaces for this content shape before
+building both; adding a schema type Google doesn't render anything for is
+pure overhead.
+
+**Sitemap — already handles new verticals automatically, confirmed, no
+action needed.** `app/sitemap.ts` derives all academy/technology/section
+URLs live from `lib/data/academies.ts`/`lib/data/navigation.ts` plus a
+`hasContent()` check per section (filters out placeholder pages) — this is
+exactly the fix that replaced the old hand-maintained, 68-slugs-stale
+sitemap (Part 3/Stage-3 F3). Once VLSI/AEE/Aerospace are added to the
+academies registry (item 4 below), they'll appear in the sitemap
+automatically, with zero sitemap-specific work needed.
+
+**Internal linking — formalize what already exists ad hoc, rather than
+building new.** Two patterns already live: `components/tech/WhatNext.tsx`
+(within-technology section-to-section flow — overview → fundamentals →
+labs, etc.) and an inline "Also in {domain.name}" sibling-technology block
+on each technology hub page
+(`app/academies/[academy]/[technology]/page.tsx:218-234`, up to 6 links,
+JSX inline rather than a reusable component). Proposal: extract the inline
+sibling-links block into a proper `RelatedTechnologies` component, and
+extend it to also surface cross-domain but topically-related technologies
+(e.g. `kubernetes` ↔ `helm` ↔ `argocd` even though they may span different
+domains within an academy) — currently limited to same-domain siblings
+only, which under-links genuinely related content.
+
+**Effort estimate**: structured-data evaluation + optional
+`LearningResource` addition, 0.5d; internal-linking component extraction +
+cross-domain relation data, 1-1.5d (the relation data itself — which techs
+relate to which — is the larger part, not the component).
+
 ### 4. New verticals — VLSI, AEE, Aeronautical/Aerospace (scaffolding only)
 
 Structure to follow, matching the existing pattern
@@ -2829,11 +2907,16 @@ to:
 
 Quiz coverage audit (0.5d) + Interview toggle (0.5-1d) + C1's 13-new-topic
 migration (6.5-13d) + C1's 34-existing thin-tab pass (34-68h ≈ 4-8.5d,
-already folded into B5) + access-strategy modal (0.5-1d) + new-verticals
-scaffolding (0.5-1d per academy, structure only) ≈ **roughly 2-3 weeks** of
-sequenced work before new-vertical content generation even begins, most of
-it being the C1 content migration (already the largest identified item
-before tonight's conversation, not a new estimate).
+already folded into B5) + technical SEO (structured data + internal
+linking, 1.5-2d) + access-strategy modal (0.5-1d) + new-verticals
+scaffolding (0.5-1d per academy, structure only) ≈ **roughly 2.5-3.5
+weeks** of sequenced work before new-vertical content generation even
+begins, most of it being the C1 content migration (already the largest
+identified item before tonight's conversation, not a new estimate). The
+`learn.synfracore.com` redirect decision (domain fate + feasibility check
+on the separate Pages project access) should be resolved before the C1
+migration starts, not folded into its time estimate — it's a decision, not
+build work.
 
 ---
 
