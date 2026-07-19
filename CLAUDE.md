@@ -48,9 +48,13 @@ RESEND_API_KEY=                   # /api/digest, /api/subscribe — both degrade
 DIGEST_SECRET=                    # /api/digest shared secret
 NEXT_PUBLIC_CF_BEACON_TOKEN=      # Cloudflare Web Analytics beacon token — app/layout.tsx, no-op if unset
 ```
-Real values live only in `.env.local` and in the Cloudflare Pages dashboard
-(or as `wrangler pages secret put <NAME>` for the non-`NEXT_PUBLIC_` secrets)
-for production — never in this file, never in a commit, never pasted into chat.
+Real values live only in `.env.local` and in the Cloudflare dashboard for
+the `synfracore` Worker (or as `wrangler secret put <NAME>` for the
+non-`NEXT_PUBLIC_` secrets) for production — never in this file, never in
+a commit, never pasted into chat. (Updated 2026-07-19: production moved
+from a Cloudflare Pages project to a Cloudflare Worker as part of the
+D1/OpenNext migration — see the "Deploying to production" section below
+and `docs/audit/07-roadmap-final.md` Part 4l for the full cutover record.)
 
 ## Deploying to production — MANDATORY pre-deploy checklist (no exceptions)
 This exists because of a real incident (2026-07-13, see `docs/audit/06-roadmap.md`'s
@@ -61,15 +65,24 @@ finally diffed. Both were avoidable. Follow this exactly, every time, not just
 when something feels risky — the incident that prompted this felt like a routine
 analytics change right up until the site went down.
 
+**Updated 2026-07-19: production now runs on `@opennextjs/cloudflare` (D1),
+deployed as a Cloudflare Worker (`synfracore`), not `@cloudflare/next-on-pages`
+on a Pages project.** The commands below reflect this; the original Pages-based
+commands and `wrangler.toml` are kept in git history but are no longer what
+production runs. See `docs/audit/07-roadmap-final.md` Part 4l for the full
+migration/cutover record — this was a re-attempt of a migration first tried
+2026-07-17 and reverted the same night for an unrelated content-loading bug
+(fixed this time before re-attempting).
+
 1. **Build only from a native WSL/Linux filesystem path — never `/mnt/d/synfracore`
    or any other Windows-mounted drive path.** Native filesystem builds are also
    ~2-4x faster (confirmed: ~50s vs ~120-200s), which is a useful tell if a build
    is unexpectedly slow — it may mean you're on the wrong filesystem. If working
    from `D:\synfracore` on Windows, sync to a native WSL path first: `rsync -a
-   --delete --exclude='.next' --exclude='.vercel' --exclude='.git'
+   --delete --exclude='.next' --exclude='.open-next' --exclude='.git'
    --exclude='node_modules' /mnt/d/synfracore/ ~/synfracore-build/`, then run
-   `npm run pages:build` and `wrangler pages deploy` from that native path, not
-   from `/mnt/d`.
+   `npm run pages:build` (runs `opennextjs-cloudflare build` under the hood)
+   and `wrangler deploy` from that native path, not from `/mnt/d`.
    - **`.env.local` MUST be copied fresh — `cp /mnt/d/synfracore/.env.local
      ~/synfracore-build/.env.local` — on every single build, no exceptions,
      even if you're confident nothing in it changed.** It's excluded from the
@@ -93,11 +106,12 @@ analytics change right up until the site went down.
      native build directory before rebuilding to rule this out; confirmed
      this exact class of bug twice now (once for the 7th roadmap symptom's
      RSC-manifest paths, once for this Clerk key regression).
-2. **Any `wrangler.toml` edit must be diffed and reviewed before deploying** —
-   run `git diff -- wrangler.toml` and actually read it. This file's `[vars]`
-   block is easy to corrupt silently (a malformed TOML line, or a value
-   duplicated as both a plain var and a Dashboard Secret, both happened the
-   same night) and `wrangler` doesn't always fail loudly on the former.
+2. **Any `wrangler.jsonc` edit must be diffed and reviewed before deploying** —
+   run `git diff -- wrangler.jsonc` and actually read it. Its `vars` block is
+   easy to corrupt silently (a malformed line, or a value duplicated as both
+   a plain var and a Dashboard Secret — this exact failure mode already
+   happened once, on the old `wrangler.toml`) and `wrangler` doesn't always
+   fail loudly on it.
 3. **After every deploy, before considering it done, check all of the
    following — not just the one feature that was being worked on:**
    - Homepage (`/`) returns 200 with real content (not a blank/error page).
@@ -197,13 +211,27 @@ automatically.
 - Do not commit `.env.local` or any real key.
 - Do not launch new academies beyond the 3 flagship ones until the auth +
   dashboard shell is stable (see phased plan in `/docs`).
-- **Do not sign in or sign out from a `/question-bank` page** (the paper
-  landing page or an attempt page) until Symptom 10/11 is fixed
-  (`docs/audit/07-roadmap-final.md`). Clerk's SDK dispatches an internal
-  Server Action to invalidate Next's RSC cache after any `setActive()`/
-  `signOut()` call, which 404s on `@cloudflare/next-on-pages` and can
-  crash hydration (React error #418) — worse, it can also trigger a
-  retry storm severe enough to trip Cloudflare Worker limits and cause
-  intermittent 503s **site-wide**, not just on that page. Sign in/out
-  from any other page instead; the structural fix is the OpenNext
-  migration (OP-2/D1).
+- **Symptom 10/11 is RESOLVED as of 2026-07-19** — production now runs on
+  `@opennextjs/cloudflare` (D1), which does not have the Server-Action-404
+  mechanism that `@cloudflare/next-on-pages` had. The old restriction ("do
+  not sign in/out from a `/question-bank` page") no longer applies; this was
+  confirmed directly on production, not just in preview, including a
+  same-domain full parity/regression audit. Full record:
+  `docs/audit/07-roadmap-final.md` Part 4l. **Still open**: a 24-48h
+  post-cutover monitoring window (started 2026-07-19T16:49:47Z) watching for
+  the rare (~1-2% in preview-quiet conditions, unverified under real
+  concurrent traffic) client-visible not-found-swap symptom and any
+  recurrence of the Server-Action-404 pattern — check Part 4l/4k for current
+  status before assuming this is fully closed if reading this soon after
+  that date.
+- **Symptom 13** (BCHHC/question-bank sign-in state not syncing client-side
+  without a reload) is **mitigated, not root-caused** —
+  `components/auth/AuthStateSync.tsx`, mounted in the root layout, forces a
+  reload if `window.Clerk.session`/`user` are still empty a grace period
+  after the sign-in modal's OTP step is seen, scoped to the modal only (not
+  the standalone `/sign-in`/`/sign-up` pages). This was very likely the same
+  underlying Symptom 10/11 mechanism the whole time (see Part 4j), so it may
+  now be largely redundant with the D1 migration's fix — kept in place as a
+  monitored safety net rather than removed, since removing it hasn't been
+  separately verified safe. See `docs/audit/07-roadmap-final.md` Part 4i for
+  the fix's own history and Part 4j/4l for the mechanism analysis.

@@ -201,6 +201,96 @@ Supabase row via `relink_user_id` — no manual SQL, no code change needed. If
 
 ---
 
+## Consolidated summary: Symptom 8-13 / D1 migration saga (read this first — full story without piecing together Parts 4a-4l)
+
+**One sentence**: a shared Clerk mechanism broke sign-in/out sitewide under
+`@cloudflare/next-on-pages`, the real fix was migrating to
+`@opennextjs/cloudflare` (D1), that migration was tried once, reverted for
+an unrelated bug, and — after two more days of the underlying problem
+recurring and getting properly root-caused — was re-attempted and is now
+**live in production** as of 2026-07-19T16:49:47Z.
+
+### The mechanism (Symptom 8/9/10/11 — one root cause, several names over time)
+
+Clerk's client SDK fires an internal Server Action
+(`invalidateCacheAction`) to refresh Next's RSC cache after any
+`setActive()`/`signOut()` call. Because `ClerkProvider`/the sign-in modal
+are global (rendered on every page via the Navbar), this action can fire
+from *any* route. `@cloudflare/next-on-pages` cannot reliably route this
+Server Action — it 404s, crashing hydration (React error #418), and under
+load could trigger a retry storm severe enough to cause intermittent
+whole-site 503s. First seen as isolated symptoms (8, 9, 10, 11) before
+being understood as one shared mechanism; **confirmed sitewide** (not just
+question-bank pages, as earlier believed) on 2026-07-19 via a live user
+report and direct reproduction (Part 4j).
+
+### The BCHHC/Symptom-13 detour
+
+A separate-seeming bug — BCHHC question-bank sign-in not updating the
+client UI without a manual reload — got its own investigation and its own
+fix (`AuthStateSync.tsx`, a forced-reload mitigation) before the sitewide
+404 report connected it back to the same root mechanism above (Part 4j).
+The mitigation shipped anyway, as a monitored safety net — see Part 4i for
+its own history, Part 4j for the mechanism reconciliation.
+
+### The fix, tried twice
+
+**Attempt 1** (2026-07-17): migrated to `@opennextjs/cloudflare` (D1).
+Directly confirmed this eliminates the Server-Action-404 mechanism
+(Symptoms 6/9/10/11 all clean under OpenNext — Part 4c/4d). Found a
+*second, unrelated* bug during the full production cutover — a
+self-referential loopback `fetch()` in the content-loading code, unreliable
+under the new runtime — and reverted the whole migration back to
+`next-on-pages` the same night (commit `4e25255`) rather than fix-forward
+under live pressure. This silently reintroduced the Server-Action-404
+mechanism sitewide, undetected for two days.
+
+**Attempt 2** (2026-07-19): with the content-loading bug now fixed
+(`ASSETS.fetch()` instead of the loopback, Part 4f/4k) and the
+previously-unmeasured "hydrate-then-not-found" risk actually measured for
+the first time (~1.8-2.8% in preview-quiet conditions, not the "unmeasured
+100%-trigger" uncertainty Part 4f.5 originally flagged — Part 4k),
+re-attempted the migration. Domain cutover took two tries: the first
+(remove only the Pages binding, retry the Worker claim) 409-conflicted 14/14
+times over 90 seconds with zero drift, proving the actual DNS record — not
+a binding-release delay — was the blocker; rolled back cleanly (~2min). The
+second, after building and dry-run-testing a real CNAME-recreation
+fallback, deleted the CNAME directly and succeeded on the **first** claim
+attempt (~6 second outage). Post-cutover: full parity audit confirmed
+clean, sign-in/out confirmed working by direct real-user testing
+(automated headless-browser testing kept failing for reasons traced to the
+test method itself, not a production defect — see Part 4l).
+
+### Current status (as of the 2026-07-19 cutover)
+
+- **Symptom 8/9/10/11 (Server-Action-404, sitewide)**: RESOLVED. Confirmed
+  on real production, both the original academies-page manifestation and
+  the BCHHC manifestation.
+- **Symptom 13 (BCHHC reload mitigation)**: still in place as a monitored
+  safety net, likely now redundant with the D1 fix but not separately
+  verified safe to remove.
+- **Open**: a 24-48h post-cutover monitoring window (`wrangler tail` +
+  periodic real-browser checks), watching specifically for the rare
+  not-found-swap pattern under real traffic and any recurrence of the
+  404. Check Part 4k/4l and the monitoring log for current status.
+- **Separately, not yet investigated**: a friend's Google-auth "400 -
+  authenticate ID not found" error, likely a Clerk Dashboard OAuth
+  redirect-URI or Google Cloud Console misconfiguration — explicitly not
+  the same issue as the above (Part 4j).
+
+**For full detail on any specific claim above**: Part 4a (why D1 was
+originally deferred), 4c/4d (attempt 1, isolated repro + full migration),
+4e (attempt 1's revert and why), 4f (retry-readiness planning, the content
+fix, the corrected risk measurement), 4f.5 (attempt 1's readiness
+verification and NOT READY call), 4g/4h (a related but distinct
+soft-navigation-stall investigation, not part of this mechanism), 4i
+(Symptom 13's own investigation and fix), 4j (the sitewide reconciliation
+that connected Symptom 13 back to Symptom 10/11), 4k (attempt 2's
+reconciliation and pre-cutover verification), 4l (attempt 2's execution,
+the `main` branch reset, and the parity audit).
+
+---
+
 ## Part 4 — New, unresolved symptoms found during tonight's incident
 
 ### Symptom 9 · Nested dynamic route 404 on question-bank attempt pages (unresolved, unconfirmed mechanism)
