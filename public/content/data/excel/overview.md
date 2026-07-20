@@ -112,7 +112,10 @@ Practice with realistic, messy scenarios rather than clean textbook data — tha
 =UPPER(text) / =LOWER(text) / =PROPER(text)
 =CONCATENATE(text1, text2)     Or: =A1&" "&B1
 =TEXTJOIN(",", TRUE, A2:A10)   Join with delimiter
-=SPLIT(text, delimiter)        Google Sheets — Excel uses Text-to-Columns
+=SPLIT(text, delimiter)        Google Sheets only -- Excel 365 has =TEXTSPLIT(text, delimiter),
+                                a real formula-based equivalent that spills results across cells
+                                automatically; older Excel has no formula equivalent, only the
+                                manual, non-formula Text-to-Columns tool (Data → Text to Columns)
 
 // Date Functions
 =TODAY()                       Today's date
@@ -160,7 +163,10 @@ Customer Analysis:
   Rows: Customer Name
   Values: Sum of Revenue, Count of Orders, Average Order Value
 
-Calculated Fields (right-click in pivot → Add Calculated Field):
+Calculated Fields (PivotTable Analyze tab → Calculations group →
+Fields, Items & Sets → Calculated Field -- NOT available by right-clicking
+inside the pivot itself; the right-click menu only has Summarize/Show
+Values As/Group/Refresh):
   = Revenue / Quantity   → creates "Average Price" field
   = Profit / Revenue     → creates "Profit Margin %" field
 
@@ -169,43 +175,7 @@ Slicer: PivotTable Analyze → Insert Slicer (visual filter buttons)
 Timeline: PivotTable Analyze → Insert Timeline (date filter)
 ```
 
-## Advanced Formulas
-
-```excel
-// Array Formulas (Ctrl+Shift+Enter in older Excel, just Enter in 365)
-=UNIQUE(array)                 Remove duplicates
-=SORT(array, sort_index)       Sort dynamically
-=FILTER(array, include, [if_empty])
-  =FILTER(A2:C100, B2:B100="Electronics", "No data")
-  Returns only Electronics rows dynamically!
-
-=SEQUENCE(rows, cols, start, step)
-  =SEQUENCE(10) → 1,2,3...10
-  =SEQUENCE(5, 1, 0, 2) → 0,2,4,6,8
-
-// Dynamic array spill functions (Excel 365)
-=SORT(UNIQUE(FILTER(A2:A100, B2:B100>100)))
-  Filter rows where B > 100, get unique values, sort them
-
-// XLOOKUP with multiple results
-=XLOOKUP(E2, A2:A100, B2:D100)  // Returns entire row
-
-// 2D Lookup
-=INDEX(data_range, MATCH(row_value, row_headers, 0), MATCH(col_value, col_headers, 0))
-
-// Running totals
-=SUM($B$2:B2)   // Anchor start, relative end
-
-// OFFSET for dynamic ranges
-=SUM(OFFSET(A1, 0, 0, COUNTA(A:A), 1))
-  // Sum only non-empty cells even as data grows
-
-// Power Query (Get & Transform) — for data cleaning
-// Data → Get Data → From Table/Range
-// Steps are recorded and replayable!
-// Merge queries = like SQL JOIN
-// Append queries = stack tables vertically
-```
+Dynamic arrays (`FILTER`/`SORT`/`UNIQUE`), 2D lookups, and Power Query are genuinely intermediate/advanced material — covered in depth on the Intermediate tab once the lookup/conditional/aggregation functions above are comfortable, rather than repeated here.
 
 ## Excel Dashboard Essentials
 
@@ -249,8 +219,11 @@ Dynamic Dashboard with Slicers:
 // TRIM + CLEAN:
   =TRIM(CLEAN(A2))  Remove spaces and non-printable characters
 
-// Find and Replace (Ctrl+H):
-  Replace "*$" with "" to clean currency symbols
+// Find and Replace (Ctrl+H) -- this is plain substring replacement, NOT
+// regex: "*" and "$" are not wildcards/anchors here the way they are in a
+// regex engine. To actually strip a currency symbol, replace the literal
+// symbol itself, e.g. replace "$" with "" (matches the literal character):
+  Replace "$" with "" to remove a leading currency symbol
   Replace "," with "" to remove thousands separators
 
 // Convert text numbers to real numbers:

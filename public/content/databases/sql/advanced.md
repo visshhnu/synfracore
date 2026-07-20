@@ -2,7 +2,7 @@
 
 ## Hard LeetCode SQL Patterns
 
-These are actual problems from the PDF collection — the patterns here appear repeatedly in real interviews at product companies.
+These patterns appear repeatedly in real interviews at product companies — each one below is a well-known, publicly documented problem (referenced by its common LeetCode number where applicable) rather than a one-off invented example, so you can find more practice on the same pattern easily.
 
 ## Pattern 1: Finding Median
 
@@ -29,7 +29,7 @@ WHERE cumulative >= total / 2
 -- This selects the row(s) that contain positions 6 or 7
 ```
 
-## Pattern 2: Market Basket / Product Analysis
+## Pattern 2: Product & Project Sales Analysis
 
 ```sql
 -- LeetCode 1075: Project Employees I
@@ -56,13 +56,23 @@ WHERE s.product_id NOT IN (
 )
 GROUP BY s.product_id;
 
--- Cleaner with HAVING + date filter
+-- Cleaner with HAVING + date filter — MySQL only: relies on MySQL's
+-- implicit boolean-to-integer (1/0) coercion inside SUM(). PostgreSQL and
+-- SQL Server both reject SUM() on a boolean expression directly; use CASE:
 SELECT DISTINCT s.product_id, p.product_name
 FROM Sales s
 LEFT JOIN Product p ON p.product_id = s.product_id
 GROUP BY s.product_id
-HAVING SUM(sale_date < '2019-01-01') = 0
+HAVING SUM(sale_date < '2019-01-01') = 0        -- MySQL
    AND SUM(sale_date > '2019-03-31') = 0;
+
+-- Portable version (PostgreSQL, SQL Server):
+SELECT DISTINCT s.product_id, p.product_name
+FROM Sales s
+LEFT JOIN Product p ON p.product_id = s.product_id
+GROUP BY s.product_id
+HAVING SUM(CASE WHEN sale_date < '2019-01-01' THEN 1 ELSE 0 END) = 0
+   AND SUM(CASE WHEN sale_date > '2019-03-31' THEN 1 ELSE 0 END) = 0;
 ```
 
 ## Pattern 3: User Activity and Retention
@@ -111,6 +121,10 @@ FROM tree;
 
 -- Finding employees under a manager
 -- All direct + indirect reports of a manager
+-- PostgreSQL, MySQL 8+, SQLite: the RECURSIVE keyword is required.
+-- SQL Server: drop RECURSIVE entirely (plain WITH ... AS) — SQL Server
+-- infers recursion from the query structure and treats RECURSIVE as a
+-- syntax error if included.
 WITH RECURSIVE Hierarchy AS (
     SELECT id, name, managerId
     FROM employees
@@ -150,19 +164,25 @@ GROUP BY department;
 ## Pattern 6: The N-th Highest Pattern
 
 ```sql
+-- Employee table: Id, Name, Salary, ManagerId (same shape used throughout this tab)
 -- Nth highest salary — three approaches
 
--- Approach 1: MySQL function with LIMIT OFFSET
+-- Approach 1: MySQL function with LIMIT OFFSET. Needs a DELIMITER change to
+-- run as-is — the semicolons inside BEGIN...END would otherwise be read as
+-- statement terminators by the client before CREATE FUNCTION completes:
+DELIMITER //
 CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
 BEGIN
-    SET N = N - 1;
+    DECLARE offset_n INT;
+    SET offset_n = N - 1;
     RETURN (
         SELECT DISTINCT Salary
         FROM Employee
         ORDER BY Salary DESC
-        LIMIT 1 OFFSET N
+        LIMIT 1 OFFSET offset_n
     );
-END;
+END //
+DELIMITER ;
 
 -- Approach 2: Window function (works in all modern DBs)
 SELECT DISTINCT salary AS getNthHighestSalary
@@ -188,9 +208,14 @@ WHERE N - 1 = (
 
 ```sql
 -- Delete duplicates, keep row with lowest id (LeetCode 196)
+-- MySQL-only multi-table DELETE syntax:
 DELETE p1 FROM Person p1, Person p2
 WHERE p1.Email = p2.Email
   AND p1.Id > p2.Id;
+
+-- Portable equivalent (PostgreSQL, SQL Server):
+DELETE FROM Person
+WHERE Id NOT IN (SELECT MIN(Id) FROM Person GROUP BY Email);
 
 -- Find duplicate emails
 SELECT Email FROM Person
@@ -299,7 +324,7 @@ GROUP BY t.Request_at;
 ## SQL Interview Problem: Third Highest Salary with CTEs
 
 ```sql
--- Find employee with 3rd maximum salary
+-- Find employee with 3rd maximum salary — portable (PostgreSQL, MySQL 8+, SQL Server)
 WITH RankedSalaries AS (
     SELECT Salary,
            DENSE_RANK() OVER (ORDER BY Salary DESC) AS rnk
@@ -310,17 +335,23 @@ ThirdHighest AS (
     FROM RankedSalaries
     WHERE rnk = 3
 )
-SELECT a.* FROM Employees a
+SELECT a.* FROM Employee a
 JOIN ThirdHighest t ON a.Salary = t.third_salary;
 
--- Alternative using ROWNUM pattern (Oracle)
+-- Alternative using the ROWNUM pattern (Oracle). ROWNUM is assigned to rows
+-- BEFORE any ORDER BY in the same query block -- so filtering on ROWNUM
+-- and ordering in one flat query does NOT reliably give you "top N by
+-- salary." The ordering has to happen in an inner subquery first, with
+-- ROWNUM applied only in the outer query against the already-sorted result:
 WITH TEMP AS (
     SELECT MAX(salary) AS salary
-    FROM Employees
+    FROM Employee
     WHERE salary NOT IN (
-        SELECT salary FROM Employees
-        ORDER BY salary DESC WHERE ROWNUM < 3
+        SELECT salary FROM (
+            SELECT salary FROM Employee ORDER BY salary DESC
+        )
+        WHERE ROWNUM < 3
     )
 )
-SELECT a.* FROM Employees a JOIN TEMP b ON a.salary = b.salary;
+SELECT a.* FROM Employee a JOIN TEMP b ON a.salary = b.salary;
 ```

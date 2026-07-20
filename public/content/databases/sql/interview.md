@@ -26,7 +26,7 @@ INNER JOIN: rows where join condition matches in both tables only. LEFT JOIN: al
 A subquery that references the outer query — executes once per row of the outer query (can be slow). Uncorrelated subquery: independent, runs once. Example of correlated: find employees earning more than their department average — the subquery references the current row's department.
 
 **What is a CTE and when do you use it?**
-CTE (Common Table Expression) uses the `WITH` keyword to create a named temporary result set. Use when: (1) the same subquery is needed multiple times, (2) you need multiple steps (chain CTEs), (3) readability matters in complex queries. For recursive data (org charts, hierarchies), use `WITH RECURSIVE`. Note: PostgreSQL materializes CTEs (calculated once), MySQL treats them like views (may recalculate).
+CTE (Common Table Expression) uses the `WITH` keyword to create a named temporary result set. Use when: (1) the same subquery is needed multiple times, (2) you need multiple steps (chain CTEs), (3) readability matters in complex queries. For recursive data (org charts, hierarchies), use `WITH RECURSIVE`. Note: this differs by engine and by PostgreSQL version specifically. PostgreSQL 12+ auto-inlines non-recursive, single-reference CTEs by default (add the `MATERIALIZED` keyword to force the old always-materialize behavior); versions before PostgreSQL 12 always materialized CTEs. MySQL's CTE handling has historically behaved more like a view, potentially re-evaluating the underlying query multiple times within one execution. Don't assume CTE behavior is universal across engines or PostgreSQL versions — see the Real World tab for a concrete case of this causing a visible, real bug.
 
 ---
 

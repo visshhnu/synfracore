@@ -1,6 +1,18 @@
 # Excel — Advanced
 
-## VBA Automation
+## VBA Automation — the basics before the first real macro
+
+VBA (Visual Basic for Applications) is the programming language built into Excel — everything below is regular code, not a special "Excel formula" dialect, so if this is your first time seeing it, a few concepts first:
+
+- **`Alt+F11`** opens the VBA editor (a separate window from the spreadsheet itself). **`Alt+F8`** opens a dialog to run any macro by name without leaving the spreadsheet.
+- A **`Sub`** is a named block of VBA code that performs an action (as opposed to a `Function`, which returns a value you can use in a formula). `Sub FormatMonthlyReport() ... End Sub` below is one complete, runnable macro — everything between those two lines executes when you run it.
+- **`Dim`** declares a variable and its type (`Dim lastRow As Long` — a variable named `lastRow` that holds a whole number). **`Set`** assigns an *object* (a worksheet, a range) to a variable — plain `=` is for values, `Set` is specifically for objects, and using the wrong one is a very common first-week VBA error.
+- **`.Cells(ws.Rows.Count, "A").End(xlUp).Row`** is the standard VBA idiom for "find the last row that actually has data in column A" — it starts from the very bottom of the sheet and works upward until it hits the first non-empty cell, which is more reliable than a hardcoded row number that breaks the moment the data grows or shrinks.
+- **`With ... End With`** lets you set multiple properties on the same object (here, a range) without repeating its name each time — `With ws.Range("A1:F1")` followed by `.Font.Bold = True` is shorthand for `ws.Range("A1:F1").Font.Bold = True`, `ws.Range("A1:F1").Interior.Color = ...`, and so on.
+
+The easiest way to write your first macro without memorizing syntax: **Developer tab → Record Macro**, perform the actions manually in the spreadsheet (format some cells, apply a filter), then stop recording and open the result in the VBA editor (`Alt+F11`) to see the actual code Excel generated. Reading recorded-macro output is a genuinely good way to learn the object model (`Range`, `Worksheet`, `Font`, `Interior`) before writing VBA from scratch.
+
+Once that's comfortable, the macro below is a realistic example — formatting a monthly report's headers and flagging negative values automatically, both things you'd otherwise redo by hand every single month:
 
 ```vba
 ' Automate repetitive tasks with VBA

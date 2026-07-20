@@ -1,5 +1,7 @@
 # SQL — Intermediate
 
+Real interview questions each come with their own schema — that's realistic (an interviewer hands you a new problem, not a continuation of the last one), so this tab intentionally introduces a small table definition before each problem rather than reusing Fundamentals' `Employees`/`Departments` schema throughout. Where a well-known problem is referenced by name (e.g. "LeetCode 177"), the table comment above the query is enough to follow the SQL on its own — the reference is there if you want extra practice, not because you need to look anything up to understand the answer.
+
 ## Window Functions
 
 Window functions perform calculations across rows related to the current row without collapsing them — unlike GROUP BY which reduces rows.
@@ -16,7 +18,8 @@ function_name() OVER (
 ### RANK vs DENSE_RANK vs ROW_NUMBER
 
 ```sql
--- Given the Scores table: {3.50, 3.65, 4.00, 4.00, 3.65, 3.85}
+-- Scores table: id INT, score DECIMAL(3,2)
+-- Given rows with score: 3.50, 3.65, 4.00, 4.00, 3.65, 3.85
 
 -- DENSE_RANK — no gaps in ranking (most common in interviews)
 SELECT score,
@@ -76,27 +79,34 @@ FROM Activity;
 ### Finding Nth Highest Value
 
 ```sql
+-- Employee table: id INT, name VARCHAR, salary INT
 -- Nth highest salary (LeetCode 177)
--- Using DENSE_RANK
-SELECT DISTINCT salary AS getNthHighestSalary
+-- Using DENSE_RANK (portable — PostgreSQL, MySQL 8+, SQL Server)
+SELECT DISTINCT salary AS nth_highest_salary
 FROM (
     SELECT salary,
            DENSE_RANK() OVER (ORDER BY salary DESC) AS rnk
     FROM Employee
 ) t
-WHERE rnk = N;
+WHERE rnk = 3;   -- swap in whichever N you need
 
--- Using LIMIT/OFFSET (MySQL)
+-- Using LIMIT/OFFSET (MySQL) — as a reusable function.
+-- The semicolons inside BEGIN...END would otherwise be read as statement
+-- terminators by the client before the CREATE FUNCTION finishes, so the
+-- DELIMITER change below is required to actually run this, not optional:
+DELIMITER //
 CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
 BEGIN
-    SET N = N - 1;
+    DECLARE offset_n INT;
+    SET offset_n = N - 1;
     RETURN (
-        SELECT DISTINCT Salary
+        SELECT DISTINCT salary
         FROM Employee
-        ORDER BY Salary DESC
-        LIMIT 1 OFFSET N
+        ORDER BY salary DESC
+        LIMIT 1 OFFSET offset_n
     );
-END
+END //
+DELIMITER ;
 
 -- 3rd highest: LIMIT 1 OFFSET 2
 -- nth highest: LIMIT 1 OFFSET N-1
@@ -105,7 +115,7 @@ END
 ## JOINs — The Most Important SQL Topic
 
 ```sql
--- Tables: Employee (Id, Name, Salary, DepartmentId), Department (Id, Name)
+-- Employee (Id, Name, Salary, DepartmentId), Department (Id, Name)
 
 -- INNER JOIN — only matching rows in both tables
 SELECT d.Name AS Department, e.Name AS Employee, e.Salary
@@ -146,8 +156,8 @@ WHERE rnk = 1;
 A table joined to itself — used for hierarchical data or comparisons within same table.
 
 ```sql
--- Find employees who earn more than their manager (LeetCode 181)
 -- Employee table: Id, Name, Salary, ManagerId
+-- Find employees who earn more than their manager (LeetCode 181)
 SELECT e.Name AS Employee
 FROM Employee e
 JOIN Employee m ON e.ManagerId = m.Id
@@ -163,6 +173,7 @@ WHERE id IN (
     HAVING COUNT(DISTINCT Id) >= 5
 );
 
+-- point table: x INT (one column, one x-coordinate per row)
 -- Shortest distance between two points on x-axis (LeetCode 613)
 -- Self join to compare each pair
 SELECT t1.x - t2.x AS shortest
@@ -175,6 +186,7 @@ LIMIT 1;
 ## Subqueries
 
 ```sql
+-- Employee table: Id, Name, Salary, DepartmentId (same shape as the JOIN section above)
 -- Correlated subquery: references outer query for each row
 -- Employees with salary above department average
 SELECT e.Name, e.Salary, e.DepartmentId
@@ -185,6 +197,7 @@ WHERE e.Salary > (
     WHERE DepartmentId = e.DepartmentId  -- correlated!
 );
 
+-- salesperson (name, sales_id), orders (sales_id, com_id), company (com_id, name)
 -- NOT IN subquery — salespeople who have NO orders to RED company
 SELECT name
 FROM salesperson
@@ -208,8 +221,8 @@ WHERE NOT EXISTS (
 ## Aggregations and GROUP BY
 
 ```sql
+-- Logs table: id INT (sequential), num INT
 -- Consecutive numbers appearing 3+ times (LeetCode 180)
--- Logs table: id (sequential), num
 SELECT DISTINCT l1.num AS ConsecutiveNums
 FROM Logs l1, Logs l2, Logs l3
 WHERE l1.id = l2.id - 1
@@ -217,12 +230,23 @@ WHERE l1.id = l2.id - 1
   AND l1.num = l2.num
   AND l2.num = l3.num;
 
--- Delete duplicate emails, keep lowest id (LeetCode 196)
+-- Person table: Id INT, Email VARCHAR
+-- Delete duplicate emails, keep lowest id (LeetCode 196) — MySQL-only
+-- multi-table DELETE syntax; PostgreSQL/SQL Server need a subquery instead:
 DELETE p1
 FROM Person p1, Person p2
 WHERE p1.Email = p2.Email
   AND p1.Id > p2.Id;
 
+-- Portable equivalent (PostgreSQL, SQL Server):
+DELETE FROM Person
+WHERE Id NOT IN (
+    SELECT MIN(Id) FROM Person GROUP BY Email
+);
+
+-- Activity table: user_id INT, session_id INT, activity_date DATE
+-- Both queries below use MySQL's DATE_SUB/DATE_ADD; PostgreSQL equivalent
+-- is date arithmetic directly: activity_date > DATE '2019-07-27' - INTERVAL '30 days'
 -- Count active users per day in last 30 days (LeetCode 1141)
 SELECT activity_date AS day,
        COUNT(DISTINCT user_id) AS active_users
@@ -244,19 +268,22 @@ WHERE activity_date > DATE_ADD('2019-07-27', INTERVAL -30 DAY)
 ## Date Functions
 
 ```sql
--- DATE_ADD / DATE_SUB
+-- MySQL
 SELECT DATE_ADD('2019-07-27', INTERVAL -90 DAY);  -- 90 days before
 SELECT DATE_SUB('2019-06-30', INTERVAL 30 DAY);   -- 30 days before
+SELECT DATEDIFF('2019-07-27', login_date) <= 90;  -- within 90 days
+SELECT DATE_FORMAT(order_date, '%Y-%m') AS month; -- '2019-03'
 
--- DATEDIFF
-SELECT DATEDIFF('2019-07-27', login_date) <= 90   -- within 90 days
+-- PostgreSQL equivalents
+SELECT DATE '2019-07-27' - INTERVAL '90 days';
+SELECT DATE '2019-06-30' - INTERVAL '30 days';
+SELECT (DATE '2019-07-27' - login_date) <= 90;
+SELECT TO_CHAR(order_date, 'YYYY-MM') AS month;
 
--- DATE_FORMAT
-SELECT DATE_FORMAT(order_date, '%Y-%m') AS month   -- '2019-03'
+-- EXTRACT — standard SQL, portable across engines
+SELECT EXTRACT(YEAR FROM created_at) AS year;
 
--- EXTRACT
-SELECT EXTRACT(YEAR FROM created_at) AS year
-
+-- Traffic table: user_id INT, activity VARCHAR, activity_date DATE
 -- First login date per user
 SELECT user_id, MIN(activity_date) AS login_date
 FROM Traffic
@@ -267,6 +294,7 @@ GROUP BY user_id;
 ## Common Table Expressions (CTEs)
 
 ```sql
+-- Trips (Id, Client_Id, Driver_Id, Status, Request_at), Users (Users_Id, Banned)
 -- Trips and cancellation rate (LeetCode 262)
 -- Find cancellation rate for unbanned users between two dates
 WITH UnbannedTrips AS (
@@ -308,6 +336,7 @@ WHERE rnk <= 3;
 ## Insurance / Policy Queries (Multi-condition)
 
 ```sql
+-- insurance table: PID, TIV_2015, TIV_2016, LAT, LON
 -- Find total TIV_2016 for policyholders who:
 -- 1. Share TIV_2015 with at least one other policyholder
 -- 2. Have unique (LAT, LON) city
@@ -326,6 +355,7 @@ AND (LAT, LON) IN (
 ## Second Degree Follower (Social Graph)
 
 ```sql
+-- follow table: follower INT, followee INT (one row per follow relationship)
 -- LeetCode 614: Find users who follow at least one person
 -- and are followed by at least one person — find their follower count
 SELECT followee AS follower, COUNT(DISTINCT follower) AS num

@@ -165,9 +165,13 @@ SUM(CASE WHEN status = 'cancelled' THEN 1 ELSE 0 END)
 AVG(CASE WHEN gender = 'M' THEN salary END)  -- avg salary of males
 
 -- ── USEFUL PATTERNS ───────────────────────────────────────
--- Delete duplicates (keep lowest id)
+-- Delete duplicates (keep lowest id) — MySQL-only multi-table DELETE syntax
 DELETE p1 FROM person p1, person p2
 WHERE p1.email = p2.email AND p1.id > p2.id;
+
+-- Portable equivalent (PostgreSQL, SQL Server):
+DELETE FROM person
+WHERE id NOT IN (SELECT MIN(id) FROM person GROUP BY email);
 
 -- Find nth highest value
 SELECT DISTINCT salary

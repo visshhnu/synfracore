@@ -40,10 +40,11 @@
 =NETWORKDAYS(A2,B2)               -- Working days between dates
 
 -- ── PIVOT TABLE KEYBOARD SHORTCUTS ──────────────────────
-Alt+N+V: Insert PivotTable
-Alt+D+P: PivotTable Wizard
-F5 then PivotTable: Navigate to PivotTable
-Ctrl+Shift+Enter: Confirm array formula
+Alt+N+V: Insert PivotTable (ribbon KeyTip sequence -- may need one more
+         keystroke to pick "From Table/Range" depending on your Excel version)
+Alt+D+P: PivotTable and PivotChart Wizard (legacy dialog, still present)
+Ctrl+Shift+Enter: Confirm a LEGACY array formula (pre-365) -- not needed in
+         Excel 365, where dynamic arrays spill automatically on plain Enter
 
 -- ── CONDITIONAL FORMATTING ───────────────────────────────
 Home -> Conditional Formatting -> New Rule

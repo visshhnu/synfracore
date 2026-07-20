@@ -2,13 +2,13 @@
 
 ## Certifications Available
 
-| Cert | Provider | Cost |
+| Cert | Provider | Cost (verify current pricing at certiport.com — varies by region/reseller and changes over time) |
 |------|----------|------|
-| **Microsoft Office Specialist (MOS) Excel** | Microsoft | $165 |
-| **Microsoft Excel Expert (MO-201)** | Microsoft | $165 |
+| **Microsoft Office Specialist (MOS) Excel Associate (MO-200)** | Microsoft | ~$165 |
+| **Microsoft Excel Expert (MO-201)** | Microsoft | ~$165 |
 | **Excel VBA certification (various)** | Third-party | Varies |
 
-MOS Excel (MO-201): create workbooks, formulas, charts, pivot tables, macros.
+MOS Excel Associate (MO-200): workbooks, formulas, charts, pivot tables, data management -- no VBA/macros. MOS Excel Expert (MO-201) builds on that with advanced formulas, macros/VBA basics, Power Pivot, and What-If Analysis -- start with MO-200 unless you're already comfortable with everything it covers.
 
 ---
 
@@ -61,7 +61,8 @@ MOS EXCEL KEY SKILLS:
 ## MOS Exam Preparation
 
 ```
-MOS EXCEL (MO-201) EXAM DOMAINS:
+MOS EXCEL ASSOCIATE (MO-200) EXAM DOMAINS -- confirm current domain list at
+certiport.com before relying on this, Microsoft revises these periodically:
   Managing Workbooks:        save formats, templates, properties, inspection
   Managing Data:             flash fill, data validation, conditional formatting
   Managing Tables:           create, format, filter, calculated columns
@@ -73,7 +74,9 @@ EXAM FORMAT:
   Performance-based: you actually use Excel (not MCQ)
   Approximately 35 tasks across 5 projects
   Proctored at Certiport testing centres
-  70%+ passing score (varies slightly by exam version)
+  Scored 1-1000 with an undisclosed cut score, not a published percentage --
+  "70%+" is a common informal approximation, not Microsoft's own stated
+  scoring method; don't rely on it as an exact number
 ```
 
 ---

@@ -17,7 +17,9 @@ GROUP BY — aggregate and summarize data
 ## Your First Queries
 
 ```sql
--- Create a table
+-- Create a table (PostgreSQL — BIGSERIAL and TIMESTAMPTZ are PostgreSQL-
+-- specific types; see the Fundamentals tab for the MySQL/SQL Server
+-- equivalents of auto-incrementing IDs)
 CREATE TABLE users (
     id         BIGSERIAL PRIMARY KEY,
     email      TEXT UNIQUE NOT NULL,
@@ -78,7 +80,7 @@ SELECT
     MIN(created_at)    AS first_order,
     MAX(created_at)    AS last_order
 FROM orders
-WHERE created_at >= NOW() - INTERVAL '30 days'
+WHERE created_at >= NOW() - INTERVAL '30 days'   -- PostgreSQL; MySQL: NOW() - INTERVAL 30 DAY (no quotes)
 GROUP BY status
 HAVING COUNT(*) > 5        -- Filter groups (not rows)
 ORDER BY revenue DESC;
