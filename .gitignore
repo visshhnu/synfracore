@@ -15,3 +15,4 @@ docs/bchhc/
 # Raw reference/source content -- local only, never committed. Used to
 # enrich/inform site content, but the source files themselves stay off git.
 docs/Vishnu prepared content/
+docs/learnwithsynfracore/
