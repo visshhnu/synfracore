@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getAuthSafely } from "@/lib/clerk/authFallback";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { getAttemptWithResponses, getPaperQuestionsWithOptions, getPaperBySlug } from "@/lib/supabase/questionBank";
+import { getAttemptWithResponses, getPaperQuestionsWithOptions, getPaperTimeLimitMinutes } from "@/lib/supabase/questionBank";
 import AttemptRunner, { type AttemptQuestion } from "@/components/question-bank/AttemptRunner";
 
 type Props = { params: Promise<{ paperSlug: string; attemptId: string }> };
@@ -30,10 +30,11 @@ export default async function AttemptPage({ params }: Props) {
   const questionsInOriginalOrder = await getPaperQuestionsWithOptions(supabase, attempt.paper_id);
   if (questionsInOriginalOrder.length === 0) redirect(`/question-bank/${paperSlug}?error=1`);
 
-  const paper = await getPaperBySlug(supabase, paperSlug);
-  // Falls back to the schema's own DEFAULT (60) if the paper lookup somehow
-  // fails here — matches the DB-level default, not an arbitrary UI choice.
-  const timeLimitMinutes = paper?.time_limit_minutes ?? 60;
+  // Isolated from the paper's core existence-check query on purpose — see
+  // getPaperTimeLimitMinutes's own comment. Falls back to 60 (the schema's
+  // own DEFAULT) if the migration hasn't been applied to this environment
+  // yet, without affecting anything else on this page.
+  const timeLimitMinutes = await getPaperTimeLimitMinutes(supabase, attempt.paper_id);
 
   const questionById = new Map(questionsInOriginalOrder.map((q) => [q.id, q]));
   const optionByQuestion = new Map(questionsInOriginalOrder.map((q) => [q.id, new Map(q.options.map((o) => [o.id, o]))]));
