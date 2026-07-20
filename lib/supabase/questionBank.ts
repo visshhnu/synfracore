@@ -117,6 +117,32 @@ export async function getPaperBySlug(supabase: SupabaseClient, slug: string): Pr
   }
 }
 
+// Deliberately separate from QuestionPaper/getPaperBySlug — time_limit_minutes
+// is a new column (docs/add-paper-time-limit.sql) that may not exist yet on
+// a given environment's DB until that migration is manually applied (see the
+// migration file's own comment for why this project doesn't automate DDL).
+// Bundling it into the shared paper-select() clauses those existence-check
+// functions use would mean any environment without the migration applied
+// gets a query error on EVERY question-bank page (paper lookup fails ->
+// treated as "paper doesn't exist" -> notFound()) — confirmed exactly this
+// way against a preview without the migration applied. Isolating it here
+// means only the attempt timer itself degrades (falls back to 60min) if the
+// column is missing; nothing else on the site is affected either way.
+export async function getPaperTimeLimitMinutes(supabase: SupabaseClient, paperId: string): Promise<number> {
+  try {
+    const { data, error } = await supabase
+      .from("question_papers")
+      .select("time_limit_minutes")
+      .eq("id", paperId)
+      .maybeSingle();
+    if (error) throw error;
+    return (data?.time_limit_minutes as number | undefined) ?? 60;
+  } catch (err) {
+    console.error("getPaperTimeLimitMinutes failed (column may not exist yet — falling back to 60):", err);
+    return 60;
+  }
+}
+
 // Questions+options in ORIGINAL sort_order — used internally to build the
 // per-attempt shuffle and to map ids -> display text. Never render this
 // return value's order directly on the practice screen; only the shuffled
