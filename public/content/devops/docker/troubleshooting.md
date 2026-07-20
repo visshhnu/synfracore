@@ -83,7 +83,10 @@ RUN npm ci   # uses lockfile, not npm install
 ```bash
 docker network ls
 docker inspect <container> | grep NetworkMode
-docker run --net=host myapp   # test with host networking
+docker run --net=host myapp   # test with host networking -- Linux only; on
+                               # Docker Desktop (Mac/Windows) containers run
+                               # inside a VM, so --net=host does NOT expose
+                               # host ports the same way it does on Linux
 docker exec -it <container> ping host.docker.internal
 docker exec -it <container> curl http://other-container:8080
 ```

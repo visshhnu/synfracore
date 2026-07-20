@@ -1,8 +1,54 @@
 # Kubernetes Interview Q&A
 
-ggering even though pods are Pending. Check: pods might have node selector or affinity rules that no existing node satisfies — CA cannot create a node matching those constraints.
+**Q1. What is Kubernetes, and why not just run containers directly with Docker?**
+
+**A:** Docker (or any container runtime) runs a single container on a single host — it has no concept of multiple machines, automatic recovery from failure, or coordinating many containers as one application. Kubernetes is an orchestration layer on top: given a *desired state* (e.g. "3 replicas of this app, each with these resource limits"), it continuously works to make the *actual* cluster state match — restarting failed containers, rescheduling them onto healthy nodes, and load-balancing traffic across replicas, all without manual intervention.
 
 ---
+
+**Q2. Explain the Kubernetes architecture — control plane vs. worker nodes.**
+
+**A:** The **control plane** is the cluster's brain: the API Server (the single entry point all communication goes through — `kubectl`, controllers, kubelets all talk to it, never to each other directly), etcd (the distributed key-value store holding all cluster state — the actual source of truth), the Scheduler (decides which node a new Pod should run on), and the Controller Manager (runs the reconciliation loops that keep actual state matching desired state). **Worker nodes** run the actual workloads: the kubelet (talks to the API Server, starts/stops containers via the container runtime), kube-proxy (implements Service networking rules), and the container runtime itself (containerd or CRI-O).
+
+---
+
+**Q3. What is a Pod, and why does Kubernetes use Pods instead of scheduling containers directly?**
+
+**A:** A Pod is the smallest deployable unit in Kubernetes — one or more containers that are always scheduled together, share the same network namespace (same IP, can reach each other via `localhost`), and share storage volumes. Most Pods run a single container, but the multi-container case exists for genuinely coupled processes (a main app container plus a sidecar that ships its logs, for example) that need to share network/storage but have independent lifecycles otherwise. You almost never create bare Pods directly in production — a Deployment or StatefulSet manages Pods for you, handling replacement on failure and rolling updates.
+
+---
+
+**Q4. Deployment vs. StatefulSet vs. DaemonSet — when do you use each?**
+
+**A:** **Deployment** manages stateless, interchangeable replicas — any Pod can be replaced by any other, Pods get new random names, and rolling updates/rollbacks are built in; the right default for most application workloads. **StatefulSet** is for workloads that need stable, predictable identity — a stable network name and the same PersistentVolume reattached on restart (databases, anything sharded or clustered) — Pods get ordered, stable names (`app-0`, `app-1`) rather than random ones, and are not automatically rescheduled onto a different node on failure, specifically to avoid two Pods attaching the same volume simultaneously. **DaemonSet** ensures exactly one Pod runs on every (or every matching) node — the standard pattern for node-level agents like log collectors or monitoring exporters that need to be present everywhere, not scaled independently of node count.
+
+---
+
+**Q5. How does a Kubernetes Service route traffic to the right Pods?**
+
+**A:** A Service is a stable network endpoint that sits in front of a dynamic, changing set of Pods — Pods get replaced constantly (deploys, crashes, rescheduling) and each gets a new IP every time, so nothing should ever talk to a Pod IP directly. A Service selects its backing Pods via **label selectors** (matching `spec.selector` against Pod labels, not by name), and kube-proxy maintains the routing rules that load-balance traffic across whichever Pods currently match. `ClusterIP` (default) is only reachable inside the cluster; `NodePort` exposes a port on every node; `LoadBalancer` provisions an external cloud load balancer. A Service with zero matching Pods still exists and accepts connections — it just has nowhere to send them, which is the single most common "my Service isn't working" root cause: a label-selector mismatch, not a networking bug.
+
+---
+
+**Q6. What's the difference between a liveness probe and a readiness probe?**
+
+**A:** A **liveness probe** answers "is this container still working, or should it be restarted?" — if it fails repeatedly, kubelet kills and restarts the container. A **readiness probe** answers "should this Pod currently receive traffic?" — if it fails, the Pod is removed from the Service's routing targets (but *not* restarted) until it passes again. The distinction matters concretely: a Pod that's temporarily overloaded and slow to respond should fail its readiness probe (stop receiving new traffic, giving it room to recover) without being killed by a failing liveness probe for the same reason — using one probe type for both purposes is a common, real misconfiguration that causes unnecessary restarts under load.
+
+---
+
+**Q7. How does a Kubernetes rolling update work, and how do you roll back?**
+
+**A:** By default, a Deployment update replaces Pods gradually rather than all at once — controlled by `maxSurge` (how many extra Pods above the desired count can exist temporarily) and `maxUnavailable` (how many can be unavailable at once) — new Pods are only added to the Service's routing targets once they pass their readiness probe, so traffic never hits an unready new Pod. `kubectl rollout status deployment/myapp` watches progress; `kubectl rollout undo deployment/myapp` reverts to the previous revision if the new version turns out broken, using the same gradual, readiness-gated process in reverse.
+
+---
+
+**Q8. The Cluster Autoscaler isn't adding nodes even though pods are stuck Pending. How do you debug it?**
+
+**A:** Cluster Autoscaler (CA) only adds nodes when it can determine that a new node would actually let a Pending pod schedule — if it can't make that determination, it does nothing, silently, with no error surfaced to the pod itself. The most common reason it isn't triggering even though pods are Pending: the pods have a node selector or affinity rule that no node *type CA is configured to create* satisfies — CA cannot create a node matching constraints it doesn't know how to provision for, so it correctly concludes adding a node wouldn't help and leaves the pods Pending indefinitely. Check `kubectl describe pod <pending-pod>` for the exact scheduling constraint first, then confirm the cluster's node pools/autoscaling groups are actually capable of satisfying it.
+
+---
+
+Questions 9 through 15 below use AKS (Azure Kubernetes Service) as the concrete example — the underlying concepts (workload identity federation, NetworkPolicy, RBAC, CSI secret drivers) apply to EKS/GKE/self-managed clusters too, just with different provider-specific tooling (`aws eks`/`gcloud container` instead of `az aks`, IRSA instead of AKS Workload Identity, and so on). Worth knowing the cloud-specific commands for whichever platform a real job actually uses, but the concepts themselves are portable.
 
 **Q9. What is Workload Identity in AKS and why is it better than using Service Principals?**
 
@@ -131,7 +177,7 @@ roleRef:
 |---|---|
 | cluster-admin | Everything |
 | admin | Full namespace access |
-| edit | Create/modify resources (no RBAC) |
+| edit | Create/modify most resources (no RBAC objects, no ResourceQuota, no namespace object itself — can still read/modify Secrets) |
 | view | Read-only |
 
 **Where configured:** Enable Azure RBAC: `az aks update --enable-azure-rbac --enable-aad`. RBAC YAML files managed via GitOps.
@@ -315,10 +361,6 @@ spec:
 ```
 
 **Real challenge:** After adding new GPU node pool, regular application pods start scheduling onto expensive GPU nodes. Solution: add taint to GPU node pool during creation `--node-taints gpu=true:NoSchedule` — regular pods cannot schedule there without explicit toleration.
-
----
-
-## 
 
 ---
 

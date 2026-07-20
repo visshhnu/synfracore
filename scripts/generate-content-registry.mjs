@@ -80,9 +80,14 @@ function fileExists(relPath) {
 // Extend STALE_ALIAS_FIX_KEYS (or replace with a broader rule) once that
 // review happens elsewhere -- do not just widen this to "all keys" without
 // checking devops/* vs infrastructure/* content quality per technology first.
-const STALE_ALIAS_FIX_KEYS = new Set(
-  ["overview", "fundamentals", "intermediate", "cheatsheets", "interview", "installation"].map((s) => `devops/linux/${s}`)
-);
+const STALE_ALIAS_FIX_KEYS = new Set([
+  ...["overview", "fundamentals", "intermediate", "cheatsheets", "interview", "installation"].map((s) => `devops/linux/${s}`),
+  // Batch 1 of the phased devops/* audit (Docker, Kubernetes) -- both
+  // reviewed and improved section by section; unshadowing only the tabs
+  // that actually have real, checked devops/* content behind them.
+  ...["overview", "fundamentals", "intermediate", "cheatsheets", "interview"].map((s) => `devops/docker/${s}`),
+  ...["overview", "fundamentals", "intermediate", "advanced", "cheatsheets", "interview"].map((s) => `devops/kubernetes/${s}`),
+]);
 
 const registry = new Map();
 let droppedBroken = 0;

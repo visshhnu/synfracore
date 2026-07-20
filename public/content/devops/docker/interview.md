@@ -1,198 +1,37 @@
 # Docker Interview Q&A
 
-Docker Build & Push') {
+**Q: What's the difference between a Docker image and a Docker container?**
+An image is a read-only template — layered filesystem plus metadata (entrypoint, exposed ports, env defaults) — built once from a Dockerfile. A container is a running (or stopped) instance of that image, with its own writable layer on top and its own process, network namespace, and filesystem state. You can start many containers from the same image; each gets an independent writable layer, so changes in one container never affect the image or other containers from it.
 
-            steps {
+**Q: What is a Docker layer, and why does instruction order in a Dockerfile matter?**
+Each `RUN`/`COPY`/`ADD` instruction creates a new, cached layer. If an instruction and everything before it are unchanged since the last build, Docker reuses the cached layer instead of re-executing it. This is why dependency installation should come *before* copying application code: `COPY package*.json ./` then `RUN npm ci` then `COPY . .` means changing application code doesn't invalidate the (often slow) dependency-install layer, while `COPY . .` before `npm ci` would bust that cache on every single code change.
 
-                withCredentials([usernamePassword(credentialsId: 'acr-creds', 
+**Q: Why use multi-stage builds instead of a single-stage Dockerfile?**
+A single-stage build bakes compilers, build tools, and source code into the final image alongside the compiled output — larger image, larger attack surface, longer pull times. A multi-stage build uses one stage (with the full toolchain) to compile/build, then copies only the compiled artifact into a minimal runtime stage (e.g. `distroless` or `-slim`), discarding everything else. The build stage's layers never end up in the final image at all. This routinely takes an image from several hundred MB down to tens of MB for compiled languages.
 
-                    usernameVariable: 'ACR_USER', 
+**Q: How do you handle secrets in a Dockerfile? Why is `ENV`/`ARG` unsafe for them?**
+Never put secrets in `ENV` or `ARG` — both get baked into the image's layer history and are recoverable via `docker history` or `docker inspect` even if a later layer "removes" them (the earlier layer still exists in the image). Safer options:
+- **BuildKit secret mounts** (build-time only, never persisted in a layer): `RUN --mount=type=secret,id=mykey cat /run/secrets/mykey`, built with `docker build --secret id=mykey,src=./mykey.txt`.
+- **Runtime injection**: pass secrets as environment variables or mounted files at `docker run`/container-start time, not baked into the image at all.
+- **External secret managers**: Vault, AWS Secrets Manager, or a cloud provider's equivalent, fetched by the running application itself.
 
-                    passwordVariable: 'ACR_PASS')]) {
+**Q: What's the difference between `CMD` and `ENTRYPOINT`?**
+`ENTRYPOINT` defines the fixed command a container always runs; `CMD` supplies default arguments to it (or, if there's no `ENTRYPOINT`, `CMD` is the whole command) — both are overridable, but differently: `docker run myimage <args>` overrides `CMD` entirely while appending to `ENTRYPOINT`, whereas `--entrypoint` is needed to override `ENTRYPOINT` itself. The common pattern `ENTRYPOINT ["node", "server.js"]` with no `CMD` makes the image always run that one command; `ENTRYPOINT ["node"]` + `CMD ["server.js"]` makes the entrypoint fixed but the script swappable at `docker run` time.
 
-                    sh '''
+**Q: What's the difference between a Docker volume and a bind mount?**
+A **volume** (`docker volume create`, or `-v myvolume:/path`) is managed entirely by Docker — stored under Docker's own data directory, portable across environments, and the recommended default for anything that needs to persist container data (databases, uploaded files). A **bind mount** (`-v $(pwd)/src:/app/src`) maps a specific host filesystem path directly into the container — useful for local development (live-editing source code on the host, seeing changes immediately in the container) but tightly coupled to the host's exact directory layout, which makes it a poor fit for production or for sharing across machines.
 
-                        docker build -t myacr.azurecr.io/${DOCKER_IMAGE} .
+**Q: Why shouldn't containers run as root by default?**
+If an attacker compromises a process running as root inside a container, and then finds any container-escape vector (a kernel vulnerability, a misconfigured mount, a privileged flag), they land on the host with root privileges too — the container boundary stops being a meaningful security boundary. The fix is a non-root `USER` in the Dockerfile (`RUN useradd -r -u 1001 appuser` then `USER appuser`) so even a fully compromised container process only has that limited user's privileges, both inside the container and on any host resource it can reach.
 
-                        docker login myacr.azurecr.io -u $ACR_USER -p $ACR_PASS
+**Q: Docker vs containerd vs CRI-O — what's actually different, and why does it matter for Kubernetes?**
+`containerd` is a lightweight, minimal container runtime — it's what Docker itself uses internally to actually run containers, and it can be used directly as a Kubernetes runtime without Docker at all. `CRI-O` is a runtime built specifically to implement Kubernetes' Container Runtime Interface, nothing more — used by default in OpenShift. Docker itself was removed as a supported Kubernetes runtime in 1.24 (`dockershim` was deleted from kubelet) — Kubernetes now talks to `containerd` or `CRI-O` directly via CRI, not through Docker. This doesn't mean Docker is obsolete: it's still the standard tool for *building* images and for local development, just no longer what a Kubernetes node runs containers through.
 
-                        docker push myacr.azurecr.io/${DOCKER_IMAGE}
+**Q: Your image builds fine locally but fails in CI with "no space left on device." What's going on and how do you fix it?**
+CI runners often have far less disk than a dev machine, and Docker's build cache, intermediate layers, and old images/containers accumulate over repeated builds. `docker system df` shows exactly what's consuming space (images, containers, volumes, build cache, broken down separately). The fix is usually `docker system prune -f` (containers/networks/dangling images) and `docker builder prune` (build cache) as a CI cleanup step, or switching to a multi-stage build if the image itself is unnecessarily large from carrying build tools into the final stage.
 
-                    '''
+**Q: How would you reduce a Docker image from 1.2GB down to under 100MB for a typical Node.js/Python/Go app?**
+In order of impact: (1) switch to a multi-stage build so build tools and source-only-needed-at-build-time files never reach the final image; (2) use a minimal base image (`-slim`/`-alpine`/`distroless` instead of the full `node`/`python`/`ubuntu` image); (3) combine and order `RUN` instructions to minimize layer count and leverage cache correctly; (4) use a `.dockerignore` to keep `node_modules`, `.git`, and build artifacts out of the build context entirely; (5) for compiled languages (Go, Rust), the runtime stage often needs nothing but the static binary — a `scratch` or `distroless/static` base can get the final image down to just megabytes.
 
-                }
-
-            }
-
-        }
-
-        
-
-        stage('Deploy to Dev') {
-
-            steps {
-
-                sh '''
-
-                    helm upgrade --install myapp ./helm/myapp \
-
-                        --namespace dev \
-
-                        --set image.tag=${BUILD_NUMBER} \
-
-                        --values helm/values-dev.yaml
-
-                '''
-
-            }
-
-        }
-
-        
-
-        stage('Deploy to Production') {
-
-            when { branch 'main' }
-
-            input {
-
-                message "Deploy to Production?"
-
-                ok "Yes, deploy!"
-
-            }
-
-            steps {
-
-                sh '''
-
-                    helm upgrade --install myapp ./helm/myapp \
-
-                        --namespace prod \
-
-                        --set image.tag=${BUILD_NUMBER} \
-
-                        --values helm/values-prod.yaml
-
-                '''
-
-            }
-
-        }
-
-    }
-
-    
-
-    post {
-
-        failure {
-
-            emailext subject: "Pipeline FAILED: ${JOB_NAME}",
-
-                     body: "Check console: ${BUILD_URL}",
-
-                     to: 'devops-team@company.com'
-
-        }
-
-    }
-
-}
-
-**2.6 MONITORING — ELK vs SPLUNK vs DATADOG**
-
-**Q: You use ELK. How would you approach a production log analysis in Datadog?**
-
-"Same workflow, different syntax:
-
-| **Task** | **ELK/Kibana** | **Datadog** | **Splunk** |
-| --- | --- | --- | --- |
-| Search logs | KQL: level:ERROR AND service:payment | service:payment status:error | SPL: index=prod service=payment level=ERROR |
-| Count errors per hour | Kibana Lens aggregation | @level:error │ timeseries count | │ timechart count |
-| Filter last 15 min | Kibana time picker | @timestamp:>now-15m | earliest=-15m |
-| Alert on error rate | Watcher/ElastAlert | Datadog Monitor | Splunk Alert |
-
-In ELK I set up log pipelines using Logstash with grok patterns to parse our telecom SOM/COM logs, then visualised them in Kibana. In Datadog or Splunk the same structured parsing happens at ingest — the query language differs but the problem-solving approach is identical."
-
-**Q: Prometheus alert is firing but you see nothing wrong. How do you investigate?**
-
-# Check Prometheus targets — is scraping working?
-
-# Go to Prometheus UI → Status → Targets
-
-# Check alerting rules
-
-kubectl get prometheusrule -n monitoring
-
-kubectl describe prometheusrule <name>
-
-# Query the metric directly in Prometheus UI
-
-# Example: check if metric actually exceeds threshold
-
-rate(http_requests_total{status="500"}[5m])
-
-# Check Alertmanager is receiving and routing
-
-kubectl logs -n monitoring alertmanager-0
-
-# Check silences
-
-# Prometheus UI → Alerting → Silences
-
-# Common causes:
-
-# 1. Alert is silenced
-
-# 2. Metric labels changed — alert selector no longer matches
-
-# 3. Scrape target is down — metric returning stale value
-
-# 4. Threshold is correct but alert has pending period not yet met
-
-**2.7 LINUX — Critical Troubleshooting**
-
-**Q: Server is slow/unresponsive. Walk me through your troubleshooting.**
-
-# Step 1: Quick overview
-
-top        # CPU, memory, load average
-
-htop       # Better view
-
-uptime     # Load average trend
-
-# Step 2: CPU analysis
-
-vmstat 1 5          # CPU wait (wa) — if high, disk I/O issue
-
-iostat -x 1 5       # Disk I/O per device
-
-ps aux --sort=-%cpu | head -10  # Top CPU consumers
-
-# Step 3: Memory analysis
-
-free -h              # Available memory
-
-ps aux --sort=-%mem | head -10  # Top memory consumers
-
-cat /proc/meminfo   # Detailed breakdown
-
-
-**Q: Docker vs containerd vs CRI-O?**
-- Docker: full container platform (deprecated in K8s 1.24 as runtime, still used for building/local dev)
-- containerd: lightweight container runtime (used by Docker internally, now direct K8s runtime)
-- CRI-O: minimal runtime designed for Kubernetes (used by OpenShift)
-
-**Q: Multi-stage build benefits?**
-Separates build environment from runtime. Build stage has compilers/tools; runtime stage has only the compiled artifact. Result: 10x smaller images, smaller attack surface.
-
-**Q: What is a Docker layer?**
-Each RUN/COPY/ADD instruction creates a layer. Layers are cached — if instruction unchanged, cache is used. Order matters: put rarely-changing instructions first (dependencies before code).
-
-**Q: How do you handle secrets in Dockerfile?**
-NEVER use ARG or ENV for secrets — they appear in layer history. Use:
-- Docker BuildKit secrets: `--mount=type=secret,id=mykey`
-- Runtime secrets: inject via environment at container startup
-- External secret managers: Vault, AWS Secrets Manager
+**Q: What does `EXPOSE` in a Dockerfile actually do — does it publish the port?**
+No — `EXPOSE` is documentation/metadata only; it doesn't publish anything by itself and has no effect on whether the port is actually reachable from outside the container. Publishing a port to the host requires `-p hostPort:containerPort` (or `-P` to auto-publish all `EXPOSE`d ports to random host ports) at `docker run` time. `EXPOSE` mainly matters for container-to-container communication on a user-defined network and as documentation for anyone reading the Dockerfile about which ports the app listens on.
