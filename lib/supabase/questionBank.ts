@@ -364,7 +364,7 @@ export async function gradeAttempt(
 
     const { data: responses, error: rErr } = await serviceClient
       .from("attempt_responses")
-      .select("id, question_id, selected_option_id")
+      .select("id, attempt_id, question_id, shown_option_order, selected_option_id")
       .eq("attempt_id", attemptId);
     if (rErr) throw rErr;
     if (!responses || responses.length === 0) return null;
@@ -384,15 +384,30 @@ export async function gradeAttempt(
       const correctOptionId = correctByQuestion.get(r.question_id as string);
       const isCorrect = correctOptionId != null && r.selected_option_id === correctOptionId;
       if (isCorrect) score++;
-      return { id: r.id as string, is_correct: isCorrect };
+      return {
+        id: r.id as string,
+        attempt_id: r.attempt_id as string,
+        question_id: r.question_id as string,
+        shown_option_order: r.shown_option_order,
+        selected_option_id: r.selected_option_id as string | null,
+        is_correct: isCorrect,
+      };
     });
 
-    // No bulk-update-by-differing-values in supabase-js — update each row.
-    // 100 rows per attempt; acceptable for a one-time submit action.
-    for (const u of updates) {
-      const { error } = await serviceClient.from("attempt_responses").update({ is_correct: u.is_correct }).eq("id", u.id);
-      if (error) throw error;
-    }
+    // Single bulk upsert, not one UPDATE per row -- a 100-question paper
+    // previously issued ~100 individual Supabase REST calls here, each a
+    // separate Cloudflare Worker subrequest, which silently exceeded the
+    // platform's per-invocation subrequest limit ("Too many subrequests by
+    // single Worker invocation") and left the attempt permanently stuck
+    // un-submitted. Every NOT NULL column must be included in the payload --
+    // Postgres validates constraints on the tentative row before ON CONFLICT
+    // resolution applies, so omitting attempt_id/question_id/shown_option_order
+    // fails with a not-null violation even though the row already exists
+    // (confirmed live against a real 100-row attempt before this fix).
+    const { error: bulkUpdateErr } = await serviceClient
+      .from("attempt_responses")
+      .upsert(updates, { onConflict: "id" });
+    if (bulkUpdateErr) throw bulkUpdateErr;
 
     const total = responses.length;
     const startedAtMs = new Date(attempt.started_at as string).getTime();
