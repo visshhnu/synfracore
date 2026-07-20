@@ -18,10 +18,11 @@ CMD ["node", "server.js"]
 FROM node:20-slim
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --production
+RUN npm ci --omit=dev
 COPY . .
 CMD ["node", "server.js"]
 ```
+`npm ci --omit=dev` is the current flag (npm 9+); `--production` still works but is deprecated, and `--only=production` is deprecated further still — use `--omit=dev` in new Dockerfiles. If the app needs a build step (TypeScript, a bundler) before running, install *with* dev dependencies first, run the build, then prune: `npm ci` (full install) → `npm run build` → `npm prune --omit=dev` — installing production-only *before* building will fail if the build tooling itself lives in `devDependencies`, which it does in most real projects.
 In the GOOD version, `npm install` only reruns when `package.json` actually changes — a code-only commit reuses the cached dependency layer entirely, turning a multi-minute rebuild into a few seconds.
 
 ## Multi-Stage Builds — Production Standard
@@ -87,7 +88,7 @@ docker run -d -v pgdata:/var/lib/postgresql/data postgres:16
 |---|---|---|
 | 0 | Clean exit — app stopped itself | Check if this was expected |
 | 1 | Application error / unhandled exception | Check application logs |
-| 137 | OOMKilled — memory limit exceeded (`kill -9`) | Increase memory limit or fix a memory leak |
+| 137 | SIGKILL — usually OOMKilled (memory limit exceeded), but also a manual `docker kill`/`kill -9`. Confirm with `docker inspect --format='{{.State.OOMKilled}}'` rather than assuming | Increase memory limit or fix a memory leak, if OOM-confirmed |
 | 139 | Segmentation fault — app crashed | Check for a null pointer or buffer overflow |
 | 143 | SIGTERM received — graceful shutdown | Normal — container stopped gracefully |
 | 125 | Docker daemon error | Check the Docker daemon logs |
@@ -114,12 +115,13 @@ USER 1001                        # never run as root in production
 EXPOSE 8080
 CMD ["python", "app.py"]
 ```
+If this image runs under Kubernetes, the same non-root/hardening intent can be *enforced* at the orchestrator level too — a `securityContext` block on the Pod/container spec that Kubernetes checks at container-start time, independent of (and as a backstop for) whatever the Dockerfile's own `USER` instruction says:
 ```yaml
 # Kubernetes-level enforcement, on top of the image itself
 securityContext:
-  runAsNonRoot: true
-  readOnlyRootFilesystem: true
-  allowPrivilegeEscalation: false
+  runAsNonRoot: true          # refuse to start the container at all if it would run as root
+  readOnlyRootFilesystem: true    # container's own filesystem can't be written to at runtime
+  allowPrivilegeEscalation: false # blocks setuid-style privilege escalation inside the container
 ```
 ```bash
 # Trivy — scan an image for known CVEs before pushing to a registry

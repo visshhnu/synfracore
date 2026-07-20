@@ -166,6 +166,8 @@ roleRef:
 
 **Root cause:** etcd performance degradation, too many watch connections, large secret/configmap, or cluster overloaded.
 
+Everything below assumes a **self-managed cluster where you have node-level access to the control plane** (kubeadm, or a self-hosted setup) — on a managed offering (EKS, AKS, GKE), the control plane isn't on nodes you can reach at all, so the manifest-move and direct-etcd-cert steps don't apply; use the cloud provider's own control-plane metrics/support channel instead.
+
 **Debug steps:**
 ```bash
 # Check API server latency
@@ -174,21 +176,29 @@ kubectl get --raw /metrics | grep apiserver_request_duration
 # Check etcd health
 kubectl exec -it etcd-master -n kube-system -- etcdctl endpoint health
 
-# Check component status
-kubectl get componentstatuses
+# Check component health -- NOT via `kubectl get componentstatuses`, which
+# is deprecated (since 1.19) and unreliable/meaningless on managed control
+# planes where there's no user-visible scheduler/controller-manager pod to
+# check at all. Use the raw healthz endpoint instead:
+kubectl get --raw='/healthz?verbose'
 kubectl top nodes
 kubectl top pods -n kube-system
 ```
 
 **Fix:**
 ```bash
-# Compact etcd if fragmented
+# Compact etcd if fragmented (self-managed clusters, direct etcd access only)
 ETCDCTL_API=3 etcdctl defrag --endpoints=https://127.0.0.1:2379   --cacert=/etc/kubernetes/pki/etcd/ca.crt   --cert=/etc/kubernetes/pki/etcd/server.crt   --key=/etc/kubernetes/pki/etcd/server.key
 
 # Reduce watch connections: check for excessive list-watch calls
 kubectl get events -A --field-selector reason=BackOff | wc -l
 
-# Restart API server pod if unresponsive (kubeadm clusters)
+# Restart the API server pod if unresponsive -- kubeadm/self-managed
+# clusters ONLY. This works because kubeadm runs control-plane components
+# as static pods defined by manifest files kubelet watches directly; moving
+# the manifest out and back forces kubelet to stop and restart that pod.
+# There is no equivalent on EKS/AKS/GKE -- the control plane isn't a pod
+# you have filesystem access to at all.
 mv /etc/kubernetes/manifests/kube-apiserver.yaml /tmp/
 sleep 10
 mv /tmp/kube-apiserver.yaml /etc/kubernetes/manifests/
