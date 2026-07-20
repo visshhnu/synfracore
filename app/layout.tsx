@@ -25,13 +25,13 @@ export const metadata: Metadata = {
     siteName: "SynfraCore",
     title: "SynfraCore — Learn DevOps, Cloud & AI",
     description: "Master DevOps, Cloud, AI, Databases, and Security with interactive labs and real projects. India's most comprehensive tech learning platform.",
-    images: [{ url: "https://synfracore.com/api/og", width: 1200, height: 630, alt: "SynfraCore Learning Platform" }],
+    images: [{ url: "https://synfracore.com/og/default.png", width: 1200, height: 630, alt: "SynfraCore Learning Platform" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "SynfraCore — Learn DevOps, Cloud & AI",
     description: "Master DevOps, Cloud, AI, and Security with interactive labs and real projects.",
-    images: ["https://synfracore.com/api/og"],
+    images: ["https://synfracore.com/og/default.png"],
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
   icons: {
