@@ -62,16 +62,25 @@ git push origin main --force-with-lease  # DANGEROUS - coordinate with team
 2. Remove from Git history
 
 ```bash
-# Using BFG Repo Cleaner (faster than filter-branch)
+# Using BFG Repo Cleaner (faster than filter-branch) -- BFG requires a
+# FRESH BARE MIRROR clone, not your normal working clone:
+git clone --mirror <url> repo.git
 java -jar bfg.jar --delete-files secrets.env repo.git
+cd repo.git
 git reflog expire --expire=now --all
 git gc --prune=now --aggressive
-git push --force --all
+git push                   # mirror push -- includes ALL refs, tags too
+# (git push --force --all only pushes branches -- if the secret is
+# reachable from a tag, --tags must be pushed separately or it survives)
 
-# Or using git filter-repo
+# Or using git filter-repo -- also requires a fresh clone; filter-repo
+# refuses to run on an existing/dirty working copy by default (use
+# --force only if you're certain it's disposable):
+git clone <url> repo-to-clean
+cd repo-to-clean
 git filter-repo --path secrets.env --invert-paths
 
-# Notify your team to re-clone (old clone has the secret)
+# Notify your team to re-clone (old clone has the secret in its own history)
 ```
 
 ---
@@ -100,10 +109,18 @@ git checkout -b feature/new-work   # and start fresh
 
 **Fix:**
 ```bash
-# Find large files in history
-git rev-list --objects --all | grep "$(git verify-pack -v .git/objects/pack/*.idx | sort -k 3 -n | tail -20 | awk '{print $1}')"
+# Find large files in history -- the unquoted-substitution version of this
+# command that circulates widely is actually broken (word-splits the 20
+# hashes into 20 separate grep arguments, most of which grep then tries to
+# open as filenames). This version works:
+git rev-list --objects --all |
+  git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' |
+  sed -n 's/^blob //p' |
+  sort --numeric-sort --key=2 |
+  tail -n 20
 
-# Remove large files from history
+# Remove large files from history -- filter-repo needs a fresh clone, see
+# Issue 3 above for the same precondition
 git filter-repo --path large-file.zip --invert-paths
 
 # For future: use Git LFS
@@ -114,7 +131,7 @@ git add .gitattributes
 
 **Prevention:** Add a `.gitignore` covering: `*.zip, *.jar, node_modules/, dist/, build/, *.log`. Use Git LFS for binaries. Pre-commit hook to reject large files:
 ```bash
-# .git/hooks/pre-commit
+# .git/hooks/pre-commit -- then: chmod +x .git/hooks/pre-commit
 if git rev-parse --verify HEAD >/dev/null 2>&1; then
   against=HEAD
 fi
@@ -123,3 +140,4 @@ git diff-index --cached $against -- | awk '{print $NF}' | while read f; do
   [ "$size" -gt 10485760 ] && echo "File too large: $f ($size bytes)" && exit 1
 done
 ```
+**`.git/hooks/` is not version-controlled** — it's local to each clone, so committing this script to the repo does *not* distribute it to teammates or CI; everyone has to add it manually, and nothing enforces that they do. For a hook that actually needs to run for the whole team, either point `core.hooksPath` at a directory that *is* tracked in the repo (`git config core.hooksPath .githooks`, with the scripts committed under `.githooks/`), or use a framework built for this (Husky for Node projects, the `pre-commit` framework generally) that installs hooks as part of the normal setup step everyone already runs.

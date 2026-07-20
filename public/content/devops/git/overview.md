@@ -31,8 +31,8 @@ Snapshots of staged changes + metadata (author, timestamp, message, parent commi
 
 ```bash
 # Setup (first time)
-git config --global user.name "Vishnu"
-git config --global user.email "vishnu@example.com"
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
 git config --global init.defaultBranch main
 
 # Start
@@ -62,7 +62,10 @@ git cherry-pick abc1234           # apply single commit
 # Viewing history
 git log --oneline --graph --all   # visual branch graph
 git log -p                        # show diffs
-git diff main...feature/search    # what changed in branch vs main?
+git diff main...feature/search    # three dots: only what changed ON the branch since it diverged
+                                   # from main (excludes anything landed on main afterward) --
+                                   # different from `git diff main..feature/search` (two dots),
+                                   # which is a flat diff between the two branch tips directly
 git blame app.py                  # who changed each line?
 
 # Undoing
@@ -143,13 +146,15 @@ node_modules/
 ```bash
 # .git/hooks/pre-commit — run checks before every commit
 #!/bin/bash
-# Run terraform fmt check
+# Run terraform fmt check (needs terraform installed)
 terraform fmt -check -recursive
-# Run shellcheck on scripts
+# Run shellcheck on scripts (needs shellcheck installed)
 find . -name "*.sh" -exec shellcheck {} \;
-# Detect secrets
+# Detect secrets (needs detect-secrets installed; first run needs a
+# baseline: detect-secrets scan > .secrets.baseline, then compare against it)
 detect-secrets scan
 ```
+After creating this file: `chmod +x .git/hooks/pre-commit`, or it silently never runs. And critically — **`.git/hooks/` is not version-controlled.** Committing this script to the repo does not distribute it to teammates or CI; it lives only in your own local clone. For a hook the whole team actually runs, point `core.hooksPath` at a tracked directory (`git config core.hooksPath .githooks`, scripts committed under `.githooks/`), or use a framework built for this (Husky, the `pre-commit` framework) that installs hooks as part of normal project setup.
 
 ### GitHub Actions Trigger Patterns
 ```yaml

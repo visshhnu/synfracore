@@ -1,0 +1,31 @@
+# Git Interview Q&A
+
+**Q: What's the actual difference between `git merge` and `git rebase`?**
+`git merge` combines two branches by creating a new merge commit with two parents — the original commits from both branches stay exactly as they happened, in order, with the branch and merge points visible in history. `git rebase` replays one branch's commits on top of another branch's current tip, producing linear history with no merge commit — but it rewrites commit hashes in the process. The practical rule: never rebase commits that have already been pushed and that someone else might have pulled — rewriting hashes that others already have creates a painful history divergence. Rebasing your own local, unpushed commits to clean up history before opening a PR is safe and common.
+
+**Q: What is the difference between `git fetch` and `git pull`?**
+`git fetch` downloads new commits/branches from the remote into your local repository's remote-tracking branches (`origin/main`, etc.) but does *not* touch your working directory or current branch at all — it's purely informational, safe to run anytime. `git pull` is `git fetch` followed immediately by a merge (or rebase, with `git pull --rebase`) of the fetched changes into your current branch. `git pull` is convenient but hides a step — `git fetch` first, then inspecting `git log origin/main` before deciding how to integrate, is the safer habit when you're not sure what's actually changed upstream.
+
+**Q: How do you resolve a merge conflict?**
+Git marks the conflicting sections directly in the file with `<<<<<<<`, `=======`, and `>>>>>>>` markers showing both versions. You edit the file to the actual desired final content (removing the markers entirely), then `git add` the resolved file and `git commit` (or `git rebase --continue` if the conflict happened during a rebase) to finish. `git merge --abort` (or `git rebase --abort`) backs out entirely if you want to start over rather than resolve in place.
+
+**Q: What is a detached HEAD state, and is it dangerous?**
+It happens when you check out a specific commit, tag, or remote branch directly instead of a local branch — `HEAD` now points at a commit rather than a branch. It's not dangerous by itself (you can look around, even build/test from that exact commit), but any *new commits* made in this state aren't attached to any branch — if you switch away without creating a branch first, those commits become unreachable by normal means (though not immediately deleted; they're recoverable via `git reflog` for a while). The fix if you've made changes worth keeping: `git checkout -b some-branch-name` while still in the detached state, which anchors those commits to a real branch.
+
+**Q: When would you use `git cherry-pick`?**
+To apply one specific commit from another branch onto your current branch, without merging the whole branch. Common real use case: a critical bug fix was committed on a feature branch, but needs to go out on `main` immediately, before the rest of that feature branch is ready to merge — `git cherry-pick <commit-hash>` grabs just that one commit.
+
+**Q: What's the difference between `git reset --soft`, `--mixed`, and `--hard`?**
+All three move what the current branch pointer refers to (typically backward, undoing recent commits), but differ in what happens to the working directory and staging area: `--soft` undoes the commit but keeps everything staged (as if you'd just run `git add` on everything again). `--mixed` (the default if no flag given) undoes the commit and unstages the changes, but leaves them in the working directory. `--hard` undoes the commit and discards the changes entirely, with no confirmation — the only one of the three that can actually lose work.
+
+**Q: Why is `git revert` generally safer than `git reset` for undoing a pushed commit?**
+`git revert` creates a *new* commit that applies the inverse of a previous commit — it adds to history without rewriting anything that already exists, so it's safe even if others have already pulled the commit being undone. `git reset` rewrites what the branch pointer refers to — if that commit was already pushed and pulled by others, a `git reset` followed by a force-push creates a real divergence between your history and theirs. As a rule: revert for anything already shared, reset (if genuinely needed) only for purely local, unpushed commits.
+
+**Q: What does `.gitignore` actually do, and why doesn't it work on files that are already tracked?**
+`.gitignore` tells Git which *untracked* files/patterns to leave alone — it prevents `git add .`/`git status` from surfacing them at all. It has no effect on files Git is already tracking, even if they now match a `.gitignore` pattern — those need to be explicitly untracked first (`git rm --cached <file>`) before the ignore rule takes effect for them going forward.
+
+**Q: How do you find which commit introduced a bug, when you don't know exactly where to look?**
+`git bisect` — a binary search over commit history. `git bisect start`, then mark a known-bad commit (`git bisect bad`) and a known-good one (`git bisect good <commit>`); Git checks out the midpoint and you test it, marking each as `good` or `bad` until it narrows down to the exact commit that introduced the problem. Far faster than manually checking commits one at a time on a long history, especially combined with `git bisect run <test-script>` to fully automate the good/bad determination.
+
+**Q: A teammate force-pushed and now your local branch has diverged. What actually happened, and how do you recover?**
+A force-push rewrites the remote branch's history — commits you had based your own work on may no longer exist on the remote (they were replaced, e.g. by a rebase or an amended commit). Your local branch still has the old commits, so a normal `git pull` will report a divergence or produce a confusing merge. The generally safe recovery, once you understand why it happened: fetch first (`git fetch origin`), inspect what actually changed (`git log HEAD..origin/main`), and if the intent was genuinely to replace history, reset your local branch to match (`git reset --hard origin/main`) — but only after confirming you don't have unpushed local work you'd lose, since `--hard` discards uncommitted and un-pushed-elsewhere changes.

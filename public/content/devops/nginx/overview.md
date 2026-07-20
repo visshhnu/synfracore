@@ -40,10 +40,10 @@ curl http://localhost    # should return Nginx welcome page
 ```
 /etc/nginx/
 ├── nginx.conf              # main config (worker processes, events, http block)
-├── conf.d/                 # drop-in site configs
+├── conf.d/                 # drop-in site configs -- the ONLY convention on RHEL/CentOS/Rocky by default
 │   └── myapp.conf
-├── sites-available/        # Ubuntu/Debian: available configs
-├── sites-enabled/          # Ubuntu/Debian: symlinks to active configs
+├── sites-available/        # Ubuntu/Debian only -- RHEL-family doesn't ship this convention
+├── sites-enabled/          # Ubuntu/Debian only -- symlinks to active configs
 ├── snippets/               # reusable config snippets
 └── ssl/                    # SSL certificates
 ```
@@ -73,6 +73,9 @@ http {
     sendfile on;
     keepalive_timeout 65;
     gzip on;
+    # gzip on alone only compresses text/html by default -- list the types
+    # you actually want compressed, or nothing but HTML gets gzipped:
+    gzip_types text/css application/javascript application/json image/svg+xml;
     
     include /etc/nginx/conf.d/*.conf;
 }
@@ -85,19 +88,29 @@ http {
 upstream backend {
     server 127.0.0.1:3000;    # Node.js app
     server 127.0.0.1:3001;    # second instance
-    keepalive 32;              # connection pooling
+    keepalive 32;              # connection pooling -- only actually works if the
+                                # location block below also sets proxy_http_version
+                                # 1.1 and clears the Connection header (proxy_pass
+                                # defaults to HTTP/1.0 with Connection: close to the
+                                # upstream, which defeats pooling entirely otherwise)
 }
 
 server {
     listen 80;
     server_name app.example.com;
     
-    # Redirect HTTP to HTTPS
-    return 301 https://$server_name$request_uri;
+    # Redirect HTTP to HTTPS -- use $host, not $server_name: $server_name is
+    # always the FIRST name declared in server_name for this block, not the
+    # actual Host header the client sent (breaks silently for aliases,
+    # wildcard matches, or an IP-address request)
+    return 301 https://$host$request_uri;
 }
 
 server {
-    listen 443 ssl http2;
+    listen 443 ssl;
+    http2 on;   # nginx 1.25.1+: http2 is now a standalone directive, not a
+                # listen parameter -- "listen 443 ssl http2;" still works on
+                # older versions but is deprecated on current ones
     server_name app.example.com;
     
     # SSL
@@ -107,14 +120,19 @@ server {
     ssl_ciphers ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256;
     ssl_prefer_server_ciphers on;
     
-    # Security headers
-    add_header X-Frame-Options DENY;
-    add_header X-Content-Type-Options nosniff;
+    # Security headers -- "always" matters on all three, not just HSTS:
+    # without it, a header is NOT attached to internally generated error
+    # responses (4xx/5xx) -- exactly the responses where these headers
+    # matter most
+    add_header X-Frame-Options DENY always;
+    add_header X-Content-Type-Options nosniff always;
     add_header Strict-Transport-Security "max-age=31536000" always;
     
     # Proxy to backend
     location / {
         proxy_pass http://backend;
+        proxy_http_version 1.1;              # required for the upstream keepalive above to work
+        proxy_set_header Connection "";       # clears the default "close", required for keepalive too
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
