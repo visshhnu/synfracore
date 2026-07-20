@@ -87,6 +87,15 @@ const STALE_ALIAS_FIX_KEYS = new Set([
   // that actually have real, checked devops/* content behind them.
   ...["overview", "fundamentals", "intermediate", "cheatsheets", "interview"].map((s) => `devops/docker/${s}`),
   ...["overview", "fundamentals", "intermediate", "advanced", "cheatsheets", "interview"].map((s) => `devops/kubernetes/${s}`),
+  // Batch 2 (git, nginx). git only -- infrastructure/git/* turned out to be
+  // GitHub Actions content entirely, not Git version-control content at
+  // all (a genuine wrong-technology mismatch, confirmed live, same class
+  // of bug as Docker's contaminated interview.md but at the alias level
+  // instead of within a file). nginx deliberately NOT included here --
+  // infrastructure/nginx/* is correctly-topical, more complete, and
+  // better-quality than the new devops/nginx/* files written this batch;
+  // the existing alias is the right choice and should stay as-is.
+  ...["overview", "fundamentals", "interview"].map((s) => `devops/git/${s}`),
 ]);
 
 const registry = new Map();
