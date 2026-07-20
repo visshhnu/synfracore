@@ -1,6 +1,6 @@
 # Java — Interview Questions
 
-Interview questions collected from real placements and a Microsoft SDE's notes. These are what interviewers actually ask.
+Commonly asked interview questions based on real placement patterns — the kind of thing interviewers actually ask, not textbook trivia.
 
 ---
 

@@ -2,15 +2,15 @@
 
 ## What is SQL?
 
-SQL (Structured Query Language) is the database language used to perform operations on existing databases and create new ones. SQL uses commands like CREATE, DROP, INSERT, etc.
+SQL (Structured Query Language) is the database language used to perform operations on existing databases and create new ones — defining structure, inserting and changing data, and querying it back out. Every statement is a complete, standalone instruction; SQL is not a continuation language the way a shell script is.
 
-**SQL plays multiple roles (from Himanshu Kumar's guide):**
-- **Interactive query language** — users type SQL into tools to retrieve data
-- **Database programming language** — embedded into applications
-- **Client/server language** — personal programs use SQL to communicate with database servers over networks
-- **Internet language** — web servers use SQL to access databases
+**SQL plays multiple roles depending on how you're using it:**
+- **Interactive query language** — you type SQL directly into a client (`psql`, MySQL Workbench, a notebook) to explore data
+- **Embedded database language** — application code builds and sends SQL strings (or, more safely, parameterized queries) to a database driver
+- **Client/server protocol** — a client connects over the network to a database server and exchanges SQL statements and result sets
+- **Web-backend language** — most web applications ultimately read and write through SQL, even when a query builder or ORM sits on top of it
 
-**SQL is based primarily on ANSI standards.** It is not a continuation language — each statement is complete.
+**SQL is based primarily on ANSI/ISO standards**, but every major engine (PostgreSQL, MySQL, SQL Server, Oracle, SQLite) extends that standard differently. A recurring theme in this course: syntax that works on one engine often doesn't work unchanged on another. Every example below states which engine it targets.
 
 ## SQL Command Categories
 
@@ -40,147 +40,163 @@ SQL Commands
     └── SAVEPOINT  — create checkpoint within transaction
 ```
 
-## Rules for SQL (from Himanshu Kumar notes)
+## Syntax Rules Worth Internalizing
 
-1. A `;` is used to end SQL statements
-2. Statements may be split across lines but keywords may not be split
-3. Identifiers, operator names, literals are separated by spaces or delimiters
-4. A comma separates parameters without a clause
-5. A space separates a clause
-6. Reserved words cannot be used as identifiers unless enclosed in double quotes
-7. Identifiers can contain up to 30 characters
-8. Identifiers must start with an alphabetical character
-9. Characters and date literals must be enclosed within single quotes
-10. Numeric literals can be represented by simple values
+1. A `;` ends a statement (required when multiple statements are sent together; many single-statement clients accept its absence).
+2. A statement can span multiple lines, but a keyword itself can't be split across lines.
+3. Identifiers, operators, and literals are separated by whitespace or a delimiter (comma, parenthesis).
+4. A comma separates items within a clause (column lists, value lists); it never separates two different clauses.
+5. Reserved words (`SELECT`, `ORDER`, `GROUP`, etc.) can't be used as identifiers unless quoted — double quotes in standard SQL/PostgreSQL, backticks in MySQL, square brackets in SQL Server.
+6. String and date literals are enclosed in single quotes: `'like this'`. Double quotes are for quoted identifiers in standard SQL/PostgreSQL, not string values — a common source of confusion for anyone coming from a language where `"..."` and `'...'` are interchangeable.
+7. Maximum identifier length varies by engine — this is NOT a universal SQL rule: MySQL allows 64 characters, PostgreSQL 63 bytes, SQL Server 128 characters, and Oracle 128 characters since Oracle 12.2 (30 bytes on older versions). Don't assume one number applies everywhere.
+8. Identifiers must start with a letter (or underscore, on most engines) — not a digit.
 
 ## Creating Tables (DDL)
 
+The examples in this course use a small running schema: a company with `Employees`, `Departments`, `Customers`, and `Orders`. Every later section reuses these same tables — the shape is introduced once, here, and never silently changes.
+
 ```sql
--- Basic CREATE TABLE
-CREATE TABLE Students (
-    roll_no   INT PRIMARY KEY,
-    name      VARCHAR(50) NOT NULL,
-    address   VARCHAR(100),
-    phone     VARCHAR(15),
-    age       INT
+-- PostgreSQL
+CREATE TABLE Departments (
+    id     SERIAL PRIMARY KEY,
+    name   VARCHAR(50) NOT NULL
 );
 
--- With all constraints
 CREATE TABLE Employees (
-    Id            INT NOT NULL AUTO_INCREMENT,
-    FName         VARCHAR(35) NOT NULL,
-    LName         VARCHAR(35) NOT NULL,
-    PhoneNumber   VARCHAR(11),
-    ManagerId     INT,
-    DepartmentId  INT NOT NULL,
-    Salary        INT NOT NULL,
-    HireDate      DATETIME NOT NULL,
-    PRIMARY KEY (Id),
-    FOREIGN KEY (ManagerId) REFERENCES Employees(Id),
-    FOREIGN KEY (DepartmentId) REFERENCES Departments(Id)
+    id             SERIAL PRIMARY KEY,
+    first_name     VARCHAR(35) NOT NULL,
+    last_name      VARCHAR(35) NOT NULL,
+    phone          VARCHAR(15),
+    manager_id     INT REFERENCES Employees(id),   -- self-reference: a manager is also an employee
+    department_id  INT NOT NULL REFERENCES Departments(id),
+    salary         INT NOT NULL,
+    hire_date      DATE NOT NULL
 );
 
--- Insert sample data
-INSERT INTO Employees
-    ([Id], [FName], [LName], [PhoneNumber], [ManagerId], [DepartmentId], [Salary], [HireDate])
-VALUES
-    (1, 'James',    'Smith',    '1234567890', NULL, 1, 1000, '01-01-2002'),
-    (2, 'John',     'Johnson',  '2468101214', 1,    1, 400,  '23-03-2005'),
-    (3, 'Michael',  'Williams', '1357911131', 1,    2, 600,  '12-05-2009'),
-    (4, 'Johnathon','Smith',    '1212121212', 2,    1, 500,  '24-07-2016');
+-- Sample data
+INSERT INTO Departments (id, name) VALUES
+    (1, 'Engineering'),
+    (2, 'Sales');
+
+INSERT INTO Employees (id, first_name, last_name, phone, manager_id, department_id, salary, hire_date) VALUES
+    (1, 'Amara',  'Okafor',   '5550101', NULL, 1, 9800, '2018-03-14'),
+    (2, 'Diego',  'Ramirez',  '5550102', 1,    1, 6200, '2020-06-01'),
+    (3, 'Priya',  'Nair',     '5550103', 1,    2, 7100, '2019-11-23'),
+    (4, 'Kenji',  'Watanabe', '5550104', 2,    1, 6600, '2021-09-10');
 ```
+
+```sql
+-- MySQL equivalent (AUTO_INCREMENT instead of SERIAL, backtick-quoted identifiers if needed)
+CREATE TABLE Employees (
+    id             INT AUTO_INCREMENT PRIMARY KEY,
+    first_name     VARCHAR(35) NOT NULL,
+    last_name      VARCHAR(35) NOT NULL,
+    phone          VARCHAR(15),
+    manager_id     INT,
+    department_id  INT NOT NULL,
+    salary         INT NOT NULL,
+    hire_date      DATE NOT NULL,
+    FOREIGN KEY (manager_id) REFERENCES Employees(id),
+    FOREIGN KEY (department_id) REFERENCES Departments(id)
+);
+```
+
+```sql
+-- SQL Server equivalent (IDENTITY instead of SERIAL/AUTO_INCREMENT)
+CREATE TABLE Employees (
+    id             INT IDENTITY(1,1) PRIMARY KEY,
+    first_name     VARCHAR(35) NOT NULL,
+    last_name      VARCHAR(35) NOT NULL,
+    phone          VARCHAR(15),
+    manager_id     INT REFERENCES Employees(id),
+    department_id  INT NOT NULL REFERENCES Departments(id),
+    salary         INT NOT NULL,
+    hire_date      DATE NOT NULL
+);
+```
+
+Note the different auto-increment keywords — `SERIAL` (PostgreSQL), `AUTO_INCREMENT` (MySQL), `IDENTITY` (SQL Server) — are not interchangeable. Copying a `CREATE TABLE` statement between engines without translating this line is one of the most common "why doesn't this run" mistakes.
 
 ## ALTER TABLE
 
 ```sql
--- Add column
-ALTER TABLE Employees ADD Email VARCHAR(100);
+-- Add column (same syntax across PostgreSQL, MySQL, SQL Server)
+ALTER TABLE Employees ADD COLUMN email VARCHAR(100);
 
--- Add multiple columns
-ALTER TABLE Students ADD COLUMN grade CHAR(2), ADD COLUMN marks INT;
+-- Drop column (same syntax across all three)
+ALTER TABLE Employees DROP COLUMN email;
 
--- Drop column
-ALTER TABLE Employees DROP COLUMN Email;
+-- Change a column's type — this one DOES differ by engine:
+ALTER TABLE Employees ALTER COLUMN salary TYPE BIGINT;      -- PostgreSQL (TYPE keyword required)
+ALTER TABLE Employees MODIFY COLUMN salary BIGINT;           -- MySQL
+ALTER TABLE Employees ALTER COLUMN salary BIGINT;             -- SQL Server (no TYPE keyword)
 
--- Alter column type
-ALTER TABLE Employees ALTER COLUMN Salary BIGINT;
-
--- Add constraint
-ALTER TABLE Employees ADD CONSTRAINT pk_emp PRIMARY KEY (Id);
-ALTER TABLE Orders ADD CONSTRAINT fk_customer
-    FOREIGN KEY (CustomerId) REFERENCES Customers(Id)
+-- Add a named constraint
+ALTER TABLE Orders ADD CONSTRAINT fk_orders_customer
+    FOREIGN KEY (customer_id) REFERENCES Customers(id)
     ON DELETE CASCADE;
 
--- Add primary key to existing table
-ALTER TABLE Students ADD PRIMARY KEY (roll_no);
-
--- Drop constraint
-ALTER TABLE Employees DROP CONSTRAINT fk_dept;
+-- Drop a constraint by the name it was actually given
+ALTER TABLE Orders DROP CONSTRAINT fk_orders_customer;       -- PostgreSQL, SQL Server
+ALTER TABLE Orders DROP FOREIGN KEY fk_orders_customer;      -- MySQL (needs DROP FOREIGN KEY, not DROP CONSTRAINT, for FKs on most versions)
 ```
+
+A constraint can only be dropped by the name it was actually created with — `DROP CONSTRAINT some_name` fails if `some_name` was never defined. Keep track of the names you give constraints; there's no way to "guess" one later.
 
 ## SELECT — Querying Data
 
 ```sql
 -- Basic SELECT
-SELECT * FROM Customers;                    -- all columns
-SELECT PhoneNumber, Email FROM Customers;   -- specific columns
-SELECT DISTINCT age FROM Students;          -- unique values only
-
--- Selecting specific columns (from Customers table)
-SELECT
-    PhoneNumber,
-    Email,
-    PreferredContact
-FROM Customers;
--- Returns only those 3 columns for all rows
+SELECT * FROM Customers;                     -- all columns
+SELECT phone, email FROM Customers;          -- specific columns
+SELECT DISTINCT department_id FROM Employees; -- unique values only
 
 -- WHERE clause — filter rows
-SELECT * FROM Cars WHERE status = 'READY';
-SELECT * FROM Students WHERE age > 18;
-SELECT * FROM Students WHERE age NOT IN (18, 20, 21);
+SELECT * FROM Employees WHERE department_id = 1;
+SELECT * FROM Employees WHERE salary > 7000;
 
 -- WHERE with multiple conditions
-SELECT * FROM Students WHERE age > 18 AND name LIKE 'A%';
-SELECT * FROM Students WHERE age < 18 OR grade = 'A';
+SELECT * FROM Employees WHERE salary > 6000 AND last_name LIKE 'R%';
+SELECT * FROM Employees WHERE salary < 6500 OR department_id = 2;
 
 -- ORDER BY
-SELECT * FROM Employees ORDER BY Salary DESC;
-SELECT * FROM Employees ORDER BY LName ASC, FName ASC;
+SELECT * FROM Employees ORDER BY salary DESC;
+SELECT * FROM Employees ORDER BY last_name ASC, first_name ASC;
 
--- LIMIT / TOP
-SELECT * FROM Employees ORDER BY Salary DESC LIMIT 10;  -- MySQL
-SELECT TOP 10 * FROM Employees ORDER BY Salary DESC;    -- SQL Server
+-- LIMIT / TOP — also engine-specific
+SELECT * FROM Employees ORDER BY salary DESC LIMIT 10;         -- PostgreSQL, MySQL
+SELECT TOP 10 * FROM Employees ORDER BY salary DESC;            -- SQL Server
 ```
 
 ## Constraints
 
-Constraints are rules applied to column data. From Himanshu Kumar's notes:
+Constraints are rules the database enforces on column data — they reject bad writes rather than relying on application code to catch every case.
 
 ```sql
--- NOT NULL — cannot store null value
+-- NOT NULL — cannot store a null value
 name VARCHAR(50) NOT NULL
 
 -- UNIQUE — all values must be different
 email VARCHAR(100) UNIQUE
 
--- PRIMARY KEY — uniquely identifies each row (NOT NULL + UNIQUE)
-Id INT PRIMARY KEY
--- Or at table level:
-PRIMARY KEY (Id)
+-- PRIMARY KEY — uniquely identifies each row (implies NOT NULL + UNIQUE)
+id INT PRIMARY KEY
+-- Or declared at table level, useful for composite keys:
+PRIMARY KEY (id)
 
--- FOREIGN KEY — link to another table
-FOREIGN KEY (DepartmentId) REFERENCES Departments(Id)
+-- FOREIGN KEY — links to another table's primary key
+FOREIGN KEY (department_id) REFERENCES Departments(id)
 
--- ON DELETE CASCADE — if parent deleted, delete child rows too
-FOREIGN KEY (ManagerId) REFERENCES Employees(Id) ON DELETE CASCADE
+-- ON DELETE CASCADE — deleting the parent row deletes matching child rows too
+FOREIGN KEY (manager_id) REFERENCES Employees(id) ON DELETE CASCADE
 
--- CHECK — restrict values
+-- CHECK — restrict which values are allowed
 age INT CHECK (age >= 18 AND age <= 65)
 salary DECIMAL CHECK (salary > 0)
 
--- DEFAULT — set default value
+-- DEFAULT — value used automatically when none is supplied
 status VARCHAR(20) DEFAULT 'active'
-created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ```
 
 ## DROP vs TRUNCATE vs DELETE
@@ -189,281 +205,266 @@ created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 |---|---|---|---|
 | What it does | Removes table and contents | Removes all rows | Removes specific rows |
 | Table structure | Removed | Kept | Kept |
-| Frees table space | Yes | No | No |
+| Frees table space | Yes | Yes | No |
 | Command type | DDL | DDL | DML |
 | WHERE clause | No | No | Yes |
-| View of table | Does not exist after | Exists (empty) | Exists |
-| Integrity constraints | Removed | Not removed | Not removed |
-| UNDO space | Not used | Uses less than DELETE | Uses undo space |
-| Speed | Fast | Faster than DELETE | Slowest |
+| Table exists after | No | Yes (empty) | Yes |
+| Constraints/indexes | Removed with the table | Kept | Kept |
+| Transaction log | Minimal | Minimal (engine-dependent) | Full row-by-row logging |
+| Speed on large tables | Fast | Fast | Slow (logs every row) |
 
 ```sql
-DROP TABLE Students;              -- removes table completely
-TRUNCATE TABLE Students;          -- empties table, keeps structure
-DELETE FROM Students WHERE age < 18;  -- removes specific rows
-DELETE FROM Students;             -- removes all rows (slower than TRUNCATE)
+DROP TABLE Employees;                    -- removes table completely
+TRUNCATE TABLE Employees;                -- empties table, keeps structure
+DELETE FROM Employees WHERE salary < 5000;  -- removes specific rows
+DELETE FROM Employees;                   -- removes all rows (slower than TRUNCATE, but rolls back if the transaction does)
 ```
 
-## Nested Queries (Subqueries)
+## Subqueries — Independent and Correlated
 
-From Himanshu Kumar — using STUDENT, COURSE, STUDENT_COURSE tables:
+A separate small schema for this section — a school's `Students`, `Courses`, and the `Enrollments` table linking them:
 
-```
-STUDENT: S_ID, S_NAME, S_ADDRESS, S_PHONE, S_AGE
-COURSE:  C_ID, C_NAME (DSA, Programming, DBMS)
-STUDENT_COURSE: S_ID, C_ID (junction table)
-```
-
-**Two types of nested queries:**
-
-**1. Independent Nested Queries** — inner query runs independently:
 ```sql
--- Find students enrolled in 'DSA' or 'DBMS'
--- Step 1: find C_IDs for those courses
-SELECT C_ID FROM COURSE WHERE C_NAME = 'DSA' OR C_NAME = 'DBMS';
--- Result: C1, C3
+CREATE TABLE Students (
+    roll_no  INT PRIMARY KEY,
+    name     VARCHAR(50) NOT NULL,
+    city     VARCHAR(50)
+);
 
--- Step 2: find student IDs enrolled in those courses
-SELECT S_ID FROM STUDENT_COURSE WHERE C_ID IN ('C1', 'C3');
+CREATE TABLE Courses (
+    course_id    INT PRIMARY KEY,
+    course_name  VARCHAR(50) NOT NULL   -- e.g. 'Data Structures', 'Databases'
+);
 
--- Combined as nested query using IN:
-SELECT S_NAME FROM STUDENT
-WHERE S_ID IN (
-    SELECT S_ID FROM STUDENT_COURSE
-    WHERE C_ID IN (
-        SELECT C_ID FROM COURSE
-        WHERE C_NAME = 'DSA' OR C_NAME = 'DBMS'
+CREATE TABLE Enrollments (
+    roll_no    INT REFERENCES Students(roll_no),
+    course_id  INT REFERENCES Courses(course_id),
+    PRIMARY KEY (roll_no, course_id)
+);
+```
+
+**Independent subquery** — the inner query runs on its own, unrelated to the outer row currently being evaluated:
+
+```sql
+-- Students enrolled in 'Data Structures' or 'Databases'
+SELECT name FROM Students
+WHERE roll_no IN (
+    SELECT roll_no FROM Enrollments
+    WHERE course_id IN (
+        SELECT course_id FROM Courses
+        WHERE course_name IN ('Data Structures', 'Databases')
     )
 );
 
--- NOT IN — students NOT enrolled in DSA
-SELECT S_NAME FROM STUDENT
-WHERE S_ID NOT IN (
-    SELECT S_ID FROM STUDENT_COURSE
-    WHERE C_ID = (SELECT C_ID FROM COURSE WHERE C_NAME = 'DSA')
+-- ANY — salary greater than at least one salary in department 2
+SELECT * FROM Employees WHERE salary > ANY (
+    SELECT salary FROM Employees WHERE department_id = 2
 );
 
--- ANY — salary greater than ANY salary in dept 2
-SELECT * FROM Employees WHERE Salary > ANY (
-    SELECT Salary FROM Employees WHERE DepartmentId = 2
-);
-
--- ALL — salary greater than ALL salaries in dept 2
-SELECT * FROM Employees WHERE Salary > ALL (
-    SELECT Salary FROM Employees WHERE DepartmentId = 2
+-- ALL — salary greater than every salary in department 2
+SELECT * FROM Employees WHERE salary > ALL (
+    SELECT salary FROM Employees WHERE department_id = 2
 );
 ```
 
-**2. Correlated Nested Queries** — inner query references outer query:
+**Correlated subquery** — the inner query references a column from the outer query, so it conceptually re-runs once per outer row:
+
 ```sql
--- Find students whose age is above average for their city
-SELECT S_NAME FROM STUDENT s1
-WHERE S_AGE > (
-    SELECT AVG(S_AGE) FROM STUDENT s2
-    WHERE s2.S_ADDRESS = s1.S_ADDRESS  -- correlated!
+-- Students whose city has more than one student (a same-city comparison)
+SELECT s1.name FROM Students s1
+WHERE (
+    SELECT COUNT(*) FROM Students s2
+    WHERE s2.city = s1.city   -- correlated: depends on the outer row
+) > 1;
+```
+
+**A real, common `NOT IN` bug**: if the subquery's result set contains even one `NULL`, the entire `NOT IN` comparison becomes indeterminate (SQL's three-valued logic) and the outer query silently returns zero rows — no error, just an empty result that looks like "nobody matched."
+
+```sql
+-- Risky if Enrollments.course_id can ever be NULL:
+SELECT name FROM Students
+WHERE roll_no NOT IN (SELECT roll_no FROM Enrollments);
+
+-- Safer — filter NULLs explicitly, or use NOT EXISTS instead (immune to this problem):
+SELECT s.name FROM Students s
+WHERE NOT EXISTS (
+    SELECT 1 FROM Enrollments e WHERE e.roll_no = s.roll_no
 );
 ```
+
+`EXISTS`/`NOT EXISTS` is also typically faster than `IN`/`NOT IN` on large tables, on top of not having the `NULL`-poisoning problem above.
 
 ## INSERT, UPDATE, DELETE (DML)
 
 ```sql
 -- INSERT
-INSERT INTO Students (roll_no, name, age, address)
-VALUES (1, 'Ram', 18, 'Delhi');
+INSERT INTO Students (roll_no, name, city) VALUES (1, 'Zara', 'Nairobi');
 
 -- INSERT multiple rows
-INSERT INTO Students VALUES
-    (1, 'Ram',    'Delhi',   '9455123451', 18),
-    (2, 'Ramesh', 'Gurgaon', '9652431543', 18),
-    (3, 'Sujit',  'Rohtak',  '9156253131', 20),
-    (4, 'Suresh', 'Delhi',   '9156768971', 18);
+INSERT INTO Students (roll_no, name, city) VALUES
+    (1, 'Zara',   'Nairobi'),
+    (2, 'Farouk', 'Lagos'),
+    (3, 'Mei',    'Singapore'),
+    (4, 'Tomas',  'Lisbon');
 
 -- UPDATE
-UPDATE Students SET age = 21 WHERE S_ID = 'S1';
-UPDATE Employees SET Salary = Salary * 1.1 WHERE DepartmentId = 1;
+UPDATE Students SET city = 'Accra' WHERE roll_no = 1;
+UPDATE Employees SET salary = salary * 1.1 WHERE department_id = 1;
 
 -- UPDATE multiple columns
 UPDATE Students
-SET address = 'Mumbai', age = 22
-WHERE name = 'Ram';
+SET city = 'Cairo'
+WHERE name = 'Zara';
 
 -- DELETE
-DELETE FROM Students WHERE age < 18;
-DELETE FROM Students WHERE S_ID NOT IN (
-    SELECT S_ID FROM STUDENT_COURSE   -- delete students with no courses
+DELETE FROM Students WHERE roll_no = 4;
+DELETE FROM Students WHERE roll_no NOT IN (
+    SELECT roll_no FROM Enrollments   -- delete students enrolled in nothing
 );
 ```
 
-## AND, OR Operators
+## AND, OR, NOT Operators
 
 ```sql
--- AND — both conditions must be true
+-- AND — every condition must be true
 SELECT * FROM Employees
-WHERE DepartmentId = 1 AND Salary > 500;
+WHERE department_id = 1 AND salary > 6000;
 
 -- OR — at least one condition must be true
 SELECT * FROM Employees
-WHERE DepartmentId = 1 OR DepartmentId = 2;
+WHERE department_id = 1 OR department_id = 2;
 
--- Combined
+-- Combined, with explicit parentheses (don't rely on operator precedence being obvious to the next reader)
 SELECT * FROM Employees
-WHERE (DepartmentId = 1 OR DepartmentId = 2)
-AND Salary > 400;
+WHERE (department_id = 1 OR department_id = 2)
+AND salary > 6000;
 
 -- NOT
-SELECT * FROM Students WHERE NOT age = 18;
-SELECT * FROM Students WHERE age != 18;  -- same
+SELECT * FROM Students WHERE NOT city = 'Lagos';
+SELECT * FROM Students WHERE city != 'Lagos';   -- equivalent, more common in practice
 ```
 
 ## CASE Expression
 
 ```sql
 -- Simple CASE
-SELECT FName, LName, Salary,
+SELECT first_name, last_name, salary,
     CASE
-        WHEN Salary >= 1000 THEN 'High'
-        WHEN Salary >= 500  THEN 'Medium'
-        ELSE 'Low'
-    END AS SalaryBand
+        WHEN salary >= 8000 THEN 'Senior band'
+        WHEN salary >= 6000 THEN 'Mid band'
+        ELSE 'Junior band'
+    END AS salary_band
 FROM Employees;
 
--- Count by category using CASE
+-- Counting by category using CASE
 SELECT
-    COUNT(CASE WHEN PreferredContact = 'PHONE' THEN 1 END) AS phone_count,
-    COUNT(CASE WHEN PreferredContact = 'EMAIL' THEN 1 END) AS email_count
-FROM Customers;
+    COUNT(CASE WHEN department_id = 1 THEN 1 END) AS engineering_count,
+    COUNT(CASE WHEN department_id = 2 THEN 1 END) AS sales_count
+FROM Employees;
 
--- CASE in WHERE
+-- CASE inside WHERE
 SELECT * FROM Employees
 WHERE CASE
-    WHEN DepartmentId = 1 THEN Salary > 400
-    WHEN DepartmentId = 2 THEN Salary > 500
-    ELSE Salary > 300
+    WHEN department_id = 1 THEN salary > 6000
+    WHEN department_id = 2 THEN salary > 6500
+    ELSE salary > 5000
 END;
 ```
 
 ## Cascading Delete
 
 ```sql
--- ON DELETE CASCADE: when parent row deleted, all child rows deleted too
-CREATE TABLE Orders (
-    OrderId INT PRIMARY KEY,
-    CustomerId INT,
-    FOREIGN KEY (CustomerId) REFERENCES Customers(Id)
-        ON DELETE CASCADE        -- orders deleted when customer deleted
+CREATE TABLE Customers (
+    id                 SERIAL PRIMARY KEY,
+    first_name         VARCHAR(35) NOT NULL,
+    last_name          VARCHAR(35) NOT NULL,
+    email              VARCHAR(100),
+    phone              VARCHAR(15),
+    preferred_contact  VARCHAR(10)   -- 'EMAIL' or 'PHONE'
 );
 
--- ON DELETE SET NULL: instead of cascade, set FK to NULL
-FOREIGN KEY (ManagerId) REFERENCES Employees(Id)
-    ON DELETE SET NULL           -- employees' ManagerId set to NULL when manager deleted
+CREATE TABLE Orders (
+    id           SERIAL PRIMARY KEY,
+    customer_id  INT REFERENCES Customers(id) ON DELETE CASCADE,  -- orders deleted when customer is deleted
+    order_date   DATE NOT NULL,
+    amount       DECIMAL NOT NULL
+);
 
--- Test cascade
-DELETE FROM Customers WHERE Id = 5;
--- All orders for customer 5 are automatically deleted
+-- ON DELETE SET NULL — an alternative: keep the child row, just clear the link
+FOREIGN KEY (manager_id) REFERENCES Employees(id)
+    ON DELETE SET NULL   -- an employee's manager_id becomes NULL if that manager is deleted
+
+-- Test the actual behavior, don't just assume the migration applying means it's correct:
+DELETE FROM Customers WHERE id = 5;
+-- Every order belonging to customer 5 is now gone too — verify that's really what you want
+-- before using CASCADE on anything with audit/business significance.
 ```
 
-## SELECT — Advanced Features
+## SELECT — Aggregates and Pattern Matching
 
 ```sql
 -- COUNT, SUM, AVG, MIN, MAX
 SELECT COUNT(*) FROM Employees;
-SELECT AVG(Salary) FROM Employees;
-SELECT MAX(Salary), MIN(Salary) FROM Employees;
-SELECT SUM(Salary) FROM Employees WHERE DepartmentId = 1;
+SELECT AVG(salary) FROM Employees;
+SELECT MAX(salary), MIN(salary) FROM Employees;
+SELECT SUM(salary) FROM Employees WHERE department_id = 1;
 
 -- GROUP BY
-SELECT DepartmentId, COUNT(*), AVG(Salary)
+SELECT department_id, COUNT(*), AVG(salary)
 FROM Employees
-GROUP BY DepartmentId;
+GROUP BY department_id;
 
--- HAVING (filter groups)
-SELECT DepartmentId, AVG(Salary) AS avg_sal
+-- HAVING — filters groups, evaluated after GROUP BY (WHERE filters rows, before grouping)
+SELECT department_id, AVG(salary) AS avg_salary
 FROM Employees
-GROUP BY DepartmentId
-HAVING AVG(Salary) > 600;
+GROUP BY department_id
+HAVING AVG(salary) > 6500;
 
 -- LIKE — pattern matching
-SELECT * FROM Customers WHERE Email LIKE '%@gmail.com';
-SELECT * FROM Employees WHERE FName LIKE 'J%';      -- starts with J
-SELECT * FROM Employees WHERE FName LIKE '%son';    -- ends with son
-SELECT * FROM Employees WHERE FName LIKE '_ohn';    -- _ = exactly one char
+SELECT * FROM Customers WHERE email LIKE '%@example.com';
+SELECT * FROM Employees WHERE first_name LIKE 'D%';    -- starts with D
+SELECT * FROM Employees WHERE first_name LIKE '%zi';    -- ends with zi
+SELECT * FROM Employees WHERE first_name LIKE '_eji';   -- _ = exactly one character
 
 -- BETWEEN
-SELECT * FROM Employees WHERE Salary BETWEEN 400 AND 800;
-SELECT * FROM Orders WHERE HireDate BETWEEN '2020-01-01' AND '2023-12-31';
+SELECT * FROM Employees WHERE salary BETWEEN 6000 AND 8000;
+SELECT * FROM Orders WHERE order_date BETWEEN '2023-01-01' AND '2023-12-31';
 
 -- NULL handling
-SELECT * FROM Employees WHERE ManagerId IS NULL;     -- top-level managers
-SELECT * FROM Customers WHERE Email IS NOT NULL;
+SELECT * FROM Employees WHERE manager_id IS NULL;    -- top-level managers
+SELECT * FROM Customers WHERE email IS NOT NULL;
 
-SELECT COALESCE(ManagerId, 0) FROM Employees;        -- replace NULL with 0
-SELECT ISNULL(ManagerId, 0) FROM Employees;          -- SQL Server syntax
+SELECT COALESCE(manager_id, 0) FROM Employees;   -- replace NULL with 0 (standard SQL, portable)
 ```
 
 ## JOINs — Combining Tables
 
 ```sql
--- Sample tables used:
--- Employees: Id, FName, LName, ManagerId, DepartmentId, Salary, HireDate
--- Customers: Id, FName, LName, Email, PhoneNumber, PreferredContact
--- Orders:    Id, CustomerId, OrderDate, Amount
-
--- INNER JOIN — only matching rows in both tables
-SELECT e.FName, e.LName, d.Name AS Department
+-- INNER JOIN — only rows matching in both tables
+SELECT e.first_name, e.last_name, d.name AS department
 FROM Employees e
-INNER JOIN Departments d ON e.DepartmentId = d.Id;
+INNER JOIN Departments d ON e.department_id = d.id;
 
--- LEFT JOIN — all from left + matching from right (NULL if no match)
-SELECT c.FName, c.LName, o.OrderDate
+-- LEFT JOIN — all rows from the left table + matching rows from the right (NULL if no match)
+SELECT c.first_name, c.last_name, o.order_date
 FROM Customers c
-LEFT JOIN Orders o ON c.Id = o.CustomerId;
--- Customers with no orders → OrderDate = NULL
+LEFT JOIN Orders o ON c.id = o.customer_id;
+-- A customer with no orders still appears, with order_date = NULL
 
--- Self JOIN — table joined to itself
-SELECT e.FName AS Employee, m.FName AS Manager
+-- Self JOIN — a table joined to itself, e.g. employee-manager hierarchies
+SELECT e.first_name AS employee, m.first_name AS manager
 FROM Employees e
-LEFT JOIN Employees m ON e.ManagerId = m.Id;
--- James Smith has NULL Manager (he's the top)
+LEFT JOIN Employees m ON e.manager_id = m.id;
+-- Amara has NULL for manager — she's the top of the hierarchy
 
 -- Multi-table JOIN
-SELECT e.FName, d.Name AS Dept, o.Amount
+SELECT e.first_name, d.name AS dept, o.amount
 FROM Employees e
-JOIN Departments d ON e.DepartmentId = d.Id
-JOIN Orders o ON o.CustomerId = e.Id
-WHERE o.Amount > 500;
+JOIN Departments d ON e.department_id = d.id
+JOIN Orders o ON o.customer_id = e.id
+WHERE o.amount > 500;
 
--- If multiple tables are joined — specify column with table name:
--- table_name.column_name
-SELECT Employees.FName, Departments.Name
-FROM Employees JOIN Departments ...
-```
-
-## CREATE TABLE with Full Example (riptutorial)
-
-```sql
--- From the SQL book (riptutorial.com) — Employees table with self-reference
-CREATE TABLE Employees (
-    Id            INT NOT NULL AUTO_INCREMENT,
-    FName         VARCHAR(35) NOT NULL,
-    LName         VARCHAR(35) NOT NULL,
-    PhoneNumber   VARCHAR(11),
-    ManagerId     INT,                          -- self-reference (manager is also employee)
-    DepartmentId  INT NOT NULL,
-    Salary        INT NOT NULL,
-    HireDate      DATETIME NOT NULL,
-    PRIMARY KEY(Id),
-    FOREIGN KEY (ManagerId) REFERENCES Employees(Id),     -- self-referencing FK
-    FOREIGN KEY (DepartmentId) REFERENCES Departments(Id)
-);
-
--- Employees data:
--- 1 | James    | Smith    | 1234567890 | NULL | 1 | 1000 | 2002-01-01 (top manager)
--- 2 | John     | Johnson  | 2468101214 | 1    | 1 | 400  | 2005-03-23
--- 3 | Michael  | Williams | 1357911131 | 1    | 2 | 600  | 2009-05-12
--- 4 | Johnathon| Smith    | 1212121212 | 2    | 1 | 500  | 2016-07-24
-
--- Customers data:
--- 1 | William | Jones | william.jones@example.com | 3347927472 | PHONE
--- 2 | David   | Miller| dmiller@example.net       | 2137921892 | EMAIL
--- 3 | Richard | Davis | richard0123@example.com   | NULL       | EMAIL
+-- Once multiple tables are joined, qualify ambiguous column names with the table (or alias):
+SELECT Employees.first_name, Departments.name
+FROM Employees JOIN Departments ON Employees.department_id = Departments.id;
 ```

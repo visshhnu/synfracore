@@ -65,15 +65,40 @@ function fileExists(relPath) {
   }
 }
 
+// A preserved alias (value !== key, e.g. a legacy "infrastructure/"
+// fallback) can silently shadow a real, direct file forever once one is
+// later written at the exact key path -- confirmed live: this exact bug
+// shadowed 5 rewritten devops/linux/* files behind their old
+// infrastructure/linux/* equivalents, and a broader scan found the same
+// pattern on ~78 keys across ~16 devops/* technologies plus a few
+// elsewhere. Content quality on the "devops/*" side is a mixed bag
+// site-wide (some technologies are more complete than their
+// infrastructure/* counterpart, some are thinner) -- rolling the fix out
+// everywhere at once would silently downgrade some pages. Scoped to
+// devops/linux only for now (already reviewed and improved); the other
+// affected keys need their own quality comparison pass before unshadowing.
+// Extend STALE_ALIAS_FIX_KEYS (or replace with a broader rule) once that
+// review happens elsewhere -- do not just widen this to "all keys" without
+// checking devops/* vs infrastructure/* content quality per technology first.
+const STALE_ALIAS_FIX_KEYS = new Set(
+  ["overview", "fundamentals", "intermediate", "cheatsheets", "interview", "installation"].map((s) => `devops/linux/${s}`)
+);
+
 const registry = new Map();
 let droppedBroken = 0;
+let droppedStaleAlias = 0;
 for (const [key, value] of existingEntries) {
-  if (fileExists(value)) {
-    registry.set(key, value);
-  } else {
+  if (!fileExists(value)) {
     droppedBroken++;
     console.log(`  dropped (target missing): ${key} -> ${value}.md`);
+    continue;
   }
+  if (value !== key && STALE_ALIAS_FIX_KEYS.has(key) && fileExists(key)) {
+    droppedStaleAlias++;
+    console.log(`  dropped (stale alias, direct file now exists): ${key} -> ${value}.md`);
+    continue;
+  }
+  registry.set(key, value);
 }
 
 // ── Step 2: for every real academy/tech x every valid section, add an
@@ -161,4 +186,5 @@ writeFileSync(REGISTRY_PATH, output);
 
 console.log(`\nDone. ${existingEntries.length} existing entries -> ${registry.size} final entries.`);
 console.log(`  Dropped (broken): ${droppedBroken}`);
+console.log(`  Dropped (stale alias, direct file now exists): ${droppedStaleAlias}`);
 console.log(`  Added (new direct matches): ${added}`);

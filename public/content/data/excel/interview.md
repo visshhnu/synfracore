@@ -31,9 +31,11 @@
 =EOMONTH(A2, 0)         -- Last day of month
 
 -- Statistical
-=AVERAGE(A1:A100)  =MEDIAN()  =MODE()  =STDEV()
-=PERCENTILE(A1:A100, 0.95)    -- 95th percentile
-=RANK(A2, A1:A100, 1)         -- Rank ascending
+=AVERAGE(A1:A100)  =MEDIAN(A1:A100)
+=MODE.SNGL(A1:A100)   -- MODE() still works but is the legacy name; MODE.SNGL is current
+=STDEV.S(A1:A100)     -- sample stdev; STDEV.P for a full population, not a sample
+=PERCENTILE.INC(A1:A100, 0.95)  -- 95th percentile; PERCENTILE() still works but is legacy
+=RANK.EQ(A2, A1:A100, 1)        -- Rank ascending (1=ascending, 0/omitted=descending); RANK() still works but is legacy
 ```
 
 ---
@@ -77,8 +79,14 @@ Name Box → type "SalesData" → press Enter
 -- Use in formulas: =SUM(SalesData) instead of =SUM(A1:A500)
 -- CTRL+F3 to manage named ranges
 
--- Dynamic named range with OFFSET:
+-- Dynamic named range with OFFSET (works, but OFFSET is VOLATILE --
+-- recalculates on every single sheet change, not just when its own
+-- inputs change, which can slow down a large workbook):
 =OFFSET($A$1, 0, 0, COUNTA($A:$A), 1)  -- Expands automatically
+
+-- Modern alternative, not volatile: convert the range to an Excel Table
+-- (Ctrl+T) and reference it by structured reference (e.g. SalesData[Amount]) --
+-- it expands automatically as rows are added, with none of OFFSET's recalc cost
 ```
 
 ---
