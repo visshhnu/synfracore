@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Clock } from "lucide-react";
 import QuestionNavigator from "./QuestionNavigator";
 
 export type AttemptQuestion = {
@@ -16,7 +16,19 @@ type Props = {
   paperSlug: string;
   questions: AttemptQuestion[];
   initialSelections: Record<string, string | null>;
+  /** ISO timestamp, from the persisted paper_attempts.started_at column. */
+  startedAt: string;
+  /** From question_papers.time_limit_minutes — per-paper, not hardcoded. */
+  timeLimitMinutes: number;
 };
+
+function formatDuration(totalSeconds: number): string {
+  const s = Math.max(0, totalSeconds);
+  const h = Math.floor(s / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const sec = s % 60;
+  return `${h}:${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
+}
 
 // The interactive practice screen. Receives the already-shuffled, text-
 // hydrated question list + existing selections as initial server props —
@@ -25,7 +37,7 @@ type Props = {
 // rows the server already read. Correctness is never known here — no
 // client-side grading exists anywhere in this component, by design (see
 // docs/question-bank-schema.sql's answer-security model).
-export default function AttemptRunner({ attemptId, paperSlug, questions, initialSelections }: Props) {
+export default function AttemptRunner({ attemptId, paperSlug, questions, initialSelections, startedAt, timeLimitMinutes }: Props) {
   const router = useRouter();
   const [selections, setSelections] = useState<Record<string, string | null>>(initialSelections);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -33,6 +45,14 @@ export default function AttemptRunner({ attemptId, paperSlug, questions, initial
   const [confirmingSubmit, setConfirmingSubmit] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [, startNavTransition] = useTransition();
+
+  // Deadline is computed once from the persisted started_at + the paper's
+  // own time limit — never reset client-side, so a page reload (including
+  // AuthStateSync's own reload mechanism, or just a manual refresh) can't
+  // grant extra time or lose track of how much has elapsed.
+  const deadlineMs = useRef(new Date(startedAt).getTime() + timeLimitMinutes * 60_000).current;
+  const [remainingSeconds, setRemainingSeconds] = useState(() => Math.max(0, Math.round((deadlineMs - Date.now()) / 1000)));
+  const autoSubmitFiredRef = useRef(false);
 
   const current = questions[currentIndex];
   const answeredCount = Object.values(selections).filter(Boolean).length;
@@ -60,11 +80,13 @@ export default function AttemptRunner({ attemptId, paperSlug, questions, initial
       .catch(() => setSaveFailedFor(current.id));
   }
 
-  async function handleSubmit() {
-    if (answeredCount < questions.length && !confirmingSubmit) {
-      setConfirmingSubmit(true);
-      return;
-    }
+  // Shared by the manual submit button (after the unanswered-questions
+  // confirmation step, if needed) and the auto-submit-on-timeout path,
+  // which must bypass that confirmation entirely -- time being up is not
+  // something the user gets to reconsider. Reuses the same
+  // /api/question-bank/submit fetch() endpoint as before; no new
+  // dispatch mechanism, no Server Action.
+  async function doSubmit() {
     setIsSubmitting(true);
     try {
       const res = await fetch("/api/question-bank/submit", {
@@ -83,10 +105,52 @@ export default function AttemptRunner({ attemptId, paperSlug, questions, initial
     }
   }
 
+  async function handleSubmit() {
+    if (answeredCount < questions.length && !confirmingSubmit) {
+      setConfirmingSubmit(true);
+      return;
+    }
+    await doSubmit();
+  }
+
+  // Ticks every second; remainingSeconds is always re-derived from the
+  // fixed deadlineMs (not decremented directly), so drift/tab-throttling
+  // can't accumulate error. Auto-submits exactly once when time is up --
+  // autoSubmitFiredRef guards against the interval firing doSubmit() more
+  // than once while the submit request is in flight.
+  useEffect(() => {
+    const tick = () => {
+      const secondsLeft = Math.max(0, Math.round((deadlineMs - Date.now()) / 1000));
+      setRemainingSeconds(secondsLeft);
+      if (secondsLeft === 0 && !autoSubmitFiredRef.current) {
+        autoSubmitFiredRef.current = true;
+        doSubmit();
+      }
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deadlineMs]);
+
   return (
     <div className="attempt-runner-grid" style={{ display: "grid", gridTemplateColumns: "260px 1fr", gap: "24px", alignItems: "start" }}>
       {/* Left rail: progress + navigator */}
       <div style={{ position: "sticky", top: "20px" }}>
+        <div
+          style={{
+            marginBottom: "14px", padding: "12px 14px", borderRadius: "10px",
+            background: remainingSeconds <= 300 ? "rgba(239,68,68,0.1)" : "var(--bg-2)",
+            border: `1px solid ${remainingSeconds <= 300 ? "#EF4444" : "var(--border)"}`,
+            display: "flex", alignItems: "center", gap: "8px",
+          }}
+        >
+          <Clock size={16} color={remainingSeconds <= 300 ? "#EF4444" : "var(--text-3)"} />
+          <span style={{ fontSize: "16px", fontWeight: 700, fontFamily: "monospace", color: remainingSeconds <= 300 ? "#EF4444" : "var(--text-1)" }}>
+            {formatDuration(remainingSeconds)}
+          </span>
+          <span style={{ fontSize: "11px", color: "var(--text-4)" }}>remaining</span>
+        </div>
         <div style={{ marginBottom: "14px", padding: "12px 14px", borderRadius: "10px", background: "var(--bg-2)", border: "1px solid var(--border)" }}>
           <div style={{ fontSize: "13px", fontWeight: 700, color: "var(--text-1)" }}>{answeredCount} / {questions.length} answered</div>
           <div style={{ height: "6px", borderRadius: "4px", background: "var(--border)", marginTop: "8px", overflow: "hidden" }}>

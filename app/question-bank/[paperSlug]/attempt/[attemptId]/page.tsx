@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getAuthSafely } from "@/lib/clerk/authFallback";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { getAttemptWithResponses, getPaperQuestionsWithOptions } from "@/lib/supabase/questionBank";
+import { getAttemptWithResponses, getPaperQuestionsWithOptions, getPaperBySlug } from "@/lib/supabase/questionBank";
 import AttemptRunner, { type AttemptQuestion } from "@/components/question-bank/AttemptRunner";
 
 type Props = { params: Promise<{ paperSlug: string; attemptId: string }> };
@@ -30,6 +30,11 @@ export default async function AttemptPage({ params }: Props) {
   const questionsInOriginalOrder = await getPaperQuestionsWithOptions(supabase, attempt.paper_id);
   if (questionsInOriginalOrder.length === 0) redirect(`/question-bank/${paperSlug}?error=1`);
 
+  const paper = await getPaperBySlug(supabase, paperSlug);
+  // Falls back to the schema's own DEFAULT (60) if the paper lookup somehow
+  // fails here — matches the DB-level default, not an arbitrary UI choice.
+  const timeLimitMinutes = paper?.time_limit_minutes ?? 60;
+
   const questionById = new Map(questionsInOriginalOrder.map((q) => [q.id, q]));
   const optionByQuestion = new Map(questionsInOriginalOrder.map((q) => [q.id, new Map(q.options.map((o) => [o.id, o]))]));
   const responseByQuestion = new Map(responses.map((r) => [r.question_id, r]));
@@ -52,7 +57,14 @@ export default async function AttemptPage({ params }: Props) {
 
   return (
     <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "32px 24px" }}>
-      <AttemptRunner attemptId={attemptId} paperSlug={paperSlug} questions={orderedQuestions} initialSelections={initialSelections} />
+      <AttemptRunner
+        attemptId={attemptId}
+        paperSlug={paperSlug}
+        questions={orderedQuestions}
+        initialSelections={initialSelections}
+        startedAt={attempt.started_at}
+        timeLimitMinutes={timeLimitMinutes}
+      />
     </div>
   );
 }

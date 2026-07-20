@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS question_papers (
     difficulty      TEXT NOT NULL DEFAULT 'standard',  -- standard | advanced
     is_premium      BOOLEAN NOT NULL DEFAULT true,
     sort_order      INT NOT NULL,
+    time_limit_minutes INT NOT NULL DEFAULT 60,  -- per-paper, not hardcoded; BCHHC papers set to 300 (5h, matches the real exam)
     created_at      TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 

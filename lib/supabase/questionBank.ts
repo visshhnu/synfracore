@@ -32,6 +32,7 @@ export type QuestionPaper = {
   difficulty: string;
   is_premium: boolean;
   sort_order: number;
+  time_limit_minutes: number;
 };
 
 export type QuestionOption = { id: string; option_text: string };
@@ -69,7 +70,7 @@ export async function getPaperCatalog(supabase: SupabaseClient): Promise<Questio
   try {
     const { data, error } = await supabase
       .from("question_papers")
-      .select("id, slug, title, exam_type, focus_tags, question_count, difficulty, is_premium, sort_order")
+      .select("id, slug, title, exam_type, focus_tags, question_count, difficulty, is_premium, sort_order, time_limit_minutes")
       .order("sort_order", { ascending: true });
     if (error) throw error;
     return (data ?? []) as QuestionPaper[];
@@ -89,7 +90,7 @@ export async function getFirstPaperByExamType(supabase: SupabaseClient, examType
   try {
     const { data, error } = await supabase
       .from("question_papers")
-      .select("id, slug, title, exam_type, focus_tags, question_count, difficulty, is_premium, sort_order")
+      .select("id, slug, title, exam_type, focus_tags, question_count, difficulty, is_premium, sort_order, time_limit_minutes")
       .eq("exam_type", examType)
       .order("sort_order", { ascending: true })
       .limit(1)
@@ -106,7 +107,7 @@ export async function getPaperBySlug(supabase: SupabaseClient, slug: string): Pr
   try {
     const { data, error } = await supabase
       .from("question_papers")
-      .select("id, slug, title, exam_type, focus_tags, question_count, difficulty, is_premium, sort_order")
+      .select("id, slug, title, exam_type, focus_tags, question_count, difficulty, is_premium, sort_order, time_limit_minutes")
       .eq("slug", slug)
       .maybeSingle();
     if (error) throw error;
