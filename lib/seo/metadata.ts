@@ -23,15 +23,23 @@ type PageMetadataInput = {
 // leak comes back. Centralizing that here means a new page can't reintroduce
 // this bug by omission.
 //
-// The image comes from /api/og (a next/og ImageResponse route already in
-// this codebase) instead of the old static /og-image.svg — Facebook/X/
-// LinkedIn/WhatsApp crawlers don't render SVG for link previews at all.
+// The image is a pre-generated static PNG under public/og/{academy}.png
+// (one per academy, falls back to public/og/default.png) instead of the
+// old static /og-image.svg (Facebook/X/LinkedIn/WhatsApp crawlers don't
+// render SVG for link previews at all) or a fully dynamic /api/og route.
+// The dynamic route (next/og's ImageResponse, rendered per-request) was
+// tried first but proved unreliable under OpenNext's Workers isolate
+// reuse — it worked once on a fresh isolate, then failed on nearly every
+// subsequent request on the same warm instance. Images are generated
+// once at build time instead — see scripts/generate-og-images.mjs and
+// docs/audit/07-roadmap-final.md for the incident record. This trades
+// per-page title/section text baked into the image for actual
+// reliability; the page's own title/description still appear correctly
+// as plain og:title/og:description regardless.
 export function pageMetadata({ title, description, path, keywords, ogImageParams }: PageMetadataInput): Metadata {
   const url = `https://synfracore.com${path}`;
-  const ogImageQuery = new URLSearchParams(
-    Object.entries(ogImageParams ?? { title }).filter((entry): entry is [string, string] => Boolean(entry[1]))
-  ).toString();
-  const ogImageUrl = `https://synfracore.com/api/og?${ogImageQuery}`;
+  const academySlug = ogImageParams?.academy;
+  const ogImageUrl = `https://synfracore.com/og/${academySlug ?? "default"}.png`;
 
   return {
     title,
