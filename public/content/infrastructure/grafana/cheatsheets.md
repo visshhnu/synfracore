@@ -8,7 +8,7 @@ d then e       Settings
 d then r       Refresh
 ?              Show all keyboard shortcuts
 Escape         Close modal/editor
-Ctrl+Z         Undo (in panel editor)
+Ctrl+Z         Zoom out time range (not "undo" — a common mix-up)
 ```
 
 ## PromQL for Common Dashboard Panels

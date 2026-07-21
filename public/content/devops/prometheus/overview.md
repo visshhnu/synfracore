@@ -51,12 +51,14 @@ scrape_configs:
       # Only scrape pods with annotation prometheus.io/scrape: "true"
       - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
         action: keep
-        regex: true
-      - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_port]
+        regex: "true"
+      # Combine the pod's own IP (__address__) with the custom port from
+      # the annotation — both source labels are required to build host:port
+      - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
         action: replace
         target_label: __address__
-        regex: (.+)
-        replacement: \\${1}:\\${2}
+        regex: ([^:]+)(?::\d+)?;(\d+)
+        replacement: $1:$2
 
   # Node exporter — host metrics
   - job_name: node
@@ -215,9 +217,9 @@ Grafana visualizes Prometheus metrics. Every service should have a RED dashboard
 # PromQL: increase(kube_pod_container_status_restarts_total[1h])
 
 # Import dashboard via API (store dashboards as code)
-curl -X POST \\\\
-  -H "Content-Type: application/json" \\\\
-  -d @my-dashboard.json \\\\
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d @my-dashboard.json \
   http://admin:password@grafana:3000/api/dashboards/import
 
 # Grafana dashboard variable — makes one dashboard work for all namespaces
@@ -241,14 +243,14 @@ In production, deploy Prometheus using the kube-prometheus-stack Helm chart — 
 
 ```bash
 # Install kube-prometheus-stack
-helm repo add prometheus-community \\\\
+helm repo add prometheus-community \
   https://prometheus-community.github.io/helm-charts
 helm repo update
 
-helm install monitoring \\\\
-  prometheus-community/kube-prometheus-stack \\\\
-  --namespace monitoring \\\\
-  --create-namespace \\\\
+helm install monitoring \
+  prometheus-community/kube-prometheus-stack \
+  --namespace monitoring \
+  --create-namespace \
   --values prometheus-values.yaml
 
 # prometheus-values.yaml (key settings)
@@ -310,10 +312,10 @@ sum(rate(http_requests_total[5m]))
 kubectl get prometheusrule -n monitoring -o yaml
 
 # 4. Check AlertManager is receiving alerts
-kubectl logs -n monitoring alertmanager-0 | grep -i "dispatch\\|route"
+kubectl logs -n monitoring alertmanager-0 | grep -iE "dispatch|route"
 
 # 5. Verify AlertManager config
-kubectl exec -n monitoring alertmanager-0 -- \\\\
+kubectl exec -n monitoring alertmanager-0 -- \
   amtool check-config /etc/alertmanager/alertmanager.yml
 
 # ── PROMETHEUS TARGET DOWN ─────────────────────────────────
@@ -337,60 +339,20 @@ kubectl get servicemonitor -n production -o yaml | grep -A5 selector
 
 ## Interview Prep
 
-!!! tip "PSR Formula"
-    Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
+**What is Prometheus and why pair it with Grafana in production?**
+Prometheus is a pull-based metrics and alerting system; Grafana is the visualization layer on top of it. Prometheus alone can answer PromQL queries via its own UI, but Grafana adds shareable dashboards, template variables for multi-cluster/multi-namespace views, and alerting UX that's easier for a whole team to use than raw PromQL. Together they form the open-source half of the "metrics" pillar of observability (alongside logs and traces).
 
-### Common Interview Questions
+**Walk through the architecture end to end.**
+Applications expose a `/metrics` HTTP endpoint. Prometheus scrapes each configured target on an interval (commonly 15-30s) and stores samples in its local TSDB. Alert rules are evaluated against that data on a separate interval; a rule that stays true for its `for:` duration fires an alert to Alertmanager, which deduplicates, groups, and routes it to a receiver (Slack, PagerDuty, email). Grafana is a separate consumer that queries Prometheus's HTTP API with PromQL to render dashboards.
 
-??? question "What is Prometheus + Grafana and why would you use it in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**What are the main components you'd deploy for a production stack?**
+Prometheus server (scrape + storage + rule evaluation), Alertmanager (routing/notification), node_exporter (host-level metrics), kube-state-metrics (Kubernetes object state), Grafana (dashboards), and — once local retention isn't enough — Thanos or Mimir for long-term, multi-cluster storage. The `kube-prometheus-stack` Helm chart installs the first five together.
 
-??? question "How does Prometheus + Grafana work internally? Explain the architecture."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**How do you handle a Prometheus instance going down or falling behind?**
+Prometheus has no built-in clustering — the standard HA pattern is running two identical Prometheus replicas scraping the same targets, with Alertmanager's deduplication preventing double notifications. For durability beyond local disk, `remote_write` to Thanos, Cortex, or Mimir adds long-term object-storage retention and a federated query layer across replicas and clusters.
 
-??? question "What are the main components of Prometheus + Grafana?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "How do you handle failures in Prometheus + Grafana?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "What is your production experience with Prometheus + Grafana?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "How do you monitor and observe Prometheus + Grafana in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "What are the security considerations for Prometheus + Grafana?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "How does Prometheus + Grafana compare to alternatives?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "Explain What is Prometheus? in Prometheus + Grafana."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "Explain PromQL — The Query Language in Prometheus + Grafana."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**What security considerations matter for a Prometheus/Grafana deployment?**
+Prometheus and Alertmanager have no built-in authentication by default — put them behind a reverse proxy or service mesh with access control, don't expose `:9090`/`:9093` directly. Grafana should use SSO/OAuth rather than the default admin account in production, and dashboards/data-source credentials should be provisioned as code (not clicked in) so they're auditable. Metrics themselves can leak sensitive data through labels (e.g. embedding user IDs or raw URLs) — treat label design as a data-exposure decision, not just a cardinality one.
 
 ---
 
@@ -400,7 +362,3 @@ kubectl get servicemonitor -n production -o yaml | grep -A5 selector
 - [Grafana Documentation](https://grafana.com/docs/grafana/latest/)
 - [PromQL Tutorial](https://prometheus.io/docs/prometheus/latest/querying/basics/)
 - [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
-
----
-
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*

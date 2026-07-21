@@ -29,58 +29,57 @@ Set up a complete, production-ready ELK Stack environment from scratch with prop
 
 ---
 
-## Project 2: ELK Stack CI/CD Pipeline
+## Project 2: End-to-End Log Pipeline with Grok Parsing and ILM
 
 **Level:** Intermediate | **Time:** 2-3 days
 
-Build a complete CI/CD pipeline using ELK Stack that automatically tests, builds, and deploys a sample application on every commit.
+Ship real application + Nginx logs through Filebeat → Logstash → Elasticsearch, with proper grok parsing, a dead-letter queue for failed matches, and an ILM policy that actually rotates and expires data.
 
 ### Steps
 
-1. Create a simple Node.js/Python application with unit tests
-2. Write ELK Stack configuration for the pipeline
-3. Implement stages: lint → test → build → deploy
-4. Add Docker image building and pushing to registry
-5. Configure environment-specific deployments (dev/staging/prod)
-6. Add Slack/email notifications for success/failure
+1. Run a small app that produces both structured (JSON) and unstructured (Nginx access log) output
+2. Configure Filebeat to ship both log types with distinguishing fields/tags
+3. Write a Logstash pipeline: grok-parse the Nginx logs, `json` filter the structured logs, `geoip` enrich by client IP
+4. Route grok parse failures to a `logs-parse-failures-*` index instead of silently dropping fields
+5. Define an ILM policy (hot → warm → delete) and prove it actually rolls indices over on a size/age trigger, not just on paper
+6. Build a Kibana dashboard with an error-rate-over-time panel and a top-error-messages table
 
 ### Skills Demonstrated
 
-- CI/CD principles
-- ELK Stack advanced features
-- Docker integration
+- Logstash grok parsing and pipeline design
+- ILM policy configuration and verification
+- Kibana dashboard building
 
 ### GitHub Repo Name
 
-`elk-stack-cicd-pipeline`
+`elk-log-pipeline-ilm`
 
 ---
 
-## Project 3: Infrastructure Automation with ELK Stack
+## Project 3: High-Volume ELK on Kubernetes with Kafka Buffering
 
 **Level:** Advanced | **Time:** 4-5 days
 
-Automate a complete infrastructure deployment using ELK Stack. Deploy a multi-tier application (web + app + database) with full automation, monitoring, and disaster recovery.
+Deploy Filebeat as a DaemonSet across a Kubernetes cluster, buffer through Kafka to absorb ingestion spikes, and run a multi-node Elasticsearch cluster with hot/warm tiering — the architecture actually used at real log volume, not the single-node dev setup.
 
 ### Steps
 
-1. Design the multi-tier architecture (draw diagram first)
-2. Write ELK Stack configuration for all components
-3. Implement idempotency — run multiple times safely
-4. Add health checks and automatic failure recovery
-5. Implement secret management (no hardcoded credentials)
-6. Write comprehensive tests and runbook documentation
-7. Create a demo video or blog post explaining your solution
+1. Deploy Filebeat as a DaemonSet with Kubernetes autodiscovery so it picks up every pod's logs automatically
+2. Stand up Kafka as a durable buffer between Filebeat and Logstash so a slow/down Elasticsearch doesn't cause log loss
+3. Run multiple Logstash consumers reading from Kafka in parallel; tune `pipeline.workers` and batch size
+4. Deploy a multi-node Elasticsearch cluster with dedicated master nodes and hot/warm data node roles
+5. Load-test with a realistic log volume and watch JVM heap, indexing rate, and disk watermarks under load
+6. Document what breaks first as volume increases, and how the architecture absorbs it
 
 ### Skills Demonstrated
 
-- Production architecture
-- Secret management
-- Testing and documentation
+- Kubernetes-native log collection at scale
+- Kafka as a durable ingestion buffer
+- Elasticsearch cluster topology and capacity planning
 
 ### GitHub Repo Name
 
-`elk-stack-infrastructure-automation`
+`elk-kubernetes-kafka-scale`
 
 ---
 
@@ -97,7 +96,7 @@ Automate a complete infrastructure deployment using ELK Stack. Deploy a multi-ti
 ## Portfolio Checklist
 
 - [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
+- [ ] At least 1 project with a working ILM policy you can prove rotates/deletes data
 - [ ] At least 1 project that solves a real problem
 - [ ] Each project has an architecture diagram
 - [ ] Projects are pinned on your GitHub profile
