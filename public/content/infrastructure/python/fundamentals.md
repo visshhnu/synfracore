@@ -11,8 +11,6 @@ Python is a high-level, interpreted, dynamically typed programming language. Nam
 
 ## Identifiers — Naming Rules
 
-From Durga Software Solutions course:
-
 ```python
 # Rules for Python identifiers (variable/function/class names):
 # 1. Alphabet symbols only (upper or lower case)
@@ -198,7 +196,7 @@ print(s.startswith('Hello')) # True
 print(s.endswith('World'))   # True
 
 # String formatting
-name = "Durga"
+name = "Asha"
 marks = 90
 print(f"Hi {name}, Your Marks are: {marks}")        # f-string (Python 3.6+)
 print("Hi {}, Your Marks are: {}".format(name, marks))  # .format()
@@ -251,7 +249,6 @@ squares = [x**2 for x in range(1, 11)]
 evens = [x for x in range(1, 21) if x % 2 == 0]
 # [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
-# From the Durga course:
 num1 = [10, 20, 30, 40, 50]
 num2 = [30, 40, 50, 60, 70]
 # Common elements using comprehension:
@@ -293,12 +290,12 @@ print(a, b, c, d)  # 10 20 30 40
 
 ```python
 # Create
-student = {"name": "Durga", "marks": 90, "grade": "A"}
+student = {"name": "Asha", "marks": 90, "grade": "A"}
 empty = {}
 
 # Access
-print(student["name"])          # Durga
-print(student.get("marks"))     # 90
+print(student["name"])          # Asha
+print(student.get("marks"))     # 90 (Asha's marks)
 print(student.get("age", 0))    # 0 (default if key missing)
 
 # Modify
@@ -317,10 +314,10 @@ for key, value in student.items():
     print(f"{key} = {value}")
 
 print(student.keys())    # dict_keys(['name', 'marks'])
-print(student.values())  # dict_values(['Durga', 95])
-print(student.items())   # dict_items([('name','Durga'), ('marks',95)])
+print(student.values())  # dict_values(['Asha', 95])
+print(student.items())   # dict_items([('name','Asha'), ('marks',95)])
 
-# Character frequency count (Durga course Q10):
+# Character frequency count:
 s = input("Enter Some String: ")   # "ABCABCABBCDE"
 d = {}
 for x in s:
@@ -400,7 +397,7 @@ for i in range(1, 11):
 def greet(name):
     print(f"Hello, {name}!")
 
-greet("Durga")    # Hello, Durga!
+greet("Asha")    # Hello, Asha!
 
 # Function with return
 def add(a, b):
@@ -412,8 +409,8 @@ result = add(10, 20)   # 30
 def wish(name="Guest", msg="Good Morning"):
     print(f"Hello {name} {msg}")
 
-wish("Durga")            # Hello Durga Good Morning
-wish("Durga", "Good Evening")  # Hello Durga Good Evening
+wish("Asha")            # Hello Asha Good Morning
+wish("Asha", "Good Evening")  # Hello Asha Good Evening
 wish()                   # Hello Guest Good Morning
 
 # Rules: default arguments must come AFTER non-default arguments
@@ -437,8 +434,8 @@ def display(**details):
     for k, v in details.items():
         print(f"{k} = {v}")
 
-display(name="Durga", rollno=101, marks=90)
-# name = Durga
+display(name="Asha", rollno=101, marks=90)
+# name = Asha
 # rollno = 101
 # marks = 90
 
@@ -462,7 +459,7 @@ squares = list(map(lambda x: x**2, nums))
 # Class definition
 class Student:
     # Class variable (shared across all instances)
-    school = "Durga Classes"
+    school = "Riverside High"
 
     # Constructor
     def __init__(self, name, marks):
@@ -497,9 +494,9 @@ for i in range(n):
 
 # Output:
 # Enter number of students: 2
-# Enter Name: Durga
+# Enter Name: Asha
 # Enter Marks: 90
-# Hi Durga
+# Hi Asha
 # Your Marks are: 90
 # You got First Grade
 #
@@ -597,7 +594,7 @@ c.skills()
 import os
 
 # Current working directory
-print(os.getcwd())    # D:\Python_classes
+print(os.getcwd())    # /home/user/projects/myapp
 
 # List directory contents (no sub-directories)
 print(os.listdir("."))
