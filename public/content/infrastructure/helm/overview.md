@@ -76,18 +76,19 @@ helm status my-nginx -n ingress-nginx
 # See rendered templates (dry run)
 helm template my-app ./my-chart --values values-prod.yaml
 
-# Upgrade release
+# Upgrade release (--reuse-values keeps existing values not overridden below)
 helm upgrade prometheus prometheus-community/kube-prometheus-stack \
   --namespace monitoring \
-  --reuse-values \                   # Keep existing values
+  --reuse-values \
   --set grafana.adminPassword=NewPass
 
 # Upgrade or install (idempotent — great for CI/CD)
+# --wait blocks until all pods are ready, --timeout bounds how long it waits
 helm upgrade --install my-app ./my-chart \
   --namespace production \
   --create-namespace \
   --values values-prod.yaml \
-  --wait \                           # Wait until all pods are ready
+  --wait \
   --timeout 5m
 
 # Rollback

@@ -128,7 +128,7 @@ Add permanent custom facts to managed nodes:
 
 ```bash
 # 1. Create a facts file on control node
-[elliot@control plays]$ cat cool.fact
+[admin@control plays]$ cat cool.fact
 [fun]
 kiwi=fruit
 matrix=movie
@@ -145,8 +145,8 @@ octopus='8 legs'
     - name: Create the facts.d directory
       file:
         path: /etc/ansible/facts.d
-        owner: elliot
-        mode: 775
+        owner: admin
+        mode: '0775'
         state: directory
 
     - name: Copy cool.fact to the facts.d directory
@@ -185,9 +185,9 @@ octopus='8 legs'
 # Cannot directly loop over a dictionary in Ansible — need dict2items filter
 vars:
   employee:
-    name: "Elliot Alderson"
-    title: "Penetration Tester"
-    company: "Linux Handbook"
+    name: "Jordan Rivera"
+    title: "Platform Engineer"
+    company: "Acme Corp"
 
 tasks:
   - name: Print each key-value pair
@@ -195,9 +195,9 @@ tasks:
       msg: "{{ item.key }}: {{ item.value }}"
     loop: "{{ employee | dict2items }}"
     # Output:
-    # name: Elliot Alderson
-    # title: Penetration Tester
-    # company: Linux Handbook
+    # name: Jordan Rivera
+    # title: Platform Engineer
+    # company: Acme Corp
 
 # Common mistake: loop: "{{ employee }}" causes error:
 # "Invalid data passed to 'loop', it requires a list"

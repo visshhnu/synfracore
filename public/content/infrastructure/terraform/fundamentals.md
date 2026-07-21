@@ -2,7 +2,7 @@
 
 ## Core Syntax (HCL)
 
-\`\`\`hcl
+```hcl
 # terraform/main.tf
 
 # Configure the required provider
@@ -74,13 +74,13 @@ output "vpc_id" {
   description = "ID of the main VPC"
   value       = aws_vpc.main.id
 }
-\`\`\`
+```
 
 ## Data Sources
 
 Data sources let you fetch existing infrastructure:
 
-\`\`\`hcl
+```hcl
 # Get the latest Amazon Linux 2023 AMI
 data "aws_ami" "amazon_linux" {
   most_recent = true
@@ -104,11 +104,11 @@ data "aws_vpc" "existing" {
     Name = "production-vpc"
   }
 }
-\`\`\`
+```
 
 ## Complete AWS VPC Example
 
-\`\`\`hcl
+```hcl
 # VPC
 resource "aws_vpc" "main" {
   cidr_block           = "10.0.0.0/16"
@@ -175,11 +175,11 @@ resource "aws_route_table_association" "public" {
 data "aws_availability_zones" "available" {
   state = "available"
 }
-\`\`\`
+```
 
 ## Terraform Commands
 
-\`\`\`bash
+```bash
 terraform init              # Initialize, download providers
 terraform init -upgrade     # Upgrade providers
 terraform validate          # Check syntax
@@ -203,4 +203,4 @@ terraform import aws_s3_bucket.main my-bucket  # Import existing
 terraform output            # Show all outputs
 terraform output vpc_id     # Show specific output
 terraform refresh           # Sync state with real infra
-\`\`\`
+```

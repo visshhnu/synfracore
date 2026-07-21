@@ -8,7 +8,7 @@ Ansible is an open-source configuration management, software provisioning, and a
 
 The word "Ansible" refers to a hypothetical device in science fiction that enables communication across great distances — faster-than-light communication. That is where Ansible got its name.
 
-## Lab Setup (from the book)
+## Lab Setup
 
 The standard setup used throughout:
 - **Control node** — RHEL 8 or Ubuntu — runs Ansible, manages other hosts
@@ -40,23 +40,23 @@ Ansible connects via SSH. Set up passwordless SSH from control node to all manag
 
 ```bash
 # 1. Generate SSH key on control node
-[elliot@control ~]$ ssh-keygen
+[admin@control ~]$ ssh-keygen
 # Generating public/private rsa key pair.
-# Enter file: /home/elliot/.ssh/id_rsa  (press Enter)
+# Enter file: /home/admin/.ssh/id_rsa  (press Enter)
 # Enter passphrase: (press Enter for no passphrase)
 # Key fingerprint: SHA256:Xf5bKx0kkBCsCQ/7rc6Kv6CxCRTH2XJajbNvpzel+Ik
 
 # 2. Copy public key to all managed nodes
-[elliot@control ~]$ ssh-copy-id node1
-[elliot@control ~]$ ssh-copy-id node2
-[elliot@control ~]$ ssh-copy-id node3
-[elliot@control ~]$ ssh-copy-id node4
+[admin@control ~]$ ssh-copy-id node1
+[admin@control ~]$ ssh-copy-id node2
+[admin@control ~]$ ssh-copy-id node3
+[admin@control ~]$ ssh-copy-id node4
 
 # 3. If you set a passphrase, use ssh-agent to avoid re-entering it
 eval `ssh-agent`
 ssh-add ~/.ssh/id_rsa
-# Enter passphrase for /home/elliot/.ssh/id_rsa:
-# Identity added: /home/elliot/.ssh/id_rsa
+# Enter passphrase for /home/admin/.ssh/id_rsa:
+# Identity added: /home/admin/.ssh/id_rsa
 
 # 4. Verify passwordless SSH works
 ssh node1 "hostname"  # should print node1's hostname without password prompt
@@ -88,7 +88,7 @@ ubuntu
 
 # Variables for all hosts in a group
 [webservers:vars]
-ansible_user=elliot
+ansible_user=admin
 ansible_python_interpreter=/usr/bin/python3
 
 # Single host with custom port
@@ -101,7 +101,7 @@ node5 ansible_host=192.168.1.14 ansible_port=2222 ansible_user=admin
 # ansible.cfg (in project directory — takes priority over /etc/ansible/ansible.cfg)
 [defaults]
 inventory     = inventory.ini
-remote_user   = elliot
+remote_user   = admin
 host_key_checking = False       # disable SSH fingerprint check (dev only)
 stdout_callback = yaml          # nicer output format
 
@@ -113,7 +113,7 @@ pipelining = True               # faster execution — reuses SSH connection
 
 ```bash
 # Ping all hosts — tests SSH connectivity and Python on managed nodes
-[elliot@control plays]$ ansible all -m ping
+[admin@control plays]$ ansible all -m ping
 
 node4 | SUCCESS => {
     "ansible_facts": {
@@ -176,7 +176,7 @@ ansible-doc file
 
 ```bash
 # Create first-playbook.yml
-[elliot@control plays]$ cat first-playbook.yml
+[admin@control plays]$ cat first-playbook.yml
 ---
 - name: first play
   hosts: all
@@ -184,14 +184,14 @@ ansible-doc file
     - name: create a new file
       file:
         path: /tmp/foo.conf
-        mode: 0664
-        owner: elliot
+        mode: '0664'
+        owner: admin
         state: touch
 ```
 
 ```bash
 # Run it
-[elliot@control plays]$ ansible-playbook first-playbook.yml
+[admin@control plays]$ ansible-playbook first-playbook.yml
 
 PLAY [first play] ************
 

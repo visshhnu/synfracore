@@ -106,7 +106,13 @@ helm install release-name ./chart --namespace dev
 helm upgrade release-name ./chart --set image.tag=v2.0
 
 # Install if not exists, upgrade if exists (most common in CI/CD)
-helm upgrade --install release-name ./chart   --namespace prod   --create-namespace   --values values-prod.yaml   --set image.tag=$IMAGE_TAG   --atomic \          # Rollback on failure
+# --atomic rolls back automatically if the upgrade fails
+helm upgrade --install release-name ./chart \
+  --namespace prod \
+  --create-namespace \
+  --values values-prod.yaml \
+  --set image.tag=$IMAGE_TAG \
+  --atomic \
   --timeout 5m
 
 # Dry run (see what would be deployed without applying)

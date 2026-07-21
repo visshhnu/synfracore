@@ -259,19 +259,19 @@ ignored  → task failed but ignore_errors: yes
 rescued  → task failed but block rescue handled it
 ```
 
-## Chapter Reference (O'Reilly Book)
+## Topic Coverage Map
 
 ```
-Ch 1:  Hello Ansible      — install, SSH setup, inventory
-Ch 2:  Ad-Hoc Commands    — ping, command, shell modules
-Ch 3:  Playbooks          — YAML syntax, tasks, handlers
-Ch 4:  Variables/Facts    — vars, vars_files, ansible_facts, set_fact
-Ch 5:  Loops              — loop, dict2items, loop_control
-Ch 6:  Conditionals       — when, register, ansible_facts
-Ch 7:  Jinja2 Templates   — template module, filters, blocks
-Ch 8:  Ansible Vault      — encrypt, decrypt, rekey
-Ch 9:  Roles              — galaxy init, tasks/handlers/templates
-Ch 10: RHEL System Roles  — timesync, selinux, network
-Ch 11: Managing Systems   — package, yum, apt, service, user
-Ch 12: Troubleshooting    — -v flags, --check, blockinfile, lineinfile
+01: Hello Ansible        — install, SSH setup, inventory
+02: Ad-Hoc Commands      — ping, command, shell modules
+03: Playbooks            — YAML syntax, tasks, handlers
+04: Variables/Facts      — vars, vars_files, ansible_facts, set_fact
+05: Loops                — loop, dict2items, loop_control
+06: Conditionals         — when, register, ansible_facts
+07: Jinja2 Templates     — template module, filters, blocks
+08: Ansible Vault        — encrypt, decrypt, rekey
+09: Roles                — galaxy init, tasks/handlers/templates
+10: RHEL System Roles    — timesync, selinux, network
+11: Managing Systems     — package, yum, apt, service, user
+12: Troubleshooting      — -v flags, --check, blockinfile, lineinfile
 ```
