@@ -125,8 +125,11 @@ oc logs <build-pod-name> -n <project>
 # Trigger new build with more verbosity
 oc start-build <buildconfig-name> --follow -n <project>
 
-# If S2I fails on dependencies: clear cache
-oc start-build <buildconfig-name> --build-arg=NOCACHE=1
+# If S2I fails on stale cached dependencies: disable incremental builds
+# (--build-arg only affects Docker-strategy builds, not S2I — it does NOT clear the S2I cache)
+oc patch bc/<buildconfig-name> --type=json \
+  -p '[{"op":"replace","path":"/spec/strategy/sourceStrategy/incremental","value":false}]'
+oc start-build <buildconfig-name> --follow -n <project>
 
 # Fix resource limits if OOMKilled
 oc set resources bc/<name> --limits=memory=1Gi --requests=memory=512Mi
