@@ -120,9 +120,15 @@ aws stepfunctions start-execution \
     }'
 
 # Memory vs Performance tradeoffs:
-# 128MB:  cheapest per GB-second, but slow (no throttling at high concurrency)
+# GB-second pricing is the same rate regardless of memory size — what changes
+# is how MUCH you're billed for, and how fast the function runs (CPU scales
+# with memory). 128MB gives the lowest CPU allocation, so a CPU-bound function
+# can end up costing MORE overall at 128MB than at a higher memory setting,
+# because it runs proportionally slower and racks up more GB-seconds.
 # 1769MB: 1 full vCPU allocated (linear scaling below this)
 # 10240MB: max, 6 vCPUs - use for CPU-intensive tasks like ML inference
+# Use AWS Lambda Power Tuning (above) to find the actual cost/speed optimum
+# for YOUR function rather than assuming lower memory is always cheaper.
 ```
 
 ## Lambda Extensions
@@ -151,8 +157,12 @@ def handler(event, context):
     metrics.add_metric(name="ProcessedOrders", unit=MetricUnit.Count, value=1)
     logger.info("Processing order", extra={"order_id": event.get("order_id")})
 
-    with tracer.capture_method:
-        result = process_order(event)
-
+    result = process_order(event)
     return result
+
+# capture_method is a DECORATOR, not a context manager — apply it to the
+# function you want traced as its own subsegment, not with `with tracer.capture_method:`
+@tracer.capture_method
+def process_order(event):
+    ...
 ```

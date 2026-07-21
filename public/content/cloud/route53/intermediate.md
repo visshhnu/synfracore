@@ -62,7 +62,7 @@ aws route53 change-resource-record-sets --hosted-zone-id $ZONE \
   --change-batch '{
     "Changes": [{"Action":"UPSERT","ResourceRecordSet":{
       "Name":"api.example.com","Type":"A","SetIdentifier":"primary",
-      "Failover":"PRIMARY","HealthCheckId":"$HEALTH_CHECK_ID",
+      "Failover":"PRIMARY","HealthCheckId":"'"$HEALTH_CHECK_ID"'",
       "AliasTarget":{"DNSName":"primary-alb.amazonaws.com","EvaluateTargetHealth":true,"HostedZoneId":"Z1234"}
     }}]
   }'

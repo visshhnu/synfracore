@@ -4,7 +4,7 @@
 
 **AWS DevOps Engineer Professional (DOP-C02)**
 
-*Format*: 75 questions | 180 minutes | 750/1000 | $300 USD
+*Format*: 75 questions | 180 minutes | 750/1000 | $300 USD *(needs verification — exam format/pricing changes over time, check the current AWS Certification page before relying on these numbers)*
 
 ## Related Certifications
 

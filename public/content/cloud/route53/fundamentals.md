@@ -1,5 +1,11 @@
 # AWS Route53 — DNS and Traffic Management
 
+## The Hook
+
+A DNS record is really just a lookup-table row: "for this name, answer with this value." Route 53 hosted zones are that lookup table, hosted on AWS's authoritative name servers. Everything else — weighted routing, health checks, failover — is Route 53 deciding WHICH row to return when there are multiple candidates for the same name, not a change to how DNS itself fundamentally works.
+
+**Analogy** — A `CNAME` record is like telling someone "ask my assistant" — one more hop, one more lookup, before you get an answer. An `ALIAS` record (Route 53's own extension, not a standard DNS record type) is like the assistant being fused directly into your own desk — same one-hop convenience as an `A` record, but AWS transparently keeps the target IP up to date on your behalf, which is exactly why it's the only option that works at a domain's bare apex (`example.com`, not `www.example.com`) where a real CNAME is disallowed by the DNS standard.
+
 ## Core Concepts
 
 ```
@@ -47,21 +53,33 @@ resource "aws_route53_record" "api" {
 
 # Weighted routing — split traffic 90/10
 resource "aws_route53_record" "blue" {
-  zone_id = aws_route53_zone.main.zone_id
-  name    = "app.example.com"
-  type    = "A"
+  zone_id        = aws_route53_zone.main.zone_id
+  name           = "app.example.com"
+  type           = "A"
   set_identifier = "blue"
-  weighted_routing_policy { weight = 90 }
-  alias { name = aws_lb.blue.dns_name; zone_id = aws_lb.blue.zone_id; evaluate_target_health = true }
+  weighted_routing_policy {
+    weight = 90
+  }
+  alias {
+    name                   = aws_lb.blue.dns_name
+    zone_id                = aws_lb.blue.zone_id
+    evaluate_target_health = true
+  }
 }
 
 resource "aws_route53_record" "green" {
-  zone_id = aws_route53_zone.main.zone_id
-  name    = "app.example.com"
-  type    = "A"
+  zone_id        = aws_route53_zone.main.zone_id
+  name           = "app.example.com"
+  type           = "A"
   set_identifier = "green"
-  weighted_routing_policy { weight = 10 }
-  alias { name = aws_lb.green.dns_name; zone_id = aws_lb.green.zone_id; evaluate_target_health = true }
+  weighted_routing_policy {
+    weight = 10
+  }
+  alias {
+    name                   = aws_lb.green.dns_name
+    zone_id                = aws_lb.green.zone_id
+    evaluate_target_health = true
+  }
 }
 ```
 
@@ -119,3 +137,17 @@ dig api.example.com @8.8.8.8
 dig +trace api.example.com
 nslookup api.example.com
 ```
+
+## Try It (2 Minutes)
+
+If you have AWS CLI access to a sandbox account with a hosted zone, watch a change propagate:
+```bash
+aws route53 change-resource-record-sets \
+    --hosted-zone-id /hostedzone/ZXXXXX \
+    --change-batch '{"Changes":[{"Action":"UPSERT","ResourceRecordSet":
+    {"Name":"test.example.com","Type":"A","TTL":60,
+    "ResourceRecords":[{"Value":"203.0.113.9"}]}}]}'
+dig test.example.com   # should resolve within seconds — TTL 60 means clients
+                         # (not Route 53 itself) will re-check it every 60s
+```
+No AWS access handy? Reason through it instead: `dig +trace` above walks from the root name servers down to the authoritative servers for a domain. At which specific step in that chain does Route 53 actually get consulted — and what would `dig +trace` show differently for a domain that DOESN'T use Route 53 at all?

@@ -11,7 +11,7 @@ CloudFormation is AWS's native IaC service. Define JSON/YAML templates, AWS prov
 | Cloud | AWS only | Multi-cloud |
 | State | AWS manages (S3+DynamoDB) | You manage |
 | Rollback | Automatic on failure | Manual |
-| New services | Same-day support | Slightly behind |
+| New services | Usually earlier support (AWS builds it internally) *(needs verification — "same-day" varies by service, not guaranteed)* | Depends on provider release cadence |
 
 ---
 
@@ -62,8 +62,8 @@ Outputs:
 aws cloudformation create-change-set \
   --stack-name my-stack --template-body file://template.yaml \
   --change-set-name preview
-aws cloudformation describe-change-set --change-set-name preview
-aws cloudformation execute-change-set --change-set-name preview
+aws cloudformation describe-change-set --stack-name my-stack --change-set-name preview
+aws cloudformation execute-change-set --stack-name my-stack --change-set-name preview
 ```
 
 Nested stacks: modular templates — parent references child via `AWS::CloudFormation::Stack` with `TemplateURL`.

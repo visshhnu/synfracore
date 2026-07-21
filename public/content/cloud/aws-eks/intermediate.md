@@ -16,6 +16,10 @@ helm upgrade --install karpenter oci://public.ecr.aws/karpenter/karpenter \
     --set controller.resources.requests.memory=1Gi
 
 # NodePool — define what kind of nodes Karpenter can provision
+# apiVersion below is version-specific and HAS changed across Karpenter
+# releases (v1alpha5 -> v1beta1 -> v1 as of Karpenter 1.0) —
+# *(needs verification — check the Karpenter version you're installing
+# and use its matching CRD apiVersion, not necessarily v1beta1)*
 apiVersion: karpenter.sh/v1beta1
 kind: NodePool
 metadata:
@@ -46,7 +50,7 @@ spec:
     memory: 4000Gi
 
 ---
-apiVersion: karpenter.k8s.aws/v1beta1
+apiVersion: karpenter.k8s.aws/v1beta1  # same version caveat as NodePool above
 kind: EC2NodeClass
 metadata:
   name: default

@@ -4,7 +4,7 @@
 
 **Q: What is EKS? Node options?**
 
-EKS is AWS's managed Kubernetes service. AWS manages the control plane. Cost: $0.10/hr per cluster + EC2 nodes.
+EKS is AWS's managed Kubernetes service. AWS manages the control plane. Cost: $0.10/hr per cluster *(needs verification — confirm current EKS pricing page)* + EC2 nodes.
 
 Three node options:
 - **Managed Node Groups**: AWS manages EC2 lifecycle (patching, replacement on failure). You define instance types.

@@ -4,7 +4,7 @@
 
 **AWS Solutions Architect Associate (SAA-C03)**
 
-*Format*: 65 questions | 130 minutes | 720/1000 | $150 USD
+*Format*: 65 questions | 130 minutes | 720/1000 | $150 USD *(needs verification — exam format/pricing changes over time, check the current AWS Certification page before relying on these numbers)*
 
 ## Related Certifications
 
@@ -34,7 +34,7 @@ aws route53 test-dns-answer --hosted-zone-id ZXXXXX --record-name api.example.co
 ## Exam Tips
 
 - Alias: auto-updates IP if ELB/CloudFront IP changes; no TTL charge
-- Health check: 3 regions check endpoint; 30% must fail before marking unhealthy
+- Health check: Route 53 checks from multiple global health-checker locations and requires a majority to agree before marking an endpoint unhealthy *(needs verification — the exact number of checker locations and majority threshold are documented specifics that change; check the current Route 53 health checks documentation rather than relying on a fixed count)*
 - Geolocation: most specific match wins (city > country > continent > default)
 - Weighted routing: weight=0 means no traffic (can keep record for testing)
 

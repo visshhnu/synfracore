@@ -11,8 +11,8 @@ Design and deploy a basic 3-tier application using CloudFormation services. Incl
 ### Steps
 
 1. Draw the architecture diagram first (use draw.io or Excalidraw)
-2. Set up CloudFormation environment with IaC (Terraform or CloudFormation)
-3. Deploy the networking layer (VPC/VNet, subnets, security groups)
+2. Write the CloudFormation template(s) — start with `Parameters` and `Resources` sections only, add `Conditions`/`Mappings` once the basics deploy cleanly
+3. Deploy the networking layer (VPC, subnets, security groups)
 4. Add compute resources and deploy a sample web app
 5. Configure a managed database service
 6. Apply security best practices (IAM, encryption, no public access)
@@ -38,7 +38,7 @@ Build a serverless REST API using CloudFormation managed services. No servers to
 ### Steps
 
 1. Design the API: endpoints, request/response formats
-2. Implement using CloudFormation serverless services
+2. Implement using the `AWS::Serverless-2016-10-31` Transform (SAM) — `AWS::Serverless::Function` + `AWS::Serverless::Api` resources, deployed as a normal CloudFormation stack
 3. Add a managed database/storage backend
 4. Implement authentication and authorization
 5. Set up CI/CD for automated deployments

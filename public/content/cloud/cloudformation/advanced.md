@@ -13,7 +13,7 @@ aws cloudformation create-stack-set \
 # Deploy to all accounts in an OU
 aws cloudformation create-stack-instances \
   --stack-set-name security-baseline \
-  --deployment-targets OrganizationalUnitIds=["ou-abc123"] \
+  --deployment-targets OrganizationalUnitIds=ou-abc123 \
   --regions ap-south-1 us-east-1 \
   --operation-preferences MaxConcurrentPercentage=25,FailureTolerancePercentage=20
 ```

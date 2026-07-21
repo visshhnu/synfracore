@@ -1,6 +1,24 @@
 # AWS EKS — Elastic Kubernetes Service
 
-EKS is AWS's managed Kubernetes service. Like AKS on Azure, AWS manages the control plane (API server, etcd, scheduler) for free — you pay only for worker nodes and data transfer.
+EKS is AWS's managed Kubernetes service. AWS manages the control plane (API server, etcd, scheduler) — you pay a per-cluster control-plane fee plus the cost of whatever worker nodes (EC2 or Fargate) and data transfer you use.
+
+## Why This Exists (The Hook)
+
+Running Kubernetes yourself means standing up and babysitting the control plane: etcd backups, API server high availability, patching Kubernetes version upgrades, certificate rotation — all before you've deployed a single application pod. EKS takes that entire layer off your plate. AWS runs the control plane across multiple AZs, patches and upgrades it (on a schedule you approve), and exposes it to you as a normal Kubernetes API endpoint — you `kubectl apply` against it exactly like any other cluster.
+
+**Analogy** — Self-managed Kubernetes is like owning a car and also being your own mechanic: you're responsible for the engine (control plane) as much as for driving it anywhere. EKS is like using a car with a maintenance contract — the manufacturer keeps the engine running and recalls/patches it for you, and you're only responsible for what you load into the trunk (your worker nodes and workloads) and where you drive.
+
+**Diagram** — who manages what:
+
+```
+AWS-managed (control plane)          You manage (data plane)
+────────────────────────────         ───────────────────────
+API server (multi-AZ)                Worker nodes (EC2 or Fargate)
+etcd (managed, backed up)     <──►    kubectl / Deployments / Services
+Scheduler, controller-manager        Pod specs, resource requests
+                                      Add-ons you choose to install (ALB
+                                      controller, cluster-autoscaler, etc.)
+```
 
 ## EKS vs Self-Managed Kubernetes
 
@@ -10,7 +28,7 @@ EKS is AWS's managed Kubernetes service. Like AKS on Azure, AWS manages the cont
 | **Upgrades** | 1-click or CLI | Manual, complex |
 | **HA control plane** | Built-in (multi-AZ) | You configure |
 | **AWS integration** | Native (IAM, ALB, EBS) | Plugin-based |
-| **Cost** | $0.10/hour per cluster + nodes | Just nodes |
+| **Cost** | $0.10/hour per cluster *(needs verification — confirm current EKS control-plane pricing page)* + nodes | Just nodes |
 | **Best for** | Most production workloads | Advanced customization |
 
 ## Create EKS Cluster
@@ -301,3 +319,15 @@ Managed node groups: AWS handles node provisioning, AMI updates, and termination
 
 **How does IRSA work and why is it better than instance profiles?**
 With instance profiles (the old approach), ALL pods on a node share the same AWS permissions — a compromised pod could access any AWS service the node's role has access to. IRSA (IAM Roles for Service Accounts) uses OIDC federation: each Kubernetes ServiceAccount gets its own IAM role. When a pod starts, the EKS token webhook injects a projected service account token. The AWS SDK exchanges this token for temporary STS credentials scoped to just that role. If a pod is compromised, blast radius is limited to only that pod's permissions.
+
+## Try It (2 Minutes)
+
+If you have `kubectl` access to any Kubernetes cluster (EKS or otherwise, even Minikube/kind), you can see the control-plane/data-plane split concretely:
+```bash
+kubectl cluster-info                 # shows the API server endpoint you're talking to —
+                                       # this is the part EKS manages FOR you
+kubectl get nodes                    # these are the part YOU manage (or Fargate manages per-pod)
+kubectl get componentstatuses 2>/dev/null || echo "not exposed on EKS — that's the point:
+                                       # you never touch etcd/scheduler internals directly"
+```
+No cluster handy? Reason through it instead: if AWS patches a critical CVE in the Kubernetes API server, does your application need to be redeployed, or does the fix land underneath you without any action on your part? What's different if the CVE were instead in the container runtime on your worker nodes?

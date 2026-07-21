@@ -1,5 +1,11 @@
 # AWS Lambda — Fundamentals
 
+## The Hook
+
+You don't provision a server, size an instance, or run `systemctl start` anything for Lambda. You write a function, tell AWS what should invoke it, and upload it. That's the entire deployment surface — no OS to patch, no capacity to plan for.
+
+**Analogy** — A traditional server is like renting an apartment: you pay rent every month whether you're home or not, and you're responsible for its upkeep. Lambda is like a hotel room you're billed for only while you're actually checked in — down to the minute. Walk out (finish executing), and the meter stops.
+
 ## What Lambda Does
 
 ```
@@ -182,3 +188,22 @@ aws lambda put-provisioned-concurrency-config \
 # 4. Reduce deployment package size — only include what you need
 # 5. Increase memory — 1769MB = 1 full vCPU (proportional)
 ```
+
+## Try It (2 Minutes)
+
+If you have AWS CLI access to a sandbox account, package and deploy the handler above yourself:
+```bash
+zip function.zip handler.py
+aws lambda create-function \
+  --function-name fundamentals-test \
+  --runtime python3.12 \
+  --handler handler.handler \
+  --role <your-lambda-execution-role-arn> \
+  --zip-file fileb://function.zip
+
+aws lambda invoke --function-name fundamentals-test \
+  --payload '{"pathParameters":{"userId":"123"}}' \
+  --cli-binary-format raw-in-base64-out out.json
+cat out.json   # expect a 404 — there's no "123" item in a table that doesn't exist yet
+```
+No AWS access handy? Reason through it instead: the handler calls `table.get_item()` before checking whether the table exists — what specific AWS error (not a 404 from your own code) would you expect back if `TABLE_NAME` pointed at a DynamoDB table that was never created?

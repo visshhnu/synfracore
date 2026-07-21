@@ -78,7 +78,7 @@ VpcConfig:
 ```
 
 **Why VPC?**: Access RDS, ElastiCache, or other private resources.
-**VPC caveat**: Adds ~100ms cold start. Use VPC Endpoints for AWS services to avoid NAT Gateway costs.
+**VPC caveat**: Historically, attaching Lambda to a VPC added a significant ENI-creation cold start penalty. AWS re-architected Lambda's VPC networking in 2019 (Hyperplane ENIs, shared across functions in the same subnet/security-group combination), which removed most of that penalty — VPC-attached functions today are not meaningfully slower to cold-start than non-VPC ones in most cases. The remaining reason to avoid VPC when you don't need it is simplicity and avoiding NAT Gateway costs, not cold-start latency. Use VPC Endpoints for AWS service calls (S3, DynamoDB, etc.) so VPC-attached functions don't need a NAT Gateway just to reach other AWS services.
 
 ---
 
@@ -111,5 +111,5 @@ Async: S3, SNS → queued, retries 2x
 Event Source Mapping: SQS, Kinesis → Lambda polls
 
 LAYERS: shared code (max 5). Container: large deps/ML models.
-VPC: adds cold start time. Use VPC Endpoints for AWS services.
+VPC: pre-2019 added real cold-start time via ENI creation; largely fixed by Hyperplane ENIs since. Still use VPC Endpoints for AWS services to skip NAT Gateway.
 ```
