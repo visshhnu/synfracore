@@ -28,14 +28,19 @@ prod branch → deploy to prod (manual sync required)
 ## Production Hardening
 
 ### Disaster Recovery
-```yaml
-# Backup ArgoCD state
-argocd-applicationset-controller backup
+```bash
+# There is no built-in "argocd backup" command -- back up the ArgoCD
+# control-plane objects themselves (they are just Kubernetes resources):
 kubectl get applications -n argocd -o yaml > apps-backup.yaml
 kubectl get appprojects -n argocd -o yaml > projects-backup.yaml
+kubectl get secrets -n argocd -l argocd.argoproj.io/secret-type=repository -o yaml > repo-creds-backup.yaml
+kubectl get configmap argocd-cm argocd-rbac-cm -n argocd -o yaml > config-backup.yaml
 
-# ArgoCD restores from Git automatically - it's self-healing
-# But backup Application CRDs for DR
+# The deployed workload manifests themselves don't need backing up --
+# Git is already the source of truth for those and ArgoCD re-applies them
+# on restore. What actually needs backing up is ArgoCD's OWN state: which
+# Applications/AppProjects exist, repo credentials, and RBAC/config, since
+# none of that is reconstructable from the target clusters' Git repos alone.
 ```
 
 ### High Availability Setup

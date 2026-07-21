@@ -75,7 +75,7 @@ pipeline {
                             stage("Test: ${svc}") {
                                 dir(svc) {
                                     sh 'npm test'
-                                    publishTestResults(testResultsFormat: 'JUnit', testResultsFiles: 'test-results.xml')
+                                    junit "${svc}/test-results.xml"
                                 }
                             }
                         }

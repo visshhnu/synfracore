@@ -272,8 +272,9 @@ stage('Blue-Green Deploy') {
       // Smoke test new environment
       sh "./smoke-test.sh http://myapp-${newEnv}.internal"
       
-      // Switch traffic
-      sh "kubectl patch service myapp-active -p '{"spec":{"selector":{"slot":"${newEnv}"}}}'"
+      // Switch traffic (escape the embedded double quotes -- this is a Groovy
+      // GString, so unescaped " inside it would break the string, not just be JSON)
+      sh "kubectl patch service myapp-active -p '{\"spec\":{\"selector\":{\"slot\":\"${newEnv}\"}}}'"
       
       // Remove old environment after validation
       sh "helm uninstall myapp-${currentEnv}"

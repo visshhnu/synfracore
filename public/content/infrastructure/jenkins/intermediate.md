@@ -142,7 +142,7 @@ services.each { service ->
             shell("./scripts/deploy.sh ${service} \${IMAGE_TAG} production")
         }
         authorizationMatrix {
-            permission('hudson.model.Build:ops-team')
+            permission('hudson.model.Item.Build:ops-team')
         }
     }
 }

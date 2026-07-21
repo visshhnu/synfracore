@@ -97,8 +97,18 @@ kubectl get networkpolicy -n argocd
 
 **Fix:**
 ```bash
-# Option 1: Import existing resources to ArgoCD management
-kubectl annotate deployment myapp -n production   argocd.argoproj.io/managed-by=myapp-argocd-project
+# Option 1: Adopt the existing resource into ArgoCD's tracking instead of
+# recreating it. By default ArgoCD tracks ownership with the
+# app.kubernetes.io/instance label (matching the Application name) -- add
+# that label and the next sync recognizes the resource as already-managed
+# instead of trying to create a duplicate:
+kubectl label deployment myapp -n production app.kubernetes.io/instance=myapp
+
+# If the ArgoCD instance is configured with annotation-based tracking
+# (application.resourceTrackingMethod: annotation in argocd-cm) instead of
+# the label default, use the tracking-id annotation instead:
+kubectl annotate deployment myapp -n production \
+  argocd.argoproj.io/tracking-id=myapp:apps/Deployment:production/myapp
 
 # Option 2: Delete and let ArgoCD recreate
 kubectl delete deployment myapp -n production
@@ -133,6 +143,5 @@ metadata:
   annotations:
     argocd-image-updater.argoproj.io/image-list: myapp=ghcr.io/org/myapp
     argocd-image-updater.argoproj.io/myapp.update-strategy: semver
-    argocd-image-updater.argoproj.io/myapp.tag-match: v*
     argocd-image-updater.argoproj.io/myapp.allow-tags: "regexp:^v[0-9]+\.[0-9]+\.[0-9]+"
 ```

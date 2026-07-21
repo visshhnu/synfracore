@@ -46,9 +46,11 @@ spec:
             post {
                 always {
                     junit 'test-results/*.xml'
-                    publishCoverageGauges([
-                        [metric: 'LINE', threshold: 80]
-                    ])
+                    // Record coverage with the Coverage plugin (record its own
+                    // report format -- e.g. lcov/Cobertura/JaCoCo -- not a generic
+                    // "gauge" step; the exact parser/pattern depends on what your
+                    // test runner emits):
+                    recordCoverage(tools: [[parser: 'COBERTURA', pattern: 'coverage/cobertura-coverage.xml']])
                 }
             }
         }
