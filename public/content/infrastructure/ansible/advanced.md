@@ -139,7 +139,7 @@ Please contact {{ sysadmin }} for any questions or concerns.
 ```yaml
 # defaults/main.yml — default variable values (can be overridden)
 ---
-sysadmin: elliot@linuxhandbook.com
+sysadmin: sysadmin@example.com
 ```
 
 ```yaml
@@ -213,7 +213,7 @@ ansible-galaxy list
 
 ## Managing Software — Module Reference
 
-From the book's Chapter 11 — modules for package management:
+Modules for package management:
 
 ```yaml
 # package — distro-agnostic (auto-detects yum/apt/dnf)

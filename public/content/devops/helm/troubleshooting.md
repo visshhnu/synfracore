@@ -66,12 +66,11 @@ helm get values myapp -n production --all
 **Fix:**
 ```bash
 # Ensure you're passing values correctly
-helm upgrade myapp ./chart     -f values.yaml \              # base values
-    -f values-production.yaml \   # environment override
-    --set image.tag=$(git rev-parse --short HEAD)  # runtime override
-
-# --set overrides -f files
-# Later -f files override earlier -f files
+# -f files are merged left to right (later files win); --set overrides all -f files
+helm upgrade myapp ./chart \
+  -f values.yaml \
+  -f values-production.yaml \
+  --set image.tag=$(git rev-parse --short HEAD)
 ```
 
 ---
