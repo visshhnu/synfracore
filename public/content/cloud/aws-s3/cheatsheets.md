@@ -30,8 +30,8 @@ aws s3 rm s3://my-bucket/prefix/ --recursive
 | S3-IA | Infrequent access | 30 days | Immediate |
 | S3 One Zone-IA | Non-critical, infrequent | 30 days | Immediate |
 | S3 Glacier Instant | Archive, rare access | 90 days | Immediate |
-| S3 Glacier Flexible | Archive | 90 days | 1-12 hours |
-| S3 Glacier Deep Archive | Long-term archive | 180 days | 12-48 hours |
+| S3 Glacier Flexible | Archive | 90 days | 1-12 hours *(needs verification — exact retrieval-tier timing changes over time)* |
+| S3 Glacier Deep Archive | Long-term archive | 180 days | 12-48 hours *(needs verification — exact retrieval-tier timing changes over time)* |
 | S3 Intelligent-Tiering | Unknown pattern | None | Immediate |
 
 ## Bucket Policy Example

@@ -1,5 +1,50 @@
 # AWS S3 — Fundamentals
 
+This section turns the Overview's concepts into things you can actually run: creating a bucket, locking it down, versioning it, and generating time-limited links into it.
+
+**Analogy** — If Overview's warehouse analogy described *what* S3 is, this section is the paperwork you fill out at the front desk: which unit is mine (bucket creation), who's allowed to open it (bucket policy + block public access), can I get an old version of something back if I overwrite it (versioning), and can I hand someone a one-time visitor pass without giving them a key (presigned URLs).
+
+**Diagram** — the four controls covered below, layered on one bucket:
+
+```
+                    +-----------------------------+
+                    |         my-app-assets        |
+                    |  (bucket, one region)         |
+                    |                                |
+  Block Public       |  [ Block Public Access: ON ]  |  <- 4 separate switches
+  Access  ---------->|                                |
+                    |  [ Versioning: Enabled ]       |  <- keeps old copies
+  Versioning ------->|                                |
+                    |  [ Bucket Policy: who/what ]   |  <- resource-based rules
+  Bucket Policy ---->|                                |
+                    |  [ Objects, each with a Key ]  |
+                    +-----------------------------+
+                              ^
+                              |  time-limited signed link
+                    Presigned URL (bypasses the need for the
+                    requester to have AWS credentials at all)
+```
+
+**Annotated example** — create a bucket, lock it down, and confirm the settings, in order:
+```bash
+# 1. Create the bucket (name must be globally unique across ALL AWS accounts)
+aws s3api create-bucket --bucket my-app-assets --region ap-south-1 \
+  --create-bucket-configuration LocationConstraint=ap-south-1
+
+# 2. Immediately block public access — do this before anything else touches the bucket
+aws s3api put-public-access-block --bucket my-app-assets \
+  --public-access-block-configuration BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true
+
+# 3. Turn on versioning so an accidental overwrite/delete is recoverable
+aws s3api put-bucket-versioning --bucket my-app-assets --versioning-configuration Status=Enabled
+
+# 4. Confirm what you just set (don't just trust that the command succeeded)
+aws s3api get-public-access-block --bucket my-app-assets
+aws s3api get-bucket-versioning --bucket my-app-assets
+```
+
+**Try it (2 minutes)** — In a sandbox account (or by reasoning through it if you don't have one handy): create a bucket, upload a file, overwrite it with different content, then run `aws s3api list-object-versions --bucket <bucket>`. You should see two versions of the same key — the "current" one and the one you overwrote. That's the recovery mechanism versioning buys you, and it only works because you turned it on *before* the overwrite happened.
+
 ## Core Concepts
 
 ```
@@ -82,6 +127,7 @@ S3 Glacier Instant:   Archive, ms retrieval. $0.004/GB
 S3 Glacier Flexible:  Minutes to hours retrieval. $0.0036/GB
 S3 Glacier Deep Archive: 12-hour retrieval. $0.00099/GB (cheapest)
 ```
+*(All $/GB figures above need verification — check the current AWS S3 pricing page; these change over time and vary by region. The relative ordering, Standard > Standard-IA > One Zone-IA > Glacier tiers, has been stable.)*
 
 ## Lifecycle Policies
 

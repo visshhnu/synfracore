@@ -60,6 +60,7 @@ SQL Server     → Express, Web, Standard, Enterprise
 Aurora MySQL   → MySQL 5.7/8.0 compatible (serverless v2 option)
 Aurora PostgreSQL → PG 13/14/15 compatible (serverless v2 option)
 ```
+*(needs verification — exact supported engine/version numbers shift over time as AWS adds and deprecates versions; check the current RDS/Aurora "supported versions" docs before relying on this list.)*
 
 ## RDS Proxy
 ```bash

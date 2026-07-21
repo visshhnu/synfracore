@@ -2,6 +2,40 @@
 
 Amazon RDS (Relational Database Service) takes the operational burden of running databases off your team. No OS patching, no manual backups, no replication setup — AWS handles it. Aurora is AWS's cloud-native database that's MySQL/PostgreSQL compatible but up to 5× faster.
 
+## The Analogy
+
+Running your own database on EC2 is like owning a car outright — you do the oil changes, replace the tires, and diagnose the weird noise yourself. RDS is like a car with a maintenance plan — you still drive it (design the schema, write the queries), but AWS handles the servicing (patching, backups, replication, failover). Aurora is like trading that car for one engineered from scratch for the job — same driving experience (you connect with a normal MySQL/PostgreSQL client) but a completely re-engineered engine underneath (a distributed, multi-AZ storage layer instead of a single EBS volume) built for more speed and resilience.
+
+## How It Fits Together
+
+```
+                         ┌──────────────────────────┐
+                         │   App servers (private    │
+                         │   subnet, "app" SG)       │
+                         └────────────┬──────────────┘
+                                      │ writes + reads
+                                      ▼
+                    ┌───────────────────────────────┐
+  AZ-1 (primary)     │   RDS Primary (db subnet grp) │      AZ-2 (standby)
+                    └────────────┬──────────────────┘
+                                 │ synchronous replication (Multi-AZ)
+                                 ▼
+                    ┌───────────────────────────────┐
+                    │   Standby — NOT readable,      │
+                    │   only takes over on failover  │
+                    └───────────────────────────────┘
+
+                                 │ asynchronous replication (separate feature)
+                                 ▼
+                    ┌───────────────────────────────┐
+                    │   Read Replica — IS readable,  │
+                    │   offloads SELECT traffic,     │
+                    │   can be cross-region           │
+                    └───────────────────────────────┘
+```
+
+Multi-AZ (top) and a read replica (bottom) are two independent features that are often confused: Multi-AZ exists purely for HA — the standby cannot serve queries. A read replica exists for read scaling — it can serve queries, but isn't part of automatic failover.
+
 ## RDS vs Aurora vs Self-Managed
 
 | Feature | Self-Managed EC2 | RDS | Aurora |
@@ -15,12 +49,16 @@ Amazon RDS (Relational Database Service) takes the operational burden of running
 | **Cost** | Lowest (infra only) | Medium | Higher (~20%) |
 | **Best for** | Full control | Standard workloads | High performance |
 
+*(needs verification — failover-time figures, storage ceilings, and max read-replica counts are the kind of numbers AWS revises between engine versions; confirm current limits per-engine on the RDS/Aurora quotas page before treating these as exact.)*
+
 ## Supported Engines
 
 ```
 RDS:    MySQL 8.0, PostgreSQL 15, MariaDB, Oracle, SQL Server
 Aurora: Aurora MySQL, Aurora PostgreSQL (cloud-native)
 ```
+
+*(needs verification — exact supported major/minor engine versions change as AWS deprecates old ones and adds new ones; check the current RDS "supported engine versions" docs page for the up-to-date list.)*
 
 ## Create RDS Instance (Terraform)
 
@@ -151,7 +189,7 @@ resource "aws_rds_cluster" "aurora" {
   storage_encrypted = true
 
   serverless_v2_scaling_configuration {
-    min_capacity = 0.5    # 0.5 ACU minimum (~0.5GB RAM)
+    min_capacity = 0.5    # 0.5 ACU minimum (~1GB RAM — 1 ACU is roughly 2GB RAM + proportional CPU)
     max_capacity = 64     # Scale up to 64 ACU (128GB RAM)
   }
 
@@ -261,6 +299,14 @@ FROM pg_catalog.pg_statio_user_tables
 ORDER BY pg_total_relation_size(relid) DESC
 LIMIT 20;
 ```
+
+## Try It Yourself (2 minutes)
+
+You don't need to launch anything to build the right mental model — just read one running instance's console page:
+
+1. In the AWS Console, go to RDS → Databases (or run `aws rds describe-db-instances` if you have a sandbox instance).
+2. Find the **Multi-AZ** field and the **Endpoint** field for one instance.
+3. Notice there is only *one* endpoint even when Multi-AZ is enabled — the standby has no endpoint of its own, because it isn't reachable for queries. Compare that to a read replica, which always gets its *own*, separate endpoint (visible as a distinct row in the same Databases list) — that's the fastest way to visually tell the two apart in a console you didn't set up yourself.
 
 ## Interview Questions
 
