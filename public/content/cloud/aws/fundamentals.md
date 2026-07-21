@@ -2,7 +2,7 @@
 
 ## AWS Global Infrastructure
 
-AWS has 33+ Regions globally. Each Region is an independent geographic area with its own electricity, cooling, and networking, and contains 2-6 Availability Zones (AZs) — one or more physical data centres with independent power and connectivity, connected to other AZs in the same region via private high-bandwidth links.
+AWS has 30+ Regions globally *(needs verification — exact count changes as AWS opens new regions)* and each Region is an independent geographic area with its own electricity, cooling, and networking, and contains 2-6 Availability Zones (AZs) — one or more physical data centres with independent power and connectivity, connected to other AZs in the same region via private high-bandwidth links.
 
 **Why this matters for architecture:** deploying across 2+ AZs gives automatic resilience — if one AZ goes down (fire, power failure), the application keeps running in the others. Deploying across 2+ Regions protects against regional failures and lets you serve users with lower latency.
 
@@ -144,7 +144,7 @@ aws ce get-cost-and-usage --time-period Start=2026-06-01,End=2026-07-01 \
 
 |  | AWS EKS | Azure AKS |
 |---|---|---|
-| Control plane cost | $0.10/hr per cluster ($73/month) | Free — Azure manages for free |
+| Control plane cost | Charged per cluster-hour *(needs verification — exact rate)* | Historically no separate charge *(needs verification — confirm current pricing)* |
 | Node identity | IAM Roles for Service Accounts (IRSA) | Workload Identity (Azure AD federation) |
 | Node types | Managed Node Groups, Self-managed, Fargate | Node Pools (system + user) |
 | Networking | VPC CNI — pods get VPC IPs | Azure CNI — pods get VNet IPs |
@@ -183,10 +183,10 @@ Lambda runs code in response to events without managing any servers — deploy a
 | Concept | Explanation |
 |---|---|
 | Trigger | What invokes the function: API Gateway (HTTP), S3 event (file upload), SQS message, EventBridge schedule (cron), DynamoDB stream |
-| Execution environment | Isolated container, 512MB-10GB memory, up to 15 minutes runtime, ephemeral `/tmp` storage |
-| Cold start | First invocation after idle: 100ms-3s latency to initialise the container — mitigated with Provisioned Concurrency |
-| Concurrency | Each concurrent request gets its own execution environment; default limit is 1000 concurrent per region |
-| Pricing | Pay per invocation ($0.20 per million) plus duration (per GB-second); first 1 million requests/month free |
+| Execution environment | Isolated container, configurable memory, up to 15 minutes runtime, ephemeral `/tmp` storage *(needs verification — exact memory min/max against current AWS Lambda docs)* |
+| Cold start | First invocation after idle: roughly 100ms-3s latency to initialise the container — mitigated with Provisioned Concurrency *(needs verification — range varies heavily by runtime)* |
+| Concurrency | Each concurrent request gets its own execution environment *(needs verification — exact default unreserved concurrency limit per region/account)* |
+| Pricing | Pay per invocation plus duration (per GB-second) *(needs verification — exact per-million-request price and free-tier allowance)* |
 
 **Lambda in DevOps:** automated remediation, where a CloudWatch alarm triggers a Lambda that restarts an ECS service or scales up capacity; a CI/CD webhook processor, where API Gateway receives a GitHub webhook and Lambda triggers CodePipeline; scheduled maintenance, where an EventBridge cron triggers Lambda to stop dev environments at night; log processing, where an S3 event triggers Lambda to forward logs to Elasticsearch; and a Slack/Teams bot, where API Gateway plus Lambda handles slash commands from an ops chat.
 
