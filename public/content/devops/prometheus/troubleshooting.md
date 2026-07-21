@@ -166,4 +166,4 @@ kubectl logs grafana-pod -n monitoring | grep -i error | tail -20
 - Set data source URL to: `http://prometheus:9090` (internal cluster DNS, not external)
 - Check time zone: Grafana dashboard time zone must match browser/server
 - For template variables: use `$__rate_interval` instead of fixed `[5m]`
-- Increase scrape interval if data is sparse: queries over `[1m]` won't work if scrape is every 2 minutes
+- If the scrape interval is long relative to the query range, `rate()`/`increase()` need at least two samples inside the window to return anything — a `[1m]` range with a 2-minute scrape interval comes back empty. Fix it by widening the query range (e.g. `[5m]` instead of `[1m]`) or scraping more frequently — not by increasing the scrape interval further, which makes the gap worse.

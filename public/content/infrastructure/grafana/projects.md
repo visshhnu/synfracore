@@ -29,58 +29,57 @@ Set up a complete, production-ready Grafana environment from scratch with proper
 
 ---
 
-## Project 2: Grafana CI/CD Pipeline
+## Project 2: RED-Method Dashboard-as-Code for a Multi-Service App
 
 **Level:** Intermediate | **Time:** 2-3 days
 
-Build a complete CI/CD pipeline using Grafana that automatically tests, builds, and deploys a sample application on every commit.
+Instrument a small multi-service app (e.g. a Node.js API + worker), scrape it with Prometheus, and build the full RED dashboard (Rate, Errors, Duration) as version-controlled JSON/Jsonnet rather than clicked together in the UI.
 
 ### Steps
 
-1. Create a simple Node.js/Python application with unit tests
-2. Write Grafana configuration for the pipeline
-3. Implement stages: lint → test → build → deploy
-4. Add Docker image building and pushing to registry
-5. Configure environment-specific deployments (dev/staging/prod)
-6. Add Slack/email notifications for success/failure
+1. Instrument each service with `prometheus-client`, exposing request count, error count, and a latency histogram
+2. Write the dashboard in Grafonnet (or hand-authored JSON) — not the UI — so it's diffable in Git
+3. Add `$service` and `$environment` template variables so one dashboard covers every service
+4. Provision the dashboard and the Prometheus data source via `/etc/grafana/provisioning`, not manual clicks
+5. Add panel-level alert rules for error rate and P99 latency, with a Slack contact point
+6. Store the dashboard JSON and provisioning YAML in Git; document how to regenerate the JSON from source
 
 ### Skills Demonstrated
 
-- CI/CD principles
-- Grafana advanced features
-- Docker integration
+- Dashboard-as-code (Grafonnet/JSON + provisioning)
+- PromQL for the RED method
+- Grafana unified alerting
 
 ### GitHub Repo Name
 
-`grafana-cicd-pipeline`
+`grafana-dashboard-as-code`
 
 ---
 
-## Project 3: Infrastructure Automation with Grafana
+## Project 3: Unified Observability Stack (LGTM) with Trace-to-Log Correlation
 
 **Level:** Advanced | **Time:** 4-5 days
 
-Automate a complete infrastructure deployment using Grafana. Deploy a multi-tier application (web + app + database) with full automation, monitoring, and disaster recovery.
+Stand up the open-source LGTM stack — Loki (logs), Grafana (UI), Tempo (traces), and Prometheus/Mimir (metrics) — for a small instrumented app, and wire them together so a single click moves from a metric spike to the matching trace to the matching log lines.
 
 ### Steps
 
-1. Design the multi-tier architecture (draw diagram first)
-2. Write Grafana configuration for all components
-3. Implement idempotency — run multiple times safely
-4. Add health checks and automatic failure recovery
-5. Implement secret management (no hardcoded credentials)
-6. Write comprehensive tests and runbook documentation
-7. Create a demo video or blog post explaining your solution
+1. Instrument the app with OpenTelemetry (traces) and a Prometheus client library (metrics); ship logs to Loki via Promtail
+2. Deploy Prometheus, Loki, Tempo, and Grafana together (Docker Compose or Helm) with Grafana as the shared query UI
+3. Configure Grafana's Tempo data source with `tracesToLogs`/`tracesToMetrics` so a trace span links directly to its Loki log lines and Prometheus metrics
+4. Build one dashboard combining a metrics panel, a Loki log panel, and a Tempo trace-search panel for the same service
+5. Reproduce a real failure (inject latency or errors) and walk the full path: dashboard spike → trace → span → correlated log line
+6. Document the correlation setup and the failure walkthrough as a runbook
 
 ### Skills Demonstrated
 
-- Production architecture
-- Secret management
-- Testing and documentation
+- Multi-signal observability (metrics + logs + traces)
+- Grafana data source correlation configuration
+- Incident-investigation workflow, not just dashboard-building
 
 ### GitHub Repo Name
 
-`grafana-infrastructure-automation`
+`grafana-lgtm-observability`
 
 ---
 
@@ -97,7 +96,7 @@ Automate a complete infrastructure deployment using Grafana. Deploy a multi-tier
 ## Portfolio Checklist
 
 - [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
+- [ ] At least 1 project with dashboards provisioned as code (not clicked together in the UI)
 - [ ] At least 1 project that solves a real problem
 - [ ] Each project has an architecture diagram
 - [ ] Projects are pinned on your GitHub profile

@@ -13,7 +13,7 @@ Prometheus is a time-series database and alerting system that collects metrics.
 
 **Grafana data sources**: Prometheus, Loki (logs), Tempo (traces), InfluxDB, Elasticsearch, PostgreSQL, CloudWatch, Datadog, and more.
 
-**Grafana** (visualisation) + **Prometheus** (metrics) + **Loki** (logs) + **Tempo** (traces) = Grafana LGTM Stack (open source observability stack).
+**Loki** (logs) + **Grafana** (visualisation) + **Tempo** (traces) + **Mimir** (Prometheus-compatible metrics at scale) = the Grafana **LGTM Stack** (open source observability stack). Note it's Mimir, not Prometheus itself, that completes the acronym — Mimir is Grafana Labs' horizontally-scalable, long-term-storage-capable metrics backend that speaks the same remote-write/PromQL interface Prometheus does.
 
 ---
 
@@ -74,7 +74,7 @@ Condition: IS ABOVE 0.05   # 5% error rate
 For: 5m                    # Must be true for 5 minutes
 Labels: severity=critical, team=backend
 Annotations:
-  summary: "High error rate {{ $value | printf "%.1f" }}%"
+  summary: 'High error rate {{ $value | printf "%.1f" }}%'
   
 Contact points: Slack (#alerts channel), PagerDuty
 Notification policies: severity=critical → PagerDuty | severity=warning → Slack
