@@ -4,7 +4,7 @@
 
 **AWS Solutions Architect Associate (SAA-C03)**
 
-*Format*: 65 questions | 130 minutes | 720/1000 | $150 USD
+*Format*: check current question count, time limit, passing score, and price on the official AWS Certification page before relying on these *(needs verification — exam format and price change periodically; previously stated here as 65 questions, 130 minutes, 720/1000, $150 USD)*
 
 ## Related Certifications
 

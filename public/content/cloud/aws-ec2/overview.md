@@ -8,7 +8,7 @@ Amazon EC2 (Elastic Compute Cloud) provides resizable compute capacity in the cl
 
 ## Instance Types
 
-EC2 has 400+ instance types organized into families:
+EC2 has hundreds of instance types organized into families *(needs verification — exact current count grows regularly as AWS releases new generations)*:
 
 | Family | Optimized For | Example | Use Case |
 |--------|--------------|---------|----------|

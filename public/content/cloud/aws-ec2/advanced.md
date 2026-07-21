@@ -4,7 +4,7 @@
 
 ```python
 # Python script to manage Spot Instance Fleet
-import boto3, json
+import boto3, json, base64
 
 ec2 = boto3.client('ec2')
 
@@ -35,7 +35,7 @@ def create_spot_fleet(target_capacity: int, image_id: str, subnets: list) -> str
             'LaunchSpecifications': launch_specs,
             'IamFleetRole': 'arn:aws:iam::123:role/aws-ec2-spot-fleet-role',
             'TerminateInstancesWithExpiration': True,
-            'ValidUntil': '2025-12-31T00:00:00Z',
+            'ValidUntil': '2027-12-31T00:00:00Z',  # any future date/time -- set based on actual batch job duration
         }
     )
     return response['SpotFleetRequestId']

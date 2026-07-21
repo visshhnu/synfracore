@@ -23,12 +23,12 @@
 
 **Q: How does IAM policy evaluation work?**
 
-Evaluation order (key to memorise):
-1. **Explicit Deny** (anywhere) — always wins
-2. **SCPs (Service Control Policies)** — org-level guardrails
-3. **Resource-based policies** — bucket policies, etc.
-4. **Identity-based policies** — IAM policies attached to user/role
-5. **Default Deny** — if no explicit allow, deny
+Key points to memorise (this is a set of rules evaluated together, not a strict sequential pipeline):
+1. **Default Deny** — nothing is allowed unless something explicitly allows it
+2. **Explicit Deny** (in any applicable policy — SCP, permissions boundary, identity-based, resource-based, or session policy) — always wins, overriding any Allow
+3. **SCPs (Service Control Policies)** and **permissions boundaries** don't grant access themselves — they set the outer ceiling an identity-based/resource-based policy can never exceed
+4. **Identity-based** and **resource-based policies** — both must allow the action for cross-account access; either one alone is enough within the same account
+5. If nothing explicitly allows the action after all applicable policies are considered → **implicit deny**
 
 **Implicit deny**: No policy exists → Denied.
 **Explicit deny**: Policy exists that denies → Always denied (even with allow elsewhere).
@@ -73,7 +73,7 @@ Use case: Allow developers to create IAM roles, but prevent privilege escalation
 
 **Q: What is AWS STS? Common use cases?**
 
-STS (Security Token Service) issues temporary security credentials (up to 36 hours).
+STS (Security Token Service) issues temporary security credentials. Maximum session duration depends on the specific STS API called and how the role/policy is configured (`AssumeRole` sessions are shorter-lived by default than `GetSessionToken`/`GetFederationToken`) *(needs verification — exact default/maximum duration figures per STS API; these are configurable and have changed over time)*.
 
 Common uses:
 - `AssumeRole`: Cross-account access, temporary elevated access
@@ -93,7 +93,7 @@ IAM HIERARCHY: User/Group/Role + Policies
 Users: humans (avoid for apps) | Roles: temporary (EC2, Lambda, cross-account)
 Groups: collection of users | Policies: JSON permissions
 
-EVALUATION: Explicit Deny > SCP > Resource Policy > Identity Policy > Implicit Deny
+EVALUATION: Default Deny, unless something explicitly allows. Explicit Deny anywhere (SCP/boundary/identity/resource/session policy) always wins. SCPs and permission boundaries set a ceiling, they don't grant. Cross-account needs BOTH identity and resource policy to allow.
 
 IRSA: K8s service accounts assume IAM roles via OIDC. No credentials stored.
 Permission Boundaries: cap maximum permissions (prevent escalation)

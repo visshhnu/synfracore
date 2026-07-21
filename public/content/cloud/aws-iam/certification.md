@@ -4,7 +4,7 @@
 
 **AWS Certified Security Specialty (SCS-C02)**
 
-*Format*: 65 questions | 170 minutes | 750/1000 | $300 USD (Security Specialty)
+*Format*: check current question count, time limit, passing score, and price on the official AWS Certification page before relying on these *(needs verification — exam format and price change periodically; previously stated here as 65 questions, 170 minutes, 750/1000, $300 USD)*
 
 ## Related Certifications
 
@@ -13,7 +13,7 @@
 
 ## Key Exam Topics
 
-- Policy evaluation: Explicit Deny > SCP > Resource policy > Identity policy > implicit deny
+- Policy evaluation: default deny, explicit Deny anywhere always wins, SCPs/permission boundaries set a ceiling (don't grant), cross-account access needs both identity and resource policy to allow, otherwise implicit deny
 - IAM condition keys: aws:SourceIp, aws:RequestedRegion, aws:MultiFactorAuthPresent
 - Permission boundaries: set maximum permissions (even if identity policy allows more)
 - SCP (Service Control Policies): org-level maximum permissions (cannot grant)
@@ -34,7 +34,8 @@ aws accessanalyzer list-findings --analyzer-name my-analyzer
 ## Exam Tips
 
 - Never use root account for daily tasks — enable MFA and create admin user
-- Access keys rotate every 90 days — use IAM Access Advisor to find unused permissions
+- Rotate access keys regularly (a common convention is every 90 days, but there's no single AWS-mandated number — set a policy for your account) *(needs verification — treat any specific cadence as a team/compliance policy choice, not a fixed AWS requirement)*
+- Use IAM Access Advisor (the "Access Advisor" tab on a user/role) to find permissions that are attached but have never actually been used, so they can be removed
 - External ID in trust policy prevents confused deputy attack (for third-party access)
 - IAM roles for EC2: attach role to instance profile — no static credentials
 
