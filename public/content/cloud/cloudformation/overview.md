@@ -2,6 +2,24 @@
 
 CloudFormation is AWS's native IaC service. Define your entire AWS infrastructure in YAML or JSON templates, and CloudFormation provisions and manages it as a single stack. It is the AWS alternative to Terraform — no third-party dependency, deep native integration.
 
+## Why This Exists (The Hook)
+
+Clicking through the AWS Console to create a VPC, subnets, an EC2 instance, and security groups works fine once. Do it again for a second environment and you'll misremember a setting, click things in a different order, or just forget a step — and now dev and prod have quietly diverged. CloudFormation solves this by making infrastructure a text file: the same template, applied twice, produces the same infrastructure twice. Change the file, and CloudFormation calculates exactly what needs to change in AWS to match — you never manually track "what did I already create."
+
+**Analogy** — A CloudFormation template is like a furniture assembly instruction sheet with numbered steps, not a photo of a finished room. You don't tell CloudFormation "make my infrastructure look like this picture" — you give it declarative build steps (this VPC, this subnet inside it, this instance inside that), and CloudFormation figures out the order to execute them in (subnet before instance, VPC before subnet) and undoes them cleanly in reverse if you ask it to tear the stack down.
+
+**Diagram** — the deploy lifecycle:
+
+```
+template.yaml  ──apply──►  CloudFormation  ──creates/updates──►  Real AWS resources
+  (source of truth)          engine tracks:                        (VPC, EC2, etc.)
+                              - what exists now (the Stack)
+                              - what changed (a Change Set)
+                              - dependency order (VPC before Subnet
+                                before EC2Instance, automatically
+                                inferred from !Ref / !GetAtt usage)
+```
+
 ## Core Concepts
 
 ```
@@ -31,6 +49,11 @@ Parameters:
     Default: "10.0.0.0/16"
 
 # Computed values
+# NOTE: AMI IDs are region- and release-specific and change frequently as AWS
+# publishes new AMI builds — the two below are illustrative only
+# *(needs verification — look up the current Amazon Linux AMI ID per region,
+# e.g. via the public SSM parameter /aws/service/ami-amazon-linux-latest/...,
+# rather than hardcoding one)*
 Mappings:
   RegionAMI:
     us-east-1:
@@ -64,6 +87,15 @@ Resources:
       AvailabilityZone: !Select [0, !GetAZs ""]
       MapPublicIpOnLaunch: true
 
+  # Elastic IP for the NAT Gateway — NatGateway below references this,
+  # so it must exist as its own resource (a NAT Gateway cannot allocate
+  # its own EIP automatically in a template)
+  ElasticIP:
+    Type: AWS::EC2::EIP
+    Condition: IsProduction
+    Properties:
+      Domain: vpc
+
   # Conditionally create NAT Gateway only in production
   NatGateway:
     Type: AWS::EC2::NatGateway
@@ -77,6 +109,9 @@ Resources:
     Properties:
       ImageId: !FindInMap [RegionAMI, !Ref AWS::Region, ami]
       InstanceType: t3.micro
+      SubnetId: !Ref PublicSubnet   # Without this, the instance launches into
+                                     # the account's default VPC, not the one
+                                     # this template just created
       UserData:
         Fn::Base64: |
           #!/bin/bash
@@ -169,3 +204,11 @@ aws cloudformation delete-stack --stack-name prod-vpc
 | Rollback | Automatic on failure | Manual or with `-target` |
 | Cost | Free | Free (Terraform Cloud paid) |
 | Best for | AWS-only shops | Multi-cloud, existing teams |
+
+## Try It (2 Minutes)
+
+If you have AWS CLI access to a sandbox account, validate the template structure above without deploying anything (`validate-template` only checks syntax and doesn't create resources, so it's safe to run):
+```bash
+aws cloudformation validate-template --template-body file://template.yaml
+```
+No AWS access handy? Reason through it instead: the template above creates `PublicSubnet` with `VpcId: !Ref VPC`, and `VPC` with no dependency on anything else. If you deleted the `VPC` resource block entirely but left `PublicSubnet` referencing it, would `validate-template` catch that mistake, or only `create-stack`? What's the difference between what each command actually checks?

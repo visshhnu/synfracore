@@ -1,5 +1,11 @@
 # AWS CloudFormation — Infrastructure as Code
 
+## The Hook
+
+Every resource in a CloudFormation template is declared, not scripted — you never write "first create the VPC, then create the subnet inside it." You just write both resource blocks, one referencing the other with `!Ref`, and CloudFormation works out the create order from those references (and the reverse order for deletion) on its own.
+
+**Analogy** — Think of `Resources:` as a family tree, not a to-do list. You don't say "do step 1, then step 2." You say "this subnet's parent is this VPC" (`VpcId: !Ref VPC`), and CloudFormation walks the tree to figure out who has to exist before whom — the same way you'd know a grandparent has to exist before a grandchild can, without anyone telling you the order explicitly.
+
 ## Template Structure
 
 ```yaml
@@ -87,7 +93,10 @@ aws cloudformation validate-template --template-body file://template.yaml
 
 # Describe stack and outputs
 aws cloudformation describe-stacks --stack-name my-app-prod
-aws cloudformation describe-stack-outputs --stack-name my-app-prod
+# There is no separate "describe-stack-outputs" subcommand — outputs are a
+# field on the stack description above; extract them with --query:
+aws cloudformation describe-stacks --stack-name my-app-prod \
+    --query 'Stacks[0].Outputs'
 
 # List events (debug failures)
 aws cloudformation describe-stack-events --stack-name my-app-prod \
@@ -104,3 +113,18 @@ aws cloudformation create-change-set \
 aws cloudformation describe-change-set --stack-name my-app-prod --change-set-name my-changes
 aws cloudformation execute-change-set --stack-name my-app-prod --change-set-name my-changes
 ```
+
+## Try It (2 Minutes)
+
+If you have AWS CLI access to a sandbox account, create a change set WITHOUT executing it — this previews what would happen with zero risk of actually changing anything:
+```bash
+aws cloudformation create-change-set \
+    --stack-name my-app-dev \
+    --change-set-name preview-only \
+    --template-body file://template.yaml \
+    --parameters ParameterKey=Environment,ParameterValue=dev
+aws cloudformation describe-change-set --stack-name my-app-dev --change-set-name preview-only
+# Read the "Changes" list — each entry shows Action (Add/Modify/Remove) and
+# whether it requires replacement (destroys and recreates the resource)
+```
+No AWS access handy? Reason through it instead: `InstanceType` in the template above is read via `!FindInMap [InstanceTypes, !Ref Environment, Type]` — it depends entirely on the `Environment` parameter, not on any hardcoded value. If you re-deploy with `Environment=prod` instead of `dev`, does the EC2 instance update in place, or does it have to be destroyed and recreated? (Hint: changing `InstanceType` on `AWS::EC2::Instance` is generally an in-place update, not a replacement — unlike changing something like a VPC's CIDR block.)

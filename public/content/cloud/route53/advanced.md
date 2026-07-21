@@ -87,18 +87,25 @@ aws route53resolver create-resolver-endpoint \
 ## DNSSEC
 
 ```bash
-# Enable DNSSEC signing for hosted zone
-aws route53 enable-hosted-zone-dnssec --hosted-zone-id Z123
+# Correct order matters: a key-signing key must exist and be ACTIVE
+# before you can turn on DNSSEC signing for the zone.
 
-# Create key signing key (KSK) using CMK in KMS
+# 1. Create key signing key (KSK) using a customer-managed CMK in KMS
 aws route53 create-key-signing-key \
   --hosted-zone-id Z123 \
   --key-management-service-arn arn:aws:kms:us-east-1:123456789:key/my-key \
   --name myKSK --status ACTIVE --caller-reference 2025-06-24
 
-# Activate DNSSEC signing
+# 2. Activate the key signing key
 aws route53 activate-key-signing-key \
   --hosted-zone-id Z123 --name myKSK
+
+# 3. Enable DNSSEC signing for the hosted zone
+aws route53 enable-hosted-zone-dnssec --hosted-zone-id Z123
+
+# 4. After enabling, you must also add a DS record for this zone at the
+# domain's registrar (parent zone) to complete the chain of trust —
+# Route 53 signing the zone alone does not do this automatically.
 ```
 
 ## Study Resources

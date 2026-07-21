@@ -74,7 +74,7 @@ eksctl upgrade nodegroup --cluster prod --name standard-workers
 ## Key Concepts
 | Concept | Detail |
 |---------|--------|
-| Control plane | Managed by AWS (no cost for EKS managed) |
+| Control plane | Managed by AWS — you still pay a per-cluster control-plane fee (~$0.10/hr), it's not free *(needs verification — confirm current EKS pricing page)* |
 | Node groups | Managed (AWS handles AMI updates) vs Self-managed |
 | Fargate | Serverless, per-pod billing, no node management |
 | IRSA | IAM Roles for Service Accounts (pod-level IAM) |

@@ -2,6 +2,12 @@
 
 Lambda lets you run code without managing servers. You upload code, define triggers, and AWS handles everything else — provisioning, scaling, patching, and high availability.
 
+## Why This Exists (The Hook)
+
+Normally, running code means keeping a server alive 24/7 — even if it only does real work for a few seconds a day. You patch its OS, size it for peak traffic you rarely hit, and pay for every idle hour in between. Lambda flips that: you hand AWS a function, AWS runs it only when something actually triggers it, and you pay only for the milliseconds it executes. No server to patch, size, or leave running overnight.
+
+**Analogy** — Think of Lambda like an on-call electrician instead of a full-time employee. You don't pay them a salary to sit in an office waiting for a light to go out. You call them when there's a job, they show up, do the work, and leave — you're billed only for the minutes they actually worked. If ten houses call at once, ten electricians show up in parallel; if nobody calls for a week, you pay nothing. Lambda is the same: no invocation, no cost, no idle "employee" to manage.
+
 ## How Lambda Works
 
 ```
@@ -17,10 +23,10 @@ EventBridge   ──→
 **Key facts:**
 - Max execution time: **15 minutes** (900 seconds)
 - Memory: **128MB to 10,240MB** (CPU scales proportionally)
-- Concurrent executions: **1,000 per region** (default, can increase)
+- Concurrent executions: **1,000 per region** (default, can increase) *(needs verification — this default quota has changed before and varies by account/region history, check current AWS Lambda quotas page)*
 - Cold start: First invocation starts a container (~100ms–1s latency)
 - Warm: Subsequent invocations reuse container (~1ms overhead)
-- Free tier: **1 million requests + 400,000 GB-seconds/month**
+- Free tier: **1 million requests + 400,000 GB-seconds/month** *(needs verification — confirm against current AWS Lambda pricing page)*
 
 ## Writing Lambda Functions
 
@@ -303,7 +309,17 @@ aws lambda put-provisioned-concurrency-config \
 A cold start occurs when Lambda needs to create a new container for your function because no warm container is available. Lambda downloads your code, initializes the runtime, and runs your initialization code (outside the handler). This adds 100ms to 2s depending on runtime and package size. Solutions: minimize package size, move initialization outside handler, use Provisioned Concurrency (pre-warm N containers, costs money), or use Lambda SnapStart for Java. For user-facing APIs, cold starts matter; for async processing (SQS, S3), they usually don't.
 
 **How does Lambda pricing work?**
-Lambda charges on two dimensions: number of requests ($0.20 per million) and duration (GB-seconds — memory allocated × execution time). A 256MB function running for 500ms = 0.256 × 0.5 = 0.128 GB-seconds. Free tier: 1M requests and 400,000 GB-seconds/month. For cost optimization: reduce memory to minimum needed (but remember CPU scales with memory), minimize execution time, avoid long idle waits in handler code.
+Lambda charges on two dimensions: number of requests (*needs verification — confirm current per-million-request rate on the AWS Lambda pricing page, this has historically been quoted around $0.20 per million*) and duration (GB-seconds — memory allocated × execution time). A 256MB function running for 500ms = 0.256 × 0.5 = 0.128 GB-seconds. Free tier: 1M requests and 400,000 GB-seconds/month *(needs verification — confirm against current pricing page)*. For cost optimization: reduce memory to minimum needed (but remember CPU scales with memory), minimize execution time, avoid long idle waits in handler code.
 
 **When should you NOT use Lambda?**
 Lambda is not ideal for: long-running workloads (>15 min limit), workloads needing persistent connections (Lambda is stateless), high-throughput streaming requiring sub-millisecond latency, applications needing GPU, or when you need fine-grained control over the execution environment. For these, use ECS Fargate, EC2, or EKS.
+
+## Try It (2 Minutes)
+
+If you have AWS Console access to a sandbox account:
+1. Open the Lambda console → **Create function** → "Author from scratch" → runtime Python 3.12.
+2. Leave the generated `lambda_handler` as-is (it just returns a "hello from Lambda" body) and click **Deploy**.
+3. Click **Test**, accept the default event JSON, and run it — note the reported **Duration** and **Billed Duration** in the result panel.
+4. Run **Test** again immediately — compare the Duration to the first run. The second run reuses the warm container, so it should be visibly faster; that gap *is* the cold start you just read about.
+
+No AWS access handy? Reason through it instead: if AWS bills per-millisecond of execution and there are zero invocations overnight, what's the compute cost for those 8 hours — and how does that compare to an EC2 instance left running the same night?

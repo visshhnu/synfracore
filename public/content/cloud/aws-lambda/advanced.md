@@ -155,7 +155,7 @@ aws lambda publish-version --function-name my-function
 aws lambda create-alias --function-name my-function \
     --name prod --function-version 5
 aws lambda update-alias --function-name my-function \
-    --name prod --routing-config AdditionalVersionWeights={"4"=0.1}  # 10% canary
+    --name prod --routing-config AdditionalVersionWeights={4=0.1}  # 10% canary
 
 # ── INVOKE ────────────────────────────────────────────────
 aws lambda invoke --function-name my-function \

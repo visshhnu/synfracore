@@ -302,7 +302,7 @@ const contentRegistry = new Map<string, string>([
   ["cloud/cloud-run/fundamentals","cloud/cloud-run/fundamentals"],
   ["cloud/cloud-run/intermediate","cloud/cloud-run/intermediate"],
   ["cloud/cloud-run/interview","cloud/cloud-run/interview"],
-  ["cloud/cloud-run/overview","cloud/aws-lambda/overview"],
+  ["cloud/cloud-run/overview","cloud/cloud-run/overview"],
   ["cloud/cloud-run/projects","cloud/cloud-run/projects"],
   ["cloud/cloud-run/roadmap","cloud/cloud-run/roadmap"],
   ["cloud/cloud-security/advanced","cloud/cloud-security/advanced"],

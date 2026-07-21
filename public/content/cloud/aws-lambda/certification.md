@@ -4,7 +4,7 @@
 
 **AWS Certified Developer Associate (DVA-C02)**
 
-*Format*: 65 questions | 130 minutes | 720/1000 | $150 USD
+*Format*: 65 questions | 130 minutes | 720/1000 | $150 USD *(needs verification — exam format/pricing changes over time, check the current AWS Certification page before relying on these numbers)*
 
 ## Related Certifications
 
@@ -19,7 +19,7 @@
 - Lambda layers: shared dependencies, runtimes, custom extensions
 - Lambda@Edge and CloudFront Functions: run code at CDN edge
 - Event sources: API Gateway, ALB, S3, DynamoDB Streams, SQS, SNS, Kinesis
-- Lambda VPC: private subnet + NAT Gateway for internet; adds cold start latency
+- Lambda VPC: private subnet + NAT Gateway for internet access; historically added cold-start latency via ENI creation, largely mitigated since AWS's 2019 Hyperplane ENI networking change — know both the mechanism and that it's no longer the dominant cold-start factor, since exam material predating that change may still frame it as a downside
 
 ## Must-Know CLI Commands
 

@@ -1,5 +1,11 @@
 # AWS EKS — Fundamentals
 
+## The Hook
+
+If you already know Kubernetes, EKS doesn't teach you a new API — `kubectl`, Deployments, Services, and Ingress all work identically. What EKS changes is everything *around* the cluster: how you authenticate to it (IAM instead of a static kubeconfig password), how pods get AWS permissions (IRSA/Pod Identity instead of hand-managed credentials), and how nodes join it (managed node groups or Fargate instead of you `kubeadm join`-ing boxes by hand).
+
+**Analogy** — Think of EKS as a rental kitchen versus building your own restaurant kitchen from scratch. The stove, the oven, the walk-in fridge (the Kubernetes control plane) are already installed, inspected, and maintained by the building owner (AWS). You still bring your own recipes, ingredients, and staff (your Deployments, container images, and workloads) — and you're the one who decides how many cooks (worker nodes) you need on a given night.
+
 ## Create EKS Cluster (Terraform)
 
 ```hcl
@@ -168,3 +174,15 @@ aws eks update-addon \
 # Cert Manager: Automatic TLS certificates
 # Metrics Server: Required for kubectl top and HPA
 ```
+
+## Try It (2 Minutes)
+
+If you have `eksctl` and AWS CLI access to a sandbox account, the fastest way to see IRSA end-to-end:
+```bash
+eksctl utils associate-iam-oidc-provider --cluster prod-cluster --approve
+aws eks describe-cluster --name prod-cluster \
+  --query "cluster.identity.oidc.issuer" --output text
+# Note the OIDC issuer URL printed — this is the trust anchor IAM uses to
+# believe a Kubernetes ServiceAccount token, without any long-lived AWS key
+```
+No AWS access handy? Reason through it instead: the IAM trust policy above scopes access with a `StringEquals` condition on `system:serviceaccount:default:my-app`. If a different namespace deployed a ServiceAccount with the exact same name (`my-app`) in `namespace: staging` instead of `default`, would that pod be able to assume the same IAM role? Why or why not?

@@ -29,30 +29,30 @@ Design and deploy a basic 3-tier application using EKS services. Includes networ
 
 ---
 
-## Project 2: Serverless App on EKS
+## Project 2: Autoscaling API on EKS Fargate
 
 **Level:** Intermediate | **Time:** 3 days
 
-Build a serverless REST API using EKS managed services. No servers to manage — pay per request, auto-scales to millions.
+Build a REST API deployed to EKS running entirely on Fargate — no EC2 worker nodes to manage, pods scale on demand, and you're billed per-pod vCPU/memory rather than per idle node.
 
 ### Steps
 
 1. Design the API: endpoints, request/response formats
-2. Implement using EKS serverless services
-3. Add a managed database/storage backend
-4. Implement authentication and authorization
-5. Set up CI/CD for automated deployments
-6. Load test and optimize for cost
+2. Create a Fargate profile scoped to the API's namespace (`aws eks create-fargate-profile`)
+3. Deploy the app as a standard Kubernetes Deployment + Service — no node group required for these pods
+4. Add a managed database/storage backend (RDS or DynamoDB) reached via IRSA, not stored credentials
+5. Configure Horizontal Pod Autoscaler (HPA) so pod count scales with real traffic
+6. Load test and compare cost against an equivalent EC2-managed-node-group deployment
 
 ### Skills Demonstrated
 
-- Serverless architecture
-- API design
-- Cost optimization
+- Fargate profiles and serverless Kubernetes pods
+- IRSA for database access
+- Cost/autoscaling tradeoffs vs managed node groups
 
 ### GitHub Repo Name
 
-`aws-eks-serverless-api`
+`aws-eks-fargate-api`
 
 ---
 

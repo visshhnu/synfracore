@@ -78,7 +78,7 @@ def lambda_handler(event, context):
 |---------|---------|-----|
 | Timeout | 3 sec | 15 min |
 | Memory | 128 MB | 10,240 MB |
-| Concurrency | 1,000 (account) | Increase by request |
+| Concurrency | 1,000 (account) *(needs verification — default quota, check current AWS Lambda quotas page)* | Increase by request |
 | Package size | — | 50 MB (zip), 250 MB (unzipped) |
 | /tmp storage | — | 10 GB |
 | Env vars | — | 4 KB total |
@@ -86,7 +86,7 @@ def lambda_handler(event, context):
 ## Key Patterns
 ```
 Cold start mitigation: provisioned concurrency | keep-warm pings (not best)
-VPC Lambda: assign subnets + SGs; needs NAT for internet; adds cold start time
+VPC Lambda: assign subnets + SGs; needs NAT for internet; cold-start impact is largely mitigated since AWS's 2019 Hyperplane ENI networking change (was a real penalty before that)
 Layers: shared libraries/dependencies (up to 5 layers, 250 MB unzipped total)
 Destinations: on success or failure → SQS/SNS/EventBridge/Lambda
 Dead letter queue (DLQ): SQS/SNS for failed async invocations
