@@ -4,7 +4,7 @@
 
 **Google Cloud Professional Cloud DevOps Engineer**
 
-*Format*: 50-60 MCQ | 2 hours | 70%+ | $200 USD
+*Format*: 50-60 MCQ | 2 hours | 70%+ | $200 USD *(exact question count, time limit, pass threshold, and price fluctuate across Google's exam updates and regions — verify against the current official exam guide before relying on these numbers)*
 
 ## Related Certifications
 
@@ -34,7 +34,7 @@ gcloud container clusters upgrade prod --master
 ## Exam Tips
 
 - Autopilot: best for most teams — no node sizing decisions, enforced best practices
-- Spot nodes: 60-91% cheaper; evicted after 24hr or when Spot market needs capacity
+- Spot nodes: substantially cheaper than on-demand *(exact discount range needs verification — it floats with real-time capacity, not a fixed percentage)*; evicted after 24hr or when Spot market needs capacity
 - Node auto-provisioning: Standard mode only; creates new node pool sized to pending pod
 - Private clusters: no external node IPs; requires Cloud NAT for outbound internet
 

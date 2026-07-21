@@ -2,91 +2,90 @@
 
 Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
 
-## Project 1: BigQuery Architecture Design
+## Project 1: Partitioned/Clustered Analytics Warehouse
 
 **Level:** Beginner | **Time:** 2 days
 
-Design and deploy a basic 3-tier application using BigQuery services. Includes networking, compute, database, and basic security.
+Load a public or synthetic event dataset (e.g. clickstream, orders, or one of BigQuery's public datasets) into a properly partitioned and clustered table, then write a set of analytical queries against it and measure the bytes-scanned difference against an un-partitioned copy of the same data.
 
 ### Steps
 
-1. Draw the architecture diagram first (use draw.io or Excalidraw)
-2. Set up BigQuery environment with IaC (Terraform or CloudFormation)
-3. Deploy the networking layer (VPC/VNet, subnets, security groups)
-4. Add compute resources and deploy a sample web app
-5. Configure a managed database service
-6. Apply security best practices (IAM, encryption, no public access)
+1. Load raw data into an un-partitioned staging table with `bq load`
+2. Design and create a target table: `PARTITION BY DATE(...)`, `CLUSTER BY` on your most commonly filtered columns
+3. Backfill the partitioned table from staging with an `INSERT ... SELECT`
+4. Write 3-5 realistic analytical queries (daily rollups, top-N, cohort-style joins)
+5. Run each query against both the staging table and the partitioned/clustered table, and record bytes scanned for each (use dry run or `INFORMATION_SCHEMA.JOBS_BY_PROJECT`)
+6. Document the before/after bytes-scanned comparison in your README — this is the actual point of the project
 
 ### Skills Demonstrated
 
-- BigQuery core services
-- IaC
-- Cloud security basics
+- Partitioning and clustering design
+- Query cost analysis
+- BigQuery SQL
 
 ### GitHub Repo Name
 
-`bigquery-3tier-architecture`
+`bigquery-partitioned-warehouse`
 
 ---
 
-## Project 2: Serverless App on BigQuery
+## Project 2: BigQuery ML Churn/Classification Model
 
 **Level:** Intermediate | **Time:** 3 days
 
-Build a serverless REST API using BigQuery managed services. No servers to manage — pay per request, auto-scales to millions.
+Build an end-to-end BigQuery ML pipeline entirely in SQL — no data ever leaves BigQuery. Train a classification model, evaluate it, and serve predictions back into a table a dashboard could read from.
 
 ### Steps
 
-1. Design the API: endpoints, request/response formats
-2. Implement using BigQuery serverless services
-3. Add a managed database/storage backend
-4. Implement authentication and authorization
-5. Set up CI/CD for automated deployments
-6. Load test and optimize for cost
+1. Assemble a labeled feature table (a public dataset with a binary outcome column, or synthetic data you generate)
+2. Split into train/test (`data_split_method` or a manual `WHERE` split)
+3. Train a model with `CREATE MODEL` (logistic regression is a reasonable first choice)
+4. Evaluate with `ML.EVALUATE` and record precision/recall/AUC in your README
+5. Generate predictions with `ML.PREDICT` into a results table
+6. Set up a scheduled query to re-run predictions on new data on a cadence
 
 ### Skills Demonstrated
 
-- Serverless architecture
-- API design
-- Cost optimization
+- BigQuery ML
+- Model evaluation literacy
+- SQL-only ML pipelines
 
 ### GitHub Repo Name
 
-`bigquery-serverless-api`
+`bigquery-ml-classifier`
 
 ---
 
-## Project 3: Cost-Optimized BigQuery Platform
+## Project 3: Cost-Governed Multi-Team Warehouse
 
 **Level:** Advanced | **Time:** 5 days
 
-Design and implement a production platform on BigQuery optimized for both reliability and cost. Implement HA, DR, monitoring, and cost management.
+Design a BigQuery setup for multiple teams sharing one project (or a few projects) — with cost control, access isolation, and monitoring, the way a real data platform team would run it.
 
 ### Steps
 
-1. Analyze requirements: availability target, RTO/RPO, budget
-2. Design multi-AZ/region architecture for high availability
-3. Implement auto-scaling for all compute tiers
-4. Set up centralized logging, monitoring, and alerting
-5. Implement backup and disaster recovery automation
-6. Track costs with budgets and alerts
-7. Optimize: use Reserved Instances/Savings Plans, right-size
+1. Design a dataset layout separating raw/staging/curated data, with clear ownership per dataset
+2. Implement authorized views or row-level access policies so one team's data isn't visible to another by default
+3. Set custom quotas / cost controls so a single runaway query can't blow the whole team's budget
+4. Build a cost-monitoring query against `INFORMATION_SCHEMA.JOBS_BY_PROJECT` and turn it into a scheduled report or dashboard
+5. Add materialized views for the 2-3 most expensive repeated queries you can identify
+6. Document a runbook: what to do when a query is flagged as expensive before it runs (dry-run gate) and after (cost report)
 
 ### Skills Demonstrated
 
-- HA/DR design
-- Cost optimization
-- Enterprise operations
+- Multi-tenant data governance
+- Cost monitoring and control
+- Materialized views and query optimization
 
 ### GitHub Repo Name
 
-`bigquery-production-platform`
+`bigquery-cost-governed-platform`
 
 ---
 
 ## Tips for Great Projects
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Make it real.** Solve an actual problem, even a small one. "Built a partitioned warehouse for my own Strava/finance/reading data and found a real cost-scanning bug" is more impressive than a tutorial clone.
 
 **Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
 

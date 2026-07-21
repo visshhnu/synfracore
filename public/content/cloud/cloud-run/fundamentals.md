@@ -1,5 +1,31 @@
 # Google Cloud Run — Fundamentals
 
+## The hook: revisions make deploys reversible by default
+
+The single habit that separates confident Cloud Run usage from nervous Cloud Run usage is understanding *revisions*. Every `gcloud run deploy` doesn't overwrite anything — it creates a brand-new, immutable revision, and only then repoints the traffic split to it. The old revision is still sitting there, fully deployable, until you delete it. That means "rollback" isn't a redeploy-and-hope operation, it's a traffic-routing operation that takes effect in seconds.
+
+## Analogy
+
+Think of Cloud Run revisions like numbered saved drafts of a document, not a single file you keep overwriting. `deploy` doesn't erase draft 4 to write draft 5 — it saves draft 5 alongside draft 4 and just updates which draft you're currently showing readers (the traffic split). Canary and blue-green deploys are simply showing two drafts to different fractions of your readers at once, and rollback is just switching back to showing draft 4 — the file itself never left.
+
+## Diagram: revisions and traffic splitting
+
+```
+ Revision r1 (100% traffic) ──deploy──► Revision r2 created, --no-traffic
+                                              │
+                              update-traffic --to-tags v2=10 --to-latest=90
+                                              │
+                    ┌─────────────────────────┴─────────────────────────┐
+                    │ r1 (90% of traffic, still fully running)           │
+                    │ r2 tagged "v2" (10% of traffic — canary)           │
+                    └─────────────────────────┬─────────────────────────┘
+                                              │  looks good → promote
+                                    update-traffic --to-latest=100
+                                              │
+                              r2 now serves 100% -- r1 still exists,
+                              rollback = update-traffic --to-revisions r1=100
+```
+
 ## What is Cloud Run
 
 ```
@@ -70,11 +96,17 @@ gcloud run services update-traffic my-service \
 ```
 Cloud Functions:    Single function, HTTP trigger or event
                     Simplest — just write a function
-                    Limited: 540s timeout, 1 CPU, 8GB RAM max
+                    Limited timeout/CPU/RAM ceiling *(exact current limits need
+                    verification against official docs -- these have been
+                    raised over Cloud Functions' history, especially in the
+                    2nd-gen runtime built on Cloud Run itself)*
 
 Cloud Run:          Container, HTTP server
                     More flexible — any language, any dependencies
-                    15 min timeout, 8 CPUs, 32GB RAM
+                    Request timeout, CPU, and memory ceilings are all higher
+                    than Cloud Functions *(exact current maximums need
+                    verification against official docs -- Cloud Run's request
+                    timeout ceiling in particular has been extended over time)*
                     Can run async tasks, background services
 
 GKE:                Full Kubernetes cluster
@@ -110,3 +142,21 @@ gcloud scheduler jobs create http daily-report \
     --uri "https://us-central1-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/PROJECT/jobs/process-data:run" \
     --oauth-service-account-email scheduler@PROJECT.iam.gserviceaccount.com
 ```
+
+## Try it yourself (2 minutes)
+
+Deploy the public hello-world sample image twice under the same service name, and practice the rollback muscle memory before you ever need it in a real incident:
+
+```bash
+gcloud run deploy demo --image us-docker.pkg.dev/cloudrun/container/hello --region us-central1 --allow-unauthenticated
+gcloud run revisions list --service demo --region us-central1   # note revision name, e.g. demo-00001-abc
+
+gcloud run deploy demo --image us-docker.pkg.dev/cloudrun/container/hello --region us-central1 --allow-unauthenticated
+gcloud run revisions list --service demo --region us-central1   # now two revisions exist
+
+# "Roll back" to the first revision -- notice this takes effect immediately,
+# with no rebuild and no redeploy of old code:
+gcloud run services update-traffic demo --to-revisions demo-00001-abc=100 --region us-central1
+```
+Both revisions still exist after this — nothing was deleted, you only moved where traffic points. That's the core mental model this whole section is built around.
+

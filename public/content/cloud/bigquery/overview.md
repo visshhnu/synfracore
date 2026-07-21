@@ -2,6 +2,80 @@
 
 BigQuery is Google's serverless, petabyte-scale data warehouse. You write SQL queries; Google handles all infrastructure, scaling, and optimisation. No clusters to manage, no capacity planning.
 
+## Why this exists (the hook)
+
+Imagine you have a 500GB CSV of user events and you want to know "how many purchases happened per day last month, broken down by country." On a laptop or a single database server, that query might take minutes or fail outright if the data doesn't fit in memory. On a traditional data warehouse (Redshift, on-prem Teradata, a big Postgres box), you'd first have to provision and pay for a cluster sized for your *peak* query load, 24/7, whether you're querying or not. BigQuery's pitch is different: you never provision anything. You run `bq load`, then `SELECT`, and Google spins up however much compute your specific query needs behind the scenes, in parallel, across thousands of machines, then tears it down when the query finishes. You pay per query (or a flat monthly rate if you query heavily and predictably), not for idle capacity.
+
+## Analogy
+
+A traditional data warehouse cluster is like owning a fleet of delivery trucks sized for your busiest possible day — most days, most of the fleet sits idle in the lot, but you still pay for fuel, insurance, and parking on all of them. BigQuery is like calling a delivery service that has effectively unlimited trucks on demand: you pay per delivery (per query), the service instantly allocates however many trucks that specific job needs, and when it's done, those trucks go back into a shared pool for the next customer. You never see or manage a single truck — you just describe what needs delivering (a SQL query) and pay for what actually moved.
+
+## How a query executes (diagram)
+
+```
+   Your SQL query
+        │
+        ▼
+ ┌─────────────────┐   BigQuery's query planner figures out which
+ │  Dremel engine   │   columns/partitions/blocks it actually needs
+ │  (Google's       │   (this is why columnar storage + partitioning +
+ │  distributed     │   clustering matter — they shrink what gets read)
+ │  query system)   │
+ └────────┬─────────┘
+          │  fans out across a temporary pool of workers
+          ▼
+ ┌────────────────────────────────────────┐
+ │ Thousands of machines read only the      │
+ │ needed columns/partitions in parallel,   │
+ │ aggregate, and shuffle results back      │
+ └────────────────┬─────────────────────────┘
+                   ▼
+            Your result set
+     (workers are torn down after — you were
+      never billed for owning them, only for
+      the bytes they had to scan)
+```
+
+## Annotated example
+
+```sql
+-- A partitioned, clustered table: BigQuery only reads the slice of data
+-- your WHERE clause actually needs, instead of the whole table.
+CREATE TABLE my_dataset.events
+PARTITION BY DATE(event_timestamp)   -- one physical partition per day
+CLUSTER BY user_id, event_type       -- data within each partition is
+                                      -- sorted/grouped by these columns
+OPTIONS (
+  require_partition_filter = true    -- refuses to run a query that
+                                      -- forgot a date filter, so nobody
+                                      -- accidentally scans (and pays for)
+                                      -- the entire table's history
+)
+AS SELECT * FROM raw_events;
+
+-- This query only touches ONE day's partition, not the whole table:
+SELECT user_id, COUNT(*) AS events
+FROM my_dataset.events
+WHERE DATE(event_timestamp) = '2024-01-15'   -- partition pruning
+  AND event_type = 'purchase'                -- clustering narrows further
+GROUP BY user_id;
+```
+
+## Try it yourself (2 minutes)
+
+BigQuery gives every project a free tier and Google publishes several fully public datasets you can query without loading anything yourself. In the BigQuery console (or `bq query`), run a dry run first to see cost *before* committing to a real scan:
+
+```sql
+-- Dry run: estimates bytes scanned without actually running the query
+-- (in the console, this happens automatically as you type — watch the
+-- "This query will process X MB/GB" indicator before clicking Run)
+SELECT corpus, SUM(word_count) AS total_words
+FROM `bigquery-public-data.samples.shakespeare`
+GROUP BY corpus
+ORDER BY total_words DESC;
+```
+Compare the bytes-scanned estimate for `SELECT *` versus selecting only the two or three columns you actually need — this is the single fastest lesson in why BigQuery's columnar storage rewards narrow `SELECT` lists.
+
 ## Why BigQuery
 
 ```
@@ -83,10 +157,10 @@ FROM ML.PREDICT(MODEL my_dataset.churn_model,
 ## Cost Management
 
 ```
-Query pricing: $5 per TB scanned (on-demand)
+Query pricing: on-demand pricing is per TB of bytes scanned *(the commonly-cited $5/TB figure needs verification against current official BigQuery pricing — it varies by region and Google has changed pricing tiers before)*
   Use partitioning and clustering to reduce bytes scanned
   
-Storage pricing: $0.02/GB/month active, $0.01/GB/month long-term (90+ days unchanged)
+Storage pricing: active vs long-term (90+ days unmodified) storage are priced differently, with long-term being cheaper *(exact current $/GB/month figures need verification against the official pricing page)*
 
 Cost controls:
   Custom quotas: Limit bytes per user/project per day
