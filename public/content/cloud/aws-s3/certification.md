@@ -4,7 +4,7 @@
 
 **AWS Solutions Architect Associate (SAA-C03)**
 
-*Format*: 65 questions | 130 minutes | 720/1000 | $150 USD
+*Format*: 65 questions | 130 minutes | 720/1000 | $150 USD *(needs verification — question count, timing, passing score, and price are set by AWS and do change between exam versions; check the current SAA-C03 exam guide)*
 
 ## Related Certifications
 
@@ -34,7 +34,7 @@ aws s3api put-public-access-block --bucket my-bucket --public-access-block-confi
 ## Exam Tips
 
 - S3 is eventual consistent for overwrites/deletes — now fully consistent since Dec 2020
-- Presigned URLs: grant temporary access without credentials (up to 12hr; 7 days via STS)
+- Presigned URLs: grant temporary access without credentials. Signed with a long-term IAM user's credentials, they can be valid for up to 7 days. Signed with temporary STS credentials instead, the URL can never outlive those credentials — and STS session duration itself is capped well below 7 days (commonly up to 12 hours by default) *(needs verification — exact current STS session-duration limits/defaults)*
 - S3 Object Lock: WORM (Write Once Read Many) for compliance
 - Requester Pays: bucket owner pays storage, requester pays transfer costs
 

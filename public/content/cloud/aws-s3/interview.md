@@ -13,8 +13,8 @@ S3 is AWS's object storage — unlimited capacity, 99.999999999% (11 nines) dura
 | S3 Standard-IA | Infrequent access | Instant | Lower storage, retrieval fee |
 | S3 One Zone-IA | Infrequent, single AZ | Instant | 20% cheaper than IA |
 | S3 Glacier Instant | Archive, accessed quarterly | Instant | Cheap |
-| S3 Glacier Flexible | Archive, retrieved in hours | 1-12 hrs | Very cheap |
-| S3 Glacier Deep Archive | Long-term archive | 12-48 hrs | Cheapest |
+| S3 Glacier Flexible | Archive, retrieved in hours | 1-12 hrs *(needs verification — exact retrieval-tier timing changes over time)* | Very cheap |
+| S3 Glacier Deep Archive | Long-term archive | 12-48 hrs *(needs verification — exact retrieval-tier timing changes over time)* | Cheapest |
 
 Lifecycle policies automate transition between classes.
 
@@ -55,7 +55,7 @@ Requirements: Versioning must be enabled on both source and destination.
 
 - **Multipart upload**: For objects >100MB. Upload in parallel parts. Required for >5GB.
 - **Transfer Acceleration**: Routes through CloudFront edge locations for faster uploads from geographically distant clients.
-- **Prefix sharding**: S3 scales to 3,500 PUT/5,500 GET per prefix. Add random prefixes for high-throughput workloads.
+- **Prefix sharding**: S3 supports up to 3,500 PUT/COPY/POST/DELETE and 5,500 GET/HEAD requests per second, per prefix, and automatically partitions a bucket across many prefixes as request rates increase — there's no manual step needed for this to kick in. Manually randomizing key prefixes is largely legacy advice from before S3's automatic scaling (announced 2018); it's now only relevant if you need to burst past a single prefix's limits immediately, since S3's auto-partitioning takes some time to react to a sudden spike.
 - **S3 Select**: Query CSV/JSON data in S3 without downloading entire object (SQL-like).
 
 ## Revision Notes

@@ -1,5 +1,11 @@
 # AWS VPC — Fundamentals
 
+Every AWS account gets a default VPC in each region, but production workloads should never just live in it — you want full control over which subnets exist, which ones can reach the internet, and exactly what can talk to what. This page covers the building blocks you actually configure: subnets, route tables, NAT, Security Groups/NACLs, VPC endpoints, and how VPCs connect to each other.
+
+:::tip Analogy: route tables are the building directory, not the lock on the door
+If a VPC is a gated business park (see the Overview page), a **route table** is the directory sign at the entrance to each building telling delivery trucks which road to take to leave the park — it decides *where traffic can go*, not *who's allowed to send it*. Security Groups and NACLs are the separate locks and guards that decide *who's allowed through*. A subnet with no route to the Internet Gateway is private no matter how open its Security Group is — and a subnet with a route to the IGW is public no matter how strict its Security Group is. These are two independent layers, and mixing them up is one of the most common VPC debugging mistakes.
+:::
+
 ## VPC Architecture
 
 ```
@@ -71,6 +77,12 @@ resource "aws_route_table" "private" {
 }
 ```
 
+**What this actually builds, step by step:** the VPC and its two subnet pairs (public/private, one of each per AZ) don't do anything on their own — they're just address space. The `aws_nat_gateway` resource is what makes the private subnets' internet access *outbound-only*: it deliberately sits inside the **public** subnet (`aws_subnet.public[0].id`) so it can reach the IGW, but nothing on the internet can initiate a connection back through it. The two route tables are what actually separate "public" from "private" in practice — `aws_route_table.public` sends unmatched traffic (`0.0.0.0/0`) straight to the Internet Gateway, while `aws_route_table.private` sends that same catch-all traffic to the NAT Gateway instead. Everything else about a subnet's identity as public or private ultimately traces back to which of these two route tables it's associated with.
+
+:::tip Try It (2 minutes)
+Sketch (on paper or in a text file) a VPC with one public subnet and one private subnet. For each subnet, write down what its `0.0.0.0/0` route table entry points to. Then ask yourself: if you swapped the two entries, what would break? (Answer: the "private" subnet would become directly internet-facing, and the "public" subnet's NAT-dependent instances would lose all outbound internet access, since NAT Gateways themselves must live in a subnet that routes to an IGW.)
+:::
+
 ## Security Groups vs NACLs
 
 ```
@@ -103,7 +115,7 @@ aws ec2 create-vpc-endpoint \
   --vpc-endpoint-type Gateway \
   --route-table-ids rtb-12345
 
-# Interface endpoint — for other AWS services (costs $0.01/hr per AZ)
+# Interface endpoint — for other AWS services (hourly rate + data charges apply)
 aws ec2 create-vpc-endpoint \
   --vpc-id vpc-12345 \
   --service-name com.amazonaws.us-east-1.secretsmanager \
@@ -116,6 +128,8 @@ aws ec2 create-vpc-endpoint \
 # - Saves NAT Gateway data processing costs
 # - Better security (traffic never leaves AWS)
 ```
+
+*(Interface endpoint hourly rate needs verification — check current AWS PrivateLink pricing per AZ; it is billed per-hour per-AZ plus per-GB data processing, unlike the free Gateway endpoint type.)*
 
 ## VPC Peering & Transit Gateway
 

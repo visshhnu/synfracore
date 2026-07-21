@@ -4,11 +4,11 @@
 
 **AWS Advanced Networking Specialty (ANS-C01)**
 
-*Format*: 65 questions | 170 minutes | 750/1000 | $300 USD (Advanced Networking)
+*Format*: 65 questions | 170 minutes | 750/1000 | $300 USD (Advanced Networking) *(needs verification — question count, duration, passing score, and fee are subject to change by AWS; check the current ANS-C01 exam guide)*
 
 ## Related Certifications
 
-- AWS Solutions Architect Associate (VPC is 20-25% of exam)
+- AWS Solutions Architect Associate *(VPC's exact share of the exam blueprint needs verification — domain weightings are revised between exam guide versions)*
 - AWS SysOps
 
 ## Key Exam Topics
@@ -35,7 +35,7 @@ aws ec2 describe-flow-logs
 
 - VPC Peering: must update BOTH route tables; /32 routes to peer VPC resources
 - Transit Gateway: single point; can share across accounts via RAM
-- NAT Gateway: per-AZ for HA; $35+/month + data processing charges
+- NAT Gateway: per-AZ for HA; hourly rate + data processing charges *(exact monthly cost needs verification — check current NAT Gateway pricing for your region)*
 - VPC Flow Logs: capture IP traffic metadata (not payload); send to S3 or CloudWatch
 
 ## Study Plan

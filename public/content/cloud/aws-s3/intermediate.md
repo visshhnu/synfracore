@@ -46,8 +46,15 @@ def handler(event, context):
 
 ```bash
 # Cross-region replication for compliance and DR
+# Versioning must be enabled on BOTH the source bucket AND the destination
+# bucket before replication will work -- CRR/SRR requires it on both sides,
+# not just the source.
 aws s3api put-bucket-versioning \
     --bucket source-bucket \
+    --versioning-configuration Status=Enabled
+
+aws s3api put-bucket-versioning \
+    --bucket destination-bucket \
     --versioning-configuration Status=Enabled
 
 aws s3api put-bucket-replication \

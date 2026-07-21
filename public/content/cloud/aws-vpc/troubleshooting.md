@@ -42,13 +42,11 @@ aws ec2 create-nat-gateway --subnet-id subnet-PUBLIC --allocation-id eipalloc-xx
 
 **Fix:**
 ```bash
-# VPC A route table: add route to VPC B CIDR
-aws ec2 create-route   --route-table-id rtb-VPC-A   --destination-cidr-block 10.1.0.0/16 \   # VPC B CIDR
-  --vpc-peering-connection-id pcx-xxx
+# VPC A route table: add route to VPC B CIDR (10.1.0.0/16)
+aws ec2 create-route --route-table-id rtb-VPC-A --destination-cidr-block 10.1.0.0/16 --vpc-peering-connection-id pcx-xxx
 
-# VPC B route table: add route to VPC A CIDR
-aws ec2 create-route   --route-table-id rtb-VPC-B   --destination-cidr-block 10.0.0.0/16 \   # VPC A CIDR
-  --vpc-peering-connection-id pcx-xxx
+# VPC B route table: add route to VPC A CIDR (10.0.0.0/16)
+aws ec2 create-route --route-table-id rtb-VPC-B --destination-cidr-block 10.0.0.0/16 --vpc-peering-connection-id pcx-xxx
 
 # ALSO update security groups to allow traffic from peer CIDR
 ```
@@ -72,7 +70,7 @@ aws ec2 create-network-acl-entry   --network-acl-id acl-xxx   --rule-number 200 
 
 ## Issue 4: DNS resolution failing in VPC
 
-**Symptom:** `nslookup myservice.production.svc.cluster.local` fails. Private hosted zone records not resolving.
+**Symptom:** `nslookup db.internal.mycompany.com` fails from inside the VPC. Private hosted zone records not resolving. (Note: this only applies to an actual Route53 private hosted zone — an EKS-internal name like `myservice.production.svc.cluster.local` is resolved by the cluster's in-cluster CoreDNS, not Route53, and this fix does not apply to it.)
 
 **Root cause:** VPC DNS attributes not enabled, or Route53 resolver not configured for private zones.
 

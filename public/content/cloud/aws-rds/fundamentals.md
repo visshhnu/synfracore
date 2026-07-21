@@ -1,5 +1,11 @@
 # AWS RDS & Aurora — Fundamentals
 
+Every application eventually needs somewhere durable to put its data, and someone has to keep that database patched, backed up, and running when a server dies at 3am. RDS is AWS's answer: you still design your schema and write your queries exactly like you would against a database you host yourself, but AWS takes over the operational parts — provisioning the underlying server, applying OS/engine patches, taking backups, and handling failover if hardware fails.
+
+## Quick Analogy
+
+Think of RDS the way you'd think of hiring a building superintendent instead of doing all your own home maintenance: you still decide how to furnish and use each room (your schema, your queries, your indexes), but the "super" (AWS) handles the boiler, the plumbing, and calling a backup unit if something breaks overnight. Aurora takes this further — it's like moving into a building that was engineered from the ground up for reliability (distributed storage across multiple AZs) instead of a converted regular house.
+
 ## RDS Overview
 
 ```
@@ -14,6 +20,29 @@ Supported engines:
   SQL Server (Standard/Enterprise)
   Aurora (MySQL-compatible or PostgreSQL-compatible)
 ```
+
+*(needs verification — these are the engine major/minor versions available at time of writing; AWS regularly adds new versions and deprecates old ones, so check the current "supported engine versions" page before relying on this list.)*
+
+## How the Pieces Fit Together
+
+```
+             Client / App tier (private subnet)
+                        │
+                        ▼
+        ┌───────────────────────────────┐
+        │   Security Group (rds SG)      │   inbound 5432 from app SG only
+        └───────────────┬────────────────┘
+                        ▼
+        ┌───────────────────────────────┐
+        │   DB Subnet Group               │   spans private subnets in 2+ AZs
+        │   ┌───────────┐  ┌───────────┐ │
+        │   │ Primary    │  │ Standby   │ │  ← Multi-AZ: sync replication,
+        │   │ (AZ-1)     │  │ (AZ-2)    │ │    standby not readable
+        │   └───────────┘  └───────────┘ │
+        └───────────────────────────────┘
+```
+
+The subnet group, security group, and Multi-AZ standby are the three pieces every production RDS instance needs — miss any one and you either have no HA, an unreachable database, or an accidentally public one.
 
 ## Create RDS Instance (Terraform)
 
@@ -75,7 +104,7 @@ resource "aws_db_instance" "postgres" {
 RDS PostgreSQL/MySQL:
   Standard PostgreSQL/MySQL — fully compatible
   Single-AZ or Multi-AZ (1 standby)
-  Storage: EBS volumes, grow in 10GB increments
+  Storage: EBS volumes, auto-scaling triggers when free space is low *(needs verification — exact increment/threshold formula for storage autoscaling, check current AWS RDS docs)*
   Replicas: Up to 5 read replicas
 
 Aurora:
@@ -88,8 +117,9 @@ Aurora:
   Aurora advantages:
   - 5× throughput vs MySQL, 3× vs PostgreSQL
   - Storage auto-grows to 128TB
-  - Recovery in 30 seconds (vs several minutes for RDS)
-  - Backtrack: Rewind database to any second in last 72h
+  - Recovery in ~30 seconds (vs ~60-120 seconds/1-2 minutes for RDS Multi-AZ)
+  - Backtrack: Rewind database to any second in last 72h (Aurora MySQL only —
+    Aurora PostgreSQL does not support Backtrack)
 
   Aurora disadvantages:
   - More expensive (about 20% higher than equivalent RDS)
@@ -147,3 +177,15 @@ aws rds modify-db-instance \
     --db-instance-class db.r6g.xlarge \
     --apply-immediately  # or --no-apply-immediately for maintenance window
 ```
+
+## Try It Yourself (2 minutes)
+
+If you have access to any RDS instance (even a free-tier `db.t3.micro`), run:
+
+```bash
+aws rds describe-db-instances \
+    --query 'DBInstances[*].[DBInstanceIdentifier,MultiAZ,PubliclyAccessible,Endpoint.Address]' \
+    --output table
+```
+
+Check the `PubliclyAccessible` column specifically. For any real database it should read `False` — if you ever see `True` on a production instance, that's a database reachable from the open internet and worth fixing immediately, regardless of what the security group says.

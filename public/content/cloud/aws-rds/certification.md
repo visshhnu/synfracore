@@ -6,6 +6,8 @@
 
 *Format*: 65 questions | 180 minutes | 750/1000 | $300 USD (DB Specialty)
 
+*(needs verification — question count, duration, passing score, and price are set by AWS and have changed for other specialty exams before; confirm current figures on the official AWS Certified Database - Specialty exam guide before treating these as fixed.)*
+
 ## Related Certifications
 
 - AWS Solutions Architect (databases are 10-15% of SAA)
