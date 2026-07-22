@@ -1,0 +1,7 @@
+node_modules/
+.next/
+.open-next/
+.git/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
