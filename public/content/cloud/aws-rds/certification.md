@@ -60,7 +60,7 @@ PRIMARY EXAM: AWS Certified Database Specialty (DBS-C01)
 
 TOP TOPICS:
   Multi-AZ vs Read Replicas: HA vs performance (Multi-AZ = sync standby, no reads)
-  Aurora: 6-copy replication across 3 AZs, up to 15 read replicas, 5x faster than 
+  Aurora: 6-copy replication across 3 AZs, up to 15 read replicas, 5x faster than MySQL
   Aurora Global Database: cross-region replication < 1 second RPO
   Aurora Serverless v2: auto-scales capacity in fine-grained increments
 ```

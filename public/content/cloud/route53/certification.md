@@ -57,7 +57,7 @@ aws route53 test-dns-answer --hosted-zone-id ZXXXXX --record-name api.example.co
 PRIMARY EXAM: AWS Solutions Architect Associate (SAA-C03)
 
 TOP TOPICS:
-  Routing policies: Simple, Weighted, Latency, Failover, Geolocation, Multi-value,
+  Routing policies: Simple, Weighted, Latency, Failover, Geolocation, Multi-value, IP-based
   Alias records: free, for AWS resources, works at zone apex (example.com)
   CNAME: not at zone apex; small charge; for non-AWS external domains
   Health checks: endpoint (HTTP/HTTPS/TCP), CloudWatch alarm, calculated

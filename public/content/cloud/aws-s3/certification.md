@@ -57,8 +57,8 @@ aws s3api put-public-access-block --bucket my-bucket --public-access-block-confi
 PRIMARY EXAM: AWS Solutions Architect Associate (SAA-C03)
 
 TOP TOPICS:
-  Storage classes: Standard, Intelligent-Tiering, Standard-IA, One Zone-IA, Glacie
-  Lifecycle policies: transition between classes, expire objects, abort multipart 
-  Security: bucket policies, ACLs (legacy), Block Public Access, encryption (SSE-S
-  Replication: CRR (cross-region) and SRR (same-region), replication rules and fil
+  Storage classes: Standard, Intelligent-Tiering, Standard-IA, One Zone-IA, Glacier classes
+  Lifecycle policies: transition between classes, expire objects, abort multipart uploads
+  Security: bucket policies, ACLs (legacy), Block Public Access, encryption (SSE-S3/KMS/C)
+  Replication: CRR (cross-region) and SRR (same-region), replication rules and filters
 ```

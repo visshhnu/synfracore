@@ -16,7 +16,7 @@
 - GKE Standard vs Autopilot: Standard (manage nodes) vs Autopilot (pay per pod, Google manages nodes)
 - Workload Identity: bind K8s ServiceAccount to GCP service account (no static keys)
 - GKE networking: VPC-native clusters (alias IP), private clusters, shared VPC
-- Node pools: system (K8s components) + user (app workloads); Spot nodes for cost
+- Node pools: system (K8s components) + user (app workloads); Spot nodes for cost savings
 - GKE Autopilot: enforces security constraints, optimizes bin packing, no node management
 - Cloud Armor: WAF + DDoS protection integrated with GKE Ingress/Load Balancer
 - Anthos: hybrid/multi-cloud management (GKE on-premises, AWS, Azure)
@@ -57,8 +57,8 @@ gcloud container clusters upgrade prod --master
 PRIMARY EXAM: Google Cloud Professional Cloud DevOps Engineer
 
 TOP TOPICS:
-  GKE Standard vs Autopilot: Standard (manage nodes) vs Autopilot (pay per pod, Go
-  Workload Identity: bind K8s ServiceAccount to GCP service account (no static key
+  GKE Standard vs Autopilot: Standard (manage nodes) vs Autopilot (pay per pod, Google manages nodes)
+  Workload Identity: bind K8s ServiceAccount to GCP service account (no static keys)
   GKE networking: VPC-native clusters (alias IP), private clusters, shared VPC
-  Node pools: system (K8s components) + user (app workloads); Spot nodes for cost
+  Node pools: system (K8s components) + user (app workloads); Spot nodes for cost savings
 ```
