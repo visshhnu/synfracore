@@ -4,13 +4,15 @@
 
 ```bash
 # Docker — quickest setup
+# 8.0 is an older LTS series — prefer 8.4 (LTS) or 9.x (Innovation) for new work
+# *(needs verification — check Oracle's current MySQL Lifetime Support page for 8.0's exact end-of-support date before relying on it)*
 docker run -d --name mysql \
     -e MYSQL_ROOT_PASSWORD=rootpass \
     -e MYSQL_DATABASE=myapp \
     -e MYSQL_USER=appuser \
     -e MYSQL_PASSWORD=apppass \
     -p 3306:3306 \
-    mysql:8.0
+    mysql:8.4
 
 # Connect
 mysql -h 127.0.0.1 -u appuser -p myapp
@@ -125,8 +127,10 @@ WHERE user_id = 1 AND status = 'pending';
 
 ## Replication Setup
 
+MySQL renamed its replication terminology and commands starting in 8.0.23 (`CHANGE MASTER TO` → `CHANGE REPLICATION SOURCE TO`, `START/STOP SLAVE` → `START/STOP REPLICA`, `SHOW SLAVE STATUS` → `SHOW REPLICA STATUS`, `SHOW MASTER STATUS` → `SHOW BINARY LOG STATUS`) and the old master/slave syntax was later removed in the 8.4 LTS release — use the current names below; the old ones will error on a recent install even though a lot of tutorials online still show them.
+
 ```ini
-# Master (primary) my.cnf
+# Source (primary) my.cnf
 [mysqld]
 server-id = 1
 log-bin = mysql-bin
@@ -141,18 +145,18 @@ read-only = 1
 ```
 
 ```sql
--- On master: create replication user
+-- On the source: create replication user
 CREATE USER 'replicator'@'%' IDENTIFIED BY 'repl_password';
-GRANT REPLICATION SLAVE ON *.* TO 'replicator'@'%';
-SHOW MASTER STATUS;  -- Note File and Position
+GRANT REPLICATION SLAVE ON *.* TO 'replicator'@'%';  -- privilege name itself is unchanged
+SHOW BINARY LOG STATUS;  -- note File and Position
 
--- On replica: configure and start
-CHANGE MASTER TO
-    MASTER_HOST='master_host',
-    MASTER_USER='replicator',
-    MASTER_PASSWORD='repl_password',
-    MASTER_LOG_FILE='mysql-bin.000001',  -- from SHOW MASTER STATUS
-    MASTER_LOG_POS=154;
-START SLAVE;
-SHOW SLAVE STATUS\G  -- Check Seconds_Behind_Master = 0
+-- On the replica: configure and start
+CHANGE REPLICATION SOURCE TO
+    SOURCE_HOST='source_host',
+    SOURCE_USER='replicator',
+    SOURCE_PASSWORD='repl_password',
+    SOURCE_LOG_FILE='mysql-bin.000001',  -- from SHOW BINARY LOG STATUS
+    SOURCE_LOG_POS=154;
+START REPLICA;
+SHOW REPLICA STATUS\G  -- check Seconds_Behind_Source = 0
 ```

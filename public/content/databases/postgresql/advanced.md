@@ -78,7 +78,7 @@ DECLARE
     sorted NUMERIC[];
     n INT;
 BEGIN
-    sorted := array_agg(x ORDER BY x) FROM unnest(state) x;
+    SELECT array_agg(x ORDER BY x) INTO sorted FROM unnest(state) x;
     n := array_length(sorted, 1);
     IF n = 0 THEN RETURN NULL; END IF;
     IF n % 2 = 1 THEN RETURN sorted[(n+1)/2]; END IF;

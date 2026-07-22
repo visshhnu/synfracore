@@ -1,102 +1,97 @@
 # MySQL — Portfolio Projects
 
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
+## Project 1: Schema Design and Indexing for a Real Application
 
-## Project 1: MySQL Schema Design Project
+**Level:** Beginner-Intermediate | **Time:** 1-2 days
 
-**Level:** Beginner | **Time:** 2 days
-
-Design and implement a real-world database schema for an e-commerce or social media application using MySQL. Practice normalization, indexing, and query optimization.
+Design a normalized MySQL schema for a realistic small application (a simple e-commerce store, a booking system, or similar), then deliberately test and tune its indexing.
 
 ### Steps
 
-1. Design the entity-relationship diagram on paper first
-2. Implement the schema in MySQL with proper data types
-3. Add constraints (NOT NULL, UNIQUE, CHECK, FOREIGN KEY)
-4. Create indexes for your most common query patterns
-5. Load sample data (use Faker library for realistic data)
-6. Write and optimize 10 complex queries (joins, aggregations, window functions)
+1. Design the schema (at least 4-5 related tables) with correct data types, `utf8mb4` charset, appropriate `PRIMARY KEY`/`FOREIGN KEY`/`UNIQUE` constraints
+2. Seed it with a realistic volume of data (tens of thousands of rows, not just a handful) — small toy datasets hide performance problems that only show up at scale
+3. Write the 5-6 most important queries your application would actually run, and run `EXPLAIN` on each before adding any indexes
+4. Add indexes based on what `EXPLAIN` actually shows (not guesses), and re-run `EXPLAIN` to confirm each index is actually being used
+5. Deliberately test a query with a function wrapped around an indexed column (`WHERE YEAR(created_at) = 2024`) and document the performance difference against the range-comparison equivalent
+6. Write a README explaining each indexing decision with the actual `EXPLAIN` output as evidence, not just the final schema
 
 ### Skills Demonstrated
 
-- Schema design
-- Indexing strategy
-- Query optimization
+- Schema design fundamentals and InnoDB-specific conventions
+- Evidence-based indexing (via `EXPLAIN`), not guesswork
+- Understanding the real performance cost of common query anti-patterns
 
 ### GitHub Repo Name
 
-`mysql-schema-design`
+`mysql-schema-indexing-project`
 
 ---
 
-## Project 2: MySQL Performance Optimization
+## Project 2: Set Up and Test Real MySQL Replication
 
-**Level:** Intermediate | **Time:** 3 days
+**Level:** Intermediate | **Time:** 2-3 days
 
-Take a slow database and make it 10x faster. Profile queries, identify bottlenecks, add indexes, rewrite queries, and set up connection pooling.
+Stand up a primary/replica MySQL setup (Docker Compose is fine) and actually exercise it — configuration alone doesn't demonstrate understanding.
 
 ### Steps
 
-1. Load 1M+ rows of test data
-2. Identify slow queries using EXPLAIN/query profiler
-3. Add appropriate indexes, measure improvement
-4. Rewrite N+1 queries to efficient JOINs
-5. Set up connection pooling (PgBouncer/ProxySQL)
-6. Document before/after query execution plans and timings
+1. Configure two MySQL containers as source and replica using the current, correct replication commands (`CHANGE REPLICATION SOURCE TO`, `START REPLICA`, `SHOW REPLICA STATUS`) — not the removed `MASTER`/`SLAVE` terminology
+2. Confirm replication is actually working: write to the source, confirm the change appears on the replica, and check `Seconds_Behind_Source` stays near zero
+3. Deliberately break replication (stop the replica mid-write, introduce a conflicting write directly on the replica) and practice diagnosing the failure from `SHOW REPLICA STATUS`'s error fields
+4. Set up GTID-based replication as an alternative to file/position-based replication and explain in your README why GTID is generally preferred
+5. Simulate a basic failover: promote the replica to accept writes, and document exactly what steps that required
 
 ### Skills Demonstrated
 
-- Query optimization
-- Index design
-- Database profiling
+- Real, hands-on MySQL replication setup using current (not deprecated) syntax
+- Diagnosing replication failures from actual error output, not just theory
+- Understanding the practical difference between file/position and GTID-based replication
 
 ### GitHub Repo Name
 
-`mysql-performance-tuning`
+`mysql-replication-lab`
 
 ---
 
-## Project 3: MySQL Backend for a REST API
+## Project 3: Query Performance Investigation Under Realistic Load
 
-**Level:** Advanced | **Time:** 4 days
+**Level:** Advanced | **Time:** 3-4 days
 
-Build the complete data layer for a production REST API using MySQL. Includes schema, migrations, stored procedures/aggregations, replication, and monitoring.
+Simulate a production-scale MySQL workload, find real performance problems, and fix them with evidence.
 
 ### Steps
 
-1. Design schema for a social media or SaaS app
-2. Implement migration system (Flyway/Liquibase/Alembic)
-3. Write stored procedures/aggregation pipelines for complex operations
-4. Set up read replica for read scaling
-5. Implement backup strategy with automated testing
-6. Add monitoring: slow query log, connection metrics, disk usage alerts
+1. Generate a large synthetic dataset (millions of rows across related tables) using a script, not manual inserts
+2. Write a handful of realistic application queries and benchmark them under this data volume
+3. Enable the slow query log, set a low `long_query_time`, and identify which of your queries actually qualify as "slow" at this scale
+4. Use `EXPLAIN ANALYZE` (or `EXPLAIN FORMAT=JSON`) to diagnose the root cause of each slow query — missing index, function-wrapped column, N+1 pattern, or something else
+5. Fix each one and benchmark again to quantify the actual improvement (not just "it feels faster" — show before/after numbers)
+6. Cover at least one deadlock scenario: deliberately create two transactions that access rows in different orders, trigger a real deadlock, and document what `SHOW ENGINE INNODB STATUS` reveals about it
 
 ### Skills Demonstrated
 
-- Database migrations
-- Replication
-- Production operations
+- Realistic performance testing at meaningful data scale
+- Systematic root-cause diagnosis using `EXPLAIN`/slow query log, not guesswork
+- Deadlock investigation and prevention
 
 ### GitHub Repo Name
 
-`mysql-api-backend`
+`mysql-performance-investigation`
 
 ---
 
-## Tips for Great Projects
+## Tips for Great MySQL Projects
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Test at realistic scale, not toy data.** A schema and set of indexes that look fine against a thousand rows can behave completely differently against millions — the strongest projects above all involve testing at a volume large enough to actually reveal performance problems.
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+**Show the `EXPLAIN` output, not just the final indexes.** "I added this index" is far less convincing than "here's the `EXPLAIN` output before, showing a full scan, and after, showing an index-only scan."
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
-
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+**Use current syntax.** If your replication project uses `CHANGE MASTER TO` or `SHOW SLAVE STATUS`, that's an immediate, visible signal to anyone reviewing it that the material wasn't verified against current MySQL versions — those commands no longer exist in MySQL 8.4+.
 
 ## Portfolio Checklist
 
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] At least one project demonstrates indexing decisions backed by actual `EXPLAIN` evidence
+- [ ] At least one project involves real, working replication using current SOURCE/REPLICA terminology
+- [ ] At least one project includes a genuine before/after performance comparison with real numbers
+- [ ] Each README explains the reasoning, not just the final configuration
+- [ ] You can walk through any of these projects for 5+ minutes without notes

@@ -26,10 +26,10 @@ GROUP BY u.id;
 pt-query-digest /var/log/mysql/slow.log | head -50
 ```
 
-## MySQL 8.0 Features
+## Modern MySQL Features (window functions, CTEs, JSON — standard since 8.0)
 
 ```sql
--- Window functions (MySQL 8.0+)
+-- Window functions
 SELECT
     name,
     department,
@@ -59,9 +59,46 @@ WHERE JSON_CONTAINS(metadata, '"enterprise"', '$.tags');
 ALTER TABLE orders
 ADD COLUMN total_with_gst DECIMAL(10,2) AS (total * 1.18) STORED;
 
--- Check constraints (MySQL 8.0.16+)
+-- Check constraints
 ALTER TABLE products
 ADD CONSTRAINT chk_price CHECK (price > 0 AND price < 1000000);
+```
+
+## Indexing Strategy — Selectivity and the Leftmost-Prefix Rule
+
+```sql
+-- Composite index: leftmost prefix rule
+CREATE INDEX idx_user_status_date ON orders(user_id, status, created_at);
+
+-- Supports these WHERE clauses:
+-- WHERE user_id = ?
+-- WHERE user_id = ? AND status = ?
+-- WHERE user_id = ? AND status = ? AND created_at > ?
+
+-- Does NOT efficiently support (missing the leftmost column):
+-- WHERE status = ?
+-- WHERE user_id = ? AND created_at > ?   (skips status in the middle)
+
+-- Index selectivity: high cardinality = better index candidate
+SELECT COUNT(DISTINCT status)/COUNT(*) FROM orders;    -- low (bad index candidate)
+SELECT COUNT(DISTINCT user_id)/COUNT(*) FROM orders;    -- high (good index candidate)
+```
+
+## Locking and Deadlocks
+
+```sql
+-- Row locks (InnoDB default)
+SELECT * FROM accounts WHERE id = 1 FOR UPDATE;          -- Exclusive lock
+SELECT * FROM accounts WHERE id = 1 LOCK IN SHARE MODE;  -- Shared lock
+
+-- Deadlock detection is automatic: MySQL auto-rolls back the smaller transaction
+SHOW ENGINE INNODB STATUS;   -- Look for LATEST DETECTED DEADLOCK section
+
+-- Prevent deadlocks:
+-- 1. Always access tables/rows in the SAME order across transactions
+-- 2. Keep transactions short
+-- 3. Use SELECT ... FOR UPDATE only when actually needed
+-- 4. Add indexes (avoids gap locks caused by unindexed range scans)
 ```
 
 ## Replication Types
@@ -78,12 +115,13 @@ ADD CONSTRAINT chk_price CHECK (price > 0 AND price < 1000000);
 -- Simplifies replication setup, automatic position tracking
 -- my.cnf: gtid_mode=ON, enforce_gtid_consistency=ON
 
--- Check replication health
-SHOW SLAVE STATUS\G
+-- Check replication health — SHOW SLAVE STATUS was removed in the 8.4 LTS
+-- release; use SHOW REPLICA STATUS (renamed starting 8.0.23)
+SHOW REPLICA STATUS\G
 -- Key fields:
--- Slave_IO_Running: Yes
--- Slave_SQL_Running: Yes
--- Seconds_Behind_Master: 0 (or low)
+-- Replica_IO_Running: Yes
+-- Replica_SQL_Running: Yes
+-- Seconds_Behind_Source: 0 (or low)
 -- Last_Error: (should be empty)
 
 -- Simulate replication lag detection

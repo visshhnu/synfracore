@@ -21,12 +21,13 @@ MySQL powers some of the largest websites on earth — Facebook, Twitter, YouTub
 
 ```bash
 # Start with Docker
+# 8.0 is an older LTS series — prefer 8.4 (LTS) or 9.x (Innovation) for new work
 docker run -d --name mysql \
     -e MYSQL_ROOT_PASSWORD=rootpass \
     -e MYSQL_DATABASE=myapp \
     -e MYSQL_USER=appuser \
     -e MYSQL_PASSWORD=apppass \
-    -p 3306:3306 mysql:8.0
+    -p 3306:3306 mysql:8.4
 
 # Connect
 mysql -h 127.0.0.1 -u appuser -p myapp
@@ -40,6 +41,42 @@ DESCRIBE users;
 SHOW CREATE TABLE users\G
 SHOW PROCESSLIST;
 ```
+
+## Connecting from Python (connection pooling)
+
+```python
+import mysql.connector
+from mysql.connector import pooling
+
+config = {
+    "host": "localhost", "user": "appuser", "password": "apppass",
+    "database": "myapp", "pool_name": "mypool", "pool_size": 10,
+    "connect_timeout": 10, "use_pure": True,
+}
+pool = mysql.connector.pooling.MySQLConnectionPool(**config)
+
+def execute_query(query: str, params: tuple = (), fetchall: bool = False):
+    conn = pool.get_connection()
+    cursor = conn.cursor(dictionary=True)
+    try:
+        cursor.execute(query, params)
+        if fetchall:
+            return cursor.fetchall()
+        conn.commit()
+        return cursor.lastrowid
+    except mysql.connector.Error:
+        conn.rollback()
+        raise
+    finally:
+        cursor.close()
+        conn.close()
+
+users = execute_query(
+    "SELECT id, email FROM users WHERE is_active = %s LIMIT %s",
+    (1, 100), fetchall=True
+)
+```
+A connection pool matters specifically because opening a new MySQL connection per request is expensive relative to the query itself — reusing a small pool of already-established connections avoids that repeated overhead under real load.
 
 ## Core Concepts
 

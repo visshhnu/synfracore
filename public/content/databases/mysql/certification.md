@@ -8,7 +8,11 @@
 | **MySQL Database Admin OCP** | 1Z0-909 | $245 | MCQ, 90 min |
 | **MySQL Developer** | 1Z0-910 | $245 | MCQ |
 
+*(needs verification — exam codes, pricing, and format details change on Oracle's side; confirm current values on Oracle's certification page before treating any of the above as current)*
+
 Certification path: OCA (1Z0-908) → OCP (1Z0-909) → OCM (hands-on lab exam).
+
+1Z0-908 is officially titled "MySQL 8.0 Database Administrator" — the certification's naming and content still reference MySQL 8.0 even though 8.0 is now an older release relative to the 8.4 LTS/9.x line. *(needs verification — confirm with Oracle's certification page whether exam content has been updated for 8.4/9.x-specific changes, such as the replication command renaming covered below.)*
 
 ---
 
@@ -81,8 +85,8 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON mydb.* TO 'app'@'%';
 SHOW GRANTS FOR 'app'@'%';
 DROP USER 'app'@'%';
 
-# Replication check
-SHOW MASTER STATUS;
+# Replication check — SHOW MASTER STATUS was removed in the 8.4 LTS release
+SHOW BINARY LOG STATUS;
 SHOW REPLICA STATUS;
 ```
 

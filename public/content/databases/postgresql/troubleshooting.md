@@ -13,7 +13,9 @@ WHERE state != 'idle'
 ORDER BY duration DESC;
 
 -- Find slowest queries historically (requires pg_stat_statements extension)
-SELECT query, calls, total_time/calls AS avg_ms,
+-- column names below are current (PostgreSQL 13+ renamed total_time/mean_time
+-- to total_exec_time/mean_exec_time)
+SELECT query, calls, mean_exec_time AS avg_ms,
        rows/calls AS avg_rows
 FROM pg_stat_statements
 ORDER BY avg_ms DESC LIMIT 20;

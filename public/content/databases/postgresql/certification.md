@@ -10,6 +10,8 @@
 
 EDB (EnterpriseDB) is the primary commercial training and certification provider for PostgreSQL.
 
+*(needs verification — pricing and exam format change on the provider's side; confirm current values on EDB's certification page before treating any of the above as current)*
+
 ---
 
 ## Core Topics

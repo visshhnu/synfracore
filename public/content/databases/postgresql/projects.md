@@ -22,8 +22,8 @@ CREATE TABLE users (
 CREATE TABLE orders (
     id         BIGSERIAL PRIMARY KEY,
     user_id    BIGINT NOT NULL REFERENCES users(id),
-    status     TEXT NOT NULL DEFAULT "pending"
-               CHECK (status IN ("pending","paid","shipped","delivered","cancelled")),
+    status     TEXT NOT NULL DEFAULT 'pending'
+               CHECK (status IN ('pending','paid','shipped','delivered','cancelled')),
     total      NUMERIC(12,2) NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -48,9 +48,9 @@ ORDER BY lifetime_value DESC NULLS LAST;
 
 -- Month-over-month growth
 WITH monthly AS (
-    SELECT DATE_TRUNC("month", created_at) AS month,
+    SELECT DATE_TRUNC('month', created_at) AS month,
            SUM(total) AS revenue
-    FROM orders WHERE status != "cancelled"
+    FROM orders WHERE status != 'cancelled'
     GROUP BY 1
 )
 SELECT month, revenue,
@@ -87,13 +87,13 @@ CREATE TABLE sensor_readings (
     value     DOUBLE PRECISION NOT NULL
 );
 
-SELECT create_hypertable("sensor_readings", "time",
-    chunk_time_interval => INTERVAL "1 day");
+SELECT create_hypertable('sensor_readings', 'time',
+    chunk_time_interval => INTERVAL '1 day');
 
 -- Continuous aggregate (pre-computed, auto-refreshing)
 CREATE MATERIALIZED VIEW hourly_averages
 WITH (timescaledb.continuous) AS
-SELECT time_bucket("1 hour", time) AS hour,
+SELECT time_bucket('1 hour', time) AS hour,
     sensor_id, metric,
     AVG(value) AS avg_value,
     MAX(value) AS max_value
