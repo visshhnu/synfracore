@@ -57,8 +57,8 @@ bq show --format=prettyjson mydataset.mytable
 PRIMARY EXAM: Google Cloud Professional Data Engineer
 
 TOP TOPICS:
-  BigQuery architecture: serverless, columnar storage (Dremel), separate compute+s
+  BigQuery architecture: serverless, columnar storage (Dremel), separate compute+storage
   Partitioning: PARTITION BY DATE — prune partitions to scan less data (cost!)
-  Clustering: organize data within partitions by column values (filter/group perfo
-  Slots: units of compute; on-demand (auto-scale) vs reservations (flat-rate, pred
+  Clustering: organize data within partitions by column values (filter/group performance)
+  Slots: units of compute; on-demand (auto-scale) vs reservations (flat-rate, predictable)
 ```

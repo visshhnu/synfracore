@@ -57,8 +57,8 @@ aws cloudformation describe-stack-drift-detection-status --stack-drift-detection
 PRIMARY EXAM: AWS DevOps Engineer Professional (DOP-C02)
 
 TOP TOPICS:
-  Template sections: Parameters, Mappings, Conditions, Resources (required), Outpu
-  Intrinsic functions: !Ref, !GetAtt, !Sub, !Join, !If, !Select, !FindInMap, !Impo
+  Template sections: Parameters, Mappings, Conditions, Resources (required), Outputs
+  Intrinsic functions: !Ref, !GetAtt, !Sub, !Join, !If, !Select, !FindInMap, !ImportValue
   Stack operations: create/update/delete, drift detection, stack policies
   ChangeSets: preview changes before apply; safe production deployments
 ```

@@ -56,8 +56,8 @@ gcloud run jobs execute my-job --wait
 PRIMARY EXAM: Google Cloud Professional Cloud Developer
 
 TOP TOPICS:
-  Cloud Run: serverless containers; scales to zero; pay per request (100ms billing
+  Cloud Run: serverless containers; scales to zero; pay per request (exact billing increment needs verification against official pricing)
   Cloud Run Services vs Jobs: Services (HTTP requests) vs Jobs (one-off tasks)
-  Traffic splitting: deploy new revision → split traffic % for canary or blue-gree
-  Concurrency: max concurrent requests per container instance (default 80, max 100
+  Traffic splitting: deploy new revision → split traffic % for canary or blue-green
+  Concurrency: max concurrent requests per container instance (default 80, max 1000)
 ```
