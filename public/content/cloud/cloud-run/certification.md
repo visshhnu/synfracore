@@ -4,7 +4,7 @@
 
 **Google Cloud Professional Cloud Developer**
 
-*Format*: 50-60 MCQ | 2 hours | 70%+ | $200 USD
+*Format*: 50-60 MCQ | 2 hours | 70%+ | $200 USD *(exact question count, time limit, pass threshold, and price fluctuate across Google's exam updates and regions — verify against the current official exam guide before relying on these numbers)*
 
 ## Related Certifications
 
@@ -12,7 +12,7 @@
 
 ## Key Exam Topics
 
-- Cloud Run: serverless containers; scales to zero; pay per request (100ms billing)
+- Cloud Run: serverless containers; scales to zero; pay per request *(exact current billing increment needs verification against official pricing)*
 - Cloud Run Services vs Jobs: Services (HTTP requests) vs Jobs (one-off tasks)
 - Traffic splitting: deploy new revision → split traffic % for canary or blue-green
 - Concurrency: max concurrent requests per container instance (default 80, max 1000)

@@ -20,7 +20,10 @@ CREATE TABLE orders PARTITION BY DATE(created_at)
 CLUSTER BY customer_id, status
 AS SELECT * FROM source_orders;
 
--- Benefits: clustering reduces scanned data by 50-90% for selective queries
+-- Benefits: clustering can substantially reduce scanned data for selective
+-- queries *(exact reduction range depends entirely on data distribution and
+-- query selectivity, not a fixed percentage — treat any specific number here
+-- as a rough illustration, not a guarantee)*
 -- Best columns for clustering: high cardinality, frequently filtered
 -- Partitioning: date/int range fields
 -- Clustering: up to 4 columns, order matters (put most selective first)

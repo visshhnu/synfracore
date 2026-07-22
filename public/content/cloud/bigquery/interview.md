@@ -15,8 +15,8 @@ BigQuery is Google Cloud's fully managed, serverless, petabyte-scale data wareho
 - **Separation of storage/compute**: Storage is cheap, compute billed per TB scanned
 
 **Pricing:**
-- Storage: $0.02/GB/month (active), $0.01/GB (long-term after 90 days)
-- Queries: $5/TB scanned (on-demand) or flat-rate slots
+- Storage: active vs long-term (after 90 days unmodified) tiers, with long-term cheaper *(exact current $/GB figures need verification against official pricing)*
+- Queries: priced per TB scanned (on-demand) or flat-rate slots *(the commonly-cited $5/TB figure needs verification — verify against the live BigQuery pricing page)*
 
 ---
 

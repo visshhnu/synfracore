@@ -11,10 +11,10 @@ Design and deploy a basic 3-tier application using GKE services. Includes networ
 ### Steps
 
 1. Draw the architecture diagram first (use draw.io or Excalidraw)
-2. Set up GKE environment with IaC (Terraform or CloudFormation)
-3. Deploy the networking layer (VPC/VNet, subnets, security groups)
+2. Set up the GKE environment with IaC (Terraform is the common choice on GCP)
+3. Deploy the networking layer (VPC, subnets, firewall rules)
 4. Add compute resources and deploy a sample web app
-5. Configure a managed database service
+5. Configure a managed database service (e.g. Cloud SQL)
 6. Apply security best practices (IAM, encryption, no public access)
 
 ### Skills Demonstrated
@@ -29,30 +29,30 @@ Design and deploy a basic 3-tier application using GKE services. Includes networ
 
 ---
 
-## Project 2: Serverless App on GKE
+## Project 2: REST API on GKE Autopilot
 
 **Level:** Intermediate | **Time:** 3 days
 
-Build a serverless REST API using GKE managed services. No servers to manage — pay per request, auto-scales to millions.
+Build a REST API deployed on GKE Autopilot mode — no node management, billed per Pod resource request rather than per idle VM. (Note: this is *not* the same billing/scaling model as Cloud Run's true pay-per-request, scale-to-zero serverless — see the Cloud Run academy for that comparison. Autopilot still keeps your Pods running continuously; it just removes node-level ops.)
 
 ### Steps
 
 1. Design the API: endpoints, request/response formats
-2. Implement using GKE serverless services
-3. Add a managed database/storage backend
+2. Deploy to a GKE Autopilot cluster with resource requests set on every container
+3. Add a managed database/storage backend (e.g. Cloud SQL, Firestore)
 4. Implement authentication and authorization
 5. Set up CI/CD for automated deployments
-6. Load test and optimize for cost
+6. Load test with the Horizontal Pod Autoscaler enabled and optimize for cost
 
 ### Skills Demonstrated
 
-- Serverless architecture
+- Autopilot resource-request sizing
 - API design
 - Cost optimization
 
 ### GitHub Repo Name
 
-`gke-serverless-api`
+`gke-autopilot-api`
 
 ---
 
@@ -70,7 +70,7 @@ Design and implement a production platform on GKE optimized for both reliability
 4. Set up centralized logging, monitoring, and alerting
 5. Implement backup and disaster recovery automation
 6. Track costs with budgets and alerts
-7. Optimize: use Reserved Instances/Savings Plans, right-size
+7. Optimize: use Committed Use Discounts and Spot VMs where workloads tolerate interruption, right-size node pools
 
 ### Skills Demonstrated
 

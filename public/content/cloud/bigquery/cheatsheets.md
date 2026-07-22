@@ -77,9 +77,12 @@ CLUSTERING:
   Eliminates blocks containing non-matching values
 
 SLOT OPTIMIZATION:
-  On-demand: $5/TB processed (query cost = data scanned × rate)
+  On-demand: priced per TB processed (query cost = data scanned x rate) --
+    the commonly-cited $5/TB figure needs verification against current
+    official pricing
   Reservations: dedicated slots for predictable workloads
-  Flex Slots: short-term commitment (60s minimum)
+  Flex Slots: short-term slot commitment for burst capacity -- exact minimum
+    commitment duration needs verification against current docs
   Best practice: SELECT only columns needed (avoid SELECT *)
 
 MATERIALIZED VIEWS:

@@ -4,7 +4,7 @@
 
 **Google Cloud Professional Data Engineer**
 
-*Format*: 50-60 MCQ | 2 hours | 70%+ | $200 USD
+*Format*: 50-60 MCQ | 2 hours | 70%+ | $200 USD *(exact question count, time limit, pass threshold, and price fluctuate across Google's exam updates and regions — verify against the current official exam guide before relying on these numbers)*
 
 ## Related Certifications
 
@@ -19,7 +19,7 @@
 - Slots: units of compute; on-demand (auto-scale) vs reservations (flat-rate, predictable)
 - BigQuery ML: train ML models in SQL without moving data to separate service
 - Authorized views: share query results without sharing underlying table
-- Streaming inserts vs batch load: streaming instant but $0.01/200MB; batch free
+- Streaming inserts vs batch load: streaming is near-instant but billed per volume ingested *(exact current streaming-insert pricing needs verification against official docs)*; batch loading is free
 
 ## Must-Know CLI Commands
 

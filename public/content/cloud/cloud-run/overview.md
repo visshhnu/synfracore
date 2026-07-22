@@ -3,23 +3,87 @@
 ## What Is Cloud Run?
 Cloud Run is Google Cloud's fully managed serverless container platform. You package your application in a container, deploy it to Cloud Run, and it automatically scales from zero to thousands of instances based on incoming requests — you pay only for what you use.
 
+## Why this exists (the hook)
+
+Say you've built a small REST API. You containerized it with a `Dockerfile` because that's the standard way to package an app today, but you don't want to run Kubernetes just to serve maybe a handful of requests a day — that's a control plane, node pools, and YAML for something that could be one command. Cloud Run's pitch: give it your container image, and it runs it as an HTTP service, scales the number of running instances up when requests arrive and down to *zero* when they stop, and bills you only for the CPU/memory time actually spent handling requests. No idle server bill, no cluster to patch.
+
+## Analogy
+
+Think of Cloud Run like an on-demand car rental kiosk versus owning a car. Owning a car (a VM or a GKE node pool) means you pay for it whether it's parked in your driveway or on the highway — insurance, depreciation, parking, all the time. Cloud Run is the kiosk: a car (a container instance) is handed to you the moment you need one, you're billed only for the minutes you're actually driving, and when you're done it goes back into the shared pool — if nobody needs a car for a while, the kiosk simply keeps zero cars staffed and ready, costing nothing until the next request pulls up.
+
+## How a request flows through Cloud Run (diagram)
+
+```
+  Request arrives
+        │
+        ▼
+ ┌─────────────────────┐   No running instance? Cloud Run starts one from
+ │ Cloud Run front-end   │   your container image ("cold start" — the request
+ │ (load balancing +     │   waits for the container to boot before it's served)
+ │ autoscaling)           │
+ └──────────┬────────────┘
+            │  instance already warm? route straight to it
+            ▼                                      (instance handles up to
+ ┌────────────────────────┐                          `--concurrency` requests
+ │ Container instance      │◄── multiple concurrent ── at once, by default;
+ │ running your image      │    requests can share      each request doesn't
+ └────────────────────────┘    ONE instance             get its own container)
+            │
+            ▼
+   No new requests for a while → instance is torn down
+   → back to zero running instances → zero cost
+```
+
+## Annotated example: deploy and understand what happened
+
+```bash
+# Build-and-deploy in one step: Cloud Build packages your source into a
+# container image for you, then Cloud Run deploys it.
+gcloud run deploy my-service \
+  --source . \
+  --region us-central1 \
+  --allow-unauthenticated
+# --allow-unauthenticated makes the URL public. Omit it and the service
+# still deploys, but every caller needs a valid IAM-based identity token --
+# the safer default for internal services.
+
+# Read back the auto-generated public URL
+gcloud run services describe my-service \
+  --region us-central1 \
+  --format "value(status.url)"
+```
+
+What actually happened: Cloud Build turned your source into a container image and pushed it to Artifact Registry, Cloud Run created a *revision* (an immutable snapshot of that image plus its config — env vars, memory, CPU), and traffic was routed 100% to that new revision. Every subsequent `gcloud run deploy` creates a *new* revision rather than mutating the old one — which is exactly what makes instant rollback possible: an old revision never disappears, it's just not receiving traffic until you point traffic back at it.
+
+## Try it yourself (2 minutes)
+
+If you have a GCP project with billing enabled (Cloud Run has an always-free monthly tier), deploy Google's public "hello" sample container with zero build step required:
+
+```bash
+gcloud run deploy hello-world \
+  --image us-docker.pkg.dev/cloudrun/container/hello \
+  --region us-central1 \
+  --allow-unauthenticated
+```
+Open the URL it prints. Then wait roughly 15 minutes without hitting it again, and check `gcloud run services describe hello-world --region us-central1` for instance count — you'll see it's scaled back to zero. Hit the URL once more and time how long the response takes versus a second immediate request; the difference you feel is the cold start. *(the exact idle-to-zero timing and cold-start latency are not fixed guarantees and can vary by traffic pattern and image size — treat the exercise as building intuition, not a benchmark.)*
+
 ## Key Features
 - **Fully managed**: No servers, no clusters to manage
 - **Scale to zero**: Pay nothing when idle
 - **Any language**: Deploy any container — Python, Node, Go, Java, Rust
 - **HTTPS by default**: Automatic SSL certificates and custom domains
-- **Request-based billing**: Charged per 100ms of CPU time per request
-- **VPC integration**: Connect to private Cloud SQL, Memorystore, internal services
+- **Request-based billing**: Charged per 100ms of CPU/memory time actually used *(exact current billing granularity and rate need verification against official pricing — this has been the commonly-cited figure but Google has adjusted billing increments before)*
+- **VPC integration**: Connect to private Cloud SQL, Memorystore, internal services via a Serverless VPC Access connector
 
 ## Cloud Run vs Cloud Functions vs GKE
 | Feature | Cloud Run | Cloud Functions | GKE |
 |---------|-----------|----------------|-----|
 | Unit | Container | Function | Pod |
-| Cold start | ~1-2s | ~0.5-1s | None |
-| Max memory | 32 GB | 16 GB | Unlimited |
-| Custom port | ✅ | ❌ | ✅ |
-| Long-running | ✅ (up to 60min) | ❌ | ✅ |
-| Cost model | Per request | Per invocation | Cluster hours |
+| Cold start | Present, image/dependency-size dependent | Present, typically smaller footprint | None (nodes stay warm) |
+| Max memory | Multiple GB, configurable up to a high ceiling *(exact current max needs verification)* | Configurable, lower ceiling than Cloud Run *(exact current max needs verification)* | Bound only by node machine type |
+| Custom port | Yes | No | Yes |
+| Long-running requests | Yes, well beyond a minute *(exact current max request timeout needs verification against official docs — this has increased over Cloud Run's history)* | No — short-lived by design | Yes, unbounded |
+| Cost model | Per request (CPU/memory time) | Per invocation | Cluster/node hours |
 
 ## Common Use Cases
 - REST APIs and microservices
@@ -27,78 +91,7 @@ Cloud Run is Google Cloud's fully managed serverless container platform. You pac
 - Web applications with traffic spikes
 - ML model serving endpoints
 - Webhook handlers
+- Batch/one-off jobs that run to completion rather than serve HTTP traffic (Cloud Run Jobs — see Fundamentals)
 
 ## Who This Is For
-Backend engineers deploying APIs, DevOps teams managing containerised services on GCP, and anyone wanting Kubernetes power without Kubernetes complexity.
-
-## Learning Path
-This section follows a structured approach from fundamentals to advanced topics. Each module builds on the previous one.
-
-## Who This Is For
-Students and professionals at all levels who want to build knowledge in this domain — whether for exam preparation, career advancement, or general knowledge.
-
-## How to Study
-1. Start with the **Fundamentals** section to build a solid base
-2. Move to **Intermediate** for applied knowledge and scenarios
-3. Use **Advanced** for exam-level depth and complex topics
-4. Practise with **Interview Q&A** for exams and assessments
-5. Use the **Cheatsheet** for last-minute revision before the exam
-
-## Key Features of This Section
-- Structured notes aligned with official syllabus
-- Practice questions after key concepts
-- Cheatsheets for quick revision
-- Interview and exam Q&A format
-- Current and updated content
-
-## Getting Started
-Click **Fundamentals** to begin your learning journey with this topic. Work systematically through each section for the best results.
-
-## Assessment Strategy
-For objective exams: understand > memorise. For descriptive/written exams: structure your answers clearly. For interviews: demonstrate reasoning, not just recall.
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Backend engineers deploying APIs, DevOps teams managing containerised services on GCP, and anyone wanting container flexibility without taking on Kubernetes operational overhead.

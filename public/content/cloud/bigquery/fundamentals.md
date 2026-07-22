@@ -1,8 +1,31 @@
 # Google BigQuery — Serverless Data Warehouse
 
-## What is BigQuery
+## The hook: SQL you already know, at a scale you've probably never used
 
-BigQuery is Google's fully managed, petabyte-scale data warehouse. Query terabytes in seconds with standard SQL, pay only for the data you scan (on-demand) or reserve slots (flat-rate). No servers to manage, no indexes to create.
+If you've written a `SELECT ... WHERE ... GROUP BY` query against Postgres or MySQL, you already know most of BigQuery's syntax — it's ANSI-standard SQL with some genuinely useful extensions (`UNNEST` for nested/repeated fields, approximate aggregation functions, built-in ML). The part that's unfamiliar isn't the SQL, it's the absence of anything to tune: no indexes to create, no `EXPLAIN ANALYZE` to chase down a missing index, no connection pool to size. The main levers you actually control are how the table is *partitioned* and *clustered* — which change how much data a query has to read, which is also the main thing you're billed for.
+
+## Analogy
+
+Querying an un-partitioned BigQuery table is like searching for a name in a phone book with the pages ripped out and shuffled — you have to read every single page (every partition) to be sure you found every match. A partitioned table is the same phone book with the pages back in date order (say, partitioned by day) — if you're looking for something from January 15th, you flip straight to that section and ignore the other 364 days. Clustering goes one step further: within each day's pages, entries are also grouped by, say, last name, so once you're on the right page you don't have to scan it top to bottom either.
+
+## Diagram: partition pruning + clustering
+
+```
+ Table PARTITIONed BY DATE(event_timestamp), CLUSTERed BY user_id, event_type
+
+ ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐
+ │ 2024-01-13│ │ 2024-01-14│ │ 2024-01-15│ │ 2024-01-16│  ← partitions (days)
+ └───────────┘ └───────────┘ └─────┬─────┘ └───────────┘
+                                    │  WHERE DATE(event_timestamp)='2024-01-15'
+                                    │  → only THIS partition is read at all
+                                    ▼
+                         ┌──────────────────────┐
+                         │ user_id=1..100, purch │  ← within the partition,
+                         │ user_id=1..100, view  │    clustering groups rows
+                         │ user_id=101.., purch  │    by (user_id, event_type)
+                         │ ...                    │    so a filter on either
+                         └──────────────────────┘    narrows the scan further
+```
 
 ## Querying BigQuery
 
@@ -42,7 +65,7 @@ FROM `project.dataset.users`;
 
 -- Cost estimation (before running)
 -- Check "Bytes processed" in query preview
--- 1TB = ~$5 on on-demand pricing
+-- On-demand pricing is charged per TB scanned *(exact current $/TB rate needs verification against official BigQuery pricing)*
 -- Set maximum bytes billed to protect against expensive queries
 ```
 
@@ -110,3 +133,16 @@ bq mk --dataset project:new_dataset
 bq rm -r project:old_dataset
 bq extract project:dataset.table gs://bucket/export-*.csv
 ```
+
+## Try it yourself (2 minutes)
+
+Run this against BigQuery's public Shakespeare sample table (no data loading required, and it's small enough that it's effectively free to query) and use `UNNEST`-style thinking on the result: find which single word appears most often across all of Shakespeare's works.
+
+```sql
+SELECT word, SUM(word_count) AS total
+FROM `bigquery-public-data.samples.shakespeare`
+GROUP BY word
+ORDER BY total DESC
+LIMIT 10;
+```
+Then add `WHERE corpus = 'hamlet'` and re-run — notice the result changes without you touching any index, connection, or schema. That's the whole point: the only things you're controlling are what you ask for and (once tables get large) how much of the table your `WHERE` clause lets BigQuery skip.

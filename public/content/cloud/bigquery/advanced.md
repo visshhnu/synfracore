@@ -29,7 +29,10 @@ GROUP BY 1, 2;
 -- Requires BigQuery Omni setup in AWS/Azure region
 
 -- Create external connection
--- bq mk --connection --connection_type=AWS_S3 --region=us-east-1 my-aws-conn
+-- bq mk --connection --region=us-east-1 my-aws-conn
+-- *(exact --connection_type value for BigQuery Omni AWS connections needs
+-- verification against current `bq mk --connection --help` / official docs
+-- -- this flag's accepted values have changed as Omni matured)*
 
 -- Create external table pointing to S3
 CREATE EXTERNAL TABLE aws_data.orders
@@ -63,6 +66,8 @@ SELECT
   user_email,
   query,
   total_bytes_processed / POW(10,12) AS tb_processed,
+  -- $5/TB is the commonly-cited on-demand rate -- verify current pricing
+  -- before using this for real budget/alerting decisions
   total_bytes_processed / POW(10,12) * 5 AS cost_usd,
   creation_time
 FROM `region-us`.INFORMATION_SCHEMA.JOBS_BY_PROJECT

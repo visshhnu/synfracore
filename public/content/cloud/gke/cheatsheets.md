@@ -67,9 +67,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: my-ingress
-  annotations:
-    kubernetes.io/ingress.class: "gce"
 spec:
+  ingressClassName: gce
   rules:
   - host: myapp.example.com
     http:

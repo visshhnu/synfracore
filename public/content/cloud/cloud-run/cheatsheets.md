@@ -49,10 +49,10 @@ gcloud logging read "resource.type=cloud_run_revision AND resource.labels.servic
 | Setting | Default | Notes |
 |---------|---------|-------|
 | Concurrency | 80 | Requests handled per container instance |
-| CPU | 1 | 1-8 vCPU; throttled when no requests (min-instances=0) |
-| Memory | 512Mi | 128Mi-32Gi |
-| Timeout | 300s | Max 3600s |
-| Max instances | 1000 | Hard per-region limit |
+| CPU | 1 | Configurable across a multi-vCPU range; throttled when no requests (min-instances=0) *(exact current max vCPU needs verification)* |
+| Memory | 512Mi | Configurable across a wide range *(exact current min/max needs verification against official docs)* |
+| Timeout | 300s | Configurable up to a high ceiling *(exact current max request timeout needs verification — this has been extended over Cloud Run's history)* |
+| Max instances | 1000 | Default soft limit, quota-adjustable *(exact current default needs verification)* |
 | Min instances | 0 | >0 keeps warm instances (costs money) |
 | Port | 8080 | App must listen on PORT env var |
 
