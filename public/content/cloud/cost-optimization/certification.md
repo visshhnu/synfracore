@@ -57,8 +57,8 @@ aws ce get-savings-plans-purchase-recommendation --savings-plans-type COMPUTE_SP
 PRIMARY EXAM: FinOps Certified Practitioner (FOCP — finops.org)
 
 TOP TOPICS:
-  FinOps lifecycle: Inform (visibility) → Optimize (action) → Operate (efficiency 
-  Commitment discounts: Reserved Instances vs Savings Plans vs CUDs (GCP) — trade 
-  Right-sizing: match resource size to actual usage; use AWS Compute Optimizer rec
+  FinOps lifecycle: Inform (visibility) → Optimize (action) → Operate (efficiency culture)
+  Commitment discounts: Reserved Instances vs Savings Plans vs CUDs (GCP) — trade flexibility for savings
+  Right-sizing: match resource size to actual usage; use AWS Compute Optimizer recommendations
   Spot/Preemptible/Spot VMs: 60-90% savings for fault-tolerant workloads
 ```
