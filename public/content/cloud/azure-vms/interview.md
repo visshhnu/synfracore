@@ -17,8 +17,8 @@
 **Naming convention:** D4s_v5 = D series, 4 vCPUs, s=premium SSD capable, v5=version 5.
 
 **Cost optimisation:**
-- Spot VMs: 60-90% discount, can be evicted (use for batch/stateless)
-- Reserved Instances: 1 or 3 year commitment, 40-72% savings
+- Spot VMs: significant discount vs. pay-as-you-go, can be evicted (use for batch/stateless) *(needs verification — exact discount range against current Azure pricing)*
+- Reserved Instances: 1 or 3 year commitment, meaningful savings vs. pay-as-you-go *(needs verification — exact savings percentage against current Azure pricing)*
 - Hybrid Benefit: Bring your own Windows Server/SQL license
 
 ---
@@ -32,7 +32,7 @@
 
 **Availability Zones**: Deploy VMs to physically separate datacenters within a region.
 - Each zone has independent power, cooling, networking
-- 99.99% SLA (vs 99.95% for Availability Sets)
+- Higher published SLA than Availability Sets *(needs verification — exact current SLA percentages for each against Azure's published SLA page)*
 - Best practice for production workloads
 
 **VM Scale Sets (VMSS)**: Identical VMs with auto-scaling. Load balancer in front.
@@ -46,11 +46,13 @@
 
 | Disk Type | Latency | IOPS | Use Case |
 |---|---|---|---|
-| Ultra Disk | <1ms | Up to 160K | Databases, latency-sensitive |
-| Premium SSD v2 | ~2ms | Up to 80K | Production databases |
-| Premium SSD (P-series) | <10ms | Up to 20K | Most production workloads |
+| Ultra Disk | <1ms | Highest of all Azure disk tiers | Databases, latency-sensitive |
+| Premium SSD v2 | ~2ms | High, below Ultra | Production databases |
+| Premium SSD (P-series) | <10ms | Moderate-high | Most production workloads |
 | Standard SSD | ~10ms | Moderate | Dev/test, web servers |
 | Standard HDD | Higher | Low | Backups, archival |
+
+*(needs verification — exact IOPS/throughput ceilings per disk tier against Azure's current managed disk documentation; these figures change as Azure introduces new disk tiers.)*
 
 ```bash
 # Attach premium SSD to VM

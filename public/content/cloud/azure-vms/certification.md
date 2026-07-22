@@ -4,7 +4,7 @@
 
 **AZ-104 Microsoft Azure Administrator**
 
-*Format*: 40-60 MCQ | 3 hours | 700/1000 | $165 USD
+*Format*: check current question count, time limit, passing score, and price on the official Microsoft Certification page before relying on these *(needs verification — exam format and price change periodically; previously stated here as 40-60 MCQ, 3 hours, 700/1000, $165 USD)*
 
 ## Related Certifications
 
@@ -16,9 +16,9 @@
 - Availability Sets: fault domains (separate racks) + update domains (rolling restart)
 - Availability Zones: physically separate data centers in same region (higher SLA)
 - VM Scale Sets (VMSS): autoscaling group; flexible orchestration recommended
-- Azure Spot VMs: 60-90% cheaper, evictable; use for batch/stateless workloads
+- Azure Spot VMs: significantly cheaper than pay-as-you-go, evictable *(needs verification — exact discount range against current Azure pricing)*; use for batch/stateless workloads
 - Disk types: Ultra (highest IOPS, mission critical) / Premium SSD v2 / Premium SSD / Standard SSD / HDD
-- Azure Hybrid Benefit: use existing Windows Server / SQL Server licenses on Azure (save 40-55%)
+- Azure Hybrid Benefit: use existing Windows Server / SQL Server licenses on Azure *(needs verification — exact savings percentage against current Azure pricing)*
 
 ## Must-Know CLI Commands
 
@@ -56,8 +56,11 @@ az vm resize --resource-group myRG --name myVM --size Standard_D8s_v3
 PRIMARY EXAM: AZ-104 Microsoft Azure Administrator
 
 TOP TOPICS:
-  VM series: B (burstable/dev), D (general), E (memory), F (compute), N (GPU), L (
-  Availability Sets: fault domains (separate racks) + update domains (rolling rest
+  VM series: B (burstable/dev), D (general), E (memory), F (compute), N (GPU), L (storage)
+  Availability Sets: fault domains (separate racks) + update domains (rolling restart)
   Availability Zones: physically separate data centers in same region (higher SLA)
   VM Scale Sets (VMSS): autoscaling group; flexible orchestration recommended
+  Spot VMs: 60-90% cheaper, evictable; use for batch/stateless workloads
+  Disk types: Ultra / Premium SSD v2 / Premium SSD / Standard SSD / Standard HDD
+  Azure Hybrid Benefit: reuse existing Windows Server/SQL Server licenses on Azure
 ```

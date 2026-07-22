@@ -4,7 +4,7 @@
 
 **SC-300 Microsoft Identity and Access Administrator**
 
-*Format*: 40-60 MCQ | 3 hours | 700/1000 | $165 USD
+*Format*: check current question count, time limit, passing score, and price on the official Microsoft Certification page before relying on these *(needs verification — exam format and price change periodically; previously stated here as 40-60 MCQ, 3 hours, 700/1000, $165 USD)*
 
 ## Related Certifications
 
@@ -34,7 +34,7 @@ az identity create --name myapp-identity --resource-group myRG
 ## Exam Tips
 
 - Managed Identity: no credentials to manage; works with Azure Key Vault, Storage, SQL
-- Conditional Access: requires Azure AD Premium P1; block legacy auth (SMTP, POP3, IMAP)
+- Conditional Access: requires an Entra ID paid tier *(needs verification — confirm current licensing-tier requirement and naming against Microsoft's licensing page)*; block legacy auth (SMTP, POP3, IMAP)
 - MFA enforcement: Conditional Access > per-user MFA (more flexible, less legacy)
 - App registrations: client ID + client secret or certificate → service principal authentication
 
@@ -58,7 +58,10 @@ PRIMARY EXAM: SC-300 Microsoft Identity and Access Administrator
 
 TOP TOPICS:
   Entra ID vs Active Directory: cloud identity service (no LDAP/Kerberos native)
-  Authentication: Password Hash Sync (PHS), Pass-through Auth (PTA), Federation (A
+  Authentication: Password Hash Sync (PHS), Pass-through Auth (PTA), Federation (ADFS)
   Conditional Access: policies to require MFA, compliant devices, named locations
-  App registration vs Enterprise Application: register = definition; enterprise = 
+  App registration vs Enterprise Application: register = definition; enterprise = instance
+  Managed Identity: system-assigned (tied to resource) vs user-assigned (reusable)
+  RBAC: role assignments at management group / subscription / resource group / resource
+  PIM: just-in-time privileged access with approval and time-bound activation
 ```

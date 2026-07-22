@@ -2,6 +2,39 @@
 
 Azure Entra ID (formerly Azure Active Directory) is Microsoft's cloud identity platform. It handles authentication for Microsoft 365, Azure, and thousands of SaaS applications.
 
+## Why this exists (the hook)
+
+Every single thing that happens in Azure — a human opening the Portal, a script calling the CLI, a VM reading a secret from Key Vault — starts with the same unavoidable question: "who or what is making this request, and are they actually allowed to?" Entra ID is the service that answers that question, for every request, across every Azure subscription and Microsoft 365 tenant an organization has. Get Entra ID wrong (an over-permissioned service principal, a stale standing admin assignment, no MFA on an admin account) and it doesn't matter how well-architected the rest of your Azure estate is — that's the door everything else walks through.
+
+## Analogy
+
+Think of Entra ID as a company's badge office and security desk combined, not just a login page. The **Tenant** is the company itself. **Users** and **Groups** are employees and departments. A **Service Principal** or **Managed Identity** is a badge issued to a piece of automation rather than a person — a robot courier that still has to badge through the same doors. **Conditional Access** is the security guard who doesn't just check the badge is real, but also asks "why are you here at 2am from a country we don't operate in?" before deciding whether to wave you through, demand a second ID (MFA), or turn you away. **PIM** is the difference between a badge that opens the server room forever versus one that only works for the one hour you actually requested access, with a manager's sign-off logged.
+
+## How it fits together (diagram)
+
+```
+   Human user / Application / Azure resource
+                    │
+                    ▼
+      Entra ID  (authenticates: "who is this?")
+       │  Users, Groups, Service Principals,
+       │  Managed Identities, App Registrations
+       ▼
+   Conditional Access  ("under what conditions
+   is this authentication even allowed to succeed?")
+       │  location, device compliance, sign-in risk
+       ▼
+   Azure RBAC  (authorizes: "what can this
+   authenticated identity actually do, and where?")
+       │  Role Assignment = Principal + Role + Scope
+       ▼
+   Resource (VM, Key Vault secret, Resource Group, ...)
+```
+
+## Try it yourself (2 minutes)
+
+If you have a free/trial Azure account, run `az ad signed-in-user show` in the CLI — this shows the Entra ID user object behind your current session: its Object ID, User Principal Name, and tenant. Then run `az role assignment list --assignee <your-email> --output table`. Notice these are two genuinely separate questions being answered: the first command tells you *who Entra ID thinks you are*; the second tells you *what Azure RBAC has decided you're allowed to do*. Authentication and authorization are two different services working together, not one combined check — which is exactly why a valid, authenticated user can still get a "Forbidden" error on a specific resource.
+
 ## Core Concepts
 
 ```
