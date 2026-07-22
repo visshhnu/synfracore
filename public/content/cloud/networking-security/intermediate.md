@@ -75,6 +75,6 @@ Flow logs don't capture packet content (they're metadata, not a full packet capt
 | Layer | L4 (IP/port) | L4 + L7 |
 | FQDN filtering | No | Yes — e.g. allow only `*.github.com` outbound |
 | Centralized management | Per-NIC/subnet, decentralized | Centralized policy across a hub-spoke topology |
-| Cost | Free | ~$1.25/hour plus data processing |
+| Cost | Free | Paid *(needs verification — Azure Firewall's hourly rate changes with SKU/region; previously stated here as ~$1.25/hour)* plus data processing |
 
 The upgrade from NSG to Azure Firewall is worth making specifically when FQDN-based outbound filtering matters — restricting egress to a named allowlist of external domains (`*.github.com`, `pypi.org`) rather than just IP ranges, which is meaningfully harder to maintain correctly with IP-based rules alone since many SaaS/package-registry services don't publish stable IP ranges. For simpler environments where IP/port-level control is genuinely sufficient, NSGs alone remain a reasonable, cost-free choice.

@@ -1,5 +1,13 @@
 # Cloud Fundamentals — Fundamentals
 
+## The hook: the table below is the single most-tested cloud concept there is
+
+Almost every cloud interview question — "what's the difference between IaaS and PaaS," "who's responsible if this bucket leaks data," "why did our bill triple" — is really the same underlying question asked a different way: *who manages what, and who's on the hook when it breaks?* Learn the "you manage / provider manages" table below cold, and most cloud fundamentals questions become restatements of it rather than new material.
+
+## Analogy
+
+Think of the service-model spectrum like renting a car versus taking a taxi versus riding a bus. On-premise is owning the car outright — you buy it, insure it, service it, and drive it yourself. IaaS is renting a car — someone else owns and maintains the vehicle, but you're still driving, fueling, and responsible for parking tickets. PaaS is a taxi — you tell the driver where to go (your code/config) and they handle the vehicle entirely. SaaS is the bus — you just get on and ride a route someone else designed end-to-end. As you move from owning to renting to taxi to bus, you give up control over the vehicle but also give up responsibility for maintaining it — exactly the tradeoff in the table below.
+
 ## What is Cloud Computing?
 
 Before learning AWS, Azure, or GCP specifically, understand what cloud computing actually is: renting compute, storage, and networking instead of buying hardware. The key question is always — what do you manage versus what does the provider manage?
@@ -95,6 +103,26 @@ Common patterns worth recognizing by name, since they recur across every cloud p
 | Scale vertically (bigger server) | Scale horizontally (more instances) |
 | Manual config, manual deploy | IaC + GitOps — everything automated |
 | Failure is exceptional | Failure is expected — design for resilience |
+
+## How the responsibility line moves (diagram)
+
+```
+                 IaaS (EC2/VM)   PaaS (RDS)    SaaS (Gmail)
+Physical DC         Provider       Provider      Provider
+Hypervisor          Provider       Provider      Provider
+OS patching          YOU           Provider      Provider
+App security          YOU            YOU           YOU
+Data / access ctrl     YOU            YOU           YOU
+
+The line between "Provider" and "YOU" moves UP as you go IaaS → PaaS → SaaS,
+but "Data / access control" is YOUR responsibility at every single layer —
+this is the row most real breaches trace back to (public S3 buckets,
+over-permissive IAM), not the layers the provider secures.
+```
+
+## Try it yourself (2 minutes)
+
+Pick a service you already use — a managed database, a serverless function platform, or even a SaaS tool at work — and fill in the shared-responsibility table above for it from memory before checking the provider's own shared-responsibility documentation. Specifically ask: "if this leaked customer data tomorrow, whose misconfiguration would it most likely be?" For almost any IaaS or PaaS service, the honest answer is usually your own IAM policy or access configuration, not the provider's infrastructure — which is the entire point of internalizing this table.
 
 ## Interview Questions
 
