@@ -4,7 +4,7 @@
 
 **AWS Certified Security Specialty (SCS-C02)**
 
-*Format*: Varies by vendor | $300-$400 USD for specialties
+*Format*: Varies by vendor | *(needs verification — exact price and format for AWS SCS-C02/AZ-500/CCSP change periodically and vary by vendor; previously stated here as a flat $300-$400 USD for specialties — check the current official certification page before relying on this)*
 
 ## Related Certifications
 
@@ -58,8 +58,10 @@ aws wafv2 list-web-acls --scope REGIONAL --region us-east-1
 PRIMARY EXAM: AWS Certified Security Specialty (SCS-C02)
 
 TOP TOPICS:
-  Shared responsibility model: vendor secures OF the cloud; customer secures IN th
-  IAM least privilege: grant minimum permissions needed; audit unused with Access 
-  CSPM tools: Security Hub (AWS), Defender for Cloud (Azure), Security Command Cen
+  Shared responsibility model: vendor secures OF the cloud; customer secures IN the cloud
+  IAM least privilege: grant minimum permissions needed; audit unused with Access Advisor
+  CSPM tools: Security Hub (AWS), Defender for Cloud (Azure), Security Command Center (GCP)
   Encryption: at rest (KMS managed keys) + in transit (TLS 1.2+)
+  Network security: private subnets, NACLs/NSGs, WAF, DDoS protection (Shield/Armor)
+  Threat detection: GuardDuty (AWS), Microsoft Sentinel (Azure), Chronicle (GCP)
 ```

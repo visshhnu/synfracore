@@ -4,6 +4,40 @@
 
 Cloud environments introduce unique security challenges: shared responsibility, dynamic infrastructure, identity-centric access, and API-driven operations. Traditional perimeter security is insufficient.
 
+## Why this exists (the hook)
+
+Capital One's 2019 breach exposed over 100 million customers' data. The cause wasn't a sophisticated exploit against AWS's infrastructure — it was a misconfigured web application firewall combined with an over-permissive IAM role that let a single compromised credential reach far more than it should have been able to. AWS's own infrastructure was never breached; the customer's configuration was. That's the entire premise of cloud security as a discipline: the provider secures a very solid floor, and almost every real incident happens because of what gets built on top of it, not because the floor gave way.
+
+## Analogy
+
+Traditional, on-premise security is like guarding a single building with one perimeter wall and one gate — control the gate, and you've controlled access to everything inside. Cloud security is like securing a sprawling campus where every single door, on every building, can be opened by an API call from anywhere in the world, and new buildings get constructed automatically whenever someone requests one. There's no single perimeter wall to defend — identity (who's allowed to open which door) has to replace the wall as the primary control, which is exactly why IAM, not network firewalls alone, sits at the center of cloud security.
+
+## How it fits together (diagram)
+
+```
+                    SHARED RESPONSIBILITY MODEL
+   ┌─────────────────────────────────────────────────────────┐
+   │  PROVIDER secures OF the cloud                            │
+   │  physical DCs · hardware · hypervisor · managed-service   │
+   │  internals (the RDS engine itself, S3's own durability)   │
+   └─────────────────────────────────────────────────────────┘
+                              ▲  fixed floor, doesn't move
+   ┌─────────────────────────────────────────────────────────┐
+   │  YOU secure IN the cloud                                  │
+   │  IAM policies · network config · encryption settings ·    │
+   │  OS patching (IaaS only) · application code · data itself │
+   └─────────────────────────────────────────────────────────┘
+        ▲
+   This line is the same in IaaS/PaaS/SaaS — only the SIZE of
+   the "you" box shrinks; "data + access control" never leaves it.
+
+   MOST REAL BREACHES happen in the bottom box, not the top one.
+```
+
+## Try it yourself (2 minutes)
+
+Look up the actual public summary of the Capital One 2019 breach (widely documented, safe to search). Identify which specific line of the shared responsibility diagram above it falls into — was it the provider's infrastructure, or a customer-side WAF/IAM misconfiguration? Then do the same for one more publicized cloud breach you can recall or find. Notice the pattern: this exercise is genuinely hard to fail, because nearly every well-known cloud breach lands in the "you secure IN the cloud" box, which is exactly why that's where this course spends most of its time.
+
 ## Shared Responsibility Model
 
 ```

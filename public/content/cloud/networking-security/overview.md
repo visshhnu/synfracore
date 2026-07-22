@@ -4,6 +4,46 @@
 
 Every cloud resource exists inside a network. Network design determines what can talk to what. Security determines who can talk and whether data is encrypted. Both must be designed together from day one.
 
+## Why this exists (the hook)
+
+A public S3 bucket leaking customer data and a database directly reachable from the internet are, at the root, the same mistake: something was made reachable that shouldn't have been. Networking and security aren't two separate checklists to work through — networking decides *what can physically reach what*, and security decides *who's allowed to use that reachability and whether the data itself is protected regardless*. Design one without the other and you get either a system that's technically unreachable but has no defense if that changes, or a system with strong access rules sitting on a network that exposes it directly anyway.
+
+## Analogy
+
+Think of a VPC's subnet layout like a building's floor plan, and security controls like the building's access policy. The floor plan decides which rooms have a door to the street (public subnet), which rooms only connect to a lobby that connects to the street (private subnet, NAT-routed), and which rooms have no door to the outside at all (database subnet, no internet route). Security Groups and NACLs are the locks on those doors — even a room with no street-facing door still needs its internal doors locked, because the floor plan alone doesn't stop someone who's already inside the building from wandering into the wrong room.
+
+## How it fits together (diagram)
+
+```
+                 Internet
+                    │
+             ┌──────▼──────┐
+             │   Internet   │
+             │   Gateway    │
+             └──────┬──────┘
+                     │
+      ┌──────────────▼──────────────┐
+      │        Public Subnet         │  ← load balancer, bastion ONLY
+      └──────────────┬──────────────┘
+                     │ (NAT Gateway — outbound only)
+      ┌──────────────▼──────────────┐
+      │       Private Subnet         │  ← application servers
+      └──────────────┬──────────────┘
+                     │ (no internet route at all)
+      ┌──────────────▼──────────────┐
+      │       Database Subnet        │  ← databases, never internet-reachable
+      └───────────────────────────────┘
+
+Security Groups (stateful, per-instance) and NACLs (stateless,
+per-subnet) are enforced at every layer above — the network
+topology limits WHAT can reach a resource; SGs/NACLs limit WHO,
+on WHICH port, is actually allowed through.
+```
+
+## Try it yourself (2 minutes)
+
+Pick a web application you're familiar with (even a side project) and sketch which of its components belong in a public subnet, which in a private subnet, and which in a database subnet, using the rule "only what genuinely needs a direct internet-facing door goes in public." Most real applications have exactly one thing that belongs in the public subnet — the load balancer — with everything else, including the application servers themselves, one layer back in private.
+
 ## AWS Networking
 
 ### VPC Structure
@@ -44,7 +84,7 @@ Database Subnet → NSG + Private Endpoints
 |---------|-----|---------------|
 | Layer | L4 | L4 + L7 |
 | FQDN filtering | No | Yes |
-| Cost | Free | Paid (~$1.25/hour) |
+| Cost | Free | Paid *(needs verification — Azure Firewall's hourly rate changes with SKU/region; previously stated here as ~$1.25/hour)* |
 
 ## Zero Trust Principles
 1. Verify identity explicitly — MFA, device health check, location

@@ -2,85 +2,84 @@
 
 Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
 
-## Project 1: Cloud Security Architecture Design
+## Project 1: CSPM Misconfiguration Scanner and Remediation Report
 
 **Level:** Beginner | **Time:** 2 days
 
-Design and deploy a basic 3-tier application using Cloud Security services. Includes networking, compute, database, and basic security.
+Build a script that scans a real (or sandbox) cloud account against the top-10 misconfiguration list — public buckets, open SSH/RDP, unencrypted storage, missing MFA, overly permissive IAM policies — and produces a prioritized findings report, similar in spirit to what a CSPM tool (Security Hub, Defender for Cloud, SCC) does automatically.
 
 ### Steps
 
-1. Draw the architecture diagram first (use draw.io or Excalidraw)
-2. Set up Cloud Security environment with IaC (Terraform or CloudFormation)
-3. Deploy the networking layer (VPC/VNet, subnets, security groups)
-4. Add compute resources and deploy a sample web app
-5. Configure a managed database service
-6. Apply security best practices (IAM, encryption, no public access)
+1. Pick a cloud provider and stand up a small sandbox account (or a Terraform-provisioned test environment you fully control — never scan an account you don't own)
+2. Deliberately introduce 3-4 real misconfigurations from the top-10 list (a public S3 bucket, a security group open to 0.0.0.0/0 on port 22, an IAM user with AdministratorAccess and no MFA)
+3. Write a script (Python + boto3, or Azure/GCP SDK equivalent) that checks for each misconfiguration class using the provider's API
+4. Output a findings report with severity, affected resource, and the specific remediation command for each finding
+5. Fix each finding using the IaC/CLI command the report recommends, then re-run the scan to confirm it's clean
+6. Write up the before/after in the README, including exactly what real-world impact each misconfiguration would have had
 
 ### Skills Demonstrated
 
-- Cloud Security core services
-- IaC
-- Cloud security basics
+- Real misconfiguration detection logic, not just memorized checklist items
+- Cloud provider SDK/API usage
+- Security findings triage and remediation workflow
 
 ### GitHub Repo Name
 
-`cloud-security-3tier-architecture`
+`cloud-security-cspm-scanner`
 
 ---
 
-## Project 2: Serverless App on Cloud Security
+## Project 2: Least-Privilege IAM Policy Generator from Access Logs
 
 **Level:** Intermediate | **Time:** 3 days
 
-Build a serverless REST API using Cloud Security managed services. No servers to manage — pay per request, auto-scales to millions.
+Build a tool that analyzes an IAM principal's actual API call history (CloudTrail, Activity Log, or Cloud Audit Logs) over a period and generates a least-privilege policy containing only the actions that principal genuinely used — the same problem AWS IAM Access Analyzer's policy generation feature solves, built from scratch to actually understand the mechanics.
 
 ### Steps
 
-1. Design the API: endpoints, request/response formats
-2. Implement using Cloud Security serverless services
-3. Add a managed database/storage backend
-4. Implement authentication and authorization
-5. Set up CI/CD for automated deployments
-6. Load test and optimize for cost
+1. Set up a sandbox IAM role/service account and generate realistic activity against it (a script exercising a handful of specific API calls, not a broad admin role)
+2. Enable and collect the relevant audit log (CloudTrail, Azure Activity Log, or GCP Audit Logs) for that principal over the activity period
+3. Parse the log to extract the distinct set of actions and resources actually called
+4. Generate a minimal IAM policy document containing exactly those actions, scoped to the specific resources used
+5. Apply the generated policy in place of the original broad one, then re-run the same activity to confirm nothing breaks
+6. Document the before/after permission count and explain what blast-radius reduction this represents if the credential were ever compromised
 
 ### Skills Demonstrated
 
-- Serverless architecture
-- API design
-- Cost optimization
+- Audit log parsing and analysis
+- IAM policy authoring and least-privilege reasoning
+- Practical blast-radius/attack-surface reduction
 
 ### GitHub Repo Name
 
-`cloud-security-serverless-api`
+`cloud-security-least-privilege-generator`
 
 ---
 
-## Project 3: Cost-Optimized Cloud Security Platform
+## Project 3: Automated Detection-to-Remediation Pipeline
 
 **Level:** Advanced | **Time:** 5 days
 
-Design and implement a production platform on Cloud Security optimized for both reliability and cost. Implement HA, DR, monitoring, and cost management.
+Build an event-driven pipeline that detects a specific security event (a new public S3 bucket, an IAM key created outside business hours, a security group opened to 0.0.0.0/0) and automatically remediates it within minutes, with a full audit trail — the pattern real cloud security teams use to close the gap between "detected" and "fixed" from hours to minutes.
 
 ### Steps
 
-1. Analyze requirements: availability target, RTO/RPO, budget
-2. Design multi-AZ/region architecture for high availability
-3. Implement auto-scaling for all compute tiers
-4. Set up centralized logging, monitoring, and alerting
-5. Implement backup and disaster recovery automation
-6. Track costs with budgets and alerts
-7. Optimize: use Reserved Instances/Savings Plans, right-size
+1. Pick 2-3 specific detectable events from the top-10 misconfiguration list to target (don't try to cover everything)
+2. Set up the detection source: GuardDuty findings, EventBridge rules on CloudTrail events, or Azure/GCP equivalents (Defender for Cloud alerts, Cloud Audit Log-triggered Cloud Functions)
+3. Build the remediation function (Lambda, Azure Function, or Cloud Function) that receives the event and takes the specific fix action — e.g., automatically applying S3 Block Public Access, or revoking a security group's offending rule
+4. Add a safety mechanism: remediation actions should be logged with full context (what triggered it, what was changed, when) before or as they execute, and genuinely destructive actions should go through an approval step rather than firing blind
+5. Test end-to-end: deliberately trigger the misconfiguration in a sandbox, confirm detection fires, confirm remediation executes, confirm the audit trail captures the full sequence
+6. Document the mean-time-to-remediation improvement this represents versus manual detection and fixing, and explicitly call out what this pipeline does NOT cover (false-positive risk, remediation actions that could break a legitimate use case)
 
 ### Skills Demonstrated
 
-- HA/DR design
-- Cost optimization
-- Enterprise operations
+- Event-driven security automation
+- Incident response pipeline design with audit trail
+- Understanding the tradeoffs of automated remediation (speed vs. blast-radius risk from a bad automated action)
 
 ### GitHub Repo Name
 
-`cloud-security-production-platform`
+`cloud-security-auto-remediation-pipeline`
 
 ---
 
