@@ -58,8 +58,8 @@ aws accessanalyzer list-findings --analyzer-name my-analyzer
 PRIMARY EXAM: AWS Certified Security Specialty (SCS-C02)
 
 TOP TOPICS:
-  Policy evaluation: Explicit Deny > SCP > Resource policy > Identity policy > imp
-  IAM condition keys: aws:SourceIp, aws:RequestedRegion, aws:MultiFactorAuthPresen
-  Permission boundaries: set maximum permissions (even if identity policy allows m
+  Policy evaluation: default deny, explicit Deny anywhere always wins, SCPs/boundaries set a ceiling (don't grant), cross-account needs both identity and resource policy to allow
+  IAM condition keys: aws:SourceIp, aws:RequestedRegion, aws:MultiFactorAuthPresent
+  Permission boundaries: set maximum permissions (even if identity policy allows more)
   SCP (Service Control Policies): org-level maximum permissions (cannot grant)
 ```
