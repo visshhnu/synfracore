@@ -1,12 +1,45 @@
 # Azure Kubernetes Service (AKS)
 
-AKS is Microsoft Azure's managed Kubernetes service. It handles the control plane (API server, etcd, scheduler) for free — you only pay for worker nodes. AKS integrates deeply with Azure AD, Azure Monitor, Azure Container Registry, and Azure networking.
+AKS is Microsoft Azure's managed Kubernetes service. It handles the control plane (API server, etcd, scheduler) for free — you only pay for worker nodes. AKS integrates deeply with Microsoft Entra ID (formerly Azure AD), Azure Monitor, Azure Container Registry, and Azure networking.
+
+## Why this exists (the hook)
+
+Running Kubernetes yourself means standing up and babysitting the control plane too — etcd backups, API server certificate rotation, scheduler upgrades, all before you've deployed a single application. Get any of that wrong and the entire cluster is unreachable, not just one app. AKS exists because most teams don't want to be in the etcd-backup business — they want the scheduling, self-healing, and declarative-deployment benefits of Kubernetes without also owning its hardest operational surface. Microsoft runs and patches the control plane; you bring the worker nodes and the workloads.
+
+## Analogy
+
+Running your own Kubernetes cluster is like owning and maintaining the elevator in your apartment building yourself — technically possible, but if it breaks at 2am, that's now your emergency, and you also need to understand elevator mechanics well enough to keep it certified and safe. AKS is like living in a building where the elevator is professionally maintained by the building management (Microsoft manages the control plane) — you still decide how many elevators you need and how heavily you load them (your worker node pools and workloads), but you're not the one keeping the motor running.
+
+## How it fits together (diagram)
+
+```
+                    Microsoft manages, free:
+        ┌───────────────────────────────────────┐
+        │  Control Plane (API server, etcd,      │
+        │  scheduler, controller-manager)        │
+        └───────────────────┬─────────────────────┘
+                             │ you talk to this via kubectl
+                             ▼
+        ┌───────────────────────────────────────┐
+        │  You provision and pay for:            │
+        │  Node Pools (VMs running kubelet)      │
+        │   - System pool: CoreDNS, kube-proxy   │
+        │   - User pool(s): your application pods│
+        └───────────────────┬─────────────────────┘
+                             │ scheduled onto
+                             ▼
+                     Your application Pods
+```
+
+## Try it yourself (2 minutes)
+
+If you have an Azure sandbox available, run `az aks create --resource-group <rg> --name demo-aks --node-count 1 --generate-ssh-keys` (a single-node cluster is enough to see the shape) and then `kubectl get nodes` and `kubectl get pods -n kube-system` once `az aks get-credentials` has been run. Notice the system pods (`coredns`, `kube-proxy`, `metrics-server`) are already running on your one node without you deploying them — that's the boundary between what Microsoft ships pre-configured on every node and what you're responsible for adding yourself.
 
 ## Why AKS?
 
 - **Free control plane** — Microsoft manages and pays for it
-- **Azure AD integration** — Use existing identities for K8s RBAC
-- **Workload Identity** — Pods get Azure AD identities (no secrets needed)
+- **Entra ID integration** — Use existing identities for K8s RBAC
+- **Workload Identity** — Pods get Entra ID identities (no secrets needed)
 - **Azure Monitor** — Native metrics and logs integration
 - **ACR integration** — Pull from Azure Container Registry seamlessly
 - **Virtual Nodes** — Burst to Azure Container Instances (serverless pods)
@@ -28,6 +61,11 @@ REGION="eastus"
 az group create --name $RG --location $REGION
 
 # Create AKS cluster
+# --network-plugin azure = Azure CNI (recommended for production)
+# --enable-aad = Azure AD integration; --enable-azure-rbac = Azure RBAC for K8s
+# --enable-workload-identity = pod-level Azure AD identity
+# --attach-acr = allow pulling from ACR; --enable-addons monitoring = Azure Monitor
+# --zones 1 2 3 = spread nodes across availability zones
 az aks create \
   --resource-group $RG \
   --name $CLUSTER \
@@ -37,17 +75,17 @@ az aks create \
   --enable-cluster-autoscaler \
   --min-count 2 \
   --max-count 20 \
-  --network-plugin azure \            # Azure CNI (recommended for production)
+  --network-plugin azure \
   --network-policy azure \
-  --enable-aad \                      # Azure AD integration
-  --enable-azure-rbac \               # Azure RBAC for K8s
-  --enable-workload-identity \        # Pod-level Azure AD identity
+  --enable-aad \
+  --enable-azure-rbac \
+  --enable-workload-identity \
   --enable-oidc-issuer \
   --enable-managed-identity \
-  --attach-acr myregistry \           # Allow pulling from ACR
-  --enable-addons monitoring \        # Azure Monitor
+  --attach-acr myregistry \
+  --enable-addons monitoring \
   --workspace-resource-id /subscriptions/.../workspaces/my-workspace \
-  --zones 1 2 3 \                     # Availability zones
+  --zones 1 2 3 \
   --generate-ssh-keys
 
 # Get kubeconfig
@@ -85,16 +123,19 @@ az aks nodepool add \
   --zones 1 2 3
 
 # Add GPU node pool for AI/ML workloads
+# --node-count 0 starts at zero and scales up only when a GPU workload is scheduled
+# --node-vm-size Standard_NC6s_v3 is a GPU-enabled VM size
+# --node-taints ensures only pods that explicitly tolerate sku=gpu land here
 az aks nodepool add \
   --resource-group $RG \
   --cluster-name $CLUSTER \
   --name gpupool \
-  --node-count 0 \                    # Start at 0 — scale to 0 when idle
-  --node-vm-size Standard_NC6s_v3 \  # GPU VM
+  --node-count 0 \
+  --node-vm-size Standard_NC6s_v3 \
   --enable-cluster-autoscaler \
   --min-count 0 \
   --max-count 5 \
-  --node-taints sku=gpu:NoSchedule \  # Only GPU workloads go here
+  --node-taints sku=gpu:NoSchedule \
   --labels sku=gpu
 ```
 

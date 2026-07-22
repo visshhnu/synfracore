@@ -53,7 +53,7 @@ az identity create -g myRG -n myIdentity
 az identity federated-credential create \
   --name myFedCred --identity-name myIdentity -g myRG \
   --issuer <OIDC_URL> --subject system:serviceaccount:default:my-sa \
-  --audience api://AzureADTokenExchange
+  --audiences api://AzureADTokenExchange
 ```
 
 ## Key Concepts

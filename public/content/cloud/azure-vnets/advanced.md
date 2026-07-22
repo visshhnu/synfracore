@@ -51,8 +51,10 @@ VNET PEERING:
     Use remote gateways: route through peered VNet's gateway
 
 VPNGW vs ExpressRoute:
-  VPN Gateway: encrypted tunnel over internet; up to 10 Gbps; lower cost
-  ExpressRoute: private dedicated circuit; up to 100 Gbps; predictable latency
+  VPN Gateway: encrypted tunnel over internet; throughput depends on gateway SKU; lower cost
+    *(needs verification — max throughput per SKU against Azure's VPN Gateway SKU table)*
+  ExpressRoute: private dedicated circuit; predictable latency
+    *(needs verification — bandwidth tiers against current ExpressRoute documentation)*
   ExpressRoute + VPN: failover scenario
 ```
 

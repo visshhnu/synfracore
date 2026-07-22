@@ -56,7 +56,7 @@ az aks nodepool add \
   --node-taints "sku=gpu:NoSchedule" \
   --labels workload=ml
 
-# Add Spot node pool (70-80% cheaper)
+# Add Spot node pool *(needs verification — discount range against current Azure Spot VM pricing)*
 az aks nodepool add \
   --resource-group prod-rg --cluster-name prod-aks \
   --name spotpool \

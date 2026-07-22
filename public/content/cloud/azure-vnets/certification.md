@@ -4,7 +4,7 @@
 
 **AZ-700 Microsoft Azure Network Engineer Associate**
 
-*Format*: 40-60 MCQ | 3 hours | 700/1000 | $165 USD
+*Format*: check current question count, time limit, passing score, and price on the official Microsoft Certification page before relying on these *(needs verification — exam format and price change periodically; previously stated here as 40-60 MCQ, 3 hours, 700/1000, $165 USD)*
 
 ## Related Certifications
 
@@ -18,8 +18,8 @@
 - VNet Peering: non-transitive; works global (cross-region); must add routes if needed
 - Azure Firewall vs NSG: Firewall = centralized L3-L7; NSG = local L4 only
 - Private Endpoint vs Service Endpoint: Private = real private IP for service; Service = route optimization only
-- VPN Gateway: site-to-site (IPSec) or point-to-site (VPN client); up to 10 Gbps
-- ExpressRoute: private dedicated circuit (not over internet); 50 Mbps to 100 Gbps
+- VPN Gateway: site-to-site (IPSec) or point-to-site (VPN client) *(needs verification — max throughput varies by gateway SKU; confirm current figures against Azure's VPN Gateway SKU table)*
+- ExpressRoute: private dedicated circuit (not over internet) *(needs verification — bandwidth tiers against current ExpressRoute documentation)*
 
 ## Must-Know CLI Commands
 
@@ -36,7 +36,7 @@ az network private-endpoint create --name myPE --resource-group myRG --vnet-name
 - VNet peering: bidirectional — must create peering in BOTH VNets
 - Hub-spoke: hub VNet with Azure Firewall + shared services; spokes peer to hub
 - Private DNS zones: required for private endpoints to resolve service FQDNs to private IPs
-- Azure DDoS Protection Standard: $2,700/month but covers all public IPs in VNet
+- Azure DDoS Protection Standard: covers all public IPs in the protected VNet *(needs verification — current monthly price against Azure's DDoS Protection pricing page)*
 
 ## Study Plan
 
@@ -58,7 +58,7 @@ PRIMARY EXAM: AZ-700 Microsoft Azure Network Engineer Associate
 
 TOP TOPICS:
   VNet: isolated network; subnets; each resource gets private IP from subnet CIDR
-  NSG (Network Security Group): stateful, layer 4 filtering; apply to subnet or NI
-  VNet Peering: non-transitive; works global (cross-region); must add routes if ne
+  NSG (Network Security Group): stateful, layer 4 filtering; apply to subnet or NIC
+  VNet Peering: non-transitive; works global (cross-region); must add routes if needed
   Azure Firewall vs NSG: Firewall = centralized L3-L7; NSG = local L4 only
 ```

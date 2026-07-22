@@ -4,7 +4,7 @@
 
 **AZ-400 Designing and Implementing Microsoft DevOps Solutions**
 
-*Format*: 40-60 MCQ | 3 hours | 700/1000 | $165 USD
+*Format*: check current question count, time limit, passing score, and price on the official Microsoft Certification page before relying on these *(needs verification — exam format and price change periodically; previously stated here as 40-60 MCQ, 3 hours, 700/1000, $165 USD)*
 
 ## Related Certifications
 
@@ -58,7 +58,7 @@ PRIMARY EXAM: AZ-400 Designing and Implementing Microsoft DevOps Solutions
 
 TOP TOPICS:
   Azure Pipelines: YAML pipeline structure (trigger, pool, stages, jobs, steps)
-  Service connections: authenticate pipelines to external services (Azure, GitHub,
+  Service connections: authenticate pipelines to external services (Azure, GitHub, Docker)
   Environments: track deployments; approval gates before prod deployment
-  Branch policies: require reviews, build validation, work item linking before mer
+  Branch policies: require reviews, build validation, work item linking before merging
 ```

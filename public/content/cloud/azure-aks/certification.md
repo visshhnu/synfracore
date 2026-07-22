@@ -4,7 +4,7 @@
 
 **AZ-104 Microsoft Azure Administrator**
 
-*Format*: 40-60 MCQ | 3 hours | 700/1000 | $165 USD (AZ-104)
+*Format*: check current question count, time limit, passing score, and price on the official Microsoft Certification page before relying on these *(needs verification — exam format and price change periodically; previously stated here as 40-60 MCQ, 3 hours, 700/1000, $165 USD)*
 
 ## Related Certifications
 
@@ -59,6 +59,6 @@ PRIMARY EXAM: AZ-104 Microsoft Azure Administrator
 TOP TOPICS:
   AKS managed control plane: free; pay for worker nodes and other resources
   Networking: Kubenet (overlay, node IPs) vs Azure CNI (pod IPs from VNet subnet)
-  Workload Identity: federation between K8s ServiceAccount and Azure AD managed id
-  Node pools: System (critical pods) + User (app workloads); spot node pools for c
+  Workload Identity: federation between K8s ServiceAccount and Azure AD managed identity
+  Node pools: System (critical pods) + User (app workloads); spot node pools for cost savings
 ```

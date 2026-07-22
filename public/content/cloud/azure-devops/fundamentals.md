@@ -1,5 +1,13 @@
 # Azure DevOps — Fundamentals
 
+## The hook: a pipeline that passes locally can still fail in Azure Pipelines
+
+A very common early confusion: a script works fine on a developer's machine, then fails the moment it runs as an Azure Pipelines step — usually because the pipeline's hosted agent (`vmImage: ubuntu-latest`) is a clean, ephemeral VM with none of the tools, caches, or environment variables a developer's own machine has built up over time. Every dependency the script needs has to be installed explicitly in the pipeline (via a task like `NodeTool@0` or a `script` step) — nothing is assumed to already be there.
+
+## Analogy
+
+Running a step on a hosted Azure Pipelines agent is like cooking in a hotel kitchen instead of your own. Your home kitchen (your laptop) has every spice, tool, and leftover ingredient already in place from months of use. The hotel kitchen (the hosted agent) is professionally cleaned and reset before you arrive — nothing is there except what's built into the base image, so if your recipe (script) needs a specific ingredient (a CLI tool, a language runtime version), you have to bring it or explicitly ask for it (a setup task) instead of assuming it'll be sitting in the cupboard.
+
 ## Core Services
 
 ```
@@ -133,3 +141,7 @@ steps:
   env:
     DB_PASSWORD: $(db-password)  # Pass as env var to script
 ```
+
+## Try it yourself (2 minutes)
+
+If you have an Azure DevOps organization available, create a pipeline with a single step: `- script: which node || echo "node not found"`, and run it on `vmImage: ubuntu-latest` with no `NodeTool@0` task beforehand. Depending on the image version, this may or may not find a pre-installed Node — then add the `NodeTool@0` task with `versionSpec: '20.x'` before it and re-run. Comparing the two runs makes the hook above concrete: never assume a tool is present just because it's common: pin the version you actually need with an explicit setup task.
