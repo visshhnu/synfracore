@@ -1,10 +1,37 @@
 # Cloud Landing Zones Fundamentals
 
+## The hook: this is infrastructure for infrastructure
+
+Everything else in the Cloud academy — VMs, networking, databases — assumes you already have a well-organized account/subscription to deploy them into. Landing zones are the layer underneath all of that: the decisions about account structure, guardrails, and identity that have to exist *before* the first real workload goes anywhere, because retrofitting them onto an already-sprawling set of accounts is dramatically harder than starting with them in place.
+
+## Analogy
+
+Think of it as building a city before people move in: roads (networking), laws (policies), districts (account/subscription structure), utilities (logging, monitoring), and security (IAM, guardrails) are all established first.
+
+## How the pieces fit together (diagram)
+
+```
+        Landing Zone (built first, before any workload)
+        ┌─────────────────────────────────────────────┐
+        │  Identity     Guardrails    Networking        │
+        │  (SSO, no     (SCPs, org    (Transit Gateway,  │
+        │   long-term    policies)     hub-spoke, DNS)   │
+        │   creds)                                       │
+        │                                                 │
+        │  Logging/Monitoring (centralized, every acct)  │
+        └─────────────────────┬───────────────────────────┘
+                               │  workloads deploy INTO this,
+                               ▼  not alongside it
+                  ┌────────────────────────┐
+                  │  Dev / Staging / Prod   │
+                  │  accounts (isolated,    │
+                  │  but governed uniformly)│
+                  └────────────────────────┘
+```
+
 ## What is a Cloud Landing Zone?
 
 A cloud landing zone is a pre-configured, scalable cloud environment based on best practices that serves as a starting point for enterprise cloud adoption. It implements multi-account/subscription structures, security guardrails, networking foundations, and governance before workloads are deployed.
-
-Think of it as building a city before people move in: roads (networking), laws (policies), districts (account/subscription structure), utilities (logging, monitoring), and security (IAM, guardrails) are all established first.
 
 ## Why Landing Zones Matter
 
@@ -81,6 +108,10 @@ MULTI-CLOUD:
   Terraform Cloud + CDK: manage landing zones as code
   Pulumi: alternative IaC for landing zone deployment
 ```
+
+## Try it yourself (2 minutes)
+
+Compare the AWS Organizations structure and the Azure Management Group hierarchy above side by side. Both separate "platform/infrastructure" accounts from "workload" accounts and both have a sandbox tier with looser controls — write down which AWS OU corresponds to which Azure MG. This mapping exercise is the fastest way to confirm you understand the underlying concept (separation by function and blast-radius, not by vendor-specific naming) rather than two unrelated vendor-specific hierarchies to memorize separately.
 
 ## Study Resources
 - **AWS Control Tower documentation** — official landing zone guide

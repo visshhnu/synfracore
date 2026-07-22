@@ -1,5 +1,13 @@
 # Cloud Cost Optimization — Fundamentals
 
+## The hook: you can't optimize what you can't see
+
+Every technique on this page — right-sizing, commitment discounts, waste removal, cost-aware architecture — depends on one prerequisite that's easy to skip: actually being able to see, per-team and per-project, where the money is going. Tagging discipline isn't a separate "nice to have" pillar; without it, the other three pillars are optimizing against a bill you can't attribute to anyone, which means nobody has the information needed to act on it.
+
+## Analogy
+
+Optimizing cloud costs without tagging is like trying to reduce a household's grocery bill using only the total receipt amount, with no idea which family member bought what. You can still cut the total (buy less of everything), but you can't find the actual waste (one person's unused gym-smoothie subscription vs. everyone's shared milk) without first attributing spend to a source — which is exactly what consistent tagging does for cloud cost.
+
 ## The Four Pillars of Cloud Cost Optimization
 
 ```
@@ -8,6 +16,37 @@
 3. WASTE REMOVAL:   Delete unused resources
 4. ARCHITECTURE:    Design for cost efficiency from the start
 ```
+
+## How the four pillars fit together (diagram)
+
+```
+                 Tagging (this file's real prerequisite)
+                              │
+       ┌──────────────────────┼──────────────────────┐
+       ▼                      ▼                       ▼
+  RIGHT-SIZING          PRICING MODEL            WASTE REMOVAL
+  (needs per-team        (needs per-team          (needs per-team
+   usage data to           commitment history        attribution to
+   know who's over-        to choose On-Demand       know whose orphaned
+   provisioned)            vs Savings Plan)           resource it is)
+       │                      │                       │
+       └──────────────────────┴───────────────────────┘
+                              │
+                              ▼
+                    ARCHITECTURE (the pillar that
+                  prevents needing the other three
+                   as urgently, going forward)
+```
+
+## Try it yourself (2 minutes)
+
+Run the Cost Explorer command below against any AWS account you have read access to (even a mostly-empty sandbox works):
+```bash
+aws ce get-cost-and-usage --time-period Start=2024-01-01,End=2024-01-31 \
+    --granularity MONTHLY --metrics BlendedCost \
+    --group-by Type=DIMENSION,Key=SERVICE
+```
+Look at the output: can you tell WHO is responsible for each service's spend, or only WHAT the spend was on? If tags aren't set up, the answer is "only what" — which is precisely the gap tagging discipline exists to close, and why it's listed as this page's real prerequisite rather than an optional pillar.
 
 ## AWS Cost Tools
 

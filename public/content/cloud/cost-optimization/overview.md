@@ -1,10 +1,43 @@
 # Cloud Cost Optimization — FinOps Guide
 
-Cloud bills grow faster than engineering teams expect. This guide covers strategies that actually reduce bills by 20-40% in 90 days.
+## Why this exists (the hook)
+
+Cloud billing has no natural brake — unlike buying a physical server, spinning up a bigger instance or leaving one running costs nothing to *do*, only something to *pay for later*, and that payment is invisible until the monthly bill arrives. A team can accumulate real waste (forgotten test resources, over-provisioned instances, idle NAT Gateways) for months without anyone noticing, because nothing about clicking "launch" or forgetting to click "terminate" gives immediate feedback. FinOps exists to put that feedback loop back in, deliberately, since the cloud provider's billing system won't do it for you.
+
+## Analogy
+
+Running cloud infrastructure without cost discipline is like a hotel room with no checkout time and a bill that only arrives once a month — nothing stops you from booking more rooms than you need "just in case," and nothing reminds you a room's been sitting empty for three weeks. FinOps practices (tagging, right-sizing, scheduled shutdowns, savings commitments) are the equivalent of an actual checkout process: they make usage visible and give someone a reason to notice waste before the bill does it for them.
+
+Cloud bills grow faster than engineering teams expect. This guide covers strategies that can meaningfully reduce bills within a few months *(needs verification — the specific "20-40% in 90 days" figure is a commonly-cited industry claim, not a guarantee; actual results depend heavily on how much waste already exists in a given environment)*.
 
 ## Why Cloud Bills Explode
 
 The top causes: forgotten test resources never terminated, over-provisioned instances doing a fraction of their capacity, data transfer fees accumulating unnoticed, and dev environments running 24/7 like production.
+
+## How waste accumulates (diagram)
+
+```
+Launch an instance ──► No natural "is this still needed?" prompt
+        │
+        ▼
+  Workload finishes,                 Instance/volume/IP left running
+  test completes,                 ──► with no automatic cost signal
+  project ends                        until the monthly bill arrives
+        │                                        │
+        ▼                                        ▼
+  Nobody terminates it            By the time someone notices,
+  (no reminder exists)             weeks/months of charges have
+                                    already accumulated silently
+```
+
+## Try it yourself (2 minutes)
+
+If you have AWS CLI access to any account (even a free-tier sandbox), run:
+```bash
+aws ec2 describe-volumes --filters Name=status,Values=available \
+  --query 'Volumes[*].[VolumeId,Size,CreateTime]' --output table
+```
+Every row is an EBS volume with no instance attached — storage you're paying for that isn't doing anything. Even a personal free-tier account often has at least one of these sitting around from a terminated instance. That's the exact "invisible until you look" problem this whole page is about, in one command.
 
 ## Right-Sizing
 

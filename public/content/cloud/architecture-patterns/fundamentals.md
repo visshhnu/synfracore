@@ -1,5 +1,13 @@
 # Cloud Architecture Patterns — Fundamentals
 
+## The hook: naming the problem is most of the work
+
+Once you can correctly name which problem class a situation belongs to, the pattern choice is usually the easy part — most of the actual skill in this section is learning to recognize "this is a read/write asymmetry problem" or "this is an N-to-N networking problem" from a plain description of a system, before you ever get to naming CQRS or Hub-and-Spoke out loud.
+
+## Analogy
+
+Diagnosing which pattern a situation needs is like a doctor diagnosing symptoms before prescribing anything — prescribing a treatment (a pattern) before correctly identifying the underlying condition (the problem class) tends to either not help or actively add complexity for no benefit. The table below is deliberately organized problem-first, pattern-second, for exactly this reason.
+
 ## Why patterns exist at all: the same problems recur
 
 Architecture patterns aren't arbitrary conventions — each one exists because a specific, recurring problem class doesn't have a good one-off solution. Before learning the patterns themselves, it's worth being explicit about which problem each one addresses, because that's what actually gets tested in interviews and what actually determines when to reach for one.
@@ -12,6 +20,25 @@ Architecture patterns aren't arbitrary conventions — each one exists because a
 | CQRS | Read and write workloads have fundamentally different scaling/consistency needs, but one data model forces a compromise for both |
 | Saga | A single database transaction can't span multiple independent microservices' data stores |
 | Serverless Event-Driven | Provisioning fixed capacity for unpredictable, spiky load wastes money or under-provisions |
+
+## How it fits together (diagram)
+
+```
+  Symptom you observe            Problem class            Pattern
+  ──────────────────             ────────────             ───────
+  "One zone went down and         Correlated single-    →  Multi-AZ
+   took the whole app with it"    point-of-failure          Active-Active
+  "Every new VPC needs N          N-to-N connection      →  Hub-and-Spoke
+   new peering connections"       explosion
+  "We can't safely rewrite        Big-bang migration     →  Strangler Fig
+   this monolith in one go"       risk
+  "Reads and writes want           Single-model           →  CQRS
+   different scaling/consistency"  compromise
+  "One transaction needs to        No cross-service       →  Saga
+   span two microservices"         atomic transaction
+  "Fixed capacity wastes money     Unpredictable,         →  Serverless
+   during quiet periods"           spiky load                Event-Driven
+```
 
 ## Multi-AZ, explained mechanically
 
@@ -32,3 +59,7 @@ Command Query Responsibility Segregation splits the write path (commands) from t
 ## Saga, explained mechanically
 
 A traditional database transaction guarantees all-or-nothing across multiple operations within one database. Once you have multiple microservices, each with its own database, that guarantee doesn't span services — there's no single transaction that can atomically update Service A's database and Service B's database together. Saga replaces this with a sequence of local transactions, each publishing an event that triggers the next step; if a step fails partway through, **compensating transactions** run to undo the completed steps in reverse (a "cancel payment" event to undo a completed "charge payment" step, for example) rather than relying on a distributed transaction that doesn't actually exist at this scale.
+
+## Try it yourself (2 minutes)
+
+Take the "Problem it solves" table above and cover the pattern-name column. For each problem description, try to name the pattern from the description alone before checking. If you can go 5/6 without needing the name column, you've internalized the actually-useful skill (problem recognition) rather than just memorized six vocabulary words.

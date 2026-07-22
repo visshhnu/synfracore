@@ -58,7 +58,7 @@ PRIMARY EXAM: AWS Solutions Architect Professional (SAP-C02)
 
 TOP TOPICS:
   Landing zone: secure, scalable multi-account AWS/Azure/GCP foundation
-  AWS Organizations: OU structure, SCPs (deny = preventive guardrail), consolidate
-  Account vending: automate account creation with pre-configured baselines (Contro
-  Network architecture: hub-spoke with Transit Gateway, centralized egress, Direct
+  AWS Organizations: OU structure, SCPs (deny = preventive guardrail), consolidated billing
+  Account vending: automate account creation with pre-configured baselines (Control Tower)
+  Network architecture: hub-spoke with Transit Gateway, centralized egress, Direct Connect hub
 ```

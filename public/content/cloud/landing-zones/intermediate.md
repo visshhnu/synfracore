@@ -12,8 +12,10 @@
 # - Audit account (read-only access for security tools)
 # - Core OUs: Security, Sandbox
 
-# Enroll existing accounts
-aws controltower register-organizational-unit --organizational-unit-id ou-xxxx
+# Enrolling existing accounts/OUs is primarily an Account Factory / console
+# workflow, not a single direct CLI subcommand *(needs verification --
+# check the current AWS CLI controltower command reference for what's
+# actually scriptable)*
 
 # Account Factory: self-service account creation
 # Configured via Service Catalog in Control Tower console

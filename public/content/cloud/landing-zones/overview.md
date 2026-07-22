@@ -1,5 +1,13 @@
 # Cloud Landing Zones — Multi-Account Architecture
 
+## Why this exists (the hook)
+
+A single AWS/Azure/GCP account with everyone in it works fine for a small team's first project — until a second team joins, or the first one hits production. At that point, one shared account means one shared blast radius: a dev team's mistake can touch prod resources, there's no clean way to see which team is spending what, and a security incident in one project can potentially reach everything else. A landing zone is the answer built *before* that second team shows up, not scrambled together after the first incident makes the problem obvious.
+
+## Analogy
+
+A landing zone is like the foundation and utility infrastructure of an office building, built before any tenant moves in — separate floors (accounts) for separate tenants, a shared but access-controlled lobby and elevator system (shared services), building-wide fire code and security requirements enforced on every floor (guardrails/SCPs), and a single building management office that knows what's happening on every floor (centralized logging/monitoring). No tenant gets to skip the fire code because they're "just a small startup" — the guardrails apply uniformly, which is exactly the point.
+
 A landing zone is a well-architected, multi-account environment that serves as the foundation for your cloud deployment. It establishes security baselines, network architecture, identity, and governance before you deploy any workloads.
 
 ## Why Landing Zones
@@ -34,8 +42,10 @@ Without landing zone:              With landing zone:
 # └── Shared Services OU
 #     └── Shared services       (CI/CD, monitoring, DNS)
 
-# Enroll existing accounts
-aws controltower register-organizational-unit --organizational-unit-id ou-xxx
+# Enrolling existing accounts and OUs into Control Tower is primarily a
+# console/Account Factory workflow, not a single direct CLI subcommand
+# *(needs verification — check the current AWS CLI controltower command
+# reference for what's actually scriptable vs. console-only)*
 
 # Account Factory — self-service account vending
 # Configure in Control Tower console
@@ -67,3 +77,7 @@ Identity:
   ✅ No long-term credentials for humans
   ✅ Permission sets per role (developer, admin, read-only)
 ```
+
+## Try it yourself (2 minutes)
+
+Sketch (on paper or in a text file) the OU structure from the Control Tower diagram above, but for a hypothetical company you know something about — even just "3 teams, one of which handles payment data." Where would each team's accounts sit? Would payment data need its own OU with stricter SCPs than the others? There's no single right answer, but doing this exercise once is what makes the abstract "Security OU / Workload OU / Sandbox OU" structure above click as an actual design decision rather than a diagram to memorize.
