@@ -45,15 +45,17 @@ PGA (Program Global Area):
 
 **PL/SQL** — Oracle's procedural extension to SQL for stored procedures, functions, triggers, and packages.
 
-**RAC (Real Application Clusters)** — multiple Oracle instances sharing the same storage. Provides extreme HA — a node can fail with zero downtime.
+**RAC (Real Application Clusters)** — multiple Oracle instances sharing the same storage. Provides extreme HA — if one node fails, the database as a whole stays up and surviving nodes keep serving traffic, though sessions connected to the failed node still need to reconnect/fail over (not literally zero-impact for those specific sessions).
 
 **ASM (Automatic Storage Management)** — Oracle's built-in volume manager for database storage.
 
 ## Getting Started with Oracle
 
 **Free Options:**
-- Oracle Database 21c Express Edition (XE) — free, limited to 2 CPUs, 2GB RAM, 12GB storage
-- Oracle Cloud Free Tier — Autonomous Database with 20GB storage
+- Oracle Database Express Edition (XE) — free, resource-limited (CPU/RAM/storage caps that vary by XE release)
+- Oracle Cloud Free Tier — includes an Autonomous Database tier
+
+*(needs verification — exact XE version and its specific CPU/RAM/storage limits, and Free Tier storage allowance, change between Oracle releases; confirm current values on Oracle's own download/Cloud Free Tier pages)*
 
 ```bash
 # Docker (quickest for learning)

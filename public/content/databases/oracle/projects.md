@@ -2,101 +2,94 @@
 
 Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
 
-## Project 1: Oracle Database Schema Design Project
+## Project 1: Oracle Schema Design with PL/SQL Business Logic
 
-**Level:** Beginner | **Time:** 2 days
+**Level:** Beginner-Intermediate | **Time:** 2-3 days
 
-Design and implement a real-world database schema for an e-commerce or social media application using Oracle Database. Practice normalization, indexing, and query optimization.
-
-### Steps
-
-1. Design the entity-relationship diagram on paper first
-2. Implement the schema in Oracle Database with proper data types
-3. Add constraints (NOT NULL, UNIQUE, CHECK, FOREIGN KEY)
-4. Create indexes for your most common query patterns
-5. Load sample data (use Faker library for realistic data)
-6. Write and optimize 10 complex queries (joins, aggregations, window functions)
-
-### Skills Demonstrated
-
-- Schema design
-- Indexing strategy
-- Query optimization
-
-### GitHub Repo Name
-
-`oracle-schema-design`
-
----
-
-## Project 2: Oracle Database Performance Optimization
-
-**Level:** Intermediate | **Time:** 3 days
-
-Take a slow database and make it 10x faster. Profile queries, identify bottlenecks, add indexes, rewrite queries, and set up connection pooling.
+Design and implement a real-world schema (an order-management or HR system works well) using Oracle-specific constructs, not just generic SQL — sequences, `%TYPE`/`%ROWTYPE`, and at least one stored procedure enforcing business logic the database itself guarantees.
 
 ### Steps
 
-1. Load 1M+ rows of test data
-2. Identify slow queries using EXPLAIN/query profiler
-3. Add appropriate indexes, measure improvement
-4. Rewrite N+1 queries to efficient JOINs
-5. Set up connection pooling (PgBouncer/ProxySQL)
-6. Document before/after query execution plans and timings
+1. Design the entity-relationship diagram first, then implement it with Oracle-appropriate data types (`VARCHAR2`, `NUMBER(p,s)`, `DATE`/`TIMESTAMP`)
+2. Add constraints (`NOT NULL`, `UNIQUE`, `CHECK`, `FOREIGN KEY`) and at least one sequence for a primary key
+3. Write a stored procedure that performs a real multi-step operation (e.g. a funds transfer or order placement) with proper `EXCEPTION` handling (`NO_DATA_FOUND`, `OTHERS`)
+4. Write 8-10 queries exercising Oracle-specific features: analytic functions (`RANK`, `DENSE_RANK`), a hierarchical `CONNECT BY` query if your domain has any tree/org structure, and `DECODE` or `CASE` logic
+5. Run `EXPLAIN PLAN` on your queries and document what you see
 
 ### Skills Demonstrated
 
-- Query optimization
-- Index design
-- Database profiling
+- Oracle-specific schema design (sequences, `%TYPE`, PL/SQL constraints)
+- Stored procedure design with real exception handling
+- Reading `EXPLAIN PLAN` output
 
 ### GitHub Repo Name
 
-`oracle-performance-tuning`
+`oracle-schema-plsql-project`
 
 ---
 
-## Project 3: Oracle Database Backend for a REST API
+## Project 2: Query Performance Investigation with EXPLAIN PLAN and Hints
 
-**Level:** Advanced | **Time:** 4 days
+**Level:** Intermediate | **Time:** 2-3 days
 
-Build the complete data layer for a production REST API using Oracle Database. Includes schema, migrations, stored procedures/aggregations, replication, and monitoring.
+Take a schema with a meaningful data volume, find genuinely slow queries, and fix them with evidence — not guesses.
 
 ### Steps
 
-1. Design schema for a social media or SaaS app
-2. Implement migration system (Flyway/Liquibase/Alembic)
-3. Write stored procedures/aggregation pipelines for complex operations
-4. Set up read replica for read scaling
-5. Implement backup strategy with automated testing
-6. Add monitoring: slow query log, connection metrics, disk usage alerts
+1. Load a realistic volume of test data (hundreds of thousands of rows, not a handful)
+2. Write a handful of realistic queries and run `EXPLAIN PLAN FOR ...` followed by `SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY(FORMAT => 'ALLSTATS LAST'))` on each
+3. Identify at least one query doing a `TABLE ACCESS FULL` that should be using an index, add the appropriate index, and confirm the plan changes to an `INDEX RANGE SCAN`
+4. Run `EXEC DBMS_STATS.GATHER_TABLE_STATS(...)` and document a case where stale statistics were causing the optimizer to choose a worse plan
+5. Try at least one optimizer hint (`/*+ INDEX(...) */` or `/*+ USE_HASH(...) */`) and document when it actually helped versus when the optimizer's own default choice was already correct
 
 ### Skills Demonstrated
 
-- Database migrations
-- Replication
-- Production operations
+- Reading and acting on `EXPLAIN PLAN`/`DBMS_XPLAN` output
+- Evidence-based indexing (not guesswork)
+- Understanding when optimizer hints are (and aren't) the right tool
 
 ### GitHub Repo Name
 
-`oracle-api-backend`
+`oracle-performance-investigation`
 
 ---
 
-## Tips for Great Projects
+## Project 3: Partitioned Table with Hierarchical and Analytic Queries
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Level:** Advanced | **Time:** 3-4 days
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+Build something that specifically exercises Oracle's less-portable, more distinctive feature set — the parts of Oracle that don't look like generic SQL.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+### Steps
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+1. Design a range-partitioned table for time-series-style data (e.g. sales or transaction history, partitioned by date) and confirm partition pruning actually happens via `EXPLAIN PLAN` (look for `PARTITION RANGE SINGLE`, not a scan across all partitions)
+2. Build a hierarchical dataset (an org chart, a category tree, a bill-of-materials) and write `CONNECT BY PRIOR` queries to traverse it, including at least one query using `ORDER SIBLINGS BY`
+3. Write a report query combining several analytic functions in one `SELECT` (`RANK`, `SUM() OVER (PARTITION BY ...)`, `LAG`/`LEAD`) against your partitioned data
+4. Document, in your README, one case where you'd choose Oracle's `CONNECT BY` over a portable `WITH RECURSIVE` CTE, and why (or vice versa) — this is a genuinely common design decision if your target role ever needs cross-engine portability
+
+### Skills Demonstrated
+
+- Partitioning strategy and confirming partition pruning with real evidence
+- Hierarchical query design (`CONNECT BY`), an Oracle-distinctive skill
+- Combining multiple analytic functions in realistic reporting queries
+
+### GitHub Repo Name
+
+`oracle-partitioning-hierarchy-project`
+
+---
+
+## Tips for Great Oracle Projects
+
+**Lean into what's actually Oracle-specific.** A schema and set of joins that would look identical on PostgreSQL or MySQL doesn't demonstrate Oracle expertise — analytic functions, `CONNECT BY`, PL/SQL packages, and partitioning are the parts of these projects that actually show you know this specific engine.
+
+**Show the `EXPLAIN PLAN`/`DBMS_XPLAN` output, not just the final indexes.** "I added this index" is far less convincing than "here's the plan before, showing `TABLE ACCESS FULL`, and after, showing `INDEX RANGE SCAN`."
+
+**Use current connection-pooling terminology if you cover it.** Oracle's own connection pooling tools are UCP (Universal Connection Pool) and DRCP (Database Resident Connection Pooling) — PgBouncer and ProxySQL are PostgreSQL- and MySQL-specific respectively and don't apply to Oracle.
 
 ## Portfolio Checklist
 
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] At least one project uses an Oracle-distinctive feature (analytic functions, `CONNECT BY`, partitioning, or a PL/SQL package) as a central piece, not an afterthought
+- [ ] At least one project includes real `EXPLAIN PLAN`/`DBMS_XPLAN` evidence for an indexing decision
+- [ ] Each README explains the reasoning, not just the final schema/query
+- [ ] You can walk through any of these projects for 5+ minutes without notes

@@ -11,6 +11,8 @@
 
 Certification path: SQL Associate (1Z0-071) → OCA → OCP → OCM.
 
+*(needs verification — exam codes, pricing (the OCM lab exam in particular has historically cost substantially more than a standard MCQ exam), and format all change on Oracle's side; confirm current values on Oracle's certification page before treating any of the above as current)*
+
 ---
 
 ## Oracle SQL — Core Topics (1Z0-071)

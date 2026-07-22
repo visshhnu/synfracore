@@ -100,7 +100,7 @@ SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY());
 -- Look for: INDEX RANGE SCAN (good) vs FULL TABLE SCAN (bad for large tables)
 ```
 
-## Quiz: Oracle vs PostgreSQL
+## Test Yourself
 
 Test yourself on Oracle-specific syntax before your interview or certification exam.
-Use the **Quiz** tab to access Oracle MCQ practice sets.
+Each of Overview, Fundamentals, Intermediate, and Advanced has a short practice quiz built into the page itself — work through the labs above, then check your understanding on those tabs directly.
