@@ -86,7 +86,7 @@ HAVING COUNT(*) > 5        -- Filter groups (not rows)
 ORDER BY revenue DESC;
 ```
 
-## Why SQL Still Matters in 2025
+## Why SQL Still Matters
 
 | Use Case | SQL Tool |
 |---|---|

@@ -184,10 +184,14 @@ SELECT c.name FROM customers c
 LEFT JOIN orders o ON c.id = o.customer_id
 WHERE o.id IS NULL;
 
--- Running count of active users per day
-SELECT date,
-    COUNT(DISTINCT user_id) OVER (ORDER BY date) AS cumulative_users
-FROM signups;
+-- Running count of DISTINCT active users per day — window functions do NOT
+-- support DISTINCT inside them (PostgreSQL, MySQL, and SQL Server all
+-- reject COUNT(DISTINCT x) OVER (...) with an error), so this needs a
+-- correlated subquery instead:
+SELECT DISTINCT date,
+    (SELECT COUNT(DISTINCT user_id) FROM signups s2 WHERE s2.date <= s1.date) AS cumulative_users
+FROM signups s1
+ORDER BY date;
 
 -- Top N per group
 SELECT * FROM (
