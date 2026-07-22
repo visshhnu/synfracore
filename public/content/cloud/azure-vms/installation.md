@@ -7,6 +7,7 @@
    - **$200 credit** for 30 days
    - **12 months** of popular free services
    - **Always-free** tier (25+ products, no expiry)
+   *(needs verification — Azure's free-account offer terms and exact figures change periodically; confirm against azure.microsoft.com/free before relying on these)*
 3. Sign in with Microsoft account (or create one)
 4. Enter payment method (won't be charged during free period)
 
@@ -52,7 +53,8 @@ az account set --subscription "My Subscription Name"
 # Create a resource group (like a folder for related resources)
 az group create --name my-rg --location southindia
 
-# Create a VM (Standard_B1s = 1 vCPU, 1GB RAM — free tier eligible)
+# Create a VM (Standard_B1s = 1 vCPU, 1GB RAM — historically free-tier eligible;
+# confirm current free-tier VM size against azure.microsoft.com/free before relying on it)
 az vm create \
   --resource-group my-rg \
   --name my-first-vm \

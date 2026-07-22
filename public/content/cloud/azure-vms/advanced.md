@@ -23,12 +23,15 @@ az vm disk attach --resource-group prod-rg --vm-name db-vm \
 
 ```bash
 # Spot VMs: up to 90% discount, evicted when capacity needed
+# --eviction-policy: Deallocate (stop, keep disk) or Delete (remove entirely)
+# --max-price: max price per vCPU-hour you'll pay; evicted if the market price exceeds it
+#   (--max-price -1 means "never evict on price, only on capacity")
 az vm create --resource-group prod-rg \
   --name spot-worker \
   --image Ubuntu2204 --size Standard_D8s_v3 \
   --priority Spot \
-  --eviction-policy Deallocate \  # or Delete
-  --max-price 0.1   # Max price per hour (evicted if market exceeds this)
+  --eviction-policy Deallocate \
+  --max-price 0.1
 
 # Handle eviction gracefully: check metadata service
 # 30-second warning: https://169.254.169.254/metadata/scheduledevents

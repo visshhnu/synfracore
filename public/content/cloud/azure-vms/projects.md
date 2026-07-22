@@ -2,85 +2,82 @@
 
 Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
 
-## Project 1: Virtual Machines Architecture Design
+## Project 1: Zone-Redundant Web Tier with Bastion Access
 
 **Level:** Beginner | **Time:** 2 days
 
-Design and deploy a basic 3-tier application using Virtual Machines services. Includes networking, compute, database, and basic security.
+Deploy a small web application across two Availability Zones, behind a Load Balancer, with SSH access exclusively through Azure Bastion — no VM in the deployment ever has a public IP address.
 
 ### Steps
 
-1. Draw the architecture diagram first (use draw.io or Excalidraw)
-2. Set up Virtual Machines environment with IaC (Terraform or CloudFormation)
-3. Deploy the networking layer (VPC/VNet, subnets, security groups)
-4. Add compute resources and deploy a sample web app
-5. Configure a managed database service
-6. Apply security best practices (IAM, encryption, no public access)
+1. Draw the network diagram first: VNet, an app subnet, a dedicated `AzureBastionSubnet` (/26 minimum), and where the Load Balancer sits
+2. Provision the VNet and subnets, then deploy Azure Bastion into its dedicated subnet
+3. Create two Linux VMs, one per Availability Zone, each with `--public-ip-address ""` and a system-assigned Managed Identity, bootstrapped via a Custom Script Extension or cloud-init
+4. Put a Standard Load Balancer in front of both VMs with a health probe on your app's port
+5. Connect to each VM only via `az network bastion ssh` and confirm neither VM is reachable by any other path
+6. Kill one VM's web process and confirm the Load Balancer's health probe removes it from rotation, then restores it once the process is back
 
 ### Skills Demonstrated
 
-- Virtual Machines core services
-- IaC
-- Cloud security basics
+- Availability Zone deployment
+- Azure Bastion / zero-public-IP VM access
+- Load Balancer health probes
 
 ### GitHub Repo Name
 
-`azure-vms-3tier-architecture`
+`azure-vms-zone-redundant-bastion`
 
 ---
 
-## Project 2: Serverless App on Virtual Machines
+## Project 2: Auto-Scaling VM Scale Set with a Golden Image
 
 **Level:** Intermediate | **Time:** 3 days
 
-Build a serverless REST API using Virtual Machines managed services. No servers to manage — pay per request, auto-scales to millions.
+Build a VM Scale Set that scales automatically on CPU load, where every new instance boots from a custom image you built and versioned in an Azure Compute Gallery — not a stock marketplace image plus a slow startup script.
 
 ### Steps
 
-1. Design the API: endpoints, request/response formats
-2. Implement using Virtual Machines serverless services
-3. Add a managed database/storage backend
-4. Implement authentication and authorization
-5. Set up CI/CD for automated deployments
-6. Load test and optimize for cost
+1. Provision a template VM, install and configure your application on it, then generalize it (deprovision + `az vm generalize`)
+2. Create an Azure Compute Gallery, an image definition, and capture an image version from the template VM
+3. Create a VM Scale Set that deploys from that gallery image (not the marketplace), and confirm boot time is meaningfully faster than a fresh marketplace image plus a Custom Script Extension run
+4. Configure autoscale rules: scale out on CPU > 70% (5-minute average), scale in on CPU < 30% (10-minute average), with a `--min-count`/`--max-count` range
+5. Load-test the scale set and observe the scale-out event actually happen in the Activity Log, then let load drop and confirm scale-in
 
 ### Skills Demonstrated
 
-- Serverless architecture
-- API design
-- Cost optimization
+- Golden-image pipeline (Azure Compute Gallery)
+- VM Scale Set autoscaling rules
+- Load testing and verifying real scaling behavior, not just configuring it
 
 ### GitHub Repo Name
 
-`azure-vms-serverless-api`
+`azure-vms-scaleset-golden-image`
 
 ---
 
-## Project 3: Cost-Optimized Virtual Machines Platform
+## Project 3: Cost- and Resilience-Optimized Mixed Fleet
 
 **Level:** Advanced | **Time:** 5 days
 
-Design and implement a production platform on Virtual Machines optimized for both reliability and cost. Implement HA, DR, monitoring, and cost management.
+Design a VM Scale Set that mixes On-Demand and Spot instances for a fault-tolerant batch workload, with graceful eviction handling, plus a cost comparison against a same-capacity all-On-Demand deployment.
 
 ### Steps
 
-1. Analyze requirements: availability target, RTO/RPO, budget
-2. Design multi-AZ/region architecture for high availability
-3. Implement auto-scaling for all compute tiers
-4. Set up centralized logging, monitoring, and alerting
-5. Implement backup and disaster recovery automation
-6. Track costs with budgets and alerts
-7. Optimize: use Reserved Instances/Savings Plans, right-size
+1. Analyze the workload: which parts can tolerate a Spot eviction (batch jobs that can be requeued) and which cannot (anything holding open state)
+2. Build a scale set with a mixed allocation policy — a baseline of On-Demand instances plus burst capacity from Spot instances with a `--max-price` cap and `Deallocate` eviction policy
+3. Implement eviction handling: poll the Azure Metadata Service's Scheduled Events endpoint (`169.254.169.254/metadata/scheduledevents`) and have the workload checkpoint or requeue its current task on the 30-second eviction warning
+4. Set up Azure Monitor alerting on eviction events and scale-set capacity, plus a budget alert in Cost Management
+5. Document a real cost comparison: capacity delivered vs. cost for the mixed fleet against a same-capacity all-On-Demand equivalent, using your subscription's actual billing data
 
 ### Skills Demonstrated
 
-- HA/DR design
-- Cost optimization
-- Enterprise operations
+- Spot VM eviction handling (not just enabling Spot — actually handling the eviction)
+- Mixed On-Demand/Spot capacity planning
+- Cost governance with real billing data, not estimated figures
 
 ### GitHub Repo Name
 
-`azure-vms-production-platform`
+`azure-vms-spot-mixed-fleet`
 
 ---
 
