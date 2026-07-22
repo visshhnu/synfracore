@@ -20,7 +20,7 @@ AKS is Azure's managed Kubernetes service. Azure manages the control plane (API 
 **Kubenet** (basic):
 - Node gets VNet IP, pods get overlay IPs (not routable from outside VNet)
 - Cheaper (fewer IPs consumed from VNet)
-- Limited to 400 nodes per cluster
+- Node count limits are lower than Azure CNI *(needs verification — exact current node-count ceiling for kubenet clusters against Azure docs)*
 - Use when: pod-to-pod communication stays in cluster
 
 **Azure CNI** (advanced):
@@ -46,7 +46,7 @@ az aks update --enable-oidc-issuer --enable-workload-identity   --name myaks --r
 az identity create --name my-app-identity --resource-group myrg
 
 # Federate with K8s service account
-az identity federated-credential create   --name myapp-fedcred   --identity-name my-app-identity   --issuer $(az aks show --name myaks --query "oidcIssuerProfile.issuerUrl" -o tsv)   --subject system:serviceaccount:default:my-service-account
+az identity federated-credential create   --name myapp-fedcred   --identity-name my-app-identity   --issuer $(az aks show --name myaks --query "oidcIssuerProfile.issuerUrl" -o tsv)   --subject system:serviceaccount:default:my-service-account   --audiences api://AzureADTokenExchange
 ```
 
 **Key Vault integration:**
@@ -74,7 +74,7 @@ az aks nodepool update --cluster-name myaks --name agentpool   --enable-cluster-
 az aks enable-addons --addons virtual-node --cluster-name myaks
 ```
 
-**Spot node pools**: 60-80% cheaper. AKS handles eviction gracefully via cordon/drain.
+**Spot node pools**: significantly cheaper than pay-as-you-go *(needs verification — exact discount range against current Azure Spot VM pricing)*. AKS handles eviction gracefully via cordon/drain.
 
 ---
 
@@ -106,7 +106,7 @@ Similar to AWS IRSA (IAM Roles for Service Accounts)
 
 NODE POOLS: System (K8s components) + User (app workloads)
 Autoscaler: --enable-cluster-autoscaler --min/max-count
-Spot pools: 60-80% cheaper, handle evictions with cordon/drain
+Spot pools: significantly cheaper *(needs verification — exact discount)*, handle evictions with cordon/drain
 Virtual nodes: burst to ACI for sudden scale
 
 MONITORING: Azure Monitor + Container Insights + Managed Prometheus

@@ -2,6 +2,36 @@
 
 Azure DevOps is Microsoft's end-to-end DevOps platform. It combines source control (Repos), CI/CD pipelines, agile planning (Boards), artifact management (Artifacts), and test management in one integrated suite.
 
+## Why this exists (the hook)
+
+Most teams don't just need "a place to run builds" — they need work items tracked back to the commits that closed them, artifacts versioned and traceable to the pipeline run that produced them, and deployments gated by approvals that show up in an audit log. Stitching a separate issue tracker, CI tool, artifact registry, and test-management tool together to get that is real integration work. Azure DevOps exists because Microsoft bundles all of it — Boards, Repos, Pipelines, Artifacts, Test Plans — as one connected suite where a single work item ID (`AB#1234`) can be traced from a Git commit through to the production deployment that shipped it.
+
+## Analogy
+
+Think of Azure DevOps like an all-in-one hospital versus a patient having to drive between a separate clinic, lab, pharmacy, and billing office. Each individual piece (Boards = the clinic's appointment/case tracking, Repos = patient records, Pipelines = the lab running tests, Artifacts = the pharmacy dispensing the actual medicine) works fine standalone elsewhere too — GitHub for repos, Jenkins for pipelines, Jira for boards. What Azure DevOps buys you is that all the records already live in one connected system, so a doctor (you, debugging a production incident) can trace a symptom (a bug work item) straight through to the exact prescription (deployment) that was meant to fix it, without hunting across four different logins.
+
+## How it fits together (diagram)
+
+```
+Azure Boards (work item #1234: "Fix login timeout")
+        │
+        │  git commit -m "Fix login timeout AB#1234"
+        ▼
+Azure Repos (commit auto-links back to work item #1234)
+        │
+        │  push triggers
+        ▼
+Azure Pipelines (build → test → scan → deploy stages)
+        │
+        ├──▶ Azure Artifacts (versioned package/image published)
+        │
+        └──▶ Environments (staging → approval gate → production)
+```
+
+## Try it yourself (2 minutes)
+
+If you have an Azure DevOps organization available (the free tier is enough), create a work item in Boards, note its ID, then make a commit in a connected repo with `git commit -m "test change AB#<id>"` and push it. Open the work item again — you'll see the commit listed under its "Development" links automatically, with no extra configuration. That auto-linking is the concrete example of what "integrated suite" means in practice, versus separately-run tools that would need a bot or webhook to achieve the same thing.
+
 ## Azure DevOps Services
 
 | Service | Purpose | Alternative |
@@ -77,7 +107,7 @@ stages:
           $(tag)
           latest
 
-    - task: AzureContainerRegistry@0
+    - task: AzureContainerRegistry@0  # (needs verification — confirm this task id/version is still current; Docker@2 with the ACR service connection is the more commonly documented path today)
       displayName: 'Push to ACR'
       inputs:
         azureSubscriptionEndpoint: '$(azureSubscription)'
@@ -85,7 +115,7 @@ stages:
         action: 'Push an image'
         imageName: '$(imageName):$(tag)'
 
-    - task: trivy@0
+    - task: trivy@0  # (needs verification — exact Marketplace extension/task id and version for Trivy scanning; not a built-in Microsoft task)
       displayName: 'Security scan'
       inputs:
         image: '$(dockerRegistry)/$(imageName):$(tag)'
@@ -156,7 +186,7 @@ stages:
                   --values helm/values-prod.yaml \
                   --wait --timeout 10m --atomic
 
-          - task: CreateWorkItem@1
+          - task: CreateWorkItem@1  # (needs verification — confirm current task version)
             inputs:
               workItemType: 'Task'
               title: 'Deployment $(tag) to production completed'

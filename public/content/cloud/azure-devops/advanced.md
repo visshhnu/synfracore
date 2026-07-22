@@ -42,10 +42,13 @@ stages:
 ## Azure Boards Integration
 
 ```yaml
-# Automatically close work items when PR merges
+# Automatically close work items when PR merges (requires "complete linked
+# work items after merging" enabled on the PR, or a branch policy for it)
 # In PR description or commit message:
-Fixes #1234    # Closes work item 1234 on merge
-Resolves AB#1234  # Azure Boards work item
+Fixes AB#1234      # AB# is the reliable prefix for Azure Boards work item links
+Resolves AB#1234
+# (needs verification — plain "#1234" without the AB# prefix may or may not
+#  auto-link depending on repo/integration settings; use AB# to be unambiguous)
 
 # Pipeline: create work item on failure
 - task: CreateWorkItem@1

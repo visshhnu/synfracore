@@ -25,7 +25,8 @@ az identity create --name app-identity --resource-group prod-rg
 az identity federated-credential create --name k8s-binding \
   --identity-name app-identity --resource-group prod-rg \
   --issuer $OIDC \
-  --subject "system:serviceaccount:default:app-sa"
+  --subject "system:serviceaccount:default:app-sa" \
+  --audiences api://AzureADTokenExchange
 
 # Grant Key Vault access
 az keyvault set-policy --name prod-vault \

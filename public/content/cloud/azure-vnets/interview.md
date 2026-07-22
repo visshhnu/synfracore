@@ -31,7 +31,7 @@ Use NSG for basic network segmentation. Azure Firewall for centralised, enterpri
 |---|---|---|---|
 | Connection | VNet-to-VNet (Azure) | On-prem to Azure (internet) | On-prem to Azure (private) |
 | Latency | Very low | Higher (internet) | Low (dedicated) |
-| Bandwidth | High | Up to 10Gbps | Up to 100Gbps |
+| Bandwidth | High | Depends on gateway SKU *(needs verification)* | Depends on circuit tier *(needs verification)* |
 | Cost | Per GB transferred | Gateway + data | Circuit + gateway |
 | Transitive | No (Hub-spoke with NVA) | No by default | No by default |
 

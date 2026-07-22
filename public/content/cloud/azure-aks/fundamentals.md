@@ -1,9 +1,21 @@
 # Azure AKS — Fundamentals
 
+## The hook: kubectl talks to Azure's control plane, not your nodes
+
+A common early confusion: `kubectl` commands feel like they're talking directly to your VMs, but they're not — every `kubectl get`/`apply` call goes to the API server, which is a Microsoft-managed component you never SSH into. Your node pool VMs are visible to Azure Compute (`az vm list` won't show them under your own VM list the normal way — they live in a separate, Azure-managed resource group prefixed `MC_`), but the thing actually scheduling work onto them is entirely out of your hands to patch or restart directly.
+
+## Analogy
+
+Think of `kubectl` as calling a company's reception desk (the API server) instead of walking directly into any specific employee's office (a node). You tell reception what you want done ("run 3 copies of this container"), and reception (the scheduler) decides which office (node) actually does the work. You never need to know or care which specific office it landed in — and if that particular office is unavailable, reception just routes the work to another one.
+
 ## Create AKS Cluster
 
 ```bash
 # Azure CLI
+# --enable-managed-identity: cluster's own identity for managing Azure resources (LBs, disks)
+# --enable-workload-identity + --enable-oidc-issuer: lets PODS get their own Entra ID identity
+# --network-plugin azure: pods get real VNet IPs (vs. kubenet's overlay network)
+# --network-policy calico: enforce pod-to-pod traffic rules
 az aks create \
     --resource-group prod-rg \
     --name prod-aks \
@@ -17,13 +29,17 @@ az aks create \
     --enable-addons monitoring \
     --generate-ssh-keys
 
-# Get credentials
+# Get credentials — writes/merges cluster access config into ~/.kube/config
 az aks get-credentials --resource-group prod-rg --name prod-aks
 
-# Check cluster
+# Check cluster — talks to the managed API server, not any node directly
 kubectl get nodes
 kubectl cluster-info
 ```
+
+## Try it yourself (2 minutes)
+
+If you have an Azure sandbox available, run `az aks show --resource-group prod-rg --name prod-aks --query nodeResourceGroup -o tsv` after creating a cluster. This prints the name of the separate, Azure-managed resource group (prefixed `MC_`) where your actual node VMs, load balancers, and disks live — distinct from `prod-rg`, the resource group you created. Then `az group show --name <that MC_ group>` to see it's real and exists, even though you never explicitly created it. This is the concrete evidence behind the hook above: Azure manages that infrastructure layer, and modifying resources inside it directly (instead of through AKS) is explicitly unsupported.
 
 ## Workload Identity (IRSA equivalent)
 
