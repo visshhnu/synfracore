@@ -1,80 +1,51 @@
 # Redis — Learning Roadmap
 
 ## Estimated Time to Job-Ready
-**6-10 weeks** of consistent learning (2-3 hours/day)
+**5-7 weeks** of consistent learning (2-3 hours/day) — Redis's core commands are genuinely quick to pick up; most of the real learning curve is in choosing the right data structure and pattern for a given problem, plus the operational side (persistence, HA, cluster) that a pure caching mental model tends to skip.
 
 ## Phase 1: Foundation (Week 1-2)
-Build core understanding before touching advanced topics.
 
-- Master the fundamental concepts and mental model
-- Complete the fundamentals section in this course  
-- Run hands-on labs (beginner level)
-- Build your first working example
+- Core data structures: String, Hash, List, Set, Sorted Set — and matching each to the use case it's actually built for (a Sorted Set for a leaderboard, not a List you'd have to manually sort)
+- TTL/expiry commands (`EXPIRE`, `TTL`, `PERSIST`) and why "always set a TTL on cache keys" is a real operational habit, not just a suggestion
+- Install Redis via Docker and get comfortable with `redis-cli`
 
-## Phase 2: Hands-On Practice (Week 3-5)
-Theory without practice is useless. Build real things.
+**Checkpoint:** given a requirement to store user session data that should expire automatically, can you write the command and explain why `SET key value EX seconds` is preferable to setting the value and expiry as two separate commands?
 
-- Complete intermediate section and all labs
-- Work through 2-3 guided projects
-- Break things deliberately and fix them
-- Read official documentation, not just tutorials
+## Phase 2: Caching and Rate-Limiting Patterns (Week 2-4)
 
-## Phase 3: Production Patterns (Week 6-8)
-Learn how professionals do it at scale.
+- Cache-aside (lazy loading): the standard pattern, and what cache invalidation actually requires on writes
+- The real difference between a fixed-window rate limiter (`INCR` + `EXPIRE`, simple but allows bursts at window boundaries) and a true sliding window (sorted-set or Lua-based) — a lot of tutorials show fixed-window code while calling it "sliding window," which is worth being able to spot
+- The correct atomic distributed-lock pattern (`SET key value NX PX milliseconds` in one command) versus the unsafe version (`SETNX` followed by a separate `EXPIRE`, which has a crash-window race condition)
+- Complete Portfolio Project 1 (caching layer) and Project 2 (rate limiter)
 
-- Study advanced section — production architecture
-- Implement security best practices
-- Set up monitoring and alerting
-- Contribute to open-source or build portfolio project
+**Checkpoint:** can you explain why `SETNX` followed by a separate `EXPIRE` call is not a safe distributed lock, even though it looks like it should work? This is a genuinely common mistake worth being able to diagnose, not just avoid by memorized rule.
 
-## Phase 4: Interview Ready (Week 9-10)
-Convert knowledge into opportunity.
+## Phase 3: Lua Scripting, Pub/Sub, and Streams (Week 4-5)
 
-- Complete all interview Q&A sections
-- Practice explaining concepts out loud
-- Do 3+ mock technical interviews
-- Apply to target roles
+- Lua scripting for atomic multi-step operations (`EVAL`) — why "no other commands execute between script steps" is the actual guarantee that makes this useful for rate limiting and similar check-and-act patterns
+- Pub/Sub for real-time messaging, and its key limitation: no persistence — a subscriber that's offline when a message is published simply misses it
+- Redis Streams as the durable, consumer-group alternative when Pub/Sub's fire-and-forget behavior isn't sufficient
+- Complete Portfolio Project 3 (real-time leaderboard with Sorted Sets)
 
-## Skills You'll Build
+**Checkpoint:** given a requirement where a message must be reliably delivered even if the consumer is temporarily offline, can you explain why Pub/Sub is the wrong tool and Streams (with consumer groups and acknowledgment) is the right one?
 
-| Skill Area | What You'll Learn |
-|---|---|
-| Core Concepts | Fundamental architecture and design principles |
-| Practical Skills | Real commands, configurations, and patterns |
-| Troubleshooting | Diagnose and fix common production issues |
-| Best Practices | Security, performance, cost optimization |
-| Interview Prep | Answer any question with confidence |
+## Phase 4: Persistence, HA, and Interview Readiness (Week 5-7)
 
-## Weekly Study Plan
+- RDB (point-in-time snapshots) vs. AOF (write-log) persistence, and why production commonly enables both
+- Sentinel (automatic failover for a single master) vs. Cluster (sharding across 16,384 hash slots) — know which problem each solves
+- Eviction policies (`allkeys-lru`, `volatile-lru`, `noeviction`, etc.) and choosing the right one based on whether Redis is being used as a pure cache or a durable data store
+- Review this course's Interview Q&A material, particularly the persistence, replication, and rate-limiting questions
 
-```
-Monday:    Read theory (fundamentals/intermediate)
-Tuesday:   Hands-on labs (practice environment)
-Wednesday: Build a small project applying what you learned
-Thursday:  Read docs, watch a video, go deeper on one topic
-Friday:    Review interview questions, explain to yourself
-Weekend:   Work on a portfolio project or practice exam
-```
+## Common Pitfalls Specific to Redis (Not Generic Study Advice)
 
-## Red Flags to Avoid
+- **Using bare `SETNX` for a distributed lock without an expiry** — a crashed lock holder before release means the lock is held forever; use the atomic `SET key value NX PX ms` form instead
+- **Calling a fixed-window rate limiter "sliding window"** — the two behave differently at window boundaries (a fixed window allows a burst right at the boundary that a true sliding window would catch); know which one you've actually built
+- **Treating vendor throughput-multiplier claims (for forks like KeyDB or alternatives like Dragonfly) as universal** — these are workload- and hardware-dependent benchmark numbers, not guaranteed results for your own workload
+- **Forgetting Pub/Sub has no persistence** — a common source of "why did my subscriber miss messages" confusion when a consumer was briefly disconnected
 
-- ❌ Tutorial hell — watching videos without building
-- ❌ Skipping fundamentals to jump to "cool" advanced topics  
-- ❌ Not reading error messages carefully
-- ❌ Copy-pasting code without understanding it
-- ❌ Studying in isolation — join communities, ask questions
+## Getting Your First Redis-Heavy Role
 
-## Resources
-
-- **This course**: Start with Overview → Fundamentals → Labs → Projects
-- **Official docs**: Always the most accurate and up-to-date
-- **Community**: Reddit, Discord, Stack Overflow for stuck moments
-- **Projects**: Build something real, put it on GitHub
-
-## Getting Your First Job
-
-1. **Portfolio**: 2-3 solid GitHub projects demonstrating the skill
-2. **Resume**: Quantify achievements ("reduced deploy time by 60%")
-3. **Network**: LinkedIn, meetups, DevOps/tech communities
-4. **Apply broadly**: Apply to 20+ roles, expect 3-5 interviews per offer
-5. **Interview prep**: System design + technical + behavioral all matter
+1. **Portfolio:** the 3 projects in this course's Projects section, each demonstrating a different core skill (cache-aside with measured hit-rate improvement, atomic Lua-based rate limiting, a real Sorted-Set leaderboard at meaningful scale)
+2. **Resume:** be specific — "implemented a cache-aside layer reducing average API response time from 120ms to 8ms on cache hits" is far stronger than "experience with Redis"
+3. **Know the ecosystem context:** Redis shows up constantly as infrastructure glue (caching, sessions, queues, rate limiting, pub/sub) across almost every kind of backend role — being able to explain which specific problem each Redis pattern solves is often more relevant in interviews than command memorization
+4. **Certifications, if pursuing one:** see this course's own Certification Guide for Redis University's current offerings and pricing caveats

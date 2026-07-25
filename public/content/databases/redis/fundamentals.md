@@ -8,7 +8,10 @@ SET user:123 '{"id":123,"name":"Alice"}' EX 3600   # expire in 1 hour
 GET user:123
 INCR page:views               # atomic counter
 INCRBY cart:123:total 2599    # add amount
-SETNX lock:resource 1         # set if not exists (distributed lock)
+SET lock:resource 1 NX PX 30000   # atomic set-if-not-exists + 30s TTL —
+                                    # the actual safe distributed-lock pattern;
+                                    # bare SETNX with no expiry can deadlock
+                                    # forever if the lock holder crashes
 GETDEL temp:key               # get and delete atomically
 
 # Hash — object fields (memory efficient vs JSON string)
@@ -114,7 +117,8 @@ def is_rate_limited(user_id: str, limit: int = 100, window: int = 60) -> bool:
 
     return results[1] >= limit  # True = rate limited
 
-# Token bucket using Lua script (atomic)
+# Fixed-window counter using Lua script (atomic) -- not token bucket:
+# there's no refill rate or burst capacity here, just a per-window count cap
 RATE_LIMIT_SCRIPT = """
 local key = KEYS[1]
 local limit = tonumber(ARGV[1])

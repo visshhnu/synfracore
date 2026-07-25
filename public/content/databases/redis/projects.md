@@ -6,7 +6,7 @@
 
 **Level:** Beginner | **Time:** 1-2 days | **GitHub:** `redis-api-cache`
 
-Implement cache-aside pattern -- reduce database load by 80% for read-heavy APIs.
+Implement cache-aside pattern to reduce database load for a read-heavy API -- measure and document your own actual hit-rate reduction rather than assuming a fixed percentage, since the real reduction depends entirely on your workload's read/write ratio and key access distribution.
 
 ```python
 import redis, json, time
@@ -69,7 +69,7 @@ end
 return 1  -- Allowed
 ```
 
-**Steps:** Lua script, sliding window algorithm, test with concurrent requests, integrate with FastAPI
+**Steps:** Lua script, fixed-window algorithm (extend to a sorted-set-based sliding window as a stretch goal), test with concurrent requests, integrate with FastAPI
 
 ---
 

@@ -140,11 +140,14 @@ es.index(index="products", id=1, document={
     "name": "iPhone 15", "brand": "Apple", "price": 79999
 })
 
-# Search
-result = es.search(index="products", body={
-    "query": {"match": {"name": "iphone"}},
-    "sort": [{"price": "asc"}]
-})
+# Search — elasticsearch-py v8+ deprecated the body= parameter for all
+# APIs in favor of top-level keyword arguments (the pattern below); "from"
+# is a reserved Python keyword, so pagination uses from_= if needed
+result = es.search(
+    index="products",
+    query={"match": {"name": "iphone"}},
+    sort=[{"price": "asc"}]
+)
 
 for hit in result["hits"]["hits"]:
     print(hit["_source"]["name"], hit["_score"])

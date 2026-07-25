@@ -102,7 +102,9 @@ Fix: Probabilistic early expiration, mutex lock, background refresh.
 **Q: Rate limiting with Redis.**
 
 ```python
-# Sliding window rate limiter: max 100 requests per minute
+# Fixed-window rate limiter: max 100 requests per minute (bucketed by
+# minute, not a true sliding window -- a sorted-set or Lua-based approach
+# is needed for that)
 def is_allowed(user_id: str) -> bool:
     key = f"rate:{user_id}:{int(time.time() // 60)}"
     count = redis.incr(key)
@@ -114,9 +116,12 @@ def is_allowed(user_id: str) -> bool:
 # MULTI/EXEC for atomicity, or Lua scripts for CAS operations
 ```
 
-**Distributed lock (Redlock):**
+**Simple single-node distributed lock:**
+(Note: "Redlock" specifically refers to Salvatore Sanfilippo's algorithm for
+acquiring a lock across multiple independent Redis instances for stronger
+fault tolerance -- the pattern below is the simpler single-instance version,
+sufficient for many use cases but not the same thing as Redlock proper.)
 ```python
-# Simple single-node lock
 lock_key = "lock:resource"
 acquired = redis.set(lock_key, "owner-id", nx=True, ex=30)  # nx=only if not exists
 if acquired:

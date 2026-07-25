@@ -10,6 +10,8 @@
 
 Redis University at university.redis.com offers free learning paths and paid certification exams.
 
+*(needs verification — exam pricing and format change on Redis's side; confirm current values at university.redis.com before treating any of the above as current)*
+
 ---
 
 ## Core Commands by Data Type
@@ -88,7 +90,8 @@ TRANSACTIONS:
 COMMON USE CASES:
   Cache:       SET key value EX ttl
   Session:     HSET session:id field value EX ttl
-  Rate limit:  INCR counter + EXPIRE (sliding window)
+  Rate limit:  INCR counter + EXPIRE (fixed window) — a sorted-set or
+               Lua-based approach is needed for a true sliding window
   Job queue:   RPUSH + BLPOP (producer/consumer pattern)
   Pub/Sub:     PUBLISH channel msg + SUBSCRIBE channel
   Leaderboard: ZADD + ZRANGE with scores

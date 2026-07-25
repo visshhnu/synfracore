@@ -6,7 +6,9 @@
 |------|----------|------|--------|
 | **Elastic Certified Engineer** | Elastic | $400 | Hands-on lab, 3 hrs |
 | **Elastic Certified Analyst** | Elastic | $400 | Hands-on lab, 3 hrs |
-| **Elastic Certified Observability Engineer** | Elastic | $400 | Hands-on lab |
+| **Elastic Certified Observability Engineer** | Elastic | $500 | Hands-on lab |
+
+*(needs verification — pricing changes on Elastic's side; the Observability Engineer price above has already changed at least once, so confirm all three current prices directly at elastic.co/training before relying on this table)*
 
 All Elastic exams are performance-based on a live cluster — no MCQ questions.
 

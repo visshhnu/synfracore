@@ -104,9 +104,19 @@ NOT IDEAL FOR:
   Simple key-value lookups (use Redis/DynamoDB)
 
 ELASTICSEARCH VS OPENSEARCH:
-  OpenSearch: AWS fork of Elasticsearch 7.10 (open source, Apache 2.0)
-  Elasticsearch: Elastic's version (dual license from 7.11+)
-  APIs very similar; OpenSearch preferred on AWS (no licensing concerns)
+  OpenSearch: AWS fork of Elasticsearch 7.10, created after Elastic moved
+    away from Apache 2.0 in 2021 (with the 7.11 release) — open source
+    (Apache 2.0), fully independent project with its own roadmap since
+  Elasticsearch: as of a 2024 licensing change, Elastic added AGPLv3 as a
+    THIRD licensing option alongside SSPL and Elastic License 2.0 — meaning
+    Elasticsearch/Kibana are open source again (AGPLv3 is OSI-approved)
+    *(needs verification — confirm the exact date directly with Elastic's
+    own announcement)*
+  APIs still broadly similar, but the two projects have been diverging in
+    features/internals since the 2021 split — "avoid licensing concerns"
+    is a weaker argument for choosing OpenSearch now that Elasticsearch
+    offers an OSI-approved option; "which one has the features I need" is
+    now the more relevant question
   Amazon OpenSearch Service: managed AWS offering (formerly Amazon Elasticsearch)
 ```
 

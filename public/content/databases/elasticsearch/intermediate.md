@@ -84,17 +84,16 @@ import openai
 
 es = Elasticsearch("http://localhost:9200")
 
-# Create index with dense_vector field
-es.indices.create(index="docs", body={
-    "mappings": {
-        "properties": {
-            "content": {"type": "text"},
-            "embedding": {
-                "type": "dense_vector",
-                "dims": 1536,
-                "index": True,
-                "similarity": "cosine"
-            }
+# Create index with dense_vector field — elasticsearch-py v8+ deprecated
+# body= for all APIs in favor of top-level keyword arguments
+es.indices.create(index="docs", mappings={
+    "properties": {
+        "content": {"type": "text"},
+        "embedding": {
+            "type": "dense_vector",
+            "dims": 1536,
+            "index": True,
+            "similarity": "cosine"
         }
     }
 })
@@ -113,12 +112,10 @@ for i, doc in enumerate(docs):
 
 # Semantic search
 query_vector = get_embedding("how to deploy to kubernetes")
-results = es.search(index="docs", body={
-    "knn": {
-        "field": "embedding",
-        "query_vector": query_vector,
-        "k": 5,
-        "num_candidates": 50
-    }
+results = es.search(index="docs", knn={
+    "field": "embedding",
+    "query_vector": query_vector,
+    "k": 5,
+    "num_candidates": 50
 })
 ```

@@ -30,15 +30,18 @@ rc.set("{user:123}:cart", "data3")
 ## KeyDB and Dragonfly (Redis Alternatives)
 
 ```bash
-# KeyDB — multi-threaded Redis fork, 5-10x more throughput
+# KeyDB — multi-threaded Redis fork, higher throughput on multi-core hardware
 # Drop-in replacement, same protocol
 docker run -p 6379:6379 eqalpha/keydb
 # Same client code, same commands
 
 # Dragonfly — modern Redis replacement, uses all CPU cores
 docker run -p 6379:6379 docker.dragonflydb.io/dragonflydb/dragonfly
-# 25x more throughput than Redis on same hardware
 # Compatible with Redis clients and protocol
+# *(needs verification — both projects publish specific throughput multiplier
+# claims (e.g. "5-10x", "25x") in their own benchmarks; these are highly
+# workload- and hardware-dependent, so verify against your own workload
+# rather than treating a vendor benchmark number as universal)*
 ```
 
 ## Production Configuration
