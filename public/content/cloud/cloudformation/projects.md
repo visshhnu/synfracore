@@ -1,103 +1,97 @@
-# CloudFormation — Portfolio Projects
+# AWS CloudFormation — Portfolio Projects
 
 Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
 
-## Project 1: CloudFormation Architecture Design
+## Project 1: Multi-Stack Network + Compute with Change Sets
 
-**Level:** Beginner | **Time:** 2 days
+**Level:** Beginner-Intermediate | **Time:** 2 days
 
-Design and deploy a basic 3-tier application using CloudFormation services. Includes networking, compute, database, and basic security.
+Build a real VPC + EC2 deployment as CloudFormation stacks, and practice the actual change-management workflow — not just `create-stack` once and stopping.
 
 ### Steps
 
-1. Draw the architecture diagram first (use draw.io or Excalidraw)
-2. Write the CloudFormation template(s) — start with `Parameters` and `Resources` sections only, add `Conditions`/`Mappings` once the basics deploy cleanly
-3. Deploy the networking layer (VPC, subnets, security groups)
-4. Add compute resources and deploy a sample web app
-5. Configure a managed database service
-6. Apply security best practices (IAM, encryption, no public access)
+1. Write a template provisioning a VPC, public/private subnets, and an EC2 instance with a security group — starting with `Parameters` and `Resources` only, adding `Outputs` for values other stacks might need
+2. Deploy it, then make a deliberate change (e.g. a new security group rule) and generate a Change Set before applying it — read the Change Set output and confirm it matches what you expected to change
+3. Use `!Ref` and `!GetAtt` to wire resources together and confirm CloudFormation correctly infers the dependency order (VPC before subnet before instance) without you specifying `DependsOn` manually
+4. Deliberately introduce a template error (a typo in a resource property) and observe CloudFormation's automatic rollback behavior on a failed update
+5. Tear down the stack with `delete-stack` and confirm every resource it created is actually gone, not just the top-level ones
 
 ### Skills Demonstrated
 
-- CloudFormation core services
-- IaC
-- Cloud security basics
+- Real CloudFormation stack lifecycle: create, Change Set review, update, rollback, delete
+- Understanding automatic dependency inference via `!Ref`/`!GetAtt`
+- Change Sets as a genuine pre-apply review step, not skipped
 
 ### GitHub Repo Name
 
-`cloudformation-3tier-architecture`
+`cloudformation-network-compute-changesets`
 
 ---
 
-## Project 2: Serverless App on CloudFormation
+## Project 2: Serverless API with SAM
 
 **Level:** Intermediate | **Time:** 3 days
 
-Build a serverless REST API using CloudFormation managed services. No servers to manage — pay per request, auto-scales to millions.
+Build a serverless REST API using the AWS SAM (Serverless Application Model) Transform — CloudFormation's native way to define Lambda + API Gateway without hand-writing the full underlying resource definitions.
 
 ### Steps
 
 1. Design the API: endpoints, request/response formats
-2. Implement using the `AWS::Serverless-2016-10-31` Transform (SAM) — `AWS::Serverless::Function` + `AWS::Serverless::Api` resources, deployed as a normal CloudFormation stack
-3. Add a managed database/storage backend
-4. Implement authentication and authorization
-5. Set up CI/CD for automated deployments
-6. Load test and optimize for cost
+2. Use `AWS::Serverless::Function` and `AWS::Serverless::Api` resources under the `AWS::Serverless-2016-10-31` Transform, deployed as a standard CloudFormation stack
+3. Add a DynamoDB table as the backend, and grant the Lambda function's execution role least-privilege access to it via SAM's policy templates, not a broad managed policy
+4. Set up nested stacks or a SAM-packaged deployment pipeline for repeatable deploys
+5. Load test and document actual cold-start behavior, then compare the SAM template's readability against the equivalent hand-written raw CloudFormation resources
 
 ### Skills Demonstrated
 
-- Serverless architecture
-- API design
-- Cost optimization
+- SAM Transform usage for serverless infrastructure-as-code
+- Least-privilege IAM scoping within a CloudFormation template
+- Understanding what SAM abstracts away versus raw CloudFormation
 
 ### GitHub Repo Name
 
-`cloudformation-serverless-api`
+`cloudformation-sam-serverless-api`
 
 ---
 
-## Project 3: Cost-Optimized CloudFormation Platform
+## Project 3: Nested Stacks and StackSets for Multi-Account Deployment
 
-**Level:** Advanced | **Time:** 5 days
+**Level:** Advanced | **Time:** 4-5 days
 
-Design and implement a production platform on CloudFormation optimized for both reliability and cost. Implement HA, DR, monitoring, and cost management.
+Design a production-shaped CloudFormation setup: nested stacks for reusable components, and StackSets for deploying the same baseline across multiple AWS accounts/regions.
 
 ### Steps
 
-1. Analyze requirements: availability target, RTO/RPO, budget
-2. Design multi-AZ/region architecture for high availability
-3. Implement auto-scaling for all compute tiers
-4. Set up centralized logging, monitoring, and alerting
-5. Implement backup and disaster recovery automation
-6. Track costs with budgets and alerts
-7. Optimize: use Reserved Instances/Savings Plans, right-size
+1. Break a multi-tier application template into nested stacks (network stack, compute stack, database stack) with the parent stack passing outputs between them as parameters
+2. Use a StackSet to deploy a consistent baseline (e.g. a security guardrail or logging configuration) across at least 2-3 target accounts/regions
+3. Implement a drift detection check and deliberately modify a resource outside CloudFormation (via the console) to confirm drift detection actually catches the manual change
+4. Add stack policies to protect specific critical resources (e.g. a database) from accidental deletion during a future stack update
+5. Document the tradeoff between nested stacks (CloudFormation-native reuse) and a separate tool like Terraform modules, based on what you actually experienced building this
 
 ### Skills Demonstrated
 
-- HA/DR design
-- Cost optimization
-- Enterprise operations
+- Nested stack composition for reusable infrastructure components
+- StackSets for genuine multi-account/multi-region consistency
+- Drift detection and stack policies as real production safeguards
 
 ### GitHub Repo Name
 
-`cloudformation-production-platform`
+`cloudformation-nested-stacksets`
 
 ---
 
-## Tips for Great Projects
+## Tips for Great CloudFormation Projects
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Use Change Sets before every real update.** A project that shows you reviewing a Change Set's output before applying it demonstrates the actual production discipline CloudFormation is built around.
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+**Show dependency inference, not manual DependsOn everywhere.** Understanding when CloudFormation correctly infers order via `!Ref`/`!GetAtt` versus when you genuinely need explicit `DependsOn` is a real signal of depth.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
-
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+**Test rollback, not just successful deploys.** A template that's never failed an update and rolled back hasn't demonstrated CloudFormation's actual safety mechanism — deliberately breaking one is worth doing.
 
 ## Portfolio Checklist
 
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] At least one project demonstrates a real Change Set review before an update was applied
+- [ ] At least one project includes a deliberately triggered and observed rollback
+- [ ] At least one project uses nested stacks or StackSets for genuine multi-component or multi-account reuse
+- [ ] Each README explains the reasoning, not just the final template
+- [ ] You can walk through any of these projects for 5+ minutes without notes

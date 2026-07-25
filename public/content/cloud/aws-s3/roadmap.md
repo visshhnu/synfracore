@@ -1,80 +1,52 @@
-# S3 — Learning Roadmap
+# AWS S3 — Learning Roadmap
 
 ## Estimated Time to Job-Ready
-**6-10 weeks** of consistent learning (2-3 hours/day)
+**4-6 weeks** of consistent learning (2-3 hours/day) — S3's basic put/get API is genuinely simple to learn quickly; the real depth is in access control (IAM vs. bucket policies vs. ACLs), storage class economics, and the consistency/versioning model.
 
 ## Phase 1: Foundation (Week 1-2)
-Build core understanding before touching advanced topics.
 
-- Master the fundamental concepts and mental model
-- Complete the fundamentals section in this course  
-- Run hands-on labs (beginner level)
-- Build your first working example
+- Buckets, keys, and objects — and why S3 has no real folder structure, just common key prefixes that tools display as folders
+- Basic operations: `PutObject`, `GetObject`, `DeleteObject`, and listing objects by prefix
+- Public access blocking (Block Public Access settings) as the default-safe posture, and understanding exactly what each of the four settings controls
+- Object versioning: what it protects against (accidental overwrite/delete) and the real storage-cost implication of keeping every version
 
-## Phase 2: Hands-On Practice (Week 3-5)
-Theory without practice is useless. Build real things.
+**Checkpoint:** can you explain why "the folder doesn't exist until you put something with that prefix" trips people up coming from a traditional filesystem background?
 
-- Complete intermediate section and all labs
-- Work through 2-3 guided projects
-- Break things deliberately and fix them
-- Read official documentation, not just tutorials
+## Phase 2: Access Control (Week 2-3)
 
-## Phase 3: Production Patterns (Week 6-8)
-Learn how professionals do it at scale.
+- The three layers of S3 access control — IAM policies (identity-based), bucket policies (resource-based), and ACLs (legacy, generally avoid for new buckets) — and how they interact when more than one applies
+- Presigned URLs for granting temporary, scoped access to a private object without making it public
+- Cross-account access patterns using bucket policies, and the common mistake of over-scoping a policy's `Resource`/`Principal` fields
+- S3 Block Public Access as an account/bucket-level override that can silently defeat an otherwise-correct bucket policy intended to allow public access
 
-- Study advanced section — production architecture
-- Implement security best practices
-- Set up monitoring and alerting
-- Contribute to open-source or build portfolio project
+**Checkpoint:** given a bucket policy that appears to grant public read access but requests are still being denied, what's the first thing you'd check?
 
-## Phase 4: Interview Ready (Week 9-10)
-Convert knowledge into opportunity.
+## Phase 3: Storage Classes and Lifecycle (Week 3-5)
 
-- Complete all interview Q&A sections
-- Practice explaining concepts out loud
-- Do 3+ mock technical interviews
-- Apply to target roles
+- Storage classes (Standard, Intelligent-Tiering, Standard-IA, Glacier variants) and matching access-pattern reality to storage-class choice, not defaulting to Standard for everything
+- Lifecycle policies for automatic transitions between storage classes and eventual expiration, and why this is the standard mechanism for controlling storage cost on data with a predictable access-pattern decay
+- Intelligent-Tiering specifically for data with genuinely unpredictable access patterns, where manually choosing a storage class would require guessing
+- Cross-Region Replication (CRR) and Same-Region Replication (SRR) for compliance/DR requirements, distinct from versioning
 
-## Skills You'll Build
+**Checkpoint:** can you explain when Intelligent-Tiering is actually worth its small monitoring fee versus when a manually-configured lifecycle policy achieves the same cost outcome more cheaply?
 
-| Skill Area | What You'll Learn |
-|---|---|
-| Core Concepts | Fundamental architecture and design principles |
-| Practical Skills | Real commands, configurations, and patterns |
-| Troubleshooting | Diagnose and fix common production issues |
-| Best Practices | Security, performance, cost optimization |
-| Interview Prep | Answer any question with confidence |
+## Phase 4: Performance, Events, and Interview Readiness (Week 5-6)
 
-## Weekly Study Plan
+- S3 event notifications (to Lambda, SQS, SNS) as the standard trigger mechanism for event-driven pipelines built around object uploads
+- Request rate performance characteristics and why key-naming schemes that avoid sequential prefixes matter less than older guidance suggested, but still matter for genuinely high-throughput workloads
+- S3 Transfer Acceleration and multipart upload for large-object and cross-region upload performance
+- Review this course's Interview Q&A material, particularly the access-control-layering and storage-class-selection questions
 
-```
-Monday:    Read theory (fundamentals/intermediate)
-Tuesday:   Hands-on labs (practice environment)
-Wednesday: Build a small project applying what you learned
-Thursday:  Read docs, watch a video, go deeper on one topic
-Friday:    Review interview questions, explain to yourself
-Weekend:   Work on a portfolio project or practice exam
-```
+## Common Pitfalls Specific to S3
 
-## Red Flags to Avoid
+- **Assuming a bucket policy alone determines public accessibility** — Block Public Access settings at the account or bucket level can override an otherwise-correct policy, a common source of "why is this still denied" confusion
+- **Enabling versioning without a lifecycle policy to expire old versions** — this silently accumulates storage cost indefinitely as objects are repeatedly overwritten
+- **Treating all data as Standard-storage-class by default** — infrequently accessed data sitting in Standard when it qualifies for IA or Glacier is a real, common source of avoidable spend
+- **Using ACLs for new access-control needs** — AWS's own current guidance favors bucket policies and IAM; ACLs are largely a legacy mechanism now
 
-- ❌ Tutorial hell — watching videos without building
-- ❌ Skipping fundamentals to jump to "cool" advanced topics  
-- ❌ Not reading error messages carefully
-- ❌ Copy-pasting code without understanding it
-- ❌ Studying in isolation — join communities, ask questions
+## Getting Your First S3-Heavy Role
 
-## Resources
-
-- **This course**: Start with Overview → Fundamentals → Labs → Projects
-- **Official docs**: Always the most accurate and up-to-date
-- **Community**: Reddit, Discord, Stack Overflow for stuck moments
-- **Projects**: Build something real, put it on GitHub
-
-## Getting Your First Job
-
-1. **Portfolio**: 2-3 solid GitHub projects demonstrating the skill
-2. **Resume**: Quantify achievements ("reduced deploy time by 60%")
-3. **Network**: LinkedIn, meetups, DevOps/tech communities
-4. **Apply broadly**: Apply to 20+ roles, expect 3-5 interviews per offer
-5. **Interview prep**: System design + technical + behavioral all matter
+1. **Portfolio:** a project demonstrating deliberate storage-class/lifecycle-policy design with a documented cost rationale, not just "objects stored in S3"
+2. **Resume:** be specific — "reduced storage cost 40% by implementing a lifecycle policy transitioning 90-day-old logs to Glacier" is far stronger than "experience with AWS S3"
+3. **Know the access-control layering cold:** the IAM/bucket-policy/Block-Public-Access interaction is one of the most commonly tested practical S3 concepts, specifically because it trips up even experienced engineers
+4. **Certifications, if pursuing one:** S3 is foundational across nearly every AWS certification — see this course's own Certification Guide for current format and pricing

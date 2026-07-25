@@ -1,103 +1,97 @@
-# IAM — Portfolio Projects
+# AWS IAM — Portfolio Projects
 
 Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
 
-## Project 1: IAM Architecture Design
+## Project 1: Least-Privilege Policy Design for a Real Application
 
-**Level:** Beginner | **Time:** 2 days
+**Level:** Beginner-Intermediate | **Time:** 2 days
 
-Design and deploy a basic 3-tier application using IAM services. Includes networking, compute, database, and basic security.
-
-### Steps
-
-1. Draw the architecture diagram first (use draw.io or Excalidraw)
-2. Set up IAM environment with IaC (Terraform or CloudFormation)
-3. Deploy the networking layer (VPC/VNet, subnets, security groups)
-4. Add compute resources and deploy a sample web app
-5. Configure a managed database service
-6. Apply security best practices (IAM, encryption, no public access)
-
-### Skills Demonstrated
-
-- IAM core services
-- IaC
-- Cloud security basics
-
-### GitHub Repo Name
-
-`aws-iam-3tier-architecture`
-
----
-
-## Project 2: Serverless App on IAM
-
-**Level:** Intermediate | **Time:** 3 days
-
-Build a serverless REST API using IAM managed services. No servers to manage — pay per request, auto-scales to millions.
+Design IAM roles and policies for a realistic small application (e.g. an app writing to S3 and reading from DynamoDB), starting from actual least-privilege reasoning, not `AdministratorAccess`.
 
 ### Steps
 
-1. Design the API: endpoints, request/response formats
-2. Implement using IAM serverless services
-3. Add a managed database/storage backend
-4. Implement authentication and authorization
-5. Set up CI/CD for automated deployments
-6. Load test and optimize for cost
+1. List every AWS API call the application genuinely needs to make — no more
+2. Write a scoped IAM policy granting exactly those actions on exactly those resources (specific bucket ARNs and table ARNs, not wildcards)
+3. Attach the policy to a role (not a user with access keys), and explain in your README why a role is the correct choice for an application identity
+4. Deliberately attempt an action outside the policy's scope and confirm it's denied — don't just assume the policy is correctly scoped
+5. Use IAM Access Analyzer or the policy simulator to validate the policy before considering it done
 
 ### Skills Demonstrated
 
-- Serverless architecture
-- API design
-- Cost optimization
+- Real least-privilege policy design, not copy-pasted broad permissions
+- Understanding why roles (not long-lived user credentials) are the correct pattern for application identities
+- Validating a policy's actual effect, not just its intent
 
 ### GitHub Repo Name
 
-`aws-iam-serverless-api`
+`iam-least-privilege-design`
 
 ---
 
-## Project 3: Cost-Optimized IAM Platform
+## Project 2: Cross-Account Access with AssumeRole
 
-**Level:** Advanced | **Time:** 5 days
+**Level:** Intermediate | **Time:** 2-3 days
 
-Design and implement a production platform on IAM optimized for both reliability and cost. Implement HA, DR, monitoring, and cost management.
+Build a real cross-account access pattern — a common enterprise requirement that trips up people who've only worked in a single AWS account.
 
 ### Steps
 
-1. Analyze requirements: availability target, RTO/RPO, budget
-2. Design multi-AZ/region architecture for high availability
-3. Implement auto-scaling for all compute tiers
-4. Set up centralized logging, monitoring, and alerting
-5. Implement backup and disaster recovery automation
-6. Track costs with budgets and alerts
-7. Optimize: use Reserved Instances/Savings Plans, right-size
+1. Set up two AWS accounts (or use org units if you have access to an AWS Organization) — one as the "trusted" account, one as the resource-owning account
+2. Create a role in the resource account with a trust policy allowing a specific principal from the trusted account to assume it
+3. Assume the role from the trusted account using `sts:AssumeRole` and confirm the resulting temporary credentials only grant what the role's permission policy allows
+4. Add an external ID to the trust policy and explain in your README what specific attack (the confused deputy problem) this defends against
+5. Document the full request flow: which account's policy is evaluated at which step
 
 ### Skills Demonstrated
 
-- HA/DR design
-- Cost optimization
-- Enterprise operations
+- Real cross-account IAM architecture, not just single-account policy writing
+- Understanding trust policies vs. permission policies as two distinct, both-required layers
+- The confused deputy problem and why external IDs exist to prevent it
 
 ### GitHub Repo Name
 
-`aws-iam-production-platform`
+`iam-cross-account-assumerole`
 
 ---
 
-## Tips for Great Projects
+## Project 3: IAM Policy Audit and Remediation
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Level:** Advanced | **Time:** 4-5 days
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+Simulate a real security audit: find overly-permissive IAM configurations in a test AWS account and fix them with evidence, not guesses.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+### Steps
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+1. Seed a test AWS account with deliberately over-permissioned roles/users (wildcard resources, unused permissions, long-unused access keys)
+2. Use IAM Access Analyzer and Access Advisor (last-accessed data) to identify genuinely unused permissions, not just theoretically risky ones
+3. Write a remediation plan: which permissions to actually remove, backed by the last-accessed evidence, not assumption
+4. Implement Service Control Policies (if using AWS Organizations) as an account-level guardrail on top of individual IAM policies
+5. Write an audit report documenting what was found, what was fixed, and how you'd prevent the same over-permissioning from recurring (e.g. permission boundaries on human-created roles)
+
+### Skills Demonstrated
+
+- Real IAM security auditing using AWS's own analysis tools, not manual guesswork
+- Evidence-based permission removal (last-accessed data) rather than assumption-based tightening
+- Understanding SCPs as an outer guardrail distinct from individual IAM policies
+
+### GitHub Repo Name
+
+`iam-security-audit`
+
+---
+
+## Tips for Great IAM Projects
+
+**Show least-privilege reasoning, not just working policies.** "I granted exactly these 4 actions on this specific bucket ARN because the app only needs to read and write these object keys" is a real answer; "I attached PowerUserAccess because it worked" is not.
+
+**Test the deny path, not just the allow path.** A policy that grants access, confirmed by successfully doing the allowed thing, has only been half-tested — confirm the policy also correctly denies what it shouldn't allow.
+
+**Understand the difference between authentication and authorization.** A strong project can clearly explain which IAM mechanism handles "who is this" versus "what can they do here."
 
 ## Portfolio Checklist
 
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] At least one project demonstrates least-privilege policy design with explicit, resource-scoped ARNs (not wildcards)
+- [ ] At least one project involves real cross-account or role-assumption architecture
+- [ ] At least one project includes evidence-based permission auditing (Access Analyzer/Access Advisor), not just manual review
+- [ ] Each README explains the reasoning, not just the final policy JSON
+- [ ] You can walk through any of these projects for 5+ minutes without notes

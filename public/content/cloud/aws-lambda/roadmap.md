@@ -1,80 +1,52 @@
-# Lambda — Learning Roadmap
+# AWS Lambda — Learning Roadmap
 
 ## Estimated Time to Job-Ready
-**6-10 weeks** of consistent learning (2-3 hours/day)
+**5-7 weeks** of consistent learning (2-3 hours/day) — Lambda's basic "write a function, add a trigger" workflow is quick to learn; real proficiency is in cold-start/concurrency tradeoffs, event-source-specific patterns, and knowing when Lambda is the wrong tool.
 
 ## Phase 1: Foundation (Week 1-2)
-Build core understanding before touching advanced topics.
 
-- Master the fundamental concepts and mental model
-- Complete the fundamentals section in this course  
-- Run hands-on labs (beginner level)
-- Build your first working example
+- Core execution model: handler function signature, event/context objects, and the request-response lifecycle for a synchronous invocation
+- Event sources and how each shapes the event payload differently: API Gateway, S3, SQS, DynamoDB Streams, EventBridge
+- Execution limits that actually matter day-to-day: max 15-minute timeout, 128MB-10,240MB memory (with CPU scaling proportionally), and deployment package size limits
+- IAM execution roles — the permissions a function actually runs with, distinct from the permissions used to deploy it
 
-## Phase 2: Hands-On Practice (Week 3-5)
-Theory without practice is useless. Build real things.
+**Checkpoint:** can you explain why a Lambda function reading from S3 needs an IAM execution role with `s3:GetObject` permission, even though the S3 bucket itself might also have a permissive bucket policy?
 
-- Complete intermediate section and all labs
-- Work through 2-3 guided projects
-- Break things deliberately and fix them
-- Read official documentation, not just tutorials
+## Phase 2: Cold Starts, Concurrency, and Packaging (Week 2-4)
 
-## Phase 3: Production Patterns (Week 6-8)
-Learn how professionals do it at scale.
+- Cold start vs. warm invocation — what actually happens during a cold start (container provisioning, runtime init, handler init) and which of those a developer can and can't influence
+- Concurrency: default per-region concurrent execution limits, reserved concurrency (guaranteeing capacity for one function) vs. provisioned concurrency (pre-warming to eliminate cold starts for latency-sensitive functions)
+- Deployment packaging: zip deployments vs. container images, and Lambda Layers for sharing dependencies across functions without duplicating them in every package
+- Environment variables and Secrets Manager/Parameter Store integration for configuration that shouldn't be hardcoded
 
-- Study advanced section — production architecture
-- Implement security best practices
-- Set up monitoring and alerting
-- Contribute to open-source or build portfolio project
+**Checkpoint:** given a latency-sensitive, low-traffic API endpoint where cold starts are visibly hurting user experience, can you explain the tradeoff of adding provisioned concurrency versus just accepting the cold start?
 
-## Phase 4: Interview Ready (Week 9-10)
-Convert knowledge into opportunity.
+## Phase 3: Event-Driven Patterns and Error Handling (Week 4-6)
 
-- Complete all interview Q&A sections
-- Practice explaining concepts out loud
-- Do 3+ mock technical interviews
-- Apply to target roles
+- Synchronous invocation (API Gateway) vs. asynchronous invocation (S3, SNS) vs. poll-based (SQS, DynamoDB Streams) — each has genuinely different retry and error-handling behavior
+- Dead-letter queues (DLQs) and on-failure destinations for capturing events that a function fails to process, rather than silently losing them
+- Idempotency — why a function triggered by an at-least-once delivery source (SQS, S3 event notifications under some conditions) needs to handle being invoked more than once for the same event
+- Step Functions for orchestrating multi-step workflows across several Lambda functions, instead of one function trying to do everything
 
-## Skills You'll Build
+**Checkpoint:** can you explain why a Lambda function processing SQS messages needs to be written idempotently, even though SQS itself has a visibility timeout mechanism?
 
-| Skill Area | What You'll Learn |
-|---|---|
-| Core Concepts | Fundamental architecture and design principles |
-| Practical Skills | Real commands, configurations, and patterns |
-| Troubleshooting | Diagnose and fix common production issues |
-| Best Practices | Security, performance, cost optimization |
-| Interview Prep | Answer any question with confidence |
+## Phase 4: Observability and Interview Readiness (Week 6-7)
 
-## Weekly Study Plan
+- CloudWatch Logs/Metrics for Lambda: duration, throttles, errors, and concurrent executions as the metrics that actually diagnose real production issues
+- X-Ray tracing for understanding latency across a Lambda function calling other AWS services or downstream APIs
+- Cost model: pay-per-invocation plus GB-seconds, and why a function's memory setting affects both performance (CPU scales with memory) and cost simultaneously
+- Review this course's Interview Q&A material, particularly cold-start mitigation and event-source-specific error-handling questions
 
-```
-Monday:    Read theory (fundamentals/intermediate)
-Tuesday:   Hands-on labs (practice environment)
-Wednesday: Build a small project applying what you learned
-Thursday:  Read docs, watch a video, go deeper on one topic
-Friday:    Review interview questions, explain to yourself
-Weekend:   Work on a portfolio project or practice exam
-```
+## Common Pitfalls Specific to Lambda
 
-## Red Flags to Avoid
+- **Writing a non-idempotent handler for an at-least-once event source** — SQS and some S3 event configurations can redeliver the same event, and a handler that isn't safe to run twice on the same input will produce real bugs
+- **Assuming more memory always costs more** — since CPU scales with memory, a function that's CPU-bound can sometimes run faster (and cheaper overall) at a higher memory setting because it finishes in less time
+- **Bundling unnecessary dependencies into the deployment package** — a bloated package increases cold start time; Lambda Layers and trimming unused dependencies both help
+- **Using Lambda for a genuinely long-running or steady-throughput workload** — the 15-minute timeout and per-invocation pricing model make Lambda a poor fit for workloads better served by a long-running container or EC2 instance
 
-- ❌ Tutorial hell — watching videos without building
-- ❌ Skipping fundamentals to jump to "cool" advanced topics  
-- ❌ Not reading error messages carefully
-- ❌ Copy-pasting code without understanding it
-- ❌ Studying in isolation — join communities, ask questions
+## Getting Your First Lambda-Heavy Role
 
-## Resources
-
-- **This course**: Start with Overview → Fundamentals → Labs → Projects
-- **Official docs**: Always the most accurate and up-to-date
-- **Community**: Reddit, Discord, Stack Overflow for stuck moments
-- **Projects**: Build something real, put it on GitHub
-
-## Getting Your First Job
-
-1. **Portfolio**: 2-3 solid GitHub projects demonstrating the skill
-2. **Resume**: Quantify achievements ("reduced deploy time by 60%")
-3. **Network**: LinkedIn, meetups, DevOps/tech communities
-4. **Apply broadly**: Apply to 20+ roles, expect 3-5 interviews per offer
-5. **Interview prep**: System design + technical + behavioral all matter
+1. **Portfolio:** a project demonstrating a real event-driven pipeline (e.g. S3 upload → Lambda → DynamoDB, or SQS → Lambda with a DLQ configured and deliberately tested)
+2. **Resume:** be specific — "reduced p99 API latency from 2.1s to 180ms by adding provisioned concurrency to a cold-start-sensitive endpoint" is far stronger than "experience with AWS Lambda"
+3. **Know when NOT to use Lambda:** interviewers commonly test whether a candidate defaults to serverless everywhere or can reason about when a container/EC2-based approach fits better
+4. **Certifications, if pursuing one:** Lambda is central to AWS Developer Associate and Solutions Architect Associate — see this course's own Certification Guide for current format and pricing

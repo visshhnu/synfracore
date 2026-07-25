@@ -85,7 +85,7 @@ Take a Storage Account and an Azure SQL Database that are normally reachable ove
 
 ## Tips for Great Projects
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Make it real.** Solve an actual problem, even a small one. A hub-spoke network where you actually confirmed traffic is forced through the firewall is more impressive than a tutorial clone.
 
 **Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
 

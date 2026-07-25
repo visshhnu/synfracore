@@ -1,80 +1,52 @@
-# Cloud Run — Learning Roadmap
+# Google Cloud Run — Learning Roadmap
 
 ## Estimated Time to Job-Ready
-**6-10 weeks** of consistent learning (2-3 hours/day)
+**4-6 weeks** of consistent learning (2-3 hours/day), assuming basic container/Docker familiarity already — Cloud Run's core model (deploy a container, it scales on requests) is quick to learn; the real depth is in request-based scaling behavior, cold starts, and knowing when it fits better than GKE or Cloud Functions.
 
 ## Phase 1: Foundation (Week 1-2)
-Build core understanding before touching advanced topics.
 
-- Master the fundamental concepts and mental model
-- Complete the fundamentals section in this course  
-- Run hands-on labs (beginner level)
-- Build your first working example
+- Core model: give Cloud Run a container image, it runs it as an HTTP service, scales instance count with request volume, and scales to zero when idle
+- Deploying a container (`gcloud run deploy`) and understanding what "serverless containers" actually means operationally — no cluster, no node pool, no YAML manifests to manage
+- Request-based autoscaling: concurrency per instance (how many simultaneous requests one instance handles) and how that setting directly affects how many instances get provisioned under load
+- Revisions and traffic splitting for gradual rollouts, distinct from a hard cutover deployment
 
-## Phase 2: Hands-On Practice (Week 3-5)
-Theory without practice is useless. Build real things.
+**Checkpoint:** can you explain why Cloud Run scaling to zero when idle is fundamentally different from a traditional VM or container that's simply "stopped," in terms of billing and cold-start behavior?
 
-- Complete intermediate section and all labs
-- Work through 2-3 guided projects
-- Break things deliberately and fix them
-- Read official documentation, not just tutorials
+## Phase 2: Cold Starts and Configuration (Week 2-3)
 
-## Phase 3: Production Patterns (Week 6-8)
-Learn how professionals do it at scale.
+- Cold start behavior specifically for Cloud Run: container startup time directly becomes request latency for the first request to a new instance, and why minimizing image size and startup work matters more here than on an always-running service
+- Minimum instances (keeping some instances warm to avoid cold starts) vs. accepting scale-to-zero's cost savings — a genuine latency-vs-cost tradeoff, not a default choice
+- Environment variables, secrets (Secret Manager integration), and CPU/memory allocation per instance
+- CPU allocation modes: "CPU only allocated during request processing" vs. "CPU always allocated" — a Cloud Run-specific setting with real cost and background-task implications
 
-- Study advanced section — production architecture
-- Implement security best practices
-- Set up monitoring and alerting
-- Contribute to open-source or build portfolio project
+**Checkpoint:** given a service with a background task that needs to keep running slightly after the HTTP response is sent, can you explain why the CPU allocation mode matters for whether that task actually completes?
 
-## Phase 4: Interview Ready (Week 9-10)
-Convert knowledge into opportunity.
+## Phase 3: Networking and Integration (Week 3-5)
 
-- Complete all interview Q&A sections
-- Practice explaining concepts out loud
-- Do 3+ mock technical interviews
-- Apply to target roles
+- VPC connectors for reaching resources inside a private VPC (like a Cloud SQL instance) from a Cloud Run service
+- Cloud Run jobs (for run-to-completion batch/cron-style work) as distinct from Cloud Run services (for long-running HTTP-triggered workloads)
+- Event-driven triggers via Eventarc (Cloud Storage, Pub/Sub events triggering a Cloud Run service) as the standard event-driven integration pattern
+- IAM-based service-to-service authentication for private Cloud Run services that shouldn't be publicly invocable
 
-## Skills You'll Build
+**Checkpoint:** can you explain the difference between a Cloud Run service and a Cloud Run job, and give a real example of a workload that fits each?
 
-| Skill Area | What You'll Learn |
-|---|---|
-| Core Concepts | Fundamental architecture and design principles |
-| Practical Skills | Real commands, configurations, and patterns |
-| Troubleshooting | Diagnose and fix common production issues |
-| Best Practices | Security, performance, cost optimization |
-| Interview Prep | Answer any question with confidence |
+## Phase 4: Production Readiness and Interview Readiness (Week 5-6)
 
-## Weekly Study Plan
+- Comparing Cloud Run against GKE and Cloud Functions for a given workload — knowing which one actually fits, not defaulting to Cloud Run because it's simplest
+- Observability: Cloud Logging/Monitoring integration and what's automatically captured versus what needs application-level instrumentation
+- Cost model: pay only for CPU/memory time actually spent handling requests, and how concurrency setting directly affects the real cost-per-request
+- Review this course's Interview Q&A material, particularly the cold-start mitigation and Cloud Run vs. GKE vs. Cloud Functions comparison questions
 
-```
-Monday:    Read theory (fundamentals/intermediate)
-Tuesday:   Hands-on labs (practice environment)
-Wednesday: Build a small project applying what you learned
-Thursday:  Read docs, watch a video, go deeper on one topic
-Friday:    Review interview questions, explain to yourself
-Weekend:   Work on a portfolio project or practice exam
-```
+## Common Pitfalls Specific to Cloud Run
 
-## Red Flags to Avoid
+- **Assuming background work after the response completes reliably** — with default CPU allocation, CPU isn't guaranteed after the response is sent; this needs the "CPU always allocated" setting or a different architecture
+- **Setting minimum instances to zero for a genuinely latency-sensitive service without measuring the actual cold-start impact** — the cost savings from scale-to-zero aren't free if they visibly hurt user-facing latency
+- **Reaching for GKE by default when Cloud Run would genuinely be simpler and sufficient** — Cloud Run exists specifically for HTTP-triggered container workloads that don't need Kubernetes' full feature set
+- **Ignoring concurrency setting's effect on scaling** — a low per-instance concurrency setting causes more instances to spin up under the same load than a higher one would, directly affecting both latency and cost
 
-- ❌ Tutorial hell — watching videos without building
-- ❌ Skipping fundamentals to jump to "cool" advanced topics  
-- ❌ Not reading error messages carefully
-- ❌ Copy-pasting code without understanding it
-- ❌ Studying in isolation — join communities, ask questions
+## Getting Your First Cloud-Run-Heavy Role
 
-## Resources
-
-- **This course**: Start with Overview → Fundamentals → Labs → Projects
-- **Official docs**: Always the most accurate and up-to-date
-- **Community**: Reddit, Discord, Stack Overflow for stuck moments
-- **Projects**: Build something real, put it on GitHub
-
-## Getting Your First Job
-
-1. **Portfolio**: 2-3 solid GitHub projects demonstrating the skill
-2. **Resume**: Quantify achievements ("reduced deploy time by 60%")
-3. **Network**: LinkedIn, meetups, DevOps/tech communities
-4. **Apply broadly**: Apply to 20+ roles, expect 3-5 interviews per offer
-5. **Interview prep**: System design + technical + behavioral all matter
+1. **Portfolio:** a project demonstrating a real Cloud Run service with documented cold-start measurements and a deliberate choice (minimum instances vs. accepting cold starts) justified with real numbers
+2. **Resume:** be specific — "eliminated cold-start latency spikes for a customer-facing API by configuring minimum instances, reducing p99 latency from 1.8s to 210ms" is far stronger than "experience with Cloud Run"
+3. **Know the Cloud Run vs. GKE vs. Cloud Functions decision cold:** this comparison is one of the most commonly tested practical GCP serverless questions
+4. **Certifications, if pursuing one:** Cloud Run is covered in Google Cloud's Professional Cloud Developer and Associate Cloud Engineer certifications — see this course's own Certification Guide for current format and pricing

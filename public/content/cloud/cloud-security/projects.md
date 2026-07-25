@@ -85,7 +85,7 @@ Build an event-driven pipeline that detects a specific security event (a new pub
 
 ## Tips for Great Projects
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Make it real.** Solve an actual problem, even a small one. A detection-to-remediation pipeline that actually fired against a deliberately-triggered misconfiguration is more impressive than a tutorial clone.
 
 **Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
 

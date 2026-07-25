@@ -1,80 +1,52 @@
-# IAM — Learning Roadmap
+# AWS IAM — Learning Roadmap
 
 ## Estimated Time to Job-Ready
-**6-10 weeks** of consistent learning (2-3 hours/day)
+**5-7 weeks** of consistent learning (2-3 hours/day) — IAM's core concepts (principal, policy, effect/action/resource) are quick to learn; the real depth is in policy evaluation logic, roles vs. users, and cross-account patterns that show up constantly in real production environments.
 
 ## Phase 1: Foundation (Week 1-2)
-Build core understanding before touching advanced topics.
 
-- Master the fundamental concepts and mental model
-- Complete the fundamentals section in this course  
-- Run hands-on labs (beginner level)
-- Build your first working example
+- Core concepts: principal (who), authentication (verifying identity), authorization (verifying permissions via policy evaluation)
+- Policy anatomy: Effect/Action/Resource/Condition, and writing a policy that's actually scoped to specific resource ARNs rather than wildcards
+- IAM users vs. IAM roles — and why roles (with temporary, auto-expiring credentials) are the correct default for applications and services, not long-lived user access keys
+- Groups for organizing user permissions at scale, distinct from roles
 
-## Phase 2: Hands-On Practice (Week 3-5)
-Theory without practice is useless. Build real things.
+**Checkpoint:** can you explain why an application running on EC2/Lambda should use an IAM role rather than an IAM user's access keys embedded in its configuration?
 
-- Complete intermediate section and all labs
-- Work through 2-3 guided projects
-- Break things deliberately and fix them
-- Read official documentation, not just tutorials
+## Phase 2: Policy Evaluation Logic (Week 2-3)
 
-## Phase 3: Production Patterns (Week 6-8)
-Learn how professionals do it at scale.
+- The actual evaluation order: implicit deny by default, explicit Allow grants access, explicit Deny anywhere always overrides any Allow — this exact rule is one of the most commonly tested IAM concepts
+- Identity-based policies (attached to a user/role) vs. resource-based policies (attached to a resource like an S3 bucket) and how they combine when both apply
+- Permission boundaries as a guardrail that caps what a role's own policies can ever grant, distinct from Service Control Policies at the organization level
+- Policy conditions (`aws:SourceIp`, `aws:MultiFactorAuthPresent`, etc.) for scoping access beyond simple action/resource matching
 
-- Study advanced section — production architecture
-- Implement security best practices
-- Set up monitoring and alerting
-- Contribute to open-source or build portfolio project
+**Checkpoint:** given a role with an identity-based policy allowing an action and a resource-based policy on the target resource that doesn't mention that role at all, can you reason through whether access is actually granted?
 
-## Phase 4: Interview Ready (Week 9-10)
-Convert knowledge into opportunity.
+## Phase 3: Roles, Federation, and Cross-Account Access (Week 3-5)
 
-- Complete all interview Q&A sections
-- Practice explaining concepts out loud
-- Do 3+ mock technical interviews
-- Apply to target roles
+- `sts:AssumeRole` and trust policies — the mechanism that lets one identity temporarily become another, and why a trust policy and a permission policy are two distinct, both-required layers
+- Cross-account access patterns, and external IDs as the specific defense against the confused deputy problem in third-party AssumeRole scenarios
+- IAM Identity Center (formerly AWS SSO) for centralized human access across an AWS Organization, distinct from individual IAM users in each account
+- IRSA (IAM Roles for Service Accounts) for Kubernetes-native workloads assuming IAM roles without stored credentials — a pattern worth knowing even outside a dedicated EKS deep-dive
 
-## Skills You'll Build
+**Checkpoint:** can you explain, precisely, what problem an external ID in a cross-account trust policy solves, and construct a concrete scenario where omitting it would be exploitable?
 
-| Skill Area | What You'll Learn |
-|---|---|
-| Core Concepts | Fundamental architecture and design principles |
-| Practical Skills | Real commands, configurations, and patterns |
-| Troubleshooting | Diagnose and fix common production issues |
-| Best Practices | Security, performance, cost optimization |
-| Interview Prep | Answer any question with confidence |
+## Phase 4: Auditing and Interview Readiness (Week 5-7)
 
-## Weekly Study Plan
+- IAM Access Analyzer for identifying resources shared outside your account/organization, and Access Advisor's last-accessed data for evidence-based permission tightening
+- Service Control Policies (SCPs) as an organization-wide outer guardrail — capping what even an account's own root user can ever be granted, distinct from account-level IAM policies
+- Credential hygiene: rotating access keys, enabling MFA, and why unused long-lived credentials are a genuine, common finding in real security audits
+- Review this course's Interview Q&A material, particularly the policy-evaluation-order and roles-vs-users questions
 
-```
-Monday:    Read theory (fundamentals/intermediate)
-Tuesday:   Hands-on labs (practice environment)
-Wednesday: Build a small project applying what you learned
-Thursday:  Read docs, watch a video, go deeper on one topic
-Friday:    Review interview questions, explain to yourself
-Weekend:   Work on a portfolio project or practice exam
-```
+## Common Pitfalls Specific to IAM
 
-## Red Flags to Avoid
+- **Reaching for wildcard resources (`"Resource": "*"`) instead of scoping to specific ARNs** — this defeats the actual point of least-privilege design, even when the action list itself looks appropriately narrow
+- **Using long-lived IAM user access keys for an application instead of a role** — a leaked role credential expires on its own; a leaked user access key stays dangerous until someone actively notices and rotates it
+- **Forgetting that a resource-based policy alone doesn't grant access without a corresponding identity-based allow (in most cases)** — the interaction between the two policy types is a common source of "why is this still denied" confusion
+- **Treating SCPs and IAM policies as the same mechanism** — SCPs are a ceiling on what's ever grantable in an account; IAM policies are the actual grant, and both matter together
 
-- ❌ Tutorial hell — watching videos without building
-- ❌ Skipping fundamentals to jump to "cool" advanced topics  
-- ❌ Not reading error messages carefully
-- ❌ Copy-pasting code without understanding it
-- ❌ Studying in isolation — join communities, ask questions
+## Getting Your First IAM-Heavy Role
 
-## Resources
-
-- **This course**: Start with Overview → Fundamentals → Labs → Projects
-- **Official docs**: Always the most accurate and up-to-date
-- **Community**: Reddit, Discord, Stack Overflow for stuck moments
-- **Projects**: Build something real, put it on GitHub
-
-## Getting Your First Job
-
-1. **Portfolio**: 2-3 solid GitHub projects demonstrating the skill
-2. **Resume**: Quantify achievements ("reduced deploy time by 60%")
-3. **Network**: LinkedIn, meetups, DevOps/tech communities
-4. **Apply broadly**: Apply to 20+ roles, expect 3-5 interviews per offer
-5. **Interview prep**: System design + technical + behavioral all matter
+1. **Portfolio:** the 3 projects in this course's Projects section, each demonstrating a different core IAM skill (least-privilege design, cross-account AssumeRole, evidence-based security auditing)
+2. **Resume:** be specific — "audited and remediated 40+ over-permissioned IAM roles using Access Advisor last-accessed data, removing unused wildcard permissions" is far stronger than "experience with AWS IAM"
+3. **Know the policy evaluation order cold:** explicit-deny-always-wins is one of the single most commonly tested IAM concepts in real interviews, precisely because getting it wrong has real security consequences
+4. **Certifications, if pursuing one:** IAM is foundational across nearly every AWS certification, especially Security Specialty — see this course's own Certification Guide for current format and pricing

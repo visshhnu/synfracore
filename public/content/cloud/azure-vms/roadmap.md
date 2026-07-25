@@ -1,80 +1,52 @@
-# Virtual Machines — Learning Roadmap
+# Azure Virtual Machines — Learning Roadmap
 
 ## Estimated Time to Job-Ready
-**6-10 weeks** of consistent learning (2-3 hours/day)
+**5-7 weeks** of consistent learning (2-3 hours/day) — VM provisioning itself is quick to learn; real proficiency is in availability design (zones, scale sets), secure access patterns (Bastion, no public IPs), and cost-aware capacity planning (Spot, right-sizing).
 
 ## Phase 1: Foundation (Week 1-2)
-Build core understanding before touching advanced topics.
 
-- Master the fundamental concepts and mental model
-- Complete the fundamentals section in this course  
-- Run hands-on labs (beginner level)
-- Build your first working example
+- VM series and sizing (D/E/F/L/N/B) and matching series to actual workload shape (general purpose, memory-optimized, compute-optimized, GPU, burstable)
+- Managed disks (Ultra/Premium/Standard) and the real latency/IOPS/cost tradeoff between them
+- Provisioning via CLI/Terraform (not just the Portal, for reproducibility) and connecting via SSH/RDP
+- Availability Sets vs. Availability Zones — and why Zones (spreading across physically separate datacenters) provide stronger protection than Sets (spreading across fault/update domains within one datacenter)
 
-## Phase 2: Hands-On Practice (Week 3-5)
-Theory without practice is useless. Build real things.
+**Checkpoint:** can you explain the real difference in failure-domain protection between an Availability Set and Availability Zones — what specifically does Zones protect against that Sets doesn't?
 
-- Complete intermediate section and all labs
-- Work through 2-3 guided projects
-- Break things deliberately and fix them
-- Read official documentation, not just tutorials
+## Phase 2: Secure Access and Golden Images (Week 2-4)
 
-## Phase 3: Production Patterns (Week 6-8)
-Learn how professionals do it at scale.
+- Azure Bastion for SSH/RDP access with zero public IPs on the VMs themselves — the current recommended pattern over exposing management ports directly
+- Managed Identity on a VM for accessing other Azure services without embedded credentials
+- Custom images via Azure Compute Gallery — building a "golden image" with your application pre-installed, versus a stock marketplace image plus a slow startup script every time
+- Custom Script Extension / cloud-init for bootstrapping, and why baking more into the golden image beats a longer, more fragile boot-time script
 
-- Study advanced section — production architecture
-- Implement security best practices
-- Set up monitoring and alerting
-- Contribute to open-source or build portfolio project
+**Checkpoint:** can you explain why a VM with no public IP address, reachable only via Bastion, is meaningfully more secure than one with a public IP locked down by an NSG rule?
 
-## Phase 4: Interview Ready (Week 9-10)
-Convert knowledge into opportunity.
+## Phase 3: Scale Sets and Autoscaling (Week 4-6)
 
-- Complete all interview Q&A sections
-- Practice explaining concepts out loud
-- Do 3+ mock technical interviews
-- Apply to target roles
+- VM Scale Sets for running a fleet of identical VMs with autoscaling rules based on real metrics (CPU, custom metrics)
+- Load Balancer health probes and how a scale set actually removes an unhealthy instance from rotation, then restores it once healthy again
+- Complete Portfolio Project 1 (zone-redundant web tier) and Project 2 (autoscaling scale set with golden image) from this course's Projects section
+- Scale-out and scale-in rules tuned to real load patterns, not arbitrary thresholds copied from a tutorial
 
-## Skills You'll Build
+**Checkpoint:** given a scale set configured to scale out at 70% CPU (5-minute average) and scale in at 30% CPU (10-minute average), can you explain why the scale-in threshold uses a longer averaging window than scale-out?
 
-| Skill Area | What You'll Learn |
-|---|---|
-| Core Concepts | Fundamental architecture and design principles |
-| Practical Skills | Real commands, configurations, and patterns |
-| Troubleshooting | Diagnose and fix common production issues |
-| Best Practices | Security, performance, cost optimization |
-| Interview Prep | Answer any question with confidence |
+## Phase 4: Cost Optimization and Interview Readiness (Week 6-7)
 
-## Weekly Study Plan
+- Spot VMs for interruption-tolerant workloads, and the real eviction-handling work required (polling the Scheduled Events endpoint, checkpointing before eviction) — not just enabling Spot and hoping
+- Mixed On-Demand/Spot allocation policies in a Scale Set for balancing cost against reliability
+- Right-sizing based on actual Azure Monitor utilization data, not initial provisioning guesses
+- Complete Portfolio Project 3 (cost/resilience-optimized mixed fleet) and review this course's Interview Q&A material, particularly the Availability Set vs. Zone and Spot eviction-handling questions
 
-```
-Monday:    Read theory (fundamentals/intermediate)
-Tuesday:   Hands-on labs (practice environment)
-Wednesday: Build a small project applying what you learned
-Thursday:  Read docs, watch a video, go deeper on one topic
-Friday:    Review interview questions, explain to yourself
-Weekend:   Work on a portfolio project or practice exam
-```
+## Common Pitfalls Specific to Azure VMs
 
-## Red Flags to Avoid
+- **Giving every VM a public IP by default** — Azure Bastion (or a jump host) with zero public IPs on workload VMs is the current recommended pattern, not a default public IP plus NSG rules
+- **Enabling Spot VMs without implementing real eviction handling** — a workload that doesn't checkpoint or requeue on the 30-second eviction warning will simply lose work when evicted, defeating the cost savings with a reliability cost
+- **Confusing Availability Sets and Availability Zones** — Sets protect within one datacenter's fault/update domains; Zones protect across physically separate datacenters, a meaningfully stronger guarantee
+- **Rebuilding from a stock marketplace image plus a slow startup script every time** — a golden image via Azure Compute Gallery is both faster to boot and more consistent across instances
 
-- ❌ Tutorial hell — watching videos without building
-- ❌ Skipping fundamentals to jump to "cool" advanced topics  
-- ❌ Not reading error messages carefully
-- ❌ Copy-pasting code without understanding it
-- ❌ Studying in isolation — join communities, ask questions
+## Getting Your First Azure VM-Heavy Role
 
-## Resources
-
-- **This course**: Start with Overview → Fundamentals → Labs → Projects
-- **Official docs**: Always the most accurate and up-to-date
-- **Community**: Reddit, Discord, Stack Overflow for stuck moments
-- **Projects**: Build something real, put it on GitHub
-
-## Getting Your First Job
-
-1. **Portfolio**: 2-3 solid GitHub projects demonstrating the skill
-2. **Resume**: Quantify achievements ("reduced deploy time by 60%")
-3. **Network**: LinkedIn, meetups, DevOps/tech communities
-4. **Apply broadly**: Apply to 20+ roles, expect 3-5 interviews per offer
-5. **Interview prep**: System design + technical + behavioral all matter
+1. **Portfolio:** the 3 projects in this course's Projects section, each demonstrating a different core skill (zone-redundant Bastion-only access, golden-image autoscaling, cost-optimized Spot/On-Demand mixed fleet)
+2. **Resume:** be specific — "reduced batch workload compute cost 55% using a mixed Spot/On-Demand Scale Set with real eviction handling, verified against actual billing data" is far stronger than "experience with Azure VMs"
+3. **Know the Availability Set vs. Zone distinction cold:** this is one of the most consistently tested practical Azure infrastructure concepts across interviews
+4. **Certifications, if pursuing one:** VMs are foundational to Azure Administrator Associate and Solutions Architect Expert — see this course's own Certification Guide for current format and pricing

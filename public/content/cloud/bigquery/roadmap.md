@@ -1,80 +1,52 @@
 # BigQuery — Learning Roadmap
 
 ## Estimated Time to Job-Ready
-**6-10 weeks** of consistent learning (2-3 hours/day)
+**5-7 weeks** of consistent learning (2-3 hours/day), assuming solid SQL fluency already — BigQuery's SQL dialect is approachable quickly for anyone comfortable with standard SQL; the real learning curve is in its serverless cost model, partitioning/clustering design, and query optimization for genuinely large datasets.
 
 ## Phase 1: Foundation (Week 1-2)
-Build core understanding before touching advanced topics.
 
-- Master the fundamental concepts and mental model
-- Complete the fundamentals section in this course  
-- Run hands-on labs (beginner level)
-- Build your first working example
+- Core architecture: no clusters to provision — you write SQL, BigQuery allocates however much compute the specific query needs behind the scenes, then releases it
+- Datasets, tables, and BigQuery's columnar storage model, and why that column-oriented layout is what makes scanning billions of rows for a few columns fast
+- Loading data (`bq load`, streaming inserts, external tables over Cloud Storage) and the real tradeoffs between batch loading and streaming
+- Basic SQL against BigQuery specifically: standard SQL dialect, and the genuinely important distinction between it and BigQuery's older legacy SQL dialect still seen in older tutorials
 
-## Phase 2: Hands-On Practice (Week 3-5)
-Theory without practice is useless. Build real things.
+**Checkpoint:** can you explain, in your own words, why BigQuery doesn't require you to provision a cluster size before running a query, unlike a traditional data warehouse?
 
-- Complete intermediate section and all labs
-- Work through 2-3 guided projects
-- Break things deliberately and fix them
-- Read official documentation, not just tutorials
+## Phase 2: Cost Model and Query Optimization (Week 2-4)
 
-## Phase 3: Production Patterns (Week 6-8)
-Learn how professionals do it at scale.
+- On-demand pricing (pay per byte scanned) vs. flat-rate/capacity-based pricing, and which workload profile actually justifies each
+- Why `SELECT *` is a genuine cost problem in BigQuery specifically (not just a style issue) — every column scanned is billed, so selecting only needed columns directly reduces cost
+- Partitioning (commonly by date) and clustering (by frequently-filtered columns) as the two primary levers for reducing bytes scanned on real queries
+- Query cost estimation before running (the dry-run/bytes-processed estimate) as a habit for any query touching a large table
 
-- Study advanced section — production architecture
-- Implement security best practices
-- Set up monitoring and alerting
-- Contribute to open-source or build portfolio project
+**Checkpoint:** given a query scanning a 500GB table with `SELECT *` and no date filter, can you explain two concrete changes that would reduce its actual cost, and why each one works?
 
-## Phase 4: Interview Ready (Week 9-10)
-Convert knowledge into opportunity.
+## Phase 3: Advanced Querying and Data Modeling (Week 4-5)
 
-- Complete all interview Q&A sections
-- Practice explaining concepts out loud
-- Do 3+ mock technical interviews
-- Apply to target roles
+- Nested and repeated fields (STRUCT and ARRAY types) as BigQuery's native way to represent hierarchical data without needing a separate join, and when this denormalized-by-design approach is actually the right call
+- Window functions and analytical queries at scale — the same SQL concepts as any engine, but worth practicing specifically against BigQuery's actual performance characteristics on large tables
+- Materialized views for pre-computing expensive, frequently-repeated aggregations
+- BigQuery ML for running basic ML model training/prediction directly via SQL, without exporting data to a separate ML platform
 
-## Skills You'll Build
+**Checkpoint:** can you explain a real scenario where using a nested STRUCT/ARRAY field is a better design choice than a separate joined table in BigQuery specifically?
 
-| Skill Area | What You'll Learn |
-|---|---|
-| Core Concepts | Fundamental architecture and design principles |
-| Practical Skills | Real commands, configurations, and patterns |
-| Troubleshooting | Diagnose and fix common production issues |
-| Best Practices | Security, performance, cost optimization |
-| Interview Prep | Answer any question with confidence |
+## Phase 4: Governance and Interview Readiness (Week 5-7)
 
-## Weekly Study Plan
+- IAM at the project, dataset, and table level for controlling who can query, and the principle of least-privilege access to sensitive datasets
+- Slot allocation and reservations for organizations using flat-rate pricing, and monitoring actual slot utilization
+- Cost controls: custom quotas, budget alerts, and query cost estimation as an organizational discipline, not just an individual habit
+- Review this course's Interview Q&A material, particularly the pricing-model and partitioning/clustering design questions
 
-```
-Monday:    Read theory (fundamentals/intermediate)
-Tuesday:   Hands-on labs (practice environment)
-Wednesday: Build a small project applying what you learned
-Thursday:  Read docs, watch a video, go deeper on one topic
-Friday:    Review interview questions, explain to yourself
-Weekend:   Work on a portfolio project or practice exam
-```
+## Common Pitfalls Specific to BigQuery
 
-## Red Flags to Avoid
+- **Using `SELECT *` out of habit** — this is a direct, measurable cost problem in BigQuery's column-scan billing model, not just a style preference like it is in a traditional row-store database
+- **Ignoring partitioning on large, date-heavy tables** — an unpartitioned table forces every query to scan the entire table's history even when only recent data is needed
+- **Assuming flat-rate pricing is always cheaper** — it's only cost-effective at genuinely high, sustained query volume; on-demand is often cheaper for lighter or spikier usage
+- **Treating BigQuery like a traditional normalized relational warehouse** — nested/repeated fields exist specifically because BigQuery's model rewards a different, more denormalized design in many cases
 
-- ❌ Tutorial hell — watching videos without building
-- ❌ Skipping fundamentals to jump to "cool" advanced topics  
-- ❌ Not reading error messages carefully
-- ❌ Copy-pasting code without understanding it
-- ❌ Studying in isolation — join communities, ask questions
+## Getting Your First BigQuery-Heavy Role
 
-## Resources
-
-- **This course**: Start with Overview → Fundamentals → Labs → Projects
-- **Official docs**: Always the most accurate and up-to-date
-- **Community**: Reddit, Discord, Stack Overflow for stuck moments
-- **Projects**: Build something real, put it on GitHub
-
-## Getting Your First Job
-
-1. **Portfolio**: 2-3 solid GitHub projects demonstrating the skill
-2. **Resume**: Quantify achievements ("reduced deploy time by 60%")
-3. **Network**: LinkedIn, meetups, DevOps/tech communities
-4. **Apply broadly**: Apply to 20+ roles, expect 3-5 interviews per offer
-5. **Interview prep**: System design + technical + behavioral all matter
+1. **Portfolio:** a project demonstrating a real partitioned/clustered table design with a documented before/after cost comparison (bytes scanned, not just query time)
+2. **Resume:** be specific — "reduced monthly BigQuery spend 45% by partitioning a 2TB events table by date and clustering by user_id" is far stronger than "experience with BigQuery"
+3. **Know the cost model cold:** BigQuery-specific interviews frequently probe cost-optimization reasoning, since it's one of the most practically important skills that differs from traditional SQL warehouse experience
+4. **Certifications, if pursuing one:** BigQuery is central to Google Cloud's Professional Data Engineer certification — see this course's own Certification Guide for current format and pricing
