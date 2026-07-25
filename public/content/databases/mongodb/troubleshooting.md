@@ -2,7 +2,7 @@
 
 ## Issue 1: Replica set primary election issues
 
-**Symptom:** Application cannot write. `db.isMaster()` shows no primary. Log shows election messages.
+**Symptom:** Application cannot write. `db.hello()` shows no primary (`db.isMaster()` was deprecated in MongoDB 5.0; `hello()` is the current command, though `isMaster` still works as a deprecated alias). Log shows election messages.
 
 **Debug steps:**
 ```javascript
@@ -80,8 +80,11 @@ db.orders.aggregate([{ $indexStats: {} }])
 
 **Fix:**
 ```javascript
-// Create index (background to not block reads)
-db.orders.createIndex({ status: 1 }, { background: true })
+// The { background: true } option is obsolete since MongoDB 4.2 — all
+// index builds now automatically use an optimized hybrid approach
+// (concurrent reads/writes allowed during the main build phase), and
+// the option is silently ignored on current versions. Just:
+db.orders.createIndex({ status: 1 })
 
 // Compound index for multi-field queries
 db.orders.createIndex({ status: 1, createdAt: -1 })

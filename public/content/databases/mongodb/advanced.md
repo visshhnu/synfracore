@@ -1,5 +1,38 @@
 # MongoDB — Advanced
 
+## Replica Set Configuration
+
+```javascript
+// Initiate replica set (run on the intended primary)
+rs.initiate({
+  _id: "myReplicaSet",
+  members: [
+    { _id: 0, host: "mongo1:27017", priority: 2 },  // Primary preference
+    { _id: 1, host: "mongo2:27017" },
+    { _id: 2, host: "mongo3:27017", arbiterOnly: true }  // Vote only, no data
+  ]
+})
+
+rs.status()                // Check replica set status
+rs.hello()                 // rs.isMaster()/db.isMaster() were deprecated in
+                            // MongoDB 5.0 — use hello() to check who's primary
+rs.printReplicationInfo()  // Oplog stats
+rs.stepDown()              // Step down current primary (force election)
+```
+
+**Write Concern** — how many nodes must acknowledge a write before it returns success:
+```javascript
+db.orders.insertOne(doc, { writeConcern: { w: "majority", j: true } })
+// w: "majority" → quorum must acknowledge
+// j: true       → write must be journaled on receiving nodes (durability)
+```
+
+**Read Preference**:
+```javascript
+db.orders.find().readPref("secondary")   // Read from a replica
+db.orders.find().readPref("nearest")     // Lowest-latency node
+```
+
 ## Atlas Search (Full-Text Search)
 
 ```javascript
@@ -80,6 +113,36 @@ db.adminCommand({
 // - Low cardinality (_id as sequential integer → all writes to one shard)
 // - Monotonically increasing (createdAt → newest data on one shard)
 // - Too specific (userId where 90% of traffic is 10 users)
+```
+
+## Production Checklist
+
+```
+SECURITY:
+  Enable auth: security.authorization: enabled
+  Use TLS: net.tls.mode: requireTLS
+  Role-based access: least privilege per user
+  Disable direct mongod access from outside: use VPN or private subnet
+
+PERFORMANCE:
+  WiredTiger cache: 50% of RAM (default) — tune based on actual working set
+  Index all query fields: run explain() on real production queries
+  Avoid large documents (>1MB) and deeply nested documents (16MB hard limit per document)
+  Use projection to return only needed fields
+
+HA:
+  Minimum 3 replica set members (PSA: Primary-Secondary-Arbiter, or PSS: two
+  full data-bearing secondaries — PSS is generally preferred in production
+  since an Arbiter can't take over as primary if a data node fails)
+  Monitor replication lag: rs.printReplicationInfo()
+  Test failover: rs.stepDown() — do this in a controlled drill, not for the
+  first time during a real incident
+
+MONITORING:
+  MongoDB Atlas: built-in dashboards
+  mongostat: ops/sec, connections, memory — real-time
+  mongotop: time spent per collection
+  Profiler: db.setProfilingLevel(1, { slowms: 100 })
 ```
 
 ## MongoDB Cheatsheet

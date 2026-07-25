@@ -1,80 +1,54 @@
 # MongoDB — Learning Roadmap
 
 ## Estimated Time to Job-Ready
-**6-10 weeks** of consistent learning (2-3 hours/day)
+**5-7 weeks** of consistent learning (2-3 hours/day) — MongoDB's core CRUD syntax is genuinely quick to pick up if you're already comfortable with JSON; most of the real learning curve is in schema design judgment and the aggregation pipeline, not basic syntax.
 
 ## Phase 1: Foundation (Week 1-2)
-Build core understanding before touching advanced topics.
 
-- Master the fundamental concepts and mental model
-- Complete the fundamentals section in this course  
-- Run hands-on labs (beginner level)
-- Build your first working example
+- Core concepts: document, collection, `_id`, BSON vs. JSON, and how MongoDB's flexible schema differs from a relational table's fixed columns
+- Basic CRUD: `insertOne`/`insertMany`, `find` with query operators, `updateOne`/`updateMany`, `deleteOne`/`deleteMany`
+- Install MongoDB (Docker is fastest — use a current `mongo` image) and get comfortable with `mongosh`, the modern shell
 
-## Phase 2: Hands-On Practice (Week 3-5)
-Theory without practice is useless. Build real things.
+**Checkpoint:** given a document with nested fields and an array, can you write a query using dot notation to filter on a nested field, and an array operator to check if the array contains a specific value? If not, spend more time here — this exact pattern shows up constantly in real MongoDB work.
 
-- Complete intermediate section and all labs
-- Work through 2-3 guided projects
-- Break things deliberately and fix them
-- Read official documentation, not just tutorials
+## Phase 2: Schema Design and Indexing (Week 2-3)
 
-## Phase 3: Production Patterns (Week 6-8)
-Learn how professionals do it at scale.
+- Embedding vs. referencing — understand this as a genuine tradeoff (read performance vs. update flexibility and document size limits), not a rule to apply mechanically
+- Common schema patterns: bucket pattern for time-series data, computed pattern for pre-calculated aggregates, extended reference for frequently-read fields
+- Indexing: single-field, compound (leftmost-prefix rule), TTL, text, sparse
+- Complete Portfolio Project 1 (schema design) from this course's Projects section
 
-- Study advanced section — production architecture
-- Implement security best practices
-- Set up monitoring and alerting
-- Contribute to open-source or build portfolio project
+**Checkpoint:** can you explain, using a real example, when you'd choose to embed vs. reference — not just recite the rule, but justify a specific decision for a specific piece of data? This judgment call is what real interviews actually probe for, more than syntax recall.
 
-## Phase 4: Interview Ready (Week 9-10)
-Convert knowledge into opportunity.
+## Phase 3: Aggregation Pipeline (Week 3-5)
 
-- Complete all interview Q&A sections
-- Practice explaining concepts out loud
-- Do 3+ mock technical interviews
-- Apply to target roles
+This is MongoDB's most powerful and most commonly under-practiced feature — worth dedicating real time to.
 
-## Skills You'll Build
+- Core stages: `$match`, `$group`, `$sort`, `$limit`, `$project`
+- Joining data: `$lookup` and `$unwind`
+- Advanced stages: `$facet` for parallel aggregations, `$bucket` for histograms, `$addFields` for computed values mid-pipeline
+- Complete Portfolio Project 2 (aggregation analytics)
 
-| Skill Area | What You'll Learn |
-|---|---|
-| Core Concepts | Fundamental architecture and design principles |
-| Practical Skills | Real commands, configurations, and patterns |
-| Troubleshooting | Diagnose and fix common production issues |
-| Best Practices | Security, performance, cost optimization |
-| Interview Prep | Answer any question with confidence |
+**Checkpoint:** given a raw dataset and a business question ("revenue by category per month, with the top customer per category"), can you sketch the pipeline stages needed, in order, without looking up syntax for each one? This exact kind of question is extremely common in MongoDB-focused technical interviews.
 
-## Weekly Study Plan
+## Phase 4: Replication, Transactions, and Interview Readiness (Week 5-7)
 
-```
-Monday:    Read theory (fundamentals/intermediate)
-Tuesday:   Hands-on labs (practice environment)
-Wednesday: Build a small project applying what you learned
-Thursday:  Read docs, watch a video, go deeper on one topic
-Friday:    Review interview questions, explain to yourself
-Weekend:   Work on a portfolio project or practice exam
-```
+- Replica sets: primary/secondary/arbiter, oplog, write concern, read preference
+- Multi-document transactions (available since 4.0) — know both how to use them and why MongoDB's own guidance favors single-document atomicity via schema design where possible
+- Sharding concepts: shard keys, hashed vs. range sharding, avoiding hotspots
+- Complete Portfolio Project 3 (replica set failover) — this is the single highest-value exercise for demonstrating genuine operational understanding, not just query-writing skill
+- Review this course's Interview Q&A material, particularly the CAP theorem question and the embed-vs-reference framing
 
-## Red Flags to Avoid
+## Common Pitfalls Specific to MongoDB (Not Generic Study Advice)
 
-- ❌ Tutorial hell — watching videos without building
-- ❌ Skipping fundamentals to jump to "cool" advanced topics  
-- ❌ Not reading error messages carefully
-- ❌ Copy-pasting code without understanding it
-- ❌ Studying in isolation — join communities, ask questions
+- **Treating "MongoDB doesn't support ACID/transactions" as still true** — this hasn't been accurate since MongoDB 4.0 (2018); if you find older material or your own assumptions repeating this claim, it's worth actively correcting
+- **Applying embed-vs-reference as a rigid rule rather than a genuine tradeoff** — the "right" answer depends on actual read/write patterns and data size, not a one-size-fits-all guideline
+- **Never practicing the aggregation pipeline beyond `$match`/`$group`** — this is consistently where real interview and real-job difficulty concentrates; basic CRUD alone won't prepare you for it
+- **Using outdated commands from older tutorials** — `db.isMaster()` is deprecated in favor of `db.hello()`, and the `background: true` index-creation option has been a no-op for some time; a lot of older material still uses both *(needs verification — confirm the exact version where `background` became a no-op before citing a specific number)*
 
-## Resources
+## Getting Your First MongoDB-Heavy Role
 
-- **This course**: Start with Overview → Fundamentals → Labs → Projects
-- **Official docs**: Always the most accurate and up-to-date
-- **Community**: Reddit, Discord, Stack Overflow for stuck moments
-- **Projects**: Build something real, put it on GitHub
-
-## Getting Your First Job
-
-1. **Portfolio**: 2-3 solid GitHub projects demonstrating the skill
-2. **Resume**: Quantify achievements ("reduced deploy time by 60%")
-3. **Network**: LinkedIn, meetups, DevOps/tech communities
-4. **Apply broadly**: Apply to 20+ roles, expect 3-5 interviews per offer
-5. **Interview prep**: System design + technical + behavioral all matter
+1. **Portfolio:** the 3 projects in this course's Projects section, each demonstrating a different layer (schema design judgment, aggregation depth, operational/replication understanding)
+2. **Resume:** be specific — "designed a schema with justified embed/reference tradeoffs for a catalog serving 100K+ products" is stronger than "experience with MongoDB"
+3. **Certifications, if pursuing one:** MongoDB Associate Developer or Associate DBA — see this course's own Certification Guide for current pricing and format *(needs verification — confirm current pricing/discount terms on MongoDB's own certification page)*
+4. **Practice the aggregation pipeline specifically** — it's consistently the single most differentiating skill between someone who's done basic MongoDB tutorials and someone who can actually use it in a real analytical or reporting context

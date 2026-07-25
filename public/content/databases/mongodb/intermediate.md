@@ -57,6 +57,32 @@ const result = await db.collection('orders').aggregate([
 ]).toArray();
 ```
 
+## More Aggregation Patterns
+
+```javascript
+// Faceted search — multiple aggregations computed in parallel, one query
+db.products.aggregate([
+  { $match: { inStock: true } },
+  { $facet: {
+      byCategory: [{ $group: { _id: "$category", count: { $sum: 1 } } }],
+      byBrand:    [{ $group: { _id: "$brand",    count: { $sum: 1 } } }],
+      priceRange: [{ $group: { _id: null,
+          min: { $min: "$price" }, max: { $max: "$price" }
+      }}]
+  }}
+])
+
+// Top N per group — sort first, then take the first doc per group
+db.orders.aggregate([
+  { $sort: { amount: -1 } },
+  { $group: {
+      _id: "$userId",
+      topOrder: { $first: "$$ROOT" },  // first doc per group, after the sort above
+      orderCount: { $sum: 1 }
+  }}
+])
+```
+
 ## Change Streams
 
 ```javascript

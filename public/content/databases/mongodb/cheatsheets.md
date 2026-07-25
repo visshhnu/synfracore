@@ -6,6 +6,14 @@ mongosh                                     # Local
 mongosh "mongodb://user:pass@host:27017/db"
 mongosh "mongodb+srv://user:pass@cluster.mongodb.net/db"  # Atlas
 
+# ── BACKUP / RESTORE ──────────────────────────────────────
+mongodump --db mydb --out /backup/          # Backup
+mongorestore --db mydb /backup/mydb/        # Restore
+
+# ── MONITORING ────────────────────────────────────────────
+mongostat --host localhost                  # Real-time ops/connections/memory
+mongotop --host localhost                   # Time spent per collection
+
 # ── DB / COLLECTION ───────────────────────────────────────
 show dbs
 use myapp
@@ -13,6 +21,8 @@ show collections
 db.createCollection("users")
 db.users.drop()
 db.dropDatabase()
+db.stats()
+db.users.stats()
 ```
 
 ```javascript

@@ -55,6 +55,8 @@ CQL DATA TYPES:
 ANTI-PATTERNS:
   SELECT * without partition key filter — full cluster scan
   Unbounded partitions (ever-growing list/set within one partition)
-  Too many secondary indexes (use materialized views instead)
+  Too many secondary indexes (denormalize into a purpose-built table for
+  that query pattern instead — the standard fix; materialized views can
+  do this too but carry their own known consistency caveats in production)
   Batch statements for performance (use only for atomicity on same partition)
 ```

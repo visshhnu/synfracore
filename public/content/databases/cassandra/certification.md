@@ -9,6 +9,8 @@
 
 DataStax Academy at academy.datastax.com — free courses and paid certification exams.
 
+*(needs verification — exam pricing and format change on DataStax's side; confirm current values on their certification page before treating any of the above as current)*
+
 ---
 
 ## Core CQL Topics

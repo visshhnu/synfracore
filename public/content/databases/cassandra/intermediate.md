@@ -26,6 +26,14 @@ WHERE device_id = 'device-001'
 AND bucket = '2024-01-15-14';
 
 -- Pattern 2: Materialized views for different access patterns
+-- Cassandra's own project has long cautioned against relying on
+-- materialized views in production — known consistency issues (a view
+-- can silently drift out of sync with its base table under certain
+-- failure/repair scenarios) mean the generally preferred approach is
+-- Pattern 1 instead: maintain a second manually-written table
+-- (users_by_email) and write to both tables from the application on
+-- every insert/update. Shown here for awareness, not as the
+-- recommended default.
 CREATE TABLE users_by_id (
     id    UUID PRIMARY KEY,
     name  TEXT,

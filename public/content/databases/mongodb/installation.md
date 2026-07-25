@@ -1,5 +1,7 @@
 # MongoDB — Installation Guide
 
+*(needs verification — check MongoDB's current stable release before assuming 8.0 below is still current; version numbers in installation guides go stale)*
+
 ## Option 1: Docker (Fastest)
 
 ```bash
@@ -10,7 +12,7 @@ docker run -d \
   -e MONGO_INITDB_ROOT_USERNAME=admin \
   -e MONGO_INITDB_ROOT_PASSWORD=secret \
   -v mongo-data:/data/db \
-  mongo:7
+  mongo:8
 
 # Connect with mongosh
 docker exec -it mongodb mongosh \
@@ -40,13 +42,13 @@ mongosh "mongodb+srv://username:password@cluster.mongodb.net/myapp"
 
 ```bash
 # Import MongoDB GPG key
-curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | \
-  sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
+curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | \
+  sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor
 
 # Add repository
-echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] \
-  https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | \
-  sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] \
+  https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/8.0 multiverse" | \
+  sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
 
 # Install
 sudo apt update && sudo apt install -y mongodb-org
@@ -63,8 +65,8 @@ mongosh
 
 ```bash
 brew tap mongodb/brew
-brew install mongodb-community@7.0
-brew services start mongodb-community@7.0
+brew install mongodb-community@8.0
+brew services start mongodb-community@8.0
 mongosh
 ```
 

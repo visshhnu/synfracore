@@ -2,101 +2,96 @@
 
 Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
 
-## Project 1: Cassandra Schema Design Project
+## Project 1: Query-Driven Schema Design for a Real Domain
 
-**Level:** Beginner | **Time:** 2 days
+**Level:** Beginner-Intermediate | **Time:** 2 days
 
-Design and implement a real-world database schema for an e-commerce or social media application using Cassandra. Practice normalization, indexing, and query optimization.
-
-### Steps
-
-1. Design the entity-relationship diagram on paper first
-2. Implement the schema in Cassandra with proper data types
-3. Add constraints (NOT NULL, UNIQUE, CHECK, FOREIGN KEY)
-4. Create indexes for your most common query patterns
-5. Load sample data (use Faker library for realistic data)
-6. Write and optimize 10 complex queries (joins, aggregations, window functions)
-
-### Skills Demonstrated
-
-- Schema design
-- Indexing strategy
-- Query optimization
-
-### GitHub Repo Name
-
-`cassandra-schema-design`
-
----
-
-## Project 2: Cassandra Performance Optimization
-
-**Level:** Intermediate | **Time:** 3 days
-
-Take a slow database and make it 10x faster. Profile queries, identify bottlenecks, add indexes, rewrite queries, and set up connection pooling.
+Design a Cassandra schema for a realistic domain (a messaging app, an IoT sensor platform, or an activity feed) starting from the queries you need to serve, not from an ER diagram — this is the core discipline Cassandra schema design actually requires.
 
 ### Steps
 
-1. Load 1M+ rows of test data
-2. Identify slow queries using EXPLAIN/query profiler
-3. Add appropriate indexes, measure improvement
-4. Rewrite N+1 queries to efficient JOINs
-5. Set up connection pooling (PgBouncer/ProxySQL)
-6. Document before/after query execution plans and timings
+1. Write down every query pattern your application actually needs first (e.g. "get the last 50 messages in a conversation, newest first")
+2. Design one table per query pattern, choosing partition and clustering keys that make each query a single-partition read — deliberately denormalize and duplicate data across tables where needed, since Cassandra has no JOINs
+3. Implement the schema with appropriate data types, and use bucketing (e.g. partitioning by `(sensor_id, date)` rather than `sensor_id` alone) for any naturally unbounded partition
+4. Load realistic data volume and confirm each query actually hits a single partition (not `ALLOW FILTERING`)
+5. Write a README explaining, for each table, which specific query it exists to serve
 
 ### Skills Demonstrated
 
-- Query optimization
-- Index design
-- Database profiling
+- Query-first (not entity-first) schema design, Cassandra's core discipline
+- Deliberate denormalization with a clear justification per table
+- Partition sizing and bucketing to avoid hot/unbounded partitions
 
 ### GitHub Repo Name
 
-`cassandra-performance-tuning`
+`cassandra-query-driven-schema`
 
 ---
 
-## Project 3: Cassandra Backend for a REST API
+## Project 2: Time-Series Ingestion with TTL and Compaction Tuning
 
-**Level:** Advanced | **Time:** 4 days
+**Level:** Intermediate | **Time:** 2-3 days
 
-Build the complete data layer for a production REST API using Cassandra. Includes schema, migrations, stored procedures/aggregations, replication, and monitoring.
+Build a realistic time-series ingestion pipeline (IoT sensor readings or application metrics) and tune it the way a real production Cassandra deployment would be tuned.
 
 ### Steps
 
-1. Design schema for a social media or SaaS app
-2. Implement migration system (Flyway/Liquibase/Alembic)
-3. Write stored procedures/aggregation pipelines for complex operations
-4. Set up read replica for read scaling
-5. Implement backup strategy with automated testing
-6. Add monitoring: slow query log, connection metrics, disk usage alerts
+1. Design a bucketed time-series table (e.g. `PRIMARY KEY ((device_id, day), reading_time)`) and set an appropriate `default_time_to_live` for your domain's real retention needs
+2. Write a load generator that simulates realistic write volume across many partitions (not just one device/sensor) to avoid an artificially skewed test
+3. Set `TimeWindowCompactionStrategy` on the table and explain in your README why it's the right choice for time-series + TTL data specifically, versus the default `SizeTieredCompactionStrategy`
+4. Query recent data and confirm via `TRACING ON` that the query is hitting a bounded number of partitions/SSTables, not scanning broadly
+5. Document what happens to disk usage over time as TTL'd data expires and gets compacted away
 
 ### Skills Demonstrated
 
-- Database migrations
-- Replication
-- Production operations
+- Time-series-specific schema design (bucketing, TTL)
+- Choosing and justifying a compaction strategy for a specific workload
+- Verifying query behavior with `TRACING`, not just assuming it's correct
 
 ### GitHub Repo Name
 
-`cassandra-api-backend`
+`cassandra-timeseries-ingestion`
 
 ---
 
-## Tips for Great Projects
+## Project 3: Multi-Node Cluster with Consistency Level Tradeoffs
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Level:** Advanced | **Time:** 3-4 days
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+Stand up a real multi-node Cassandra cluster (Docker Compose is fine) and actually exercise consistency-level tradeoffs, not just configure a single node.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+### Steps
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+1. Run a 3-node cluster with `replication_factor: 3` and confirm via `nodetool status` and `nodetool ring` that data is actually distributed across nodes
+2. Write with `CONSISTENCY ONE` and immediately read with `CONSISTENCY ONE` from a different node — deliberately trigger and document a case where you read stale data
+3. Repeat with `CONSISTENCY QUORUM` for both reads and writes, and confirm you no longer see the stale-read behavior — explain in your README why `R + W > RF` guarantees this
+4. Take a node down (`docker stop`) and confirm which consistency levels still succeed and which start failing — this demonstrates the real availability/consistency tradeoff, not just the theory
+5. Run `nodetool repair` after bringing the node back and document what it actually does
+
+### Skills Demonstrated
+
+- Real, hands-on understanding of consistency-level tradeoffs, not just definitions
+- Multi-node cluster operations (`nodetool status`/`ring`/`repair`)
+- Demonstrating the availability/consistency tradeoff with actual failure injection, not just theory
+
+### GitHub Repo Name
+
+`cassandra-consistency-cluster-lab`
+
+---
+
+## Tips for Great Cassandra Projects
+
+**Design from queries, not entities.** A schema that looks like a normalized relational design (with implied joins) is the single most common sign a Cassandra project wasn't actually designed the way Cassandra requires.
+
+**Show real distributed behavior, not just single-node CRUD.** `nodetool status`, a genuine multi-node cluster, and a real consistency-level tradeoff demonstrated (not just described) are what separate a Cassandra project from "I ran some CQL commands."
+
+**Cassandra has no JOINs and no foreign keys — don't reach for SQL-shaped solutions.** If a project design implies a JOIN across tables, that's a signal the schema needs to be denormalized differently, not that Cassandra is missing a feature.
 
 ## Portfolio Checklist
 
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] At least one project's schema is explicitly justified by the query patterns it serves, not by entity relationships
+- [ ] At least one project demonstrates a real consistency-level tradeoff with actual evidence (a stale read reproduced and then fixed)
+- [ ] At least one project runs against a genuine multi-node cluster, not a single instance
+- [ ] Each README explains the reasoning, not just the final schema
+- [ ] You can walk through any of these projects for 5+ minutes without notes

@@ -76,9 +76,12 @@ BEGIN BATCH
     UPDATE t SET v = 1 WHERE k = ... AND c = ...;
 APPLY BATCH;
 
--- Consistency levels
-CONSISTENCY LOCAL_QUORUM;  -- Set for session
-SELECT * FROM users WHERE user_id = ? USING CONSISTENCY LOCAL_ONE;
+-- Consistency levels — set via the cqlsh CONSISTENCY command (applies to
+-- the whole session) or at the driver level (e.g. ConsistencyLevel.LOCAL_ONE
+-- in the Python driver) — there is no per-statement "USING CONSISTENCY"
+-- clause in CQL itself
+CONSISTENCY LOCAL_QUORUM;
+SELECT * FROM users WHERE user_id = ?;
 
 -- Allow filtering (dangerous - full scan!)
 SELECT * FROM events WHERE value > 100 ALLOW FILTERING;
