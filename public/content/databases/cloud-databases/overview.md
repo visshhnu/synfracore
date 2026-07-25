@@ -10,7 +10,7 @@ Cloud databases are managed database services run by a cloud provider — they h
 |---|---|---|---|
 | AWS | RDS (Postgres/MySQL), Aurora | DynamoDB | Broadest ecosystem, Aurora's storage-compute separation |
 | Azure | Azure SQL Database, Azure Database for PostgreSQL | Cosmos DB | Cosmos DB's multi-model, multi-region writes |
-| GCP | Cloud SQL, AlloyDB | Firestore, Bigtable | Spanner's globally-consistent relational scale |
+| GCP | Cloud SQL, AlloyDB, Spanner | Firestore, Bigtable | Spanner's globally-consistent relational scale |
 | Vendor-neutral | Self-managed Postgres/MySQL on any VM | MongoDB Atlas, Redis Cloud | Full control, portability across clouds |
 
 ## Why "Managed" Matters

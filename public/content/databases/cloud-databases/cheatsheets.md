@@ -6,7 +6,7 @@
 |---|---|---|---|
 | AWS | RDS, Aurora | DynamoDB | Broadest ecosystem, Aurora storage-compute separation |
 | Azure | Azure SQL, Azure DB for PostgreSQL | Cosmos DB | Cosmos DB multi-model, multi-region writes |
-| GCP | Cloud SQL, AlloyDB | Firestore, Bigtable | Spanner — globally-consistent relational scale |
+| GCP | Cloud SQL, AlloyDB, Spanner | Firestore, Bigtable | Spanner — globally-consistent relational scale |
 | Vendor-neutral | Self-managed Postgres/MySQL | MongoDB Atlas, Redis Cloud | Portability across clouds |
 
 ## Multi-AZ vs. Read Replica

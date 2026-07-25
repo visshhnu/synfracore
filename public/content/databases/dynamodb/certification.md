@@ -10,6 +10,8 @@
 
 DynamoDB is a major topic in AWS Database Specialty and Developer Associate exams.
 
+*(needs verification — exam pricing and duration change on AWS's side; confirm current values on AWS's certification page before treating any of the above as current)*
+
 ---
 
 ## Core Concepts and Code

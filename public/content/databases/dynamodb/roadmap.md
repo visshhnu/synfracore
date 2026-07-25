@@ -1,80 +1,52 @@
 # DynamoDB — Learning Roadmap
 
 ## Estimated Time to Job-Ready
-**6-10 weeks** of consistent learning (2-3 hours/day)
+**6-8 weeks** of consistent learning (2-3 hours/day) — DynamoDB's API surface is genuinely small; the real learning curve is almost entirely in access-pattern-first data modeling, which is a real mindset shift for anyone coming from relational database experience.
 
 ## Phase 1: Foundation (Week 1-2)
-Build core understanding before touching advanced topics.
 
-- Master the fundamental concepts and mental model
-- Complete the fundamentals section in this course  
-- Run hands-on labs (beginner level)
-- Build your first working example
+- Core concepts: table, item, attribute, partition key, sort key, and how DynamoDB's key-value/document model differs from a relational table
+- Basic operations: `put_item`, `get_item`, `update_item`, `delete_item`, and the critical distinction between `query()` (targeted, uses keys) and `scan()` (reads everything — avoid in production)
+- Capacity modes: on-demand (pay per request, no planning) vs. provisioned (RCU/WCU, cheaper for predictable traffic)
 
-## Phase 2: Hands-On Practice (Week 3-5)
-Theory without practice is useless. Build real things.
+**Checkpoint:** can you explain why a high-cardinality partition key matters for avoiding "hot partitions," using a concrete bad example (like a status field with only 3 possible values) versus a good one (like a user ID)?
 
-- Complete intermediate section and all labs
-- Work through 2-3 guided projects
-- Break things deliberately and fix them
-- Read official documentation, not just tutorials
+## Phase 2: Access-Pattern-First Data Modeling (Week 2-4)
 
-## Phase 3: Production Patterns (Week 6-8)
-Learn how professionals do it at scale.
+- The core discipline: list every access pattern your application needs *before* designing any table structure — this is the opposite instinct from relational normalization
+- Single-table design: key overloading with generic `PK`/`SK` attributes and prefixes (`USER#123`, `ORDER#456`) to serve multiple entity types and relationships from one table
+- GSIs (new partition/sort key pairs, eventually consistent, addable after creation) vs. LSIs (same partition key, different sort key, must be defined at table creation, can be strongly consistent)
+- Complete Portfolio Project 1 (single-table design from access patterns)
 
-- Study advanced section — production architecture
-- Implement security best practices
-- Set up monitoring and alerting
-- Contribute to open-source or build portfolio project
+**Checkpoint:** given a new requirement ("look up an order by its ID alone, without knowing the customer"), can you identify whether your existing table design already serves this, or whether it needs a GSI — and explain why?
 
-## Phase 4: Interview Ready (Week 9-10)
-Convert knowledge into opportunity.
+## Phase 3: Transactions, Streams, and Advanced Features (Week 4-6)
 
-- Complete all interview Q&A sections
-- Practice explaining concepts out loud
-- Do 3+ mock technical interviews
-- Apply to target roles
+- `TransactWriteItems`/`TransactGetItems` for real cross-item atomicity (up to 100 items), and when they're actually warranted versus a single conditional `update_item`
+- Conditional expressions for both business-rule enforcement (don't oversell inventory) and optimistic locking (version-based concurrent-update safety)
+- DynamoDB Streams + Lambda for event-driven patterns: search sync, notifications, audit logging, cross-region replication
+- Complete Portfolio Project 2 (transactional order flow)
 
-## Skills You'll Build
+**Checkpoint:** can you explain, using a real example, when you'd reach for `TransactWriteItems` versus a single `update_item` with a `ConditionExpression` — this exact judgment call is a common interview question, since transactions have real cost and shouldn't be a default reach.
 
-| Skill Area | What You'll Learn |
-|---|---|
-| Core Concepts | Fundamental architecture and design principles |
-| Practical Skills | Real commands, configurations, and patterns |
-| Troubleshooting | Diagnose and fix common production issues |
-| Best Practices | Security, performance, cost optimization |
-| Interview Prep | Answer any question with confidence |
+## Phase 4: Global Tables, DAX, and Interview Readiness (Week 6-8)
 
-## Weekly Study Plan
+- Global Tables: multi-region active-active replication, last-writer-wins conflict resolution, and what "eventually consistent globally" actually means in practice
+- DAX (DynamoDB Accelerator): when a microsecond-latency read cache is actually warranted versus unnecessary complexity for the workload
+- TTL for automatic item expiration, and its real ~48-hour deletion window (not instantaneous)
+- Complete Portfolio Project 3 (event-driven Streams pipeline) — this is the highest-value exercise for demonstrating real production-pattern understanding, not just CRUD
+- Review this course's Interview Q&A material, particularly the single-table design and capacity-mode tradeoff questions
 
-```
-Monday:    Read theory (fundamentals/intermediate)
-Tuesday:   Hands-on labs (practice environment)
-Wednesday: Build a small project applying what you learned
-Thursday:  Read docs, watch a video, go deeper on one topic
-Friday:    Review interview questions, explain to yourself
-Weekend:   Work on a portfolio project or practice exam
-```
+## Common Pitfalls Specific to DynamoDB (Not Generic Study Advice)
 
-## Red Flags to Avoid
+- **Designing tables the relational way first, then trying to translate them** — this produces a schema that needs joins DynamoDB doesn't have; the fix is designing from access patterns directly
+- **Reaching for `scan()` because it "just works" during development** — it's fine on a toy dataset and a genuine performance/cost problem at real scale; every production access pattern should resolve via `query()` or `get_item()`
+- **Treating GSIs as a default rather than a specific-need addition** — every GSI adds its own RCU/WCU cost; add one because a genuine access pattern requires it, not defensively
+- **Forgetting that on-demand pricing gets more expensive than provisioned at steady, predictable traffic** — on-demand is the right default for unpredictable/new workloads, not universally the "modern" choice
 
-- ❌ Tutorial hell — watching videos without building
-- ❌ Skipping fundamentals to jump to "cool" advanced topics  
-- ❌ Not reading error messages carefully
-- ❌ Copy-pasting code without understanding it
-- ❌ Studying in isolation — join communities, ask questions
+## Getting Your First DynamoDB-Heavy Role
 
-## Resources
-
-- **This course**: Start with Overview → Fundamentals → Labs → Projects
-- **Official docs**: Always the most accurate and up-to-date
-- **Community**: Reddit, Discord, Stack Overflow for stuck moments
-- **Projects**: Build something real, put it on GitHub
-
-## Getting Your First Job
-
-1. **Portfolio**: 2-3 solid GitHub projects demonstrating the skill
-2. **Resume**: Quantify achievements ("reduced deploy time by 60%")
-3. **Network**: LinkedIn, meetups, DevOps/tech communities
-4. **Apply broadly**: Apply to 20+ roles, expect 3-5 interviews per offer
-5. **Interview prep**: System design + technical + behavioral all matter
+1. **Portfolio:** the 3 projects in this course's Projects section, each demonstrating a different core skill (access-pattern-first modeling, real transactional atomicity, event-driven Streams architecture)
+2. **Resume:** be specific — "redesigned a schema from entity-based to single-table access-pattern design, eliminating three separate scan() calls" is far stronger than "experience with DynamoDB"
+3. **Know the AWS ecosystem context:** DynamoDB is heavily featured in AWS's own certifications (Database Specialty, Developer Associate) — familiarity with when DynamoDB is the right choice versus RDS/Aurora is often as relevant in interviews as CRUD/query syntax
+4. **Certifications, if pursuing one:** see this course's own Certification Guide for current AWS exam pricing and format caveats

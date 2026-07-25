@@ -74,15 +74,12 @@ order = response.get('Item')
 table.update_item(
     Key={'userId': 'user123', 'orderId': 'order456'},
     UpdateExpression='SET #s = :s, updatedAt = :t ADD version :one',
-    ExpressionAttributeNames={'#s': 'status'},   # 'status' is reserved word
+    ConditionExpression='#s = :expected',         # Optimistic locking
+    ExpressionAttributeNames={'#s': 'status'},    # 'status' is reserved word
     ExpressionAttributeValues={
         ':s': 'shipped',
         ':t': '2024-01-16T14:00:00Z',
-        ':one': 1
-    },
-    ConditionExpression='#s = :expected',         # Optimistic locking
-    ExpressionAttributeValues={
-        ':s': 'shipped', ':t': '...', ':one': 1,
+        ':one': 1,
         ':expected': 'pending'                    # Only update if still pending
     }
 )
