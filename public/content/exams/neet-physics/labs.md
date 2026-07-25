@@ -6,7 +6,7 @@ The NEET PHYSICS practice labs are quiz-based — use MCQ sets and flashcards fo
 
 ## How to Use These Labs
 
-1. **Click the Quiz tab** above to start MCQ practice
+1. **Use the practice quiz built into each tab** (Overview, Fundamentals, Intermediate, Advanced) to start MCQ practice
 2. **Answer questions without looking at options first** — write your answer, then check
 3. **Review every wrong answer** — understand WHY it's wrong, not just what's correct
 4. **Track your score** — aim for 80%+ before your exam
