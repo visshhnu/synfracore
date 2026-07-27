@@ -1,103 +1,83 @@
-# Mathematics — Portfolio Projects
+# Mathematics — Investigatory Projects & Olympiad Practice
 
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
+Build these to actually understand the "why" behind formulas, not just memorize them — and to have something real to show for a school project, a maths exhibition, or an olympiad application.
 
-## Project 1: Mathematics Beginner Project
+## Project 1: Geometry in the Real World (Beginner, Class 6–8 level)
 
-**Level:** Beginner | **Time:** 2 days
+**Time:** 2-3 days
 
-Apply your Mathematics fundamentals in a real project. Build something you can show to employers and explain in detail during interviews.
-
-### Steps
-
-1. Define scope: what problem does your Mathematics project solve?
-2. Plan the implementation before writing any code/config
-3. Build iteratively: start with MVP, then add features
-4. Test thoroughly — find and fix edge cases
-5. Write documentation: README, setup guide, how it works
-6. Publish to GitHub with a clear README
-
-### Skills Demonstrated
-
-- Mathematics fundamentals
-- Project planning
-- Documentation
-
-### GitHub Repo Name
-
-`maths-beginner-project`
-
----
-
-## Project 2: Mathematics Intermediate Project
-
-**Level:** Intermediate | **Time:** 3-4 days
-
-Build a production-quality Mathematics project demonstrating intermediate skills. This should be something you're proud to show in interviews.
+Pick a real structure around you — a bridge, a staircase, a cricket pitch, a Rangoli pattern, a cycle wheel — and analyze the geometry actually being used: angles, symmetry, area, or the specific shapes involved.
 
 ### Steps
 
-1. Choose a real problem you or others face
-2. Design the solution architecture first
-3. Implement with clean, readable code/configuration
-4. Add error handling and edge cases
-5. Write unit/integration tests
-6. Create a live demo or demo video
+1. Choose one real object or structure with clear geometric properties
+2. Measure it (or find real measurements) — angles, lengths, areas
+3. Explain why that specific shape/angle was chosen (e.g. why a bridge truss uses triangles, not squares — triangles are rigid, squares aren't)
+4. Present with labeled diagrams, not just numbers
 
 ### Skills Demonstrated
+- Applying geometry formulas to real measurements
+- Explaining *why* a shape/structure works, not just calculating it
 
-- Mathematics intermediate patterns
-- Testing
-- Error handling
-
-### GitHub Repo Name
-
-`maths-intermediate-project`
+### Project Title Example
+`Geometry-in-Bridges` or `Symmetry-in-Rangoli-Patterns`
 
 ---
 
-## Project 3: Mathematics Capstone Project
+## Project 2: Statistics From Data You Actually Collect (Intermediate, Class 8–10 level)
 
-**Level:** Advanced | **Time:** 1 week
+**Time:** 4-5 days
 
-A comprehensive Mathematics project that demonstrates mastery. This should be the centerpiece of your portfolio — something that proves you can do the job.
+Collect real data (class test scores, daily temperatures for a month, number of steps walked, cricket/football match scores) and apply mean, median, mode, and a simple graph to find a genuine pattern.
 
 ### Steps
 
-1. Define an ambitious but achievable scope
-2. Research how professionals solve this problem at scale
-3. Implement following industry best practices
-4. Add monitoring, alerting, and operational runbooks
-5. Security review — what could go wrong? Fix it.
-6. Present your project: 5-min video walkthrough
-7. Write a technical blog post about what you learned
+1. Choose a real, collectible dataset (don't invent numbers)
+2. Collect at least 20-30 data points yourself
+3. Calculate mean, median, mode, and range
+4. Represent it with a bar graph, histogram, or pie chart
+5. Write one paragraph on what the data actually shows — a real conclusion, not just the calculation
 
 ### Skills Demonstrated
-
-- Advanced patterns
-- Production readiness
-- Communication
-
-### GitHub Repo Name
-
-`maths-capstone`
+- Real data collection and organization
+- Central tendency and graphical representation
+- Drawing a conclusion from data, not just computing statistics
 
 ---
 
-## Tips for Great Projects
+## Project 3: Proof-Based Investigation (Advanced, Class 10–12 level)
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Time:** 1-2 weeks
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+Pick one theorem (Pythagoras, a trigonometric identity, a calculus result) and go beyond the textbook proof — find or construct a second, different proof of the same result, and explain why having multiple proofs matters.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+### Steps
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+1. Choose a theorem you've already learned in class
+2. Research or derive an alternative proof (e.g. Pythagoras has 100+ known proofs — find one not in your textbook)
+3. Compare the two approaches: which assumptions does each use? Which is more general?
+4. Present both proofs side by side with your own explanation of each step
 
-## Portfolio Checklist
+### Skills Demonstrated
+- Deeper mathematical reasoning beyond a single memorized proof
+- Comparing proof techniques
+- Olympiad-relevant proof-writing practice (JEE Advanced, RMO/INMO-style reasoning)
 
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+---
+
+## Tips for a Strong Maths Project
+
+**Use real numbers, not invented ones.** A statistics project with genuinely collected data is far stronger than one with numbers made up to look clean.
+
+**Show your working, not just the answer.** A teacher or evaluator wants to see the reasoning path — where you got stuck, how you resolved it.
+
+**Connect it to something you can explain out loud.** Being able to explain *why* the maths works — not just recite the steps — is what separates a strong project from a copied one.
+
+**For olympiad-track students:** proof-based investigation projects (Project 3 style) build exactly the reasoning skill tested in RMO/INMO and JEE Advanced — the goal isn't a "correct answer" but a rigorously justified one.
+
+## Project Checklist
+- [ ] Uses real measurements or genuinely collected data, not invented numbers
+- [ ] Includes clear diagrams or graphs, properly labeled
+- [ ] Explains reasoning, not just final calculations
+- [ ] Has a one-paragraph conclusion stating what was actually learned/shown
+- [ ] Presentable in 5 minutes if asked to explain it to a teacher or judge
