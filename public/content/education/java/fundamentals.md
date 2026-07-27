@@ -163,7 +163,9 @@ public class Main {
 
 ## Access Specifiers
 
-From the original notes — the Access Specifier Protection Matrix:
+*A quick term you'll need for the table below: a "subclass" is a class that inherits from another class (using `extends` — covered in this course's Intermediate section). You don't need to know how to write one yet — just that "Sub" in the table means "a subclass of the class the member belongs to," and "Non-Sub" means any other, unrelated class.*
+
+The Access Specifier Protection Matrix:
 
 | Access Modifier | Same Class | Same Package (Sub) | Same Package (Non-Sub) | Different Package (Sub) | Different Package (Non-Sub) |
 |---|---|---|---|---|---|
@@ -249,6 +251,7 @@ public class Main {
 **Static Import (added in JDK 1.5):**
 - Eliminates redundant referencing of class names before static data members
 - Before: `System.out.println(Math.PI)` → After: `println(PI)` (after static import)
+- *Note on the version number: "JDK 1.5" and "Java 5" refer to the exact same release — Sun renamed the public-facing version scheme starting with this release (dropping the "1." prefix for marketing purposes), so older documentation and long-standing code comments often still say "1.5," "1.6," etc. even though the current convention (used in this course's Overview, e.g. "Java 8 LTS," "Java 21 LTS") just uses the plain number. When you see both styles, they're the same timeline — "JDK 1.5" = "Java 5," "JDK 1.8" = "Java 8," and so on.*
 
 ## The Java Development Environment
 

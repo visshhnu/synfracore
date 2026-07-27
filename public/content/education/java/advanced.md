@@ -358,11 +358,13 @@ JVM Components:
     Garbage Collector → automatic memory management
 ```
 
-**Garbage Collection process (from notes):**
-1. JVM sends **Thread Goodbye Notification (TGN)** to thread when object unreferenced
-2. JVM hands over TGN to background thread (Garbage Collector)
-3. GC collects unreferenced objects and frees memory
-4. Java program stops execution after GC completes its work
+**Garbage Collection process (the real mechanism):**
+1. The JVM tracks which objects are still **reachable** — reachable from a running thread's stack, from static fields, or from another reachable object. There's no per-object "notification" sent anywhere; reachability is determined by the collector tracing references, not by the unreferenced object announcing itself.
+2. When an object is no longer reachable from any of these roots, it becomes eligible for garbage collection.
+3. The Garbage Collector — which runs as one or more background threads managed by the JVM, not something you create — periodically identifies unreachable objects and reclaims their memory.
+4. Most modern collectors (e.g., G1, the default since Java 9) do the bulk of this work concurrently with your program running, not by stopping it. Some phases briefly pause application threads ("stop-the-world" pauses), but "the program stops until GC finishes" is not how a modern JVM behaves — pause times are typically milliseconds, and minimizing them is an active area of collector design.
+
+You cannot force garbage collection to happen, and you don't control exactly when it runs — `System.gc()` (below) is only a *suggestion* to the JVM, not a command.
 
 ```java
 // Destructor equivalent in Java — finalize() (deprecated in Java 9+)
