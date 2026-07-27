@@ -2987,3 +2987,46 @@ disk with full original detail and a pointer to this file.
    signed in." Leading unconfirmed theory: a token-rotation race between
    `getAuthSafely()`'s re-verification and Clerk's background token refresh.
    Surfaced the `getAuthSafely()` hardcoded-URL smell in passing.
+
+---
+
+## Part 10 — Deferred Items — Future Phases
+
+Items noted during other work that are real structural findings but out of
+scope for the phase they were found in. Not fixed, not actively being worked —
+logged here so they aren't lost before their own phase picks them up.
+
+### Section-Navigation cleanup phase (not yet started)
+
+**`/learn` vs. Education-academy content-root confusion (found during Phase 6
+Education scope-mapping, 2026-07-27, investigation only — no code changed).**
+`lib/data/academies.ts`'s `educationAcademy` (12 technologies under
+`/academies/education/{school,college}/...`) and `lib/data/education.ts`'s
+separate board→subject→chapter system (`/learn/{board}/{subject}/{chapter}`,
+covering `class-10`, `class-12`, `jee`, `neet`, `gate`, `banking`, `ssc`,
+`upsc`, `defence`, `career`, `finance`) are two independent content systems
+that both read/write under the same `public/content/education/` root and both
+key into the content registry as `education/...`. This is confusing for two
+concrete reasons, not just cosmetic:
+
+1. `educationAcademy`'s own `description` field claims school/exam content
+   "has moved to the Academy section — visit /learn," which is backwards/stale
+   copy: `/learn` is not part of this academy, it's the separate system, and
+   the academy's own 12 technologies are still live content, not a redirect
+   stub.
+2. JEE/NEET/GATE/Banking/UPSC are business-categorized under a *different*
+   academy entirely (`examsAcademy`, slug `exams`) elsewhere in the same file,
+   but their actual on-disk content and registry keys all live under
+   `education/`, not `exams/`. A future maintainer grepping for exam content
+   under an `exams/` path will find nothing.
+
+Not a functional bug today — both systems resolve correctly (verified via the
+registry, including a manually-preserved alias for the `/learn` board content
+that still works). But it's exactly the kind of naming/root mismatch that
+causes future accidental orphaning or duplicate work, the same class of risk
+CLAUDE.md's slug-rename procedure exists to prevent. Whenever
+Section-Navigation cleanup is scoped, this should be evaluated for either (a)
+renaming `educationAcademy`'s stale description, or (b) a real decision on
+whether `exams`-labeled content should physically move under an `exams/`
+content root to match its own academy, with the slug-rename procedure
+(alias table + backfill) followed if so.
