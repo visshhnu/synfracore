@@ -1,103 +1,97 @@
 # Home Health Coding — Portfolio Projects
 
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
+Build projects that show you can connect OASIS documentation to accurate ICD-10-CM coding and PDGM grouping — the core, high-stakes skill of this specialty.
 
-## Project 1: Home Health Coding Beginner Project
+## Project 1: OASIS-to-Diagnosis Mapping Exercise
 
 **Level:** Beginner | **Time:** 2 days
 
-Apply your Home Health Coding fundamentals in a real project. Build something you can show to employers and explain in detail during interviews.
+Work through 10-15 realistic home health referral scenarios, extracting the relevant OASIS assessment findings and mapping them to correctly sequenced ICD-10-CM diagnosis codes.
 
 ### Steps
 
-1. Define scope: what problem does your Home Health Coding project solve?
-2. Plan the implementation before writing any code/config
-3. Build iteratively: start with MVP, then add features
-4. Test thoroughly — find and fix edge cases
-5. Write documentation: README, setup guide, how it works
-6. Publish to GitHub with a clear README
+1. Collect or write 10-15 home health referral/OASIS scenarios
+2. Identify the primary reason for home health services in each
+3. Assign and sequence the ICD-10-CM diagnosis codes that support that primary reason
+4. Note any documentation gaps that would require a physician query before coding confidently
 
 ### Skills Demonstrated
 
-- Home Health Coding fundamentals
-- Project planning
-- Documentation
+- OASIS-to-ICD-10-CM mapping
+- Primary diagnosis selection for home health
+- Recognizing documentation gaps
 
-### GitHub Repo Name
+### Note
 
-`home-health-coding-beginner-project`
+**Verify current OASIS item set and PDGM diagnosis-grouping logic against current CMS Home Health guidance** — both are subject to periodic CMS updates, and an outdated mapping can misclassify a case.
 
 ---
 
-## Project 2: Home Health Coding Intermediate Project
+## Project 2: PDGM Case-Mix Group Practice Set
 
 **Level:** Intermediate | **Time:** 3-4 days
 
-Build a production-quality Home Health Coding project demonstrating intermediate skills. This should be something you're proud to show in interviews.
+Given a set of coded home health episodes, work through the Patient-Driven Groupings Model (PDGM) classification factors — clinical grouping, functional impairment level, comorbidity adjustment — to determine each case's case-mix group at a conceptual level.
 
 ### Steps
 
-1. Choose a real problem you or others face
-2. Design the solution architecture first
-3. Implement with clean, readable code/configuration
-4. Add error handling and edge cases
-5. Write unit/integration tests
-6. Create a live demo or demo video
+1. Take 8-10 coded episodes from Project 1 (or new ones)
+2. For each, identify the PDGM clinical grouping category the primary diagnosis falls into
+3. Note the functional impairment and comorbidity factors that would affect payment classification
+4. Explain, in writing, how a coding change (e.g., a different primary diagnosis) could shift the case into a different clinical grouping
 
 ### Skills Demonstrated
 
-- Home Health Coding intermediate patterns
-- Testing
-- Error handling
+- PDGM classification logic
+- Understanding how coding choices affect payment classification
+- Comorbidity-adjustment awareness
 
-### GitHub Repo Name
+### Note
 
-`home-health-coding-intermediate-project`
+PDGM's specific clinical-grouping and comorbidity tables are CMS-published and updated on a regular cycle — **treat exact category assignments as needing verification against a current CMS PDGM reference**, not as fixed facts to memorize once.
 
 ---
 
-## Project 3: Home Health Coding Capstone Project
+## Project 3: Full Home Health Coding Portfolio with HIPPS Codes
 
 **Level:** Advanced | **Time:** 1 week
 
-A comprehensive Home Health Coding project that demonstrates mastery. This should be the centerpiece of your portfolio — something that proves you can do the job.
+A comprehensive project taking referral documentation through OASIS review, ICD-10-CM coding, PDGM grouping, and HIPPS code assignment — the full home health coding workflow end to end.
 
 ### Steps
 
-1. Define an ambitious but achievable scope
-2. Research how professionals solve this problem at scale
-3. Implement following industry best practices
-4. Add monitoring, alerting, and operational runbooks
-5. Security review — what could go wrong? Fix it.
-6. Present your project: 5-min video walkthrough
-7. Write a technical blog post about what you learned
+1. Build or use 10+ full referral-to-episode scenarios
+2. Complete diagnosis coding and sequencing for each
+3. Work through PDGM classification and construct the resulting HIPPS code
+4. Self-audit the full set after a few days and document corrections
+5. Write a short reflection on which part of the workflow (documentation review, coding, or grouping) caused the most rework
 
 ### Skills Demonstrated
 
-- Advanced patterns
-- Production readiness
-- Communication
+- End-to-end home health coding workflow
+- HIPPS code construction
+- Self-audit discipline
 
-### GitHub Repo Name
+### Portfolio Artifact Name
 
-`home-health-coding-capstone`
+`home-health-coding-portfolio`
 
 ---
 
 ## Tips for Great Projects
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Start from the OASIS documentation, not the code.** The real skill is extracting the right clinical picture from an assessment and coding to match it — not memorizing codes in isolation.
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+**Show how a coding decision affects payment classification.** Being able to explain "this primary diagnosis choice changes the clinical grouping" is a genuine differentiator for this specialty.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+**Flag documentation gaps instead of guessing at intent.** A referral that doesn't clearly support a primary diagnosis should prompt a documented physician query — demonstrate that judgment explicitly.
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+**Treat PDGM/OASIS specifics as things to verify, not memorize once.** Both are CMS-maintained and updated on a recurring cycle.
 
 ## Portfolio Checklist
 
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] 3+ coded project sets connecting OASIS documentation to ICD-10-CM coding
+- [ ] At least 1 project covering PDGM clinical-grouping logic
+- [ ] At least 1 project reaching a full HIPPS code
+- [ ] Any PDGM/OASIS specific detail checked against current CMS guidance
+- [ ] Projects organized in a portfolio you can walk through end to end

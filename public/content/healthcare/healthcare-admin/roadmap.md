@@ -1,80 +1,48 @@
 # Healthcare Administration — Learning Roadmap
 
 ## Estimated Time to Job-Ready
-**6-10 weeks** of consistent learning (2-3 hours/day)
+**6-9 weeks** of consistent learning (2-3 hours/day) — the revenue-cycle concepts themselves are learnable quickly, but developing real judgment about denial patterns and follow-up prioritization takes practice against realistic claim scenarios.
 
-## Phase 1: Foundation (Week 1-2)
-Build core understanding before touching advanced topics.
+## Phase 1: Revenue Cycle Foundations (Week 1-2)
 
-- Master the fundamental concepts and mental model
-- Complete the fundamentals section in this course  
-- Run hands-on labs (beginner level)
-- Build your first working example
+- The full revenue-cycle sequence: registration/pre-registration, eligibility verification, prior authorization, coding, claim submission, adjudication, denial management, payment posting, patient billing/collections
+- Where compliance risk concentrates at each stage (documentation gaps, missing authorization, coding accuracy)
+- Complete the fundamentals section in this course
 
-## Phase 2: Hands-On Practice (Week 3-5)
-Theory without practice is useless. Build real things.
+**Checkpoint:** can you name, in order, every stage of the revenue cycle and identify the single most common failure point at each?
 
-- Complete intermediate section and all labs
-- Work through 2-3 guided projects
-- Break things deliberately and fix them
-- Read official documentation, not just tutorials
+## Phase 2: Denial Management (Week 2-4)
 
-## Phase 3: Production Patterns (Week 6-8)
-Learn how professionals do it at scale.
+- Common denial categories: missing authorization, medical necessity, timely filing, duplicate claims, coordination-of-benefits issues
+- How to read a remittance advice / explanation of benefits (EOB) to find the actual denial reason
+- Complete Project 1 (denial taxonomy and appeal templates) from this course's Projects section
 
-- Study advanced section — production architecture
-- Implement security best practices
-- Set up monitoring and alerting
-- Contribute to open-source or build portfolio project
+**Checkpoint:** given a denial reason code, can you identify whether it's preventable at submission time or genuinely requires an appeal — and explain the difference?
 
-## Phase 4: Interview Ready (Week 9-10)
-Convert knowledge into opportunity.
+## Phase 3: AR Management and Prioritization (Week 4-6)
 
-- Complete all interview Q&A sections
-- Practice explaining concepts out loud
-- Do 3+ mock technical interviews
-- Apply to target roles
+- Accounts receivable aging buckets and how aging correlates with collection risk
+- Follow-up prioritization: balancing dollar value, aging risk, and timely-filing deadlines
+- Complete Project 2 (AR aging analysis) from this course's Projects section
 
-## Skills You'll Build
+**Checkpoint:** given two claims — one small and near a timely-filing deadline, one large but freshly aged — can you explain which one should be worked first, and why?
 
-| Skill Area | What You'll Learn |
-|---|---|
-| Core Concepts | Fundamental architecture and design principles |
-| Practical Skills | Real commands, configurations, and patterns |
-| Troubleshooting | Diagnose and fix common production issues |
-| Best Practices | Security, performance, cost optimization |
-| Interview Prep | Answer any question with confidence |
+## Phase 4: Compliance and Certification Readiness (Week 6-9)
 
-## Weekly Study Plan
+- Compliance basics relevant to RCM: documentation requirements, coding-accuracy accountability, and how coding/billing errors create compliance exposure
+- Complete Project 3 (end-to-end RCM process map) and review this course's Interview Q&A and Certification Guide material
 
-```
-Monday:    Read theory (fundamentals/intermediate)
-Tuesday:   Hands-on labs (practice environment)
-Wednesday: Build a small project applying what you learned
-Thursday:  Read docs, watch a video, go deeper on one topic
-Friday:    Review interview questions, explain to yourself
-Weekend:   Work on a portfolio project or practice exam
-```
+## Common Pitfalls Specific to Healthcare Administration
 
-## Red Flags to Avoid
+- **Working AR strictly by dollar value, ignoring timely-filing risk** — a small claim about to miss its filing deadline can become permanently unrecoverable while a larger, less time-sensitive claim waits
+- **Treating every denial the same way** — a medical-necessity denial and a missing-authorization denial require genuinely different resolution paths, not the same generic appeal
+- **Not reading the actual denial reason before appealing** — appealing without identifying the real root cause wastes the appeal and often the timely-filing window along with it
+- **Assuming payer-specific rules are universal** — denial codes, authorization requirements, and filing deadlines vary by payer and change over time; treating one payer's rules as standard across all payers is a common early-career mistake
 
-- ❌ Tutorial hell — watching videos without building
-- ❌ Skipping fundamentals to jump to "cool" advanced topics  
-- ❌ Not reading error messages carefully
-- ❌ Copy-pasting code without understanding it
-- ❌ Studying in isolation — join communities, ask questions
+## Getting Your First Healthcare Administration Role
 
-## Resources
-
-- **This course**: Start with Overview → Fundamentals → Labs → Projects
-- **Official docs**: Always the most accurate and up-to-date
-- **Community**: Reddit, Discord, Stack Overflow for stuck moments
-- **Projects**: Build something real, put it on GitHub
-
-## Getting Your First Job
-
-1. **Portfolio**: 2-3 solid GitHub projects demonstrating the skill
-2. **Resume**: Quantify achievements ("reduced deploy time by 60%")
-3. **Network**: LinkedIn, meetups, DevOps/tech communities
-4. **Apply broadly**: Apply to 20+ roles, expect 3-5 interviews per offer
-5. **Interview prep**: System design + technical + behavioral all matter
+1. **Portfolio:** the 3 projects in this course's Projects section, showing denial-resolution reasoning and process understanding, not just task completion
+2. **Certification:** relevant options include AAPC's CPB (Certified Professional Biller) or similar RCM/billing-focused credentials — see this course's own Certification Guide for current options
+3. **Resume:** be specific and verifiable — "reduced average AR days for a practice case set from X to Y through prioritized follow-up" is stronger than a generic RCM claim
+4. **Community:** AAPC/HFMA (Healthcare Financial Management Association) local chapters are where practicing RCM professionals discuss real denial trends
+5. **Interview prep:** expect to be asked how you'd prioritize a stack of denials or aging claims — practice explaining your reasoning out loud, not just naming the "right" answer

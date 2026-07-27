@@ -1,62 +1,30 @@
 # Medical Coding Interview Q&A
 
 **Q: What is the difference between ICD-10-CM and CPT?**
-ICD-10-CM: diagnoses — why the patient was seen, what condition they have. CPT (Current Procedural Terminology): procedures — what was done (surgery, office visit, lab test). Both needed for a complete claim.
+ICD-10-CM: diagnoses — why the patient was seen, what condition they have. CPT (Current Procedural Terminology): procedures — what was done (surgery, office visit, lab test). Both are needed for a complete claim.
 
 **Q: What is a CPC certification?**
-Certified Professional Coder from AAPC. Industry standard for outpatient/physician office coding. 100 MCQ exam, open book (CPT/ICD-10/HCPCS manuals allowed). Requires 80% pass rate.
+Certified Professional Coder, issued by AAPC. It's the industry-standard entry credential for outpatient/physician-office coding, and it's open-book (CPT/ICD-10-CM/HCPCS manuals allowed).
+*Needs verification against current AAPC guidelines: the exact question count, time limit, and required passing score. AAPC has revised the exam format over time, so a specific number stated here without a current source check should not be treated as reliable.*
 
-**Q: What is the 7th character in ICD-10 fracture codes?**
-A=initial encounter, D=subsequent encounter, S=sequela. Always assign 7th character — affects reimbursement and treatment tracking.
-
-## Quick Reference — Medical Coding
-
-### Key Points for Revision
-
-- Review the overview section for core architecture and fundamentals
-- Practice commands/configurations from the cheatsheet section
-- Use interview Q&A for active recall before exams or interviews
-- Cross-reference with related tools in the healthcare academy
-
-### Related Topics
-
-Explore these connected topics to build complete understanding:
-- Overview and Architecture
-- Fundamentals and Core Concepts
-- Advanced Patterns and Production Usage
-- Interview Preparation Q&A
-- Quick Reference Cheatsheet
-
-### Practice Approach
-
-1. Read the overview to understand *what* and *why*
-2. Work through fundamentals for *how*
-3. Attempt hands-on labs or configurations
-4. Test yourself with interview questions
-5. Keep cheatsheet accessible for quick reference during work
-
-### Further Learning
-
-Connect this topic to the broader healthcare ecosystem. 
-Each tool in this academy is designed to work with others —
-understanding the integration points is what separates intermediate from senior practitioners.
-
-# Medical Coding Interview Q&A
+**Q: What is the 7th character in ICD-10-CM fracture codes?**
+A = initial encounter, D = subsequent encounter, S = sequela. The 7th character must always be assigned when the code requires one — it affects both clinical tracking and reimbursement.
 
 **Q: What is the sequencing rule for principal diagnosis?**
-The principal diagnosis is the condition established to be chiefly responsible for the admission. In outpatient settings: code the condition to the highest degree of certainty (sign/symptom if diagnosis not confirmed). In inpatient: can code "probable" or "suspected" diagnoses as if established.
+The principal diagnosis is the condition established, after study, to be chiefly responsible for the admission. In outpatient settings, code to the highest degree of certainty known at the time of the encounter (a sign/symptom if a definitive diagnosis hasn't been confirmed). In inpatient settings, "probable"/"suspected"/"likely" diagnoses can be coded as if confirmed — a genuinely different rule from outpatient coding, not a minor variation.
 
 **Q: What are E/M codes and how are they selected?**
-Evaluation and Management codes (99202-99499 outpatient, 99221-99233 inpatient). Selected based on: Medical Decision Making (MDM) complexity — Number and complexity of problems, Amount and/or complexity of data reviewed, Risk of complications. Or Total time spent on date of encounter. 2021 AMA guidelines simplified this — time or MDM, not all three key components.
+Evaluation and Management codes cover physician/qualified-provider visits — for example, office/outpatient visits and inpatient visits each have their own code ranges. Selection is based on either medical decision-making (MDM) complexity — the number and complexity of problems addressed, the amount and complexity of data reviewed, and the risk of complications — or total time spent on the date of the encounter. The 2021 AMA revision to office/outpatient E/M simplified this to time-or-MDM, moving away from the older three-key-component model.
+*Needs verification against current CMS/AMA guidelines: the exact current code ranges and any settings not yet covered by the 2021-style revision. E/M code ranges and rules are refined periodically, so treat any specific number here as a starting point to confirm, not a final answer.*
 
 **Q: What is Modifier 25 and when is it used?**
-Modifier 25: Significant, separately identifiable E/M service by the same physician on the same day as a procedure. Used when: patient comes in for a procedure but also receives a separate, medically necessary E/M service on the same visit. Without Modifier 25, payer bundles the E/M into the procedure payment.
+Modifier 25 indicates a significant, separately identifiable E/M service by the same physician on the same day as a procedure. It applies when a patient comes in for a procedure but also receives a separate, medically necessary E/M service during that same visit. Without Modifier 25, the payer will typically bundle the E/M into the procedure's payment.
 
 **Q: What is HIPAA's role in medical coding?**
-HIPAA mandates standard code sets for electronic transactions: ICD-10-CM/PCS for diagnoses/procedures, CPT/HCPCS for services and supplies. All covered entities must use these standardised codes. HIPAA also governs PHI (Protected Health Information) — coders handle PHI and must follow minimum necessary access, encryption, and breach notification requirements.
+HIPAA mandates standardized code sets for electronic transactions — ICD-10-CM/PCS for diagnoses and procedures, CPT/HCPCS for services and supplies — and all covered entities must use them. HIPAA also governs PHI (Protected Health Information): coders handle PHI and must follow minimum-necessary-access, security, and breach-notification requirements.
 
 **Q: What is the difference between ICD-10-CM and ICD-10-PCS?**
-ICD-10-CM: diagnoses — used in all settings (inpatient, outpatient, physician). ICD-10-PCS: procedures — used ONLY in inpatient hospital settings (inpatient facility billing). CPT codes are used for outpatient and physician procedure coding. PCS codes are 7-character alphanumeric; CM codes are 3-7 character alphanumeric.
+ICD-10-CM covers diagnoses and is used across all settings — inpatient, outpatient, and physician office. ICD-10-PCS covers procedures and is used only in inpatient hospital (facility) billing; outpatient and physician procedure coding uses CPT instead. Structurally, PCS codes are 7-character alphanumeric; CM codes are 3-7 character alphanumeric.
 
 ---
 

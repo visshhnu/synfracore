@@ -1,80 +1,48 @@
 # Patient Documentation — Learning Roadmap
 
 ## Estimated Time to Job-Ready
-**6-10 weeks** of consistent learning (2-3 hours/day)
+**6-9 weeks** of consistent learning (2-3 hours/day), assuming ICD-10-CM/CPT fundamentals are already in place — the clinical documentation improvement (CDI) skill set is less about new code knowledge and more about developing judgment for what documentation does and doesn't support specific coding.
 
-## Phase 1: Foundation (Week 1-2)
-Build core understanding before touching advanced topics.
+## Phase 1: Documentation Fundamentals (Week 1-2)
 
-- Master the fundamental concepts and mental model
-- Complete the fundamentals section in this course  
-- Run hands-on labs (beginner level)
-- Build your first working example
+- SOAP note structure (Subjective, Objective, Assessment, Plan) and where coding-relevant detail typically lives in each section
+- What "documentation supports the code" actually means — the link between clinical language and code specificity
+- Complete the fundamentals section in this course
 
-## Phase 2: Hands-On Practice (Week 3-5)
-Theory without practice is useless. Build real things.
+**Checkpoint:** given a SOAP note, can you point to the specific line that would (or wouldn't) support a specific, non-unspecified diagnosis code?
 
-- Complete intermediate section and all labs
-- Work through 2-3 guided projects
-- Break things deliberately and fix them
-- Read official documentation, not just tutorials
+## Phase 2: Recognizing Documentation Gaps (Week 2-4)
 
-## Phase 3: Production Patterns (Week 6-8)
-Learn how professionals do it at scale.
+- Common gap types: missing laterality, missing acuity (acute vs. chronic), missing causal linkage between two conditions, clinical indicators present without a stated diagnosis
+- Why coding around a gap (assuming the "likely" diagnosis) is a compliance risk, not a shortcut
+- Complete Project 2 (SOAP-note-to-code crosswalk) from this course's Projects section
 
-- Study advanced section — production architecture
-- Implement security best practices
-- Set up monitoring and alerting
-- Contribute to open-source or build portfolio project
+**Checkpoint:** can you distinguish between a note that's simply brief but complete, and one that has a genuine coding-relevant documentation gap?
 
-## Phase 4: Interview Ready (Week 9-10)
-Convert knowledge into opportunity.
+## Phase 3: Compliant Physician Queries (Week 4-6)
 
-- Complete all interview Q&A sections
-- Practice explaining concepts out loud
-- Do 3+ mock technical interviews
-- Apply to target roles
+- Query construction principles: presenting clinical indicators, asking open (non-leading) questions, avoiding yes/no formats that suggest a single diagnosis
+- What makes a query non-compliant, and why that matters beyond just "best practice"
+- Complete Project 1 (compliant physician query template library) from this course's Projects section
 
-## Skills You'll Build
+**Checkpoint:** can you take a leading, non-compliant query example and rewrite it as an open, compliant one — and explain specifically what changed?
 
-| Skill Area | What You'll Learn |
-|---|---|
-| Core Concepts | Fundamental architecture and design principles |
-| Practical Skills | Real commands, configurations, and patterns |
-| Troubleshooting | Diagnose and fix common production issues |
-| Best Practices | Security, performance, cost optimization |
-| Interview Prep | Answer any question with confidence |
+## Phase 4: Applied Auditing and Certification Readiness (Week 6-9)
 
-## Weekly Study Plan
+- Systematic documentation auditing across varied clinical samples
+- Complete Project 3 (documentation gap audit portfolio) and review this course's Interview Q&A and Certification Guide material
 
-```
-Monday:    Read theory (fundamentals/intermediate)
-Tuesday:   Hands-on labs (practice environment)
-Wednesday: Build a small project applying what you learned
-Thursday:  Read docs, watch a video, go deeper on one topic
-Friday:    Review interview questions, explain to yourself
-Weekend:   Work on a portfolio project or practice exam
-```
+## Common Pitfalls Specific to Patient Documentation / CDI
 
-## Red Flags to Avoid
+- **Writing queries that suggest the answer** — a query offering only the diagnosis the coder suspects, without genuinely open alternatives, is the most common compliance failure in this specialty
+- **Coding around a gap instead of querying it** — assuming a "likely" diagnosis to avoid the extra step of a query is a real accuracy and compliance risk, not efficiency
+- **Treating brief documentation as automatically deficient** — a short note can still fully support accurate coding; the actual test is whether the specific coding-relevant elements are present, not note length
+- **Assuming query-compliance standards are fixed** — AHIMA/ACDIS query-practice guidance is refined over time; a compliant-sounding template from an older source should be checked against current guidance
 
-- ❌ Tutorial hell — watching videos without building
-- ❌ Skipping fundamentals to jump to "cool" advanced topics  
-- ❌ Not reading error messages carefully
-- ❌ Copy-pasting code without understanding it
-- ❌ Studying in isolation — join communities, ask questions
+## Getting Your First Patient-Documentation/CDI Role
 
-## Resources
-
-- **This course**: Start with Overview → Fundamentals → Labs → Projects
-- **Official docs**: Always the most accurate and up-to-date
-- **Community**: Reddit, Discord, Stack Overflow for stuck moments
-- **Projects**: Build something real, put it on GitHub
-
-## Getting Your First Job
-
-1. **Portfolio**: 2-3 solid GitHub projects demonstrating the skill
-2. **Resume**: Quantify achievements ("reduced deploy time by 60%")
-3. **Network**: LinkedIn, meetups, DevOps/tech communities
-4. **Apply broadly**: Apply to 20+ roles, expect 3-5 interviews per offer
-5. **Interview prep**: System design + technical + behavioral all matter
+1. **Portfolio:** the 3 projects in this course's Projects section, showing gap-identification judgment and compliant query construction, not just template filling
+2. **Certification:** CDI-focused credentials (e.g., AHIMA's CDIP, ACDIS's CCDS) are the standard specialty credentials, alongside a base coding certification like CPC or CCS — see this course's own Certification Guide for current options
+3. **Resume:** be specific — "identified and queried N documentation gaps across a self-audited case set, with zero flagged as leading on self-review" is stronger than a general CDI mention
+4. **Community:** ACDIS and AHIMA CDI-focused chapters are where practicing CDI specialists discuss genuinely ambiguous query scenarios
+5. **Interview prep:** expect to be given a documentation sample and asked whether a query is needed, and if so, to draft one live — practice that exact exercise, not just the underlying theory

@@ -1,103 +1,93 @@
 # Coding Guidelines — Portfolio Projects
 
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
+Build projects that demonstrate you can apply the Official Guidelines for Coding and Reporting (OGCR) — sequencing, conventions, and documentation rules — not just recite them.
 
-## Project 1: Coding Guidelines Beginner Project
+## Project 1: Excludes1/Excludes2 Conflict-Resolution Set
 
 **Level:** Beginner | **Time:** 2 days
 
-Apply your Coding Guidelines fundamentals in a real project. Build something you can show to employers and explain in detail during interviews.
+Work through 15-20 code-pair scenarios that test Excludes1 ("not coded here" — mutually exclusive) vs. Excludes2 ("not included here" — can be coded together) notes, explaining which applies and why for each pair.
 
 ### Steps
 
-1. Define scope: what problem does your Coding Guidelines project solve?
-2. Plan the implementation before writing any code/config
-3. Build iteratively: start with MVP, then add features
-4. Test thoroughly — find and fix edge cases
-5. Write documentation: README, setup guide, how it works
-6. Publish to GitHub with a clear README
+1. Collect or build 15-20 diagnosis-pair scenarios that involve an Excludes note
+2. For each, state whether it's an Excludes1 or Excludes2 relationship and justify it
+3. Where it's Excludes2, show both codes correctly reported together
+4. Where it's Excludes1, show which single code is correct and why the other is excluded
 
 ### Skills Demonstrated
 
-- Coding Guidelines fundamentals
-- Project planning
-- Documentation
+- Convention interpretation (Excludes1 vs. Excludes2)
+- Written coding rationale
+- Recognizing when two conditions can vs. cannot be reported together
 
-### GitHub Repo Name
+### Note
 
-`coding-guidelines-beginner-project`
+Chapter-specific Excludes notes are defined in the current-year ICD-10-CM Tabular List — **verify specific code-pair examples against a current ICD-10-CM reference** rather than relying on memory or an older source, since chapter content is revised annually.
 
 ---
 
-## Project 2: Coding Guidelines Intermediate Project
+## Project 2: Principal/First-Listed Diagnosis Sequencing Practice
 
 **Level:** Intermediate | **Time:** 3-4 days
 
-Build a production-quality Coding Guidelines project demonstrating intermediate skills. This should be something you're proud to show in interviews.
+Code 10+ encounter scenarios across both inpatient and outpatient settings, correctly selecting and sequencing the principal diagnosis (inpatient) or first-listed diagnosis (outpatient) per OGCR Section II/IV rules.
 
 ### Steps
 
-1. Choose a real problem you or others face
-2. Design the solution architecture first
-3. Implement with clean, readable code/configuration
-4. Add error handling and edge cases
-5. Write unit/integration tests
-6. Create a live demo or demo video
+1. Gather or write 10+ scenarios split across inpatient and outpatient settings
+2. For inpatient scenarios, apply principal-diagnosis selection rules (the condition established, after study, to be chiefly responsible for the admission)
+3. For outpatient scenarios, apply first-listed diagnosis rules, including coding to the highest degree of certainty known at the time
+4. Explicitly note where inpatient rules would allow coding an uncertain ("probable"/"suspected") diagnosis that outpatient rules would not
 
 ### Skills Demonstrated
 
-- Coding Guidelines intermediate patterns
-- Testing
-- Error handling
-
-### GitHub Repo Name
-
-`coding-guidelines-intermediate-project`
+- Principal vs. first-listed diagnosis distinction
+- Setting-specific sequencing rules
+- Uncertain-diagnosis handling
 
 ---
 
-## Project 3: Coding Guidelines Capstone Project
+## Project 3: Full Guideline Cross-Reference Portfolio
 
 **Level:** Advanced | **Time:** 1 week
 
-A comprehensive Coding Guidelines project that demonstrates mastery. This should be the centerpiece of your portfolio — something that proves you can do the job.
+A comprehensive project applying general coding guidelines (Section I.B), a chapter-specific guideline set (Section I.C), and POA (present-on-admission) assignment together across a realistic case set.
 
 ### Steps
 
-1. Define an ambitious but achievable scope
-2. Research how professionals solve this problem at scale
-3. Implement following industry best practices
-4. Add monitoring, alerting, and operational runbooks
-5. Security review — what could go wrong? Fix it.
-6. Present your project: 5-min video walkthrough
-7. Write a technical blog post about what you learned
+1. Select one ICD-10-CM chapter and study its chapter-specific guidelines in depth
+2. Code 15-20 scenarios from that chapter, applying both general and chapter-specific rules
+3. Assign POA indicators for the inpatient scenarios in your set
+4. Self-audit the full set after a few days and document every correction
+5. Write a short reflection on which guideline section you found hardest to apply consistently
 
 ### Skills Demonstrated
 
-- Advanced patterns
-- Production readiness
-- Communication
+- Chapter-specific guideline application
+- POA indicator assignment
+- Self-audit discipline
 
-### GitHub Repo Name
+### Portfolio Artifact Name
 
-`coding-guidelines-capstone`
+`coding-guidelines-portfolio`
 
 ---
 
 ## Tips for Great Projects
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Cite the specific guideline you're applying.** "I used Excludes2 here because..." is a much stronger portfolio artifact than a bare code.
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+**Work both inpatient and outpatient scenarios.** Several major sequencing rules (uncertain diagnoses especially) differ by setting — showing you know which rule applies where is a real differentiator.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+**Use a current-year reference, not memory.** Guideline content is revised annually; anything you state as a rule should be checked against a current ICD-10-CM Official Guidelines document.
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+**Flag genuinely ambiguous sequencing calls.** Real documentation is often unclear about what's "chiefly responsible" — recognizing that and explaining your reasoning is more valuable than forcing a confident-sounding answer.
 
 ## Portfolio Checklist
 
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] 3+ coded project sets with explicit guideline citations
+- [ ] At least 1 project distinguishing inpatient vs. outpatient sequencing rules
+- [ ] At least 1 project covering Excludes1/Excludes2 conventions
+- [ ] Any specific guideline claim checked against a current ICD-10-CM Official Guidelines document
+- [ ] Projects organized in a portfolio you can walk through section by section

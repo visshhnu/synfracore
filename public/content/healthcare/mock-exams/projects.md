@@ -1,103 +1,92 @@
 # Mock Exams & CPC Prep — Portfolio Projects
 
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
+Build a documented, disciplined practice-exam history — the thing that actually predicts real exam-day performance, more than any single study session.
 
-## Project 1: Mock Exams & CPC Prep Beginner Project
+## Project 1: Timed Practice-Exam Log
 
-**Level:** Beginner | **Time:** 2 days
+**Level:** Beginner | **Time:** ongoing, 2 days to set up
 
-Apply your Mock Exams & CPC Prep fundamentals in a real project. Build something you can show to employers and explain in detail during interviews.
+Set up and run a personal timed practice-exam tracking system: score, time-per-question, and category-level accuracy for every practice exam you take.
 
 ### Steps
 
-1. Define scope: what problem does your Mock Exams & CPC Prep project solve?
-2. Plan the implementation before writing any code/config
-3. Build iteratively: start with MVP, then add features
-4. Test thoroughly — find and fix edge cases
-5. Write documentation: README, setup guide, how it works
-6. Publish to GitHub with a clear README
+1. Take one full-length timed practice exam under realistic conditions (no notes unless the real exam is open-book, timed strictly)
+2. Log your score, total time used, and accuracy broken down by category (e.g., E/M, surgery, ICD-10-CM guidelines, modifiers)
+3. Identify your 2-3 weakest categories from this first pass
+4. Set up a simple spreadsheet or log to repeat this after every subsequent practice exam
 
 ### Skills Demonstrated
 
-- Mock Exams & CPC Prep fundamentals
-- Project planning
-- Documentation
+- Timed exam discipline
+- Self-assessment by category
+- Structured practice tracking
 
-### GitHub Repo Name
+### Note
 
-`mock-exams-beginner-project`
+**Verify the current CPC exam format (question count, time limit, open-book status, passing score) against current AAPC guidance** before building your practice conditions around it — exam formats are periodically revised, and a mismatch between your practice conditions and the real exam undermines the whole point of timed practice.
 
 ---
 
-## Project 2: Mock Exams & CPC Prep Intermediate Project
+## Project 2: Weak-Area Drill Deck
 
 **Level:** Intermediate | **Time:** 3-4 days
 
-Build a production-quality Mock Exams & CPC Prep project demonstrating intermediate skills. This should be something you're proud to show in interviews.
+Turn every missed practice question into a structured drill: what the correct answer was, why your answer was wrong, and the specific guideline or rule that would have gotten you to the right answer.
 
 ### Steps
 
-1. Choose a real problem you or others face
-2. Design the solution architecture first
-3. Implement with clean, readable code/configuration
-4. Add error handling and edge cases
-5. Write unit/integration tests
-6. Create a live demo or demo video
+1. Collect every question missed across your practice exams to date
+2. For each, write the correct answer, your reasoning error, and the specific rule/guideline involved
+3. Group missed questions by category to confirm or update your weak-area list from Project 1
+4. Re-drill the weak categories with fresh practice questions after a focused review period
 
 ### Skills Demonstrated
 
-- Mock Exams & CPC Prep intermediate patterns
-- Testing
-- Error handling
-
-### GitHub Repo Name
-
-`mock-exams-intermediate-project`
+- Error analysis
+- Guideline-linked correction (not just "I got it wrong")
+- Targeted, evidence-based studying
 
 ---
 
-## Project 3: Mock Exams & CPC Prep Capstone Project
+## Project 3: Full Mock-Exam Cycle with Trend Analysis
 
-**Level:** Advanced | **Time:** 1 week
+**Level:** Advanced | **Time:** 2-3 weeks (spread out)
 
-A comprehensive Mock Exams & CPC Prep project that demonstrates mastery. This should be the centerpiece of your portfolio — something that proves you can do the job.
+Run at least 3 full-length timed mock exams spaced over several weeks, tracking score and category-accuracy trends across all of them — the portfolio artifact that demonstrates sustained, measurable improvement.
 
 ### Steps
 
-1. Define an ambitious but achievable scope
-2. Research how professionals solve this problem at scale
-3. Implement following industry best practices
-4. Add monitoring, alerting, and operational runbooks
-5. Security review — what could go wrong? Fix it.
-6. Present your project: 5-min video walkthrough
-7. Write a technical blog post about what you learned
+1. Run 3+ full-length timed mock exams, spaced at least a week apart
+2. Track score and category accuracy for each, building on your Project 1 log
+3. Chart the trend across exams — where you improved, where you plateaued
+4. Write a short reflection: what changed your score the most between exams (a specific study change, more practice volume, etc.)
 
 ### Skills Demonstrated
 
-- Advanced patterns
-- Production readiness
-- Communication
+- Sustained exam-readiness tracking
+- Trend analysis and self-directed improvement
+- Realistic self-assessment of exam readiness
 
-### GitHub Repo Name
+### Portfolio Artifact Name
 
-`mock-exams-capstone`
+`mock-exam-trend-log`
 
 ---
 
 ## Tips for Great Projects
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Simulate real exam conditions, not casual review.** Timed, distraction-free, matching the real exam's open-book rules — anything less doesn't predict real performance.
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+**Log everything, including the exams that went badly.** A visible improvement trend is only credible if it includes the low points too.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+**Link every missed question to the specific guideline behind it.** "I missed it" is not useful; "I missed it because I applied Excludes1 logic where Excludes2 applied" is.
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+**Check the current exam format before you build your practice routine around it.** Format details change, and practicing under the wrong conditions is wasted effort.
 
 ## Portfolio Checklist
 
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] A practice-exam log covering 3+ full-length timed exams
+- [ ] Category-level accuracy breakdown for each exam
+- [ ] A weak-area drill deck linked to specific missed questions and guidelines
+- [ ] Current CPC (or relevant) exam format verified against current AAPC guidance
+- [ ] A written reflection on your score trend and what drove improvement

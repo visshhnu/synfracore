@@ -1,80 +1,48 @@
 # Coding Guidelines — Learning Roadmap
 
 ## Estimated Time to Job-Ready
-**6-10 weeks** of consistent learning (2-3 hours/day)
+**6-9 weeks** of consistent learning (2-3 hours/day) layered on top of ICD-10-CM fundamentals — the guidelines themselves aren't long, but applying sequencing rules correctly and consistently across varied real-world documentation is a judgment skill built through repetition, not a one-time read.
 
-## Phase 1: Foundation (Week 1-2)
-Build core understanding before touching advanced topics.
+## Phase 1: Conventions (Week 1-2)
 
-- Master the fundamental concepts and mental model
-- Complete the fundamentals section in this course  
-- Run hands-on labs (beginner level)
-- Build your first working example
+- ICD-10-CM conventions: the Alphabetic Index vs. Tabular List, punctuation (brackets, parentheses, colons), "code first"/"use additional code"/"in diseases classified elsewhere" instructions
+- Excludes1 (mutually exclusive) vs. Excludes2 (not included here, can code both) — one of the most frequently misapplied conventions in real coding
+- Complete Project 1 (Excludes1/Excludes2 conflict-resolution set) from this course's Projects section
 
-## Phase 2: Hands-On Practice (Week 3-5)
-Theory without practice is useless. Build real things.
+**Checkpoint:** given two diagnosis codes with an Excludes note between them, can you correctly determine whether they can be reported together — and explain the difference in what each Excludes type actually means?
 
-- Complete intermediate section and all labs
-- Work through 2-3 guided projects
-- Break things deliberately and fix them
-- Read official documentation, not just tutorials
+## Phase 2: General Coding Guidelines (Week 2-4)
 
-## Phase 3: Production Patterns (Week 6-8)
-Learn how professionals do it at scale.
+- Section I.B general guidelines: coding to the highest degree of specificity supported by documentation, signs/symptoms vs. confirmed diagnoses, multiple coding for a single condition
+- Present-on-admission (POA) indicator assignment for inpatient claims
+- Complete the intermediate section in this course
 
-- Study advanced section — production architecture
-- Implement security best practices
-- Set up monitoring and alerting
-- Contribute to open-source or build portfolio project
+**Checkpoint:** can you explain why a documented "rule out" diagnosis is handled differently in inpatient vs. outpatient coding?
 
-## Phase 4: Interview Ready (Week 9-10)
-Convert knowledge into opportunity.
+## Phase 3: Sequencing Rules by Setting (Week 4-6)
 
-- Complete all interview Q&A sections
-- Practice explaining concepts out loud
-- Do 3+ mock technical interviews
-- Apply to target roles
+- Section II: principal diagnosis selection for inpatient, non-outpatient settings — the condition established after study to be chiefly responsible for the admission
+- Section IV: first-listed diagnosis selection for outpatient settings, including coding uncertain diagnoses to the highest degree of certainty known (not as if confirmed, unlike inpatient)
+- Complete Project 2 (principal/first-listed sequencing practice) from this course's Projects section
 
-## Skills You'll Build
+**Checkpoint:** can you state, precisely, why an outpatient encounter with a documented "probable pneumonia" is NOT coded as pneumonia, while the same documentation on an inpatient chart could be?
 
-| Skill Area | What You'll Learn |
-|---|---|
-| Core Concepts | Fundamental architecture and design principles |
-| Practical Skills | Real commands, configurations, and patterns |
-| Troubleshooting | Diagnose and fix common production issues |
-| Best Practices | Security, performance, cost optimization |
-| Interview Prep | Answer any question with confidence |
+## Phase 4: Chapter-Specific Application and Certification Readiness (Week 6-9)
 
-## Weekly Study Plan
+- Applying chapter-specific guidelines (Section I.C) for at least one full ICD-10-CM chapter in depth, alongside the general rules
+- Complete Project 3 (full guideline cross-reference portfolio) and review this course's Interview Q&A and Certification Guide material
 
-```
-Monday:    Read theory (fundamentals/intermediate)
-Tuesday:   Hands-on labs (practice environment)
-Wednesday: Build a small project applying what you learned
-Thursday:  Read docs, watch a video, go deeper on one topic
-Friday:    Review interview questions, explain to yourself
-Weekend:   Work on a portfolio project or practice exam
-```
+## Common Pitfalls Specific to Coding Guidelines
 
-## Red Flags to Avoid
+- **Applying inpatient sequencing rules to outpatient encounters (or vice versa)** — the two settings have genuinely different rules for uncertain diagnoses, and mixing them up produces incorrect coding, not just a style difference
+- **Treating Excludes1 and Excludes2 as interchangeable** — one blocks reporting both codes together, the other explicitly permits it; confusing them is a frequent real-world audit finding
+- **Relying on an outdated guidelines document** — the Official Guidelines for Coding and Reporting are updated on an annual cycle (aligned to the federal fiscal year); a rule learned from a prior year's version should be re-checked against the current edition before being treated as settled
+- **Skipping the general guidelines because chapter-specific rules feel more concrete** — chapter-specific guidance builds on, and doesn't replace, the general rules in Section I.B
 
-- ❌ Tutorial hell — watching videos without building
-- ❌ Skipping fundamentals to jump to "cool" advanced topics  
-- ❌ Not reading error messages carefully
-- ❌ Copy-pasting code without understanding it
-- ❌ Studying in isolation — join communities, ask questions
+## Getting Your First Coding-Guidelines-Heavy Role
 
-## Resources
-
-- **This course**: Start with Overview → Fundamentals → Labs → Projects
-- **Official docs**: Always the most accurate and up-to-date
-- **Community**: Reddit, Discord, Stack Overflow for stuck moments
-- **Projects**: Build something real, put it on GitHub
-
-## Getting Your First Job
-
-1. **Portfolio**: 2-3 solid GitHub projects demonstrating the skill
-2. **Resume**: Quantify achievements ("reduced deploy time by 60%")
-3. **Network**: LinkedIn, meetups, DevOps/tech communities
-4. **Apply broadly**: Apply to 20+ roles, expect 3-5 interviews per offer
-5. **Interview prep**: System design + technical + behavioral all matter
+1. **Portfolio:** the 3 projects in this course's Projects section, each with explicit citations to the specific guideline applied
+2. **Certification:** guideline application is tested throughout the CPC (AAPC) and CCA/CCS (AHIMA) exams rather than as a standalone credential — see this course's own Certification Guide for current exam scope
+3. **Resume:** be specific — "achieved consistent sequencing accuracy across N self-audited inpatient and outpatient practice cases" is stronger and more verifiable than a general guidelines mention
+4. **Community:** AAPC/AHIMA local chapters and coding-specific forums are where real, disputed sequencing calls get discussed by practicing coders
+5. **Interview prep:** expect to be asked to justify a sequencing decision out loud, citing the specific guideline — practice explaining your reasoning, not just stating the answer

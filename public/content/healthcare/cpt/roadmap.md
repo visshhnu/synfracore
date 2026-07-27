@@ -1,80 +1,52 @@
 # CPT Codes — Learning Roadmap
 
 ## Estimated Time to Job-Ready
-**6-10 weeks** of consistent learning (2-3 hours/day)
+**8-12 weeks** of consistent learning (2-3 hours/day) if you already have medical terminology and anatomy fundamentals in place — CPT's structure is learnable quickly, but real fluency with E/M leveling, modifiers, and global-period rules takes sustained practice against real-looking documentation, not memorization alone.
 
-## Phase 1: Foundation (Week 1-2)
-Build core understanding before touching advanced topics.
+## Phase 1: Structure and Foundations (Week 1-3)
 
-- Master the fundamental concepts and mental model
-- Complete the fundamentals section in this course  
-- Run hands-on labs (beginner level)
-- Build your first working example
+- CPT's three categories: Category I (the main procedure/service codes), Category II (performance-tracking, not separately reimbursed), Category III (temporary codes for emerging technology)
+- How the CPT code book is organized by section (E/M, Anesthesia, Surgery, Radiology, Pathology & Laboratory, Medicine) and how to navigate the index
+- Add-on codes and the codes they can't be reported without
+- Complete the fundamentals section in this course and run through basic index-lookup practice
 
-## Phase 2: Hands-On Practice (Week 3-5)
-Theory without practice is useless. Build real things.
+**Checkpoint:** given an unfamiliar procedure description, can you identify the correct CPT section and narrow to the right code family using the index — not from memory, but from the lookup process itself?
 
-- Complete intermediate section and all labs
-- Work through 2-3 guided projects
-- Break things deliberately and fix them
-- Read official documentation, not just tutorials
+## Phase 2: E/M and Modifiers (Week 3-6)
 
-## Phase 3: Production Patterns (Week 6-8)
-Learn how professionals do it at scale.
+- Evaluation & Management code selection via medical decision-making (MDM) and, where applicable, time
+- The most commonly used modifiers (-25, -51, -59, RT/LT, and others relevant to your target setting) and what each one actually communicates to a payer
+- Global surgical package: what's bundled into a procedure's global period and what can legitimately be billed separately
+- Complete Project 1 (E/M level-selection practice) from this course's Projects section
 
-- Study advanced section — production architecture
-- Implement security best practices
-- Set up monitoring and alerting
-- Contribute to open-source or build portfolio project
+**Checkpoint:** can you explain, in plain language, the difference between what modifier -25 and modifier -59 each communicate — and give an example of an encounter where using the wrong one would cause a claim to be denied or bundled incorrectly?
 
-## Phase 4: Interview Ready (Week 9-10)
-Convert knowledge into opportunity.
+## Phase 3: Applied Coding Practice (Week 6-9)
 
-- Complete all interview Q&A sections
-- Practice explaining concepts out loud
-- Do 3+ mock technical interviews
-- Apply to target roles
+- Surgical coding across multiple body systems, including multi-procedure sequencing
+- NCCI (National Correct Coding Initiative) edits and how bundling rules affect what can be billed together
+- Cross-referencing CPT with ICD-10-CM for medical necessity (why a procedure code alone isn't enough — the diagnosis has to support it)
+- Complete Project 2 (surgical coding with modifiers) from this course's Projects section
 
-## Skills You'll Build
+**Checkpoint:** can you take an operative report and correctly identify not just the procedure code, but every modifier it needs and why?
 
-| Skill Area | What You'll Learn |
-|---|---|
-| Core Concepts | Fundamental architecture and design principles |
-| Practical Skills | Real commands, configurations, and patterns |
-| Troubleshooting | Diagnose and fix common production issues |
-| Best Practices | Security, performance, cost optimization |
-| Interview Prep | Answer any question with confidence |
+## Phase 4: Audit Discipline and Certification Readiness (Week 9-12)
 
-## Weekly Study Plan
+- Self-audit practice: reviewing your own prior coding a week or more later, the way a real audit would
+- Common denial patterns tied to CPT coding errors, and how to read a remittance advice to find the root cause
+- Complete Project 3 (full CPT audit portfolio) and review this course's Interview Q&A and Certification Guide material
 
-```
-Monday:    Read theory (fundamentals/intermediate)
-Tuesday:   Hands-on labs (practice environment)
-Wednesday: Build a small project applying what you learned
-Thursday:  Read docs, watch a video, go deeper on one topic
-Friday:    Review interview questions, explain to yourself
-Weekend:   Work on a portfolio project or practice exam
-```
+## Common Pitfalls Specific to CPT
 
-## Red Flags to Avoid
+- **Coding from memory instead of the documentation in front of you** — CPT coding is documentation-driven; a code that "sounds right" from experience without support in the note is a compliance risk, not a shortcut
+- **Missing global-period conflicts** — billing a follow-up visit separately when it's actually bundled into a recent procedure's global period is one of the most common real-world denial causes
+- **Treating modifier usage as optional detail** — an omitted or wrong modifier is frequently the actual reason a correctly-selected base code still gets denied or down-coded
+- **Assuming CPT rules are static** — E/M guidelines, NCCI edits, and category assignments are updated on a regular cycle; anything you learn from an older source should be checked against current CMS/AMA guidance before you rely on it
 
-- ❌ Tutorial hell — watching videos without building
-- ❌ Skipping fundamentals to jump to "cool" advanced topics  
-- ❌ Not reading error messages carefully
-- ❌ Copy-pasting code without understanding it
-- ❌ Studying in isolation — join communities, ask questions
+## Getting Your First CPT-Heavy Role
 
-## Resources
-
-- **This course**: Start with Overview → Fundamentals → Labs → Projects
-- **Official docs**: Always the most accurate and up-to-date
-- **Community**: Reddit, Discord, Stack Overflow for stuck moments
-- **Projects**: Build something real, put it on GitHub
-
-## Getting Your First Job
-
-1. **Portfolio**: 2-3 solid GitHub projects demonstrating the skill
-2. **Resume**: Quantify achievements ("reduced deploy time by 60%")
-3. **Network**: LinkedIn, meetups, DevOps/tech communities
-4. **Apply broadly**: Apply to 20+ roles, expect 3-5 interviews per offer
-5. **Interview prep**: System design + technical + behavioral all matter
+1. **Portfolio:** the 3 projects in this course's Projects section, each showing coded work with written rationale — the reasoning is what employers actually screen for
+2. **Certification:** the CPC (Certified Professional Coder, AAPC) is the standard entry credential most employers screen for in outpatient/professional-fee CPT coding roles — see this course's own Certification Guide for current exam format and eligibility
+3. **Resume:** be specific and honest — "achieved 95%+ coding accuracy across N self-audited practice cases" is stronger and more verifiable than a generic claim of CPT experience
+4. **Community:** AAPC local chapters and coding-specific forums are where real practicing coders discuss edge cases — more relevant here than general tech communities
+5. **Interview prep:** expect to be asked to code a sample note live or walk through your reasoning on a past project — practice narrating your decision process, not just producing the final code

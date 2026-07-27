@@ -1,103 +1,93 @@
 # Patient Documentation — Portfolio Projects
 
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
+Build projects that demonstrate clinical documentation improvement (CDI) judgment — recognizing documentation gaps and resolving them compliantly — the core skill this specialty is built on.
 
-## Project 1: Patient Documentation Beginner Project
+## Project 1: Compliant Physician Query Template Library
 
 **Level:** Beginner | **Time:** 2 days
 
-Apply your Patient Documentation fundamentals in a real project. Build something you can show to employers and explain in detail during interviews.
+Build a library of physician query templates for common documentation-gap scenarios (e.g., unspecified diagnosis, missing acuity/laterality, clinical indicators without a stated diagnosis), written to be compliant and non-leading.
 
 ### Steps
 
-1. Define scope: what problem does your Patient Documentation project solve?
-2. Plan the implementation before writing any code/config
-3. Build iteratively: start with MVP, then add features
-4. Test thoroughly — find and fix edge cases
-5. Write documentation: README, setup guide, how it works
-6. Publish to GitHub with a clear README
+1. Identify 8-10 common documentation-gap scenarios
+2. For each, write a query template that presents clinical indicators and asks an open, non-leading question rather than suggesting the answer
+3. Explicitly note what would make a version of that query non-compliant (e.g., a yes/no query that only offers one diagnosis option)
+4. Explain why each query is worded the way it is
 
 ### Skills Demonstrated
 
-- Patient Documentation fundamentals
-- Project planning
-- Documentation
+- Compliant query construction
+- Recognizing leading vs. open query language
+- Documentation-gap identification
 
-### GitHub Repo Name
+### Note
 
-`patient-documentation-beginner-project`
+Physician query compliance standards (query construction guidance) are maintained by organizations like AHIMA/ACDIS and can be refined over time — **verify current query-compliance guidance against current AHIMA/ACDIS standards** before treating a specific query's wording as a settled compliant template.
 
 ---
 
-## Project 2: Patient Documentation Intermediate Project
+## Project 2: SOAP-Note-to-Code Documentation Crosswalk
 
 **Level:** Intermediate | **Time:** 3-4 days
 
-Build a production-quality Patient Documentation project demonstrating intermediate skills. This should be something you're proud to show in interviews.
+Take 10+ SOAP-format clinical notes and evaluate whether the documentation supports the level of specificity needed for accurate coding — flagging gaps rather than coding around them.
 
 ### Steps
 
-1. Choose a real problem you or others face
-2. Design the solution architecture first
-3. Implement with clean, readable code/configuration
-4. Add error handling and edge cases
-5. Write unit/integration tests
-6. Create a live demo or demo video
+1. Collect or write 10+ SOAP notes across varied conditions
+2. For each, identify whether the Assessment/Plan documentation supports a specific, codable diagnosis
+3. Where it doesn't, draft the query that would be needed to close the gap
+4. Where it does, note which specific documented detail (e.g., laterality, acuity, causal relationship) makes it codable
 
 ### Skills Demonstrated
 
-- Patient Documentation intermediate patterns
-- Testing
-- Error handling
-
-### GitHub Repo Name
-
-`patient-documentation-intermediate-project`
+- SOAP note structure fluency
+- Documentation-sufficiency evaluation
+- Query-need identification
 
 ---
 
-## Project 3: Patient Documentation Capstone Project
+## Project 3: Documentation Gap Audit Portfolio
 
 **Level:** Advanced | **Time:** 1 week
 
-A comprehensive Patient Documentation project that demonstrates mastery. This should be the centerpiece of your portfolio — something that proves you can do the job.
+A comprehensive audit of 15-20 realistic clinical documentation samples, identifying every documentation gap that would block accurate, specific coding and drafting the appropriate compliant query for each.
 
 ### Steps
 
-1. Define an ambitious but achievable scope
-2. Research how professionals solve this problem at scale
-3. Implement following industry best practices
-4. Add monitoring, alerting, and operational runbooks
-5. Security review — what could go wrong? Fix it.
-6. Present your project: 5-min video walkthrough
-7. Write a technical blog post about what you learned
+1. Build or use 15-20 varied clinical documentation samples
+2. Audit each for documentation sufficiency, coding specificity, and any missing elements (severity, laterality, causal linkage, etc.)
+3. Draft a compliant query for every genuine gap found
+4. Self-audit your own queries after a few days: are any of them accidentally leading?
+5. Write a short reflection on the most common type of documentation gap you found
 
 ### Skills Demonstrated
 
-- Advanced patterns
-- Production readiness
-- Communication
+- Systematic documentation auditing
+- Query drafting at scale
+- Self-review for query compliance
 
-### GitHub Repo Name
+### Portfolio Artifact Name
 
-`patient-documentation-capstone`
+`documentation-gap-audit`
 
 ---
 
 ## Tips for Great Projects
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Practice recognizing gaps, not just filling them in.** The core CDI skill is noticing when documentation *doesn't* support a specific code — that's a judgment call worth demonstrating explicitly.
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+**Write every query as genuinely open, not leading.** A query that only offers the diagnosis you suspect is the classic compliance failure — show you know the difference.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+**Connect documentation gaps to their coding consequence.** "This gap matters because it's the difference between code X and unspecified code Y" is a much stronger portfolio artifact than a bare gap list.
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+**Treat compliance standards as something to verify, not assume.** Query-compliance guidance is maintained by AHIMA/ACDIS and can be refined — check current guidance rather than relying on memory.
 
 ## Portfolio Checklist
 
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+- [ ] 3+ projects demonstrating documentation-gap identification
+- [ ] A library of compliant, non-leading physician query templates
+- [ ] At least 1 project explicitly linking a documentation gap to its coding consequence
+- [ ] Query-compliance approach checked against current AHIMA/ACDIS guidance
+- [ ] Projects organized in a portfolio you can walk through case by case
