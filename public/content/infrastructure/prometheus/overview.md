@@ -1,5 +1,7 @@
 # Prometheus + Grafana — Complete Monitoring Guide
 
+**Before you start:** working knowledge of Kubernetes (Pods, Deployments, Services) and basic Linux/CLI comfort are assumed. No prior monitoring-tool experience is needed.
+
 Prometheus is the industry-standard metrics monitoring system for Kubernetes and cloud-native environments. Combined with Grafana for visualization and Alertmanager for notifications, it forms the complete open-source observability stack used by thousands of engineering teams.
 
 ## Why Prometheus?
@@ -24,7 +26,8 @@ Step 2: Prometheus scrapes
    Uses pull model (Prometheus comes to you, not push)
 
 Step 3: Stored as time-series
-   Each metric stored with timestamp + labels in local TSDB
+   Each metric stored with timestamp + labels in a local TSDB
+   (Time-Series Database — a storage engine optimized for timestamped data)
    Efficient compression, fast queries
 
 Step 4: Grafana queries
@@ -46,7 +49,7 @@ Step 6: Alertmanager routes
 |---|---|---|---|---|
 | **Cost** | Free, open source | $15+/host/month | Free (complex) | Free with Azure |
 | **Model** | Pull (scrape) | Push (agent) | Check-based | Push |
-| **Kubernetes native** | Yes, ServiceMonitor CRD | DaemonSet agent | Plugins | Limited |
+| **Kubernetes native** | Yes, via ServiceMonitor (a Kubernetes CRD — Custom Resource Definition, a way to extend the Kubernetes API with a new object type) | DaemonSet agent | Plugins | Limited |
 | **Query power** | PromQL — very powerful | Good | None | KQL |
 | **Best for** | K8s, on-prem, multi-cloud | SaaS ease, APM | Legacy | Azure-only |
 

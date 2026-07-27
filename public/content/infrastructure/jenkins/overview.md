@@ -1,5 +1,7 @@
 # Jenkins — CI/CD Automation
 
+**Before you start:** basic Git knowledge (commits, branches) and a general sense of what CI/CD pipelines do are assumed — see this platform's CI/CD Pipelines course first if that's new. No prior Jenkins-specific experience is needed.
+
 Jenkins is the most widely deployed open-source CI/CD server in the world. It automates the build, test, and deployment pipeline — turning every `git push` into a tested, deployed artifact.
 
 ## What is Jenkins?

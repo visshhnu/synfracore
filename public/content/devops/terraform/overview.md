@@ -164,4 +164,3 @@ Terraform should run in CI/CD, not locally. Plan in PRs so reviewers see infrast
 
 ---
 
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*

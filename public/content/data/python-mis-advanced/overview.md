@@ -334,4 +334,3 @@ ctx = ClientContext(url).with_user_credentials("user@company.com", "password")
 
 ---
 
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*

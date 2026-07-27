@@ -293,4 +293,3 @@ Post-mortems are the most valuable part of incident management — they prevent 
 
 ---
 
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*

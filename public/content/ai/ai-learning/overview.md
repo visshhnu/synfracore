@@ -129,4 +129,3 @@ Mock Interview mode presents questions and times your answer. Use the PSR formul
 
 ---
 
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*

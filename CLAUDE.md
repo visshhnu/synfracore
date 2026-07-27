@@ -302,6 +302,18 @@ persona below. State which persona is active at the start of the delivery:
    before moving to unrelated work.
 8. State what is flagged vs. fixed vs. deferred explicitly at the close of
    every session.
+9. **Word count and contamination-signature checks are insufficient to
+   confirm content quality, on their own.** Every "already complete, no depth
+   pass needed" verdict must include an actual beginner-simulation read, not
+   just a length/pattern scan: confirm every technical term is defined before
+   its first use, confirm each tab/section builds on the previous one rather
+   than repeating or skipping content, and confirm no dead references to
+   sections that don't exist. This applies going forward to every future
+   academy and technology. Existing DevOps/Cloud/Databases/Healthcare
+   technologies that were marked clean using only the old (word-count +
+   contamination-signature) heuristic are due a lower-priority retroactive
+   spot-check under this standard — not urgent, but don't assume they're
+   actually clean until re-checked this way.
 
 ## 5. Content Volatility Tiering & On-Demand Automation
 - Stable Core (CS fundamentals, math, core language syntax): Audit only if

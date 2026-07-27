@@ -326,4 +326,3 @@ tkn pipelinerun rerun build-deploy-xyz
 
 ---
 
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*

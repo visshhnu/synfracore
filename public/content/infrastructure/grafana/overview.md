@@ -1,5 +1,7 @@
 # Grafana — Visualization & Observability Platform
 
+**Before you start:** this course assumes you've read the Prometheus overview first (Grafana is almost always paired with it) and are comfortable with basic Kubernetes concepts. No prior visualization-tool experience is needed.
+
 Grafana is the industry-standard open-source platform for monitoring visualization. It doesn't store data — it queries data sources (Prometheus, Loki, Elasticsearch, CloudWatch, and 100+ others) and renders dashboards, sets alerts, and provides a unified observability UI.
 
 ## What Grafana Provides
@@ -182,6 +184,8 @@ contactPoints:
 
 ## Loki — Log Queries in Grafana
 
+Loki is Prometheus's sister project for logs — instead of PromQL, you query it with **LogQL**, a similar-looking language for filtering and aggregating log lines.
+
 ```logql
 # Basic log stream
 {namespace="production", pod=~"myapp-.*"}
@@ -221,7 +225,7 @@ Row 2: Workloads
   - Table: Pods not Running
 
 Row 3: Application Performance
-  - Time series: Request rate (RPS) by service
+  - Time series: Request rate (RPS — requests per second) by service
   - Time series: Error rate (%) by service
   - Time series: P95 latency by service
   - Heatmap: Latency distribution

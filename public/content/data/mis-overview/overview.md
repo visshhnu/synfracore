@@ -210,4 +210,3 @@ Achievement % = DIVIDE([Total Revenue], [Total Target], 0) * 100
 
 ---
 
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*

@@ -1,5 +1,7 @@
 # ArgoCD — GitOps Continuous Delivery
 
+**Before you start:** solid Kubernetes (Deployments, Services, RBAC) and Git (branches, PRs) are required — see the Prerequisites tab for the full checklist. Helm knowledge is recommended but not required.
+
 ArgoCD is the most widely adopted GitOps tool for Kubernetes. It continuously monitors Git repositories and automatically synchronizes Kubernetes cluster state with the desired state defined in Git — making Git the single source of truth for your infrastructure.
 
 ## What is GitOps?

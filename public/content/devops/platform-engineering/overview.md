@@ -338,4 +338,3 @@ Organic soil holds water much better. Drip saves 60%, mulching saves 50%. Organi
 
 ---
 
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*

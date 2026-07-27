@@ -151,4 +151,3 @@ Ansible Vault encrypts sensitive data in playbooks and variable files. Use vault
 
 ---
 
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*

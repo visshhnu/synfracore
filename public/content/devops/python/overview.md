@@ -153,4 +153,3 @@ The requests library is your primary HTTP tool. Kubernetes API is REST — kubec
 
 ---
 
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*

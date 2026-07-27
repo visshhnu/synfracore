@@ -51,7 +51,7 @@
 ## How to Use This Roadmap
 
 1. Work through phases in order — each builds on the previous
-2. Complete the labs section for each phase before moving on
+2. Practice each phase's commands yourself in a real terminal before moving on — this technology doesn't have a separate Labs tab, so the Fundamentals/Intermediate/Advanced code blocks are the hands-on material
 3. Build a project after each phase to cement learning
 4. Use the interview section to test understanding regularly
 5. Track progress: revisit earlier sections as concepts compound

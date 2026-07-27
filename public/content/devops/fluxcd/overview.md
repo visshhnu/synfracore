@@ -296,4 +296,3 @@ flux trace kustomization production-apps  # Trace resource lineage
 
 ---
 
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*

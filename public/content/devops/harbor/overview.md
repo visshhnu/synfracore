@@ -265,4 +265,3 @@ cosign verify --key cosign.pub harbor.company.com/production/myapp:v1.2.3
 
 ---
 
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*

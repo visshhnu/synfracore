@@ -362,4 +362,3 @@ kubectl apply -f https://litmuschaos.github.io/litmus/litmus-operator.yaml
 
 ---
 
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*
