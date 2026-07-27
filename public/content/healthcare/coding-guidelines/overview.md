@@ -24,6 +24,18 @@ OGCR (Official Guidelines for Coding and Reporting)
   → All coders must follow these guidelines
 ```
 
+## Recent Guideline Changes — FY 2026
+
+The Official Guidelines are revised on the federal fiscal-year cycle (effective October 1, with a mid-year update each April 1). The current version is FY 2026 (effective October 1, 2025, with an April 1, 2026 update). If you're studying from an older PDF or course material, these are the substantive changes to check for — a rule learned from an FY2023-or-earlier source may no longer be current:
+
+- **HIV coding/sequencing (Section I.C.1.a.2)** — the guideline for selecting and sequencing HIV-related codes was significantly revised. Notably: assign Z21 (asymptomatic HIV infection status) when a patient on antiretroviral treatment has no additional documentation of HIV disease, HIV-related illness, or AIDS; for pregnancy, O98.7 (HIV complicating pregnancy) is assigned only with documented *symptomatic* HIV disease or an HIV-related illness — an asymptomatic HIV-positive pregnant patient is coded Z21, not O98.7.
+- **BMI coding** — Z68 (BMI) codes should now only be assigned when there is an associated, reportable diagnosis (such as obesity or anorexia) documented by the provider — BMI alone, without a linked reportable condition, is not sufficient. When documentation reflects a fluctuating BMI during the same encounter for the associated condition, code the most severe value.
+- **Social Determinants of Health (SDoH) Z-codes** — expanded emphasis and code options for reporting SDoH factors such as homelessness (Z59.0-) and lack of access to health services (Z75.3), reflecting broader use of these Z-code categories.
+- **New diabetes code** — E11.A (Type 2 diabetes mellitus without complications, in remission) was added; it did not exist in earlier fiscal years.
+- **Expanded abdominal/pelvic pain codes (R10 category)** — significantly expanded for FY2026, including new flank pain codes (R10.A0–R10.A3), an expanded R10.2 (pelvic and perineal pain) requiring a laterality character, and a new multi-site pain code for pain in two or more distinct abdominal/pelvic locations.
+
+**This list reflects verified, sourced changes as of this course's last update — it is not a substitute for the current official guidelines document.** Always confirm against the current-year ICD-10-CM Official Guidelines for Coding and Reporting (published jointly by CMS/CDC/NCHS, freely available on cms.gov and cdc.gov) before relying on a specific rule in practice.
+
 ## ICD-10-CM OGCR — Section I: Conventions
 
 ### Alphabetic Index vs Tabular List
@@ -236,7 +248,7 @@ Chest pain, no diagnosis established → Code R07.9 (chest pain)
 2. Pressure ulcers — stage documentation required
 3. Malnutrition — must be documented by physician
 4. Respiratory failure — when to add code
-5. BMI/Obesity — must be documented by physician (Z68 codes)
+5. BMI/Obesity — Z68 requires an associated, reportable diagnosis (e.g. obesity, anorexia) documented by the provider; BMI value alone is not sufficient (FY2026 guideline)
 6. POA indicators — incorrect assignment
 7. CC/MCC capture — documentation doesn't support the code
 8. Unspecified codes — when specific codes available

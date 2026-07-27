@@ -39,6 +39,8 @@ T0000-T9999    State Medicaid agency codes
 V0000-V9999    Vision/hearing services
 ```
 
+*Note: HCPCS Level II is updated quarterly by CMS (with major annual updates each January 1) — the codes, coverage rules, and NCD/LCD examples below are illustrative and long-standing but should be verified against a current CMS HCPCS release before use in real billing.*
+
 ## Key HCPCS Code Categories
 
 ### E Codes — Durable Medical Equipment (DME)

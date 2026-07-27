@@ -27,29 +27,38 @@ Base Payment Rate
   = Final 30-day payment
 ```
 
-### PDGM Clinical Groupings (6 Groups)
+### PDGM Clinical Groupings (12 Official Groups)
+
+*Corrected from an earlier, oversimplified 6-group version of this table — PDGM has always defined 12 clinical groups. This matches the group list in this course's own BCHHC Certification Prep material; if you saw a 6-group version elsewhere, treat this 12-group list as the accurate one, but still verify against current CMS PDGM documentation.*
 
 | Group | Primary Diagnosis Category |
 |-------|---------------------------|
-| MMTA | Medication Management, Teaching, Assessment |
-| Neuro/Stroke | Neurological and stroke conditions |
-| Wound | Complex medical wounds, non-surgical |
-| Surgical | Post-surgical wound care |
+| Musculoskeletal Rehabilitation | Orthopedic, mobility conditions |
+| Neuro/Stroke Rehabilitation | Neurological and stroke conditions |
+| Wounds | Complex medical wounds, non-surgical |
+| MMTA – Surgical Aftercare | Post-surgical aftercare not itself a wound-group case |
+| MMTA – Cardiac and Circulatory | Cardiac/circulatory medication management, teaching, assessment |
+| MMTA – Endocrine | Endocrine conditions (e.g. diabetes) medication management |
+| MMTA – GI/GU | Gastrointestinal/genitourinary conditions |
+| MMTA – Infectious Disease, Neoplasms, Blood-Forming Diseases | Infections, cancers, blood disorders |
+| MMTA – Respiratory | Respiratory conditions (e.g. COPD exacerbation) |
+| MMTA – Other | Medication management/teaching/assessment not fitting another MMTA subgroup |
 | Behavioral Health | Mental health, substance abuse |
-| Musculoskeletal | Orthopedic, mobility conditions |
+| Complex Nursing Interventions | Cases requiring complex skilled nursing (e.g. ventilator care, ostomies) |
 
 **Principal diagnosis = the reason for the home health episode**
 
 ```
 Example principal diagnosis coding:
 Post-hip replacement:       M16.11 (or affected side)
-→ Surgical group (high weight)
+→ MMTA – Surgical Aftercare (unless it independently qualifies as
+  Musculoskeletal Rehabilitation based on the documented focus of care)
 
 COPD exacerbation:         J44.1
-→ MMTA group
+→ MMTA – Respiratory
 
 Stroke with hemiplegia:    I69.354 (right hemiplegia)
-→ Neuro/Stroke group
+→ Neuro/Stroke Rehabilitation
 ```
 
 ## OASIS — Outcome and Assessment Information Set

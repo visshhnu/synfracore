@@ -43,6 +43,10 @@ ICD-10-CM (International Classification of Diseases, 10th Revision, Clinical Mod
 
 ---
 
+## Recent Guideline Changes (FY 2026)
+
+This course targets the FY2026 guideline cycle (effective October 1, 2025, updated again April 1, 2026). The most consequential changes since FY2023: a substantially revised HIV coding/sequencing guideline (Section I.C.1.a.2), a revised BMI (Z68) coding rule requiring an associated reportable diagnosis, expanded Social Determinants of Health Z-codes, a new diabetes-remission code (E11.A), and a significant expansion of abdominal/pelvic pain codes (R10 category, including new flank-pain and multi-site-pain codes). See this course's Coding Guidelines module for the full breakdown. Always verify against the current-year official guidelines (cms.gov / cdc.gov) rather than an older PDF or study guide.
+
 ## Coding Conventions — Must Know
 
 ### Alphabetic Index vs Tabular List
@@ -89,6 +93,7 @@ Most common coding scenario — must get right every time.
 - E11.621 = Type 2 DM with foot ulcer (also add L97.- for site and severity)
 - E11.641 = Type 2 DM with hypoglycemia with coma
 - E11.9 = Type 2 DM without complications
+- E11.A = Type 2 DM without complications, in remission (new code, added FY2026 — did not exist in earlier fiscal years)
 
 ### Hypertension (Chapter 9)
 - I10: Essential (primary) hypertension — single code for most patients

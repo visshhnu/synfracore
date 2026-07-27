@@ -4,12 +4,12 @@
 
 | Cert | Provider | Cost | Format |
 |------|----------|------|--------|
-| **CPC (Certified Professional Coder)** | AAPC | $399 | 150 MCQ, 5h40m |
-| **COC (Certified Outpatient Coder)** | AAPC | $399 | 150 MCQ |
-| **CPC-P (Payer)** | AAPC | $399 | 150 MCQ |
-| **CCS (Certified Coding Specialist)** | AHIMA | $299 | MCQ + coding |
+| **CPC (Certified Professional Coder)** | AAPC | $399 member / $499 non-member | 100 MCQ, 4 hrs, 70% to pass |
+| **COC (Certified Outpatient Coder)** | AAPC | ~$399 | MCQ format, verify current question count |
+| **CPC-P (Payer)** | AAPC | ~$399 | MCQ format, verify current question count |
+| **CCS (Certified Coding Specialist)** | AHIMA | ~$299 | MCQ + coding, verify current format |
 
-CPT knowledge is tested heavily in all AAPC certifications.
+CPT knowledge is tested heavily in all AAPC certifications. **The CPC exam format changed from its older 150-question/5h40m version to the current 100-question/4-hour format — if you're studying from older material, confirm the format directly against current AAPC guidance before building a study/timing plan around it.** All costs above should be re-confirmed on aapc.com before registering, since pricing is revised periodically.
 
 ---
 

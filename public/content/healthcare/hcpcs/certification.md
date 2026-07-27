@@ -4,10 +4,10 @@
 
 | Cert | Provider | Cost | Coverage |
 |------|----------|------|---------|
-| **CPC (Certified Professional Coder)** | AAPC | $399 | HCPCS tested in exam |
-| **CDEO (Clinical Documentation Expert)** | AAPC | $399 | Documentation side |
-| **CCS (Certified Coding Specialist)** | AHIMA | $299 | HCPCS included |
-| **CHCA (Certified Home Care Aide)** | NAHC | Varies | Home health focus |
+| **CPC (Certified Professional Coder)** | AAPC | $399 member / $499 non-member | 100 MCQ, 4 hrs, 70% to pass — HCPCS tested within the exam |
+| **CDEO (Clinical Documentation Expert)** | AAPC | ~$399 | Documentation side; verify current format |
+
+*Note: an earlier version of this table included a "CHCA (Certified Home Care Aide)" entry — that credential is a home-care **aide/caregiver** certification, not a medical coding certification, and its relevance to HCPCS coding specifically was not established. Removed rather than left as an unverified, likely-miscategorized entry. AHIMA's CCS (Certified Coding Specialist) is the other major coding credential that includes HCPCS — verify current cost/format directly with AHIMA before relying on a specific number.*
 
 ---
 

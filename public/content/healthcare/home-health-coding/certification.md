@@ -2,7 +2,9 @@
 
 ## What is BCHHC?
 
-The **BCHHC (Board Certified Home Health Coder)** is a professional certification for home health medical coders, offered by the Board of Medical Specialty Coding & Compliance (BMSCC). It validates expertise in ICD-10-CM coding for home health, OASIS assessments, and the PDGM payment model.
+The **BCHHC / BCHH-C (Board Certified Home Health Coder)** is a professional certification for home health medical coders. It validates expertise in ICD-10-CM coding for home health, OASIS assessments, and the PDGM payment model.
+
+*Needs verification: which organization currently administers this credential and under what name. Sources associate it variously with the Board of Medical Specialty Coding & Compliance (BMSCC), the Association of Home Care Coding & Compliance (AHCC), and WellSky's credentialing program — this space has seen naming/administration changes. Confirm the current certifying body, exam format, and registration process directly before treating any of the details below as current.*
 
 ---
 
@@ -10,10 +12,10 @@ The **BCHHC (Board Certified Home Health Coder)** is a professional certificatio
 
 | Detail | Info |
 |--------|------|
-| Certifying Body | BMSCC (Board of Medical Specialty Coding & Compliance) |
-| Exam Format | Multiple choice, case-based scenarios |
+| Certifying Body | Verify current administering organization (see note above) before relying on this |
+| Exam Format | Multiple choice, case-based scenarios (verify current format) |
 | Prerequisites | Experience in home health coding recommended |
-| Renewal | Every 2 years with continuing education |
+| Renewal | Every 2 years with continuing education (verify current requirement) |
 | Focus Areas | ICD-10-CM, OASIS, PDGM, coding guidelines |
 
 ---
@@ -47,8 +49,8 @@ Five classification factors per 30-day payment period:
 4. **Functional level** — Low/Medium/High from OASIS functional items
 5. **Comorbidity adjustment** — None/Low/High from secondary diagnoses
 
-**12 PDGM Clinical Groups:**
-Musculoskeletal Rehab · Neuro/Stroke Rehab · Wound Care · Complex Medical/Surgical · Respiratory · Endocrine · Infectious Disease/Neoplasms · Cardiac/Circulatory · MMTA · Behavioural Health · Immobility · GI/GU
+**12 PDGM Clinical Groups (corrected to match official CMS naming — verify against current CMS PDGM documentation):**
+Musculoskeletal Rehabilitation · Neuro/Stroke Rehabilitation · Wounds · MMTA–Surgical Aftercare · MMTA–Cardiac and Circulatory · MMTA–Endocrine · MMTA–GI/GU · MMTA–Infectious Disease, Neoplasms, Blood-Forming Diseases · MMTA–Respiratory · MMTA–Other · Behavioral Health · Complex Nursing Interventions
 
 ### 4. Homebound Documentation
 - Leaving home requires considerable effort due to illness/injury

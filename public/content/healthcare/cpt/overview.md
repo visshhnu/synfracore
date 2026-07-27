@@ -113,6 +113,8 @@ When you bill a surgical code, it includes:
 
 ## Common CPT Code Examples
 
+*The codes below are long-standing, high-frequency codes used for illustration. CPT is revised annually (new edition each January 1) — verify any code, descriptor, or global-period detail against the current-year CPT codebook before using it in real billing, especially for less common or recently-revised codes.*
+
 ### Office Procedures
 ```
 10060   Incision and drainage of abscess (simple)
@@ -157,13 +159,23 @@ When you bill a surgical code, it includes:
 The **National Correct Coding Initiative (NCCI)** identifies procedure code pairs that should not be billed together because one is considered part of the other.
 
 ```
-Example bundles (cannot bill both):
-- 27447 (TKA) includes 27370 (inject knee during surgery)
-- 45378 (colonoscopy) includes 45380 (biopsy) — NO
-  Actually: 45380 REPLACES 45378 when biopsy performed
+Two different bundling patterns show up in practice:
 
-Use modifier -59 (or XS, XE, XP, XU) to override when procedures
-are truly distinct and separate
+1. Column1/Column2 NCCI edits — a component procedure is bundled into
+   a more comprehensive one performed at the same session
+   (e.g. 27447 TKA includes certain intra-operative injections at
+   the same site). Modifier -59 (or the more specific X{E,P,S,U}
+   modifiers) overrides the edit only when the two procedures were
+   truly distinct and separately supportable by documentation.
+
+2. Mutually-exclusive alternatives, not bundling — 45380 (colonoscopy
+   with biopsy) is reported INSTEAD OF 45378 (diagnostic colonoscopy)
+   when a biopsy is performed during the same colonoscopy; they are
+   not both billed with a modifier, because 45380 already represents
+   the "diagnostic colonoscopy that included a biopsy."
+
+Always check current NCCI edit tables (updated quarterly by CMS)
+rather than assuming a bundling relationship from memory.
 ```
 
 ## CCI Modifier Indicators

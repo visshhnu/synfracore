@@ -4,12 +4,12 @@
 
 | Cert | Provider | Cost | Format |
 |------|----------|------|--------|
-| **CPC (Certified Professional Coder)** | AAPC | $399 | 150 MCQ, 5 hrs 40 min |
-| **CCS (Certified Coding Specialist)** | AHIMA | $299 | MCQ + coding, 4 hrs |
-| **COC (Certified Outpatient Coder)** | AAPC | $399 | 150 MCQ |
-| **CIC (Certified Inpatient Coder)** | AAPC | $399 | 150 MCQ |
-| **RHIT** | AHIMA | $229 | MCQ, 3.5 hrs |
-| **RHIA** | AHIMA | $299 | MCQ, 4 hrs |
+| **CPC (Certified Professional Coder)** | AAPC | $399 member / $499 non-member | 100 MCQ, 4 hrs, 70% to pass |
+| **CCS (Certified Coding Specialist)** | AHIMA | ~$299 | MCQ + coding, verify current format |
+| **COC (Certified Outpatient Coder)** | AAPC | ~$399 | MCQ format, verify current question count |
+| **CIC (Certified Inpatient Coder)** | AAPC | ~$399 | MCQ format, verify current question count |
+| **RHIT** | AHIMA | ~$229 | MCQ, verify current format |
+| **RHIA** | AHIMA | ~$299 | MCQ, verify current format |
 
 ---
 
@@ -47,30 +47,28 @@ HCPCS Level II:
 ## CPC Exam Preparation
 
 ```
-EXAM FORMAT:
-  150 multiple choice questions
-  5 hours 40 minutes total time
-  Open book: ICD-10-CM, CPT, HCPCS codebooks allowed
-  Passing: 70% (105/150 correct)
-  Offered: in person at AAPC chapter meetings
+EXAM FORMAT (current — verify against aapc.com before relying on this for exam-day planning, since AAPC has changed this format before):
+  100 multiple choice questions
+  4 hours total time
+  Open book: current-year ICD-10-CM, CPT, and HCPCS Level II codebooks allowed
+  Passing: 70% (70/100 correct)
+  Cost: $399 (AAPC member) / $499 (non-member); membership required to register
 
 QUESTION DISTRIBUTION:
-  Medical terminology and anatomy: ~10 questions
-  ICD-10-CM coding: ~25 questions
-  CPT Surgery: ~30 questions (largest section)
-  CPT Evaluation & Management: ~15 questions
-  CPT Radiology/Lab/Medicine: ~15 questions
-  HCPCS Level II: ~5 questions
-  Compliance and regulatory: ~10 questions
-  Reimbursement: ~10 questions
-  Medical record documentation: ~10 questions
+  AAPC does not publish an exact fixed question count per domain for the current
+  100-question format — treat any specific per-domain number as unverified.
+  Directionally, the exam still weights CPT (especially E/M and surgery) and
+  ICD-10-CM most heavily, with smaller shares for HCPCS, medical terminology/
+  anatomy, compliance, and reimbursement — confirm current domain weighting
+  against AAPC's official exam content outline before building a study plan
+  around specific numbers.
 
 STRATEGY:
   Tab and highlight your codebooks before exam
-  Time management: 2 minutes per question maximum
-  Skip complex surgical questions, return later
+  Time management: under 2.5 minutes per question on average (4 hrs / 100 Q)
+  Skip complex questions, return later
   Never leave blank — guess if needed (no penalty)
-  Practice with 2019-current AAPC practice exams
+  Practice with current-year AAPC practice exams matching the current format
 ```
 
 ---
@@ -86,9 +84,9 @@ STRATEGY:
 THREE SYSTEMS: ICD-10-CM (dx) + CPT (outpatient proc) + ICD-10-PCS (inpatient proc)
 HCPCS II: supplies, DME, drugs — use when no CPT code exists
 
-CPC EXAM: 150 Q, 5h40m, open book, 70% passing
-BOOKS ALLOWED: bring tabbed and highlighted codebooks
-TIME: 2 min/question average — skip hard, return later
+CPC EXAM: 100 Q, 4 hrs, open book, 70% passing (verify against current AAPC guidance — this format has changed before)
+BOOKS ALLOWED: bring tabbed and highlighted current-year codebooks
+TIME: ~2.4 min/question average — skip hard, return later
 
 CODING ORDER: principal/first-listed dx first, then additional dx
 SPECIFICITY: always code to highest level of detail (most characters)

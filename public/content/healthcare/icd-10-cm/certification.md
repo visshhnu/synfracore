@@ -4,10 +4,10 @@
 
 | Cert | Provider | Cost | Format |
 |------|----------|------|--------|
-| **CPC (Certified Professional Coder)** | AAPC | $399 | 150 MCQ, 5 hrs 40 min |
-| **CCS (Certified Coding Specialist)** | AHIMA | $299 | MCQ + coding, 4 hrs |
-| **RHIT (Registered Health Info Technician)** | AHIMA | $229 | MCQ, 3 hrs 30 min |
-| **CIC (Certified Inpatient Coder)** | AAPC | $399 | 150 MCQ |
+| **CPC (Certified Professional Coder)** | AAPC | $399 member / $499 non-member | 100 MCQ, 4 hrs, 70% to pass (updated format — verify against current AAPC guidance if studying from older material) |
+| **CCS (Certified Coding Specialist)** | AHIMA | ~$299 | MCQ + coding, verify current format |
+| **RHIT (Registered Health Info Technician)** | AHIMA | ~$229 | MCQ, verify current format |
+| **CIC (Certified Inpatient Coder)** | AAPC | ~$399 | MCQ format, verify current question count |
 
 ---
 

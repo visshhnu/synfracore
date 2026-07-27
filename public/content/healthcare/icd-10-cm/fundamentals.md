@@ -1,5 +1,7 @@
 # ICD-10-CM Fundamentals
 
+*Note: this course targets the FY2026 guideline cycle. See the Overview section's "Recent Guideline Changes (FY 2026)" for substantive revisions (HIV sequencing, BMI/Z68, SDoH codes, new diabetes-remission code, expanded R10 pain codes) since older FY2023-era material.*
+
 ## How to Look Up a Code
 
 The ICD-10-CM manual has two parts:
