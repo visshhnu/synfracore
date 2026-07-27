@@ -1,103 +1,88 @@
 # Data Structures & Algorithms — Portfolio Projects
 
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
+Build these to actually internalize how data structures behave, not just recognize them on a whiteboard — and to have something concrete to walk through in a placement interview.
 
-## Project 1: Data Structures & Algorithms Beginner Project
+## Project 1: Data Structures From Scratch, With a Test Suite (Beginner)
 
-**Level:** Beginner | **Time:** 2 days
+**Time:** 3-4 days
 
-Apply your Data Structures & Algorithms fundamentals in a real project. Build something you can show to employers and explain in detail during interviews.
+Implement 3-4 core data structures yourself — a dynamic array, a singly linked list, a stack, and a queue — without using your language's built-in equivalents, then write tests proving each operation works correctly.
 
 ### Steps
 
-1. Define scope: what problem does your Data Structures & Algorithms project solve?
-2. Plan the implementation before writing any code/config
-3. Build iteratively: start with MVP, then add features
-4. Test thoroughly — find and fix edge cases
-5. Write documentation: README, setup guide, how it works
-6. Publish to GitHub with a clear README
+1. Implement each structure's core operations (insert, delete, search, and any structure-specific operations like push/pop for a stack)
+2. Write test cases for the normal path AND the edge cases — empty structure, single element, operating past capacity
+3. For the dynamic array specifically, implement and test the resizing logic (what happens when it's full and you insert one more element?)
+4. Document each operation's time complexity in comments or a README table
 
 ### Skills Demonstrated
+- Implementing data structures at the mechanism level, not just using them
+- Edge-case-driven testing
+- Complexity analysis in practice, not just theory
 
-- Data Structures & Algorithms fundamentals
-- Project planning
-- Documentation
-
-### GitHub Repo Name
-
-`dsa-beginner-project`
+### Repository Name
+`dsa-structures-from-scratch`
 
 ---
 
-## Project 2: Data Structures & Algorithms Intermediate Project
+## Project 2: A Complexity-Analysis Problem Log (Intermediate)
 
-**Level:** Intermediate | **Time:** 3-4 days
+**Time:** 1-2 weeks (ongoing)
 
-Build a production-quality Data Structures & Algorithms project demonstrating intermediate skills. This should be something you're proud to show in interviews.
+Solve 25-30 problems spanning arrays, strings, trees, and graphs, but the actual deliverable is the analysis, not just accepted solutions — for each problem, document your approach, why you chose it, and its real time/space complexity.
 
 ### Steps
 
-1. Choose a real problem you or others face
-2. Design the solution architecture first
-3. Implement with clean, readable code/configuration
-4. Add error handling and edge cases
-5. Write unit/integration tests
-6. Create a live demo or demo video
+1. Select problems spanning at least 4 distinct topic areas (e.g., two-pointer/sliding-window, tree traversal, graph BFS/DFS, dynamic programming)
+2. For each, write your solution AND a short note: what's the brute-force approach, why is it suboptimal, and what insight gets you to a better solution
+3. State the exact time/space complexity — not "it's fast," but "O(n log n) because of the sort, O(1) extra space because it's in-place"
+4. Revisit any problem you struggled with a week later and re-solve it independently, without looking at your notes first
+5. Group problems by pattern (not just by data structure) — recognizing "this is a sliding-window problem" is the actual interview skill being tested
 
 ### Skills Demonstrated
-
-- Data Structures & Algorithms intermediate patterns
-- Testing
-- Error handling
-
-### GitHub Repo Name
-
-`dsa-intermediate-project`
+- Pattern recognition across problems, not memorized solutions
+- Rigorous complexity analysis
+- Structured, reviewable practice — not just a pile of solved problems
 
 ---
 
-## Project 3: Data Structures & Algorithms Capstone Project
+## Project 3: Implement and Compare — Sorting/Searching Algorithm Suite (Advanced)
 
-**Level:** Advanced | **Time:** 1 week
+**Time:** 1-2 weeks
 
-A comprehensive Data Structures & Algorithms project that demonstrates mastery. This should be the centerpiece of your portfolio — something that proves you can do the job.
+Implement multiple sorting algorithms (bubble, merge, quick, heap) and searching algorithms (linear, binary) from scratch, then empirically benchmark them against each other on real input data to see whether the theoretical complexity actually matches observed behavior.
 
 ### Steps
 
-1. Define an ambitious but achievable scope
-2. Research how professionals solve this problem at scale
-3. Implement following industry best practices
-4. Add monitoring, alerting, and operational runbooks
-5. Security review — what could go wrong? Fix it.
-6. Present your project: 5-min video walkthrough
-7. Write a technical blog post about what you learned
+1. Implement each algorithm correctly, from scratch — not adapted from a tutorial you don't fully understand
+2. Generate test inputs of varying size and characteristics (random, already-sorted, reverse-sorted, mostly-sorted) — some algorithms perform very differently depending on input shape
+3. Benchmark actual runtime across these inputs and plot or tabulate the results
+4. Write an analysis: does merge sort's O(n log n) actually outperform quicksort's worst-case O(n²) on the reverse-sorted input, as theory predicts? Where does the crossover happen for smaller inputs?
+5. Explain, in writing, why quicksort is often faster in practice despite having a worse worst-case complexity than merge sort
 
 ### Skills Demonstrated
+- Implementing classic algorithms correctly and confidently
+- Connecting theoretical complexity to observed, empirical behavior
+- Critical analysis, not just "I implemented the algorithms"
 
-- Advanced patterns
-- Production readiness
-- Communication
-
-### GitHub Repo Name
-
-`dsa-capstone`
+### Repository Name
+`dsa-sorting-search-benchmarks`
 
 ---
 
 ## Tips for Great Projects
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Implement it yourself before using the library version.** Using `Collections.sort()` or a built-in `HashMap` is fine in real code — but if you've never implemented the underlying structure yourself, you don't actually understand its performance characteristics, and that gap shows up in interviews.
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+**Always attach a complexity analysis.** A working solution without stated time/space complexity is an incomplete answer in almost every DSA interview context — get in the habit of stating it every time, even in practice.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+**Revisit problems you got wrong.** Recognizing a solution when you see it again is not the same skill as producing it independently — the re-solve-without-notes step is where the actual learning happens.
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+**For placement interviews specifically:** be ready to explain trade-offs, not just implementations — when would you choose a hash map over a balanced BST for a given problem, and why? This kind of comparative reasoning is tested constantly.
 
-## Portfolio Checklist
-
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+## Project Checklist
+- [ ] At least one data structure implemented fully from scratch, with tests
+- [ ] A problem log covering at least 4 distinct topic areas with stated complexity for each
+- [ ] At least one project comparing theoretical complexity against empirical/benchmarked behavior
+- [ ] Comfortable explaining any implementation's time/space complexity without hesitation
+- [ ] Problems organized by pattern, not just by which data structure they used
