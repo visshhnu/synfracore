@@ -1,103 +1,93 @@
 # Operating Systems — Portfolio Projects
 
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
+Build these to actually understand OS mechanisms by implementing (simplified versions of) them yourself — the difference between "I read about CPU scheduling" and "I implemented and compared three CPU scheduling algorithms" is exactly what interviewers probe for.
 
-## Project 1: Operating Systems Beginner Project
+## Project 1: CPU Scheduler Simulator (Beginner)
 
-**Level:** Beginner | **Time:** 2 days
+**Time:** 3-4 days
 
-Apply your Operating Systems fundamentals in a real project. Build something you can show to employers and explain in detail during interviews.
+Simulate FCFS, SJF, and Round Robin CPU scheduling algorithms on a set of synthetic processes (arrival time, burst time), and compute/compare their average waiting time and turnaround time.
 
 ### Steps
 
-1. Define scope: what problem does your Operating Systems project solve?
-2. Plan the implementation before writing any code/config
-3. Build iteratively: start with MVP, then add features
-4. Test thoroughly — find and fix edge cases
-5. Write documentation: README, setup guide, how it works
-6. Publish to GitHub with a clear README
+1. Define a `Process` structure (PID, arrival time, burst time, priority if needed)
+2. Implement FCFS (First Come First Serve) scheduling and compute average waiting/turnaround time
+3. Implement SJF (Shortest Job First, both preemptive and non-preemptive if you want the extra depth) the same way
+4. Implement Round Robin with a configurable time quantum, and observe how waiting time changes as you vary the quantum
+5. Compare all three on the same process set — which performs best, and does that match what the theory predicts?
 
 ### Skills Demonstrated
+- Understanding scheduling algorithms at the implementation level, not just definitions
+- Comparative analysis of algorithm performance
+- Working with queues and process state transitions in code
 
-- Operating Systems fundamentals
-- Project planning
-- Documentation
-
-### GitHub Repo Name
-
-`os-beginner-project`
+### Repository Name
+`os-cpu-scheduler-sim`
 
 ---
 
-## Project 2: Operating Systems Intermediate Project
+## Project 2: A Simple Memory Allocator (Intermediate)
 
-**Level:** Intermediate | **Time:** 3-4 days
+**Time:** 1 week
 
-Build a production-quality Operating Systems project demonstrating intermediate skills. This should be something you're proud to show in interviews.
+Implement a basic memory allocator (your own `malloc`/`free`-equivalent) using a simulated memory pool, supporting at least two allocation strategies (First-Fit and Best-Fit), and measure fragmentation under each.
 
 ### Steps
 
-1. Choose a real problem you or others face
-2. Design the solution architecture first
-3. Implement with clean, readable code/configuration
-4. Add error handling and edge cases
-5. Write unit/integration tests
-6. Create a live demo or demo video
+1. Simulate a fixed-size memory pool (a large byte array works fine)
+2. Implement First-Fit allocation: scan for the first free block large enough
+3. Implement Best-Fit allocation: scan for the smallest free block that still fits
+4. Implement `free`, including merging adjacent free blocks (coalescing) — this is the part that actually tests whether you understand the mechanism, not just the allocation logic
+5. Run a sequence of alloc/free operations under both strategies and measure external fragmentation — which strategy actually fragments less in your test case?
 
 ### Skills Demonstrated
-
-- Operating Systems intermediate patterns
-- Testing
-- Error handling
-
-### GitHub Repo Name
-
-`os-intermediate-project`
+- Understanding manual memory management at the mechanism level
+- Implementing and comparing allocation strategies
+- Recognizing and measuring fragmentation, not just avoiding crashes
 
 ---
 
-## Project 3: Operating Systems Capstone Project
+## Project 3: A Toy File System or Deadlock Detector (Advanced)
 
-**Level:** Advanced | **Time:** 1 week
+**Time:** 1-2 weeks
 
-A comprehensive Operating Systems project that demonstrates mastery. This should be the centerpiece of your portfolio — something that proves you can do the job.
+Choose one: (a) implement a simplified file system supporting basic file/directory operations backed by a simulated disk, or (b) implement deadlock detection using resource-allocation graphs on a set of processes and resources.
 
-### Steps
+### Steps (File System path)
+1. Design a simple inode-like structure and a simulated disk (a large file or byte array)
+2. Implement create, read, write, and delete for files
+3. Implement basic directory structure (even a flat one is a reasonable start)
+4. Handle the case where the simulated disk is full
 
-1. Define an ambitious but achievable scope
-2. Research how professionals solve this problem at scale
-3. Implement following industry best practices
-4. Add monitoring, alerting, and operational runbooks
-5. Security review — what could go wrong? Fix it.
-6. Present your project: 5-min video walkthrough
-7. Write a technical blog post about what you learned
+### Steps (Deadlock Detector path)
+1. Model processes, resources, and allocation/request edges as a graph
+2. Implement cycle detection to identify deadlock
+3. Given a detected deadlock, implement one recovery strategy (e.g., process termination to break the cycle)
+4. Test against both deadlock and non-deadlock scenarios to confirm your detector doesn't produce false positives
 
 ### Skills Demonstrated
+- Translating an OS concept into a working implementation
+- Graph algorithms applied to a real systems problem (deadlock path)
+- Working with simulated persistent storage (file system path)
 
-- Advanced patterns
-- Production readiness
-- Communication
-
-### GitHub Repo Name
-
-`os-capstone`
+### Repository Name
+`os-filesystem-sim` or `os-deadlock-detector`
 
 ---
 
 ## Tips for Great Projects
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Implement the mechanism, don't just call a library function.** The entire point of an OS project is understanding what's happening underneath — a project that just wraps existing OS calls doesn't demonstrate the same understanding as one that reimplements the logic yourself.
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+**Test edge cases specifically.** An empty process queue, a memory pool with zero free space, a resource-allocation graph with no deadlock — these edge cases are exactly where implementation bugs (and interview follow-up questions) live.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+**Connect results back to theory.** If your Round Robin simulation shows a smaller time quantum increasing average waiting time due to context-switch overhead, say so explicitly — connecting empirical results to the underlying theory is what turns a working program into a genuine demonstration of understanding.
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+**For GATE/interview prep specifically:** be ready to explain trade-offs — when would you choose Round Robin over SJF, and what does "starvation" actually mean in the context of a scheduling algorithm you implemented yourself?
 
-## Portfolio Checklist
-
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+## Project Checklist
+- [ ] At least one scheduling algorithm implemented and benchmarked against alternatives
+- [ ] At least one project involving manual memory or resource management
+- [ ] Edge cases tested explicitly, not just the "happy path"
+- [ ] Comfortable explaining results in terms of the underlying OS theory
+- [ ] Clear README connecting what you built to the concept it demonstrates

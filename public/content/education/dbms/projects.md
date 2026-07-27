@@ -1,103 +1,90 @@
 # DBMS — Portfolio Projects
 
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
+Build these to practice real database design and query work — the skills that actually get tested in backend developer interviews, beyond just knowing SQL syntax.
 
-## Project 1: DBMS Beginner Project
+## Project 1: Normalized Schema Design From a Real Scenario (Beginner)
 
-**Level:** Beginner | **Time:** 2 days
+**Time:** 2-3 days
 
-Apply your DBMS fundamentals in a real project. Build something you can show to employers and explain in detail during interviews.
+Take a realistic scenario (a college's student-course-enrollment system, an e-commerce order system, a library) and design a properly normalized schema from scratch — ER diagram through to 3NF tables.
 
 ### Steps
 
-1. Define scope: what problem does your DBMS project solve?
-2. Plan the implementation before writing any code/config
-3. Build iteratively: start with MVP, then add features
-4. Test thoroughly — find and fix edge cases
-5. Write documentation: README, setup guide, how it works
-6. Publish to GitHub with a clear README
+1. Write out the requirements in plain English first (what entities exist, what relationships between them)
+2. Draw an ER diagram: entities, attributes, relationships, and cardinalities (one-to-many, many-to-many, etc.)
+3. Convert to relational tables, and normalize step by step: identify functional dependencies, then apply 1NF → 2NF → 3NF, showing your reasoning at each step
+4. Implement the schema in a real database (PostgreSQL or MySQL) with proper primary keys, foreign keys, and constraints
+5. Write 5-10 sample queries against your schema (joins, aggregations, filtering) to confirm the design actually supports real use cases
 
 ### Skills Demonstrated
+- ER modeling and normalization applied to a real scenario, not just textbook examples
+- Translating a design into real DDL (CREATE TABLE statements) with proper constraints
+- Validating a schema design against real query needs
 
-- DBMS fundamentals
-- Project planning
-- Documentation
-
-### GitHub Repo Name
-
-`dbms-beginner-project`
+### Repository Name
+`dbms-normalized-schema-design`
 
 ---
 
-## Project 2: DBMS Intermediate Project
+## Project 2: Query Optimization Case Study (Intermediate)
 
-**Level:** Intermediate | **Time:** 3-4 days
+**Time:** 4-5 days
 
-Build a production-quality DBMS project demonstrating intermediate skills. This should be something you're proud to show in interviews.
+Take a moderately complex query against a reasonably-sized dataset, deliberately write an inefficient version first, then optimize it using indexing and query restructuring — documenting the measured improvement at each step.
 
 ### Steps
 
-1. Choose a real problem you or others face
-2. Design the solution architecture first
-3. Implement with clean, readable code/configuration
-4. Add error handling and edge cases
-5. Write unit/integration tests
-6. Create a live demo or demo video
+1. Set up a database with a non-trivial amount of data (tens of thousands of rows minimum — small tables don't reveal performance differences)
+2. Write a query that's naturally slow (e.g., a join with no supporting index, or a subquery that could be rewritten as a join)
+3. Use `EXPLAIN`/`EXPLAIN ANALYZE` to see the actual query plan and identify the bottleneck
+4. Add an appropriate index and re-run — measure the actual improvement, don't just assume it helped
+5. Try restructuring the query itself (e.g., subquery → join, or vice versa) and compare
+6. Document each version's query plan and execution time in a table
 
 ### Skills Demonstrated
-
-- DBMS intermediate patterns
-- Testing
-- Error handling
-
-### GitHub Repo Name
-
-`dbms-intermediate-project`
+- Reading and interpreting query execution plans
+- Indexing strategy, not just "add an index and hope"
+- Measuring performance claims instead of asserting them
 
 ---
 
-## Project 3: DBMS Capstone Project
+## Project 3: Transaction and Concurrency Control Demo (Advanced)
 
-**Level:** Advanced | **Time:** 1 week
+**Time:** 1-2 weeks
 
-A comprehensive DBMS project that demonstrates mastery. This should be the centerpiece of your portfolio — something that proves you can do the job.
+Build a small application (even a simple banking-transfer simulator) that deliberately demonstrates transaction isolation levels and concurrency issues — then fixes them properly.
 
 ### Steps
 
-1. Define an ambitious but achievable scope
-2. Research how professionals solve this problem at scale
-3. Implement following industry best practices
-4. Add monitoring, alerting, and operational runbooks
-5. Security review — what could go wrong? Fix it.
-6. Present your project: 5-min video walkthrough
-7. Write a technical blog post about what you learned
+1. Build a simple scenario with concurrent operations (e.g., two "transfers" happening simultaneously on the same account balance)
+2. Deliberately reproduce a concurrency bug — a lost update or a dirty read — by running operations without proper isolation
+3. Fix it using appropriate transaction isolation levels or explicit locking, and demonstrate the bug no longer occurs
+4. Document which specific isolation level (Read Committed, Repeatable Read, Serializable) solves which specific problem, and what the performance trade-off is for using a stricter level than necessary
+5. Explain ACID properties concretely in terms of what your demo actually shows for each one
 
 ### Skills Demonstrated
+- Practical understanding of transaction isolation levels, not just definitions
+- Reproducing and fixing real concurrency bugs
+- Reasoning about the isolation-vs-performance trade-off
 
-- Advanced patterns
-- Production readiness
-- Communication
-
-### GitHub Repo Name
-
-`dbms-capstone`
+### Repository Name
+`dbms-transaction-concurrency-demo`
 
 ---
 
 ## Tips for Great Projects
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Use a real database, not just theory.** Running actual `EXPLAIN` output and real query timings is far more convincing — to an interviewer and to yourself — than reasoning about performance in the abstract.
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+**Show your normalization reasoning, not just the final schema.** Being able to explain *why* a table violates 2NF (partial dependency) or 3NF (transitive dependency) is exactly what gets tested, more than just producing a correctly normalized end result.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+**Measure, don't assume.** "I added an index and it should be faster" is weaker than "I added an index and query time dropped from 450ms to 12ms, confirmed via `EXPLAIN ANALYZE`."
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+**For backend interviews specifically:** be ready to explain when denormalization is actually the right call (read-heavy systems where join cost outweighs redundancy cost) — interviewers often probe whether you understand normalization as a trade-off, not a rule to always maximize.
 
-## Portfolio Checklist
-
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+## Project Checklist
+- [ ] A properly normalized schema (through 3NF) with documented reasoning
+- [ ] At least one project demonstrating measured query optimization (before/after with real numbers)
+- [ ] At least one project demonstrating a real concurrency issue and its fix
+- [ ] Comfortable explaining ACID properties with concrete examples, not just definitions
+- [ ] All schemas implemented in a real database, not just diagrammed

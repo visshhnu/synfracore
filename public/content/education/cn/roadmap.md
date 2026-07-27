@@ -1,80 +1,79 @@
 # Computer Networks — Learning Roadmap
 
-## Estimated Time to Job-Ready
-**6-10 weeks** of consistent learning (2-3 hours/day)
+## Estimated Time to GATE/Interview-Ready
+**8-10 weeks** of consistent learning (2-3 hours/day) — CN is 8-10 marks in GATE CSE and heavily tested in backend/infrastructure interviews, making this genuinely dual-purpose preparation.
 
 ## Phase 1: Foundation (Week 1-2)
-Build core understanding before touching advanced topics.
 
-- Master the fundamental concepts and mental model
-- Complete the fundamentals section in this course  
-- Run hands-on labs (beginner level)
-- Build your first working example
+- The OSI and TCP/IP models, and the data unit (PDU) at each layer — segment, packet, frame, bits
+- IP addressing and subnetting basics
+- Complete the Fundamentals section in this course
 
-## Phase 2: Hands-On Practice (Week 3-5)
-Theory without practice is useless. Build real things.
+**Checkpoint:** can you map any common protocol (HTTP, TCP, IP, Ethernet) to its correct OSI layer, and explain what it's actually responsible for at that layer?
 
-- Complete intermediate section and all labs
-- Work through 2-3 guided projects
-- Break things deliberately and fix them
-- Read official documentation, not just tutorials
+## Phase 2: Transport and Network Layer Depth (Week 2-5)
 
-## Phase 3: Production Patterns (Week 6-8)
-Learn how professionals do it at scale.
+- TCP vs. UDP: the real reliability/ordering trade-off, not just "TCP is reliable, UDP isn't"
+- The TCP three-way handshake, and connection teardown
+- IP routing basics: how a packet actually finds its way across networks
+- Complete Project 1 (TCP chat application) from this course's Projects section
 
-- Study advanced section — production architecture
-- Implement security best practices
-- Set up monitoring and alerting
-- Contribute to open-source or build portfolio project
+**Checkpoint:** can you explain, step by step, what happens during a TCP three-way handshake and why it takes three steps specifically, not two?
 
-## Phase 4: Interview Ready (Week 9-10)
-Convert knowledge into opportunity.
+## Phase 3: Protocols and Applied Practice (Week 5-8)
 
-- Complete all interview Q&A sections
-- Practice explaining concepts out loud
-- Do 3+ mock technical interviews
-- Apply to target roles
+- DNS, HTTP/HTTPS, and how a URL resolves to an actual connection
+- Subnetting numerical problems — this is one of the most consistently tested CN topics, both in GATE and interviews
+- Complete Project 2 (UDP vs. TCP reliability demo) from this course's Projects section
+
+**Checkpoint:** given a network address and subnet mask, can you correctly calculate the network address, broadcast address, and usable host range, without a calculator tool?
+
+## Phase 4: Packet-Level Understanding and Interview/GATE Readiness (Week 8-10)
+
+- Routing protocols (RIP, OSPF, BGP) at a conceptual level, and network security basics
+- Complete Project 3 (packet capture and protocol analysis) and review this course's Interview Q&A section
+- For GATE specifically: subnetting and OSI-layer-mapping questions are consistently high-yield
 
 ## Skills You'll Build
 
 | Skill Area | What You'll Learn |
 |---|---|
-| Core Concepts | Fundamental architecture and design principles |
-| Practical Skills | Real commands, configurations, and patterns |
-| Troubleshooting | Diagnose and fix common production issues |
-| Best Practices | Security, performance, cost optimization |
-| Interview Prep | Answer any question with confidence |
+| Layered Architecture | OSI/TCP-IP models and what each layer actually does |
+| Transport Protocols | TCP vs. UDP trade-offs, in practice not just theory |
+| Addressing | IP addressing, subnetting, and numerical fluency |
+| Application Protocols | DNS, HTTP/HTTPS, and real connection setup |
+| Socket Programming | Building actual networked applications, not just describing them |
 
 ## Weekly Study Plan
 
 ```
-Monday:    Read theory (fundamentals/intermediate)
-Tuesday:   Hands-on labs (practice environment)
-Wednesday: Build a small project applying what you learned
-Thursday:  Read docs, watch a video, go deeper on one topic
-Friday:    Review interview questions, explain to yourself
-Weekend:   Work on a portfolio project or practice exam
+Monday:    New concept — fundamentals/intermediate section + examples
+Tuesday:   Subnetting/numerical practice problems
+Wednesday: Redo problems you got wrong on Monday/Tuesday
+Thursday:  Work on the relevant portfolio project
+Friday:    Review previous-year GATE questions on the topic
+Weekend:   Timed practice test, or continue project work
 ```
 
 ## Red Flags to Avoid
 
-- ❌ Tutorial hell — watching videos without building
-- ❌ Skipping fundamentals to jump to "cool" advanced topics  
-- ❌ Not reading error messages carefully
-- ❌ Copy-pasting code without understanding it
-- ❌ Studying in isolation — join communities, ask questions
+- ❌ Memorizing "TCP is reliable, UDP is fast" without understanding the actual mechanisms (sequence numbers, ACKs, retransmission) that make TCP reliable
+- ❌ Skipping subnetting practice — this is one of the most consistently tested numerical topics in both GATE and interviews
+- ❌ Never writing any actual networking code — socket programming makes the theory concrete in a way pure reading doesn't
+- ❌ Treating the OSI model as trivia to recite instead of a framework for understanding where a given protocol or problem actually lives
+- ❌ Studying HTTP/DNS without ever capturing real traffic to see what an actual request/response looks like
 
 ## Resources
 
-- **This course**: Start with Overview → Fundamentals → Labs → Projects
-- **Official docs**: Always the most accurate and up-to-date
-- **Community**: Reddit, Discord, Stack Overflow for stuck moments
-- **Projects**: Build something real, put it on GitHub
+- **This course**: Overview → Fundamentals → Intermediate → Advanced → Interview Q&A
+- **GATE previous-year papers**: subnetting and OSI-layer questions recur with high consistency
+- **Wireshark**: free, and the single best tool for making networking concepts concrete through real packet capture
+- **Computer Networking: A Top-Down Approach (Kurose, Ross)**: a widely used standard reference
 
-## Getting Your First Job
+## Getting GATE/Interview-Ready
 
-1. **Portfolio**: 2-3 solid GitHub projects demonstrating the skill
-2. **Resume**: Quantify achievements ("reduced deploy time by 60%")
-3. **Network**: LinkedIn, meetups, DevOps/tech communities
-4. **Apply broadly**: Apply to 20+ roles, expect 3-5 interviews per offer
-5. **Interview prep**: System design + technical + behavioral all matter
+1. **Portfolio**: the projects in this course's Projects section — a working socket-programming project is a strong, concrete signal, especially for infrastructure/backend-adjacent roles
+2. **Subnetting fluency**: practice until IP/subnet calculations are fast and automatic — this comes up constantly in both GATE and interviews
+3. **GATE-specific practice**: subnetting numerical problems and OSI-layer mapping questions are consistently high-yield
+4. **Interview readiness**: be ready to explain the TCP handshake, a DNS lookup, and TCP-vs-UDP trade-offs with concrete detail, not textbook definitions
+5. **Use packet capture to build real intuition**: having actually looked at real TCP handshake or DNS query packets makes your explanations noticeably more credible and concrete in an interview
