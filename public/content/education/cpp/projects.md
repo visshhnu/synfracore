@@ -1,103 +1,89 @@
-# C++ Programming — Portfolio Projects
+# C++ — Portfolio Projects
 
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
+Build these to practice both C++'s OOP side and its STL/competitive-programming side — the two halves of the language that come up most in coursework, interviews, and contests.
 
-## Project 1: C++ Programming Beginner Project
+## Project 1: Inventory Management System With Classes (Beginner)
 
-**Level:** Beginner | **Time:** 2 days
+**Time:** 2-3 days
 
-Apply your C++ Programming fundamentals in a real project. Build something you can show to employers and explain in detail during interviews.
+A console-based inventory tracker using proper class design — the project that gets you comfortable with constructors, encapsulation, and operator overloading before moving to more complex OOP.
 
 ### Steps
 
-1. Define scope: what problem does your C++ Programming project solve?
-2. Plan the implementation before writing any code/config
-3. Build iteratively: start with MVP, then add features
-4. Test thoroughly — find and fix edge cases
-5. Write documentation: README, setup guide, how it works
-6. Publish to GitHub with a clear README
+1. Design an `Item` class (name, quantity, price) with private members and public accessors
+2. Store items in a `vector<Item>`
+3. Implement add, search-by-name, update-quantity, and display-all operations
+4. Overload the `<<` operator so you can `cout << item` directly instead of writing a separate print function
+5. Add basic validation — what happens with a negative quantity or price?
 
 ### Skills Demonstrated
+- Classes, encapsulation, and constructors
+- `vector` as a dynamic container
+- Operator overloading
 
-- C++ Programming fundamentals
-- Project planning
-- Documentation
-
-### GitHub Repo Name
-
-`cpp-beginner-project`
+### Repository Name
+`cpp-inventory-system`
 
 ---
 
-## Project 2: C++ Programming Intermediate Project
+## Project 2: A Small Library Using Inheritance and STL Containers (Intermediate)
 
-**Level:** Intermediate | **Time:** 3-4 days
+**Time:** 4-5 days
 
-Build a production-quality C++ Programming project demonstrating intermediate skills. This should be something you're proud to show in interviews.
+Extend the beginner-level idea into a proper class hierarchy (base class + derived classes) and use STL containers (`map`, `vector`) meaningfully, not just as arrays with extra steps.
 
 ### Steps
 
-1. Choose a real problem you or others face
-2. Design the solution architecture first
-3. Implement with clean, readable code/configuration
-4. Add error handling and edge cases
-5. Write unit/integration tests
-6. Create a live demo or demo video
+1. Design a base class (e.g. `LibraryItem`) with derived classes (`Book`, `DVD`, etc.) using virtual functions for behavior that differs per type
+2. Use a `map<string, LibraryItem*>` (or smart-pointer equivalent) keyed by an ID for fast lookup
+3. Implement borrowing/returning with proper state tracking
+4. Use exceptions for genuinely exceptional cases (e.g., borrowing an already-borrowed item) — not for normal control flow
+5. Prefer smart pointers (`unique_ptr`/`shared_ptr`) over raw `new`/`delete` for ownership
 
 ### Skills Demonstrated
-
-- C++ Programming intermediate patterns
-- Testing
-- Error handling
-
-### GitHub Repo Name
-
-`cpp-intermediate-project`
+- Inheritance and virtual functions (runtime polymorphism)
+- STL container usage beyond `vector`
+- Exception handling and smart-pointer-based memory management
 
 ---
 
-## Project 3: C++ Programming Capstone Project
+## Project 3: Competitive-Programming Problem Set With Analysis (Advanced)
 
-**Level:** Advanced | **Time:** 1 week
+**Time:** 1-2 weeks
 
-A comprehensive C++ Programming project that demonstrates mastery. This should be the centerpiece of your portfolio — something that proves you can do the job.
+Solve 15-20 problems spanning arrays, STL usage, and at least one non-trivial algorithm topic (graphs, DP, or similar), then document your approach and complexity analysis for each — not just the accepted solution.
 
 ### Steps
 
-1. Define an ambitious but achievable scope
-2. Research how professionals solve this problem at scale
-3. Implement following industry best practices
-4. Add monitoring, alerting, and operational runbooks
-5. Security review — what could go wrong? Fix it.
-6. Present your project: 5-min video walkthrough
-7. Write a technical blog post about what you learned
+1. Select problems from Codeforces, CodeChef, or LeetCode spanning at least 3 different topic areas
+2. Solve each using idiomatic modern C++ (STL containers/algorithms, not hand-rolled data structures unless the problem specifically requires it)
+3. For each solution, write a short note: time/space complexity, and the key insight that made the problem solvable
+4. Revisit any problem you got wrong or needed help with, a few days later, and resolve it independently
+5. Organize solutions by topic, with your complexity notes alongside each
 
 ### Skills Demonstrated
+- Idiomatic STL usage under time pressure
+- Complexity analysis, not just "it passed"
+- Structured, reviewable problem-solving practice
 
-- Advanced patterns
-- Production readiness
-- Communication
-
-### GitHub Repo Name
-
-`cpp-capstone`
+### Repository Name
+`cpp-competitive-programming-log`
 
 ---
 
 ## Tips for Great Projects
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Prefer STL over hand-rolled data structures**, unless a project or problem specifically asks you to implement one yourself. Using `vector`/`map`/`set` correctly and knowing their real time complexity is the actual skill being tested, both in interviews and in contests.
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+**Use smart pointers by default.** If you find yourself writing `new` without an immediate, clear reason to manage that memory manually, reach for `make_unique`/`make_shared` instead — this is what real modern C++ code looks like.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+**Document your complexity analysis.** "This solution passed" is weaker than "this is O(n log n) because of the sort, and I considered but rejected an O(n²) brute-force approach first."
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+**For interviews specifically:** be ready to explain when you'd use `virtual` functions vs. templates for two different types of "generic" behavior — this distinction (runtime polymorphism vs. compile-time generics) is a genuinely common C++ interview topic.
 
-## Portfolio Checklist
-
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+## Project Checklist
+- [ ] 2-3 projects with clear READMEs
+- [ ] At least one project using inheritance/virtual functions meaningfully
+- [ ] At least one project using STL containers beyond basic `vector`
+- [ ] No raw `new`/`delete` without a specific, explainable reason
+- [ ] Comfortable explaining complexity (Big-O) for anything in your competitive-programming log

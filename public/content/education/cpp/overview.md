@@ -2,18 +2,27 @@
 
 ## What is C++?
 
-C++ is a general-purpose programming language created by Bjarne Stroustrup in 1979 as an extension of C with object-oriented features. C++ is used for: game development (Unreal Engine), system software, browsers (Chrome V8 engine), databases (MySQL), high-frequency trading, and competitive programming.
+C++ is a general-purpose programming language created by Bjarne Stroustrup, first released in 1985 as an extension of C with object-oriented features (its original name was literally "C with Classes"). C++ is used across game development (Unreal Engine), system software, browser engines (Chrome's V8 has significant C++ components), databases (MySQL's core), high-frequency trading systems, and competitive programming.
+
+## C++ Is a Superset of C, With Real Consequences
+
+Almost all valid C code is also valid C++ code, but C++ adds an entire layer on top: classes, references, function overloading, templates, exceptions, and a large standard library (the STL) that C doesn't have. This matters practically in two ways:
+
+1. **You can write C-style C++** — using `malloc`/`free`, raw arrays, and `printf` — and it will compile. It's just not idiomatic, and you lose the safety and convenience C++ actually offers.
+2. **Mixing styles carelessly causes real bugs** — e.g., mixing `malloc`/`free` with `new`/`delete` for the same object is undefined behavior, not just bad style.
+
+The practical guidance: learn C++'s own idioms (RAII, smart pointers, `std::string`, STL containers) rather than writing C with `class` keywords sprinkled in.
 
 ## C++ Standards
 
 | Standard | Year | Key Addition |
 |---|---|---|
-| C++11 | 2011 | Lambda, auto, move semantics, smart pointers, threads |
-| C++14 | 2014 | Generic lambdas, improved constexpr |
-| C++17 | 2017 | Structured bindings, if constexpr, filesystem |
+| C++11 | 2011 | Lambda expressions, `auto`, move semantics, smart pointers, threads |
+| C++14 | 2014 | Generic lambdas, improved `constexpr` |
+| C++17 | 2017 | Structured bindings, `if constexpr`, `<filesystem>` |
 | C++20 | 2020 | Concepts, coroutines, ranges, modules |
 
-**Use C++17 or C++20** for new projects. Most competitive programming uses C++17.
+**Use C++17 or C++20** for new projects. Most competitive programming judges (Codeforces, CodeChef) default to C++17, so that's the practical standard to learn against if competitive programming is your goal.
 
 ## Install C++
 
@@ -26,7 +35,7 @@ g++ --version
 xcode-select --install
 c++ --version
 
-# Compile C++ file
+# Compile a C++ file
 g++ -std=c++17 -Wall -o program program.cpp
 ./program
 
@@ -42,7 +51,8 @@ gdb ./program
 #include <string>
 #include <vector>
 
-using namespace std;      // Avoid writing std:: everywhere
+using namespace std;      // Avoid writing std:: everywhere (fine for
+                           // learning; avoided in real header files)
 
 int main() {
     cout << "Hello, World!" << endl;
@@ -54,7 +64,7 @@ int main() {
 
     cout << "Name: " << name << ", Age: " << age << endl;
 
-    // Vector (dynamic array)
+    // Vector (dynamic array — grows automatically, unlike a raw C array)
     vector<int> numbers = {1, 2, 3, 4, 5};
     for (int n : numbers) {      // Range-based for loop (C++11)
         cout << n << " ";
@@ -65,22 +75,24 @@ int main() {
 }
 ```
 
-## C vs C++ — Key Differences
+## C vs. C++ — Key Practical Differences
 
 ```cpp
-// C uses malloc/free for memory management
-// C++ uses new/delete OR smart pointers (better)
+// C uses malloc/free for manual memory management
+// C++ uses new/delete, or (much better) smart pointers
 
-// Raw pointers (error-prone)
+// Raw pointers (error-prone — easy to forget delete, or delete twice)
 int* p = new int(42);
 delete p;
 
-// Smart pointers (C++11, preferred)
+// Smart pointers (C++11 onward, preferred in real C++ code)
 #include <memory>
-auto p = make_unique<int>(42);  // Auto-deleted when out of scope
-auto sp = make_shared<int>(42); // Reference counted
+auto p = make_unique<int>(42);  // Automatically deleted when it goes
+                                 // out of scope -- no manual delete needed
+auto sp = make_shared<int>(42); // Reference-counted -- deleted when the
+                                 // last owner goes out of scope
 
-// OOP in C++ vs C structs
+// OOP: C++ classes vs. C structs
 class Animal {
 private:
     string name;
@@ -96,16 +108,20 @@ public:
 };
 ```
 
+The `virtual`/`override` pair above is worth flagging even at overview level: `virtual` on the base class enables **runtime polymorphism** — calling `speak()` through a base-class pointer or reference correctly calls `Dog::speak()`, not `Animal::speak()`, decided at runtime rather than compile time. This is covered properly in the Fundamentals/Intermediate sections, but it's the mechanism that makes inheritance actually useful rather than just a way to reuse field declarations.
+
 ## C++ in Competitive Programming
 
 ```cpp
-// Standard competitive programming template
-#include <bits/stdc++.h>     // Include everything (competitive only)
+// A standard competitive programming template
+#include <bits/stdc++.h>     // Includes the entire standard library
+                              // (fine for contests; never do this in
+                              // real production code -- slows compilation)
 using namespace std;
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
+    ios_base::sync_with_stdio(false);  // Speeds up cin/cout significantly
+    cin.tie(NULL);                      // by decoupling from C's stdio
 
     int n;
     cin >> n;
@@ -120,9 +136,11 @@ int main() {
 }
 ```
 
+The `sync_with_stdio(false)` / `cin.tie(NULL)` pair above is a genuinely common competitive-programming pattern worth understanding, not just copy-pasting: by default, C++'s `cin`/`cout` stay synchronized with C's `stdio` (so you can safely mix `printf` and `cout` in the same program), and that synchronization has real overhead. Disabling it speeds up I/O-heavy competitive programs meaningfully, at the cost of no longer being able to safely mix C and C++ I/O in the same program — a tradeoff that's fine for a contest, not something you'd do by default in production code.
+
 ## Course Sections
-- **Fundamentals** — syntax, OOP basics, classes, inheritance
-- **Intermediate** — STL (vectors, maps, sets), templates, exceptions
+- **Fundamentals** — syntax, control flow, OOP basics, classes, inheritance
+- **Intermediate** — STL (vectors, maps, sets), templates, exception handling
 - **Advanced** — smart pointers, move semantics, multithreading, design patterns
-- **Labs** — competitive programming exercises + DSA implementations
-- **Interview** — 50 most asked C++ interview questions for product companies
+- **Labs** — competitive programming exercises and DSA implementations
+- **Interview** — the most commonly asked C++ interview questions for product-company interviews

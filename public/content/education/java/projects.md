@@ -1,103 +1,91 @@
-# Java Programming — Portfolio Projects
+# Java — Portfolio Projects
 
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
+Build these to actually practice Java, not just read about it — and to have something concrete to show in a placement interview or on a resume.
 
-## Project 1: Java Programming Beginner Project
+## Project 1: Console-Based Student Management System (Beginner)
 
-**Level:** Beginner | **Time:** 2 days
+**Time:** 2-3 days
 
-Apply your Java Programming fundamentals in a real project. Build something you can show to employers and explain in detail during interviews.
+A command-line program that manages a list of students — add, search, update, delete, and display — using core Java (classes, `ArrayList`, no framework needed yet).
 
 ### Steps
 
-1. Define scope: what problem does your Java Programming project solve?
-2. Plan the implementation before writing any code/config
-3. Build iteratively: start with MVP, then add features
-4. Test thoroughly — find and fix edge cases
-5. Write documentation: README, setup guide, how it works
-6. Publish to GitHub with a clear README
+1. Design a `Student` class (name, roll number, marks, etc.)
+2. Store students in an `ArrayList<Student>`
+3. Implement add, search-by-roll-number, update, and delete operations
+4. Add input validation — what happens if someone searches for a roll number that doesn't exist?
+5. Write a simple menu-driven console interface (`Scanner` for input)
 
 ### Skills Demonstrated
+- Classes, objects, and encapsulation
+- Collections (`ArrayList`)
+- Basic input handling and validation
 
-- Java Programming fundamentals
-- Project planning
-- Documentation
-
-### GitHub Repo Name
-
-`java-beginner-project`
+### Repository Name
+`java-student-management-cli`
 
 ---
 
-## Project 2: Java Programming Intermediate Project
+## Project 2: Library Management System With File Persistence (Intermediate)
 
-**Level:** Intermediate | **Time:** 3-4 days
+**Time:** 4-5 days
 
-Build a production-quality Java Programming project demonstrating intermediate skills. This should be something you're proud to show in interviews.
+Extend the beginner-level idea with real OOP design (inheritance, interfaces) and file-based persistence, so data survives between program runs.
 
 ### Steps
 
-1. Choose a real problem you or others face
-2. Design the solution architecture first
-3. Implement with clean, readable code/configuration
-4. Add error handling and edge cases
-5. Write unit/integration tests
-6. Create a live demo or demo video
+1. Design a class hierarchy — e.g., an abstract `LibraryItem` base class, with `Book` and `Magazine` as subclasses
+2. Implement borrowing/returning logic with proper state tracking (available vs. borrowed)
+3. Persist data to a file (simple text/CSV format, or Java's built-in serialization) so state isn't lost when the program exits
+4. Handle exceptions properly — what happens if the data file is missing or corrupted?
+5. Write JUnit tests for your core logic (this course's Labs section covers JUnit basics)
 
 ### Skills Demonstrated
-
-- Java Programming intermediate patterns
-- Testing
-- Error handling
-
-### GitHub Repo Name
-
-`java-intermediate-project`
+- Inheritance and abstract classes
+- File I/O and basic persistence
+- Exception handling
+- Unit testing with JUnit
 
 ---
 
-## Project 3: Java Programming Capstone Project
+## Project 3: A Small Spring Boot REST API (Advanced)
 
-**Level:** Advanced | **Time:** 1 week
+**Time:** 1-2 weeks
 
-A comprehensive Java Programming project that demonstrates mastery. This should be the centerpiece of your portfolio — something that proves you can do the job.
+Build a basic REST API — a to-do list, a simple inventory tracker, or similar — using Spring Boot, backed by an in-memory or simple database, demonstrating the framework most Java backend jobs actually use.
 
 ### Steps
 
-1. Define an ambitious but achievable scope
-2. Research how professionals solve this problem at scale
-3. Implement following industry best practices
-4. Add monitoring, alerting, and operational runbooks
-5. Security review — what could go wrong? Fix it.
-6. Present your project: 5-min video walkthrough
-7. Write a technical blog post about what you learned
+1. Set up a Spring Boot project (via Spring Initializr)
+2. Design 2-3 REST endpoints (e.g., GET/POST/PUT/DELETE for a single resource)
+3. Add basic validation and proper HTTP status codes for error cases
+4. Connect to a real (even if simple) data store — H2 in-memory database is a reasonable starting point
+5. Write a clear README explaining what the API does and how to run it locally
+6. Test your endpoints with a tool like Postman or curl, and document example requests
 
 ### Skills Demonstrated
+- Spring Boot fundamentals
+- REST API design
+- Working with a real (if simple) data layer
 
-- Advanced patterns
-- Production readiness
-- Communication
-
-### GitHub Repo Name
-
-`java-capstone`
+### Repository Name
+`java-spring-boot-todo-api`
 
 ---
 
 ## Tips for Great Projects
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Solve something concrete, even if small.** A to-do API that actually works end-to-end is more impressive in an interview than an ambitious project that's half-finished.
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+**Write a real README.** What it does, how to run it, and one paragraph on a design decision you made and why — interviewers regularly ask "why did you structure it this way," and having already thought about the answer helps.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+**Commit incrementally, not all at once.** A commit history showing the project built up over several sessions is a stronger signal than a single "initial commit" with everything already done.
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+**For placement interviews specifically:** be ready to explain your `ArrayList` vs. array choice, why you used an interface vs. an abstract class, and what your exception-handling strategy was — these are exactly the kind of design-reasoning questions Java interviews ask.
 
-## Portfolio Checklist
-
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+## Project Checklist
+- [ ] 2-3 projects with clear, working READMEs
+- [ ] At least one project demonstrating inheritance/interfaces meaningfully, not just for the sake of using them
+- [ ] At least one project with basic automated tests (JUnit)
+- [ ] Comfortable explaining every design decision out loud
+- [ ] Projects pinned/organized so they're easy to find on your profile
