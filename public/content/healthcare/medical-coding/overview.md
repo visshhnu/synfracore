@@ -1,159 +1,47 @@
-# Medical Coding — Home Health
+# Medical Coding Overview
 
-> **ICD-10, OASIS, PDGM — Home Health specialization**
+## What Is Medical Coding?
 
-**Category:** Medical  
-**Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
+Medical coding is the process of translating clinical documentation — diagnoses, procedures, services, supplies — into standardized alphanumeric codes used for billing, insurance claims, statistical tracking, and quality reporting. Every claim submitted to a payer depends on codes being assigned correctly from what's actually documented.
 
----
+## The Three Code Sets You Need
 
-## What is Medical Coding — Home Health?
+| Code Set | Covers | Maintained By |
+|---|---|---|
+| **ICD-10-CM** | Diagnoses — *why* the patient was seen | CMS/CDC/NCHS |
+| **CPT** | Procedures — *what* was done (outpatient/physician) | AMA |
+| **HCPCS Level II** | Supplies, DME, drugs, ambulance — items CPT doesn't cover | CMS |
 
-Revenue cycle is the complete financial process — patient referral, eligibility verification, coding, billing, and payment. Every coding error impacts reimbursement. Clean coding = clean claims = faster payment.
+A complete outpatient claim typically needs a diagnosis code (ICD-10-CM) paired with a procedure or service code (CPT or HCPCS) that the diagnosis medically justifies. Inpatient hospital procedure coding uses a fourth system, ICD-10-PCS, instead of CPT.
 
-## Why Medical Coding — Home Health?
+## Specializations in Medical Coding
 
-ICD-10-CM has ~72,000 codes. Always verify in the Tabular List after finding in the Alphabetic Index — the Index can mislead. NEC (Not Elsewhere Classified) = coder knows more detail but no specific code. NOS (Not Otherwise Specified) = provider did not specify.
+Coding isn't one uniform job — it branches into distinct specialties, each covered in depth elsewhere in this course:
 
----
+- **Outpatient/physician-office coding** — CPT-heavy, the most common entry point (see this course's CPT and HCPCS modules)
+- **Inpatient hospital coding** — ICD-10-CM + ICD-10-PCS, DRG-driven reimbursement
+- **Home health coding** — ICD-10-CM tied to OASIS assessments and PDGM payment grouping (see this course's Home Health Coding and BCHHC Certification Prep modules — a genuinely distinct specialty, not a variation on outpatient coding)
+- **Risk-adjustment/HCC coding** — for Medicare Advantage plans, specificity-driven
+- **Specialty coding** — radiology, oncology, cardiology, and others, each with their own high-frequency code patterns
 
-## Learning Modules
+## Why Specificity Matters
 
-### Module 01 — Revenue Cycle Fundamentals
-*From referral to reimbursement*
+A vague diagnosis ("diabetes") and a specific one ("Type 2 diabetes mellitus with diabetic chronic kidney disease, stage 3") can code to entirely different levels of reimbursement and risk-adjustment accuracy, even though both describe the same patient. Coding accuracy has real financial and compliance consequences — it isn't just a data-entry task.
 
-Revenue cycle is the complete financial process — patient referral, eligibility verification, coding, billing, and payment. Every coding error impacts reimbursement. Clean coding = clean claims = faster payment.
+## Career Path
 
-**Topics covered:**
+Most coders start with a foundational certification — the **CPC (Certified Professional Coder, AAPC)** is the most common entry credential for outpatient/physician-office coding — then specialize further (CIC for inpatient, BCHHC for home health, CDI credentials for documentation improvement, and so on) as their career focuses. See this course's Coding Guidelines module for the CPC exam format and this course's individual specialty modules for their own certification paths.
 
-- Home Health Revenue Cycle overview — 🟢 Beginner
-- Referral → SOC → Billing flow — 🟢 Beginner
-- Payer mix and authorization — 🟡 Intermediate
+## How to Use This Course
 
-### Module 02 — ICD-10 Fundamentals
-*Coding structure and guidelines*
+This section is a lightweight starting point, not a complete coding curriculum on its own. Once you're oriented:
 
-ICD-10-CM has ~72,000 codes. Always verify in the Tabular List after finding in the Alphabetic Index — the Index can mislead. NEC (Not Elsewhere Classified) = coder knows more detail but no specific code. NOS (Not Otherwise Specified) = provider did not specify.
+1. **Medical Terminology** and **Anatomy & Physiology** (this academy's foundational modules) — start here if you're new to healthcare entirely
+2. **ICD-10-CM**, **CPT**, **HCPCS**, **Coding Guidelines** — the core code-set modules, each with their own fundamentals through certification-prep depth
+3. **Home Health Coding** / **BCHHC Certification Prep** — if home health is your target specialty (a separate track, not a variation on the above)
+4. **Healthcare Administration**, **Patient Documentation** — adjacent specialties in revenue cycle and clinical documentation improvement
+5. **Mock Exams** — cross-cutting exam-readiness practice once you've completed your target specialty's content
 
-**Topics covered:**
+## This Section's Scope
 
-- ICD-10-CM structure (A00-Z99) — 🟢 Beginner
-- Alphabetic Index navigation — 🟢 Beginner
-- Tabular List and verification — 🟡 Intermediate
-- NEC vs NOS — 🟡 Intermediate
-- WITH Rule — 🟡 Intermediate
-
-### Module 03 — Coding Rules
-*Etiology/Manifestation, Sequencing*
-
-Etiology/Manifestation: code the underlying disease (E11.xx) first, then the manifestation (diabetes with neuropathy = E11.40 + G63). Code first means the condition in brackets is always sequenced first. Excludes1 means never code together. Excludes2 means can code together if patient actually has both.
-
-**Topics covered:**
-
-- Etiology/Manifestation convention — 🟡 Intermediate
-- Principal vs additional diagnoses — 🟡 Intermediate
-- Code first, Use additional code — 🟡 Intermediate
-- Excludes1 vs Excludes2 — 🔴 Advanced
-
-### Module 04 — OASIS & PDGM
-*Assessment, grouping, payment*
-
-PDGM replaced PPS in 2020. Payment is in 30-day periods (not 60). Each period has a clinical grouping based on primary diagnosis. Comorbidity adjustment adds to base payment. LUPA occurs when visits fall below threshold — significant payment reduction.
-
-**Topics covered:**
-
-- OASIS data elements overview — 🟡 Intermediate
-- PDGM 30-day payment periods — 🟡 Intermediate
-- Clinical groupings and comorbidities — 🔴 Advanced
-- LUPA (Low Utilization Payment Adjustment) — 🔴 Advanced
-- SOC, ROC, REC, SCIC assessments — 🟡 Intermediate
-
-### Module 05 — Coding Domains
-*Diabetes, Wound, Cardiac, Respiratory*
-
-Each domain has specific guidelines. Diabetes: always code to the highest degree of specificity (E11.621 = T2DM with foot ulcer). Wound care: stage and laterality matter. Sepsis: code the infection first, then sepsis. Z codes capture functional status and care needs critical for home health.
-
-**Topics covered:**
-
-- Diabetes mellitus coding — 🟡 Intermediate
-- Wound care and pressure injuries — 🟡 Intermediate
-- CHF and cardiac conditions — 🔴 Advanced
-- COPD and respiratory — 🔴 Advanced
-- Z codes for home health — 🟡 Intermediate
-- Sepsis coding — 🔴 Advanced
-
----
-
-## Production Example
-
-
----
-
-## Interview Prep
-
-!!! tip "PSR Formula"
-    Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
-
-### Common Interview Questions
-
-??? question "What is Medical Coding — Home Health and why would you use it in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "How does Medical Coding — Home Health work internally? Explain the architecture."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "What are the main components of Medical Coding — Home Health?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "How do you handle failures in Medical Coding — Home Health?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "What is your production experience with Medical Coding — Home Health?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "How do you monitor and observe Medical Coding — Home Health in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "What are the security considerations for Medical Coding — Home Health?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "How does Medical Coding — Home Health compare to alternatives?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "Explain Revenue Cycle Fundamentals in Medical Coding — Home Health."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
-??? question "Explain ICD-10 Fundamentals in Medical Coding — Home Health."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
-
----
-
-## Official Resources
-
-- [ICD-10-CM Official Guidelines](https://www.cms.gov/medicare/coding-billing/icd-10-codes)
-- [OASIS Guidance Manual](https://www.cms.gov/medicare/home-health-iras/oasis)
-- [PDGM Final Rule](https://www.cms.gov/medicare/home-health-iras/pdgm)
-
----
-
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*
+This module covers only Overview, Fundamentals, and Interview Q&A — it's intentionally an index/on-ramp, not a full course with its own certification track, projects, or roadmap. Those live in the specialty modules above, where they belong to a specific, real credential.

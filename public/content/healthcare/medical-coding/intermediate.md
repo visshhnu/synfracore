@@ -1,10 +1,10 @@
-scharge OASIS
+# Medical Coding Intermediate
 
+## Home Health Assessment Cycle Example
 
-🏠 Home→
-🏥 Hospital (<24hrs)→
-Resume OASIS (ROC)→
-🏠 Discharge OASIS
+A patient can move between home and hospital during a single 60-day episode. Example flow:
+
+🏠 Home → 🏥 Hospital (\<24hrs) → Resume OASIS (ROC) → 🏠 Discharge OASIS
 ↑ This whole cycle is within 60 days of SOC
 
 
@@ -156,5 +156,8 @@ Aftercare (Z48), long-term meds (Z79), history codes, artificial joints (Z96)
 
 ### Abbreviations
 
+**NEC — Not Elsewhere Classified**
+Used when the documentation is specific, but no code exists for that exact level of detail — the coder assigns the "other specified" category for that condition.
 
-**NEC — No
+**NOS — Not Otherwise Specified**
+Equivalent to "unspecified." Used when the documentation doesn't provide enough detail to code more specifically — this is a documentation gap, not a coder's choice; a more specific code should always be used when the documentation supports it.
