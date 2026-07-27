@@ -69,5 +69,8 @@ lib/data/
 
 ## Operational docs
 
-- `CLAUDE.md` — architecture decisions, auth setup steps, env vars, content rules.
+- `CLAUDE.md` — architecture decisions, auth setup steps, env vars, content
+  rules, **and the project's standing engineering/content/QA process**
+  (roles, personas, QA checklist, deploy discipline). Read it before any
+  work session, not just for the architecture reference.
 - `docs/audit/` — a staged architecture/security/performance/data/ops audit of this codebase; read before making structural changes.
