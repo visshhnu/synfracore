@@ -1,0 +1,17 @@
+# Normalize line endings to LF in the repository, regardless of the
+# checking-out OS/editor's local settings (Windows core.autocrlf, etc.).
+# This governs line-ending behavior for future commits only -- it does not
+# rewrite any existing tracked file's content or line endings on its own.
+* text=auto eol=lf
+
+# Binary assets -- never run text/EOL normalization on these.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg binary
+*.woff binary
+*.woff2 binary
+*.pdf binary
+*.zip binary
