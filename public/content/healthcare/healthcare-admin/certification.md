@@ -5,10 +5,12 @@
 | Cert | Provider | Cost | Format |
 |------|----------|------|--------|
 | **FACHE (Fellow, ACHE)** | ACHE | $250 + membership | Portfolio + exam |
-| **CMPE (Certified Medical Practice Executive)** | MGMA | $500 | MCQ |
-| **RHIA (Registered Health Info Admin)** | AHIMA | $299 | MCQ, 4 hrs |
-| **CPHM (Certified Professional Healthcare Management)** | NAHSE | $300 | MCQ |
+| **CMPE (Certified Medical Practice Executive)** | MGMA | ~$500 | MCQ |
+| **RHIA (Registered Health Info Admin)** | AHIMA | ~$299 | MCQ, verify current format |
+| **CPHM (Certified Professional Healthcare Management)** | NAHSE | Varies | MCQ |
 | **MHA degree programs** | Universities | Varies | Degree + residency |
+
+*Costs and formats above should be verified directly against each issuing body (ACHE/MGMA/AHIMA/NAHSE) before relying on them — these are administrative/management credentials whose pricing and requirements are revised periodically, and were not independently re-verified for this update.*
 
 ---
 

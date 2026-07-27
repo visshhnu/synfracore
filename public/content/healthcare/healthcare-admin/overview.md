@@ -33,28 +33,9 @@ Medical Office Manager, Revenue Cycle Manager, HIM Director, Compliance Officer,
 ## Who This Is For
 Clinical staff moving into management, medical billing and coding professionals advancing their careers, and anyone pursuing MHA or healthcare MBA programmes.
 
-## Learning Path
-This section follows a structured approach from fundamentals to advanced topics. Each module builds on the previous one.
-
-## Who This Is For
-Students and professionals at all levels who want to build knowledge in this domain — whether for exam preparation, career advancement, or general knowledge.
-
-## How to Study
-1. Start with the **Fundamentals** section to build a solid base
-2. Move to **Intermediate** for applied knowledge and scenarios
-3. Use **Advanced** for exam-level depth and complex topics
-4. Practise with **Interview Q&A** for exams and assessments
-5. Use the **Cheatsheet** for last-minute revision before the exam
-
-## Key Features of This Section
-- Structured notes aligned with official syllabus
-- Practice questions after key concepts
-- Cheatsheets for quick revision
-- Interview and exam Q&A format
-- Current and updated content
-
-## Getting Started
-Click **Fundamentals** to begin your learning journey with this topic. Work systematically through each section for the best results.
-
-## Assessment Strategy
-For objective exams: understand > memorise. For descriptive/written exams: structure your answers clearly. For interviews: demonstrate reasoning, not just recall.
+## How to Study This Section
+1. **Fundamentals** — healthcare organization types, payer structures, stakeholders, and HIPAA basics
+2. **Intermediate/Advanced** — revenue cycle mechanics, quality metrics, and regulatory compliance depth
+3. **Interview Q&A** — practice articulating RCM and compliance concepts out loud
+4. **Certification Guide** — FACHE, CMPE, RHIA, and CPHM pathways, if pursuing a credential
+5. **Cheatsheet** — quick reference for key metrics (days in AR, denial rate, clean claim rate) and regulation names

@@ -1,85 +1,90 @@
-# Medical Coding Mock Exams Certification Guide
+# Medical Coding Mock Exams — Certification Guide
 
 ## Overview
 
-Medical coding certification exams test practical coding skills across ICD-10-CM, CPT, and HCPCS code sets. This section covers exam preparation strategies and mock exam approaches.
+This section supports exam-readiness practice for the credentials covered in this course's Overview: CPC, COC, CCA, CCS, RHIT, and BCHHC. Format details below are for CPC specifically, since it's the most common entry credential — see the Overview section's table for the others, and verify all format details directly with the issuing body (AAPC/AHIMA/BCHHC's administering organization) before exam day, since formats are periodically revised.
 
-## Top Certifications
+## CPC (Certified Professional Coder) — AAPC
 
-| Cert | Provider | Cost | Format |
-|------|----------|------|--------|
-| **CPC (Certified Professional Coder)** | AAPC | $399 | 150 MCQ, 5h40m, open book |
-| **CCS (Certified Coding Specialist)** | AHIMA | $299 | MCQ + coding, 4 hrs |
-| **COC (Certified Outpatient Coder)** | AAPC | $399 | 150 MCQ |
-| **CIC (Certified Inpatient Coder)** | AAPC | $399 | 150 MCQ |
-| **CPC-P (Payer)** | AAPC | $399 | 150 MCQ |
+| Detail | Info |
+|--------|------|
+| Format | 100 MCQ, 4 hours |
+| Passing score | 70% (70/100 correct) |
+| Open book | Current-year ICD-10-CM, CPT, and HCPCS Level II codebooks |
+| Cost | $399 member / $499 non-member (AAPC membership required to register) |
+| Retake | Verify current retake policy/waiting period with AAPC |
+
+*Related credentials tested similarly by AAPC: COC (formerly CPC-H, hospital outpatient coding) and CIC (inpatient coding) — verify current question counts/time limits for each directly, since they may differ from CPC's.*
 
 ---
 
-## Exam Strategy
+## Exam Strategy (applies broadly across CPC/COC/CCS/CCA/RHIT/BCHHC)
 
 ```
 BEFORE THE EXAM:
-  Tab and highlight codebooks: ICD-10-CM, CPT, HCPCS
+  Tab and highlight codebooks: ICD-10-CM, CPT, HCPCS (for open-book exams)
   Create quick reference tabs: anatomy terms, modifiers, E&M table
-  Practice with timed mock exams (2 min per question maximum)
-  Review: official ICD-10-CM guidelines (free PDF from CMS)
-  Review: CPT guidelines at beginning of each section
+  Practice with full-length timed mock exams matching your target
+    exam's actual time limit — don't assume a round number
+  Review official ICD-10-CM guidelines (free from CMS/CDC) and
+    CPT guidelines at the start of each CPT section
 
 DURING THE EXAM:
-  Read question completely before looking at codes
-  Eliminate obviously wrong answers first
-  Never code from index alone — always verify in tabular list
-  For surgery: find the procedure, determine if add-on codes needed
-  For E&M: identify patient type and level from documentation clues
-  
-  TIME MANAGEMENT:
-    Flag hard questions, skip and return
-    Easier questions: anatomy, definitions, basic codes
-    Harder: surgical coding, complex E&M, auditing questions
-    No penalty for guessing — answer every question
-  
-  COMMON TRAPS:
-    "Most appropriate" — one code may be acceptable, another is best
-    Bilateral procedures — check modifier -50 applicability
-    Bundled services — check NCCI before billing separately
-    Incomplete diagnosis — code to highest specificity available
+  Read the full question before looking at answer options
+  Eliminate answers you can rule out with certainty first
+  Never code from index/summary alone — verify in the full tabular
+    listing where the real exam format requires it
+  For surgery questions: identify the procedure, check if add-on
+    codes or bundling rules apply
+  For E/M questions: identify patient type and complexity from the
+    documentation clues given
 
-OPEN BOOK STRATEGY:
-  Do NOT look up every code — too slow
-  Know common codes by heart (top 50 E&M, common surgical, key ICD-10)
-  Use book for: verification, unusual codes, checking guidelines
-  
-PASSING SCORE: 70% (105/150 for CPC)
-RETAKE: if fail, can retake after 30 days (additional fee applies)
+  TIME MANAGEMENT:
+    Flag hard questions, skip, and return
+    Answer easier questions first: anatomy, definitions, basic codes
+    No penalty for guessing on most of these exams — verify for your
+      specific credential, but generally answer every question
+
+  COMMON TRAPS:
+    "Most appropriate" — more than one code may be technically valid;
+      the exam wants the best one, not just an acceptable one
+    Bilateral procedures — check modifier -50 applicability
+    Bundled services — check NCCI edits before billing separately
+    Incomplete diagnosis documentation — code to the highest
+      specificity the documentation actually supports
+
+OPEN BOOK STRATEGY (for exams that allow codebooks):
+  Do not look up every code — too slow for the time budget
+  Know common, high-frequency codes from memory
+  Use the codebook for: verification, unusual codes, checking
+    guideline language you're not 100% certain of
 ```
 
 ---
 
-## Quick Code Reference
+## Quick Code Reference (illustrative — verify against current codebooks)
 
 ```
-TOP E&M CODES (memorise):
-  99213: office visit, established, low complexity (most common)
-  99214: office visit, established, moderate complexity
-  99232: hospital subsequent, moderate complexity
-  99283: ED, moderate complexity
+COMMONLY TESTED E/M CODES:
+  99213/99214: office visit, established patient, low/moderate complexity
+  99232: hospital subsequent visit, moderate complexity
+  99283: ED visit, moderate complexity
 
-TOP ICD-10 CODES (memorise):
+COMMONLY TESTED ICD-10-CM CODES:
   E11.9: Type 2 DM without complications
   I10: Essential hypertension
   J18.9: Pneumonia, unspecified
   Z00.00: Adult health exam without abnormal findings
 
-TOP CPT CODES (memorise):
-  99213/99214: office visits
+COMMONLY TESTED CPT CODES:
   45378: diagnostic colonoscopy
   47562: laparoscopic cholecystectomy
   27447: total knee arthroplasty
 ```
 
 ## Study Resources
-- **AAPC CPC Study Guide** — official, matches exam content exactly
-- **AAPC Practicode** — 500+ real coding scenarios with audit feedback
-- **Optum360 EncoderPro** — online coding tool with guidelines built in
-- **Medical Coding Exam Prep** (Buck) — Elsevier practice exam book
+- **AAPC CPC Study Guide** — official, matches current CPC exam content
+- **AAPC Practicode** — coding scenarios with audit feedback
+- **AHIMA exam prep resources** — for CCA/CCS/RHIT
+- **This course's BCHHC Prep module** — for the BCHHC-specific track
+- **Optum360 EncoderPro** or equivalent — online coding tool with guidelines built in

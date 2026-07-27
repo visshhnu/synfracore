@@ -1,73 +1,74 @@
-# Medical Coding Mock Exams Fundamentals
+# Mock Exam Fundamentals
 
-## Documentation Requirements
+## Why Timed Mock Practice Is Different From Regular Study
 
-```
-WHAT MAKES DOCUMENTATION CODEABLE:
-  Legible: must be readable by all who need to access
-  Complete: includes all elements needed for coding
-  Accurate: reflects actual services provided
-  Timely: completed at or near time of service
-  Authentic: signed by the provider with credentials and date
+Reading about coding rules and applying them correctly under time pressure with an unfamiliar case are different skills. Mock exams build the second skill specifically — they don't replace learning the coding content itself (covered in this course's CPT/HCPCS/ICD-10-CM/Coding Guidelines/Home Health Coding modules), they test whether you can apply it fast and under realistic constraints.
 
-PHYSICIAN DOCUMENTATION ELEMENTS:
-  Chief complaint: reason patient presented
-  History of present illness (HPI): duration, severity, timing, quality
-  Review of systems (ROS): body systems reviewed
-  Physical examination: body areas and organ systems examined
-  Assessment: diagnosis (definitive or working)
-  Plan: treatment plan, orders, follow-up
-
-QUERY PROCESS:
-  When: documentation is ambiguous, conflicting, or incomplete
-  Who: CDI (Clinical Documentation Improvement) specialist or coder
-  How: compliant query (non-leading, multiple choice or open-ended)
-  
-  VALID QUERY SCENARIOS:
-    Diagnosis documentation present but no code exists → query for specificity
-    Signs/symptoms present but no diagnosis documented
-    Conflicting documentation between providers
-    Possible or probable conditions after study → query for confirmation
-  
-  INVALID (LEADING) QUERIES:
-    Suggest specific diagnosis not supported by clinical indicators
-    Pressure physician to document higher severity without clinical basis
-```
-
-## Medical Terminology for Coding
+## Setting Up a Realistic Mock Exam
 
 ```
-BODY SYSTEMS:
-  Integumentary: skin, hair, nails, sweat glands
-  Musculoskeletal: bones, muscles, tendons, ligaments, cartilage
-  Cardiovascular: heart, arteries, veins, capillaries
-  Respiratory: nose, pharynx, larynx, trachea, bronchi, lungs
-  Digestive: mouth, oesophagus, stomach, intestines, liver, pancreas
-  Urinary: kidneys, ureters, bladder, urethra
-  Reproductive: gender-specific organs
-  Nervous: brain, spinal cord, peripheral nerves
-  Endocrine: glands producing hormones (thyroid, adrenal, pancreas)
-  Immune/Lymphatic: lymph nodes, spleen, thymus
+MATCH YOUR TARGET EXAM'S ACTUAL CONDITIONS:
+  Time limit — use your target credential's real time limit, not a
+    round number (verify current format in this course's Certification
+    Guide before assuming an older format is still correct)
+  Open-book rules — if your target exam allows specific codebooks,
+    practice with exactly those, not general references
+  No interruptions — treat it as the real thing, not a casual review
 
-DIRECTIONAL TERMS:
-  Anterior/Posterior: front/back
-  Superior/Inferior: above/below
-  Medial/Lateral: toward/away from midline
-  Proximal/Distal: closer/farther from point of attachment
-  Bilateral: both sides | Unilateral: one side
-
-PROCEDURE SUFFIXES:
-  -ectomy: surgical removal (appendectomy = remove appendix)
-  -otomy: incision into (laparotomy = incision into abdomen)
-  -ostomy: create opening (colostomy = opening in colon)
-  -plasty: surgical repair (rhinoplasty = nose repair)
-  -oscopy: visual examination (colonoscopy = examine colon)
-  -gram: record/image (electrocardiogram = heart electrical record)
-  -graphy: process of recording (echocardiography)
+WHAT TO TRACK PER MOCK EXAM:
+  Overall score (correct / total)
+  Time used vs. time allowed
+  Category-level accuracy (e.g. E/M, surgery, ICD-10-CM guidelines,
+    modifiers) -- an overall passing score can hide one badly weak
+    category a real exam could expose more heavily
 ```
+
+## Question-Analysis Technique
+
+```
+BEFORE ANSWERING:
+  Read the full question and all answer options before eliminating any
+  Identify what's actually being asked — code selection, sequencing,
+    modifier use, and guideline interpretation are tested differently
+  Watch for "most appropriate" vs. "correct" — more than one option
+    may be technically valid; the exam wants the best one
+
+DURING:
+  Eliminate answers you can rule out with certainty first
+  For code-lookup questions: verify in the tabular/full listing logic,
+    don't answer from the index/summary alone if the real exam format
+    would require verification
+  Flag genuinely uncertain questions and move on — return if time allows
+
+AFTER (this is where most of the actual learning happens):
+  Review every wrong answer and identify the specific rule or
+    guideline you missed, misapplied, or didn't know
+  Don't just note "I got it wrong" — write down what you'll do
+    differently next time you see that scenario
+  Re-test the same underlying concept with a fresh question later,
+    not the same question again (recognizing a question isn't the
+    same as knowing the underlying rule)
+```
+
+## Building a Weak-Area Practice Cycle
+
+```
+1. Take a full-length timed mock exam
+2. Score it by category, not just overall
+3. Identify your 2-3 weakest categories
+4. Drill targeted practice questions in those categories specifically
+5. Re-test with a fresh mock exam
+6. Repeat until category-level accuracy is consistently above your
+   target passing threshold, not just your overall score
+```
+
+## Common Mock-Exam Mistakes
+
+- **Practicing untimed** — removes the exact pressure the real exam tests
+- **Re-taking the same mock exam repeatedly** — measures memorization of that specific exam, not real proficiency; use varied question sets
+- **Ignoring category breakdown in favor of overall score** — a passing overall score can mask one category weak enough to matter on the real exam
+- **Studying from outdated practice material** — exam content and format are periodically revised; confirm your practice material matches the current version of your target exam before trusting its format
 
 ## Study Resources
-- **Medical Terminology: A Word Parts Approach** — standard reference
-- **AAPC Medical Coding Training: CPC** — comprehensive preparation
-- **AHIMA Body of Knowledge** — free health information management resources
-- **MedlinePlus** (medlineplus.gov) — free medical terminology and conditions reference
+- This course's Certification Guide (for exam-specific format details)
+- Official practice exams from your target credential's issuing body (AAPC, AHIMA, or the relevant BCHHC-administering organization) — these are the most reliable source for current question style and difficulty

@@ -1,85 +1,63 @@
-# Patient Documentation Certification Guide
+# Clinical Documentation Improvement (CDI) Certification Guide
 
-## Overview
+## Top CDI-Specific Certifications
 
-Medical coding certification exams test practical coding skills across ICD-10-CM, CPT, and HCPCS code sets. This section covers exam preparation strategies and mock exam approaches.
+| Cert | Provider | Format | Focus |
+|------|----------|--------|-------|
+| **CDIP (Certified Documentation Integrity Practitioner)** | AHIMA | 140 questions, 4 hrs, 5-domain structure | Leans toward coding mechanics alongside documentation review |
+| **CCDS (Certified Clinical Documentation Specialist)** | ACDIS | 140 questions, 7 core competencies / 8 content areas | Leans toward clinical scenarios — disease processes, pathophysiology, pharmacology |
 
-## Top Certifications
+*Costs, exact question counts, and domain weighting should be verified directly against AHIMA (ahima.org) and ACDIS (acdis.org) before relying on them for exam-day planning — both are periodically revised.*
 
-| Cert | Provider | Cost | Format |
-|------|----------|------|--------|
-| **CPC (Certified Professional Coder)** | AAPC | $399 | 150 MCQ, 5h40m, open book |
-| **CCS (Certified Coding Specialist)** | AHIMA | $299 | MCQ + coding, 4 hrs |
-| **COC (Certified Outpatient Coder)** | AAPC | $399 | 150 MCQ |
-| **CIC (Certified Inpatient Coder)** | AAPC | $399 | 150 MCQ |
-| **CPC-P (Payer)** | AAPC | $399 | 150 MCQ |
+**Prerequisite context:** neither CDIP nor CCDS is typically a first coding credential — most candidates already hold or are pursuing a base coding certification (CPC, CCS, or similar; see this course's ICD-10-CM and Coding Guidelines modules) and add CDIP/CCDS as a specialty layer once working in or moving into a CDI role.
 
 ---
 
-## Exam Strategy
+## What These Exams Actually Test (Different From a Coding Exam)
+
+Unlike CPC/CCS, which test code *selection*, CDI certifications test judgment about documentation *sufficiency* and *query construction*:
+
+- Recognizing when documentation does or doesn't support a specific, codeable diagnosis
+- Constructing compliant, non-leading physician queries (open-ended or multiple-choice format, not a query that only offers the diagnosis you suspect)
+- Applying clinical knowledge (CCDS especially) to judge whether documented signs/symptoms are consistent with a suspected but undocumented condition
+- Understanding how documentation gaps cascade into DRG/PDGM/quality-metric consequences — not just "this code is wrong" but "this is why it matters downstream"
+
+## Exam Preparation Focus Areas
 
 ```
-BEFORE THE EXAM:
-  Tab and highlight codebooks: ICD-10-CM, CPT, HCPCS
-  Create quick reference tabs: anatomy terms, modifiers, E&M table
-  Practice with timed mock exams (2 min per question maximum)
-  Review: official ICD-10-CM guidelines (free PDF from CMS)
-  Review: CPT guidelines at beginning of each section
+DOCUMENTATION SUFFICIENCY:
+  What makes a diagnosis codeable vs. not yet codeable
+  Recognizing unspecified/vague documentation vs. genuinely specific documentation
 
-DURING THE EXAM:
-  Read question completely before looking at codes
-  Eliminate obviously wrong answers first
-  Never code from index alone — always verify in tabular list
-  For surgery: find the procedure, determine if add-on codes needed
-  For E&M: identify patient type and level from documentation clues
-  
-  TIME MANAGEMENT:
-    Flag hard questions, skip and return
-    Easier questions: anatomy, definitions, basic codes
-    Harder: surgical coding, complex E&M, auditing questions
-    No penalty for guessing — answer every question
-  
-  COMMON TRAPS:
-    "Most appropriate" — one code may be acceptable, another is best
-    Bilateral procedures — check modifier -50 applicability
-    Bundled services — check NCCI before billing separately
-    Incomplete diagnosis — code to highest specificity available
+QUERY CONSTRUCTION:
+  Open-ended vs. multiple-choice compliant query formats
+  What makes a query leading (and therefore non-compliant)
+  When a query is warranted vs. when documentation is already sufficient
 
-OPEN BOOK STRATEGY:
-  Do NOT look up every code — too slow
-  Know common codes by heart (top 50 E&M, common surgical, key ICD-10)
-  Use book for: verification, unusual codes, checking guidelines
-  
-PASSING SCORE: 70% (105/150 for CPC)
-RETAKE: if fail, can retake after 30 days (additional fee applies)
-```
+CLINICAL KNOWLEDGE (heavier on CCDS):
+  Disease processes and their typical clinical indicators
+  Pharmacology relevant to common documentation-gap scenarios
+  Recognizing clinical indicators that would support a query, even without the diagnosis stated
 
----
-
-## Quick Code Reference
-
-```
-TOP E&M CODES (memorise):
-  99213: office visit, established, low complexity (most common)
-  99214: office visit, established, moderate complexity
-  99232: hospital subsequent, moderate complexity
-  99283: ED, moderate complexity
-
-TOP ICD-10 CODES (memorise):
-  E11.9: Type 2 DM without complications
-  I10: Essential hypertension
-  J18.9: Pneumonia, unspecified
-  Z00.00: Adult health exam without abnormal findings
-
-TOP CPT CODES (memorise):
-  99213/99214: office visits
-  45378: diagnostic colonoscopy
-  47562: laparoscopic cholecystectomy
-  27447: total knee arthroplasty
+DOWNSTREAM IMPACT:
+  How a documentation gap affects DRG assignment, PDGM clinical grouping,
+  or quality-metric reporting (CC/MCC capture, HCC risk adjustment)
 ```
 
 ## Study Resources
-- **AAPC CPC Study Guide** — official, matches exam content exactly
-- **AAPC Practicode** — 500+ real coding scenarios with audit feedback
-- **Optum360 EncoderPro** — online coding tool with guidelines built in
-- **Medical Coding Exam Prep** (Buck) — Elsevier practice exam book
+- **AHIMA CDIP Exam Prep** — official domain outline and practice questions (ahima.org)
+- **ACDIS CCDS Exam Prep** — official content areas and study resources (acdis.org)
+- **ACDIS CDI Journal / Boot Camps** — case-based CDI scenario training
+- **This course's Fundamentals section** — query-construction principles and documentation-sufficiency criteria, the foundation both exams build on
+
+## Revision Notes
+```
+CDIP (AHIMA) vs CCDS (ACDIS): both are CDI-specialty credentials, not a
+first coding certification -- most candidates hold CPC/CCS or similar first.
+
+CDIP: coding-mechanics-leaning | CCDS: clinical-scenario-leaning
+Both: 140 questions (verify current count against issuing body)
+
+CORE SKILL TESTED: recognizing documentation gaps + constructing
+compliant, non-leading queries -- not code selection itself
+```
