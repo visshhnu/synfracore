@@ -2,45 +2,31 @@
 
 ## What is the BCHHC?
 
-The **Board Certified Home Health Coder (BCHHC)** credential validates expertise in ICD-10-CM coding for home health, OASIS assessments, and the PDGM payment model. Offered by the Board of Medical Specialty Coding & Compliance (BMSCC).
+The **Board Certified Home Health Coder (BCHHC / BCHH-C)** credential validates expertise in ICD-10-CM coding for home health, OASIS assessments, and the PDGM payment model.
+
+*Needs verification: the certifying/administering organization for this credential is unclear from available sources — variously associated with the Board of Medical Specialty Coding & Compliance (BMSCC), the Association of Home Care Coding & Compliance (AHCC), and WellSky's credentialing program. Confirm the current administering body directly before treating a specific name as settled (same open question noted in this course's Home Health Coding module).*
 
 ## Why Pursue BCHHC?
 - Demonstrates specialised home health coding competency
 - Required or preferred for HIM and coding roles at home health agencies
 - Improves PDGM coding accuracy, directly impacting agency revenue
 - Aligns with CMS compliance requirements for accurate claim submission
+- Directly tied to agency revenue: accurate primary diagnosis selection determines the PDGM clinical group, which determines reimbursement — one wrong code can misplace a patient into the wrong clinical group, costing the agency hundreds of dollars per episode
 
 ## Exam Format
 - Multiple choice + case-based coding scenarios
-- Tests: ICD-10-CM conventions, OASIS types, PDGM factors, homebound criteria
-- Renewal: every 2 years with continuing education
+- Tests: ICD-10-CM conventions, OASIS types, PDGM factors, homebound criteria, Plan of Care (Form 485) requirements
+- Renewal: continuing-education-based (verify current renewal interval and CE requirement directly — not confirmed current here)
 
 ## Who Should Take This?
-Medical coders transitioning to home health, HIM professionals, clinical documentation improvement (CDI) specialists, and home health agency billing staff.
+Medical coders transitioning to home health, HIM professionals, clinical documentation improvement (CDI) specialists, and home health agency billing staff. The certification demonstrates specialised competency that employers actively seek for compliance and accurate claim submission.
 
 ## Study Domains
 1. ICD-10-CM conventions and sequencing for home health
-2. OASIS assessment types (SOC, ROC, REC, SCIC, DC) and timing
-3. PDGM: 5 factors, 12 clinical groups, LUPA thresholds
+2. OASIS assessment types (SOC, ROC, REC, SCIC, DC) and timing, and who can complete them
+3. PDGM: 5 classification factors, 12 clinical groups, LUPA thresholds
 4. Homebound documentation requirements
-5. High-frequency coding scenarios: wounds, CVA, diabetes, HTN combinations
-
-## Why BCHHC Matters
-
-The BCHHC credential directly impacts agency revenue. Accurate primary diagnosis selection determines the PDGM clinical group, which determines reimbursement. One wrong code can misplace a patient into the wrong clinical group, costing the agency hundreds of dollars per episode.
-
-## Who Needs This Certification
-
-Home health coders, HIM professionals, CDI specialists, and billing staff at home health agencies. The certification demonstrates specialised competency that employers actively seek for compliance and accurate claim submission.
-
-## What the Exam Covers
-
-- ICD-10-CM conventions and sequencing rules specific to home health
-- OASIS assessment types, timing requirements, and who can complete them
-- PDGM: five classification factors and 12 clinical groups
-- Homebound documentation standards
-- High-frequency coding scenarios: wounds, CVA sequela, diabetes, HTN combinations
-- Plan of care (Form 485) requirements
+5. High-frequency coding scenarios: wounds, CVA sequela, diabetes, HTN combinations
 
 ## Study Timeline
 

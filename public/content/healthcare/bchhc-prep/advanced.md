@@ -1,5 +1,7 @@
 # BCHHC Advanced — Complex Coding Scenarios
 
+*Codes below reflect the FY2026 ICD-10-CM code set (see this course's Coding Guidelines and ICD-10-CM modules for the FY2026 guideline changes — HIV sequencing, BMI/Z68, SDoH codes, expanded R10 pain codes). Always verify against the current-year ICD-10-CM code set before using in practice.*
+
 ## HTN Combination Codes
 
 Never code I10 (HTN alone) when combination codes exist:
@@ -64,6 +66,7 @@ Always code to highest specificity — DO NOT use E11.9 (unspecified) when compl
 | T2DM with retinopathy, unspecified | E11.319 |
 | T2DM with neuropathy, unspecified | E11.40 |
 | T2DM with hyperglycemia | E11.65 |
+| T2DM without complications, in remission (new FY2026 code) | E11.A |
 | Insulin use (T2DM) | Z79.4 |
 
 ## A and B Codes in Infection Coding

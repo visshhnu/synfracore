@@ -38,25 +38,6 @@ ALL four must be met simultaneously:
 - Must be the condition the skilled service is ACTIVELY TREATING
 - Wrong primary diagnosis → wrong PDGM clinical group → wrong reimbursement
 
-## Fundamentals
-
-### What You Need to Know First
-These are the building blocks. Master these before moving to intermediate topics. Every expert skipped fundamentals at some point and paid for it later.
-
-### Core Concepts
-
-**Architecture Overview**
-Understanding how a system is structured helps you reason about its behaviour. Know the main components, how they interact, and what each is responsible for. Draw it out — if you cannot sketch the architecture, you do not understand it yet.
-
-**The Basic Unit of Work**
-Every technology operates on some fundamental unit: a container, a query, a message, a record, a request. Understanding what this unit is and its lifecycle (creation → processing → completion/failure) explains most of the technology's behaviour.
-
-**Configuration Fundamentals**
-Defaults are chosen to be safe, not optimal. Know the defaults, understand what they mean, and know when to change them. Keep configuration in version control. Separate configuration from code.
-
-**Error Handling Basics**
-Read error messages completely — they almost always tell you exactly what is wrong. Know where logs are and how to read them. Understand the difference between transient errors (retry) and permanent errors (fix the code or config).
-
 ## OASIS Data Collection Protocol
 
 ### Start of Care (SOC)
