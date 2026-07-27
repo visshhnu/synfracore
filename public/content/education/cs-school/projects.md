@@ -1,103 +1,88 @@
-# Computer Science — Portfolio Projects
+# Computer Science Basics — Practice Projects
 
-Build these projects to demonstrate real skills to employers. Each project is designed to be interview-worthy — something you can walk through in detail.
+Build these to actually apply what you've learned — small enough to finish, real enough to be satisfying, and directly useful for CBSE/ICSE practical exams and internal assessments.
 
-## Project 1: Computer Science Beginner Project
+## Project 1: Student Report Card Generator (Beginner)
 
-**Level:** Beginner | **Time:** 2 days
+**Time:** 1-2 days
 
-Apply your Computer Science fundamentals in a real project. Build something you can show to employers and explain in detail during interviews.
+A program that takes a student's marks in multiple subjects, calculates their total, percentage, and grade, and prints a formatted report card.
 
 ### Steps
 
-1. Define scope: what problem does your Computer Science project solve?
-2. Plan the implementation before writing any code/config
-3. Build iteratively: start with MVP, then add features
-4. Test thoroughly — find and fix edge cases
-5. Write documentation: README, setup guide, how it works
-6. Publish to GitHub with a clear README
+1. Take subject-wise marks as input (use a list or dictionary to store subject-mark pairs)
+2. Calculate total marks, percentage, and assign a grade using conditions (matching the grading logic from this course's Fundamentals section)
+3. Format the output as a clean, readable report card — subject names aligned, percentage rounded sensibly
+4. Handle a realistic edge case: what if a mark entered is above 100 or negative? Add basic validation
 
 ### Skills Demonstrated
+- Variables, conditions, and basic input handling
+- Working with lists/dictionaries for structured data
+- Formatted output (f-strings)
 
-- Computer Science fundamentals
-- Project planning
-- Documentation
-
-### GitHub Repo Name
-
-`cs-school-beginner-project`
+### Project Name
+`report-card-generator`
 
 ---
 
-## Project 2: Computer Science Intermediate Project
+## Project 2: Simple Quiz Game (Intermediate)
 
-**Level:** Intermediate | **Time:** 3-4 days
+**Time:** 2-3 days
 
-Build a production-quality Computer Science project demonstrating intermediate skills. This should be something you're proud to show in interviews.
+A multiple-choice quiz game that asks a set of questions, tracks the score, and gives a final result — using functions to keep the code organized rather than one long script.
 
 ### Steps
 
-1. Choose a real problem you or others face
-2. Design the solution architecture first
-3. Implement with clean, readable code/configuration
-4. Add error handling and edge cases
-5. Write unit/integration tests
-6. Create a live demo or demo video
+1. Store questions, options, and correct answers (a list of dictionaries works well: `{"question": ..., "options": [...], "answer": ...}`)
+2. Write a function that asks one question and checks the answer, returning whether it was correct
+3. Loop through all questions, tracking the score using the function above
+4. At the end, print the score and a message that changes based on performance (e.g., different messages for 90%+, 50-89%, below 50%)
+5. Add a feature: let the player choose a difficulty level, or a topic, before starting
 
 ### Skills Demonstrated
-
-- Computer Science intermediate patterns
-- Testing
-- Error handling
-
-### GitHub Repo Name
-
-`cs-school-intermediate-project`
+- Functions and code organization
+- Loops combined with conditions
+- Working with structured data (list of dictionaries)
 
 ---
 
-## Project 3: Computer Science Capstone Project
+## Project 3: Student Records System With File Storage (Advanced)
 
-**Level:** Advanced | **Time:** 1 week
+**Time:** 1 week
 
-A comprehensive Computer Science project that demonstrates mastery. This should be the centerpiece of your portfolio — something that proves you can do the job.
+Extend the report card idea into a system that saves student records to a file, so data isn't lost when the program closes — directly practicing the file handling covered in this course's CBSE Class 12 syllabus section.
 
 ### Steps
 
-1. Define an ambitious but achievable scope
-2. Research how professionals solve this problem at scale
-3. Implement following industry best practices
-4. Add monitoring, alerting, and operational runbooks
-5. Security review — what could go wrong? Fix it.
-6. Present your project: 5-min video walkthrough
-7. Write a technical blog post about what you learned
+1. Design a simple file format for storing student records (CSV works well, and matches what's covered in this course's Fundamentals section)
+2. Write functions to add a new student record, view all records, and search for a specific student by name
+3. Save records to the file after every change, and load existing records when the program starts
+4. Add basic statistics: class average, highest scorer, lowest scorer — computed from the stored records
+5. Handle the case where the file doesn't exist yet (first run) without crashing
 
 ### Skills Demonstrated
+- File handling (reading, writing, CSV)
+- Combining functions into a small, organized program
+- Basic data analysis (average, max, min) on real stored data
 
-- Advanced patterns
-- Production readiness
-- Communication
-
-### GitHub Repo Name
-
-`cs-school-capstone`
+### Project Name
+`student-records-file-system`
 
 ---
 
 ## Tips for Great Projects
 
-**Make it real.** Solve an actual problem, even a small one. "Built a Kubernetes cluster to deploy my personal blog" is more impressive than a tutorial clone.
+**Test with real, varied input.** Try your report card generator with a student who fails one subject, or a quiz game where every answer is wrong — these edge cases are exactly what practical exams check for.
 
-**Document everything.** A repo with a great README beats one with better code but no explanation. Include: what it does, why you built it, how to run it, what you learned.
+**Use functions once your program does more than one thing.** A single long script is harder to test and explain than a few small, clearly-named functions — this is also exactly what your practical exam viva will ask you to walk through.
 
-**Show your thinking.** In interviews, you'll be asked: "Why did you choose X over Y?" Have a reason. Architecture decisions matter.
+**Comment your logic, not the obvious lines.** A comment explaining *why* you chose a particular grading cutoff is useful; a comment saying `# print name` above `print(name)` isn't.
 
-**Iterate publicly.** Make commits regularly. Employers look at commit history. 10 commits over a week shows real work; 1 commit with everything shows you copied it.
+**For board practicals specifically:** be ready to explain your code line by line — practical exam vivas commonly ask "what does this line do" and "why did you write it this way," so understanding your own code, not just having it work, matters.
 
-## Portfolio Checklist
-
-- [ ] 3+ projects on GitHub with clear READMEs  
-- [ ] At least 1 project with CI/CD (GitHub Actions pipeline)
-- [ ] At least 1 project that solves a real problem
-- [ ] Each project has an architecture diagram
-- [ ] Projects are pinned on your GitHub profile
+## Project Checklist
+- [ ] All 3 projects run correctly with normal input
+- [ ] At least one project tested with unusual/edge-case input (invalid marks, empty answers, etc.)
+- [ ] At least one project uses file handling (matching the CBSE Class 12 syllabus)
+- [ ] Comfortable explaining every function's purpose without notes
+- [ ] Code is organized into functions, not one long unbroken script
