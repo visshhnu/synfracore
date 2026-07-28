@@ -26,6 +26,3 @@ HIPAA mandates standardized code sets for electronic transactions — ICD-10-CM/
 **Q: What is the difference between ICD-10-CM and ICD-10-PCS?**
 ICD-10-CM covers diagnoses and is used across all settings — inpatient, outpatient, and physician office. ICD-10-PCS covers procedures and is used only in inpatient hospital (facility) billing; outpatient and physician procedure coding uses CPT instead. Structurally, PCS codes are 7-character alphanumeric; CM codes are 3-7 character alphanumeric.
 
----
-
-*This section is part of the SynfraCore learning platform. Use the sidebar to navigate to Overview, Fundamentals, Advanced, and Cheatsheet sections for comprehensive coverage of this topic.*
