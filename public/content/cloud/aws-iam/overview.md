@@ -1,5 +1,7 @@
 # AWS IAM — Identity and Access Management
 
+**Before you start:** basic AWS familiarity (what a Region and an AWS account are — see the AWS Core Services Overview if you haven't yet) is assumed. No prior identity/access-management experience is needed.
+
 IAM is the security foundation of AWS. Every API call to AWS goes through IAM for authentication and authorization. Getting IAM right is the difference between a secure cloud environment and a breach.
 
 ## Core Concepts

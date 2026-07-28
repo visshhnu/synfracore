@@ -5,15 +5,17 @@
 **Category:** Cloud  
 **Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
 
+**Before you start:** no prior cloud platform experience is required — this is the entry point for the AWS track. Basic networking concepts (what an IP address and a firewall are) and general command-line comfort help but aren't required to start.
+
 ---
 
 ## What is Amazon Web Services?
 
-AWS has 30+ regions worldwide, each with 2-6 AZs. Always design for AZ failure — multi-AZ is the baseline for production. Shared Responsibility: AWS secures the cloud, you secure what's IN the cloud.
+AWS is a cloud platform — instead of buying and racking physical servers, you rent compute, storage, networking, and managed services on demand, billed for what you actually use. It runs across 30+ **Regions** worldwide (independent geographic areas), each containing 2-6 **Availability Zones (AZs)** — physically separate data centers within that region, linked by private high-speed networking. Always design for AZ failure — running across multiple AZs is the baseline expectation for production, not an optional upgrade. AWS operates under a **Shared Responsibility Model**: AWS secures the underlying cloud infrastructure (physical security, hypervisor, network fabric); you're responsible for securing everything you configure on top of it (IAM policies, security groups, encryption settings).
 
 ## Why Amazon Web Services?
 
-IAM is the security foundation. Use Roles, not Users for applications. IRSA (IAM Roles for Service Accounts) lets K8s pods assume AWS roles without access keys. SCPs control what accounts can do at the organization level.
+**IAM (Identity and Access Management)** is the security foundation everything else sits on — it decides who or what can call which AWS API on which resource. The standing rule: use **Roles** (temporary, short-lived credentials) rather than **Users** (long-lived credentials) for anything application-facing, since a leaked role credential expires on its own within hours while a leaked user access key stays valid until someone notices. **IRSA** (IAM Roles for Service Accounts) extends this pattern into Kubernetes, letting EKS pods assume AWS roles directly without ever storing an access key. **SCPs** (Service Control Policies) work at a level above individual IAM policies — they set an organization-wide ceiling on what an entire AWS account can do, which no IAM policy inside that account can override.
 
 ---
 
@@ -22,7 +24,7 @@ IAM is the security foundation. Use Roles, not Users for applications. IRSA (IAM
 ### Module 01 — AWS Fundamentals
 *Regions, AZs, global infrastructure*
 
-AWS has 30+ regions worldwide, each with 2-6 AZs. Always design for AZ failure — multi-AZ is the baseline for production. Shared Responsibility: AWS secures the cloud, you secure what's IN the cloud.
+Covered above: Regions, AZs, and the Shared Responsibility Model. This module covers pricing on top of that foundation.
 
 **Topics covered:**
 
@@ -33,7 +35,7 @@ AWS has 30+ regions worldwide, each with 2-6 AZs. Always design for AZ failure �
 ### Module 02 — IAM
 *Identity and access management*
 
-IAM is the security foundation. Use Roles, not Users for applications. IRSA (IAM Roles for Service Accounts) lets K8s pods assume AWS roles without access keys. SCPs control what accounts can do at the organization level.
+Covered above: Roles vs Users, IRSA, and SCPs. This module covers the building blocks (Users, Groups, Roles, Policies) and where least-privilege and IRSA fit into them concretely.
 
 **Topics covered:**
 
@@ -79,11 +81,6 @@ S3 is object storage — the most used AWS service. EBS is block storage for EC2
 - EBS volume types (gp3, io2) — 🟡 Intermediate
 - EFS for shared file system — 🟡 Intermediate
 - S3 security and bucket policies — 🔴 Advanced
-
----
-
-## Production Example
-
 
 ---
 
