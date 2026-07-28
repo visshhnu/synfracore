@@ -1,5 +1,7 @@
 # Helm — Kubernetes Package Manager
 
+**Before you start:** solid Kubernetes fundamentals (Deployments, Services, ConfigMaps, Ingress) and comfort with YAML are required — see the Prerequisites tab for the full checklist. Helm generates Kubernetes YAML for you; if the underlying resources are unfamiliar, Helm just adds confusion on top.
+
 Helm is the package manager for Kubernetes. Just as `apt` installs software on Ubuntu and `pip` installs Python packages, Helm installs and manages complex Kubernetes applications through reusable, configurable packages called **Charts**.
 
 ## Why Helm?
