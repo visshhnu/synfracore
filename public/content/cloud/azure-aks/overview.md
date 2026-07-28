@@ -1,5 +1,7 @@
 # Azure Kubernetes Service (AKS)
 
+**Before you start:** working Kubernetes knowledge (Deployments, Services, kubectl — see the DevOps academy's Kubernetes Overview/Fundamentals first if those are new) is assumed throughout this page; AKS does not re-teach Kubernetes itself. Basic Azure familiarity (subscriptions, resource groups, Entra ID basics) is also assumed.
+
 AKS is Microsoft Azure's managed Kubernetes service. It handles the control plane (API server, etcd, scheduler) for free — you only pay for worker nodes. AKS integrates deeply with Microsoft Entra ID (formerly Azure AD), Azure Monitor, Azure Container Registry, and Azure networking.
 
 ## Why this exists (the hook)
