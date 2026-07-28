@@ -1,5 +1,7 @@
 # Cloud Networking and Security — Overview
 
+**Before you start:** basic AWS VPC and/or Azure VNet familiarity (subnets, route tables — see those courses first if new) is assumed, since this page builds directly on those platform-specific building blocks rather than re-teaching them. No prior security-specific background is required — Zero Trust, encryption, and WAF concepts are explained from scratch below.
+
 ## Why Networking and Security are Inseparable
 
 Every cloud resource exists inside a network. Network design determines what can talk to what. Security determines who can talk and whether data is encrypted. Both must be designed together from day one.

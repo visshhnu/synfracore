@@ -5,6 +5,8 @@
 **Category:** Cloud  
 **Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
 
+**Before you start:** solid working knowledge of at least one public cloud platform (AWS, Azure, or GCP) is assumed, plus the deployment/service-model vocabulary from Cloud Fundamentals (see that course first if it's new). This page is about *coordinating across* clouds, not learning any single cloud from scratch.
+
 ---
 
 ## What is Multi-Cloud Strategy?
@@ -56,7 +58,7 @@ Think through a company you know (or a hypothetical one) that uses two different
 ### Module 01 — Why Multi-Cloud?
 *Reasons, risks and honest trade-offs*
 
-Multi-cloud means deliberately using more than one public cloud provider. Good reasons: avoid vendor lock-in for critical infrastructure, use best-of-breed services (GCP BigQuery + Azure AKS), regulatory requirement to keep data in specific regions. Bad reasons: "just in case" without a real use case. Multi-cloud adds significant operational complexity — every tool must work across clouds, team must know multiple platforms, costs increase.
+Covered above: the good reasons (vendor lock-in avoidance, best-of-breed, regulatory) versus the one bad reason ("just in case"), and multi-cloud's real added operational complexity. This module breaks each reason and cost down individually.
 
 **Topics covered:**
 
@@ -104,7 +106,7 @@ Multi-cloud means deliberately using more than one public cloud provider. Good r
 ### Module 02 — Cloud-Agnostic Tools
 *Terraform, Kubernetes, Crossplane*
 
-The tools that make multi-cloud manageable: Terraform abstracts cloud APIs behind a common HCL language — one team skills set, multiple cloud providers. Kubernetes means the same manifests deploy to AKS, EKS, or GKE with minimal changes. Crossplane extends Kubernetes to provision cloud resources (databases, queues) using K8s-native YAML. Unified observability (Datadog, Prometheus federation) spans clouds.
+Covered above: the tools that make multi-cloud manageable — Terraform, Kubernetes, Crossplane, and unified observability — and the reminder that they reduce, not eliminate, the underlying complexity. This module covers each tool's actual mechanics.
 
 **Topics covered:**
 
