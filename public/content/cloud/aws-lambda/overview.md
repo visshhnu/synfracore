@@ -1,5 +1,7 @@
 # AWS Lambda — Serverless Computing
 
+**Before you start:** basic AWS familiarity (Regions, IAM roles — see the AWS Core Services Overview and IAM courses first if those are new) is assumed, since every Lambda function requires an IAM execution role. No prior serverless experience is needed; basic familiarity with your chosen runtime language (Python is used in most examples below) helps but isn't required to follow the concepts.
+
 Lambda lets you run code without managing servers. You upload code, define triggers, and AWS handles everything else — provisioning, scaling, patching, and high availability.
 
 ## Why This Exists (The Hook)
