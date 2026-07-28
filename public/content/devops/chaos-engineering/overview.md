@@ -1,5 +1,7 @@
 # Chaos Engineering Overview
 
+**Before you start:** this course assumes you've read HA & Disaster Recovery first — chaos engineering exists specifically to validate the HA/DR mechanisms (anti-affinity, PDBs, failover) actually work, rather than trusting they will. Kubernetes fundamentals are also assumed.
+
 ## What is Chaos Engineering?
 
 Chaos Engineering is the practice of deliberately injecting failures into a system in a controlled way to discover weaknesses BEFORE they cause real production incidents.
@@ -10,9 +12,9 @@ Chaos Engineering is the practice of deliberately injecting failures into a syst
 
 ## The Scientific Method
 
-1. Define steady state (normal metrics: RPS, latency, error rate)
+1. Define steady state (normal metrics: RPS — requests per second, latency, error rate)
 2. Form a hypothesis ("Killing one replica will not affect user latency")
-3. Design the experiment with minimum blast radius
+3. Design the experiment with minimum blast radius (the scope of what's affected if it goes wrong — one pod is a small blast radius, an entire Availability Zone is a large one)
 4. Run the experiment (start in staging)
 5. Observe and measure
 6. Fix weaknesses found

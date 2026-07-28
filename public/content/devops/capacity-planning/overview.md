@@ -1,5 +1,7 @@
 # Capacity Planning
 
+**Before you start:** basic familiarity with SLOs/error budgets and Kubernetes autoscaling concepts is assumed — this course focuses on the infrastructure-sizing side, not on defining reliability targets from scratch.
+
 ## How This Differs From SLOs
 
 SLOs (Service Level Objectives) define your *reliability target*. Capacity planning is the separate discipline of making sure you have enough infrastructure — compute, storage, network — to actually **hit** that target under real and projected load. An SRE needs both, but they answer different questions: "what reliability do we promise?" vs "do we have enough headroom to deliver it?"
@@ -35,12 +37,12 @@ k6 run --vus 500 --duration 10m load-test.js
 
 ## Cost-Aware Headroom
 
-Over-provisioning "just to be safe" is a real cost — capacity planning at senior level is about finding the **minimum headroom that reliably meets demand**, not maximum headroom. This is where capacity planning and FinOps/cost optimization directly intersect.
+Over-provisioning "just to be safe" is a real cost — capacity planning at senior level is about finding the **minimum headroom that reliably meets demand**, not maximum headroom. This is where capacity planning and **FinOps** (the practice of managing cloud spend as an ongoing engineering discipline, not just a monthly bill review) directly intersect.
 
 ## Forecasting for Planned Events
 
 Before a known high-traffic event (product launch, sale, marketing campaign), capacity planning becomes proactive: pre-scale ahead of the event, run a dedicated load test at expected peak + margin, and have a rollback/circuit-breaker plan if actual traffic exceeds the forecast.
 
 :::info Relationship to SLOs
-An SLO tells you *when* you're in trouble (error budget burning). Capacity planning is what you do *before* that happens — provisioning ahead of demand so the error budget never has to be spent on a preventable capacity shortfall.
+An SLO tells you *when* you're in trouble (your **error budget** — the small amount of allowed unreliability your SLO permits before it's breached — burning down faster than expected). Capacity planning is what you do *before* that happens — provisioning ahead of demand so the error budget never has to be spent on a preventable capacity shortfall.
 :::
