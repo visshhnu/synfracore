@@ -1,5 +1,7 @@
 # AWS EKS — Elastic Kubernetes Service
 
+**Before you start:** working Kubernetes knowledge (Deployments, Services, kubectl — see the DevOps academy's Kubernetes Overview/Fundamentals first if those are new) is assumed throughout this page. EKS does not re-teach Kubernetes itself — it only covers what AWS changes around a cluster you already know how to operate. Basic AWS familiarity (IAM roles, VPC subnets) is also assumed.
+
 EKS is AWS's managed Kubernetes service. AWS manages the control plane (API server, etcd, scheduler) — you pay a per-cluster control-plane fee plus the cost of whatever worker nodes (EC2 or Fargate) and data transfer you use.
 
 ## Why This Exists (The Hook)

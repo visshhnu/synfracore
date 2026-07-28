@@ -1,4 +1,4 @@
-# AWS CloudFormation — Infrastructure as Code
+# AWS CloudFormation — Fundamentals
 
 ## The Hook
 

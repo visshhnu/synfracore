@@ -1,5 +1,7 @@
 # AWS CloudFormation — Infrastructure as Code
 
+**Before you start:** basic AWS familiarity (VPC, EC2 — see the AWS Core Services and VPC courses first if those are new) is assumed, since every template example below provisions those resource types directly. No prior infrastructure-as-code experience is required — the declarative model is explained from scratch below.
+
 CloudFormation is AWS's native IaC service. Define your entire AWS infrastructure in YAML or JSON templates, and CloudFormation provisions and manages it as a single stack. It is the AWS alternative to Terraform — no third-party dependency, deep native integration.
 
 ## Why This Exists (The Hook)
