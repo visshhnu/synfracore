@@ -1,5 +1,7 @@
 # OpenShift Container Platform (OCP) — Overview
 
+**Before you start:** solid Kubernetes (Deployments, Services, RBAC, Ingress) is required — this entire course is framed as "OpenShift adds X on top of Kubernetes," so without Kubernetes fundamentals the comparisons here won't land.
+
 ## What is OpenShift?
 
 Red Hat OpenShift Container Platform (OCP) is an **enterprise Kubernetes distribution** — Kubernetes underneath, but with everything enterprises actually need already built in. Where vanilla Kubernetes gives you the engine, OpenShift gives you the entire car.
@@ -76,7 +78,7 @@ The single most important table to understand before any OCP interview:
 
 ## Why OpenShift is Dominant in Enterprise
 
-**Telecom:** 5G core networks, NFV/VNF workloads, ORAN — virtually all telcos (Vodafone, Orange, Nokia, Ericsson deployments) run OCP.
+**Telecom:** 5G core networks, NFV/VNF workloads (Network/Virtual Function Virtualization — running what used to be dedicated telecom hardware as software instead), ORAN (Open Radio Access Network — an open, vendor-interoperable standard for cell tower/radio infrastructure) — virtually all telcos (Vodafone, Orange, Nokia, Ericsson deployments) run OCP.
 
 **Banking & Finance:** Security, compliance (FIPS 140-2, PCI-DSS), support SLAs — regulated industries need Red Hat's enterprise support.
 
