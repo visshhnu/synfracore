@@ -1,5 +1,7 @@
 # SRE Automation Overview
 
+**Before you start:** this course pulls together concepts from Incident Management, HA/DR, and Capacity Planning — reading those first (or at least Incident Management) makes the automation targets here concrete rather than abstract. Kubernetes fundamentals and basic Ansible/scripting familiarity help for the examples.
+
 ## What Does Automation Mean for SREs?
 
 SRE automation means eliminating toil — repetitive, manual, automatable work that scales linearly with service growth. If toil exceeds 50% of your time, the team drowns.
@@ -12,6 +14,7 @@ Convert incident runbooks into executable scripts that trigger automatically fro
 ### 2. Auto-Remediation
 ```yaml
 # Kubernetes restarts OOMKilled pods automatically
+# (OOMKilled = the container was killed for exceeding its memory limit)
 spec:
   containers:
   - name: myapp
@@ -48,7 +51,7 @@ Group 50 symptom alerts into 1 root-cause incident. Reduces alert fatigue and im
 | Metric | Target |
 |--------|--------|
 | Toil percentage | Less than 50% of working hours |
-| MTTR (auto-remediated incidents) | Under 5 minutes |
+| MTTR (Mean Time To Recovery — auto-remediated incidents) | Under 5 minutes |
 | Runbook automation coverage | Over 80% of P2+ runbooks |
 | Manual intervention rate | Decrease 20% per quarter |
 
@@ -56,6 +59,6 @@ Group 50 symptom alerts into 1 root-cause incident. Reduces alert fatigue and im
 
 - **Ansible**: System configuration and deployment automation
 - **Python + Kubernetes API**: Custom auto-remediation scripts
-- **KEDA**: Event-driven autoscaling beyond CPU/memory
+- **KEDA** (Kubernetes Event-Driven Autoscaling): scales based on external signals — queue depth, message count — not just CPU/memory
 - **PagerDuty + Webhooks**: Trigger automation from alerts
 - **AWS FIS / LitmusChaos**: Validate automation under failure conditions
