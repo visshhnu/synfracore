@@ -1,5 +1,7 @@
 # AWS VPC — Your Private Network in the Cloud
 
+**Before you start:** basic AWS familiarity (Regions, AZs — see the AWS Core Services Overview) is assumed. No prior networking experience is required, though basic IP-addressing concepts help.
+
 A VPC (Virtual Private Cloud) is your own isolated network inside AWS. When you launch EC2 instances, RDS databases, or Lambda functions — they all live inside a VPC. You control the IP ranges, subnets, routing, and firewalls.
 
 :::tip Analogy: A VPC is a gated business park you lease

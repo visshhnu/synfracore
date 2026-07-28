@@ -1,5 +1,7 @@
 # AWS EC2 — Elastic Compute Cloud
 
+**Before you start:** basic AWS familiarity (Regions, AZs, IAM roles) is assumed — see the AWS Core Services Overview and IAM courses first if those are new. No prior virtual-machine administration experience is needed.
+
 EC2 is the backbone of AWS compute. It gives you virtual machines (instances) in the cloud that you can provision in minutes, scale automatically, and pay for only what you use.
 
 ## What is EC2?

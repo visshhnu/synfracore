@@ -1,12 +1,12 @@
 # AWS Interview Q&A
 
-**Q: When would you choose this platform?**
-Choose based on: existing vendor relationships, team expertise, compliance requirements, pricing for your specific workload mix, and regional availability.
+**Q: When would you choose AWS specifically over Azure or GCP?**
+Choose based on: existing vendor relationships, team expertise, compliance requirements, pricing for your specific workload mix, and regional availability. AWS is usually the default for a team without an existing platform commitment, given its largest-of-the-three service catalog and market share.
 
 **Q: What are the core shared services across clouds?**
-Compute (EC2/VM/GCE), Object Storage (S3/Blob/GCS), Managed K8s (EKS/AKS/GKE), IAM (IAM/AAD/IAM), Serverless (Lambda/Functions/Cloud Functions), Database (RDS/Azure SQL/Cloud SQL).
+Compute (EC2/Azure VM/GCE), Object Storage (S3/Blob Storage/GCS), Managed K8s (EKS/AKS/GKE), IAM (IAM/Entra ID/Cloud IAM), Serverless (Lambda/Azure Functions/Cloud Functions), Database (RDS/Azure SQL/Cloud SQL).
 
-**Q: How do you manage costs in this cloud?**
+**Q: How do you manage costs on AWS?**
 Use reserved/committed use for baseline workloads (40-60% savings). Spot/preemptible for batch/fault-tolerant. Right-size instances (use monitoring data). Storage tiering. Auto-scaling to match actual demand.
 
 **Q: What is the difference between security groups and NACLs?**
