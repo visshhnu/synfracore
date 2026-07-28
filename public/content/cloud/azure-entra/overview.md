@@ -1,5 +1,7 @@
 # Azure Entra ID — Identity and Access Management
 
+**Before you start:** basic Azure familiarity (subscriptions, resource groups, and how RBAC scope works across them — see the Azure Core Overview first if those are new) is assumed, since role-assignment examples below scope directly to a resource group. No prior identity-platform experience is required.
+
 Azure Entra ID (formerly Azure Active Directory) is Microsoft's cloud identity platform. It handles authentication for Microsoft 365, Azure, and thousands of SaaS applications.
 
 ## Why this exists (the hook)
