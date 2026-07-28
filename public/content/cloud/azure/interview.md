@@ -24,6 +24,3 @@ AKS: full Kubernetes — complex microservices, stateful apps, need fine-grained
 **Q: How does Azure Policy differ from Azure RBAC?**
 RBAC: controls who can perform actions (create VM, read storage). Policy: controls what configuration is allowed (VMs must be in specific regions, tags required, SKUs allowed). Policy evaluates resource properties at deployment and audit time. Combined: RBAC prevents unauthorised actions; Policy prevents non-compliant configurations.
 
----
-
-*This section is part of the SynfraCore learning platform. Use the sidebar to navigate to Overview, Fundamentals, Advanced, and Cheatsheet sections for comprehensive coverage of this topic.*

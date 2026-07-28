@@ -6,37 +6,6 @@ Sleep 7-9 hours consistently. Daily movement (150 min moderate exercise/week min
 **Q: How to start building an emergency fund?**
 Target 3-6 months of expenses. Start with ₹1,000 automatic transfer on salary day. Keep in high-interest savings (not current account). Do not invest emergency fund in markets — must be liquid.
 
-## Quick Reference — Human Essentials
-
-### Key Points for Revision
-
-- Review the overview section for core architecture and fundamentals
-- Practice commands/configurations from the cheatsheet section
-- Use interview Q&A for active recall before exams or interviews
-- Cross-reference with related tools in the essentials academy
-
-### Related Topics
-
-Explore these connected topics to build complete understanding:
-- Overview and Architecture
-- Fundamentals and Core Concepts
-- Advanced Patterns and Production Usage
-- Interview Preparation Q&A
-- Quick Reference Cheatsheet
-
-### Practice Approach
-
-1. Read the overview to understand *what* and *why*
-2. Work through fundamentals for *how*
-3. Attempt hands-on labs or configurations
-4. Test yourself with interview questions
-5. Keep cheatsheet accessible for quick reference during work
-
-### Further Learning
-
-Connect this topic to the broader essentials ecosystem. 
-Each tool in this academy is designed to work with others —
-understanding the integration points is what separates intermediate from senior practitioners.
 
 # Life Skills — Practice Q&A
 
