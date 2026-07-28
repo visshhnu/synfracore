@@ -5,6 +5,8 @@
 **Category:** Cloud  
 **Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
 
+**Before you start:** no prior cloud platform experience is required — this is the entry point for the Azure track. Basic familiarity with the command line helps for the CLI examples below, but isn't required to follow the concepts.
+
 ---
 
 ## What is Microsoft Azure?
@@ -57,7 +59,7 @@ If you have (or can create) a free Azure account, run these two commands and rea
 ### Module 01 — Azure Fundamentals
 *Hierarchy, subscriptions, ARM*
 
-Azure has 4-level hierarchy: Management Groups → Subscriptions → Resource Groups → Resources. ARM is the API for everything. Resource Groups are logical containers — group by lifecycle (create/delete together). Subscriptions are billing boundaries.
+Covered above: the Management Group → Subscription → Resource Group → Resource hierarchy and ARM as the single control-plane API underneath every tool. This module covers the practical topics that hierarchy enables, below.
 
 **Topics covered:**
 
@@ -68,7 +70,7 @@ Azure has 4-level hierarchy: Management Groups → Subscriptions → Resource Gr
 ### Module 02 — Entra ID & IAM
 *Identity, RBAC, managed identity*
 
-Entra ID is Azure's identity platform. Use Managed Identity instead of service principals with passwords — credentials are managed by Azure. RBAC at subscription level for broad permissions, at resource level for fine-grained control.
+Covered above: Entra ID as the identity platform, and Managed Identity over service-principal passwords as the default for workload authentication. This module covers the specific RBAC and identity topics below on top of that foundation.
 
 **Topics covered:**
 
