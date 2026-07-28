@@ -3030,3 +3030,17 @@ renaming `educationAcademy`'s stale description, or (b) a real decision on
 whether `exams`-labeled content should physically move under an `exams/`
 content root to match its own academy, with the slug-rename procedure
 (alias table + backfill) followed if so.
+
+### Cloud academy comprehension-audit backlog (Phase 8, not yet started)
+
+**`cloud/aws-lambda/overview.md` prerequisite note is unfulfilled by the
+file's own content (found during CC review of Phase 8 batch 2, 2026-07-28,
+not urgent, not blocking).** The "Before you start" note added in batch 2
+states that IAM familiarity is assumed because "every Lambda function
+requires an IAM execution role" — true in general, but the claim is never
+actually backed up anywhere in this file: no example shows or discusses an
+execution role (the Terraform deploy in `fundamentals.md` does define
+`aws_iam_role.lambda`, but `overview.md` itself never shows or references
+one). Whenever this technology is revisited, either (a) add a brief
+execution-role example/explanation to `overview.md` itself, or (b) soften
+the prerequisite wording so it doesn't imply content that isn't there.
