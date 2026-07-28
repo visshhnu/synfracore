@@ -1,5 +1,7 @@
 # AWS Route 53 — DNS and Traffic Management
 
+**Before you start:** no prior AWS experience is required — DNS concepts here are explained from scratch. Basic familiarity with what a load balancer or CDN distribution is helps when reading the ALIAS-record examples later on (they point at ELB/CloudFront), but isn't required to follow the core routing concepts.
+
 Route 53 is AWS's highly available DNS service. It handles domain registration, DNS resolution, health checks, and sophisticated traffic routing policies used in production high-availability architectures.
 
 ## Why This Exists (The Hook)

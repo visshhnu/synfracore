@@ -1,5 +1,7 @@
 # AWS RDS & Aurora — Managed Relational Databases
 
+**Before you start:** basic AWS familiarity (Regions, AZs) is assumed, plus basic VPC concepts (subnets, security groups — see the AWS VPC Overview/Fundamentals first if those are new), since every example below places RDS inside a private subnet behind a security group. No prior database administration experience is required — the operational concepts (backups, replication, failover) are explained from scratch.
+
 Amazon RDS (Relational Database Service) takes the operational burden of running databases off your team. No OS patching, no manual backups, no replication setup — AWS handles it. Aurora is AWS's cloud-native database that's MySQL/PostgreSQL compatible but up to 5× faster.
 
 ## The Analogy

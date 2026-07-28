@@ -1,5 +1,7 @@
 # AWS S3 — Simple Storage Service
 
+**Before you start:** basic AWS familiarity (Regions, and what an IAM role/policy does — see the AWS Core Services Overview and IAM courses first if those are new) is assumed, since bucket policies and access control below reference IAM concepts directly. No prior storage or file-system administration experience is needed.
+
 S3 is AWS's object storage service — infinitely scalable, 11 nines of durability (99.999999999%), and the foundation of data lakes, static websites, application artifacts, and backups across millions of AWS workloads.
 
 ## Why this exists (the hook)
