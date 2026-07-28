@@ -379,4 +379,3 @@ az deployment group create \\
 
 ---
 
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*

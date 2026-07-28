@@ -159,4 +159,3 @@ A production GitHub Actions pipeline has: dependency caching (save 60-80% build 
 
 ---
 
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*

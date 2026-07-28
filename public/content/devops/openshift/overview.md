@@ -184,4 +184,3 @@ The oc CLI extends kubectl with OCP-specific commands. oc new-project creates bo
 
 ---
 
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*

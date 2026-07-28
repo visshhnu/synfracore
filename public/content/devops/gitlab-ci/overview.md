@@ -156,4 +156,3 @@ A production .gitlab-ci.yml integrates test coverage reporting (visible in MR), 
 
 ---
 
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*

@@ -240,4 +240,3 @@ spec:
 
 ---
 
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*

@@ -276,7 +276,6 @@ Organic soil holds water much better than dead chemical soil — like a sponge v
 - [PGS India — Free Organic Certification](https://pgsindia-ncof.gov.in/PKVY/index.aspx)
 
 ---
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*
 
 ---
 

@@ -145,4 +145,3 @@ Kustomize uses pure YAML overlays — no templating language. Built into kubectl
 
 ---
 
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*

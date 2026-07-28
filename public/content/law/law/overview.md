@@ -118,4 +118,3 @@ Non-disclosure agreements protect confidential information in both directions. S
 
 ---
 
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*

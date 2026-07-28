@@ -286,4 +286,3 @@ sum:trace.http.request.errors{*}.as_rate()
 
 ---
 
-*Part of [LearnwithVishnu](https://learnwithvishnu.pages.dev) — Basics → Production → Architect*
