@@ -1,5 +1,7 @@
 # Cloud Cost Optimization — FinOps Guide
 
+**Before you start:** basic AWS familiarity (EC2, EBS, S3) is assumed, since every command on this page is AWS CLI — the FinOps concepts (right-sizing, commitment discounts, waste removal, tagging) apply the same way on Azure and GCP, but this course's hands-on examples are AWS-specific. No prior cost-management experience is required.
+
 ## Why this exists (the hook)
 
 Cloud billing has no natural brake — unlike buying a physical server, spinning up a bigger instance or leaving one running costs nothing to *do*, only something to *pay for later*, and that payment is invisible until the monthly bill arrives. A team can accumulate real waste (forgotten test resources, over-provisioned instances, idle NAT Gateways) for months without anyone noticing, because nothing about clicking "launch" or forgetting to click "terminate" gives immediate feedback. FinOps exists to put that feedback loop back in, deliberately, since the cloud provider's billing system won't do it for you.

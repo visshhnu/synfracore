@@ -1,5 +1,7 @@
 # Cloud Landing Zones — Multi-Account Architecture
 
+**Before you start:** basic familiarity with at least one cloud provider's account/subscription model and IAM (see Cloud Fundamentals and that platform's own courses first if new) is assumed. No prior enterprise-governance experience is required — the account-structure and guardrail concepts here are explained from scratch.
+
 ## Why this exists (the hook)
 
 A single AWS/Azure/GCP account with everyone in it works fine for a small team's first project — until a second team joins, or the first one hits production. At that point, one shared account means one shared blast radius: a dev team's mistake can touch prod resources, there's no clean way to see which team is spending what, and a security incident in one project can potentially reach everything else. A landing zone is the answer built *before* that second team shows up, not scrambled together after the first incident makes the problem obvious.

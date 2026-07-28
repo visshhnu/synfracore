@@ -1,5 +1,7 @@
 # Cloud Security Overview
 
+**Before you start:** basic IAM and VPC/VNet familiarity on at least one cloud provider (see that platform's own courses and the Cloud Networking & Security course first if those are new) is assumed — this page builds directly on those primitives rather than re-teaching them. No prior dedicated security background is required.
+
 ## Why Cloud Security is Different
 
 Cloud environments introduce unique security challenges: shared responsibility, dynamic infrastructure, identity-centric access, and API-driven operations. Traditional perimeter security is insufficient.
