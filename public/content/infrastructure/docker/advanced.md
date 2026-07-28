@@ -2,11 +2,9 @@
 
 ## Volumes and Persistent Data
 
-Containers are **ephemeral and immutable** — when a container is removed, all data inside it is gone. Volumes solve this.
+Containers are **ephemeral** (temporary/disposable at runtime — meant to be stopped, removed, and replaced freely) **and immutable** (the image they're built from doesn't change once built). The practical consequence: when a container is removed, everything written inside it is gone with it — a database's data, an uploaded file, anything the app wrote to its own filesystem. Volumes solve this.
 
-Containers are immutable and ephemeral — unchanging once built, and temporary or disposable at runtime. Once a container is removed, everything inside it is gone with it.
-
-The fundamental goal: **separate container lifecycle from data lifecycle**.
+The fundamental goal: **separate container lifecycle from data lifecycle** — a container can be destroyed and recreated at any time without losing the data that matters.
 
 ### Three Storage Options
 
@@ -268,8 +266,12 @@ docker run --read-only --tmpfs /tmp:rw,noexec,nosuid,size=65536k myapp
 
 ## Docker Swarm — Container Orchestration
 
+Running one container by hand (`docker run`) works fine until you need several machines' worth of containers to stay up, be replaced automatically if one crashes, and be updated without downtime — doing that manually doesn't scale. **Container orchestration** is the general name for tools that automate this across a group ("cluster") of machines. **Docker Swarm** is Docker's own built-in orchestrator — simpler to set up than the alternative, **Kubernetes** (covered in its own course on this platform), but with a much smaller ecosystem and far less real-world adoption today. Most production teams choose Kubernetes over Swarm; Swarm is still worth knowing because it's built into Docker already, with no extra tooling to install.
+
 ```bash
-# Initialize swarm (on manager node)
+# Initialize swarm (on manager node) — a "manager node" is a machine that
+# makes scheduling decisions for the cluster; "worker nodes" just run containers
+
 docker swarm init --advertise-addr 192.168.1.10
 
 # Add worker nodes (use token from swarm init output)
@@ -355,7 +357,7 @@ pipeline {
 }
 ```
 
-**Kubernetes manifests used in the pipeline:**
+**Kubernetes manifests used in the pipeline** (this last stage hands the built image off to Kubernetes to actually run it in production — `Deployment` and `Service` are Kubernetes' own concepts, explained fully in this platform's Kubernetes course; they aren't Docker features, they're just the natural next step after Docker builds the image):
 
 ```yaml
 # kube_deploy.yml
