@@ -308,12 +308,16 @@ WITH UnbannedTrips AS (
 SELECT
     Request_at AS Day,
     ROUND(
-        SUM(CASE WHEN Status != 'completed' THEN 1 ELSE 0 END) /
+        SUM(CASE WHEN Status != 'completed' THEN 1 ELSE 0 END) * 1.0 /
         COUNT(*),
         2
     ) AS "Cancellation Rate"
 FROM UnbannedTrips
 GROUP BY Request_at;
+-- The "* 1.0" matters on PostgreSQL and SQL Server: integer / integer truncates
+-- to an integer there (this would silently return 0 for every row), unlike
+-- MySQL's "/" which always produces a decimal result. Multiplying by 1.0
+-- forces decimal division portably across all three engines.
 
 -- Department top 3 salaries (LeetCode 185 - Hard)
 WITH RankedSalaries AS (

@@ -457,12 +457,12 @@ FROM Employees e
 LEFT JOIN Employees m ON e.manager_id = m.id;
 -- Amara has NULL for manager — she's the top of the hierarchy
 
--- Multi-table JOIN
-SELECT e.first_name, d.name AS dept, o.amount
-FROM Employees e
-JOIN Departments d ON e.department_id = d.id
-JOIN Orders o ON o.customer_id = e.id
-WHERE o.amount > 500;
+-- Multi-table JOIN — chaining three related tables (Students -> Enrollments -> Courses)
+SELECT s.name, c.course_name
+FROM Students s
+JOIN Enrollments en ON en.roll_no = s.roll_no
+JOIN Courses c ON c.course_id = en.course_id
+WHERE s.city = 'Nairobi';
 
 -- Once multiple tables are joined, qualify ambiguous column names with the table (or alias):
 SELECT Employees.first_name, Departments.name

@@ -164,6 +164,11 @@ COUNT(CASE WHEN status = 'active' THEN 1 END)
 SUM(CASE WHEN status = 'cancelled' THEN 1 ELSE 0 END)
 AVG(CASE WHEN gender = 'M' THEN salary END)  -- avg salary of males
 
+-- Rate/ratio from a CASE-based SUM: multiply by 1.0 first on PostgreSQL/SQL
+-- Server — integer / integer truncates to an integer there (silently
+-- returning 0), unlike MySQL's "/" which always produces a decimal
+SUM(CASE WHEN status = 'cancelled' THEN 1 ELSE 0 END) * 1.0 / COUNT(*)
+
 -- ── USEFUL PATTERNS ───────────────────────────────────────
 -- Delete duplicates (keep lowest id) — MySQL-only multi-table DELETE syntax
 DELETE p1 FROM person p1, person p2

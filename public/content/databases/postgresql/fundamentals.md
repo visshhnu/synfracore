@@ -139,6 +139,8 @@ EXPLAIN ANALYZE SELECT * FROM orders WHERE user_id = 1;
 
 ## Performance
 
+PostgreSQL uses MVCC (Multi-Version Concurrency Control): instead of locking rows for reads, every transaction sees its own consistent snapshot of the data, so readers never block writers and writers never block readers. The tradeoff is that `UPDATE`/`DELETE` don't remove old row versions immediately — they mark them dead, and `VACUUM` is what actually reclaims that space. This is why `VACUUM`/`ANALYZE` below aren't optional housekeeping — skip them and dead rows accumulate (table bloat), slowing queries down over time.
+
 ```sql
 -- Slow query log: find queries over 1 second
 ALTER SYSTEM SET log_min_duration_statement = 1000;

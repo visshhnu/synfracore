@@ -303,7 +303,7 @@ SELECT id, name, email FROM users WHERE active = 1;
 
 SELECT t.Request_at AS Day,
        ROUND(
-           SUM(CASE WHEN t.Status != 'completed' THEN 1 ELSE 0 END) /
+           SUM(CASE WHEN t.Status != 'completed' THEN 1 ELSE 0 END) * 1.0 /
            COUNT(*),
            2
        ) AS "Cancellation Rate"
@@ -319,6 +319,9 @@ GROUP BY t.Request_at;
 
 -- Key insight: filter out banned users for BOTH client AND driver
 -- Then count cancelled (status != 'completed') / total per day
+-- The "* 1.0" matters on PostgreSQL and SQL Server: integer / integer
+-- truncates to an integer there (silently returning 0 for every row),
+-- unlike MySQL's "/" which always produces a decimal result.
 ```
 
 ## SQL Interview Problem: Third Highest Salary with CTEs
