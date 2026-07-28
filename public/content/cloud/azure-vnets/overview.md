@@ -1,5 +1,7 @@
 # Azure Virtual Networks Overview
 
+**Before you start:** basic Azure familiarity (subscriptions, resource groups — see the Azure Core Overview first if those are new) is assumed. No prior networking experience is required — subnets, NSGs, and IP addressing are explained from scratch below.
+
 ## Why this exists (the hook)
 
 Every Azure resource that talks to the network — a VM, an AKS cluster, a Private Endpoint for a database — has to live somewhere on a network, and that network doesn't exist by default. A VNet is what you create first, before any of that, because it's the address space and the security boundary everything else attaches to. Get the VNet design wrong early (too small an address space, no subnet plan, no segmentation) and you end up re-architecting live production networks later, which is far more painful than spending an hour planning subnets up front.

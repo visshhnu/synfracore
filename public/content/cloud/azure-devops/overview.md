@@ -1,5 +1,7 @@
 # Azure DevOps — Complete CI/CD Platform
 
+**Before you start:** basic Git familiarity (commits, branches, pull requests) is assumed, since Azure Repos and the work-item-linking examples below use Git directly. Basic Azure familiarity (subscriptions, service connections to a subscription) helps for the deployment examples but isn't required to follow the core CI/CD concepts.
+
 Azure DevOps is Microsoft's end-to-end DevOps platform. It combines source control (Repos), CI/CD pipelines, agile planning (Boards), artifact management (Artifacts), and test management in one integrated suite.
 
 ## Why this exists (the hook)
@@ -301,8 +303,10 @@ Epic
 New → Active → Resolved → Closed
 
 # Linking commits to work items
-git commit -m "Fix login timeout #1234"
-# AB#1234 in commit message auto-links to work item
+git commit -m "Fix login timeout AB#1234"
+# AB#1234 in commit message auto-links to work item — the AB# prefix is what
+# makes the link unambiguous; a bare #1234 may not auto-link depending on
+# repo/integration settings *(needs verification — confirm current default)*
 ```
 
 ## Azure Artifacts — Package Feed
