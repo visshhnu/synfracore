@@ -9,38 +9,6 @@ Active-Active: both sites serve traffic simultaneously. Zero downtime, complex d
 **Q: How do you design a multi-region K8s deployment?**
 Primary cluster in region A, replica in region B. Global load balancer (AWS Route53/Azure Traffic Manager) with health checks. Data layer: geo-replicated database (CockroachDB/Cosmos DB/Aurora Global). Deploy with identical Helm charts via ArgoCD ApplicationSet across both clusters.
 
-## Quick Reference — Ha Dr
-
-### Key Points for Revision
-
-- Review the overview section for core architecture and fundamentals
-- Practice commands/configurations from the cheatsheet section
-- Use interview Q&A for active recall before exams or interviews
-- Cross-reference with related tools in the devops academy
-
-### Related Topics
-
-Explore these connected topics to build complete understanding:
-- Overview and Architecture
-- Fundamentals and Core Concepts
-- Advanced Patterns and Production Usage
-- Interview Preparation Q&A
-- Quick Reference Cheatsheet
-
-### Practice Approach
-
-1. Read the overview to understand *what* and *why*
-2. Work through fundamentals for *how*
-3. Attempt hands-on labs or configurations
-4. Test yourself with interview questions
-5. Keep cheatsheet accessible for quick reference during work
-
-### Further Learning
-
-Connect this topic to the broader devops ecosystem. 
-Each tool in this academy is designed to work with others —
-understanding the integration points is what separates intermediate from senior practitioners.
-
 **Q: What is the difference between HA and DR?**
 HA (High Availability): keeps the system running through component failures — redundancy within a region, no planned downtime. DR (Disaster Recovery): recovers from catastrophic failure (data center loss, ransomware) — restores from backup or failover to another region. HA prevents outages; DR recovers from them.
 
@@ -55,7 +23,3 @@ RPO=0 means zero data loss — any transaction committed before failure must be 
 2. Pilot Light: minimal version always running, scale up on failure. RTO: 10-30 min.
 3. Warm Standby: scaled-down but functional copy. RTO: minutes.
 4. Multi-Site Active-Active (most expensive): both sites serve traffic. RTO: near-zero.
-
----
-
-*This section is part of the SynfraCore learning platform. Use the sidebar to navigate to Overview, Fundamentals, Advanced, and Cheatsheet sections for comprehensive coverage of this topic.*

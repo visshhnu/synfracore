@@ -1,12 +1,14 @@
 # ELK Stack — Log Management & Analytics
 
+**Before you start:** basic Kubernetes and Linux/CLI comfort are assumed, since the production examples run on Kubernetes. No prior log-management experience is needed.
+
 ELK Stack (Elasticsearch + Logstash + Kibana) is the most widely deployed open-source log management platform. It ingests logs from thousands of sources, stores them searchably, and provides powerful analytics and visualization.
 
 ## What is ELK?
 
 **E — Elasticsearch** — Distributed search and analytics engine. Stores all logs. Provides near-real-time full-text search using inverted indexes. The database layer.
 
-**L — Logstash** — Data processing pipeline. Ingests from multiple sources, transforms/parses data, sends to Elasticsearch. The ETL layer.
+**L — Logstash** — Data processing pipeline. Ingests from multiple sources, transforms/parses data, sends to Elasticsearch. The ETL layer (Extract, Transform, Load — pull data in, reshape it, write it out).
 
 **K — Kibana** — Visualization and UI. Query Elasticsearch, build dashboards, set alerts. The presentation layer.
 
