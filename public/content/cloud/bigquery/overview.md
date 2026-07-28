@@ -1,5 +1,7 @@
 # BigQuery — Serverless Data Warehouse
 
+**Before you start:** basic SQL familiarity (`SELECT`/`WHERE`/`GROUP BY`) is assumed — if you know standard SQL from Postgres, MySQL, or similar, that knowledge transfers directly. No prior data warehouse or big-data experience is required; BigQuery's own tuning concepts (partitioning, clustering) are explained from scratch below.
+
 BigQuery is Google's serverless, petabyte-scale data warehouse. You write SQL queries; Google handles all infrastructure, scaling, and optimisation. No clusters to manage, no capacity planning.
 
 ## Why this exists (the hook)

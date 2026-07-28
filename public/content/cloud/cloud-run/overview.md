@@ -1,5 +1,7 @@
 # Google Cloud Run
 
+**Before you start:** basic familiarity with containers (what a `Dockerfile` and a container image are) is assumed. No Kubernetes experience is required or even relevant here — Cloud Run's whole pitch, covered below, is running containers without a cluster to manage.
+
 ## What Is Cloud Run?
 Cloud Run is Google Cloud's fully managed serverless container platform. You package your application in a container, deploy it to Cloud Run, and it automatically scales from zero to thousands of instances based on incoming requests — you pay only for what you use.
 

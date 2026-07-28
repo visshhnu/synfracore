@@ -1,5 +1,7 @@
 # GKE — Google Kubernetes Engine
 
+**Before you start:** working Kubernetes knowledge (Deployments, Services, kubectl — see the DevOps academy's Kubernetes Overview/Fundamentals first if those are new) is assumed throughout this page; GKE does not re-teach Kubernetes itself, only what Google manages around a cluster you already know how to operate. Basic GCP familiarity (projects, IAM) also helps.
+
 ## Why this exists (the hook)
 
 Say you already know Kubernetes — you can write a Deployment YAML, you understand Pods and Services. Now you need to actually run a cluster in production: patch the control plane, upgrade etcd, replace a failed master node, wire up networking so nodes can reach the internet. None of that is "your app" — it's undifferentiated plumbing that exists purely so Kubernetes keeps working. GKE's whole pitch is: Google runs and patches the control plane for you (Google invented Kubernetes and open-sourced it in 2014, so this is their own creation they're operating), and — if you choose Autopilot mode — the worker nodes too. You write Pod specs; Google keeps the cluster alive underneath them.
