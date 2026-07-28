@@ -1,5 +1,7 @@
 # Nginx — Web Server, Reverse Proxy & Load Balancer
 
+**Before you start:** basic Linux/CLI comfort and a rough idea of what HTTP/HTTPS and DNS do are assumed. No prior web-server administration experience is needed.
+
 Nginx (pronounced "engine-x") is the most widely deployed web server in the world. It powers over 34% of all websites and is the default reverse proxy in Kubernetes ingress, Docker environments, and cloud architectures.
 
 ## What Nginx Does
@@ -13,7 +15,7 @@ Internet → Nginx → Application Servers
             ├── Static file serving (images, CSS, JS — extremely fast)
             ├── Rate limiting (protect APIs from abuse)
             ├── Caching (cache backend responses)
-            └── HTTP/2 and gRPC support
+            └── HTTP/2 and gRPC support (gRPC — a fast RPC framework often used for service-to-service calls)
 ```
 
 ## Installation
@@ -274,7 +276,7 @@ worker_rlimit_nofile 65535;     # Max open files per worker
 
 events {
     worker_connections 65535;   # Max connections per worker
-    use epoll;                  # Linux event model (fastest)
+    use epoll;                  # Linux's efficient I/O event-notification mechanism (fastest option)
     multi_accept on;            # Accept multiple connections at once
 }
 

@@ -1,5 +1,7 @@
 # Python for DevOps & Cloud Engineers
 
+**Before you start:** no prior Python experience is required — the Fundamentals tab teaches Python syntax from scratch. Basic Linux/CLI comfort helps for the automation examples, but isn't required to start.
+
 Python is the scripting language of DevOps. It's used for automation, infrastructure tooling, data processing, AI/ML, and cloud SDKs. Nearly every major DevOps tool exposes a Python API — Ansible is written in Python, Terraform has a CDK in Python, AWS SDK is boto3.
 
 ## Why Python for DevOps?
