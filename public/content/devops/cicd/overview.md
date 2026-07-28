@@ -1,5 +1,7 @@
 # CI/CD Pipelines — Overview
 
+**Before you start:** you should already know Git basics (commit, push, branches) and be comfortable running your project's build/test commands manually from a terminal — a pipeline automates that sequence, it doesn't teach it. No prior CI/CD-specific tool experience is assumed. See the **Prerequisites** tab for the full list.
+
 ## What is CI/CD?
 
 CI/CD stands for Continuous Integration and Continuous Delivery. It automates the steps between writing code and running it in production.
@@ -19,7 +21,7 @@ Code Commit → Build → Unit Tests → Integration Tests → Security Scan →
 | GitHub Actions | Cloud (GitHub) | GitHub repos, open source |
 | Jenkins | Self-hosted | Enterprise, maximum flexibility |
 | GitLab CI/CD | Both | Full DevSecOps platform |
-| ArgoCD | K8s native | GitOps continuous delivery |
+| ArgoCD | K8s native | **GitOps** continuous delivery — a pattern where Git itself (not a manual `kubectl apply` or a push-based pipeline) is the single source of truth for what should be running; a controller inside the cluster continuously watches the Git repo and pulls changes into the cluster, rather than the pipeline pushing them in |
 | Azure DevOps Pipelines | Cloud | Microsoft/Azure stack |
 
 ## GitHub Actions Example
@@ -44,9 +46,11 @@ jobs:
 
 ## Deployment Strategies
 
-| Strategy | Downtime | Rollback Speed |
-|---------|---------|---------------|
-| Rolling update | No | Slow |
-| Blue/Green | No | Instant (atomic traffic switch back) |
-| Canary | No | Fast, but only with automated monitoring + rollback wired up — not instant by default |
-| Recreate | Yes | Slow |
+Each strategy below answers the same question differently: how do you replace the old version of an app with the new one, without breaking things for users currently using it?
+
+| Strategy | What actually happens | Downtime | Rollback Speed |
+|---------|---------|---------|---------------|
+| Rolling update | Old instances are replaced with new ones gradually, a few at a time, so some capacity of each version is briefly running at once | No | Slow — has to roll the same way in reverse |
+| Blue/Green | Two full environments exist side by side ("blue" = current live, "green" = new version) — traffic is switched from one to the other all at once, only after the new one is verified healthy | No | Instant (atomic traffic switch back to the still-running "blue" environment) |
+| Canary | The new version is sent a small slice of real traffic first (e.g. 5%), and only rolled out further if it looks healthy | No | Fast, but only with automated monitoring + rollback wired up — not instant by default |
+| Recreate | The old version is stopped completely, then the new version is started — simplest to reason about, but users see an outage during the gap | Yes | Slow |

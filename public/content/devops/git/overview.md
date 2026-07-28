@@ -1,5 +1,7 @@
 # Git & GitHub — Version Control for DevOps
 
+**Before you start:** basic command-line comfort (`cd`, `ls`, creating/editing a file) is the only real requirement — no prior version-control experience is assumed. See the **Prerequisites** tab if you want the full checklist.
+
 ## Why Git for DevOps?
 
 Every DevOps workflow starts with Git. Infrastructure-as-Code, application code, CI/CD pipeline definitions, Kubernetes manifests, Helm charts — all live in Git. GitOps (ArgoCD, FluxCD) uses Git as the single source of truth for cluster state.

@@ -1,5 +1,7 @@
 # Shell Scripting — Bash Automation for DevOps
 
+**Before you start:** you need the Linux fundamentals covered in this platform's Linux course — comfort running commands directly in a terminal, and knowing what a file permission or a process is. No prior scripting/programming experience is assumed; this page starts from "what is a shebang line."
+
 Shell scripting is the glue of DevOps. Every deployment script, health check, log rotation, backup job, and automation pipeline uses Bash. Mastering it means automating anything in Linux.
 
 ## Why Shell Scripting?
@@ -11,6 +13,8 @@ Shell scripting is the glue of DevOps. Every deployment script, health check, lo
 - **Fast to write** — 5 lines of bash replaces 50 lines of any other language for file ops
 
 ## Script Structure & Best Practices
+
+Every line below matters, but one is worth understanding before you see it in context: `set -euo pipefail` at the top of a script changes Bash's default (and surprising) behavior of silently continuing after an error. Without it, a script where step 3 fails will still barrel ahead into steps 4 and 5 as if nothing went wrong — `-e` stops execution the moment any command fails, `-u` stops it if you reference a variable you never actually set (usually a typo), and `-o pipefail` makes a pipeline (`cmd1 | cmd2`) report failure if *either* command fails, not just the last one. Almost every production script should start with this line.
 
 ```bash
 #!/usr/bin/env bash
