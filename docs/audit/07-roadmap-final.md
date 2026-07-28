@@ -3054,9 +3054,22 @@ in the file outside that one line — no NSG resource, rule, or reference.
 Same resolution options as the Lambda item above: either add a real NSG
 example, or narrow the prerequisite claim to what's actually shown.
 
-This is now two confirmed instances of the same pattern — a "Before you
+**`cloud/networking-security/overview.md` prerequisite note has the same
+gap, a third instance (found during CC review of Phase 8 batch 7,
+2026-07-28, not urgent, not blocking).** The "Before you start" note added
+in batch 7 states "Zero Trust, encryption, and WAF concepts are explained
+from scratch below." Zero Trust and encryption genuinely are (dedicated
+"Zero Trust Principles" and "Encryption Checklist" sections exist) — but
+WAF never appears anywhere in the file outside that one line. The file
+does cover "Azure Firewall" (a different, network-layer product compared
+against NSG), which is not the same concept as a WAF (an application-layer
+Web Application Firewall) and doesn't substitute for it. Same resolution
+options: either add real WAF content, or drop it from the prerequisite
+claim.
+
+This is now three confirmed instances of the same pattern — a "Before you
 start" note asserting a specific concept is used/shown in the file when it
-isn't — across two unrelated technologies (AWS Lambda, Azure VMs). Worth a
-deliberate check across the rest of this batch's prerequisite notes once
-the Cloud academy audit is fully landed, rather than treating each instance
-as a one-off.
+isn't — across three unrelated technologies (AWS Lambda, Azure VMs, Cloud
+Networking & Security). Worth a deliberate check across the rest of this
+batch's prerequisite notes once the Cloud academy audit is fully landed,
+rather than treating each instance as a one-off.
