@@ -3044,3 +3044,19 @@ execution role (the Terraform deploy in `fundamentals.md` does define
 one). Whenever this technology is revisited, either (a) add a brief
 execution-role example/explanation to `overview.md` itself, or (b) soften
 the prerequisite wording so it doesn't imply content that isn't there.
+
+**`cloud/azure-vms/overview.md` prerequisite note has the same gap (found
+during CC review of Phase 8 batch 4, 2026-07-28, not urgent, not blocking).**
+The "Before you start" note added in batch 4 states "VNets, subnets, and
+NSGs are used directly in the networking examples below." VNet and subnet
+genuinely appear (diagram + deploy comment), but NSG never appears anywhere
+in the file outside that one line — no NSG resource, rule, or reference.
+Same resolution options as the Lambda item above: either add a real NSG
+example, or narrow the prerequisite claim to what's actually shown.
+
+This is now two confirmed instances of the same pattern — a "Before you
+start" note asserting a specific concept is used/shown in the file when it
+isn't — across two unrelated technologies (AWS Lambda, Azure VMs). Worth a
+deliberate check across the rest of this batch's prerequisite notes once
+the Cloud academy audit is fully landed, rather than treating each instance
+as a one-off.
