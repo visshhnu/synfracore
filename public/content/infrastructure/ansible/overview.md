@@ -1,5 +1,7 @@
 # Ansible — Configuration Management & Automation
 
+**Before you start:** basic Linux command-line comfort and a rough understanding of SSH (logging into a remote server) are assumed. No prior automation-tool experience is needed.
+
 Ansible is the most widely used configuration management and automation tool in enterprise DevOps. It is **agentless** — no software needs to be installed on managed nodes. Everything runs over SSH using Python modules pushed temporarily to the target.
 
 ## What is Ansible?

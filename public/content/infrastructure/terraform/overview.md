@@ -1,8 +1,10 @@
 # Terraform Overview (Infrastructure)
 
+**Before you start:** basic cloud concepts (what a virtual machine or a network is, conceptually) and command-line comfort are assumed. No prior Infrastructure-as-Code experience is needed.
+
 ## Terraform in the Infrastructure Context
 
-Terraform is the de facto standard for Infrastructure as Code (IaC) in DevOps and cloud engineering. It enables teams to define, provision, and version infrastructure the same way developers version application code — enabling repeatable, auditable, and consistent environments.
+**Infrastructure as Code (IaC)** means describing servers, networks, and other infrastructure in a text file instead of creating them by hand through a cloud provider's web console — the file becomes the record of what should exist, and re-running it reproduces (or corrects) that exact setup. Terraform is the de facto standard tool for this in DevOps and cloud engineering. It enables teams to define, provision (actually create the described infrastructure), and version infrastructure the same way developers version application code — enabling repeatable, auditable, and consistent environments, instead of undocumented manual changes that are hard to reproduce or review.
 
 ## Why Terraform Over Alternatives
 
