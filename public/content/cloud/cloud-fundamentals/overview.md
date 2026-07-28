@@ -5,6 +5,8 @@
 **Category:** Cloud  
 **Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
 
+**Before you start:** no prior cloud experience is required — this is the conceptual entry point for the entire Cloud academy, and every platform-specific course (AWS, Azure, GCP) builds on the vocabulary introduced here.
+
 ---
 
 ## What is Cloud Fundamentals?
@@ -55,7 +57,7 @@ Pick any application you use daily (email, a banking app, a note-taking app) and
 ### Module 01 — Cloud Models
 *Public, Private, Hybrid, Multi-Cloud*
 
-Public cloud: someone else's data center (AWS, Azure, GCP). Private cloud: your own data center with cloud-like operations. Hybrid: both connected. Multi-cloud: intentional use of multiple public clouds. Multi-cloud adds complexity — only adopt for specific strategic reasons.
+Covered above: the four deployment models (public, private, hybrid, multi-cloud) and the coworking-space analogy for how they differ. This module covers each model's actual use cases and tradeoffs in more depth.
 
 **Topics covered:**
 
@@ -67,7 +69,7 @@ Public cloud: someone else's data center (AWS, Azure, GCP). Private cloud: your 
 ### Module 02 — Service Models
 *IaaS, PaaS, SaaS, Serverless*
 
-IaaS: you manage OS upward (EC2, Azure VM). PaaS: you manage only your code (App Service, Cloud Run). SaaS: you use the software (Gmail, Salesforce). Serverless: you manage only functions, no servers. Higher abstraction = less control but less operational burden.
+Covered above: the IaaS/PaaS/SaaS/FaaS spectrum and the "more control vs. less operational burden" tradeoff underneath it. This module covers each service model's actual boundaries in more depth.
 
 **Topics covered:**
 

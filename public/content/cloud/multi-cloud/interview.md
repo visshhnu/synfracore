@@ -1,13 +1,13 @@
 # Multi-Cloud Interview Q&A
 
-**Q: When would you choose this platform?**
-Choose based on: existing vendor relationships, team expertise, compliance requirements, pricing for your specific workload mix, and regional availability.
+**Q: When would you recommend going multi-cloud versus staying on one provider?**
+Recommend multi-cloud only for a named driver: avoiding critical vendor lock-in, a genuine best-of-breed service gap, a regulatory data-residency requirement no single provider satisfies, or an inherited post-acquisition estate. Otherwise recommend mastering one cloud and using multi-AZ/multi-region within it — it solves most realistic resilience needs at a fraction of multi-cloud's ongoing cost.
 
 **Q: What are the core shared services across clouds?**
 Compute (EC2/VM/GCE), Object Storage (S3/Blob/GCS), Managed K8s (EKS/AKS/GKE), IAM (IAM/AAD/IAM), Serverless (Lambda/Functions/Cloud Functions), Database (RDS/Azure SQL/Cloud SQL).
 
-**Q: How do you manage costs in this cloud?**
-Use reserved/committed use for baseline workloads (40-60% savings). Spot/preemptible for batch/fault-tolerant. Right-size instances (use monitoring data). Storage tiering. Auto-scaling to match actual demand.
+**Q: How do you manage costs across multiple cloud providers at once?**
+Use reserved/committed use for baseline workloads on each provider (40-60% savings). Spot/preemptible for batch/fault-tolerant. Right-size instances (use monitoring data). Storage tiering. Auto-scaling to match actual demand. The added multi-cloud-specific cost to watch is cross-provider data egress, which doesn't exist in a single-cloud setup.
 
 **Q: What are the main drivers for multi-cloud adoption?**
 Avoid vendor lock-in, regulatory requirements (data sovereignty across regions), best-of-breed services (AWS ML + GCP BigQuery), M&A (acquiring companies with different clouds), disaster recovery across providers, negotiating leverage. Reality: most multi-cloud is accidental (from M&A) rather than planned.

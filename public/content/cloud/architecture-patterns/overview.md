@@ -1,5 +1,7 @@
 # Cloud Architecture Patterns — Overview
 
+**Before you start:** see the dedicated Prerequisites tab for the full list — in short, core compute/storage/networking basics on at least one cloud provider, basic distributed-systems concepts, and some hands-on deployment experience are assumed. This page assumes you already know what the individual services do; it's about how they combine.
+
 ## Why this exists (the hook)
 
 Two teams can use the exact same cloud services — EC2, RDS, Lambda — and end up with wildly different reliability, cost, and scalability outcomes. The difference usually isn't which services they picked; it's how those services are arranged relative to each other. Architecture patterns are the reusable arrangements that solve specific, recurring problems (a zone failing, a legacy system that can't be rewritten overnight, reads and writes that scale differently) — knowing the pattern names and when each one actually applies is what separates "I've used AWS" from "I can design a system that survives real failure conditions."
