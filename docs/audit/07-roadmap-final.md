@@ -3073,3 +3073,59 @@ isn't — across three unrelated technologies (AWS Lambda, Azure VMs, Cloud
 Networking & Security). Worth a deliberate check across the rest of this
 batch's prerequisite notes once the Cloud academy audit is fully landed,
 rather than treating each instance as a one-off.
+
+### Phase 8 batch 8 findings (Cloud Security / Cost Optimization / Landing
+Zones — closes the 26-technology Cloud academy audit)
+
+**`cloud/cost-optimization/*` is scoped as AWS-only despite sitting in the
+same "Cloud Strategy" domain as Cloud Fundamentals, Multi-Cloud, Networking
+& Security, and Landing Zones, all four of which are genuinely
+cross-provider (AWS + Azure + GCP content in the same tabs).** Verified
+across all four core tabs (`overview.md`, `fundamentals.md`,
+`intermediate.md`, `advanced.md`) and `interview.md`: every hands-on command
+is AWS CLI (`aws ce`, `aws compute-optimizer`, `aws ec2 describe-volumes`,
+etc.). `interview.md` does briefly name Azure Reserved VM
+Instances/Hybrid Benefit and GCP CUDs/Sustained Use Discounts in its
+Q&A tables, but no runnable example exists for either. This is not a
+correctness defect — the AWS content itself is accurate — but a scope gap
+relative to its sibling techs. Resolved for now by narrowing the
+prerequisite note in `overview.md` to state plainly that the hands-on
+examples are AWS-specific even though the FinOps concepts transfer. A full
+rewrite to add parallel Azure/GCP tracks is out of scope for this audit
+pass; flagging for a future content-expansion phase rather than fixing here.
+
+**`cloud/landing-zones/advanced.md` is AWS-only (Terraform + `aws` CLI
+throughout — Control Tower, Transit Gateway, RAM), unlike its own sibling
+tabs** (`fundamentals.md` and `intermediate.md` both cover AWS Organizations
++ Azure Management Groups + GCP Foundation Fabric side by side, and
+`interview.md` covers AWS Control Tower and Azure Landing Zone/CAF in the
+same Q&A). Lower severity than the cost-optimization finding since the
+core learning tabs already do the cross-platform comparison work and
+Advanced tabs elsewhere in this academy also lean toward one deep
+implementation rather than three shallow ones — noting for awareness, not
+logging as a blocking gap.
+
+**No prerequisite-content mismatch found this batch** (the Lambda/azure-vms
+pattern above) — all three new "Before you start" notes added in batch 8
+(`cloud-security`, `cost-optimization`, `landing-zones` overview pages)
+were checked against their own file's actual content before being written
+and match what's genuinely used.
+
+All three techs (`cloud-security`, `cost-optimization`, `landing-zones`)
+otherwise passed the full 7-standard read: no dead references, no
+"Learning Modules" duplication contamination (none of the three use that
+template), term definitions precede first use, and tab depth genuinely
+increases Overview → Fundamentals/Intermediate → Advanced. This closes the
+26-technology Cloud academy comprehension audit (Phase 8).
+
+**Correction to the landing-zones finding above (found during CC review of
+the batch 8 merge, 2026-07-28):** the claim that "`fundamentals.md` and
+`intermediate.md` both cover AWS Organizations + Azure Management Groups +
+GCP Foundation Fabric side by side" is only true of `fundamentals.md`.
+`intermediate.md` was checked directly (`grep -i "azure\|gcp\|google
+cloud"`) and returns zero matches — it is AWS Control Tower content only,
+the same single-provider scope as `advanced.md`. The actual picture: **two
+of four core tabs (`intermediate.md`, `advanced.md`) are AWS-only**, and
+only `fundamentals.md` does the three-way comparison — a larger scope gap
+than originally logged, though the severity assessment (not blocking, no
+correctness defect) still holds.
