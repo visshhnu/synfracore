@@ -4,11 +4,17 @@
 
 | Cert | Provider | Cost | Format |
 |------|----------|------|--------|
-| **MongoDB Associate Developer (Python/JS/Java)** | MongoDB | Free exam | MCQ + practical |
-| **MongoDB Associate DBA** | MongoDB | Free exam | MCQ + practical |
-| **MongoDB Atlas Developer** | MongoDB | Free | Course + badge |
+| **MongoDB Associate Developer (Python/JS/Java)** | MongoDB | $150 | 53 questions, 75 min, online-proctored |
+| **MongoDB Associate DBA** | MongoDB | $150 | MCQ + practical, similar format |
+| **MongoDB Atlas Developer** | MongoDB | Free | Course + badge (this specific one genuinely is free) |
 
-MongoDB University at learn.mongodb.com — free courses and free certification exams.
+MongoDB University at learn.mongodb.com — free courses; a 50% exam discount
+is available after completing the official learning path (this is likely
+the source of "free exam" claims in older material — the exam itself is
+$150, not free, though the discount can make it feel that way after free
+prep). Certification does not expire, but is issued for a specific major
+MongoDB version. *(needs verification — confirm current pricing and format
+on MongoDB's own certification page before treating the above as current)*
 
 ---
 
@@ -85,7 +91,7 @@ COMMON SCHEMA PATTERNS:
 
 ## Study Resources
 
-- **MongoDB University** (learn.mongodb.com) — free courses and free certification exam
+- **MongoDB University** (learn.mongodb.com) — free courses; certification exam itself is paid (see above)
 - **MongoDB Docs** (mongodb.com/docs) — official reference
 - **MongoDB Atlas** — free 512 MB shared cluster for hands-on practice
 - **Practical MongoDB Aggregations** — free ebook by Paul Done

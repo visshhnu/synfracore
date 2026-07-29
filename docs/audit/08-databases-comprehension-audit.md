@@ -16,6 +16,52 @@ onward:
    genuinely differentiated per technology, not the same question with names
    swapped.
 
+A fourth lesson added from this audit's own Batch 4, applied from batch 5
+onward:
+
+4. As part of the four-source comparison, explicitly check whether a
+   `docs/Vishnu prepared content/` folder exists for the technology, and if
+   so, diff its file list against what's actually live — not just its
+   content. A fully-drafted, reviewed file that was never promoted is a
+   different failure mode from a comprehension defect in a live file (see
+   "Content Pipeline / Promotion Gaps" below), and won't be caught by
+   reading only the live files.
+
+## Content Pipeline / Promotion Gaps (tracked separately from the 7 standards)
+
+This is a distinct defect category from the usual comprehension-audit
+findings below — not "a live file has a comprehension/correctness problem"
+but "reviewed, corrected content exists and was never shipped." Logged here
+on its own so it isn't buried inside a single batch's findings list.
+
+**Batch 4 — MongoDB, confirmed.** `docs/Vishnu prepared content/MongoDB —
+done 1/` contained 16 files against 11 live; the 5 missing
+(`prerequisites.md`, `faq.md`, `pyq.md`, `real-world-scenarios.md`,
+`notes.md`) were fully drafted and had already gone through what the
+prepared folder's own `notes.md` describes as "a senior-instructor review
+pass" — including a factual correction (MongoDB certification pricing) that
+never made it into the live file it was correcting. Full detail under Batch
+4 below.
+
+**Not yet checked, flagged for a future pass (not urgent, not blocking):**
+this same "source exists, never promoted" gap has not been checked for:
+- The remaining Databases technologies in this audit (batches 5-6 below) —
+  now checked as a standing part of the four-source comparison per lesson 4
+  above, going forward from this point.
+- The already-completed DevOps (18-technology) and Cloud (26-technology)
+  comprehension audits in `07-roadmap-final.md` — those audits predate this
+  check existing at all, so technologies marked clean there were never
+  evaluated against this specific gap.
+- Any other academy (Healthcare, Exam Prep, etc.) with content authored
+  through the same prepared-content-folder workflow.
+
+This is worth a dedicated, low-priority retroactive pass once the current
+Databases audit lands — not scoped into this phase, since it's a
+fundamentally different check (comparing file *existence* across two
+directory trees) than the per-technology comprehension read this phase is
+built around, and doing it properly means enumerating every technology's
+prepared-content folder across every academy, not just spot-checking.
+
 ## Batch Order (dependency/traffic reasoning)
 
 Registry-checked against `lib/data/academies.ts`'s `databasesAcademy` —
@@ -280,4 +326,102 @@ general-purpose coverage.
   (finding 1), registry updated via a verified real generator run.
 - **Deferred:** none.
 
-Batch 3 closed. Batch 4 (MongoDB / Cassandra) not yet started.
+Batch 3 closed.
+
+---
+
+## Batch 4: MongoDB + Cassandra
+
+**Registry-check:** both slugs confirmed in `lib/data/academies.ts` under
+`nosql`. MongoDB had 11 live files; Cassandra had 9. Both lacked
+`prerequisites.md`.
+
+**Four-source comparison surfaced a real deployment gap, not just a
+prerequisites gap.** MongoDB has a `docs/Vishnu prepared content/MongoDB —
+done 1/` source folder with **16** files — 5 more than the 11 live:
+`prerequisites.md`, `faq.md`, `pyq.md`, `real-world-scenarios.md`, and
+`notes.md` were fully drafted, reviewed (the folder's own `notes.md` states
+it's "consolidated... with corrections folded in from a senior-instructor
+review pass"), and never promoted to `public/content/databases/mongodb/`.
+This is exactly the class of gap the four-source comparison step exists to
+catch, and it hadn't come up in Batches 1-3 because none of those
+technologies had a prepared-content folder to compare against.
+
+Checked whether the already-live 11 files were faithfully promoted from the
+prepared source, since the discrepancy raised the question of whether
+promotion generally was incomplete or just missing for these 5: diffed all
+11 (ignoring line-ending differences — the prepared folder is CRLF, live is
+LF). Three (`advanced.md`, `overview.md`, `troubleshooting.md`) differ only
+in having an inline "CORRECTED —" label stripped from a code comment.
+`installation.md` and `roadmap.md` differ more substantively — in the
+**good** direction: the prepared versions assert specific, confident version
+numbers and prices (MongoDB 8.0, exact `background: true` deprecation
+version); the live versions replace those with `(needs verification)` hedges
+per this project's own Volatile Core tiering rule. That's a correct editorial
+improvement already applied, not a regression — left alone. The other 4
+(`cheatsheets.md`, `intermediate.md`, `projects.md`) are byte-identical.
+
+**`certification.md` is the one already-live file that's actually wrong,
+not just unhedged.** It states "Free exam" for both MongoDB Associate
+Developer and Associate DBA. The prepared source already has this corrected
+— genuinely $150, not free (the free part is a 50%-discounted-after-prep
+exam fee, not a free exam) — and explains exactly where the "free" claim
+likely originated. This wasn't a volatility-hedge gap like installation.md/
+roadmap.md; it was a flat factual error sitting live. Fixed, using the same
+hedging convention already established in this tech's own installation.md/
+roadmap.md rather than re-asserting the prepared source's confident $150
+figure unhedged.
+
+**Fixed, not just flagged:**
+1. `mongodb/certification.md` — corrected the "Free exam" claim to $150,
+   with a needs-verification hedge, matching the convention already used
+   elsewhere in this same tech.
+2. Promoted the 5 missing files (`prerequisites.md`, `faq.md`, `pyq.md`,
+   `real-world-scenarios.md`, `notes.md`) from the prepared source to live.
+   Cross-checked their internal claims before promoting, not just copied
+   blind (lesson 1): `faq.md`'s reference to "the HA/DR technology's own
+   emphasis on this exact point" — confirmed `ha-dr` is a real, registered
+   Cloud technology. `real-world-scenarios.md`'s reference to "this course's
+   own Portfolio Project 3" (`rs.stepDown()` mid-write) — confirmed
+   `projects.md`'s Project 3 genuinely does this. Added a needs-verification
+   hedge to `notes.md`'s and `pyq.md`'s specific pricing/version figures for
+   consistency with the rest of the tech, since those are Volatile Core
+   facts per the standing content-tiering rule.
+3. `mongodb/prerequisites.md` and `cassandra/prerequisites.md` — same
+   Standard 6 gap as Batches 1 and 3, both added following the established
+   convention.
+4. `cassandra/advanced.md` — the exact same spliced-cheatsheet contamination
+   pattern found in Batch 1's `mysql/advanced.md`: a full "Cassandra
+   Cheatsheet" section (CQLSH commands, `nodetool` reference, CQL quick
+   reference) duplicating `cassandra/cheatsheets.md` near-verbatim. Removed,
+   leaving Advanced scoped to its actual unique content (compaction
+   strategies). Checked MongoDB's `advanced.md` for the same pattern — clean,
+   isolated to Cassandra.
+
+**Registry updates — real generator used directly both times, no hand-patch
+at any point this batch**, per this session's own standing procedure (native
+Linux rsync + fresh `npm install` + `npm run generate:content-registry`):
+first run added exactly the 5 new MongoDB entries, second run added exactly
+the 1 new Cassandra entry — both confirmed against the expected file list
+before being copied back over the live `lib/content/index.ts`.
+
+**Lesson 3 check (interview differentiation):** MongoDB's `interview.md`
+(CAP theorem position, aggregation vs. MapReduce, sharding/replication
+specifics) and Cassandra's `interview.md` (LSM-tree write path, tombstones,
+multi-DC replication) share zero question stems despite both covering
+"consistency levels" — MongoDB frames it around replica-set write/read
+concern, Cassandra around the ring/RF/coordinator model. Genuinely
+differentiated.
+
+**No duplicate-H1 issues** — verified programmatically across all 26 files
+in this batch (16 MongoDB + 10 Cassandra, post-promotion/post-addition).
+
+### Status at close of batch 4
+- **Flagged:** none outstanding.
+- **Fixed:** MongoDB certification.md factual error; 5 missing MongoDB files
+  promoted from prepared source; prerequisites.md added for both
+  technologies; Cassandra's spliced cheatsheet in advanced.md removed;
+  registry updated via real generator runs, verified both times.
+- **Deferred:** none.
+
+Batch 4 closed. Batch 5 (DynamoDB / Cloud Databases) not yet started.
