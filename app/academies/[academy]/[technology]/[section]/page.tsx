@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { getAcademy, getTechnology } from "@/lib/data/academies";
-import { techSections, nonTechSections, nonTechAcademyIds, technologyExamTypeMap } from "@/lib/data/navigation";
+import { nonTechAcademyIds, technologyExamTypeMap, getSectionsForTechnology } from "@/lib/data/navigation";
 import { hasContent, fetchContentEdge } from "@/lib/content";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getFirstPaperByExamType } from "@/lib/supabase/questionBank";
@@ -11,6 +11,7 @@ import SectionContent from "@/components/tech/SectionContent";
 import LabsSection from "@/components/tech/LabsSection";
 import AuthorBadge from "@/components/tech/AuthorBadge";
 import WhatNext from "@/components/tech/WhatNext";
+import MobileSectionNav from "@/components/tech/MobileSectionNav";
 import ProgressTracker from "@/components/tech/ProgressTracker";
 import QuickQuiz from "@/components/tech/QuickQuiz";
 import SectionQuiz from "@/components/quiz/SectionQuiz";
@@ -119,7 +120,7 @@ export default async function SectionPage({ params }: Props) {
   if (!academy || !tech) redirect("/academies");
 
   const isNonTech = nonTechAcademyIds.includes(aSlug);
-  const activeSections = isNonTech ? nonTechSections : techSections;
+  const activeSections = getSectionsForTechnology(tech, isNonTech);
   const sectionData = activeSections.find((s) => s.slug === section);
   const currentIndex = activeSections.findIndex((s) => s.slug === section);
   const prevSection = currentIndex > 0 ? activeSections[currentIndex - 1] : null;
@@ -281,6 +282,21 @@ export default async function SectionPage({ params }: Props) {
           <span style={{ color: "var(--text-2)" }}>{sectionData?.label || section}</span>
         </nav>
 
+        {/* Mobile-only equivalent of the desktop sidebar above, which is
+            hidden below 768px (globals.css .sidebar-desktop) with no
+            replacement — this is that replacement. Hidden on desktop via
+            the existing .show-mobile utility. */}
+        <MobileSectionNav
+          academy={aSlug}
+          technology={tSlug}
+          currentSection={section}
+          techName={tech.name}
+          techIcon={tech.icon}
+          accentColor="#6366F1"
+          showPracticeExams={!!practiceExamPaper}
+          contentScope={tech.contentScope}
+        />
+
         <h1 style={{ fontSize: "28px", fontWeight: 700, marginBottom: "8px" }}>
           {tech.name} — {sectionData?.label || section}
         </h1>
@@ -336,6 +352,7 @@ export default async function SectionPage({ params }: Props) {
           currentSection={section}
           techName={tech.name}
           accentColor="#6366F1"
+          contentScope={tech.contentScope}
         />
 
         {/* Prev / Next navigation (simplified, WhatNext handles primary) */}

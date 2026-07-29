@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { getAcademy } from "@/lib/data/academies";
-import { techSections, nonTechSections, nonTechAcademyIds, technologyExamTypeMap } from "@/lib/data/navigation";
+import { nonTechAcademyIds, technologyExamTypeMap, getSectionsForTechnology } from "@/lib/data/navigation";
 import { ArrowRight, Clock, Target, BookOpen, Sparkles } from "lucide-react";
 import { pageMetadata } from "@/lib/seo/metadata";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -91,7 +91,9 @@ export default async function TechnologyPage({ params }: Props) {
   // even though the sidebar (app/academies/[academy]/[technology]/[section]/
   // page.tsx) already links to the full, unfiltered list (NF-11) — same
   // source list as the sidebar now, no separate filter to drift out of sync.
-  const availableSections = isNonTech ? nonTechSections : techSections;
+  // getSectionsForTechnology also applies the contentScope "guide" filter
+  // (Roadmap/Projects/Certification) when set — see lib/data/navigation.ts.
+  const availableSections = getSectionsForTechnology(tech, isNonTech);
 
   // Practice Exams card — same registry-driven check as the sidebar
   // (app/academies/[academy]/[technology]/[section]/page.tsx), so both

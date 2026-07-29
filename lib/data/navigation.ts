@@ -1,4 +1,4 @@
-import { academies } from "./academies";
+import { academies, type Technology } from "./academies";
 import { educationBoards } from "./education";
 
 export const navigation = [
@@ -172,3 +172,32 @@ export const nonTechAcademyIds = [
   "finance", "economics", "agriculture", "essentials", "healthcare",
   "telecom", "professional-certs",
 ];
+
+// Sections that don't apply to a Technology.contentScope === "guide" page
+// (a narrow overview/PYQ/strategy page, not a full curriculum track — see
+// the contentScope doc comment on the Technology type in academies.ts).
+// Deliberately just these three, not the full long-tail (prerequisites,
+// installation, notes, pyq, real-world-scenarios, faq, troubleshooting) —
+// those are a separate, unrelated content-completeness gap that applies
+// across "full"-scope technologies too and isn't what this field is for.
+export const GUIDE_EXCLUDED_SECTIONS = ["roadmap", "projects", "certification"];
+
+// Single source of truth for "which sections does this technology show" —
+// replaces three independent copies of the same
+// `isNonTech ? nonTechSections : techSections` ternary that used to live
+// separately in the section-route sidebar, the tech-overview module grid,
+// and WhatNext.tsx (the same hand-maintained-vs-source-of-truth drift
+// pattern flagged elsewhere as NF-6 in docs/audit/07-roadmap-final.md, just
+// a smaller instance of it). Every consumer of the section list — sidebar,
+// module grid, WhatNext, MobileSectionNav — should call this instead of
+// inlining the ternary.
+export function getSectionsForTechnology(
+  tech: Pick<Technology, "contentScope">,
+  isNonTech: boolean
+) {
+  const base = isNonTech ? nonTechSections : techSections;
+  if (tech.contentScope === "guide") {
+    return base.filter((s) => !GUIDE_EXCLUDED_SECTIONS.includes(s.slug));
+  }
+  return base;
+}

@@ -3156,3 +3156,38 @@ verification before promoting anything) once Security and/or Data academies
 get their own comprehension-audit phase — same process as the DevOps/Cloud
 retroactive check this item is a continuation of. Not urgent, not blocking,
 explicitly deferred.
+
+### `contentScope: "guide"` bar may need a second criterion (not yet started)
+
+**Open question found during the 2026-07-29 Tier A/B classification pass on
+the 63-technology roadmap/projects/certification cluster (see
+`docs/audit/09-contentscope-classification.md`) — flagged for a future
+decision, not resolved here.** The `contentScope: "guide"` field
+(`lib/data/academies.ts`) was deliberately given a strict bar: only tag a
+technology "guide" when its name signals a narrow overview/PYQ/strategy page
+*and* its registered section count stayed minimal (2–3 sections) — the exact
+shape of the four technologies (`exams/gate`, `exams/ssc-exam`,
+`exams/banking-exam`, `exams/jee-advanced`) that established the pattern.
+
+Applying that bar to the 63-technology cluster produced zero new "guide"
+tags — every remaining genuinely-written technology in the cluster already
+has 6–9 registered sections, which by definition fails the "stayed minimal"
+half of the bar. That's the correct call for *this* pass (better zero tags
+than a weak-signal guess), but it raises a structural question the bar
+doesn't currently answer: **once a technology has grown past the minimal
+guide shape — which is the normal, expected outcome of any content-writing
+work happening at all — can it still ever be confirmed "guide" under this
+rule, or has the bar effectively closed itself off post-launch?**
+
+Two live candidates from the classification pass make this concrete rather
+than theoretical: the 8-technology exam-subject group (`exams/neet-mocktests`
+"NEET Mock Tests & Revision", `exams/jee-main` "JEE Main Exam Guide", and six
+others) has names that read exactly like the confirmed guide pattern, but
+each already carries the full 9-section treatment — disqualified under the
+current rule purely by section count, not by any content-shape signal.
+
+Whether the fix is a second criterion (e.g., requiring explicit human
+sign-off as an alternative path to "guide" when section count alone doesn't
+settle it, rather than section-count being the sole gate) or something else
+is a design decision for whoever picks this up — not resolved here.
+Revisit before or during the exam-subject subgroup's own review.

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { techSections, nonTechSections, nonTechAcademyIds } from "@/lib/data/navigation";
+import { nonTechAcademyIds, getSectionsForTechnology } from "@/lib/data/navigation";
 
 interface Props {
   academy: string;
@@ -8,6 +8,10 @@ interface Props {
   currentSection: string;
   techName: string;
   accentColor?: string;
+  // "guide" suppresses Roadmap/Projects/Certification from the flow — see
+  // the Technology.contentScope doc comment in lib/data/academies.ts.
+  // Absent = "full", nothing suppressed.
+  contentScope?: "full" | "guide";
 }
 
 // Was a hardcoded, static 10-item list completely decoupled from the real
@@ -22,9 +26,9 @@ interface Props {
 // non-tech academies got a "Troubleshooting" suggestion that isn't even a
 // nonTechSections entry. Reading from the same live source as the sidebar
 // fixes all of that and stays correct automatically as sections are added.
-export default function WhatNext({ academy, technology, currentSection, techName, accentColor = "#6366F1" }: Props) {
+export default function WhatNext({ academy, technology, currentSection, techName, accentColor = "#6366F1", contentScope }: Props) {
   const isNonTech = nonTechAcademyIds.includes(academy);
-  const sectionFlow = (isNonTech ? nonTechSections : techSections).map(s => ({
+  const sectionFlow = getSectionsForTechnology({ contentScope }, isNonTech).map(s => ({
     slug: s.slug, label: s.label, icon: s.icon, desc: s.description,
   }));
 

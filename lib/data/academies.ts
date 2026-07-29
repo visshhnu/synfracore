@@ -5,6 +5,25 @@ export type Technology = {
   description: string;
   level: "Beginner" | "Intermediate" | "Advanced";
   tags: string[];
+  // Optional, absent = "full" (default). "full" covers both genuinely
+  // complete technologies AND ones that are simply incomplete/not yet
+  // reviewed — this field is a rendering gate, not an audit-status tracker,
+  // so it deliberately does NOT distinguish those two cases. Only set to
+  // "guide" when a technology has been confirmed (not assumed) to be a
+  // narrow-scope overview/PYQ/strategy page rather than a full curriculum
+  // track — see lib/data/navigation.ts's GUIDE_EXCLUDED_SECTIONS for what
+  // that suppresses. Confirmed guide-shaped examples during the 2026-07-29
+  // audit: exams/gate, exams/ssc-exam, exams/banking-exam, exams/jee-advanced
+  // (all named "... Overview & PYQ" / "... Guide & PYQ" / "... Exam Prep &
+  // PYQ" and registered with only overview/fundamentals/pyq content — no
+  // full curriculum was ever intended). Do NOT set this on a technology just
+  // because it's missing roadmap/projects/certification — most of the ~60
+  // technologies missing those three are either templated/unfinished
+  // content (a real gap, not a scope decision) or, like
+  // law/constitutional-law, genuinely-written but not confirmed narrow in
+  // scope either — those stay unset ("full") until a human decides,
+  // tracked in the classification-pass backlog, not in this field.
+  contentScope?: "full" | "guide";
 };
 
 export type Domain = {
