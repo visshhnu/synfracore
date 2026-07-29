@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { techSections, nonTechSections, nonTechAcademyIds } from "@/lib/data/navigation";
 
 interface Props {
   academy: string;
@@ -9,20 +10,24 @@ interface Props {
   accentColor?: string;
 }
 
-const sectionFlow = [
-  { slug: "overview",        label: "Overview",        icon: "📖", desc: "What it is and why it matters" },
-  { slug: "fundamentals",    label: "Fundamentals",    icon: "🔤", desc: "Core concepts from scratch" },
-  { slug: "intermediate",    label: "Intermediate",    icon: "⚡", desc: "Real-world patterns and practices" },
-  { slug: "advanced",        label: "Advanced",        icon: "🚀", desc: "Production hardening and scale" },
-  { slug: "labs",            label: "Hands-on Labs",   icon: "🧪", desc: "Practice in real environments" },
-  { slug: "projects",        label: "Projects",        icon: "🏗️", desc: "Portfolio-ready builds" },
-  { slug: "interview",       label: "Interview Prep",  icon: "💬", desc: "Questions with detailed answers" },
-  { slug: "troubleshooting", label: "Troubleshooting", icon: "🔧", desc: "Debug real production issues" },
-  { slug: "certification",   label: "Certification",   icon: "🏆", desc: "Exam prep and practice" },
-  { slug: "cheatsheets",     label: "Cheatsheet",      icon: "📋", desc: "Quick reference guide" },
-];
-
+// Was a hardcoded, static 10-item list completely decoupled from the real
+// section source (lib/data/navigation.ts's techSections/nonTechSections) —
+// the same source the sidebar and the tech overview module grid already use
+// (app/academies/[academy]/[technology]/[section]/page.tsx and
+// app/academies/[academy]/[technology]/page.tsx). That drift meant "Up Next"
+// silently skipped Prerequisites/Installation/Roadmap/Notes/PYQ/Real World/
+// FAQ, misordered Advanced→Labs (real order has Roadmap between them), and
+// treated Cheatsheet as the end of the flow even though the sidebar lists
+// four more sections after it. It also never branched on academy type, so
+// non-tech academies got a "Troubleshooting" suggestion that isn't even a
+// nonTechSections entry. Reading from the same live source as the sidebar
+// fixes all of that and stays correct automatically as sections are added.
 export default function WhatNext({ academy, technology, currentSection, techName, accentColor = "#6366F1" }: Props) {
+  const isNonTech = nonTechAcademyIds.includes(academy);
+  const sectionFlow = (isNonTech ? nonTechSections : techSections).map(s => ({
+    slug: s.slug, label: s.label, icon: s.icon, desc: s.description,
+  }));
+
   const idx = sectionFlow.findIndex(s => s.slug === currentSection);
   const next = idx >= 0 && idx < sectionFlow.length - 1 ? sectionFlow[idx + 1] : null;
   const prev = idx > 0 ? sectionFlow[idx - 1] : null;
