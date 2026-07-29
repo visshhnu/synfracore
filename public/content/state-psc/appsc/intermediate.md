@@ -1,83 +1,21 @@
-# APPSC — Andhra Pradesh Public Service Commission — Intermediate
+# APPSC Prep — Intermediate
 
-Comprehensive intermediate preparation for APPSC — Andhra Pradesh Public Service Commission.
+## Andhra Pradesh history — shared and state-specific content
 
-## Exam Overview
-State PSC exams recruit for Group A, B, and C positions in respective state government departments. Each state PSC has unique syllabus but shares common elements: General Studies, General Aptitude, Indian Constitution, State-specific history/culture/economy, and current affairs.
+Applying Fundamentals' pre/post-2014 distinction to specific content: the **shared pre-2014 history** spans ancient and medieval Andhra history (including the Satavahana dynasty, one of the earliest major South Indian dynasties, and the later Vijayanagara Empire's substantial presence in the Andhra region), the colonial period, and united Andhra Pradesh's 1956 formation (itself part of the broader linguistic-states-reorganization movement covered elsewhere in this technology cluster, particularly KPSC's Karnataka-unification material) through 2014. **Post-2014, Andhra-Pradesh-specific content** covers the state's new capital-region development (Amaravati), updated administrative structure, and the state's own distinct post-bifurcation economic trajectory — content that does not apply to Telangana's parallel post-2014 developments, even though both states share the pre-2014 historical foundation.
 
-## Content Structure
-This section covers: state-specific GK, polity and governance, economy and geography, history and culture, and current affairs relevant to the state exam.
+## Andhra Pradesh geography and coastal economy
 
-## Building Deeper Understanding
-With the fundamentals in place, this section covers applied knowledge, real-world scenarios, and exam-level complexity.
+APPSC's geography component covers the state's substantial coastline (Andhra Pradesh has one of India's longest state coastlines), the Eastern Ghats, and major river systems (the Godavari and Krishna rivers, both significant for irrigation and hydroelectric power, and both flowing through both Andhra Pradesh and Telangana, making river-water-sharing a recurring current-affairs-relevant topic between the two states). The state's economy carries a genuinely coastal and agricultural character — significant fishing and aquaculture activity (Andhra Pradesh is a major aquaculture producer nationally), along with substantial agricultural production tied to the Godavari-Krishna delta regions.
 
-## Applied Concepts
-- Connect foundational theory to practical applications
-- Understand how rules and principles interact in real cases
-- Analyse scenarios and draw reasoned conclusions
-- Identify exceptions, edge cases, and nuances
+## Post-2014 capital and administrative developments
 
-## Practice Approach
-At this level, practice is key. For each concept:
-1. Understand the principle
-2. See it applied to a sample problem
-3. Solve a practice problem independently
-4. Check your answer and understand any errors
+A distinctly APPSC-specific (not shared with TSPSC) content area: Andhra Pradesh's post-bifurcation capital-city development at **Amaravati**, and the state's evolving administrative and economic planning around this new capital region, represents genuinely current, actively-developing content that candidates should track through current affairs rather than assuming static textbook coverage. `(needs verification — recheck against current source: Andhra Pradesh's capital-city arrangements and related administrative developments have been subject to ongoing policy discussion and revision since 2014 — this is a specifically volatile content area requiring active current-source verification, not a settled topic.)`
 
-## Common Intermediate Mistakes
-- Applying rules without reading the full context
-- Missing exceptions or special cases
-- Confusing similar concepts or terms
-- Not practising enough past questions
+## Telugu language paper — comprehension and composition, applied
 
-## Progress Check
-You are ready for advanced topics when you can:
-- Solve moderately difficult problems without looking at notes
-- Explain concepts to someone else
-- Identify the relevant framework for any given scenario
+Extending Fundamentals' Telugu-paper introduction: comprehension sections draw on Telugu's substantial literary tradition (shared broadly with Telangana, given the common language and much shared literary heritage predating 2014), while grammar and composition sections test formal written Telugu proficiency specific to APPSC's own question patterns and passage selections.
 
-## Detailed Study Notes
+## Connecting shared history to state-specific current content
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+The intermediate-level synthesis, specifically important for APPSC given the bifurcation context: candidates should build genuine historical understanding of the shared 1956-2014 united Andhra Pradesh period as a stable, well-established preparation foundation, while treating post-2014 Andhra-Pradesh-specific administrative and economic content (capital development, current government schemes) as an actively evolving area requiring ongoing current-affairs tracking rather than one-time study — the shared history doesn't change, but the post-bifurcation state-specific content genuinely continues developing.

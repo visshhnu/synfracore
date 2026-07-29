@@ -1,83 +1,21 @@
-# TSPSC — Telangana State Public Service Commission — Intermediate
+# TSPSC Prep — Intermediate
 
-Comprehensive intermediate preparation for TSPSC — Telangana State Public Service Commission.
+## The Telangana movement, in depth
 
-## Exam Overview
-State PSC exams recruit for Group A, B, and C positions in respective state government departments. Each state PSC has unique syllabus but shares common elements: General Studies, General Aptitude, Indian Constitution, State-specific history/culture/economy, and current affairs.
+Applying Fundamentals' point about the movement's foundational importance to specific content: the Telangana movement's roots trace back to the terms of Telangana's 1956 merger into united Andhra Pradesh (as part of the broader linguistic-states-reorganization process this technology cluster's KPSC material also covers, from Karnataka's parallel unification experience) and subsequent concerns — expressed over following decades — about regional development disparities, resource allocation, and political representation within the united state. The movement gained particular momentum in specific periods (including significant activity in the late 1960s and again more intensively from the 2000s onward), ultimately leading to the Telangana state formation in 2014 following sustained political mobilization and central government negotiation. TSPSC tests both the historical arc (key phases, figures, and turning points of the movement) and its stated underlying grievances (regional development and resource-allocation disparities) as distinct but connected content.
 
-## Content Structure
-This section covers: state-specific GK, polity and governance, economy and geography, history and culture, and current affairs relevant to the state exam.
+## Telangana geography and post-2014 economy
 
-## Building Deeper Understanding
-With the fundamentals in place, this section covers applied knowledge, real-world scenarios, and exam-level complexity.
+TSPSC's geography component covers Telangana's physical geography (the Deccan Plateau forms the bulk of the state's terrain, distinct from Andhra Pradesh's substantial coastal geography, since Telangana is a landlocked state), and major river systems shared with Andhra Pradesh (the Godavari and Krishna, both significant for the state's irrigation and hydroelectric needs — this academy's APPSC technology covers the same river systems from the downstream/coastal perspective). Telangana's economy carries distinctive post-2014 character: **Hyderabad**, the state's capital, anchors a substantial and continuing information-technology and pharmaceutical-sector economic presence, giving Telangana's economic profile a genuinely urban-technology-sector emphasis distinct from Andhra Pradesh's more coastal-agricultural-and-aquaculture economic character.
 
-## Applied Concepts
-- Connect foundational theory to practical applications
-- Understand how rules and principles interact in real cases
-- Analyse scenarios and draw reasoned conclusions
-- Identify exceptions, edge cases, and nuances
+## Post-2014 administrative developments
 
-## Practice Approach
-At this level, practice is key. For each concept:
-1. Understand the principle
-2. See it applied to a sample problem
-3. Solve a practice problem independently
-4. Check your answer and understand any errors
+Building on Fundamentals' point about Telangana's distinct post-2014 curricular and administrative framework: TSPSC's current-affairs-adjacent content covers Telangana's specific post-formation administrative structure, state government welfare schemes (Telangana has established several distinctive state-specific welfare programs since 2014), and ongoing state economic planning — genuinely current, actively-developing content requiring current-affairs tracking, paralleling APPSC's equivalent post-2014 content area from the Andhra Pradesh side. `(needs verification — recheck against current source: Telangana's specific state schemes and administrative developments are periodically updated.)`
 
-## Common Intermediate Mistakes
-- Applying rules without reading the full context
-- Missing exceptions or special cases
-- Confusing similar concepts or terms
-- Not practising enough past questions
+## Telugu language paper — comprehension and composition, applied
 
-## Progress Check
-You are ready for advanced topics when you can:
-- Solve moderately difficult problems without looking at notes
-- Explain concepts to someone else
-- Identify the relevant framework for any given scenario
+Extending Fundamentals' Telugu-paper introduction: comprehension sections draw on Telugu's substantial literary tradition (shared broadly with Andhra Pradesh's literary heritage predating 2014), while grammar and composition sections test formal written Telugu proficiency specific to TSPSC's own question patterns.
 
-## Detailed Study Notes
+## Connecting the Telangana movement to contemporary state governance
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+The intermediate-level synthesis: understanding the Telangana movement's underlying grievances (regional development and resource-allocation disparities within the united state, this file) directly explains many of Telangana's post-2014 policy priorities and welfare-scheme design choices — meaning candidates who understand this historical throughline connect current-affairs content about Telangana's specific schemes and development priorities to a coherent underlying narrative, rather than memorizing scheme names and movement history as disconnected topics.

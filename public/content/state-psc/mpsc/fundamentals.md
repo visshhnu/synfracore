@@ -1,79 +1,23 @@
-# MPSC — Maharashtra Public Service Commission — Fundamentals
+# MPSC Prep — Fundamentals
 
-Comprehensive fundamentals preparation for MPSC — Maharashtra Public Service Commission.
+## MCS, Group A, and Group B — structural differences
 
-## Exam Overview
-State PSC exams recruit for Group A, B, and C positions in respective state government departments. Each state PSC has unique syllabus but shares common elements: General Studies, General Aptitude, Indian Constitution, State-specific history/culture/economy, and current affairs.
+MCS and senior Group A posts follow the full three-stage state-PSC pattern (Preliminary, Mains, Interview), reflecting their senior-administrative scope, while Group B and lower-tier posts generally use a simpler, screening-focused process without a comparably deep Mains/Interview stage — the same structural pattern this technology cluster's TNPSC and KPSC material establishes, applied here to Maharashtra's specific post classifications.
 
-## Content Structure
-This section covers: state-specific GK, polity and governance, economy and geography, history and culture, and current affairs relevant to the state exam.
+## Marathi language paper
 
-## Core Concepts
-This section covers the foundational knowledge required for this topic. Work through each concept systematically before moving to intermediate topics.
+Most MPSC exams test **Marathi language** proficiency — comprehension, grammar, and composition — reflecting Marathi's role as Maharashtra's administrative and educational medium, paralleling TNPSC's Tamil paper and KPSC's Kannada paper. Candidates whose education wasn't primarily Marathi-medium should treat this as a dedicated preparation area, not a minor formality, particularly given Marathi's substantial literary tradition that MPSC's comprehension sections frequently draw from.
 
-## Key Principles
-- Understand the basic theory and definitions
-- Learn the regulatory framework and key bodies involved
-- Practice with simple examples before complex scenarios
-- Use the cheatsheet for quick reference during revision
+## General Studies foundation — Maharashtra state board curriculum
 
-## Getting Started
-Begin by reading the overview, then work through this fundamentals section. Each concept builds on the previous one. Do not skip ahead — the foundation matters.
+MPSC's General Studies content draws significantly from Maharashtra's state board curriculum for history, geography, economics, and science — parallel to TNPSC's Samacheer Kalvi and KPSC's Karnataka state board reliance. Candidates should prioritize Maharashtra state board textbooks as primary General Studies source material, since MPSC's specific content emphasis and question framing reflects this state-specific curricular grounding rather than a generic pan-India framework. `(needs verification — recheck against current source: current MPSC syllabus specifics are periodically clarified/revised by the commission.)`
 
-## Self-Assessment
-After completing this section, you should be able to:
-- Define the core terms and concepts
-- Explain the basic structure and framework
-- Answer beginner-level questions on this topic
-- Identify the key regulations, acts, or standards that apply
+## Why Maharashtra's economic scale matters for General Studies preparation
 
-## Common Beginner Questions
-**Q: Where should I start?** Start with the overview and this fundamentals section. Read official sources alongside these notes.
-**Q: How long will this take?** Budget 2-3 hours for a solid foundation.
-**Q: What resources supplement this?** Official textbooks, government websites, and exam-specific guides.
+An important Maharashtra-specific consideration: the state is India's largest state economy by GSDP (Gross State Domestic Product) and hosts Mumbai, India's financial capital, alongside Pune's significant industrial and technology-sector presence — this economic scale and diversity means MPSC's economics content tends to be genuinely substantial and multifaceted (covering finance, industry, agriculture, and services sectors all carrying real weight within the state), rather than dominated by a single sector the way some other states' economic syllabi might be. `(needs verification — recheck against current source: current economic data is periodically updated.)`
 
-## Detailed Study Notes
+## Getting started
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+1. Identify whether you're targeting MCS/senior Group A (full three-stage process) or Group B/lower-tier posts (simpler process) before structuring preparation depth.
+2. Source Maharashtra state board textbooks specifically for General Studies content, parallel to TNPSC's Samacheer Kalvi and KPSC's Karnataka board reliance.
+3. Recognize Maharashtra's economic content as genuinely multifaceted (finance, industry, agriculture, services all substantial) rather than assuming a single dominant-sector framing.

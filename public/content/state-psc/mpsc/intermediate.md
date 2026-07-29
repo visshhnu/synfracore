@@ -1,83 +1,21 @@
-# MPSC — Maharashtra Public Service Commission — Intermediate
+# MPSC Prep — Intermediate
 
-Comprehensive intermediate preparation for MPSC — Maharashtra Public Service Commission.
+## Maratha Empire history, in depth
 
-## Exam Overview
-State PSC exams recruit for Group A, B, and C positions in respective state government departments. Each state PSC has unique syllabus but shares common elements: General Studies, General Aptitude, Indian Constitution, State-specific history/culture/economy, and current affairs.
+Applying Overview's introduction of Maratha Empire history to the specific content tested: **Shivaji Maharaj** founded the Maratha kingdom in the 17th century, building a state that resisted both Mughal expansion and other regional powers, with a distinctive administrative structure including the **Ashtapradhan** — an eight-minister advisory council covering distinct administrative domains (revenue, foreign affairs, military command, and others). Following Shivaji's reign, the **Maratha Confederacy** expanded substantially across much of the Indian subcontinent through the 18th century under subsequent Peshwa leadership, becoming one of the dominant political powers in India before its eventual decline and the British East India Company's ascendance. MPSC tests both the administrative-structure detail (Ashtapradhan's specific ministerial roles) and the broader historical narrative (expansion, key battles and figures, eventual decline) as distinct but related content areas.
 
-## Content Structure
-This section covers: state-specific GK, polity and governance, economy and geography, history and culture, and current affairs relevant to the state exam.
+## Maharashtra geography and regional character
 
-## Building Deeper Understanding
-With the fundamentals in place, this section covers applied knowledge, real-world scenarios, and exam-level complexity.
+MPSC's geography component covers Maharashtra's physical geography (the Western Ghats/Sahyadri range running along the state's western edge, the Deccan Plateau comprising most of the state's interior, and the Konkan coastal strip) alongside genuine regional economic and cultural variation — **Vidarbha** (eastern Maharashtra, historically distinct and carrying its own regional-development discourse), **Marathwada** (south-central region with distinct historical administrative history under the Hyderabad State prior to reorganization), and the **Konkan** coastal region (distinct economic activity centered on fishing and horticulture) each carry specific syllabus weight, similar to how KPSC tests Karnataka's internal regional diversity.
 
-## Applied Concepts
-- Connect foundational theory to practical applications
-- Understand how rules and principles interact in real cases
-- Analyse scenarios and draw reasoned conclusions
-- Identify exceptions, edge cases, and nuances
+## Maharashtra's economy — finance, industry, and agriculture together
 
-## Practice Approach
-At this level, practice is key. For each concept:
-1. Understand the principle
-2. See it applied to a sample problem
-3. Solve a practice problem independently
-4. Check your answer and understand any errors
+Building on Fundamentals' point about Maharashtra's multifaceted economy: **Mumbai** anchors India's financial-services sector (housing the Bombay Stock Exchange and National Stock Exchange, along with major banking and corporate headquarters), **Pune** carries substantial automotive and information-technology industrial presence, and Maharashtra's interior regions (particularly Vidarbha and Marathwada) carry significant agricultural activity, including notable cotton cultivation in Vidarbha. MPSC's economics questions frequently test this sector-by-region distribution rather than treating "Maharashtra's economy" as a single undifferentiated topic — directly paralleling KPSC's regional-economic-diversity emphasis.
 
-## Common Intermediate Mistakes
-- Applying rules without reading the full context
-- Missing exceptions or special cases
-- Confusing similar concepts or terms
-- Not practising enough past questions
+## Marathi language paper — comprehension and composition, applied
 
-## Progress Check
-You are ready for advanced topics when you can:
-- Solve moderately difficult problems without looking at notes
-- Explain concepts to someone else
-- Identify the relevant framework for any given scenario
+Extending Fundamentals' Marathi-paper introduction: comprehension sections draw on Maharashtra's substantial Marathi literary tradition (including significant modern Marathi literature and historically significant devotional/saint-poet traditions like the Varkari movement's literary output), while grammar and composition sections test formal written Marathi proficiency. As with TNPSC's Tamil and KPSC's Kannada papers, practicing with actual past-paper passages is more effective than generic contemporary-language practice.
 
-## Detailed Study Notes
+## Connecting Maratha history to Maharashtra's regional identity
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+The intermediate-level synthesis: Maratha Empire history (this file) connects directly to Maharashtra's continued regional character — the historical geography of Maratha expansion and administration overlaps substantially with the modern state's internal regional distinctions (Vidarbha's historically separate administrative lineage under the Central Provinces and Berar, distinct from the core Maratha homeland regions), meaning genuine historical understanding meaningfully informs geography/regional-economy content as well, rather than these being fully independent syllabus sections.

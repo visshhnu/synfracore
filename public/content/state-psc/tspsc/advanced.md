@@ -1,84 +1,21 @@
-# TSPSC — Telangana State Public Service Commission — Advanced
+# TSPSC Prep — Advanced
 
-Comprehensive advanced preparation for TSPSC — Telangana State Public Service Commission.
+## Group I Mains strategy
 
-## Exam Overview
-State PSC exams recruit for Group A, B, and C positions in respective state government departments. Each state PSC has unique syllabus but shares common elements: General Studies, General Aptitude, Indian Constitution, State-specific history/culture/economy, and current affairs.
+Paralleling the Mains-strategy material established across this technology cluster: Group I Mains requires descriptive, analytical answer writing under time pressure, distinct from Preliminary-stage objective recall — candidates need dedicated practice structuring and time-managing written answers on Telangana-specific and general-administrative topics, including the ability to write coherently about the Telangana movement's history and its connection to contemporary state policy (Intermediate), not just factual recall of movement dates and figures.
 
-## Content Structure
-This section covers: state-specific GK, polity and governance, economy and geography, history and culture, and current affairs relevant to the state exam.
+## Calibrating preparation to Group I versus Groups II-IV
 
-## Expert-Level Mastery
-This section covers advanced topics, complex scenarios, and the depth required for competitive exams and professional practice.
+Building on Fundamentals' Group structural distinction: Group I candidates need the full depth of preparation this technology covers (Telangana movement history, post-2014 geography/economy, Telugu language proficiency, plus Mains-level answer-writing practice), while Groups II-IV candidates can reasonably focus more narrowly on Preliminary-level objective-recall content — the same calibration principle established across every other state PSC technology in this cluster.
 
-## Advanced Topics
-- Complex multi-concept scenarios requiring integrated knowledge
-- Analytical and evaluative questions
-- Recent developments, amendments, and current issues
-- High-difficulty exam questions with detailed solutions
+## Current affairs — a young state's actively developing administrative landscape
 
-## Strategic Approach
-At the advanced level, strategy matters as much as knowledge:
-- Identify the question type and apply the right framework
-- Manage time — know when to move on and return later
-- Use elimination for objective questions
-- Structure long-answer responses clearly
+Advanced TSPSC preparation requires particular current-affairs attention given Telangana's relatively young statehood (formed 2014) — the state's administrative structures, welfare-scheme design, and economic development planning are comparatively more actively evolving than a longer-established state's equivalent content, since Telangana has had less time to reach the kind of administrative and policy stability older states' PSC syllabi can draw on. This parallels APPSC's equivalent current-affairs-weighting point from the Andhra Pradesh side, though the specific content obviously diverges. `(needs verification — recheck against current source: current affairs content is inherently time-sensitive, particularly for a state with an actively developing post-formation administrative structure.)`
 
-## Exam Simulation
-Practise under timed conditions:
-- Set a timer and attempt full sections without breaks
-- Review every wrong answer with the source material
-- Track your accuracy by topic to identify weak areas
-- Repeat mock tests to build consistency
+## Interstate river-water topics — Godavari and Krishna, from the upstream perspective
 
-## Advanced Checklist
-- [ ] Can solve the hardest questions in this topic
-- [ ] Understand recent changes and current developments
-- [ ] Can teach the topic clearly to someone else
-- [ ] Mock exam score is consistently above 75%
+An advanced-level current-affairs-adjacent topic specific to Telangana (mirroring APPSC's coverage of the same rivers from Andhra Pradesh's downstream/coastal perspective): as a substantially landlocked, upstream state relative to Andhra Pradesh on both the Godavari and Krishna systems, Telangana's irrigation and hydroelectric planning around these rivers carries specific state-interest considerations in ongoing interstate water-sharing discussions — candidates should understand this as a genuinely two-sided policy topic (with Telangana and Andhra Pradesh each having distinct interests) rather than assuming a single "correct" position, and should track it as an ongoing policy area via current sources.
 
-## Detailed Study Notes
+## Building a coherent preparation narrative given Telangana's formation context
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+The advanced-level takeaway specific to TSPSC: Telangana's relatively recent statehood means its General Studies syllabus combines genuinely deep historical content (the Telangana movement, and the shared pre-2014 united-Andhra-Pradesh history, Intermediate) with genuinely young, actively-developing state-specific administrative and economic content — candidates should prepare the movement's history with the same depth and seriousness as any other major historical topic, while treating post-2014 state-specific administrative/economic content as requiring ongoing current-affairs tracking rather than one-time textbook study, mirroring the same bifurcated preparation approach this cluster's APPSC technology recommends from the Andhra Pradesh side.

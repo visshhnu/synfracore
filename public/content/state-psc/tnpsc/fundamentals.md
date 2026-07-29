@@ -1,79 +1,23 @@
-# TNPSC — Tamil Nadu Public Service Commission — Fundamentals
+# TNPSC Prep — Fundamentals
 
-Comprehensive fundamentals preparation for TNPSC — Tamil Nadu Public Service Commission.
+## The general state-PSC exam pattern
 
-## Exam Overview
-State PSC exams recruit for Group A, B, and C positions in respective state government departments. Each state PSC has unique syllabus but shares common elements: General Studies, General Aptitude, Indian Constitution, State-specific history/culture/economy, and current affairs.
+State PSC exams — TNPSC included, and this pattern recurs with state-specific variation across KPSC, MPSC, APPSC, and TSPSC covered elsewhere in this technology cluster — generally follow a three-stage structure: a **Preliminary exam** (objective-type, screening a large applicant pool down to a manageable number for the next stage), a **Mains exam** (typically more detailed, sometimes descriptive/subjective depending on the Group level), and an **Interview/viva-voce** stage for senior Group-level posts (typically Group I and comparable senior positions; lower Groups often skip the interview stage entirely, hiring directly based on written exam performance). This structure is broadly analogous to UPSC's own Prelims-Mains-Interview pattern, but state PSC syllabi are specifically weighted toward state-specific content rather than the more pan-India-focused UPSC syllabus.
 
-## Content Structure
-This section covers: state-specific GK, polity and governance, economy and geography, history and culture, and current affairs relevant to the state exam.
+## General Studies — the Samacheer Kalvi foundation
 
-## Core Concepts
-This section covers the foundational knowledge required for this topic. Work through each concept systematically before moving to intermediate topics.
+TNPSC's General Studies component (tested across most Groups) draws its content foundation from **Samacheer Kalvi**, Tamil Nadu's state board curriculum — Overview introduces this connection; Fundamentals makes the practical implication concrete: candidates should treat Samacheer Kalvi Class VI-XII social science (history, geography, civics, economics) and science textbooks as primary source material, not supplementary reading. This differs meaningfully from UPSC preparation, which typically draws from NCERT's pan-India curriculum — a candidate transferring UPSC preparation directly to TNPSC without adjusting for this curricular difference will find gaps specifically in Tamil-Nadu-weighted content Samacheer Kalvi emphasizes that NCERT doesn't cover to the same depth.
 
-## Key Principles
-- Understand the basic theory and definitions
-- Learn the regulatory framework and key bodies involved
-- Practice with simple examples before complex scenarios
-- Use the cheatsheet for quick reference during revision
+## Why state-specific curricular grounding matters
 
-## Getting Started
-Begin by reading the overview, then work through this fundamentals section. Each concept builds on the previous one. Do not skip ahead — the foundation matters.
+The reason TNPSC (and state PSCs generally) weight state board curriculum so heavily traces back to these exams' purpose: state government roles require genuine familiarity with the specific state's administrative structure, history, geography, and socioeconomic context — testing against a state-specific curricular foundation is a direct, structural way of assessing this state-specific grounding, rather than assuming pan-India general knowledge adequately substitutes for it.
 
-## Self-Assessment
-After completing this section, you should be able to:
-- Define the core terms and concepts
-- Explain the basic structure and framework
-- Answer beginner-level questions on this topic
-- Identify the key regulations, acts, or standards that apply
+## The Tamil language paper
 
-## Common Beginner Questions
-**Q: Where should I start?** Start with the overview and this fundamentals section. Read official sources alongside these notes.
-**Q: How long will this take?** Budget 2-3 hours for a solid foundation.
-**Q: What resources supplement this?** Official textbooks, government websites, and exam-specific guides.
+Most TNPSC Groups include a **Tamil language paper**, testing comprehension, grammar, and composition — this isn't a token formality but a substantively weighted component reflecting Tamil's role as the state's administrative and educational medium. Candidates whose education wasn't primarily in Tamil medium should treat this as a genuinely separate preparation area requiring dedicated attention, not an area where general language aptitude alone suffices.
 
-## Detailed Study Notes
+## Getting started
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+1. Source Samacheer Kalvi textbooks specifically (not generic GK material or NCERT alone) as primary General Studies preparation material — this curricular specificity is TNPSC's most distinctive structural feature relative to UPSC preparation.
+2. Understand which Group you're targeting and its specific exam stages (some Groups skip the interview stage) before structuring a preparation timeline around an assumed three-stage process that might not apply to your target Group.
+3. Treat the Tamil language paper as a dedicated preparation area, particularly if your educational background wasn't primarily Tamil-medium.

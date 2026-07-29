@@ -1,83 +1,21 @@
-# TNPSC — Tamil Nadu Public Service Commission — Intermediate
+# TNPSC Prep — Intermediate
 
-Comprehensive intermediate preparation for TNPSC — Tamil Nadu Public Service Commission.
+## Tamil Nadu history — key themes tested
 
-## Exam Overview
-State PSC exams recruit for Group A, B, and C positions in respective state government departments. Each state PSC has unique syllabus but shares common elements: General Studies, General Aptitude, Indian Constitution, State-specific history/culture/economy, and current affairs.
+Applying Fundamentals' Samacheer-Kalvi-grounding point to specific content: TNPSC's history component spans ancient Tamil history (Sangam age literature and society, an area with genuinely distinctive content relative to a pan-India history syllabus), medieval South Indian dynasties (Cholas, Pandyas, Pallavas — their administrative systems, particularly the Chola administration's village self-governance structures, a frequently tested specific topic), the colonial period's Tamil-Nadu-specific developments, and the Dravidian movement and its lasting influence on the state's modern political and social landscape. This last theme — the Dravidian movement — is particularly significant for genuinely understanding Tamil Nadu's modern state identity and administrative culture, not just as an exam topic to memorize.
 
-## Content Structure
-This section covers: state-specific GK, polity and governance, economy and geography, history and culture, and current affairs relevant to the state exam.
+## Tamil Nadu geography and economy
 
-## Building Deeper Understanding
-With the fundamentals in place, this section covers applied knowledge, real-world scenarios, and exam-level complexity.
+TNPSC's geography component covers the state's physical geography (Western Ghats, coastal geography, major river systems like the Cauvery — including the interstate water-sharing dimension, a recurring current-affairs-adjacent topic), while the economy component covers Tamil Nadu's specific economic structure — notably the state's significant industrial and manufacturing base (automobile and textile industries particularly concentrated in specific regions like Chennai and Coimbatore/Tiruppur respectively) and agricultural patterns tied to the state's river systems and monsoon patterns. Understanding these as genuinely Tamil-Nadu-specific economic patterns (not simply a generic "state economy" template) is what the Samacheer Kalvi-grounded syllabus is testing for.
 
-## Applied Concepts
-- Connect foundational theory to practical applications
-- Understand how rules and principles interact in real cases
-- Analyse scenarios and draw reasoned conclusions
-- Identify exceptions, edge cases, and nuances
+## Tamil Nadu government schemes
 
-## Practice Approach
-At this level, practice is key. For each concept:
-1. Understand the principle
-2. See it applied to a sample problem
-3. Solve a practice problem independently
-4. Check your answer and understand any errors
+State PSC exams (TNPSC included) frequently test knowledge of the state government's own welfare and development schemes — for TNPSC, this includes schemes in areas like nutrition/mid-day-meal programs (Tamil Nadu has a long-running, often-cited program in this area), healthcare, and agricultural support, each carrying specific implementation details (eligibility, coverage, administering department) worth understanding beyond just scheme names. `(needs verification — recheck against current source: specific scheme names, coverage, and details are periodically revised by the state government.)`
 
-## Common Intermediate Mistakes
-- Applying rules without reading the full context
-- Missing exceptions or special cases
-- Confusing similar concepts or terms
-- Not practising enough past questions
+## Tamil language paper — comprehension and composition, applied
 
-## Progress Check
-You are ready for advanced topics when you can:
-- Solve moderately difficult problems without looking at notes
-- Explain concepts to someone else
-- Identify the relevant framework for any given scenario
+Building on Fundamentals' introduction to the Tamil paper: comprehension sections test understanding of Tamil prose/poetry passages (sometimes drawn from Sangam literature or modern Tamil literary works, connecting back to the history component's literary themes), while grammar and composition sections test formal written Tamil proficiency. Candidates should practice with actual past-paper passages specifically, since TNPSC's selection of literary and prose material reflects particular curricular choices (again tracing back to Samacheer Kalvi) rather than generic contemporary Tamil writing.
 
-## Detailed Study Notes
+## Connecting Samacheer Kalvi's structure to TNPSC's actual question style
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+The intermediate-level synthesis: TNPSC's actual exam questions tend to closely mirror Samacheer Kalvi textbook content and phrasing more directly than, say, UPSC mirrors NCERT phrasing — meaning direct, careful textbook study (not just conceptual understanding derived from other sources) pays off more concretely for TNPSC than it might for more application/reasoning-oriented exams, a practical preparation-strategy implication worth internalizing rather than assuming all competitive exams reward the same study approach equally.

@@ -1,93 +1,51 @@
-# APPSC — Andhra Pradesh Public Service Commission — Cheatsheets
+# APPSC Prep — Cheatsheets
 
-Comprehensive cheatsheets preparation for APPSC — Andhra Pradesh Public Service Commission.
+## Group structure quick reference
 
-## Exam Overview
-State PSC exams recruit for Group A, B, and C positions in respective state government departments. Each state PSC has unique syllabus but shares common elements: General Studies, General Aptitude, Indian Constitution, State-specific history/culture/economy, and current affairs.
+| Group | Level | Stages |
+|---|---|---|
+| Group I | Senior administrative | Prelims + Mains + Interview |
+| Group II | Executive | Varies, often simpler |
+| Group III | Junior-level | Typically simplified |
+| Group IV | Entry-level | Typically screening-only |
 
-## Content Structure
-This section covers: state-specific GK, polity and governance, economy and geography, history and culture, and current affairs relevant to the state exam.
+`(needs verification — recheck against current source: exact stage structure periodically revised.)`
 
-## Quick Reference Summary
+## Pre-2014 vs. post-2014 content split
 
-### Key Facts at a Glance
-| Item | Key Information |
-|------|----------------|
-| Domain | See overview for full context |
-| Primary Authority | Relevant regulatory body |
-| Key Legislation | Main acts and regulations |
-| Exam Weight | Check specific exam syllabus |
-| Difficulty | Varies by subtopic |
+| Category | Content | Stability |
+|---|---|---|
+| Shared pre-2014 | United AP history (1956-2014), Satavahana/Vijayanagara dynasties | Stable, settled |
+| APPSC-specific post-2014 | Amaravati capital development, current admin structure, economy | Actively evolving — track via current affairs |
 
-### Core Concepts to Remember
-- Fundamental definitions and terminology
-- Key regulatory framework and authority
-- Important dates, numbers, and thresholds
-- Exceptions and special cases
-- Recent developments and amendments
+`(needs verification — recheck against current source: post-2014 developments subject to ongoing policy revision.)`
 
-### Exam Tips
-- Read every question twice before answering
-- For MCQs: eliminate wrong options first
-- For descriptive: structure > length
-- Allocate time proportionally to marks
-- Attempt all questions — no blanks
+## Andhra Pradesh geography and economy
 
-### Last-Hour Revision Checklist
-- [ ] Reviewed all key definitions
-- [ ] Memorised important numbers and dates
-- [ ] Practised at least 10 previous year questions
-- [ ] Know the exceptions to main rules
-- [ ] Checked for any recent amendments or news
+| Feature | Detail |
+|---|---|
+| Coastline | One of India's longest state coastlines |
+| Key rivers | Godavari, Krishna (shared with Telangana — water-sharing is ongoing policy topic) |
+| Economy | Fishing/aquaculture (major national producer), delta agriculture |
 
-### Common Exam Questions Pattern
-1. Definition-based: "What is X?" — give precise definition + example
-2. Application-based: "In this scenario, what applies?" — identify rule + apply
-3. Comparison: "Difference between X and Y" — tabular format preferred
-4. Current affairs: "Recent development in X" — know last 6-12 months
+## Telugu language paper
 
-## Detailed Study Notes
+| Component | Tests |
+|---|---|
+| Comprehension | Telugu prose/poetry (literary tradition shared with Telangana) |
+| Grammar/composition | Formal written Telugu, APPSC-specific patterns |
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+## Preparation strategy by Group
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+| Group | Focus |
+|---|---|
+| Group I | Full GS depth + Mains answer-writing + active current-affairs tracking |
+| Groups II-IV | Preliminary-level objective recall focus |
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+## Common preparation pitfalls
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+| Pitfall | Correction |
+|---|---|
+| Using pre-2014 undivided AP material for current content | Verify post-2014 sources for admin/economy/scheme content |
+| Treating capital-development content as static | Track via ongoing current affairs, not one-time study |
+| Confusing APPSC/TSPSC post-2014 content | Recognize these diverge despite shared pre-2014 history |

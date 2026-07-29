@@ -1,84 +1,21 @@
-# APPSC — Andhra Pradesh Public Service Commission — Advanced
+# APPSC Prep — Advanced
 
-Comprehensive advanced preparation for APPSC — Andhra Pradesh Public Service Commission.
+## Group I Mains strategy
 
-## Exam Overview
-State PSC exams recruit for Group A, B, and C positions in respective state government departments. Each state PSC has unique syllabus but shares common elements: General Studies, General Aptitude, Indian Constitution, State-specific history/culture/economy, and current affairs.
+Paralleling the Mains-strategy material established across this technology cluster: Group I Mains requires descriptive, analytical answer writing under time pressure, distinct from Preliminary-stage objective recall — candidates need dedicated practice structuring and time-managing written answers on Andhra-Pradesh-specific and general-administrative topics, not just deep factual knowledge of the content covered in Intermediate.
 
-## Content Structure
-This section covers: state-specific GK, polity and governance, economy and geography, history and culture, and current affairs relevant to the state exam.
+## Calibrating preparation to Group I versus Groups II-IV
 
-## Expert-Level Mastery
-This section covers advanced topics, complex scenarios, and the depth required for competitive exams and professional practice.
+Building on Fundamentals' Group structural distinction: Group I candidates need the full depth of preparation this technology covers (shared and state-specific history, coastal geography/economy, post-2014 developments, Telugu language proficiency, plus Mains-level answer-writing practice), while Groups II-IV candidates can reasonably focus more narrowly on Preliminary-level objective-recall content — the same calibration principle established across TNPSC, KPSC, and MPSC's Advanced material.
 
-## Advanced Topics
-- Complex multi-concept scenarios requiring integrated knowledge
-- Analytical and evaluative questions
-- Recent developments, amendments, and current issues
-- High-difficulty exam questions with detailed solutions
+## Current affairs — tracking an actively evolving state
 
-## Strategic Approach
-At the advanced level, strategy matters as much as knowledge:
-- Identify the question type and apply the right framework
-- Manage time — know when to move on and return later
-- Use elimination for objective questions
-- Structure long-answer responses clearly
+Advanced APPSC preparation requires particular attention to current affairs given the genuinely active state of Andhra Pradesh's post-2014 administrative and capital-city development (Intermediate) — this is less settled than most other states' current-affairs content, since capital-region development, associated infrastructure planning, and evolving administrative arrangements continue actively developing rather than having reached a stable, textbook-documentable state. Candidates should weight ongoing current-affairs tracking more heavily for this specific content area than they might for a state PSC syllabus with more settled state-specific administrative content. `(needs verification — recheck against current source: current affairs content is inherently time-sensitive, and this specific area is unusually so given ongoing capital-development policy discussion.)`
 
-## Exam Simulation
-Practise under timed conditions:
-- Set a timer and attempt full sections without breaks
-- Review every wrong answer with the source material
-- Track your accuracy by topic to identify weak areas
-- Repeat mock tests to build consistency
+## Interstate river-water topics — Godavari and Krishna
 
-## Advanced Checklist
-- [ ] Can solve the hardest questions in this topic
-- [ ] Understand recent changes and current developments
-- [ ] Can teach the topic clearly to someone else
-- [ ] Mock exam score is consistently above 75%
+An advanced-level current-affairs-adjacent topic specific to Andhra Pradesh (and shared with Telangana, given both states' dependence on the same river systems): Godavari and Krishna river-water sharing arrangements between Andhra Pradesh, Telangana, and other riparian states represent a recurring policy and current-affairs topic, given both rivers' significance for irrigation and power generation across multiple states. Candidates should understand this as an ongoing policy area (not a one-time-resolved historical matter) requiring current-source tracking similar to the capital-development content above.
 
-## Detailed Study Notes
+## Building a coherent preparation narrative given the bifurcation context
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+The advanced-level takeaway specific to APPSC: unlike this technology cluster's other state PSC technologies, where history/geography/economy content is largely stable and can be studied as a settled body of knowledge, APPSC preparation requires explicitly separating stable shared-history content (pre-2014, well-established) from actively-evolving state-specific content (post-2014 administrative and capital developments, ongoing river-water policy) — treating both categories with the same static-study approach risks either under-preparing for genuinely current developments or wasting effort trying to "finalize" study of content areas that are still actively changing.

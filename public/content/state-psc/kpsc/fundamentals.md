@@ -1,79 +1,23 @@
-# KPSC — Karnataka Public Service Commission — Fundamentals
+# KPSC Prep — Fundamentals
 
-Comprehensive fundamentals preparation for KPSC — Karnataka Public Service Commission.
+## KAS, FDA, and SDA — structural differences
 
-## Exam Overview
-State PSC exams recruit for Group A, B, and C positions in respective state government departments. Each state PSC has unique syllabus but shares common elements: General Studies, General Aptitude, Indian Constitution, State-specific history/culture/economy, and current affairs.
+KAS follows the full three-stage state-PSC pattern (Preliminary, Mains, Interview — the general structure this technology cluster's TNPSC material introduces), reflecting its senior-administrative scope and the correspondingly deeper assessment it requires. FDA and SDA, targeting mid-level and entry-level clerical positions respectively, generally use a simpler process — typically an objective screening exam without a comparable Mains/Interview stage — meaning preparation depth and strategy should differ substantially depending on which exam a candidate is targeting, much as TNPSC's Group I versus Group IV preparation differs.
 
-## Content Structure
-This section covers: state-specific GK, polity and governance, economy and geography, history and culture, and current affairs relevant to the state exam.
+## Kannada language paper
 
-## Core Concepts
-This section covers the foundational knowledge required for this topic. Work through each concept systematically before moving to intermediate topics.
+Most KPSC exams (KAS included) test **Kannada language** proficiency — comprehension, grammar, and composition — reflecting Kannada's role as Karnataka's administrative and educational medium. As with TNPSC's Tamil paper, this is a substantively weighted component, not a formality, and candidates whose education wasn't primarily Kannada-medium should treat it as requiring genuinely dedicated preparation.
 
-## Key Principles
-- Understand the basic theory and definitions
-- Learn the regulatory framework and key bodies involved
-- Practice with simple examples before complex scenarios
-- Use the cheatsheet for quick reference during revision
+## General Studies foundation — Karnataka state board curriculum
 
-## Getting Started
-Begin by reading the overview, then work through this fundamentals section. Each concept builds on the previous one. Do not skip ahead — the foundation matters.
+KPSC's General Studies content draws significantly from Karnataka's state board curriculum for history, geography, economics, and science — parallel to how TNPSC draws from Samacheer Kalvi. Candidates should prioritize Karnataka state board textbooks (particularly Class VIII-X social science content) as primary source material for General Studies preparation, rather than relying solely on generic pan-India competitive-exam material, since KPSC's specific content emphasis and question framing reflects this state-specific curricular source. `(needs verification — recheck against current source: current KPSC syllabus specifics and recommended curricular sources are periodically clarified/revised by the commission.)`
 
-## Self-Assessment
-After completing this section, you should be able to:
-- Define the core terms and concepts
-- Explain the basic structure and framework
-- Answer beginner-level questions on this topic
-- Identify the key regulations, acts, or standards that apply
+## Why Karnataka's regional diversity matters for General Studies preparation
 
-## Common Beginner Questions
-**Q: Where should I start?** Start with the overview and this fundamentals section. Read official sources alongside these notes.
-**Q: How long will this take?** Budget 2-3 hours for a solid foundation.
-**Q: What resources supplement this?** Official textbooks, government websites, and exam-specific guides.
+An important Karnataka-specific nuance: the state spans genuinely distinct sub-regions with different historical and economic character (coastal Karnataka, the Malnad/Western Ghats region, North Karnataka, and the Bengaluru-centered plateau region among them) — General Studies content frequently draws on this regional diversity (distinct sub-regional history, economic activity, and cultural characteristics), meaning candidates should avoid treating "Karnataka" as a undifferentiated single-region syllabus topic and instead build genuine familiarity with this internal regional variation.
 
-## Detailed Study Notes
+## Getting started
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+1. Identify whether you're targeting KAS (full three-stage process, deeper preparation required) or FDA/SDA (simpler, screening-focused) before structuring your preparation timeline and depth.
+2. Source Karnataka state board textbooks specifically for General Studies content, parallel to how TNPSC preparation should prioritize Samacheer Kalvi.
+3. Build genuine familiarity with Karnataka's internal regional diversity (coastal, Malnad, North Karnataka, Bengaluru-plateau) rather than treating the state as a single undifferentiated syllabus unit.

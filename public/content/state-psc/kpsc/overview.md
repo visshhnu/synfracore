@@ -1,81 +1,31 @@
-# KPSC — Karnataka Public Service Commission — Overview
+# KPSC Prep — Overview
 
-Comprehensive overview preparation for KPSC — Karnataka Public Service Commission.
+## What this technology covers
 
-## Exam Overview
-State PSC exams recruit for Group A, B, and C positions in respective state government departments. Each state PSC has unique syllabus but shares common elements: General Studies, General Aptitude, Indian Constitution, State-specific history/culture/economy, and current affairs.
+KPSC Prep covers the Karnataka Public Service Commission's recruitment examinations: KAS (Karnataka Administrative Service, the state's premier civil service cadre) alongside FDA/SDA (First Division Assistant / Second Division Assistant, common clerical-cadre recruitment exams), the Kannada language paper, and Karnataka-specific general knowledge (state history, geography, economy). KPSC follows the general state-PSC exam structure covered in this cluster's TNPSC technology (Prelims-Mains-Interview for senior posts, simpler formats for junior posts) — this technology focuses on what's genuinely Karnataka-specific rather than re-explaining that shared structural pattern.
 
-## Content Structure
-This section covers: state-specific GK, polity and governance, economy and geography, history and culture, and current affairs relevant to the state exam.
+## Why it matters
 
-## Learning Path
-This section follows a structured approach from fundamentals to advanced topics. Each module builds on the previous one.
+KPSC recruitment, and KAS specifically, is Karnataka's primary state civil-service pathway, filling administrative and revenue positions across the state — comparable in role and prestige to Tamil Nadu's Group I TNPSC posts. Karnataka's specific curricular and cultural grounding (Kannada language, the state's unification history, and its particular economic structure) shapes KPSC's syllabus distinctly from other state PSCs, making state-specific preparation — not general "PSC prep" — essential.
 
-## Who This Is For
-Students and professionals at all levels who want to build knowledge in this domain — whether for exam preparation, career advancement, or general knowledge.
+## Exam structure — a quick map
 
-## How to Study
-1. Start with the **Fundamentals** section to build a solid base
-2. Move to **Intermediate** for applied knowledge and scenarios
-3. Use **Advanced** for exam-level depth and complex topics
-4. Practise with **Interview Q&A** for exams and assessments
-5. Use the **Cheatsheet** for last-minute revision before the exam
+| Exam | Level | Typical roles |
+|---|---|---|
+| KAS | Senior administrative | Assistant Commissioner, Deputy Superintendent of Police, and comparable posts |
+| FDA (First Division Assistant) | Mid-level clerical | Departmental clerical/administrative posts |
+| SDA (Second Division Assistant) | Entry-level clerical | Departmental entry-level posts |
 
-## Key Features of This Section
-- Structured notes aligned with official syllabus
-- Practice questions after key concepts
-- Cheatsheets for quick revision
-- Interview and exam Q&A format
-- Current and updated content
+KAS follows the full Prelims-Mains-Interview structure (given its senior-administrative scope), while FDA/SDA are generally simpler, screening-exam-focused processes without a Mains/Interview stage of comparable depth. `(needs verification — recheck against current source: KPSC periodically revises exam pattern and eligibility criteria.)`
 
-## Getting Started
-Click **Fundamentals** to begin your learning journey with this topic. Work systematically through each section for the best results.
+## Karnataka's unification history — a distinctive syllabus theme
 
-## Assessment Strategy
-For objective exams: understand > memorise. For descriptive/written exams: structure your answers clearly. For interviews: demonstrate reasoning, not just recall.
+A syllabus theme specific to Karnataka (without a direct equivalent in several other state PSC syllabi) is the history of **Karnataka's unification** — the process by which Kannada-speaking regions, previously divided across multiple princely states and British administrative divisions, were consolidated into a single Karnataka state (initially as Mysore State, renamed Karnataka in 1973) following India's independence and the subsequent linguistic reorganization of states. This is a frequently and specifically tested topic precisely because it's central to Karnataka's own state identity in a way that doesn't have a close parallel in every other state's history syllabus.
 
-## Detailed Study Notes
+## Exam and career relevance
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+KPSC Prep is the primary preparation pathway for Karnataka state government employment, with KAS specifically representing the state's most competitive and prestigious civil-service entry point, comparable in significance to UPSC at the central level.
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+## How to use this technology's sections
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Fundamentals covers KAS/FDA/SDA exam structure and the Kannada language paper. Intermediate covers Karnataka-specific history (including unification), geography, and economy. Advanced covers KAS Mains strategy and current-affairs integration. Interview and Cheatsheets provide exam-format practice and quick reference.

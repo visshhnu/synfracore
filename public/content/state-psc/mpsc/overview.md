@@ -1,81 +1,31 @@
-# MPSC — Maharashtra Public Service Commission — Overview
+# MPSC Prep — Overview
 
-Comprehensive overview preparation for MPSC — Maharashtra Public Service Commission.
+## What this technology covers
 
-## Exam Overview
-State PSC exams recruit for Group A, B, and C positions in respective state government departments. Each state PSC has unique syllabus but shares common elements: General Studies, General Aptitude, Indian Constitution, State-specific history/culture/economy, and current affairs.
+MPSC Prep covers the Maharashtra Public Service Commission's recruitment examinations: **MCS (Maharashtra Civil Service)**, the state's premier administrative cadre, alongside the broader **Group A/B** post classifications spanning various state department roles, the Marathi language paper, and Maharashtra-specific general knowledge (state history, geography, economy). MPSC follows the general state-PSC exam structure covered in this cluster's TNPSC technology — this technology focuses on what's genuinely Maharashtra-specific.
 
-## Content Structure
-This section covers: state-specific GK, polity and governance, economy and geography, history and culture, and current affairs relevant to the state exam.
+## Why it matters
 
-## Learning Path
-This section follows a structured approach from fundamentals to advanced topics. Each module builds on the previous one.
+MPSC recruitment, and MCS specifically, is Maharashtra's primary state civil-service pathway — Maharashtra being India's second-most-populous state and a major economic center, meaning MPSC recruitment volume and competitiveness are both substantial. Maharashtra's specific historical and cultural grounding (Marathi language and literature, Maratha Empire history, and the state's distinctive industrial/economic profile centered on Mumbai-Pune) shapes MPSC's syllabus distinctly from other state PSCs.
 
-## Who This Is For
-Students and professionals at all levels who want to build knowledge in this domain — whether for exam preparation, career advancement, or general knowledge.
+## Exam structure — a quick map
 
-## How to Study
-1. Start with the **Fundamentals** section to build a solid base
-2. Move to **Intermediate** for applied knowledge and scenarios
-3. Use **Advanced** for exam-level depth and complex topics
-4. Practise with **Interview Q&A** for exams and assessments
-5. Use the **Cheatsheet** for last-minute revision before the exam
+| Post classification | Level | Typical roles |
+|---|---|---|
+| MCS (Maharashtra Civil Service) | Senior administrative | Deputy Collector, Deputy Superintendent of Police, and comparable posts |
+| Group A | Senior/specialized | Various senior state department posts |
+| Group B | Mid-level | Various mid-level state department posts |
 
-## Key Features of This Section
-- Structured notes aligned with official syllabus
-- Practice questions after key concepts
-- Cheatsheets for quick revision
-- Interview and exam Q&A format
-- Current and updated content
+MCS and senior Group A posts generally follow the full Prelims-Mains-Interview structure, while lower-tier posts typically use simpler, screening-focused processes. `(needs verification — recheck against current source: MPSC periodically revises exam pattern and post classifications.)`
 
-## Getting Started
-Click **Fundamentals** to begin your learning journey with this topic. Work systematically through each section for the best results.
+## Maratha Empire history — a distinctive syllabus theme
 
-## Assessment Strategy
-For objective exams: understand > memorise. For descriptive/written exams: structure your answers clearly. For interviews: demonstrate reasoning, not just recall.
+A syllabus theme carrying particular weight in MPSC's history component is **Maratha Empire history** — Shivaji Maharaj's founding of the Maratha kingdom, the subsequent Maratha Confederacy's expansion across much of the Indian subcontinent, and its administrative innovations (including the **Ashtapradhan** council system, an eight-minister administrative structure). This carries genuine significance for Maharashtra's state identity beyond its exam-topic status, given the Maratha Empire's substantial historical role in resisting Mughal expansion and later shaping much of India's 18th-century political landscape.
 
-## Detailed Study Notes
+## Exam and career relevance
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+MPSC Prep is the primary preparation pathway for Maharashtra state government employment, with MCS specifically representing one of India's most competitive state-level civil-service entry points, given Maharashtra's large population and substantial state administrative apparatus.
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+## How to use this technology's sections
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Fundamentals covers MCS/Group A/B exam structure and the Marathi language paper. Intermediate covers Maharashtra-specific history (including the Maratha Empire) and geography/economy. Advanced covers MCS Mains strategy and current-affairs integration. Interview and Cheatsheets provide exam-format practice and quick reference.

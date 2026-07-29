@@ -1,84 +1,21 @@
-# TNPSC — Tamil Nadu Public Service Commission — Advanced
+# TNPSC Prep — Advanced
 
-Comprehensive advanced preparation for TNPSC — Tamil Nadu Public Service Commission.
+## Mains-stage strategy — beyond Prelims-level recall
 
-## Exam Overview
-State PSC exams recruit for Group A, B, and C positions in respective state government departments. Each state PSC has unique syllabus but shares common elements: General Studies, General Aptitude, Indian Constitution, State-specific history/culture/economy, and current affairs.
+For Groups including a Mains stage (typically Group I and comparable senior levels), preparation shifts from Prelims' objective-recall demands toward more descriptive, analytical answer-writing — candidates need to demonstrate not just factual knowledge of Tamil Nadu history/geography/economy (Intermediate) but the ability to synthesize and present that knowledge coherently within time constraints. This is a genuinely different skill from Prelims performance, and candidates who performed strongly at Prelims sometimes underperform at Mains specifically because they haven't practiced structured, time-bound answer writing as a distinct skill requiring its own preparation.
 
-## Content Structure
-This section covers: state-specific GK, polity and governance, economy and geography, history and culture, and current affairs relevant to the state exam.
+## Group-specific differences in practice
 
-## Expert-Level Mastery
-This section covers advanced topics, complex scenarios, and the depth required for competitive exams and professional practice.
+Building on Overview's Group I-IV structure: preparation should be calibrated to the specific Group targeted, since the stages and depth required differ meaningfully — Group IV's entry-level, typically Prelims-only (or Prelims plus a simpler subsequent stage) format requires less Mains-specific answer-writing preparation than Group I's full three-stage process with its more senior-role expectations. A common inefficiency is over-preparing Group IV-level candidates with Group I-level depth (wasted effort relative to what's actually tested) or under-preparing Group I candidates by treating all Groups as requiring the same preparation depth — calibrating preparation intensity to the specific Group's actual demands is a genuinely advanced-level strategic consideration, not just a scope-narrowing convenience.
 
-## Advanced Topics
-- Complex multi-concept scenarios requiring integrated knowledge
-- Analytical and evaluative questions
-- Recent developments, amendments, and current issues
-- High-difficulty exam questions with detailed solutions
+## Current affairs — state and national integration
 
-## Strategic Approach
-At the advanced level, strategy matters as much as knowledge:
-- Identify the question type and apply the right framework
-- Manage time — know when to move on and return later
-- Use elimination for objective questions
-- Structure long-answer responses clearly
+Advanced TNPSC preparation requires integrating both national current affairs (relevant across most competitive exams) and Tamil-Nadu-specific current developments (state government policy changes, state budget announcements, state-specific infrastructure and development projects) — TNPSC's current-affairs testing tends to weight state-specific developments more heavily than a purely national-focus exam like UPSC would, consistent with the broader Samacheer-Kalvi-grounded, state-specific emphasis running throughout this technology's material. `(needs verification — recheck against current source: current affairs content is inherently time-sensitive and requires ongoing tracking rather than static preparation.)`
 
-## Exam Simulation
-Practise under timed conditions:
-- Set a timer and attempt full sections without breaks
-- Review every wrong answer with the source material
-- Track your accuracy by topic to identify weak areas
-- Repeat mock tests to build consistency
+## Connecting the Dravidian movement's history to contemporary Tamil Nadu administration
 
-## Advanced Checklist
-- [ ] Can solve the hardest questions in this topic
-- [ ] Understand recent changes and current developments
-- [ ] Can teach the topic clearly to someone else
-- [ ] Mock exam score is consistently above 75%
+An advanced-level synthesis point connecting Intermediate's history coverage to genuine understanding rather than isolated fact recall: the Dravidian movement's historical influence (Intermediate) isn't purely a 20th-century historical topic — it continues to shape contemporary Tamil Nadu's political culture, language policy, and approach to social welfare programming (including the kind of large-scale welfare schemes covered in Intermediate), meaning candidates who understand this historical throughline connect isolated current-affairs and scheme-related facts into a more coherent, exam-advantageous understanding of *why* Tamil Nadu's state governance operates the way it currently does, rather than memorizing scheme details and historical facts as disconnected items.
 
-## Detailed Study Notes
+## Answer-writing practice as a distinct preparation activity
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+The advanced-level practical takeaway: Mains-stage answer-writing (this file) genuinely requires dedicated practice as its own skill — writing timed, structured answers to past-paper-style questions, ideally with feedback on structure and content coverage — rather than assuming that strong factual knowledge from Intermediate-level content study automatically translates into strong Mains performance. This is a common and correctable preparation gap, not an inherent talent limitation.

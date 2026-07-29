@@ -1,75 +1,19 @@
-# TNPSC — Tamil Nadu Public Service Commission — Interview
+# TNPSC Prep — Practice Q&A
 
-Comprehensive interview preparation for TNPSC — Tamil Nadu Public Service Commission.
+**Q: Why does Samacheer Kalvi matter so specifically for TNPSC preparation, rather than general "GK" study being sufficient?**
+A: TNPSC's General Studies syllabus draws its content foundation directly from Samacheer Kalvi, Tamil Nadu's state board curriculum, rather than a generic pan-India general knowledge framework. TNPSC's actual questions tend to closely mirror Samacheer Kalvi textbook content and phrasing, meaning candidates studying from this specific curricular source have a genuine, structural advantage over those relying on generic competitive-exam GK material that doesn't share this specific curricular grounding.
 
-## Exam Overview
-State PSC exams recruit for Group A, B, and C positions in respective state government departments. Each state PSC has unique syllabus but shares common elements: General Studies, General Aptitude, Indian Constitution, State-specific history/culture/economy, and current affairs.
+**Q: Why might a candidate who transfers UPSC preparation directly to TNPSC find unexpected gaps?**
+A: UPSC preparation typically draws from NCERT's pan-India curriculum, while TNPSC draws from Samacheer Kalvi's Tamil-Nadu-specific curriculum — these differ meaningfully in their state-specific emphasis (Tamil Nadu history, geography, economy, and government schemes receive much deeper coverage in Samacheer Kalvi than in NCERT's more national framing). A candidate assuming NCERT-based UPSC preparation transfers directly will likely find gaps specifically in this Tamil-Nadu-weighted content.
 
-## Content Structure
-This section covers: state-specific GK, polity and governance, economy and geography, history and culture, and current affairs relevant to the state exam.
+**Q: Why does TNPSC preparation strategy differ meaningfully between Group I and Group IV candidates?**
+A: The Groups have genuinely different exam structures and depth requirements — Group I involves the full Prelims-Mains-Interview process expected of senior administrative roles, while Group IV is typically a simpler, entry-level process without the same Mains-stage answer-writing demands. Calibrating preparation intensity and skill focus (like dedicated Mains answer-writing practice) to the specific Group targeted avoids both wasted over-preparation and inadequate under-preparation relative to what's actually tested.
 
-## Interview and Exam Q&A
+**Q: What's a common reason a strong Prelims performer underperforms at the Mains stage?**
+A: Mains requires descriptive, analytical answer-writing under time constraints — a genuinely different skill from Prelims' objective-recall demands. Candidates who focus preparation entirely on factual content mastery (which serves Prelims well) sometimes neglect deliberately practicing structured, time-bound answer writing as its own skill, leading to underperformance at Mains despite strong underlying subject knowledge.
 
-**Q: What are the most important concepts in this topic?**
-Focus on the foundational framework — definitions, key legislation or standards, the regulatory authority, and how the system works in practice. Examiners and interviewers test whether you understand the structure, not just isolated facts.
+**Q: Why does understanding the Dravidian movement's history matter beyond memorizing it as a standalone historical topic?**
+A: The Dravidian movement continues to shape contemporary Tamil Nadu's political culture, language policy, and approach to social welfare programming. Understanding this historical throughline helps connect otherwise isolated current-affairs facts and scheme details into a coherent understanding of why Tamil Nadu's state governance operates the way it currently does — a more durable, exam-advantageous form of knowledge than memorizing historical facts and current schemes as disconnected items.
 
-**Q: How do you approach an unfamiliar question in this domain?**
-Break it down systematically. Identify what category of question it is (definition, application, analysis, or evaluation). Apply the relevant framework. State your reasoning step by step. In objective exams, eliminate clearly wrong options before choosing.
-
-**Q: What common mistakes should you avoid?**
-Confusing similar terms or concepts. Applying general rules without checking for exceptions. Not reading the question carefully — many marks are lost by answering a different question than the one asked.
-
-**Q: How should you prepare for written/descriptive answers?**
-Structure your answers: Introduction (define and contextualise), Body (main points with examples), Conclusion (significance or way forward). Use subheadings where permitted. Aim for clarity over length.
-
-**Q: What current issues are important in this domain?**
-Stay updated with recent developments — new legislation, policy changes, landmark judgments, or recent exam results. Examiners reward candidates who show awareness of the current context.
-
-**Q: What is the best revision strategy for this topic?**
-Use the cheatsheet for last-minute review. Create your own one-page summary of key points. Teach the concept to someone else — if you can explain it clearly, you understand it well enough for the exam.
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+**Q: Why does TNPSC's current-affairs testing weight state-specific developments more heavily than an exam like UPSC?**
+A: This reflects the same state-specific emphasis running throughout TNPSC's syllabus design — the exam is fundamentally assessing readiness for Tamil-Nadu-specific state government roles, so testing state government policy changes, state budget announcements, and state-specific development projects more heavily than a purely national-focus exam directly serves that assessment purpose.

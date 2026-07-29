@@ -1,75 +1,19 @@
-# TSPSC — Telangana State Public Service Commission — Interview
+# TSPSC Prep — Practice Q&A
 
-Comprehensive interview preparation for TSPSC — Telangana State Public Service Commission.
+**Q: Why does the Telangana movement carry more syllabus weight than a typical historical topic on other state PSC exams?**
+A: The Telangana movement isn't treated as one historical topic among many — it's foundational context for understanding Telangana's entire post-2014 administrative and political character, including many of its current welfare-scheme design choices and development priorities. TSPSC treats it with the same seriousness as core General Studies content, and candidates preparing from generic South Indian history material commonly under-prepare this specific, high-weight topic as a result.
 
-## Exam Overview
-State PSC exams recruit for Group A, B, and C positions in respective state government departments. Each state PSC has unique syllabus but shares common elements: General Studies, General Aptitude, Indian Constitution, State-specific history/culture/economy, and current affairs.
+**Q: What were the underlying grievances driving the Telangana movement, and why does understanding them matter beyond historical fact recall?**
+A: The movement's roots trace back to concerns raised over decades about regional development disparities, resource allocation, and political representation within united Andhra Pradesh following Telangana's 1956 merger into that state. Understanding these underlying grievances matters because they directly explain many of Telangana's post-2014 policy priorities and welfare-scheme design choices — connecting historical movement content to current-affairs content about the state's specific development programs into one coherent narrative.
 
-## Content Structure
-This section covers: state-specific GK, polity and governance, economy and geography, history and culture, and current affairs relevant to the state exam.
+**Q: Why does Telangana's economy have a genuinely different character from Andhra Pradesh's, despite their shared pre-2014 history?**
+A: Telangana is a landlocked, Deccan-Plateau state with Hyderabad anchoring a substantial information-technology and pharmaceutical-sector economic presence, giving it a genuinely urban-technology-sector emphasis. Andhra Pradesh, by contrast, has a substantial coastline supporting significant fishing, aquaculture, and delta agriculture. These are genuinely distinct post-2014 economic profiles despite both states sharing the same pre-2014 historical and administrative foundation.
 
-## Interview and Exam Q&A
+**Q: Why should a candidate treat Godavari-Krishna river-water topics as a "two-sided" policy area rather than assuming one state's position is simply correct?**
+A: Telangana sits upstream relative to Andhra Pradesh on both river systems, giving each state genuinely distinct interests in irrigation and hydroelectric planning and in interstate water-sharing discussions. Understanding this as an ongoing policy topic with legitimate considerations on both sides — rather than a settled matter — better reflects the actual current-affairs reality candidates need to track, and applies symmetrically whether preparing for TSPSC or APPSC.
 
-**Q: What are the most important concepts in this topic?**
-Focus on the foundational framework — definitions, key legislation or standards, the regulatory authority, and how the system works in practice. Examiners and interviewers test whether you understand the structure, not just isolated facts.
+**Q: Why does Telangana's relatively young statehood (formed 2014) affect how a candidate should approach TSPSC's current-affairs preparation?**
+A: Telangana's administrative structures, welfare-scheme design, and economic development planning are comparatively more actively evolving than an older, more established state's equivalent content, since the state has had less time to reach administrative and policy stability. This means TSPSC candidates should weight ongoing current-affairs tracking more heavily for state-specific administrative content than they might for a longer-established state's PSC syllabus.
 
-**Q: How do you approach an unfamiliar question in this domain?**
-Break it down systematically. Identify what category of question it is (definition, application, analysis, or evaluation). Apply the relevant framework. State your reasoning step by step. In objective exams, eliminate clearly wrong options before choosing.
-
-**Q: What common mistakes should you avoid?**
-Confusing similar terms or concepts. Applying general rules without checking for exceptions. Not reading the question carefully — many marks are lost by answering a different question than the one asked.
-
-**Q: How should you prepare for written/descriptive answers?**
-Structure your answers: Introduction (define and contextualise), Body (main points with examples), Conclusion (significance or way forward). Use subheadings where permitted. Aim for clarity over length.
-
-**Q: What current issues are important in this domain?**
-Stay updated with recent developments — new legislation, policy changes, landmark judgments, or recent exam results. Examiners reward candidates who show awareness of the current context.
-
-**Q: What is the best revision strategy for this topic?**
-Use the cheatsheet for last-minute review. Create your own one-page summary of key points. Teach the concept to someone else — if you can explain it clearly, you understand it well enough for the exam.
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+**Q: How much preparation overlap genuinely exists between TSPSC and APPSC, and where does it break down?**
+A: Substantial overlap exists for pre-2014 history — the united Andhra Pradesh state's formation and history through 2014 is shared content. The overlap breaks down for post-2014 content: Telangana's own administrative structure, welfare schemes, and Hyderabad-centered economic profile are distinct from Andhra Pradesh's own post-bifurcation capital development and coastal-agricultural economic profile — candidates shouldn't assume post-2014 preparation transfers between the two exams.
