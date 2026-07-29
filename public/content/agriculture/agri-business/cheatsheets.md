@@ -1,101 +1,65 @@
-# Agri-Business and Farm Economics — Cheatsheets
+# Agri-Business and Farm Economics — Quick Reference
 
-## Overview
-Comprehensive cheatsheets content for Agri-Business and Farm Economics.
+## Cost categories
 
-## Key Concepts
-This section covers essential knowledge for agriculture professionals, students preparing for ICAR, IBPS AFO, NABARD, and state agriculture department exams.
+| Cost | Includes | Use |
+|---|---|---|
+| Cost A | Cash/paid-out expenses only | Minimum cash to avoid a loss |
+| Cost B | Cost A + imputed land/capital value | Opportunity cost of owned resources |
+| Cost C | Cost B + imputed family labour | Full economic profitability — use for genuine comparison |
 
-## Study Topics
-- Principles and definitions
-- Practical applications
-- Current practices and innovations
-- Government schemes and policies
-- Environmental sustainability aspects
+**Always compare crops/options on the same cost basis** — comparing Cost A of one against Cost C of another is misleading.
 
-## Practice and Assessment
-Each concept is followed by practical applications and assessment questions to reinforce understanding.
+## Profitability formulas
 
-## Quick Reference Summary
+- Gross Returns = Output quantity × Price
+- Net Returns = Gross Returns − Cost (specify which basis: A/B/C)
+- Break-even = yield/price at which Net Returns = 0
 
-### Key Facts at a Glance
-| Item | Key Information |
-|------|----------------|
-| Domain | See overview for full context |
-| Primary Authority | Relevant regulatory body |
-| Key Legislation | Main acts and regulations |
-| Exam Weight | Check specific exam syllabus |
-| Difficulty | Varies by subtopic |
+## APMC — pros and criticisms
 
-### Core Concepts to Remember
-- Fundamental definitions and terminology
-- Key regulatory framework and authority
-- Important dates, numbers, and thresholds
-- Exceptions and special cases
-- Recent developments and amendments
+| Intended purpose | Common criticism |
+|---|---|
+| Price transparency (open auction) | Licensing limits number of buyers |
+| Protection from exploitative direct deals | Commission agent fees add cost |
+| Regulated market structure | State-specific Acts fragment the market |
 
-### Exam Tips
-- Read every question twice before answering
-- For MCQs: eliminate wrong options first
-- For descriptive: structure > length
-- Allocate time proportionally to marks
-- Attempt all questions — no blanks
+**e-NAM** = electronic linking of APMC mandis, aimed at reducing fragmentation while keeping regulated-market safeguards.
 
-### Last-Hour Revision Checklist
-- [ ] Reviewed all key definitions
-- [ ] Memorised important numbers and dates
-- [ ] Practised at least 10 previous year questions
-- [ ] Know the exceptions to main rules
-- [ ] Checked for any recent amendments or news
+## Market channels — quick comparison
 
-### Common Exam Questions Pattern
-1. Definition-based: "What is X?" — give precise definition + example
-2. Application-based: "In this scenario, what applies?" — identify rule + apply
-3. Comparison: "Difference between X and Y" — tabular format preferred
-4. Current affairs: "Recent development in X" — know last 6-12 months
+| Channel | Layers | Farmer's price share |
+|---|---|---|
+| Traditional (mandi → wholesaler → retailer) | Multiple intermediaries | Lower |
+| e-NAM | Digital, wider buyer pool | Improved vs. single physical mandi |
+| Direct/FPO-based | Fewest intermediaries | Higher, but needs organizational capacity |
 
-## Detailed Study Notes
+## FPO — quick facts
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+- Formal legal entity, typically registered as a **Producer Company**
+- Solves the **aggregation problem** — gives smallholders collective bargaining scale
+- Capitalized by member shares + NABARD equity grant support
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+## NABARD — key structural fact
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+NABARD generally does **not** lend directly to farmers — it **refinances** banks (commercial, RRB, cooperative), who lend at retail level. Tools: interest subvention, refinance rates, priority-sector lending targets.
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
+## Contract farming — the tradeoff
 
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
+| Farmer gets | Farmer gives up |
+|---|---|
+| Guaranteed price (price-risk protection) | Flexibility — must follow buyer's variety/input/quality spec, can't sell elsewhere even if market price rises |
 
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
+## NWR (Negotiable Warehouse Receipt)
 
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
+WDRA-registered warehouse storage → NWR issued → pledge as loan collateral → liquidity **without** immediate sale. Directly counters harvest-time distress selling.
 
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+## PMFBY (crop insurance) — quick facts
+
+Covers yield loss from natural calamity/pest/disease. Government-subsidized premium; farmer pays a capped percentage.
+
+`(needs verification — recheck against current source: exact premium rates and scheme terms are periodically revised.)`
+
+## Export policy tools
+
+**MEP** (Minimum Export Price) and **export duty/bans** — used to balance export earnings against domestic price stability (e.g., periodic onion export restrictions to control domestic prices).

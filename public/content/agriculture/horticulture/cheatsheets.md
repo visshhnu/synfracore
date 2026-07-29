@@ -1,101 +1,71 @@
-# Horticulture and Crop Production — Cheatsheets
+# Horticulture and Crop Production — Quick Reference
 
-## Overview
-Comprehensive cheatsheets content for Horticulture and Crop Production.
+## Fruit crop classification by climate
 
-## Key Concepts
-This section covers essential knowledge for agriculture professionals, students preparing for ICAR, IBPS AFO, NABARD, and state agriculture department exams.
+| Category | Climate need | Examples |
+|---|---|---|
+| Tropical | Warm year-round, no frost tolerance | Mango, banana, papaya, guava |
+| Subtropical | Warm summer, mild winter | Citrus, litchi, pomegranate |
+| Temperate | Winter chilling requirement | Apple, pear, peach, plum |
 
-## Study Topics
-- Principles and definitions
-- Practical applications
-- Current practices and innovations
-- Government schemes and policies
-- Environmental sustainability aspects
+## Vegetable classification by plant part
 
-## Practice and Assessment
-Each concept is followed by practical applications and assessment questions to reinforce understanding.
+| Category | Part harvested | Examples |
+|---|---|---|
+| Root | Root | Carrot, radish, beetroot |
+| Tuber | Underground stem | Potato |
+| Leafy | Leaves | Spinach, cabbage, lettuce |
+| Fruit | Fruit (botanical) | Tomato, brinjal, okra, cucumber |
+| Flower | Flower head | Cauliflower, broccoli |
+| Bulb | Bulb | Onion, garlic |
 
-## Quick Reference Summary
+## Propagation methods
 
-### Key Facts at a Glance
-| Item | Key Information |
-|------|----------------|
-| Domain | See overview for full context |
-| Primary Authority | Relevant regulatory body |
-| Key Legislation | Main acts and regulations |
-| Exam Weight | Check specific exam syllabus |
-| Difficulty | Varies by subtopic |
+| Method | Type | Used for |
+|---|---|---|
+| Seed | Sexual | Cheap, but no genetic guarantee — rarely used for commercial fruit |
+| Cutting | Vegetative | Grapes, pomegranate, many ornamentals |
+| Layering | Vegetative | Species that root slowly/unreliably from cuttings |
+| Budding | Vegetative (single bud) | Citrus, roses — fast, minimal scion material |
+| Grafting | Vegetative (scion section) | Mango, apple — most tree fruits |
 
-### Core Concepts to Remember
-- Fundamental definitions and terminology
-- Key regulatory framework and authority
-- Important dates, numbers, and thresholds
-- Exceptions and special cases
-- Recent developments and amendments
+## Climacteric vs. non-climacteric
 
-### Exam Tips
-- Read every question twice before answering
-- For MCQs: eliminate wrong options first
-- For descriptive: structure > length
-- Allocate time proportionally to marks
-- Attempt all questions — no blanks
+| | Climacteric | Non-climacteric |
+|---|---|---|
+| Ripens after harvest | Yes | No |
+| Examples | Banana, mango, papaya, tomato, apple | Citrus, grapes, pineapple, litchi |
+| Harvest strategy | Can pick under-ripe, ripen later (ethylene) | Must pick at full ripeness |
 
-### Last-Hour Revision Checklist
-- [ ] Reviewed all key definitions
-- [ ] Memorised important numbers and dates
-- [ ] Practised at least 10 previous year questions
-- [ ] Know the exceptions to main rules
-- [ ] Checked for any recent amendments or news
+## Post-harvest loss stages
 
-### Common Exam Questions Pattern
-1. Definition-based: "What is X?" — give precise definition + example
-2. Application-based: "In this scenario, what applies?" — identify rule + apply
-3. Comparison: "Difference between X and Y" — tabular format preferred
-4. Current affairs: "Recent development in X" — know last 6-12 months
+Harvest (timing/handling) → Storage (cold chain) → Transport (packaging, cold-chain breaks) → Market (unsold perishables)
 
-## Detailed Study Notes
+## Nursery raising checklist (vegetables)
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+1. Raised beds for drainage
+2. Seed treatment (fungicide/biofertiliser) — reduces damping-off
+3. Controlled watering — overwatering causes damping-off
+4. Hardening before transplant — skipping this raises transplant shock/mortality
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+## Protected cultivation quick comparison
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+| | Polyhouse | Shadenet |
+|---|---|---|
+| Control level | Full climate control | Reduces light/temp only |
+| Cost | Higher | Lower |
+| Use case | Off-season high-value crops, cut flowers | Nursery raising, sun-sensitive crops |
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
+## CA storage vs. standard cold storage
 
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
+| | Cold storage | CA (Controlled Atmosphere) storage |
+|---|---|---|
+| Controls | Temperature only | Temperature + O2/CO2 levels |
+| Effect | Slows ripening | Slows ripening further via lowered respiration |
+| Cost | Lower | Higher — justified for high-value, long-storage crops |
 
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
+## Export certification
 
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
+**GlobalGAP** — near-mandatory for EU/developed-market exports (traceability, worker safety, residue limits). **APEDA** — Indian body coordinating horticultural export promotion/certification.
 
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+`(needs verification — recheck against current source: certification requirements and residue limits are periodically updated.)`

@@ -1,92 +1,25 @@
 # Agri-Business and Farm Economics — Advanced
 
-## Overview
-Comprehensive advanced content for Agri-Business and Farm Economics.
+## Contract farming models
 
-## Key Concepts
-This section covers essential knowledge for agriculture professionals, students preparing for ICAR, IBPS AFO, NABARD, and state agriculture department exams.
+Contract farming is a pre-agreed arrangement between a farmer and a buyer (processor, exporter, retailer) specifying price, quality, and quantity before the crop is even planted — shifting price risk away from the farmer (a guaranteed price regardless of market fluctuation at harvest time) in exchange for reduced flexibility (the farmer commits to the buyer's specified variety, input regime, and quality standards, and typically can't sell elsewhere even if the open market price rises above the contracted price during the season).
 
-## Study Topics
-- Principles and definitions
-- Practical applications
-- Current practices and innovations
-- Government schemes and policies
-- Environmental sustainability aspects
+The economic logic for the buyer side: contract farming gives a processor or exporter supply-chain certainty (guaranteed volume and quality/specification match) that spot-market purchasing from open mandis can't reliably provide — this is why contract farming concentrates in crops destined for processing or export, where consistent specification matters more than it does for produce sold directly into a general fresh market.
 
-## Practice and Assessment
-Each concept is followed by practical applications and assessment questions to reinforce understanding.
+## Food processing and value-addition economics
 
-## Expert-Level Mastery
-This section covers advanced topics, complex scenarios, and the depth required for competitive exams and professional practice.
+The core economic argument for food processing: raw agricultural commodities capture only a fraction of the final consumer price, while processing captures a share of the value added at each stage between farm and final product. A tomato sold as a raw commodity earns the farmer the mandi price; the same tomato processed into ketchup or tomato paste, and the value-addition margin along that processing chain, is captured by whoever does the processing — which is why FPO- or farmer-collective-owned processing units (rather than processing being entirely outsourced to separate commercial processors) is a specific policy and business emphasis: it's an attempt to let the aggregated value-addition margin flow back toward the producer side of the chain rather than being captured entirely downstream.
 
-## Advanced Topics
-- Complex multi-concept scenarios requiring integrated knowledge
-- Analytical and evaluative questions
-- Recent developments, amendments, and current issues
-- High-difficulty exam questions with detailed solutions
+Processing also directly addresses horticulture's post-harvest loss problem (covered in the Horticulture technology): a perishable crop that can't be sold fresh before spoiling can instead be processed into a shelf-stable product, converting what would otherwise be a total loss into at least partial realized value.
 
-## Strategic Approach
-At the advanced level, strategy matters as much as knowledge:
-- Identify the question type and apply the right framework
-- Manage time — know when to move on and return later
-- Use elimination for objective questions
-- Structure long-answer responses clearly
+## Warehousing and negotiable warehouse receipts
 
-## Exam Simulation
-Practise under timed conditions:
-- Set a timer and attempt full sections without breaks
-- Review every wrong answer with the source material
-- Track your accuracy by topic to identify weak areas
-- Repeat mock tests to build consistency
+The Warehousing (Development and Regulation) Act established a system of registered warehouses issuing Negotiable Warehouse Receipts (NWRs) — a farmer storing produce in a WDRA-registered warehouse receives an NWR representing that stored produce, which can then be used as collateral for a loan (allowing the farmer to access credit against stored produce without needing to immediately sell it) or traded/transferred directly. This directly addresses a specific structural problem: many farmers sell immediately at harvest (when supply is highest and prices are typically lowest) purely due to a lack of storage and a need for immediate cash — NWR-backed credit against stored produce is designed to let a farmer hold produce for a better price later without sacrificing immediate liquidity, since the receipt itself can be pledged for a loan.
 
-## Advanced Checklist
-- [ ] Can solve the hardest questions in this topic
-- [ ] Understand recent changes and current developments
-- [ ] Can teach the topic clearly to someone else
-- [ ] Mock exam score is consistently above 75%
+## Crop insurance — PMFBY
 
-## Detailed Study Notes
+Pradhan Mantri Fasal Bima Yojana (PMFBY) is India's primary crop insurance scheme, covering yield loss due to natural calamities, pests, and disease, with the government subsidizing the bulk of the premium so farmers pay a capped percentage (historically a low, fixed percentage for food/oilseed crops, with a higher cap for commercial/horticultural crops) rather than the full actuarial premium cost. `(needs verification — recheck against current source: exact premium rates, coverage terms, and scheme parameters have been revised across cycles since the scheme's introduction; confirm against current official guidelines.)` The core economic function is the same risk-shifting logic as contract farming's guaranteed price, but applied to yield/production risk rather than price risk specifically — a farmer facing crop failure from drought or flood receives a payout rather than bearing that loss entirely, which matters for farm economics because uninsured production risk is a major reason farmers under-invest in higher-return but higher-risk crop choices even when the expected-value case for switching is favourable.
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+## Agri-export policy and market access
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Beyond GlobalGAP-style certification (covered in Horticulture for produce-specific export requirements), agri-export at a policy level involves managing Minimum Export Price (MEP) and export duty/ban mechanisms that the government periodically uses to balance export earnings against domestic price stability — an export ban or restrictive MEP on onion, for instance, is a recurring real-world policy tool used specifically to control a commodity's domestic price when domestic supply is tight, at the direct cost of exporters' and export-oriented farmers' market access during that period. Understanding this tension — between farmer/exporter income from export markets and consumer-facing domestic price stability — is central to how Indian agricultural trade policy actually operates in practice, not a peripheral detail.

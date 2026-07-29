@@ -1,89 +1,26 @@
 # Agri-Business and Farm Economics — Overview
 
-## Overview
-Comprehensive overview content for Agri-Business and Farm Economics.
+## What agri-business covers
 
-## Key Concepts
-This section covers essential knowledge for agriculture professionals, students preparing for ICAR, IBPS AFO, NABARD, and state agriculture department exams.
+Agri-business is the study of agriculture as an economic system — everything that happens around the actual growing of crops: cost and profitability analysis, marketing channels (APMC mandis and their alternatives), producer organization (FPOs), institutional finance (NABARD and its schemes), and food processing/value addition. Where Soil Science and Horticulture cover *how* to produce, agri-business covers whether and how that production translates into a farmer's actual income — a distinction that matters because a technically well-grown crop can still fail economically due to poor market access, thin margins, or lack of processing/storage options.
 
-## Study Topics
-- Principles and definitions
-- Practical applications
-- Current practices and innovations
-- Government schemes and policies
-- Environmental sustainability aspects
+## Why it matters
 
-## Practice and Assessment
-Each concept is followed by practical applications and assessment questions to reinforce understanding.
+A large share of Indian agriculture's structural problems — farmer distress, price volatility, post-harvest waste — trace back to agri-business gaps rather than production failures: inadequate market access forcing distress sales at low prices, lack of processing infrastructure meaning perishable produce must be sold immediately regardless of market conditions, and limited access to institutional credit pushing farmers toward informal, high-interest lending. Understanding agri-business is what connects farm-level production knowledge (covered elsewhere in this academy) to the actual economic outcomes farmers experience.
 
-## Learning Path
-This section follows a structured approach from fundamentals to advanced topics. Each module builds on the previous one.
+## What this technology covers
 
-## Who This Is For
-Students and professionals at all levels who want to build knowledge in this domain — whether for exam preparation, career advancement, or general knowledge.
+- **Farm economics** — cost of cultivation, gross/net returns, and break-even analysis for crop decisions.
+- **APMC** (Agricultural Produce Market Committee) — the traditional regulated-mandi marketing structure, its role and limitations.
+- **Agri-marketing channels** — traditional mandis versus modern alternatives like e-NAM (electronic National Agriculture Market).
+- **FPOs** (Farmer Producer Organizations) — collective organization models that give individual farmers bargaining power and market access they couldn't achieve alone.
+- **NABARD schemes** — institutional agricultural finance and refinance mechanisms.
+- **Food processing** — value addition that captures more of the final consumer price for the agricultural value chain rather than losing it entirely to intermediaries.
 
-## How to Study
-1. Start with the **Fundamentals** section to build a solid base
-2. Move to **Intermediate** for applied knowledge and scenarios
-3. Use **Advanced** for exam-level depth and complex topics
-4. Practise with **Interview Q&A** for exams and assessments
-5. Use the **Cheatsheet** for last-minute revision before the exam
+## Exam and career relevance
 
-## Key Features of This Section
-- Structured notes aligned with official syllabus
-- Practice questions after key concepts
-- Cheatsheets for quick revision
-- Interview and exam Q&A format
-- Current and updated content
+Agri-business is central to IBPS AFO (Agricultural Field Officer) and NABARD Grade A exams specifically — both roles are fundamentally about agricultural finance and economics, not crop production technique — and appears substantially in ICAR and state agriculture department exams as well, usually alongside soil science and horticulture in a combined agriculture paper.
 
-## Getting Started
-Click **Fundamentals** to begin your learning journey with this topic. Work systematically through each section for the best results.
+## How to use this technology's sections
 
-## Assessment Strategy
-For objective exams: understand > memorise. For descriptive/written exams: structure your answers clearly. For interviews: demonstrate reasoning, not just recall.
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Fundamentals covers the core economic vocabulary and structures (cost of cultivation, APMC, market channels, FPO basics) needed before anything else makes sense. Intermediate applies these to worked calculations and real scheme mechanics. Advanced covers contract farming, processing economics, and export/insurance policy. Interview and Cheatsheets provide exam-format practice and quick reference.
