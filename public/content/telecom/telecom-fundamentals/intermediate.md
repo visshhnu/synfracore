@@ -1,83 +1,21 @@
-# 5G and Telecom Fundamentals — Intermediate
+# Telecom Fundamentals — Intermediate
 
-Structured intermediate content for 5G and Telecom Fundamentals.
+## Tracing a GSM call — putting the architecture to work
 
-## Industry Context
-Telecom is one of India's largest sectors. BSNL, Reliance Jio, Airtel, and Vi employ hundreds of thousands of engineers. 5G rollout is accelerating — creating new opportunities in network engineering, infrastructure, and IoT.
+Applying Fundamentals' GSM architecture concepts to an actual call flow: when a mobile device is switched on, it registers with the network — the Mobile Switching Centre (MSC) queries the Home Location Register (HLR) to authenticate the subscriber and updates the Visitor Location Register (VLR, a local, temporary copy of relevant HLR data for the area the subscriber is currently in) with the device's current location. When someone calls that number, the call is first routed to the subscriber's "home" MSC, which queries the HLR to find which VLR/area the subscriber is currently registered in, then routes the call to that area's serving MSC for final delivery to the device. This HLR/VLR split — one permanent central record, one temporary local copy — exists specifically to avoid every single call needing to query a single central database from anywhere in the country, distributing the lookup load geographically.
 
-## Technical Content
-This section covers 5g and telecom fundamentals from industry-standard perspectives — JTO/JE BSNL exam preparation, private telecom sector technical rounds, and GATE ECE examination topics.
+## GSM vs. CDMA — the practical network-planning difference
 
-## Building Deeper Understanding
-With the fundamentals in place, this section covers applied knowledge, real-world scenarios, and exam-level complexity.
+Beyond the multiple-access technique difference (Fundamentals), GSM and CDMA networks are planned differently in practice: GSM's TDMA structure means each cell has a hard capacity limit set by the number of available time slots per frequency channel, requiring careful frequency reuse planning across a cellular grid to avoid interference between nearby cells using the same frequency. CDMA's code-division approach allows the *same* frequency to be reused in every cell (a property called universal frequency reuse), simplifying frequency planning but making capacity more dependent on interference/noise management across simultaneous users sharing that frequency — different technique, different practical network-design tradeoff, not simply "one is more advanced than the other."
 
-## Applied Concepts
-- Connect foundational theory to practical applications
-- Understand how rules and principles interact in real cases
-- Analyse scenarios and draw reasoned conclusions
-- Identify exceptions, edge cases, and nuances
+## Handover — keeping a call alive across cells
 
-## Practice Approach
-At this level, practice is key. For each concept:
-1. Understand the principle
-2. See it applied to a sample problem
-3. Solve a practice problem independently
-4. Check your answer and understand any errors
+As a mobile device moves between cell coverage areas mid-call, the network must transfer ("hand over") the active connection from one base station to another without dropping the call — GSM primarily uses "hard handover" (briefly breaking the old connection before establishing the new one, a "break-before-make" approach), while CDMA's code-division nature enables "soft handover" (the device briefly maintains connections to both the old and new base station simultaneously before dropping the old one — "make-before-break"), generally producing a smoother transition. This handover concept, established at 2G, remains a core mobility-management function through every later generation, including 4G/5G, just implemented with generation-specific mechanics.
 
-## Common Intermediate Mistakes
-- Applying rules without reading the full context
-- Missing exceptions or special cases
-- Confusing similar concepts or terms
-- Not practising enough past questions
+## Signaling protocols — SS7, the backbone beneath the call
 
-## Progress Check
-You are ready for advanced topics when you can:
-- Solve moderately difficult problems without looking at notes
-- Explain concepts to someone else
-- Identify the relevant framework for any given scenario
+Signaling System No. 7 (SS7) is the protocol suite that handles call setup, routing, and the HLR/VLR queries described above — distinct from the actual voice/data path itself (the "bearer" channel). SS7 is why a phone call can be set up (ringing, routing, billing initiation) before any actual voice data flows — signaling and bearer traffic are separate concerns in traditional telecom architecture, a separation that becomes especially important context for Networking Protocols' coverage of SIP (which serves an analogous signaling role for VoIP/IP-based calling, replacing SS7's function in an all-IP context).
 
-## Detailed Study Notes
+## Working through a spectrum-planning tradeoff
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+A telecom operator planning rural coverage versus urban capacity is directly applying Fundamentals' coverage-vs-capacity tradeoff: rural deployment favours lower-frequency spectrum (fewer cell towers needed to cover large, sparsely-populated areas, since lower frequencies travel farther), while dense urban deployment favours higher-frequency spectrum despite needing many more, closely-spaced cell sites, because urban areas need the higher data capacity that lower frequencies can't provide at scale. A real operator's spectrum portfolio typically includes both — this is why network coverage maps and marketing materials distinguish between different band names even within the same generation, since a single generation label (say, "4G") doesn't specify which of an operator's multiple frequency bands a given user is actually connected to at a given location.

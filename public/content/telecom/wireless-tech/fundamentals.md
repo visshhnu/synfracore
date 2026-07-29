@@ -1,79 +1,29 @@
-# Wireless Technologies: 4G, 5G, WiFi, Bluetooth — Fundamentals
+# 4G/5G & Wireless — Fundamentals
 
-Structured fundamentals content for Wireless Technologies: 4G, 5G, WiFi, Bluetooth.
+## LTE network architecture
 
-## Industry Context
-Telecom is one of India's largest sectors. BSNL, Reliance Jio, Airtel, and Vi employ hundreds of thousands of engineers. 5G rollout is accelerating — creating new opportunities in network engineering, infrastructure, and IoT.
+LTE's network splits into two main parts: the **radio access network**, built around the **eNodeB** (evolved Node B — the LTE base station, combining functions that earlier generations split across separate base-station and controller elements), and the **EPC (Evolved Packet Core)**, the all-IP core network handling mobility management, session management, and routing to external networks (the internet). This is a flatter architecture than GSM's BSS/NSS split (Telecom Fundamentals) — LTE deliberately reduced the number of network elements a data packet passes through, cutting latency as a direct design goal.
 
-## Technical Content
-This section covers wireless technologies: 4g, 5g, wifi, bluetooth from industry-standard perspectives — JTO/JE BSNL exam preparation, private telecom sector technical rounds, and GATE ECE examination topics.
+## OFDM and OFDMA — LTE and NR's shared physical layer
 
-## Core Concepts
-This section covers the foundational knowledge required for this topic. Work through each concept systematically before moving to intermediate topics.
+Telecom Fundamentals introduces OFDMA as 4G/5G's multiple-access technique; Fundamentals here covers the mechanics: **OFDM (Orthogonal Frequency Division Multiplexing)** divides available spectrum into many narrow, mathematically orthogonal sub-carriers — "orthogonal" meaning they don't interfere with each other despite overlapping in frequency, which is what allows dense sub-carrier packing without wasted guard-band spectrum between them. **OFDMA** is the multiple-access application of OFDM — different users are allocated different sub-carriers (and time slots) dynamically, letting the network flexibly assign more spectrum to users who need more throughput at a given moment, rather than a fixed per-user allocation.
 
-## Key Principles
-- Understand the basic theory and definitions
-- Learn the regulatory framework and key bodies involved
-- Practice with simple examples before complex scenarios
-- Use the cheatsheet for quick reference during revision
+LTE uses OFDMA for the downlink (network-to-device) but **SC-FDMA (Single-Carrier FDMA)** for the uplink specifically to reduce peak-to-average power ratio in the device's transmitter — a battery-life and hardware-cost consideration, since devices have much tighter power budgets than base stations. 5G NR uses OFDMA in both directions, made practical by improvements in device power-amplifier efficiency since LTE's original design.
 
-## Getting Started
-Begin by reading the overview, then work through this fundamentals section. Each concept builds on the previous one. Do not skip ahead — the foundation matters.
+## 5G NR — what's actually new
 
-## Self-Assessment
-After completing this section, you should be able to:
-- Define the core terms and concepts
-- Explain the basic structure and framework
-- Answer beginner-level questions on this topic
-- Identify the key regulations, acts, or standards that apply
+5G NR is not simply "faster LTE" — it introduces genuinely new architectural elements:
 
-## Common Beginner Questions
-**Q: Where should I start?** Start with the overview and this fundamentals section. Read official sources alongside these notes.
-**Q: How long will this take?** Budget 2-3 hours for a solid foundation.
-**Q: What resources supplement this?** Official textbooks, government websites, and exam-specific guides.
+- **Network slicing:** the 5G Core can partition a single physical network into multiple logical "slices," each with different performance guarantees (throughput, latency, reliability), letting one network simultaneously serve eMBB, URLLC, and mMTC use cases without needing separate physical infrastructure for each.
+- **Massive MIMO:** using a much larger number of antenna elements (tens to hundreds) than LTE's MIMO implementations, enabling more spatial multiplexing (more simultaneous independent data streams) and finer beamforming.
+- **Flexible numerology:** unlike LTE's fixed sub-carrier spacing, NR supports multiple sub-carrier spacing options, letting the network trade off latency against robustness depending on the deployment scenario (e.g., wider spacing for lower latency in URLLC use cases).
 
-## Detailed Study Notes
+## FR1 and FR2 — the NR band split
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+5G NR spectrum is divided into two frequency ranges: **FR1** (sub-6 GHz, extending the coverage-oriented lower/mid bands familiar from 4G) and **FR2** (mmWave, roughly 24-52 GHz, offering very high capacity but short range and poor obstacle penetration — Telecom Fundamentals' coverage-vs-capacity tradeoff taken to its extreme). Most real-world 5G deployment relies primarily on FR1 for wide-area coverage, with FR2 used selectively for high-density urban capacity (stadiums, dense city centers) where its short range is an acceptable tradeoff for extreme throughput. `(needs verification — recheck against current source: exact FR2 band boundaries and specific allocated bands vary by region and are periodically revised.)`
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+## Getting started
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+1. Treat LTE's eNodeB/EPC architecture as the baseline — 5G's gNodeB/5GC largely extends the same structural pattern rather than replacing it wholesale.
+2. Understand OFDM's orthogonality property before moving to OFDMA's multi-user allocation — the "why no interference despite overlap" mechanic is the foundation the rest of the physical-layer material builds on.
+3. Learn the eMBB/URLLC/mMTC three-way split as 5G's organizing design principle, not a side detail — network slicing, massive MIMO, and the FR1/FR2 split all exist substantially to serve this three-way requirement.

@@ -1,79 +1,23 @@
-# Telecom Networking and Protocols — Fundamentals
+# Telecom Networking — Fundamentals
 
-Structured fundamentals content for Telecom Networking and Protocols.
+## TCP/IP in a telecom context
 
-## Industry Context
-Telecom is one of India's largest sectors. BSNL, Reliance Jio, Airtel, and Vi employ hundreds of thousands of engineers. 5G rollout is accelerating — creating new opportunities in network engineering, infrastructure, and IoT.
+TCP/IP is the general-purpose protocol suite underlying essentially all modern data networking, and telecom networks are no exception — the **IP layer** handles addressing and routing packets across networks, while **TCP** (for connection-oriented, reliable delivery) and **UDP** (for lighter-weight, connectionless delivery) sit above it handling how data is actually transported end to end. Telecom-specific applications choose deliberately between them: SIP signaling and most VoIP media traffic favor UDP, since a small amount of occasional packet loss in a live voice call is more tolerable than the added latency of TCP's retransmission and ordering guarantees — a dropped audio sample is barely noticeable, but a delayed one due to retransmission is often worse for real-time voice quality.
 
-## Technical Content
-This section covers telecom networking and protocols from industry-standard perspectives — JTO/JE BSNL exam preparation, private telecom sector technical rounds, and GATE ECE examination topics.
+## SIP — session signaling for VoIP
 
-## Core Concepts
-This section covers the foundational knowledge required for this topic. Work through each concept systematically before moving to intermediate topics.
+**SIP (Session Initiation Protocol)** handles the signaling side of a VoIP call: establishing ("inviting") a session between two endpoints, negotiating session parameters (like which audio/video codecs both sides support), and tearing the session down when the call ends. SIP is deliberately analogous in role to SS7 (Telecom Fundamentals) — both are signaling protocols distinct from the actual media/bearer path — but SIP is text-based (readable, HTTP-like in structure) and designed natively for IP networks, whereas SS7 was designed for the circuit-switched telecom world that predates widespread IP adoption. A basic SIP call flow: an INVITE message initiates the session, the far end responds (ringing, then answer), media flows over a separate protocol (commonly RTP — Real-time Transport Protocol) once the session is established, and a BYE message ends the call.
 
-## Key Principles
-- Understand the basic theory and definitions
-- Learn the regulatory framework and key bodies involved
-- Practice with simple examples before complex scenarios
-- Use the cheatsheet for quick reference during revision
+## Why signaling and media are separate protocols
 
-## Getting Started
-Begin by reading the overview, then work through this fundamentals section. Each concept builds on the previous one. Do not skip ahead — the foundation matters.
+SIP handles signaling; RTP (Real-time Transport Protocol) carries the actual voice/video media once a SIP session establishes it — this separation mirrors Telecom Fundamentals' SS7-versus-bearer-channel distinction in the circuit-switched world. The practical reason for keeping them separate: signaling and media have different requirements (signaling needs reliable delivery of a relatively small amount of control data; media needs low-latency, loss-tolerant delivery of a continuous stream), and separating the two protocols lets each be optimized for its actual job rather than compromising a single protocol to handle both reasonably.
 
-## Self-Assessment
-After completing this section, you should be able to:
-- Define the core terms and concepts
-- Explain the basic structure and framework
-- Answer beginner-level questions on this topic
-- Identify the key regulations, acts, or standards that apply
+## IMS — the architecture SIP operates within
 
-## Common Beginner Questions
-**Q: Where should I start?** Start with the overview and this fundamentals section. Read official sources alongside these notes.
-**Q: How long will this take?** Budget 2-3 hours for a solid foundation.
-**Q: What resources supplement this?** Official textbooks, government websites, and exam-specific guides.
+**IMS (IP Multimedia Subsystem)** is the broader network architecture — not just a protocol — that telecom operators use to deliver IP-based multimedia services (voice, video, messaging) using SIP as its core signaling protocol. VoLTE and VoNR (Wireless Tech) are specific applications running on top of IMS architecture — IMS provides the session control, subscriber authentication, and service-routing framework, while SIP is the specific signaling protocol IMS uses to actually establish and manage those sessions.
 
-## Detailed Study Notes
+## Getting started
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+1. Learn TCP vs. UDP's tradeoff (reliability vs. latency) before SIP specifics — it explains why VoIP media traffic is architected the way it is.
+2. Treat SIP as SS7's IP-native successor conceptually, not an unrelated new protocol — the signaling-versus-bearer separation principle carries over directly.
+3. Understand IMS as an architecture that *uses* SIP, not a synonym for SIP — this distinction matters for correctly relating VoLTE/VoNR (an IMS application) back to SIP (IMS's signaling protocol).

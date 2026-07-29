@@ -1,93 +1,66 @@
-# 5G and Telecom Fundamentals — Cheatsheets
+# Telecom Fundamentals — Cheatsheets
 
-Structured cheatsheets content for 5G and Telecom Fundamentals.
+## Generational comparison
 
-## Industry Context
-Telecom is one of India's largest sectors. BSNL, Reliance Jio, Airtel, and Vi employ hundreds of thousands of engineers. 5G rollout is accelerating — creating new opportunities in network engineering, infrastructure, and IoT.
+| Generation | Core technology | Multiple access | Switching | Voice mechanism |
+|---|---|---|---|---|
+| 1G | Analog cellular | FDMA | Circuit | Native analog |
+| 2G | GSM / CDMA | TDMA (GSM) / CDMA | Circuit (voice) + packet (data, GPRS/EDGE) | Native circuit-switched |
+| 3G | UMTS / CDMA2000 | WCDMA (CDMA-based) | Circuit (voice) + packet (data) | Native circuit-switched |
+| 4G | LTE | OFDMA | All-IP / packet only | CSFB or VoLTE |
+| 5G | NR | OFDMA | All-IP / packet only | VoNR (IMS-based) |
 
-## Technical Content
-This section covers 5g and telecom fundamentals from industry-standard perspectives — JTO/JE BSNL exam preparation, private telecom sector technical rounds, and GATE ECE examination topics.
+## Multiple-access techniques
 
-## Quick Reference Summary
+| Technique | Mechanism | Generation |
+|---|---|---|
+| FDMA | Distinct frequency per user | 1G |
+| TDMA | Distinct time slot per user, shared frequency | 2G (GSM) |
+| CDMA | Unique code per user, shared frequency and time | 2G/3G (CDMA, WCDMA) |
+| OFDMA | Flexible allocation of narrow orthogonal sub-carriers | 4G/5G (LTE, NR) |
 
-### Key Facts at a Glance
-| Item | Key Information |
-|------|----------------|
-| Domain | See overview for full context |
-| Primary Authority | Relevant regulatory body |
-| Key Legislation | Main acts and regulations |
-| Exam Weight | Check specific exam syllabus |
-| Difficulty | Varies by subtopic |
+## Circuit switching vs. packet switching
 
-### Core Concepts to Remember
-- Fundamental definitions and terminology
-- Key regulatory framework and authority
-- Important dates, numbers, and thresholds
-- Exceptions and special cases
-- Recent developments and amendments
+| Property | Circuit switching | Packet switching |
+|---|---|---|
+| Connection | Dedicated, continuous path for call duration | No dedicated path; independently routed packets |
+| Efficiency | Wasteful during silence/idle | Efficient — resources used only when data sent |
+| Used for | Traditional 2G/3G voice | Data (all generations); voice from 4G onward (VoIP/IMS) |
+| Legacy example | GSM voice call | VoLTE / VoNR |
 
-### Exam Tips
-- Read every question twice before answering
-- For MCQs: eliminate wrong options first
-- For descriptive: structure > length
-- Allocate time proportionally to marks
-- Attempt all questions — no blanks
+## GSM core architecture elements
 
-### Last-Hour Revision Checklist
-- [ ] Reviewed all key definitions
-- [ ] Memorised important numbers and dates
-- [ ] Practised at least 10 previous year questions
-- [ ] Know the exceptions to main rules
-- [ ] Checked for any recent amendments or news
+| Element | Function |
+|---|---|
+| BSS (Base Station Subsystem) | Radio communication with mobile devices |
+| NSS (Network Switching Subsystem) | Call routing, mobility management |
+| HLR (Home Location Register) | Central database: subscriber identity, permissions, current location area |
+| VLR (Visitor Location Register) | Temporary local copy of HLR data for subscriber's current area |
+| MSC (Mobile Switching Centre) | Routes calls, queries HLR/VLR |
+| HSS (4G/5G equivalent) | IMS-era functional descendant of HLR |
 
-### Common Exam Questions Pattern
-1. Definition-based: "What is X?" — give precise definition + example
-2. Application-based: "In this scenario, what applies?" — identify rule + apply
-3. Comparison: "Difference between X and Y" — tabular format preferred
-4. Current affairs: "Recent development in X" — know last 6-12 months
+## Voice-over-IP transition quick reference
 
-## Detailed Study Notes
+| Term | Meaning |
+|---|---|
+| CSFB | Circuit-Switched Fallback — LTE device drops to 2G/3G circuit-switched network for a call |
+| VoLTE | Voice over LTE — voice carried as packetized IP data over LTE, using IMS signaling |
+| VoNR | Voice over New Radio — VoLTE's 5G-native equivalent, same IMS-based pattern |
+| IMS | IP Multimedia Subsystem — signaling architecture for all-IP voice |
+| SS7 | Signaling System No. 7 — legacy circuit-switched-era signaling protocol |
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+## Handover types
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+| Type | Mechanism | Used by |
+|---|---|---|
+| Hard handover | Break-before-make — old connection ends before new one starts | GSM |
+| Soft handover | Make-before-break — both connections briefly active simultaneously | CDMA |
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+## Coverage vs. capacity — spectrum quick reference
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
+| Frequency | Coverage | Capacity | Typical use |
+|---|---|---|---|
+| Lower | Longer range, better obstacle penetration | Lower | Rural/wide-area, 2G/3G bands |
+| Higher | Shorter range, poor obstacle penetration | Higher | Dense urban, 5G mmWave |
 
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+`(needs verification — recheck against current source: specific spectrum band allocations and auction outcomes are periodically revised by regulatory policy.)`

@@ -1,75 +1,19 @@
-# 5G and Telecom Fundamentals — Interview
+# Telecom Fundamentals — Practice Q&A
 
-Structured interview content for 5G and Telecom Fundamentals.
+**Q: Why does higher-frequency spectrum offer more capacity but worse coverage than lower-frequency spectrum?**
+A: It's a fundamental physical property of radio waves — higher frequencies carry more information per unit time (more capacity) but attenuate faster over distance and are blocked more easily by obstacles like buildings, meaning a higher-frequency signal needs more, closely-spaced transmission points to cover the same area a lower-frequency signal could cover with fewer, more widely-spaced ones. This is why 5G's high-capacity mmWave bands require dense urban small-cell deployment, while lower-frequency bands remain important for wide-area rural coverage even in a 5G-era network.
 
-## Industry Context
-Telecom is one of India's largest sectors. BSNL, Reliance Jio, Airtel, and Vi employ hundreds of thousands of engineers. 5G rollout is accelerating — creating new opportunities in network engineering, infrastructure, and IoT.
+**Q: What's the actual difference between GSM and CDMA, beyond "both are 2G standards"?**
+A: They use fundamentally different multiple-access techniques to let multiple users share spectrum — GSM uses TDMA (each user gets a distinct time slot on a shared frequency), while CDMA uses code-division (each user's signal is spread with a unique code, allowing simultaneous use of the same frequency and time). This isn't just an implementation detail — it produces genuinely different network-planning characteristics: GSM requires careful frequency-reuse planning across cells to avoid interference, while CDMA allows universal frequency reuse but manages capacity through interference/noise management instead.
 
-## Technical Content
-This section covers 5g and telecom fundamentals from industry-standard perspectives — JTO/JE BSNL exam preparation, private telecom sector technical rounds, and GATE ECE examination topics.
+**Q: Why did 4G LTE need a specific solution like VoLTE for something as basic as voice calling?**
+A: Because LTE was designed from the start as an all-IP, packet-switched-only network with no native circuit-switched domain — unlike 2G/3G, which had dedicated circuit-switched infrastructure specifically built for voice. Voice calling had no built-in mechanism on pure LTE, so the industry needed either CSFB (falling back to older circuit-switched 2G/3G networks for the call) or VoLTE (carrying voice as packetized IP data over LTE itself, using IMS architecture for call signaling). VoLTE became the long-term solution because it doesn't require dropping back to older, slower network technology just to make a call.
 
-## Interview and Exam Q&A
+**Q: Explain the HLR's role in a GSM network, and why it matters for mobility.**
+A: The Home Location Register is a central database tracking each subscriber's identity, service permissions, and current location area — it's how a network knows where to route an incoming call to a device that could physically be anywhere within coverage. Combined with the VLR (a temporary, local copy of relevant data for the subscriber's current area), this HLR/VLR split lets a call be routed correctly without every single call needing to query one central database from anywhere in the network, distributing that lookup load geographically instead.
 
-**Q: What are the most important concepts in this topic?**
-Focus on the foundational framework — definitions, key legislation or standards, the regulatory authority, and how the system works in practice. Examiners and interviewers test whether you understand the structure, not just isolated facts.
+**Q: What's the difference between hard handover and soft handover, and which technologies use which?**
+A: Hard handover ("break-before-make," used by GSM) briefly ends the connection to the old cell before establishing the new one during a mobile device's transition between coverage areas. Soft handover ("make-before-break," enabled by CDMA's code-division nature) maintains connections to both the old and new cell briefly before dropping the old one, generally producing a smoother transition with less risk of a dropped call at the handover point.
 
-**Q: How do you approach an unfamiliar question in this domain?**
-Break it down systematically. Identify what category of question it is (definition, application, analysis, or evaluation). Apply the relevant framework. State your reasoning step by step. In objective exams, eliminate clearly wrong options before choosing.
-
-**Q: What common mistakes should you avoid?**
-Confusing similar terms or concepts. Applying general rules without checking for exceptions. Not reading the question carefully — many marks are lost by answering a different question than the one asked.
-
-**Q: How should you prepare for written/descriptive answers?**
-Structure your answers: Introduction (define and contextualise), Body (main points with examples), Conclusion (significance or way forward). Use subheadings where permitted. Aim for clarity over length.
-
-**Q: What current issues are important in this domain?**
-Stay updated with recent developments — new legislation, policy changes, landmark judgments, or recent exam results. Examiners reward candidates who show awareness of the current context.
-
-**Q: What is the best revision strategy for this topic?**
-Use the cheatsheet for last-minute review. Create your own one-page summary of key points. Teach the concept to someone else — if you can explain it clearly, you understand it well enough for the exam.
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+**Q: Why is spectral efficiency a more accurate way to describe generational telecom progress than "more bandwidth"?**
+A: Because a meaningful share of each generation's capacity gain comes from extracting more data throughput from a comparable amount of spectrum, not just from being allocated more raw spectrum — OFDMA's flexible sub-carrier allocation achieves higher spectral efficiency than TDMA's fixed time-slot structure, for instance. Techniques like MIMO and beamforming extend this further, squeezing additional capacity from the same underlying spectrum through multiple-antenna and directional-transmission techniques rather than requiring more spectrum allocation at all.

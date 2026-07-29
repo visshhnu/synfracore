@@ -1,84 +1,17 @@
-# Telecom Networking and Protocols — Advanced
+# Telecom Networking — Advanced
 
-Structured advanced content for Telecom Networking and Protocols.
+## SD-WAN — the modern evolution beyond traditional MPLS
 
-## Industry Context
-Telecom is one of India's largest sectors. BSNL, Reliance Jio, Airtel, and Vi employ hundreds of thousands of engineers. 5G rollout is accelerating — creating new opportunities in network engineering, infrastructure, and IoT.
+Intermediate covers MPLS's traffic-engineering value; Advanced covers what's changed since: **SD-WAN (Software-Defined Wide Area Network)** decouples WAN traffic-management decisions from the underlying physical transport, using software-based control to dynamically route traffic across whatever mix of connections is available — MPLS, broadband internet, LTE/5G backup links — rather than requiring all traffic to run over a single, typically expensive, dedicated MPLS circuit. This is a genuine architectural shift, not just a rebranding: traditional MPLS-only enterprise WAN design required provisioning MPLS capacity for the peak/worst-case need on every link, while SD-WAN's ability to dynamically use multiple transport types (including cheaper broadband internet) for non-critical traffic, reserving premium MPLS/dedicated capacity for the traffic that actually needs its guarantees, generally reduces overall WAN cost while maintaining differentiated service quality.
 
-## Technical Content
-This section covers telecom networking and protocols from industry-standard perspectives — JTO/JE BSNL exam preparation, private telecom sector technical rounds, and GATE ECE examination topics.
+## Why SD-WAN didn't simply replace MPLS
 
-## Expert-Level Mastery
-This section covers advanced topics, complex scenarios, and the depth required for competitive exams and professional practice.
+A common oversimplification is treating SD-WAN as an MPLS replacement — the more accurate framing is that SD-WAN is an *orchestration layer* that can incorporate MPLS as one of several transport options, rather than a competing transport technology itself. Many real enterprise SD-WAN deployments still use MPLS links for their most latency/reliability-sensitive traffic (much as QoS/traffic engineering does at the carrier level, Intermediate), while using SD-WAN's software control to add broadband and cellular links into the mix for less critical traffic and for automatic failover — SD-WAN's actual value proposition is the flexibility and centralized software control layered on top of transport diversity, not the elimination of MPLS specifically.
 
-## Advanced Topics
-- Complex multi-concept scenarios requiring integrated knowledge
-- Analytical and evaluative questions
-- Recent developments, amendments, and current issues
-- High-difficulty exam questions with detailed solutions
+## IMS architecture in more depth — beyond the P-CSCF/S-CSCF
 
-## Strategic Approach
-At the advanced level, strategy matters as much as knowledge:
-- Identify the question type and apply the right framework
-- Manage time — know when to move on and return later
-- Use elimination for objective questions
-- Structure long-answer responses clearly
+Intermediate traces a VoLTE call through the P-CSCF/S-CSCF signaling path; Advanced adds the components that make IMS a complete service architecture rather than just call routing: the **HSS (Home Subscriber Server)** — the IMS-era functional descendant of GSM's HLR (Telecom Fundamentals/Advanced) — holds subscriber profile and authentication data that the S-CSCF queries during session setup; the **I-CSCF (Interrogating CSCF)** handles routing signaling to the correct S-CSCF when a subscriber's home network needs to be located from an external network. This layered CSCF architecture (P/I/S) is what allows IMS to handle both a subscriber's own network sessions and interoperability with other networks/operators within a single coherent signaling framework.
 
-## Exam Simulation
-Practise under timed conditions:
-- Set a timer and attempt full sections without breaks
-- Review every wrong answer with the source material
-- Track your accuracy by topic to identify weak areas
-- Repeat mock tests to build consistency
+## SIP security and NAT traversal — practical deployment challenges
 
-## Advanced Checklist
-- [ ] Can solve the hardest questions in this topic
-- [ ] Understand recent changes and current developments
-- [ ] Can teach the topic clearly to someone else
-- [ ] Mock exam score is consistently above 75%
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Real-world SIP/VoIP deployment faces two persistent engineering challenges beyond the core signaling model: **NAT traversal** (many devices and networks sit behind network address translation, which can break SIP's assumption that signaling addresses map directly to reachable endpoints, requiring techniques like STUN/TURN or session border controllers to work around it) and **SIP security** (unsecured SIP signaling is vulnerable to eavesdropping and call hijacking, addressed through encrypted signaling — SIPS/TLS — and encrypted media — SRTP). Carrier-grade IMS deployments handle both through dedicated **Session Border Controllers (SBCs)**, which sit at network edges managing NAT traversal, security policy enforcement, and interoperability between different SIP implementations — a practical component not obvious from the core SIP/IMS protocol description alone. `(needs verification — recheck against current source: specific SBC vendor implementations and current best-practice security configurations evolve with the threat landscape.)`

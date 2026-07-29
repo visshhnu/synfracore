@@ -1,79 +1,24 @@
-# Fiber Optics and Optical Networks — Fundamentals
+# Fiber Optics — Fundamentals
 
-Structured fundamentals content for Fiber Optics and Optical Networks.
+## How fiber transmits data
 
-## Industry Context
-Telecom is one of India's largest sectors. BSNL, Reliance Jio, Airtel, and Vi employ hundreds of thousands of engineers. 5G rollout is accelerating — creating new opportunities in network engineering, infrastructure, and IoT.
+Optical fiber carries data as pulses of light traveling through a thin glass (or occasionally plastic) core, using **total internal reflection** to keep light confined within the core rather than escaping into the surrounding cladding — light hitting the core-cladding boundary at a sufficiently shallow angle reflects back into the core entirely rather than refracting out, allowing the signal to travel long distances with minimal loss. This is fundamentally different from copper cable, which carries data as electrical signals subject to much greater distance-dependent attenuation and electromagnetic interference.
 
-## Technical Content
-This section covers fiber optics and optical networks from industry-standard perspectives — JTO/JE BSNL exam preparation, private telecom sector technical rounds, and GATE ECE examination topics.
+## Single-mode vs. multi-mode fiber
 
-## Core Concepts
-This section covers the foundational knowledge required for this topic. Work through each concept systematically before moving to intermediate topics.
+- **Single-mode fiber (SMF)** has a very small core diameter (~9 microns), narrow enough that light can only travel one path ("mode") straight down the fiber. This eliminates a distortion effect called modal dispersion (different light paths arriving at slightly different times), making SMF suitable for very long distances — the standard choice for backbone, long-haul, and increasingly FTTH deployment.
+- **Multi-mode fiber (MMF)** has a larger core (~50-62.5 microns), allowing light to travel multiple paths simultaneously. This is cheaper to manufacture and easier to work with (larger core tolerates less precise alignment), but modal dispersion limits its effective distance — typically used for short-distance links like data-center or campus networking, where distance is short enough that modal dispersion doesn't meaningfully degrade the signal.
 
-## Key Principles
-- Understand the basic theory and definitions
-- Learn the regulatory framework and key bodies involved
-- Practice with simple examples before complex scenarios
-- Use the cheatsheet for quick reference during revision
+## Attenuation and dispersion — the two limits on distance
 
-## Getting Started
-Begin by reading the overview, then work through this fundamentals section. Each concept builds on the previous one. Do not skip ahead — the foundation matters.
+Every fiber link faces two distance-limiting factors: **attenuation** (signal power loss over distance, due to absorption and scattering within the glass) and **dispersion** (signal spreading/distortion over distance, from modal dispersion in MMF or chromatic dispersion — different wavelengths traveling at slightly different speeds — in both fiber types). Long-haul fiber links manage both through a combination of fiber-type choice (SMF for dispersion control), wavelength selection (certain wavelength windows have inherently lower attenuation in glass), and periodic optical amplification to restore signal strength before it degrades below a usable threshold.
 
-## Self-Assessment
-After completing this section, you should be able to:
-- Define the core terms and concepts
-- Explain the basic structure and framework
-- Answer beginner-level questions on this topic
-- Identify the key regulations, acts, or standards that apply
+## Wavelength-division multiplexing (WDM)
 
-## Common Beginner Questions
-**Q: Where should I start?** Start with the overview and this fundamentals section. Read official sources alongside these notes.
-**Q: How long will this take?** Budget 2-3 hours for a solid foundation.
-**Q: What resources supplement this?** Official textbooks, government websites, and exam-specific guides.
+Rather than running one data channel per fiber strand, WDM transmits multiple independent channels simultaneously over a single fiber, each modulated onto a different wavelength of light. A receiver at the far end separates the wavelengths back into individual channels using optical filters. This is the fiber-optic equivalent of frequency-division multiplexing (Telecom Fundamentals' FDMA concept) applied to light instead of radio waves — the core mechanism (dividing a shared medium by frequency/wavelength) is the same underlying principle in a different physical domain.
 
-## Detailed Study Notes
+## Getting started
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+1. Master total internal reflection as the physical mechanism making fiber transmission possible at all — everything else in this technology builds on understanding why light stays confined to the core.
+2. Learn single-mode vs. multi-mode as a distance/cost tradeoff, not "one is simply better" — the correct choice depends entirely on the deployment's distance requirement.
+3. Treat WDM's frequency-division parallel to FDMA as a genuine conceptual bridge, not a coincidence — recognizing shared principles across the radio and optical domains will make Intermediate's DWDM material significantly faster to absorb.

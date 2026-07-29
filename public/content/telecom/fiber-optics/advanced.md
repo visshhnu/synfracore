@@ -1,84 +1,17 @@
-# Fiber Optics and Optical Networks — Advanced
+# Fiber Optics — Advanced
 
-Structured advanced content for Fiber Optics and Optical Networks.
+## FTTH/FTTX architecture — bringing fiber to the subscriber
 
-## Industry Context
-Telecom is one of India's largest sectors. BSNL, Reliance Jio, Airtel, and Vi employ hundreds of thousands of engineers. 5G rollout is accelerating — creating new opportunities in network engineering, infrastructure, and IoT.
+"FTTx" describes a family of fiber-deployment architectures distinguished by how close to the subscriber the fiber actually reaches: **FTTH (Fiber to the Home)** runs fiber all the way to the subscriber's premises, offering the highest performance and future-proofing but the highest deployment cost; **FTTC (Fiber to the Curb/Cabinet)** runs fiber to a nearby street cabinet, with the final short stretch to the subscriber typically over existing copper (VDSL or similar), balancing cost against performance; **FTTB (Fiber to the Building)** runs fiber to a building (common in dense multi-unit residential deployment), with internal building wiring (often existing copper or short internal fiber runs) covering the final distance. The architecture choice is fundamentally a cost/performance tradeoff — FTTH is the clear long-term-capacity winner, but FTTC/FTTB were often chosen historically where full FTTH deployment cost couldn't be justified for the addressable subscriber base.
 
-## Technical Content
-This section covers fiber optics and optical networks from industry-standard perspectives — JTO/JE BSNL exam preparation, private telecom sector technical rounds, and GATE ECE examination topics.
+## PON — the dominant FTTH access architecture
 
-## Expert-Level Mastery
-This section covers advanced topics, complex scenarios, and the depth required for competitive exams and professional practice.
+Most FTTH deployments use a **Passive Optical Network (PON)** architecture: a single fiber strand from the operator's central office runs to a passive (unpowered) optical splitter located near a cluster of subscribers, which then splits the signal to individual fiber runs to each subscriber premises. "Passive" is the key architectural property — the splitter itself requires no power and no active electronics, meaning the operator doesn't need to power/maintain equipment out in the field between the central office and the subscriber, substantially reducing both capital and ongoing operational cost compared to an architecture using active (powered) equipment at that intermediate point. Multiple PON standards exist (GPON, XGS-PON, and evolving higher-capacity variants), differing primarily in the capacity offered per subscriber and the split ratio (how many subscribers share one feeder fiber). `(needs verification — recheck against current source: specific PON standard capacities and adoption rates continue to evolve as operators upgrade deployed networks.)`
 
-## Advanced Topics
-- Complex multi-concept scenarios requiring integrated knowledge
-- Analytical and evaluative questions
-- Recent developments, amendments, and current issues
-- High-difficulty exam questions with detailed solutions
+## Optical network design tradeoffs
 
-## Strategic Approach
-At the advanced level, strategy matters as much as knowledge:
-- Identify the question type and apply the right framework
-- Manage time — know when to move on and return later
-- Use elimination for objective questions
-- Structure long-answer responses clearly
+Designing a real optical network requires balancing several Advanced-level considerations simultaneously: the DWDM channel plan (how many wavelengths, what spacing, balancing capacity against equipment cost and cross-channel interference risk), amplifier placement (spacing EDFAs closely enough to maintain signal quality without excessive equipment cost), and PON split ratio (a higher split ratio serves more subscribers per feeder fiber, reducing per-subscriber infrastructure cost, but reduces the bandwidth available to each subscriber during periods of simultaneous high demand across the split group). None of these are solved independently — a network architect's actual job is finding the combination that meets a target capacity/reliability/cost profile for a specific deployment's subscriber density and demand pattern.
 
-## Exam Simulation
-Practise under timed conditions:
-- Set a timer and attempt full sections without breaks
-- Review every wrong answer with the source material
-- Track your accuracy by topic to identify weak areas
-- Repeat mock tests to build consistency
+## Why fiber remains fundamental even in an all-wireless-seeming world
 
-## Advanced Checklist
-- [ ] Can solve the hardest questions in this topic
-- [ ] Understand recent changes and current developments
-- [ ] Can teach the topic clearly to someone else
-- [ ] Mock exam score is consistently above 75%
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+5G's radio access network (Wireless Tech) still depends on fiber for **backhaul** — the connection from each cell site (gNodeB) back to the core network — because radio spectrum alone cannot carry the aggregate data volume a dense 5G deployment generates back to the core; fiber's capacity and reliability make it the default backhaul medium for any cell site where fiber access is available (with microwave backhaul used as an alternative where fiber deployment isn't practical). This is the concrete link between Wireless Tech's radio-access material and Fiber Optics' wired-infrastructure material — they're not competing technologies but two layers of the same end-to-end network.

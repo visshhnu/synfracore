@@ -1,75 +1,19 @@
-# Fiber Optics and Optical Networks — Interview
+# Fiber Optics — Practice Q&A
 
-Structured interview content for Fiber Optics and Optical Networks.
+**Q: Why does fiber use total internal reflection, and what happens if the light hits the core-cladding boundary at too steep an angle?**
+A: Total internal reflection keeps light confined to the fiber's core by reflecting it back inward whenever it hits the core-cladding boundary at a sufficiently shallow angle relative to that boundary. If the light instead hits the boundary at too steep an angle (beyond the fiber's critical angle), it refracts out through the cladding instead of reflecting back in — meaning it escapes the core entirely and is lost from the signal. Fiber and connector design keep the light paths within the angles that guarantee total internal reflection, which is what makes long-distance guided transmission through the core possible at all.
 
-## Industry Context
-Telecom is one of India's largest sectors. BSNL, Reliance Jio, Airtel, and Vi employ hundreds of thousands of engineers. 5G rollout is accelerating — creating new opportunities in network engineering, infrastructure, and IoT.
+**Q: Why is single-mode fiber preferred for long-haul but multi-mode still used at all, given SMF's better distance performance?**
+A: SMF's small core eliminates modal dispersion, giving it much better long-distance performance, but it's also more expensive to manufacture and requires more precise (costlier) alignment at every connection point. MMF's larger core is cheaper and more tolerant of imprecise alignment, and over short distances (like within a data center) modal dispersion doesn't accumulate enough to meaningfully degrade the signal — so MMF remains the cost-effective choice specifically where the distance limitation isn't actually a constraint.
 
-## Technical Content
-This section covers fiber optics and optical networks from industry-standard perspectives — JTO/JE BSNL exam preparation, private telecom sector technical rounds, and GATE ECE examination topics.
+**Q: What's the practical difference DWDM makes to a telecom operator's capacity planning, versus just laying more fiber?**
+A: DWDM lets an operator multiply the usable capacity of fiber they've already deployed by adding more wavelength channels to existing strands, rather than needing to physically lay, trench, and splice entirely new fiber runs to add capacity — a process that's dramatically more expensive and slower than upgrading the DWDM equipment at each end of an existing fiber. This is why most backbone capacity growth over the past two decades has come from DWDM channel-count and per-channel-rate improvements rather than from proportional growth in physical fiber-route mileage.
 
-## Interview and Exam Q&A
+**Q: Why is a PON architecture described as "passive," and why does that property matter economically?**
+A: The optical splitter that divides one feeder fiber into multiple subscriber connections requires no electrical power and no active electronic components — it's a purely passive optical device. This matters economically because it means the operator doesn't need to run power to, or maintain active equipment at, the splitter's physical location out in the field between the central office and subscribers, substantially lowering both the capital cost of the access network and its ongoing operational/maintenance burden compared to an architecture using powered active equipment at that intermediate point.
 
-**Q: What are the most important concepts in this topic?**
-Focus on the foundational framework — definitions, key legislation or standards, the regulatory authority, and how the system works in practice. Examiners and interviewers test whether you understand the structure, not just isolated facts.
+**Q: Why does a dense 5G deployment still depend heavily on fiber, even though 5G is a wireless technology?**
+A: Because the radio link only covers the "last hop" from a cell site to the end user — every cell site itself still needs a high-capacity, reliable connection back to the core network (backhaul), and radio spectrum alone can't carry the aggregate data volume a dense 5G deployment generates back to the core network economically or reliably at scale. Fiber is the default backhaul medium wherever it's available, meaning fiber infrastructure quality is directly load-bearing for 5G network performance even though the end-user connection itself is wireless.
 
-**Q: How do you approach an unfamiliar question in this domain?**
-Break it down systematically. Identify what category of question it is (definition, application, analysis, or evaluation). Apply the relevant framework. State your reasoning step by step. In objective exams, eliminate clearly wrong options before choosing.
-
-**Q: What common mistakes should you avoid?**
-Confusing similar terms or concepts. Applying general rules without checking for exceptions. Not reading the question carefully — many marks are lost by answering a different question than the one asked.
-
-**Q: How should you prepare for written/descriptive answers?**
-Structure your answers: Introduction (define and contextualise), Body (main points with examples), Conclusion (significance or way forward). Use subheadings where permitted. Aim for clarity over length.
-
-**Q: What current issues are important in this domain?**
-Stay updated with recent developments — new legislation, policy changes, landmark judgments, or recent exam results. Examiners reward candidates who show awareness of the current context.
-
-**Q: What is the best revision strategy for this topic?**
-Use the cheatsheet for last-minute review. Create your own one-page summary of key points. Teach the concept to someone else — if you can explain it clearly, you understand it well enough for the exam.
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+**Q: What's the actual engineering tradeoff in choosing a higher PON split ratio?**
+A: A higher split ratio lets one feeder fiber serve more subscribers, reducing the per-subscriber cost of the shared upstream infrastructure — but it also means more subscribers are sharing the same total bandwidth on that feeder fiber, so each subscriber's available bandwidth during periods of simultaneous high demand across the split group is lower than it would be with a smaller split ratio. It's a direct cost-versus-guaranteed-capacity tradeoff, not a free efficiency gain.

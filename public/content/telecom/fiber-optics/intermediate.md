@@ -1,83 +1,17 @@
-# Fiber Optics and Optical Networks — Intermediate
+# Fiber Optics — Intermediate
 
-Structured intermediate content for Fiber Optics and Optical Networks.
+## DWDM — scaling WDM to real backbone capacity
 
-## Industry Context
-Telecom is one of India's largest sectors. BSNL, Reliance Jio, Airtel, and Vi employ hundreds of thousands of engineers. 5G rollout is accelerating — creating new opportunities in network engineering, infrastructure, and IoT.
+Fundamentals introduces WDM's basic principle; Intermediate covers **DWDM (Dense WDM)**, which packs many more wavelength channels onto a single fiber by spacing them much more closely (typically 0.8nm or even 0.4nm spacing, standardized by the ITU grid, versus WDM's wider, coarser spacing). This closer spacing requires more precise laser sources and optical filtering, but the payoff is substantial: a single DWDM-equipped fiber pair can carry dozens to (in modern systems) well over a hundred independent wavelength channels, each potentially carrying 100Gbps or more, meaning DWDM — not laying additional fiber — accounts for most of the capacity growth on existing long-haul backbone routes over the past two decades. `(needs verification — recheck against current source: per-channel data rates and maximum channel counts on commercially deployed DWDM systems continue to advance.)`
 
-## Technical Content
-This section covers fiber optics and optical networks from industry-standard perspectives — JTO/JE BSNL exam preparation, private telecom sector technical rounds, and GATE ECE examination topics.
+## Splicing and connectorization — the field-engineering layer
 
-## Building Deeper Understanding
-With the fundamentals in place, this section covers applied knowledge, real-world scenarios, and exam-level complexity.
+Getting light into and between fiber segments reliably requires precise physical work: **fusion splicing** permanently joins two fiber ends by melting and fusing the glass together, producing very low signal loss and used for permanent backbone/outdoor plant connections; **mechanical splicing** aligns fiber ends within a mechanical fixture without fusing them, faster and requiring less specialized equipment but with somewhat higher loss, often used for temporary or field-repair situations. **Connectorization** — terminating fiber ends with standardized connectors (common types include SC, LC, and ST) — is what allows fiber to be patched into equipment ports repeatedly rather than requiring a permanent splice at every connection point, essential wherever fiber needs to be reconfigurable (data centers, central offices, customer premises equipment).
 
-## Applied Concepts
-- Connect foundational theory to practical applications
-- Understand how rules and principles interact in real cases
-- Analyse scenarios and draw reasoned conclusions
-- Identify exceptions, edge cases, and nuances
+## Optical amplification — extending reach
 
-## Practice Approach
-At this level, practice is key. For each concept:
-1. Understand the principle
-2. See it applied to a sample problem
-3. Solve a practice problem independently
-4. Check your answer and understand any errors
+Fundamentals notes attenuation limits fiber distance; Intermediate covers the practical fix: **EDFAs (Erbium-Doped Fiber Amplifiers)** boost optical signal strength directly in the optical domain (without converting to electrical signal and back), typically placed at intervals along long-haul routes to restore signal power lost to attenuation before it degrades below a usable threshold. This optical-domain amplification is significantly more efficient and lower-latency than older approaches requiring optical-to-electrical-to-optical conversion at every repeater point, and is a major reason modern long-haul fiber routes can span very long distances with relatively few active regeneration points.
 
-## Common Intermediate Mistakes
-- Applying rules without reading the full context
-- Missing exceptions or special cases
-- Confusing similar concepts or terms
-- Not practising enough past questions
+## Applying single-mode vs. multi-mode in real network design
 
-## Progress Check
-You are ready for advanced topics when you can:
-- Solve moderately difficult problems without looking at notes
-- Explain concepts to someone else
-- Identify the relevant framework for any given scenario
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+A network architect applies Fundamentals' SMF/MMF distinction directly: a data center's internal server-to-switch connections (short distance, cost-sensitive, high port count) typically use MMF, while the same data center's connection out to a metro or long-haul network uses SMF. This isn't an arbitrary convention — it's the direct consequence of MMF's modal-dispersion distance limit making it unsuitable for the longer external link, and SMF's higher per-unit cost being harder to justify across the very large number of short internal links a data center needs.

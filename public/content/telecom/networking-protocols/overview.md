@@ -1,81 +1,31 @@
-# Telecom Networking and Protocols — Overview
+# Telecom Networking — Overview
 
-Structured overview content for Telecom Networking and Protocols.
+## What this technology covers
 
-## Industry Context
-Telecom is one of India's largest sectors. BSNL, Reliance Jio, Airtel, and Vi employ hundreds of thousands of engineers. 5G rollout is accelerating — creating new opportunities in network engineering, infrastructure, and IoT.
+Telecom Networking covers the IP-layer protocols and technologies that carry modern telecom traffic: TCP/IP fundamentals as applied specifically to telecom networks, SIP (Session Initiation Protocol) for VoIP call signaling, MPLS for carrier-grade traffic engineering, SD-WAN as the modern software-defined evolution of enterprise WAN connectivity, and IMS (IP Multimedia Subsystem) architecture — the signaling framework underlying VoLTE and VoNR (introduced in Telecom Fundamentals and Wireless Tech). This is the most advanced of the four telecom technologies, assuming working knowledge of Telecom Fundamentals' circuit/packet-switching distinction and signaling concepts, and Wireless Tech's 4G/5G voice-architecture material, as direct prerequisites.
 
-## Technical Content
-This section covers telecom networking and protocols from industry-standard perspectives — JTO/JE BSNL exam preparation, private telecom sector technical rounds, and GATE ECE examination topics.
+## Why it matters
 
-## Learning Path
-This section follows a structured approach from fundamentals to advanced topics. Each module builds on the previous one.
+Every telecom technology this academy covers converges on IP networking at some layer — GSM's SS7 signaling has a modern IP-based analog in SIP, VoLTE/VoNR run on IMS architecture built on IP, and carrier backbone networks (running over the fiber infrastructure Fiber Optics covers) are managed using MPLS traffic engineering. Understanding these protocols is what connects the academy's other three technologies into a coherent picture of an actual, current, end-to-end telecom network, rather than four separate topics — this technology is deliberately positioned last for that reason.
 
-## Who This Is For
-Students and professionals at all levels who want to build knowledge in this domain — whether for exam preparation, career advancement, or general knowledge.
+## Core protocols — a quick map
 
-## How to Study
-1. Start with the **Fundamentals** section to build a solid base
-2. Move to **Intermediate** for applied knowledge and scenarios
-3. Use **Advanced** for exam-level depth and complex topics
-4. Practise with **Interview Q&A** for exams and assessments
-5. Use the **Cheatsheet** for last-minute revision before the exam
+| Protocol/Technology | Role | Analogous to |
+|---|---|---|
+| TCP/IP | General-purpose data transport and addressing | Foundation for all others in this table |
+| SIP | VoIP call signaling (setup, teardown) | SS7's role in circuit-switched telecom |
+| MPLS | Carrier-grade traffic engineering, path control | — |
+| SD-WAN | Software-defined enterprise WAN management | Modern evolution of traditional WAN/MPLS enterprise connectivity |
+| IMS | All-IP multimedia session architecture (voice, video) | Underlies VoLTE and VoNR |
 
-## Key Features of This Section
-- Structured notes aligned with official syllabus
-- Practice questions after key concepts
-- Cheatsheets for quick revision
-- Interview and exam Q&A format
-- Current and updated content
+## SIP and IMS — the signaling backbone of all-IP voice
 
-## Getting Started
-Click **Fundamentals** to begin your learning journey with this topic. Work systematically through each section for the best results.
+Telecom Fundamentals establishes SS7 as circuit-switched telecom's signaling protocol; this technology covers its all-IP successor: SIP handles the actual call setup/teardown signaling for VoIP calls, while IMS is the broader architectural framework — built on SIP — that VoLTE and VoNR (Wireless Tech) use to deliver voice as a packet-switched IP service rather than a circuit-switched one. Understanding SIP/IMS is what makes VoLTE/VoNR's "how" concrete rather than abstract.
 
-## Assessment Strategy
-For objective exams: understand > memorise. For descriptive/written exams: structure your answers clearly. For interviews: demonstrate reasoning, not just recall.
+## Exam and career relevance
 
-## Detailed Study Notes
+Telecom Networking is core syllabus for GATE ECE's networking sections, BSNL JTO/JE recruitment's IP-networking components, and directly relevant to network engineering, VoIP/unified-communications, and carrier IP-core roles.
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+## How to use this technology's sections
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Fundamentals covers TCP/IP basics as applied to telecom, and SIP's role in VoIP signaling. Intermediate applies these to MPLS traffic engineering and IMS architecture. Advanced covers SD-WAN's architecture and its relationship to traditional MPLS-based enterprise WANs. Interview and Cheatsheets provide exam-format practice and quick reference.

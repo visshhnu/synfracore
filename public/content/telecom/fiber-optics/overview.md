@@ -1,81 +1,28 @@
-# Fiber Optics and Optical Networks — Overview
+# Fiber Optics — Overview
 
-Structured overview content for Fiber Optics and Optical Networks.
+## What this technology covers
 
-## Industry Context
-Telecom is one of India's largest sectors. BSNL, Reliance Jio, Airtel, and Vi employ hundreds of thousands of engineers. 5G rollout is accelerating — creating new opportunities in network engineering, infrastructure, and IoT.
+Fiber Optics covers optical networking as the physical-layer backbone of modern telecom: fiber types (single-mode vs. multi-mode) and how they differ in use case, wavelength-division multiplexing (WDM/DWDM) for multiplying a single fiber's capacity, fiber splicing and connectorization as practical field skills, and FTTH/FTTX access-network architectures for last-mile fiber deployment, including passive optical network (PON) design. Where Telecom Fundamentals and Wireless Tech cover the radio/wireless side of telecom, Fiber Optics covers the wired optical side — the two are complementary, not competing: even a 5G network's radio towers are typically fiber-backhauled, meaning fiber is the physical link connecting most cell sites back to the core network.
 
-## Technical Content
-This section covers fiber optics and optical networks from industry-standard perspectives — JTO/JE BSNL exam preparation, private telecom sector technical rounds, and GATE ECE examination topics.
+## Why it matters
 
-## Learning Path
-This section follows a structured approach from fundamentals to advanced topics. Each module builds on the previous one.
+Fiber optic cable is the highest-capacity, longest-distance transmission medium telecom networks use — long-haul national and international backbone links, metro aggregation networks, and increasingly last-mile residential/business connections (FTTH) all run on fiber, because copper-based alternatives can't match fiber's combination of bandwidth and distance without signal degradation. Understanding fiber's physical properties (why single-mode outperforms multi-mode over distance, why WDM multiplies capacity without laying new cable) explains real network-design and cost decisions telecom engineers and planners make daily.
 
-## Who This Is For
-Students and professionals at all levels who want to build knowledge in this domain — whether for exam preparation, career advancement, or general knowledge.
+## Fiber types — a quick map
 
-## How to Study
-1. Start with the **Fundamentals** section to build a solid base
-2. Move to **Intermediate** for applied knowledge and scenarios
-3. Use **Advanced** for exam-level depth and complex topics
-4. Practise with **Interview Q&A** for exams and assessments
-5. Use the **Cheatsheet** for last-minute revision before the exam
+| Type | Core diameter | Typical use | Distance |
+|---|---|---|---|
+| Single-mode fiber (SMF) | Small (~9 microns) | Long-haul, backbone, FTTH | Long (tens of km+) |
+| Multi-mode fiber (MMF) | Larger (~50-62.5 microns) | Short-distance, data center, campus | Short (typically under 2km) |
 
-## Key Features of This Section
-- Structured notes aligned with official syllabus
-- Practice questions after key concepts
-- Cheatsheets for quick revision
-- Interview and exam Q&A format
-- Current and updated content
+## WDM — multiplying fiber capacity
 
-## Getting Started
-Click **Fundamentals** to begin your learning journey with this topic. Work systematically through each section for the best results.
+Wavelength-division multiplexing sends multiple independent data channels over a single fiber simultaneously, each on a different wavelength (color) of light — conceptually similar to FDMA's frequency-division principle (Telecom Fundamentals), but applied to optical wavelengths instead of radio frequencies. **DWDM (Dense WDM)** packs many more, more closely-spaced wavelengths onto a single fiber than basic WDM, dramatically increasing a single fiber strand's usable capacity without requiring additional physical cable — a major reason long-haul fiber backbone capacity has scaled so far past what laying new fiber alone would explain.
 
-## Assessment Strategy
-For objective exams: understand > memorise. For descriptive/written exams: structure your answers clearly. For interviews: demonstrate reasoning, not just recall.
+## Exam and career relevance
 
-## Detailed Study Notes
+Fiber Optics is core syllabus for GATE ECE's optical communication sections, BSNL JTO/JE recruitment's transmission-network components, and directly relevant to network planning, field engineering, and optical transport roles at telecom operators and equipment vendors.
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+## How to use this technology's sections
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Fundamentals covers fiber types and basic light-transmission principles. Intermediate applies these to WDM/DWDM system design and splicing/connectorization practice. Advanced covers FTTH/FTTX access-network architecture and PON design in depth. Interview and Cheatsheets provide exam-format practice and quick reference.

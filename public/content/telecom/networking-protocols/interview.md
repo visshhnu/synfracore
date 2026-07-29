@@ -1,75 +1,19 @@
-# Telecom Networking and Protocols — Interview
+# Telecom Networking — Practice Q&A
 
-Structured interview content for Telecom Networking and Protocols.
+**Q: Why does VoIP media traffic typically use UDP instead of TCP, given TCP's reliability guarantees?**
+A: TCP's reliability comes from retransmitting lost packets and guaranteeing in-order delivery, both of which add latency — acceptable for most data transfer, but harmful for live voice, where a retransmitted-and-delayed audio sample often sounds worse than simply dropping that small sample and continuing. UDP's connectionless, no-retransmission model tolerates occasional packet loss with minimal latency impact, which better matches real-time voice's actual quality requirements — a small amount of loss is preferable to added delay.
 
-## Industry Context
-Telecom is one of India's largest sectors. BSNL, Reliance Jio, Airtel, and Vi employ hundreds of thousands of engineers. 5G rollout is accelerating — creating new opportunities in network engineering, infrastructure, and IoT.
+**Q: What's the actual difference between what SIP does and what RTP does in a VoIP call?**
+A: SIP handles signaling — session setup (INVITE), parameter negotiation (codec selection), and teardown (BYE) — while RTP carries the actual voice/video media once SIP has established the session. They're deliberately separate protocols because signaling and media have different requirements: signaling needs reliable delivery of a relatively small amount of control data, while media needs low-latency, loss-tolerant delivery of a continuous stream — combining both into one protocol would force an unnecessary compromise on one or the other.
 
-## Technical Content
-This section covers telecom networking and protocols from industry-standard perspectives — JTO/JE BSNL exam preparation, private telecom sector technical rounds, and GATE ECE examination topics.
+**Q: Explain how a VoLTE call actually uses IMS, tracing the signaling path.**
+A: A VoLTE call's SIP INVITE first reaches the P-CSCF, the subscriber's initial point of contact into the IMS network, which forwards it to the S-CSCF — the component that actually handles session control and routing for that subscriber, querying the HSS (the IMS-era equivalent of GSM's HLR) for subscriber profile and authentication data. Once signaling establishes the session, voice media flows as RTP over the LTE data bearer with a dedicated QoS class ensuring voice-appropriate latency and jitter characteristics — IMS/SIP handles the "how do we set this call up" problem, and the underlying LTE data connection carries the actual voice traffic once it's set up.
 
-## Interview and Exam Q&A
+**Q: Why does a carrier need MPLS traffic engineering instead of just relying on standard IP routing?**
+A: Standard IP routing picks the "best" path per its routing protocol's own criteria, with no mechanism for an operator to explicitly guarantee bandwidth, avoid specific congested links, or prioritize latency-sensitive traffic classes like VoLTE voice over more tolerant bulk data traffic. MPLS's label-based forwarding gives operators explicit control over traffic paths and enables genuine traffic engineering — differentiated handling for different traffic classes sharing the same physical infrastructure — which plain best-path IP routing doesn't provide on its own.
 
-**Q: What are the most important concepts in this topic?**
-Focus on the foundational framework — definitions, key legislation or standards, the regulatory authority, and how the system works in practice. Examiners and interviewers test whether you understand the structure, not just isolated facts.
+**Q: Is SD-WAN a replacement for MPLS? Why or why not?**
+A: Not accurately, no — SD-WAN is more accurately an orchestration layer that can incorporate MPLS as one of several transport options (alongside broadband internet and cellular links), rather than a competing transport technology that eliminates the need for MPLS. Many real SD-WAN deployments still use MPLS links for their most latency/reliability-sensitive traffic, while using SD-WAN's software-based control to add cheaper transport options into the mix for less-critical traffic and for automatic failover — the value is in flexibility and centralized control across diverse transport, not in replacing MPLS specifically.
 
-**Q: How do you approach an unfamiliar question in this domain?**
-Break it down systematically. Identify what category of question it is (definition, application, analysis, or evaluation). Apply the relevant framework. State your reasoning step by step. In objective exams, eliminate clearly wrong options before choosing.
-
-**Q: What common mistakes should you avoid?**
-Confusing similar terms or concepts. Applying general rules without checking for exceptions. Not reading the question carefully — many marks are lost by answering a different question than the one asked.
-
-**Q: How should you prepare for written/descriptive answers?**
-Structure your answers: Introduction (define and contextualise), Body (main points with examples), Conclusion (significance or way forward). Use subheadings where permitted. Aim for clarity over length.
-
-**Q: What current issues are important in this domain?**
-Stay updated with recent developments — new legislation, policy changes, landmark judgments, or recent exam results. Examiners reward candidates who show awareness of the current context.
-
-**Q: What is the best revision strategy for this topic?**
-Use the cheatsheet for last-minute review. Create your own one-page summary of key points. Teach the concept to someone else — if you can explain it clearly, you understand it well enough for the exam.
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+**Q: What problem do Session Border Controllers solve in a real carrier SIP/IMS deployment?**
+A: SBCs address two practical deployment challenges the core SIP/IMS protocol model doesn't handle on its own: NAT traversal (many devices and networks sit behind address translation that can break SIP's assumption that signaling addresses map directly to reachable endpoints) and security/interoperability (encrypting signaling and media, enforcing security policy, and managing differences between SIP implementations across networks/operators). SBCs sit at network edges specifically to manage these practical issues, functioning as a necessary operational layer that the theoretical SIP/IMS signaling model alone doesn't describe.

@@ -1,83 +1,17 @@
-# Telecom Networking and Protocols — Intermediate
+# Telecom Networking — Intermediate
 
-Structured intermediate content for Telecom Networking and Protocols.
+## Tracing a VoLTE call through IMS/SIP
 
-## Industry Context
-Telecom is one of India's largest sectors. BSNL, Reliance Jio, Airtel, and Vi employ hundreds of thousands of engineers. 5G rollout is accelerating — creating new opportunities in network engineering, infrastructure, and IoT.
+Applying Fundamentals' SIP/IMS concepts to a concrete VoLTE call: a device on an LTE network initiates a call, which triggers a SIP INVITE routed through the operator's IMS core — specifically through a component called the **P-CSCF (Proxy Call Session Control Function)**, the device's first point of contact into the IMS network, which forwards signaling to the **S-CSCF (Serving Call Session Control Function)**, the component actually handling session control and routing for that subscriber. Once signaling establishes the session, voice media flows as RTP packets over the LTE data bearer — the same underlying packet-switched connection carrying any other data traffic, just prioritized with a dedicated QoS class to ensure voice-quality latency and jitter characteristics. This is the concrete mechanism behind Wireless Tech's VoLTE material — IMS/SIP is the "how," VoLTE is the marketing/service name for the resulting capability.
 
-## Technical Content
-This section covers telecom networking and protocols from industry-standard perspectives — JTO/JE BSNL exam preparation, private telecom sector technical rounds, and GATE ECE examination topics.
+## MPLS — traffic engineering for carrier networks
 
-## Building Deeper Understanding
-With the fundamentals in place, this section covers applied knowledge, real-world scenarios, and exam-level complexity.
+**MPLS (Multiprotocol Label Switching)** solves a different problem than SIP/IMS: rather than call signaling, MPLS controls *how traffic is routed through a carrier's core network*, using short labels attached to packets to determine their forwarding path, rather than requiring every router along the path to do a full IP-routing-table lookup. This label-based forwarding is faster than traditional hop-by-hop IP routing and — more importantly for carriers — enables **traffic engineering**: an operator can explicitly define paths that avoid congested links, guarantee bandwidth for specific traffic classes, or provide fast failover if a link goes down, which plain IP routing (which simply picks the "best" path per its routing protocol, without this level of explicit control) doesn't offer on its own.
 
-## Applied Concepts
-- Connect foundational theory to practical applications
-- Understand how rules and principles interact in real cases
-- Analyse scenarios and draw reasoned conclusions
-- Identify exceptions, edge cases, and nuances
+## Why carriers need traffic engineering at all
 
-## Practice Approach
-At this level, practice is key. For each concept:
-1. Understand the principle
-2. See it applied to a sample problem
-3. Solve a practice problem independently
-4. Check your answer and understand any errors
+A carrier's core network typically carries many different traffic types simultaneously — VoLTE/VoNR voice (latency-sensitive), video streaming (throughput-sensitive but more latency-tolerant), enterprise data traffic (often with contractual SLA guarantees), and general internet traffic — over shared physical infrastructure. Without traffic engineering, all of this competes for capacity using only IP routing's normal best-path selection, with no mechanism to guarantee that latency-sensitive voice traffic gets prioritized over more tolerant bulk data traffic during congestion. MPLS's label-switched paths give operators the explicit control needed to differentiate these traffic classes' handling.
 
-## Common Intermediate Mistakes
-- Applying rules without reading the full context
-- Missing exceptions or special cases
-- Confusing similar concepts or terms
-- Not practising enough past questions
+## QoS — prioritizing traffic classes in practice
 
-## Progress Check
-You are ready for advanced topics when you can:
-- Solve moderately difficult problems without looking at notes
-- Explain concepts to someone else
-- Identify the relevant framework for any given scenario
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Working alongside MPLS, **QoS (Quality of Service)** mechanisms classify and prioritize traffic — voice traffic (VoLTE/VoNR) typically gets the highest-priority QoS class given its strict latency/jitter tolerance, while bulk data traffic gets lower-priority classes that can tolerate being delayed during congestion without a noticeable user-facing quality impact. This is the same underlying prioritization principle 5G's network slicing (Wireless Tech) applies at the radio-access level, extended here into the IP core network — different traffic types genuinely need different treatment, and both slicing and QoS/MPLS traffic engineering exist to deliver that differentiated treatment reliably.

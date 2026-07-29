@@ -1,81 +1,31 @@
-# Wireless Technologies: 4G, 5G, WiFi, Bluetooth — Overview
+# 4G/5G & Wireless — Overview
 
-Structured overview content for Wireless Technologies: 4G, 5G, WiFi, Bluetooth.
+## What this technology covers
 
-## Industry Context
-Telecom is one of India's largest sectors. BSNL, Reliance Jio, Airtel, and Vi employ hundreds of thousands of engineers. 5G rollout is accelerating — creating new opportunities in network engineering, infrastructure, and IoT.
+4G/5G & Wireless covers mobile broadband architecture from LTE through 5G NR: the LTE network architecture (eNodeB, EPC), OFDM/OFDMA as the physical-layer technique underlying both generations, 5G NR's key architectural additions (network slicing, massive MIMO, beamforming), the NR frequency band structure (FR1/FR2), and the primary 5G use-case categories (eMBB, URLLC, mMTC). This technology assumes Telecom Fundamentals' spectrum, multiple-access, and circuit/packet-switching concepts as a prerequisite — it does not re-explain them, but builds directly on top of them. Despite this technology's on-platform title referencing "Wireless" broadly, its actual scope per the curriculum is 4G/5G mobile broadband specifically — WiFi and Bluetooth are short-range wireless technologies with different standards bodies (IEEE 802.11/802.15) and design goals, and are not covered here.
 
-## Technical Content
-This section covers wireless technologies: 4g, 5g, wifi, bluetooth from industry-standard perspectives — JTO/JE BSNL exam preparation, private telecom sector technical rounds, and GATE ECE examination topics.
+## Why it matters
 
-## Learning Path
-This section follows a structured approach from fundamentals to advanced topics. Each module builds on the previous one.
+4G LTE and 5G NR are the architectures underneath nearly all modern mobile connectivity — every smartphone data session, most IoT deployments, and an increasing share of fixed broadband (5G FWA) run on this stack. Understanding *why* 5G is architected the way it is (network slicing for differentiated services, massive MIMO and beamforming for capacity/coverage, the FR1/FR2 band split for the coverage-vs-capacity tradeoff) matters more than memorizing spec numbers, because these architectural choices are direct, traceable responses to specific 4G limitations — the same pattern Telecom Fundamentals establishes for earlier generational transitions.
 
-## Who This Is For
-Students and professionals at all levels who want to build knowledge in this domain — whether for exam preparation, career advancement, or general knowledge.
+## LTE and NR — a quick map
 
-## How to Study
-1. Start with the **Fundamentals** section to build a solid base
-2. Move to **Intermediate** for applied knowledge and scenarios
-3. Use **Advanced** for exam-level depth and complex topics
-4. Practise with **Interview Q&A** for exams and assessments
-5. Use the **Cheatsheet** for last-minute revision before the exam
+| Concept | LTE (4G) | NR (5G) |
+|---|---|---|
+| Radio access node | eNodeB | gNodeB |
+| Core network | EPC (Evolved Packet Core) | 5GC (5G Core), supports network slicing |
+| Physical layer | OFDMA (downlink), SC-FDMA (uplink) | OFDMA (both directions, more flexible numerology) |
+| Peak theoretical throughput | ~1 Gbps (LTE-Advanced) | Multi-Gbps (FR2/mmWave conditions) |
+| Latency (typical) | ~10ms | Sub-5ms (URLLC scenarios) |
 
-## Key Features of This Section
-- Structured notes aligned with official syllabus
-- Practice questions after key concepts
-- Cheatsheets for quick revision
-- Interview and exam Q&A format
-- Current and updated content
+## The three 5G use-case categories
 
-## Getting Started
-Click **Fundamentals** to begin your learning journey with this topic. Work systematically through each section for the best results.
+5G NR is explicitly designed around three distinct use-case categories rather than a single "faster 4G" goal: **eMBB** (enhanced Mobile Broadband — high-throughput consumer data, video streaming), **URLLC** (Ultra-Reliable Low-Latency Communication — industrial automation, autonomous vehicles, applications where latency and reliability matter more than raw throughput), and **mMTC** (massive Machine-Type Communication — high-density IoT sensor deployments where device count matters more than per-device throughput). Network slicing exists specifically to let a single physical 5G network serve all three categories simultaneously with different performance guarantees per slice, rather than requiring separate physical networks.
 
-## Assessment Strategy
-For objective exams: understand > memorise. For descriptive/written exams: structure your answers clearly. For interviews: demonstrate reasoning, not just recall.
+## Exam and career relevance
 
-## Detailed Study Notes
+4G/5G & Wireless is core syllabus for GATE ECE (communication systems sections), BSNL JTO/JE recruitment's 4G/5G architecture components, and is directly relevant to RF engineering, network planning, and telecom equipment vendor roles.
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+## How to use this technology's sections
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Fundamentals covers LTE architecture and OFDM/OFDMA basics. Intermediate applies these to 5G NR's specific architectural additions (network slicing, massive MIMO, band structure). Advanced covers beamforming mechanics, NR numerology, and the eMBB/URLLC/mMTC design tradeoffs in depth. Interview and Cheatsheets provide exam-format practice and quick reference.

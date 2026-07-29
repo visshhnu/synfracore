@@ -1,75 +1,19 @@
-# Wireless Technologies: 4G, 5G, WiFi, Bluetooth — Interview
+# 4G/5G & Wireless — Practice Q&A
 
-Structured interview content for Wireless Technologies: 4G, 5G, WiFi, Bluetooth.
+**Q: What actually changed structurally between LTE's EPC and 5G's Core, beyond "5G is faster"?**
+A: The 5G Core is built around network function virtualization and software-defined networking principles from the ground up, letting it dynamically instantiate and orchestrate logically isolated network slices — each with different throughput/latency/reliability guarantees — over shared physical infrastructure. LTE's EPC wasn't designed around this kind of dynamic virtualized orchestration, which is why network slicing is a genuinely 5G-native capability rather than something that could simply be added to 4G's core architecture.
 
-## Industry Context
-Telecom is one of India's largest sectors. BSNL, Reliance Jio, Airtel, and Vi employ hundreds of thousands of engineers. 5G rollout is accelerating — creating new opportunities in network engineering, infrastructure, and IoT.
+**Q: Explain OFDM's orthogonality property and why it matters practically.**
+A: OFDM divides spectrum into many narrow sub-carriers that are mathematically orthogonal to each other — meaning that even though they overlap in frequency, a receiver can extract each sub-carrier's data cleanly without interference from its neighbors, because their overlapping waveforms don't corrupt each other's information at the specific sampling points the receiver uses. Practically, this means sub-carriers can be packed much more densely than they could be with traditional non-overlapping frequency-division techniques, which need guard bands between channels — directly increasing spectral efficiency.
 
-## Technical Content
-This section covers wireless technologies: 4g, 5g, wifi, bluetooth from industry-standard perspectives — JTO/JE BSNL exam preparation, private telecom sector technical rounds, and GATE ECE examination topics.
+**Q: Why does LTE use OFDMA for downlink but SC-FDMA for uplink?**
+A: It's a power-efficiency tradeoff specific to the device side of the link. OFDMA has a higher peak-to-average power ratio, which is fine for a base station with a large, grid-connected power supply, but costly for a battery-powered device's power amplifier. SC-FDMA achieves a lower peak-to-average power ratio, extending device battery life and allowing cheaper, less powerful device-side amplifiers — an acceptable tradeoff since the uplink typically carries less traffic than the downlink anyway.
 
-## Interview and Exam Q&A
+**Q: What's the practical difference between FR1 and FR2 deployment strategy, and why don't operators just deploy FR2 everywhere for the extra capacity?**
+A: FR1 (sub-6 GHz) offers the coverage-oriented range and obstacle penetration needed for wide-area, general-purpose connectivity, while FR2 (mmWave) offers dramatically higher capacity but at drastically shorter range and poor obstacle penetration, requiring dense small-cell deployment to cover any meaningful area. Deploying FR2 everywhere would require an economically impractical density of cell sites for the coverage most subscribers actually need most of the time, so operators use FR1 as the coverage backbone and deploy FR2 selectively where extreme localized capacity justifies the infrastructure cost — stadiums, transit hubs, dense downtown cores.
 
-**Q: What are the most important concepts in this topic?**
-Focus on the foundational framework — definitions, key legislation or standards, the regulatory authority, and how the system works in practice. Examiners and interviewers test whether you understand the structure, not just isolated facts.
+**Q: How does massive MIMO increase capacity differently than earlier multiple-access techniques like OFDMA?**
+A: Earlier multiple-access techniques (TDMA, CDMA, OFDMA) all divide a fixed underlying resource — time, code space, or frequency sub-carriers — among users. Massive MIMO instead uses a large number of antenna elements to spatially separate multiple simultaneous data streams, effectively creating additional usable capacity through spatial multiplexing rather than dividing an existing fixed resource more finely. This is why 5G's realized capacity gains exceed what OFDMA's spectral-efficiency improvement over 4G's techniques alone would predict.
 
-**Q: How do you approach an unfamiliar question in this domain?**
-Break it down systematically. Identify what category of question it is (definition, application, analysis, or evaluation). Apply the relevant framework. State your reasoning step by step. In objective exams, eliminate clearly wrong options before choosing.
-
-**Q: What common mistakes should you avoid?**
-Confusing similar terms or concepts. Applying general rules without checking for exceptions. Not reading the question carefully — many marks are lost by answering a different question than the one asked.
-
-**Q: How should you prepare for written/descriptive answers?**
-Structure your answers: Introduction (define and contextualise), Body (main points with examples), Conclusion (significance or way forward). Use subheadings where permitted. Aim for clarity over length.
-
-**Q: What current issues are important in this domain?**
-Stay updated with recent developments — new legislation, policy changes, landmark judgments, or recent exam results. Examiners reward candidates who show awareness of the current context.
-
-**Q: What is the best revision strategy for this topic?**
-Use the cheatsheet for last-minute review. Create your own one-page summary of key points. Teach the concept to someone else — if you can explain it clearly, you understand it well enough for the exam.
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+**Q: Why is URLLC often paired with edge computing rather than solved through radio-link improvements alone?**
+A: Because URLLC's latency budget (often sub-5ms end-to-end) includes more than just radio transmission time — it includes propagation delay and routing through the core network to wherever the data is actually processed. Even a very fast radio link can't overcome the latency added by routing every packet back to a distant, centralized data center. Multi-access edge computing addresses this by moving processing physically closer to the radio access network, reducing the round-trip distance and the latency it contributes, which a radio-layer improvement alone cannot solve.

@@ -1,93 +1,55 @@
-# Fiber Optics and Optical Networks — Cheatsheets
+# Fiber Optics — Cheatsheets
 
-Structured cheatsheets content for Fiber Optics and Optical Networks.
+## Fiber type comparison
 
-## Industry Context
-Telecom is one of India's largest sectors. BSNL, Reliance Jio, Airtel, and Vi employ hundreds of thousands of engineers. 5G rollout is accelerating — creating new opportunities in network engineering, infrastructure, and IoT.
+| Property | Single-mode (SMF) | Multi-mode (MMF) |
+|---|---|---|
+| Core diameter | ~9 microns | ~50-62.5 microns |
+| Light paths | One | Multiple |
+| Modal dispersion | None | Present, limits distance |
+| Distance | Long-haul (tens of km+) | Short (typically under 2km) |
+| Cost | Higher | Lower |
+| Typical use | Backbone, long-haul, FTTH | Data center, campus |
 
-## Technical Content
-This section covers fiber optics and optical networks from industry-standard perspectives — JTO/JE BSNL exam preparation, private telecom sector technical rounds, and GATE ECE examination topics.
+## Two distance-limiting factors
 
-## Quick Reference Summary
+| Factor | What it is | Managed by |
+|---|---|---|
+| Attenuation | Signal power loss over distance | Wavelength selection, optical amplification (EDFA) |
+| Dispersion | Signal spreading/distortion over distance | SMF (modal), wavelength/equipment choice (chromatic) |
 
-### Key Facts at a Glance
-| Item | Key Information |
-|------|----------------|
-| Domain | See overview for full context |
-| Primary Authority | Relevant regulatory body |
-| Key Legislation | Main acts and regulations |
-| Exam Weight | Check specific exam syllabus |
-| Difficulty | Varies by subtopic |
+## WDM vs. DWDM
 
-### Core Concepts to Remember
-- Fundamental definitions and terminology
-- Key regulatory framework and authority
-- Important dates, numbers, and thresholds
-- Exceptions and special cases
-- Recent developments and amendments
+| Property | WDM | DWDM |
+|---|---|---|
+| Channel spacing | Wider, coarser | Narrower (ITU grid, e.g. 0.8nm/0.4nm) |
+| Channel count | Fewer | Many more (dozens to 100+) |
+| Equipment precision required | Lower | Higher |
+| Typical use | Basic multiplexing | Long-haul backbone capacity scaling |
 
-### Exam Tips
-- Read every question twice before answering
-- For MCQs: eliminate wrong options first
-- For descriptive: structure > length
-- Allocate time proportionally to marks
-- Attempt all questions — no blanks
+## Splicing and connectorization
 
-### Last-Hour Revision Checklist
-- [ ] Reviewed all key definitions
-- [ ] Memorised important numbers and dates
-- [ ] Practised at least 10 previous year questions
-- [ ] Know the exceptions to main rules
-- [ ] Checked for any recent amendments or news
+| Method | Loss | Speed | Use |
+|---|---|---|---|
+| Fusion splicing | Very low | Slower, specialized equipment | Permanent backbone/outdoor plant |
+| Mechanical splicing | Higher | Faster | Temporary/field repair |
+| Connectorization (SC/LC/ST) | Low, reconfigurable | Fast to patch | Data centers, central offices, CPE |
 
-### Common Exam Questions Pattern
-1. Definition-based: "What is X?" — give precise definition + example
-2. Application-based: "In this scenario, what applies?" — identify rule + apply
-3. Comparison: "Difference between X and Y" — tabular format preferred
-4. Current affairs: "Recent development in X" — know last 6-12 months
+## FTTx architecture comparison
 
-## Detailed Study Notes
+| Architecture | Fiber reaches | Final-leg medium | Cost | Performance |
+|---|---|---|---|---|
+| FTTH | Subscriber premises | Fiber | Highest | Highest |
+| FTTB | Building | Existing copper/short fiber | Moderate | Good |
+| FTTC | Street cabinet | VDSL (copper) | Lower | Moderate |
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+## PON quick reference
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+| Term | Meaning |
+|---|---|
+| PON | Passive Optical Network — unpowered splitter divides one feeder fiber to many subscribers |
+| GPON / XGS-PON | PON standards, differing in per-subscriber capacity |
+| Split ratio | Number of subscribers sharing one feeder fiber — higher ratio = lower cost, lower guaranteed per-subscriber bandwidth |
+| EDFA | Erbium-Doped Fiber Amplifier — boosts optical signal without electrical conversion |
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+`(needs verification — recheck against current source: PON standard capacities and DWDM per-channel rates continue to advance.)`

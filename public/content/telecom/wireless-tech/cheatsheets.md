@@ -1,93 +1,55 @@
-# Wireless Technologies: 4G, 5G, WiFi, Bluetooth — Cheatsheets
+# 4G/5G & Wireless — Cheatsheets
 
-Structured cheatsheets content for Wireless Technologies: 4G, 5G, WiFi, Bluetooth.
+## LTE vs. NR architecture quick reference
 
-## Industry Context
-Telecom is one of India's largest sectors. BSNL, Reliance Jio, Airtel, and Vi employ hundreds of thousands of engineers. 5G rollout is accelerating — creating new opportunities in network engineering, infrastructure, and IoT.
+| Element | LTE (4G) | NR (5G) |
+|---|---|---|
+| Radio access node | eNodeB | gNodeB |
+| Core network | EPC | 5GC (supports network slicing, NFV/SDN-based) |
+| Downlink multiple access | OFDMA | OFDMA (flexible numerology) |
+| Uplink multiple access | SC-FDMA (lower peak-to-average power) | OFDMA (both directions) |
+| Sub-carrier spacing | Fixed | Flexible (multiple numerologies) |
 
-## Technical Content
-This section covers wireless technologies: 4g, 5g, wifi, bluetooth from industry-standard perspectives — JTO/JE BSNL exam preparation, private telecom sector technical rounds, and GATE ECE examination topics.
+## 5G use-case categories
 
-## Quick Reference Summary
+| Category | Full name | Priority | Example |
+|---|---|---|---|
+| eMBB | enhanced Mobile Broadband | Throughput | Video streaming, consumer data |
+| URLLC | Ultra-Reliable Low-Latency Communication | Latency, reliability | Industrial automation, autonomous vehicles |
+| mMTC | massive Machine-Type Communication | Device density, power efficiency | IoT sensor networks |
 
-### Key Facts at a Glance
-| Item | Key Information |
-|------|----------------|
-| Domain | See overview for full context |
-| Primary Authority | Relevant regulatory body |
-| Key Legislation | Main acts and regulations |
-| Exam Weight | Check specific exam syllabus |
-| Difficulty | Varies by subtopic |
+## FR1 vs. FR2
 
-### Core Concepts to Remember
-- Fundamental definitions and terminology
-- Key regulatory framework and authority
-- Important dates, numbers, and thresholds
-- Exceptions and special cases
-- Recent developments and amendments
+| Property | FR1 (sub-6 GHz) | FR2 (mmWave, ~24-52 GHz) |
+|---|---|---|
+| Range | Wide-area | Short-range |
+| Obstacle penetration | Good | Poor |
+| Capacity | Moderate-high | Very high |
+| Typical use | General coverage backbone | Dense small-cell, high-capacity hotspots |
 
-### Exam Tips
-- Read every question twice before answering
-- For MCQs: eliminate wrong options first
-- For descriptive: structure > length
-- Allocate time proportionally to marks
-- Attempt all questions — no blanks
+`(needs verification — recheck against current source: exact FR2 boundaries and allocated bands vary by region.)`
 
-### Last-Hour Revision Checklist
-- [ ] Reviewed all key definitions
-- [ ] Memorised important numbers and dates
-- [ ] Practised at least 10 previous year questions
-- [ ] Know the exceptions to main rules
-- [ ] Checked for any recent amendments or news
+## Beamforming implementation types
 
-### Common Exam Questions Pattern
-1. Definition-based: "What is X?" — give precise definition + example
-2. Application-based: "In this scenario, what applies?" — identify rule + apply
-3. Comparison: "Difference between X and Y" — tabular format preferred
-4. Current affairs: "Recent development in X" — know last 6-12 months
+| Type | RF chains | Simultaneous beams | Cost/power | Typical use |
+|---|---|---|---|---|
+| Analog | One, shared across elements | One | Low | Simpler single-user scenarios |
+| Digital | One per antenna element | Multiple, independently steered | High | Full multi-user MIMO |
+| Hybrid | Moderate number, grouped elements | Several | Balanced | Typical massive-MIMO / FR2 deployments |
 
-## Detailed Study Notes
+## Massive MIMO vs. multiple-access techniques
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+| Approach | Mechanism | Capacity lever |
+|---|---|---|
+| TDMA/CDMA/OFDMA | Divide a fixed resource (time/code/frequency) among users | Resource-division efficiency |
+| Massive MIMO | Spatially separate simultaneous streams via many antennas | Adds new spatial capacity, not just divides existing resource |
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+## Key terms
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+| Term | Meaning |
+|---|---|
+| eNodeB / gNodeB | LTE / NR base station |
+| EPC / 5GC | LTE / NR core network |
+| Network slicing | Logical partitioning of one physical 5G network into differentiated-QoS virtual networks |
+| Numerology | NR's configurable sub-carrier spacing scheme |
+| MEC | Multi-access Edge Computing — processing moved near the radio access network to cut latency |
