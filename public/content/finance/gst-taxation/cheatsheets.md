@@ -1,97 +1,64 @@
-# GST and Indirect Taxation — Cheatsheets
+# GST & Indirect Tax — Cheatsheets
 
-Comprehensive cheatsheets content for GST and Indirect Taxation.
+## GST components
 
-## Why This Matters
-Finance and commerce knowledge is essential for CA/CS/CMA aspirants, banking professionals, and anyone managing personal or business finances in India.
+| Component | Applies to | Collected by |
+|---|---|---|
+| CGST | Intra-state transactions | Central government |
+| SGST | Intra-state transactions | State government |
+| IGST | Inter-state transactions | Central government (apportioned to destination state) |
 
-## Core Areas
-- Fundamental principles and definitions
-- Regulatory framework (SEBI, RBI, MCA, CBDT, GSTN)
-- Practical calculations and journal entries
-- Recent amendments and budget changes
-- Exam-focused questions and answers
+`(needs verification — recheck against current source: GST rate slabs periodically revised by GST Council.)`
 
-## Quick Reference Summary
+## Input Tax Credit (ITC) conditions
 
-### Key Facts at a Glance
-| Item | Key Information |
-|------|----------------|
-| Domain | See overview for full context |
-| Primary Authority | Relevant regulatory body |
-| Key Legislation | Main acts and regulations |
-| Exam Weight | Check specific exam syllabus |
-| Difficulty | Varies by subtopic |
+| Requirement | Detail |
+|---|---|
+| Valid tax invoice | Business must possess one |
+| Goods/services received | Must have actually been delivered |
+| Supplier compliance | Supplier must have paid GST and filed returns |
+| Buyer compliance | Business must have filed its own returns |
 
-### Core Concepts to Remember
-- Fundamental definitions and terminology
-- Key regulatory framework and authority
-- Important dates, numbers, and thresholds
-- Exceptions and special cases
-- Recent developments and amendments
+## GSTR return types (common)
 
-### Exam Tips
-- Read every question twice before answering
-- For MCQs: eliminate wrong options first
-- For descriptive: structure > length
-- Allocate time proportionally to marks
-- Attempt all questions — no blanks
+| Return | Purpose | Filed by |
+|---|---|---|
+| GSTR-1 | Reports outward supplies (sales) | Standard-scheme registered businesses |
+| GSTR-3B | Summary return — tax liability and ITC claimed | Standard-scheme registered businesses |
 
-### Last-Hour Revision Checklist
-- [ ] Reviewed all key definitions
-- [ ] Memorised important numbers and dates
-- [ ] Practised at least 10 previous year questions
-- [ ] Know the exceptions to main rules
-- [ ] Checked for any recent amendments or news
+`(needs verification — recheck against current source: GSTR forms and filing frequency have changed multiple times since 2017 and continue to evolve.)`
 
-### Common Exam Questions Pattern
-1. Definition-based: "What is X?" — give precise definition + example
-2. Application-based: "In this scenario, what applies?" — identify rule + apply
-3. Comparison: "Difference between X and Y" — tabular format preferred
-4. Current affairs: "Recent development in X" — know last 6-12 months
+## Standard scheme vs. composition scheme
 
-## Detailed Study Notes
+| Property | Standard scheme | Composition scheme |
+|---|---|---|
+| ITC claimable | Yes | No |
+| Tax calculation | GST on sales, ITC credited | Flat rate on turnover |
+| Compliance burden | Higher (monthly/quarterly filing) | Lower (reduced filing) |
+| Best suited for | B2B (customers want ITC) | B2C (customers don't need ITC) |
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+`(needs verification — recheck against current source: composition scheme thresholds and rates periodically revised.)`
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+## Place of supply — quick logic
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+| Supply type | General rule |
+|---|---|
+| Goods | Location of delivery |
+| Services (general) | Recipient's location |
+| Services (varies by category) | Location of performance, or property location for immovable-property-related services |
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
+## Reverse charge mechanism (RCM)
 
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
+| Standard GST | Reverse charge |
+|---|---|
+| Seller collects and remits GST | Buyer directly liable to pay GST |
+| Default mechanism | Applies to specific notified categories (e.g. certain unregistered-supplier transactions) |
 
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
+## Compliance tools
 
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
+| Tool | Purpose |
+|---|---|
+| GSTIN | GST Identification Number — issued upon registration |
+| E-way bill | Required for goods movement above value threshold; tax-evasion prevention |
 
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+`(needs verification — recheck against current source: e-way bill thresholds and RCM categories periodically revised.)`

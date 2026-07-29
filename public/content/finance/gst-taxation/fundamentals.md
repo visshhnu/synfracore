@@ -1,83 +1,23 @@
-# GST and Indirect Taxation — Fundamentals
+# GST & Indirect Tax — Fundamentals
 
-Comprehensive fundamentals content for GST and Indirect Taxation.
+## CGST, SGST, and IGST — the three-way split
 
-## Why This Matters
-Finance and commerce knowledge is essential for CA/CS/CMA aspirants, banking professionals, and anyone managing personal or business finances in India.
+GST applies differently depending on whether a transaction is intra-state or inter-state: an **intra-state** transaction (buyer and seller in the same state) splits GST into **CGST** (Central GST, collected by the central government) and **SGST** (State GST, collected by the state government) — each typically at half the total applicable GST rate, so a transaction subject to 18% total GST would involve 9% CGST and 9% SGST. An **inter-state** transaction (buyer and seller in different states) instead charges **IGST** (Integrated GST) at the full combined rate, collected by the central government and subsequently apportioned to the destination state — this structure is specifically designed so the state where goods/services are actually consumed receives its due share of tax revenue, consistent with GST's design as a destination-based consumption tax. `(needs verification — recheck against current source: current GST rate slabs are periodically revised by the GST Council.)`
 
-## Core Areas
-- Fundamental principles and definitions
-- Regulatory framework (SEBI, RBI, MCA, CBDT, GSTN)
-- Practical calculations and journal entries
-- Recent amendments and budget changes
-- Exam-focused questions and answers
+## Input Tax Credit — the mechanism preventing cascading tax
 
-## Core Concepts
-This section covers the foundational knowledge required for this topic. Work through each concept systematically before moving to intermediate topics.
+**Input Tax Credit (ITC)** allows a GST-registered business to claim credit for the GST it paid on its own purchases (inputs), offsetting that credit against the GST it owes on its own sales (output) — meaning the business effectively pays GST only on the value it actually added, not on the full sale value including tax already paid earlier in the supply chain. For example, a manufacturer purchasing raw materials pays GST on that purchase; when the manufacturer sells the finished product, GST is charged on the sale price, but the manufacturer can subtract (credit) the GST already paid on raw materials from the GST owed on the sale — only the net difference is actually remitted to the government. This mechanism is what makes GST fundamentally different from the pre-2017 cascading-tax system (Overview).
 
-## Key Principles
-- Understand the basic theory and definitions
-- Learn the regulatory framework and key bodies involved
-- Practice with simple examples before complex scenarios
-- Use the cheatsheet for quick reference during revision
+## Conditions for claiming ITC
 
-## Getting Started
-Begin by reading the overview, then work through this fundamentals section. Each concept builds on the previous one. Do not skip ahead — the foundation matters.
+ITC isn't automatically available on every purchase — several conditions must be met: the business must possess a valid tax invoice, the goods/services must actually have been received, the supplier must have actually paid the GST charged to the government (and filed the corresponding return), and the business itself must have filed its own GST returns. This last set of conditions — that ITC availability depends partly on the *supplier's* compliance, not just the buyer's own records — is a frequently tested and practically significant point, since it means a business can lose ITC eligibility due to a supplier's non-compliance, even if the business's own paperwork is entirely correct. `(needs verification — recheck against current source: specific ITC eligibility conditions and matching mechanisms are periodically revised.)`
 
-## Self-Assessment
-After completing this section, you should be able to:
-- Define the core terms and concepts
-- Explain the basic structure and framework
-- Answer beginner-level questions on this topic
-- Identify the key regulations, acts, or standards that apply
+## GST registration — who must register
 
-## Common Beginner Questions
-**Q: Where should I start?** Start with the overview and this fundamentals section. Read official sources alongside these notes.
-**Q: How long will this take?** Budget 2-3 hours for a solid foundation.
-**Q: What resources supplement this?** Official textbooks, government websites, and exam-specific guides.
+Businesses exceeding a specified annual turnover threshold (which differs by state category and by whether the business deals in goods or services) are required to register for GST; below this threshold, registration is generally optional (though some categories of business must register regardless of turnover). Once registered, a business receives a GSTIN (GST Identification Number) and takes on the associated compliance obligations (return filing, invoice requirements) covered in Intermediate. `(needs verification — recheck against current source: current turnover thresholds for mandatory GST registration are periodically revised and differ by state category and business type.)`
 
-## Detailed Study Notes
+## Getting started
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+1. Master the CGST/SGST/IGST split and *why* the intra-state/inter-state distinction determines which applies — this structural logic underlies most subsequent GST compliance questions.
+2. Understand ITC as GST's core structural innovation solving the cascading-tax problem, not just a compliance mechanic to memorize — this framing makes the rest of GST's rules more coherent.
+3. Internalize that ITC eligibility depends on supplier compliance too, not just the claiming business's own records — a frequently tested and practically important nuance.

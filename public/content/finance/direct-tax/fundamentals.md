@@ -1,83 +1,27 @@
-# Direct Tax and Income Tax — Fundamentals
+# Direct Tax & Income Tax — Fundamentals
 
-Comprehensive fundamentals content for Direct Tax and Income Tax.
+## The five heads of income, in depth
 
-## Why This Matters
-Finance and commerce knowledge is essential for CA/CS/CMA aspirants, banking professionals, and anyone managing personal or business finances in India.
+- **Income from Salary:** covers all employment-related income — basic salary, allowances, and perquisites (non-cash benefits provided by an employer, like rent-free accommodation), each with specific rules governing what portion is taxable versus exempt.
+- **Income from House Property:** covers rental income from property ownership, and — a frequently misunderstood point — also covers *notional* income from a second self-occupied property under certain rules, since the tax framework treats owning multiple properties as having income-generating potential even when a property isn't actually rented out.
+- **Profits and Gains from Business or Profession:** covers income from running a business or professional practice, computed as revenue less legitimate business expenses — this head connects most directly to Financial Accounting's final-accounts material, since business income computation starts from accounting profit and applies tax-specific adjustments.
+- **Capital Gains:** covers profit from selling a capital asset (property, securities, and similar), split into **short-term** and **long-term** capital gains depending on the holding period before sale, with different tax treatment for each — this distinction exists partly to encourage longer-term investment holding over short-term speculation.
+- **Income from Other Sources:** a residual category capturing income not fitting the other four heads — interest income, dividends, and similar receipts.
 
-## Core Areas
-- Fundamental principles and definitions
-- Regulatory framework (SEBI, RBI, MCA, CBDT, GSTN)
-- Practical calculations and journal entries
-- Recent amendments and budget changes
-- Exam-focused questions and answers
+## Why classification into the correct head matters
 
-## Core Concepts
-This section covers the foundational knowledge required for this topic. Work through each concept systematically before moving to intermediate topics.
+Correctly classifying a given receipt under its proper head isn't a bureaucratic formality — different heads have different applicable deductions, exemptions, and tax treatment, meaning misclassifying income can produce a materially incorrect tax liability calculation even if the underlying income amount is recorded correctly. This is why classification is treated as the essential first step before any deduction or tax-computation logic can be correctly applied.
 
-## Key Principles
-- Understand the basic theory and definitions
-- Learn the regulatory framework and key bodies involved
-- Practice with simple examples before complex scenarios
-- Use the cheatsheet for quick reference during revision
+## Old regime vs. new regime — a structural choice
 
-## Getting Started
-Begin by reading the overview, then work through this fundamentals section. Each concept builds on the previous one. Do not skip ahead — the foundation matters.
+India's income tax framework offers taxpayers a choice between the **old tax regime** (higher tax rates but with access to a wide range of deductions and exemptions) and the **new tax regime** (generally lower tax rates but with most deductions/exemptions unavailable) — this choice must generally be made explicitly (with specific rules governing how and when it can be changed), and which regime results in lower actual tax liability depends entirely on an individual's specific deduction-eligible expenses and investments. `(needs verification — recheck against current source: the specific rate structures, available deductions under each regime, and default-regime rules are revised periodically by the Finance Act.)`
 
-## Self-Assessment
-After completing this section, you should be able to:
-- Define the core terms and concepts
-- Explain the basic structure and framework
-- Answer beginner-level questions on this topic
-- Identify the key regulations, acts, or standards that apply
+## Common deductions — a starting point
 
-## Common Beginner Questions
-**Q: Where should I start?** Start with the overview and this fundamentals section. Read official sources alongside these notes.
-**Q: How long will this take?** Budget 2-3 hours for a solid foundation.
-**Q: What resources supplement this?** Official textbooks, government websites, and exam-specific guides.
+Deductions reduce taxable income before tax is calculated (distinct from tax credits, which reduce the tax liability itself after calculation) — common examples under the old regime include deductions for specified investments and expenses (like life insurance premiums, provident fund contributions, and certain types of insurance), each subject to specific eligibility conditions and caps. Understanding deductions as reducing the *taxable base*, not the *final tax amount* directly, is an important conceptual distinction from TDS (which reduces the amount actually owed at filing time, having already been collected).
 
-## Detailed Study Notes
+## Getting started
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+1. Master the five heads of income classification first — nearly every subsequent computation depends on correctly identifying which head a given receipt belongs to.
+2. Understand the old-regime/new-regime choice as a genuine tradeoff requiring case-by-case calculation, not a universal "one is better" answer — this depends entirely on an individual's specific deduction-eligible situation.
+3. Keep deductions (reducing taxable income) and TDS (tax already collected, credited against final liability) as conceptually distinct mechanisms — Intermediate builds directly on this distinction.

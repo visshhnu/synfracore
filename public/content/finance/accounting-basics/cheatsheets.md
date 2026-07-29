@@ -1,97 +1,62 @@
-# Financial Accounting Fundamentals — Cheatsheets
+# Financial Accounting — Cheatsheets
 
-Comprehensive cheatsheets content for Financial Accounting Fundamentals.
+## The accounting equation
 
-## Why This Matters
-Finance and commerce knowledge is essential for CA/CS/CMA aspirants, banking professionals, and anyone managing personal or business finances in India.
+**Assets = Liabilities + Capital**
 
-## Core Areas
-- Fundamental principles and definitions
-- Regulatory framework (SEBI, RBI, MCA, CBDT, GSTN)
-- Practical calculations and journal entries
-- Recent amendments and budget changes
-- Exam-focused questions and answers
+## Debit/credit rules by account type
 
-## Quick Reference Summary
+| Account type | Debit | Credit |
+|---|---|---|
+| Assets | Increase | Decrease |
+| Liabilities | Decrease | Increase |
+| Capital | Decrease | Increase |
+| Expenses | Increase | Decrease |
+| Income/Revenue | Decrease | Increase |
 
-### Key Facts at a Glance
-| Item | Key Information |
-|------|----------------|
-| Domain | See overview for full context |
-| Primary Authority | Relevant regulatory body |
-| Key Legislation | Main acts and regulations |
-| Exam Weight | Check specific exam syllabus |
-| Difficulty | Varies by subtopic |
+## Accounting cycle stages
 
-### Core Concepts to Remember
-- Fundamental definitions and terminology
-- Key regulatory framework and authority
-- Important dates, numbers, and thresholds
-- Exceptions and special cases
-- Recent developments and amendments
+| Stage | Purpose |
+|---|---|
+| Journal entry | Initial chronological record of a transaction |
+| Ledger posting | Organizing entries by individual account |
+| Trial balance | Verifying total debits = total credits |
+| Adjustments | Applying accrual principle (outstanding/prepaid/accrued items, depreciation) |
+| Final accounts | Trading Account, P&L Account, Balance Sheet |
+| Ratio analysis | Interpreting final accounts for performance insight |
 
-### Exam Tips
-- Read every question twice before answering
-- For MCQs: eliminate wrong options first
-- For descriptive: structure > length
-- Allocate time proportionally to marks
-- Attempt all questions — no blanks
+## Trial balance error types not caught by balancing
 
-### Last-Hour Revision Checklist
-- [ ] Reviewed all key definitions
-- [ ] Memorised important numbers and dates
-- [ ] Practised at least 10 previous year questions
-- [ ] Know the exceptions to main rules
-- [ ] Checked for any recent amendments or news
+| Error type | Description |
+|---|---|
+| Omission | Transaction not recorded at all |
+| Commission | Recorded in wrong account, correct amount |
+| Compensating | Two errors cancel out numerically |
 
-### Common Exam Questions Pattern
-1. Definition-based: "What is X?" — give precise definition + example
-2. Application-based: "In this scenario, what applies?" — identify rule + apply
-3. Comparison: "Difference between X and Y" — tabular format preferred
-4. Current affairs: "Recent development in X" — know last 6-12 months
+## Final accounts quick reference
 
-## Detailed Study Notes
+| Statement | Measures | Formula |
+|---|---|---|
+| Trading Account | Gross profit | Net Sales − Cost of Goods Sold |
+| Profit and Loss Account | Net profit | Gross Profit − Operating Expenses + Other Income |
+| Balance Sheet | Financial position (point in time) | Assets = Liabilities + Capital |
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+## Key ratio formulas
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+| Ratio | Formula | Assesses |
+|---|---|---|
+| Gross Profit Ratio | Gross Profit / Net Sales × 100 | Core trading profitability |
+| Net Profit Ratio | Net Profit / Net Sales × 100 | Overall profitability |
+| Current Ratio | Current Assets / Current Liabilities | Short-term liquidity |
+| Debt-to-Equity Ratio | Total Debt / Total Equity | Long-term solvency/leverage |
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+Rule of thumb: ratios are meaningful only in comparison — against prior periods, industry benchmarks, or specific targets — not as isolated numbers.
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
+## Adjustment types (accrual principle)
 
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+| Adjustment | Meaning |
+|---|---|
+| Outstanding expense | Incurred but not yet paid — still recorded as period expense |
+| Prepaid expense | Paid in advance — not fully expensed in current period |
+| Accrued income | Earned but not yet received |
+| Depreciation | Systematic allocation of fixed-asset cost over useful life |

@@ -1,97 +1,66 @@
-# Direct Tax and Income Tax — Cheatsheets
+# Direct Tax & Income Tax — Cheatsheets
 
-Comprehensive cheatsheets content for Direct Tax and Income Tax.
+## The five heads of income
 
-## Why This Matters
-Finance and commerce knowledge is essential for CA/CS/CMA aspirants, banking professionals, and anyone managing personal or business finances in India.
+| Head | Covers |
+|---|---|
+| Salary | Employment income, allowances, perquisites |
+| House Property | Rental income (and notional income from certain owned properties) |
+| Business or Profession | Business/professional income (revenue less legitimate expenses) |
+| Capital Gains | Profit from sale of capital assets (short-term vs. long-term) |
+| Other Sources | Residual category — interest, dividends, etc. |
 
-## Core Areas
-- Fundamental principles and definitions
-- Regulatory framework (SEBI, RBI, MCA, CBDT, GSTN)
-- Practical calculations and journal entries
-- Recent amendments and budget changes
-- Exam-focused questions and answers
+## Old regime vs. new regime
 
-## Quick Reference Summary
+| Property | Old regime | New regime |
+|---|---|---|
+| Tax rates | Higher | Generally lower |
+| Deductions/exemptions | Wide range available | Mostly unavailable |
+| Best suited for | High deduction-eligible expenses/investments | Fewer deduction-eligible items |
 
-### Key Facts at a Glance
-| Item | Key Information |
-|------|----------------|
-| Domain | See overview for full context |
-| Primary Authority | Relevant regulatory body |
-| Key Legislation | Main acts and regulations |
-| Exam Weight | Check specific exam syllabus |
-| Difficulty | Varies by subtopic |
+`(needs verification — recheck against current source: rate structures and default-regime rules revised periodically.)`
 
-### Core Concepts to Remember
-- Fundamental definitions and terminology
-- Key regulatory framework and authority
-- Important dates, numbers, and thresholds
-- Exceptions and special cases
-- Recent developments and amendments
+## Deduction vs. TDS
 
-### Exam Tips
-- Read every question twice before answering
-- For MCQs: eliminate wrong options first
-- For descriptive: structure > length
-- Allocate time proportionally to marks
-- Attempt all questions — no blanks
+| Property | Deduction | TDS |
+|---|---|---|
+| Affects | Taxable income (the base) | Amount already paid (credited against liability) |
+| When applied | At tax computation | During the year, at time of payment |
+| Head-specific? | Some are (e.g. home-loan interest → House Property only) | No — applies at payment source regardless of head |
 
-### Last-Hour Revision Checklist
-- [ ] Reviewed all key definitions
-- [ ] Memorised important numbers and dates
-- [ ] Practised at least 10 previous year questions
-- [ ] Know the exceptions to main rules
-- [ ] Checked for any recent amendments or news
+## Capital gains — short-term vs. long-term
 
-### Common Exam Questions Pattern
-1. Definition-based: "What is X?" — give precise definition + example
-2. Application-based: "In this scenario, what applies?" — identify rule + apply
-3. Comparison: "Difference between X and Y" — tabular format preferred
-4. Current affairs: "Recent development in X" — know last 6-12 months
+| Property | Short-term | Long-term |
+|---|---|---|
+| Holding period threshold | Below asset-specific threshold | Above asset-specific threshold |
+| Tax treatment | Generally less favorable | Generally more favorable (lower rates/exemption) |
+| Threshold varies by | Asset type (equity vs. real estate, etc.) | — |
 
-## Detailed Study Notes
+`(needs verification — recheck against current source: holding-period thresholds and rates periodically revised.)`
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+## TDS reconciliation
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+| Document | Purpose |
+|---|---|
+| Form 26AS / Annual Information Statement | Consolidated record of TDS deducted on taxpayer's behalf |
+| Reconciliation | Verify own records match Form 26AS before filing |
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+## Advance tax quick reference
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
+| Property | Detail |
+|---|---|
+| Who it applies to | Taxpayers with estimated liability above threshold after TDS |
+| When paid | Installments during the financial year |
+| Consequence of shortfall | Interest charged on timing shortfall, separate from underlying tax owed |
 
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
+`(needs verification — recheck against current source: advance tax thresholds, installment schedules, interest provisions periodically revised.)`
 
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
+## ITR filing — what it integrates
 
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+| Component | Source |
+|---|---|
+| Total income | Five heads, correctly classified |
+| Deductions | Old/new regime rules, head-specific where applicable |
+| TDS credit | Form 26AS reconciliation |
+| Advance tax paid | Installments during the year |
+| Result | Final tax payable or refund due |

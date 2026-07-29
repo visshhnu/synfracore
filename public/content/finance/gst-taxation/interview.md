@@ -1,79 +1,19 @@
-# GST and Indirect Taxation — Interview
+# GST & Indirect Tax — Practice Q&A
 
-Comprehensive interview content for GST and Indirect Taxation.
+**Q: What's the difference between when CGST+SGST apply versus when IGST applies?**
+A: CGST and SGST apply to intra-state transactions (buyer and seller in the same state), splitting the total GST between the central and state governments. IGST applies to inter-state transactions (buyer and seller in different states), charged at the full combined rate by the central government and then apportioned to the destination state — this destination-based apportionment ensures the state where goods/services are actually consumed receives its due tax revenue.
 
-## Why This Matters
-Finance and commerce knowledge is essential for CA/CS/CMA aspirants, banking professionals, and anyone managing personal or business finances in India.
+**Q: How does Input Tax Credit prevent the cascading-tax problem that existed before GST?**
+A: ITC allows a business to credit the GST it already paid on its own purchases against the GST it owes on its own sales, meaning the business effectively pays GST only on the value it actually added at its stage of the supply chain. Before GST, multiple separate taxes applied at different supply-chain stages without this credit mechanism, meaning tax could effectively be charged on top of previously-taxed value — ITC directly eliminates this by ensuring tax is only ever levied on the incremental value added at each stage.
 
-## Core Areas
-- Fundamental principles and definitions
-- Regulatory framework (SEBI, RBI, MCA, CBDT, GSTN)
-- Practical calculations and journal entries
-- Recent amendments and budget changes
-- Exam-focused questions and answers
+**Q: A business has a valid tax invoice and has received the goods it purchased, but its supplier never actually remitted the GST charged to the government. Can the business still claim ITC on that purchase?**
+A: Not reliably — ITC eligibility depends partly on the supplier's own compliance, specifically whether the supplier has reported the sale and paid the GST charged. This means a business can lose ITC eligibility due to a supplier's non-compliance even when the business's own invoice and receipt records are entirely correct — a practically important risk that makes supplier GST-compliance a real business consideration, not just a paperwork formality.
 
-## Interview and Exam Q&A
+**Q: Why might a business primarily selling to other GST-registered businesses avoid the composition scheme, even though it offers simpler compliance?**
+A: Composition-scheme businesses cannot claim ITC on their own purchases and generally can't pass GST through as a separate charge to customers. This means a business's own customers, if they're GST-registered and would want to claim ITC on their purchase from this business, can't get that benefit from a composition-scheme seller — potentially making the composition-scheme business a less attractive supplier in a B2B context, even at a nominally lower price, offsetting the compliance-simplification benefit.
 
-**Q: What are the most important concepts in this topic?**
-Focus on the foundational framework — definitions, key legislation or standards, the regulatory authority, and how the system works in practice. Examiners and interviewers test whether you understand the structure, not just isolated facts.
+**Q: Why does an error in determining "place of supply" potentially cause more than just a wrong tax rate?**
+A: Place of supply determines whether a transaction is intra-state (CGST+SGST) or inter-state (IGST) — getting it wrong means charging an entirely different tax type, not just a different rate. This error can then cascade further: it affects what the buyer can correctly claim as ITC, since claiming CGST/SGST credit when IGST was actually correct (or vice versa) creates a mismatch the GSTR-1/GSTR-3B return-matching system is specifically designed to flag, turning one initial classification error into a downstream compliance problem for the buyer as well.
 
-**Q: How do you approach an unfamiliar question in this domain?**
-Break it down systematically. Identify what category of question it is (definition, application, analysis, or evaluation). Apply the relevant framework. State your reasoning step by step. In objective exams, eliminate clearly wrong options before choosing.
-
-**Q: What common mistakes should you avoid?**
-Confusing similar terms or concepts. Applying general rules without checking for exceptions. Not reading the question carefully — many marks are lost by answering a different question than the one asked.
-
-**Q: How should you prepare for written/descriptive answers?**
-Structure your answers: Introduction (define and contextualise), Body (main points with examples), Conclusion (significance or way forward). Use subheadings where permitted. Aim for clarity over length.
-
-**Q: What current issues are important in this domain?**
-Stay updated with recent developments — new legislation, policy changes, landmark judgments, or recent exam results. Examiners reward candidates who show awareness of the current context.
-
-**Q: What is the best revision strategy for this topic?**
-Use the cheatsheet for last-minute review. Create your own one-page summary of key points. Teach the concept to someone else — if you can explain it clearly, you understand it well enough for the exam.
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+**Q: What's the purpose of the reverse charge mechanism, and how does it differ from standard GST collection?**
+A: Under standard GST, the seller collects GST from the buyer and remits it to the government. Under reverse charge, this flips — the buyer becomes directly liable to pay GST to the government instead of the seller, applicable to specific notified transaction categories. This mechanism exists partly to ensure reliable GST collection in situations where the seller might not be dependably GST-compliant, such as certain unregistered suppliers, by shifting the compliance responsibility to the buyer, who is more likely to already be within the formal GST system.
