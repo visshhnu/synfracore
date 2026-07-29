@@ -1,6 +1,12 @@
 # Grafana — Fundamentals
 
-## Setup and Data Sources
+## What you're building on this page
+
+Think of Grafana as a window, not a warehouse: it doesn't store any data itself, it just gives you a consistent way to look through it — the same dashboard-and-panel model works whether the data behind the glass is Prometheus metrics, Loki logs, or a Postgres table. Overview covered what Grafana is and why teams pair it with Prometheus; this page is the hands-on half — get a working Grafana + Prometheus stack running locally, then use it to build the dashboards, queries, and alerts below. Everything from here on assumes you have Docker available; if you don't, `installation.md` in this technology covers native-package and Kubernetes/Helm alternatives.
+
+## Install & Verify
+
+The fastest path to a working stack is the two-container Docker Compose setup below — Grafana for visualization, Prometheus as its first data source. Save it as `docker-compose.yml` and run `docker compose up -d`; both containers should report `Up` within a few seconds of `docker compose ps`.
 
 ```yaml
 # docker-compose.yml
@@ -45,6 +51,8 @@ datasources:
     secureJsonData:
       password: readonly_password
 ```
+
+**Try it (2 minutes):** with the stack running, open `http://localhost:3000` and log in with `admin` / `admin123` (the password set above). Go to Connections → Data Sources — you should already see Prometheus and Loki listed as provisioned data sources, not something you had to click through a setup wizard to add. That's the point of the `provisioning/` mount: data sources defined as files, not manual UI clicks, so a fresh environment comes up pre-wired. If Prometheus doesn't show as reachable, confirm both containers are on the same Docker Compose network (they are, by default, since they're defined in the same file) and that `prometheus.yml` exists at the path referenced above.
 
 ## Building Dashboards
 
@@ -164,3 +172,14 @@ POST /api/v1/provisioning/contact-points
   "labels": {"severity": "critical"}
 }
 ```
+
+## Best Practices
+
+A few conventions worth adopting from the start — they cost little now and get expensive to retrofit once a team has dozens of dashboards:
+
+- **Provision, don't click-configure.** Data sources and dashboards defined as files (as in the setup above) survive a container restart and can be code-reviewed; dashboards built by hand in the UI and never exported live only in that Grafana instance's database, one `docker volume rm` away from gone.
+- **Organize dashboards into folders with real access control**, not a flat list — separate folders per team or environment (e.g., `Production/`, `Staging/`, `Team-Payments/`), with folder-level permissions so a staging dashboard mistake can't be pushed to a production folder by accident.
+- **Name variables and panels for what they mean, not what they query.** `$namespace` and `$pod` (used above) read clearly months later; a variable named `$var1` doesn't. The same applies to panel titles — "P95 Latency by Service" is immediately useful in an incident; "Panel 7" is not.
+- **Keep alert conditions symptom-based, not cause-based** (this connects directly to the alert-fatigue guidance in Overview's interview section) — alert on "error rate exceeds 1% for 5 minutes," not on every individual cause that could produce that symptom. One well-tuned symptom alert catches every root cause; ten cause-specific alerts mean nine of them fire for problems that don't actually need a human yet.
+- **Version-control provisioning configs and dashboard JSON** alongside application code, not as a side artifact — a dashboard that breaks after a metric rename is a regression like any other, and it should be caught in review, not discovered during the next incident.
+- **Separate the Grafana admin password from example/demo values immediately in anything beyond a local sandbox** — `admin123` above is fine for the local stack in this section, but treat it as a placeholder to replace via a secrets manager or environment variable before this setup touches anything shared or production-facing.

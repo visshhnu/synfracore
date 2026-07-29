@@ -2,30 +2,45 @@
 
 ## What this technology covers
 
-PMP (Project Management Professional) is PMI's (Project Management Institute) flagship certification, covering project management across three approach domains: **predictive** (traditional, plan-driven project management — the classic waterfall-style approach), **agile** (iterative, adaptive project management — directly connecting to this academy's separate Scrum & Agile technology, though PMP tests agile at a broader project-management level rather than Scrum's specific framework mechanics), and **hybrid** (combining predictive and agile elements within a single project, reflecting how many real-world projects actually operate rather than adhering strictly to one methodology). This technology is grounded in PMI's current **PMBOK Guide, 7th Edition** framework, which represents a substantial structural shift from earlier PMBOK editions.
+PMP (Project Management Professional) is PMI's (Project Management Institute) flagship certification, covering project management across three approach domains tested throughout the exam rather than in separate sections: **predictive** (traditional, plan-driven project management), **agile** (iterative, adaptive project management — this connects to this academy's separate Scrum & Agile technology, though PMP tests agile at a broader project-management level rather than Scrum's specific framework mechanics), and **hybrid** (combining predictive and agile elements within a single project). This technology is grounded in PMI's current **PMBOK Guide, 8th Edition** — a structural overhaul that reunifies content PMI had split across two books under the 7th Edition and replaces the 7th Edition's 12 principles/8 performance domains structure with a leaner, process-embedded model. `(needs verification — recheck against current source: PMI's own published release-date references for the 8th Edition are inconsistent across secondary sources, some citing a November 2025 release with January 13, 2026 general availability — confirm the exact date directly against pmi.org before treating it as settled.)`
 
-## Why it matters
+## Why it matters — and why this is a live, time-sensitive change
 
-PMP is one of the most globally recognized project management certifications, valued across industries precisely because it doesn't assume a single "correct" project management methodology — the PMBOK 7 framework explicitly organizes around principles and performance domains applicable across predictive, agile, and hybrid approaches, reflecting the real-world reality that project management practice has diversified substantially beyond the earlier, more rigid process-and-deliverable-focused framework of previous PMBOK editions.
+**The PMP exam itself changed on July 9, 2026**, moving to a revised Examination Content Outline aligned with PMBOK 8's framing. This is not a routine periodic tweak: exam length grew from 230 to 240 minutes, question count from 180 to 185, and — the biggest practical shift for candidates — the three exam domains were substantially reweighted. Content written against the pre-July-2026 exam (12 principles, 8 performance domains, 180 questions, the old domain weights) is now describing a superseded exam and a superseded PMBOK edition simultaneously. Anyone preparing today needs the 8th Edition framing and the post-July-2026 exam structure, not the 7th Edition material this technology previously carried.
 
-## PMBOK 7 — a structural departure from earlier editions
+## PMBOK 8 — what actually changed from PMBOK 7
 
-A genuinely important context point: **PMBOK 7** (published 2021) represents a substantial departure from PMBOK 6 and earlier editions' process-group/knowledge-area structure (Initiating, Planning, Executing, Monitoring & Controlling, Closing, crossed with knowledge areas like Scope, Schedule, Cost). PMBOK 7 instead organizes around **12 project management principles** (values-based guidance) and **8 performance domains** (areas of focus contributing to effective project delivery) — a more principle-based, methodology-agnostic framework explicitly designed to remain relevant across predictive, agile, and hybrid approaches rather than being implicitly waterfall-oriented the way earlier editions were often perceived. `(needs verification — recheck against current source: PMI periodically updates PMBOK editions and the PMP exam content outline accordingly — confirm current edition and exam alignment before relying on edition-specific structural details.)`
+PMBOK 7 (2021) organized around 12 principles and 8 outcome-focused performance domains, deliberately kept process-agnostic, with detailed processes pushed into a separate companion book (*Process Groups: A Practice Guide*, 2022). **PMBOK 8 reunifies both books into a single publication** and restructures the content substantially:
 
-## Exam structure — a quick map
+| Aspect | PMBOK 7 (2021) + Process Groups Guide (2022) | PMBOK 8 |
+|---|---|---|
+| Principles | 12 | 6 |
+| Performance domains | 8 (outcome-focused, no embedded processes) | 7 (function-oriented, each with embedded processes) |
+| Processes | 49, in a separate companion book | 40, embedded directly in the 7 domains |
+| Process Groups | Optional model, Section 4 | Renamed "Focus Areas," approach-agnostic |
+| Knowledge Areas | Removed (7th Ed had already dropped these) | Not reintroduced |
+| Sustainability | Briefly mentioned | New, dedicated 6th principle |
+| Artificial intelligence | Not covered | Dedicated appendix (X3) |
+| Procurement | Full knowledge-area-level treatment | Demoted to appendix (X4) |
+
+`(needs verification — recheck against current source: this comparison is drawn from secondary analysis of PMI's published 8th Edition; confirm structural specifics directly against the PMBOK Guide 8th Edition text itself before treating any single number above as final, particularly the process counts.)`
+
+## Exam structure — post-July 9, 2026
 
 | Property | Detail |
 |---|---|
-| Questions | 180 |
-| Domains tested | People, Process, Business Environment |
+| Questions | 185 |
+| Exam time | 240 minutes |
+| Domains tested | People (33%), Process (41%), Business Environment (26%) |
 | Approach coverage | Predictive, agile, and hybrid approaches tested throughout, not as separate sections |
+| New question types | Case sets, drag-and-drop, and graphic interpretation, in addition to standard multiple-choice/multiple-response |
 
-`(needs verification — recheck against current source: PMI periodically revises exam structure, question count, and domain weighting.)`
+The **Business Environment domain's weight more than tripled** (from 8% to 26%) — the single biggest structural shift for exam-takers coming from the pre-July-2026 exam, reflecting increased emphasis on value creation with measurable outcomes, sustainability and ethical leadership, systems thinking, and tailoring judgment across delivery approaches. `(needs verification — recheck against current source: PMI's Examination Content Outline is the authoritative source for exact domain weights and question-type mix; confirm directly against pmi.org rather than relying on secondary reporting, and recheck periodically since PMI revises the ECO independently of the PMBOK Guide.)`
 
 ## Exam and career relevance
 
-PMP certification is broadly recognized across industries (technology, construction, healthcare, and beyond) as a credential for experienced project managers, typically requiring documented project-management experience as an eligibility prerequisite alongside the exam itself.
+PMP certification is broadly recognized across industries (technology, construction, healthcare, and beyond) as a credential for experienced project managers, typically requiring documented project-management experience as an eligibility prerequisite alongside the exam itself. This eligibility requirement is unaffected by the PMBOK 8 / July 2026 exam changes.
 
 ## How to use this technology's sections
 
-Fundamentals covers PMBOK 7's 12 principles and 8 performance domains. Intermediate applies these across predictive, agile, and hybrid project approaches. Advanced covers exam-specific scenario reasoning and the People/Process/Business Environment domain structure in depth. Interview and Cheatsheets provide exam-format practice and quick reference.
+Fundamentals covers PMBOK 8's 6 principles, 7 performance domains, and the new mindset framework. Intermediate applies these across predictive, agile, and hybrid project approaches. Advanced covers exam-specific scenario reasoning and the post-July-2026 People/Process/Business Environment domain structure in depth. Interview and Cheatsheets provide exam-format practice and quick reference.

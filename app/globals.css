@@ -312,8 +312,20 @@ article pre, article code,
 }
 
 /* ══ MOBILE OVERFLOW FIX ══════════════════════════════════ */
+/* overflow-x: clip, not hidden. Per the CSS overflow spec, setting
+   overflow-x to a non-"visible", non-"clip" value while overflow-y is left
+   unset computes overflow-y to "auto" too — "hidden" silently turned both
+   html and body into independent scroll containers. That breaks
+   position: sticky for any descendant (e.g. .sidebar-desktop): sticky
+   anchors to the nearest scrolling ancestor, which became body instead of
+   the viewport, while window.scrollBy/scrollY still tracks the viewport —
+   so the sticky element never appeared to stick. "clip" is explicitly
+   exempted from this quirk, achieves the same "no horizontal scroll"
+   result, and (unlike an explicit overflow-y: visible override) survives
+   CSS minification, which strips overflow-y: visible as a no-op initial
+   value without knowing it's load-bearing here. Confirmed live 2026-07-29. */
 html, body {
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100vw;
 }
 * { box-sizing: border-box; }

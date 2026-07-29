@@ -177,7 +177,7 @@ export default async function SectionPage({ params }: Props) {
     : null;
 
   return (
-    <div style={{ display: "flex", gap: "0", minHeight: "80vh" }}>
+    <div style={{ display: "flex", alignItems: "flex-start", gap: "0", minHeight: "80vh" }}>
       <CourseJsonLd
         name={`${tech.name} — ${sectionData?.label || section}`}
         description={tech.description}

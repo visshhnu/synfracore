@@ -1,23 +1,49 @@
 # PMP Certification — Fundamentals
 
-## The 12 project management principles
+## The 6 project management principles
 
-PMBOK 7 organizes around 12 principles — values-based guidance rather than prescriptive processes: stewardship (acting responsibly, ethically, with care for resources and outcomes), team (fostering a collaborative project team environment), stakeholders (engaging stakeholders proactively, to the degree needed), value (focusing on delivering value, not just completing tasks), systems thinking (recognizing a project operates within interacting systems, not in isolation), leadership (demonstrating leadership behaviors, distinct from formal authority alone), tailoring (adapting the project approach to the specific project's context, rather than applying a fixed methodology uniformly), quality (building quality into processes and deliverables), complexity (navigating complexity rather than assuming it away), risk (proactively addressing threats and opportunities), adaptability and resilience (building the capacity to adjust to changing conditions and recover from setbacks), and change (enabling the organizational change a project's outcomes require to actually deliver value). `(needs verification — recheck against current source: exact principle wording and framing are set by PMI and periodically clarified.)`
+PMBOK 8 consolidates the 7th Edition's 12 principles into 6 broader ones — the same underlying values, regrouped rather than discarded:
 
-## Why principles replaced a purely process-based structure
+1. **Adopt a Holistic View** — systems thinking; understanding a project's components and their interdependencies. Absorbs PMBOK 7's separate "systems thinking" and "navigate complexity" principles.
+2. **Focus on Value** — value as the ultimate success driver. Absorbs PMBOK 7's stakeholder-engagement, adaptability/resilience, and change-enablement principles into one value-centered principle.
+3. **Embed Quality Into Processes and Deliverables** — a refinement of PMBOK 7's "build quality" principle, broadened to include sustainability and compliance dimensions.
+4. **Be an Accountable Leader** — merges PMBOK 7's "stewardship" and "leadership behaviors" principles into a single principle centered on integrity, self-awareness, and shared leadership.
+5. **Integrate Sustainability Within All Project Areas** — genuinely new, not a merge of an existing principle. Covers environmental, social, and economic sustainability (the "triple bottom line") and is the single biggest philosophical addition in PMBOK 8.
+6. **Build an Empowered Culture** — an evolution of PMBOK 7's "collaborative project team environment" principle, broadened beyond the immediate project team to all stakeholders.
 
-Fundamentals' core context point: PMBOK 7's shift toward principles reflects PMI's recognition that a rigid, universal process sequence doesn't fit every project equally well — a small agile software project and a large multi-year construction project both benefit from stewardship, stakeholder engagement, and quality focus, but the *specific processes* achieving those principles look meaningfully different between the two. Principles provide durable guidance across this variation in a way a single fixed process framework couldn't, which is precisely the methodology-agnostic goal PMBOK 7 was designed around.
+Two PMBOK 7 principles didn't merge into another principle at all: **tailoring** moved out of the principles list entirely into its own section of the Guide (still central to PMP reasoning, just structurally relocated — see below), and **risk** moved into the Risk performance domain rather than remaining a standalone principle. `(needs verification — recheck against current source: exact principle wording and the principle-to-principle mapping above reflect secondary analysis of PMI's published 8th Edition; confirm directly against the PMBOK Guide 8th Edition text.)`
 
-## The 8 performance domains
+## The Project Management Mindset — new in PMBOK 8
 
-Performance domains represent areas of focus a project manager attends to throughout a project, regardless of methodology: **stakeholders** (identifying and engaging those affecting or affected by the project), **team** (the people delivering the project and how they work together), **development approach and life cycle** (the specific methodology and phasing chosen — predictive, agile, or hybrid, Overview), **planning** (organizing and coordinating work, at whatever level of detail the chosen approach calls for), **project work** (establishing and executing processes, managing resources and procurement), **delivery** (achieving the scope and quality the project was undertaken to deliver), **measurement** (assessing project performance and taking appropriate action), and **uncertainty** (navigating risk, ambiguity, and complexity throughout). `(needs verification — recheck against current source: exact domain definitions are set by PMI and periodically clarified.)`
+PMBOK 8 introduces a three-dimensional mindset framework with no equivalent in the 7th Edition, grouping the 6 principles into three lenses: **Proactive** (Adopt a Holistic View + Embed Quality), **Ownership** (Be an Accountable Leader + Build an Empowered Culture), and **Value-Driven** (Focus on Value + Integrate Sustainability). This framing is worth learning explicitly — it's new conceptual scaffolding PMI added specifically to connect the principles to day-to-day practice, and exam scenarios can draw on it directly.
 
-## Tailoring — the connective principle across predictive, agile, and hybrid
+## The 7 performance domains
 
-The **tailoring** principle (above) is arguably the single most important conceptual bridge across PMP's three approach domains (Overview) — it's the explicit acknowledgment that a project manager should adapt planning depth, documentation formality, and process rigor to fit the specific project's size, complexity, and risk profile, rather than applying either a rigid predictive-style process or an unmodified agile framework uniformly regardless of context. PMP exam scenarios frequently test whether a candidate recognizes when tailoring toward more or less structure is the appropriate response to a described project situation.
+PMBOK 8 reduces PMBOK 7's 8 outcome-focused performance domains to 7, and — the more significant change — makes them **function-oriented**: each domain now embeds its own processes (40 total across all 7), rather than describing outcomes with no prescribed process guidance the way PMBOK 7's domains did.
+
+| Performance domain | Embedded processes | What it covers |
+|---|---|---|
+| **Governance** | 9 | Integration-style work: project initiation, plan alignment, execution management, change control, knowledge management, quality assurance, sourcing strategy, project/phase closeout |
+| **Scope** | 6 | Requirements elicitation, scope definition, scope structure (the PMBOK 8 term replacing "WBS"), scope validation and control |
+| **Schedule** | 3 | Schedule management planning and schedule development, monitoring, and control |
+| **Finance** | 4 | Financial management planning, cost estimating, budget development, and finance monitoring/control (broadened from "cost" to "finance" to include funding and value analysis) |
+| **Stakeholders** | 7 | Stakeholder identification and engagement, **plus communications management** — PMBOK 7 treated communications as a separate concern; PMBOK 8 folds it into this domain |
+| **Resources** | 5 | Resource planning, acquisition, and control, plus team leadership (PMBOK 7's separate "develop team" and "manage team" processes are merged into a single "Lead the Team" process here) |
+| **Risk** | 6 | Risk planning, identification, analysis (PMBOK 7's separate qualitative and quantitative risk analysis processes are merged here), response planning, and implementation |
+
+Three of PMBOK 7's 8 domains don't map to a PMBOK 8 domain directly: **Development Approach and Life Cycle** moved into a life-cycle discussion in the Standard's main body rather than remaining a performance domain; **Planning** is no longer a standalone domain — planning processes are distributed across all 7 domains above instead; and **Measurement** likewise isn't a standalone domain — measurement concepts (including earned value management) now sit inside each domain's monitoring-and-controlling processes, most concentrated in Finance. `(needs verification — recheck against current source: process counts per domain and the domain-mapping details above reflect secondary analysis; confirm directly against the PMBOK Guide 8th Edition text before treating any specific count as final.)`
+
+## Tailoring — now a section, not a principle
+
+Tailoring — adapting planning depth, documentation formality, and process rigor to a specific project's size, complexity, and risk profile rather than applying one methodology uniformly — remains just as central to PMP reasoning as it was in PMBOK 7. What changed is structural, not conceptual: PMBOK 8 moved tailoring out of the principles list into its own dedicated section of the Guide. Most PMP exam scenarios still ultimately test tailoring judgment in some form, whether or not the question labels it that way.
+
+## Focus Areas — PMBOK 8's name for Process Groups
+
+PMBOK 7 kept Process Groups (Initiating, Planning, Executing, Monitoring & Controlling, Closing) as an optional model. PMBOK 8 renames these five to **Focus Areas** and reframes them as explicitly approach-agnostic — applicable to predictive, agile, and hybrid delivery alike, rather than implicitly describing a predictive sequence. Conceptually they still describe the same lifecycle progression; the rename signals PMI's intent that they not be read as waterfall-specific.
 
 ## Getting started
 
-1. Learn the 12 principles as values-based guidance underlying good project management practice broadly, not as a checklist to apply mechanically.
-2. Understand the 8 performance domains as continuous areas of attention throughout a project's life, not sequential phases to complete and move past.
-3. Treat tailoring as the practical skill connecting principles and domains to real project decisions — most PMP exam scenarios ultimately test tailoring judgment in some form, even when not explicitly labeled as such.
+1. Learn the 6 principles as values-based guidance, using the Proactive/Ownership/Value-Driven mindset framework to see how they group — not as 6 isolated definitions to memorize separately.
+2. Understand the 7 performance domains as areas of continuous attention throughout a project, each now carrying its own embedded processes rather than being purely outcome-descriptive.
+3. Treat tailoring as the practical skill connecting principles and domains to real project decisions, even though it's no longer listed as a principle itself.
+4. Note where PMBOK 8 folded prior concepts together — communications into Stakeholders, team development/management into a single Resources process, qualitative/quantitative risk analysis into one Risk process — since exam scenarios increasingly assume this consolidated framing rather than the older, more granular one.
