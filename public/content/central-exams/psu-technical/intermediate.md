@@ -1,87 +1,17 @@
-# PSU Technical Exams (BHEL, NTPC, ONGC) — Intermediate
+# PSU Technical Exams — Intermediate
 
-Structured intermediate content for PSU Technical Exams (BHEL, NTPC, ONGC).
+## Discipline-specific technical content — what's actually tested
 
-## Exam Overview
-PSU Technical Exams (BHEL, NTPC, ONGC) is a centrally conducted exam with national-level competition. This section provides structured preparation material aligned with the official syllabus and previous year question trends.
+Applying Fundamentals' discipline-structure point in more depth: each engineering discipline's PSU technical content overlaps substantially with its GATE syllabus, but with some PSU-specific emphasis shifts. **Mechanical** engineering candidates should expect strong emphasis on thermodynamics, fluid mechanics, and machine design — particularly relevant for power-generation PSUs (NTPC) and heavy-equipment PSUs (BHEL) where these are core to the PSU's actual engineering work. **Electrical** candidates should expect emphasis on power systems, electrical machines, and control systems — again mapped closely to what a power-sector PSU (NTPC, BHEL) actually does. **Electronics and Communication** candidates (relevant especially to BEL, a defense-electronics PSU) should expect emphasis on communication systems, signal processing, and electronic devices. **Chemical** engineering candidates (relevant especially to ONGC and GAIL, both oil-and-gas-sector PSUs) should expect emphasis on process engineering, thermodynamics, and industry-specific process knowledge (refining, gas processing). This alignment between PSU business area and technical exam emphasis isn't coincidental — PSU technical exams are designed to identify candidates whose depth matches the PSU's actual engineering needs, not generic discipline breadth.
 
-## Key Preparation Areas
-- Subject-specific content for the exam
-- Previous year question analysis
-- Exam strategy and time management
-- Mock question sets
-- Revision notes and cheatsheets
+## Aptitude section preparation
 
-## Building Deeper Understanding
-With the fundamentals in place, this section covers applied knowledge, real-world scenarios, and exam-level complexity.
+The aptitude component (present in most standalone PSU exams, and often in a lighter form even for some GATE-route final-stage assessments) tests quantitative reasoning (arithmetic, algebra, data interpretation), logical reasoning (pattern recognition, analytical puzzles), and verbal ability (comprehension, grammar) — broadly similar in structure to aptitude sections in other competitive government exams, though typically less extensive than a dedicated bank-exam-style aptitude section, since PSU exams weight technical knowledge more heavily than pure aptitude for technical-cadre postings. Candidates with strong technical preparation but weak aptitude-section practice sometimes underperform relative to their technical strength — treating the aptitude section as a genuinely separate preparation area (not something that technical strength alone compensates for) is a common practical gap worth addressing directly.
 
-## Applied Concepts
-- Connect foundational theory to practical applications
-- Understand how rules and principles interact in real cases
-- Analyse scenarios and draw reasoned conclusions
-- Identify exceptions, edge cases, and nuances
+## General awareness — industry-sector relevance
 
-## Practice Approach
-At this level, practice is key. For each concept:
-1. Understand the principle
-2. See it applied to a sample problem
-3. Solve a practice problem independently
-4. Check your answer and understand any errors
+Some standalone PSU exams include a general-awareness component with meaningful weight toward the PSU's own industry sector — an energy-sector PSU's exam may include current-affairs questions specifically about energy policy, government schemes relevant to that sector, or recent developments at the PSU itself. This is a distinct preparation area from pure technical/aptitude content, and candidates targeting a specific PSU benefit from following that PSU's and its sector's current developments in the months leading up to the exam, not just generic current-affairs preparation.
 
-## Common Intermediate Mistakes
-- Applying rules without reading the full context
-- Missing exceptions or special cases
-- Confusing similar concepts or terms
-- Not practising enough past questions
+## GATE-route candidates — what "beyond GATE" preparation looks like
 
-## Progress Check
-You are ready for advanced topics when you can:
-- Solve moderately difficult problems without looking at notes
-- Explain concepts to someone else
-- Identify the relevant framework for any given scenario
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Even for GATE-route PSU targets, preparation doesn't end at achieving a qualifying GATE score — document verification, and critically, the interview stage (Advanced) remain gates a strong GATE score alone doesn't clear. GATE-route candidates should treat their qualifying GATE score as clearing only the first of several selection stages, not as functionally equivalent to a job offer, and should prepare for the subsequent interview stage with the same seriousness a standalone-exam candidate applies to interview preparation after their written exam.

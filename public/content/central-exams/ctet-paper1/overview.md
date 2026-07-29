@@ -1,85 +1,33 @@
-# CTET Paper I — Primary Level Teaching — Overview
+# CTET Paper I — Overview
 
-Structured overview content for CTET Paper I — Primary Level Teaching.
+## What this technology covers
 
-## Exam Overview
-CTET Paper I — Primary Level Teaching is a centrally conducted exam with national-level competition. This section provides structured preparation material aligned with the official syllabus and previous year question trends.
+CTET Paper I is CBSE's Central Teacher Eligibility Test for candidates aiming to teach primary level, Classes I–V. This technology covers the five sections tested: Child Development and Pedagogy (CDP), Language I, Language II, Mathematics, and Environmental Studies (EVS) — each treated from the specific angle CTET actually tests: not subject mastery alone, but how to teach that subject to primary-age children, grounded in child-development theory and inclusive-classroom pedagogy.
 
-## Key Preparation Areas
-- Subject-specific content for the exam
-- Previous year question analysis
-- Exam strategy and time management
-- Mock question sets
-- Revision notes and cheatsheets
+## Why it matters
 
-## Learning Path
-This section follows a structured approach from fundamentals to advanced topics. Each module builds on the previous one.
+CTET Paper I qualification is a mandatory eligibility requirement for primary-level teaching positions in central government schools (KVS, NVS) and is accepted by many state governments as an alternative to state-level TET exams. The exam's emphasis on pedagogy over raw subject knowledge often surprises candidates who assume strong subject command alone is sufficient — CDP alone carries the same section weight as any content subject, and even the content sections (Language, Maths, EVS) are tested through a "how would you teach this" lens, not a "do you know this" lens.
 
-## Who This Is For
-Students and professionals at all levels who want to build knowledge in this domain — whether for exam preparation, career advancement, or general knowledge.
+## Exam structure — a quick map
 
-## How to Study
-1. Start with the **Fundamentals** section to build a solid base
-2. Move to **Intermediate** for applied knowledge and scenarios
-3. Use **Advanced** for exam-level depth and complex topics
-4. Practise with **Interview Q&A** for exams and assessments
-5. Use the **Cheatsheet** for last-minute revision before the exam
+| Section | Questions | Focus |
+|---|---|---|
+| Child Development and Pedagogy | 30 | Developmental psychology, learning theory, inclusive education, assessment |
+| Language I (medium of instruction) | 30 | Language pedagogy, comprehension, teaching methods |
+| Language II | 30 | Second language pedagogy, comprehension, teaching methods |
+| Mathematics | 30 | Primary-level math content + pedagogy of teaching math |
+| Environmental Studies | 30 | Primary-level EVS content + pedagogy of teaching EVS |
 
-## Key Features of This Section
-- Structured notes aligned with official syllabus
-- Practice questions after key concepts
-- Cheatsheets for quick revision
-- Interview and exam Q&A format
-- Current and updated content
+150 questions total, 150 marks, 2.5 hours, no negative marking (as of the exam's current published pattern). `(needs verification — recheck against current source: CBSE periodically revises exam pattern, marking scheme, and negative-marking policy.)`
 
-## Getting Started
-Click **Fundamentals** to begin your learning journey with this topic. Work systematically through each section for the best results.
+## CDP — the section that trips up subject-strong candidates
 
-## Assessment Strategy
-For objective exams: understand > memorise. For descriptive/written exams: structure your answers clearly. For interviews: demonstrate reasoning, not just recall.
+Child Development and Pedagogy tests developmental psychology (Piaget, Vygotsky, Kohlberg's stage theories), learning and teaching principles, and — increasingly emphasized in recent CTET cycles — inclusive education concepts (understanding and accommodating diverse learners, including children with learning difficulties, and moving away from a purely "deficit" framing of disability toward an inclusive-classroom model). This section can't be crammed the way factual content sections can — it requires genuinely understanding *why* a given pedagogical approach works for a given developmental stage, since CTET questions frequently present classroom scenarios requiring applied judgment rather than definition recall.
 
-## Detailed Study Notes
+## Exam and career relevance
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+CTET Paper I is the mandatory eligibility gate for primary-level teaching roles in KVS/NVS and most state government primary schools. It's typically the first serious professional-certification exam a primary-teaching aspirant sits, ahead of any state-specific TET.
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+## How to use this technology's sections
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Fundamentals covers CDP's core developmental and pedagogical theory. Intermediate applies pedagogy to the specific content areas (Language, Maths, EVS) at primary level. Advanced covers inclusive-education nuance and the applied-scenario question style CTET favors. Interview and Cheatsheets provide exam-format practice and quick reference.

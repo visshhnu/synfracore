@@ -1,97 +1,48 @@
-# CTET Paper II — Elementary Level Teaching — Cheatsheets
+# CTET Paper II — Cheatsheets
 
-Structured cheatsheets content for CTET Paper II — Elementary Level Teaching.
+## Exam structure
 
-## Exam Overview
-CTET Paper II — Elementary Level Teaching is a centrally conducted exam with national-level competition. This section provides structured preparation material aligned with the official syllabus and previous year question trends.
+| Section | Questions | Applies to |
+|---|---|---|
+| Child Development and Pedagogy | 30 | All candidates |
+| Language I | 30 | All candidates |
+| Language II | 30 | All candidates |
+| Mathematics and Science | 60 | Maths/Science track |
+| Social Studies/Social Science | 60 | Social Studies track |
+| **Total** | **150** | — |
 
-## Key Preparation Areas
-- Subject-specific content for the exam
-- Previous year question analysis
-- Exam strategy and time management
-- Mock question sets
-- Revision notes and cheatsheets
+Duration: 2.5 hours. `(needs verification — recheck against current source: CBSE periodically revises exam pattern and marking scheme.)`
 
-## Quick Reference Summary
+## Paper I vs. Paper II quick comparison
 
-### Key Facts at a Glance
-| Item | Key Information |
-|------|----------------|
-| Domain | See overview for full context |
-| Primary Authority | Relevant regulatory body |
-| Key Legislation | Main acts and regulations |
-| Exam Weight | Check specific exam syllabus |
-| Difficulty | Varies by subtopic |
+| Property | Paper I | Paper II |
+|---|---|---|
+| Target classes | I–V (primary) | VI–VIII (elementary) |
+| Piaget stage focus | Concrete operational (transitioning from preoperational) | Formal operational (transitioning from concrete) |
+| Content track choice | None (uniform Maths + EVS) | Maths/Science OR Social Studies |
+| New CDP emphasis | Foundational developmental theory | Adolescent socio-emotional development (Erikson) |
 
-### Core Concepts to Remember
-- Fundamental definitions and terminology
-- Key regulatory framework and authority
-- Important dates, numbers, and thresholds
-- Exceptions and special cases
-- Recent developments and amendments
+## Developmental theory quick reference (shared with Paper I)
 
-### Exam Tips
-- Read every question twice before answering
-- For MCQs: eliminate wrong options first
-- For descriptive: structure > length
-- Allocate time proportionally to marks
-- Attempt all questions — no blanks
+| Theorist | Theory | Elementary-level application |
+|---|---|---|
+| Piaget | Formal operational stage (~11+) | Supports abstract/hypothetical reasoning in Maths/Science/Social Studies |
+| Vygotsky | Zone of Proximal Development | Scaffolded support for abstract skills (algebra, analytical writing) |
+| Kohlberg | Conventional moral reasoning | Classroom norms understood via social rules, not just external enforcement |
+| Erikson | Identity vs. role confusion | Adolescent identity formation, peer-group influence |
 
-### Last-Hour Revision Checklist
-- [ ] Reviewed all key definitions
-- [ ] Memorised important numbers and dates
-- [ ] Practised at least 10 previous year questions
-- [ ] Know the exceptions to main rules
-- [ ] Checked for any recent amendments or news
+## Track-specific pedagogy principles
 
-### Common Exam Questions Pattern
-1. Definition-based: "What is X?" — give precise definition + example
-2. Application-based: "In this scenario, what applies?" — identify rule + apply
-3. Comparison: "Difference between X and Y" — tabular format preferred
-4. Current affairs: "Recent development in X" — know last 6-12 months
+| Track | Core shift from primary level |
+|---|---|
+| Mathematics and Science | Concrete manipulatives → abstract representation (algebra, hypothesis-driven inquiry) |
+| Social Studies/Social Science | Factual recall → analytical, cause-and-effect understanding |
 
-## Detailed Study Notes
+## Cross-track CTET-wide principles
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+| Principle | Applies to |
+|---|---|
+| Constructivism over behaviorism | All sections |
+| Inclusive education (adapt classroom to child) | All sections |
+| Continuous and Comprehensive Evaluation (CCE) | All sections |
+| Differentiated instruction (multiple intelligences) | All sections |

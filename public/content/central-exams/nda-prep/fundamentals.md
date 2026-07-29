@@ -1,83 +1,23 @@
-# NDA and CDS Detailed Preparation — Fundamentals
+# NDA Preparation — Fundamentals
 
-Structured fundamentals content for NDA and CDS Detailed Preparation.
+## Mathematics — topic-wise foundation
 
-## Exam Overview
-NDA and CDS Detailed Preparation is a centrally conducted exam with national-level competition. This section provides structured preparation material aligned with the official syllabus and previous year question trends.
+NDA Mathematics draws from the Class XI-XII CBSE syllabus, covering: **Algebra** (quadratic equations, complex numbers, sequences and series, permutations/combinations, binomial theorem), **Trigonometry** (identities, heights and distances, inverse trigonometric functions), **Geometry** (coordinate geometry in two and three dimensions, straight lines, conic sections), **Calculus** (limits, continuity, differentiation, integration, differential equations at an introductory level), **Vectors**, and **Statistics and Probability** (measures of central tendency, dispersion, basic probability). Given Mathematics' 300-mark weight — equal to the entire GAT section — comprehensive topic coverage here directly determines a large share of total scoring potential, making it the section most worth prioritizing early in a preparation timeline.
 
-## Key Preparation Areas
-- Subject-specific content for the exam
-- Previous year question analysis
-- Exam strategy and time management
-- Mock question sets
-- Revision notes and cheatsheets
+## General Ability Test — English component
 
-## Core Concepts
-This section covers the foundational knowledge required for this topic. Work through each concept systematically before moving to intermediate topics.
+The English portion of GAT tests comprehension (reading passages and answering inference/detail questions), grammar (correct usage, error identification), and vocabulary (synonyms, antonyms, word usage in context) at a level consistent with strong Class XII English proficiency. Unlike Mathematics, English preparation benefits more from sustained reading habit and practice than from concentrated short-term study — building comprehension speed and vocabulary breadth over time tends to outperform last-minute intensive grammar review.
 
-## Key Principles
-- Understand the basic theory and definitions
-- Learn the regulatory framework and key bodies involved
-- Practice with simple examples before complex scenarios
-- Use the cheatsheet for quick reference during revision
+## General Ability Test — General Knowledge component
 
-## Getting Started
-Begin by reading the overview, then work through this fundamentals section. Each concept builds on the previous one. Do not skip ahead — the foundation matters.
+The General Knowledge portion spans physics, chemistry, general science, history, geography, and current affairs — a genuinely broad span reflecting NDA's goal of assessing well-rounded general awareness rather than deep subject specialization in any one area. Physics and chemistry content is typically at a foundational Class IX-X level (basic scientific principles, not advanced subject-specific depth), while history, geography, and current affairs require broader, ongoing awareness-building rather than a single concentrated study phase — similar in spirit to how other government exams' general-awareness sections are best prepared through sustained current-affairs habit rather than cramming.
 
-## Self-Assessment
-After completing this section, you should be able to:
-- Define the core terms and concepts
-- Explain the basic structure and framework
-- Answer beginner-level questions on this topic
-- Identify the key regulations, acts, or standards that apply
+## Why NDA's structure differs from graduate-level defence exams
 
-## Common Beginner Questions
-**Q: Where should I start?** Start with the overview and this fundamentals section. Read official sources alongside these notes.
-**Q: How long will this take?** Budget 2-3 hours for a solid foundation.
-**Q: What resources supplement this?** Official textbooks, government websites, and exam-specific guides.
+NDA candidates are 16.5-19.5 years old, typically preparing during or immediately after Class XII — this shapes NDA's syllabus scope (Class XI-XII level Mathematics and foundational-level science, rather than graduate-level technical content) and distinguishes it from graduate-entry defence exams like CDS, which assume completed undergraduate education and test accordingly. Recognizing this age/education-level context explains why NDA's Mathematics and GK content, while substantial, stays within a pre-undergraduate academic scope rather than testing specialized subject depth.
 
-## Detailed Study Notes
+## Getting started
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+1. Prioritize Mathematics topic coverage early, given its 300-mark weight equal to the entire combined GAT section — comprehensive coverage here has outsized impact on total score.
+2. Build English proficiency and General Knowledge awareness as ongoing habits (regular reading, current-affairs tracking) rather than concentrated last-minute study phases — both sections reward sustained exposure over cramming.
+3. Recognize that NDA's syllabus scope is deliberately Class XI-XII/foundational level, matched to its candidate age range — don't over-prepare with graduate-level technical depth the exam doesn't actually test.

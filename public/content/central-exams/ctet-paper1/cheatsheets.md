@@ -1,97 +1,59 @@
-# CTET Paper I — Primary Level Teaching — Cheatsheets
+# CTET Paper I — Cheatsheets
 
-Structured cheatsheets content for CTET Paper I — Primary Level Teaching.
+## Exam structure
 
-## Exam Overview
-CTET Paper I — Primary Level Teaching is a centrally conducted exam with national-level competition. This section provides structured preparation material aligned with the official syllabus and previous year question trends.
+| Section | Questions | Marks |
+|---|---|---|
+| Child Development and Pedagogy | 30 | 30 |
+| Language I | 30 | 30 |
+| Language II | 30 | 30 |
+| Mathematics | 30 | 30 |
+| Environmental Studies | 30 | 30 |
+| **Total** | **150** | **150** |
 
-## Key Preparation Areas
-- Subject-specific content for the exam
-- Previous year question analysis
-- Exam strategy and time management
-- Mock question sets
-- Revision notes and cheatsheets
+Duration: 2.5 hours. `(needs verification — recheck against current source: CBSE periodically revises exam pattern and marking scheme.)`
 
-## Quick Reference Summary
+## Piaget's stages quick reference
 
-### Key Facts at a Glance
-| Item | Key Information |
-|------|----------------|
-| Domain | See overview for full context |
-| Primary Authority | Relevant regulatory body |
-| Key Legislation | Main acts and regulations |
-| Exam Weight | Check specific exam syllabus |
-| Difficulty | Varies by subtopic |
+| Stage | Age range | Key feature |
+|---|---|---|
+| Sensorimotor | Birth–2 years | Learning through senses/motor action |
+| Preoperational | ~2–7 years | Symbolic thinking, intuitive/egocentric logic |
+| Concrete operational | ~7–11 years | Logical thinking about concrete objects, conservation |
+| Formal operational | ~11+ years | Abstract, hypothetical reasoning |
 
-### Core Concepts to Remember
-- Fundamental definitions and terminology
-- Key regulatory framework and authority
-- Important dates, numbers, and thresholds
-- Exceptions and special cases
-- Recent developments and amendments
+Primary level (Classes I–V, ~ages 6–11) spans preoperational → concrete operational.
 
-### Exam Tips
-- Read every question twice before answering
-- For MCQs: eliminate wrong options first
-- For descriptive: structure > length
-- Allocate time proportionally to marks
-- Attempt all questions — no blanks
+## Key theorists quick reference
 
-### Last-Hour Revision Checklist
-- [ ] Reviewed all key definitions
-- [ ] Memorised important numbers and dates
-- [ ] Practised at least 10 previous year questions
-- [ ] Know the exceptions to main rules
-- [ ] Checked for any recent amendments or news
+| Theorist | Theory | CTET relevance |
+|---|---|---|
+| Piaget | Cognitive development stages | Age-appropriate teaching methods |
+| Vygotsky | Zone of Proximal Development, social learning | Scaffolding, peer learning |
+| Kohlberg | Moral development stages | Classroom management, discipline approach |
+| Gardner | Multiple intelligences | Differentiated instruction |
+| Krashen | Language acquisition (input hypothesis) | Language I/II pedagogy |
 
-### Common Exam Questions Pattern
-1. Definition-based: "What is X?" — give precise definition + example
-2. Application-based: "In this scenario, what applies?" — identify rule + apply
-3. Comparison: "Difference between X and Y" — tabular format preferred
-4. Current affairs: "Recent development in X" — know last 6-12 months
+## Learning theory comparison
 
-## Detailed Study Notes
+| Theory | Core idea | CTET's expected-answer bias |
+|---|---|---|
+| Behaviorism (Skinner) | Learning via stimulus/response, reinforcement | Generally not favored as "most effective" |
+| Constructivism (Piaget/Vygotsky) | Active construction of understanding via experience | Generally favored |
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+## Assessment types
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+| Type | When | Purpose |
+|---|---|---|
+| Formative | Ongoing, during learning | Guide/adjust teaching in real time |
+| Summative | After unit/period completes | Evaluate learning outcome |
+| CCE | Continuous and Comprehensive Evaluation | CBSE's overall framework favoring formative, varied assessment |
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+## Section-specific pedagogy principles
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+| Section | Core pedagogical principle |
+|---|---|
+| Language I/II | Oral language foundation before reading/writing; meaningful, communicative input |
+| Mathematics | Concrete manipulatives before abstract symbols |
+| EVS | Integrated (science + social studies + environment), experiential/activity-based |
+| CDP | Inclusive education — adapt classroom to child, not child to classroom |

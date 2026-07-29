@@ -1,85 +1,31 @@
-# NDA and CDS Detailed Preparation — Overview
+# NDA Preparation — Overview
 
-Structured overview content for NDA and CDS Detailed Preparation.
+## What this technology covers
 
-## Exam Overview
-NDA and CDS Detailed Preparation is a centrally conducted exam with national-level competition. This section provides structured preparation material aligned with the official syllabus and previous year question trends.
+NDA Preparation covers the National Defence Academy entrance exam conducted by UPSC: the Mathematics paper and the General Ability Test (GAT — combining English and General Knowledge), followed by the SSB (Services Selection Board) interview process for candidates who clear the written exam. This is deliberately scoped to NDA specifically — CDS (Combined Defence Services, a separate UPSC-conducted exam for graduate-level entry) has a different eligibility profile, syllabus emphasis, and candidate age range, and is not covered by this technology despite some surface-level similarity in exam structure.
 
-## Key Preparation Areas
-- Subject-specific content for the exam
-- Previous year question analysis
-- Exam strategy and time management
-- Mock question sets
-- Revision notes and cheatsheets
+## Why it matters
 
-## Learning Path
-This section follows a structured approach from fundamentals to advanced topics. Each module builds on the previous one.
+NDA is the primary entry route into India's three defence services (Army, Navy, Air Force) for candidates directly after Class XII, making it one of the earliest and most structurally distinct competitive exams a candidate can pursue — unlike most other exams in this academy, NDA candidates are typically 16.5–19.5 years old and haven't yet completed an undergraduate degree, meaning preparation timing and study-life balance considerations differ meaningfully from graduate-level competitive exams. NDA's SSB interview stage — a multi-day, holistic personality and leadership assessment — is also structurally unlike any other exam's interview stage covered elsewhere in this academy, making it a genuinely distinct preparation skill, not a smaller version of a standard job interview.
 
-## Who This Is For
-Students and professionals at all levels who want to build knowledge in this domain — whether for exam preparation, career advancement, or general knowledge.
+## Exam structure — a quick map
 
-## How to Study
-1. Start with the **Fundamentals** section to build a solid base
-2. Move to **Intermediate** for applied knowledge and scenarios
-3. Use **Advanced** for exam-level depth and complex topics
-4. Practise with **Interview Q&A** for exams and assessments
-5. Use the **Cheatsheet** for last-minute revision before the exam
+| Component | Content | Marks |
+|---|---|---|
+| Mathematics | Algebra, trigonometry, geometry, calculus, vectors, statistics/probability (Class XI-XII level) | 300 |
+| General Ability Test (GAT) | English (comprehension, grammar, vocabulary) + General Knowledge (physics, chemistry, general science, history, geography, current affairs) | 600 |
+| SSB interview | 5-day process: psychological tests, group tasks, personal interview | Pass/fail gate + merit contribution |
 
-## Key Features of This Section
-- Structured notes aligned with official syllabus
-- Practice questions after key concepts
-- Cheatsheets for quick revision
-- Interview and exam Q&A format
-- Current and updated content
+900 total written marks, followed by SSB for written-qualified candidates. `(needs verification — recheck against current source: UPSC periodically revises exam pattern, marks distribution, and SSB process details.)`
 
-## Getting Started
-Click **Fundamentals** to begin your learning journey with this topic. Work systematically through each section for the best results.
+## Mathematics and GAT — a different balance than most exams
 
-## Assessment Strategy
-For objective exams: understand > memorise. For descriptive/written exams: structure your answers clearly. For interviews: demonstrate reasoning, not just recall.
+NDA's Mathematics paper carries equal weight to the entire GAT section despite GAT combining two subject areas (English and General Knowledge) — this reflects NDA's emphasis on quantitative aptitude as core to the technical/leadership demands of military service, and candidates sometimes underestimate how much of total scoring potential rests specifically on Mathematics performance relative to General Knowledge's comparatively lower per-topic weight within the broader GAT section.
 
-## Detailed Study Notes
+## Exam and career relevance
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+NDA is the foundational entry exam for candidates seeking a career as a commissioned officer in the Indian Armed Forces, distinct from and earlier in the pipeline than post-graduate defence entry routes like CDS. It's typically the first serious competitive exam a defence-service aspirant encounters, given the Class XII eligibility window.
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+## How to use this technology's sections
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Fundamentals covers Mathematics topic-wise foundations and GAT's English/GK structure. Intermediate applies these to NDA's specific question style and topic-wise weightage patterns. Advanced covers SSB interview preparation in depth. Interview and Cheatsheets provide exam-format practice and quick reference.
