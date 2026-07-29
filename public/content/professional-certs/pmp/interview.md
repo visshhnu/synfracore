@@ -1,75 +1,19 @@
-# PMP — Project Management Professional — Interview
+# PMP Certification — Practice Q&A
 
-Comprehensive interview preparation for PMP — Project Management Professional.
+**Q: Why did PMBOK 7 move away from the process-group/knowledge-area structure of earlier editions?**
+A: The earlier structure implicitly assumed a fairly rigid, predictive project sequence, which didn't fit agile or hybrid projects well. PMBOK 7's shift to 12 principles and 8 performance domains provides methodology-agnostic guidance — values and areas of focus that apply whether a project uses a predictive, agile, or hybrid approach — reflecting the real-world diversity of how projects are actually managed rather than assuming one universal process sequence.
 
-## Why Get Certified
-Professional certifications validate skills, increase earning potential, and are often required for senior roles. PMP — Project Management Professional is recognised globally and by Indian employers in IT, consulting, manufacturing, and service sectors.
+**Q: What does "tailoring" mean in PMP terms, and why is it considered a connective principle across approaches?**
+A: Tailoring means adapting the project management approach — planning depth, documentation formality, process rigor — to fit a specific project's size, complexity, and risk profile, rather than applying a fixed methodology uniformly regardless of context. It's connective because it's the explicit mechanism by which a project manager decides how much predictive structure versus agile iteration a given project (or even a given part of a hybrid project) actually needs.
 
-## Certification Details
-This section covers: exam format, key domains, conceptual knowledge, practice questions, and exam tips to pass PMP — Project Management Professional on the first attempt.
+**Q: Why might a hybrid approach combine predictive planning for high-level milestones with agile delivery for solution development?**
+A: This applies tailoring deliberately rather than forcing one uniform methodology across a project with genuinely varied needs — high-level scope, budget, and regulatory milestones often benefit from predictive structure's stability and formal sign-off, while the detailed solution-development work often benefits from agile's iterative refinement as understanding evolves. Combining both isn't an inconsistent approach; it's matching each part of the project to what genuinely fits its own characteristics.
 
-## Interview and Exam Q&A
+**Q: Why does the People domain carry substantial weight on the PMP exam, given PMP's traditional reputation as a process-heavy credential?**
+A: PMI's own research indicates people-management skill — leading teams, resolving conflict, engaging stakeholders — is a major differentiator in actual project success, which is reflected in how much exam content the People domain carries. Candidates expecting a purely process-and-technique-heavy exam are often surprised by this weighting, making it a genuinely important exam-strategy consideration, not just a minor domain among equals.
 
-**Q: What are the most important concepts in this topic?**
-Focus on the foundational framework — definitions, key legislation or standards, the regulatory authority, and how the system works in practice. Examiners and interviewers test whether you understand the structure, not just isolated facts.
+**Q: A team member raises a conflict on a project. What response does PMI's framework generally favor?**
+A: Direct, collaborative conflict resolution addressing the underlying issue at the team level, consistent with PMI's servant-leadership framing of the project manager's role — rather than escalating to higher authority or avoiding the issue, unless the situation genuinely exceeds what direct team-level resolution can address. This reflects the "team" and "leadership" principles' emphasis on fostering collaborative team effectiveness rather than defaulting to directive authority.
 
-**Q: How do you approach an unfamiliar question in this domain?**
-Break it down systematically. Identify what category of question it is (definition, application, analysis, or evaluation). Apply the relevant framework. State your reasoning step by step. In objective exams, eliminate clearly wrong options before choosing.
-
-**Q: What common mistakes should you avoid?**
-Confusing similar terms or concepts. Applying general rules without checking for exceptions. Not reading the question carefully — many marks are lost by answering a different question than the one asked.
-
-**Q: How should you prepare for written/descriptive answers?**
-Structure your answers: Introduction (define and contextualise), Body (main points with examples), Conclusion (significance or way forward). Use subheadings where permitted. Aim for clarity over length.
-
-**Q: What current issues are important in this domain?**
-Stay updated with recent developments — new legislation, policy changes, landmark judgments, or recent exam results. Examiners reward candidates who show awareness of the current context.
-
-**Q: What is the best revision strategy for this topic?**
-Use the cheatsheet for last-minute review. Create your own one-page summary of key points. Teach the concept to someone else — if you can explain it clearly, you understand it well enough for the exam.
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+**Q: Why can a technically successful, on-time, on-budget project still represent a poor outcome under PMBOK 7's framework?**
+A: The Business Environment domain and the "value" principle connect project work back to organizational strategy and value delivery — if business conditions changed during the project such that the original scope no longer serves the organization's actual need, delivering that scope successfully doesn't mean the project delivered genuine value. A project manager's responsibility includes surfacing this kind of value-relevance concern to stakeholders, not simply executing the originally-defined scope regardless of whether it remains the right thing to deliver.

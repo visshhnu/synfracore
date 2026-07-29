@@ -1,83 +1,21 @@
-# PMP — Project Management Professional — Intermediate
+# PMP Certification — Intermediate
 
-Comprehensive intermediate preparation for PMP — Project Management Professional.
+## Predictive project management, applied
 
-## Why Get Certified
-Professional certifications validate skills, increase earning potential, and are often required for senior roles. PMP — Project Management Professional is recognised globally and by Indian employers in IT, consulting, manufacturing, and service sectors.
+Applying Fundamentals' performance domains to a **predictive** (traditional, plan-driven) project: planning domain work happens substantially upfront (detailed scope, schedule, and cost baselines established before execution begins), development-approach-and-life-cycle work follows a sequential phase structure, and changes to the established baseline go through formal change-control processes rather than being readily absorbed mid-execution. Predictive approaches suit projects with well-understood, stable requirements and lower tolerance for iterative rework — construction and regulatory-compliance projects are commonly cited examples where predictive approaches remain the practical default, given the high cost of late-stage design changes in these contexts.
 
-## Certification Details
-This section covers: exam format, key domains, conceptual knowledge, practice questions, and exam tips to pass PMP — Project Management Professional on the first attempt.
+## Agile project management, applied
 
-## Building Deeper Understanding
-With the fundamentals in place, this section covers applied knowledge, real-world scenarios, and exam-level complexity.
+Applying the same performance domains to an **agile** approach: planning happens iteratively (detailed planning for the near-term iteration, with longer-term planning kept intentionally lighter and subject to revision), the development-approach-and-life-cycle domain follows iterative cycles (sprints, in Scrum terminology — this academy's Scrum & Agile technology covers Scrum's specific framework mechanics in depth, while PMP tests agile principles at a broader project-management level applicable beyond Scrum specifically), and stakeholder/team domains emphasize frequent collaboration and feedback incorporation rather than upfront-locked requirements. Agile approaches suit projects with evolving or unclear requirements and higher tolerance for iterative refinement — software development is the most commonly cited example, though agile principles increasingly apply beyond software contexts as well.
 
-## Applied Concepts
-- Connect foundational theory to practical applications
-- Understand how rules and principles interact in real cases
-- Analyse scenarios and draw reasoned conclusions
-- Identify exceptions, edge cases, and nuances
+## Hybrid approaches — combining predictive and agile deliberately
 
-## Practice Approach
-At this level, practice is key. For each concept:
-1. Understand the principle
-2. See it applied to a sample problem
-3. Solve a practice problem independently
-4. Check your answer and understand any errors
+A **hybrid** approach combines predictive and agile elements within a single project — for instance, a project might use predictive planning and governance for high-level scope, budget, and regulatory milestones (where stability and formal sign-off matter), while using agile iterative delivery for the actual solution-development work within those milestones (where evolving understanding benefits from iterative refinement). This isn't an inconsistent or compromised approach — it's the tailoring principle (Fundamentals) applied deliberately, matching each part of a project to the approach that genuinely fits its own characteristics, rather than forcing a single uniform methodology across a project with genuinely varied needs across its different components.
 
-## Common Intermediate Mistakes
-- Applying rules without reading the full context
-- Missing exceptions or special cases
-- Confusing similar concepts or terms
-- Not practising enough past questions
+## Choosing an approach — the underlying decision factors
 
-## Progress Check
-You are ready for advanced topics when you can:
-- Solve moderately difficult problems without looking at notes
-- Explain concepts to someone else
-- Identify the relevant framework for any given scenario
+Connecting back to Fundamentals' tailoring principle in more depth: the choice between predictive, agile, or hybrid approaches (or which specific mix, for hybrid) depends on factors including requirements stability (how well-understood and stable is the scope), the cost/feasibility of iterative delivery (can the project realistically deliver and gather feedback on partial results, or does it require substantial completion before any value is realized), stakeholder expectations and organizational culture (some organizations and industries have stronger existing familiarity with one approach), and risk tolerance for late-stage change. PMP scenario questions frequently present a project's specific characteristics and test whether a candidate can correctly reason toward the appropriate approach, rather than simply recalling approach definitions.
 
-## Detailed Study Notes
+## Stakeholder and team domains across approaches
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+A subtler intermediate-level point: while stakeholder engagement and team dynamics (Fundamentals' performance domains) matter across all three approaches, their *specific mechanics* differ — predictive approaches often formalize stakeholder engagement through scheduled status reporting and change-control boards, while agile approaches build stakeholder engagement more continuously into the iterative cycle itself (through practices like sprint reviews, covered in more Scrum-specific depth in this academy's Scrum & Agile technology). Recognizing that the underlying performance domain (stakeholder engagement) is constant across approaches, even as its practical implementation varies, is what makes PMBOK 7's principle-and-domain structure genuinely methodology-agnostic rather than just three separate frameworks loosely grouped together.

@@ -1,83 +1,21 @@
-# Scrum Master and Agile Certifications — Intermediate
+# Scrum & Agile — Intermediate
 
-Comprehensive intermediate preparation for Scrum Master and Agile Certifications.
+## Scrum's five events
 
-## Why Get Certified
-Professional certifications validate skills, increase earning potential, and are often required for senior roles. Scrum Master and Agile Certifications is recognised globally and by Indian employers in IT, consulting, manufacturing, and service sectors.
+Applying Fundamentals' empiricism pillars to Scrum's concrete structure: the **Sprint** is the container event — a fixed-length iteration (typically 1-4 weeks) during which a usable, potentially releasable product increment is created, with all other events occurring within it. Within each Sprint: **Sprint Planning** (the team plans the work to be performed during the Sprint, establishing the Sprint Goal — enabling transparency about what's planned), the **Daily Scrum** (a short, daily event for the Developers to inspect progress toward the Sprint Goal and adapt the plan for the next day — directly enabling inspection and adaptation), the **Sprint Review** (held at the Sprint's end to inspect the outcome and adapt the Product Backlog if needed, typically involving stakeholders reviewing the increment), and the **Sprint Retrospective** (held after the Sprint Review and before the next Sprint Planning, where the team inspects how the last Sprint went regarding people, relationships, process, and tools, then plans improvements — directly connecting to the Agile Manifesto principle about regularly reflecting and adjusting, Fundamentals).
 
-## Certification Details
-This section covers: exam format, key domains, conceptual knowledge, practice questions, and exam tips to pass Scrum Master and Agile Certifications on the first attempt.
+## Scrum's three artifacts
 
-## Building Deeper Understanding
-With the fundamentals in place, this section covers applied knowledge, real-world scenarios, and exam-level complexity.
+Scrum defines three artifacts, each representing work or value, with each carrying a specific **commitment** ensuring transparency and focus: the **Product Backlog** (an ordered, emergent list of everything needed to improve the product, owned by the Product Owner), with its commitment being the **Product Goal** (the long-term objective the Scrum Team works toward); the **Sprint Backlog** (the Sprint Goal, plus the set of Product Backlog items selected for the Sprint, plus the Developers' plan for delivering the increment), with its commitment being the **Sprint Goal** itself; and the **Increment** (a concrete stepping stone toward the Product Goal, meeting the Scrum Team's Definition of Done), with its commitment being the **Definition of Done** (the formal description of the state the Increment must be in to be considered complete). This artifact-commitment pairing is a frequently tested structural detail — each artifact has exactly one associated commitment, not an arbitrary or interchangeable set.
 
-## Applied Concepts
-- Connect foundational theory to practical applications
-- Understand how rules and principles interact in real cases
-- Analyse scenarios and draw reasoned conclusions
-- Identify exceptions, edge cases, and nuances
+## Daily Scrum — what it is and isn't
 
-## Practice Approach
-At this level, practice is key. For each concept:
-1. Understand the principle
-2. See it applied to a sample problem
-3. Solve a practice problem independently
-4. Check your answer and understand any errors
+A commonly tested misconception: the Daily Scrum is **not** a status-update meeting for the Scrum Master or a reporting session to management — it's a Developer-focused planning and inspection event, where the Developers themselves inspect progress toward the Sprint Goal and adapt the Sprint Backlog as needed, adjusting the upcoming work. The Scrum Master ensures the event happens and stays within its timebox (typically 15 minutes) but doesn't run it as a status-reporting session directed at them — this distinction connects back to Fundamentals' point about the Scrum Master's facilitative, not directive, role.
 
-## Common Intermediate Mistakes
-- Applying rules without reading the full context
-- Missing exceptions or special cases
-- Confusing similar concepts or terms
-- Not practising enough past questions
+## The Definition of Done — why it matters structurally
 
-## Progress Check
-You are ready for advanced topics when you can:
-- Solve moderately difficult problems without looking at notes
-- Explain concepts to someone else
-- Identify the relevant framework for any given scenario
+Building on the Increment/Definition-of-Done pairing above: the Definition of Done exists to create a shared, objective understanding of what "complete" means for any Increment — without it, different team members (or the Product Owner and Developers) could have different, unstated assumptions about whether work is genuinely finished, undermining the transparency pillar (Fundamentals) that Scrum's empirical process depends on. A Product Backlog item that doesn't meet the Definition of Done cannot be considered part of the Increment or released, regardless of how much work went into it — this is a hard structural rule, not a flexible guideline.
 
-## Detailed Study Notes
+## Connecting events and artifacts to empiricism's three pillars
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+The intermediate-level synthesis: each Scrum event and artifact maps back to Fundamentals' empiricism pillars in a specific, learnable way — Sprint Planning and the Sprint Backlog primarily serve transparency (making the plan visible), the Daily Scrum primarily serves inspection and adaptation (checking progress and adjusting), and the Sprint Review/Retrospective primarily serve inspection (of the product and process respectively) leading to adaptation. Recognizing this mapping — rather than memorizing five events and three artifacts as an arbitrary list — is what makes Scrum's structure feel like a coherent, purpose-built system.

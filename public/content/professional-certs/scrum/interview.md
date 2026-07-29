@@ -1,75 +1,19 @@
-# Scrum Master and Agile Certifications — Interview
+# Scrum & Agile — Practice Q&A
 
-Comprehensive interview preparation for Scrum Master and Agile Certifications.
+**Q: Why isn't the Scrum Master equivalent to a traditional project manager?**
+A: The Scrum Master doesn't assign tasks, direct day-to-day work, or hold authority over what gets built — that's the Product Owner's domain for prioritization and the Developers' domain for how work gets done. Instead, the Scrum Master serves the team by coaching self-management, removing impediments, and ensuring Scrum events happen and stay productive — a facilitative, servant-leadership role rather than a directive management role.
 
-## Why Get Certified
-Professional certifications validate skills, increase earning potential, and are often required for senior roles. Scrum Master and Agile Certifications is recognised globally and by Indian employers in IT, consulting, manufacturing, and service sectors.
+**Q: What are the three pillars of empiricism Scrum is built on, and how do Scrum's events relate to them?**
+A: The three pillars are transparency (significant process aspects must be visible), inspection (frequently checking artifacts and progress to detect problems), and adaptation (adjusting quickly when inspection reveals a deviation). Scrum's specific events map back to these pillars in a learnable way — Sprint Planning primarily serves transparency, the Daily Scrum primarily serves inspection and adaptation, and the Sprint Review/Retrospective serve inspection of the product and process respectively, leading to adaptation.
 
-## Certification Details
-This section covers: exam format, key domains, conceptual knowledge, practice questions, and exam tips to pass Scrum Master and Agile Certifications on the first attempt.
+**Q: Why is the Daily Scrum not a status meeting for the Scrum Master or management?**
+A: It's a Developer-focused planning and inspection event where the Developers themselves inspect progress toward the Sprint Goal and adapt their plan for the next day. The Scrum Master ensures the event happens and stays within its timebox but doesn't run it as a status-reporting session directed at them — treating it as a status meeting for management directly contradicts the Scrum Master's non-directive role and the Developers' self-management responsibility.
 
-## Interview and Exam Q&A
+**Q: Why does each Scrum artifact have exactly one associated commitment, and what purpose does this serve?**
+A: The Product Backlog's commitment is the Product Goal, the Sprint Backlog's commitment is the Sprint Goal, and the Increment's commitment is the Definition of Done. Each commitment exists to create shared, objective clarity about what the artifact represents and when related work is genuinely complete — without the Definition of Done, for instance, team members could have different unstated assumptions about whether work is actually finished, undermining the transparency Scrum's empirical process depends on.
 
-**Q: What are the most important concepts in this topic?**
-Focus on the foundational framework — definitions, key legislation or standards, the regulatory authority, and how the system works in practice. Examiners and interviewers test whether you understand the structure, not just isolated facts.
+**Q: What's a "Scrum but" anti-pattern, and why does it undermine genuine Scrum practice?**
+A: A "Scrum but" pattern is when a team runs Scrum's events on the surface while skipping or watering down key elements that make those events actually function as intended — like a Daily Scrum that becomes a status report to a manager rather than a Developer-led inspection and adaptation session. This undermines Scrum's actual purpose because the ceremonies exist to serve empiricism's three pillars, and watering down their substance while keeping their form defeats that purpose even though the team can claim to be "doing Scrum."
 
-**Q: How do you approach an unfamiliar question in this domain?**
-Break it down systematically. Identify what category of question it is (definition, application, analysis, or evaluation). Apply the relevant framework. State your reasoning step by step. In objective exams, eliminate clearly wrong options before choosing.
-
-**Q: What common mistakes should you avoid?**
-Confusing similar terms or concepts. Applying general rules without checking for exceptions. Not reading the question carefully — many marks are lost by answering a different question than the one asked.
-
-**Q: How should you prepare for written/descriptive answers?**
-Structure your answers: Introduction (define and contextualise), Body (main points with examples), Conclusion (significance or way forward). Use subheadings where permitted. Aim for clarity over length.
-
-**Q: What current issues are important in this domain?**
-Stay updated with recent developments — new legislation, policy changes, landmark judgments, or recent exam results. Examiners reward candidates who show awareness of the current context.
-
-**Q: What is the best revision strategy for this topic?**
-Use the cheatsheet for last-minute review. Create your own one-page summary of key points. Teach the concept to someone else — if you can explain it clearly, you understand it well enough for the exam.
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+**Q: Why does scaling Scrum across multiple teams (via a framework like SAFe) require more than simply running more Scrum Teams in parallel?**
+A: Scaling introduces coordination challenges — dependency management across teams, portfolio-level prioritization, architectural alignment — that a single Scrum Team's framework isn't designed to address, since Scrum itself is built for one team. SAFe exists as a genuinely distinct framework layered above core Scrum specifically to address these multi-team coordination needs, though this scaling introduces a real tension: added coordination structure can risk reintroducing the kind of top-down process-heaviness the Agile Manifesto's values originally pushed against.

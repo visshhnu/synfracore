@@ -1,79 +1,23 @@
-# Scrum Master and Agile Certifications — Fundamentals
+# Scrum & Agile — Fundamentals
 
-Comprehensive fundamentals preparation for Scrum Master and Agile Certifications.
+## The Agile Manifesto's twelve principles
 
-## Why Get Certified
-Professional certifications validate skills, increase earning potential, and are often required for senior roles. Scrum Master and Agile Certifications is recognised globally and by Indian employers in IT, consulting, manufacturing, and service sectors.
+Beyond the four values (Overview), the Agile Manifesto includes twelve supporting principles — among the most frequently referenced: prioritizing early and continuous delivery of valuable software; welcoming changing requirements, even late in development; delivering working software frequently, with a preference for shorter timescales; sustaining a constant pace of work indefinitely (avoiding unsustainable overtime/crunch); and regularly reflecting on how to become more effective, then adjusting accordingly (directly underlying Scrum's Sprint Retrospective, Intermediate). These principles collectively describe *why* agile teams work the way they do — Scrum's specific mechanics (Intermediate/Advanced) exist to operationalize these principles into a concrete, repeatable framework, not as an arbitrary separate structure.
 
-## Certification Details
-This section covers: exam format, key domains, conceptual knowledge, practice questions, and exam tips to pass Scrum Master and Agile Certifications on the first attempt.
+## Scrum's three roles
 
-## Core Concepts
-This section covers the foundational knowledge required for this topic. Work through each concept systematically before moving to intermediate topics.
+Scrum defines exactly three roles (frequently tested as a set, since candidates sometimes incorrectly add roles like "project manager," which doesn't exist within Scrum's framework): the **Product Owner** (responsible for maximizing product value, primarily by managing the Product Backlog — deciding what gets built and in what priority order), the **Scrum Master** (responsible for establishing Scrum as defined in the Scrum Guide, helping everyone understand Scrum theory and practice, and removing impediments to the team's progress — a facilitative and coaching role, not a traditional command-and-authority project-manager role), and the **Developers** (the people doing the actual work of creating a usable increment each Sprint — this term applies broadly to whoever is doing the building work, not narrowly to software engineers alone). Together, these three roles plus the people fulfilling them constitute the **Scrum Team** — a single, cohesive unit without sub-teams or hierarchies within it.
 
-## Key Principles
-- Understand the basic theory and definitions
-- Learn the regulatory framework and key bodies involved
-- Practice with simple examples before complex scenarios
-- Use the cheatsheet for quick reference during revision
+## Why the Scrum Master isn't a traditional manager
 
-## Getting Started
-Begin by reading the overview, then work through this fundamentals section. Each concept builds on the previous one. Do not skip ahead — the foundation matters.
+A frequently tested and commonly misunderstood point: the Scrum Master role is explicitly **not** equivalent to a traditional project manager — the Scrum Master doesn't assign tasks, direct the team's day-to-day work, or hold authority over what gets built (that's the Product Owner's domain for prioritization, and the Developers' domain for how work gets done). Instead, the Scrum Master serves the Scrum Team by coaching them in self-management and cross-functionality, removing impediments, and ensuring Scrum events happen and are productive — a servant-leadership orientation conceptually similar to PMP's own leadership principle (this academy's PMP technology), though Scrum's framework makes this role distinction more structurally explicit than PMP's broader project-management framing does.
 
-## Self-Assessment
-After completing this section, you should be able to:
-- Define the core terms and concepts
-- Explain the basic structure and framework
-- Answer beginner-level questions on this topic
-- Identify the key regulations, acts, or standards that apply
+## Empiricism — the theoretical foundation beneath Scrum's mechanics
 
-## Common Beginner Questions
-**Q: Where should I start?** Start with the overview and this fundamentals section. Read official sources alongside these notes.
-**Q: How long will this take?** Budget 2-3 hours for a solid foundation.
-**Q: What resources supplement this?** Official textbooks, government websites, and exam-specific guides.
+Scrum is explicitly built on **empiricism** — the idea that knowledge comes from experience and decisions should be based on what is observed, not solely on upfront prediction — operationalized through three pillars: **transparency** (significant aspects of the process must be visible to those responsible for the outcome), **inspection** (frequently and diligently inspecting Scrum artifacts and progress toward goals, to detect problematic variances), and **adaptation** (adjusting the process or the material being worked on as soon as possible when inspection reveals a deviation). Scrum's specific events (Intermediate) each exist substantially to enable one or more of these three pillars — understanding this connection is what makes Scrum's event structure feel like a coherent system rather than an arbitrary set of meetings.
 
-## Detailed Study Notes
+## Getting started
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+1. Master the three Scrum roles and what each is and isn't responsible for — this single distinction (particularly the Scrum Master/project-manager confusion) underlies a large share of exam questions across CSM and PSM I.
+2. Understand empiricism's three pillars (transparency, inspection, adaptation) as the theoretical foundation Scrum's specific events exist to enable — this framing makes Intermediate's event-by-event coverage far more coherent than memorizing each event's rules independently.
+3. Connect the Agile Manifesto's values/principles to Scrum's concrete mechanics explicitly — Scrum is one specific, popular way of operationalizing agile values, not a separate or competing concept.

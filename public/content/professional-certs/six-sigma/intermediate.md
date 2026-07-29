@@ -1,83 +1,21 @@
-# Six Sigma Green Belt and Black Belt — Intermediate
+# Six Sigma — Intermediate
 
-Comprehensive intermediate preparation for Six Sigma Green Belt and Black Belt.
+## Define phase tools — the Project Charter and SIPOC
 
-## Why Get Certified
-Professional certifications validate skills, increase earning potential, and are often required for senior roles. Six Sigma Green Belt and Black Belt is recognised globally and by Indian employers in IT, consulting, manufacturing, and service sectors.
+Applying Fundamentals' Define-phase introduction to specific tools: the **Project Charter** formally documents the project's scope, goals, timeline, and team, functioning as the agreed-upon reference point defining what the project is (and isn't) meant to address — preventing scope drift as the project progresses. **SIPOC** (Suppliers, Inputs, Process, Outputs, Customers) provides a high-level process map used early in Define to establish shared understanding of the process boundaries and key stakeholders before diving into detailed measurement — both tools exist to ensure the entire team shares a clear, common understanding of the problem and process before investing effort in the more detailed phases that follow.
 
-## Certification Details
-This section covers: exam format, key domains, conceptual knowledge, practice questions, and exam tips to pass Six Sigma Green Belt and Black Belt on the first attempt.
+## Measure phase tools — data collection and process capability
 
-## Building Deeper Understanding
-With the fundamentals in place, this section covers applied knowledge, real-world scenarios, and exam-level complexity.
+Building on Fundamentals' Measure-phase introduction: **operational definitions** (precise, unambiguous definitions of what's being measured and how — ensuring different people measuring the same thing produce consistent results) and a **data collection plan** (specifying what data, how much, and how it will be gathered) precede actual measurement, since poorly defined measurement undermines everything built on top of it. **Process capability analysis** (comparing actual process performance against specification limits, often expressed through capability indices) establishes whether a process, as currently operating, can reliably meet requirements — directly connecting to Fundamentals' Six Sigma statistical target, since process capability analysis is how a process's actual sigma level gets calculated.
 
-## Applied Concepts
-- Connect foundational theory to practical applications
-- Understand how rules and principles interact in real cases
-- Analyse scenarios and draw reasoned conclusions
-- Identify exceptions, edge cases, and nuances
+## Analyze phase tools — root cause identification
 
-## Practice Approach
-At this level, practice is key. For each concept:
-1. Understand the principle
-2. See it applied to a sample problem
-3. Solve a practice problem independently
-4. Check your answer and understand any errors
+Extending Fundamentals' Measure-before-Analyze principle: common Analyze-phase tools include the **fishbone/Ishikawa diagram** (organizing potential causes of a problem into categories — commonly People, Process, Equipment, Materials, Environment, and Measurement — to structure root-cause brainstorming rather than leaving it unstructured) and the **5 Whys** (repeatedly asking "why" a problem occurs, typically five times, to move past surface-level symptoms toward genuine root causes). These tools exist specifically to structure root-cause analysis around the Measure phase's actual data, avoiding the assumption-based root-cause guessing Fundamentals warns against.
 
-## Common Intermediate Mistakes
-- Applying rules without reading the full context
-- Missing exceptions or special cases
-- Confusing similar concepts or terms
-- Not practising enough past questions
+## Improve phase — solution development grounded in analysis
 
-## Progress Check
-You are ready for advanced topics when you can:
-- Solve moderately difficult problems without looking at notes
-- Explain concepts to someone else
-- Identify the relevant framework for any given scenario
+The Improve phase develops and tests solutions specifically targeting the root causes identified in Analyze — genuinely effective Six Sigma practice tests proposed solutions on a small scale (a pilot) before full implementation, verifying the solution actually addresses the measured problem before committing to broader rollout. This pilot-before-scaling discipline connects to the same evidence-based principle running throughout DMAIC: claims of improvement should be substantiated by data, not simply implemented based on confidence that a solution should work.
 
-## Detailed Study Notes
+## Control phase — sustaining improvement over time
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Building on Fundamentals' Control-phase introduction: **control charts** (tracking process performance over time against statistically-derived control limits, distinguishing normal common-cause variation from a genuine special-cause signal requiring investigation — directly applying Fundamentals' variation-type distinction) and a **Control Plan** (documenting the ongoing monitoring, responsibilities, and response procedures needed to sustain the improvement) are the primary Control-phase tools. Without genuine Control-phase discipline, process improvements frequently regress toward prior performance over time as initial attention fades — Control exists specifically to prevent this regression through sustained, structured monitoring rather than a one-time fix followed by disengagement.

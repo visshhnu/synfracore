@@ -1,81 +1,31 @@
-# Scrum Master and Agile Certifications — Overview
+# Scrum & Agile — Overview
 
-Comprehensive overview preparation for Scrum Master and Agile Certifications.
+## What this technology covers
 
-## Why Get Certified
-Professional certifications validate skills, increase earning potential, and are often required for senior roles. Scrum Master and Agile Certifications is recognised globally and by Indian employers in IT, consulting, manufacturing, and service sectors.
+Scrum & Agile covers the Agile Manifesto's foundational values and principles, the Scrum framework specifically (roles, events/ceremonies, and artifacts), and the certification landscape spanning **CSM** (Certified ScrumMaster, from Scrum Alliance), **PSM I** (Professional Scrum Master I, from Scrum.org), and **SAFe** (Scaled Agile Framework, for coordinating agile practice across multiple teams in larger organizations). Where this academy's PMP technology covers agile at a broader project-management level (as one of three approach domains alongside predictive and hybrid), this technology covers Scrum's specific framework mechanics in depth — the two are complementary, not overlapping in their core focus.
 
-## Certification Details
-This section covers: exam format, key domains, conceptual knowledge, practice questions, and exam tips to pass Scrum Master and Agile Certifications on the first attempt.
+## Why it matters
 
-## Learning Path
-This section follows a structured approach from fundamentals to advanced topics. Each module builds on the previous one.
+Scrum is the most widely adopted agile framework globally, particularly in software development, and understanding its specific roles, events, and artifacts (not just agile principles in the abstract) is essential for anyone working on or leading a Scrum team. The distinction between "being agile" (embodying the Agile Manifesto's values and principles) and "doing Scrum" (following Scrum's specific framework mechanics) is a foundational concept this technology returns to repeatedly, since a team can technically run Scrum's ceremonies without genuinely embodying agile values, or vice versa — genuine agile practice requires both.
 
-## Who This Is For
-Students and professionals at all levels who want to build knowledge in this domain — whether for exam preparation, career advancement, or general knowledge.
+## The Agile Manifesto — four values
 
-## How to Study
-1. Start with the **Fundamentals** section to build a solid base
-2. Move to **Intermediate** for applied knowledge and scenarios
-3. Use **Advanced** for exam-level depth and complex topics
-4. Practise with **Interview Q&A** for exams and assessments
-5. Use the **Cheatsheet** for last-minute revision before the exam
+Scrum sits within the broader agile movement, itself defined by the **Agile Manifesto** (2001), which expresses four value statements, each phrased as a preference rather than an absolute: **individuals and interactions** over processes and tools; **working software** over comprehensive documentation; **customer collaboration** over contract negotiation; and **responding to change** over following a plan. Critically, the Manifesto explicitly states that while items on the right retain value, the items on the left are valued more — this "and yet there is value in the items on the right" framing is frequently misunderstood as agile rejecting documentation, planning, or tools entirely, which the Manifesto does not actually claim.
 
-## Key Features of This Section
-- Structured notes aligned with official syllabus
-- Practice questions after key concepts
-- Cheatsheets for quick revision
-- Interview and exam Q&A format
-- Current and updated content
+## Certification landscape — a quick map
 
-## Getting Started
-Click **Fundamentals** to begin your learning journey with this topic. Work systematically through each section for the best results.
+| Certification | Issuing body | Focus |
+|---|---|---|
+| CSM (Certified ScrumMaster) | Scrum Alliance | Scrum framework fundamentals, ScrumMaster role |
+| PSM I (Professional Scrum Master I) | Scrum.org | Scrum framework fundamentals, assessed via the Scrum Guide directly |
+| SAFe (Scaled Agile Framework) | Scaled Agile, Inc. | Coordinating agile practice across multiple teams/programs in larger organizations |
 
-## Assessment Strategy
-For objective exams: understand > memorise. For descriptive/written exams: structure your answers clearly. For interviews: demonstrate reasoning, not just recall.
+`(needs verification — recheck against current source: certification bodies periodically update exam content and requirements.)`
 
-## Detailed Study Notes
+## Exam and career relevance
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+Scrum & Agile certifications are widely sought for ScrumMaster, Agile Coach, and Product Owner roles, and increasingly expected baseline knowledge for software development and product management roles more broadly, given agile's dominant position in modern software delivery practice.
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+## How to use this technology's sections
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Fundamentals covers the Agile Manifesto's values/principles and Scrum's three roles. Intermediate covers Scrum's events and artifacts in depth. Advanced covers scaling considerations (SAFe) and common Scrum anti-patterns. Interview and Cheatsheets provide exam-format practice and quick reference.

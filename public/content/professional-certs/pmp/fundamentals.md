@@ -1,79 +1,23 @@
-# PMP — Project Management Professional — Fundamentals
+# PMP Certification — Fundamentals
 
-Comprehensive fundamentals preparation for PMP — Project Management Professional.
+## The 12 project management principles
 
-## Why Get Certified
-Professional certifications validate skills, increase earning potential, and are often required for senior roles. PMP — Project Management Professional is recognised globally and by Indian employers in IT, consulting, manufacturing, and service sectors.
+PMBOK 7 organizes around 12 principles — values-based guidance rather than prescriptive processes: stewardship (acting responsibly, ethically, with care for resources and outcomes), team (fostering a collaborative project team environment), stakeholders (engaging stakeholders proactively, to the degree needed), value (focusing on delivering value, not just completing tasks), systems thinking (recognizing a project operates within interacting systems, not in isolation), leadership (demonstrating leadership behaviors, distinct from formal authority alone), tailoring (adapting the project approach to the specific project's context, rather than applying a fixed methodology uniformly), quality (building quality into processes and deliverables), complexity (navigating complexity rather than assuming it away), risk (proactively addressing threats and opportunities), adaptability and resilience (building the capacity to adjust to changing conditions and recover from setbacks), and change (enabling the organizational change a project's outcomes require to actually deliver value). `(needs verification — recheck against current source: exact principle wording and framing are set by PMI and periodically clarified.)`
 
-## Certification Details
-This section covers: exam format, key domains, conceptual knowledge, practice questions, and exam tips to pass PMP — Project Management Professional on the first attempt.
+## Why principles replaced a purely process-based structure
 
-## Core Concepts
-This section covers the foundational knowledge required for this topic. Work through each concept systematically before moving to intermediate topics.
+Fundamentals' core context point: PMBOK 7's shift toward principles reflects PMI's recognition that a rigid, universal process sequence doesn't fit every project equally well — a small agile software project and a large multi-year construction project both benefit from stewardship, stakeholder engagement, and quality focus, but the *specific processes* achieving those principles look meaningfully different between the two. Principles provide durable guidance across this variation in a way a single fixed process framework couldn't, which is precisely the methodology-agnostic goal PMBOK 7 was designed around.
 
-## Key Principles
-- Understand the basic theory and definitions
-- Learn the regulatory framework and key bodies involved
-- Practice with simple examples before complex scenarios
-- Use the cheatsheet for quick reference during revision
+## The 8 performance domains
 
-## Getting Started
-Begin by reading the overview, then work through this fundamentals section. Each concept builds on the previous one. Do not skip ahead — the foundation matters.
+Performance domains represent areas of focus a project manager attends to throughout a project, regardless of methodology: **stakeholders** (identifying and engaging those affecting or affected by the project), **team** (the people delivering the project and how they work together), **development approach and life cycle** (the specific methodology and phasing chosen — predictive, agile, or hybrid, Overview), **planning** (organizing and coordinating work, at whatever level of detail the chosen approach calls for), **project work** (establishing and executing processes, managing resources and procurement), **delivery** (achieving the scope and quality the project was undertaken to deliver), **measurement** (assessing project performance and taking appropriate action), and **uncertainty** (navigating risk, ambiguity, and complexity throughout). `(needs verification — recheck against current source: exact domain definitions are set by PMI and periodically clarified.)`
 
-## Self-Assessment
-After completing this section, you should be able to:
-- Define the core terms and concepts
-- Explain the basic structure and framework
-- Answer beginner-level questions on this topic
-- Identify the key regulations, acts, or standards that apply
+## Tailoring — the connective principle across predictive, agile, and hybrid
 
-## Common Beginner Questions
-**Q: Where should I start?** Start with the overview and this fundamentals section. Read official sources alongside these notes.
-**Q: How long will this take?** Budget 2-3 hours for a solid foundation.
-**Q: What resources supplement this?** Official textbooks, government websites, and exam-specific guides.
+The **tailoring** principle (above) is arguably the single most important conceptual bridge across PMP's three approach domains (Overview) — it's the explicit acknowledgment that a project manager should adapt planning depth, documentation formality, and process rigor to fit the specific project's size, complexity, and risk profile, rather than applying either a rigid predictive-style process or an unmodified agile framework uniformly regardless of context. PMP exam scenarios frequently test whether a candidate recognizes when tailoring toward more or less structure is the appropriate response to a described project situation.
 
-## Detailed Study Notes
+## Getting started
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+1. Learn the 12 principles as values-based guidance underlying good project management practice broadly, not as a checklist to apply mechanically.
+2. Understand the 8 performance domains as continuous areas of attention throughout a project's life, not sequential phases to complete and move past.
+3. Treat tailoring as the practical skill connecting principles and domains to real project decisions — most PMP exam scenarios ultimately test tailoring judgment in some form, even when not explicitly labeled as such.

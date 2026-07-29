@@ -1,81 +1,31 @@
-# PMP — Project Management Professional — Overview
+# PMP Certification — Overview
 
-Comprehensive overview preparation for PMP — Project Management Professional.
+## What this technology covers
 
-## Why Get Certified
-Professional certifications validate skills, increase earning potential, and are often required for senior roles. PMP — Project Management Professional is recognised globally and by Indian employers in IT, consulting, manufacturing, and service sectors.
+PMP (Project Management Professional) is PMI's (Project Management Institute) flagship certification, covering project management across three approach domains: **predictive** (traditional, plan-driven project management — the classic waterfall-style approach), **agile** (iterative, adaptive project management — directly connecting to this academy's separate Scrum & Agile technology, though PMP tests agile at a broader project-management level rather than Scrum's specific framework mechanics), and **hybrid** (combining predictive and agile elements within a single project, reflecting how many real-world projects actually operate rather than adhering strictly to one methodology). This technology is grounded in PMI's current **PMBOK Guide, 7th Edition** framework, which represents a substantial structural shift from earlier PMBOK editions.
 
-## Certification Details
-This section covers: exam format, key domains, conceptual knowledge, practice questions, and exam tips to pass PMP — Project Management Professional on the first attempt.
+## Why it matters
 
-## Learning Path
-This section follows a structured approach from fundamentals to advanced topics. Each module builds on the previous one.
+PMP is one of the most globally recognized project management certifications, valued across industries precisely because it doesn't assume a single "correct" project management methodology — the PMBOK 7 framework explicitly organizes around principles and performance domains applicable across predictive, agile, and hybrid approaches, reflecting the real-world reality that project management practice has diversified substantially beyond the earlier, more rigid process-and-deliverable-focused framework of previous PMBOK editions.
 
-## Who This Is For
-Students and professionals at all levels who want to build knowledge in this domain — whether for exam preparation, career advancement, or general knowledge.
+## PMBOK 7 — a structural departure from earlier editions
 
-## How to Study
-1. Start with the **Fundamentals** section to build a solid base
-2. Move to **Intermediate** for applied knowledge and scenarios
-3. Use **Advanced** for exam-level depth and complex topics
-4. Practise with **Interview Q&A** for exams and assessments
-5. Use the **Cheatsheet** for last-minute revision before the exam
+A genuinely important context point: **PMBOK 7** (published 2021) represents a substantial departure from PMBOK 6 and earlier editions' process-group/knowledge-area structure (Initiating, Planning, Executing, Monitoring & Controlling, Closing, crossed with knowledge areas like Scope, Schedule, Cost). PMBOK 7 instead organizes around **12 project management principles** (values-based guidance) and **8 performance domains** (areas of focus contributing to effective project delivery) — a more principle-based, methodology-agnostic framework explicitly designed to remain relevant across predictive, agile, and hybrid approaches rather than being implicitly waterfall-oriented the way earlier editions were often perceived. `(needs verification — recheck against current source: PMI periodically updates PMBOK editions and the PMP exam content outline accordingly — confirm current edition and exam alignment before relying on edition-specific structural details.)`
 
-## Key Features of This Section
-- Structured notes aligned with official syllabus
-- Practice questions after key concepts
-- Cheatsheets for quick revision
-- Interview and exam Q&A format
-- Current and updated content
+## Exam structure — a quick map
 
-## Getting Started
-Click **Fundamentals** to begin your learning journey with this topic. Work systematically through each section for the best results.
+| Property | Detail |
+|---|---|
+| Questions | 180 |
+| Domains tested | People, Process, Business Environment |
+| Approach coverage | Predictive, agile, and hybrid approaches tested throughout, not as separate sections |
 
-## Assessment Strategy
-For objective exams: understand > memorise. For descriptive/written exams: structure your answers clearly. For interviews: demonstrate reasoning, not just recall.
+`(needs verification — recheck against current source: PMI periodically revises exam structure, question count, and domain weighting.)`
 
-## Detailed Study Notes
+## Exam and career relevance
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+PMP certification is broadly recognized across industries (technology, construction, healthcare, and beyond) as a credential for experienced project managers, typically requiring documented project-management experience as an eligibility prerequisite alongside the exam itself.
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+## How to use this technology's sections
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Fundamentals covers PMBOK 7's 12 principles and 8 performance domains. Intermediate applies these across predictive, agile, and hybrid project approaches. Advanced covers exam-specific scenario reasoning and the People/Process/Business Environment domain structure in depth. Interview and Cheatsheets provide exam-format practice and quick reference.

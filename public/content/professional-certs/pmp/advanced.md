@@ -1,84 +1,21 @@
-# PMP — Project Management Professional — Advanced
+# PMP Certification — Advanced
 
-Comprehensive advanced preparation for PMP — Project Management Professional.
+## The People, Process, and Business Environment exam domains
 
-## Why Get Certified
-Professional certifications validate skills, increase earning potential, and are often required for senior roles. PMP — Project Management Professional is recognised globally and by Indian employers in IT, consulting, manufacturing, and service sectors.
+While PMBOK 7 (Fundamentals/Intermediate) provides the conceptual framework, the actual PMP exam is structured around three domains: **People** (roughly the largest share of exam content — leading and managing project teams, resolving conflict, and stakeholder engagement), **Process** (managing the technical execution of a project across approaches — this domain draws most heavily on predictive/agile/hybrid mechanics), and **Business Environment** (connecting project work to organizational strategy and value delivery, including compliance and benefits realization). Understanding that People carries substantial exam weight — often surprising candidates who expect a process-and-technique-heavy exam given PMP's traditional reputation — is a genuinely important exam-strategy point, reflecting PMI's own research indicating people-management skill is a major differentiator in actual project success. `(needs verification — recheck against current source: exact domain weighting percentages are set by PMI and periodically revised.)`
 
-## Certification Details
-This section covers: exam format, key domains, conceptual knowledge, practice questions, and exam tips to pass PMP — Project Management Professional on the first attempt.
+## Scenario-based reasoning — the actual tested skill
 
-## Expert-Level Mastery
-This section covers advanced topics, complex scenarios, and the depth required for competitive exams and professional practice.
+Advanced PMP preparation recognizes that the exam predominantly tests **applied scenario judgment**, not definition recall — a typical question describes a specific project situation (a stakeholder conflict, a scope-change request, a team performance issue) and asks what the project manager should do next, with several plausible-sounding options requiring the candidate to identify the *most* appropriate response given PMI's principle-based framework, not simply a technically-defensible response. This is why memorizing the 12 principles and 8 performance domains (Fundamentals) as isolated definitions is insufficient preparation — the exam tests whether a candidate can apply them correctly to a described situation, consistent with PMP's overall emphasis on judgment over rote process-following.
 
-## Advanced Topics
-- Complex multi-concept scenarios requiring integrated knowledge
-- Analytical and evaluative questions
-- Recent developments, amendments, and current issues
-- High-difficulty exam questions with detailed solutions
+## Conflict and team-leadership scenarios — a frequently tested pattern
 
-## Strategic Approach
-At the advanced level, strategy matters as much as knowledge:
-- Identify the question type and apply the right framework
-- Manage time — know when to move on and return later
-- Use elimination for objective questions
-- Structure long-answer responses clearly
+A specific, frequently recurring scenario pattern: a project team member raises a concern or conflict, and the question tests whether the candidate recognizes the PMI-preferred response — generally favoring direct, collaborative conflict resolution addressing the underlying issue (consistent with the "team" and "leadership" principles, Fundamentals) over escalation to higher authority or avoidance, unless the situation genuinely exceeds what direct team-level resolution can address. This reflects PMI's broader framing of the project manager as a servant-leader facilitating team effectiveness, not simply a directive authority issuing instructions.
 
-## Exam Simulation
-Practise under timed conditions:
-- Set a timer and attempt full sections without breaks
-- Review every wrong answer with the source material
-- Track your accuracy by topic to identify weak areas
-- Repeat mock tests to build consistency
+## Value delivery and business environment reasoning
 
-## Advanced Checklist
-- [ ] Can solve the hardest questions in this topic
-- [ ] Understand recent changes and current developments
-- [ ] Can teach the topic clearly to someone else
-- [ ] Mock exam score is consistently above 75%
+Advanced-level Business Environment domain questions test whether a candidate connects project work back to organizational value and strategy — recognizing, for instance, that a technically successful project delivered on time and budget can still represent a poor outcome if it no longer serves the organizational need it was originally intended to address (due to changed business conditions), and that a project manager's responsibility includes surfacing this kind of value-relevance question to appropriate stakeholders, not simply executing the originally-defined scope regardless of whether it remains the right thing to deliver.
 
-## Detailed Study Notes
+## Synthesizing principles, domains, and exam domains into exam readiness
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+The advanced-level synthesis: genuine PMP exam readiness comes from being able to move fluidly between PMBOK 7's principles/performance-domains framework (the conceptual foundation, Fundamentals/Intermediate) and the exam's People/Process/Business-Environment structure (how that conceptual foundation is actually tested) — recognizing that a single scenario question might simultaneously draw on the "team" principle, the "stakeholders" performance domain, and the exam's "People" domain, since these frameworks describe overlapping aspects of the same underlying project-management competence rather than entirely separate content areas requiring separate preparation.

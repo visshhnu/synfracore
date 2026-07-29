@@ -1,93 +1,69 @@
-# Scrum Master and Agile Certifications — Cheatsheets
+# Scrum & Agile — Cheatsheets
 
-Comprehensive cheatsheets preparation for Scrum Master and Agile Certifications.
+## Agile Manifesto — four values
 
-## Why Get Certified
-Professional certifications validate skills, increase earning potential, and are often required for senior roles. Scrum Master and Agile Certifications is recognised globally and by Indian employers in IT, consulting, manufacturing, and service sectors.
+| Prefer | Over (still valued, just less) |
+|---|---|
+| Individuals and interactions | Processes and tools |
+| Working software | Comprehensive documentation |
+| Customer collaboration | Contract negotiation |
+| Responding to change | Following a plan |
 
-## Certification Details
-This section covers: exam format, key domains, conceptual knowledge, practice questions, and exam tips to pass Scrum Master and Agile Certifications on the first attempt.
+## Certification landscape
 
-## Quick Reference Summary
+| Certification | Issuing body | Focus |
+|---|---|---|
+| CSM | Scrum Alliance | Scrum framework, ScrumMaster role |
+| PSM I | Scrum.org | Scrum framework, assessed via Scrum Guide |
+| SAFe | Scaled Agile, Inc. | Multi-team/program agile coordination |
 
-### Key Facts at a Glance
-| Item | Key Information |
-|------|----------------|
-| Domain | See overview for full context |
-| Primary Authority | Relevant regulatory body |
-| Key Legislation | Main acts and regulations |
-| Exam Weight | Check specific exam syllabus |
-| Difficulty | Varies by subtopic |
+`(needs verification — recheck against current source: certification requirements periodically updated.)`
 
-### Core Concepts to Remember
-- Fundamental definitions and terminology
-- Key regulatory framework and authority
-- Important dates, numbers, and thresholds
-- Exceptions and special cases
-- Recent developments and amendments
+## Scrum's three roles
 
-### Exam Tips
-- Read every question twice before answering
-- For MCQs: eliminate wrong options first
-- For descriptive: structure > length
-- Allocate time proportionally to marks
-- Attempt all questions — no blanks
+| Role | Responsibility |
+|---|---|
+| Product Owner | Maximizes value; manages Product Backlog priority |
+| Scrum Master | Establishes Scrum, coaches self-management, removes impediments |
+| Developers | Create the usable Increment each Sprint |
 
-### Last-Hour Revision Checklist
-- [ ] Reviewed all key definitions
-- [ ] Memorised important numbers and dates
-- [ ] Practised at least 10 previous year questions
-- [ ] Know the exceptions to main rules
-- [ ] Checked for any recent amendments or news
+## Empiricism's three pillars
 
-### Common Exam Questions Pattern
-1. Definition-based: "What is X?" — give precise definition + example
-2. Application-based: "In this scenario, what applies?" — identify rule + apply
-3. Comparison: "Difference between X and Y" — tabular format preferred
-4. Current affairs: "Recent development in X" — know last 6-12 months
+| Pillar | Meaning |
+|---|---|
+| Transparency | Process aspects visible to those responsible |
+| Inspection | Frequently checking artifacts/progress |
+| Adaptation | Adjusting quickly when deviation detected |
 
-## Detailed Study Notes
+## Scrum's five events
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+| Event | Purpose |
+|---|---|
+| Sprint | Container iteration (1-4 weeks) |
+| Sprint Planning | Plan the Sprint's work, set Sprint Goal |
+| Daily Scrum | Developers inspect progress, adapt next-day plan |
+| Sprint Review | Inspect outcome with stakeholders, adapt Product Backlog |
+| Sprint Retrospective | Inspect process/people/tools, plan improvements |
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+## Scrum's three artifacts and commitments
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+| Artifact | Commitment |
+|---|---|
+| Product Backlog | Product Goal |
+| Sprint Backlog | Sprint Goal |
+| Increment | Definition of Done |
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
+## Common anti-patterns
 
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
+| Anti-pattern | Problem |
+|---|---|
+| "Scrum but" | Runs events' form while skipping their actual purpose |
+| Mini-waterfall Sprints | Sequential phases instead of genuine iteration |
+| Product Owner absenteeism | Team lacks timely clarification/prioritization |
 
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
+## Scrum vs. PMP's agile coverage
 
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+| Property | Scrum & Agile (this technology) | PMP's agile coverage |
+|---|---|---|
+| Scope | Specific framework mechanics | Agile as one of three approach domains |
+| Depth | Roles, events, artifacts in detail | Broader project-management application |

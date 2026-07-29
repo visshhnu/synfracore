@@ -1,79 +1,23 @@
 # ITIL 4 Foundation — Fundamentals
 
-Comprehensive fundamentals preparation for ITIL 4 Foundation.
+## The seven guiding principles
 
-## Why Get Certified
-Professional certifications validate skills, increase earning potential, and are often required for senior roles. ITIL 4 Foundation is recognised globally and by Indian employers in IT, consulting, manufacturing, and service sectors.
+ITIL 4's guiding principles are recommendations meant to inform decision-making regardless of specific circumstance, team structure, or leadership style: **focus on value** (everything an organization does should connect, directly or indirectly, to value for stakeholders), **start where you are** (assess and use existing services, processes, and capabilities rather than discarding them unnecessarily when starting an improvement effort), **progress iteratively with feedback** (avoid attempting large, all-at-once initiatives — break work into manageable pieces with feedback loops), **collaborate and promote visibility** (working together across boundaries, with transparent, accessible information, produces better outcomes and buy-in than siloed work), **think and work holistically** (no service, practice, or process operates in isolation — recognize how organizational elements interconnect), **keep it simple and practical** (use the minimum number of steps to accomplish an objective, removing anything that doesn't contribute to the desired outcome), and **optimize and automate** (maximize the value of human effort by using technology to do what technology does well, freeing people for work requiring human judgment). `(needs verification — recheck against current source: exact principle wording is set by Axelos and periodically clarified.)`
 
-## Certification Details
-This section covers: exam format, key domains, conceptual knowledge, practice questions, and exam tips to pass ITIL 4 Foundation on the first attempt.
+## Why guiding principles apply universally rather than situationally
 
-## Core Concepts
-This section covers the foundational knowledge required for this topic. Work through each concept systematically before moving to intermediate topics.
+An important conceptual point: unlike specific practices (Advanced), which apply differently across different organizational contexts, the seven guiding principles are explicitly designed to apply in *any* circumstance — this is the ITIL 4 exam's frequently tested distinction between principles (universal, situation-independent guidance) and practices (specific, context-dependent implementations). A question describing almost any IT service management scenario can reasonably be analyzed through "which guiding principle is most relevant here," since the principles are deliberately built for that kind of broad applicability.
 
-## Key Principles
-- Understand the basic theory and definitions
-- Learn the regulatory framework and key bodies involved
-- Practice with simple examples before complex scenarios
-- Use the cheatsheet for quick reference during revision
+## The Service Value Chain — six core activities
 
-## Getting Started
-Begin by reading the overview, then work through this fundamentals section. Each concept builds on the previous one. Do not skip ahead — the foundation matters.
+The **service value chain** is the SVS's operating model, describing six activities an organization combines flexibly (not necessarily sequentially) to convert demand into value: **plan** (ensuring shared understanding of vision, status, and improvement direction), **improve** (ensuring continual improvement of products, services, and practices), **engage** (understanding stakeholder needs and maintaining relationships), **design and transition** (ensuring products and services meet stakeholder expectations for quality, cost, and time-to-market), **obtain/build** (ensuring service components are available when and where needed, meeting specifications), and **deliver and support** (ensuring services are delivered and supported according to agreed specifications and stakeholder expectations). These six activities aren't a fixed sequence — different value streams (specific combinations of activities and practices for a specific scenario) combine them in different orders depending on the actual work being done.
 
-## Self-Assessment
-After completing this section, you should be able to:
-- Define the core terms and concepts
-- Explain the basic structure and framework
-- Answer beginner-level questions on this topic
-- Identify the key regulations, acts, or standards that apply
+## Practices — the specific "how" beneath the value chain
 
-## Common Beginner Questions
-**Q: Where should I start?** Start with the overview and this fundamentals section. Read official sources alongside these notes.
-**Q: How long will this take?** Budget 2-3 hours for a solid foundation.
-**Q: What resources supplement this?** Official textbooks, government websites, and exam-specific guides.
+Where guiding principles provide universal decision-making guidance and the service value chain describes the operating model, **practices** (34 total, Overview) are the specific sets of organizational resources designed for performing work or accomplishing an objective — incident management, change enablement, and service desk are commonly tested examples. Practices are what actually get performed within value chain activities, connecting the SVS's more abstract structure to concrete, familiar IT service management activities.
 
-## Detailed Study Notes
+## Getting started
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+1. Learn the seven guiding principles as universal, situation-independent decision-making guidance — a large share of ITIL 4 exam questions can be approached through "which principle applies here" reasoning.
+2. Understand the service value chain's six activities as a flexible operating model, not a fixed sequential process — this is a genuinely different mental model from ITIL v3's lifecycle stages.
+3. Recognize practices as the concrete "how" beneath the more abstract SVS structure — most familiar ITSM concepts (incident management, change management) exist within ITIL 4 as specific practices, not as separate frameworks.

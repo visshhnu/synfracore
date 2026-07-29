@@ -1,81 +1,32 @@
-# Six Sigma Green Belt and Black Belt — Overview
+# Six Sigma — Overview
 
-Comprehensive overview preparation for Six Sigma Green Belt and Black Belt.
+## What this technology covers
 
-## Why Get Certified
-Professional certifications validate skills, increase earning potential, and are often required for senior roles. Six Sigma Green Belt and Black Belt is recognised globally and by Indian employers in IT, consulting, manufacturing, and service sectors.
+Six Sigma covers the **DMAIC methodology** (Define, Measure, Analyze, Improve, Control) — a structured, data-driven approach to process improvement — alongside the belt-based certification hierarchy (Green Belt and Black Belt being the most commonly pursued levels) and the statistical/quality-management tools DMAIC employs at each phase. Unlike this academy's PMP and Scrum & Agile technologies, which focus on managing project delivery, Six Sigma focuses specifically on **process improvement and variation reduction** — a genuinely distinct discipline, though Six Sigma projects are often themselves managed using project-management skills covered in PMP.
 
-## Certification Details
-This section covers: exam format, key domains, conceptual knowledge, practice questions, and exam tips to pass Six Sigma Green Belt and Black Belt on the first attempt.
+## Why it matters
 
-## Learning Path
-This section follows a structured approach from fundamentals to advanced topics. Each module builds on the previous one.
+Six Sigma originated in manufacturing (developed at Motorola in the 1980s) but has since spread across industries — healthcare, finance, software, and services — wherever reducing process variation and defects has measurable business value. Its core insight, still central today, is that most quality problems stem from *process variation*, not individual worker error, meaning sustainable quality improvement requires systematically understanding and reducing variation sources rather than simply exhorting people to "be more careful."
 
-## Who This Is For
-Students and professionals at all levels who want to build knowledge in this domain — whether for exam preparation, career advancement, or general knowledge.
+## The Six Sigma statistical concept — where the name comes from
 
-## How to Study
-1. Start with the **Fundamentals** section to build a solid base
-2. Move to **Intermediate** for applied knowledge and scenarios
-3. Use **Advanced** for exam-level depth and complex topics
-4. Practise with **Interview Q&A** for exams and assessments
-5. Use the **Cheatsheet** for last-minute revision before the exam
+The name "Six Sigma" refers to a statistical target: a process operating at Six Sigma quality produces no more than 3.4 defects per million opportunities — an extremely low defect rate, reflecting a process where the specification limits sit six standard deviations (sigma, in statistical notation) away from the process mean. This statistical grounding is why Six Sigma emphasizes measurement and data analysis so heavily (Fundamentals/Intermediate) — improvement claims need to be substantiated by actual process data, not just described qualitatively. `(needs verification — recheck against current source: the specific 3.4-defects-per-million figure and its underlying statistical assumptions are standard Six Sigma reference points, but exact figures can vary slightly by source and calculation convention.)`
 
-## Key Features of This Section
-- Structured notes aligned with official syllabus
-- Practice questions after key concepts
-- Cheatsheets for quick revision
-- Interview and exam Q&A format
-- Current and updated content
+## Belt hierarchy — a quick map
 
-## Getting Started
-Click **Fundamentals** to begin your learning journey with this topic. Work systematically through each section for the best results.
+| Belt level | Role |
+|---|---|
+| Yellow Belt | Basic awareness, supports projects as a team member |
+| Green Belt | Leads smaller improvement projects, applies DMAIC with some statistical depth |
+| Black Belt | Leads larger, more complex projects, deeper statistical tool mastery, often mentors Green Belts |
+| Master Black Belt | Organization-wide Six Sigma strategy and Black Belt mentorship |
 
-## Assessment Strategy
-For objective exams: understand > memorise. For descriptive/written exams: structure your answers clearly. For interviews: demonstrate reasoning, not just recall.
+`(needs verification — recheck against current source: exact belt-level responsibilities and certification requirements vary by certifying body — ASQ, IASSC, and others each maintain their own standards.)`
 
-## Detailed Study Notes
+## Exam and career relevance
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+Six Sigma certification (particularly Green Belt and Black Belt) is widely recognized across manufacturing, healthcare, finance, and operations roles focused on process improvement and quality management, and is frequently a stated or preferred qualification for process-improvement and operational-excellence positions.
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+## How to use this technology's sections
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Fundamentals covers the DMAIC methodology's five phases and core statistical concepts. Intermediate applies DMAIC's tools in depth, phase by phase. Advanced covers Black-Belt-level statistical techniques and organizational Six Sigma deployment. Interview and Cheatsheets provide exam-format practice and quick reference.

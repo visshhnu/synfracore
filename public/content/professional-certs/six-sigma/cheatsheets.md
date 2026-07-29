@@ -1,93 +1,54 @@
-# Six Sigma Green Belt and Black Belt — Cheatsheets
+# Six Sigma — Cheatsheets
 
-Comprehensive cheatsheets preparation for Six Sigma Green Belt and Black Belt.
+## DMAIC phases
 
-## Why Get Certified
-Professional certifications validate skills, increase earning potential, and are often required for senior roles. Six Sigma Green Belt and Black Belt is recognised globally and by Indian employers in IT, consulting, manufacturing, and service sectors.
+| Phase | Purpose | Key tools |
+|---|---|---|
+| Define | Define problem, goals, customer requirements | Project Charter, SIPOC |
+| Measure | Establish current process performance (data-based) | Operational definitions, data collection plan, process capability |
+| Analyze | Identify root causes using Measure's data | Fishbone/Ishikawa diagram, 5 Whys |
+| Improve | Develop, test, implement solutions | Pilot testing before full rollout |
+| Control | Sustain improvement over time | Control charts, Control Plan |
 
-## Certification Details
-This section covers: exam format, key domains, conceptual knowledge, practice questions, and exam tips to pass Six Sigma Green Belt and Black Belt on the first attempt.
+## Statistical target
 
-## Quick Reference Summary
+| Concept | Value |
+|---|---|
+| Six Sigma quality | ≤3.4 defects per million opportunities |
+| Statistical basis | Specification limits 6 standard deviations from process mean |
 
-### Key Facts at a Glance
-| Item | Key Information |
-|------|----------------|
-| Domain | See overview for full context |
-| Primary Authority | Relevant regulatory body |
-| Key Legislation | Main acts and regulations |
-| Exam Weight | Check specific exam syllabus |
-| Difficulty | Varies by subtopic |
+`(needs verification — recheck against current source: exact figures are standard reference points but can vary slightly by source/convention.)`
 
-### Core Concepts to Remember
-- Fundamental definitions and terminology
-- Key regulatory framework and authority
-- Important dates, numbers, and thresholds
-- Exceptions and special cases
-- Recent developments and amendments
+## Belt hierarchy
 
-### Exam Tips
-- Read every question twice before answering
-- For MCQs: eliminate wrong options first
-- For descriptive: structure > length
-- Allocate time proportionally to marks
-- Attempt all questions — no blanks
+| Belt | Role |
+|---|---|
+| Yellow Belt | Basic awareness, team member support |
+| Green Belt | Leads smaller projects, applies DMAIC |
+| Black Belt | Leads complex projects, deeper statistics, mentors Green Belts |
+| Master Black Belt | Organization-wide strategy, Black Belt mentorship |
 
-### Last-Hour Revision Checklist
-- [ ] Reviewed all key definitions
-- [ ] Memorised important numbers and dates
-- [ ] Practised at least 10 previous year questions
-- [ ] Know the exceptions to main rules
-- [ ] Checked for any recent amendments or news
+`(needs verification — recheck against current source: responsibilities vary by certifying body — ASQ, IASSC, etc.)`
 
-### Common Exam Questions Pattern
-1. Definition-based: "What is X?" — give precise definition + example
-2. Application-based: "In this scenario, what applies?" — identify rule + apply
-3. Comparison: "Difference between X and Y" — tabular format preferred
-4. Current affairs: "Recent development in X" — know last 6-12 months
+## Variation types
 
-## Detailed Study Notes
+| Type | Source | Response |
+|---|---|---|
+| Common cause | Natural, inherent, always-present factors | Redesign the process |
+| Special cause | Identifiable, specific, often intermittent | Find and eliminate the source |
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+## Black Belt-level statistical techniques
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+| Technique | Purpose |
+|---|---|
+| Hypothesis testing | Test if observed difference is statistically significant |
+| Design of Experiments (DOE) | Efficiently test multiple variables, detect interaction effects |
+| Regression analysis | Model relationship between inputs and outputs |
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+## Six Sigma vs. Lean
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+| Framework | Core question |
+|---|---|
+| Six Sigma | How much does this process vary, and why? |
+| Lean | Is this step adding value, or is it waste? |
+| Lean Six Sigma | Combines both perspectives |
