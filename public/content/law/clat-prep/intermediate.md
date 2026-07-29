@@ -1,85 +1,37 @@
 # CLAT Preparation — Intermediate
 
-Common Law Admission Test — legal reasoning, logical reasoning, English, GK/current affairs, and quantitative techniques.
+## Common legal principle categories, beyond the basic method
 
-Detailed content for intermediate of CLAT Preparation covering key concepts, practice questions, and exam preparation material.
+Fundamentals covers the apply-the-stated-principle method; at the intermediate level, recognizing which *area* of law a principle is drawn from helps you anticipate the kind of fact-twist the question is likely to test:
 
-## Key Topics
-This section covers the core intermediate content for CLAT Preparation. Work through the overview first, then fundamentals, intermediate, and advanced sections in order.
+| Area | Typical principle shape | Common twist tested |
+|---|---|---|
+| Tort (civil wrongs) | Liability for negligence, strict liability, vicarious liability | Foreseeability of harm (PYQ Q1's stone-throwing example) — was the injury a natural/probable consequence? |
+| Contract law | Formation, consideration, capacity, breach | Exceptions to general rules (PYQ Q3's natural-love-and-affection exception to consideration) |
+| Property/title | Transfer of ownership, good title | "Nobody transfers better title than they have" (PYQ Q2) — good faith of the buyer is often a deliberate red herring |
+| Criminal law principles | Mens rea, common intention, general exceptions | Whether a stated exception (self-defense, necessity) actually applies to the given facts, or only appears superficially similar |
 
-## Study Note
-For CLAT Preparation, focus on understanding principles and their application to fact scenarios — this is how both CLAT and judiciary exams test your knowledge.
+Recognizing the area doesn't change the method (apply the stated principle mechanically) — but it helps you anticipate *where* the question is likely to place its trap, since each area has recurring twist patterns test-setters draw from.
 
-## Building Deeper Understanding
-With the fundamentals in place, this section covers applied knowledge, real-world scenarios, and exam-level complexity.
+## Reading the "distractor" options in Legal Reasoning and English
 
-## Applied Concepts
-- Connect foundational theory to practical applications
-- Understand how rules and principles interact in real cases
-- Analyse scenarios and draw reasoned conclusions
-- Identify exceptions, edge cases, and nuances
+Both sections use similar distractor construction: an option that uses language or a fact from the passage/principle but misapplies it. PYQ Q6 is a clean example (option (a) "privacy is expensive" uses a word from the passage but misreads the actual argument). The intermediate-level skill is distinguishing "this option mentions something true from the passage" from "this option correctly answers what's being asked" — these are not the same thing, and CLAT distractors are built specifically to exploit that gap.
 
-## Practice Approach
-At this level, practice is key. For each concept:
-1. Understand the principle
-2. See it applied to a sample problem
-3. Solve a practice problem independently
-4. Check your answer and understand any errors
+## Time management across five sections in 120 minutes
 
-## Common Intermediate Mistakes
-- Applying rules without reading the full context
-- Missing exceptions or special cases
-- Confusing similar concepts or terms
-- Not practising enough past questions
+With 150 questions in 120 minutes (Cheatsheets), average time per question is roughly 48 seconds — but effort shouldn't be distributed evenly, since sections differ in how much a question actually costs to solve correctly:
 
-## Progress Check
-You are ready for advanced topics when you can:
-- Solve moderately difficult problems without looking at notes
-- Explain concepts to someone else
-- Identify the relevant framework for any given scenario
+- **Legal Reasoning and Logical Reasoning** typically need more time per question (reading a fact pattern or evaluating a syllogism carefully) — budget above the flat average here.
+- **Current Affairs/GK** questions are typically fastest (you either know the fact or you don't; dwelling doesn't help) — budget below average, and don't linger on ones you're unsure of.
+- **English** comprehension has an upfront reading cost (the passage) but faster per-question answering once read — the practical approach is budgeting for the passage read once, then moving quickly through its questions.
+- **Quantitative Techniques**, being lowest-weighted (Overview) and fewest questions, deserves proportionally the least total time, even though individual questions can take longer to calculate.
 
-## Detailed Study Notes
+A common intermediate-level mistake: spending disproportionate time perfecting Quantitative Techniques (because it "feels" the most masterable, similar to a school math paper) at the expense of the two highest-weighted sections.
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+## Negative marking strategy
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+With -0.25 negative marking (Cheatsheets) and 1 mark per correct answer, the breakeven guess rate is 1 in 5 — guessing among 4 options with zero information is expected-value-neutral, but guessing after eliminating even one implausible option shifts the expected value positive. The practical strategy: never leave a question blank if you can eliminate at least one option, but don't guess cold on a question where you have genuinely zero basis to eliminate anything, since a string of cold guesses trends toward a net negative score, not neutral, once actual human guessing bias (not truly random) is accounted for.
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+## Building a current-affairs system, not just reading
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Fundamentals notes current affairs can't be crammed. A workable intermediate system: maintain a running, dated note of legally/constitutionally significant events (major judgments, new legislation, constitutional-body appointments) rather than passively reading news — the act of writing a one-line summary of *why* an event is legally significant is what makes it retrievable under exam pressure months later, versus having passively read about it once.

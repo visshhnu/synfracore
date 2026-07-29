@@ -1,95 +1,66 @@
-# CLAT Preparation — Cheatsheets
+# CLAT Preparation — Quick Reference
 
-Common Law Admission Test — legal reasoning, logical reasoning, English, GK/current affairs, and quantitative techniques.
+## Exam pattern (UG)
 
-Detailed content for cheatsheets of CLAT Preparation covering key concepts, practice questions, and exam preparation material.
+| Section | Questions | Marks |
+|---|---|---|
+| English Language | 28–32 | 28–32 |
+| Current Affairs + GK | 35–39 | 35–39 |
+| Legal Reasoning | 35–39 | 35–39 |
+| Logical Reasoning | 28–32 | 28–32 |
+| Quantitative Techniques | 13–17 | 13–17 |
+| **Total** | **150** | **150** |
 
-## Key Topics
-This section covers the core cheatsheets content for CLAT Preparation. Work through the overview first, then fundamentals, intermediate, and advanced sections in order.
+Time: 2 hours (120 min) • Negative marking: −0.25 • Qualifying: 45% general (40% SC/ST)
+Average time budget: ~48 sec/question, weighted toward Legal + Logical Reasoning, less toward Current Affairs/GK and Quant.
 
-## Study Note
-For CLAT Preparation, focus on understanding principles and their application to fact scenarios — this is how both CLAT and judiciary exams test your knowledge.
+`(needs verification — recheck against current source: pattern/marks distribution and qualifying percentages are set by the CLAT Consortium and can shift between cycles.)`
 
-## Quick Reference Summary
+## Legal Reasoning — the method (3 steps)
 
-### Key Facts at a Glance
-| Item | Key Information |
-|------|----------------|
-| Domain | See overview for full context |
-| Primary Authority | Relevant regulatory body |
-| Key Legislation | Main acts and regulations |
-| Exam Weight | Check specific exam syllabus |
-| Difficulty | Varies by subtopic |
+1. Read the **stated principle** in isolation first
+2. Map facts to the principle's specific conditions
+3. Apply mechanically — even if the outcome feels unfair
 
-### Core Concepts to Remember
-- Fundamental definitions and terminology
-- Key regulatory framework and authority
-- Important dates, numbers, and thresholds
-- Exceptions and special cases
-- Recent developments and amendments
+**Common principle areas and their typical twist:**
 
-### Exam Tips
-- Read every question twice before answering
-- For MCQs: eliminate wrong options first
-- For descriptive: structure > length
-- Allocate time proportionally to marks
-- Attempt all questions — no blanks
+| Area | Watch for |
+|---|---|
+| Tort | Foreseeability of harm |
+| Contract | Exceptions to general rules (e.g., consideration exceptions) |
+| Property/title | Good faith of buyer is often a red herring |
+| Criminal | Whether a stated exception genuinely applies to the facts |
 
-### Last-Hour Revision Checklist
-- [ ] Reviewed all key definitions
-- [ ] Memorised important numbers and dates
-- [ ] Practised at least 10 previous year questions
-- [ ] Know the exceptions to main rules
-- [ ] Checked for any recent amendments or news
+## Logical Reasoning — quick rules
 
-### Common Exam Questions Pattern
-1. Definition-based: "What is X?" — give precise definition + example
-2. Application-based: "In this scenario, what applies?" — identify rule + apply
-3. Comparison: "Difference between X and Y" — tabular format preferred
-4. Current affairs: "Recent development in X" — know last 6-12 months
+- "Some X are Y" does **not** imply "All X are Y"
+- A universal statement doesn't reverse: "All A are B" ≠ "All B are A"
+- Syllogism conclusions must follow strictly from the stated premises — not from real-world plausibility
 
-## Detailed Study Notes
+## Negative marking — guess or skip?
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+| Situation | Action |
+|---|---|
+| Can eliminate ≥1 option | Guess among the rest — expected value positive |
+| Zero basis to eliminate anything | Skip — cold guessing trends slightly negative over many attempts |
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+## Distractor pattern (English + Legal Reasoning)
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+A wrong option often reuses a *word or fact* from the passage/principle without correctly answering what's actually asked. Check: does this option answer the question, or just reference something true from the text?
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
+## Post-2020 pattern shift
 
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
+Old pattern: static legal-knowledge recall. Current pattern: principle + fact application, general reasoning. Older prep material/question banks skew toward the outdated skill — verify any external material's vintage before relying on it.
 
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
+## Counselling — float vs. freeze
 
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
+| Choice | Effect |
+|---|---|
+| Float | Stay in process for a possibly better allotment in a later round |
+| Freeze | Accept current allotment, exit the process |
 
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Missing a round's response deadline can produce a worse outcome than the rank alone would suggest — track deadlines as carefully as the exam itself.
+
+## Final 2–3 week revision loop
+
+Full-length timed mocks → categorize every wrong answer as **method error** / **content gap** / **time-pressure error** → fix each with the matching remedy (redrill method / add to current-affairs log / adjust pacing) — don't treat all three the same.

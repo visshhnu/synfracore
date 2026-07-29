@@ -1,95 +1,80 @@
-# Constitutional Law — Cheatsheets
+# Constitutional Law — Quick Reference
 
-Indian Constitution structure, Preamble, Fundamental Rights, DPSP, Fundamental Duties, Amendment procedure, federal structure.
+Covers both Constitutional Law and Criminal Law, per the split established across this technology's other sections.
 
-Detailed content for cheatsheets of Constitutional Law covering key concepts, practice questions, and exam preparation material.
+## Fundamental Rights — quick map
 
-## Key Topics
-This section covers the core cheatsheets content for Constitutional Law. Work through the overview first, then fundamentals, intermediate, and advanced sections in order.
+| Article | Right |
+|---|---|
+| 14 | Equality before law |
+| 19 | Six freedoms (speech, assembly, association, movement, residence, profession) |
+| 20 | Protection re: conviction (no ex-post-facto, no double jeopardy, no self-incrimination) |
+| 21 | Right to life and personal liberty (expanded post-*Maneka Gandhi*) |
+| 21A | Right to education |
+| 22 | Protection against arrest and detention |
+| 25–28 | Freedom of religion |
+| 32 | Right to constitutional remedies ("heart and soul") |
 
-## Study Note
-For Constitutional Law, focus on understanding principles and their application to fact scenarios — this is how both CLAT and judiciary exams test your knowledge.
+## The five writs
 
-## Quick Reference Summary
+| Writ | Meaning | Use |
+|---|---|---|
+| Habeas Corpus | Produce the body | Illegal detention |
+| Mandamus | We command | Compel public duty |
+| Prohibition | Forbid | Stop court exceeding jurisdiction |
+| Certiorari | To be certified | Quash inferior court's order |
+| Quo Warranto | By what authority | Challenge holding of public office |
 
-### Key Facts at a Glance
-| Item | Key Information |
-|------|----------------|
-| Domain | See overview for full context |
-| Primary Authority | Relevant regulatory body |
-| Key Legislation | Main acts and regulations |
-| Exam Weight | Check specific exam syllabus |
-| Difficulty | Varies by subtopic |
+## Basic Structure — key cases at a glance
 
-### Core Concepts to Remember
-- Fundamental definitions and terminology
-- Key regulatory framework and authority
-- Important dates, numbers, and thresholds
-- Exceptions and special cases
-- Recent developments and amendments
+| Case | Year | Held |
+|---|---|---|
+| Kesavananda Bharati | 1973 | Established the doctrine itself |
+| Indira Gandhi v. Raj Narain | 1975 | Free/fair elections are basic structure |
+| Minerva Mills | 1980 | Limited amending power is itself basic structure |
+| S.R. Bommai | 1994 | Federalism is basic structure; restricted Art 356 misuse |
+| I.R. Coelho | 2007 | Ninth Schedule laws (post-1973) still subject to review |
 
-### Exam Tips
-- Read every question twice before answering
-- For MCQs: eliminate wrong options first
-- For descriptive: structure > length
-- Allocate time proportionally to marks
-- Attempt all questions — no blanks
+## Amendment majorities (Article 368)
 
-### Last-Hour Revision Checklist
-- [ ] Reviewed all key definitions
-- [ ] Memorised important numbers and dates
-- [ ] Practised at least 10 previous year questions
-- [ ] Know the exceptions to main rules
-- [ ] Checked for any recent amendments or news
+| Majority type | Applies to |
+|---|---|
+| Simple majority | Ordinary bills under Art 5, 169, etc. |
+| Special majority (2/3 present+voting, majority of total strength) | Most amendments |
+| Special + State ratification (½ states) | Federal provisions — Lists, President's election, SC/HC jurisdiction |
 
-### Common Exam Questions Pattern
-1. Definition-based: "What is X?" — give precise definition + example
-2. Application-based: "In this scenario, what applies?" — identify rule + apply
-3. Comparison: "Difference between X and Y" — tabular format preferred
-4. Current affairs: "Recent development in X" — know last 6-12 months
+## Emergency provisions
 
-## Detailed Study Notes
+| Type | Article | Trigger |
+|---|---|---|
+| National Emergency | 352 | War / external aggression / armed rebellion |
+| President's Rule | 356 | Constitutional machinery failure in a State |
+| Financial Emergency | 360 | Threat to financial stability (never invoked) |
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+## Criminal law — old to new Act mapping
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+| Old | New |
+|---|---|
+| Indian Penal Code (IPC) 1860 | Bharatiya Nyaya Sanhita (BNS) 2023 |
+| Code of Criminal Procedure (CrPC) | Bharatiya Nagarik Suraksha Sanhita (BNSS) |
+| Indian Evidence Act, 1872 | Bharatiya Sakshya Adhiniyam (BSA) |
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+`(needs verification — recheck against current source: BNS/BNSS/BSA section numbering is periodically clarified/amended; confirm exact section numbers against the current bare act before an exam, don't rely on this table for exact numbering.)`
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
+## Bail types — quick distinction
 
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
+| Type | When sought | Basis |
+|---|---|---|
+| Regular | After arrest | Court discretion, case merits |
+| Anticipatory | Before arrest | Apprehension of arrest, BNSS S.482 |
+| Default/statutory | Chargesheet delay | Automatic right — 60 or 90 days depending on offence |
 
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
+## Legislative lists (Seventh Schedule)
 
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
+| List | Subjects | Example entries |
+|---|---|---|
+| Union (List I) | 98 subjects | Defence, foreign affairs, railways, currency |
+| State (List II) | 59 subjects | Police, public order, agriculture, public health |
+| Concurrent (List III) | 52 subjects | Education, forests, marriage, electricity |
 
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Conflict on Concurrent List → Union law prevails (Art 254) unless State law has Presidential assent.

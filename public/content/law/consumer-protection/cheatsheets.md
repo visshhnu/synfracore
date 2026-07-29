@@ -1,95 +1,82 @@
-# Consumer Protection Law — Cheatsheets
+# Consumer Protection Law — Quick Reference
 
-Consumer Protection Act 2019, COPRA, consumer forums, remedies, e-commerce regulations, and product liability.
+## Pecuniary jurisdiction
 
-Detailed content for cheatsheets of Consumer Protection Law covering key concepts, practice questions, and exam preparation material.
+| Commission | Value range |
+|---|---|
+| District | Up to ₹1 crore |
+| State | ₹1 crore – ₹2 crore |
+| National (NCDRC) | Above ₹2 crore |
 
-## Key Topics
-This section covers the core cheatsheets content for Consumer Protection Law. Work through the overview first, then fundamentals, intermediate, and advanced sections in order.
+Appeal chain: District → State → NCDRC → Supreme Court (questions of law only)
 
-## Study Note
-For Consumer Protection Law, focus on understanding principles and their application to fact scenarios — this is how both CLAT and judiciary exams test your knowledge.
+## Defect vs. Deficiency
 
-## Quick Reference Summary
+| | Applies to | Standard |
+|---|---|---|
+| Defect | Goods | Merchantable quality / seller's representation |
+| Deficiency | Services | Promised/standard level of service |
 
-### Key Facts at a Glance
-| Item | Key Information |
-|------|----------------|
-| Domain | See overview for full context |
-| Primary Authority | Relevant regulatory body |
-| Key Legislation | Main acts and regulations |
-| Exam Weight | Check specific exam syllabus |
-| Difficulty | Varies by subtopic |
+## Time limits
 
-### Core Concepts to Remember
-- Fundamental definitions and terminology
-- Key regulatory framework and authority
-- Important dates, numbers, and thresholds
-- Exceptions and special cases
-- Recent developments and amendments
+| Stage | Limit |
+|---|---|
+| File complaint | 2 years from cause of action (condonable for sufficient cause) |
+| Admission/rejection | 21 days of filing |
+| Opposite party response | 30 days |
+| Mediation opt-out window | 5 working days |
+| Final order (target) | 3–5 months |
+| E-commerce: acknowledge complaint | 48 hours |
+| E-commerce: resolve complaint | 1 month |
 
-### Exam Tips
-- Read every question twice before answering
-- For MCQs: eliminate wrong options first
-- For descriptive: structure > length
-- Allocate time proportionally to marks
-- Attempt all questions — no blanks
+## Who counts as a "consumer"
 
-### Last-Hour Revision Checklist
-- [ ] Reviewed all key definitions
-- [ ] Memorised important numbers and dates
-- [ ] Practised at least 10 previous year questions
-- [ ] Know the exceptions to main rules
-- [ ] Checked for any recent amendments or news
+✅ Buys goods/hires services for personal use
+✅ Beneficiary of goods/services bought by someone else
+❌ Buys for resale or commercial manufacturing purpose
 
-### Common Exam Questions Pattern
-1. Definition-based: "What is X?" — give precise definition + example
-2. Application-based: "In this scenario, what applies?" — identify rule + apply
-3. Comparison: "Difference between X and Y" — tabular format preferred
-4. Current affairs: "Recent development in X" — know last 6-12 months
+## Unfair trade practices (Section 2(47)) — quick list
 
-## Detailed Study Notes
+- False representation (quality, grade, standard, model)
+- False facts about a competitor's product
+- Bait/free-gift advertisements
+- Hoarding to raise prices
+- Spurious (fake) goods
+- Pyramid/MLM schemes
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+## Product liability — who's liable
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+| Party | Liable when |
+|---|---|
+| Manufacturer | Defective design, inadequate instructions/warnings |
+| Service provider | Incorrect repair/maintenance introduced the defect |
+| Seller | Knowingly sold defective product, or exercised substantial design control |
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+## Reliefs available
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
+Repair • Replace • Refund • Compensation for loss/injury • Removal of service deficiency • Punitive damages (only for conscious disregard of consumer rights, not ordinary negligence) • Discontinuation of unfair trade practice • Costs to complainant
 
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
+## CCPA at a glance
 
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
+- Regulator, not adjudicator — acts on systemic issues, not individual disputes
+- Suo motu power — no complainant required to act
+- Powers: investigate, recall products, cancel licences, penalties, safety notices
+- Covers misleading ads (incl. undisclosed influencer promotions) and dark patterns (false urgency, basket sneaking, confirm-shaming, forced renewal)
 
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
+`(needs verification — recheck against current source: CCPA guideline specifics and penalty amounts are periodically updated.)`
 
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+## Related statutes — quick distinction
+
+| Statute | Covers | Relationship to CPA 2019 |
+|---|---|---|
+| Sale of Goods Act, 1930 | Contractual sale relationship | CPA 2019 is an additional, faster remedy route, not a replacement |
+| Competition Act, 2002 | Market-level anti-competitive conduct | CPA 2019 handles individual-transaction harm from similar conduct |
+| IT Act, 2000 | E-commerce intermediary liability generally | CPA 2019's E-commerce Rules are a more specific consumer-facing layer |
+
+## Filing checklist
+
+1. Written notice to seller/service provider first
+2. File with the Commission matching pecuniary jurisdiction
+3. Include: complainant + opposite party details, facts, relief sought, supporting documents
+4. File within 2 years of cause of action
+5. Online: e-DAAKHIL portal (edaakhil.nic.in)

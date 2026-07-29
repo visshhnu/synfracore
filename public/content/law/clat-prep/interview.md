@@ -1,77 +1,21 @@
-# CLAT Preparation — Interview
+# CLAT Preparation — Practice Q&A
 
-Common Law Admission Test — legal reasoning, logical reasoning, English, GK/current affairs, and quantitative techniques.
+Strategy and approach questions — for worked practice-paper-style legal/logical reasoning questions themselves, see PYQ.
 
-Detailed content for interview of CLAT Preparation covering key concepts, practice questions, and exam preparation material.
+**Q: A student with no legal background is worried CLAT requires prior knowledge of Indian law. Is that true?**
+A: No — Legal Reasoning specifically tests application of a principle stated within the question itself, not prior knowledge of actual statutes (Fundamentals). A student with zero legal background who masters the read-principle-then-apply-to-facts method can outperform a law-familiar student who tries to answer from memorized legal knowledge instead of the stated principle — this is a deliberate design choice post-2020 (Advanced), not an oversight.
 
-## Key Topics
-This section covers the core interview content for CLAT Preparation. Work through the overview first, then fundamentals, intermediate, and advanced sections in order.
+**Q: How should someone allocate study time across the five sections if they're starting from scratch with roughly equal weakness in all of them?**
+A: Roughly track the marks weighting (Cheatsheets) rather than splitting evenly — Legal Reasoning and Current Affairs/GK carry the most marks, so proportionally more time there returns more score improvement per hour studied. Quantitative Techniques, despite feeling the most "masterable" to students with a strong school math background, is the lowest-weighted section and shouldn't consume disproportionate prep time on that basis alone (Intermediate).
 
-## Study Note
-For CLAT Preparation, focus on understanding principles and their application to fact scenarios — this is how both CLAT and judiciary exams test your knowledge.
+**Q: What's the single most common reason a well-prepared candidate underperforms on exam day?**
+A: Time mismanagement, not content gaps — spending too long perfecting individual questions in a lower-weighted section (often Quantitative Techniques, since it feels satisfying to "solve completely") at the expense of finishing the higher-weighted sections. The fix is practicing under strict timed conditions well before the actual exam, not just accumulating content knowledge, so the pacing instinct is already built by exam day rather than being figured out in real time under pressure.
 
-## Interview and Exam Q&A
+**Q: How do you handle a Legal Reasoning question where the "fair" answer and the mechanically correct answer seem to disagree?**
+A: Trust the mechanical application of the stated principle over instinct about fairness — CLAT principles are sometimes deliberately written to produce a counterintuitive result specifically to test whether a candidate follows the given rule or substitutes their own judgment (Advanced). The stolen-car example (PYQ Q2) is the clearest illustration: a good-faith buyer still loses because the stated principle doesn't carve out a good-faith exception, even though it might feel unfair.
 
-**Q: What are the most important concepts in this topic?**
-Focus on the foundational framework — definitions, key legislation or standards, the regulatory authority, and how the system works in practice. Examiners and interviewers test whether you understand the structure, not just isolated facts.
+**Q: Is it worth guessing on questions with negative marking if you have no idea at all?**
+A: Not on a pure cold guess with zero elimination — the -0.25 penalty makes a fully random 4-option guess expected-value neutral at best, and real (non-random) guessing bias tends to push it slightly negative over many attempts (Intermediate). It becomes worth guessing the moment you can eliminate even one implausible option, since that shifts the expected value positive — the rule of thumb is "eliminate before you guess," not "never guess" or "always guess."
 
-**Q: How do you approach an unfamiliar question in this domain?**
-Break it down systematically. Identify what category of question it is (definition, application, analysis, or evaluation). Apply the relevant framework. State your reasoning step by step. In objective exams, eliminate clearly wrong options before choosing.
-
-**Q: What common mistakes should you avoid?**
-Confusing similar terms or concepts. Applying general rules without checking for exceptions. Not reading the question carefully — many marks are lost by answering a different question than the one asked.
-
-**Q: How should you prepare for written/descriptive answers?**
-Structure your answers: Introduction (define and contextualise), Body (main points with examples), Conclusion (significance or way forward). Use subheadings where permitted. Aim for clarity over length.
-
-**Q: What current issues are important in this domain?**
-Stay updated with recent developments — new legislation, policy changes, landmark judgments, or recent exam results. Examiners reward candidates who show awareness of the current context.
-
-**Q: What is the best revision strategy for this topic?**
-Use the cheatsheet for last-minute review. Create your own one-page summary of key points. Teach the concept to someone else — if you can explain it clearly, you understand it well enough for the exam.
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+**Q: How much does the score-to-NLU mapping change year to year, and how should that affect prep?**
+A: It shifts meaningfully based on that year's paper difficulty and applicant pool (Advanced) — a specific raw-score target from a previous year is a rough historical reference point, not a fixed goal. The practical implication for prep is to focus on maximizing rank relative to that year's actual paper (via realistic full-length mocks close to exam conditions) rather than fixating on hitting a specific historical raw-score number that may not translate the same way in the current cycle.

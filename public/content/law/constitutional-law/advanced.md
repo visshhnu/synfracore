@@ -1,86 +1,53 @@
 # Constitutional Law — Advanced
 
-Indian Constitution structure, Preamble, Fundamental Rights, DPSP, Fundamental Duties, Amendment procedure, federal structure.
+This section follows the split established in Intermediate: Constitutional Law's advanced doctrines here, plus Criminal Law's procedural depth (BNSS, evidence), since most civil judge exams test both together as one paper group.
 
-Detailed content for advanced of Constitutional Law covering key concepts, practice questions, and exam preparation material.
+## Constitutional Law — Advanced Doctrines
 
-## Key Topics
-This section covers the core advanced content for Constitutional Law. Work through the overview first, then fundamentals, intermediate, and advanced sections in order.
+### Basic Structure, beyond Kesavananda
 
-## Study Note
-For Constitutional Law, focus on understanding principles and their application to fact scenarios — this is how both CLAT and judiciary exams test your knowledge.
+*Kesavananda Bharati* (1973) established the doctrine but didn't fix a closed list of "basic features" — subsequent cases added to it:
 
-## Expert-Level Mastery
-This section covers advanced topics, complex scenarios, and the depth required for competitive exams and professional practice.
+| Case | Year | Added to Basic Structure |
+|---|---|---|
+| Indira Gandhi v. Raj Narain | 1975 | Free and fair elections, rule of law |
+| Minerva Mills v. Union of India | 1980 | Limited amending power itself is a basic feature — struck down clauses of the 42nd Amendment that tried to give Art 368 unlimited amending power |
+| S.R. Bommai v. Union of India | 1994 | Federalism as basic structure — restricted arbitrary use of Art 356 (President's Rule) |
+| I.R. Coelho v. State of Tamil Nadu | 2007 | Laws placed in the Ninth Schedule after 24 April 1973 are still subject to basic-structure judicial review, closing a loophole the Ninth Schedule was previously used to exploit |
 
-## Advanced Topics
-- Complex multi-concept scenarios requiring integrated knowledge
-- Analytical and evaluative questions
-- Recent developments, amendments, and current issues
-- High-difficulty exam questions with detailed solutions
+The pattern worth understanding, not just memorizing: each case responded to a specific attempt by the legislature/executive to route around a Fundamental Right or judicial review using a different mechanism (constitutional amendment, Ninth Schedule immunity, President's Rule) — the doctrine has grown case-by-case specifically to close whichever loophole was being tested at the time.
 
-## Strategic Approach
-At the advanced level, strategy matters as much as knowledge:
-- Identify the question type and apply the right framework
-- Manage time — know when to move on and return later
-- Use elimination for objective questions
-- Structure long-answer responses clearly
+### Article 370 — abrogation and its constitutional basis
 
-## Exam Simulation
-Practise under timed conditions:
-- Set a timer and attempt full sections without breaks
-- Review every wrong answer with the source material
-- Track your accuracy by topic to identify weak areas
-- Repeat mock tests to build consistency
+Article 370 gave Jammu & Kashmir a special status (its own constitution, restricted Union legislative power over the state except defence/foreign affairs/communications). In August 2019, a Presidential Order (C.O. 272) applied all provisions of the Indian Constitution to J&K, and Article 370 was rendered inoperative; J&K was reorganized into two Union Territories via the Jammu and Kashmir Reorganisation Act, 2019. The Supreme Court upheld the abrogation in *In Re: Article 370* (December 2023), holding that J&K did not retain internal sovereignty after accession and that the President's power under Art 370(3) could be exercised without the recommendation of the (by-then-defunct) J&K Constituent Assembly. `(needs verification — recheck against current source: this remains a live, frequently-litigated area; confirm no subsequent bench has revisited scope before citing in exam answers.)`
 
-## Advanced Checklist
-- [ ] Can solve the hardest questions in this topic
-- [ ] Understand recent changes and current developments
-- [ ] Can teach the topic clearly to someone else
-- [ ] Mock exam score is consistently above 75%
+### Judicial Review — scope and limits
 
-## Detailed Study Notes
+Judicial review applies to legislative action (Art 13, 32, 226), executive action, and constitutional amendments (post-Kesavananda, only for basic-structure violations — not ordinary amendments). What it does *not* extend to: political questions traditionally left to the executive/legislature's discretion (though Indian courts have narrowed this "political question" exception considerably compared to, say, the US doctrine — matters like Art 356 imposition, once considered non-justiciable, were brought within judicial review scope by *Bommai*).
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+### Recent constitutional amendments worth knowing
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+- **101st Amendment (2016):** Introduced GST, added Art 279A (GST Council).
+- **103rd Amendment (2019):** Added 10% reservation for Economically Weaker Sections (EWS) in education and public employment, upheld by a 3:2 majority in *Janhit Abhiyan v. Union of India* (2022) — notable because the majority held that EWS reservation doesn't violate the basic structure even though it's based on economic criteria alone, departing from the traditional caste-based reservation framework.
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+## Criminal Law — Advanced: Procedure and Evidence
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
+### BNSS — key procedural safeguards for judiciary exams
 
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
+The Bharatiya Nagarik Suraksha Sanhita (BNSS) replaced the CrPC (as noted in Intermediate). Provisions most frequently tested:
 
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
+- **Arrest safeguards:** Grounds of arrest must be communicated (BNSS equivalent of erstwhile S.50 CrPC); a person arrested must be produced before a magistrate within 24 hours (excluding travel time) — a Constitutional safeguard under Art 22(2) as well as a statutory one, which is exactly why judiciary papers pair the two subjects.
+- **Bail:** Regular bail (post-arrest, applied to the court holding the accused), anticipatory bail (pre-arrest, apprehension of arrest), and default/statutory bail (accused's right to bail if chargesheet isn't filed within the prescribed period — 60 or 90 days depending on offence severity).
+- **Charge framing:** The stage at which a magistrate/sessions judge, after considering the chargesheet and materials, formally states the specific offence(s) the accused must answer — distinct from and after the cognizance stage.
 
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
+### Evidence Act — core admissibility principles
 
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+The Bharatiya Sakshya Adhiniyam (BSA) replaced the Indian Evidence Act, 1872, alongside BNS/BNSS. Concepts tested regardless of which Act's numbering a specific paper uses:
+
+- **Relevancy vs. admissibility:** Relevant facts (logically connected to the fact in issue) are not automatically admissible — admissibility is a separate legal gate (e.g., a relevant confession obtained through coercion is inadmissible under Art 20(3)'s protection against self-incrimination).
+- **Burden of proof:** Generally on the prosecution to prove guilt beyond reasonable doubt; shifts to the accused only in specific statutory exceptions (e.g., possession of stolen property recently after a theft, certain reverse-burden provisions in special statutes like the NDPS Act).
+- **Dying declaration:** An exception to the hearsay rule — a statement by a person as to the cause of their death is relevant even though the person isn't available for cross-examination, on the reasoning that a person facing death is unlikely to lie ("nemo moriturus praesumitur mentiri").
+
+### Where Constitutional and Criminal Law intersect in exam answers
+
+The strongest civil judge exam answers connect the two rather than treating them as separate silos: Art 20 (protection against double jeopardy, self-incrimination, ex-post-facto laws), Art 21 (procedure must be "just, fair and reasonable" — directly shapes how BNSS arrest/bail procedure is interpreted, per *Maneka Gandhi*), and Art 22 (arrest safeguards) are the constitutional backbone that BNSS's procedural provisions implement. An answer that cites only the BNSS section number without the constitutional provision it's giving effect to is missing half the expected analysis.

@@ -1,83 +1,31 @@
 # CLAT Preparation — Overview
 
-Common Law Admission Test — legal reasoning, logical reasoning, English, GK/current affairs, and quantitative techniques.
+## What is CLAT?
 
-Detailed content for overview of CLAT Preparation covering key concepts, practice questions, and exam preparation material.
+The Common Law Admission Test (CLAT) is the centralized entrance exam for admission to the 5-year integrated undergraduate law programs (BA LLB and similar) at India's National Law Universities (NLUs) — currently 24 NLUs participate through the CLAT Consortium, along with several other law schools and PSUs that accept CLAT scores separately. A separate CLAT PG exists for LLM admission, but "CLAT" without qualification generally refers to the UG exam.
 
-## Key Topics
-This section covers the core overview content for CLAT Preparation. Work through the overview first, then fundamentals, intermediate, and advanced sections in order.
+## Why it matters — what a CLAT score actually determines
 
-## Study Note
-For CLAT Preparation, focus on understanding principles and their application to fact scenarios — this is how both CLAT and judiciary exams test your knowledge.
+CLAT isn't pass/fail — it's a ranking exam, and the rank (not the raw score alone) determines which NLU and which specific seat a candidate is eligible for through the Consortium's centralized counselling process. A candidate who clears the qualifying percentage (Cheatsheets) but ranks outside a competitive band may still get *a* seat at a lower-ranked NLU, but not their preferred one — this is why CLAT preparation strategy is about maximizing rank, not just clearing a minimum bar.
 
-## Learning Path
-This section follows a structured approach from fundamentals to advanced topics. Each module builds on the previous one.
+## Exam structure — five sections
 
-## Who This Is For
-Students and professionals at all levels who want to build knowledge in this domain — whether for exam preparation, career advancement, or general knowledge.
+CLAT UG tests five sections in a single 2-hour, 150-question paper (see Cheatsheets for the exact marks-per-section breakdown and PYQ for worked examples of each type):
 
-## How to Study
-1. Start with the **Fundamentals** section to build a solid base
-2. Move to **Intermediate** for applied knowledge and scenarios
-3. Use **Advanced** for exam-level depth and complex topics
-4. Practise with **Interview Q&A** for exams and assessments
-5. Use the **Cheatsheet** for last-minute revision before the exam
+- **English Language** — passage-based comprehension, testing inference and understanding of the passage's argument, not vocabulary in isolation.
+- **Current Affairs & General Knowledge** — includes static GK but weighted toward current affairs with legal/constitutional relevance (landmark judgments, new legislation, constitutional amendments).
+- **Legal Reasoning** — a stated legal principle applied to a factual scenario; tests application of the principle, not prior knowledge of the actual law (see Fundamentals for why this distinction matters).
+- **Logical Reasoning** — syllogisms, analogies, series, critical reasoning — general aptitude reasoning, not legal-specific.
+- **Quantitative Techniques** — elementary mathematics (up to Class 10 level) presented through short passages/data, the smallest-weighted section.
 
-## Key Features of This Section
-- Structured notes aligned with official syllabus
-- Practice questions after key concepts
-- Cheatsheets for quick revision
-- Interview and exam Q&A format
-- Current and updated content
+## Section weighting and who this exam suits
 
-## Getting Started
-Click **Fundamentals** to begin your learning journey with this topic. Work systematically through each section for the best results.
+The section split (Cheatsheets has exact numbers) intentionally weights Legal Reasoning and Current Affairs/GK highest, English second, Logical Reasoning close behind, and Quantitative Techniques lowest — a candidate's overall prep time allocation should roughly track this weighting rather than spreading effort evenly across all five, since the marginal value of an extra study hour is highest on the heaviest-weighted sections.
 
-## Assessment Strategy
-For objective exams: understand > memorise. For descriptive/written exams: structure your answers clearly. For interviews: demonstrate reasoning, not just recall.
+## Application and exam timeline
 
-## Detailed Study Notes
+CLAT is conducted once a year, typically in December, with the application window opening several months earlier. `(needs verification — recheck against current source: exact dates are set annually by the Consortium; confirm the current year's notification before relying on any specific month.)` Eligibility for the UG program requires a minimum percentage at Class 12 (varies by category) with no upper age limit as of recent cycles — `(needs verification — recheck against current source: eligibility criteria have changed across cycles; confirm against the current year's official CLAT Consortium notification.)`
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+## How to use this technology's sections
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Start with Fundamentals to understand what each section is actually testing (the "principle-application, not prior legal knowledge" distinction for Legal Reasoning matters most here — it's the section most first-time test-takers misunderstand). Move to Intermediate for worked strategy across sections, Advanced for exam-pattern history and counselling process, and use PYQ alongside Cheatsheets for practice and quick reference respectively.

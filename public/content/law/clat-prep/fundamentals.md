@@ -1,81 +1,36 @@
 # CLAT Preparation — Fundamentals
 
-Common Law Admission Test — legal reasoning, logical reasoning, English, GK/current affairs, and quantitative techniques.
+## Legal Reasoning — the core method
 
-Detailed content for fundamentals of CLAT Preparation covering key concepts, practice questions, and exam preparation material.
+The single most misunderstood thing about CLAT's Legal Reasoning section: it does not test whether you already know the law. It tests whether you can apply a *given* principle to a *given* fact pattern correctly — the principle is stated in the question itself, every time. A candidate who has memorized actual statutes but doesn't practice the apply-the-stated-principle method will still struggle, and a candidate with no prior legal background can score well by mastering this method alone.
 
-## Key Topics
-This section covers the core fundamentals content for CLAT Preparation. Work through the overview first, then fundamentals, intermediate, and advanced sections in order.
+The method, step by step (see PYQ Q1–Q3 for worked examples):
+1. **Read the principle first, in isolation** — before looking at the facts, understand exactly what the principle states and what conditions trigger it.
+2. **Map the facts to the principle's specific conditions** — identify which fact satisfies which element of the principle; don't skip to "gut feel" about who should win.
+3. **Apply mechanically, even if the outcome feels unfair** — CLAT principles are sometimes deliberately stated in a way that produces a counterintuitive result (PYQ Q2's stolen-car example: the bona fide buyer still loses, because the principle as stated doesn't have a good-faith exception). The question is testing whether you follow the stated principle, not whether you'd personally think the outcome is just.
 
-## Study Note
-For CLAT Preparation, focus on understanding principles and their application to fact scenarios — this is how both CLAT and judiciary exams test your knowledge.
+## Logical Reasoning — the core patterns
 
-## Core Concepts
-This section covers the foundational knowledge required for this topic. Work through each concept systematically before moving to intermediate topics.
+CLAT's Logical Reasoning is general aptitude reasoning, not legal-specific, built from a small number of recurring patterns:
 
-## Key Principles
-- Understand the basic theory and definitions
-- Learn the regulatory framework and key bodies involved
-- Practice with simple examples before complex scenarios
-- Use the cheatsheet for quick reference during revision
+- **Syllogisms** (PYQ Q4–Q5): two or more statements about set relationships (all/some/no), followed by conclusions to evaluate as "follows" or "doesn't follow." The most common error is treating "some" as if it implies "all," or reversing a universal statement (Q5's "all pens are erasers" doesn't mean "all erasers are pens").
+- **Analogies and series**: identifying the relationship between a pair or sequence and applying it to a new case.
+- **Critical reasoning**: identifying assumptions, strengthening/weakening arguments, or spotting logical flaws in a short passage — distinct from syllogisms in that there's no strict formal logic to apply mechanically; it requires reading the argument's actual structure.
 
-## Getting Started
-Begin by reading the overview, then work through this fundamentals section. Each concept builds on the previous one. Do not skip ahead — the foundation matters.
+## English Language — what's actually tested
 
-## Self-Assessment
-After completing this section, you should be able to:
-- Define the core terms and concepts
-- Explain the basic structure and framework
-- Answer beginner-level questions on this topic
-- Identify the key regulations, acts, or standards that apply
+Passages are followed by questions on the author's main argument, inference, and tone — not vocabulary-in-isolation or grammar rules tested standalone. PYQ Q6 is representative: the correct answer requires identifying the passage's central claim (privacy as linked to dignity), not just finding a sentence that mentions "privacy" and "expensive" (option a is a distractor built from a word that appears in the passage but doesn't reflect its actual argument).
 
-## Common Beginner Questions
-**Q: Where should I start?** Start with the overview and this fundamentals section. Read official sources alongside these notes.
-**Q: How long will this take?** Budget 2-3 hours for a solid foundation.
-**Q: What resources supplement this?** Official textbooks, government websites, and exam-specific guides.
+## Current Affairs & GK — what to prioritize
 
-## Detailed Study Notes
+Given the section's legal/constitutional weighting (Overview), prioritize: recent landmark Supreme Court/High Court judgments, new legislation and constitutional amendments, appointments to constitutional bodies (CJI, Election Commission, etc.), and government schemes with legal/policy significance — over pure static GK (historical dates, geography) which is tested but weighted lower in practice than current, legally-relevant material.
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+## Quantitative Techniques — scope, not depth
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+This section tests elementary math (up to Class 10 level: percentages, ratios, basic algebra, simple data interpretation) presented through short data passages — the challenge is usually reading the data setup correctly under time pressure, not the underlying math being difficult. Given it's the lowest-weighted section (Overview), fundamentals-level competence is generally sufficient; it's not where additional prep time returns the most marginal score improvement.
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+## Getting started
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+1. Take one full PYQ-style paper cold, untimed, to identify which of the five sections is genuinely weakest before allocating study time.
+2. Master the Legal Reasoning method above first — it's both the highest-weighted section and the one most fixable with a clear method, unlike Current Affairs which requires sustained daily habit over months.
+3. Build a daily current-affairs reading habit early (a legal-news source, not general news) — this section can't be crammed effectively in the final weeks the way reasoning-method practice can.

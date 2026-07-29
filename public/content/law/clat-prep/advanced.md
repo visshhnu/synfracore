@@ -1,86 +1,24 @@
 # CLAT Preparation — Advanced
 
-Common Law Admission Test — legal reasoning, logical reasoning, English, GK/current affairs, and quantitative techniques.
+## The 2020 pattern shift — why older prep material can mislead
 
-Detailed content for advanced of CLAT Preparation covering key concepts, practice questions, and exam preparation material.
+CLAT changed format in 2020, moving from a static-knowledge-heavy exam (direct legal GK questions, testing whether you'd memorized specific provisions) to the current passage/principle-based reasoning format described throughout this technology. This matters practically: prep material and question banks written before 2020 often over-emphasize memorizing legal provisions directly, which is no longer the primary skill CLAT tests — Fundamentals' "apply the stated principle, don't rely on prior knowledge" framing is a direct consequence of this shift, not a general truism about legal exams. A candidate using older material without accounting for this can spend significant prep time on the wrong skill (rote legal knowledge) instead of the actually-tested one (reasoning application). `(needs verification — recheck against current source: confirm no further major pattern revisions since 2020 before relying on this framing for current-cycle prep.)`
 
-## Key Topics
-This section covers the core advanced content for CLAT Preparation. Work through the overview first, then fundamentals, intermediate, and advanced sections in order.
+## Handling genuinely ambiguous principle-fact questions
 
-## Study Note
-For CLAT Preparation, focus on understanding principles and their application to fact scenarios — this is how both CLAT and judiciary exams test your knowledge.
+Most Legal Reasoning questions have one clearly correct application (Fundamentals' method resolves them). A smaller number are deliberately written with two plausible readings — the advanced skill is recognizing *which kind* of ambiguity is in front of you:
 
-## Expert-Level Mastery
-This section covers advanced topics, complex scenarios, and the depth required for competitive exams and professional practice.
+- **Genuine two-step application** — the principle has an exception or qualifying clause that changes the outcome depending on a fact easy to miss on a first read (PYQ Q3's consideration exception is this type — missing "Exception 1" changes the answer entirely). The fix is re-reading the principle itself a second time before finalizing, not re-reading the facts.
+- **A deliberately counterintuitive but mechanically clear outcome** (PYQ Q2's stolen-car case) — there's no real ambiguity in application, but the "fair" instinctive answer and the "correct per the stated principle" answer diverge. The trap here is candidates second-guessing a mechanically correct answer because it feels wrong — advanced practice specifically includes drilling on principles designed to produce counterintuitive results, so the instinct to override the mechanical answer weakens with practice.
 
-## Advanced Topics
-- Complex multi-concept scenarios requiring integrated knowledge
-- Analytical and evaluative questions
-- Recent developments, amendments, and current issues
-- High-difficulty exam questions with detailed solutions
+## Score-to-rank relationship and why raw score targets shift yearly
 
-## Strategic Approach
-At the advanced level, strategy matters as much as knowledge:
-- Identify the question type and apply the right framework
-- Manage time — know when to move on and return later
-- Use elimination for objective questions
-- Structure long-answer responses clearly
+Overview notes CLAT is a ranking exam. Raw score cutoffs/targets for specific NLUs (e.g., a target score for NLU Delhi vs. NLU Bangalore, referenced in PYQ) shift year to year based on the specific paper's difficulty and the applicant pool that year — a fixed "target 110+" benchmark from a prior year is a rough historical reference, not a current guarantee, since an easier paper year raises the score needed for the same rank, and a harder paper year lowers it. `(needs verification — recheck against current source: confirm current-cycle cutoff trends against the CLAT Consortium's own published data, not a single prior year's figure.)`
 
-## Exam Simulation
-Practise under timed conditions:
-- Set a timer and attempt full sections without breaks
-- Review every wrong answer with the source material
-- Track your accuracy by topic to identify weak areas
-- Repeat mock tests to build consistency
+## NLU counselling — what happens after the score
 
-## Advanced Checklist
-- [ ] Can solve the hardest questions in this topic
-- [ ] Understand recent changes and current developments
-- [ ] Can teach the topic clearly to someone else
-- [ ] Mock exam score is consistently above 75%
+The CLAT Consortium conducts centralized counselling: candidates fill a preference list of NLUs in order of choice, and seats are allotted by a rank-based, category-aware allocation process across multiple rounds, with candidates able to "float" (stay in the process for a potentially better allotment in a later round) or "freeze" (accept the current allotment and exit the process). Missing a round's response deadline or mishandling the float/freeze choice can result in a worse outcome than the rank alone would suggest — this procedural layer is frequently under-prepared-for relative to how much it can affect the final outcome, since candidates focus overwhelmingly on the exam itself and treat counselling as an afterthought.
 
-## Detailed Study Notes
+## Last-mile revision strategy
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+In the final 2–3 weeks: shift from learning new material to full-length timed mock papers under real exam conditions (120 minutes, no interruptions), with a strict post-mock review process — for every wrong answer, categorize *why* it was wrong (method error vs. content gap vs. time-pressure rush) rather than just noting the correct answer. A method error (misapplied the Legal Reasoning steps) needs targeted redrilling of that method; a content gap (an unfamiliar current-affairs fact) needs a note added to the running current-affairs system (Intermediate); a time-pressure error needs pacing adjustment, not more content review. Treating all three as the same "get it right next time" fix wastes the limited final-weeks time on the wrong remedy.
