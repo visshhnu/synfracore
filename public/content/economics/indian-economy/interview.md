@@ -1,78 +1,19 @@
-# Indian Economy, Budget, and RBI Policy — Interview
+# Indian Economy — Practice Q&A
 
-Structured interview content for Indian Economy, Budget, and RBI Policy.
+**Q: Why are the 1991 reforms treated as a structural break rather than incremental policy change?**
+A: They were implemented rapidly under crisis conditions (a severe balance-of-payments crisis with critically low foreign exchange reserves) and fundamentally altered the government's economic role — from extensive direct control and industrial licensing (the "License Raj") toward a more market-oriented, competition-based model. The scale and speed of change, plus the fact that nearly every subsequent Indian economic trend is analyzed relative to this pre/post-1991 baseline, is why it's treated as a genuine turning point rather than gradual evolution.
 
-## Why Study Economics
-Economics is essential for UPSC GS Paper III, State PSC exams, banking exams (RBI Grade B), MBA entrance (XAT, IIFT), and understanding policy, markets, and business decisions.
+**Q: What replaced the Planning Commission, and how is the new approach fundamentally different?**
+A: NITI Aayog replaced the Planning Commission in 2015. Unlike the Planning Commission, which centrally allocated funds to states through Five Year Plans, NITI Aayog functions as a policy think-tank providing strategic advisory direction, without direct central fund allocation power — reflecting a shift toward more state autonomy and cooperative federalism, consistent with the broader post-1991 move away from centralized economic control.
 
-## Key Areas Covered
-- Core economic theory and concepts
-- Indian economic context and data
-- Government policy and recent developments
-- Exam-relevant applications and questions
+**Q: Why does India's shift toward a services-dominant economy raise employment concerns, given it has driven substantial GDP growth?**
+A: Services-sector growth, particularly in IT and business-process services, hasn't historically absorbed labor at the same scale industry-led growth has in other economies' development paths. Meanwhile, agriculture continues to employ a disproportionately large share of India's workforce relative to its shrinking GDP contribution, indicating low agricultural productivity per worker. This mismatch — GDP growth concentrated in a sector that doesn't employ proportionally as many people — is central to why aggregate growth hasn't automatically translated into broad-based employment and income gains.
 
-## Interview and Exam Q&A
+**Q: How can poverty reduction and rising inequality both be true statements about the same economy over the same period?**
+A: These aren't contradictory — poverty reduction (measured against a poverty-line consumption threshold) means absolute living standards have risen for many households, while inequality (measured through tools like the Gini coefficient or income-share analysis) captures the relative gap between top and bottom income groups. India's post-1991 experience shows growth lifting absolute living standards broadly while, by several measures, the relative gap between top and bottom income groups has also widened — both patterns can and have coexisted.
 
-**Q: What are the most important concepts in this topic?**
-Focus on the foundational framework — definitions, key legislation or standards, the regulatory authority, and how the system works in practice. Examiners and interviewers test whether you understand the structure, not just isolated facts.
+**Q: Is a large fiscal deficit always a policy problem?**
+A: Not inherently — the quality of what the deficit funds matters as much as its size. A deficit predominantly funding capital expenditure (infrastructure building future economic capacity) is generally viewed more favorably than one predominantly funding recurring revenue expenditure (subsidies, interest payments) that doesn't build future capacity. The same fiscal-deficit-to-GDP percentage can represent quite different underlying policy quality depending on this capital-versus-revenue expenditure composition.
 
-**Q: How do you approach an unfamiliar question in this domain?**
-Break it down systematically. Identify what category of question it is (definition, application, analysis, or evaluation). Apply the relevant framework. State your reasoning step by step. In objective exams, eliminate clearly wrong options before choosing.
-
-**Q: What common mistakes should you avoid?**
-Confusing similar terms or concepts. Applying general rules without checking for exceptions. Not reading the question carefully — many marks are lost by answering a different question than the one asked.
-
-**Q: How should you prepare for written/descriptive answers?**
-Structure your answers: Introduction (define and contextualise), Body (main points with examples), Conclusion (significance or way forward). Use subheadings where permitted. Aim for clarity over length.
-
-**Q: What current issues are important in this domain?**
-Stay updated with recent developments — new legislation, policy changes, landmark judgments, or recent exam results. Examiners reward candidates who show awareness of the current context.
-
-**Q: What is the best revision strategy for this topic?**
-Use the cheatsheet for last-minute review. Create your own one-page summary of key points. Teach the concept to someone else — if you can explain it clearly, you understand it well enough for the exam.
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+**Q: What problem does Direct Benefit Transfer (DBT) solve in India's welfare-scheme delivery?**
+A: DBT uses digital financial infrastructure — enabled by financial-inclusion efforts like expanded bank-account access — to transfer welfare benefits directly to beneficiaries' accounts, rather than routing benefits through intermediaries. This directly reduces the leakage and intermediary corruption that affected earlier, less digitally-enabled welfare-delivery mechanisms, making a given scheme's budgeted funds more likely to actually reach intended beneficiaries.

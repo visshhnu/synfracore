@@ -1,86 +1,21 @@
-# Macroeconomics and National Income — Intermediate
+# Macroeconomics — Intermediate
 
-Structured intermediate content for Macroeconomics and National Income.
+## The business cycle
 
-## Why Study Economics
-Economics is essential for UPSC GS Paper III, State PSC exams, banking exams (RBI Grade B), MBA entrance (XAT, IIFT), and understanding policy, markets, and business decisions.
+Applying Fundamentals' GDP and unemployment concepts over time: the **business cycle** describes the recurring pattern of economic expansion and contraction an economy experiences — **expansion** (rising real GDP, falling unemployment), **peak** (the high point before growth slows), **contraction/recession** (falling real GDP, typically defined as at least two consecutive quarters of decline, rising unemployment), and **trough** (the low point before recovery begins). Understanding the business cycle as a recurring pattern, not a one-time event, is what connects cyclical unemployment (Fundamentals) to the broader macroeconomic picture — cyclical unemployment rises specifically during the contraction phase and falls as the economy recovers.
 
-## Key Areas Covered
-- Core economic theory and concepts
-- Indian economic context and data
-- Government policy and recent developments
-- Exam-relevant applications and questions
+## The Phillips Curve — inflation and unemployment tradeoff
 
-## Building Deeper Understanding
-With the fundamentals in place, this section covers applied knowledge, real-world scenarios, and exam-level complexity.
+The (short-run) Phillips Curve describes an observed inverse relationship between inflation and unemployment: policies that stimulate the economy tend to reduce unemployment but increase inflation, and vice versa, creating an apparent tradeoff policymakers must navigate. This relationship isn't a fixed, permanent law, however — most modern macroeconomics accepts that the tradeoff largely disappears in the long run (the "long-run Phillips Curve" is often depicted as vertical, meaning monetary policy can't permanently reduce unemployment below its natural rate just by tolerating higher inflation), a genuinely important qualification tested at the intermediate/advanced level, since naively assuming a permanent tradeoff is a common misconception.
 
-## Applied Concepts
-- Connect foundational theory to practical applications
-- Understand how rules and principles interact in real cases
-- Analyse scenarios and draw reasoned conclusions
-- Identify exceptions, edge cases, and nuances
+## Aggregate demand and aggregate supply
 
-## Practice Approach
-At this level, practice is key. For each concept:
-1. Understand the principle
-2. See it applied to a sample problem
-3. Solve a practice problem independently
-4. Check your answer and understand any errors
+Extending Microeconomics' individual-market demand/supply framework to the whole economy: **aggregate demand (AD)** represents total spending in the economy at each price level (summing the same C+I+G+NX components as the GDP expenditure approach, Fundamentals), while **aggregate supply (AS)** represents total output firms are willing to produce at each price level. Economy-wide equilibrium occurs where AD and AS intersect, determining the overall price level and real GDP simultaneously — a demand-side shock (say, a fall in consumer confidence reducing consumption) shifts AD and affects both price level and output, while a supply-side shock (say, a spike in oil prices affecting production costs economy-wide) shifts AS instead, with different implications for the inflation/output tradeoff than a demand shock would produce.
 
-## Common Intermediate Mistakes
-- Applying rules without reading the full context
-- Missing exceptions or special cases
-- Confusing similar concepts or terms
-- Not practising enough past questions
+## Demand-pull vs. cost-push inflation, applied to AD-AS
 
-## Progress Check
-You are ready for advanced topics when you can:
-- Solve moderately difficult problems without looking at notes
-- Explain concepts to someone else
-- Identify the relevant framework for any given scenario
+Fundamentals introduces demand-pull and cost-push inflation as distinct causes; Intermediate maps them onto the AD-AS framework directly: demand-pull inflation corresponds to an outward shift of AD (more spending at every price level, pulling the price level up as the economy approaches capacity), while cost-push inflation corresponds to an inward shift of AS (higher production costs meaning less output is offered at every price level, pushing the price level up even as output falls) — this AS-shift mechanism is specifically why cost-push inflation is harder to address, since it can coincide with falling output and rising unemployment simultaneously (a combination sometimes called "stagflation"), a scenario standard demand-management policy struggles to address without worsening one problem while fixing the other.
 
-## Detailed Study Notes
+## Multiplier effect — why fiscal policy has amplified impact
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+An increase in government spending (a component of AD) doesn't just add its own value to GDP — it triggers a **multiplier effect**: the initial spending becomes income for someone, who then spends a portion of that additional income, becoming income for someone else, and so on, meaning a given fiscal stimulus can produce a total GDP increase larger than the initial spending amount. The multiplier's actual size depends on how much of each additional rupee of income gets spent rather than saved (the marginal propensity to consume) — this concept directly underlies Advanced's coverage of fiscal policy's practical effectiveness.

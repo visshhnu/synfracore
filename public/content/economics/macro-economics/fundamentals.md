@@ -1,82 +1,25 @@
-# Macroeconomics and National Income — Fundamentals
+# Macroeconomics — Fundamentals
 
-Structured fundamentals content for Macroeconomics and National Income.
+## GDP — the three measurement approaches, in detail
 
-## Why Study Economics
-Economics is essential for UPSC GS Paper III, State PSC exams, banking exams (RBI Grade B), MBA entrance (XAT, IIFT), and understanding policy, markets, and business decisions.
+- **Expenditure approach:** GDP = C (consumption) + I (investment) + G (government spending) + NX (net exports, i.e., exports minus imports). This is the most commonly cited formula and the one used in most headline GDP reporting.
+- **Income approach:** sums all income earned in the production process — wages paid to labor, profits earned by firms, rent earned on land/property, and interest earned on capital — since every rupee spent (expenditure approach) ultimately becomes income to someone in the economy.
+- **Output/value-added approach:** sums the value added at each production stage across all sectors (agriculture, industry, services), avoiding double-counting by measuring only the value each stage adds, not the full value of intermediate goods that get counted again at the next stage.
 
-## Key Areas Covered
-- Core economic theory and concepts
-- Indian economic context and data
-- Government policy and recent developments
-- Exam-relevant applications and questions
+## Nominal GDP vs. real GDP
 
-## Core Concepts
-This section covers the foundational knowledge required for this topic. Work through each concept systematically before moving to intermediate topics.
+**Nominal GDP** measures output at current prices, meaning it can rise simply because prices rose, even if actual physical output didn't increase. **Real GDP** adjusts for price-level changes (inflation), measuring output at constant prices from a chosen base year — this is why real GDP growth, not nominal GDP growth, is the standard measure of genuine economic growth. Confusing the two is a common error: a country reporting high nominal GDP growth during a high-inflation period may have much lower (or even negative) real GDP growth once inflation is accounted for.
 
-## Key Principles
-- Understand the basic theory and definitions
-- Learn the regulatory framework and key bodies involved
-- Practice with simple examples before complex scenarios
-- Use the cheatsheet for quick reference during revision
+## Inflation — measurement and causes
 
-## Getting Started
-Begin by reading the overview, then work through this fundamentals section. Each concept builds on the previous one. Do not skip ahead — the foundation matters.
+Inflation is typically measured using a **price index** — most commonly the Consumer Price Index (CPI, tracking a representative basket of consumer goods and services) or the Wholesale Price Index (WPI, tracking prices at the wholesale/producer level) — with the inflation rate calculated as the percentage change in the index over a period. Inflation's causes are broadly categorized as **demand-pull** (aggregate demand growing faster than the economy's productive capacity, pulling prices up) or **cost-push** (rising input costs, like oil prices, pushing production costs and therefore prices up independent of demand conditions) — this distinction matters because the appropriate policy response differs: demand-pull inflation is more directly addressable through demand-reducing monetary/fiscal policy, while cost-push inflation is harder to address through demand management alone.
 
-## Self-Assessment
-After completing this section, you should be able to:
-- Define the core terms and concepts
-- Explain the basic structure and framework
-- Answer beginner-level questions on this topic
-- Identify the key regulations, acts, or standards that apply
+## Unemployment — types and measurement
 
-## Common Beginner Questions
-**Q: Where should I start?** Start with the overview and this fundamentals section. Read official sources alongside these notes.
-**Q: How long will this take?** Budget 2-3 hours for a solid foundation.
-**Q: What resources supplement this?** Official textbooks, government websites, and exam-specific guides.
+Unemployment is measured as the share of the labor force (people working or actively seeking work) who are without work. Economists distinguish several types: **frictional unemployment** (temporary, from workers between jobs or new entrants searching), **structural unemployment** (from a mismatch between workers' skills and available jobs, often due to technological or economic structural change), and **cyclical unemployment** (from a general economic downturn reducing overall labor demand). This distinction matters for policy: cyclical unemployment responds to demand-stimulating fiscal/monetary policy, while structural unemployment requires different interventions (retraining, education) since the problem isn't insufficient demand but a skills/location mismatch.
 
-## Detailed Study Notes
+## Getting started
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+1. Master the expenditure-approach GDP formula (C+I+G+NX) as the anchor point — most macroeconomic policy discussions reference which of these four components a policy is trying to influence.
+2. Internalize the nominal-versus-real GDP distinction early — a large share of GDP-related exam questions and real-world economic reporting hinge on this distinction.
+3. Learn to classify inflation as demand-pull or cost-push, and unemployment as frictional/structural/cyclical, since these classifications directly determine which policy tool (Advanced) is the appropriate response.

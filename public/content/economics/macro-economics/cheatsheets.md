@@ -1,96 +1,62 @@
-# Macroeconomics and National Income — Cheatsheets
+# Macroeconomics — Cheatsheets
 
-Structured cheatsheets content for Macroeconomics and National Income.
+## GDP measurement approaches
 
-## Why Study Economics
-Economics is essential for UPSC GS Paper III, State PSC exams, banking exams (RBI Grade B), MBA entrance (XAT, IIFT), and understanding policy, markets, and business decisions.
+| Approach | Method |
+|---|---|
+| Expenditure | C + I + G + NX (consumption + investment + government spending + net exports) |
+| Income | Sum of wages + profits + rent + interest earned in production |
+| Output/value-added | Sum of value added at each production stage across sectors |
 
-## Key Areas Covered
-- Core economic theory and concepts
-- Indian economic context and data
-- Government policy and recent developments
-- Exam-relevant applications and questions
+## Nominal vs. real GDP
 
-## Quick Reference Summary
+| Property | Nominal GDP | Real GDP |
+|---|---|---|
+| Prices used | Current prices | Constant, base-year prices |
+| Reflects | Price changes + output changes | Output changes only |
+| Standard growth measure | No | Yes |
 
-### Key Facts at a Glance
-| Item | Key Information |
-|------|----------------|
-| Domain | See overview for full context |
-| Primary Authority | Relevant regulatory body |
-| Key Legislation | Main acts and regulations |
-| Exam Weight | Check specific exam syllabus |
-| Difficulty | Varies by subtopic |
+## Inflation types
 
-### Core Concepts to Remember
-- Fundamental definitions and terminology
-- Key regulatory framework and authority
-- Important dates, numbers, and thresholds
-- Exceptions and special cases
-- Recent developments and amendments
+| Type | Cause | AD-AS mechanism | Policy response |
+|---|---|---|---|
+| Demand-pull | AD grows faster than capacity | AD shifts outward | Demand-reducing monetary/fiscal policy |
+| Cost-push | Rising input costs | AS shifts inward | Harder — can coincide with falling output (stagflation) |
 
-### Exam Tips
-- Read every question twice before answering
-- For MCQs: eliminate wrong options first
-- For descriptive: structure > length
-- Allocate time proportionally to marks
-- Attempt all questions — no blanks
+## Unemployment types
 
-### Last-Hour Revision Checklist
-- [ ] Reviewed all key definitions
-- [ ] Memorised important numbers and dates
-- [ ] Practised at least 10 previous year questions
-- [ ] Know the exceptions to main rules
-- [ ] Checked for any recent amendments or news
+| Type | Cause | Responds to |
+|---|---|---|
+| Frictional | Workers between jobs / new entrants searching | Time (self-resolving) |
+| Structural | Skills/location mismatch | Retraining, education |
+| Cyclical | Economic downturn, weak demand | Demand-stimulating policy |
 
-### Common Exam Questions Pattern
-1. Definition-based: "What is X?" — give precise definition + example
-2. Application-based: "In this scenario, what applies?" — identify rule + apply
-3. Comparison: "Difference between X and Y" — tabular format preferred
-4. Current affairs: "Recent development in X" — know last 6-12 months
+## Business cycle phases
 
-## Detailed Study Notes
+| Phase | GDP | Unemployment |
+|---|---|---|
+| Expansion | Rising | Falling |
+| Peak | High point | Low point |
+| Contraction/Recession | Falling (2+ consecutive quarters) | Rising |
+| Trough | Low point | High point |
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+## Fiscal vs. monetary policy
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+| Property | Fiscal policy | Monetary policy |
+|---|---|---|
+| Controlled by | Government (spending/taxation) | Central bank (interest rates/money supply) |
+| Speed | Slower (legislative/budget process) | Faster (committee decision) |
+| Key risk | Crowding out, political constraints | — |
+| Expansionary tool | ↑ spending / ↓ taxes | ↓ interest rates |
+| Contractionary tool | ↓ spending / ↑ taxes | ↑ interest rates |
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+`(needs verification — recheck against current source: RBI policy rates and specific tool settings are revised periodically.)`
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
+## Key terms
 
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+| Term | Meaning |
+|---|---|
+| Multiplier effect | Initial spending amplified through rounds of re-spending |
+| Phillips Curve | Short-run inverse relationship between inflation and unemployment |
+| Crowding out | Government borrowing raising rates, discouraging private investment |
+| Central bank independence | Insulating monetary policy from short-term political pressure |

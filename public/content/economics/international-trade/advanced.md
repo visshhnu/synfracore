@@ -1,87 +1,17 @@
-# International Trade and Economic Relations — Advanced
+# International Trade — Advanced
 
-Structured advanced content for International Trade and Economic Relations.
+## The WTO — role and mechanism
 
-## Why Study Economics
-Economics is essential for UPSC GS Paper III, State PSC exams, banking exams (RBI Grade B), MBA entrance (XAT, IIFT), and understanding policy, markets, and business decisions.
+The **World Trade Organization** governs global trade rules among member countries, functioning through three primary mechanisms: negotiating and administering multilateral trade agreements (setting rules member countries agree to follow), providing a forum for trade negotiations, and — significantly — operating a **dispute settlement mechanism** allowing member countries to challenge other members' trade practices they believe violate WTO agreements, with binding rulings and (in principle) enforceable consequences for non-compliance. The WTO's core organizing principle is **most-favored-nation (MFN) treatment** — a member country generally must extend the same trade terms it gives to its most-favored trading partner to all other WTO members equally, preventing discriminatory bilateral trade arrangements outside of specific WTO-sanctioned exceptions (like regional trade agreements, Intermediate). `(needs verification — recheck against current source: WTO's current negotiating rounds, dispute-resolution caseload, and institutional effectiveness are subject to ongoing developments and debate.)`
 
-## Key Areas Covered
-- Core economic theory and concepts
-- Indian economic context and data
-- Government policy and recent developments
-- Exam-relevant applications and questions
+## FDI in India — trends and policy framework
 
-## Expert-Level Mastery
-This section covers advanced topics, complex scenarios, and the depth required for competitive exams and professional practice.
+Foreign Direct Investment into India is governed by a sector-specific policy framework — different sectors have different FDI caps and approval routes, ranging from **automatic route** (no prior government approval needed, subject to sectoral conditions) to sectors requiring **government approval route** (case-by-case clearance, typically for more sensitive sectors). Post-1991 liberalization (Indian Economy) progressively opened more sectors to higher FDI limits and automatic-route access, and FDI inflows are generally viewed favorably for bringing not just capital but also technology transfer, management expertise, and export-market access, distinguishing FDI's economic contribution from portfolio investment's more purely financial role. `(needs verification — recheck against current source: sector-specific FDI caps and approval-route classifications are periodically revised by government policy.)`
 
-## Advanced Topics
-- Complex multi-concept scenarios requiring integrated knowledge
-- Analytical and evaluative questions
-- Recent developments, amendments, and current issues
-- High-difficulty exam questions with detailed solutions
+## FII/FPI in India — volatility and policy sensitivity
 
-## Strategic Approach
-At the advanced level, strategy matters as much as knowledge:
-- Identify the question type and apply the right framework
-- Manage time — know when to move on and return later
-- Use elimination for objective questions
-- Structure long-answer responses clearly
+Foreign Institutional/Portfolio Investment (FII/FPI) — investment in Indian financial markets (equities, bonds) without seeking management control — differs from FDI in a critical practical dimension: FII/FPI capital is generally far more liquid and can exit rapidly in response to changing market sentiment, global interest-rate shifts, or country-specific risk perception, compared to FDI's typically longer-term, harder-to-reverse commitment (a factory or long-term ownership stake can't be liquidated as quickly as a stock or bond holding). This liquidity difference is why FII/FPI flows are watched closely as both an indicator of investor sentiment and a genuine source of exchange-rate and market volatility — large, rapid FII outflows can meaningfully pressure the rupee and domestic asset prices in a way FDI's stickier capital typically doesn't.
 
-## Exam Simulation
-Practise under timed conditions:
-- Set a timer and attempt full sections without breaks
-- Review every wrong answer with the source material
-- Track your accuracy by topic to identify weak areas
-- Repeat mock tests to build consistency
+## Globalization's broader effects — connecting the technology's threads
 
-## Advanced Checklist
-- [ ] Can solve the hardest questions in this topic
-- [ ] Understand recent changes and current developments
-- [ ] Can teach the topic clearly to someone else
-- [ ] Mock exam score is consistently above 75%
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+The advanced-level synthesis connecting BoP, trade policy, WTO, and FDI/FII material: globalization (the broad trend of increasing international economic integration, Indian Economy's 1991 LPG framework) manifests concretely through all of this technology's specific mechanisms — trade flows show up in the current account, capital flows (FDI/FII) show up in the capital account, WTO rules constrain the trade-policy tools available to pursue protectionist responses to BoP pressures, and exchange-rate movements (Fundamentals) both reflect and influence all of the above simultaneously. Reading a specific real-world trade or investment policy development through this integrated framework — which BoP component does it affect, does it comply with WTO obligations, is it targeting FDI or FII specifically — is a more durable analytical approach than treating each concept as an isolated topic.

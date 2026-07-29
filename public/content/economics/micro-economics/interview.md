@@ -1,78 +1,19 @@
-# Microeconomics Fundamentals — Interview
+# Microeconomics — Practice Q&A
 
-Structured interview content for Microeconomics Fundamentals.
+**Q: What's the difference between a movement along the demand curve and a shift of the demand curve?**
+A: A movement along the demand curve is caused solely by a change in the good's own price, holding all other factors constant — it's a change in quantity demanded at different points on the same curve. A shift of the entire demand curve is caused by a change in a non-price factor (income, consumer tastes, prices of related goods, expectations), producing a new demand curve entirely — at every price level, quantity demanded is now different than before. Confusing these two is one of the most common introductory-microeconomics errors.
 
-## Why Study Economics
-Economics is essential for UPSC GS Paper III, State PSC exams, banking exams (RBI Grade B), MBA entrance (XAT, IIFT), and understanding policy, markets, and business decisions.
+**Q: Why does a firm continue operating in the short run even if it isn't covering its total costs?**
+A: A firm's shutdown decision in the short run depends on whether revenue covers variable costs, not total costs — because fixed costs are sunk in the short run regardless of whether the firm produces or not. As long as revenue exceeds variable costs, continuing to operate contributes something toward covering fixed costs, which is better than shutting down and covering none of them. Only when revenue falls below variable costs does shutting down become the better choice.
 
-## Key Areas Covered
-- Core economic theory and concepts
-- Indian economic context and data
-- Government policy and recent developments
-- Exam-relevant applications and questions
+**Q: Why does a monopolist restrict output below the competitive level, and what economic problem does this create?**
+A: A monopolist faces the entire market demand curve, meaning producing more output requires lowering price on all units sold, not just the marginal unit — this makes it profit-maximizing to restrict output and charge a higher price than a competitive market would produce. This creates deadweight loss: some transactions that would benefit both buyer and seller (buyers willing to pay more than the marginal cost of production, but less than the monopoly price) simply don't happen, representing a measurable reduction in total economic welfare relative to the competitive outcome.
 
-## Interview and Exam Q&A
+**Q: How does price elasticity of demand affect a firm's pricing strategy?**
+A: A firm facing inelastic demand (few substitutes, or the good is a necessity) can raise prices with relatively little quantity loss, generally increasing total revenue. A firm facing elastic demand (many close substitutes available) faces the opposite tradeoff — raising price triggers a proportionally larger quantity decline, generally reducing total revenue. This is why firms selling goods with few substitutes have meaningfully more pricing power than firms in highly competitive, substitute-rich markets.
 
-**Q: What are the most important concepts in this topic?**
-Focus on the foundational framework — definitions, key legislation or standards, the regulatory authority, and how the system works in practice. Examiners and interviewers test whether you understand the structure, not just isolated facts.
+**Q: What's the connection between game theory and oligopoly?**
+A: In oligopoly, each firm's optimal decision depends on what its rivals do, creating genuine strategic interdependence rather than simple independent optimization — this is exactly the kind of situation game theory analyzes. Concepts like the prisoner's dilemma illustrate why oligopolists might find it individually rational to compete aggressively even when coordinated restraint would benefit all firms collectively, explaining both why cartels sometimes form and why they're often unstable even when collusion would be mutually beneficial.
 
-**Q: How do you approach an unfamiliar question in this domain?**
-Break it down systematically. Identify what category of question it is (definition, application, analysis, or evaluation). Apply the relevant framework. State your reasoning step by step. In objective exams, eliminate clearly wrong options before choosing.
-
-**Q: What common mistakes should you avoid?**
-Confusing similar terms or concepts. Applying general rules without checking for exceptions. Not reading the question carefully — many marks are lost by answering a different question than the one asked.
-
-**Q: How should you prepare for written/descriptive answers?**
-Structure your answers: Introduction (define and contextualise), Body (main points with examples), Conclusion (significance or way forward). Use subheadings where permitted. Aim for clarity over length.
-
-**Q: What current issues are important in this domain?**
-Stay updated with recent developments — new legislation, policy changes, landmark judgments, or recent exam results. Examiners reward candidates who show awareness of the current context.
-
-**Q: What is the best revision strategy for this topic?**
-Use the cheatsheet for last-minute review. Create your own one-page summary of key points. Teach the concept to someone else — if you can explain it clearly, you understand it well enough for the exam.
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+**Q: What are externalities, and why do they justify government intervention in an otherwise efficient market framework?**
+A: Externalities are costs or benefits of a transaction that affect third parties not directly involved in that transaction — pollution from a factory affecting nearby residents is a classic negative externality. Because these costs aren't reflected in the market price the factory and its customers actually pay, the market produces more of the polluting good than is socially optimal. This is the core economic justification for interventions like pollution taxes — not simply on fairness grounds, but because the intervention corrects a specific, identifiable market failure where prices don't reflect true social cost.

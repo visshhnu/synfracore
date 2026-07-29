@@ -1,82 +1,23 @@
-# Microeconomics Fundamentals — Fundamentals
+# Microeconomics — Fundamentals
 
-Structured fundamentals content for Microeconomics Fundamentals.
+## The demand curve
 
-## Why Study Economics
-Economics is essential for UPSC GS Paper III, State PSC exams, banking exams (RBI Grade B), MBA entrance (XAT, IIFT), and understanding policy, markets, and business decisions.
+The demand curve represents the relationship between a good's price and the quantity buyers are willing to purchase, holding other factors constant — it slopes downward, reflecting the **law of demand**: as price rises, quantity demanded falls (and vice versa), driven by both the substitution effect (buyers switching to relatively cheaper alternatives) and the income effect (a price rise effectively reducing buyers' real purchasing power). It's essential to distinguish a **movement along** the demand curve (caused by a price change) from a **shift of** the entire curve (caused by a change in a non-price factor — income, tastes, prices of related goods, or expectations) — this distinction is one of the most commonly tested conceptual points in introductory microeconomics.
 
-## Key Areas Covered
-- Core economic theory and concepts
-- Indian economic context and data
-- Government policy and recent developments
-- Exam-relevant applications and questions
+## The supply curve
 
-## Core Concepts
-This section covers the foundational knowledge required for this topic. Work through each concept systematically before moving to intermediate topics.
+The supply curve represents the relationship between a good's price and the quantity sellers are willing to offer, holding other factors constant — it slopes upward, reflecting the **law of supply**: as price rises, sellers are willing to supply more (since higher prices make production more profitable at the margin). The same movement-versus-shift distinction applies: a price change causes movement along the supply curve, while a change in input costs, technology, or the number of sellers shifts the entire curve.
 
-## Key Principles
-- Understand the basic theory and definitions
-- Learn the regulatory framework and key bodies involved
-- Practice with simple examples before complex scenarios
-- Use the cheatsheet for quick reference during revision
+## Market equilibrium
 
-## Getting Started
-Begin by reading the overview, then work through this fundamentals section. Each concept builds on the previous one. Do not skip ahead — the foundation matters.
+**Equilibrium** occurs where the demand and supply curves intersect — the price at which quantity demanded exactly equals quantity supplied, with no inherent tendency for price to change further. At any price above equilibrium, a **surplus** exists (quantity supplied exceeds quantity demanded), creating downward pressure on price as sellers compete to clear excess inventory; at any price below equilibrium, a **shortage** exists (quantity demanded exceeds quantity supplied), creating upward pressure on price. This self-correcting tendency toward equilibrium is a core microeconomic mechanism underlying how markets are argued to allocate resources efficiently absent intervention or market failure.
 
-## Self-Assessment
-After completing this section, you should be able to:
-- Define the core terms and concepts
-- Explain the basic structure and framework
-- Answer beginner-level questions on this topic
-- Identify the key regulations, acts, or standards that apply
+## Elasticity — measuring responsiveness
 
-## Common Beginner Questions
-**Q: Where should I start?** Start with the overview and this fundamentals section. Read official sources alongside these notes.
-**Q: How long will this take?** Budget 2-3 hours for a solid foundation.
-**Q: What resources supplement this?** Official textbooks, government websites, and exam-specific guides.
+**Price elasticity of demand** measures how responsive quantity demanded is to a price change, calculated as the percentage change in quantity demanded divided by the percentage change in price. Demand is **elastic** (elasticity magnitude greater than 1) when quantity demanded changes proportionally more than price — typical for goods with many substitutes or that represent a large share of a buyer's budget. Demand is **inelastic** (elasticity magnitude less than 1) when quantity demanded changes proportionally less than price — typical for necessities with few substitutes. This distinction matters practically: a seller facing inelastic demand can raise prices with relatively little quantity loss (and total revenue rises), while a seller facing elastic demand faces the opposite tradeoff (total revenue falls if price rises).
 
-## Detailed Study Notes
+## Getting started
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+1. Master the movement-along-versus-shift-of distinction for both demand and supply curves before anything else — a large share of introductory microeconomics questions test exactly this distinction in different framings.
+2. Understand equilibrium as a self-correcting process (surplus/shortage driving price toward equilibrium), not just a static intersection point to memorize.
+3. Learn to connect elasticity directly to real-world pricing decisions — understanding *why* elasticity matters for a firm's revenue strategy makes the concept far more retainable than the formula alone.

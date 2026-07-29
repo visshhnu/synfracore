@@ -1,78 +1,19 @@
-# International Trade and Economic Relations — Interview
+# International Trade — Practice Q&A
 
-Structured interview content for International Trade and Economic Relations.
+**Q: Why does comparative advantage justify trade even between a highly productive and a less productive economy?**
+A: Comparative advantage is about relative opportunity cost, not absolute efficiency — a country benefits from specializing in producing goods where its opportunity cost (what it gives up to produce that good, in terms of other goods) is relatively lower, even if it's less efficient in absolute terms at producing everything compared to its trading partner. Both countries can gain from trade by specializing according to comparative advantage and trading, which absolute-advantage reasoning (simply comparing raw productivity) doesn't fully explain.
 
-## Why Study Economics
-Economics is essential for UPSC GS Paper III, State PSC exams, banking exams (RBI Grade B), MBA entrance (XAT, IIFT), and understanding policy, markets, and business decisions.
+**Q: What's the accounting relationship between a country's current account and capital account, and what does it mean practically?**
+A: The current account and capital/financial account must balance together by construction — a current account deficit (importing more than exporting, in the broad current-account sense) must be financed by a net capital account inflow (net foreign investment) or a drawdown of foreign exchange reserves. Practically, this means a country running a persistent current account deficit needs sustained, healthy capital inflows (FDI, FII, or borrowing) to avoid depleting its reserves over time.
 
-## Key Areas Covered
-- Core economic theory and concepts
-- Indian economic context and data
-- Government policy and recent developments
-- Exam-relevant applications and questions
+**Q: Why might trade protection (tariffs, quotas) persist politically even when the aggregate economic case favors free trade?**
+A: This reflects a political-economy dynamic around how trade's costs and benefits are distributed — consumers broadly benefit from cheaper imports, but this benefit is diffuse and small per person, while domestic producers competing with imports bear concentrated costs like job losses in specific industries. Concentrated costs tend to generate more organized, vocal political pressure than diffuse benefits do, which helps explain why trade liberalization often faces political resistance even when it would improve aggregate economic efficiency.
 
-## Interview and Exam Q&A
+**Q: What's the key practical difference between FDI and FII/FPI from a policy-risk perspective?**
+A: FDI represents longer-term, harder-to-reverse investment (like building a factory or acquiring significant ownership stakes), making it a relatively stable, "sticky" form of capital. FII/FPI represents investment in financial assets like stocks and bonds, which is far more liquid and can exit rapidly in response to shifting market sentiment or global conditions. This is why large, rapid FII outflows can meaningfully pressure a country's currency and asset prices in a way FDI typically doesn't — the liquidity difference translates directly into a volatility difference.
 
-**Q: What are the most important concepts in this topic?**
-Focus on the foundational framework — definitions, key legislation or standards, the regulatory authority, and how the system works in practice. Examiners and interviewers test whether you understand the structure, not just isolated facts.
+**Q: What does most-favored-nation (MFN) treatment mean under WTO rules, and why does it matter?**
+A: MFN treatment requires a WTO member country to generally extend the same trade terms it gives its most-favored trading partner to all other WTO members equally, preventing discriminatory bilateral trade deals outside specific WTO-sanctioned exceptions like regional trade agreements. This matters because it's the WTO's core organizing principle for preventing a fragmented system of preferential bilateral deals that would undermine the goal of a more open, non-discriminatory multilateral trading system.
 
-**Q: How do you approach an unfamiliar question in this domain?**
-Break it down systematically. Identify what category of question it is (definition, application, analysis, or evaluation). Apply the relevant framework. State your reasoning step by step. In objective exams, eliminate clearly wrong options before choosing.
-
-**Q: What common mistakes should you avoid?**
-Confusing similar terms or concepts. Applying general rules without checking for exceptions. Not reading the question carefully — many marks are lost by answering a different question than the one asked.
-
-**Q: How should you prepare for written/descriptive answers?**
-Structure your answers: Introduction (define and contextualise), Body (main points with examples), Conclusion (significance or way forward). Use subheadings where permitted. Aim for clarity over length.
-
-**Q: What current issues are important in this domain?**
-Stay updated with recent developments — new legislation, policy changes, landmark judgments, or recent exam results. Examiners reward candidates who show awareness of the current context.
-
-**Q: What is the best revision strategy for this topic?**
-Use the cheatsheet for last-minute review. Create your own one-page summary of key points. Teach the concept to someone else — if you can explain it clearly, you understand it well enough for the exam.
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+**Q: How does a weaker domestic currency affect trade competitiveness, and is the effect immediate?**
+A: A weaker (depreciated) currency makes exports cheaper for foreign buyers and imports more expensive domestically, generally improving trade competitiveness over time. The effect isn't necessarily immediate, however — the J-curve concept describes how a currency depreciation can initially worsen the trade balance before improving it, since import and export volumes typically adjust more slowly to price changes than the exchange rate itself moves.

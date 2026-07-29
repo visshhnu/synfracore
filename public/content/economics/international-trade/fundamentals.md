@@ -1,82 +1,23 @@
-# International Trade and Economic Relations — Fundamentals
+# International Trade — Fundamentals
 
-Structured fundamentals content for International Trade and Economic Relations.
+## The Balance of Payments — current account in depth
 
-## Why Study Economics
-Economics is essential for UPSC GS Paper III, State PSC exams, banking exams (RBI Grade B), MBA entrance (XAT, IIFT), and understanding policy, markets, and business decisions.
+The **current account** records trade in goods (the traditional "trade balance" — exports minus imports of physical goods), trade in services (increasingly significant for India, given its large IT/business-services export sector), **income** (earnings on foreign investments, both received and paid), and **transfers** (remittances — money sent home by workers abroad, a substantial and economically significant component of India's current account given its large overseas workforce). A **current account deficit** means a country is importing more (goods, services, and net income/transfers combined) than it's exporting — not automatically a crisis, but a position that must be financed somehow, connecting directly to the capital account below.
 
-## Key Areas Covered
-- Core economic theory and concepts
-- Indian economic context and data
-- Government policy and recent developments
-- Exam-relevant applications and questions
+## The Balance of Payments — capital/financial account in depth
 
-## Core Concepts
-This section covers the foundational knowledge required for this topic. Work through each concept systematically before moving to intermediate topics.
+The **capital/financial account** records cross-border investment and financial flows: **FDI** (Foreign Direct Investment — investment establishing lasting management interest in a foreign enterprise, like a foreign company building a factory or acquiring significant ownership in a domestic firm) and **FII/FPI** (Foreign Institutional/Portfolio Investment — foreign investment in financial assets like stocks and bonds, without seeking management control). This account also includes external borrowing and changes in foreign exchange reserves. The current account and capital account together must balance by construction — a current account deficit is financed by a net capital account inflow (or reserve drawdown), which is why a country with a persistent current account deficit needs healthy, sustained capital inflows to avoid depleting its foreign exchange reserves.
 
-## Key Principles
-- Understand the basic theory and definitions
-- Learn the regulatory framework and key bodies involved
-- Practice with simple examples before complex scenarios
-- Use the cheatsheet for quick reference during revision
+## Foreign exchange markets — how exchange rates are determined
 
-## Getting Started
-Begin by reading the overview, then work through this fundamentals section. Each concept builds on the previous one. Do not skip ahead — the foundation matters.
+Currency exchange rates are determined in foreign exchange (forex) markets through the interaction of currency supply and demand — a currency's demand rises when foreigners want to buy that country's goods, services, or assets (requiring them to first buy that currency), and falls under the opposite conditions. Under a **floating exchange rate** regime (which India broadly follows, with periodic central bank intervention), the exchange rate adjusts based on these market forces rather than being fixed by government decree — a rising demand for rupees (from exports, FDI inflows, remittances) tends to appreciate the rupee, while a rising demand for foreign currency (from imports, capital outflows) tends to depreciate it.
 
-## Self-Assessment
-After completing this section, you should be able to:
-- Define the core terms and concepts
-- Explain the basic structure and framework
-- Answer beginner-level questions on this topic
-- Identify the key regulations, acts, or standards that apply
+## Why exchange rates matter for trade competitiveness
 
-## Common Beginner Questions
-**Q: Where should I start?** Start with the overview and this fundamentals section. Read official sources alongside these notes.
-**Q: How long will this take?** Budget 2-3 hours for a solid foundation.
-**Q: What resources supplement this?** Official textbooks, government websites, and exam-specific guides.
+A weaker (depreciated) domestic currency makes a country's exports cheaper for foreign buyers (in their own currency terms) and imports more expensive for domestic buyers — generally improving trade competitiveness, at least in the short run, though this effect isn't automatic or immediate (a concept sometimes discussed through the J-curve, where a currency depreciation can initially worsen the trade balance before improving it, since import/export volumes adjust more slowly than prices). A stronger (appreciated) currency has the opposite effect — cheaper imports, but less competitive exports. This is why exchange-rate movements are watched closely as both a symptom and a driver of a country's trade position.
 
-## Detailed Study Notes
+## Getting started
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+1. Master the BoP's current-account/capital-account split and the fact that they must balance together — this accounting identity underlies nearly every subsequent concept in this technology.
+2. Understand exchange rates as market-determined outcomes of currency supply and demand, not arbitrary numbers — connecting exchange-rate movements back to trade flows and capital flows driving them.
+3. Learn the weaker-currency-improves-export-competitiveness relationship as directional intuition, while recognizing (via the J-curve concept) that this relationship isn't instantaneous or automatic in every circumstance.

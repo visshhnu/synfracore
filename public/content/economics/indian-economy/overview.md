@@ -1,84 +1,30 @@
-# Indian Economy, Budget, and RBI Policy — Overview
+# Indian Economy — Overview
 
-Structured overview content for Indian Economy, Budget, and RBI Policy.
+## What this technology covers
 
-## Why Study Economics
-Economics is essential for UPSC GS Paper III, State PSC exams, banking exams (RBI Grade B), MBA entrance (XAT, IIFT), and understanding policy, markets, and business decisions.
+Indian Economy covers India-specific economic structure and policy: economic planning history (Five Year Plans through NITI Aayog's current planning approach), the 1991 economic reforms and their lasting structural impact, the sectoral composition of the Indian economy (agriculture, industry, services), poverty and inequality measurement and trends, the Union Budget process, and major government welfare/development schemes. This technology applies Macroeconomics' general frameworks (GDP, inflation, fiscal policy) to India's specific economic history and current structure, rather than re-explaining those general frameworks from scratch.
 
-## Key Areas Covered
-- Core economic theory and concepts
-- Indian economic context and data
-- Government policy and recent developments
-- Exam-relevant applications and questions
+## Why it matters
 
-## Learning Path
-This section follows a structured approach from fundamentals to advanced topics. Each module builds on the previous one.
+Indian Economy is where general macroeconomic theory meets India-specific policy reality — understanding why the 1991 reforms mattered, how India's sectoral composition has shifted over decades, and how the Union Budget and major schemes actually function is essential both for competitive exams (UPSC/State PSC's heaviest-weighted economics content is typically India-specific, not generic theory) and for informed engagement with ongoing Indian economic policy debates.
 
-## Who This Is For
-Students and professionals at all levels who want to build knowledge in this domain — whether for exam preparation, career advancement, or general knowledge.
+## Economic planning — a quick map
 
-## How to Study
-1. Start with the **Fundamentals** section to build a solid base
-2. Move to **Intermediate** for applied knowledge and scenarios
-3. Use **Advanced** for exam-level depth and complex topics
-4. Practise with **Interview Q&A** for exams and assessments
-5. Use the **Cheatsheet** for last-minute revision before the exam
+| Era | Approach |
+|---|---|
+| 1951–2014 | Five Year Plans (centralized planning commission-led allocation) |
+| 2015–present | NITI Aayog (National Institution for Transforming India) — a policy think-tank replacing centralized plan-based allocation with a more advisory, cooperative-federalism approach |
 
-## Key Features of This Section
-- Structured notes aligned with official syllabus
-- Practice questions after key concepts
-- Cheatsheets for quick revision
-- Interview and exam Q&A format
-- Current and updated content
+This shift reflects a broader move away from centralized planning toward a more market-oriented, state-collaborative policy approach — directly connected to the 1991 reforms' broader liberalization direction.
 
-## Getting Started
-Click **Fundamentals** to begin your learning journey with this topic. Work systematically through each section for the best results.
+## 1991 reforms — the structural turning point
 
-## Assessment Strategy
-For objective exams: understand > memorise. For descriptive/written exams: structure your answers clearly. For interviews: demonstrate reasoning, not just recall.
+India's 1991 economic reforms, triggered by a balance-of-payments crisis, introduced **LPG** — **Liberalization** (reducing government regulation and licensing requirements on private business, the "License Raj"), **Privatization** (reducing state ownership/control in favor of private enterprise in various sectors), and **Globalization** (opening the economy to foreign trade and investment) — marking a fundamental shift from India's earlier more closed, state-directed economic model. Understanding 1991 as a structural turning point, not an incremental policy adjustment, is essential context for nearly every subsequent Indian Economy topic, since post-1991 economic trends are frequently explained relative to this reform baseline.
 
-## Detailed Study Notes
+## Exam and career relevance
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+Indian Economy is the single heaviest-weighted economics topic area across UPSC Prelims/Mains, State PSC exams, and RBI Grade B — India-specific content consistently outweighs generic economic theory in these exams' actual question distribution.
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+## How to use this technology's sections
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Fundamentals covers economic planning history and the 1991 reforms in depth. Intermediate applies these to sectoral composition and poverty/inequality trends. Advanced covers the Union Budget process and major government schemes. Interview and Cheatsheets provide exam-format practice and quick reference.

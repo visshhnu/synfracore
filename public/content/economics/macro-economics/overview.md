@@ -1,84 +1,31 @@
-# Macroeconomics and National Income — Overview
+# Macroeconomics — Overview
 
-Structured overview content for Macroeconomics and National Income.
+## What this technology covers
 
-## Why Study Economics
-Economics is essential for UPSC GS Paper III, State PSC exams, banking exams (RBI Grade B), MBA entrance (XAT, IIFT), and understanding policy, markets, and business decisions.
+Macroeconomics covers the study of the economy as a whole, rather than individual markets or decision-makers (Microeconomics' focus): national income accounting (GDP and its components), inflation and unemployment, and the two primary policy levers governments and central banks use to influence economic outcomes — fiscal policy (government spending and taxation) and monetary policy (central bank management of money supply and interest rates). This technology assumes Microeconomics' demand/supply framework as background, extending it from individual markets to economy-wide aggregate demand and supply.
 
-## Key Areas Covered
-- Core economic theory and concepts
-- Indian economic context and data
-- Government policy and recent developments
-- Exam-relevant applications and questions
+## Why it matters
 
-## Learning Path
-This section follows a structured approach from fundamentals to advanced topics. Each module builds on the previous one.
+Macroeconomic indicators — GDP growth, inflation rate, unemployment rate — are the headline numbers used to assess an economy's health and directly shape government policy decisions and public discourse. Understanding how these indicators are measured, what causes them to move, and how fiscal and monetary policy attempt to influence them is essential not just for economics exams but for interpreting real-world economic news and policy debates, including India's own RBI monetary policy announcements and Union Budget fiscal decisions (covered in more India-specific depth in Indian Economy).
 
-## Who This Is For
-Students and professionals at all levels who want to build knowledge in this domain — whether for exam preparation, career advancement, or general knowledge.
+## Core concepts — a quick map
 
-## How to Study
-1. Start with the **Fundamentals** section to build a solid base
-2. Move to **Intermediate** for applied knowledge and scenarios
-3. Use **Advanced** for exam-level depth and complex topics
-4. Practise with **Interview Q&A** for exams and assessments
-5. Use the **Cheatsheet** for last-minute revision before the exam
+| Concept | What it measures/does |
+|---|---|
+| GDP (Gross Domestic Product) | Total value of goods and services produced in an economy over a period |
+| Inflation | The rate at which the general price level rises over time |
+| Unemployment | The share of the labor force without work but actively seeking it |
+| Fiscal policy | Government use of spending and taxation to influence the economy |
+| Monetary policy | Central bank use of money supply and interest rates to influence the economy |
 
-## Key Features of This Section
-- Structured notes aligned with official syllabus
-- Practice questions after key concepts
-- Cheatsheets for quick revision
-- Interview and exam Q&A format
-- Current and updated content
+## GDP — measuring the whole economy
 
-## Getting Started
-Click **Fundamentals** to begin your learning journey with this topic. Work systematically through each section for the best results.
+GDP can be measured through three theoretically equivalent approaches: the **expenditure approach** (summing consumption, investment, government spending, and net exports), the **income approach** (summing wages, profits, rents, and other income earned in production), and the **output approach** (summing the value added at each stage of production across all sectors). These three approaches should, in principle, produce the same total GDP figure — a foundational point for understanding why GDP is described as measuring the economy "from three different angles" that all converge on the same underlying quantity of economic activity.
 
-## Assessment Strategy
-For objective exams: understand > memorise. For descriptive/written exams: structure your answers clearly. For interviews: demonstrate reasoning, not just recall.
+## Exam and career relevance
 
-## Detailed Study Notes
+Macroeconomics is core syllabus for UPSC/State PSC economics papers, RBI Grade B and other central-bank-adjacent exams, and foundational for careers in economic policy analysis, central banking, and macro research.
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+## How to use this technology's sections
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Fundamentals covers GDP measurement and the basic inflation/unemployment concepts. Intermediate applies these to the business cycle and the relationship between inflation and unemployment. Advanced covers fiscal and monetary policy mechanics in depth. Interview and Cheatsheets provide exam-format practice and quick reference.

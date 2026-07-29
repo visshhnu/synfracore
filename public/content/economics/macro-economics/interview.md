@@ -1,78 +1,19 @@
-# Macroeconomics and National Income — Interview
+# Macroeconomics — Practice Q&A
 
-Structured interview content for Macroeconomics and National Income.
+**Q: Why can nominal GDP growth overstate an economy's actual growth?**
+A: Nominal GDP measures output at current prices, so it can rise simply because prices rose (inflation), even without any real increase in physical output. Real GDP adjusts for price-level changes, measuring output at constant base-year prices, which is why real GDP growth — not nominal — is the standard measure of genuine economic growth. A country with high nominal GDP growth during a high-inflation period could have much lower or even negative real GDP growth once inflation is factored out.
 
-## Why Study Economics
-Economics is essential for UPSC GS Paper III, State PSC exams, banking exams (RBI Grade B), MBA entrance (XAT, IIFT), and understanding policy, markets, and business decisions.
+**Q: What's the difference between demand-pull and cost-push inflation, and why does the distinction matter for policy?**
+A: Demand-pull inflation occurs when aggregate demand grows faster than the economy's productive capacity, pulling prices up — it corresponds to an outward shift of the aggregate demand curve and is directly addressable through demand-reducing monetary/fiscal policy. Cost-push inflation occurs when rising input costs push production costs and prices up independent of demand — it corresponds to an inward shift of aggregate supply, and is harder to address through demand management alone since it can coincide with falling output and rising unemployment (stagflation), a combination standard demand-side policy struggles to fix without worsening one problem while addressing the other.
 
-## Key Areas Covered
-- Core economic theory and concepts
-- Indian economic context and data
-- Government policy and recent developments
-- Exam-relevant applications and questions
+**Q: Does the Phillips Curve mean policymakers can permanently choose lower unemployment by tolerating slightly higher inflation?**
+A: No — this is a common misconception. The apparent inflation-unemployment tradeoff described by the Phillips Curve mostly holds in the short run. In the long run, most modern macroeconomics holds that this tradeoff largely disappears — monetary policy can't permanently push unemployment below its natural rate just by accepting higher inflation, since expectations adjust over time and the short-run tradeoff erodes.
 
-## Interview and Exam Q&A
+**Q: Why is monetary policy generally faster to respond to economic conditions than fiscal policy?**
+A: A central bank's monetary policy committee can adjust interest rates relatively quickly and doesn't need to pass through a legislative or budgetary process. Fiscal policy changes — spending or tax adjustments — typically require legislative approval and budget cycles, creating longer implementation lags. This speed difference is a major reason many economies lean more heavily on monetary policy for short-run stabilization, reserving fiscal policy for larger structural interventions or exceptionally severe downturns.
 
-**Q: What are the most important concepts in this topic?**
-Focus on the foundational framework — definitions, key legislation or standards, the regulatory authority, and how the system works in practice. Examiners and interviewers test whether you understand the structure, not just isolated facts.
+**Q: What is "crowding out," and why does it limit fiscal policy's effectiveness?**
+A: Crowding out occurs when government borrowing to fund increased spending raises interest rates, which in turn discourages private investment — since higher borrowing costs make private investment projects less attractive. This partially offsets the intended stimulative effect of the fiscal expansion, meaning the net GDP impact of a fiscal stimulus can be smaller than the multiplier effect alone would suggest, since increased government spending is partly offset by reduced private spending.
 
-**Q: How do you approach an unfamiliar question in this domain?**
-Break it down systematically. Identify what category of question it is (definition, application, analysis, or evaluation). Apply the relevant framework. State your reasoning step by step. In objective exams, eliminate clearly wrong options before choosing.
-
-**Q: What common mistakes should you avoid?**
-Confusing similar terms or concepts. Applying general rules without checking for exceptions. Not reading the question carefully — many marks are lost by answering a different question than the one asked.
-
-**Q: How should you prepare for written/descriptive answers?**
-Structure your answers: Introduction (define and contextualise), Body (main points with examples), Conclusion (significance or way forward). Use subheadings where permitted. Aim for clarity over length.
-
-**Q: What current issues are important in this domain?**
-Stay updated with recent developments — new legislation, policy changes, landmark judgments, or recent exam results. Examiners reward candidates who show awareness of the current context.
-
-**Q: What is the best revision strategy for this topic?**
-Use the cheatsheet for last-minute review. Create your own one-page summary of key points. Teach the concept to someone else — if you can explain it clearly, you understand it well enough for the exam.
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+**Q: Why do many countries design their central banks to be independent from direct government control over monetary policy?**
+A: The argument for central bank independence is that politically-influenced monetary policy risks prioritizing short-term stimulus — helpful for immediate political popularity — over long-run price stability, since the inflationary costs of excessive stimulus typically materialize after the political benefit has already been captured. Independence is meant to insulate monetary policy decisions from this short-term political pressure, even though the government retains other economic policy levers like fiscal policy.

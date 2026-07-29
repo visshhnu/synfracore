@@ -1,86 +1,21 @@
-# Indian Economy, Budget, and RBI Policy — Intermediate
+# Indian Economy — Intermediate
 
-Structured intermediate content for Indian Economy, Budget, and RBI Policy.
+## Sectoral composition — the structural shift since 1991
 
-## Why Study Economics
-Economics is essential for UPSC GS Paper III, State PSC exams, banking exams (RBI Grade B), MBA entrance (XAT, IIFT), and understanding policy, markets, and business decisions.
+India's economy is conventionally divided into three sectors — **agriculture** (primary sector), **industry** (secondary sector, including manufacturing), and **services** (tertiary sector) — and the relative contribution of each to GDP has shifted substantially in the post-1991 period: services now contribute the largest share of India's GDP, a shift often described as India "skipping" the manufacturing-led industrialization phase many other economies went through, moving more directly from an agriculture-dominant structure toward a services-dominant one. This pattern is frequently discussed as both a distinctive feature of India's growth story and a policy concern — since services-sector growth (particularly IT and business-process services) hasn't historically generated employment at the same scale industry-led growth in other economies did, a mismatch relevant to Indian Economy's poverty and inequality material below. `(needs verification — recheck against current source: current sectoral GDP contribution percentages are updated with each release of national accounts data.)`
 
-## Key Areas Covered
-- Core economic theory and concepts
-- Indian economic context and data
-- Government policy and recent developments
-- Exam-relevant applications and questions
+## Agriculture's continued employment weight despite falling GDP share
 
-## Building Deeper Understanding
-With the fundamentals in place, this section covers applied knowledge, real-world scenarios, and exam-level complexity.
+Despite agriculture's declining share of GDP, it continues to employ a disproportionately large share of India's workforce relative to its GDP contribution — meaning agricultural productivity per worker remains comparatively low relative to industry and services. This gap is central to understanding rural poverty and the broader structural transformation challenge facing Indian economic policy: shifting workers out of low-productivity agriculture into higher-productivity industry or services employment (not just growing industry/services GDP in isolation) is widely treated as necessary for translating aggregate GDP growth into broad-based income improvement.
 
-## Applied Concepts
-- Connect foundational theory to practical applications
-- Understand how rules and principles interact in real cases
-- Analyse scenarios and draw reasoned conclusions
-- Identify exceptions, edge cases, and nuances
+## Poverty measurement in India
 
-## Practice Approach
-At this level, practice is key. For each concept:
-1. Understand the principle
-2. See it applied to a sample problem
-3. Solve a practice problem independently
-4. Check your answer and understand any errors
+India has used multiple poverty-measurement approaches over time, most centrally organized around a **poverty line** — a minimum consumption expenditure threshold below which a household is classified as poor — historically calculated separately for rural and urban areas given differing costs of living, and periodically revised based on expert committee recommendations (such as the Tendulkar and Rangarajan committees, which proposed different methodologies and resulting poverty-line estimates). More recent approaches also incorporate **multidimensional poverty** measures (assessing deprivation across health, education, and living standards simultaneously, not just income/consumption alone), reflecting a broader view that poverty isn't fully captured by consumption expenditure thresholds alone. `(needs verification — recheck against current source: current official poverty-line methodology and multidimensional poverty index specifics are periodically revised by NITI Aayog and related bodies.)`
 
-## Common Intermediate Mistakes
-- Applying rules without reading the full context
-- Missing exceptions or special cases
-- Confusing similar concepts or terms
-- Not practising enough past questions
+## Inequality — measurement and trends
 
-## Progress Check
-You are ready for advanced topics when you can:
-- Solve moderately difficult problems without looking at notes
-- Explain concepts to someone else
-- Identify the relevant framework for any given scenario
+Economic inequality in India is commonly measured using the **Gini coefficient** (a standard summary measure of income or consumption distribution inequality, ranging from 0 representing perfect equality to 1 representing perfect inequality) alongside income-share analyses (comparing the share of national income captured by top versus bottom population deciles). A widely discussed post-1991 pattern is that aggregate poverty reduction has generally continued alongside rising inequality by several measures — meaning economic growth has lifted absolute living standards for many while the relative gap between top and bottom income groups has, by several measures, widened, a nuanced point that resists a simple "growth is good" or "growth increases inequality" framing and is frequently tested through applied-reasoning rather than pure definitional questions.
 
-## Detailed Study Notes
+## Connecting sectoral structure to poverty/inequality outcomes
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+The advanced-level thread connecting this file's material: India's sectoral shift toward services (this file, above) has generated substantial aggregate GDP growth, but because services growth hasn't absorbed labor at the same scale industry-led growth historically has in other economies, the employment and income gains from this growth haven't been evenly distributed across the workforce — directly relevant to why poverty reduction and rising inequality have coexisted in India's recent economic history, rather than being contradictory observations.

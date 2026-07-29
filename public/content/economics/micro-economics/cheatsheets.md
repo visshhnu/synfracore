@@ -1,96 +1,51 @@
-# Microeconomics Fundamentals — Cheatsheets
+# Microeconomics — Cheatsheets
 
-Structured cheatsheets content for Microeconomics Fundamentals.
+## Demand and supply quick reference
 
-## Why Study Economics
-Economics is essential for UPSC GS Paper III, State PSC exams, banking exams (RBI Grade B), MBA entrance (XAT, IIFT), and understanding policy, markets, and business decisions.
+| Concept | Definition |
+|---|---|
+| Law of demand | Price ↑ → quantity demanded ↓ (inverse relationship) |
+| Law of supply | Price ↑ → quantity supplied ↑ (direct relationship) |
+| Equilibrium | Price/quantity where demand and supply curves intersect |
+| Surplus | Price above equilibrium — quantity supplied > quantity demanded |
+| Shortage | Price below equilibrium — quantity demanded > quantity supplied |
 
-## Key Areas Covered
-- Core economic theory and concepts
-- Indian economic context and data
-- Government policy and recent developments
-- Exam-relevant applications and questions
+## Elasticity quick reference
 
-## Quick Reference Summary
+| Elasticity value | Meaning | Revenue effect of price increase |
+|---|---|---|
+| Elastic (>1) | Quantity change % > price change % | Total revenue falls |
+| Unit elastic (=1) | Quantity change % = price change % | Total revenue unchanged |
+| Inelastic (<1) | Quantity change % < price change % | Total revenue rises |
 
-### Key Facts at a Glance
-| Item | Key Information |
-|------|----------------|
-| Domain | See overview for full context |
-| Primary Authority | Relevant regulatory body |
-| Key Legislation | Main acts and regulations |
-| Exam Weight | Check specific exam syllabus |
-| Difficulty | Varies by subtopic |
+## Consumer/production theory glossary
 
-### Core Concepts to Remember
-- Fundamental definitions and terminology
-- Key regulatory framework and authority
-- Important dates, numbers, and thresholds
-- Exceptions and special cases
-- Recent developments and amendments
+| Term | Meaning |
+|---|---|
+| Marginal utility | Additional satisfaction from one more unit consumed |
+| Diminishing marginal utility | Each additional unit provides less satisfaction than the last |
+| Substitution effect | Quantity change from relative price change alone |
+| Income effect | Quantity change from real purchasing power change |
+| Normal good | Consumed more as income rises |
+| Inferior good | Consumed less as income rises |
+| Fixed cost | Doesn't vary with output (e.g. rent) |
+| Variable cost | Scales with output (e.g. raw materials) |
 
-### Exam Tips
-- Read every question twice before answering
-- For MCQs: eliminate wrong options first
-- For descriptive: structure > length
-- Allocate time proportionally to marks
-- Attempt all questions — no blanks
+## Market structure comparison
 
-### Last-Hour Revision Checklist
-- [ ] Reviewed all key definitions
-- [ ] Memorised important numbers and dates
-- [ ] Practised at least 10 previous year questions
-- [ ] Know the exceptions to main rules
-- [ ] Checked for any recent amendments or news
+| Structure | Number of firms | Product | Pricing power | Long-run profit |
+|---|---|---|---|---|
+| Perfect competition | Many | Identical | None (price taker) | Zero economic profit |
+| Monopolistic competition | Many | Differentiated | Some | Low, competed away over time |
+| Oligopoly | Few | Similar or differentiated | Significant, interdependent | Can be sustained |
+| Monopoly | One | Unique | Full | Can be sustained |
 
-### Common Exam Questions Pattern
-1. Definition-based: "What is X?" — give precise definition + example
-2. Application-based: "In this scenario, what applies?" — identify rule + apply
-3. Comparison: "Difference between X and Y" — tabular format preferred
-4. Current affairs: "Recent development in X" — know last 6-12 months
+## Market failure categories
 
-## Detailed Study Notes
+| Type | Problem | Typical remedy |
+|---|---|---|
+| Externality | Third-party costs/benefits not in price | Taxes/subsidies |
+| Public good | Non-excludable/non-rivalrous, undersupplied privately | Public provision |
+| Information asymmetry | One party has more information than the other | Regulation, disclosure requirements |
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+`(needs verification — recheck against current source: specific Indian regulatory applications of these frameworks evolve with policy.)`

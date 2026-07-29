@@ -1,86 +1,21 @@
-# Microeconomics Fundamentals — Intermediate
+# Microeconomics — Intermediate
 
-Structured intermediate content for Microeconomics Fundamentals.
+## Consumer theory — utility and budget constraints
 
-## Why Study Economics
-Economics is essential for UPSC GS Paper III, State PSC exams, banking exams (RBI Grade B), MBA entrance (XAT, IIFT), and understanding policy, markets, and business decisions.
+Applying Fundamentals' demand concept in more depth: consumer theory models an individual choosing among goods to maximize **utility** (satisfaction) subject to a **budget constraint** (limited income and given prices). The key insight is the **law of diminishing marginal utility** — each additional unit of a good consumed provides less additional satisfaction than the previous unit — which is what gives individual demand curves their downward slope in the first place: as a good becomes cheaper relative to alternatives, a consumer rationally buys more of it up to the point where the marginal utility per rupee spent equalizes across all goods purchased (the utility-maximizing condition).
 
-## Key Areas Covered
-- Core economic theory and concepts
-- Indian economic context and data
-- Government policy and recent developments
-- Exam-relevant applications and questions
+## Income and substitution effects, applied
 
-## Building Deeper Understanding
-With the fundamentals in place, this section covers applied knowledge, real-world scenarios, and exam-level complexity.
+Fundamentals mentions the substitution and income effects driving the law of demand; Intermediate separates them explicitly: the **substitution effect** is the change in quantity demanded purely from a good becoming relatively cheaper or more expensive compared to alternatives, while the **income effect** is the change in quantity demanded purely from the price change altering a consumer's real purchasing power. For most goods (**normal goods**), both effects reinforce each other — a price fall increases quantity demanded through both channels. For **inferior goods** (goods consumed less as income rises), the income effect works in the opposite direction of the substitution effect, and in rare cases (**Giffen goods**) the income effect can even dominate, producing an upward-sloping demand curve — a genuine exception to the law of demand, though empirically rare.
 
-## Applied Concepts
-- Connect foundational theory to practical applications
-- Understand how rules and principles interact in real cases
-- Analyse scenarios and draw reasoned conclusions
-- Identify exceptions, edge cases, and nuances
+## Production theory — inputs, output, and cost
 
-## Practice Approach
-At this level, practice is key. For each concept:
-1. Understand the principle
-2. See it applied to a sample problem
-3. Solve a practice problem independently
-4. Check your answer and understand any errors
+On the firm side, production theory models how a firm combines inputs (labor, capital) to produce output, and the associated cost structure: **short-run** costs are constrained by at least one fixed input (typically capital, which can't be adjusted quickly), leading to the **law of diminishing marginal returns** — adding more of a variable input (labor) to a fixed input eventually produces smaller and smaller additional output per added unit. This is why short-run marginal cost curves are typically U-shaped: costs initially fall as fixed costs spread over more output, then rise as diminishing returns set in.
 
-## Common Intermediate Mistakes
-- Applying rules without reading the full context
-- Missing exceptions or special cases
-- Confusing similar concepts or terms
-- Not practising enough past questions
+## Fixed cost, variable cost, and the firm's shutdown decision
 
-## Progress Check
-You are ready for advanced topics when you can:
-- Solve moderately difficult problems without looking at notes
-- Explain concepts to someone else
-- Identify the relevant framework for any given scenario
+A firm's total cost splits into **fixed costs** (unchanged regardless of output level, like rent) and **variable costs** (that scale with output level, like raw materials and hourly labor). This distinction directly informs a firm's short-run shutdown decision: a firm should continue operating as long as revenue covers variable costs (even if it doesn't fully cover fixed costs, since fixed costs are sunk in the short run regardless), and should shut down only if revenue falls below variable costs — a frequently tested applied-reasoning point that trips up students who assume a firm should shut down whenever it's not covering total costs.
 
-## Detailed Study Notes
+## Applying elasticity to real market scenarios
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+A concrete application connecting Fundamentals' elasticity concept to consumer/production theory: a firm facing inelastic demand for its product (say, an essential medicine with few substitutes) can pass cost increases through to consumers via higher prices with relatively little quantity loss, while a firm facing elastic demand (a good with many close substitutes) faces much more pressure to absorb cost increases rather than fully passing them through, since raising price would trigger a proportionally larger quantity decline and falling revenue.

@@ -1,82 +1,27 @@
-# Indian Economy, Budget, and RBI Policy — Fundamentals
+# Indian Economy — Fundamentals
 
-Structured fundamentals content for Indian Economy, Budget, and RBI Policy.
+## Five Year Plans — the planning-era approach
 
-## Why Study Economics
-Economics is essential for UPSC GS Paper III, State PSC exams, banking exams (RBI Grade B), MBA entrance (XAT, IIFT), and understanding policy, markets, and business decisions.
+From 1951 to 2014, India's economic development was guided by centrally formulated **Five Year Plans**, prepared by the Planning Commission, allocating resources and setting targets across sectors for each five-year period. Early plans (1950s-60s) emphasized heavy industry and public-sector-led industrialization (influenced by Soviet-style planning models), reflecting a belief that state-directed investment in core industries was necessary to build an industrial base a private sector alone wouldn't develop quickly enough. This planning-era approach shaped India's economic structure substantially — the large public-sector enterprise presence in heavy industry, and a historically more regulated private sector, both trace back to this period's policy choices.
 
-## Key Areas Covered
-- Core economic theory and concepts
-- Indian economic context and data
-- Government policy and recent developments
-- Exam-relevant applications and questions
+## NITI Aayog — the post-2014 shift
 
-## Core Concepts
-This section covers the foundational knowledge required for this topic. Work through each concept systematically before moving to intermediate topics.
+NITI Aayog (National Institution for Transforming India) replaced the Planning Commission in 2015, marking a shift from centralized five-year plan allocation to a more advisory, cooperative-federalism model — NITI Aayog doesn't allocate central funds to states the way the Planning Commission did, instead functioning as a policy think-tank providing strategic direction while individual state governments have more autonomy over their own resource allocation. This shift reflects a broader post-1991 trend (Overview) toward reduced centralized economic control, extending the liberalization direction into the institutional structure of economic planning itself, not just individual sector regulation. `(needs verification — recheck against current source: NITI Aayog's specific current mandate and initiatives are periodically updated.)`
 
-## Key Principles
-- Understand the basic theory and definitions
-- Learn the regulatory framework and key bodies involved
-- Practice with simple examples before complex scenarios
-- Use the cheatsheet for quick reference during revision
+## 1991 reforms — LPG in depth
 
-## Getting Started
-Begin by reading the overview, then work through this fundamentals section. Each concept builds on the previous one. Do not skip ahead — the foundation matters.
+The 1991 reforms, triggered by a severe balance-of-payments crisis (India's foreign exchange reserves fell to critically low levels, barely covering a few weeks of imports), introduced structural changes summarized as **LPG**:
 
-## Self-Assessment
-After completing this section, you should be able to:
-- Define the core terms and concepts
-- Explain the basic structure and framework
-- Answer beginner-level questions on this topic
-- Identify the key regulations, acts, or standards that apply
+- **Liberalization:** dismantling the "License Raj" — the extensive system of industrial licenses, permits, and government approvals private businesses previously needed to operate or expand, which had significantly constrained private-sector growth and competition.
+- **Privatization:** reducing state ownership and control in various sectors, opening space for private enterprise where the state previously held dominant or exclusive roles.
+- **Globalization:** reducing trade barriers and opening the economy to foreign trade and investment, including reforms enabling foreign direct investment (FDI) that had been heavily restricted previously.
 
-## Common Beginner Questions
-**Q: Where should I start?** Start with the overview and this fundamentals section. Read official sources alongside these notes.
-**Q: How long will this take?** Budget 2-3 hours for a solid foundation.
-**Q: What resources supplement this?** Official textbooks, government websites, and exam-specific guides.
+## Why 1991 is treated as a structural break, not incremental change
 
-## Detailed Study Notes
+The 1991 reforms are consistently treated as a genuine turning point rather than gradual policy evolution because they were implemented rapidly, under crisis conditions, and fundamentally altered the government's role in the economy — from extensive direct control and licensing toward a more market-oriented, competition-based model. Nearly every subsequent Indian Economy topic (sectoral shifts, FDI trends, growth acceleration) is commonly analyzed relative to this 1991 baseline, making a solid understanding of what specifically changed essential context for the rest of this technology's material.
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+## Getting started
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+1. Understand the Planning Commission-to-NITI Aayog shift as part of the same broader liberalization/decentralization trend as 1991, not a separate, unrelated institutional change.
+2. Master LPG (Liberalization, Privatization, Globalization) as three distinct but related reform dimensions — exam questions frequently test which specific reform category a given policy change belongs to.
+3. Treat 1991 as the reference point for "before and after" comparisons throughout the rest of this technology — Intermediate and Advanced material consistently frame sectoral and policy trends relative to this baseline.
