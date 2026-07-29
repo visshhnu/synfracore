@@ -3129,3 +3129,30 @@ of four core tabs (`intermediate.md`, `advanced.md`) are AWS-only**, and
 only `fundamentals.md` does the three-way comparison — a larger scope gap
 than originally logged, though the severity assessment (not blocking, no
 correctness defect) still holds.
+
+### Security/Data academy prepared-content promotion-gap check (not yet started)
+
+**Five `docs/Vishnu prepared content/` folders exist for technologies outside
+DevOps/Cloud/Databases, noticed in passing during the Databases-phase
+promotion-gap check (2026-07-29) but not evaluated — logging so they aren't
+lost, per the same reasoning as every other item in this Part 10:**
+
+- `Ethical Hacking`
+- `Pen Testing`
+- `Security Fundamentals`
+- `security soc`
+- `Tablue` (likely "Tableau" — Data/Analytics academy, not yet confirmed
+  against a live technology slug)
+
+The first four are almost certainly Security academy technologies; `Tablue`
+likely belongs to the Data academy instead. None of these have been checked
+against their corresponding live `public/content/` files the way MongoDB
+(Databases) and Grafana/HA-DR/Incident/Networking/Linux/Shell-Scripting
+(DevOps) were — meaning it's unknown whether any of them represent a real
+"drafted, reviewed, never shipped" gap like MongoDB's 5 files, or a smaller
+gap like Linux's 2, or nothing at all. Scope this properly (folder-to-slug
+mapping, file-list diff, content diff on any overlap, cross-reference
+verification before promoting anything) once Security and/or Data academies
+get their own comprehension-audit phase — same process as the DevOps/Cloud
+retroactive check this item is a continuation of. Not urgent, not blocking,
+explicitly deferred.
