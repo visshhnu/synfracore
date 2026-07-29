@@ -80,32 +80,3 @@ lazyfree-lazy-eviction yes      # Non-blocking eviction
 lazyfree-lazy-expire yes        # Non-blocking TTL expiry
 io-threads 4                    # (Redis 6+) Parallel I/O
 ```
-
-## Redis Cheatsheet
-
-```bash
-# ── SERVER ────────────────────────────────────────────────
-redis-cli INFO server | grep version
-redis-cli INFO memory | grep used_memory_human
-redis-cli INFO keyspace
-redis-cli DEBUG SLEEP 0   # Test connectivity
-redis-cli MONITOR          # Watch all commands (debug only)
-redis-cli SLOWLOG GET 10   # Last 10 slow commands
-
-# ── KEY MANAGEMENT ────────────────────────────────────────
-KEYS pattern        # Dangerous in prod! Blocks
-SCAN 0 MATCH user:* COUNT 100  # Safe iterative
-TYPE key            # string/list/set/zset/hash/stream
-TTL key             # Seconds remaining (-1=no expiry, -2=gone)
-PERSIST key         # Remove TTL
-RENAME key newkey
-OBJECT ENCODING key # See how Redis stores internally
-
-# ── DEBUGGING ─────────────────────────────────────────────
-OBJECT IDLETIME key  # Seconds since last access
-DEBUG OBJECT key     # Memory usage
-MEMORY USAGE key     # Bytes used by key
-OBJECT FREQ key      # Access frequency (LFU policy)
-redis-cli --latency  # Measure network latency
-redis-cli --stat     # Live server statistics
-```

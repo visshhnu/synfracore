@@ -424,4 +424,233 @@ in this batch (16 MongoDB + 10 Cassandra, post-promotion/post-addition).
   registry updated via real generator runs, verified both times.
 - **Deferred:** none.
 
-Batch 4 closed. Batch 5 (DynamoDB / Cloud Databases) not yet started.
+Batch 4 closed.
+
+---
+
+## Batch 5: DynamoDB + Cloud Databases
+
+**Registry-check:** both slugs confirmed in `lib/data/academies.ts` under
+`nosql`. DynamoDB had 9 live files, no `prerequisites.md`. Cloud Databases
+had 8 files, also no `prerequisites.md`. Neither has a
+`docs/Vishnu prepared content/` source folder (lesson 4 check, now standing
+for every remaining technology per the user's instruction) — no promotion
+gap to flag for either.
+
+**Prerequisites-convention check — one real gap, one genuine structural
+exception, not a mechanical apply-everywhere.** DynamoDB lacked the tab
+despite every example running against real AWS CLI/`boto3` syntax with no
+onboarding — same Standard 6 gap as Batches 1/3/4. Added
+`dynamodb/prerequisites.md` (AWS account + CLI familiarity, basic Python as
+helpful-not-required, JSON-attribute-syntax familiarity, explicit
+NoSQL/relational-background non-requirements, a self-check on
+access-pattern-first modeling instinct).
+
+Cloud Databases was checked against the same convention and **deliberately
+not given a `prerequisites.md`** — this is a comparison/strategy reference
+across managed database services (RDS, Aurora, Cosmos DB, managed
+PostgreSQL/MySQL offerings, etc.), not a hands-on skill course with its own
+Overview→Fundamentals→Advanced teaching progression the other 11
+technologies share. It has no Certification, Projects, or Roadmap tabs
+either — the same structural pattern, not an oversight isolated to
+prerequisites. Forcing the convention onto a technology that isn't shaped
+like the others would be applying the letter of Standard 6 without its
+actual intent (orienting a learner before a teaching sequence that, here,
+doesn't exist in the same form). No action taken; reasoning logged so this
+isn't re-flagged as a gap in a future pass.
+
+**Findings:**
+
+1. **FIXED — `dynamodb/advanced.md` had the same spliced-cheatsheet
+   contamination pattern found in Batch 1 (MySQL) and Batch 4 (Cassandra).**
+   A duplicate "DynamoDB Cheatsheet" section overlapped `dynamodb/cheatsheets.md`
+   near-verbatim. Removed; `advanced.md` now ends cleanly at the Global
+   Tables section. This is the 3rd instance of the pattern across 5
+   technologies audited so far — flagged at the time as worth an explicit
+   check in every remaining batch, which is why Batch 6 below checks it
+   for both remaining technologies rather than waiting to notice it
+   incidentally.
+2. **No dead references found** in either technology.
+3. **No duplicate-H1 or contamination issues** in Cloud Databases' 8 files.
+
+**Registry update — regression found and corrected in this session, not
+carried forward silently.** The `dynamodb/prerequisites` entry was
+regenerated via the standing verified procedure (native-Linux rsync + fresh
+`npm install` + real `generate:content-registry` run) and this batch's
+own record at the time stated the diff had been confirmed clean and the
+entry copied to the live `lib/content/index.ts`. **That was wrong.** Batch
+6's registry run (below) re-generated `databases/dynamodb/prerequisites` as
+a fresh "added" entry against the then-current live file — which only
+happens if it was never actually live. Root cause: this batch's own
+troubleshooting notes describe a `grep -n` call across two files that
+printed coincidentally-matching line numbers, which was misread as
+confirming the entry already existed, when a clean `diff` (not run at the
+time) would have shown it was still missing. The entry sat unregistered —
+meaning `dynamodb/prerequisites.md` existed on disk but was never actually
+reachable as a tab — from this batch's close until it was caught and fixed
+in Batch 6. Logged here rather than silently patched over, per the standing
+fixed-backlog rule (no known bug sits unfixed because it belongs to a
+closed batch) — see Batch 6 for the correction.
+
+### Status at close of batch 5
+- **Flagged:** none outstanding at the time of this batch's own close —
+  see Batch 6 for a correction to this batch's registry-verification claim,
+  found during Batch 6's own registry run.
+- **Fixed:** dynamodb/advanced.md duplicate cheatsheet splice (finding 1);
+  dynamodb/prerequisites.md created.
+- **Deferred:** none.
+
+Batch 5 closed (registry-verification claim corrected retroactively in
+Batch 6 — see below).
+
+---
+
+## Batch 6: Redis + Elasticsearch (last Databases batch)
+
+**Registry-check:** both slugs confirmed in `lib/data/academies.ts` — Redis
+under `cache`, Elasticsearch under `search`. Redis had 11 live files, no
+`prerequisites.md`. Elasticsearch had 14 files including `prerequisites.md`
+already.
+
+**Lesson 4 check (prepared-content promotion gap):** Elasticsearch has a
+`docs/Vishnu prepared content/Databases → Elasticsearch/` folder with 5
+files (`faq.md`, `notes.md`, `prerequisites.md`, `pyq.md`,
+`real-world-scenarios.md`) — all 5 already exist live, so no missing-file
+gap like MongoDB's. Diffed each anyway rather than assuming "all present
+means fully promoted": 3 of 5 (`faq.md`, `notes.md`, `pyq.md`) differ from
+the prepared source, but only in the same direction as MongoDB's
+`installation.md`/`roadmap.md` in Batch 4 — live versions have dates/prices
+softened to `(needs verification)` hedges the prepared draft didn't have.
+Correct editorial improvement already applied, not a regression or a
+promotion gap. Redis has no prepared-content folder.
+
+**Prerequisites-convention check — real gap, fixed.** Redis lacked
+`prerequisites.md` despite having the full skill-technology tab set
+(certification, installation, projects, roadmap, troubleshooting) — the
+same shape as PostgreSQL/MySQL/Oracle/Performance Tuning/MongoDB/Cassandra/
+DynamoDB before their fixes, not a Cloud-Databases-style structural
+exception. Added `redis/prerequisites.md` (command-line comfort as
+required, basic programming in any language as recommended, prior
+NoSQL/Redis experience explicitly listed as not required, a self-check on
+the `SET NX PX`-vs-`SETNX`+`EXPIRE` atomicity distinction).
+
+**Spliced-cheatsheet check — explicitly run on both, per this batch's own
+instruction, given the pattern had hit 3 of 5 technologies checked so far.**
+Confirmed present in **both**:
+
+1. **FIXED — `redis/advanced.md`** had a duplicate "Redis Cheatsheet" H2
+   section (SERVER/KEY MANAGEMENT/DEBUGGING subsections) overlapping
+   `redis/cheatsheets.md`. Removed; file now ends at the Production
+   Configuration section's `io-threads 4` line.
+2. **FIXED — `elasticsearch/advanced.md`** had a duplicate "Elasticsearch
+   Cheatsheet" H2 section (CLUSTER/INDEX MANAGEMENT/SEARCH/ALIASES
+   subsections), including a zero-downtime-alias-swap example
+   near-byte-identical to `elasticsearch/cheatsheets.md`. Removed; file now
+   ends at the ILM `PUT /_index_template/logs-template` block.
+
+This brings the running total to **5 of 12 Databases technologies** with
+this exact contamination signature: mysql (Batch 1), cassandra (Batch 4),
+dynamodb (Batch 5), redis and elasticsearch (Batch 6) — worth naming
+explicitly as a systemic authoring-pipeline pattern rather than a series of
+isolated coincidences. Every technology in this academy has now been
+checked for it; none remain unchecked.
+
+**Full comprehension read (all remaining files):** Redis's
+overview/fundamentals/intermediate/interview/certification/installation/
+troubleshooting/projects/roadmap and Elasticsearch's
+overview/fundamentals/intermediate/interview/certification/projects/roadmap
+were read in full. Both are dense, correctly progressive (Redis:
+data-structure fundamentals → caching/rate-limiting patterns → Lua/Pub-Sub/
+Streams → persistence/HA/cluster; Elasticsearch: core concepts/CRUD →
+relevance tuning/percolator/vector search → ILM/performance → cluster
+operations), with terms defined before first use and no dead cross-tab
+references found. Both already carry correct `(needs verification)` hedges
+on certification pricing (Redis's and Elasticsearch's cert tables) and on
+volatile factual claims (Elasticsearch overview's AGPLv3-licensing-change
+date). No further findings.
+
+**Registry update — the Batch 5 regression caught and corrected here.**
+Ran the standing verified procedure (native-Linux rsync + fresh
+`npm install`, confirmed `@esbuild/linux-x64` present + `.env.local` copied
+and verified matching + `generate:content-registry`) to register
+`redis/prerequisites`. The generator's output reported **both**
+`databases/dynamodb/prerequisites` and `databases/redis/prerequisites` as
+newly "added" — meaning the live `lib/content/index.ts` did not actually
+contain the DynamoDB entry Batch 5 believed it had confirmed and copied.
+Diffed the live file directly to confirm (`grep` for both slugs against the
+live file returned nothing before this fix), copied the regenerated file
+over the live one, and re-diffed to confirm both entries are now present
+and the files are byte-identical. This is a real regression that sat
+unnoticed for one full batch — logged per the fixed-backlog rule rather
+than treated as already closed just because it belonged to Batch 5.
+
+**Lesson 3 check (interview differentiation):** Redis's `interview.md`
+(data-structure selection, RDB/AOF, Sentinel/Cluster, cache-invalidation
+strategy, rate-limiting/distributed-lock correctness) and Elasticsearch's
+`interview.md` (cluster/node-type architecture, query DSL, text-vs-keyword
+mapping, performance/ILM, ELK integration) share no question stems despite
+both technologies supporting "search"-adjacent use cases in practice.
+Genuinely differentiated.
+
+**No duplicate-H1 or other contamination issues** found across the
+remaining files in either technology.
+
+### Status at close of batch 6
+- **Flagged:** none outstanding.
+- **Fixed:** redis/advanced.md and elasticsearch/advanced.md duplicate
+  cheatsheet splices (5th and 4th confirmed instances of the pattern,
+  respectively, by audit order); redis/prerequisites.md created; the
+  Batch 5 registry regression (`databases/dynamodb/prerequisites` never
+  actually live) caught and corrected, along with registering the new
+  `databases/redis/prerequisites` entry.
+- **Deferred:** none.
+
+Batch 6 closed. **All 12 Databases technologies audited.**
+
+---
+
+## Databases Academy Audit — Closing Summary (12/12 complete)
+
+All 6 batches / 12 technologies closed: PostgreSQL, MySQL, SQL Mastery,
+Database Design, Oracle, Performance Tuning, MongoDB, Cassandra, DynamoDB,
+Cloud Databases, Redis, Elasticsearch.
+
+**Totals across the academy:**
+- **7 technologies** were missing the `prerequisites.md` Standard 6 tab and
+  got one added: PostgreSQL, MySQL, Oracle, Performance Tuning, MongoDB,
+  Cassandra, DynamoDB, Redis (8, not 7 — every technology in the
+  skill-course shape except the 4 that already had it: SQL Mastery,
+  Database Design, Cloud Databases [deliberately exempt, see Batch 5], and
+  Elasticsearch).
+- **5 of 12 technologies** had the spliced-cheatsheet contamination
+  pattern (duplicate reference material inside an Advanced tab): MySQL,
+  Cassandra, DynamoDB, Redis, Elasticsearch — all fixed. Every technology
+  in the academy has now been explicitly checked for this; none remain
+  unchecked.
+- **1 content-pipeline promotion gap** (MongoDB) — 5 fully-drafted,
+  reviewed files that existed in `docs/Vishnu prepared content/` but were
+  never shipped, including a live factual error (certification pricing)
+  the prepared source had already corrected. Promoted and fixed.
+- **1 registry regression** (DynamoDB's `prerequisites` entry, Batch 5) —
+  caused by misreading `grep` output as confirming an entry's presence
+  instead of running a clean diff; caught one batch later during Batch 6's
+  own registry run and corrected.
+- A handful of standalone content bugs: an incoherent cross-entity JOIN
+  example (SQL Mastery), a repeated silent integer-division truncation bug
+  (SQL Mastery, 3 instances), a missing MVCC explanation ahead of where it's
+  used (PostgreSQL).
+
+**Open, explicitly-deferred items (not started, not urgent, logged for a
+future pass):**
+1. Retroactive four-source/promotion-gap check (lesson 4) against the
+   already-completed DevOps (18-technology) and Cloud (26-technology)
+   audits in `07-roadmap-final.md`, and against any other academy
+   (Healthcare, Exam Prep, etc.) using the same prepared-content-folder
+   workflow — those audits predate this check existing.
+2. The Standard 9 retroactive spot-check (beginner-simulation read, not
+   just word-count/contamination-signature heuristics) for
+   DevOps/Cloud/Databases/Healthcare technologies previously marked clean
+   under the older heuristic — logged as lower-priority in the standing
+   instructions, not scoped into this phase.
+
+Databases academy comprehension audit (Phase 9) — **closed.**
