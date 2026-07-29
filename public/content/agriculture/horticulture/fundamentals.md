@@ -1,87 +1,48 @@
 # Horticulture and Crop Production — Fundamentals
 
-## Overview
-Comprehensive fundamentals content for Horticulture and Crop Production.
+## Classifying fruit crops
 
-## Key Concepts
-This section covers essential knowledge for agriculture professionals, students preparing for ICAR, IBPS AFO, NABARD, and state agriculture department exams.
+Fruit crops are classified by climatic requirement, since climate — not soil alone — is usually the limiting factor for where a fruit crop can be grown:
 
-## Study Topics
-- Principles and definitions
-- Practical applications
-- Current practices and innovations
-- Government schemes and policies
-- Environmental sustainability aspects
+| Category | Climate | Examples |
+|---|---|---|
+| Tropical | High temperature year-round, no frost tolerance | Mango, banana, papaya, guava |
+| Subtropical | Warm summers, mild winters, some frost tolerance | Citrus, litchi, pomegranate |
+| Temperate | Cold winters (chilling requirement for flowering), distinct seasons | Apple, pear, peach, plum |
 
-## Practice and Assessment
-Each concept is followed by practical applications and assessment questions to reinforce understanding.
+The "chilling requirement" for temperate fruits is a specific, testable concept: many temperate fruit trees need a minimum number of hours below a threshold temperature during dormancy to flower and fruit properly the following season — this is why apple cultivation is geographically restricted to hill regions with adequate winter chilling, and why simply having otherwise-suitable soil and summer conditions elsewhere in India doesn't make apple cultivation viable there.
 
-## Core Concepts
-This section covers the foundational knowledge required for this topic. Work through each concept systematically before moving to intermediate topics.
+## Classifying vegetable crops
 
-## Key Principles
-- Understand the basic theory and definitions
-- Learn the regulatory framework and key bodies involved
-- Practice with simple examples before complex scenarios
-- Use the cheatsheet for quick reference during revision
+Vegetables are classified by which plant part is harvested and consumed — a classification that directly affects cultivation practice, since the plant's energy allocation needs to be directed toward whichever part matters for harvest:
 
-## Getting Started
-Begin by reading the overview, then work through this fundamentals section. Each concept builds on the previous one. Do not skip ahead — the foundation matters.
+| Category | Plant part | Examples |
+|---|---|---|
+| Root vegetables | Root | Carrot, radish, beetroot |
+| Tuber vegetables | Underground stem | Potato |
+| Leafy vegetables | Leaves | Spinach, cabbage, lettuce |
+| Fruit vegetables | Fruit (botanically) | Tomato, brinjal, okra, cucumber |
+| Flower vegetables | Flower/flower head | Cauliflower, broccoli |
+| Bulb vegetables | Bulb | Onion, garlic |
 
-## Self-Assessment
-After completing this section, you should be able to:
-- Define the core terms and concepts
-- Explain the basic structure and framework
-- Answer beginner-level questions on this topic
-- Identify the key regulations, acts, or standards that apply
+## Propagation methods — seed vs. vegetative
 
-## Common Beginner Questions
-**Q: Where should I start?** Start with the overview and this fundamentals section. Read official sources alongside these notes.
-**Q: How long will this take?** Budget 2-3 hours for a solid foundation.
-**Q: What resources supplement this?** Official textbooks, government websites, and exam-specific guides.
+**Seed (sexual) propagation:** growing a new plant from seed. Simple and cheap, but doesn't guarantee the new plant is genetically identical to the parent — this matters enormously for fruit crops, where a seedling grown from a superior variety's seed often doesn't reproduce that variety's exact fruit quality (due to genetic recombination in sexual reproduction), which is why most commercial fruit orchards use vegetative propagation instead.
 
-## Detailed Study Notes
+**Vegetative (asexual) propagation methods:**
+- **Cutting** — a plant part (usually stem) is cut and rooted directly; simple and common for many ornamentals and some fruit crops (grapes, pomegranate).
+- **Layering** — a stem is induced to root while still attached to the parent plant, then separated once rooted; used for plants that root slowly or unreliably from cuttings alone.
+- **Budding** — a single bud from a desired variety (the "scion") is inserted into a different rootstock; widely used commercially for citrus and roses because it's fast and requires minimal scion material.
+- **Grafting** — a larger scion piece (not just a bud) is joined to a rootstock; used for mango, apple, and most tree fruits where a full branch section, not just a bud, produces a more reliably established graft union.
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+The universal reason vegetative propagation dominates commercial fruit cultivation: it produces a plant genetically identical to the parent, guaranteeing the same fruit quality, ripening time, and yield characteristics that made the parent variety worth propagating in the first place — a guarantee seed propagation cannot make.
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+## Orchard establishment basics
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+Spacing between trees is calculated based on the mature canopy size of the specific variety — too close, and mature trees compete for light/nutrients and become difficult to manage; too wide, and land is under-utilized. Planting systems (square, rectangular, hexagonal, contour) are chosen based on land topography and the crop's specific management needs — contour planting, for instance, is used on sloped land specifically to reduce soil erosion (the same water-erosion principle covered in Soil Science's conservation techniques), showing how orchard layout decisions connect directly to soil-conservation principles rather than being a purely horticultural choice made in isolation.
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
+## Getting started
 
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+1. Learn the tropical/subtropical/temperate classification first — it filters which fruit crops are even viable to discuss for a given region before any other decision matters.
+2. Understand why vegetative propagation dominates commercial fruit horticulture — this single concept explains grafting, budding, and layering as variations on one underlying problem (preserving genetic identity), rather than as unrelated techniques to memorize separately.
+3. Connect vegetable classification (by plant part) to cultivation practice — a leafy vegetable's nitrogen needs differ from a fruit vegetable's, and exam questions frequently test this practical connection, not just the classification itself.

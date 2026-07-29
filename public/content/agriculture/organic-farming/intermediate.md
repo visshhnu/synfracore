@@ -1,91 +1,54 @@
-# Organic Farming Principles and Practices — Intermediate
+# Natural & Organic Farming — Intermediate
 
-## Overview
-Comprehensive intermediate content for Organic Farming Principles and Practices.
+## Worked example: converting a 1-acre chemical vegetable farm
 
-## Key Concepts
-This section covers essential knowledge for agriculture professionals, students preparing for ICAR, IBPS AFO, NABARD, and state agriculture department exams.
+Applying the Overview's transition timeline concretely, for a farmer already growing vegetables conventionally:
 
-## Study Topics
-- Principles and definitions
-- Practical applications
-- Current practices and innovations
-- Government schemes and policies
-- Environmental sustainability aspects
+**Pre-conversion (Month 0):** Soil test the full acre — organic conversion doesn't fix an underlying deficiency (e.g., zinc or boron shortage) by itself, and starting without a baseline makes it impossible to tell a real deficiency apart from the normal transition dip later. Identify which 25% of the acre to convert first — pick a section with the least aggressive prior chemical use if the field has mixed history, since it'll respond fastest.
 
-## Practice and Assessment
-Each concept is followed by practical applications and assessment questions to reinforce understanding.
+**Months 1–3:** Stop chemical inputs on the converting quarter-acre entirely. Begin large-batch composting (a 1-acre-scale operation needs a proper compost pit or windrow, not a home bin — budget roughly 1–2 tonnes of compost per acre for the first application). Start jeevamrut production at farm scale (the 200-litre recipe from the Overview scales linearly — a quarter acre needs multiple batches across the season, not one).
 
-## Building Deeper Understanding
-With the fundamentals in place, this section covers applied knowledge, real-world scenarios, and exam-level complexity.
+**Months 4–8 (first crop cycle):** Plant on the converted section. Expect the Year-1 yield dip described in the Overview (10–20% below the farm's chemical-era baseline on that section) — this is the point where side-by-side comparison with the still-chemical 75% of the farm becomes genuinely useful data, not just discouraging. Track input costs separately for the two sections from day one.
 
-## Applied Concepts
-- Connect foundational theory to practical applications
-- Understand how rules and principles interact in real cases
-- Analyse scenarios and draw reasoned conclusions
-- Identify exceptions, edge cases, and nuances
+**Year 2:** Expand conversion based on what the first quarter-acre actually showed — yield recovery, pest pressure changes, soil texture improvement (visibly darker, more crumbly soil is a real, checkable signal, not just a claim). Apply for PGS-India registration now, since it requires a documented conversion history and the first year's records are exactly what that documentation needs.
 
-## Practice Approach
-At this level, practice is key. For each concept:
-1. Understand the principle
-2. See it applied to a sample problem
-3. Solve a practice problem independently
-4. Check your answer and understand any errors
+**Year 3:** Full conversion, input costs should be near the Overview's ₹5,000/acre figure, and the 20–50% price premium becomes available once PGS-India certification completes.
 
-## Common Intermediate Mistakes
-- Applying rules without reading the full context
-- Missing exceptions or special cases
-- Confusing similar concepts or terms
-- Not practising enough past questions
+## Companion planting — beyond "tomato and basil"
 
-## Progress Check
-You are ready for advanced topics when you can:
-- Solve moderately difficult problems without looking at notes
-- Explain concepts to someone else
-- Identify the relevant framework for any given scenario
+Companion planting is presented as a single bullet point in the Overview's Module 03; the underlying logic is worth knowing so it generalizes past the one example usually quoted:
 
-## Detailed Study Notes
+| Combination | Why it works |
+|---|---|
+| Tomato + Basil | Basil's scent disrupts pest orientation toward tomato; both have compatible water/light needs |
+| Marigold + almost anything | Marigold roots release compounds that repel root-knot nematodes; marigold flowers also lure aphids away from the main crop (a "trap crop" effect, not just repellence) |
+| Corn + Beans + Squash ("Three Sisters") | Corn provides a physical climbing structure for beans; beans (a legume) fix nitrogen into the soil that corn and squash both consume; squash's broad leaves shade the ground, suppressing weeds and retaining moisture for all three |
+| Onion/Garlic + Carrots | Onion family's strong scent masks carrot's scent from carrot fly, its main pest |
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+The pattern across all four: a real, specific *mechanism* (nitrogen fixing, pest masking, structural support, trap-cropping) — not just "these two get along." Picking companions without knowing the mechanism means you can't adapt the principle to a crop combination that isn't already a textbook example.
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+## Diagnosing pest and disease problems without chemicals
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+The Overview's Module 04 lists specific sprays (neem, chilli-garlic, Bordeaux mixture) but not how to tell which problem you actually have. A basic diagnostic sequence:
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
+1. **Check for a pattern first.** Damage on new growth only vs. all leaves, one plant vs. whole row, sudden vs. gradual — this narrows the cause before you touch a spray bottle.
+2. **Sucking pests** (aphids, whitefly, mites) show as curled/yellowing leaves, sticky residue (honeydew), or visible tiny insects on leaf undersides — neem spray is the correct first response.
+3. **Chewing pests** (caterpillars) show as visible holes or missing leaf tissue, often with frass (droppings) nearby — chilli-garlic spray or manual removal for a light infestation; Bt (Bacillus thuringiensis, an organic-approved biological control) for a heavy one.
+4. **Fungal disease** (blight, powdery mildew, rust) shows as spots, powdery coating, or wilting that doesn't correlate with visible insects — Bordeaux mixture, and critically, applied *before* monsoon onset as prevention, since fungal disease is far harder to reverse once established than to prevent.
+5. **If none of the above fits** — check soil and water first. The Overview's framing that "80% of pest problems come from unhealthy soil or stressed plants" means a recurring, unexplained pest problem is often actually a soil-health problem wearing a pest-shaped symptom; jeevamrut/compost application is the fix, not another spray.
 
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
+## Seasonal planning by Indian climate zone
 
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
+The Overview's seasonal table (Summer/Monsoon/Winter) is calibrated for most of peninsular and north India, but coastal and hill-region growers need adjustments:
 
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
+- **Coastal (high humidity year-round):** Fungal pressure is elevated in every season, not just monsoon — preventive Bordeaux/neem application on a tighter schedule (every 5–7 days rather than 7–10) is often necessary.
+- **Hill regions (cooler, shorter growing season):** Winter-season crops from the standard table (tomato, peas, cauliflower) often need to shift earlier, since a hill-region winter arrives sooner and can frost-damage a late planting.
+- **Semi-arid (low rainfall, high evaporation):** Mulching and drip irrigation (Module 06) move from "recommended" to functionally required — without them, the water-saving numbers quoted in the Overview (50–60%) are the difference between the crop surviving the dry season and not.
 
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+## Record-keeping for certification
+
+PGS-India's peer-review model (Fundamentals) means your farm's own records *are* the evidence reviewed by your regional council — there's no external lab test replacing it. Minimum records worth keeping from day one of conversion:
+
+- Input log: what was applied, when, and quantity (compost, jeevamrut, neem, etc.) — proves no chemical inputs, not just "trust me."
+- A simple sketch/map of which plots are converted and since when — the conversion-period clock (Fundamentals) starts from a specific date, and without a record you can't establish it.
+- Yield records per plot, per season — this is also the practical data that makes Year 2's expansion decision (above) evidence-based rather than a guess.

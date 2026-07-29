@@ -1,92 +1,43 @@
-# Organic Farming Principles and Practices — Advanced
+# Natural & Organic Farming — Advanced
 
-## Overview
-Comprehensive advanced content for Organic Farming Principles and Practices.
+## ZBNF's four pillars, and how they differ from generic "organic"
 
-## Key Concepts
-This section covers essential knowledge for agriculture professionals, students preparing for ICAR, IBPS AFO, NABARD, and state agriculture department exams.
+Zero Budget Natural Farming (Subhash Palekar's method, referenced throughout the Overview and Fundamentals) is often used as a synonym for organic farming, but it's a specific, stricter methodology built on four named pillars:
 
-## Study Topics
-- Principles and definitions
-- Practical applications
-- Current practices and innovations
-- Government schemes and policies
-- Environmental sustainability aspects
+1. **Beejamrut** — a seed treatment (fermented cow dung, urine, lime, soil) applied *before* planting, protecting seeds/seedlings from soil-borne fungus and early pest pressure. This is distinct from jeevamrut, which is applied to established soil, not seed.
+2. **Jeevamrut** — as covered in Fundamentals, the soil microbial inoculant.
+3. **Mulching** — not just water conservation (as framed in the Overview's Module 06), but ZBNF treats mulch as an active soil-building input: decomposing organic mulch is a continuous, low-effort compost process happening directly in place.
+4. **Waaphasa** — soil aeration/moisture management specifically calibrated to avoid waterlogging; ZBNF's position is that most root disease comes from excess soil moisture suffocating roots, not from pathogens alone, so irrigation timing is treated as a disease-prevention tool, not just a water-delivery one.
 
-## Practice and Assessment
-Each concept is followed by practical applications and assessment questions to reinforce understanding.
+The "zero budget" part of the name is a genuine methodological claim, not marketing: all four inputs are producible on-farm from a single desi cow, without purchasing external inputs — which is why ZBNF scales differently from "organic" broadly, where purchased organic-certified inputs (organic-approved pesticides, purchased vermicompost) are common and don't violate organic certification, but do violate ZBNF's zero-external-input principle.
 
-## Expert-Level Mastery
-This section covers advanced topics, complex scenarios, and the depth required for competitive exams and professional practice.
+## SRI rice — the mechanism behind the yield numbers
 
-## Advanced Topics
-- Complex multi-concept scenarios requiring integrated knowledge
-- Analytical and evaluative questions
-- Recent developments, amendments, and current issues
-- High-difficulty exam questions with detailed solutions
+The Overview's Module 05 states SRI achieves 50% less water and 30-50% higher yield; the mechanism matters for adapting the method correctly rather than just following the steps:
 
-## Strategic Approach
-At the advanced level, strategy matters as much as knowledge:
-- Identify the question type and apply the right framework
-- Manage time — know when to move on and return later
-- Use elimination for objective questions
-- Structure long-answer responses clearly
+- **Wider spacing (25×25cm vs. 15×15cm traditional)** gives each plant's root system more soil volume to access — traditional dense spacing forces roots to compete, capping how much any individual plant can develop.
+- **Single seedling per hole** avoids the root competition that happens when multiple seedlings share one planting point — a subtle but consistently underestimated yield factor in traditional transplanting.
+- **Young seedlings (8–12 days)** transplant with less root shock than older seedlings, since their root systems are still developing rather than already established and disrupted by the move.
+- **Alternate wet-dry irrigation instead of continuous flooding** is the mechanism behind the water savings, but it's also why SRI requires more precise water management than flooding — flooding is forgiving of irrigation timing errors; alternate wet-dry is not. Getting the dry period wrong (too long) stresses the crop; too short and you lose the aeration benefit that's the actual point of alternating.
 
-## Exam Simulation
-Practise under timed conditions:
-- Set a timer and attempt full sections without breaks
-- Review every wrong answer with the source material
-- Track your accuracy by topic to identify weak areas
-- Repeat mock tests to build consistency
+This is also why SRI has a real, documented failure mode when adopted without understanding the mechanism: farmers who adopt the wider spacing and single-seedling rules but keep continuous flooding (skipping the actual water-management discipline that drives most of the yield gain) see a smaller yield improvement than the method promises, then conclude "SRI doesn't work here" — when what actually happened is only half the method was implemented.
 
-## Advanced Checklist
-- [ ] Can solve the hardest questions in this topic
-- [ ] Understand recent changes and current developments
-- [ ] Can teach the topic clearly to someone else
-- [ ] Mock exam score is consistently above 75%
+## Scaling economics: terrace garden to multi-acre farm
 
-## Detailed Study Notes
+The Overview's economics table covers a 1-acre vegetable farm at Year 1 and Year 3. Scaling changes the input-cost structure, not just the totals:
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+| Scale | Dominant cost | Key economic lever |
+|---|---|---|
+| Terrace/home garden (~200 sq.ft) | One-time container/soil setup | Near-zero recurring cost once compost bin is running; economics are about food-cost savings, not sale price |
+| 1 acre | Labour (compost turning, jeevamrut application, spraying) | The Overview's ₹5,000/acre Year-3 input figure assumes labour is the farmer's own time; hired labour changes this materially |
+| 5+ acres | Consistent large-batch input production (compost pit/windrow capacity, jeevamrut fermentation volume) | Economics improve with scale *if* input production is systematized (fixed compost infrastructure, not ad-hoc batches) — otherwise input production becomes the bottleneck limiting how much land can actually be converted per year |
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+The 20–50% premium price quoted throughout assumes a direct or semi-direct sale channel (farmers' market, PGS-certified retail, direct-to-consumer) — selling into a standard commodity mandi typically doesn't capture the organic premium at all, since organic and conventional produce are frequently not price-differentiated at that level. Realizing the premium is a market-access problem as much as a production one.
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
+## Why farmers revert to chemical farming, and what actually causes it
 
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
+The most common failure mode isn't a production problem — it's a Year-1 cash-flow problem colliding with the yield dip described throughout this technology. A farmer converting under financial pressure (no buffer income, as opposed to the Overview's "keep 75% as backup income" recommendation) experiences the Year-1 dip as an actual survival-level cash shortfall, not a manageable transition cost — and reverts to chemical inputs mid-season to recover yield immediately.
 
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
+The second most common cause is pest pressure spiking in Year 1–2 specifically. Chemical farming suppresses pest populations directly; when that suppression stops, pest populations rebound before the ecosystem's natural predator population (which organic methods rely on and chemical pesticides also suppress) has recovered enough to provide natural control. This creates a temporary window — usually the first 1–2 seasons — where pest pressure is genuinely higher than either the prior chemical baseline or the eventual organic steady-state, and farmers who don't know this is temporary often read it as evidence organic methods "don't control pests," reverting right before the natural predator population would have caught up.
 
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+Both failure modes are addressable with the same fix: the Overview's phased approach (convert 25% first, keep the rest as backup income) exists specifically to absorb both the cash-flow gap and the temporary pest-pressure window without threatening the whole farm's income during the adjustment period.

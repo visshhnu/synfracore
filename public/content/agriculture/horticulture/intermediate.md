@@ -1,91 +1,31 @@
 # Horticulture and Crop Production — Intermediate
 
-## Overview
-Comprehensive intermediate content for Horticulture and Crop Production.
+## Worked example: top-working a mango tree
 
-## Key Concepts
-This section covers essential knowledge for agriculture professionals, students preparing for ICAR, IBPS AFO, NABARD, and state agriculture department exams.
+Top-working is grafting used to change an established, mature tree's variety without replanting from scratch — practically valuable when an orchard's existing trees are an inferior or outdated variety but the root system and years of growth are worth preserving:
 
-## Study Topics
-- Principles and definitions
-- Practical applications
-- Current practices and innovations
-- Government schemes and policies
-- Environmental sustainability aspects
+1. **Select the rootstock tree** and cut back major branches, leaving stubs that will serve as the grafting sites — this is done during the tree's active growth season for the best graft-union success rate.
+2. **Collect scion wood** from a healthy, disease-free tree of the desired superior variety — scion should be of similar maturity/thickness to the rootstock stub for a clean union.
+3. **Graft the scion onto each stub** (cleft grafting is commonly used for top-working's thicker stubs, versus the finer techniques used on young nursery stock) and seal the union to prevent moisture loss and infection.
+4. **Manage regrowth** — the rootstock will attempt to send up its own shoots below the graft union; these must be regularly removed, or the rootstock's original (inferior) growth will out-compete the grafted scion.
 
-## Practice and Assessment
-Each concept is followed by practical applications and assessment questions to reinforce understanding.
+The practical payoff: a top-worked tree reaches fruiting age of the new variety faster than a newly planted sapling would, since it's using an already-established root system — this is why top-working is a standard technique for orchard variety improvement rather than a purely academic grafting exercise.
 
-## Building Deeper Understanding
-With the fundamentals in place, this section covers applied knowledge, real-world scenarios, and exam-level complexity.
+## Vegetable nursery raising
 
-## Applied Concepts
-- Connect foundational theory to practical applications
-- Understand how rules and principles interact in real cases
-- Analyse scenarios and draw reasoned conclusions
-- Identify exceptions, edge cases, and nuances
+Most vegetable crops (especially fruit vegetables like tomato and brinjal, and cole crops like cauliflower) are started in a nursery bed and transplanted, rather than direct-seeded in the main field — this protects young, vulnerable seedlings and allows better control of germination conditions before the plants face field conditions.
 
-## Practice Approach
-At this level, practice is key. For each concept:
-1. Understand the principle
-2. See it applied to a sample problem
-3. Solve a practice problem independently
-4. Check your answer and understand any errors
+**Key nursery practices:** raised beds (for drainage), seed treatment (fungicide/biofertiliser coating to reduce damping-off disease — a common nursery-stage fungal problem that kills seedlings at the soil line), controlled watering (overwatering is the most common cause of damping-off), and hardening (gradually reducing water/shade before transplant, so seedlings aren't shocked by the harsher conditions of the open field). Skipping hardening is a common practical mistake — seedlings raised entirely under protected nursery conditions and transplanted directly without a hardening period show higher transplant shock and mortality.
 
-## Common Intermediate Mistakes
-- Applying rules without reading the full context
-- Missing exceptions or special cases
-- Confusing similar concepts or terms
-- Not practising enough past questions
+## Integrated nutrient and pest management in horticulture
 
-## Progress Check
-You are ready for advanced topics when you can:
-- Solve moderately difficult problems without looking at notes
-- Explain concepts to someone else
-- Identify the relevant framework for any given scenario
+Horticultural crops, being higher-value and more intensively managed than field crops, typically justify more intensive nutrient and pest monitoring per plant — but "intensive" doesn't mean "maximal input regardless of need." Integrated management means combining soil-test-based fertilisation (the same principle from Soil Science, applied at horticultural crop intensity), regular pest scouting rather than calendar-based spraying, and using biological/cultural controls (pheromone traps, resistant varieties, crop rotation for soil-borne pest/disease management) alongside chemical intervention only when monitoring shows it's actually needed — this reduces both input cost and the resistance-development risk that comes from routine, unmonitored pesticide application.
 
-## Detailed Study Notes
+## Protected cultivation basics
 
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
+Polyhouses (poly-covered structures) and shadenets are increasingly common for high-value vegetable and floriculture cultivation, since they allow control over temperature, humidity, and light exposure that open-field cultivation can't offer:
 
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
+- **Polyhouse (greenhouse-type structure):** enables off-season cultivation of crops that wouldn't otherwise grow in the local climate/season, and protects against heavy rain damage — commonly used for capsicum, tomato, and cut flowers where off-season price premiums justify the infrastructure cost.
+- **Shadenet:** reduces light intensity and temperature without full climate control — a lower-cost intermediate option, commonly used for nursery raising and certain floriculture/vegetable crops sensitive to intense sun without needing full greenhouse-level control.
 
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+The economic logic connects to Agri-Business concepts: protected cultivation's higher upfront cost is justified specifically by the off-season price premium and yield/quality improvement it enables — a decision that only makes sense when the crop's market value supports the added infrastructure investment, which is why protected cultivation concentrates in high-value crops rather than being used universally.
