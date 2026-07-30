@@ -1,5 +1,12 @@
 # Git — Fundamentals
 
+**Analogy** — Staging is like packing a box before mailing it. Editing a file is like changing an item in your room — it's not going anywhere until you physically put it in the box (`git add`, i.e. staging). Sealing and mailing the box (`git commit`) only sends what was actually inside it at that moment — if you change something in your room *after* packing but *before* sealing, that change doesn't magically end up in the box. You'd have to notice, and pack it again.
+
+```
+Working directory  --git add-->  Staging area  --git commit-->  Repository (.git/)
+   (your room)                    (the packed box)                (shipped, permanent)
+```
+
 ## The Three Trees: Working Directory, Staging Area, Repository
 
 Git tracks changes through three distinct states, and most early confusion about "why didn't my commit include that change" comes from not having a clear mental model of them:
@@ -74,3 +81,19 @@ git push origin v1.0.0                  # tags are NOT pushed automatically with
 git push origin --tags                  # push all tags at once
 ```
 Use annotated tags (`-a`) for anything meant to represent a real release — they carry metadata (who tagged it, when, why) that a lightweight tag doesn't, which matters when someone's trying to understand release history months later.
+
+## Try It (2 Minutes)
+
+See "branches are just pointers" for yourself:
+
+```bash
+git init demo && cd demo
+echo "v1" > file.txt && git add . && git commit -m "v1"
+git branch experiment          # create a branch -- instant, no copying
+git switch experiment
+echo "v2" > file.txt && git add . && git commit -m "v2 on experiment"
+git switch main                # or master, depending on your git config
+cat file.txt                   # still says "v1" -- main was never touched
+```
+
+`file.txt` on `main` still says "v1" even though you committed "v2" — because `experiment` was never a copy of the codebase, just a separate pointer that moved forward on its own while `main`'s pointer stayed exactly where it was. That's the entire mechanic behind why creating a branch is instant, regardless of repo size.

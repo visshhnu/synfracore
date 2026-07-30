@@ -179,12 +179,67 @@ a dead reference.
   checked (Networking, Kubernetes) — logged here rather than expanding this
   batch's scope.
 
+## Batch 3 — Git, CI/CD Pipelines (cicd domain)
+
+CI/CD (`devops/cicd/*`) is entirely self-hosted, no aliasing. Git
+(`devops/git/*`) is split: overview/fundamentals/interview/troubleshooting
+are self-hosted, advanced/certification/cheatsheets/installation/
+intermediate/prerequisites/projects/roadmap are aliased to
+`infrastructure/git/*` — checked both roots per the batch-1 lesson.
+
+**CI/CD — passes on accuracy and tab-depth, failed `is_beginner_ready`,
+fixed.** Read `overview.md` in full: hook present, terminology (CI/CD,
+GitOps) defined before use, pipeline-stage table and GitHub Actions
+example both accurate, deployment-strategy comparison table correct
+(rolling/blue-green/canary/recreate downtime and rollback tradeoffs all
+check out). But neither `overview.md` nor `fundamentals.md` had an
+analogy, diagram, or try-it — same gap as Shell Scripting, batch 1.
+**Fixed:** added an airport-security-checkpoint analogy to `overview.md` —
+verified genuinely explanatory, not decorative: it maps the fail-fast
+mechanic (a failed check stops you right there) directly onto why a
+failed pipeline stage blocks deployment — plus a pipeline-stages ASCII
+diagram matching the stage list beneath it, and a Try It that has the
+reader push a real GitHub Actions workflow with a deliberately failing
+step and watch the deploy step get skipped, not just failed (confirmed
+this matches actual GitHub Actions behavior — a job stops at a failing
+step by default, downstream steps show as skipped). A relay-race analogy
+(baton handoff = artifact handoff, dropped baton = failed stage) plus a
+stage-flow diagram and a local `set -e`/`false` fail-fast demo were added
+to `fundamentals.md` — verified the demo's bash behavior is correct
+(`set -e` does exit immediately on `false`, the "Deploy stage..." line
+genuinely never prints).
+
+**Git — passes on accuracy and tab-depth, failed `is_beginner_ready`,
+fixed.** Three-trees model, branches-as-pointers, merge vs. rebase, revert
+vs. reset all correctly sequenced Overview → Fundamentals, no dead
+cross-references (checked: Overview's one Prerequisites pointer is valid).
+Neither tab had an analogy, diagram, or try-it. **Fixed:** added a
+"track changes in a shared document" analogy plus a working-directory →
+staging → local-repo → remote diagram and a staging-snapshot try-it to
+`overview.md` — the try-it's claim that this exact confusion is covered
+in the Fundamentals tab was independently verified, not assumed:
+Fundamentals' Three Trees section literally opens with "most early
+confusion about 'why didn't my commit include that change' comes from
+not having a clear mental model of them," so the cross-reference is real,
+not dead. Added a packing-a-box-before-mailing analogy plus a three-stage
+diagram and a branches-are-pointers try-it to `fundamentals.md` — the
+try-it's git commands (`git branch`, `git switch`) and its claim that
+`main`'s file content stays untouched after committing on a separate
+branch were checked against actual git behavior and are correct (branch
+creation is a pointer operation, not a copy).
+
+### Batch 3 status: flagged vs fixed vs deferred
+
+- **Fixed:** CI/CD and Git both missing `is_beginner_ready` scaffolding in
+  Overview and Fundamentals — analogy, diagram, and try-it added to all 4
+  files, each independently verified genuinely pedagogical (accurate
+  mechanics, real cross-references) rather than just present.
+- **Flagged, not fixed:** none this batch.
+- **Deferred:** none.
+
 ## Remaining batches (not yet started)
 
-- Batch 3: Git, CI/CD Pipelines — content and audit findings for this batch
-  were staged on disk alongside batch 1/2, but were not part of this
-  review round's scope and have not been independently verified or merged
-  yet. Left staged, untouched, for a dedicated review pass.
-- Batch 4: Terraform, Ansible, Jenkins
+- Batch 4: Terraform, Ansible, Jenkins — content staged on disk, not yet
+  reviewed in this pass.
 - Batch 5: Prometheus, Grafana
 - Batch 6: Helm, ArgoCD, Istio — closes the 15-technology retroactive audit

@@ -10,7 +10,19 @@ CI/CD stands for Continuous Integration and Continuous Delivery. It automates th
 **Continuous Delivery:** After CI passes, artifact is deployed to staging automatically.
 **Continuous Deployment:** Fully automated — code goes to production after all checks pass.
 
+**Analogy** — Think of a CI/CD pipeline like an airport security checkpoint line, not a single guard waving everyone through. Each station does one specific check (ID verification, bag scan, metal detector), and you only reach the next one if you pass the current one — a failed bag scan stops you right there, it doesn't quietly let you board with an unchecked bag. A pipeline works the same way: a failed test stage stops the pipeline cold, so a broken build never reaches "deploy to production" just because nobody was watching closely enough to catch it manually.
+
 ## Pipeline Stages
+
+```
+┌────────┐   ┌───────┐   ┌────────────┐   ┌──────────┐   ┌─────────┐   ┌─────────────┐
+│ Commit │ → │ Build │ → │ Test suite │ → │ Package  │ → │ Staging │ → │ Production  │
+└────────┘   └───────┘   └────────────┘   │ artifact │   │ deploy  │   │ deploy      │
+                  ↑             ↑          └──────────┘   └─────────┘   └─────────────┘
+             fails here?   fails here?                                    (often behind
+             pipeline           pipeline                                   a manual or
+             stops              stops                                      automated gate)
+```
 
 Code Commit → Build → Unit Tests → Integration Tests → Security Scan → Artifact Push → Deploy Staging → Smoke Tests → [Approval] → Deploy Production → Monitor
 
@@ -54,3 +66,22 @@ Each strategy below answers the same question differently: how do you replace th
 | Blue/Green | Two full environments exist side by side ("blue" = current live, "green" = new version) — traffic is switched from one to the other all at once, only after the new one is verified healthy | No | Instant (atomic traffic switch back to the still-running "blue" environment) |
 | Canary | The new version is sent a small slice of real traffic first (e.g. 5%), and only rolled out further if it looks healthy | No | Fast, but only with automated monitoring + rollback wired up — not instant by default |
 | Recreate | The old version is stopped completely, then the new version is started — simplest to reason about, but users see an outage during the gap | Yes | Slow |
+
+## Try It (2 Minutes)
+
+You don't need real infrastructure to see a pipeline's fail-fast behavior firsthand:
+
+1. Fork or create any small GitHub repo (even an empty one with a single file), and add `.github/workflows/demo.yml`:
+   ```yaml
+   name: Demo Pipeline
+   on: push
+   jobs:
+     build:
+       runs-on: ubuntu-latest
+       steps:
+         - run: echo "Build stage running..."
+         - run: echo "Now testing..." && exit 1   # simulate a failing test
+         - run: echo "Deploying to production..."  # this line never runs
+   ```
+2. Push a commit and open the **Actions** tab on GitHub.
+3. Watch the job stop at the failing "Now testing..." step — the "Deploying to production..." step is skipped entirely, shown grayed out, not just failed. That's the exact fail-fast behavior from the Pipeline Stages diagram above: a real deploy step never executes once an earlier stage fails, with zero manual intervention needed to stop it.

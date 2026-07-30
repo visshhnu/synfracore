@@ -6,6 +6,14 @@
 
 Every DevOps workflow starts with Git. Infrastructure-as-Code, application code, CI/CD pipeline definitions, Kubernetes manifests, Helm charts — all live in Git. GitOps (ArgoCD, FluxCD) uses Git as the single source of truth for cluster state.
 
+**Analogy** — Think of Git like the "track changes" history in a shared document, but far more powerful: instead of one linear history everyone edits on top of, each person can branch off and work on their own version privately, then merge back in when it's ready. A **commit** is a saved checkpoint (like hitting "save" on a specific, named version); a **branch** is a separate copy of the document you can experiment on without touching the shared version; a **merge** is combining someone's branched edits back into the main document, automatically where possible and flagging a **conflict** only where two people genuinely edited the exact same spot differently.
+
+```
+Working Directory  →  git add  →  Staging Area  →  git commit  →  Local Repo  →  git push  →  Remote
+   (raw edits)                    (what's about                  (permanent                  (GitHub/
+                                    to be saved)                   checkpoint)                 GitLab)
+```
+
 ---
 
 ## Core Concepts
@@ -185,3 +193,15 @@ on:
 | Detached HEAD | `git checkout -b new-branch` to save work |
 | Pushed secret by accident | Rotate the secret immediately, then use BFG Repo Cleaner |
 | Large file accidentally committed | `git filter-repo` or BFG Repo Cleaner |
+
+## Try It (2 Minutes)
+
+1. In any empty directory, run:
+   ```bash
+   git init
+   echo "hello" > file.txt
+   git add file.txt
+   git commit -m "first commit"
+   ```
+2. Now edit `file.txt` (change "hello" to "hello world") and run `git status` — notice it shows the file as modified, but `git diff --staged` shows nothing yet, because the new edit hasn't been staged.
+3. Run `git add file.txt` again, then `git diff --staged` — now it shows the change. This is the exact "why didn't my commit include that change" trap covered in the Fundamentals tab: staging is a snapshot taken *at the moment you run `git add`*, not a live link to the file.

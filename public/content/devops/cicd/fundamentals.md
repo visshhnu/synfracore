@@ -1,5 +1,20 @@
 # CI/CD Pipelines — Fundamentals
 
+**Analogy** — A pipeline's stages are like a relay race, not a single runner doing the whole distance. Each leg (build, test, deploy) hands off a baton (the artifact) to the next one, and a runner who drops the baton (a stage that fails) stops the race right there — the next leg never starts with a dropped baton, the same way a deploy stage never runs against a build that failed its tests.
+
+```
+Trigger (push/PR/schedule)
+        │
+        ▼
+   Stage 1: Build ──── fails? ──→ pipeline stops, nothing downstream runs
+        │ succeeds
+        ▼
+   Stage 2: Test ───── fails? ──→ pipeline stops, nothing downstream runs
+        │ succeeds
+        ▼
+   Stage 3: Package → Deploy
+```
+
 ## What CI/CD actually means, precisely
 
 **Continuous Integration (CI)** is the practice of merging code changes frequently (multiple times a day, ideally) and automatically verifying each merge with a build + test run — the goal is catching integration problems within minutes of them being introduced, not weeks later when several people's changes collide. **Continuous Delivery** means every change that passes CI is automatically packaged into a deployable artifact and is *ready* to release at any time, with an explicit human approval step before it actually goes to production. **Continuous Deployment** goes one step further: that final approval step is removed too — every change that passes all automated checks deploys to production automatically, no human in the loop.
@@ -30,3 +45,15 @@ Modern CI/CD pipelines are defined in a YAML file that lives in the same reposit
 ## A common beginner misconception worth correcting directly
 
 CI/CD is not "automated deployment" alone — automating *only* the deploy step, with no automated testing gate before it, is automating the fast delivery of broken code to production. The value of CI/CD comes specifically from the testing/verification gates between stages, not from speed alone. A pipeline with no tests is just a fancy deploy script with extra steps.
+
+## Try It (2 Minutes)
+
+See the "fail fast" ordering for yourself, locally, with no CI platform needed — this is exactly what a real pipeline's build-then-test stages do internally, just run by hand:
+
+```bash
+echo "Build stage..." && sleep 1 && echo "Build OK"
+echo "Test stage..." && false   # simulates a failing test (`false` always exits non-zero)
+echo "Deploy stage..."          # run this line only if the line above succeeded
+```
+
+Run these three lines as a script with `set -e` at the top (`#!/bin/bash` then `set -e`, then the three lines) and you'll see the script stop after "Test stage..." — the "Deploy stage..." line never prints, because `set -e` makes the script exit the instant `false` returns a non-zero code. That's the entire mechanical idea behind every CI/CD pipeline's stage ordering, just running on your own machine instead of a CI platform's runner.
