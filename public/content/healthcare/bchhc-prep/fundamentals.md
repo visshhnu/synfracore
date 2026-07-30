@@ -15,7 +15,7 @@ ALL four must be met simultaneously:
 | SN (RN/LPN) | ✅ Yes |
 | PT | ✅ Yes |
 | SLP/ST | ✅ Yes |
-| OT | ❌ No — cannot independently complete OASIS |
+| OT | ⚠️ Conditional — can complete SOC OASIS only after another discipline (SN, PT, or SLP) has already established Medicare eligibility; can independently complete Discharge and Recertification OASIS |
 
 ## OASIS Assessment Types
 | Type | Trigger | Required Timing |
@@ -95,7 +95,7 @@ The first X fills position 4, the second X fills position 5.
 Using the Who Fills OASIS table above:
 
 1. A physical therapist wants to independently complete a patient's SOC OASIS. Is that allowed?
-2. An occupational therapist wants to do the same. Is that allowed?
-3. If only OT services are ordered for a patient (no SN, PT, or SLP), who would need to be involved to get the OASIS completed?
+2. An occupational therapist wants to do the same, on a patient where PT has already established eligibility. Is that allowed?
+3. If only OT services are ordered for a patient from day one (no SN, PT, or SLP ever involved), who would need to be brought in to get the SOC OASIS completed?
 
-You should land on: yes for PT — explicitly listed as able to complete OASIS; no for OT — explicitly excluded, even though OT is a legitimate skilled service in other contexts; and if only OT is ordered, an SN, PT, or SLP would still need to be brought in specifically to complete the OASIS, since OT alone cannot do it independently.
+You should land on: yes for PT — explicitly listed as able to complete OASIS; yes for OT in this specific scenario too, since PT already established eligibility first — OT completing the SOC OASIS itself is allowed once that condition is met; but for question 3, the answer changes: if OT is the *only* service ordered from the start, no discipline has established eligibility yet, so an SN, PT, or SLP would still need to be brought in — OT alone can never be the sole qualifying service at Start of Care, even though it can complete the OASIS paperwork once someone else has already qualified the patient.

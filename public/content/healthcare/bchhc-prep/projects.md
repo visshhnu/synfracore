@@ -51,7 +51,7 @@ Patient has a post-surgical abdominal wound dehiscence with wound VAC in place. 
    - Answer: A — active wound treatment
 
 4. Can an OT complete the OASIS at SOC?
-   - Answer: No — OT cannot independently complete the OASIS
+   - Answer: Conditionally — OT cannot independently establish eligibility (can't be the sole qualifying service at SOC), but OT can complete the SOC OASIS itself once another discipline (SN, PT, or SLP) has already established eligibility
 
 5. What is the PDGM clinical group for L89.xx as primary diagnosis?
    - Answer: Wound Care
@@ -100,6 +100,6 @@ Patient has a post-surgical abdominal wound dehiscence with wound VAC in place. 
 ### Practice Questions
 1. Which OASIS is completed within 48 hours (2 calendar days) of return from hospital? → ROC
 2. What 7th character when wound VAC is removed, dressing changes only? → D (subsequent, routine)
-3. OT evaluates for home health — can OT independently complete OASIS? → No
+3. OT evaluates for home health — can OT independently complete OASIS? → Conditional: not to establish eligibility, but yes once another discipline (SN/PT/SLP) already has, or for Discharge/Recert
 4. HTN + CKD stage 5 + CHF: which combination code? → I13.11
 5. CVA 3 months ago with left hemiplegia — code the acute stroke or sequela? → Sequela (I69.354)

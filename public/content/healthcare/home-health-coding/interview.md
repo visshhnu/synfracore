@@ -10,8 +10,8 @@ SCIC (Significant Change in Condition): within 60 days of SOC, acute change, no 
 Discharge OASIS: at end of each episode.
 
 **Q: Who can fill the OASIS assessment?**
-Skilled Nurse (SN — RN/LPN), Speech Therapist (ST/SLP), Physical Therapist (PT).
-OT (Occupational Therapist) CANNOT fill OASIS independently.
+Skilled Nurse (SN — RN/LPN), Speech Therapist (ST/SLP), Physical Therapist (PT) — all can complete OASIS independently at any timepoint.
+OT (Occupational Therapist) is conditional, not a flat no: OT cannot independently establish Medicare eligibility (can't be the sole qualifying service at SOC), but per a CMS rule change effective January 1, 2022, OT can complete the SOC OASIS once another discipline has already established eligibility, and can independently complete Discharge and Recertification OASIS.
 OASIS must be completed at each required assessment point.
 
 **Q: What is the PDGM and how does primary diagnosis affect payment?**

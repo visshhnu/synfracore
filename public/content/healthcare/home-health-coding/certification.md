@@ -39,7 +39,7 @@ The **BCHHC / BCHH-C (Board Certified Home Health Coder)** is a professional cer
 | SCIC | Acute change in condition | Within episode |
 | DC | Discharge | At last visit |
 
-**Who fills OASIS:** SN (RN/LPN), PT, SLP — OT cannot fill independently.
+**Who fills OASIS:** SN (RN/LPN), PT, SLP can complete OASIS at any timepoint independently. OT cannot independently establish eligibility (can't be the sole qualifying service at SOC), but can complete SOC OASIS once another discipline already has, and can independently complete Discharge/Recertification OASIS (effective Jan 1, 2022 CMS rule change).
 
 ### 3. PDGM — Patient-Driven Groupings Model
 Five classification factors per 30-day payment period:
@@ -124,7 +124,7 @@ I69.351 — Hemiplegia and hemiparesis following cerebral infarction, right non-
 D — Subsequent encounter. No active wound VAC = routine healing.
 
 **Q: OT evaluates a patient for home health. Can OT complete the OASIS?**
-No. OT cannot independently complete the OASIS. SN, PT, and SLP can.
+Conditionally. SN, PT, and SLP can complete OASIS at any timepoint independently. OT cannot independently establish eligibility — OT alone can't be the sole qualifying service at Start of Care — but OT can complete the SOC OASIS once another discipline (SN, PT, or SLP) already has, and can independently complete Discharge and Recertification OASIS on its own.
 
 **Q: Patient has HTN + ESRD + CHF. Which combination code?**
 I13.11 — Hypertensive heart and chronic kidney disease, heart failure, ESRD.

@@ -8,7 +8,7 @@ A patient can move between home and hospital during a single 60-day episode. Exa
 ↑ This whole cycle is within 60 days of SOC
 
 
-⚠️ OT (Occupational Therapist) **cannot** fill the OASIS. Only SN, ST/SLP, and PT can fill OASIS.
+⚠️ SN, ST/SLP, and PT can fill OASIS independently at any timepoint. OT (Occupational Therapist) is conditional, not a flat no: OT cannot independently establish Medicare eligibility (can't be the sole qualifying service at SOC), but per a CMS rule change effective January 1, 2022, OT can complete the SOC OASIS once another discipline has already established eligibility, and can independently complete Discharge and Recertification OASIS.
 
 
 ## 🔤 ICD-10-CM A to Z — Complete Chapter Guide

@@ -8,8 +8,8 @@
 5. Comorbidity adjustment: None/Low/High based on secondary diagnoses
 
 **Q: Who can complete the OASIS and who cannot?**
-Can complete OASIS independently: SN (RN/LPN), PT (Physical Therapist), SLP/ST (Speech-Language Pathologist).
-CANNOT complete OASIS: OT (Occupational Therapist) — OT cannot independently complete OASIS assessments.
+Can complete OASIS independently at any timepoint: SN (RN/LPN), PT (Physical Therapist), SLP/ST (Speech-Language Pathologist).
+OT (Occupational Therapist): conditional, not a flat no. OT cannot independently *establish* Medicare eligibility — OT alone can't be the sole qualifying service at Start of Care. But per a CMS rule change effective January 1, 2022, OT can complete the SOC OASIS itself once another discipline (SN, PT, or SLP) has already established eligibility, and OT can independently complete Discharge and Recertification OASIS on its own.
 
 **Q: What is the difference between SOC and ROC OASIS?**
 SOC (Start of Care): First OASIS completed at the very start of a new home health episode. Must be completed within 5 calendar days of the first skilled visit. Opens the 60-day episode.
