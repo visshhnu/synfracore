@@ -28,15 +28,22 @@ interface Props {
 // fixes all of that and stays correct automatically as sections are added.
 export default function WhatNext({ academy, technology, currentSection, techName, accentColor = "#6366F1", contentScope }: Props) {
   const isNonTech = nonTechAcademyIds.includes(academy);
-  const sectionFlow = getSectionsForTechnology({ contentScope }, isNonTech).map(s => ({
-    slug: s.slug, label: s.label, icon: s.icon, desc: s.description,
+  const sectionFlow = getSectionsForTechnology({ contentScope }, isNonTech, academy, technology).map(s => ({
+    slug: s.slug, label: s.label, icon: s.icon, desc: s.description, hasContent: s.hasContent,
   }));
 
   const idx = sectionFlow.findIndex(s => s.slug === currentSection);
-  const next = idx >= 0 && idx < sectionFlow.length - 1 ? sectionFlow[idx + 1] : null;
+  // "Up Next" is a "keep going" action — it should never land on an
+  // unwritten stub, so it skips forward past any section with no real
+  // content yet rather than always taking idx + 1. The full section list
+  // (including unwritten ones, grayed out) is still reachable via the
+  // sidebar/mobile nav and the "Also Worth Exploring" list below.
+  const next = idx >= 0 ? sectionFlow.slice(idx + 1).find(s => s.hasContent) ?? null : null;
   const prev = idx > 0 ? sectionFlow[idx - 1] : null;
 
-  // Suggest 2-3 related sections to explore
+  // Suggest 2-3 related sections to explore — unwritten ones are still
+  // included here, unchanged from the original ordering, just rendered
+  // grayed out below rather than hidden.
   const suggestions = sectionFlow
     .filter(s => s.slug !== currentSection && !["overview"].includes(s.slug))
     .slice(0, 3);
@@ -80,10 +87,15 @@ export default function WhatNext({ academy, technology, currentSection, techName
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "10px" }}>
           {suggestions.map(s => (
             <Link key={s.slug} href={`/academies/${academy}/${technology}/${s.slug}`} style={{ textDecoration: "none" }}>
-              <div className="card-hover" style={{ padding: "14px 16px", borderRadius: "10px", border: "1px solid var(--border)", background: "var(--bg-1)", cursor: "pointer" }}>
+              <div className="card-hover" style={{ padding: "14px 16px", borderRadius: "10px", border: "1px solid var(--border)", background: "var(--bg-1)", cursor: "pointer", opacity: s.hasContent ? 1 : 0.5 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
                   <span style={{ fontSize: "16px" }}>{s.icon}</span>
                   <span style={{ fontWeight: 600, fontSize: "13px", color: "var(--text-1)" }}>{s.label}</span>
+                  {!s.hasContent && (
+                    <span style={{ marginLeft: "auto", fontSize: "9px", fontWeight: 600, padding: "1px 6px", borderRadius: "10px", background: "var(--bg-2)", color: "var(--text-4)", whiteSpace: "nowrap" }}>
+                      Not yet written
+                    </span>
+                  )}
                 </div>
                 <div style={{ fontSize: "11px", color: "var(--text-4)" }}>{s.desc}</div>
               </div>

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "pages:build": "npm run generate:content-registry && opennextjs-cloudflare build",
+    "pages:build": "npm run generate:content-registry && npm run generate:labs-existence && opennextjs-cloudflare build",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "predeploy": "npm run validate:roadmaps && npm run validate:content-quality && npm run validate:no-hardcoded-stats",
     "deploy": "npm run pages:build && wrangler deploy",
@@ -15,6 +15,7 @@
     "validate:content-quality": "node scripts/validate-content-quality.mjs",
     "validate:no-hardcoded-stats": "node scripts/validate-no-hardcoded-stats.mjs",
     "generate:content-registry": "node scripts/generate-content-registry.mjs",
+    "generate:labs-existence": "node scripts/generate-labs-existence.mjs",
     "generate:og-images": "node scripts/generate-og-images.mjs"
   },
   "dependencies": {

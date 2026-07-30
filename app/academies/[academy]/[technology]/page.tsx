@@ -93,7 +93,7 @@ export default async function TechnologyPage({ params }: Props) {
   // source list as the sidebar now, no separate filter to drift out of sync.
   // getSectionsForTechnology also applies the contentScope "guide" filter
   // (Roadmap/Projects/Certification) when set — see lib/data/navigation.ts.
-  const availableSections = getSectionsForTechnology(tech, isNonTech);
+  const availableSections = getSectionsForTechnology(tech, isNonTech, aSlug, tSlug);
 
   // Practice Exams card — same registry-driven check as the sidebar
   // (app/academies/[academy]/[technology]/[section]/page.tsx), so both
@@ -158,7 +158,8 @@ export default async function TechnologyPage({ params }: Props) {
                   padding: "20px", borderRadius: "12px",
                   border: isCore ? `1px solid ${academy.color}30` : "1px solid var(--border)",
                   background: isCore ? academy.color + "05" : "var(--bg-1)",
-                  cursor: "pointer", position: "relative"
+                  cursor: "pointer", position: "relative",
+                  opacity: section.hasContent ? 1 : 0.5,
                 }}>
                   {i === 0 && (
                     <span style={{ position: "absolute", top: "10px", right: "10px", fontSize: "10px", background: "#10B981", color: "white", padding: "2px 6px", borderRadius: "4px", fontWeight: 700 }}>START</span>
@@ -176,7 +177,11 @@ export default async function TechnologyPage({ params }: Props) {
                     </div>
                   )}
                   <div style={{ marginTop: "10px", display: "flex", alignItems: "center", gap: "6px", fontSize: "11px", color: "var(--text-4)" }}>
-                    <Clock size={10} /> {info?.time || "1–2 hrs"}
+                    {section.hasContent ? (
+                      <><Clock size={10} /> {info?.time || "1–2 hrs"}</>
+                    ) : (
+                      <span style={{ fontWeight: 600, padding: "1px 6px", borderRadius: "10px", background: "var(--bg-2)" }}>Not yet written</span>
+                    )}
                   </div>
                 </div>
               </Link>

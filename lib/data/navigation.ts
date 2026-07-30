@@ -1,5 +1,7 @@
 import { academies, type Technology } from "./academies";
 import { educationBoards } from "./education";
+import { hasContent } from "@/lib/content";
+import { hasLabsContent } from "@/lib/data/labs/existence";
 
 export const navigation = [
   { name: "Academies", href: "/academies" },
@@ -191,13 +193,34 @@ export const GUIDE_EXCLUDED_SECTIONS = ["roadmap", "projects", "certification"];
 // a smaller instance of it). Every consumer of the section list — sidebar,
 // module grid, WhatNext, MobileSectionNav — should call this instead of
 // inlining the ternary.
+//
+// Each returned section now also carries `hasContent: boolean` — whether
+// real content actually exists for this academy/technology/section, not
+// just whether the section is conceptually part of this technology's
+// shape. Consumers use this to gray out / label unwritten sections rather
+// than hiding them outright (a technology with no Labs content still
+// shows a "Labs" entry, just visually marked as not-yet-written) — see
+// the section-route sidebar, module grid, WhatNext, and MobileSectionNav
+// for the actual rendering. "labs" is checked against the separate
+// lib/data/labs/existence.ts index (Labs content isn't in the markdown
+// content registry at all — it's a different data source entirely, see
+// components/tech/LabsSection.tsx), not hasContent().
+export type SectionWithStatus = (typeof techSections)[number] & { hasContent: boolean };
+
 export function getSectionsForTechnology(
   tech: Pick<Technology, "contentScope">,
-  isNonTech: boolean
-) {
+  isNonTech: boolean,
+  academySlug: string,
+  technologySlug: string
+): SectionWithStatus[] {
   const base = isNonTech ? nonTechSections : techSections;
-  if (tech.contentScope === "guide") {
-    return base.filter((s) => !GUIDE_EXCLUDED_SECTIONS.includes(s.slug));
-  }
-  return base;
+  const scoped = tech.contentScope === "guide"
+    ? base.filter((s) => !GUIDE_EXCLUDED_SECTIONS.includes(s.slug))
+    : base;
+  return scoped.map((s) => ({
+    ...s,
+    hasContent: s.slug === "labs"
+      ? hasLabsContent(academySlug, technologySlug)
+      : hasContent(academySlug, technologySlug, s.slug),
+  }));
 }

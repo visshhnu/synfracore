@@ -35,7 +35,7 @@ interface Props {
 export default function MobileSectionNav({ academy, technology, currentSection, techName, techIcon, accentColor = "#6366F1", showPracticeExams = false, contentScope }: Props) {
   const [open, setOpen] = useState(false);
   const isNonTech = nonTechAcademyIds.includes(academy);
-  const sections = getSectionsForTechnology({ contentScope }, isNonTech);
+  const sections = getSectionsForTechnology({ contentScope }, isNonTech, academy, technology);
   const current = sections.find(s => s.slug === currentSection);
 
   useEffect(() => {
@@ -127,12 +127,18 @@ export default function MobileSectionNav({ academy, technology, currentSection, 
                   padding: "12px 12px", borderRadius: "10px", marginBottom: "2px",
                   textDecoration: "none",
                   background: isActive ? "var(--bg-2)" : "transparent",
+                  opacity: s.hasContent ? 1 : 0.45,
                 }}
               >
                 <span style={{ fontSize: "16px", flexShrink: 0 }}>{s.icon}</span>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontSize: "14px", fontWeight: isActive ? 700 : 500, color: isActive ? "var(--accent)" : "var(--text-2)" }}>{s.label}</div>
                 </div>
+                {!s.hasContent && (
+                  <span style={{ fontSize: "9px", fontWeight: 600, padding: "1px 6px", borderRadius: "10px", background: "var(--bg-2)", color: "var(--text-4)", whiteSpace: "nowrap", flexShrink: 0 }}>
+                    Not yet written
+                  </span>
+                )}
                 {isActive && <Check size={16} color={accentColor} style={{ flexShrink: 0 }} />}
               </Link>
             );

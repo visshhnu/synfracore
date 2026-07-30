@@ -120,7 +120,7 @@ export default async function SectionPage({ params }: Props) {
   if (!academy || !tech) redirect("/academies");
 
   const isNonTech = nonTechAcademyIds.includes(aSlug);
-  const activeSections = getSectionsForTechnology(tech, isNonTech);
+  const activeSections = getSectionsForTechnology(tech, isNonTech, aSlug, tSlug);
   const sectionData = activeSections.find((s) => s.slug === section);
   const currentIndex = activeSections.findIndex((s) => s.slug === section);
   const prevSection = currentIndex > 0 ? activeSections[currentIndex - 1] : null;
@@ -234,10 +234,16 @@ export default async function SectionPage({ params }: Props) {
                 fontWeight: s.slug === section ? 600 : 400,
                 color: s.slug === section ? "var(--accent)" : "var(--text-3)",
                 background: s.slug === section ? "var(--bg-2)" : "transparent",
+                opacity: s.hasContent ? 1 : 0.45,
               }}
             >
               <span style={{ fontSize: "14px" }}>{s.icon}</span>
               {s.label}
+              {!s.hasContent && (
+                <span style={{ marginLeft: "auto", fontSize: "9px", fontWeight: 600, padding: "1px 6px", borderRadius: "10px", background: "var(--bg-2)", color: "var(--text-4)", whiteSpace: "nowrap" }}>
+                  Not yet written
+                </span>
+              )}
             </Link>
           ))}
           {practiceExamPaper && (
