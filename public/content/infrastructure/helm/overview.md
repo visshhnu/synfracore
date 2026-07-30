@@ -105,6 +105,14 @@ helm show values ingress-nginx/ingress-nginx > defaults.yaml
 helm get values my-nginx -n ingress-nginx  # Currently applied values
 ```
 
+## Try It (2 Minutes)
+
+No cluster needed to see how a Chart plus Values becomes real YAML — `helm template` renders locally without installing anything:
+
+1. `helm create demo` (scaffolds a starter chart, as shown below).
+2. `helm template demo` — this prints the fully-rendered Kubernetes YAML that *would* be applied, built from `demo/templates/*.yaml` combined with `demo/values.yaml`'s defaults.
+3. `helm template demo --set replicaCount=5` — run it again with an override. The rendered `Deployment`'s `replicas:` field changes from its default to `5`, with zero edits to any file. That's the entire Chart + Values = Rendered YAML equation from the diagram above, made concrete: the template never changes, only which values get substituted into it.
+
 ## Creating Your Own Chart
 
 ```bash

@@ -1,5 +1,15 @@
 # Helm — Fundamentals
 
+**Analogy** — A Chart's `templates/` directory is like a form letter with mail-merge fields, and `values.yaml` is the spreadsheet of names to merge in. The template (`deployment.yaml` with `{{ .Values.replicaCount }}` placeholders) never changes; what changes is which row of the spreadsheet (which `values.yaml`, or which `--set` override) gets merged in when you actually print (render) it. `helm install` is "merge and send"; `helm template` is "merge and preview without sending."
+
+```
+templates/*.yaml (the form letter, with {{ .Values.x }} placeholders)
+              +
+values.yaml (the spreadsheet row to merge in)
+              =
+Real Kubernetes YAML, ready to apply
+```
+
 ## Core Concepts
 
 ```
@@ -117,3 +127,11 @@ helm lint ./myapp
 helm package ./myapp
 helm push myapp-1.0.0.tgz oci://registry.example.com/charts
 ```
+
+## Try It (2 Minutes)
+
+Using the `myapp` chart created above:
+
+1. Run `helm template myapp ./myapp` — note the rendered `image:` line reads `nginx:1.25`, straight from `values.yaml`'s defaults.
+2. Create a one-line override file: `echo 'image: {tag: "1.26"}' > custom.yaml`.
+3. Run `helm template myapp ./myapp --values custom.yaml` again — the rendered `image:` line now reads `nginx:1.26`. The template file itself was never touched; only the "spreadsheet row" merged into it changed, exactly like the form-letter analogy above.

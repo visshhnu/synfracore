@@ -3,7 +3,7 @@
 > **mTLS, traffic management, observability without code changes**
 
 **Category:** Containers & Orchestration  
-**Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
+**Learning Path:** What → Why → Learning Modules → Production Example → Interview Prep
 
 **Before you start:** solid Kubernetes (Pods, Deployments, Services) is required — Istio is a layer on top of a running cluster, not a replacement for Kubernetes knowledge. Docker and basic networking concepts (TLS, load balancing) help too.
 
@@ -12,6 +12,8 @@
 ## What is Istio / Service Mesh?
 
 **mTLS (mutual TLS)** means both sides of a connection authenticate each other — unlike regular TLS, where only the server proves its identity to the client. Without a service mesh, every microservice team must implement mTLS, retries, circuit breakers, and distributed tracing independently in their own code. A service mesh moves all of this into a **sidecar proxy** (Envoy) injected alongside every pod — zero application code changes required. Istio is the most feature-rich service mesh but also the most complex to operate; Linkerd is simpler and lighter (Rust-based proxy).
+
+**Analogy** — Think of the Envoy sidecar like airport customs at every single doorway, not just at the border. Instead of trusting every room in the building to individually check IDs and enforce rules (each microservice implementing its own mTLS, retries, and auth), every doorway between rooms has its own customs checkpoint (Envoy) that no one can walk around. Every "traveler" (network request) gets checked, authenticated, and logged at each doorway, automatically — the rooms themselves (your application code) don't do any of that checking, they just talk to their own local checkpoint, which is exactly why zero application code changes are needed to get mTLS, retries, and tracing everywhere at once.
 
 ## Why Istio / Service Mesh?
 
@@ -193,6 +195,14 @@ spec:
     - destination:
         host: payment
 ```
+
+## Try It (2 Minutes)
+
+If you have a Kubernetes cluster available (even a local `kind`/`minikube` one):
+
+1. `istioctl install --set profile=demo -y` and `kubectl label namespace default istio-injection=enabled`.
+2. Deploy anything simple, e.g. `kubectl create deployment nginx --image=nginx` in the `default` namespace, then `kubectl get pod -l app=nginx -o jsonpath='{.items[0].spec.containers[*].name}'`.
+3. The output shows **two** container names — `nginx` and `istio-proxy` — not one. That's the airport-customs analogy made literal: Envoy was injected as a second container in the same pod, sitting between `nginx` and the network, without a single line of `nginx`'s own configuration changing.
 
 ---
 

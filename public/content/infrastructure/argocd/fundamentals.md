@@ -1,5 +1,14 @@
 # ArgoCD — Fundamentals
 
+**Analogy** — An `Application` resource is like a standing delivery instruction, not a one-time order. You're not telling ArgoCD "deploy this once" — you're telling it "this Git path is what should always be running in this namespace, forever, check back and correct it whenever they diverge." That's why `Sync status` (`Synced`/`OutOfSync`) is really a live comparison result, re-evaluated continuously, not a one-time deployment log entry.
+
+```
+Git repo (path: apps/my-app/prod)  ⇄  ArgoCD (continuously compares)  ⇄  Cluster namespace
+        "desired state"                                                   "actual state"
+                                    │
+                        OutOfSync? → sync (apply the diff)
+```
+
 ## Core Concepts
 
 ```
@@ -160,3 +169,11 @@ argocd repo add https://github.com/myorg/k8s-configs \
   --username git \
   --password $GITHUB_TOKEN
 ```
+
+## Try It (2 Minutes)
+
+Using an app you've already created (or ArgoCD's own bundled example app):
+
+1. `argocd app diff my-app-production` — even with nothing changed, this shows you exactly how ArgoCD compares Git's rendered manifests against the cluster's live objects, field by field.
+2. Change one value in Git (e.g. bump `replicaCount` in `values-prod.yaml`) and push the commit.
+3. Run `argocd app diff my-app-production` again — it now shows the specific field that differs, before you've synced anything. `argocd app sync my-app-production` applies exactly that diff. This is the standing-delivery-instruction idea made concrete: ArgoCD already knew about the mismatch the moment Git changed, it just hadn't corrected it yet.

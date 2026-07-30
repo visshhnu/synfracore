@@ -362,6 +362,163 @@ the one actual gap.
 - **Flagged, not fixed:** none this batch.
 - **Deferred:** none.
 
-## Remaining batches (not yet started)
+## Batch 6 — Helm, ArgoCD, Istio (containers + cicd domains) — closes the audit
 
-- Batch 6: Helm, ArgoCD, Istio — closes the 15-technology retroactive audit
+Helm and ArgoCD fully aliased to `infrastructure/{helm,argocd}/*`. **Istio
+is different from every other technology in this entire audit: it is not
+aliased at all, and only has 4 registered tabs in `lib/content/index.ts` —
+`overview`, `fundamentals`, `interview`, `cheatsheets`. No `intermediate.md`,
+no `advanced.md`, no `prerequisites.md`, nothing else exists for it,
+anywhere.** This was checked directly against the registry (not assumed
+from a shadowed-directory false alarm the way Shell Scripting's initial
+diagnosis was in batch 1) — Istio genuinely has less than a third of the
+tab set every other DevOps technology in this audit has. This is a real,
+distinct structural gap, separate from the `is_beginner_ready` scaffolding
+issue below, and is flagged as its own item rather than folded into the
+scaffolding fix.
+
+**Helm — passes accuracy/tab-depth, failed `is_beginner_ready` partially
+(had analogy+diagram in Overview already), now fully fixed.** `overview.md`
+already had a real analogy (Helm is to Kubernetes as `apt`/`pip` are to
+their ecosystems) and a Chart+Values=Rendered-YAML diagram — only the
+try-it was missing. `fundamentals.md` had neither analogy nor a true
+conceptual diagram (its "Core Concepts" block is a definitions list, not a
+diagram) nor a try-it. **Fixed:** added a `helm template --set` try-it to
+`overview.md`; a form-letter/mail-merge analogy + a Chart+Values diagram +
+a `helm template` before/after override try-it to `fundamentals.md`.
+
+**ArgoCD — passes accuracy/tab-depth, failed `is_beginner_ready` in both
+tabs (had a diagram, no analogy or try-it in either), now fixed.**
+`overview.md`'s "Traditional CD vs. GitOps CD" comparison and
+`fundamentals.md`'s Application/Sync/Drift definitions block both function
+as adequate structural diagrams (kept as-is), but neither tab had an
+analogy or a try-it. **Fixed:** thermostat-vs-light-switch analogy
+(continuous reconciliation vs. one-time push) + a `kubectl scale` /
+`selfHeal` drift-correction try-it in `overview.md`; standing-delivery-
+instruction analogy + a Git⇄ArgoCD⇄cluster diagram + an `argocd app diff`
+try-it in `fundamentals.md`.
+
+**Istio — passes accuracy on what exists, failed `is_beginner_ready` in
+both tabs, now fixed; the missing-tabs gap above is separate and not
+fixed here.** `overview.md` and `fundamentals.md` are both accurate and
+well-organized (control-plane/data-plane split, mTLS STRICT/PERMISSIVE,
+traffic management via VirtualService/DestinationRule all correctly
+explained and cross-checked against real Istio behavior), but neither had
+an analogy or a try-it, and `overview.md`'s own "Learning Path" label had
+the same stale mismatch found in Networking (batch 1) and Kubernetes
+(batch 2) — now a confirmed 3rd instance. **Fixed:** corrected the Learning
+Path label; added an airport-customs-at-every-doorway analogy (why zero
+app-code changes are needed) + a two-container-pod `kubectl` try-it to
+`overview.md`; a central-security-office/guard-at-each-door analogy
+(control plane vs. data plane) + a diagram + an `istioctl proxy-status`
+try-it to `fundamentals.md`.
+
+No dead cross-tab references found in any of the three technologies (Helm
+and ArgoCD each make one valid "see Prerequisites tab" reference; Istio
+makes none).
+
+### Batch 6 status: flagged vs fixed vs deferred
+
+- **Fixed:** Helm (overview try-it; fundamentals full scaffolding), ArgoCD
+  (both tabs, analogy + try-it added to each), Istio (both tabs, analogy +
+  try-it added to each, plus the Learning Path label).
+- **Flagged, not fixed — real structural gap, not a comprehension-audit
+  item:** Istio has only 4 tabs registered at all (overview, fundamentals,
+  interview, cheatsheets) — no Intermediate, Advanced, Prerequisites,
+  Installation, Troubleshooting, or Projects tabs exist anywhere in the
+  registry or on disk, unlike every other technology checked in this
+  entire audit. This is a genuine content-generation gap (writing new
+  tabs from scratch), not a fix that belongs in a comprehension-correction
+  pass — logged here per the standing QA process so it isn't lost, same
+  as Shell Scripting's real (narrower) `is_beginner_ready` gap was in
+  batch 1.
+- **Deferred:** the "Learning Path" stale-label pattern (now confirmed in
+  Networking, Kubernetes, and Istio — 3 of the technologies checked across
+  this audit) is worth a dedicated sitewide grep across the rest of the
+  DevOps academy and beyond, rather than assuming it's isolated to these
+  three.
+
+## Systemic Finding — audit closed
+
+All 15 technologies in the corrected retroactive scope (14 pre-standard +
+Linux first-time) have now been checked, each independently verified
+against the actual live/served content — not the shadowed directory, not
+a concurrently-drafted claim taken on trust — before being merged: Linux,
+Networking, Shell Scripting, Docker, Kubernetes, Git, CI/CD, Terraform,
+Ansible, Jenkins, Prometheus, Grafana, Helm, ArgoCD, Istio.
+
+**The headline result: 11 of 15 technologies (73%) had a systemic, not
+isolated, `is_beginner_ready` scaffolding gap** — Shell Scripting, CI/CD,
+Git, Terraform, Ansible, Jenkins, Prometheus, Grafana, Helm, ArgoCD, and
+Istio all had Overview and/or Fundamentals content that was accurate,
+well-organized, and correctly sequenced in tab depth, but missing the
+analogy, diagram, or 2-minute try-it CLAUDE.md's content rules require
+before a lesson counts as beginner-ready at all. This wasn't visible from
+a casual read-through — CI/CD and Git in particular read as solid,
+dense, well-written prose right up until the specific analogy/diagram/
+try-it check was applied. Every one of the roughly 40 scaffolding
+additions across those 11 technologies was independently verified as
+genuinely pedagogical (the analogy maps onto real mechanics, not
+decorative) and technically accurate (real commands, real tool behavior,
+checked against actual Docker images, CLI output, and library behavior
+where the try-it made a specific factual claim) before being merged —
+not just present. **Only Docker, Kubernetes, Linux, and Networking (4 of
+15, 27%) were already fully compliant** with no scaffolding gap at all.
+
+One partial case worth naming explicitly: Grafana's `fundamentals.md` had
+already received a hook, analogy, and try-it from an earlier, unrelated
+commit (`85e787c`) before this audit reached it — batch 5 checked for
+duplication first and added only the one genuinely missing piece (a
+diagram), rather than redoing already-complete work. Helm's `overview.md`
+was similarly partial — it already had a real analogy (Helm : Kubernetes
+:: `apt`/`pip` : their ecosystems) and a working diagram, and only needed
+a try-it.
+
+**Two items were found, fixed, and logged as their own individually
+verified defects — accuracy issues, not the scaffolding gap:**
+- **1 prerequisite overclaim** — Linux's `prerequisites.md` claimed `ip`
+  was taught at the level of `ss`; verified `ip` only ever appears in
+  Cheatsheets/Notes (reference tabs), never taught. Narrowed the claim.
+- **1 dead cross-reference** — Kubernetes' `fundamentals.md` pointed to
+  Docker's Fundamentals tab for "why secrets shouldn't live in an image";
+  verified via grep that Docker's Fundamentals tab never mentions secrets
+  at all. Corrected to point at Docker's actual coverage (Intermediate's
+  `.dockerignore` note, Overview's security example) — both verified real.
+
+**Two structural/pattern items were found and deliberately left open,
+flagged for future, separate work rather than folded into this pass:**
+- **The "stale Learning Path label" pattern — confirmed 3 genuine
+  instances**, each individually checked against the file's own actual
+  section headers, not assumed from the first case: Networking (batch 1),
+  Kubernetes (batch 2), and Istio (batch 6) all had a "Learning Path" line
+  reading `What → Why → Architecture → Setup → Real Examples → Production
+  → Interview Prep`, which matched none of their real headers — every one
+  of the three actually reads `What → Why → Learning Modules → Production
+  Example → Interview Prep`. All 3 corrected in place. Given a 3-for-3 hit
+  rate among the technologies checked here, this is flagged as its own
+  sitewide-check candidate — worth a dedicated grep across the rest of the
+  DevOps academy and other academies for the same stale label, rather than
+  assuming it's isolated to the 15 technologies this audit covered.
+- **Istio's structural tab gap — a distinct, separate finding from the
+  scaffolding fix above, not a comprehension-audit item.** Verified
+  directly against `lib/content/index.ts` and the filesystem, not inferred:
+  Istio has exactly 4 registered tabs (`overview`, `fundamentals`,
+  `interview`, `cheatsheets`) and no `infrastructure/istio/*` alias exists
+  at all — unlike Shell Scripting's batch-1 false alarm (which looked
+  identical at a glance but was actually a complete, aliased 14-file set),
+  Istio genuinely has no Intermediate, Advanced, Prerequisites,
+  Installation, Troubleshooting, or Projects content anywhere, on disk or
+  in the registry. This is a real content-generation gap — writing new
+  tabs from scratch — not something a comprehension-correction pass fixes,
+  and is logged here so it isn't lost, per the standing QA process.
+
+**One scope-correction on the audit's own prior record, established at
+the very start of this document and confirmed still accurate at close:**
+`docs/audit/08-databases-comprehension-audit.md`'s claim of an
+"already-completed 18-technology DevOps comprehension audit" in
+`07-roadmap-final.md` was verified false by direct grep — no such section
+exists there. The real, now-closed scope was 15 technologies (14
+pre-standard batches needing a genuine retroactive spot-check, plus Linux,
+which had never been checked at all, pre- or post-standard).
+
+This closes the DevOps retroactive Standard-9 comprehension audit.

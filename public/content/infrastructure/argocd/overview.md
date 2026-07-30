@@ -4,6 +4,8 @@
 
 ArgoCD is the most widely adopted GitOps tool for Kubernetes. It continuously monitors Git repositories and automatically synchronizes Kubernetes cluster state with the desired state defined in Git — making Git the single source of truth for your infrastructure.
 
+**Analogy** — Think of ArgoCD like a thermostat, not a one-time light switch. A light switch (a traditional CI pipeline pushing `kubectl apply` once) sets a state and walks away — if someone bumps it afterward, nothing corrects it. A thermostat continuously checks the current temperature against the target and keeps correcting, indefinitely, on its own. ArgoCD does the same thing to a Kubernetes cluster: it doesn't just apply Git's state once, it keeps comparing the cluster's actual state against Git's desired state forever, and with `selfHeal: true`, actively corrects any drift it finds — including someone else's manual `kubectl apply` — back to what Git says should be running.
+
 ## What is GitOps?
 
 GitOps = Git + Operations. Core principle: **everything is code in Git**.
@@ -313,6 +315,14 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 ```
+
+## Try It (2 Minutes)
+
+See `selfHeal` correct manual drift live, using the Application from "Create Your First Application" above (or ArgoCD's own quickstart guestbook app if you don't have a test repo handy):
+
+1. With the app synced and `selfHeal: true` set, run `kubectl scale deployment myapp-production -n production --replicas=1` directly, bypassing ArgoCD entirely.
+2. Watch `argocd app get myapp-production` (or the UI) — within the polling interval (a few minutes, or instantly on a webhook), ArgoCD notices the drift (`OutOfSync`, briefly) and scales it back to whatever Git actually declares.
+3. This is the thermostat analogy directly: nobody had to run `argocd app sync` manually — ArgoCD noticed reality no longer matched the desired state in Git and corrected it on its own, the same way a thermostat doesn't wait to be told the room got cold.
 
 ## Interview Questions
 

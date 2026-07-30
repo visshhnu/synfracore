@@ -1,5 +1,14 @@
 # Istio — Fundamentals
 
+**Analogy** — `istiod` (the control plane) is like a building's central security office issuing instructions, and each Envoy sidecar is like a guard stationed at one specific door, following those instructions. The security office doesn't check anyone's ID itself — it decides the policy ("this door allows badge type A only after 6pm") and pushes it out to every guard. Each guard then enforces that policy locally, in real time, without radioing back to the office for every single person who walks through. That's exactly the control-plane/data-plane split below: `istiod` computes and distributes config, Envoy sidecars are the ones actually intercepting and enforcing it on live traffic.
+
+```
+istiod (control plane)  --pushes Envoy xDS config-->  Envoy sidecar (data plane)
+   "the policy office"                                  "the guard at this pod's door"
+                                                                  │
+                                                    intercepts ALL traffic in/out of the pod
+```
+
 ## What is Istio?
 
 | Without Istio | With Istio |
@@ -116,6 +125,13 @@ With Istio, every service-to-service call is automatically encrypted and mutuall
 | Logs | Access logs for every request — source, destination, status code, duration | ELK or Loki |
 
 Zero instrumentation is required — install Istio, label the namespaces, and every service automatically gets request metrics, traces, and logs. This is Istio's biggest operational value: instant observability across all microservices without changing a single line of application code.
+
+## Try It (2 Minutes)
+
+Using the two-container pod from the Overview tab's Try It (`nginx` + `istio-proxy`):
+
+1. Run `istioctl proxy-config listeners <nginx-pod-name>` — this asks the Envoy sidecar directly what it's currently configured to intercept, straight from the "guard's" own local config, not from `istiod`.
+2. Run `istioctl proxy-status` — this shows every sidecar in the mesh and whether it's in sync with `istiod`'s latest pushed config (`SYNCED`) or lagging (`STALE`). That distinction — "the office issued new instructions" vs. "this specific guard has actually received and applied them" — is exactly the control-plane/data-plane split above, and it's the first thing to check when a policy change (a new `VirtualService`, a stricter `PeerAuthentication`) doesn't seem to be taking effect on one particular pod.
 
 ## Interview Questions
 
