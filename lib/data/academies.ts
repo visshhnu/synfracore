@@ -825,6 +825,24 @@ const aerospaceAcademy: Academy = {
   technologies: [],
 };
 
+const vlsiAcademy: Academy = {
+  slug: "vlsi", title: "VLSI & Semiconductor Engineering", subtitle: "Digital Design · Verilog/VHDL · Verification · Physical Design",
+  icon: "🔬", color: "#64748B",
+  description: "Chip design from digital logic to fabrication — HDL, RTL design, functional verification, physical design, analog/mixed-signal, and India-specific career/exam pathways (GATE EC/VLSI, semiconductor industry).",
+  domains: [{ slug: "vlsi-core", name: "VLSI Engineering", icon: "🔬", description: "Core VLSI subjects, digital foundations through fabrication and careers", color: "#64748B",
+    technologies: [
+      { slug: "digital-logic-fundamentals", name: "Digital Logic & Design Fundamentals", icon: "🔢", description: "Boolean algebra, number systems, combinational and sequential logic — the on-ramp for everything else in this academy", level: "Beginner", tags: ["Digital Logic", "Boolean Algebra", "Sequential Logic", "Foundations"] },
+      { slug: "hdl-verilog-vhdl", name: "HDL — Verilog & VHDL", icon: "💻", description: "RTL coding, simulation, testbenches, synthesis basics in Verilog and VHDL", level: "Beginner", tags: ["Verilog", "VHDL", "HDL", "RTL"] },
+      { slug: "rtl-digital-design", name: "RTL Design & Computer Architecture", icon: "🧩", description: "FSMs, datapath design, pipelining, timing closure", level: "Intermediate", tags: ["RTL", "FSM", "Pipelining", "Architecture"] },
+      { slug: "functional-verification", name: "Functional Verification", icon: "✅", description: "SystemVerilog, UVM, coverage-driven verification, assertions", level: "Intermediate", tags: ["Verification", "SystemVerilog", "UVM", "Coverage"] },
+      { slug: "physical-design-fabrication", name: "Physical Design & Fabrication", icon: "🏭", description: "Floorplanning, place-and-route, static timing analysis, DFT, fab process nodes", level: "Advanced", tags: ["Physical Design", "STA", "DFT", "Fabrication"] },
+      { slug: "analog-mixed-signal", name: "Analog & Mixed-Signal Design", icon: "📈", description: "Op-amps, ADC/DAC, layout matching, noise — the analog track alongside the digital chain", level: "Advanced", tags: ["Analog", "Mixed-Signal", "ADC", "DAC"] },
+      { slug: "vlsi-careers", name: "VLSI Careers & Exam Pathways", icon: "🎯", description: "GATE EC (Electronics & Communication) paper — VLSI is not a separate GATE paper — plus India semiconductor-industry roles (Intel, Qualcomm, AMD, Synopsys, Cadence, India Semiconductor Mission fabs)", level: "Beginner", tags: ["Career", "GATE", "Semiconductor", "India"] },
+    ]
+  }],
+  technologies: [],
+};
+
 export const academies: Academy[] = [
   devopsAcademy,
   cloudAcademy,
@@ -846,6 +864,7 @@ export const academies: Academy[] = [
   professionalCertsAcademy,
   economicsAcademy,
   aerospaceAcademy,
+  vlsiAcademy,
 ];
 
 // Kept only for any external backward-compat imports — education/exams are in main academies array

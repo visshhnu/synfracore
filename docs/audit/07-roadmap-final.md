@@ -3226,3 +3226,25 @@ sources; one real error found and fixed (the ISRO Scientist/Engineer 'SC'
 written test was stated as "100 questions total," but is actually 95
 questions worth 100 marks — corrected, and confirmed to be the only
 instance of the error across all 21 files).
+
+---
+
+## Deferred (not scoped, not scheduled) — logged 2026-07-31
+
+Two items raised during VLSI scoping, explicitly out of scope for this
+session and not to be picked up without a separate planning pass:
+
+1. **Potential future Naval/Defense Engineering vertical** — no domain
+   breakdown, sizing, or academies.ts entry proposed yet. Raised only as a
+   possible future addition alongside VLSI/AEE; needs its own scoping
+   session before any structural or content work starts.
+2. **Deeper expansion of Aerospace's existing ISRO career-pathway
+   content** (`aerospace-careers` technology, launched 2026-07-31 as part
+   of the 3-tab starter above) — e.g. additional agencies/companies,
+   more exam-pathway detail, or a widened tab set. Not committed to;
+   revisit alongside any future Aerospace tab-expansion pass (Intermediate/
+   Projects tabs, noted as a future option above).
+
+Neither item has a technology breakdown, tab sizing, or academies.ts
+structure proposed. Do not start either without a dedicated scoping pass
+first, same process as this document's VLSI section.
