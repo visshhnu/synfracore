@@ -95,33 +95,96 @@ try-it, all required), just not for the reason or with the scope first
 assumed. This is "add pedagogical scaffolding to 2 existing, otherwise
 solid files," not "write 5 tabs from scratch."
 
-**Not fixed here — flagged as an open backlog item, not deferred silently:**
-adding an analogy, a diagram, and a try-it prompt to `overview.md` and
-`fundamentals.md` is scoped content work, not a comprehension-audit
-correction, and doesn't belong folded into this retroactive-check batch.
-Logged here so it isn't lost, per the standing QA process (step 7 — no
-known bug sits unfixed because it belongs to a closed batch).
+**Fixed (follow-up to the correction above):** added the missing scaffolding
+to `infrastructure/shell-scripting/overview.md` and `fundamentals.md` — an
+analogy (script-as-recipe-card for Overview; variable/conditional/loop as
+labeled-box/fork-in-road/repeat-block for Fundamentals), an ASCII diagram
+in each (script execution order; Bash control-flow at a glance), and a
+2-minute Try It exercise in each (a `set -euo pipefail` failure demo;
+a `${1:-default}` argument-fallback demo). Both files otherwise already had
+solid annotated examples, so this closes the `is_beginner_ready` gap
+without a rewrite.
 
 ### Batch 1 status: flagged vs fixed vs deferred
 
 - **Fixed:** Linux prerequisite overclaim (`ip` command); Networking
-  Learning Path label mismatch.
+  Learning Path label mismatch; Shell Scripting's missing
+  analogy/diagram/try-it scaffolding in `overview.md` and `fundamentals.md`.
 - **Corrected during review:** Shell Scripting's initial diagnosis (single
   file, missing tabs entirely) was wrong — it checked the shadowed
   `devops/shell-scripting/` directory, not the aliased, complete,
   ~12,600-word `infrastructure/shell-scripting/*` set the registry
   actually serves. See corrected finding above.
-- **Flagged, not fixed:** Shell Scripting's real defect — `overview.md`
-  and `fundamentals.md` lack analogy/diagram/try-it scaffolding — is
-  scoped content work, out of scope for this comprehension-correction
-  pass.
-- **Deferred:** none beyond the above — Linux and Networking are otherwise
-  genuinely clean under the full standard.
+- **Deferred:** none — all batch 1 findings are now either fixed or
+  corrected. Linux, Networking, and Shell Scripting are all clean under
+  the full standard as of this commit.
+
+## Batch 2 — Docker, Kubernetes (containers domain)
+
+Both aliased across `devops/` and `infrastructure/` roots (`lib/content/index.ts`)
+— checked every tab against its real, served source, not just the shadowed
+`devops/` directory, per the lesson from batch 1's Shell Scripting correction.
+
+**Docker (12 tabs: overview/fundamentals/intermediate/advanced(infra)/
+interview/cheatsheets/troubleshooting/certification(infra)/installation(infra)/
+prerequisites(infra)/projects(infra)/roadmap(infra)) — passes cleanly, no
+fixes needed.** Terms defined before use throughout (namespaces/cgroups
+introduced conceptually in Overview, `CMD` vs `ENTRYPOINT` and volumes vs.
+bind mounts genuinely explained from scratch in Fundamentals, not assumed).
+Tab depth increases correctly: Fundamentals covers single-container
+mechanics, Intermediate adds multi-stage builds/exit-code troubleshooting/
+Compose, Advanced adds Swarm orchestration and a full CI/CD pipeline. No
+dead references, no duplicate H1s, prerequisites.md's claims match what's
+actually taught. This is the cleanest technology checked in this audit so
+far.
+
+**Kubernetes (13 tabs: overview/fundamentals/intermediate/advanced(self)/
+interview/cheatsheets(self)/certification(infra)/installation(infra)/
+labs(infra)/prerequisites(infra)/projects(infra)/roadmap(infra)/
+troubleshooting(infra) — note `devops/kubernetes/troubleshooting.md` exists
+on disk but is shadowed by the infra alias, same dead-weight pattern as
+Shell Scripting's old overview.md; not re-flagging as a separate defect,
+just noting for awareness) — passes, two fixes.** Content itself is
+excellent: the Overview→Fundamentals→Intermediate→Advanced progression
+genuinely deepens (Overview stays conceptual, Fundamentals introduces
+`kubectl`/Pod/Deployment/Service YAML, Intermediate adds StatefulSet/RBAC/
+storage classes, Advanced covers QoS eviction order, scheduler internals,
+HPA/VPA/CA/KEDA, PDBs) — the strongest tab-depth example seen in this audit.
+Interview tab's Q8 (Cluster Autoscaler/GPU-node debugging) is correctly
+cross-referenced from Advanced's Cluster Autoscaler section — verified, not
+a dead reference.
+
+**Fixed:**
+1. Same stale "Learning Path" label mismatch as Networking in batch 1 —
+   overview.md claimed `What → Why → Architecture → Setup → Real Examples →
+   Production → Interview Prep`, actual structure is `What → Why → Learning
+   Modules → Production Example → Interview Prep`. This is now the third
+   instance of this exact mismatch (Networking, Kubernetes, and by pattern
+   likely worth a quick grep across the rest of the DevOps academy once this
+   audit's remaining batches are done).
+2. `fundamentals.md`'s ConfigMaps/Secrets section claimed "see Docker's own
+   Fundamentals tab on why secrets shouldn't live in an image" — verified via
+   grep, Docker's Fundamentals tab never mentions secrets at all; that
+   content is in Docker's Intermediate tab (`.dockerignore` note) and
+   Overview's security interview answer. Corrected the cross-reference to
+   point at the right tabs.
+
+### Batch 2 status: flagged vs fixed vs deferred
+
+- **Fixed:** Kubernetes Learning Path label mismatch; Kubernetes → Docker
+  cross-reference pointing at the wrong tab.
+- **Flagged, not fixed:** none — both fixes were small, in-scope corrections.
+- **Deferred:** worth a sitewide grep for the "Learning Path" stale-label
+  pattern once all 6 batches are done, given it's now hit 2 of 5 technologies
+  checked (Networking, Kubernetes) — logged here rather than expanding this
+  batch's scope.
 
 ## Remaining batches (not yet started)
 
-- Batch 2: Docker, Kubernetes
-- Batch 3: Git, CI/CD Pipelines
+- Batch 3: Git, CI/CD Pipelines — content and audit findings for this batch
+  were staged on disk alongside batch 1/2, but were not part of this
+  review round's scope and have not been independently verified or merged
+  yet. Left staged, untouched, for a dedicated review pass.
 - Batch 4: Terraform, Ansible, Jenkins
 - Batch 5: Prometheus, Grafana
 - Batch 6: Helm, ArgoCD, Istio — closes the 15-technology retroactive audit

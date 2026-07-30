@@ -3,7 +3,7 @@
 > **Container orchestration at production scale**
 
 **Category:** Containers & Orchestration  
-**Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
+**Learning Path:** What → Why → Learning Modules → Production Example → Interview Prep
 
 **Before you start:** this is not a beginner-friendly technology, and the platform's own Prerequisites tab says so directly — you need to already know Docker well (what an image vs. a container is, how to write a Dockerfile, how `docker run` and `docker compose up` work) before this page will make sense. If Docker itself is new to you, do the **Docker** course first — Fundamentals through at least Intermediate. You'll also want basic Linux command-line comfort and basic networking (what an IP address and a port are). See the **Prerequisites** tab for the full checklist and a realistic time estimate.
 

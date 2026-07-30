@@ -1,5 +1,21 @@
 # Shell Scripting — Fundamentals
 
+Everything below is the same handful of building blocks — variables, conditionals, loops, functions — that show up in every programming language, just with Bash's own syntax and a few Bash-specific quirks (quoting, `$()`, the difference between `[ ]` and `[[ ]]`). If you've never programmed before, think of a **variable** as a labeled box you can put a value in and take it back out by name, a **conditional** as a fork in the road ("if this is true, go left; otherwise, go right"), and a **loop** as "repeat this same set of steps for each item in a list, without retyping it every time."
+
+```
+Bash script control flow, at a glance
+──────────────────────────────────────
+  variable = value        → store something for later
+       │
+  if [[ condition ]]      → fork: pick one branch based on a test
+       │
+  for / while loop        → repeat a block, once per item or
+       │                     until a condition stops being true
+       ▼
+  function                → a named, reusable block of the above,
+                             callable by name instead of copy-pasted
+```
+
 ## Bash Basics
 
 ```bash
@@ -217,3 +233,17 @@ sort -k2 -n file.txt              # sort by 2nd field numerically
 sort -u file.txt                   # sort + unique
 uniq -c sorted.txt                 # count consecutive duplicates
 ```
+
+## Try It (2 Minutes)
+
+1. In a terminal, create `greet.sh`:
+   ```bash
+   #!/bin/bash
+   name="${1:-World}"
+   if [[ "$name" == "World" ]]; then
+       echo "No name given — greeting the whole world instead."
+   fi
+   echo "Hello, $name!"
+   ```
+2. Run `bash greet.sh` (no argument) — notice it falls back to `"World"` and prints the extra line, because `${1:-World}` means "use argument 1, or default to World if it wasn't given."
+3. Run `bash greet.sh Alice` — now `$name` is `"Alice"`, the `if` branch is false, and only the greeting prints. That one `${1:-default}` pattern is exactly what `check_dependency` and the other functions above use to make a script safe to call with or without optional input.

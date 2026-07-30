@@ -189,7 +189,7 @@ spec:
 
 ## ConfigMaps and Secrets
 
-Hardcoding configuration (a log level, a feature flag) or credentials (a database password) directly into a Pod's manifest or container image means changing them requires rebuilding and redeploying — and for credentials, baking them into an image is a real security risk (see Docker's own Fundamentals tab on why secrets shouldn't live in an image). A **ConfigMap** holds non-sensitive configuration as key-value pairs, separately from the Pod, so it can be updated independently. A **Secret** holds sensitive values the same way — but worth knowing plainly: by default a Secret is only **base64-encoded**, not encrypted, meaning it's trivially decodable by anyone with read access to it, not cryptographically protected. (The Intermediate tab covers what real protection actually requires.)
+Hardcoding configuration (a log level, a feature flag) or credentials (a database password) directly into a Pod's manifest or container image means changing them requires rebuilding and redeploying — and for credentials, baking them into an image is a real security risk (see Docker's own Intermediate tab's `.dockerignore` note, and Overview's security interview answer, on why secrets shouldn't live in an image). A **ConfigMap** holds non-sensitive configuration as key-value pairs, separately from the Pod, so it can be updated independently. A **Secret** holds sensitive values the same way — but worth knowing plainly: by default a Secret is only **base64-encoded**, not encrypted, meaning it's trivially decodable by anyone with read access to it, not cryptographically protected. (The Intermediate tab covers what real protection actually requires.)
 
 ```bash
 # Create ConfigMap
