@@ -523,16 +523,42 @@ a home sale) + try-it (work a HIPAA breach-notification scenario against the
   tab, which already covers BCHHC format).
 
 **Open backlog carried forward (not fixed in this audit phase):**
-1. `medical-coding/intermediate.md` — Home Health/OASIS-specific content
-   contradicting the technology's own stated "3 tabs only" scope. Recommend
-   either moving the content to Home Health Coding or rewriting it as
-   genuine medical-coding-overview content.
-2. `coding-guidelines/fundamentals.md` and `intermediate.md` — generic
-   CPT/billing-101 content unrelated to the technology's own OGCR-guideline
-   subject matter, breaking tab-depth sequencing between Overview and
-   Advanced. Recommend a dedicated content-restructuring pass building
-   genuine guideline-application content for these two tabs.
-3. **RESOLVED (`ae0bf36`):** the "ROC OASIS within 24 hours" error (correct
+1. **RESOLVED (`3860ed9`):** `medical-coding/intermediate.md` — Home
+   Health/OASIS-specific content contradicting the technology's own stated
+   "3 tabs only" scope. Deleted rather than moved/rewritten (no salvageable
+   on-topic content existed under the H1). Registry regenerated via the
+   real generator to remove the now-dangling entry (confirmed
+   `hasContent()` only checks registry presence, not file existence — a
+   stale entry would have shown a tab link that loaded blank). No other
+   file referenced this path. Medical Coding already had only 3 of ~14
+   possible sections registered before this change, so the resulting
+   "sidebar links to a section with no content" characteristic is
+   consistent with its pre-existing pattern, not a new gap.
+2. **RESOLVED (`3860ed9`):** `coding-guidelines/fundamentals.md` and
+   `intermediate.md` — generic CPT/billing-101 content unrelated to the
+   technology's own OGCR-guideline subject matter. Rewritten to be
+   genuinely about the OGCR as a document, instructional-note/combination-
+   code mechanics, and worked Excludes1/Excludes2 conflict resolution +
+   multi-rule sequencing — all worked examples (E11.22 diabetes-CKD
+   combination code, E10/E11 Excludes1, J44/J45 Excludes2, L89.61/L89.62
+   pressure-ulcer laterality) independently verified against real
+   ICD-10-CM facts. One real defect found and fixed during this
+   verification, not present in the original draft's checklist: the
+   HIV/pregnancy/appendicitis sequencing example had appendicitis
+   incorrectly sequenced third instead of principal, and included an
+   O99.83 code unsupported by Overview's own stated FY2026 HIV rule —
+   corrected to K35.80 principal + Z21 additional, O99.83 dropped.
+   `cheatsheets.md`'s 5 pointer retargets (from "see fundamentals" to
+   specific Overview section titles) individually checked against
+   Overview's real headers — all accurate.
+3. **New, not fixed:** `coding-guidelines/projects.md` carries the same
+   DevOps-flavored contamination boilerplate ("Cloud and infrastructure
+   tools evolve rapidly...") just cleaned from `coding-guidelines/
+   interview.md`, `cpt/interview.md`, `hcpcs/interview.md`, and
+   `healthcare-admin/interview.md` in this same batch — found while
+   spot-checking for the same signature, but out of this batch's file
+   scope. Logged for a future pass.
+4. **RESOLVED (`ae0bf36`):** the "ROC OASIS within 24 hours" error (correct
    figure: 48 hours / 2 calendar days, per 42 CFR 484.55) — a sitewide
    search after this audit's initial fix (`bchhc-prep/overview.md` only)
    found 10 more occurrences across 9 files, all individually verified and
@@ -544,7 +570,7 @@ a home sale) + try-it (work a HIPAA breach-notification scenario against the
    separate, live, registered copy of the Home Health Coding technology
    living under the `security` academy** (see item 5 below). Sitewide
    grep after fixing confirms zero remaining matches. Closed.
-4. **RESOLVED (`a09a0db`):** the "OT can never complete OASIS" claim —
+5. **RESOLVED (`a09a0db`):** the "OT can never complete OASIS" claim —
    outdated since a January 2022 CMS rule change. Corrected to the actual
    rule (OT cannot independently establish Medicare eligibility — can't be
    the sole qualifying service at SOC — but can complete the SOC OASIS
@@ -566,7 +592,7 @@ a home sale) + try-it (work a HIPAA breach-notification scenario against the
    Health/OASIS scope-contamination problem) — fixing one factual claim
    inside wrong-domain content doesn't make the content belong there. Item
    1 remains open, unaddressed by this fix, exactly as it was before.
-5. **RESOLVED (`a09a0db`):** `public/content/security/home-health-coding/`
+6. **RESOLVED (`a09a0db`):** `public/content/security/home-health-coding/`
    — investigated before any action, not assumed. Git history: created as
    a generic boilerplate stub in `c838af6` ("zero 404s" sweep, 2026-06-13),
    filled with real content in `9e1e84d` ("fill all thin content files",
@@ -590,3 +616,18 @@ a home sale) + try-it (work a HIPAA breach-notification scenario against the
 this final tally has been removed — Batch 1's findings are already fully
 covered both inline in the Batch 1 section above and in this closing
 summary; keeping both was redundant, not additive.)
+
+## Audit fully closed (`3860ed9`)
+
+Both structural findings from the original scope are now resolved: item 1
+(`medical-coding/intermediate.md`'s scope contamination, deleted) and item
+2 (`coding-guidelines/{fundamentals,intermediate}.md`'s off-topic content,
+rewritten and independently fact-checked). Combined with items 4-6 above
+(ROC-timing error, OT/OASIS outdated claim, and the orphaned
+`security/home-health-coding` duplicate — all resolved), **no known open
+item from this audit's original scope remains.**
+
+One new item was found and logged during the closing pass, not part of
+the original scope and not fixed here: `coding-guidelines/projects.md`
+carries the same contamination signature just cleaned from 4 sibling
+interview.md files, flagged for its own future pass (item 3 above).
