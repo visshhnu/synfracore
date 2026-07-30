@@ -807,6 +807,24 @@ const economicsAcademy: Academy = {
   technologies: [],
 };
 
+const aerospaceAcademy: Academy = {
+  slug: "aerospace", title: "Aeronautical & Aerospace Engineering", subtitle: "Aerodynamics · Propulsion · Orbital Mechanics · ISRO/GATE",
+  icon: "🚀", color: "#1D4ED8",
+  description: "Flight and space engineering from first principles — aerodynamics, propulsion, orbital mechanics, spacecraft systems, and India-specific career/exam pathways (ISRO, DRDO, GATE AE/AS).",
+  domains: [{ slug: "aerospace-core", name: "Aerospace Engineering", icon: "🚀", description: "Core aerospace subjects, foundations through applied systems", color: "#1D4ED8",
+    technologies: [
+      { slug: "aerospace-foundations", name: "Aerospace Foundations", icon: "📐", description: "Mechanics, vectors, and calculus as applied to flight and orbital problems — the math/physics on-ramp for everything else in this academy", level: "Beginner", tags: ["Mechanics", "Vectors", "Calculus", "Foundations"] },
+      { slug: "aerodynamics", name: "Aerodynamics", icon: "🌬️", description: "Airfoils, lift and drag, subsonic vs. supersonic flow", level: "Beginner", tags: ["Aerodynamics", "Airfoils", "Lift", "Drag"] },
+      { slug: "propulsion-systems", name: "Propulsion Systems", icon: "🔥", description: "Jet engines, rocket engines, thrust, specific impulse", level: "Intermediate", tags: ["Propulsion", "Jet Engines", "Rockets", "Thrust"] },
+      { slug: "flight-mechanics-structures", name: "Flight Mechanics & Aircraft Structures", icon: "✈️", description: "Stability, control, structural loads, and materials — the connective layer between aerodynamics/propulsion and the space side", level: "Intermediate", tags: ["Flight Mechanics", "Stability", "Structures"] },
+      { slug: "orbital-mechanics", name: "Orbital Mechanics & Astrodynamics", icon: "🛰️", description: "Kepler's laws, orbital elements, delta-v, transfer orbits", level: "Advanced", tags: ["Orbital Mechanics", "Astrodynamics", "Kepler", "Delta-v"] },
+      { slug: "spacecraft-systems", name: "Spacecraft Systems & Mission Design", icon: "🛸", description: "Satellite subsystems, launch vehicles, real mission design — applied space engineering", level: "Advanced", tags: ["Spacecraft", "Launch Vehicles", "Mission Design"] },
+      { slug: "aerospace-careers", name: "Aerospace Careers & Exam Pathways", icon: "🎯", description: "ISRO/DRDO/private space (Skyroot, Agnikul) career paths, GATE AE/AS, ISRO Scientist/Engineer 'SC' exam", level: "Beginner", tags: ["Career", "ISRO", "GATE", "DRDO"] },
+    ]
+  }],
+  technologies: [],
+};
+
 export const academies: Academy[] = [
   devopsAcademy,
   cloudAcademy,
@@ -827,6 +845,7 @@ export const academies: Academy[] = [
   centralExamsAcademy,
   professionalCertsAcademy,
   economicsAcademy,
+  aerospaceAcademy,
 ];
 
 // Kept only for any external backward-compat imports — education/exams are in main academies array
