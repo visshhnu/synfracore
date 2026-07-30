@@ -1,5 +1,7 @@
 # Patient Documentation & Clinical Documentation Improvement
 
+**Analogy** — Documentation is the raw material a coder works with, the way ingredients are the raw material a recipe depends on. A coder can't produce an accurate code from vague documentation any more than a chef can produce a good dish from vague ingredients ("some meat, some spice"). CDI is the process of asking the "chef" (the physician) to specify exactly what's actually there — before cooking (coding) starts, not after the dish is already served (the claim is already submitted).
+
 ## What Is CDI?
 Clinical Documentation Improvement (CDI) is the process of ensuring that a patient's medical record accurately and completely reflects the true clinical picture. Accurate documentation directly affects coding accuracy, quality metrics, reimbursement, and regulatory compliance.
 
@@ -37,3 +39,13 @@ Medical coders, CDI specialists, HIM professionals, clinical staff learning docu
 3. **Interview Q&A** — practice articulating why a documentation gap matters and how you'd query it
 4. **Certification Guide** — CDI-specific credentials (CDIP, CCDS), not just base coding certifications
 5. **Cheatsheet** — quick reference for common deficiency patterns and compliant vs. leading query language
+
+## Try It (2 Minutes)
+
+Using the Common Documentation Deficiencies table above:
+
+1. A chart says "anemia" with no further detail. Which deficiency type is this, and what's the coding impact?
+2. A chart documents both hypertension and chronic kidney disease, but never states one caused the other. Which deficiency type, and what code gets missed as a result?
+3. For both, would a compliant query be appropriate — and per the CDI Workflow above, who typically sends it?
+
+You should land on: (1) unspecified diagnosis — lower specificity, missed CC/MCC; (2) missing linkage — misses the I13.x hypertensive-CKD combination code; and yes, both are legitimate query scenarios, sent by a CDI specialist or coder during concurrent review, not decided unilaterally by guessing the intended meaning.

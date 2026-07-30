@@ -1,5 +1,7 @@
 # BCHHC Certification Prep
 
+**Analogy** — This module is a targeted training camp, not a general fitness program. This platform's Home Health Coding module builds the underlying skill broadly; BCHHC Prep is specifically about peaking for one exam on one date, the way a training camp compresses and drills exactly what a specific competition will test, in the exact format it'll be tested in — timed, scenario-based, exam-shaped practice, not open-ended learning.
+
 ## What is the BCHHC?
 
 The **Board Certified Home Health Coder (BCHHC / BCHH-C)** credential validates expertise in ICD-10-CM coding for home health, OASIS assessments, and the PDGM payment model.
@@ -40,7 +42,17 @@ After completing all sections, take the mock exams under timed conditions (simul
 
 ## Key Numbers to Memorise
 - SOC OASIS: within **5 calendar days** of first visit
-- ROC OASIS: within **24 hours** of return from hospital
+- ROC OASIS: within **48 hours (2 calendar days)** of return from hospital
 - PDGM payment period: **30 days** (not 60)
 - PDGM clinical groups: **12 groups**
 - PDGM classification factors: **5 factors**
+
+## Try It (2 Minutes)
+
+Using the Key Numbers list above, without looking anything up:
+
+1. A patient returns home after a 3-day hospital stay. Within how many hours must the ROC OASIS be completed?
+2. Is that the same timing rule as a brand-new patient's very first OASIS (SOC)?
+3. Why would CMS require a faster turnaround for a patient resuming care after a hospitalization than for one just starting care?
+
+You should land on: 48 hours for ROC, versus 5 calendar days for SOC — genuinely different timeframes, not the same rule reused; the faster ROC window makes sense because a patient just out of the hospital is typically at higher clinical risk and needs their care plan reassessed quickly, while a new SOC patient has more runway before their condition is likely to change abruptly.

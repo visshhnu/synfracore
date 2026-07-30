@@ -1,5 +1,7 @@
 # Home Health Coding Fundamentals
 
+**Analogy** — Medicare's eligibility test for home health works like a checklist a bouncer runs through before letting someone in — every single condition has to be true, not just most of them. Homebound alone isn't enough; skilled need alone isn't enough; a physician's order alone isn't enough. Miss any one of the four criteria below and the claim doesn't get paid, no matter how strong the other three are.
+
 ## What is Home Health Coding?
 
 Home health coding assigns ICD-10-CM codes to patient diagnoses for Medicare home health visits. Accurate coding drives reimbursement under PDGM (Patient-Driven Groupings Model) and determines quality measure outcomes reported to CMS.
@@ -60,6 +62,16 @@ CLINICAL RECORD:
   Support skilled need and homebound status
   Must corroborate OASIS findings and coded diagnoses
 ```
+
+## Try It (2 Minutes)
+
+A patient receives only home health aide visits for bathing assistance, with no skilled nursing or therapy ordered.
+
+1. Using the Eligibility Requirements above, does "home health aide only" satisfy the skilled-care requirement on its own?
+2. Would Medicare cover this scenario as documented?
+3. What would need to change for it to become coverable?
+
+You should land on: no — the Covered Services list explicitly notes home health aide is covered "only if also receiving skilled service"; this scenario as described would NOT be covered, since custodial care (bathing/dressing assistance) without a skilled nursing or therapy need is explicitly listed under NOT COVERED; it would become coverable if a genuine skilled need (e.g., wound care, medication teaching) were also ordered and documented alongside the aide visits.
 
 ## Study Resources
 - **CMS Home Health Center** (cms.gov/center/provider-type/home-health-center) — official

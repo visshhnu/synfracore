@@ -2,6 +2,14 @@
 
 CPT codes are used to report medical, surgical, and diagnostic procedures performed by physicians and other healthcare providers. Maintained by the American Medical Association (AMA) and updated annually.
 
+**Analogy** — If ICD-10-CM is the "why" on a claim, CPT is the itemized receipt of "what was actually done." Think of a car repair invoice: the diagnosis is "why you came in" ("check engine light"), and the line items — "replaced spark plugs, $80; diagnostic scan, $40" — are the CPT equivalent. A payer won't reimburse a claim that only says why the patient came in without also itemizing exactly what service was performed, any more than a garage could bill you without listing the actual repairs.
+
+```
+ICD-10-CM: "why"                CPT: "what was done"
+I10 (Essential hypertension)  + 99213 (established patient office visit)
+        "diagnosis"                    "the billable service"
+```
+
 ## What is CPT?
 
 CPT (Current Procedural Terminology) is a standardized code set that describes medical services and procedures. Every billable service a provider performs has a CPT code — from a routine office visit to complex surgery to laboratory tests.
@@ -196,3 +204,13 @@ A new patient has NOT received professional services from the physician or anoth
 
 **What is the global surgical package?**
 The global surgical package is the bundled payment for surgical services. It includes the pre-op visit (1 day for major, same day for minor), the surgery itself, and all routine post-op visits during the global period (90 days for major surgery, 10 days for minor). Billing a separate E/M for a routine post-op visit during the global period is incorrect. You CAN bill separately for complications, unrelated conditions, diagnostic tests, and staged procedures (modifier -58).
+
+## Try It (2 Minutes)
+
+Using the code structure table above:
+
+1. A patient gets a chest X-ray. Which of the 6 sections (E/M, Anesthesia, Surgery, Radiology, Pathology/Lab, Medicine) does that fall under, and roughly which code range?
+2. A patient has an established-patient office visit for a routine follow-up (moderate complexity, ~35 minutes). Using the E/M table above, which specific code fits?
+3. Is that visit's code a "new patient" or "established patient" code, and how can you tell from the code number alone (not just the label)?
+
+You should land on: Radiology (70010–79999) for the X-ray; 99214 for the established-patient moderate-complexity visit; and established-patient codes are the 992-1x range while new-patient codes are 992-0x — the pattern itself is worth recognizing, not just the individual code.

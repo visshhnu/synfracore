@@ -1,5 +1,7 @@
 # BCHHC Fundamentals
 
+**Analogy** — The four coverage criteria below work like the legs of a table — remove any one and the whole thing collapses, regardless of how solid the other three are. A patient can be genuinely homebound and have a genuine skilled need, but without a signed physician's plan of care, the claim still doesn't stand.
+
 ## Medicare Home Health — Four Coverage Criteria
 ALL four must be met simultaneously:
 1. **Homebound**: Leaving home requires considerable effort due to illness/injury
@@ -87,3 +89,13 @@ When a code requires a 7th character but has fewer than 6 characters, the letter
 T45.X1XA — Poisoning by unspecified drugs, accidental (initial encounter)
 ```
 The first X fills position 4, the second X fills position 5.
+
+## Try It (2 Minutes)
+
+Using the Who Fills OASIS table above:
+
+1. A physical therapist wants to independently complete a patient's SOC OASIS. Is that allowed?
+2. An occupational therapist wants to do the same. Is that allowed?
+3. If only OT services are ordered for a patient (no SN, PT, or SLP), who would need to be involved to get the OASIS completed?
+
+You should land on: yes for PT — explicitly listed as able to complete OASIS; no for OT — explicitly excluded, even though OT is a legitimate skilled service in other contexts; and if only OT is ordered, an SN, PT, or SLP would still need to be brought in specifically to complete the OASIS, since OT alone cannot do it independently.

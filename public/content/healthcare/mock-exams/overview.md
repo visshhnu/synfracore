@@ -1,5 +1,7 @@
 # Medical Coding Mock Exams
 
+**Analogy** — Studying coding rules without taking timed mock exams is like practicing free throws alone in an empty gym and then expecting to sink them in a packed arena with a clock running. The skill you built in isolation (knowing a rule) isn't the same skill the real moment demands (recalling and applying it correctly, under time pressure, on a case you haven't seen before). Mock exams are the "practice under game conditions" step most self-study skips.
+
 ## Purpose
 Timed mock examinations for ICD-10-CM, CPT, HCPCS, and medical coding certification preparation. Designed to replicate the actual exam environment for CPC, COC, CCA, CCS, RHIT, and BCHHC credentials.
 
@@ -37,3 +39,13 @@ Medical coding students preparing for their first certification, working coders 
 2. Use this section's **Fundamentals** for exam-taking mechanics and timed-practice strategy
 3. Use **Certification Guide** for exam format and study-resource specifics per credential
 4. Run full-length timed mocks under conditions matching your target exam's real format
+
+## Try It (2 Minutes)
+
+Using the Exams Covered table above:
+
+1. If your target credential is CPC, how many questions and how much time does the table say to expect?
+2. Which of the listed credentials has its certifying body flagged as unclear/needing direct verification, rather than stated as a confirmed fact?
+3. Why does that distinction (stated fact vs. flagged-for-verification) matter before you register for an actual exam?
+
+You should land on: CPC = 100 MCQ, 4 hours; BCHHC is the one flagged as unclear (sources vary between BMSCC/AHCC/WellSky); and the distinction matters because registering for the wrong exam body, or preparing against an outdated format, wastes real time and money — flagged items are exactly the ones worth a 10-minute direct check before committing.

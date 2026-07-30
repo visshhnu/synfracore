@@ -1,5 +1,7 @@
 # Mock Exam Fundamentals
 
+**Analogy** — Reviewing wrong answers after a mock exam without changing your approach is like a pilot reviewing a flight-simulator crash report and then flying the exact same way next time. The value isn't in seeing that you crashed — it's in identifying specifically what input caused it and deliberately changing that one thing before the next run. The "Question-Analysis Technique" and "Weak-Area Practice Cycle" below exist to make that specific, deliberate correction happen instead of just noting "I got it wrong" and moving on.
+
 ## Why Timed Mock Practice Is Different From Regular Study
 
 Reading about coding rules and applying them correctly under time pressure with an unfamiliar case are different skills. Mock exams build the second skill specifically — they don't replace learning the coding content itself (covered in this course's CPT/HCPCS/ICD-10-CM/Coding Guidelines/Home Health Coding modules), they test whether you can apply it fast and under realistic constraints.
@@ -68,6 +70,16 @@ AFTER (this is where most of the actual learning happens):
 - **Re-taking the same mock exam repeatedly** — measures memorization of that specific exam, not real proficiency; use varied question sets
 - **Ignoring category breakdown in favor of overall score** — a passing overall score can mask one category weak enough to matter on the real exam
 - **Studying from outdated practice material** — exam content and format are periodically revised; confirm your practice material matches the current version of your target exam before trusting its format
+
+## Try It (2 Minutes)
+
+You just took a mock exam and got a modifier-selection question wrong. Using the "AFTER" section above:
+
+1. What's the wrong way to log this ("I got modifiers wrong") versus the right way the guide describes?
+2. Should you immediately re-answer the exact same question to confirm you now know it?
+3. What should you do instead, per the Weak-Area Practice Cycle?
+
+You should land on: write down specifically which modifier rule you misapplied and why (not just "modifiers wrong"); no, re-answering the same question only tests whether you memorized that specific question, not whether you learned the rule; instead, drill a fresh set of modifier questions and re-test with a different mock exam later — recognizing a question isn't the same as knowing the underlying rule.
 
 ## Study Resources
 - This course's Certification Guide (for exam-specific format details)

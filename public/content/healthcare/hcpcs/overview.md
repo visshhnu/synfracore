@@ -2,6 +2,14 @@
 
 HCPCS (pronounced "hick-picks") is a coding system used primarily for Medicare and Medicaid billing. It codes services not covered by CPT — primarily supplies, equipment, drugs, and non-physician services.
 
+**Analogy** — If CPT is the itemized bill for the services a provider performed, HCPCS Level II is the itemized bill for everything the provider *gave or used* on the patient that CPT doesn't already cover — the walker sent home with them, the drug injected, the ambulance ride that got them there. A claim can genuinely need both: a CPT code for the office visit itself, and an HCPCS code for the wheelchair the patient left with, because they're billing for two categorically different things — a service versus a physical item or specific drug/transport.
+
+```
+CPT: the service performed        HCPCS Level II: the item/drug/transport
+99213 (office visit)          +   E0130 (walker, rigid) sent home with patient
+                               +   J1644 (heparin, injected during the visit)
+```
+
 ## HCPCS Structure
 
 HCPCS has two levels:
@@ -231,3 +239,13 @@ CPT (Level I HCPCS) codes services and procedures performed by physicians — of
 
 **When would you use HCPCS modifier -KX?**
 Modifier -KX is used for DME claims to indicate that the patient meets all the coverage criteria listed in the applicable Local Coverage Determination (LCD). For example, when billing for a power wheelchair, -KX indicates that documentation supports that the patient meets Medicare's functional and clinical criteria. Without -KX when required, the claim will be denied. -KX is essentially the provider's attestation that all LCD requirements are satisfied and documentation is in the medical record.
+
+## Try It (2 Minutes)
+
+Using the Key HCPCS Code Categories above:
+
+1. A patient is prescribed a CPAP device for home use. Which HCPCS letter category (A, E, J, or G) does this fall under, and what's the actual code?
+2. A patient receives an injection of Sumatriptan (a migraine drug) in the office. Which letter category, and what's the code?
+3. Based on the DME four-criteria test above, would a box of alcohol wipes sent home with a patient qualify as DME? Why or why not?
+
+You should land on: E0601 (E codes, DME) for the CPAP; J3030 (J codes, injectable drugs) for the Sumatriptan; and alcohol wipes do NOT qualify as DME — they're not durable (single-use, not built to withstand repeated use), even though they're a legitimate supply item billed under a different HCPCS category (A codes).

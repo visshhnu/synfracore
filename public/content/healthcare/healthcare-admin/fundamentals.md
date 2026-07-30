@@ -1,5 +1,7 @@
 # Healthcare Administration Fundamentals
 
+**Analogy** — The healthcare stakeholder map below works like the different parties in a home sale — the buyer (patient), the buyer's bank (payer), the seller (provider), and the county/regulatory bodies that record and enforce the rules of the transaction (regulators). Confusing "who pays" with "who provides care" with "who enforces the rules" is a common early mistake, and this page exists specifically to keep those three categories distinct.
+
 ## Overview of Healthcare Settings
 
 ```
@@ -76,6 +78,16 @@ HIPAA BREACH:
   Notification: patient (60 days) + OCR (60 days) + media if 500+ in state
   Penalties: $100-$50,000 per violation, up to $1.9M/year per category
 ```
+
+## Try It (2 Minutes)
+
+A hospital reports a breach affecting 800 patients' records.
+
+1. Using the HIPAA Breach section above, does this trigger media notification, based on the 500-person threshold mentioned?
+2. Within how many days must affected patients be notified?
+3. Which HIPAA rule (Privacy or Security) governs the breach itself, versus which one defines what counts as PHI in the first place?
+
+You should land on: yes — 800 exceeds the 500-in-state threshold, so media notification is required alongside patient and OCR notification; 60 days for both patient and OCR notification; and the Security Rule governs breaches of electronic PHI specifically, while the Privacy Rule is what defines PHI and patients' rights over it in the first place — two related but distinct rules.
 
 ## Study Resources
 - **ACHP Healthcare Administration Guide** — free overview

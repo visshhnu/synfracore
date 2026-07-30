@@ -1,5 +1,16 @@
 # ICD-10-CM — Complete Coding Guide (FY2026)
 
+**Analogy** — ICD-10-CM works like a very detailed postal address system for diagnoses. A letter addressed just to "Springfield" won't reliably get delivered — you need the street, the house number, sometimes the apartment number too. A diagnosis code is the same: the first character gets you to the right "city" (the chapter — e.g. "I" for circulatory conditions), but you need the full string of characters — etiology, site, laterality, severity — to reach one specific, deliverable "address." A vague or incomplete code doesn't get rejected outright any more than an incomplete address does, but it doesn't reliably communicate the right information either.
+
+```
+I     50    .     9
+│     │     │      │
+Chapter  Category  │  Character 4+: specificity
+(circulatory)       (severity, site, laterality —
+                      the "apartment number")
+= I50.9: Heart failure, unspecified
+```
+
 ## What is ICD-10-CM?
 
 ICD-10-CM (International Classification of Diseases, 10th Revision, Clinical Modification) is the US standard diagnostic coding system used for:
@@ -163,3 +174,13 @@ These 5 factors determine one of **432 PDGM groups** and the base payment rate.
 **Scenario 4:** Patient with COPD exacerbation and pneumonia (organism not identified).
 - J44.1 (COPD with acute exacerbation) + J18.9 (Pneumonia, unspecified)
 - Note: When COPD and pneumonia coexist, both are coded. The reason for the visit determines sequencing.
+
+## Try It (2 Minutes)
+
+Using the chapter table above, without looking anything up:
+
+1. A note documents "acute bronchitis." Which chapter number and letter range would you expect to search first?
+2. A note documents "closed fracture of the left ankle." Which chapter and letter range this time?
+3. Which of the two would need a 7th character for encounter type (initial/subsequent/sequela), based on the Coding Conventions section above?
+
+You should land on: Chapter 10 (J00–J99, Respiratory) for bronchitis; Chapter 19 (S00–T88, Injuries) for the fracture — and the fracture is the one needing a 7th character, since injury/fracture codes carry encounter-type requirements that a respiratory infection code doesn't.

@@ -1,5 +1,7 @@
 # Medical Coding Fundamentals
 
+**Analogy** — A coded claim moving through the revenue cycle is like a package moving through a shipping network: it has to be labeled correctly (coded), handed off through the right stops in order (billed, submitted, adjudicated), and any mislabeling at the start causes a failure somewhere down the line (a denial) that's far more expensive to fix after the fact than getting the label right the first time.
+
 ## What is Medical Coding?
 
 Medical coding is the transformation of healthcare diagnoses, procedures, medical services, and equipment into universal medical alphanumeric codes. These codes are used for billing, insurance claims, data analysis, and healthcare statistics.
@@ -77,6 +79,16 @@ PAYERS:
   TRICARE: military members and families
   Workers Comp: work-related injuries
 ```
+
+## Try It (2 Minutes)
+
+Using the Revenue Cycle flow above:
+
+1. A physician documents a diagnosis and procedure during a visit. Which numbered step in the flow does the coder's work happen at?
+2. If the coder assigns the wrong code, at which later step does that error actually surface as a problem?
+3. Is a professional (physician office) claim submitted on a CMS-1500 or a UB-04?
+
+You should land on: step 4 (coder assigns codes, after the clinical encounter, before billing); the error surfaces at step 6 (payer adjudication — approve/deny/request more info), which is often days or weeks after the coding mistake was actually made; and CMS-1500 for professional claims. That gap between "when the error happens" and "when it's caught" is exactly why getting the code right the first time matters more than catching it later.
 
 ## Study Resources
 - **AAPC free resources** (aapc.com/education) — free coding basics

@@ -2,6 +2,16 @@
 
 Home health coding is a specialized and growing field. With an aging population and CMS's shift to value-based care, accurate home health documentation and coding directly impacts payment and quality scores.
 
+**Analogy** — PDGM works like a delivery-pricing algorithm, not a flat rate. A shipping company doesn't charge one price for every package — it factors in weight (clinical grouping), fragility (functional impairment), special handling (comorbidity adjustment), and where the package is coming from (admission source). Two patients can look similar on paper, but if their OASIS answers and primary diagnosis differ, they land in different "pricing tiers" — which is exactly why getting the primary diagnosis and OASIS data right isn't a formality, it's what determines the actual payment.
+
+```
+Primary diagnosis (OASIS M1021)  →  Clinical Grouping (1 of 12)
+Functional status (OASIS M1800s) →  Functional Impairment Level
+Other diagnoses (OASIS M1023)    →  Comorbidity Adjustment
+                                        │
+                                  = HIPPS code → 30-day payment
+```
+
 ## What is Home Health?
 
 Home health services are skilled medical services provided in a patient's home by a Medicare-certified home health agency (HHA). Covered services:
@@ -230,3 +240,13 @@ PDGM (Patient-Driven Groupings Model) replaced the Home Health PPS in 2020. Unde
 
 **What makes a patient homebound for Medicare home health?**
 Homebound status requires two elements: (1) the patient has a condition due to illness or injury that restricts their ability to leave home, AND (2) leaving home requires considerable and taxing effort. The patient can occasionally leave for medical appointments, adult day care, or religious services without losing homebound status. Coders must ensure clinician documentation clearly states the specific reason for homebound status — vague documentation like "patient is homebound" is insufficient for audits.
+
+## Try It (2 Minutes)
+
+Using the PDGM Clinical Groupings table above:
+
+1. A patient's primary diagnosis is "COPD with acute exacerbation" (J44.1). Which of the 12 clinical groups does that fall into?
+2. A patient's primary diagnosis is a stroke with hemiplegia. Which group?
+3. Both patients also have diabetes as a secondary diagnosis (OASIS M1023). Per the PDGM payment formula diagram above, does that secondary diagnosis affect payment at all, or does only the primary diagnosis matter?
+
+You should land on: MMTA – Respiratory for the COPD patient; Neuro/Stroke Rehabilitation for the stroke patient; and yes, the diabetes as a secondary diagnosis still matters — it feeds into the Comorbidity Adjustment factor, a separate multiplier in the payment formula from the primary-diagnosis-driven clinical group.

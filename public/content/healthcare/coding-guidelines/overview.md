@@ -2,6 +2,16 @@
 
 Understanding and applying official coding guidelines is the foundation of accurate medical coding. These guidelines come from several authoritative sources that coders must follow.
 
+**Analogy** — Knowing individual ICD-10-CM/CPT codes without knowing the guidelines is like knowing every traffic sign's meaning without knowing right-of-way rules. You can correctly identify "stop sign" or "yield sign" in isolation, but without the rules governing sequence and priority — who goes first at a 4-way stop, when a yield actually requires stopping — you'll still cause a collision. The guidelines are exactly this: the rules for how codes interact, sequence, and take priority over each other, not just what each one individually means.
+
+```
+Knowing a code's meaning        Knowing the guideline
+"I21.3 = STEMI"             +   "Principal diagnosis = the condition
+                                  established after study as chiefly
+                                  responsible for the admission —
+                                  so THIS is the code that goes first"
+```
+
 ## Authoritative Sources
 
 ```
@@ -286,3 +296,13 @@ UHDDS (Uniform Hospital Discharge Data Set) defines standard data elements for i
 
 **What is the difference between inpatient and outpatient coding rules for uncertain diagnoses?**
 Inpatient (acute care): Code uncertain diagnoses (probable, possible, suspected, rule out, working diagnosis) as if confirmed. This is because the physician is making a clinical judgment that will be tested and confirmed before discharge. Outpatient: NEVER code uncertain diagnoses — only code confirmed conditions or the symptom/sign that brought the patient in. Outpatient encounters have limited time and testing — a "probable UTI" might be a wrong assumption. Code what you know: the symptom (R30.0 dysuria) not the uncertainty (not UTI).
+
+## Try It (2 Minutes)
+
+A patient is admitted with documentation reading "possible pulmonary embolism, rule out." Using the Uncertain Diagnoses rule above:
+
+1. Is this an inpatient or outpatient scenario, based on the word "admitted"?
+2. Per the rule, do you code this as if confirmed, or do you code only the symptom?
+3. Now imagine the exact same documentation in an outpatient clinic visit instead — does your answer change?
+
+You should land on: inpatient — code I26.99 as if confirmed; but the same documentation in an outpatient setting would require coding only the symptom (e.g., R07.9 chest pain), never the uncertain diagnosis. Same words, different setting, genuinely different correct code — that's the whole point of this rule.

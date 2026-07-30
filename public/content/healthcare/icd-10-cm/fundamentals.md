@@ -1,5 +1,7 @@
 # ICD-10-CM Fundamentals
 
+**Analogy** — Looking up a code is like using a store directory then walking to the actual aisle. The Alphabetic Index is the directory board at the entrance — fast, but only a pointer ("Diabetes → aisle 4"). It doesn't show you what's actually on the shelf. The Tabular List is the aisle itself, where the real product details live (instructional notes, required extra characters, exclusions). Checking the directory and stopping there — never walking to the aisle — is exactly how a coder ends up confidently wrong.
+
 *Note: this course targets the FY2026 guideline cycle. See the Overview section's "Recent Guideline Changes (FY 2026)" for substantive revisions (HIV sequencing, BMI/Z68, SDoH codes, new diabetes-remission code, expanded R10 pain codes) since older FY2023-era material.*
 
 ## How to Look Up a Code
@@ -137,3 +139,13 @@ F17.210  Nicotine dependence, cigarettes, uncomplicated
 - N18.3 required as "use additional code" per E11.22 instructions
 - Z79.4 required for insulin use per diabetes guidelines
 - Tobacco use coded as an additional diagnosis affecting management
+
+## Try It (2 Minutes)
+
+Follow the 8-step process above for this diagnosis: "Type 2 diabetes mellitus with diabetic neuropathy."
+
+1. What's the main term you'd look up in the Alphabetic Index — "diabetes" or "neuropathy"?
+2. Using the Diabetes Mellitus table above, which code matches "Type 2 DM with diabetic neuropathy, unspecified"?
+3. Per the Key Rule under that table, is neuropathy coded as a separate second code, or does one combination code capture both?
+
+You should land on: main term is "diabetes" (the underlying condition, not the manifestation); E11.40; and it's a single combination code — diabetes codes are structured so the complication is built into the same code, not billed as two separate ones.

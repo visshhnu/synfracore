@@ -1,5 +1,7 @@
 # HCPCS Level II Fundamentals
 
+**Analogy** — Deciding whether something needs a HCPCS Level II code is like deciding whether a restaurant receipt needs a separate line item for "to-go container" versus just the meal. Most of what happens during a visit is captured by the service code (CPT) — but a physical item the patient leaves with, a specific drug that was injected, or a ride that got them there are separate, itemizable things a payer needs to see listed individually, not folded silently into the visit's own code.
+
 ## Overview
 
 HCPCS (Healthcare Common Procedure Coding System) has two levels:
@@ -84,6 +86,16 @@ DRUG MODIFIERS:
   JB: Administered subcutaneously
   JW: Drug amount discarded/not administered (waste)
 ```
+
+## Try It (2 Minutes)
+
+Using the "When to Use HCPCS Level II" and "Key Code Ranges" sections above:
+
+1. A patient is fitted for an ankle brace during a visit. Does this need a HCPCS code, or is it covered by the visit's CPT code alone?
+2. Which letter range (A, E, J, G, or L) would that ankle brace fall under?
+3. Looking at the flu-vaccine example above (90686 + G0008) — why are there two codes for what feels like one event?
+
+You should land on: yes, it needs its own HCPCS code (L1906, L codes — orthotics and prosthetics) since it's a physical item, not part of the visit itself; and the flu vaccine needs two codes for the same reason — 90686 (CPT) bills the vaccine product itself, while G0008 (HCPCS) bills the separate service of administering it. One code for the "what," one for the "doing."
 
 ## Study Resources
 - **CMS HCPCS page** (cms.gov/Medicare/Coding/HCPCSReleaseCodeSets) — free annual files

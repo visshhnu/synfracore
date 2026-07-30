@@ -1,5 +1,7 @@
 # Patient Documentation Fundamentals
 
+**Analogy** — A compliant physician query works like a good multiple-choice question, not an essay prompt with a hidden right answer. It presents specific, clinically-supported options ("is this diabetic nephropathy, hypertensive nephropathy, or another etiology?") rather than either a vague open request ("please clarify") or a leading suggestion of one specific answer. The structure itself is what keeps a query compliant — it invites the physician's own clinical judgment instead of supplying the answer for them.
+
 ## Documentation Requirements
 
 ```
@@ -65,6 +67,16 @@ PROCEDURE SUFFIXES:
   -gram: record/image (electrocardiogram = heart electrical record)
   -graphy: process of recording (echocardiography)
 ```
+
+## Try It (2 Minutes)
+
+A chart documents "possible pneumonia" with no further follow-up, and the physician never confirms or rules it out before discharge.
+
+1. Using the Valid Query Scenarios above, is this a legitimate reason to query?
+2. Draft one sentence of a compliant (non-leading) query for it.
+3. What would make a query about this same chart entry non-compliant instead?
+
+You should land on: yes — "possible or probable conditions after study" is explicitly listed as a valid query scenario; a compliant query asks something like "Was pneumonia confirmed, ruled out, or does it remain clinically uncertain at discharge?" rather than asserting an answer; it would become non-compliant if it instead said something like "Please document pneumonia as confirmed" — supplying the answer rather than asking the question.
 
 ## Study Resources
 - **Medical Terminology: A Word Parts Approach** — standard reference
