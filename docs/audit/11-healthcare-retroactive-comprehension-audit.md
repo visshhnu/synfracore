@@ -544,31 +544,47 @@ a home sale) + try-it (work a HIPAA breach-notification scenario against the
    separate, live, registered copy of the Home Health Coding technology
    living under the `security` academy** (see item 5 below). Sitewide
    grep after fixing confirms zero remaining matches. Closed.
-4. `bchhc-prep/fundamentals.md`'s "OT can never complete OASIS" claim —
-   outdated since a January 2022 CMS rule change; needs a nuanced rewrite
-   (OT can complete SOC OASIS once another discipline establishes
-   eligibility, and can independently complete discharge/recertification
-   OASIS), not a binary flip. A follow-up sitewide check found the same
-   flat claim in 7 more locations, all not yet fixed: `bchhc-prep/
-   {interview,projects}.md` (projects.md ×2), `home-health-coding/
-   {certification,interview}.md` (certification.md ×2),
-   `medical-coding/intermediate.md`, and `security/home-health-coding/
-   {fundamentals,interview}.md`. Reported, not rewritten yet — the
-   correction needs to state the actual nuanced rule (OT can do SOC once
-   eligibility is established by another discipline; OT can independently
-   do discharge/recertification OASIS) consistently across all 8 files,
-   not a quick per-file binary flip.
-5. **New finding:** `public/content/security/home-health-coding/` is a
-   full, separately-registered technology (5 files: overview, fundamentals,
-   intermediate, advanced, interview, cheatsheets — registered in
-   `lib/content/index.ts` under the `security` academy, confirmed live) —
-   apparently a duplicate of `healthcare/home-health-coding/` created at
-   some point and never reconciled. Discovered as a side effect of the
-   ROC-timing sweep, not previously known. Whether this is intentional
-   (Home Health Coding genuinely belongs in both academies) or an
-   accidental duplicate that should be de-duplicated/aliased is a real
-   open question — not investigated or resolved here, flagged for a
-   decision.
+4. **RESOLVED (`a09a0db`):** the "OT can never complete OASIS" claim —
+   outdated since a January 2022 CMS rule change. Corrected to the actual
+   rule (OT cannot independently establish Medicare eligibility — can't be
+   the sole qualifying service at SOC — but can complete the SOC OASIS
+   once another discipline has already established eligibility, and can
+   independently complete Discharge/Recertification OASIS) across all 6
+   remaining files after `security/home-health-coding`'s deletion (item 5)
+   removed 2 of the original 8 instances: `bchhc-prep/
+   {fundamentals,interview,projects}.md` (projects.md ×2),
+   `home-health-coding/{certification,interview}.md` (certification.md
+   ×2), and `medical-coding/intermediate.md`. Each location's exact
+   context (table row, prose Q&A, terse practice-question format) checked
+   individually and rewritten to fit, not a blind find-replace.
+   `bchhc-prep/fundamentals.md`'s try-it, which specifically tested the
+   old flat rule with a 3-question scenario, was rewritten to test the
+   nuance directly rather than just patching the answer key. Sitewide grep
+   after fixing confirms zero remaining flat "OT cannot ... OASIS" claims.
+   **Note:** `medical-coding/intermediate.md`'s OT claim is now accurate,
+   but this does not resolve item 1 above (the file's broader Home
+   Health/OASIS scope-contamination problem) — fixing one factual claim
+   inside wrong-domain content doesn't make the content belong there. Item
+   1 remains open, unaddressed by this fix, exactly as it was before.
+5. **RESOLVED (`a09a0db`):** `public/content/security/home-health-coding/`
+   — investigated before any action, not assumed. Git history: created as
+   a generic boilerplate stub in `c838af6` ("zero 404s" sweep, 2026-06-13),
+   filled with real content in `9e1e84d` ("fill all thin content files",
+   2026-06-25) — a bulk pass that appears to have matched on the
+   technology name without checking which academy path it wrote into.
+   Content comparison: same coder-facing subject matter as
+   `healthcare/home-health-coding` (including the same specific errors,
+   duplicated), zero security/compliance framing. Navigation check:
+   `lib/data/academies.ts`'s `security` academy (8 technologies across 3
+   domains) never listed `home-health-coding` — no link, card, or nav
+   entry anywhere pointed to this content; the only reference to the path
+   in any source file was the registry entry itself. Confirmed orphaned,
+   not a deliberate dual-academy placement — deleted (5 files, via the
+   real registry generator, 5 entries dropped cleanly). Verified
+   post-deletion: `app/sitemap.ts` and `app/search/page.tsx` both
+   enumerate technologies from `academies.ts` (never had this entry), not
+   the registry directly, so nothing could break — confirmed live (all 5
+   paths now 404, the security academy page itself renders normally).
 
 (An earlier duplicate "Batch 1 — closing tally" section that appeared after
 this final tally has been removed — Batch 1's findings are already fully
