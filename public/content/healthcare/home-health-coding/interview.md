@@ -5,7 +5,7 @@
 **Q: What are the OASIS assessment types and when is each done?**
 SOC (Start of Care): within 5 days of first visit — opens the 60-day episode.
 REC (Recertification of Care): when HH goals not met in 60 days — extends episode.
-ROC (Resumption of Care): within 24 hours of patient returning from hospital within an episode.
+ROC (Resumption of Care): within 48 hours (2 calendar days) of patient returning from hospital within an episode.
 SCIC (Significant Change in Condition): within 60 days of SOC, acute change, no hospitalisation.
 Discharge OASIS: at end of each episode.
 

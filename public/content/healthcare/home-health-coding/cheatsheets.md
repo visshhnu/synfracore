@@ -4,7 +4,7 @@
 | Assessment | Trigger | Window |
 |-----------|---------|--------|
 | SOC | First skilled visit | Within 5 days |
-| ROC | Returns from hospital | Within 24 hours |
+| ROC | Returns from hospital | Within 48 hours (2 calendar days) |
 | REC | 60-day recertification | Near end of episode |
 | SCIC | Significant acute change | Within episode, no hospitalization |
 | Discharge | End of care | At last visit |

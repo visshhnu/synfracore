@@ -42,7 +42,7 @@ Patient has a post-surgical abdominal wound dehiscence with wound VAC in place. 
 ## Practice Questions
 
 1. Which OASIS is completed when a patient returns from hospital during an active episode?
-   - Answer: ROC (Resumption of Care) — within 24 hours
+   - Answer: ROC (Resumption of Care) — within 48 hours (2 calendar days)
 
 2. Patient has a stage 3 sacral pressure ulcer. Code?
    - Answer: L89.153
@@ -98,7 +98,7 @@ Patient has a post-surgical abdominal wound dehiscence with wound VAC in place. 
 ---
 
 ### Practice Questions
-1. Which OASIS is completed within 24 hours of return from hospital? → ROC
+1. Which OASIS is completed within 48 hours (2 calendar days) of return from hospital? → ROC
 2. What 7th character when wound VAC is removed, dressing changes only? → D (subsequent, routine)
 3. OT evaluates for home health — can OT independently complete OASIS? → No
 4. HTN + CKD stage 5 + CHF: which combination code? → I13.11

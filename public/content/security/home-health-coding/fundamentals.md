@@ -22,7 +22,7 @@ ALL four criteria must be met simultaneously for Medicare to cover home health:
 | Assessment | Trigger | Required Timing |
 |-----------|---------|----------------|
 | SOC (Start of Care) | First skilled visit | Within 5 calendar days |
-| ROC (Resumption of Care) | Returns from inpatient stay | Within 24 hours of return |
+| ROC (Resumption of Care) | Returns from inpatient stay | Within 48 hours (2 calendar days) of return |
 | REC (Recertification) | Extending episode at 60 days | Near end of episode |
 | SCIC (Significant Change in Condition) | Acute change, no hospitalisation | Within the episode |
 | DC (Discharge) | Last visit | At time of discharge visit |

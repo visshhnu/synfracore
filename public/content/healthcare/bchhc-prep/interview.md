@@ -13,7 +13,7 @@ CANNOT complete OASIS: OT (Occupational Therapist) — OT cannot independently c
 
 **Q: What is the difference between SOC and ROC OASIS?**
 SOC (Start of Care): First OASIS completed at the very start of a new home health episode. Must be completed within 5 calendar days of the first skilled visit. Opens the 60-day episode.
-ROC (Resumption of Care): Completed when a patient who was on home health service is hospitalised and then returns home to resume care. Must be completed within 24 hours of the patient's return home.
+ROC (Resumption of Care): Completed when a patient who was on home health service is hospitalised and then returns home to resume care. Must be completed within 48 hours (2 calendar days) of the patient's return home.
 
 **Q: How do you code CVA sequela in home health?**
 Never code the acute stroke (I60–I63) in home health. Code the RESIDUAL DEFICITS using the I69.x sequela series. For cerebral infarction: I69.3xx. Hemiplegia left non-dominant (most common if dominance not documented): I69.354. Aphasia: I69.320. Dysphagia: I69.391. The sequela codes already imply that the stroke occurred previously.

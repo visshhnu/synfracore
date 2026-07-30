@@ -21,7 +21,7 @@ ALL four must be met simultaneously:
 | Type | Trigger | Required Timing |
 |------|---------|----------------|
 | SOC (Start of Care) | First skilled visit | Within 5 calendar days |
-| ROC (Resumption of Care) | Returns from inpatient | Within 24 hours |
+| ROC (Resumption of Care) | Returns from inpatient | Within 48 hours (2 calendar days) |
 | REC (Recertification) | Episode renewal | Near end of 60-day episode |
 | SCIC (Significant Change in Condition) | Acute change, no hospitalisation | Within episode |
 | DC (Discharge) | Last visit | At discharge |

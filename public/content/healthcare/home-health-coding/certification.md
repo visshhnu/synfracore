@@ -34,7 +34,7 @@ The **BCHHC / BCHH-C (Board Certified Home Health Coder)** is a professional cer
 | Type | Trigger | Timing |
 |------|---------|--------|
 | SOC | First skilled visit | Within 5 days |
-| ROC | Returns from hospital | Within 24 hours |
+| ROC | Returns from hospital | Within 48 hours (2 calendar days) |
 | REC | Recertification | Near end of 60-day episode |
 | SCIC | Acute change in condition | Within episode |
 | DC | Discharge | At last visit |
