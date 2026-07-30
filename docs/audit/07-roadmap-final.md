@@ -3191,3 +3191,38 @@ sign-off as an alternative path to "guide" when section count alone doesn't
 settle it, rather than section-count being the sole gate) or something else
 is a design decision for whoever picks this up — not resolved here.
 Revisit before or during the exam-subject subgroup's own review.
+
+---
+
+## Aerospace vertical launched (2026-07-31)
+
+**First new academy built on this platform since the original academy
+set.** `lib/data/academies.ts` gained a new `aerospace` entry —
+Aeronautical & Aerospace Engineering, one domain, 7 technologies
+(Aerospace Foundations, Aerodynamics, Propulsion Systems, Flight Mechanics
+& Aircraft Structures, Orbital Mechanics & Astrodynamics, Spacecraft
+Systems & Mission Design, Aerospace Careers & Exam Pathways). 21/21 files
+complete and live (`23dfa70`).
+
+Deliberately built as a **3-tab starter per technology** (Overview,
+Fundamentals, Interview only — no Intermediate/Advanced/Certification/
+Cheatsheets/Prerequisites/Roadmap/Projects yet), matching the Medical
+Coding precedent (Healthcare academy) rather than the full 9-tab shape
+used elsewhere on the platform. This is a real, acknowledged scope
+narrowing, not an oversight — the same "narrower tab set is fine when
+declared and consistent, not silently thin" standard applied throughout
+this engagement's retroactive audits. Expanding to the full tab set
+(most likely candidates for a next pass: Intermediate tabs deepening each
+technology's Fundamentals content, and a Projects tab for portfolio-style
+aerospace work) is a deliberate future option, not committed to yet.
+
+Independently reviewed before merge (first-time review — no record of
+prior review found anywhere in this session despite being presented as
+already-approved): every worked calculation in the Orbital Mechanics
+Hohmann-transfer example and the Propulsion rocket-equation example
+independently recomputed and confirmed exact; the GATE AE exam structure
+and Skyroot/Agnikul company-status claims verified against external
+sources; one real error found and fixed (the ISRO Scientist/Engineer 'SC'
+written test was stated as "100 questions total," but is actually 95
+questions worth 100 marks — corrected, and confirmed to be the only
+instance of the error across all 21 files).
