@@ -14,6 +14,8 @@ When something goes wrong at 3am, you need to answer:
 
 Without time-series monitoring, you **cannot answer any of these retrospectively**. Prometheus records every metric as a timestamped value and stores it forever (configurable retention). Grafana lets you visualize and query that history.
 
+**Analogy** — Think of Prometheus like a security camera that's always recording, versus someone walking around with a clipboard checking things occasionally. A clipboard check (manually looking at `top` or a dashboard right now) only tells you the current moment — if something went wrong five minutes ago and recovered, you'll never know it happened. A security camera (Prometheus) records continuously, on its own schedule, so you can rewind to any past moment and see exactly what the state was — that's the entire reason "was it slow before the last deployment?" is answerable at all: the recording already exists, you're just querying it after the fact.
+
 ## How It Works
 
 ```
@@ -42,6 +44,14 @@ Step 6: Alertmanager routes
    Receives fired alert → routes to Slack/PagerDuty/email
    Handles deduplication, grouping, silencing
 ```
+
+## Try It (2 Minutes)
+
+You can see the pull/scrape model directly without installing anything beyond Docker:
+
+1. Run `docker run -d -p 9090:9090 prom/prometheus` (uses Prometheus's own default config, which scrapes itself).
+2. Open `http://localhost:9090/targets` — you'll see exactly one target, `prometheus` itself, with a state of `UP` and a "Last Scrape" timestamp that updates every 15 seconds.
+3. Refresh the page after 15-20 seconds — the "Last Scrape" time moves forward on its own, with no request from you triggering it. That's the pull model from the "How It Works" section above, made concrete: Prometheus is the one initiating each scrape, on its own schedule, not waiting for anything to push data to it.
 
 ## Prometheus vs Alternatives
 

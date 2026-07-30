@@ -312,8 +312,56 @@ had the same underlying gap.
 - **Flagged, not fixed:** none this batch.
 - **Deferred:** none.
 
+## Batch 5 — Prometheus, Grafana (monitoring domain)
+
+Both aliased `devops/*` → `infrastructure/*` (checked the real, served files).
+
+**Prometheus — passes on accuracy and tab-depth, failed `is_beginner_ready`,
+fixed.** Architecture (scrape → TSDB → PromQL/Alertmanager), "How It Works"
+pull-model diagram, and the metric-type coverage in Fundamentals all check
+out. Neither `overview.md` nor `fundamentals.md` had an analogy, diagram,
+or try-it. **Fixed:** added a security-camera-vs-clipboard-check analogy
+to `overview.md` — verified it correctly ties into the file's own
+"was it slow before the last deployment?" retrospective-query point — plus
+a Try It running the real `prom/prometheus` Docker image and watching its
+own `/targets` self-scrape `Last Scrape` timestamp advance on its own every
+~15s, confirmed accurate to Prometheus's actual default scrape interval and
+self-monitoring config. Added a utility-meter analogy (Counter=odometer,
+Gauge=live dial, Histogram=bucketed meter, correctly explaining why
+percentiles need buckets and can't be reconstructed from a running total)
+plus a Try It using the real `prometheus-client` Python library to run a
+live Counter and observe why `rate()` — not the raw value — is the useful
+number, to `fundamentals.md`. Verified the Python `Counter`/
+`start_http_server` usage, the `/metrics` endpoint behavior, and the
+claimed `rate(...[1m])` output (~1/sec, matching a once-per-second
+increment) are all correct.
+
+**Grafana — passes on accuracy and tab-depth, `fundamentals.md` was
+already partially fixed by an earlier, unrelated commit (`85e787c`) that
+added a hook, analogy, and try-it — this batch closed the one remaining
+gap (a missing diagram) rather than duplicating existing work; `overview.md`
+needed the full scaffolding.** **Fixed:** added a universal-remote-vs-TV
+analogy to `overview.md` (Grafana queries/renders, doesn't store or
+generate data itself) plus a diagram, and a Try It using the real
+`grafana/grafana` Docker image with Grafana's actual built-in **TestData
+DB** data source (a genuine, built-in fixture Grafana ships specifically
+for demos, not an invented one) and its "Random Walk" scenario — verified
+accurate. Added a docker-compose flow diagram to `fundamentals.md`,
+connecting the file's existing setup instructions to the provisioning/
+auto-connect behavior already documented there — checked for duplication
+against the existing hook/analogy/try-it first, confirmed this only fills
+the one actual gap.
+
+### Batch 5 status: flagged vs fixed vs deferred
+
+- **Fixed:** Prometheus (Overview + Fundamentals, full scaffolding) and
+  Grafana (Overview full scaffolding, Fundamentals missing diagram only)
+  — all additions independently verified genuinely pedagogical and
+  technically accurate (Docker images, CLI behavior, and library usage
+  all checked, not assumed).
+- **Flagged, not fixed:** none this batch.
+- **Deferred:** none.
+
 ## Remaining batches (not yet started)
 
-- Batch 5: Prometheus, Grafana — content staged on disk, not yet reviewed
-  in this pass.
 - Batch 6: Helm, ArgoCD, Istio — closes the 15-technology retroactive audit

@@ -1,5 +1,7 @@
 # Prometheus — Fundamentals
 
+**Analogy** — Instrumenting your application (adding `Counter`/`Histogram`/`Gauge` calls, below) is like installing a utility meter in a building, not hiring someone to estimate usage by eye. A `Counter` is the odometer-style meter that only ever ticks upward (total requests served, ever); a `Gauge` is the dial that swings up and down live (current active connections); a `Histogram` is a meter that also sorts what it measures into buckets (this request took 50-100ms, that one took 100-250ms), which is exactly what makes computing "95% of requests were faster than X" possible later — you can't reconstruct percentile buckets from a single running total.
+
 ## Architecture
 
 ```
@@ -168,3 +170,22 @@ groups:
         annotations:
           summary: "P95 latency above 1 second"
 ```
+
+## Try It (2 Minutes)
+
+See a Counter's "only ever increases, use rate() not the raw value" behavior directly:
+
+```bash
+pip install prometheus-client
+python3 -c "
+from prometheus_client import Counter, start_http_server
+import time
+c = Counter('demo_requests_total', 'Demo counter')
+start_http_server(8000)
+while True:
+    c.inc()
+    time.sleep(1)
+"
+```
+
+Leave it running, then in another terminal: `curl -s http://localhost:8000/metrics | grep demo_requests_total`. Run that `curl` a few times, seconds apart — the raw number only ever goes up (5, then 8, then 12...), which is exactly why you always wrap a Counter in `rate()` for dashboards and alerts: the raw value tells you "how many total since this process started," not "how fast is this happening right now." `rate(demo_requests_total[1m])` against this running counter would report a steady ~1/sec, which is the actually useful number.

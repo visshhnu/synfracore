@@ -4,6 +4,14 @@
 
 Grafana is the industry-standard open-source platform for monitoring visualization. It doesn't store data — it queries data sources (Prometheus, Loki, Elasticsearch, CloudWatch, and 100+ others) and renders dashboards, sets alerts, and provides a unified observability UI.
 
+**Analogy** — Think of Grafana like a universal remote control, not a TV. A universal remote doesn't generate any picture itself — it sends commands to whatever device is actually plugged in (a cable box, a game console, a streaming stick) and shows you the result. Grafana works the same way: it doesn't generate or store any data itself, it just sends queries to whatever's actually holding the data (Prometheus, Loki, Elasticsearch, CloudWatch) and renders whatever comes back, in a consistent interface regardless of which "device" is behind it.
+
+```
+Grafana (the remote)  --queries-->  Prometheus / Loki / CloudWatch / ...  (the actual devices)
+       │                                          │
+       └──────────────── renders the result back as a dashboard ─────────┘
+```
+
 ## What Grafana Provides
 
 - **Dashboards** — Beautiful, interactive charts from any data source
@@ -253,6 +261,12 @@ Row 4: Infrastructure
 # Import via Grafana UI:
 # + → Import → Enter dashboard ID → Load → Select data source → Import
 ```
+
+## Try It (2 Minutes)
+
+1. `docker run -d -p 3000:3000 grafana/grafana` and open `http://localhost:3000` (default login `admin`/`admin`, it'll prompt you to change it).
+2. Go to Connections → Data Sources → Add data source → choose **TestData DB** (a built-in fake data source made exactly for this — no real Prometheus/Loki needed).
+3. Create a new dashboard, add a panel, select the TestData source, and pick the "Random Walk" scenario — you'll immediately see a live-updating line chart, generated entirely by the data source, not by Grafana itself. Switch the panel's data source dropdown to a different one later (once you have Prometheus running, for example) and the exact same panel type renders completely different real data — that's the universal-remote idea directly: the interface stays the same, only which "device" it's pointed at changes.
 
 ## Interview Questions
 

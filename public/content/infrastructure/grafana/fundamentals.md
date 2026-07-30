@@ -4,6 +4,16 @@
 
 Think of Grafana as a window, not a warehouse: it doesn't store any data itself, it just gives you a consistent way to look through it — the same dashboard-and-panel model works whether the data behind the glass is Prometheus metrics, Loki logs, or a Postgres table. Overview covered what Grafana is and why teams pair it with Prometheus; this page is the hands-on half — get a working Grafana + Prometheus stack running locally, then use it to build the dashboards, queries, and alerts below. Everything from here on assumes you have Docker available; if you don't, `installation.md` in this technology covers native-package and Kubernetes/Helm alternatives.
 
+```
+docker-compose.yml  →  Grafana container (the "window")
+                    →  Prometheus container (one thing behind the glass)
+                            │
+                    provisioning/datasources/*.yml
+                            │
+                    Grafana auto-connects to it on startup —
+                    no manual "Add data source" click needed
+```
+
 ## Install & Verify
 
 The fastest path to a working stack is the two-container Docker Compose setup below — Grafana for visualization, Prometheus as its first data source. Save it as `docker-compose.yml` and run `docker compose up -d`; both containers should report `Up` within a few seconds of `docker compose ps`.
