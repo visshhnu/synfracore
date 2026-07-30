@@ -237,9 +237,83 @@ creation is a pointer operation, not a copy).
 - **Flagged, not fixed:** none this batch.
 - **Deferred:** none.
 
+## Batch 4 — Terraform, Ansible, Jenkins (iac + cicd domains)
+
+All three aliased `devops/*` → `infrastructure/*` (checked the real, served
+files per the batch-1 lesson).
+
+**Terraform — passes on accuracy and tab-depth, failed `is_beginner_ready`,
+fixed.** `overview.md`'s IaC definition, "Why Terraform Over Alternatives"
+comparison, and IAM guidance all check out; `fundamentals.md`'s HCL syntax
+coverage is correct. Neither tab had an analogy, diagram, or try-it —
+terser, more reference-sheet-style writing than CI/CD or Git, with
+near-zero connecting prose before this pass. **Fixed:** added a
+blueprint-vs-building-by-memory analogy + a plan/apply flow diagram to
+`overview.md`, plus a Try It using the real `hashicorp/local` provider to
+run a full plan → apply → drift-detection cycle with no cloud account
+needed — verified this is genuine, correct Terraform behavior (the `local`
+provider and `local_file` resource are real, and `terraform plan` does
+detect and offer to recreate a manually-deleted managed file). Added a
+shopping-list-with-substitutions analogy (`variable`/`resource`/`output`
+blocks) + a diagram to `fundamentals.md`, plus a Try It that extends the
+Overview's own `local_file` example with a variable override
+(`terraform apply -var="message=..."`) and `terraform output` — verified
+both commands are correct, real Terraform CLI syntax and behavior, and the
+example deliberately builds on Overview's rather than introducing an
+unrelated one.
+
+**Ansible — passes on accuracy and tab-depth, failed `is_beginner_ready`,
+fixed.** Agentless architecture, module/task/playbook/inventory concepts,
+and the lab setup are all accurate. Neither tab had an analogy, diagram,
+or try-it. **Fixed:** added a substitute-teacher-vs-permanent-teacher
+analogy (agentless vs. agent-based config management) to `overview.md`,
+plus a Try It using `ansible localhost -m file -a "path=/tmp/demo.txt
+state=touch"` run twice to demonstrate idempotency directly —
+independently verified via a targeted check (not assumed from memory):
+the `file` module's `state=touch` genuinely reports `changed=false` on a
+second run against an already-existing file, so the try-it's claimed
+output is correct. Added a recipe-card-to-multiple-kitchens analogy
+(inventory/playbook/task/module) + a diagram to `fundamentals.md`, plus a
+Try It that runs the file's own "first playbook" example locally via
+`ansible_connection=local` and explicitly ties its idempotent second-run
+behavior back to the Overview Try It's ad-hoc-command version — a real,
+checked cross-reference, not just an assertion.
+
+**Jenkins — passes on accuracy and tab-depth, failed `is_beginner_ready`,
+fixed.** Controller/Agent architecture and declarative pipeline syntax
+both accurate. Neither tab had an analogy, diagram, or try-it. **Fixed:**
+added an air-traffic-control-tower analogy (Controller coordinates,
+Agents execute) + a Try It running the real `jenkins/jenkins:lts-jdk17`
+Docker image end-to-end (init password from container logs, a Freestyle
+job, Console Output) to `overview.md` — verified the image name, port
+mapping (8080 web UI / 50000 agent JNLP), and initial-setup-password
+behavior are all accurate to how Jenkins' Docker image actually works.
+Added an assembly-line-with-quality-gates analogy (`stages` block) + a
+diagram to `fundamentals.md`, plus a Try It using a minimal declarative
+pipeline with a deliberately failing `Test` stage — verified this is
+correct declarative-pipeline behavior: a failed stage stops the pipeline,
+and downstream stages show as skipped in the Stage View, not failed.
+
+**Pattern confirmation:** all three technologies in this batch had the
+identical defect as Shell Scripting (batch 1), CI/CD, and Git (batch 3) —
+accurate, correctly-sequenced content that nonetheless failed
+`is_beginner_ready` purely on missing analogy/diagram/try-it scaffolding.
+Terraform in particular was the terse-reference-sheet end of this pattern
+rather than the dense-prose end (CI/CD, Git) — both ends of that spectrum
+had the same underlying gap.
+
+### Batch 4 status: flagged vs fixed vs deferred
+
+- **Fixed:** Terraform, Ansible, and Jenkins all missing `is_beginner_ready`
+  scaffolding in Overview and Fundamentals — analogy, diagram, and try-it
+  added to all 6 files, each independently verified genuinely pedagogical
+  and technically accurate (tool behavior checked, not assumed) rather
+  than just present.
+- **Flagged, not fixed:** none this batch.
+- **Deferred:** none.
+
 ## Remaining batches (not yet started)
 
-- Batch 4: Terraform, Ansible, Jenkins — content staged on disk, not yet
-  reviewed in this pass.
-- Batch 5: Prometheus, Grafana
+- Batch 5: Prometheus, Grafana — content staged on disk, not yet reviewed
+  in this pass.
 - Batch 6: Helm, ArgoCD, Istio — closes the 15-technology retroactive audit

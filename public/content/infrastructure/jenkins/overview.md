@@ -14,6 +14,8 @@ Jenkins is an automation server that:
 
 The core value: **eliminate manual, error-prone human steps** in software delivery.
 
+**Analogy** — Think of Jenkins like an air-traffic control tower, not a single pilot. The Controller doesn't fly any plane (run any build) itself — it watches for incoming flights (a `git push` triggering a webhook), decides which runway/gate handles each one (assigns work to an Agent), and tracks every flight's status centrally. The Agents are the actual runways doing the work (building, testing, deploying). This is exactly why the Controller can coordinate many builds across many Agents simultaneously without doing the heavy work itself — its job is coordination, not execution.
+
 ## Architecture
 
 ```
@@ -309,6 +311,14 @@ container('kubectl') {
 az ad sp credential reset --name jenkins-sp
 # Update Jenkins Credentials → Azure SP → update password
 ```
+
+## Try It (2 Minutes)
+
+If you have Docker available, you can see the Controller/Agent split live in under 2 minutes:
+
+1. `docker run -p 8080:8080 -p 50000:50000 jenkins/jenkins:lts-jdk17`
+2. Open `http://localhost:8080` — the initial setup screen asks for an admin password, printed directly in the container's terminal output (`docker logs` if you missed it). This is the Controller starting up — no build work has happened yet, it's purely the coordination layer coming online.
+3. After setup, create a simple Freestyle project with one build step: `echo "hello from an agent"`. Click **Build Now**, then open the build's **Console Output**. That single line of output is the Controller having dispatched the job to an agent (in this minimal setup, the Controller's own built-in agent) and reporting back the result — the same coordination pattern the Architecture diagram above shows at production scale, just with one agent instead of three.
 
 ## Interview Questions
 

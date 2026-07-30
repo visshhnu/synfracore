@@ -1,5 +1,13 @@
 # Jenkins — Fundamentals
 
+**Analogy** — A `Jenkinsfile`'s `stages` block is like a factory assembly line with quality gates, not one person doing everything at a single bench. Each `stage` (Checkout, Test, Build, Deploy) is one station on the line — an item only reaches the next station if it passes the current one, and each station can be staffed by a different, specialized worker (a different `container`/`agent`, as seen in the `kubectl`/`docker` container split below). A failed `Test` stage stops the item right there — it never reaches `Deploy` half-finished, the same way a factory pulls a defective part off the line rather than shipping it anyway.
+
+```
+Checkout → Test → Security Scan → Build Image → Push → Deploy Staging → Smoke Test → Deploy Prod
+    │         │                                                              │
+    └── each arrow only happens if the stage before it succeeded ───────────┘
+```
+
 ## Declarative Pipeline
 
 ```groovy
@@ -200,3 +208,26 @@ withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
     sh 'kubectl get pods'
 }
 ```
+
+## Try It (2 Minutes)
+
+Using the Jenkins container from the Overview tab's Try It (or any running Jenkins instance), create a Pipeline job with this minimal script — no Kubernetes or Docker needed to see the assembly-line behavior:
+
+```groovy
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps { echo 'Build stage running...' }
+        }
+        stage('Test') {
+            steps { sh 'exit 1' }   // simulate a failing test
+        }
+        stage('Deploy') {
+            steps { echo 'Deploy stage running...' }
+        }
+    }
+}
+```
+
+Run it and look at the **Stage View**. `Build` shows green, `Test` shows red and stops the pipeline, and `Deploy` never runs at all — shown as skipped, not failed. That's the assembly-line diagram above in action: a defective item never reaches the next station.

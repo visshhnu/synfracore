@@ -1,5 +1,13 @@
 # Terraform Fundamentals
 
+**Analogy** — A `.tf` file is like a shopping list with substitutions built in. `resource` blocks are the actual items you want ("1 VPC, 2 subnets"); `variable` blocks are the sticky notes saying "but let the person shopping swap in the right size/color depending on the store" (dev vs. staging vs. prod); `output` blocks are what you report back after shopping ("here's the receipt, here's the VPC ID you'll need for the next list"). Nothing on the list is bought (no real infrastructure created) until `terraform apply` — writing the file is just planning the trip.
+
+```
+variable block   →  the substitutable inputs ("how many, what size")
+resource block   →  the actual thing to create
+output block     →  what to hand back once it exists
+```
+
 ## Core Syntax (HCL)
 
 ```hcl
@@ -204,3 +212,26 @@ terraform output            # Show all outputs
 terraform output vpc_id     # Show specific output
 terraform refresh           # Sync state with real infra
 ```
+
+## Try It (2 Minutes)
+
+Using the `local_file` example from the Overview tab, add a variable instead of hardcoding the content:
+
+```hcl
+variable "message" {
+  description = "Content to write into the file"
+  type        = string
+  default     = "hello from terraform"
+}
+
+resource "local_file" "demo" {
+  filename = "hello.txt"
+  content  = var.message
+}
+
+output "file_path" {
+  value = local_file.demo.filename
+}
+```
+
+Run `terraform apply -var="message=a custom message"` — the file's content changes to your override, without editing the `.tf` file itself. Then run `terraform output file_path` — it prints the output value without needing to re-run `apply`. This is the substitutable-shopping-list idea directly: the same `resource` block, different inputs, and a clean way to report back what was created.

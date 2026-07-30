@@ -8,6 +8,18 @@ Ansible is an open-source configuration management, software provisioning, and a
 
 The word "Ansible" refers to a hypothetical device in science fiction that enables communication across great distances — faster-than-light communication. That is where Ansible got its name.
 
+**Analogy** — A playbook is like a recipe card handed to several kitchens at once, each cooking the same dish independently. The **inventory** is the list of kitchens (servers) getting the recipe; the **playbook** is the recipe itself (a YAML file of steps); each **task** is one step in the recipe ("preheat the oven," "add the flour"); a **module** is the actual tool used to do that step (an oven, a whisk — `yum`, `copy`, `service`). Every kitchen follows the exact same recipe, so you end up with the exact same dish everywhere, without standing in each kitchen yourself.
+
+```
+Inventory (which kitchens)  +  Playbook (the recipe)
+                    │
+                    ▼
+   Ansible SSHs into each kitchen, runs the recipe's modules, leaves
+                    │
+                    ▼
+        Every server ends up in the same state
+```
+
 ## Lab Setup
 
 The standard setup used throughout:
@@ -314,6 +326,15 @@ autocmd FileType yaml setlocal ai ts=2 sw=2 et
 - command: uptime       # simple commands (no shell features)
 - shell: cat /etc/hosts | grep node  # shell features (pipes, redirects)
 ```
+
+## Try It (2 Minutes)
+
+Run the "first playbook" example above against just your own machine — no other servers needed:
+
+1. Create `inventory.ini` with one line: `localhost ansible_connection=local`
+2. Create `first-playbook.yml` (the exact example from above).
+3. Run `ansible-playbook -i inventory.ini first-playbook.yml` — watch it report `changed: [localhost]` for the file-creation task.
+4. Run the exact same command again — this time it reports `ok: [localhost]`, not `changed`. That's the same idempotency the Overview tab's Try It showed with a raw ad-hoc command — a playbook is just a named, ordered sequence of the same idempotent tasks.
 
 ## Next Steps
 
