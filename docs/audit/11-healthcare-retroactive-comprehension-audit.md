@@ -532,22 +532,43 @@ a home sale) + try-it (work a HIPAA breach-notification scenario against the
    subject matter, breaking tab-depth sequencing between Overview and
    Advanced. Recommend a dedicated content-restructuring pass building
    genuine guideline-application content for these two tabs.
-3. `bchhc-prep/fundamentals.md`'s "OT can never complete OASIS" claim —
+3. **RESOLVED (`ae0bf36`):** the "ROC OASIS within 24 hours" error (correct
+   figure: 48 hours / 2 calendar days, per 42 CFR 484.55) — a sitewide
+   search after this audit's initial fix (`bchhc-prep/overview.md` only)
+   found 10 more occurrences across 9 files, all individually verified and
+   corrected: `bchhc-prep/{cheatsheets,fundamentals,interview}.md`,
+   `bchhc-prep/projects.md` (×2), `home-health-coding/
+   {cheatsheets,interview,certification}.md`, and — a genuinely new
+   finding — `security/home-health-coding/{cheatsheets,fundamentals,
+   interview}.md`. That last one surfaced a previously-unnoticed **fully
+   separate, live, registered copy of the Home Health Coding technology
+   living under the `security` academy** (see item 5 below). Sitewide
+   grep after fixing confirms zero remaining matches. Closed.
+4. `bchhc-prep/fundamentals.md`'s "OT can never complete OASIS" claim —
    outdated since a January 2022 CMS rule change; needs a nuanced rewrite
    (OT can complete SOC OASIS once another discipline establishes
    eligibility, and can independently complete discharge/recertification
-   OASIS), not a binary flip. Worth checking whether the same simplified
-   claim appears elsewhere in this technology or Home Health Coding before
-   fixing just the one instance found here.
-4. The "ROC OASIS within 24 hours" error (correct figure: 48 hours / 2
-   calendar days, per 42 CFR 484.55) — fixed in `bchhc-prep/overview.md`
-   as part of this batch, but the identical error still exists in 8 other
-   locations not touched by this pass: `bchhc-prep/cheatsheets.md`,
-   `bchhc-prep/interview.md`, `bchhc-prep/projects.md` (×2 occurrences),
-   `home-health-coding/certification.md`,
-   `home-health-coding/cheatsheets.md`, and
-   `home-health-coding/interview.md`. A dedicated sweep fixing all 8 in one
-   pass is recommended over discovering them one at a time.
+   OASIS), not a binary flip. A follow-up sitewide check found the same
+   flat claim in 7 more locations, all not yet fixed: `bchhc-prep/
+   {interview,projects}.md` (projects.md ×2), `home-health-coding/
+   {certification,interview}.md` (certification.md ×2),
+   `medical-coding/intermediate.md`, and `security/home-health-coding/
+   {fundamentals,interview}.md`. Reported, not rewritten yet — the
+   correction needs to state the actual nuanced rule (OT can do SOC once
+   eligibility is established by another discipline; OT can independently
+   do discharge/recertification OASIS) consistently across all 8 files,
+   not a quick per-file binary flip.
+5. **New finding:** `public/content/security/home-health-coding/` is a
+   full, separately-registered technology (5 files: overview, fundamentals,
+   intermediate, advanced, interview, cheatsheets — registered in
+   `lib/content/index.ts` under the `security` academy, confirmed live) —
+   apparently a duplicate of `healthcare/home-health-coding/` created at
+   some point and never reconciled. Discovered as a side effect of the
+   ROC-timing sweep, not previously known. Whether this is intentional
+   (Home Health Coding genuinely belongs in both academies) or an
+   accidental duplicate that should be de-duplicated/aliased is a real
+   open question — not investigated or resolved here, flagged for a
+   decision.
 
 (An earlier duplicate "Batch 1 — closing tally" section that appeared after
 this final tally has been removed — Batch 1's findings are already fully
