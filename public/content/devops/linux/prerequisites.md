@@ -30,7 +30,7 @@ A meaningful amount of real Linux troubleshooting involves reading `man` pages, 
 
 - Prior Windows system administration experience — helpful in a general "I've administered *a* system before" sense, but Linux's conventions (permissions model, filesystem hierarchy, package management) are different enough that Windows admin experience doesn't transfer directly
 - Programming experience — Bash scripting is covered from scratch starting in the Intermediate tab; you don't need to already know a programming language, though prior exposure to *any* language's basic concepts (variables, loops, conditionals) will make that section click faster
-- Networking deep-dives — this course covers the networking commands relevant to Linux administration (`ip`, `ss`, basic firewall config) at the level needed here; deeper networking theory lives in this platform's dedicated Networking technology, and isn't a prerequisite to start here
+- Networking deep-dives — this course covers the networking commands relevant to Linux administration (`ss`, basic firewall config) at the level needed here; `ip` and other reference-only commands appear in the Cheatsheets/Notes tabs but aren't walked through step by step. Deeper networking theory lives in this platform's dedicated Networking technology, and isn't a prerequisite to start here
 
 ### Quick self-check
 

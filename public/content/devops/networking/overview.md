@@ -3,7 +3,7 @@
 > **OSI model, DNS, SSL/TLS, load balancing, VPC design — production networking**
 
 **Category:** Networking  
-**Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
+**Learning Path:** What → Why → Learning Modules → Production Example → Interview Prep
 
 **Before you start:** you need basic Linux command-line comfort (see the Linux course if that's new) and a rough sense of what an IP address and a "port" are. No prior networking-specific knowledge is assumed — this page starts from first principles.
 
