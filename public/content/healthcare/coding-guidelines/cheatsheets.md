@@ -4,19 +4,19 @@
 
 ### Core Topics
 **ICD-10-CM Guideline Sections (A-C)**:
-  Key formula/rule: See fundamentals section for complete derivation
+  Key formula/rule: See Overview's "Section I: Conventions" for the underlying rules (Alphabetic Index vs Tabular List, Placeholder Character X, NEC/NOS abbreviations)
   When to apply: When the problem mentions keywords related to icd-10-cm guideline sections (a-c)
 **Principal Diagnosis Selection**:
-  Key formula/rule: See fundamentals section for complete derivation
+  Key formula/rule: See Overview's "Section II: Selection of Principal Diagnosis (Inpatient)" for the full rule and worked examples
   When to apply: When the problem mentions keywords related to principal diagnosis selection
 **Additional Diagnoses**:
-  Key formula/rule: See fundamentals section for complete derivation
+  Key formula/rule: See Overview's "Section III: Reporting Additional Diagnoses" for the full rule
   When to apply: When the problem mentions keywords related to additional diagnoses
 **Outpatient vs Inpatient Rules**:
-  Key formula/rule: See fundamentals section for complete derivation
+  Key formula/rule: See Overview's "Uncertain Diagnoses — Inpatient Only Rule" and "Section IV: Outpatient Guidelines" for the full inpatient/outpatient contrast
   When to apply: When the problem mentions keywords related to outpatient vs inpatient rules
 **Signs & Symptoms Coding**:
-  Key formula/rule: See fundamentals section for complete derivation
+  Key formula/rule: See Overview's "Section IV: Outpatient Guidelines" → "Signs and Symptoms Rule" for the full rule
   When to apply: When the problem mentions keywords related to signs & symptoms coding
 **Combination Codes**:
   Key formula/rule: See fundamentals section for complete derivation

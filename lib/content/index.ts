@@ -1748,7 +1748,6 @@ const contentRegistry = new Map<string, string>([
   ["healthcare/icd-10-cm/projects","healthcare/icd-10-cm/projects"],
   ["healthcare/icd-10-cm/roadmap","healthcare/icd-10-cm/roadmap"],
   ["healthcare/medical-coding/fundamentals","healthcare/medical-coding/fundamentals"],
-  ["healthcare/medical-coding/intermediate","healthcare/medical-coding/intermediate"],
   ["healthcare/medical-coding/interview","healthcare/medical-coding/interview"],
   ["healthcare/medical-coding/overview","healthcare/medical-coding/overview"],
   ["healthcare/medical-terminology/advanced","healthcare/medical-terminology/advanced"],
