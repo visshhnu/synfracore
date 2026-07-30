@@ -194,7 +194,7 @@ const NAV_LINKS = [
 const GROUPS = [
   {
     label: "Tech & Engineering", color: "#3B82F6", icon: "⚙️",
-    slugs: ["devops", "cloud", "databases", "ai", "data", "security", "telecom"],
+    slugs: ["devops", "cloud", "databases", "ai", "data", "security", "telecom", "aerospace", "vlsi"],
   },
   {
     label: "Education & Exams", color: "#F59E0B", icon: "🎓",
@@ -210,7 +210,26 @@ const GROUPS = [
   },
 ];
 
-// All 18 academies are now live — no coming-soon placeholder needed
+// GROUPS is a hand-curated categorization, deliberately separate from
+// academies.ts (the 4-column layout needs a fixed grouping, not just "all
+// academies in array order") — but that means a new academy added to
+// academies.ts does NOT automatically appear in this dropdown; its slug
+// has to be added to one of the groups above by hand. This already
+// happened once silently: Aerospace shipped without a GROUPS entry and
+// was missing from this dropdown (though still present in the mobile
+// drawer below, which does read academies.ts directly) until caught and
+// fixed alongside VLSI's launch. This dev-only check catches the next
+// occurrence immediately instead of relying on someone noticing a
+// hover-menu gap.
+if (process.env.NODE_ENV !== "production") {
+  const groupedSlugs = new Set(GROUPS.flatMap((g) => g.slugs));
+  const missing = academies.map((a) => a.slug).filter((slug) => !groupedSlugs.has(slug));
+  if (missing.length > 0) {
+    console.warn(
+      `[Navbar] ${missing.length} academy slug(s) exist in academies.ts but are missing from GROUPS in components/layout/Navbar.tsx, so they won't appear in the desktop dropdown: ${missing.join(", ")}`
+    );
+  }
+}
 
 // ── Main Navbar ───────────────────────────────────────────
 export default function Navbar() {

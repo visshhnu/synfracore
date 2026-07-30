@@ -39,7 +39,7 @@ export default function RoadmapsPage() {
     <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "56px 24px" }}>
       <div style={{ marginBottom: "48px", textAlign: "center" }}>
         <div style={{ display: "inline-block", background: "rgba(99,102,241,0.1)", border: "1px solid rgba(99,102,241,0.2)", borderRadius: "20px", padding: "6px 16px", fontSize: "13px", color: "#6366F1", fontWeight: 600, marginBottom: "16px" }}>
-          22 Career Paths · All Domains
+          {roadmaps.length} Career Paths · All Domains
         </div>
         <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
           Learning Roadmaps

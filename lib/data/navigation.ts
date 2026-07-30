@@ -89,6 +89,10 @@ export const roadmaps = [
     steps: ["Linux Deep Dive", "Kubernetes Production", "Prometheus & SLOs", "Incident Management", "Chaos Engineering", "Capacity Planning", "Automation"] },
   { slug: "healthcare-coder", title: "Medical Coder (CPC/BCHHC)", icon: "🏥", color: "#14B8A6", category: "professional", duration: "6 months",
     steps: ["Anatomy & Physiology", "Medical Terminology", "ICD-10-CM Fundamentals", "CPT Procedure Codes", "HCPCS Level II", "Coding Guidelines", "OASIS & PDGM", "CPC Exam Prep", "BCHHC Certification Prep"] },
+  { slug: "aerospace-engineer", title: "Aerospace Engineer", icon: "🚀", color: "#1D4ED8", category: "tech", duration: "9 months",
+    steps: ["Aerospace Foundations", "Aerodynamics", "Propulsion Systems", "Flight Mechanics & Structures", "Orbital Mechanics", "Spacecraft Systems", "Careers & Exam Prep"] },
+  { slug: "vlsi-design-engineer", title: "VLSI Design Engineer", icon: "🔬", color: "#64748B", category: "tech", duration: "9 months",
+    steps: ["Digital Logic Fundamentals", "HDL — Verilog & VHDL", "RTL Design", "Functional Verification", "Physical Design & Fabrication", "Analog & Mixed-Signal", "Careers & Exam Prep"] },
 
   // ── LAW & LEGAL ────────────────────────────────────────────────────────────
   { slug: "advocate-career", title: "Advocate / Legal Career", icon: "⚖️", color: "#6366F1", category: "law", duration: "3–5 years",
