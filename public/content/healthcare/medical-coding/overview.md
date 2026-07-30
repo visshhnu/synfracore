@@ -1,5 +1,14 @@
 # Medical Coding Overview
 
+**Analogy** — Medical coding is like translation, not summarization. A translator doesn't paraphrase a sentence into whatever words feel close enough — they convert it into the exact vocabulary of the target language, precisely, or the meaning is lost or changed. A coder does the same thing with a physician's documentation: it isn't rewritten or summarized, it's converted into the exact standardized code the documentation supports — nothing added, nothing softened, nothing guessed.
+
+```
+Clinical documentation          Coded claim
+"Type 2 diabetes mellitus  →    E11.22  (diagnosis, ICD-10-CM)
+ with diabetic CKD stage 3"      99214   (office visit level, CPT)
+        "source language"           "target language"
+```
+
 ## What Is Medical Coding?
 
 Medical coding is the process of translating clinical documentation — diagnoses, procedures, services, supplies — into standardized alphanumeric codes used for billing, insurance claims, statistical tracking, and quality reporting. Every claim submitted to a payer depends on codes being assigned correctly from what's actually documented.
@@ -41,6 +50,16 @@ This section is a lightweight starting point, not a complete coding curriculum o
 3. **Home Health Coding** / **BCHHC Certification Prep** — if home health is your target specialty (a separate track, not a variation on the above)
 4. **Healthcare Administration**, **Patient Documentation** — adjacent specialties in revenue cycle and clinical documentation improvement
 5. **Mock Exams** — cross-cutting exam-readiness practice once you've completed your target specialty's content
+
+## Try It (2 Minutes)
+
+Look at the translation example above: "Type 2 diabetes mellitus with diabetic CKD stage 3" → `E11.22`.
+
+1. Which of the three code sets in the table above does `E11.22` belong to — ICD-10-CM, CPT, or HCPCS?
+2. Which part of the documentation does it answer — *why* the patient was seen, *what* was done, or *what supplies* were used?
+3. Now try the reverse direction: if a claim needs a code for "removal of gallbladder," which of the three code sets would that come from instead?
+
+You should land on: `E11.22` is ICD-10-CM (it answers *why*); a gallbladder removal procedure would be CPT (it answers *what was done*). Keeping "why vs. what was done vs. what supplies" straight is the single most useful habit from this page.
 
 ## This Section's Scope
 

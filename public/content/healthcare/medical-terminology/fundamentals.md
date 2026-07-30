@@ -1,5 +1,7 @@
 # Medical Terminology — Fundamentals
 
+**Analogy** — The connecting vowel works like the linking "-s-" in English compound words such as "sportsman" or "craftsman" — it's not part of either root word's meaning, it's just there to make the join pronounceable. Nobody teaches "sport-s-man" as a spelling rule to memorize per word; you learn the one pattern (a linking sound appears when two consonant-heavy parts collide) and it applies broadly. The medical "connecting vowel" is the same idea, just formalized into an explicit rule below.
+
 ## The connecting vowel: the detail that makes compound terms make sense
 
 The Overview tab's prefix + root + suffix formula is the core pattern — the piece worth adding at the fundamentals level is the **combining vowel** (almost always "o"), which connects a root to another root or to a suffix that begins with a consonant, specifically to make the term pronounceable:
@@ -47,6 +49,16 @@ prognosis → prognoses
 nucleus → nuclei
 ```
 This matters practically beyond just grammar correctness — when searching an index or a reference (electronic or paper) for a term, knowing the correct singular form to search under (rather than the plural form that might appear in documentation) is sometimes the difference between finding the right entry quickly and missing it because the search was performed under an incorrect or non-standard form.
+
+## Try It (2 Minutes)
+
+Apply the connecting-vowel rule to a term you haven't seen broken down yet: "arthroscopy."
+
+1. Root: "arthr" (joint). Suffix: "-scopy" (visual examination, starts with a consonant).
+2. Following the rule above — does a connecting vowel get used or dropped here?
+3. Write out the full decoded meaning.
+
+You should get: "arthr" + "o" (connecting vowel, since "-scopy" starts with a consonant) + "-scopy" = "arthroscopy" = "visual examination of a joint." Same rule, new term — that's the transfer this method is built for.
 
 ## Directional and positional terms as word-building components
 

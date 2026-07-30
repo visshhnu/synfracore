@@ -1,5 +1,7 @@
 # Medical Coding Fundamentals
 
+**Analogy** — The Alphabetic Index and Tabular List work like a library's card catalog and the actual bookshelf. The card catalog (Alphabetic Index) gets you to roughly the right spot fast, but it doesn't tell you everything — you still have to walk to the shelf (Tabular List) and read the book's actual details (instructional notes: includes/excludes, "code first," required extra characters) before you can be sure it's the right one. Trusting the card catalog alone and never checking the shelf is exactly how a coder ends up with a plausible-looking but wrong code.
+
 ## What Medical Coding Actually Involves
 
 Medical coding converts healthcare diagnoses, procedures, and services into universal alphanumeric codes used for billing, insurance claims, and statistical tracking.
@@ -67,3 +69,13 @@ Before learning specific codes, every medical coder needs to understand the body
 | cephalo | head/brain | encephalopathy |
 
 This is a preview, not a substitute — this platform's dedicated **Medical Terminology** module covers the full prefix/root/suffix decoding system in depth. Recognizing a root like "nephro" or "cardio" on sight is often the fastest path to identifying which ICD-10-CM chapter a documented condition belongs to, before you even open the index.
+
+## Try It (2 Minutes)
+
+A note says "patient presents with hematuria, evaluated for possible nephrolithiasis."
+
+1. Using the body-systems table above, which system does this belong to?
+2. Using the root table above, what does "nephro" mean?
+3. Which chapter would you expect the Alphabetic Index to point you toward — and what's the required next step before finalizing that code?
+
+You should land on: Genitourinary; "nephro" = kidney; the N-chapter — and the required next step is always verifying in the Tabular List, never coding from the index alone.

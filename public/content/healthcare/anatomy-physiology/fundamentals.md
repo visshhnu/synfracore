@@ -1,5 +1,7 @@
 # Anatomy & Physiology for Medical Coders — Fundamentals
 
+**Analogy** — Coding from a vague body-system table (Overview) to a precise diagnosis statement is like the difference between knowing "this letter needs to go to the west side of the city" and knowing the exact street address. The Overview tab gets you to the right neighborhood (which system, which chapter); this tab is about reading the full address correctly — the specific bone, the specific side of the body, the specific stage of a condition — because the codebook, like a postal system, won't deliver correctly on a neighborhood name alone.
+
 ## Reading a diagnosis statement the way a coder needs to
 
 A physician's note says "acute exacerbation of chronic obstructive bronchitis with COPD" — before you can find the right code, you need to parse what's actually being described anatomically and physiologically: **acute** (a sudden worsening, not the baseline condition itself), **exacerbation** (a flare-up of an existing chronic condition, not a new diagnosis), **chronic obstructive bronchitis** (a respiratory-system condition affecting the bronchi specifically, not the lungs generally), layered under the broader **COPD** umbrella. Each of those words changes which code applies — coding "bronchitis" without recognizing it's specifically the chronic, obstructive, currently-exacerbated form produces a wrong code, even though "bronchitis" alone isn't technically false. This is the practical, everyday reason anatomy/physiology knowledge precedes ICD-10-CM in the learning sequence — the codebook assumes you can already parse a clinical statement into its precise anatomical and physiological components before you ever open it.
@@ -53,3 +55,13 @@ The Overview tab's system-by-system table is the reference — the fundamental h
 - **Digestive** — spans many ICD-10-CM chapters (esophagus, stomach, intestines, liver, pancreas each have distinct code ranges); organ specificity, not just "GI issue," is what the codebook requires
 - **Genitourinary** — CKD staging (mentioned above) is a direct, concrete example of physiology (GFR-based severity) determining exact code selection, not just anatomical location
 - **Endocrine** — diabetes coding specifically requires understanding complication *pathways* (how diabetes physiologically affects kidneys, eyes, nerves over time) since ICD-10-CM codes diabetes together with its specific documented complications, not as a standalone diagnosis
+
+## Try It (2 Minutes)
+
+Take the note fragment: "distal radius fracture, right wrist, initial encounter." Without looking up the code:
+
+1. Name the bone (not "wrist" — the specific bone).
+2. Is "distal" the elbow end or the wrist end of that bone?
+3. What two other pieces of information (beyond bone and site) does the fracture-coding checklist above say you still need?
+
+You should get: radius; distal = the wrist end; laterality (right) and encounter type (initial) — both of which are already given here, which is exactly what makes this note "codable" rather than needing a physician query.
