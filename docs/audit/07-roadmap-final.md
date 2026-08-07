@@ -3229,6 +3229,106 @@ instance of the error across all 21 files).
 
 ---
 
+## VLSI vertical launched (undated in prior records — confirmed live 2026-08-07)
+
+**Correction: this was never logged as shipped anywhere in this document
+despite being live in production.** Found via direct verification during a
+technical-SEO check, not from any commit note or prior roadmap entry —
+`git log`/commit-message provenance for the exact ship date was not
+checked as part of this correction; treat "2026-07-31" (the Aerospace
+launch date, given both verticals were scoped in the same session per the
+"Deferred" section below) as a likely but unconfirmed date
+`(needs verification)`.
+
+`lib/data/academies.ts` has a live `vlsiAcademy` entry — VLSI &
+Semiconductor Engineering, one domain (`vlsi-core`), 7 technologies:
+Digital Logic & Design Fundamentals, HDL — Verilog & VHDL, RTL Design &
+Computer Architecture, Functional Verification, Physical Design &
+Fabrication, Analog & Mixed-Signal Design, VLSI Careers & Exam Pathways.
+
+**Tab-depth parity, verified directly against the filesystem
+(`public/content/vlsi/*`), not assumed:** all 7 technologies ship the
+identical **3-tab starter shape as Aerospace** — `overview.md`,
+`fundamentals.md`, `interview.md` only, no Intermediate/Advanced/
+Certification/Cheatsheets/Prerequisites/Roadmap/Projects. 21/21 files
+present, none stub-length (99–163 lines for overview/fundamentals per
+technology, ~42 lines for interview — consistent depth across all 7, no
+outlier thin file). No independent technical-accuracy review of VLSI's
+content (the Hohmann-transfer-style spot-check Aerospace got before
+merge) has been logged anywhere — unlike Aerospace, whose pre-merge review
+is recorded above, VLSI's content-accuracy status is genuinely
+`(needs verification)`, not just undocumented.
+
+Confirmed live and indexable in production: `/academies/vlsi` returns 200
+with real content (50+ topics, 50+ practice Q&As per the hub page's own
+counters) and appears in the live site nav dropdown alongside Aerospace.
+Per the technical-SEO check earlier in this engagement, it is automatically
+covered by both the sitemap (`app/sitemap.ts` derives from the same
+`academies` array) and the `Course`/`BreadcrumbList` JSON-LD (wired
+generically at the shared section-page route, not per-academy) — no
+separate SEO work was or is needed for this vertical specifically.
+
+Same future-expansion framing as Aerospace: widening past the 3-tab
+starter (most likely candidates: Intermediate deepening each technology's
+Fundamentals, a Projects tab for portfolio-style chip-design work) is a
+deliberate future option, not committed to yet.
+
+**Lightweight retroactive spot-check, closing the "no logged review" gap
+above (2026-08-07).** Two files independently re-verified, not a full
+7-standard pass: `physical-design-fabrication/overview.md` (chosen for its
+volatile, search-dependent claims) and `rtl-digital-design/overview.md`
+(chosen as a purely mathematical/logic-derivation file).
+
+- **RTL Design — clean, no issues found.** The full Mealy "101"
+  sequence-detector FSM was independently hand-traced against both the
+  worked example (bit stream `1011010`) and both "Try It" streams
+  (`10100`, `10010`) — every state transition and every `detected` bit in
+  all three traces matches the file's claims exactly, including the
+  overlap-detection behavior. The Verilog itself is a correct, standard
+  Mealy FSM (async reset, combinational next-state/output logic). No
+  defect found.
+- **Physical Design & Fabrication — the static content (STA math,
+  synthesis-to-tape-out flow, analogy) is clean**; independently
+  recomputed both worked STA examples (3-path critical-path selection →
+  85.5 MHz, and the "Try It" 4-path extension → 78.7 MHz) and both are
+  exactly right. **The file's two Volatile-Core-tagged sections have,
+  predictably, gone stale since being written — this is the tagging
+  system working as designed, not a hidden defect the way Aerospace's
+  ISRO question-count error was:**
+  - The Tata Electronics–PSMC Dholera fab entry says "clean room not yet
+    complete, first silicon now expected in H1 2027." Live search
+    (2026-08-07) surfaces a materially bigger, more recent story: as of
+    a July 17, 2026 report, the fab will open at **90nm, not the
+    originally-promised 28nm**, and commercial production is now
+    expected **mid-2028**, not H1 2027 — an 18-month slip beyond even
+    what the file's already-cautious framing captured. [India's First
+    Chip Fab Opens at 90nm, Two Process Nodes Below What Tata
+    Promised](https://www.techtimes.com/articles/320824/20260717/indias-first-chip-fab-opens-90nm-two-process-nodes-below-what-tata-promised.htm)
+    (Tech Times, 2026-07-17).
+  - The "Total approved ISM facilities: 12... as of the most recent
+    Cabinet approval round (May 2026)" line is now superseded, not
+    wrong for its time — the Union Cabinet approved a further ₹1.27 lakh
+    crore ($13.3B) under India Semiconductor Mission 2.0 on 2026-07-15,
+    after this file was written.
+  - The Micron Sanand ATMP date/detail (inaugurated 2026-02-28, ATMP not
+    a wafer fab) was independently re-confirmed accurate, no correction
+    needed.
+  - Intel 18A/Panther Lake/Clearwater Forest timing is close enough not
+    to flag as an error (Panther Lake's broad availability lines up with
+    "January 2026"; Clearwater Forest is more precisely "H1 2026" than
+    specifically January, a minor imprecision, not a factual defect).
+
+**Disposition**: not re-opening this as a content defect the way the
+Aerospace ISRO error was — both files pass the accuracy bar on everything
+that was static/evergreen when written. The Dholera and ISM-facility-count
+lines need a refresh update (content task, not a QA failure) next time
+this page is touched, per the Volatile Core tiering rule these sections
+were already correctly tagged under. Closing this spot-check as **clean on
+substance, one scheduled content refresh identified** — not a blanket
+"VLSI confirmed clean" verdict, since only 2 of 21 files were checked.
+
+---
+
 ## Deferred (not scoped, not scheduled) — logged 2026-07-31
 
 Two items raised during VLSI scoping, explicitly out of scope for this

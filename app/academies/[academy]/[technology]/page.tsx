@@ -7,6 +7,7 @@ import { ArrowRight, Clock, Target, BookOpen, Sparkles } from "lucide-react";
 import { pageMetadata } from "@/lib/seo/metadata";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getFirstPaperByExamType } from "@/lib/supabase/questionBank";
+import { RelatedTechnologies } from "@/components/tech/RelatedTechnologies";
 
 type Props = { params: Promise<{ academy: string; technology: string }> };
 
@@ -222,23 +223,10 @@ export default async function TechnologyPage({ params }: Props) {
         </div>
       </div>
 
-      {/* Related technologies */}
-      {domain && domain.technologies.filter(t => t.slug !== tSlug).length > 0 && (
-        <div>
-          <h3 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "16px", marginBottom: "14px" }}>
-            Also in {domain.name}
-          </h3>
-          <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-            {domain.technologies.filter(t => t.slug !== tSlug).slice(0, 6).map(t => (
-              <Link key={t.slug} href={`/academies/${aSlug}/${t.slug}`} style={{ textDecoration: "none" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "8px 14px", borderRadius: "8px", border: "1px solid var(--border)", background: "var(--bg-1)", fontSize: "13px", fontWeight: 600, color: "var(--text-2)" }} className="card-hover">
-                  <span>{t.icon}</span> {t.name}
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
+      {/* Related technologies — curated cross-domain relations where they
+      exist (lib/data/relatedTechnologies.ts), falling back to same-domain
+      siblings otherwise. See RelatedTechnologies.tsx for the lookup order. */}
+      <RelatedTechnologies academySlug={aSlug} techSlug={tSlug} domain={domain} />
     </div>
   );
 }
