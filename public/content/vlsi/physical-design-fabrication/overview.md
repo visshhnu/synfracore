@@ -124,19 +124,28 @@ being treated as current, not just at the time of a future edit.
 ## India Semiconductor Mission — Current Status (needs verification — recheck against current source)
 
 ```
-As of mid-2026 (verified via live search):
+As of August 2026 (verified via live search):
   Micron Sanand ATMP facility (Gujarat) — inaugurated February 28,
     2026; the first OPERATIONAL facility of the current India
     Semiconductor Mission cycle; assembly/test/packaging for DRAM
     and NAND flash, not a wafer fab
   Tata Electronics-PSMC Dholera fab (Gujarat) — India's flagship
-    wafer fab project; original target was first silicon by mid-
-    2026, but as of June 2026 industry sources report the clean
-    room is not yet complete, with first silicon now expected in
-    H1 2027 — a real, acknowledged schedule slip, not a minor detail
-  Total approved ISM facilities: 12, across 6 states, ~Rs 1.64 lakh
-    crore cumulative investment, as of the most recent Cabinet
-    approval round (May 2026)
+    wafer fab project; as of a July 17, 2026 report, the fab will
+    open at 90nm, two process nodes below the 28nm Tata originally
+    promised (the PSMC partnership's broader roadmap covers 28nm/
+    40nm/55nm/90nm/110nm, with 90nm/55nm production coming first and
+    28nm following later, not the originally-announced 28nm start),
+    and commercial production has slipped to mid-2028 —
+    beyond even the H1-2027 slip this section previously reported,
+    which is now itself outdated, not just optimistic
+  ISM facility count and cumulative investment figures below are
+    from the last confirmed Cabinet approval round (May 2026: 12
+    facilities, ~Rs 1.64 lakh crore) — since superseded by a SECOND,
+    larger Cabinet approval on July 15, 2026 (India Semiconductor
+    Mission 2.0, Rs 1.27 lakh crore additional outlay, expected to
+    draw ~Rs 4 lakh crore in investment) whose own updated facility
+    count has not yet been independently confirmed here
+    (needs verification — recheck against current source)
 
 Distinguishing ATMP (assembly/test/packaging — Micron's Sanand
 facility) from a wafer FAB (Tata-PSMC Dholera) matters: Micron's
