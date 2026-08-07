@@ -3192,6 +3192,58 @@ settle it, rather than section-count being the sole gate) or something else
 is a design decision for whoever picks this up — not resolved here.
 Revisit before or during the exam-subject subgroup's own review.
 
+### Sitewide "stale Learning Path label" cleanup (34 files, fresh count, not yet started)
+
+**Follow-up to the pattern first found in
+`docs/audit/10-devops-retroactive-comprehension-audit.md` (3 confirmed
+instances — Networking, Kubernetes, Istio — all 3 already corrected in
+place, and correctly excluded from the count below).** That audit flagged
+a sitewide grep for the same stale label as a deferred follow-up rather
+than running it immediately. Run fresh 2026-08-07:
+
+```
+grep -rl "What → Why → Architecture → Setup → Real Examples → Production → Interview Prep" public/content
+```
+
+**34 files currently match**, spanning far beyond DevOps — Cloud (`aws`,
+`azure`, `multi-cloud`, `cloud-fundamentals`), AI, Data (`mis-overview`,
+`python-mis`, `python-mis-advanced`), Essentials, Law, Security, Telecom,
+and Agriculture (`organic-farming`), plus 20 more DevOps technologies
+beyond the original 3 (`kafka`, `incident`, `ha-dr`, `ansible`,
+`argo-rollouts`, `azure-devops`, `datadog`, `ebpf`, `fluxcd`,
+`github-actions`, `gitlab-ci`, `harbor`, `helm`, `keda`, `loki`,
+`openshift`, `platform-engineering`, `python`, `tekton`, `terraform`,
+`prometheus`). The fix pattern is already established (replace the stale
+label with the file's real section-header sequence, `What → Why →
+Learning Modules → Production Example → Interview Prep`, verified against
+each file's own actual headers rather than assumed) — this is a
+mechanical, low-risk correction, not a content-writing task, but the count
+is large enough to warrant its own tracked batch rather than folding into
+whatever phase happens to touch these files next.
+
+### 11-guide DevOps expansion (not yet started — sizing only)
+
+**Eleven new DevOps guides scoped but not started, per CD's last sizing
+pass: GitLab CI, FluxCD, Tekton, GitHub Actions, eBPF, Harbor, KEDA,
+Datadog, Loki, Platform Engineering, DevSecOps.** Estimated at **5.5–11
+days** of work. Logged here so the estimate is discoverable from the repo
+itself rather than only surviving in chat history. Note the overlap with
+the item directly above: several of these same 11 technologies already
+exist on disk and are already counted in the 34-file stale-label list
+(`gitlab-ci`, `fluxcd`, `tekton`, `github-actions`, `ebpf`, `harbor`,
+`keda`, `datadog`, `loki`, `platform-engineering`, and `devsecops`
+(`security/devsecops`) — **all 11** appear in the 34-file list) — meaning
+every one of these 11 technologies already has a registered `overview.md`
+on disk today. This is NOT purely new-technology scoping: it's either (a)
+an existing-content depth/cleanup pass mislabeled as an "expansion," or
+(b) the existing files are thin scaffolds that a real expansion would
+replace wholesale, in which case the stale-label fix above is moot for
+these 11 specifically (no point patching one label in a file about to be
+rewritten). Check each of the 11 files' actual depth/completeness before
+sizing or starting either piece of work — the 5.5–11 day estimate and the
+34-file cleanup count may currently be double-counting the same 11 files
+under two different framings.
+
 ---
 
 ## Aerospace vertical launched (2026-07-31)
