@@ -3,7 +3,7 @@
 > **From on-premise to cloud — core concepts and models**
 
 **Category:** Cloud  
-**Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
+**Learning Path:** What → Why → Learning Modules → Production Example → Interview Prep
 
 **Before you start:** no prior cloud experience is required — this is the conceptual entry point for the entire Cloud academy, and every platform-specific course (AWS, Azure, GCP) builds on the vocabulary introduced here.
 

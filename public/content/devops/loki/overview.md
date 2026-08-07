@@ -3,7 +3,7 @@
 > **Label-based log aggregation + unified observability signals**
 
 **Category:** Monitoring & Observability  
-**Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
+**Learning Path:** What → Why → Learning Modules → Production Example → Interview Prep
 
 ---
 

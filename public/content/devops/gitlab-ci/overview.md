@@ -3,7 +3,7 @@
 > **All-in-one DevSecOps platform — SCM + CI/CD + Registry + Security scanning**
 
 **Category:** CI/CD  
-**Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
+**Learning Path:** What → Why → Learning Modules → Production Example → Interview Prep
 
 ---
 

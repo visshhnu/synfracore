@@ -3,7 +3,7 @@
 > **Zero to job-ready — Excel automation with Python, Pandas, dashboards**
 
 **Category:** MIS & Analytics  
-**Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
+**Learning Path:** What → Why → Learning Modules → Production Example → Interview Prep
 
 ---
 

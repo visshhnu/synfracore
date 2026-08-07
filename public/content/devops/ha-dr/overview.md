@@ -3,7 +3,7 @@
 > **High Availability and Disaster Recovery — RTO, RPO, multi-AZ patterns**
 
 **Category:** Site Reliability Engineering  
-**Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
+**Learning Path:** What → Why → Learning Modules → Production Example → Interview Prep
 
 **Before you start:** solid Kubernetes (Deployments, Services, node scheduling) is required — most of the patterns here are Kubernetes-native. Basic cloud concepts (regions, availability zones) help too.
 

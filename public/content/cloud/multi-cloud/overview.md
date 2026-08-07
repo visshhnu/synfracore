@@ -3,7 +3,7 @@
 > **Why, when, and how — patterns, tools, and real trade-offs**
 
 **Category:** Cloud  
-**Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
+**Learning Path:** What → Why → Learning Modules → Production Example → Interview Prep
 
 **Before you start:** solid working knowledge of at least one public cloud platform (AWS, Azure, or GCP) is assumed, plus the deployment/service-model vocabulary from Cloud Fundamentals (see that course first if it's new). This page is about *coordinating across* clouds, not learning any single cloud from scratch.
 

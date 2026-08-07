@@ -3,7 +3,7 @@
 > **Enterprise cloud — AKS, DevOps, and deep Microsoft integration**
 
 **Category:** Cloud  
-**Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
+**Learning Path:** What → Why → Learning Modules → Production Example → Interview Prep
 
 **Before you start:** no prior cloud platform experience is required — this is the entry point for the Azure track. Basic familiarity with the command line helps for the CLI examples below, but isn't required to follow the concepts.
 

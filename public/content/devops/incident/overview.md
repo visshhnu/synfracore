@@ -3,7 +3,7 @@
 > **P1 to P4 severity, response framework, post-mortem, MTTR improvement**
 
 **Category:** Site Reliability Engineering  
-**Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
+**Learning Path:** What → Why → Learning Modules → Production Example → Interview Prep
 
 **Before you start:** basic Kubernetes/CLI familiarity helps for the response-framework examples, but the core material here is process, not tooling — no specific prior SRE experience is assumed.
 

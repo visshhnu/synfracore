@@ -3,7 +3,7 @@
 > **Enterprise Kubernetes — SCC, Routes, Operators, Day-2 Operations**
 
 **Category:** Containers & Orchestration  
-**Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
+**Learning Path:** What → Why → Learning Modules → Production Example → Interview Prep
 
 ---
 

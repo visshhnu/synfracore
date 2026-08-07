@@ -3,7 +3,7 @@
 > **Apache Kafka, RabbitMQ — event streaming, consumer lag, production operations**
 
 **Category:** Messaging & Event Systems  
-**Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
+**Learning Path:** What → Why → Learning Modules → Production Example → Interview Prep
 
 **Before you start:** basic Kubernetes and Linux/CLI comfort are assumed, since Kafka is run and operated on Kubernetes throughout this course. No prior messaging-system experience is needed.
 

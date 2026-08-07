@@ -3,7 +3,7 @@
 > **The leading cloud platform — core services to architecture**
 
 **Category:** Cloud  
-**Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
+**Learning Path:** What → Why → Learning Modules → Interview Prep
 
 **Before you start:** no prior cloud platform experience is required — this is the entry point for the AWS track. Basic networking concepts (what an IP address and a firewall are) and general command-line comfort help but aren't required to start.
 

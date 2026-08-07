@@ -3381,6 +3381,60 @@ substance, one scheduled content refresh identified** — not a blanket
 
 ---
 
+## 34-file stale "Learning Path" label fix — completed 2026-08-07
+
+Sitewide grep confirmed (per the technical-SEO check earlier this
+engagement) that the stale label found 3 times during the DevOps
+retroactive audit (`10-devops-retroactive-comprehension-audit.md` —
+Networking, Kubernetes, Istio) was not isolated to DevOps: 34 files
+carried `**Learning Path:** What → Why → Architecture → Setup → Real
+Examples → Production → Interview Prep`, spanning Cloud, Data,
+Agriculture, AI, Law, Security, Telecom, and Essentials, in addition to
+DevOps. The 3 already-fixed DevOps files were correctly excluded from
+this count.
+
+**Sitewide skim before batching (per the standing QA process) caught a
+real exception the mechanical pattern would have missed:** 4 of the 34
+files don't follow the standard `Learning Modules → Production Example →
+Interview Prep` structure the fix assumes —
+
+- `cloud/azure/overview.md`, `cloud/cloud-fundamentals/overview.md`,
+  `cloud/multi-cloud/overview.md` all insert a beginner-ready block
+  ("Why this exists (the hook)", "Analogy", "How it fits together
+  (diagram)", "Try it yourself") between Why and Learning Modules as real
+  `##` headers, not inline bold text like every other file — but they
+  still have Learning Modules → Production Example → Interview Prep
+  further down, so the standard corrected label is still an accurate
+  (if non-exhaustive) summary, consistent with how the label already
+  omits "Official Resources" everywhere else. Fixed with the standard
+  text.
+- `cloud/aws/overview.md` is a genuine structural exception, not just an
+  insertion: it has **no "Production Example" section anywhere in the
+  file, at any heading level** (confirmed via a full `##`/`###` header
+  grep — Learning Modules' submodules go straight to Interview Prep).
+  Applying the standard replacement here would have swapped one
+  inaccurate label for a different inaccurate one. Fixed with a
+  file-specific corrected label instead: `What → Why → Learning Modules →
+  Interview Prep` (5 steps, no Production Example).
+
+**Fix applied**: all 34 files corrected in a single pass — 33 to `What →
+Why → Learning Modules → Production Example → Interview Prep`, `cloud/aws/
+overview.md` to the 5-step variant above. Verified via `git diff --stat`:
+exactly 34 files changed, 1 line each, no collateral changes. No registry
+change needed (pure text correction, not structural — sitemap/content
+registry unaffected).
+
+**Sequencing note, as decided**: this closes the label-fix half of the
+overlap with the 11-guide DevOps-academy expansion (10 of the 11 expansion
+guides — all but `splunk`, which doesn't yet have an `overview.md` to
+carry the stale label — had their label corrected as part of this batch,
+for free, ahead of the expansion work). The expansion itself (5 new tabs
+per guide) is unstarted and remains its own phase.
+
+Not yet handed to CC for review/merge.
+
+---
+
 ## Deferred (not scoped, not scheduled) — logged 2026-07-31
 
 Two items raised during VLSI scoping, explicitly out of scope for this

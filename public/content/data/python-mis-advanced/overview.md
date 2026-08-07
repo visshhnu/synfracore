@@ -3,7 +3,7 @@
 > **Phase 4-6: Automation, Plotly dashboards, Power BI, SQL, future stack**
 
 **Category:** MIS & Analytics  
-**Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
+**Learning Path:** What → Why → Learning Modules → Production Example → Interview Prep
 
 ---
 

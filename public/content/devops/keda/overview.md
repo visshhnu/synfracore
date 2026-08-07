@@ -3,7 +3,7 @@
 > **Event-driven autoscaling — scale on Kafka lag, queue depth, cron, custom metrics**
 
 **Category:** Containers & Orchestration  
-**Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
+**Learning Path:** What → Why → Learning Modules → Production Example → Interview Prep
 
 ---
 

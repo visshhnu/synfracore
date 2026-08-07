@@ -3,7 +3,7 @@
 > **Artifact and container registries — store, scan, sign, replicate**
 
 **Category:** DevOps  
-**Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
+**Learning Path:** What → Why → Learning Modules → Production Example → Interview Prep
 
 ---
 

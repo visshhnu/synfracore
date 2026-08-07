@@ -3,7 +3,7 @@
 > **Cloud-native CI/CD on Kubernetes — Tasks, Pipelines, Triggers**
 
 **Category:** CI/CD  
-**Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
+**Learning Path:** What → Why → Learning Modules → Production Example → Interview Prep
 
 ---
 

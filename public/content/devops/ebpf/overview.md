@@ -3,7 +3,7 @@
 > **Linux kernel programmability — next-gen networking, observability, security**
 
 **Category:** Networking  
-**Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
+**Learning Path:** What → Why → Learning Modules → Production Example → Interview Prep
 
 ---
 

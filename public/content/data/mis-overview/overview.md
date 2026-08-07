@@ -3,7 +3,7 @@
 > **Excel, SQL, NumPy, Pandas, Power BI — from analyst to engineer**
 
 **Category:** MIS  
-**Learning Path:** What → Why → Architecture → Setup → Real Examples → Production → Interview Prep
+**Learning Path:** What → Why → Learning Modules → Production Example → Interview Prep
 
 ---
 
