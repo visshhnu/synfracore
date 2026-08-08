@@ -80,6 +80,12 @@ const devopsAcademy: Academy = {
         { slug: "kubernetes", name: "Kubernetes", icon: "☸️", description: "Container orchestration — Pods, Deployments, Services, networking, and production ops", level: "Advanced", tags: ["Orchestration", "CNCF", "K8s"] },
         { slug: "helm", name: "Helm", icon: "⛵", description: "Kubernetes package manager — chart development, templates, and values management", level: "Advanced", tags: ["K8s", "Charts", "Packaging"] },
         { slug: "istio", name: "Service Mesh — Istio", icon: "🕸️", description: "Service mesh — traffic management, mTLS, observability, and canary rollouts with Istio", level: "Advanced", tags: ["Istio", "Service Mesh", "K8s"] },
+        // Registered 2026-08-07 — content already existed on disk (overview/fundamentals/interview/cheatsheets,
+        // dated 2026-06-26) but was never wired into this registry; see docs/audit/07-roadmap-final.md's
+        // "11-guide DevOps expansion" correction.
+        { slug: "ebpf", name: "eBPF & Cilium", icon: "🐝", description: "Linux kernel programmability — next-gen networking, observability, and security with Cilium", level: "Advanced", tags: ["eBPF", "Cilium", "Kernel"] },
+        { slug: "harbor", name: "Harbor / Nexus / Artifactory", icon: "📦", description: "Artifact and container registries — store, scan, sign, and replicate images and packages", level: "Intermediate", tags: ["Registry", "Containers", "Security"] },
+        { slug: "keda", name: "KEDA", icon: "📈", description: "Event-driven autoscaling for Kubernetes — scale on Kafka lag, queue depth, cron, and custom metrics", level: "Intermediate", tags: ["Autoscaling", "Kubernetes", "Events"] },
       ],
     },
     {
@@ -93,6 +99,11 @@ const devopsAcademy: Academy = {
         { slug: "git", name: "Git & GitHub", icon: "🔀", description: "Version control, branching strategies, PRs, and collaborative workflows", level: "Beginner", tags: ["VCS", "Branching", "Collaboration"] },
         { slug: "jenkins", name: "Jenkins", icon: "🤖", description: "CI/CD pipelines, declarative Jenkinsfiles, shared libraries, and Kubernetes agents", level: "Intermediate", tags: ["CI/CD", "Pipelines", "Automation"] },
         { slug: "argocd", name: "ArgoCD", icon: "🔄", description: "GitOps continuous delivery — App of Apps, sync waves, multi-cluster management", level: "Advanced", tags: ["GitOps", "CD", "Kubernetes"] },
+        // Registered 2026-08-07 — see ebpf/harbor/keda note above; same provenance.
+        { slug: "gitlab-ci", name: "GitLab CI/CD", icon: "🦊", description: "All-in-one DevSecOps platform — SCM + CI/CD + Registry + Security scanning", level: "Intermediate", tags: ["CI/CD", "GitLab", "DevSecOps"] },
+        { slug: "fluxcd", name: "FluxCD", icon: "🔁", description: "Pure GitOps — no UI, CRD-driven, multi-tenancy", level: "Advanced", tags: ["GitOps", "CRD", "Kubernetes"] },
+        { slug: "tekton", name: "Tekton", icon: "⛓️", description: "Cloud-native CI/CD on Kubernetes — Tasks, Pipelines, Triggers", level: "Advanced", tags: ["CI/CD", "Kubernetes", "Cloud-native"] },
+        { slug: "github-actions", name: "GitHub Actions", icon: "🐙", description: "Cloud-native CI/CD — YAML workflows, reusable actions, matrix builds", level: "Intermediate", tags: ["CI/CD", "YAML", "GitHub"] },
       ],
     },
     {
@@ -122,6 +133,14 @@ const devopsAcademy: Academy = {
         { slug: "capacity-planning", name: "Capacity Planning", icon: "📐", description: "Forecasting resource needs — load testing, scaling thresholds, cost-aware headroom planning", level: "Advanced", tags: ["Capacity", "Scaling", "SRE"] },
         { slug: "automation", name: "SRE Automation", icon: "🤖", description: "Automating operational toil away — runbooks as code, auto-remediation, self-healing systems", level: "Advanced", tags: ["Automation", "Toil", "SRE"] },
         { slug: "kafka", name: "Apache Kafka", icon: "📨", description: "Distributed event streaming — topics, partitions, consumer groups, exactly-once semantics", level: "Advanced", tags: ["Kafka", "Streaming", "Events"] },
+        // Registered 2026-08-07 — see containers domain's ebpf/harbor/keda note above; same provenance.
+        // datadog and loki deliberately NOT registered here yet — both are
+        // shadowed by a stale infrastructure/{datadog,loki}/* registry alias
+        // (7-tab older content) that would silently serve over these newer,
+        // 4-tab devops/* files if registered before that conflict is
+        // resolved. See docs/audit/07-roadmap-final.md's "8 of 10 guides
+        // merged" entry.
+        { slug: "platform-engineering", name: "Platform Engineering vs SRE vs DevOps", icon: "🧩", description: "Three roles clarified — what each actually does, how they differ, and how to answer it in interviews", level: "Intermediate", tags: ["Platform Engineering", "SRE", "Career"] },
       ],
     },
     {

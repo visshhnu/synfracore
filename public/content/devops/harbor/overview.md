@@ -206,54 +206,34 @@ cosign verify --key cosign.pub harbor.company.com/production/myapp:v1.2.3
 ### Common Interview Questions
 
 ??? question "What is Harbor / Nexus / Artifactory and why would you use it in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Problem:** cloud-native registries (ECR, ACR, GCR) are simple and fully managed, but lack built-in CVE scanning with block policies, cross-cloud replication, content trust, and per-project RBAC — and pulling straight from Docker Hub in production hits rate limits (100 pulls/6 hours unauthenticated) and ties every build to Docker Hub's own uptime. **Solution:** Harbor is a self-hosted, cloud-agnostic registry adding exactly those missing pieces — built-in Trivy scanning with configurable block-on-CVE policies, image replication across clouds/regions, content trust for signed-image-only pulls, and per-project RBAC; Nexus/Artifactory extend the same idea beyond containers to Maven/npm/PyPI artifacts, letting a build depend on an internal proxy instead of the public internet. **Result:** air-gapped environments, multi-cloud deployments, and orgs needing enforceable scan-and-block policy all need one of these — cloud-native registries alone can't satisfy those requirements regardless of budget.
 
 ??? question "How does Harbor / Nexus / Artifactory work internally? Explain the architecture."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Problem:** without knowing the internal flow, "why did my push get rejected" is unclear — is it auth, RBAC, or a scan policy? **Solution:** Harbor organizes images into Projects (namespace-like isolation units), each with its own RBAC, scan policy, and retention rules; a `docker push` authenticates against the project's RBAC, then — if `prevent_vul` is configured — Trivy scans the image before it's accepted, rejecting anything above the configured CVE severity threshold; replication rules (configured per-project, triggered on-push) then asynchronously sync accepted images to other registries. **Result:** a rejected push is either an auth/RBAC failure (wrong credentials or insufficient project role) or a scan-policy block (a CRITICAL CVE tripped `prevent_vul`) — the Harbor UI's project activity log distinguishes the two immediately, rather than needing to be inferred from the CLI error alone.
 
 ??? question "What are the main components of Harbor / Nexus / Artifactory?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Problem:** these three tools get lumped together as "registries" but solve overlapping-but-different scopes. **Solution:** Harbor is container-image-focused with Projects (RBAC boundary), built-in Trivy scanning, content trust, and replication; Nexus and Artifactory are universal artifact managers spanning Docker images, Maven JARs, npm packages, and PyPI — each operating in two modes, as a *proxy* (caching external repos like Maven Central or the npm registry so builds don't depend on internet availability) and as *hosted* storage for your own artifacts. **Result:** a real platform often runs both — Harbor (or a Nexus/Artifactory Docker-format repo) for container images specifically, and Nexus/Artifactory's proxy mode in front of every language-package ecosystem the org's builds depend on.
 
 ??? question "How do you handle failures in Harbor / Nexus / Artifactory?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Problem:** a failed push or pull could be a credentials problem, a scan-policy rejection, a storage/PVC-full problem, or a replication lag — each needs a different fix. **Solution:** check the specific error first — `unauthorized` is a credentials/RBAC problem, a rejection referencing vulnerability severity is the `prevent_vul` scan policy working as configured (not a bug); for storage issues, Harbor's own persistence PVC (sized at install, e.g. the 100Gi in the Helm example) filling up blocks new pushes entirely, caught via standard Kubernetes PVC-usage monitoring; for a replication rule that isn't syncing, the Administration > Replications UI shows per-rule execution history and the specific sync error. **Result:** most real incidents are the scan policy correctly blocking a genuinely vulnerable image (not a failure to fix, a policy working) or a full PVC — both are visible directly in Harbor's own UI/logs without needing to guess.
 
 ??? question "What is your production experience with Harbor / Nexus / Artifactory?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    This is a genuinely personal question — answer with a real incident using the Problem → Solution → Result structure: what broke (a full registry PVC blocking all pushes during a release, a retention policy misconfigured and deleting a tag still in use, a replication rule silently failing to sync to a DR registry), your actual diagnostic sequence, and what the root cause turned out to be. Interviewers are listening for whether you have real operational experience, not textbook recall.
 
 ??? question "How do you monitor and observe Harbor / Nexus / Artifactory in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Problem:** a registry that's "up" but silently failing scans, replication, or retention can go unnoticed until a much bigger incident (a vulnerable image slipping through, or a DR registry that's been stale for weeks). **Solution:** monitor storage/PVC usage proactively (a full disk blocks all pushes with no graceful degradation), check the Administration > Replications execution history on a schedule rather than assuming on-push triggers always fire successfully, and treat scan-policy rejections in the activity log as a signal worth tracking in aggregate (a spike in rejected pushes often means an upstream base image just got a new CVE, not that something is broken). **Result:** the registry's own audit/activity log is the primary signal — most registry-specific incidents (storage, replication, scan policy) don't show up in generic infrastructure monitoring at all.
 
 ??? question "What are the security considerations for Harbor / Nexus / Artifactory?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Problem:** the registry is the last checkpoint before a potentially-vulnerable image reaches production, and a misconfigured or bypassed registry defeats that entirely. **Solution:** configure `prevent_vul` to actually block (not just report) CRITICAL-severity CVEs on push and pull, not just scan after the fact; use content trust so only signed images are pullable, preventing an attacker with registry write access from silently swapping a tag; scope project RBAC narrowly so a compromised CI credential for one team's project can't push to or read another team's; for Nexus/Artifactory's proxy mode, remember that proxied public packages are still an untrusted-supply-chain risk — proxying doesn't itself vet package contents, it just adds availability and an audit trail of what was pulled. **Result:** the actual security value comes from the block-on-CVE policy being enforced, not merely configured — a scan policy set to "report only" provides visibility but not the control that "choose Harbor for scan-and-block policies" (this guide's own stated reason to use it) actually requires.
 
 ??? question "How does Harbor / Nexus / Artifactory compare to alternatives?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Problem:** the real choice is rarely "self-hosted vs. nothing" — it's which self-hosted option, or whether a cloud-native registry is actually sufficient. **Solution:** vs. ECR/ACR/GCR — those win on zero ops overhead and native IAM integration for single-cloud, single-registry-type workloads, but lack CVE block policies, cross-cloud replication, and universal artifact support; Harbor vs. Nexus/Artifactory — Harbor is purpose-built for containers with the deepest scan/replication/content-trust feature set for that use case, while Nexus/Artifactory trade some of that container-specific depth for being one registry across every artifact type (Docker, Maven, npm, PyPI) instead of running several tools; Nexus OSS vs. Artifactory — Nexus OSS is the budget-friendly free option, Artifactory Enterprise wins on CI/CD integration depth and Xray security scanning. **Result:** multi-cloud or air-gapped with container-specific scanning needs points at Harbor; a polyglot artifact estate (Java + npm + Python + Docker) with a security budget points at Artifactory; the same estate on a tighter budget points at Nexus OSS.
 
-??? question "Explain Why a Private Registry? in Harbor / Nexus / Artifactory."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+??? question "Why might a team choose a self-hosted registry over a fully-managed cloud one, even with the added operational burden?"
+    **Problem:** ECR/ACR/GCR require zero operational effort, so choosing to self-host looks like extra work without an obvious payoff unless the specific missing capabilities are named. **Solution:** four concrete gaps drive the decision — air-gapped environments with no path to a cloud API at all; genuine multi-cloud deployments where a single-cloud-native registry can't serve every cluster equally; a hard requirement for enforceable scan-and-block policy (not just scan-and-report, which some cloud registries only offer as an add-on); and cost at very high pull volume, where a self-hosted registry's fixed infrastructure cost can undercut a cloud registry's per-pull or egress pricing at scale. **Result:** each of these is a specific, checkable requirement — a team should be able to name which one applies to them, not choose self-hosting on general principle, since the operational cost is real and only worth paying for a genuine gap.
 
-??? question "Explain Harbor — Setup and Core Features in Harbor / Nexus / Artifactory."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+??? question "Walk through Harbor's core production-readiness features — Projects, scanning, retention, and replication — and how they fit together."
+    **Problem:** installing Harbor with defaults gives a working registry, but none of its actual value over a cloud-native registry is realized until these four features are configured deliberately. **Solution:** Projects provide the RBAC boundary (which teams can push/pull where); scanning (Trivy, built in) with `prevent_vul` set to block, not just report, is what turns "we scan images" into an enforced gate; retention policies (e.g. keep only the last 10 tags per repo) prevent unbounded storage growth from every CI build pushing a new tag; replication rules sync accepted images to a DR registry or another cloud/region on-push, so availability doesn't depend on a single Harbor instance. **Result:** a Harbor install that skips retention fills its own storage within weeks under real CI volume, and a Harbor install that skips replication is a single point of failure — both are Module 02's actual point: setup alone isn't "production-ready," these four pieces configured together are.
 
 ---
 

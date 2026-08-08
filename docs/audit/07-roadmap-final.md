@@ -3435,6 +3435,193 @@ Not yet handed to CC for review/merge.
 
 ---
 
+## 11-guide DevOps expansion — Step 1 (registration) done, Step 2 (compliance check) done, writing held per explicit instruction — 2026-08-07
+
+### Step 1 — registered 10 existing guides in `lib/data/academies.ts`
+
+`gitlab-ci`, `fluxcd`, `tekton`, `github-actions` added to the `cicd` domain;
+`ebpf`, `harbor`, `keda` added to the `containers` domain; `datadog`,
+`loki`, `platform-engineering` added to the `monitoring` domain (grouped
+with the existing SRE-themed entries — incident, chaos-engineering,
+capacity-planning, automation — matching platform-engineering's own
+"vs SRE vs DevOps" framing). Domain placement taken from each file's own
+`**Category:**` front-matter line, not guessed. Data entry only — no new
+content written. `npx tsc --noEmit`: zero errors. Confirmed no duplicate
+slugs (`grep -c` per slug = 1 for all 10). This makes the already-written
+content in Step 2 below reachable/indexable for the first time —
+`app/sitemap.ts` and the `Course`/`BreadcrumbList` JSON-LD both derive
+from this same array, so both pick these 10 up automatically, same
+mechanism already confirmed for Aerospace/VLSI. `splunk` (the 11th guide)
+remains unregistered — it has no content on disk at all, nothing to
+register yet.
+
+### Step 2 — beginner-ready compliance check, 40 files, report only (nothing fixed)
+
+**All 20 `overview.md`/`fundamentals.md` files (10 guides × 2) fail the
+CLAUDE.md beginner-ready bar completely — 0/20, not a partial gap like
+the DevOps retroactive audit's 11/15.** Checked for the four required
+elements (analogy, try-it, annotated example, hook) plus presence of any
+diagram-style code block: zero instances of "analogy," "try it"/"try-it,"
+or "annotated example" across all 20 files. This is a harder failure than
+anything found in the original DevOps retroactive audit, where even the
+non-compliant technologies had accurate, well-organized prose missing
+only the specific scaffolding elements — worth flagging as its own,
+worse-than-precedent case, not folded into the existing 73% statistic.
+
+**A second, more serious defect was found that the beginner-ready check
+alone wouldn't have caught: all 10 `overview.md` files contain literal,
+unfilled AI-template placeholder text — "*Add your answer here based on
+your real experience.*" — 10 times each (100 instances total), inside an
+"Interview Prep" section embedded directly in `overview.md`.** This is
+separate from, and in addition to, each guide's own dedicated
+`interview.md` tab file, which is real, filled content — confirmed clean,
+0 placeholder instances across all 10. The embedded section in
+`overview.md` appears to be redundant scaffolding left over from
+whatever process generated these files, never cleaned up or filled in.
+**This content is now live and publicly reachable** as of Step 1's
+registration — worth flagging as the more time-sensitive of the two
+findings, independent of any decision on the 37-new-tab-file question.
+
+**Two guides additionally have a fully empty "Production Example"
+section** (`gitlab-ci/overview.md`, `github-actions/overview.md` — 0
+non-empty lines under that header, confirmed via direct extraction, not
+just an empty-looking scan). The other 8 guides' Production Example
+sections were spot-checked (`keda`) and contain real, substantive
+content — kubectl commands, a real cost-saving scaling example, a second
+real YAML manifest — so this is specific to 2 of 10, not systemic like
+the placeholder-text issue.
+
+**Cheatsheets/intermediate tabs and the standalone interview.md tabs are
+clean** — checked all 10 of each for the same placeholder-text pattern
+plus "TODO"/"Lorem ipsum": zero instances anywhere. The defect is
+confined to `overview.md`'s embedded, redundant Interview Prep block and,
+for 2 guides, its Production Example block.
+
+**Summary table:**
+
+| Guide | Overview/Fundamentals beginner-ready | Embedded "Add your answer here" junk | Production Example | Cheatsheets/Interview tabs |
+|---|---|---|---|---|
+| gitlab-ci | Fail (0/5 markers) | 10 instances | **Empty** | Clean |
+| fluxcd | Fail (0/5 markers) | 10 instances | Real content | Clean |
+| tekton | Fail (0/5 markers) | 10 instances | Real content | Clean |
+| github-actions | Fail (0/5 markers) | 10 instances | **Empty** | Clean |
+| ebpf | Fail (0/5 markers) | 10 instances | Real content | Clean |
+| harbor | Fail (0/5 markers) | 10 instances | Real content | Clean |
+| keda | Fail (0/5 markers) | 10 instances | Real content (spot-checked in full) | Clean |
+| datadog | Fail (0/5 markers) | 10 instances | Real content (has `intermediate.md` instead of `cheatsheets.md`) | Clean |
+| loki | Fail (0/5 markers) | 10 instances | Real content | Clean |
+| platform-engineering | Fail (0/5 markers) | 10 instances | Real content | Clean |
+
+**Holding, per explicit instruction**: the 37 new-tab files (intermediate/
+advanced/troubleshooting per guide) and the Aerospace/VLSI depth
+expansion are both on hold pending sequencing confirmation. Given what
+Step 2 found, the fix-up scope for these 10 guides is now larger than
+"beginner-ready scaffolding" alone — it includes stripping/rewriting 100
+placeholder-text instances and writing 2 missing Production Example
+sections, before any beginner-ready scaffolding or new-tab writing
+starts.
+
+---
+
+## Priority-one fix, 2026-08-07 — Production Example gap closed; Interview Prep deletion attempted, then reverted on a falsified premise
+
+**Production Example — fixed for both `gitlab-ci` and `github-actions`.**
+Wrote real content matching the depth/style of the other 8 guides'
+sections (bash/YAML-fenced, practical, specific — gated production
+deploys with manual approval, security scanning wired in, environment
+tracking), built directly from each guide's own already-written
+"Module 05 — Complete Production Pipeline" description so the example
+matches what the guide already claims to cover. Both YAML blocks
+independently parsed clean (`yaml.safe_load`), `git diff --stat` confirms
+pure additive insertions (42-43 lines added, 0 removed) with no
+collateral changes.
+
+**Interview Prep — batch-deleted across all 10 guides, then reverted
+before merge, on new evidence that the deletion premise was wrong.** The
+working theory (mine, endorsed by the user pending verification) was that
+`overview.md`'s embedded "Interview Prep" section was leftover template
+scaffolding never meant to duplicate the guide's own standalone
+`interview.md` tab, making deletion "the cleaner fix." Before batching
+this same day's registration work led to actually opening a known-good
+reference file for comparison — `kubernetes/overview.md` — which
+disproved the premise directly: **Kubernetes' embedded Interview Prep
+section is real, fully-written content** (10 genuine Problem→Solution→
+Result answers, e.g. a real answer to "How does Kubernetes work
+internally?" walking through API Server/etcd/Scheduler/Controller
+Manager), coexisting deliberately alongside its own separate, also-real
+`interview.md` tab. The two sections are not redundant on a fully-built
+technology — they serve different purposes (PSR-framework verbal-answer
+practice embedded in the learning flow, vs. a terser reference-style Q&A
+tab). The 10 guides' defect is that this section was never filled in, not
+that it shouldn't exist.
+
+**Correction applied**: all 10 guides' Interview Prep deletions were
+reverted via their pre-edit committed content (`git show HEAD:...`, since
+`git checkout` hit a sandbox permission error on unlink — worked around
+by writing the restored content directly) before any of it reached CC.
+`git diff --stat` on all 8 guides not touched by the Production Example
+fix now shows zero difference from HEAD, confirmed clean. The 100
+placeholder instances are therefore still present and still live — the
+priority-one problem from this fix is only half-closed (Production
+Example: done; Interview Prep: reopened, not yet fixed).
+
+**What's actually needed now, per the Kubernetes reference standard**:
+100 real, individually-written Problem→Solution→Result answers (10
+questions × 10 guides), not a deletion — a substantially larger
+authoring task than either original branch of the instruction
+anticipated. Holding here for explicit direction before writing 100
+answers unprompted, consistent with this session's standing pattern of
+reporting scope corrections before executing large content work.
+
+**Completed (CC review, 2026-08-08):** all 100 answers were written
+following the hold above (direction given outside this document) and
+reviewed before merge. Verified via `grep -c "Add your answer here"` —
+zero hits across all 10 guides' `overview.md` files, both `interview.md`
+(pre-existing, unaffected) and the embedded section now filled. Spot-checked
+4 guides (`ebpf`, `gitlab-ci`, `datadog`, `harbor`) for genuine
+Problem→Solution→Result specificity against each guide's own real content
+(cross-referencing earlier modules/production examples in the same file,
+not generic filler) — all pass. A real, separate contamination defect was
+also found and fixed in this same batch: `platform-engineering/overview.md`
+had an entire organic-farming content block (Modules 01–06 — compost,
+jeevamrut, terrace gardening, pest control — plus organic-farming Study
+Resources links) spliced into it; removed cleanly, confirmed zero residual
+organic-farming references in any of `platform-engineering`'s other tabs,
+and its own Interview Prep question set rewritten to genuinely match its
+actual "DevOps vs SRE vs Platform Engineering" comparison topic (DORA
+metrics, Team Topologies, Backstage/IDP, error budgets — all on-topic).
+
+**Registration split: 8 of 10 merged, 2 held (CC review, 2026-08-08).**
+Re-verifying registration before merge (per the standing content-registry
+regen gate) surfaced a real conflict specific to `datadog` and `loki`,
+not present for the other 8: `lib/content/index.ts` already carries a
+stale alias, `devops/{datadog,loki}/*` → `infrastructure/{datadog,loki}/*`,
+left over from before either technology existed in `academies.ts`. The
+registry generator's own logic (see its `STALE_ALIAS_FIX_KEYS` comment,
+the same mechanism that already shadowed devops/linux, docker,
+kubernetes, and git once) *preserves* existing aliases rather than
+overwriting them — so registering `datadog`/`loki` as-is would have
+silently served the OLD `infrastructure/*` content (7 tabs: overview,
+fundamentals, intermediate, advanced, cheatsheets, interview,
+certification — unreviewed, older markdown-table style) instead of the
+NEW `devops/*` content this batch just wrote and fixed (4 tabs, house
+style matching the other 9 guides, Interview Prep placeholders just
+filled). No other guide in this batch has a colliding `infrastructure/*`
+folder — confirmed by checking all 8.
+
+Per user decision: **`gitlab-ci`, `github-actions`, `fluxcd`, `tekton`,
+`ebpf`, `harbor`, `keda`, `platform-engineering` registered and merged
+now.** `datadog` and `loki` deliberately excluded from `academies.ts` —
+their placeholder-answer fixes are held uncommitted (git stash) pending a
+separate decision on how to resolve the alias conflict (unshadow
+`devops/*` and lose the Advanced/Certification tabs vs. keep
+`infrastructure/*` live and treat this batch's `devops/datadog`/
+`devops/loki` fixes as not-yet-shippable). Registration re-verified clean
+for the 8 that shipped: 8/8 slugs unique, correct domain placement per
+each file's own `**Category:**` line. Merged and live.
+
+---
+
 ## Deferred (not scoped, not scheduled) — logged 2026-07-31
 
 Two items raised during VLSI scoping, explicitly out of scope for this

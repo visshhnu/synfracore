@@ -120,115 +120,6 @@ npx @backstage/create-app@latest
 # Developer satisfaction: quarterly survey score
 ```
 
-### Module 01 — Why Organic Farming?
-*What chemicals do vs what nature does better*
-
-Chemical fertilisers kill soil microorganisms. Feed the SOIL not the plant. Costs less after year 3 as soil health rebuilds.
-
-**Topics covered:**
-
-- How chemical fertilisers damage soil — 🟢 Beginner
-- What organic means — 🟢 Beginner
-- Cost comparison: organic vs chemical — 🟡 Intermediate
-
-```bash
-# Year 1: transition, yield may drop 10-20%
-# Year 2: soil recovers, same yield
-# Year 3+: better yield, near-zero cost, premium price
-# STOP: Urea, DAP, synthetic pesticides
-# START: Compost, vermicompost, jeevamrut, neem, mulching
-```
-
-### Module 02 — Soil Preparation
-*Compost, vermicompost, jeevamrut, mulching*
-
-Compost is decomposed kitchen and farm waste. Vermicompost is 7x more nutritious. Jeevamrut activates billions of soil microorganisms. Mulching covers soil to prevent moisture loss.
-
-**Topics covered:**
-
-- Compost at home in 45-60 days — 🟢 Beginner
-- Vermicompost — 7x nutrients — 🟢 Beginner
-- Jeevamrut — ZBNF method — 🟡 Intermediate
-- Mulching — 50% water saving — 🟢 Beginner
-
-```bash
-# COMPOST: 3 dry : 1 wet, turn every 7-10 days, 45-60 days ready
-# JEEVAMRUT (200L): 10kg cow dung + 5L urine + 2kg jaggery
-# + 2kg gram flour + handful soil. Ferment 48h.
-# Use: 10% dilution, drench soil every 15 days
-```
-
-### Module 03 — Terrace & Home Garden
-*200 sq.ft can grow 70% of family vegetables*
-
-A 200 sq.ft terrace can grow 60-70% of a family's daily vegetable need. Best season in India: winter October to February.
-
-**Topics covered:**
-
-- Container depth guide — 🟢 Beginner
-- Best soil mix for containers — 🟢 Beginner
-- Season-wise planting — India — 🟢 Beginner
-- Companion planting — 🟡 Intermediate
-
-```bash
-# SHALLOW 6-8 inch: coriander, methi, spinach, radish
-# MEDIUM 10-12 inch: tomato, chilli, capsicum, okra
-# DEEP 14-18 inch: carrot, potato, turmeric, ginger
-# MIX: 40% soil + 30% vermicompost + 20% cocopeat + 10% sand
-```
-
-### Module 04 — Natural Pest Control
-*Neem, panchagavya, organic sprays*
-
-Neem disrupts 200+ insect pests without harming bees or birds. Prevention always better than cure.
-
-**Topics covered:**
-
-- Neem oil spray — 200+ insects — 🟢 Beginner
-- Chilli-garlic spray — 🟢 Beginner
-- Bordeaux mixture for fungal diseases — 🟡 Intermediate
-
-```bash
-# NEEM: 5ml neem oil + 2ml soap per litre, spray evenings
-# CHILLI-GARLIC: 10 chillies + 10 garlic in 1L, dilute 1:10
-# BORDEAUX: 100g copper sulphate + 100g lime in 10L
-```
-
-### Module 05 — Crop Guides
-*Rice, spices, dal, vegetables, fruits, cotton*
-
-SRI rice method uses 50% less water with 30-50% higher yield. Turmeric is the easiest organic crop. Dal crops fix nitrogen from air and improve soil.
-
-**Topics covered:**
-
-- SRI rice — 50% less water, higher yield — 🟡 Intermediate
-- Turmeric and ginger — 🟡 Intermediate
-- Dal crops — nitrogen fixing — 🟡 Intermediate
-
-```bash
-# SRI RICE: single seedling, 25x25cm, alternate wet-dry
-# Yield: 6-8 tonnes/acre vs 3-4 tonnes chemical
-# TURMERIC: 5kg compost/sqm + jeevamrut every 30 days
-# DAL: Rhizobium seed treatment + 2 jeevamrut applications
-```
-
-### Module 06 — Water Conservation
-*Drip, mulch, rainwater harvesting*
-
-Organic soil holds water much better. Drip saves 60%, mulching saves 50%. Organic farms survive droughts better.
-
-**Topics covered:**
-
-- Drip irrigation — 60% water saving — 🟡 Intermediate
-- Farm pond — 🟡 Intermediate
-- Rainwater harvesting — 🟡 Intermediate
-
-```bash
-# DRIP for 500 sqft: INR 3,000-5,000 + timer INR 800
-# FARM POND: 20x20x2 metres, silpaulin lined
-# Cost: INR 25,000-50,000 (govt subsidised)
-```
-
 ---
 
 ## Production Example
@@ -275,55 +166,35 @@ Organic soil holds water much better. Drip saves 60%, mulching saves 50%. Organi
 
 ### Common Interview Questions
 
-??? question "What is Platform Engineering vs SRE vs DevOps and why would you use it in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+??? question "What's the actual difference between DevOps, SRE, and Platform Engineering — and why do interviewers test this distinction at senior levels?"
+    **Problem:** all three terms get used interchangeably in job postings and casual conversation, but conflating them signals a shallow understanding at a senior level, where the distinction has real organizational consequences. **Solution:** DevOps is a culture and set of practices — breaking silos between Dev and Ops, developers owning their own deployments, automating everything — not a job title anyone can single-handedly "do"; SRE is Google's specific operationalization of that culture, using software engineering discipline (SLOs, SLIs, error budgets, blameless postmortems) to make reliability measurable rather than aspirational; Platform Engineering is the practice of building the internal platform — the golden path — that makes good DevOps/SRE practices the easy default for application developers, rather than something every team reinvents. **Result:** a candidate who can articulate all three precisely, and explain how they compose rather than compete, is demonstrating the systems-level thinking senior platform/SRE roles actually require — exactly why this distinction gets tested specifically at senior levels, not junior ones.
 
-??? question "How does Platform Engineering vs SRE vs DevOps work internally? Explain the architecture."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+??? question "How do DevOps, SRE, and Platform Engineering actually relate to each other in a real org — are they the same team wearing different hats, or genuinely separate functions?"
+    **Problem:** org charts vary wildly across companies, and without a mental model for how these three *should* relate, it's easy to either conflate them into one job or treat them as entirely unconnected disciplines. **Solution:** DevOps is the umbrella culture everyone in engineering operates within, not a team; SRE is often (though not always) a dedicated team applying that culture with specific reliability tooling and on-call ownership; Platform Engineering, per Team Topologies' framing, is a *platform team* that exists specifically to enable *stream-aligned teams* (the teams shipping product features) with self-service capabilities, reducing the cognitive load those teams would otherwise carry. **Result:** in many real orgs a single senior engineer genuinely does all three at once — maintaining SLOs (SRE), building shared Terraform modules and CI templates (Platform), and working closely with developers to remove friction (DevOps) — the three aren't competing job descriptions, they're different lenses on the same underlying goal.
 
-??? question "What are the main components of Platform Engineering vs SRE vs DevOps?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+??? question "What are the core practices or building blocks of each — DevOps, SRE, and Platform Engineering?"
+    **Problem:** without naming the concrete practices underneath each label, "DevOps," "SRE," and "Platform Engineering" stay abstract buzzwords instead of things you can actually point to doing. **Solution:** DevOps' concrete practices are CI/CD, Infrastructure as Code, and monitoring, aimed at fast feedback loops; SRE's are SLO/SLI definition, error-budget policy, structured on-call rotations, and toil reduction (with a stated target of under 50% of time spent on toil); Platform Engineering's are building and maintaining an Internal Developer Platform — a self-service portal (Backstage being the most common), golden-path templates, and the underlying provisioning tooling (Crossplane, shared Terraform modules) the IDP calls. **Result:** each set of practices is checkable and demonstrable in an interview — naming CI/CD tools isn't the same as naming an SLO target, and neither is the same as describing a Backstage template — which is what separates a candidate who's absorbed the buzzwords from one who's actually done the work.
 
-??? question "How do you handle failures in Platform Engineering vs SRE vs DevOps?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+??? question "How does incident response differ across a DevOps culture, an SRE team's on-call practice, and a Platform Engineering team's self-service tooling?"
+    **Problem:** "who gets paged and what do they do" looks different depending on which of the three lenses is operating, and conflating them leads to unclear ownership during a real incident. **Solution:** under a pure DevOps culture, the team that owns a service owns its incidents end-to-end, with no separate on-call function; SRE formalizes this with defined on-call rotations, escalation procedures, and — critically — blameless postmortem culture, treating an incident as a systems failure to learn from rather than an individual's fault; Platform Engineering's contribution is upstream of the incident itself — a well-built golden path (standard Helm charts, standard pipeline templates, pre-wired Grafana dashboards) reduces the number of incidents caused by inconsistent, ad hoc infrastructure choices in the first place. **Result:** a mature org layers all three — DevOps ownership culture, SRE's structured on-call/postmortem discipline, and Platform Engineering's incident-prevention-by-default tooling — rather than picking just one, since they address different points in the incident lifecycle: before, during, and the cultural response after.
 
-??? question "What is your production experience with Platform Engineering vs SRE vs DevOps?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+??? question "What is your personal experience working across DevOps, SRE, and Platform Engineering responsibilities?"
+    This is a genuinely personal question — answer with real, specific examples across the three, the way this guide's own scripted interview answer models: an SLO you personally maintained (SRE), a shared Terraform module or CI template you built for other teams to use (Platform), and a concrete case of working directly with developers to remove a friction point (DevOps). Interviewers are listening for whether you have real, dated, specific examples of each — not a recitation of the definitions from the previous questions.
 
-??? question "How do you monitor and observe Platform Engineering vs SRE vs DevOps in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+??? question "How do you measure whether a Platform Engineering initiative or SRE practice is actually succeeding?"
+    **Problem:** without concrete metrics, "our platform team is doing great work" is just an assertion, and a platform/SRE team that can't demonstrate impact is an easy target when budgets tighten. **Solution:** for Platform Engineering — DORA metrics (deployment frequency, lead time for changes, change failure rate, time to restore service), onboarding time for a new service to reach production (this guide's own example: reduced from 2 weeks to 2 days via a Backstage template), platform adoption rate (% of teams using the golden path rather than going around it), and developer Net Promoter Score from a quarterly survey; for SRE specifically — SLO attainment against the defined error budget, and toil-reduction hours saved per week. **Result:** the key discipline is that platform teams are measured by the productivity of the teams they serve, not their own output — a platform team building impressive internal tooling that developers don't actually adopt (low platform-adoption %) is failing by this standard even if the tooling itself is technically excellent.
 
-??? question "What are the security considerations for Platform Engineering vs SRE vs DevOps?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+??? question "Who owns security and governance when responsibilities are split across DevOps, SRE, and Platform Engineering — is it any one team's job?"
+    **Problem:** when infrastructure ownership is deliberately distributed across a DevOps culture, an SRE team, and a Platform Engineering team, "whose job is security" can become a genuine gap if nobody assumes it's specifically theirs. **Solution:** in practice, security becomes a shared responsibility enforced structurally rather than owned by one team — Platform Engineering builds security into the golden path by default (a standard Helm chart or pipeline template that already has scanning, RBAC, and secrets management wired in, so an application team gets secure defaults without needing security expertise), SRE's error-budget and SLO discipline extends naturally to security-relevant reliability signals, and DevOps culture's "developers own their deployments" principle means the team closest to the code is also closest to catching a security issue early. **Result:** the strongest answer names the specific mechanism (security embedded in the golden path, not a separate gate) rather than asserting "security is everyone's responsibility" as an unsupported platitude — Platform Engineering is usually best positioned to make secure-by-default actually happen at scale, since they control what "golden path" even means.
 
-??? question "How does Platform Engineering vs SRE vs DevOps compare to alternatives?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+??? question "How does the Platform Engineering model compare to alternative ways of organizing infrastructure and ops work?"
+    **Problem:** Platform Engineering isn't the only way to organize this work, and understanding the alternatives is what makes the case for it (or against it) concrete rather than trend-following. **Solution:** vs. a traditional, centralized Ops/Infrastructure team that provisions on request (a ticket-driven model) — Platform Engineering's self-service portal removes the ticket queue entirely, at the cost of upfront investment in building that self-service tooling; vs. "pure DevOps" with no dedicated platform team at all, where every application team manages its own Kubernetes/Terraform/CI setup independently — Platform Engineering trades some team autonomy for consistency and reduced cognitive load, per Team Topologies' framing of a platform team existing specifically to enable stream-aligned teams; vs. SRE absorbing platform-building responsibilities itself — this works at smaller scale but tends to split SRE's focus between reliability engineering and internal tooling as the org grows. **Result:** the deciding factor is usually organizational scale — a platform team's upfront tooling investment only pays off once there are enough application teams that a ticket-driven or fully-autonomous model starts producing real inconsistency or bottleneck cost.
 
-??? question "Explain DevOps vs SRE vs Platform Engineering in Platform Engineering vs SRE vs DevOps."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+??? question "Walk through a concrete example of how the same goal — say, reducing deployment failures — would be approached differently under a DevOps mindset, an SRE practice, and a Platform Engineering initiative."
+    **Problem:** these three terms can feel interchangeable until applied to one specific, shared goal, at which point their actual differences become concrete rather than definitional. **Solution:** under a DevOps mindset, the team ships fast feedback via CI/CD and automated testing so failures are caught before deploy, with the team that wrote the code also owning the fix; under an SRE practice, the same goal is approached by defining a Change Failure Rate SLI, setting a target, and treating breaches of it as a signal to slow risky deploys until the error budget recovers; under a Platform Engineering initiative, the goal is approached upstream — building a standard, pre-tested pipeline template into the golden path so every team automatically inherits the safety checks, rather than each team implementing its own deploy-safety practices at varying quality. **Result:** this is the concrete version of "I do all three in my current role" — DevOps is the daily practice, SRE is the measurement and governance layer, Platform Engineering is what makes the safe practice the path of least resistance for every team, not just the disciplined ones.
 
-??? question "Explain Internal Developer Platform in Platform Engineering vs SRE vs DevOps."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+??? question "What is an Internal Developer Platform, and how does something like Backstage change a developer's day-to-day experience?"
+    **Problem:** without an IDP, an application developer who wants to ship a new service needs working knowledge of Kubernetes, Terraform, CI/CD tooling, and observability setup just to get something running — cognitive load that has nothing to do with the actual feature they're building. **Solution:** an Internal Developer Platform is the self-service layer the Platform Engineering team builds specifically to remove that requirement — Backstage (originally Spotify's, now a CNCF project) is the most widely adopted IDP portal, providing a Software Catalog (every service and its owner, in one place), TechDocs (documentation generated from markdown already in the repo), Templates (scaffolding for "create a new service"), and Plugins connecting to Kubernetes/GitHub/PagerDuty/SonarQube and similar tools. **Result:** this guide's own example is the concrete before/after — a developer filling out a template form gets a new GitHub repo, a CI/CD pipeline, a Kubernetes namespace with RBAC, an ArgoCD Application for GitOps, and a Grafana dashboard, all provisioned automatically, landing on a running service in about 10 minutes with zero platform-internals knowledge required — versus days or weeks of manual setup without the IDP.
 
 ---
 
@@ -332,9 +203,6 @@ Organic soil holds water much better. Drip saves 60%, mulching saves 50%. Organi
 - [Backstage — Internal Developer Portal](https://backstage.io/docs/)
 - [Platform Engineering Community](https://platformengineering.org/)
 - [Team Topologies](https://teamtopologies.com/key-concepts)
-- [Subhash Palekar ZBNF](https://www.youtube.com/results?search_query=subhash+palekar+zbnf)
-- [PKVY Organic Farming India](https://pgsindia-ncof.gov.in/)
-- [FAO Organic Agriculture](https://www.fao.org/organicag/en/)
 
 ---
 

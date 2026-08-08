@@ -89,6 +89,49 @@ A production GitHub Actions pipeline has: dependency caching (save 60-80% build 
 
 ## Production Example
 
+```yaml
+# .github/workflows/deploy.yml — cached build, parallel scan+test,
+# environment-gated deploy with manual approval and Slack alert on failure
+name: Deploy
+on: { push: { branches: [main] } }
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }   # cache: cuts 60-80% off install time
+      - run: npm test
+
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aquasecurity/trivy-action@0.24.0
+        with: { image-ref: "myapp:${{ github.sha }}" }
+  # test and scan run in PARALLEL (no needs: between them) — only
+  # deploy waits on both, so total pipeline time is max(test, scan),
+  # not test + scan
+
+  deploy:
+    needs: [test, scan]
+    runs-on: ubuntu-latest
+    environment:
+      name: production          # protection rule requires a manual reviewer
+      url: https://app.company.com
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          docker build -t $ECR_REGISTRY/myapp:${{ github.sha }} .
+          docker push $ECR_REGISTRY/myapp:${{ github.sha }}
+      - run: kubectl set image deployment/app app=$ECR_REGISTRY/myapp:${{ github.sha }} -n production
+      - if: failure()
+        uses: slackapi/slack-github-action@v1.27.0
+        with: { payload: '{"text":"Production deploy failed: ${{ github.sha }}"}' }
+  # environment: production + a required-reviewer protection rule is the
+  # manual-approval gate — the job blocks in "Waiting" until approved
+```
 
 ---
 
@@ -100,54 +143,34 @@ A production GitHub Actions pipeline has: dependency caching (save 60-80% build 
 ### Common Interview Questions
 
 ??? question "What is GitHub Actions and why would you use it in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Problem:** stitching CI into a repo host historically needed a separate CI server (Jenkins) with its own auth, webhook wiring, and infrastructure to manage. **Solution:** GitHub Actions runs CI/CD directly inside GitHub — workflows are YAML in `.github/workflows/`, triggered natively by the same push/PR/schedule events GitHub already emits, with GitHub-hosted runners requiring zero infrastructure to provision. **Result:** no separate CI server to patch or scale, and the Marketplace's reusable actions mean common steps (checkout, language setup, security scanning) rarely need custom scripting from scratch.
 
 ??? question "How does GitHub Actions work internally? Explain the architecture."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Problem:** not knowing what's actually executing where makes "my job never started" vs. "my job failed" hard to diagnose. **Solution:** GitHub parses the workflow YAML on the triggering event, schedules each job onto a fresh runner (GitHub-hosted VM or self-hosted), and jobs without a `needs:` dependency run in parallel by default; each step within a job executes sequentially in that same runner's filesystem. **Result:** "job stuck queued" is a runner-availability problem (GitHub-hosted concurrency limits, or a self-hosted runner offline), while "job ran and failed" is a script problem inside a specific step — the two point at completely different places to look.
 
 ??? question "What are the main components of GitHub Actions?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Problem:** "GitHub Actions" bundles several distinct pieces, and conflating them makes troubleshooting harder. **Solution:** the workflow YAML (triggers, jobs, steps), runners (GitHub-hosted or self-hosted — the actual execution environment), Actions themselves (reusable units from the Marketplace or custom, pinned to a SHA or version), and reusable workflows/composite actions (the DRY layer for sharing steps across repos) are the four pieces. **Result:** a runner-capacity failure, a marketplace-action failure, and a workflow-YAML syntax error are three different components breaking — knowing which is which is what makes triage fast.
 
 ??? question "How do you handle failures in GitHub Actions?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Problem:** failures range from a flaky test to an unpinned action changing behavior underneath you to a runner never picking up the job. **Solution:** each step's log in the Actions tab is the first stop for script/test failures; a failure in a marketplace action is often version drift — pinning to a SHA (not `@master`) prevents this; `workflow_dispatch` lets you manually re-run with the same inputs to reproduce; `continue-on-error: true` isolates a known-flaky step from failing the whole job. **Result:** most real failures resolve to one of three causes — a genuine script/test bug, an unpinned action that changed behavior, or a runner/concurrency limit — checkable in that order from the job log.
 
 ??? question "What is your production experience with GitHub Actions?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    This is a genuinely personal question — answer with a real incident using the Problem → Solution → Result structure: what broke (an unpinned action that changed behavior, a runner concurrency limit hit during a release, a `pull_request_target` misconfiguration exposing secrets), your actual diagnostic sequence, and what the root cause turned out to be. Interviewers are listening for whether you have real operational experience, not textbook recall.
 
 ??? question "How do you monitor and observe GitHub Actions in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Problem:** a workflow showing green doesn't guarantee the deployed application is healthy, and a red workflow doesn't always mean the application broke. **Solution:** the Actions tab's own run-history/duration trends catch pipeline-health regressions (a job that used to take 3 minutes now taking 15); the repo's Deployments view shows exactly which commit is live in each environment; actual application health still needs separate app-level monitoring — the workflow's pass/fail status is not a substitute for it. **Result:** "did the deploy succeed" and "is the app healthy" are two different signals from two different systems.
 
 ??? question "What are the security considerations for GitHub Actions?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Problem:** a workflow with write access to secrets and deploy credentials, triggered by anyone who can open a pull request, is a real attack surface — a malicious PR can potentially exfiltrate secrets via a crafted `pull_request_target` trigger. **Solution:** pin every third-party action to a full commit SHA, not a mutable tag; use OIDC federation for cloud credentials instead of long-lived secrets; scope environment secrets with required-reviewer protection rules for production; be deliberate about `pull_request` vs. `pull_request_target` — the latter runs with write-level secrets even on forked-PR triggers, a common real-world misconfiguration. **Result:** most real GitHub Actions security incidents trace back to exactly one of these — an unpinned action or a misused `pull_request_target` — not an exotic attack.
 
 ??? question "How does GitHub Actions compare to alternatives?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Problem:** "which CI/CD tool" depends heavily on what's already in the stack. **Solution:** vs. Jenkins — no server to host or patch, at the cost of less exotic pipeline customization; vs. GitLab CI/CD — comparable capability, but GitHub Actions relies on the Marketplace for registry/scanning integrations rather than bundling them natively, which matters most for teams wanting an all-in-one platform; vs. CircleCI — similar hosted model, GitHub Actions wins on being triggered natively by the same platform hosting the code, with zero webhook configuration. **Result:** the right choice tracks whether the team is already on GitHub and how much they value an all-in-one bundled platform vs. GitHub-native simplicity.
 
-??? question "Explain GitHub Actions Fundamentals in GitHub Actions."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+??? question "Walk through the difference between a workflow, a job, a step, and an Action."
+    **Problem:** these four terms sound similar and get used interchangeably in casual conversation, but they're distinct concepts with different scopes. **Solution:** a workflow is the whole YAML file, triggered by an event; a job is a unit that runs on its own fresh runner (jobs run in parallel by default, use `needs:` to serialize); a step is one instruction inside a job, executing sequentially in that job's runner; an Action is a specific, reusable implementation of one step, pinned to a SHA or version tag. **Result:** this hierarchy is why matrix strategy operates at the job level (multiple parallel job instances, e.g. testing Node 18/20/22 simultaneously) rather than the step level — matrix multiplies whole jobs, not individual steps.
 
-??? question "Explain Jobs, Steps & Actions in GitHub Actions."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+??? question "How do reusable workflows and composite actions differ, and when would you use each?"
+    **Problem:** both reduce duplicated YAML across repos, and picking the wrong one leads to either an overcomplicated composite action or an unnecessarily heavyweight reusable workflow. **Solution:** composite actions bundle multiple steps into one reusable step — used when you want to package "checkout, setup, run this tool" as a single line inside another workflow's job; reusable workflows (triggered via `workflow_call`) are entire jobs called from another workflow — used when the reused logic needs multiple jobs, its own secrets, or its own environment gating. **Result:** the common production pattern is a central `.github` repo holding reusable workflows that every team's repo calls for its deploy pipeline, keeping CD logic in one place instead of copy-pasted across dozens of repos.
 
 ---
 
