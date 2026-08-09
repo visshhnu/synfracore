@@ -3622,6 +3622,104 @@ each file's own `**Category:**` line. Merged and live.
 
 ---
 
+## Sitewide-norm section coverage campaign — closed 2026-08-09 (20 of 21 technologies merged; Splunk held)
+
+**What this closes**: the gap between the DevOps academy's newer technologies
+(the 11-guide expansion plus several older ones) and the platform's
+established "sitewide norm" tab set — `faq`, `notes`, `pyq`,
+`real-world-scenarios`, `roadmap`, `projects`, `prerequisites`,
+`installation`, plus `advanced`/`intermediate` for the 10 technologies that
+launched without them. Authored as a 140-file, two-group campaign
+(Group A + Group B) in an isolated sandbox with no push/deploy
+credentials; this session's job was independent verification, merge, and
+deploy — not authorship.
+
+**20 technologies merged and live**: `ansible`, `argocd`, `datadog`,
+`docker`, `ebpf`, `fluxcd`, `github-actions`, `gitlab-ci`, `harbor`,
+`helm`, `istio`, `jenkins`, `keda`, `kubernetes`, `loki`, `openshift`,
+`platform-engineering`, `prometheus`, `tekton`, `terraform` — **138 new
+files** (not the 140 originally reported; see discrepancy note below).
+
+**Splunk (the would-be 21st) deliberately NOT part of this merge.**
+Splunk's `academies.ts` registration and its full 16-file content
+directory both exist, complete, on disk — written in an earlier, separate
+effort ("Splunk's earlier build," predating this specific campaign) — but
+were flagged as unrelated pre-existing work and held out of staging on
+explicit instruction, alongside `docs/audit/09-contentscope-classification.md`,
+`docs/quiz-questions-shell-scripting-batch2.sql`, and `.claude/` (the last
+already `.gitignore`d, so never actually at risk). Verified this
+exclusion actually took effect on the live site, not just in the git
+diff: `/academies/devops/splunk/overview` 307-redirects to `/academies`
+in production — Splunk is written but genuinely not live. **"21
+technologies, full section coverage" is not yet a true statement of
+production state — it becomes true once Splunk is separately reviewed,
+registered, and merged.** That is unstarted, unscheduled work, not
+assumed-done.
+
+**Two real discrepancies found between the sandbox's self-report and
+independent verification here — neither blocking, both worth recording
+so they don't get repeated as fact:**
+
+1. **File count.** The sandbox reported "140 files across 21
+   directories." Independently counted from the actual working tree
+   (excluding the 4 unrelated items): **138 files across 20 directories**
+   (Splunk's 16 files are a 21st directory's worth of separate,
+   already-excluded work, not part of the 138). The source of the
+   140-vs-138 gap was not traced further since it doesn't affect what
+   shipped — the exact list of 138 files is enumerated in commit `463372d`.
+2. **WARN count.** The sandbox reported "5 false-positive WARN hits."
+   Independently re-run, `validate:content-quality` found **12** files
+   within this campaign's new content matching the `empty_code_block`
+   advisory marker (all in `devops/{ebpf,fluxcd,github-actions,istio,keda,
+   loki,platform-engineering,tekton}`). Manually inspected all 12 with a
+   small script reproducing the validator's exact regex: every one is the
+   documented "adjacent code blocks" false-positive pattern (a closing
+   fence immediately followed by a blank line and the next block's
+   opening fence, not a genuinely empty block) — confirmed false
+   positives, consistent with the marker's own established ~high
+   false-positive rate, but 12 is the real number, not 5.
+
+**Registry regen gate — run twice, for two different purposes, both
+independently verified in native Linux (the sandbox couldn't run this at
+all — Windows/Linux esbuild binary mismatch):**
+- **Full working-tree state (Splunk included)**, matching what the
+  sandbox's own report described: **2366 entries, 0 dropped, 0 broken, 0
+  added** — exact match to the reported baseline.
+- **Actual commit scope (Splunk excluded)**: re-run after removing
+  Splunk's content and registration from the build directory: **2350
+  entries, 16 dropped** (Splunk's now-absent files — correct, expected,
+  not a defect), **0 broken** among the 138 real campaign files. This is
+  the version that was actually committed — using the 2366-entry version
+  would have shipped 16 dangling registry references to files not present
+  in the repository.
+- `labs/existence.ts` regenerated both times: zero diff, unaffected.
+
+**Full predeploy chain independently re-run**: `validate:roadmaps` PASS
+(24 roadmaps, 166 techLinks, no banned mismatches); `validate:content-quality`
+PASS on the hard-fail gate (0 hits; the 12 WARN hits above are advisory,
+non-blocking, per the validator's own design); `validate:no-hardcoded-stats`
+PASS.
+
+**Build and deploy**: native WSL path, per the mandatory pre-deploy
+checklist. Two builds run (one to produce/verify the registry, one final
+build+deploy from the committed state) — both regenerated
+`lib/content/index.ts` identically to the committed file, confirming
+stability. 157 assets uploaded on deploy (138 content files + BUILD_ID +
+JS chunks + Splunk's still-on-disk files, which get uploaded as static
+assets regardless of git/registry status — harmless, since no registered
+page can reach them, confirmed by the 307 redirect above).
+
+**Live-verified**: 21-page sample spanning all 20 merged technologies and
+both Group A/B section types (`faq`, `notes`, `pyq`,
+`real-world-scenarios`, `roadmap`, `projects`, `prerequisites`,
+`installation`, `advanced`, `intermediate`) — all 200, content confirmed
+genuine via direct raw-asset fetch, not just page shell.
+
+Merged and pushed to `main` (`463372d`). Splunk's own merge is separate,
+future, unscheduled work — flagged here so it isn't silently assumed done.
+
+---
+
 ## Deferred (not scoped, not scheduled) — logged 2026-07-31
 
 Two items raised during VLSI scoping, explicitly out of scope for this
