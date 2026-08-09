@@ -118,15 +118,24 @@ const STALE_ALIAS_FIX_KEYS = new Set([
   // tracer snippet, dashboards-as-code Terraform resource) once compared
   // directly against infrastructure/datadog/intermediate.md.
   //
-  // Deliberately NOT unshadowed: devops/loki/intermediate (no devops/*
-  // file exists at all -- infrastructure/loki/intermediate.md is the only
-  // version and it's solid) and both technologies' cheatsheets
+  // Deliberately NOT unshadowed: both technologies' cheatsheets
   // (devops/datadog has no cheatsheets.md; devops/loki/cheatsheets.md
   // exists but is a thin 447-byte stub vs. infrastructure/loki/cheatsheets.md's
   // full LogQL/LogCLI/API reference) -- same "keep the better existing
   // version" call as the nginx precedent above, not an oversight.
+  // devops/loki/intermediate was ALSO left on the alias here initially
+  // (no devops/* file existed yet at this point in the batch) -- see the
+  // separate entry below, added once that file was written.
   ...["overview", "fundamentals", "intermediate", "advanced", "certification", "interview"].map((s) => `devops/datadog/${s}`),
   ...["overview", "fundamentals", "advanced", "certification", "interview"].map((s) => `devops/loki/${s}`),
+  // Batch 2c (Troubleshooting phase, 2026-08-09): devops/loki/intermediate
+  // was deliberately left on the infrastructure/* alias above -- no
+  // devops/* file existed yet. It's since been written (native port of
+  // infrastructure/loki/intermediate.md's Advanced LogQL/unwrap queries,
+  // Helm install, retention+compactor config, and Ruler alerting content,
+  // in house style) while back in Loki's content for its Troubleshooting
+  // tab. Unshadowing now that the direct file exists.
+  "devops/loki/intermediate",
 ]);
 
 const registry = new Map();
