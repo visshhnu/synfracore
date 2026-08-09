@@ -3622,7 +3622,7 @@ each file's own `**Category:**` line. Merged and live.
 
 ---
 
-## Sitewide-norm section coverage campaign — closed 2026-08-09 (20 of 21 technologies merged; Splunk held)
+## Sitewide-norm section coverage campaign — closed 2026-08-09 (21 of 21 technologies merged, genuine — see Splunk close-out below)
 
 **What this closes**: the gap between the DevOps academy's newer technologies
 (the 11-guide expansion plus several older ones) and the platform's
@@ -3640,21 +3640,40 @@ deploy — not authorship.
 `platform-engineering`, `prometheus`, `tekton`, `terraform` — **138 new
 files** (not the 140 originally reported; see discrepancy note below).
 
-**Splunk (the would-be 21st) deliberately NOT part of this merge.**
-Splunk's `academies.ts` registration and its full 16-file content
-directory both exist, complete, on disk — written in an earlier, separate
-effort ("Splunk's earlier build," predating this specific campaign) — but
-were flagged as unrelated pre-existing work and held out of staging on
-explicit instruction, alongside `docs/audit/09-contentscope-classification.md`,
+**Splunk (the 21st) deliberately excluded from this specific merge, then
+closed out separately the same night (commit `df9bd3e`).** Splunk's
+`academies.ts` registration and its full 16-file content directory both
+existed, complete, on disk — written in an earlier, separate effort
+("Splunk's earlier build," predating this specific campaign) — and were
+flagged as unrelated pre-existing work, held out of staging alongside
+`docs/audit/09-contentscope-classification.md`,
 `docs/quiz-questions-shell-scripting-batch2.sql`, and `.claude/` (the last
-already `.gitignore`d, so never actually at risk). Verified this
-exclusion actually took effect on the live site, not just in the git
-diff: `/academies/devops/splunk/overview` 307-redirects to `/academies`
-in production — Splunk is written but genuinely not live. **"21
-technologies, full section coverage" is not yet a true statement of
-production state — it becomes true once Splunk is separately reviewed,
-registered, and merged.** That is unstarted, unscheduled work, not
-assumed-done.
+already `.gitignore`d, so never actually at risk). At the time this note
+was first written, `/academies/devops/splunk/overview` 307-redirected to
+`/academies` in production — confirmed not live.
+
+**Splunk close-out (same night, immediately after)**: working-tree state
+reconfirmed intact via `git stash show`/`git stash pop` (registration and
+content directory both exactly as before, nothing drifted); registry
+generator independently re-run in native Linux with Splunk included —
+2350 → 2366 entries, 16 added (all Splunk sections), 0 dropped, 0 broken,
+exact match to this campaign's own earlier full-state baseline. Full
+predeploy chain re-run clean; Splunk's own 5 WARN hits
+(`empty_code_block`/`abrupt_cutoff` on `certification.md`, `cheatsheets.md`,
+`intermediate.md`, `overview.md`, `troubleshooting.md`) manually verified
+as the same documented false-positive pattern as the rest of this
+campaign (adjacent code blocks, and `overview.md`'s trailing `---` not
+matching the terminator heuristic) — not real defects. Deployed and
+live-verified: all 16 tabs return 200 with genuine content (one
+transient edge-cache blip on the first check of `fundamentals`/`advanced`/
+`certification`, resolved and confirmed stable across 3 cache-busted
+retries — the same edge-cache-lag pattern seen earlier this session with
+`harbor`, not a real registration problem). Merged and pushed
+(`df9bd3e`).
+
+**"21 technologies, full section coverage" is now a genuinely true
+statement of production state**, not an aspirational one — confirmed
+live, not just committed.
 
 **Two real discrepancies found between the sandbox's self-report and
 independent verification here — neither blocking, both worth recording
