@@ -134,13 +134,19 @@ const devopsAcademy: Academy = {
         { slug: "automation", name: "SRE Automation", icon: "🤖", description: "Automating operational toil away — runbooks as code, auto-remediation, self-healing systems", level: "Advanced", tags: ["Automation", "Toil", "SRE"] },
         { slug: "kafka", name: "Apache Kafka", icon: "📨", description: "Distributed event streaming — topics, partitions, consumer groups, exactly-once semantics", level: "Advanced", tags: ["Kafka", "Streaming", "Events"] },
         // Registered 2026-08-07 — see containers domain's ebpf/harbor/keda note above; same provenance.
-        // datadog and loki deliberately NOT registered here yet — both are
-        // shadowed by a stale infrastructure/{datadog,loki}/* registry alias
-        // (7-tab older content) that would silently serve over these newer,
-        // 4-tab devops/* files if registered before that conflict is
-        // resolved. See docs/audit/07-roadmap-final.md's "8 of 10 guides
-        // merged" entry.
         { slug: "platform-engineering", name: "Platform Engineering vs SRE vs DevOps", icon: "🧩", description: "Three roles clarified — what each actually does, how they differ, and how to answer it in interviews", level: "Intermediate", tags: ["Platform Engineering", "SRE", "Career"] },
+        // Registered 2026-08-09 — held back from the 2026-08-07 batch pending
+        // resolution of the infrastructure/{datadog,loki}/* alias-shadow
+        // conflict (see docs/audit/07-roadmap-final.md's "8 of 10 guides
+        // merged" entry). Resolved this batch: unique Advanced/Certification
+        // content ported into devops/{datadog,loki} in house style, registry
+        // unshadowed for the sections that now have real devops/* content
+        // (STALE_ALIAS_FIX_KEYS in scripts/generate-content-registry.mjs),
+        // intentionally left aliased for devops/loki/intermediate and both
+        // technologies' cheatsheets where the existing infrastructure/*
+        // version is still the better one.
+        { slug: "datadog", name: "Datadog", icon: "🐶", description: "Enterprise observability — metrics, logs, APM, and synthetic monitoring in one platform", level: "Intermediate", tags: ["Observability", "APM", "Monitoring"] },
+        { slug: "loki", name: "Loki + OpenTelemetry", icon: "📜", description: "Label-based log aggregation paired with unified observability signals via OpenTelemetry", level: "Intermediate", tags: ["Logging", "OpenTelemetry", "Observability"] },
       ],
     },
     {

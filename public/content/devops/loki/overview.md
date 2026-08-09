@@ -75,6 +75,65 @@ scrape_configs:
           level:
 ```
 
+**Alerting on logs directly.** Loki's Ruler evaluates LogQL metric queries on a schedule, the same way Prometheus evaluates PromQL — this catches problems that were never emitted as a metric in the first place, straight from the raw log stream:
+
+```yaml
+# Loki alert rules — evaluated by the Ruler component
+groups:
+  - name: loki.rules
+    rules:
+    - alert: HighErrorRate
+      expr: |
+        sum(rate({namespace="production"} |= "ERROR"[5m])) > 10
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "High error rate in production logs"
+
+    - alert: OOMKilled
+      expr: |
+        count_over_time({namespace="production"} |= "OOMKilled"[5m]) > 0
+      for: 1m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Pod OOMKilled in production"
+
+    - alert: NoPodLogs
+      expr: |
+        absent(rate({namespace="production", app="payment-api"}[5m]))
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "No logs from payment-api — may be down"
+```
+
+`NoPodLogs` is the alert teams forget to write — it fires on the *absence* of logs, which catches a service that's silently stopped emitting anything at all (crash-looped past its restart alerts, network-partitioned, or just dead) rather than only alerting on bad content within logs that are still arriving.
+
+**Building Grafana panels on top of LogQL** turns the same queries into dashboards, not just ad-hoc Explore searches:
+
+```
+Panel: Error Rate (Stat)
+Query: sum(rate({namespace="production"} |= "ERROR"[5m]))
+Threshold: > 10 = red, > 5 = yellow
+
+Panel: Log Volume by Service (Time series)
+Query: sum by (app) (rate({namespace="production"}[5m]))
+
+Panel: Recent Errors (Logs panel)
+Query: {namespace="production"} |= "ERROR" | json | level="error"
+       | line_format "[{{.pod}}] {{.message}}"
+
+Panel: HTTP 5xx Rate (Time series)
+Query: sum by (app) (
+  rate({namespace="production", app=~".*api.*"}
+    | logfmt | status_code >= 500
+  [5m])
+)
+```
+
 ### Module 02 — Three Pillars of Observability
 *Metrics + Logs + Traces unified*
 
@@ -222,55 +281,75 @@ service:
 
 ### Common Interview Questions
 
-??? question "What is Loki + OpenTelemetry and why would you use it in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+??? question "What is Loki and why would you use it in production?"
+    **Problem:** A Kubernetes-native team already running Prometheus + Grafana needed log aggregation, but ELK's full-text indexing was operationally heavy (JVM tuning, shard management, a whole second UI in Kibana) for a team that mostly filters logs by namespace/pod/app rather than searching arbitrary text.
 
-??? question "How does Loki + OpenTelemetry work internally? Explain the architecture."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Solution:** Adopted Loki because it indexes only labels, not log content — logs land as compressed chunks in cheap object storage instead of an expensive full-text index. Promtail ships logs as a DaemonSet, and Grafana becomes the single UI for both metrics and logs.
 
-??? question "What are the main components of Loki + OpenTelemetry?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Result:** Log storage cost dropped substantially versus a comparable ELK footprint, and the team stayed inside one tool (Grafana) instead of context-switching to Kibana — at the cost of weaker arbitrary full-text search, which was an acceptable tradeoff given the team's actual query patterns.
 
-??? question "How do you handle failures in Loki + OpenTelemetry?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+??? question "How does Loki work internally? Explain the architecture."
+    **Problem:** Needed to explain why Loki is cheap in a way that's more convincing than "it's Prometheus for logs."
 
-??? question "What is your production experience with Loki + OpenTelemetry?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Solution:** Walked through the pipeline: Promtail discovers pods via the Kubernetes API, attaches labels (namespace, pod, app, container), and pushes log lines to Loki's Distributor. The Distributor hands off to Ingesters, which buffer and flush compressed chunks to object storage (S3/GCS). Only the label-to-chunk-ID mapping is indexed — never the log text itself — so the index stays tiny (label cardinality) while raw log volume can be arbitrarily large in cheap storage.
 
-??? question "How do you monitor and observe Loki + OpenTelemetry in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Result:** Making the labels-vs-content indexing distinction concrete — with the actual component names, not just "it's like Prometheus" — is what separates a real understanding from a marketing-page answer.
 
-??? question "What are the security considerations for Loki + OpenTelemetry?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+??? question "What are the main components of Loki?"
+    **Problem:** Needed a clean mental model to reason about where a slow query or a missing log was actually failing.
 
-??? question "How does Loki + OpenTelemetry compare to alternatives?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Solution:** Four pieces: Promtail (collection agent, runs per-node), Distributor + Ingester (write path, label indexing and chunk buffering), object storage (S3/GCS — where compressed chunks actually live), and Querier + Query Frontend (read path, fetches the index then decompresses matching chunks). The Ruler sits alongside as the alerting component, evaluating LogQL rules on a schedule like Prometheus's rule evaluator.
 
-??? question "Explain Grafana Loki in Loki + OpenTelemetry."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Result:** This mental model makes debugging directional — a missing log points at Promtail or the write path, a slow query points at the read path or an over-broad label-less query scanning too many chunks.
 
-??? question "Explain Three Pillars of Observability in Loki + OpenTelemetry."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+??? question "How do you handle failures in Loki?"
+    **Problem:** A Promtail DaemonSet pod crash-looped silently on a handful of nodes after a config change, and logs from those nodes just stopped appearing — nobody noticed for hours because the absence of logs doesn't look like an alert-worthy event by default.
+
+    **Solution:** Added a `NoPodLogs`-style Ruler alert — `absent(rate({namespace="production", app="payment-api"}[5m]))` — that fires specifically on the absence of expected log volume, not just on bad content within logs that do arrive. Paired it with a Promtail DaemonSet readiness check in the cluster's standard health dashboard.
+
+    **Result:** Silent log gaps are now caught within minutes instead of being discovered days later during an unrelated incident review — the same blind spot metrics-only alerting has, closed on the logging side.
+
+??? question "What is your production experience with Loki?"
+    **Problem:** Needed to show real operational depth, not just "we point Promtail at Loki."
+
+    **Solution:** Described tuning label design after an early cardinality incident — a well-meaning engineer added `request_id` as a label, which created millions of unique streams and pushed Loki toward OOM — and rolling back to low-cardinality labels only (app, env, namespace, level), plus writing the drop-stage Promtail pipeline to filter noisy health-check logs before they're shipped at all.
+
+    **Result:** A concrete cardinality incident and the specific fix (drop `request_id` as a label, keep it queryable via `| json` parsing instead) is the kind of detail that proves hands-on time versus a documentation-level answer.
+
+??? question "How do you monitor and observe Loki in production?"
+    **Problem:** Loki itself can fail in ways that are invisible until someone needs a log that isn't there.
+
+    **Solution:** Tracked Loki's own exposed metrics (ingestion rate, rejected samples, query latency) in a dedicated Grafana dashboard, alongside the `NoPodLogs`/`HighErrorRate` Ruler alerts covering application-side symptoms.
+
+    **Result:** Distinguishes "Loki is unhealthy" from "the application stopped logging" — two different failure modes that look identical from the outside (no logs showing up) but need different responses.
+
+??? question "What are the security considerations for Loki?"
+    **Problem:** Logs frequently contain sensitive data (tokens, PII in request bodies) and Loki's object storage backend needs the same access controls as any other data store holding that content.
+
+    **Solution:** Scrubbed sensitive fields at the Promtail pipeline stage before shipment, restricted the S3/GCS bucket to least-privilege IAM roles, and used per-tenant retention overrides (shorter retention for lower-sensitivity environments like dev) via `limits_config`.
+
+    **Result:** Sensitive data never reaches long-term storage in the first place, which is a stronger guarantee than relying on retention deletion after the fact.
+
+??? question "How does Loki compare to alternatives?"
+    **Problem:** Needed to justify Loki over both ELK and Datadog Logs to a team weighing all three.
+
+    **Solution:** Framed it as an indexing tradeoff: ELK indexes full text (fast arbitrary search, expensive storage, real operational weight), Datadog Logs is fully managed full-text (fast, zero ops, expensive per-GB), Loki indexes only labels (cheap, simple, fast for label-based queries, slower for genuinely unstructured full-text scans). For a Kubernetes-native team with consistent labeling conventions already using Prometheus+Grafana, Loki's tradeoff profile fit best.
+
+    **Result:** The choice was framed as "which tradeoff matches our actual query patterns," not "which tool is objectively best" — which is the honest answer and the one that holds up under follow-up questions.
+
+??? question "What's the difference between Loki's chunk and index, and why does that distinction matter?"
+    **Problem:** A slow query needed root-causing, and the team's mental model conflated "the index" with "the logs," which led to debugging the wrong layer.
+
+    **Solution:** Clarified the two-part storage model precisely: the index maps label sets to chunk IDs (stored in object storage or DynamoDB, and it stays small because it never touches log content) while chunks are the actual compressed log data, stored separately in object storage. A query first hits the index to find relevant chunk IDs, then fetches and decompresses only those chunks — so a query with weak label selectivity (matching too many chunk IDs) is slow at the chunk-fetch stage, not the index-lookup stage.
+
+    **Result:** Once the team understood that a slow query is almost always an under-selective label filter forcing too many chunk fetches — not an index problem — the fix (tighten the label selector before adding text filters) became obvious instead of guesswork.
+
+??? question "How would you design label conventions to avoid a Loki cardinality incident?"
+    **Problem:** High-cardinality labels (user_id, request_id, raw timestamps) create one stream per unique value — millions of streams — which degrades ingestion and query performance and can OOM Loki outright.
+
+    **Solution:** Established a fixed low-cardinality label set (app, env, namespace, region, level) as policy, with anything higher-cardinality (request IDs, user IDs) kept inside the log line's JSON body and queried via `| json | field="value"` parsing at query time instead of promoted to a label.
+
+    **Result:** Query performance stayed predictable as log volume grew, because the label index size is bounded by the fixed label set regardless of how many unique requests or users are logged — the tradeoff being that filtering on those high-cardinality fields is a content scan, not an index lookup, which is the correct place for that cost to live.
 
 ---
 

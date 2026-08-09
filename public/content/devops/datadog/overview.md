@@ -95,6 +95,31 @@ curl -X POST "https://api.datadoghq.com/api/v1/monitor" \\\\
   }'
 ```
 
+SLOs are defined the same way as everything else in this stack — as code, reviewed in PRs, applied via CI. Terraform's `datadog_service_level_objective` resource is the standard way to do it:
+
+```hcl
+# Define SLO via Terraform — codifies the error-budget target instead of
+# configuring it by hand in the Datadog UI
+resource "datadog_service_level_objective" "api_availability" {
+  name        = "API Availability"
+  type        = "metric"
+  description = "Payment API must be 99.9% available"
+
+  query {
+    numerator   = "sum:trace.web.request.hits{service:payment-api,env:production,!status:error}.as_count()"
+    denominator = "sum:trace.web.request.hits{service:payment-api,env:production}.as_count()"
+  }
+
+  thresholds {
+    timeframe = "30d"
+    target    = 99.9
+    warning   = 99.95
+  }
+
+  tags = ["service:payment-api", "env:production"]
+}
+```
+
 ### Module 03 — Datadog APM
 *Distributed tracing, service map*
 
@@ -139,6 +164,48 @@ def process_payment(order_id: str):
         result = db.execute("SELECT * FROM orders WHERE id = %s", order_id)
     return result
 ```
+
+```javascript
+// Node.js APM — dd-trace must be required before any other module
+// so it can patch Express/http/pg/etc. at import time
+const tracer = require('dd-trace').init({
+  service: 'my-node-app',
+  env: process.env.NODE_ENV,
+  version: process.env.APP_VERSION,
+})
+
+// Express, http, pg, redis are auto-instrumented once dd-trace is initialized —
+// no per-route code changes needed
+```
+
+**Log-trace correlation.** APM traces and application logs are two separate data streams by default — a slow trace doesn't automatically show you the log lines from that same request. Fixing this means injecting the active trace's ID into every log line, so Datadog can link a log entry directly to the trace/span that produced it:
+
+```python
+import logging, json
+from ddtrace import tracer
+
+class DatadogFormatter(logging.Formatter):
+    def format(self, record):
+        log_entry = {
+            "timestamp": self.formatTime(record),
+            "level": record.levelname,
+            "message": record.getMessage(),
+            "service": "myapp",
+            "env": "production",
+        }
+        # Inject trace context for log-trace correlation
+        span = tracer.current_span()
+        if span:
+            log_entry["dd.trace_id"] = span.trace_id
+            log_entry["dd.span_id"] = span.span_id
+        return json.dumps(log_entry)
+
+handler = logging.StreamHandler()
+handler.setFormatter(DatadogFormatter())
+logging.getLogger().addHandler(handler)
+```
+
+With `dd.trace_id`/`dd.span_id` present on every log line, the Datadog UI shows a "Related Logs" tab directly on the trace view — no manual timestamp correlation across two separate tools.
 
 ### Module 04 — Mapping from Prometheus/ELK
 *Same concepts, different syntax*
@@ -226,54 +293,74 @@ sum:trace.http.request.errors{*}.as_rate()
 ### Common Interview Questions
 
 ??? question "What is Datadog and why would you use it in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Problem:** A team running Prometheus + Grafana + ELK + a homegrown APM shim had three separate query languages, three separate on-call runbooks, and no way to jump from a metric spike straight to the logs and trace for that same request — every incident started with 10 minutes of manually correlating timestamps across tools.
+
+    **Solution:** Migrated to Datadog as the unified platform — one Agent per host collecting metrics, logs, and traces, with automatic correlation via shared trace IDs and host tags. Kept the same alerting thresholds, just moved them into Datadog Monitors.
+
+    **Result:** Mean time to identify root cause dropped because a metric alert now links directly to the exact log lines and trace for that time window, in one click. Traded lower operational overhead for a real per-host cost — worth it for the team's size, but the tradeoff is explicit, not free.
 
 ??? question "How does Datadog work internally? Explain the architecture."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Problem:** Needed to explain to a skeptical infra lead why "just install an agent" isn't magic — what's actually happening under the hood.
+
+    **Solution:** Walked through the pipeline: the Datadog Agent runs as a DaemonSet (or host process) collecting system metrics, tailing logs, and receiving traces from instrumented apps via a local endpoint. It batches and forwards everything to Datadog's backend over HTTPS. The Cluster Agent (Kubernetes-specific) handles cluster-level metadata and exposes an external metrics API for HPA. APM auto-instrumentation works by patching known libraries at process start (`ddtrace-run`, or `require('dd-trace').init()` before anything else in Node), injecting trace/span IDs into outgoing requests so downstream services stay linked to the same trace.
+
+    **Result:** Once the lead saw it was the same collector-agent pattern as Prometheus node_exporter + Filebeat + a tracing sidecar, just packaged into one binary reporting to one backend, the "magic" framing went away — it's the same architecture, consolidated.
 
 ??? question "What are the main components of Datadog?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Problem:** Needed a clear mental model of the platform to know where to look first during an incident.
+
+    **Solution:** Broke it into five pieces: the Agent (collection), Infrastructure List (host/container inventory), Metrics Explorer + Dashboards (time series), APM Service List + Service Map (traces and dependencies), and Monitors (alerting). Log Explorer sits alongside as its own pillar, correlated to the others via tags and trace IDs.
+
+    **Result:** New team members now triage in a fixed order — check the Monitor that fired, jump to the Service Map for blast radius, then APM traces for root cause — instead of clicking around the UI looking for where the answer lives.
 
 ??? question "How do you handle failures in Datadog?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Problem:** The Datadog Agent itself went into `CrashLoopBackOff` on a subset of Kubernetes nodes, and metrics silently stopped flowing for those nodes — nobody noticed until a separate incident review.
+
+    **Solution:** Added a meta-monitor: a Monitor that alerts on `datadog.agent.up` gaps, so the monitoring system alerts on itself, not just on the services it watches. Standardized the debug sequence — check pod status, `agent status` from inside the pod, `agent check datadog` to validate the API key, then verify egress to `api.datadoghq.com` on 443 — into a runbook so it's not re-derived from scratch every time.
+
+    **Result:** Agent failures now get caught within minutes instead of being discovered incidentally, and the fixed debug sequence cut resolution time from "who remembers how to debug the agent" to a five-minute checklist.
 
 ??? question "What is your production experience with Datadog?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Problem:** Needed to demonstrate hands-on depth, not just "we use Datadog," in an interview setting.
+
+    **Solution:** Described rolling out APM auto-instrumentation on a payment service, tuning `DD_TRACE_SAMPLE_RATE` down from default to control ingestion cost once trace volume got expensive at scale, and writing the Terraform-managed SLO for that service's availability so the error budget was tracked as code, not a manually-configured UI object.
+
+    **Result:** Concrete detail — specific env vars, a real cost lever, a real Terraform resource — signals actual production time over a surface-level "I've used the dashboard" answer.
 
 ??? question "How do you monitor and observe Datadog in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Problem:** Monitoring the monitoring tool sounds circular, but an unnoticed Agent outage means blind infrastructure.
+
+    **Solution:** Used the Infrastructure List's host-count trend as a canary — an unexpected drop means agents stopped reporting, not that hosts vanished. Paired with the meta-monitor above and a periodic `agent status` check via a scheduled job for hosts that don't page on their own.
+
+    **Result:** Caught two silent agent failures in six months that would otherwise have gone unnoticed until an unrelated incident needed the missing data.
 
 ??? question "What are the security considerations for Datadog?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Problem:** Datadog is a third-party SaaS receiving logs, metrics, and traces — including, potentially, sensitive request data if instrumentation isn't scoped carefully.
+
+    **Solution:** Scrubbed PII at the Agent level using log processing rules before data left the host, restricted API/App key scope (separate read-only keys for dashboards vs. write keys for monitor management), and used log exclusion filters to drop entire categories (health checks, verbose debug) before they were ever ingested or billed.
+
+    **Result:** Reduced both the security surface (less sensitive data leaving the network) and the bill (less ingested volume) with the same set of filters.
 
 ??? question "How does Datadog compare to alternatives?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Problem:** Leadership asked to justify Datadog's cost against a self-hosted Prometheus+Grafana+ELK stack the team already knew how to run.
 
-??? question "Explain Datadog Architecture in Datadog."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Solution:** Laid out the real tradeoff: Prometheus+Grafana is free but the team owns storage sizing, HA, and Alertmanager routing; ELK adds full-text log search at real operational weight; Datadog is $15-35/host/month but collapses all three into one managed platform with built-in correlation. For a small platform team without dedicated SRE headcount, the operational-overhead savings outweighed the license cost; for a team that already had Prometheus expertise and cost sensitivity, self-hosted stayed the better call.
 
-??? question "Explain Datadog Metrics & Dashboards in Datadog."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+    **Result:** The decision was made on total cost of ownership, not sticker price alone — the honest framing is what got it approved.
+
+??? question "Walk through debugging a service that suddenly shows no APM traces."
+    **Problem:** A newly deployed service showed up in the Infrastructure List (agent healthy, host metrics flowing) but had zero traces in APM.
+
+    **Solution:** Checked instrumentation first, not the Agent — confirmed `DD_SERVICE`/`DD_ENV`/`DD_VERSION` were set and that `ddtrace-run` actually wrapped the process start command (a redeploy had dropped the wrapper during a Dockerfile refactor). Verified the trace agent port (8126) was reachable from the app container to the Agent sidecar.
+
+    **Result:** Traced it to the missing `ddtrace-run` prefix — host metrics work independently of APM instrumentation, so a healthy Agent doesn't guarantee traces are flowing, which was the key insight that shortened the debug loop.
+
+??? question "How would you control Datadog cost as ingestion volume grows?"
+    **Problem:** A team's Datadog bill grew faster than infrastructure did, driven by APM trace volume and custom metric cardinality, not host count.
+
+    **Solution:** Applied `DD_TRACE_SAMPLE_RATE` to sample traces instead of capturing 100%, added log exclusion filters for high-volume/low-value log lines (health checks, static asset requests), and audited custom metrics for cardinality explosions (tags like `request_id` accidentally applied to a custom metric).
+
+    **Result:** Cut ingestion cost meaningfully without losing debugging capability — sampled traces still catch the P99 outliers that matter, and the cardinality audit alone removed a six-figure line item caused by a single mistagged metric.
 
 ---
 

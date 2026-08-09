@@ -96,6 +96,37 @@ const STALE_ALIAS_FIX_KEYS = new Set([
   // better-quality than the new devops/nginx/* files written this batch;
   // the existing alias is the right choice and should stay as-is.
   ...["overview", "fundamentals", "interview"].map((s) => `devops/git/${s}`),
+  // Batch 3 (datadog, loki). Both surfaced the same shadow bug at a deeper
+  // depth than git/nginx did: infrastructure/{datadog,loki}/* had 7 tabs
+  // (including advanced + certification) vs. the new devops/* versions'
+  // 4 tabs, so this wasn't a simple better/worse call -- it was a port.
+  // Unique content from the old advanced/certification tabs (SLO/error-budget
+  // mechanics, DogStatsD/statsd custom-metrics API, K8s autodiscovery
+  // annotations, incident-management workflow for Datadog; multi-tenancy,
+  // distributed-mode component breakdown, S3 object-storage config,
+  // performance tuning for Loki) was ported into new devops/{datadog,loki}
+  // advanced.md/certification.md files written in house style -- these
+  // didn't exist as devops/* files before this batch, hence also new
+  // entries below, not just unshadowing. Overview/fundamentals/interview
+  // were compared tab-by-tab: fundamentals and interview were already
+  // stronger on the devops/* side and needed no port; overview genuinely
+  // needed merging (Node.js APM example, trace-log correlation, Terraform
+  // SLO resource ported into Datadog's overview; the 3 real alerting rules
+  // and Grafana panel examples ported into Loki's overview; the
+  // chunk-vs-index architecture distinction folded into Loki's Interview
+  // Prep). devops/datadog/intermediate.md also got a smaller port (Go
+  // tracer snippet, dashboards-as-code Terraform resource) once compared
+  // directly against infrastructure/datadog/intermediate.md.
+  //
+  // Deliberately NOT unshadowed: devops/loki/intermediate (no devops/*
+  // file exists at all -- infrastructure/loki/intermediate.md is the only
+  // version and it's solid) and both technologies' cheatsheets
+  // (devops/datadog has no cheatsheets.md; devops/loki/cheatsheets.md
+  // exists but is a thin 447-byte stub vs. infrastructure/loki/cheatsheets.md's
+  // full LogQL/LogCLI/API reference) -- same "keep the better existing
+  // version" call as the nginx precedent above, not an oversight.
+  ...["overview", "fundamentals", "intermediate", "advanced", "certification", "interview"].map((s) => `devops/datadog/${s}`),
+  ...["overview", "fundamentals", "advanced", "certification", "interview"].map((s) => `devops/loki/${s}`),
 ]);
 
 const registry = new Map();

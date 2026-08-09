@@ -34,6 +34,52 @@ DD_SERVICE: payment-api
 ```
 Datadog's APM auto-instruments common frameworks/libraries without requiring manual code changes for basic distributed tracing — a request's full path across multiple services becomes visible as one connected trace, showing exactly where time was spent across service boundaries. This is genuinely valuable for diagnosing latency in a microservices architecture where the actual bottleneck service isn't obvious from any single service's own logs/metrics — the trace shows the full call chain and where it slowed down, directly.
 
+Instrumentation is language-specific but follows the same pattern everywhere — a tracer library, a service name, and either auto- or manual instrumentation:
+
+```go
+// Go — dd-trace-go
+import "gopkg.in/DataDog/dd-trace-go.v1/ddtrace/tracer"
+
+func main() {
+    tracer.Start(tracer.WithService("my-service"), tracer.WithEnv("prod"))
+    defer tracer.Stop()
+}
+```
+
+Log-trace correlation goes the other direction from Overview's example — instead of manually injecting `dd.trace_id`, the `ddtrace` logging integration patches Python's logging module directly so every log line emitted while a trace is active gets correlated automatically:
+
+```python
+import logging
+from ddtrace.contrib.logging import patch; patch()
+
+logger = logging.getLogger(__name__)
+logger.info("Order processed", extra={
+    "order_id": "12345",
+    "user_id": "789",
+    "amount": 99.99,
+})
+# Datadog auto-correlates this log with the active trace — no manual dd.trace_id injection needed
+```
+
+**Dashboards as code.** Building dashboards by hand in the UI doesn't survive a team growing past one or two people — dashboard drift (someone tweaks a panel, nobody knows why, the change isn't reviewed) is a real, recurring problem. The Datadog Terraform provider treats dashboards the same way infrastructure is treated — defined, reviewed in a PR, applied via CI:
+
+```hcl
+resource "datadog_dashboard" "api_overview" {
+  title       = "API Service Overview"
+  layout_type = "ordered"
+
+  widget {
+    timeseries_definition {
+      title = "Request Rate"
+      request {
+        q            = "sum:trace.flask.request.hits{service:my-api}.as_rate()"
+        display_type = "line"
+      }
+    }
+  }
+}
+```
+
 ## Watchdog: AI-driven anomaly detection, and its real limitation
 
 Watchdog automatically surfaces anomalies (unusual error rate spikes, latency deviations) without requiring you to manually configure alert thresholds for every metric — genuinely useful for catching issues you hadn't specifically thought to alert on. The real limitation worth knowing: automatic anomaly detection is a complement to explicit, deliberately-configured Monitors on your genuinely critical metrics, not a replacement for them — Watchdog can miss domain-specific anomalies that don't look statistically unusual in isolation but are meaningful given business context Watchdog has no visibility into (a specific metric combination that only matters together, for instance).
