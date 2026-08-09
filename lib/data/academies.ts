@@ -147,6 +147,14 @@ const devopsAcademy: Academy = {
         // version is still the better one.
         { slug: "datadog", name: "Datadog", icon: "🐶", description: "Enterprise observability — metrics, logs, APM, and synthetic monitoring in one platform", level: "Intermediate", tags: ["Observability", "APM", "Monitoring"] },
         { slug: "loki", name: "Loki + OpenTelemetry", icon: "📜", description: "Label-based log aggregation paired with unified observability signals via OpenTelemetry", level: "Intermediate", tags: ["Logging", "OpenTelemetry", "Observability"] },
+        // Registered 2026-08-09 — the 11th and final guide of the DevOps
+        // expansion batch (see docs/audit/07-roadmap-final.md). Unlike the
+        // other 10, this was written from zero (no prior content existed on
+        // disk or in the registry) rather than ported/registered from an
+        // already-written file — all 7 tabs authored this batch, sourced
+        // from the originally-identified learn.synfracore.com/monitoring/
+        // splunk.html material plus verified current Splunk documentation.
+        { slug: "splunk", name: "Splunk", icon: "🔎", description: "Enterprise log analytics and SIEM — SPL, indexing architecture, and security correlation at scale", level: "Advanced", tags: ["SIEM", "SPL", "Log Analytics"] },
       ],
     },
     {
