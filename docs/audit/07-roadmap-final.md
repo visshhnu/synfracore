@@ -3912,3 +3912,110 @@ same authoring-effort scale as the 100-answer fix already completed for the
 original 10 guides (see "Priority-one fix, 2026-08-07" above). Not started —
 holding for explicit direction before writing content unprompted, consistent
 with this engagement's standing pattern.
+
+---
+
+## Quiz coverage campaign — unapplied-SQL backlog found and verified, 2026-08-10
+
+**What happened**: live DB query confirmed only 19 of ~200+ technologies had
+any `quiz_questions` coverage (Databases 12/12 complete at 240 questions;
+DevOps 5/21 — `docker`, `git`, `kubernetes`, `linux`, `nginx` — at 65
+questions; everything else, including all of Cloud, zero). Before starting a
+new authoring pilot for 8 DevOps technologies, a file inventory of
+`docs/quiz-questions-*.sql` turned up **13 files, 719 questions, already
+written and committed to `main` in prior sessions, that were never applied
+to the database** — this is an application gap, not an authoring gap, for
+most of what looked like missing DevOps/Cloud coverage.
+
+**Confirmed root cause**: `docs/quiz-questions-docker-kubernetes.sql`,
+`git-nginx.sql`, and `sql-linux-excel.sql` (commits `8978284`, `ceee9c1`,
+`78f4135`) map exactly to the 5 DevOps technologies with live coverage —
+those three were applied. Every batch written after them — DevOps Phase 2
+batches 3–6 and all of Cloud Phase 3 batches 1–8 — was authored, verified,
+and committed, then never run against the database.
+
+**Independently verified before handing to CC** (four checks, all passed):
+1. **Registry/content validity** — all 37 unique `(academy, technology,
+   section)` combinations referenced across the 13 files resolve in
+   `lib/content/index.ts`. Zero missing.
+2. **Duplicate/collision safety** — zero within-file duplicate rows, zero
+   cross-file duplicate rows (719 rows checked programmatically). All 13
+   files use the identical `ON CONFLICT (academy_slug, technology_slug,
+   section_slug, question) DO NOTHING` clause, which matches the actual
+   `UNIQUE(academy_slug, technology_slug, section_slug, question)`
+   constraint on `quiz_questions` in `docs/learner-platform-schema.sql` —
+   confirmed the conflict clause will actually function, not error, at
+   apply time. No collision risk against the already-applied 5-technology
+   batch or Databases' 240 questions (disjoint technology_slug values,
+   enforced by the same constraint regardless).
+3. **Content-drift check** — several covered content directories showed
+   `2026-08-10` modification dates, after their quiz files were written
+   (7/21–7/22), which looked like a staleness risk. Traced every one:
+   `terraform`/`ansible`/`helm`/`jenkins`/`argocd`/`openshift`/`python` and
+   `cloud/aws`/`azure`/`cloud-fundamentals`/`multi-cloud` were touched only
+   by this session's own MkDocs-syntax-to-plain-format conversion (byte-
+   identical Q&A content, verified earlier — see above); `devops/prometheus`
+   was touched only by the 2026-08-09 sitewide-norm campaign, which added
+   new sidecar files (`faq`/`notes`/`pyq`/`real-world-scenarios`) without
+   touching the overview/fundamentals/intermediate/advanced content the quiz
+   targets; `cloud/aws-lambda`, `azure-vms`, `networking-security` were
+   touched by this session's Cloud prerequisite fix (`0c6ab42`), purely
+   additive (new IAM/WAF sections). Spot-checked `aws-lambda`'s quiz
+   questions directly against current content — no contradiction found; the
+   newly added IAM section is compatible with, not contradicted by, the
+   existing fundamentals-section question on the same trust policy. No case
+   found of a quiz question asserting something current content now
+   contradicts.
+4. **Schema/format precedent** — all 13 files match the established INSERT
+   column order and format from `docs/sample-quiz-questions.sql`.
+
+**Verdict: all 13 files, 719 questions, safe to apply as-is.** None stale,
+none need rewriting, none discarded.
+
+**Housekeeping closed this session**: `docs/quiz-questions-shell-scripting-batch2.sql`
+(12 questions, `devops/shell-scripting/overview`, deduplicated against the 5
+existing questions in `openshift-python-shell.sql` — 3 of 15 source
+questions excluded as substantive duplicates, documented in the file's own
+header) was written and fact-checked in a prior session but left untracked.
+Committed `d3adb9a` — diff confirmed as exactly this one file, 43 lines, no
+collateral changes.
+
+**Ready for CC to apply, in this order** (closes 11 of the 16 previously-
+assumed-remaining DevOps technologies, plus all 26 Cloud technologies, for
+zero new authoring cost):
+1. `quiz-questions-jenkins-argocd.sql`
+2. `quiz-questions-prometheus-grafana-elk.sql`
+3. `quiz-questions-terraform-ansible-helm.sql`
+4. `quiz-questions-openshift-python-shell.sql`
+5. `quiz-questions-shell-scripting-batch2.sql`
+6. `quiz-questions-aws-identity-compute.sql`
+7. `quiz-questions-aws-network-data.sql`
+8. `quiz-questions-aws-serverless-k8s-iac-dns.sql`
+9. `quiz-questions-azure-identity-compute.sql`
+10. `quiz-questions-azure-network-k8s-devops.sql`
+11. `quiz-questions-gcp.sql`
+12. `quiz-questions-cloud-strategy-foundations-security.sql`
+13. `quiz-questions-cloud-strategy-architecture-finops.sql`
+
+**Corrected remaining-gap list — the "16 DevOps technologies without
+coverage" figure used earlier this session was wrong.** After the 13 files
+above are applied, DevOps will have 16 of 36 technologies covered (the
+original 5, plus 11 from this backlog). The actual technologies with **zero
+written quiz content at all** — the real target for future authoring
+batches, not 16 but **20**: `networking`, `istio`, `ebpf`, `harbor`, `keda`,
+`cicd`, `gitlab-ci`, `fluxcd`, `tekton`, `github-actions`, `ha-dr`,
+`incident`, `chaos-engineering`, `capacity-planning`, `automation`, `kafka`,
+`platform-engineering`, `datadog`, `loki`, `splunk`.
+
+**Two below-target gaps found in the applied-but-thin coverage — logged as
+follow-up, not blockers to applying:**
+- `devops/python` has no `advanced`-section coverage (fundamentals/
+  intermediate/interview/overview only — non-standard shape; `interview` in
+  place of `advanced`). `advanced.md` exists on disk (via the
+  `infrastructure/python` alias) and is a valid target — just needs 5
+  questions written.
+- `devops/shell-scripting` has only `overview` coverage (17 questions
+  total between the two batches) despite `fundamentals`/`intermediate`/
+  `advanced` all existing on disk (via the `infrastructure/shell-scripting`
+  alias). Needs ~15 more questions (5 each) to reach the 20-question/
+  4-section target.
