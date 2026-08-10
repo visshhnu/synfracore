@@ -3809,3 +3809,49 @@ session and not to be picked up without a separate planning pass:
 Neither item has a technology breakdown, tab sizing, or academies.ts
 structure proposed. Do not start either without a dedicated scoping pass
 first, same process as this document's VLSI section.
+
+---
+
+## Section-Navigation cleanup — Option A (copy fix) done 2026-08-10; Option B logged as a deferred IA decision, not started
+
+**Closes the copy half of the `/learn` vs. Education-academy confusion first
+logged above ("Section-Navigation cleanup phase, not yet started").**
+Direct verification (2026-08-10) corrected a factual error in that original
+entry: the claim that `examsAcademy`'s "actual on-disk content and registry
+keys all live under `education/`, not `exams/`" is **wrong** — `public/content/exams/`
+exists as its own root, and every `exams/*` registry key self-maps
+(`exams/gate-cse/overview → exams/gate-cse/overview`), no alias indirection.
+Nothing is orphaned there; that specific risk does not exist.
+
+What is real: `educationAcademy` and `examsAcademy` both carried the
+identical stale `description` field — *"...has moved to the Academy
+section. Visit /learn..."* — backwards on both counts, since their own
+listed technologies are live content under `/academies`, not stubs, and
+`/learn` is a separate system, not part of "the Academy section." Fixed
+both (see `lib/data/academies.ts`, `educationAcademy`/`examsAcademy`
+descriptions) to state plainly that both are live content and `/learn` is
+a separate, complementary system. `npx tsc --noEmit`: zero errors. Two-line
+diff, no structural change.
+
+**Separately real, and NOT addressed by the copy fix**: `education/gate/cse/`
+and `exams/gate-cse/` are two independent, non-overlapping-in-path content
+bodies covering the same subject (GATE CSE) under two different content
+models — `education/gate/cse/dsa/arrays-strings.md` etc. is chapter-by-chapter
+board/subject/chapter content feeding `/learn/gate/cse/...`; `exams/gate-cse/overview.md`
+etc. is the 9-tab academy-style technology page feeding `/academies/exams/gate/gate-cse`.
+Both resolve correctly today, so this is a maintenance-burden risk (two
+systems to keep in sync for the same subjects), not a live defect.
+
+**Option B (unify the two systems under one content root) is logged here as
+a deliberate future IA decision, deliberately not started:**
+migrating either direction is the full CLAUDE.md slug-rename procedure —
+`slug_aliases` table insert, backfill across `lesson_progress`/`bookmarks`/
+`quiz_attempts`/`recent_activity` for every user row keyed to the old path,
+`next.config.ts` redirects, and `scripts/generate-content-registry.mjs`'s
+`ALIAS_ROOTS` map update — plus a genuine information-architecture decision
+on whether `/learn`'s board/subject/chapter navigation and `/academies/exams`'s
+9-tab navigation should actually merge into one browsing experience, or just
+share a content root while staying separate UIs. Real risk if done
+carelessly: orphaned user progress data, the exact failure class CLAUDE.md's
+slug-rename section exists to prevent. Do not start without its own scoping
+session — this entry exists so the option isn't lost, not as a plan.

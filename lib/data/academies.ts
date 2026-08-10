@@ -584,7 +584,7 @@ const educationAcademy: Academy = {
   subtitle: "Class 6-12 · Engineering · Placement",
   icon: "🎓",
   color: "#3B82F6",
-  description: "School and competitive exam preparation has moved to the Academy section. Visit /learn for structured chapter-wise content with PYQs and MCQs.",
+  description: "School and college curriculum — CBSE/ICSE board subjects, engineering core courses, and placement prep, taught in full below. For chapter-wise board and competitive-exam content organized by subject and year, see /learn — a separate, complementary system covering the same subjects in a different structure.",
   domains: [
     {
       slug: "school",
@@ -629,7 +629,7 @@ const examsAcademy: Academy = {
   subtitle: "GATE · JEE · NEET · Banking · UPSC",
   icon: "📝",
   color: "#8B5CF6",
-  description: "JEE, NEET, GATE, Banking and competitive exam preparation has moved to the Academy section. Visit /learn for structured chapter-wise content.",
+  description: "JEE, NEET, GATE, Banking, SSC, and civil-services exam preparation, taught in full below. For chapter-wise board and competitive-exam content organized by subject and year instead, see /learn — a separate, complementary system covering many of the same subjects in a different structure.",
   domains: [
     {
       slug: "engineering-exams",
