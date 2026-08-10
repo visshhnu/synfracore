@@ -175,14 +175,18 @@ Best fit      Analyst-heavy teams,           Microsoft-shop orgs,
 ## Certifications (corrected — see PYQ file for full verification note)
 
 ```
-Tableau Desktop Specialist    — $100  | entry-level, never expires
-Tableau Certified Data Analyst — $250 | 2-year validity, includes hands-on labs
+Tableau Desktop Foundations (formerly "Desktop Specialist", renamed
+  July 2025 in a migration to Salesforce's Trailhead Academy platform)
+  — $75 | entry-level, never expires
+  (needs verification — recheck against current source: exam names/
+  pricing on this platform are periodically revised)
+Tableau Certified Data Analyst — ~$250 | 2-year validity, includes hands-on labs
 Tableau Server Certified Associate — ~$250 | Server admin focus
 
 NOTE: "Tableau Desktop Certified Associate" (previously listed in this
-course's own certification.md at $500) was RETIRED in 2021, along with
-the old Certified Professional tiers. Don't study for or reference it
-as a current credential.
+course's own certification.md at $500) was RETIRED September 30, 2021,
+along with the old Certified Professional tiers. Don't study for or
+reference it as a current credential.
 
 ShellCheck-equivalent for this domain: there's no single de-facto linter,
 but Tableau's built-in Performance Recorder (Tools → Record Performance)
