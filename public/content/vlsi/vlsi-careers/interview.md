@@ -26,7 +26,7 @@ A: Not for most roles, because "VLSI engineer" isn't one job — per Fundamental
 
 ---
 
-**Q: Given that Tata Electronics' Dholera fab has slipped to an expected H1 2027 first silicon (per Physical Design & Fabrication's research), does that materially affect near-term VLSI career planning in India?**
+**Q: Given that Tata Electronics' Dholera fab — as of a July 17, 2026 report — will open at 90nm rather than the originally-promised 28nm, with commercial production now slipped to mid-2028 (needs verification — recheck against current source; an earlier-reported H1 2027 date is itself now outdated, per Physical Design & Fabrication's research), does that materially affect near-term VLSI career planning in India?**
 
 A: Largely no for design-track careers (RTL, verification, physical design, analog engineering) — those roles are overwhelmingly hosted at the design centres of companies like Intel, Qualcomm, Synopsys, and Cadence, which are independent of any specific fab's construction timeline; India's design-services hiring has been substantial for years without a domestic leading-edge wafer fab operating yet. It matters more directly for roles specifically tied to fab operations, process integration, and yield engineering, which are the roles that would actually staff up as Dholera approaches operational status — a narrower, fab-specific slice of the overall VLSI career landscape, not the majority of what this academy's technologies prepare someone for.
 

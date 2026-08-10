@@ -46,10 +46,14 @@ PRIVATE SEMICONDUCTOR INDUSTRY — the dominant path for VLSI
 MANUFACTURING (FABS) — India Semiconductor Mission facilities
   (covered in depth in Physical Design & Fabrication): Micron's
   Sanand ATMP facility is operational; Tata Electronics-PSMC's
-  Dholera wafer fab has slipped to an expected H1 2027 first
-  silicon. Fab roles draw specifically on Physical Design &
-  Fabrication's content (process integration, yield, DFT) more than
-  the design-side technologies.
+  Dholera wafer fab — as of a July 17, 2026 report — will open at
+  90nm rather than the originally-promised 28nm, with commercial
+  production now slipped to mid-2028 (needs verification — recheck
+  against current source; see Physical Design & Fabrication's
+  Overview for the full detail, including why an earlier-reported
+  H1 2027 date is itself now outdated). Fab roles draw specifically
+  on Physical Design & Fabrication's content (process integration,
+  yield, DFT) more than the design-side technologies.
 
 HIGHER STUDY — GATE EC score is used for MTech VLSI admission at
   institutes including IISc and various IITs — this is an admission
