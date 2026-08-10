@@ -3855,3 +3855,60 @@ share a content root while staying separate UIs. Real risk if done
 carelessly: orphaned user progress data, the exact failure class CLAUDE.md's
 slug-rename section exists to prevent. Do not start without its own scoping
 session — this entry exists so the option isn't lost, not as a plan.
+
+---
+
+## Embedded Interview Prep `!!!`/`???` MkDocs syntax — live rendering defect fixed 2026-08-10; 16 files' placeholder content logged separately, not started
+
+**The defect**: 41 `overview.md` files' embedded "Interview Prep" sections
+used MkDocs Material admonition syntax (`!!! tip "PSR Formula"`, `??? question
+"..."`) that `components/tech/SectionContent.tsx`'s renderer has never
+supported — only `:::tip/:::info/:::warning/:::danger/:::note` callouts are
+implemented. Every line using this syntax fell through to the generic
+paragraph fallback and rendered as literal, visibly-broken raw text on
+production (`??? question "What is Splunk..."` shown verbatim, not as a
+formatted question) — found during this session's roadmap re-inventory,
+confirmed directly against a live production fetch before being logged, not
+assumed.
+
+**Fix applied**: mechanical syntax conversion, all 41 files, back to the
+platform's original plain-markdown convention (`**Qn. question?**` / blank /
+`**A:** answer` / blank / `---`, matching `interview.md`'s own established
+house style) — chosen over building renderer support for the MkDocs syntax,
+since it fixes the live defect immediately without locking the still-unbuilt
+Interview Q&A show/hide toggle into a syntax choice ahead of time.
+
+**Verified, same rigor as every fix this session**: all 41 files' full list
+reviewed before any edit. Registry regenerated — 0 added/dropped/broken (pure
+edits, no file adds/removes). `validate:content-quality` hard-fail gate PASS;
+the `abrupt_cutoff` WARN appearing on 31 of the 41 files was independently
+confirmed pre-existing and unrelated — each flagged file's actual last
+non-blank line (a bare trailing `---`) is byte-identical before and after the
+edit, spot-checked directly via `git show HEAD:<path> | tail`. Every
+question/answer pair's text content programmatically verified byte-identical
+between the old `??? question`/indented-answer form and the new `**Q:**`/
+`**A:**` form across all 41 files, 405 total Q&A pairs — pure syntax
+restructuring, zero content drift. Single-H1 check passed on all 41 (a naive
+`grep '^# '` count first flagged false positives from `# ` bash comments
+inside fenced code blocks; a fence-aware recheck confirmed exactly one real
+H1 per file). `git diff --stat`: exactly 41 files, 2473 insertions, 1381
+deletions, no collateral changes.
+
+**Separate, explicitly not fixed in this pass — logged as its own follow-up,
+same authoring scale as the original 10-guide DevOps placeholder fix**: 16 of
+the 41 files (`agriculture/organic-farming` — 5 questions, not 10;
+`ai/ai-learning`, `data/mis-overview`, `data/python-mis-advanced`,
+`data/python-mis`, `devops/ansible`, `devops/argo-rollouts`,
+`devops/azure-devops`, `devops/helm`, `devops/openshift`, `devops/python`,
+`devops/terraform`, `essentials/human-essentials`, `law/law`,
+`security/devsecops`, `telecom/telco`) have the *same* unfilled placeholder
+pattern as the original 10 DevOps guides (`*Add your answer here based on
+your real experience.*` / `*Add your real experience here.*`) underneath
+the now-fixed syntax wrapper. The syntax fix makes this legible instead of
+looking like a rendering bug, but the underlying content gap is unchanged —
+still placeholder text, still live. Total: up to 155 real Problem→Solution→
+Result answers needed (10 questions × 15 files + 5 for organic-farming),
+same authoring-effort scale as the 100-answer fix already completed for the
+original 10 guides (see "Priority-one fix, 2026-08-07" above). Not started —
+holding for explicit direction before writing content unprompted, consistent
+with this engagement's standing pattern.

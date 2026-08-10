@@ -269,60 +269,87 @@ ctx = ClientContext(url).with_user_credentials("user@company.com", "password")
 
 ## Interview Prep
 
-!!! tip "PSR Formula"
-    Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
+**PSR Formula:** Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
 
 ### Common Interview Questions
 
-??? question "What is Python for MIS — Automation & Dashboards and why would you use it in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Q1. What is Python for MIS — Automation & Dashboards and why would you use it in production?**
 
-??? question "How does Python for MIS — Automation & Dashboards work internally? Explain the architecture."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** *Add your answer here based on your real experience.*
 
-??? question "What are the main components of Python for MIS — Automation & Dashboards?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Framework:** State the problem it solves → explain your solution → describe the result.
 
-??? question "How do you handle failures in Python for MIS — Automation & Dashboards?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+---
 
-??? question "What is your production experience with Python for MIS — Automation & Dashboards?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Q2. How does Python for MIS — Automation & Dashboards work internally? Explain the architecture.**
 
-??? question "How do you monitor and observe Python for MIS — Automation & Dashboards in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** *Add your answer here based on your real experience.*
 
-??? question "What are the security considerations for Python for MIS — Automation & Dashboards?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Framework:** State the problem it solves → explain your solution → describe the result.
 
-??? question "How does Python for MIS — Automation & Dashboards compare to alternatives?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+---
 
-??? question "Explain Phase 4 — Full Automation in Python for MIS — Automation & Dashboards."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Q3. What are the main components of Python for MIS — Automation & Dashboards?**
 
-??? question "Explain Phase 5 — Interactive Dashboards in Python for MIS — Automation & Dashboards."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q4. How do you handle failures in Python for MIS — Automation & Dashboards?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q5. What is your production experience with Python for MIS — Automation & Dashboards?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q6. How do you monitor and observe Python for MIS — Automation & Dashboards in production?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q7. What are the security considerations for Python for MIS — Automation & Dashboards?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q8. How does Python for MIS — Automation & Dashboards compare to alternatives?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q9. Explain Phase 4 — Full Automation in Python for MIS — Automation & Dashboards.**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q10. Explain Phase 5 — Interactive Dashboards in Python for MIS — Automation & Dashboards.**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
 
 ---
 

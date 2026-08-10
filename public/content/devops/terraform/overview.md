@@ -99,60 +99,87 @@ Terraform should run in CI/CD, not locally. Plan in PRs so reviewers see infrast
 
 ## Interview Prep
 
-!!! tip "PSR Formula"
-    Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
+**PSR Formula:** Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
 
 ### Common Interview Questions
 
-??? question "What is Terraform and why would you use it in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Q1. What is Terraform and why would you use it in production?**
 
-??? question "How does Terraform work internally? Explain the architecture."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** *Add your answer here based on your real experience.*
 
-??? question "What are the main components of Terraform?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Framework:** State the problem it solves → explain your solution → describe the result.
 
-??? question "How do you handle failures in Terraform?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+---
 
-??? question "What is your production experience with Terraform?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Q2. How does Terraform work internally? Explain the architecture.**
 
-??? question "How do you monitor and observe Terraform in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** *Add your answer here based on your real experience.*
 
-??? question "What are the security considerations for Terraform?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Framework:** State the problem it solves → explain your solution → describe the result.
 
-??? question "How does Terraform compare to alternatives?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+---
 
-??? question "Explain What is Terraform? in Terraform."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Q3. What are the main components of Terraform?**
 
-??? question "Explain Core Concepts in Terraform."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q4. How do you handle failures in Terraform?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q5. What is your production experience with Terraform?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q6. How do you monitor and observe Terraform in production?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q7. What are the security considerations for Terraform?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q8. How does Terraform compare to alternatives?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q9. Explain What is Terraform? in Terraform.**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q10. Explain Core Concepts in Terraform.**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
 
 ---
 

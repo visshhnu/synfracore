@@ -72,60 +72,87 @@ Sustainable living is not about perfection — it is about conscious choices. Pl
 
 ## Interview Prep
 
-!!! tip "PSR Formula"
-    Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
+**PSR Formula:** Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
 
 ### Common Interview Questions
 
-??? question "What is Human Essentials and why would you use it in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Q1. What is Human Essentials and why would you use it in production?**
 
-??? question "How does Human Essentials work internally? Explain the architecture."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** *Add your answer here based on your real experience.*
 
-??? question "What are the main components of Human Essentials?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Framework:** State the problem it solves → explain your solution → describe the result.
 
-??? question "How do you handle failures in Human Essentials?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+---
 
-??? question "What is your production experience with Human Essentials?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Q2. How does Human Essentials work internally? Explain the architecture.**
 
-??? question "How do you monitor and observe Human Essentials in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** *Add your answer here based on your real experience.*
 
-??? question "What are the security considerations for Human Essentials?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Framework:** State the problem it solves → explain your solution → describe the result.
 
-??? question "How does Human Essentials compare to alternatives?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+---
 
-??? question "Explain Health & Preventive Care in Human Essentials."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Q3. What are the main components of Human Essentials?**
 
-??? question "Explain Nutrition Fundamentals in Human Essentials."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q4. How do you handle failures in Human Essentials?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q5. What is your production experience with Human Essentials?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q6. How do you monitor and observe Human Essentials in production?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q7. What are the security considerations for Human Essentials?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q8. How does Human Essentials compare to alternatives?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q9. Explain Health & Preventive Care in Human Essentials.**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q10. Explain Nutrition Fundamentals in Human Essentials.**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
 
 ---
 

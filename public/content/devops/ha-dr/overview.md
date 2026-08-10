@@ -299,40 +299,67 @@ kubectl apply -f https://litmuschaos.github.io/litmus/litmus-operator.yaml
 
 ## Interview Prep
 
-!!! tip "PSR Formula"
-    Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
+**PSR Formula:** Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
 
 ### Common Interview Questions
 
-??? question "What is HA / DR Design and why would you use it in production?"
-    HA (High Availability) keeps a system running through partial failure — a node or pod dies and traffic shifts automatically, with no real downtime. DR (Disaster Recovery) handles total failure — an entire region goes down and you fail over elsewhere, accepting some planned downtime. Every production system needs both, and the acceptable RTO (how long you can be down) and RPO (how much data you can lose) should be set deliberately per service tier, not left implicit — a payment system and an internal admin tool don't need the same guarantees, and treating them the same wastes money on the low-tier one or under-protects the high-tier one.
+**Q1. What is HA / DR Design and why would you use it in production?**
 
-??? question "How does HA / DR Design work internally? Explain the architecture."
-    HA is enforced at the scheduling layer: pod anti-affinity spreads replicas across nodes and availability zones so one node or zone failure can't take out every replica at once, a PodDisruptionBudget guarantees a minimum number of healthy replicas survive voluntary disruptions like node drains, and liveness/readiness probes make sure traffic is only routed to pods that are actually healthy. DR is enforced at the region layer: a chosen strategy (backup/restore, pilot light, warm standby, or active/active) determines what's already running in a second region and how fast it can take over, with database replication and DNS failover as the mechanics that actually move traffic and data during a real failover.
+**A:** HA (High Availability) keeps a system running through partial failure — a node or pod dies and traffic shifts automatically, with no real downtime. DR (Disaster Recovery) handles total failure — an entire region goes down and you fail over elsewhere, accepting some planned downtime. Every production system needs both, and the acceptable RTO (how long you can be down) and RPO (how much data you can lose) should be set deliberately per service tier, not left implicit — a payment system and an internal admin tool don't need the same guarantees, and treating them the same wastes money on the low-tier one or under-protects the high-tier one.
 
-??? question "What are the main components of HA / DR Design?"
-    For HA: anti-affinity rules, PodDisruptionBudgets, liveness/readiness/startup probes, and resource requests (so the scheduler can make good placement decisions). For DR: a chosen strategy tier (backup/restore, pilot light, warm standby, active/active), database replication set up to match the target RPO, DNS failover with a low TTL, and a tested runbook — a strategy that's never been rehearsed isn't a real DR plan.
+---
 
-??? question "How do you handle failures in HA / DR Design?"
-    For partial failures (HA), Kubernetes reacts automatically once anti-affinity, PDBs, and probes are configured: a node dies, pods reschedule elsewhere; a pod crashes, its liveness probe triggers a restart. For total failures (DR), the runbook drives the response: detect (automated alert), confirm (check the actual region/cluster status), communicate ("initiating failover, ETA X minutes"), fail over the database, scale up DR-region compute, shift DNS traffic, then verify — in that order, because skipping the communicate step or reordering these makes incidents worse even when the technical failover itself works.
+**Q2. How does HA / DR Design work internally? Explain the architecture.**
 
-??? question "What is your production experience with HA / DR Design?"
-    *(Needs verification — this platform can't fabricate a first-person production story. Answer from your own experience: what RTO/RPO targets you've worked against, which DR tier you ran — pilot light, warm standby, etc. — and what a real or GameDay failover actually looked like.)*
+**A:** HA is enforced at the scheduling layer: pod anti-affinity spreads replicas across nodes and availability zones so one node or zone failure can't take out every replica at once, a PodDisruptionBudget guarantees a minimum number of healthy replicas survive voluntary disruptions like node drains, and liveness/readiness probes make sure traffic is only routed to pods that are actually healthy. DR is enforced at the region layer: a chosen strategy (backup/restore, pilot light, warm standby, or active/active) determines what's already running in a second region and how fast it can take over, with database replication and DNS failover as the mechanics that actually move traffic and data during a real failover.
 
-??? question "How do you monitor and observe HA / DR Design in production?"
-    HA health is visible through standard Kubernetes signals: pod restart counts, node status, and PDB status showing whether the minimum-available threshold is being respected during drains. DR readiness needs its own explicit monitoring, since it's easy to silently rot: replication lag between primary and DR-region databases (this is your actual real-time RPO), DR-region health checks even while it's not serving traffic, and — critically — scheduled GameDay exercises, since a DR plan that's never been tested is unverified, not working.
+---
 
-??? question "What are the security considerations for HA / DR Design?"
-    The DR region needs the same security posture as production, not a lighter version — same network policies, same IAM/RBAC, same secrets management — because "we'll harden it after we fail over" is not a plan you get to execute calmly during an actual regional outage. Database replication traffic between regions should be encrypted in transit. And DR/backup credentials are high-value targets precisely because they're touched rarely, so they need the same rotation and access-review discipline as production credentials, not less.
+**Q3. What are the main components of HA / DR Design?**
 
-??? question "How does HA / DR Design compare to alternatives?"
-    The real comparison isn't HA/DR vs. some alternative — it's choosing the right DR strategy tier for each service. Backup and Restore is cheapest but slowest (RTO in hours) — fine for low-criticality internal tools. Pilot Light keeps minimal resources always-on for a 10-30 minute RTO. Warm Standby runs a scaled-down copy for a minutes-level RTO. Active/Active runs both regions serving production traffic simultaneously for a seconds-level RTO, at the highest cost and with real data-consistency challenges across regions. Choosing the most expensive tier for every service is as much a mistake as under-protecting a critical one.
+**A:** For HA: anti-affinity rules, PodDisruptionBudgets, liveness/readiness/startup probes, and resource requests (so the scheduler can make good placement decisions). For DR: a chosen strategy tier (backup/restore, pilot light, warm standby, active/active), database replication set up to match the target RPO, DNS failover with a low TTL, and a tested runbook — a strategy that's never been rehearsed isn't a real DR plan.
 
-??? question "Explain HA vs DR — The Difference in HA / DR Design."
-    HA keeps you running through partial failure with effectively no downtime — a node dies, Kubernetes reschedules the pods elsewhere automatically. DR recovers from total failure — an entire region goes down — with some accepted downtime defined by RTO, and some accepted data loss defined by RPO. Confusing the two leads to bad architecture: HA mechanisms alone (anti-affinity, PDBs) don't protect you if an entire region fails, and DR mechanisms alone are too slow to handle routine single-node failures gracefully.
+---
 
-??? question "Explain HA Patterns in Kubernetes in HA / DR Design."
-    Four mechanisms work together: pod anti-affinity spreads replicas across nodes/zones so a single failure can't take out all of them; a PodDisruptionBudget sets a minimum number of replicas that must stay available during voluntary disruptions like node drains or upgrades; liveness probes restart unhealthy pods automatically; and readiness probes keep traffic away from a pod until it's actually able to serve it. None of this is automatic by default — a Deployment with 3 replicas and no anti-affinity rule can still land all 3 replicas on the same node.
+**Q4. How do you handle failures in HA / DR Design?**
+
+**A:** For partial failures (HA), Kubernetes reacts automatically once anti-affinity, PDBs, and probes are configured: a node dies, pods reschedule elsewhere; a pod crashes, its liveness probe triggers a restart. For total failures (DR), the runbook drives the response: detect (automated alert), confirm (check the actual region/cluster status), communicate ("initiating failover, ETA X minutes"), fail over the database, scale up DR-region compute, shift DNS traffic, then verify — in that order, because skipping the communicate step or reordering these makes incidents worse even when the technical failover itself works.
+
+---
+
+**Q5. What is your production experience with HA / DR Design?**
+
+**A:** *(Needs verification — this platform can't fabricate a first-person production story. Answer from your own experience: what RTO/RPO targets you've worked against, which DR tier you ran — pilot light, warm standby, etc. — and what a real or GameDay failover actually looked like.)*
+
+---
+
+**Q6. How do you monitor and observe HA / DR Design in production?**
+
+**A:** HA health is visible through standard Kubernetes signals: pod restart counts, node status, and PDB status showing whether the minimum-available threshold is being respected during drains. DR readiness needs its own explicit monitoring, since it's easy to silently rot: replication lag between primary and DR-region databases (this is your actual real-time RPO), DR-region health checks even while it's not serving traffic, and — critically — scheduled GameDay exercises, since a DR plan that's never been tested is unverified, not working.
+
+---
+
+**Q7. What are the security considerations for HA / DR Design?**
+
+**A:** The DR region needs the same security posture as production, not a lighter version — same network policies, same IAM/RBAC, same secrets management — because "we'll harden it after we fail over" is not a plan you get to execute calmly during an actual regional outage. Database replication traffic between regions should be encrypted in transit. And DR/backup credentials are high-value targets precisely because they're touched rarely, so they need the same rotation and access-review discipline as production credentials, not less.
+
+---
+
+**Q8. How does HA / DR Design compare to alternatives?**
+
+**A:** The real comparison isn't HA/DR vs. some alternative — it's choosing the right DR strategy tier for each service. Backup and Restore is cheapest but slowest (RTO in hours) — fine for low-criticality internal tools. Pilot Light keeps minimal resources always-on for a 10-30 minute RTO. Warm Standby runs a scaled-down copy for a minutes-level RTO. Active/Active runs both regions serving production traffic simultaneously for a seconds-level RTO, at the highest cost and with real data-consistency challenges across regions. Choosing the most expensive tier for every service is as much a mistake as under-protecting a critical one.
+
+---
+
+**Q9. Explain HA vs DR — The Difference in HA / DR Design.**
+
+**A:** HA keeps you running through partial failure with effectively no downtime — a node dies, Kubernetes reschedules the pods elsewhere automatically. DR recovers from total failure — an entire region goes down — with some accepted downtime defined by RTO, and some accepted data loss defined by RPO. Confusing the two leads to bad architecture: HA mechanisms alone (anti-affinity, PDBs) don't protect you if an entire region fails, and DR mechanisms alone are too slow to handle routine single-node failures gracefully.
+
+---
+
+**Q10. Explain HA Patterns in Kubernetes in HA / DR Design.**
+
+**A:** Four mechanisms work together: pod anti-affinity spreads replicas across nodes/zones so a single failure can't take out all of them; a PodDisruptionBudget sets a minimum number of replicas that must stay available during voluntary disruptions like node drains or upgrades; liveness probes restart unhealthy pods automatically; and readiness probes keep traffic away from a pod until it's actually able to serve it. None of this is automatic by default — a Deployment with 3 replicas and no anti-affinity rule can still land all 3 replicas on the same node.
 
 ---
 

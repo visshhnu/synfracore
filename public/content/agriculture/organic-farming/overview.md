@@ -236,35 +236,47 @@ Organic soil holds water much better than dead chemical soil — like a sponge v
 
 ## Interview Prep
 
-!!! tip "PSR Formula"
-    **Problem → Solution → Result**. 45–90 seconds.
+**PSR Formula:** **Problem → Solution → Result**. 45–90 seconds.
 
 ### Common Interview Questions
 
-??? question "Why is organic farming better than chemical farming long-term?"
-    *Add your real experience here.*
-    
-    **Framework:** Problem (chemical dependency cycle) → Solution (soil biology restoration) → Result (lower input cost, better yield after year 3)
+**Q1. Why is organic farming better than chemical farming long-term?**
 
-??? question "What is the SRI method and how does it improve rice yield?"
-    *Add your real experience here.*
-    
-    **Framework:** Problem (water waste, low yield) → Solution (single seedling, wide spacing, alternate wet-dry) → Result (50% less water, 30-50% higher yield)
+**A:** *Add your real experience here.*
 
-??? question "What is Jeevamrut and how do you make it?"
-    *Add your real experience here.*
-    
-    **Framework:** What it is → Ingredients and method → Why it works (300 crore microorganisms per ml)
+**Framework:** Problem (chemical dependency cycle) → Solution (soil biology restoration) → Result (lower input cost, better yield after year 3)
 
-??? question "How do you control pests without chemicals?"
-    *Add your real experience here.*
-    
-    **Framework:** Prevention first (healthy soil) → Neem spray → Chilli-garlic → Bordeaux mixture for fungal
+---
 
-??? question "What is companion planting and give examples?"
-    *Add your real experience here.*
-    
-    **Framework:** Definition → Tomato+Basil example → Marigold as universal pest repellent → Three Sisters (corn+beans+squash)
+**Q2. What is the SRI method and how does it improve rice yield?**
+
+**A:** *Add your real experience here.*
+
+**Framework:** Problem (water waste, low yield) → Solution (single seedling, wide spacing, alternate wet-dry) → Result (50% less water, 30-50% higher yield)
+
+---
+
+**Q3. What is Jeevamrut and how do you make it?**
+
+**A:** *Add your real experience here.*
+
+**Framework:** What it is → Ingredients and method → Why it works (300 crore microorganisms per ml)
+
+---
+
+**Q4. How do you control pests without chemicals?**
+
+**A:** *Add your real experience here.*
+
+**Framework:** Prevention first (healthy soil) → Neem spray → Chilli-garlic → Bordeaux mixture for fungal
+
+---
+
+**Q5. What is companion planting and give examples?**
+
+**A:** *Add your real experience here.*
+
+**Framework:** Definition → Tomato+Basil example → Marigold as universal pest repellent → Three Sisters (corn+beans+squash)
 
 ---
 

@@ -309,40 +309,67 @@ kafka-reassign-partitions.sh \
 
 ## Interview Prep
 
-!!! tip "PSR Formula"
-    Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
+**PSR Formula:** Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
 
 ### Common Interview Questions
 
-??? question "What is Kafka & Messaging and why would you use it in production?"
-    Kafka is a distributed event-streaming platform: instead of services calling each other directly, they publish events to Kafka topics and other services consume them independently, at their own pace. You'd reach for it when you need high throughput, the ability to replay past events (debugging, reprocessing, backfilling a new consumer), or multiple independent consumers reading the same event stream. It's not the right tool for a simple one-off task queue — RabbitMQ or SQS is simpler and more appropriate there.
+**Q1. What is Kafka & Messaging and why would you use it in production?**
 
-??? question "How does Kafka & Messaging work internally? Explain the architecture."
-    A topic is split into partitions, each an ordered, append-only log. Producers write to a partition (often by a key, so related events land on the same partition and stay ordered relative to each other). Each partition is replicated across brokers (typically 3x) for durability. Consumers in a consumer group split the partitions among themselves — each partition assigned to exactly one consumer in the group at a time — and each consumer tracks its own offset (position in the log) so it can resume correctly after a restart.
+**A:** Kafka is a distributed event-streaming platform: instead of services calling each other directly, they publish events to Kafka topics and other services consume them independently, at their own pace. You'd reach for it when you need high throughput, the ability to replay past events (debugging, reprocessing, backfilling a new consumer), or multiple independent consumers reading the same event stream. It's not the right tool for a simple one-off task queue — RabbitMQ or SQS is simpler and more appropriate there.
 
-??? question "What are the main components of Kafka & Messaging?"
-    Brokers (the servers storing partition data), topics and partitions (the data model), producers (write events), consumers and consumer groups (read events, in parallel across partitions), and — for Kubernetes deployments — the Strimzi Operator, which manages the entire cluster lifecycle (deploy, upgrade, scale) via a `Kafka` custom resource instead of managing brokers by hand.
+---
 
-??? question "How do you handle failures in Kafka & Messaging?"
-    For broker failures, replication (factor 3 in production) means other replicas keep serving the partition. For consumer failures, the diagnosis splits in two: lag growing on *every* partition means the consumer group as a whole is too slow, so scale up (add consumer instances, up to the partition count). Lag stuck on *one specific* partition usually means a poison pill message — a malformed message the consumer keeps failing on — which requires finding that message and either fixing the consumer's handling of it or manually advancing past the stuck offset.
+**Q2. How does Kafka & Messaging work internally? Explain the architecture.**
 
-??? question "What is your production experience with Kafka & Messaging?"
-    *(Needs verification — this platform can't fabricate a first-person production story. Answer from your own experience: what topics/partition counts you ran, what a real consumer-lag incident looked like, and how Strimzi or your own operational setup handled it.)*
+**A:** A topic is split into partitions, each an ordered, append-only log. Producers write to a partition (often by a key, so related events land on the same partition and stay ordered relative to each other). Each partition is replicated across brokers (typically 3x) for durability. Consumers in a consumer group split the partitions among themselves — each partition assigned to exactly one consumer in the group at a time — and each consumer tracks its own offset (position in the log) so it can resume correctly after a restart.
 
-??? question "How do you monitor and observe Kafka & Messaging in production?"
-    The most important signal is consumer lag per consumer group and partition (`kafka-consumer-groups.sh --describe`, or the `kafka_consumergroup_lag_sum` metric in Prometheus, alerted on when it crosses a threshold sustained for several minutes). Also watch for under-replicated partitions (`kafka-topics.sh --under-replicated-partitions` — a sign a broker is down or falling behind, meaning data is at reduced durability) and broker health via `kafka-broker-api-versions.sh`.
+---
 
-??? question "What are the security considerations for Kafka & Messaging?"
-    Enable TLS for both broker-to-broker and client-to-broker traffic (the example Strimzi config shows both a plaintext internal listener and a TLS listener — production should favor TLS). Use SASL or mTLS for client authentication rather than trusting network-level access alone. And apply topic-level ACLs so a compromised producer credential can't read or write topics it has no business touching.
+**Q3. What are the main components of Kafka & Messaging?**
 
-??? question "How does Kafka & Messaging compare to alternatives?"
-    Kafka vs. RabbitMQ is the main comparison: Kafka retains messages for replay, is pull-based (consumers control their own offset and pace), and handles very high throughput — suited to event streaming, audit logs, and ML pipelines. RabbitMQ deletes messages once consumed (no replay), is push-based, and supports complex routing (exchanges, queues) — suited to task queues, RPC, and simpler microservice messaging. Choosing Kafka for a simple job queue is over-engineering; choosing RabbitMQ when you need replay or extreme throughput under-delivers.
+**A:** Brokers (the servers storing partition data), topics and partitions (the data model), producers (write events), consumers and consumer groups (read events, in parallel across partitions), and — for Kubernetes deployments — the Strimzi Operator, which manages the entire cluster lifecycle (deploy, upgrade, scale) via a `Kafka` custom resource instead of managing brokers by hand.
 
-??? question "Explain Kafka Architecture in Kafka & Messaging."
-    Topics are divided into partitions, the unit of parallelism — each partition is an ordered, immutable log that consumers read sequentially by tracking an offset. A consumer group splits partitions among its members so each partition is read by exactly one consumer at a time, which is why having more consumers than partitions leaves the extras idle. Replication factor (commonly 3 in production) determines how many copies of each partition exist across brokers, so the cluster tolerates broker failure without data loss.
+---
 
-??? question "Explain Consumer Lag — Most Common Issue in Kafka & Messaging."
-    Consumer lag is the gap between the log-end-offset (the newest message written to a partition) and a consumer's current offset — effectively, how many messages are waiting to be processed. Lag growing across all partitions means the consumer group is simply too slow for the producer rate, fixed by scaling up consumers (up to the partition count). Lag stuck on one specific partition, while others are healthy, points to a stuck consumer or a poison pill message on that partition specifically — a different problem requiring you to find and handle that specific bad message, not just add more consumers.
+**Q4. How do you handle failures in Kafka & Messaging?**
+
+**A:** For broker failures, replication (factor 3 in production) means other replicas keep serving the partition. For consumer failures, the diagnosis splits in two: lag growing on *every* partition means the consumer group as a whole is too slow, so scale up (add consumer instances, up to the partition count). Lag stuck on *one specific* partition usually means a poison pill message — a malformed message the consumer keeps failing on — which requires finding that message and either fixing the consumer's handling of it or manually advancing past the stuck offset.
+
+---
+
+**Q5. What is your production experience with Kafka & Messaging?**
+
+**A:** *(Needs verification — this platform can't fabricate a first-person production story. Answer from your own experience: what topics/partition counts you ran, what a real consumer-lag incident looked like, and how Strimzi or your own operational setup handled it.)*
+
+---
+
+**Q6. How do you monitor and observe Kafka & Messaging in production?**
+
+**A:** The most important signal is consumer lag per consumer group and partition (`kafka-consumer-groups.sh --describe`, or the `kafka_consumergroup_lag_sum` metric in Prometheus, alerted on when it crosses a threshold sustained for several minutes). Also watch for under-replicated partitions (`kafka-topics.sh --under-replicated-partitions` — a sign a broker is down or falling behind, meaning data is at reduced durability) and broker health via `kafka-broker-api-versions.sh`.
+
+---
+
+**Q7. What are the security considerations for Kafka & Messaging?**
+
+**A:** Enable TLS for both broker-to-broker and client-to-broker traffic (the example Strimzi config shows both a plaintext internal listener and a TLS listener — production should favor TLS). Use SASL or mTLS for client authentication rather than trusting network-level access alone. And apply topic-level ACLs so a compromised producer credential can't read or write topics it has no business touching.
+
+---
+
+**Q8. How does Kafka & Messaging compare to alternatives?**
+
+**A:** Kafka vs. RabbitMQ is the main comparison: Kafka retains messages for replay, is pull-based (consumers control their own offset and pace), and handles very high throughput — suited to event streaming, audit logs, and ML pipelines. RabbitMQ deletes messages once consumed (no replay), is push-based, and supports complex routing (exchanges, queues) — suited to task queues, RPC, and simpler microservice messaging. Choosing Kafka for a simple job queue is over-engineering; choosing RabbitMQ when you need replay or extreme throughput under-delivers.
+
+---
+
+**Q9. Explain Kafka Architecture in Kafka & Messaging.**
+
+**A:** Topics are divided into partitions, the unit of parallelism — each partition is an ordered, immutable log that consumers read sequentially by tracking an offset. A consumer group splits partitions among its members so each partition is read by exactly one consumer at a time, which is why having more consumers than partitions leaves the extras idle. Replication factor (commonly 3 in production) determines how many copies of each partition exist across brokers, so the cluster tolerates broker failure without data loss.
+
+---
+
+**Q10. Explain Consumer Lag — Most Common Issue in Kafka & Messaging.**
+
+**A:** Consumer lag is the gap between the log-end-offset (the newest message written to a partition) and a consumer's current offset — effectively, how many messages are waiting to be processed. Lag growing across all partitions means the consumer group is simply too slow for the producer rate, fixed by scaling up consumers (up to the partition count). Lag stuck on one specific partition, while others are healthy, points to a stuck consumer or a poison pill message on that partition specifically — a different problem requiring you to find and handle that specific bad message, not just add more consumers.
 
 ---
 

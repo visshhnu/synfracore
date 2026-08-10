@@ -230,40 +230,67 @@ Post-mortems are the most valuable part of incident management — they prevent 
 
 ## Interview Prep
 
-!!! tip "PSR Formula"
-    Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
+**PSR Formula:** Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
 
 ### Common Interview Questions
 
-??? question "What is Incident Management and why would you use it in production?"
-    Incident management is the structured process for responding to production issues — classifying severity (P1-P4), acting fast to restore service, communicating clearly throughout, and learning from it afterward with a blameless post-mortem. Without it, teams either under-react to real outages (slow response, no clear owner) or over-react to minor issues (waking people up for a P4). A consistent framework means the right people respond at the right speed every time, and every incident produces action items that prevent a repeat.
+**Q1. What is Incident Management and why would you use it in production?**
 
-??? question "How does Incident Management work internally? Explain the architecture."
-    It's a 6-phase process, not a system architecture: detect and acknowledge (alert fires, someone owns it within minutes), assess (what's broken, who's affected, what changed), communicate (status updates every 10-15 minutes, never go silent), mitigate (rollback, scale up, restart, or feature-flag off — fastest option first, root cause investigation comes later), monitor (confirm the fix actually held), and post-mortem (blameless root-cause analysis within 48 hours, with owned action items).
+**A:** Incident management is the structured process for responding to production issues — classifying severity (P1-P4), acting fast to restore service, communicating clearly throughout, and learning from it afterward with a blameless post-mortem. Without it, teams either under-react to real outages (slow response, no clear owner) or over-react to minor issues (waking people up for a P4). A consistent framework means the right people respond at the right speed every time, and every incident produces action items that prevent a repeat.
 
-??? question "What are the main components of Incident Management?"
-    A severity matrix (P1-P4) that maps issue type to response speed and who gets paged; an incident channel/communication process (Slack channel, status page, update cadence); a mitigation playbook (rollback, scale, restart, feature-flag, failover — in order of speed); and a post-mortem process (blameless, 5-whys root cause, timeline, action items with owners and due dates).
+---
 
-??? question "How do you handle failures in Incident Management?"
-    The core principle is mitigate first, investigate root cause second — every minute spent diagnosing instead of acting is a minute of continued downtime. The fastest mitigations, roughly in order: roll back the last deployment if it's suspected, scale up replicas if it's a traffic spike, restart pods if it looks like a memory leak, turn off a feature flag if a new feature is the cause, or fail over to a DR region if it's infrastructure-level. Only after service is restored does the team dig into the actual root cause via a 5-whys post-mortem.
+**Q2. How does Incident Management work internally? Explain the architecture.**
 
-??? question "What is your production experience with Incident Management?"
-    *(Needs verification — this platform can't fabricate a first-person production story. Answer from your own experience: an incident you responded to, what severity it was, what the actual mitigation was, and what came out of the post-mortem.)*
+**A:** It's a 6-phase process, not a system architecture: detect and acknowledge (alert fires, someone owns it within minutes), assess (what's broken, who's affected, what changed), communicate (status updates every 10-15 minutes, never go silent), mitigate (rollback, scale up, restart, or feature-flag off — fastest option first, root cause investigation comes later), monitor (confirm the fix actually held), and post-mortem (blameless root-cause analysis within 48 hours, with owned action items).
 
-??? question "How do you monitor and observe Incident Management in production?"
-    Track MTTD (Mean Time To Detect — how fast alerts fire after something breaks, target under 5 minutes), MTTA (Mean Time To Acknowledge — how fast someone responds to the page, target under 5 minutes for P1), MTTR (Mean Time To Recover — total time from start to full resolution, target under 30 minutes for P1), and Change Failure Rate (% of deployments that cause an incident, target under 5%). These get tracked as ongoing metrics — a dashboard of incidents per week by severity and a trend on whether MTTR is improving or getting worse over time — not just recorded per-incident and forgotten.
+---
 
-??? question "What are the security considerations for Incident Management?"
-    Incident channels and post-mortems often contain sensitive details — customer data exposure scope, internal architecture, credentials that were rotated — so access to incident history should be restricted appropriately, not open to the whole company by default. During active incidents, be careful what gets pasted into shared channels (no live credentials, no raw customer PII in a Slack message). And post-mortems for security-related incidents specifically need a clear disclosure process — whether and when affected customers or regulators need to be notified — decided ahead of time, not improvised mid-incident.
+**Q3. What are the main components of Incident Management?**
 
-??? question "How does Incident Management compare to alternatives?"
-    There isn't really a competing approach — the alternative to structured incident management is ad-hoc firefighting, which reliably produces worse outcomes: unclear ownership, inconsistent communication, no severity triage (P4s treated like P1s or vice versa), and no post-mortem, so the same failure mode recurs. The frameworks differ mainly in formality and tooling (PagerDuty vs. OpsGenie for alerting, Statuspage vs. Atlassian for status pages) — the 6-phase detect-assess-communicate-mitigate-monitor-post-mortem shape is close to universal across mature SRE organizations.
+**A:** A severity matrix (P1-P4) that maps issue type to response speed and who gets paged; an incident channel/communication process (Slack channel, status page, update cadence); a mitigation playbook (rollback, scale, restart, feature-flag, failover — in order of speed); and a post-mortem process (blameless, 5-whys root cause, timeline, action items with owners and due dates).
 
-??? question "Explain Incident Severity Levels in Incident Management."
-    P1 is a complete outage, data loss, or security breach — immediate all-hands response, updates every 10-15 minutes, leadership notified after 30 minutes if unresolved. P2 is major degradation with the service still partially working — response within 30 minutes. P3 is a non-critical feature broken with a workaround available — handled within business hours. P4 is cosmetic with no functional impact — fixed whenever it fits the next sprint. The classification directly drives response speed and who gets paged, so the rule is to err toward the higher severity when it's ambiguous.
+---
 
-??? question "Explain Incident Response Framework in Incident Management."
-    Six phases: Detect (alert fires, acknowledge immediately, open an incident channel), Assess (what's broken, who's affected, what changed recently — check recent deployments first), Communicate (post a status update within 5 minutes and every 10-15 minutes after, even with no new information), Mitigate (take the fastest safe action — usually rollback — before investigating root cause), Monitor (confirm error rates and latency actually returned to baseline, watch for secondary issues), and Post-mortem (blameless root-cause analysis within 48 hours, with a timeline, 5-whys, and action items that have real owners and due dates).
+**Q4. How do you handle failures in Incident Management?**
+
+**A:** The core principle is mitigate first, investigate root cause second — every minute spent diagnosing instead of acting is a minute of continued downtime. The fastest mitigations, roughly in order: roll back the last deployment if it's suspected, scale up replicas if it's a traffic spike, restart pods if it looks like a memory leak, turn off a feature flag if a new feature is the cause, or fail over to a DR region if it's infrastructure-level. Only after service is restored does the team dig into the actual root cause via a 5-whys post-mortem.
+
+---
+
+**Q5. What is your production experience with Incident Management?**
+
+**A:** *(Needs verification — this platform can't fabricate a first-person production story. Answer from your own experience: an incident you responded to, what severity it was, what the actual mitigation was, and what came out of the post-mortem.)*
+
+---
+
+**Q6. How do you monitor and observe Incident Management in production?**
+
+**A:** Track MTTD (Mean Time To Detect — how fast alerts fire after something breaks, target under 5 minutes), MTTA (Mean Time To Acknowledge — how fast someone responds to the page, target under 5 minutes for P1), MTTR (Mean Time To Recover — total time from start to full resolution, target under 30 minutes for P1), and Change Failure Rate (% of deployments that cause an incident, target under 5%). These get tracked as ongoing metrics — a dashboard of incidents per week by severity and a trend on whether MTTR is improving or getting worse over time — not just recorded per-incident and forgotten.
+
+---
+
+**Q7. What are the security considerations for Incident Management?**
+
+**A:** Incident channels and post-mortems often contain sensitive details — customer data exposure scope, internal architecture, credentials that were rotated — so access to incident history should be restricted appropriately, not open to the whole company by default. During active incidents, be careful what gets pasted into shared channels (no live credentials, no raw customer PII in a Slack message). And post-mortems for security-related incidents specifically need a clear disclosure process — whether and when affected customers or regulators need to be notified — decided ahead of time, not improvised mid-incident.
+
+---
+
+**Q8. How does Incident Management compare to alternatives?**
+
+**A:** There isn't really a competing approach — the alternative to structured incident management is ad-hoc firefighting, which reliably produces worse outcomes: unclear ownership, inconsistent communication, no severity triage (P4s treated like P1s or vice versa), and no post-mortem, so the same failure mode recurs. The frameworks differ mainly in formality and tooling (PagerDuty vs. OpsGenie for alerting, Statuspage vs. Atlassian for status pages) — the 6-phase detect-assess-communicate-mitigate-monitor-post-mortem shape is close to universal across mature SRE organizations.
+
+---
+
+**Q9. Explain Incident Severity Levels in Incident Management.**
+
+**A:** P1 is a complete outage, data loss, or security breach — immediate all-hands response, updates every 10-15 minutes, leadership notified after 30 minutes if unresolved. P2 is major degradation with the service still partially working — response within 30 minutes. P3 is a non-critical feature broken with a workaround available — handled within business hours. P4 is cosmetic with no functional impact — fixed whenever it fits the next sprint. The classification directly drives response speed and who gets paged, so the rule is to err toward the higher severity when it's ambiguous.
+
+---
+
+**Q10. Explain Incident Response Framework in Incident Management.**
+
+**A:** Six phases: Detect (alert fires, acknowledge immediately, open an incident channel), Assess (what's broken, who's affected, what changed recently — check recent deployments first), Communicate (post a status update within 5 minutes and every 10-15 minutes after, even with no new information), Mitigate (take the fastest safe action — usually rollback — before investigating root cause), Monitor (confirm error rates and latency actually returned to baseline, watch for secondary issues), and Post-mortem (blameless root-cause analysis within 48 hours, with a timeline, 5-whys, and action items that have real owners and due dates).
 
 ---
 

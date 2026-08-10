@@ -118,60 +118,87 @@ The oc CLI extends kubectl with OCP-specific commands. oc new-project creates bo
 
 ## Interview Prep
 
-!!! tip "PSR Formula"
-    Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
+**PSR Formula:** Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
 
 ### Common Interview Questions
 
-??? question "What is OpenShift OCP 4.x and why would you use it in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Q1. What is OpenShift OCP 4.x and why would you use it in production?**
 
-??? question "How does OpenShift OCP 4.x work internally? Explain the architecture."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** *Add your answer here based on your real experience.*
 
-??? question "What are the main components of OpenShift OCP 4.x?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Framework:** State the problem it solves → explain your solution → describe the result.
 
-??? question "How do you handle failures in OpenShift OCP 4.x?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+---
 
-??? question "What is your production experience with OpenShift OCP 4.x?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Q2. How does OpenShift OCP 4.x work internally? Explain the architecture.**
 
-??? question "How do you monitor and observe OpenShift OCP 4.x in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** *Add your answer here based on your real experience.*
 
-??? question "What are the security considerations for OpenShift OCP 4.x?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Framework:** State the problem it solves → explain your solution → describe the result.
 
-??? question "How does OpenShift OCP 4.x compare to alternatives?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+---
 
-??? question "Explain What is OpenShift? in OpenShift OCP 4.x."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Q3. What are the main components of OpenShift OCP 4.x?**
 
-??? question "Explain OCP Architecture in OpenShift OCP 4.x."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q4. How do you handle failures in OpenShift OCP 4.x?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q5. What is your production experience with OpenShift OCP 4.x?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q6. How do you monitor and observe OpenShift OCP 4.x in production?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q7. What are the security considerations for OpenShift OCP 4.x?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q8. How does OpenShift OCP 4.x compare to alternatives?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q9. Explain What is OpenShift? in OpenShift OCP 4.x.**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q10. Explain OCP Architecture in OpenShift OCP 4.x.**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
 
 ---
 

@@ -406,40 +406,67 @@ kubectl get secret myapp-tls-secret -n production \
 
 ## Interview Prep
 
-!!! tip "PSR Formula"
-    Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
+**PSR Formula:** Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
 
 ### Common Interview Questions
 
-??? question "What is Networking for DevOps and why does it matter in production?"
-    **Problem:** application code assumes the network "just works" — but as the engineer responsible for the systems underneath it, a huge share of incidents that look like "the app is broken" actually turn out to be a networking problem: DNS not resolving, an expired certificate, a load balancer routing to the wrong place. **Solution:** knowing the actual mechanics (how DNS resolution works, what TCP vs. UDP trade off, how a load balancer decides where traffic goes) turns "something's wrong with the network" into a specific, checkable hypothesis instead of a guess. **Result:** most networking incidents get isolated to one specific layer (DNS, TLS, routing, or the load balancer) within minutes once you know which tool checks which layer.
+**Q1. What is Networking for DevOps and why does it matter in production?**
 
-??? question "Explain the OSI model, concretely, not just as a list of layer names."
-    **Problem:** reciting "Layer 1 through 7" without a real mental model of what each one *does* doesn't actually help debug anything. **Solution:** in DevOps work, three layers matter most: Layer 3 (IP addressing/routing — does a packet know how to get from A to B at all), Layer 4 (TCP/UDP — is delivery reliable or best-effort), and Layer 7 (the actual application protocol — HTTP, DNS — where content-aware routing happens). **Result:** this is exactly why a load balancer can operate "at L4" (fast, just forwards TCP/UDP packets, blind to what's inside) or "at L7" (slower, but can route based on URL path or add features like SSL termination) — the layer tells you what information that piece of infrastructure can and can't see.
+**A:** **Problem:** application code assumes the network "just works" — but as the engineer responsible for the systems underneath it, a huge share of incidents that look like "the app is broken" actually turn out to be a networking problem: DNS not resolving, an expired certificate, a load balancer routing to the wrong place. **Solution:** knowing the actual mechanics (how DNS resolution works, what TCP vs. UDP trade off, how a load balancer decides where traffic goes) turns "something's wrong with the network" into a specific, checkable hypothesis instead of a guess. **Result:** most networking incidents get isolated to one specific layer (DNS, TLS, routing, or the load balancer) within minutes once you know which tool checks which layer.
 
-??? question "What are the main components involved in a request reaching a production service?"
-    **Problem:** "the network" isn't one thing — a single request touches DNS, TLS, routing, and the application layer, each of which can fail independently. **Solution:** DNS resolves a hostname to an IP; TCP (or UDP) establishes the actual connection; TLS encrypts and authenticates it if it's HTTPS; a load balancer or Ingress decides which backend instance actually handles it; the application itself processes the request. **Result:** knowing this chain is what makes triage fast — "DNS is fine, TLS handshake succeeds, but the app times out" already rules out three of the five components before you've opened a single application log.
+---
 
-??? question "How do you handle a networking failure in production — what's your actual diagnostic order?"
-    **Problem:** treating every "can't connect" report as a fresh mystery doesn't scale. **Solution:** work outward-in: can the client resolve DNS at all (`dig`/`nslookup`)? Can it establish a TCP connection (`curl -v`, or `nc -zv host port`)? Does the TLS handshake succeed if it's HTTPS? Is the load balancer/Ingress actually routing to a healthy backend? **Result:** this ordered sequence is exactly what the Production Example runbook above walks through — it isolates which of DNS, connectivity, or the application itself is actually the problem, rather than guessing.
+**Q2. Explain the OSI model, concretely, not just as a list of layer names.**
 
-??? question "What is your production experience with networking issues?"
-    This is a genuinely personal question — answer with a real incident using Problem → Solution → Result: what broke (DNS not resolving after a migration, a certificate that silently expired, a Kubernetes NetworkPolicy blocking traffic that used to work), your actual diagnostic sequence, and what the root cause turned out to be. Interviewers are listening for a real methodology, not textbook recall of OSI layers.
+**A:** **Problem:** reciting "Layer 1 through 7" without a real mental model of what each one *does* doesn't actually help debug anything. **Solution:** in DevOps work, three layers matter most: Layer 3 (IP addressing/routing — does a packet know how to get from A to B at all), Layer 4 (TCP/UDP — is delivery reliable or best-effort), and Layer 7 (the actual application protocol — HTTP, DNS — where content-aware routing happens). **Result:** this is exactly why a load balancer can operate "at L4" (fast, just forwards TCP/UDP packets, blind to what's inside) or "at L7" (slower, but can route based on URL path or add features like SSL termination) — the layer tells you what information that piece of infrastructure can and can't see.
 
-??? question "How do you monitor and observe networking in production?"
-    **Problem:** networking failures are often silent until they cause an outage — a certificate expiring, DNS TTL misconfiguration, or a slowly growing connection-leak aren't visible unless you're watching for them. **Solution:** track certificate expiry proactively (don't wait for `curl` to fail with a TLS error), monitor DNS query latency/failure rates, and watch connection states (`ss`/`netstat` — a growing `CLOSE-WAIT` count signals an application-level leak, not a network bug). **Result:** these catch problems while there's still time to fix them — an expiring certificate caught a week out is a scheduled task; one caught by a customer report is an outage.
+---
 
-??? question "What are the security considerations for networking?"
-    **Problem:** an open, unencrypted, unrestricted network is a direct path for an attacker who reaches any single machine on it. **Solution:** encrypt in transit (TLS everywhere, not just at the edge), restrict what can talk to what (firewalls, security groups, Kubernetes NetworkPolicies with a default-deny baseline), and never let certificates or DNS records silently drift out of date. **Result:** these are the same defense-in-depth principles used at the container/orchestration layer (see Docker and Kubernetes' own security material), applied one level below, at the network layer itself.
+**Q3. What are the main components involved in a request reaching a production service?**
 
-??? question "TCP vs. UDP — how do you decide which one a given system should use?"
-    **Problem:** picking the wrong one either wastes performance (using TCP where occasional loss is fine) or breaks correctness (using UDP where every byte matters). **Solution:** ask whether losing or reordering a small amount of data is acceptable — if yes (video streaming, a DNS query, a metrics scrape where the next sample arrives in seconds anyway), UDP's lower overhead wins; if no (a database connection, an API call, an SSH session), TCP's guaranteed in-order delivery is worth the extra overhead. **Result:** this is exactly why DNS uses UDP by default (a lost query just gets retried immediately) but falls back to TCP for large responses, and why every database driver you'll ever use is built on TCP, never UDP.
+**A:** **Problem:** "the network" isn't one thing — a single request touches DNS, TLS, routing, and the application layer, each of which can fail independently. **Solution:** DNS resolves a hostname to an IP; TCP (or UDP) establishes the actual connection; TLS encrypts and authenticates it if it's HTTPS; a load balancer or Ingress decides which backend instance actually handles it; the application itself processes the request. **Result:** knowing this chain is what makes triage fast — "DNS is fine, TLS handshake succeeds, but the app times out" already rules out three of the five components before you've opened a single application log.
 
-??? question "Walk through what actually happens when a browser looks up a domain name."
-    **Problem:** "DNS resolves the domain" hides several distinct steps, each a separate potential failure point. **Solution:** the browser checks its own cache, then the OS's cache; if neither has it, it asks a recursive resolver (often your ISP's or a public one like 8.8.8.8), which — if it doesn't already know — walks the hierarchy itself: a root nameserver points it to the right TLD server (e.g. `.com`), which points it to the domain's own authoritative nameserver, which finally returns the actual answer. **Result:** this is why `dig +trace` (which shows this exact chain) is the right tool when DNS "isn't working" — it shows you precisely which step in that chain is returning a wrong or missing answer, rather than treating "DNS is broken" as one undifferentiated problem.
+---
 
-??? question "How does TLS/SSL actually protect a connection, and what goes wrong when a certificate is misconfigured?"
-    **Problem:** "HTTPS is on" doesn't automatically mean the connection is actually trustworthy — a misconfigured or expired certificate can silently break clients or, worse, get silently ignored by a client that isn't validating properly. **Solution:** TLS does two separate jobs — it encrypts the data in transit, and it authenticates the server via a certificate chain (the server's cert, signed by an intermediate CA, ultimately signed by a root CA your browser already trusts). An expired, wrong-hostname, or untrusted-chain certificate fails that second job even if encryption itself would still technically work. **Result:** this is why automating renewal (via something like cert-manager in Kubernetes) matters more than getting the initial setup right once — a correctly-issued certificate that's allowed to expire causes the exact same outage as never having one.
+**Q4. How do you handle a networking failure in production — what's your actual diagnostic order?**
+
+**A:** **Problem:** treating every "can't connect" report as a fresh mystery doesn't scale. **Solution:** work outward-in: can the client resolve DNS at all (`dig`/`nslookup`)? Can it establish a TCP connection (`curl -v`, or `nc -zv host port`)? Does the TLS handshake succeed if it's HTTPS? Is the load balancer/Ingress actually routing to a healthy backend? **Result:** this ordered sequence is exactly what the Production Example runbook above walks through — it isolates which of DNS, connectivity, or the application itself is actually the problem, rather than guessing.
+
+---
+
+**Q5. What is your production experience with networking issues?**
+
+**A:** This is a genuinely personal question — answer with a real incident using Problem → Solution → Result: what broke (DNS not resolving after a migration, a certificate that silently expired, a Kubernetes NetworkPolicy blocking traffic that used to work), your actual diagnostic sequence, and what the root cause turned out to be. Interviewers are listening for a real methodology, not textbook recall of OSI layers.
+
+---
+
+**Q6. How do you monitor and observe networking in production?**
+
+**A:** **Problem:** networking failures are often silent until they cause an outage — a certificate expiring, DNS TTL misconfiguration, or a slowly growing connection-leak aren't visible unless you're watching for them. **Solution:** track certificate expiry proactively (don't wait for `curl` to fail with a TLS error), monitor DNS query latency/failure rates, and watch connection states (`ss`/`netstat` — a growing `CLOSE-WAIT` count signals an application-level leak, not a network bug). **Result:** these catch problems while there's still time to fix them — an expiring certificate caught a week out is a scheduled task; one caught by a customer report is an outage.
+
+---
+
+**Q7. What are the security considerations for networking?**
+
+**A:** **Problem:** an open, unencrypted, unrestricted network is a direct path for an attacker who reaches any single machine on it. **Solution:** encrypt in transit (TLS everywhere, not just at the edge), restrict what can talk to what (firewalls, security groups, Kubernetes NetworkPolicies with a default-deny baseline), and never let certificates or DNS records silently drift out of date. **Result:** these are the same defense-in-depth principles used at the container/orchestration layer (see Docker and Kubernetes' own security material), applied one level below, at the network layer itself.
+
+---
+
+**Q8. TCP vs. UDP — how do you decide which one a given system should use?**
+
+**A:** **Problem:** picking the wrong one either wastes performance (using TCP where occasional loss is fine) or breaks correctness (using UDP where every byte matters). **Solution:** ask whether losing or reordering a small amount of data is acceptable — if yes (video streaming, a DNS query, a metrics scrape where the next sample arrives in seconds anyway), UDP's lower overhead wins; if no (a database connection, an API call, an SSH session), TCP's guaranteed in-order delivery is worth the extra overhead. **Result:** this is exactly why DNS uses UDP by default (a lost query just gets retried immediately) but falls back to TCP for large responses, and why every database driver you'll ever use is built on TCP, never UDP.
+
+---
+
+**Q9. Walk through what actually happens when a browser looks up a domain name.**
+
+**A:** **Problem:** "DNS resolves the domain" hides several distinct steps, each a separate potential failure point. **Solution:** the browser checks its own cache, then the OS's cache; if neither has it, it asks a recursive resolver (often your ISP's or a public one like 8.8.8.8), which — if it doesn't already know — walks the hierarchy itself: a root nameserver points it to the right TLD server (e.g. `.com`), which points it to the domain's own authoritative nameserver, which finally returns the actual answer. **Result:** this is why `dig +trace` (which shows this exact chain) is the right tool when DNS "isn't working" — it shows you precisely which step in that chain is returning a wrong or missing answer, rather than treating "DNS is broken" as one undifferentiated problem.
+
+---
+
+**Q10. How does TLS/SSL actually protect a connection, and what goes wrong when a certificate is misconfigured?**
+
+**A:** **Problem:** "HTTPS is on" doesn't automatically mean the connection is actually trustworthy — a misconfigured or expired certificate can silently break clients or, worse, get silently ignored by a client that isn't validating properly. **Solution:** TLS does two separate jobs — it encrypts the data in transit, and it authenticates the server via a certificate chain (the server's cert, signed by an intermediate CA, ultimately signed by a root CA your browser already trusts). An expired, wrong-hostname, or untrusted-chain certificate fails that second job even if encryption itself would still technically work. **Result:** this is why automating renewal (via something like cert-manager in Kubernetes) matters more than getting the initial setup right once — a correctly-issued certificate that's allowed to expire causes the exact same outage as never having one.
 
 ---
 

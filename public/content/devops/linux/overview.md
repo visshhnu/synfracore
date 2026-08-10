@@ -140,40 +140,67 @@ strace -c -p <pid>   # -c summarizes syscall counts/time, fast overview
 
 ## Interview Prep
 
-!!! tip "PSR Formula"
-    Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
+**PSR Formula:** Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
 
 ### Common Interview Questions
 
-??? question "What is Linux & Bash and why would you use it in production?"
-    **Problem:** production incidents happen at any hour and don't wait for you to look something up — every layer of a modern stack (Kubernetes nodes, containers, the app itself) ultimately runs on Linux, and not knowing the OS layer means being blind to a huge share of real failure causes. **Solution:** fluency in the filesystem hierarchy, permissions, process management, and the USE method (Utilization/Saturation/Errors) turns "the server is slow" from a vague complaint into a systematic diagnosis. **Result:** most production Linux issues get isolated to a specific resource (CPU, memory, disk, network) within minutes using a fixed diagnostic sequence, rather than guessing.
+**Q1. What is Linux & Bash and why would you use it in production?**
 
-??? question "How does Linux & Bash work internally? Explain the architecture."
-    **Problem:** understanding *why* a command works, not just *that* it works, is what lets you debug something you've never seen before. **Solution:** the kernel manages hardware and resources directly; `/proc` and `/sys` are virtual filesystems exposing live kernel state (not real files on disk — writes to certain `/proc` entries change kernel behavior immediately); systemd (PID 1) manages every other process and service as its children, which is why `journalctl -u <service>` can show a service's full lifecycle. **Result:** this mental model is what makes something like "why does killing the parent process make a zombie process disappear" make sense immediately, rather than needing to be memorized as a fact.
+**A:** **Problem:** production incidents happen at any hour and don't wait for you to look something up — every layer of a modern stack (Kubernetes nodes, containers, the app itself) ultimately runs on Linux, and not knowing the OS layer means being blind to a huge share of real failure causes. **Solution:** fluency in the filesystem hierarchy, permissions, process management, and the USE method (Utilization/Saturation/Errors) turns "the server is slow" from a vague complaint into a systematic diagnosis. **Result:** most production Linux issues get isolated to a specific resource (CPU, memory, disk, network) within minutes using a fixed diagnostic sequence, rather than guessing.
 
-??? question "What are the main components of Linux & Bash?"
-    **Problem:** without breaking "Linux administration" into concrete pieces, it's hard to know what to actually study. **Solution:** the pieces that come up constantly in DevOps work are the filesystem hierarchy and permissions model, process management (`ps`, `kill`, signals, process states), systemd for service management, package management (apt/yum/dnf), log analysis (grep/awk/sed/journalctl), networking and security basics (firewall rules, SSH hardening, tcpdump), the USE method for performance troubleshooting, and Bash scripting for automation. **Result:** each maps to a recognizable class of real task or incident, which is why they're this course's core modules.
+---
 
-??? question "How do you handle failures in Linux & Bash?"
-    **Problem:** a failure can originate at almost any layer (application, OS resource, network, misconfiguration), and treating every incident as a fresh mystery doesn't scale. **Solution:** follow the USE method in a fixed order — check CPU, then memory, then disk, then network — narrowing at each step rather than jumping to conclusions; for scripts specifically, `set -euo pipefail` plus a `trap` for cleanup means failures are caught immediately rather than silently continuing. **Result:** this ordered approach is directly reflected in the Production Example runbook above and the Troubleshooting tab — it's the actual sequence used to resolve real incidents faster, not an abstract principle.
+**Q2. How does Linux & Bash work internally? Explain the architecture.**
 
-??? question "What is your production experience with Linux & Bash?"
-    This is a genuinely personal question — answer with a real incident using the Problem → Solution → Result structure: what broke, your actual diagnostic command sequence and why you chose that order, and what the root cause turned out to be. Interviewers are listening for whether you have a *methodology* more than whether you recite the "correct" answer.
+**A:** **Problem:** understanding *why* a command works, not just *that* it works, is what lets you debug something you've never seen before. **Solution:** the kernel manages hardware and resources directly; `/proc` and `/sys` are virtual filesystems exposing live kernel state (not real files on disk — writes to certain `/proc` entries change kernel behavior immediately); systemd (PID 1) manages every other process and service as its children, which is why `journalctl -u <service>` can show a service's full lifecycle. **Result:** this mental model is what makes something like "why does killing the parent process make a zombie process disappear" make sense immediately, rather than needing to be memorized as a fact.
 
-??? question "How do you monitor and observe Linux & Bash in production?"
-    **Problem:** many failure modes (memory pressure building slowly, disk filling up gradually, a slow leak in connection count) are invisible until they become a full outage if you're only checking reactively. **Solution:** track leading indicators — swap activity (any sustained `si`/`so` in `vmstat` means real memory pressure before it becomes an OOM kill), disk usage trend (not just current `df -h` output, but the rate of growth), and `CLOSE-WAIT` connection counts (a growing count is a specific, real signal of an application not closing connections it should). **Result:** these catch problems while there's still time to intervene, rather than after the OOM killer or a full disk has already caused an outage.
+---
 
-??? question "What are the security considerations for Linux & Bash?"
-    **Problem:** a compromised or misconfigured Linux host is a direct path to whatever it has access to. **Solution:** disable direct root SSH login and use scoped `sudo` instead (least privilege at the OS level), keep a firewall enabled with explicit allow rules rather than a wide-open default, and be deliberate about SUID binaries (`chmod u+s`) since they run with the file owner's privileges regardless of who invokes them — an unnecessary SUID bit on a writable script is a real, common privilege-escalation path. **Result:** these are the same defense-in-depth principles that show up across this platform's Security material, applied specifically at the OS-administration layer.
+**Q3. What are the main components of Linux & Bash?**
 
-??? question "How does Linux & Bash compare to alternatives?"
-    This usually means a more specific comparison — e.g., "why Bash instead of Python for this kind of task," or "systemd vs. the older SysV init," or "RHEL-family vs. Debian-family for a given deployment." Problem → Solution → Result still applies: state the specific tradeoff being asked about, the mechanism difference, and when you'd actually pick one over the other — e.g., Bash is the right choice for gluing existing command-line tools together and simple automation; Python becomes the better choice once the logic needs real data structures, error handling beyond exit codes, or will be maintained by people less comfortable reading shell syntax.
+**A:** **Problem:** without breaking "Linux administration" into concrete pieces, it's hard to know what to actually study. **Solution:** the pieces that come up constantly in DevOps work are the filesystem hierarchy and permissions model, process management (`ps`, `kill`, signals, process states), systemd for service management, package management (apt/yum/dnf), log analysis (grep/awk/sed/journalctl), networking and security basics (firewall rules, SSH hardening, tcpdump), the USE method for performance troubleshooting, and Bash scripting for automation. **Result:** each maps to a recognizable class of real task or incident, which is why they're this course's core modules.
 
-??? question "Explain Linux Fundamentals for DevOps in Linux & Bash."
-    The filesystem hierarchy, permissions model (`rwx` = 4+2+1, owner/group/other), and systemd service management are the foundation everything else builds on. Knowing which directories are real (persisted to disk) versus virtual/kernel-generated (`/proc`, `/sys`) matters practically — it's the difference between "this file represents actual stored data" and "this file is a live view into current kernel state that changes on its own." Package management differs by distro family (`apt` for Debian/Ubuntu, `dnf`/`yum` for RHEL-family) — running the wrong tool against the wrong family is a common, avoidable early mistake worth checking `/etc/os-release` to avoid.
+---
 
-??? question "Explain Performance Troubleshooting in Linux & Bash."
-    The USE method (Utilization, Saturation, Errors) applied to each resource in turn — CPU, memory, disk, network — turns "the server is slow" into a systematic diagnosis rather than guesswork. `vmstat` is the right first command because it surfaces both CPU saturation (the `r` column, run queue length) and memory pressure (swap activity) in one glance. High `iostat` `await` specifically signals disk saturation (requests waiting), not necessarily hardware failure. A growing `CLOSE-WAIT` count in `ss`/`netstat` output signals an application-level connection leak, not an OS problem — knowing which layer a given symptom actually points to is what separates efficient troubleshooting from randomly running commands.
+**Q4. How do you handle failures in Linux & Bash?**
+
+**A:** **Problem:** a failure can originate at almost any layer (application, OS resource, network, misconfiguration), and treating every incident as a fresh mystery doesn't scale. **Solution:** follow the USE method in a fixed order — check CPU, then memory, then disk, then network — narrowing at each step rather than jumping to conclusions; for scripts specifically, `set -euo pipefail` plus a `trap` for cleanup means failures are caught immediately rather than silently continuing. **Result:** this ordered approach is directly reflected in the Production Example runbook above and the Troubleshooting tab — it's the actual sequence used to resolve real incidents faster, not an abstract principle.
+
+---
+
+**Q5. What is your production experience with Linux & Bash?**
+
+**A:** This is a genuinely personal question — answer with a real incident using the Problem → Solution → Result structure: what broke, your actual diagnostic command sequence and why you chose that order, and what the root cause turned out to be. Interviewers are listening for whether you have a *methodology* more than whether you recite the "correct" answer.
+
+---
+
+**Q6. How do you monitor and observe Linux & Bash in production?**
+
+**A:** **Problem:** many failure modes (memory pressure building slowly, disk filling up gradually, a slow leak in connection count) are invisible until they become a full outage if you're only checking reactively. **Solution:** track leading indicators — swap activity (any sustained `si`/`so` in `vmstat` means real memory pressure before it becomes an OOM kill), disk usage trend (not just current `df -h` output, but the rate of growth), and `CLOSE-WAIT` connection counts (a growing count is a specific, real signal of an application not closing connections it should). **Result:** these catch problems while there's still time to intervene, rather than after the OOM killer or a full disk has already caused an outage.
+
+---
+
+**Q7. What are the security considerations for Linux & Bash?**
+
+**A:** **Problem:** a compromised or misconfigured Linux host is a direct path to whatever it has access to. **Solution:** disable direct root SSH login and use scoped `sudo` instead (least privilege at the OS level), keep a firewall enabled with explicit allow rules rather than a wide-open default, and be deliberate about SUID binaries (`chmod u+s`) since they run with the file owner's privileges regardless of who invokes them — an unnecessary SUID bit on a writable script is a real, common privilege-escalation path. **Result:** these are the same defense-in-depth principles that show up across this platform's Security material, applied specifically at the OS-administration layer.
+
+---
+
+**Q8. How does Linux & Bash compare to alternatives?**
+
+**A:** This usually means a more specific comparison — e.g., "why Bash instead of Python for this kind of task," or "systemd vs. the older SysV init," or "RHEL-family vs. Debian-family for a given deployment." Problem → Solution → Result still applies: state the specific tradeoff being asked about, the mechanism difference, and when you'd actually pick one over the other — e.g., Bash is the right choice for gluing existing command-line tools together and simple automation; Python becomes the better choice once the logic needs real data structures, error handling beyond exit codes, or will be maintained by people less comfortable reading shell syntax.
+
+---
+
+**Q9. Explain Linux Fundamentals for DevOps in Linux & Bash.**
+
+**A:** The filesystem hierarchy, permissions model (`rwx` = 4+2+1, owner/group/other), and systemd service management are the foundation everything else builds on. Knowing which directories are real (persisted to disk) versus virtual/kernel-generated (`/proc`, `/sys`) matters practically — it's the difference between "this file represents actual stored data" and "this file is a live view into current kernel state that changes on its own." Package management differs by distro family (`apt` for Debian/Ubuntu, `dnf`/`yum` for RHEL-family) — running the wrong tool against the wrong family is a common, avoidable early mistake worth checking `/etc/os-release` to avoid.
+
+---
+
+**Q10. Explain Performance Troubleshooting in Linux & Bash.**
+
+**A:** The USE method (Utilization, Saturation, Errors) applied to each resource in turn — CPU, memory, disk, network — turns "the server is slow" into a systematic diagnosis rather than guesswork. `vmstat` is the right first command because it surfaces both CPU saturation (the `r` column, run queue length) and memory pressure (swap activity) in one glance. High `iostat` `await` specifically signals disk saturation (requests waiting), not necessarily hardware failure. A growing `CLOSE-WAIT` count in `ss`/`netstat` output signals an application-level connection leak, not an OS problem — knowing which layer a given symptom actually points to is what separates efficient troubleshooting from randomly running commands.
 
 ---
 

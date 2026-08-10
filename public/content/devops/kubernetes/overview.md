@@ -160,40 +160,67 @@ kubectl get pod <pending-pod> -w   # watch until it transitions to Running
 
 ## Interview Prep
 
-!!! tip "PSR Formula"
-    Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
+**PSR Formula:** Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
 
 ### Common Interview Questions
 
-??? question "What is Kubernetes and why would you use it in production?"
-    **Problem:** running containers reliably at scale needs more than just starting them — failed containers need replacing, traffic needs routing to healthy replicas, and deployments need to roll out without downtime, none of which a plain container runtime does on its own. **Solution:** Kubernetes takes a declared desired state ("3 replicas of this app") and continuously reconciles actual cluster state to match it — rescheduling failed Pods, load-balancing across replicas via Services, and rolling out updates gradually with automatic rollback on failure. **Result:** most of what used to be manual, error-prone ops work (restart the crashed process, update the load balancer config, coordinate a rolling deploy) becomes an automated, self-healing loop instead.
+**Q1. What is Kubernetes and why would you use it in production?**
 
-??? question "How does Kubernetes work internally? Explain the architecture."
-    **Problem:** understanding which component does what is what makes a specific failure ("pods stuck Pending," "API server down") diagnosable rather than mysterious. **Solution:** the control plane (API Server as the single entry point, etcd as the actual state store, Scheduler deciding pod placement, Controller Manager running reconciliation loops) manages desired vs. actual state; worker nodes run kubelet (talks to the API Server, starts containers), kube-proxy (Service networking), and the container runtime. **Result:** this separation is exactly why "the API Server is down" and "my app is down" are different, unrelated problems — existing Pods keep running fine even with a fully unreachable control plane, they just can't be rescheduled or updated until it's back.
+**A:** **Problem:** running containers reliably at scale needs more than just starting them — failed containers need replacing, traffic needs routing to healthy replicas, and deployments need to roll out without downtime, none of which a plain container runtime does on its own. **Solution:** Kubernetes takes a declared desired state ("3 replicas of this app") and continuously reconciles actual cluster state to match it — rescheduling failed Pods, load-balancing across replicas via Services, and rolling out updates gradually with automatic rollback on failure. **Result:** most of what used to be manual, error-prone ops work (restart the crashed process, update the load balancer config, coordinate a rolling deploy) becomes an automated, self-healing loop instead.
 
-??? question "What are the main components of Kubernetes?"
-    **Problem:** without breaking "Kubernetes" into its actual pieces, troubleshooting is guesswork. **Solution:** API Server, etcd, Scheduler, Controller Manager (control plane); kubelet, kube-proxy, container runtime (nodes); and the object model built on top — Pods, Deployments/StatefulSets/DaemonSets, Services, ConfigMaps/Secrets, PersistentVolumes. **Result:** each maps to a specific class of real incident (a Pod issue is a workload-object problem; a Service not routing is a networking/label problem; nodes not scaling is an autoscaler problem) — knowing the map is what makes triage fast.
+---
 
-??? question "How do you handle failures in Kubernetes?"
-    **Problem:** failures happen at every layer — container crash, node failure, misconfigured scheduling constraint, resource exhaustion — and each needs a different diagnostic path. **Solution:** `kubectl describe pod` and `kubectl logs --previous` for container-level failures; `kubectl get events --sort-by='.lastTimestamp'` for cluster-level signals (scheduling failures, image pull errors); resource requests/limits plus liveness/readiness probes so Kubernetes itself catches and recovers from most failures automatically, without a human in the loop. **Result:** most real incidents resolve to one of a handful of root causes (OOM, a label-selector mismatch, an unsatisfiable scheduling constraint, a failing health check) that `describe`/`events`/`logs` surface directly, in that order.
+**Q2. How does Kubernetes work internally? Explain the architecture.**
 
-??? question "What is your production experience with Kubernetes?"
-    This is a genuinely personal question — answer with a real incident using the Problem → Solution → Result structure: what broke (a bad rollout, a resource-exhaustion cascade, a networking misconfiguration), your actual diagnostic sequence, and what the root cause turned out to be. Interviewers are listening for whether you have real operational experience, not textbook recall.
+**A:** **Problem:** understanding which component does what is what makes a specific failure ("pods stuck Pending," "API server down") diagnosable rather than mysterious. **Solution:** the control plane (API Server as the single entry point, etcd as the actual state store, Scheduler deciding pod placement, Controller Manager running reconciliation loops) manages desired vs. actual state; worker nodes run kubelet (talks to the API Server, starts containers), kube-proxy (Service networking), and the container runtime. **Result:** this separation is exactly why "the API Server is down" and "my app is down" are different, unrelated problems — existing Pods keep running fine even with a fully unreachable control plane, they just can't be rescheduled or updated until it's back.
 
-??? question "How do you monitor and observe Kubernetes in production?"
-    **Problem:** a cluster can look healthy at the node level while individual applications are silently failing, or vice versa. **Solution:** liveness/readiness probes for per-Pod health (built into Kubernetes itself), `kubectl top`/metrics-server for resource usage, and a real metrics/logging stack (Prometheus for cluster and application metrics, centralized log aggregation) for anything beyond ad hoc `kubectl` checks. **Result:** the combination catches both "this Pod is unhealthy" (probes) and "the cluster is trending toward resource exhaustion" (metrics) before either becomes a full outage.
+---
 
-??? question "What are the security considerations for Kubernetes?"
-    **Problem:** a cluster with default-open networking and no RBAC scoping means any compromised Pod or over-privileged credential can reach far more than it should. **Solution:** RBAC scoped to least privilege (Roles/RoleBindings per namespace, not cluster-wide ClusterRoleBindings by default), NetworkPolicies with a default-deny baseline, Pod Security Standards enforcing non-root/read-only-root-filesystem, and Secrets treated as base64-encoded (not encrypted) unless etcd encryption at rest is explicitly configured. **Result:** these are the same defense-in-depth principles used at the Docker/container layer, applied one level up at the orchestration layer.
+**Q3. What are the main components of Kubernetes?**
 
-??? question "How does Kubernetes compare to alternatives like Docker Swarm or Nomad?"
-    This usually means a specific comparison. Docker Swarm: simpler to operate, much smaller ecosystem, effectively no longer actively developed — fine for small deployments, not the industry default anymore. Nomad: simpler operational model than Kubernetes, supports non-container workloads too, but a much smaller ecosystem of tooling/operators than Kubernetes has. State the specific tradeoff being asked about (operational complexity vs. ecosystem maturity vs. specific feature needs) rather than reciting a generic list.
+**A:** **Problem:** without breaking "Kubernetes" into its actual pieces, troubleshooting is guesswork. **Solution:** API Server, etcd, Scheduler, Controller Manager (control plane); kubelet, kube-proxy, container runtime (nodes); and the object model built on top — Pods, Deployments/StatefulSets/DaemonSets, Services, ConfigMaps/Secrets, PersistentVolumes. **Result:** each maps to a specific class of real incident (a Pod issue is a workload-object problem; a Service not routing is a networking/label problem; nodes not scaling is an autoscaler problem) — knowing the map is what makes triage fast.
 
-??? question "Explain the container-orchestration problem Kubernetes actually solves."
-    Running one container is easy; running many containers, across many machines, staying available through failures, scaling with load, and rolling out updates without downtime is not. Before orchestration, this was solved with custom scripts and manual intervention — genuinely error-prone at scale. Kubernetes' core idea (declare desired state, continuously reconcile actual state to match it) is what makes "a node just died" a non-event instead of an incident: the Scheduler places the affected Pods on healthy nodes automatically, no human paged.
+---
 
-??? question "Explain the control plane / worker node split in more depth."
-    The control plane never runs application workloads — it exists purely to observe and reconcile cluster state (API Server as the front door, etcd as the durable record, Scheduler and Controller Manager as the two main reconciliation actors). Worker nodes run everything user-facing. This split is why control-plane component failures and application failures are independent failure domains: a Scheduler outage means *new* Pods can't be placed, but does nothing to Pods already running and already scheduled.
+**Q4. How do you handle failures in Kubernetes?**
+
+**A:** **Problem:** failures happen at every layer — container crash, node failure, misconfigured scheduling constraint, resource exhaustion — and each needs a different diagnostic path. **Solution:** `kubectl describe pod` and `kubectl logs --previous` for container-level failures; `kubectl get events --sort-by='.lastTimestamp'` for cluster-level signals (scheduling failures, image pull errors); resource requests/limits plus liveness/readiness probes so Kubernetes itself catches and recovers from most failures automatically, without a human in the loop. **Result:** most real incidents resolve to one of a handful of root causes (OOM, a label-selector mismatch, an unsatisfiable scheduling constraint, a failing health check) that `describe`/`events`/`logs` surface directly, in that order.
+
+---
+
+**Q5. What is your production experience with Kubernetes?**
+
+**A:** This is a genuinely personal question — answer with a real incident using the Problem → Solution → Result structure: what broke (a bad rollout, a resource-exhaustion cascade, a networking misconfiguration), your actual diagnostic sequence, and what the root cause turned out to be. Interviewers are listening for whether you have real operational experience, not textbook recall.
+
+---
+
+**Q6. How do you monitor and observe Kubernetes in production?**
+
+**A:** **Problem:** a cluster can look healthy at the node level while individual applications are silently failing, or vice versa. **Solution:** liveness/readiness probes for per-Pod health (built into Kubernetes itself), `kubectl top`/metrics-server for resource usage, and a real metrics/logging stack (Prometheus for cluster and application metrics, centralized log aggregation) for anything beyond ad hoc `kubectl` checks. **Result:** the combination catches both "this Pod is unhealthy" (probes) and "the cluster is trending toward resource exhaustion" (metrics) before either becomes a full outage.
+
+---
+
+**Q7. What are the security considerations for Kubernetes?**
+
+**A:** **Problem:** a cluster with default-open networking and no RBAC scoping means any compromised Pod or over-privileged credential can reach far more than it should. **Solution:** RBAC scoped to least privilege (Roles/RoleBindings per namespace, not cluster-wide ClusterRoleBindings by default), NetworkPolicies with a default-deny baseline, Pod Security Standards enforcing non-root/read-only-root-filesystem, and Secrets treated as base64-encoded (not encrypted) unless etcd encryption at rest is explicitly configured. **Result:** these are the same defense-in-depth principles used at the Docker/container layer, applied one level up at the orchestration layer.
+
+---
+
+**Q8. How does Kubernetes compare to alternatives like Docker Swarm or Nomad?**
+
+**A:** This usually means a specific comparison. Docker Swarm: simpler to operate, much smaller ecosystem, effectively no longer actively developed — fine for small deployments, not the industry default anymore. Nomad: simpler operational model than Kubernetes, supports non-container workloads too, but a much smaller ecosystem of tooling/operators than Kubernetes has. State the specific tradeoff being asked about (operational complexity vs. ecosystem maturity vs. specific feature needs) rather than reciting a generic list.
+
+---
+
+**Q9. Explain the container-orchestration problem Kubernetes actually solves.**
+
+**A:** Running one container is easy; running many containers, across many machines, staying available through failures, scaling with load, and rolling out updates without downtime is not. Before orchestration, this was solved with custom scripts and manual intervention — genuinely error-prone at scale. Kubernetes' core idea (declare desired state, continuously reconcile actual state to match it) is what makes "a node just died" a non-event instead of an incident: the Scheduler places the affected Pods on healthy nodes automatically, no human paged.
+
+---
+
+**Q10. Explain the control plane / worker node split in more depth.**
+
+**A:** The control plane never runs application workloads — it exists purely to observe and reconcile cluster state (API Server as the front door, etcd as the durable record, Scheduler and Controller Manager as the two main reconciliation actors). Worker nodes run everything user-facing. This split is why control-plane component failures and application failures are independent failure domains: a Scheduler outage means *new* Pods can't be placed, but does nothing to Pods already running and already scheduled.
 
 ---
 

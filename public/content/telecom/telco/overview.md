@@ -61,60 +61,87 @@ UTM maintains the network topology model. Visualizes network elements and their 
 
 ## Interview Prep
 
-!!! tip "PSR Formula"
-    Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
+**PSR Formula:** Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
 
 ### Common Interview Questions
 
-??? question "What is Telco Products and why would you use it in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Q1. What is Telco Products and why would you use it in production?**
 
-??? question "How does Telco Products work internally? Explain the architecture."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** *Add your answer here based on your real experience.*
 
-??? question "What are the main components of Telco Products?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Framework:** State the problem it solves → explain your solution → describe the result.
 
-??? question "How do you handle failures in Telco Products?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+---
 
-??? question "What is your production experience with Telco Products?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Q2. How does Telco Products work internally? Explain the architecture.**
 
-??? question "How do you monitor and observe Telco Products in production?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** *Add your answer here based on your real experience.*
 
-??? question "What are the security considerations for Telco Products?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Framework:** State the problem it solves → explain your solution → describe the result.
 
-??? question "How does Telco Products compare to alternatives?"
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+---
 
-??? question "Explain vTeMIP Overview in Telco Products."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**Q3. What are the main components of Telco Products?**
 
-??? question "Explain UOC — Unified Operations Center in Telco Products."
-    *Add your answer here based on your real experience.*
-    
-    **Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q4. How do you handle failures in Telco Products?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q5. What is your production experience with Telco Products?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q6. How do you monitor and observe Telco Products in production?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q7. What are the security considerations for Telco Products?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q8. How does Telco Products compare to alternatives?**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q9. Explain vTeMIP Overview in Telco Products.**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
+
+---
+
+**Q10. Explain UOC — Unified Operations Center in Telco Products.**
+
+**A:** *Add your answer here based on your real experience.*
+
+**Framework:** State the problem it solves → explain your solution → describe the result.
 
 ---
 

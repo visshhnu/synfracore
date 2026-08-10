@@ -105,40 +105,67 @@ kubectl get pods -n production -l app=myapp
 
 ## Interview Prep
 
-!!! tip "PSR Formula"
-    Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
+**PSR Formula:** Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
 
 ### Common Interview Questions
 
-??? question "What is ArgoCD and why would you use it in production?"
-    **Problem:** a CI pipeline pushing changes directly to a cluster means the pipeline holds cluster credentials, and "who changed what" lives in build logs that can be deleted or rotated out. **Solution:** ArgoCD runs inside the cluster and pulls from Git instead — Git becomes the single source of truth, and no external system needs direct cluster access. **Result:** every cluster change traces back to an immutable Git commit, rollback is a `git revert`, and drift from manual changes is detected (and optionally auto-corrected) instead of silently persisting.
+**Q1. What is ArgoCD and why would you use it in production?**
 
-??? question "How does ArgoCD work internally? Explain the architecture."
-    **Problem:** understanding which component does what matters for both scaling ArgoCD itself and debugging a stuck sync. **Solution:** the API Server handles the REST/gRPC API, web UI, and auth; the Repository Server clones Git repos and renders manifests (plain YAML, Helm, Kustomize); the Application Controller watches both Git and the live cluster state, computes the diff, and performs syncs; Redis provides caching. **Result:** ArgoCD can manage the cluster it runs in, or register and manage entirely external clusters from one control plane — the Application Controller is what actually performs each sync, independent of which cluster it targets.
+**A:** **Problem:** a CI pipeline pushing changes directly to a cluster means the pipeline holds cluster credentials, and "who changed what" lives in build logs that can be deleted or rotated out. **Solution:** ArgoCD runs inside the cluster and pulls from Git instead — Git becomes the single source of truth, and no external system needs direct cluster access. **Result:** every cluster change traces back to an immutable Git commit, rollback is a `git revert`, and drift from manual changes is detected (and optionally auto-corrected) instead of silently persisting.
 
-??? question "What are the main components of ArgoCD?"
-    **Problem:** "ArgoCD" names both the tool and several distinct internal pieces worth separating when reasoning about behavior. **Solution:** the `Application` CRD (source + destination + syncPolicy, one per deployed service/environment); `AppProject` (multi-tenant RBAC scoping which repos/clusters/resources an Application is allowed to use); `ApplicationSet` (template that generates many Applications); and the underlying API/Repo/Controller server components. **Result:** most real ArgoCD questions ("why can't this app deploy to that namespace," "why did 10 environments update from one commit") trace back to one of these — AppProject restrictions or an ApplicationSet generator, respectively.
+---
 
-??? question "How do you handle failures in ArgoCD?"
-    **Problem:** a sync can fail outright, or succeed while leaving the workload unhealthy — two different failure modes needing different diagnosis. **Solution:** `argocd app get <app> --show-operation` for the actual sync error (not just "failed"); for a Synced-but-Degraded app, drill into the specific unhealthy resource via `kubectl describe`/`kubectl logs`; for a bad deploy, `git revert` is the GitOps-correct rollback (ArgoCD auto-applies it) rather than a one-off `argocd app rollback`, which reverts the live state without correcting Git. **Result:** treating Git as the actual record of truth, not just the initial deploy mechanism, is what keeps rollback and audit trail consistent over time.
+**Q2. How does ArgoCD work internally? Explain the architecture.**
 
-??? question "What is your production experience with ArgoCD?"
-    This is a genuinely personal question — answer with a real incident using the Problem → Solution → Result structure: a sync stuck in Progressing, an AppProject misconfiguration blocking a legitimate deploy, drift from an emergency `kubectl` fix. Interviewers are listening for whether you've actually operated ArgoCD under real constraints, not just applied an Application manifest once.
+**A:** **Problem:** understanding which component does what matters for both scaling ArgoCD itself and debugging a stuck sync. **Solution:** the API Server handles the REST/gRPC API, web UI, and auth; the Repository Server clones Git repos and renders manifests (plain YAML, Helm, Kustomize); the Application Controller watches both Git and the live cluster state, computes the diff, and performs syncs; Redis provides caching. **Result:** ArgoCD can manage the cluster it runs in, or register and manage entirely external clusters from one control plane — the Application Controller is what actually performs each sync, independent of which cluster it targets.
 
-??? question "How do you monitor and observe ArgoCD in production?"
-    **Problem:** ArgoCD's own UI shows current state, but doesn't proactively alert anyone when a sync fails or health degrades. **Solution:** ArgoCD Notifications, configured with triggers (`on-sync-failed`, `on-health-degraded`) and subscribed per-Application to Slack/email/PagerDuty — subscribing to failures and degradation specifically (not every successful sync) keeps the channel meaningful rather than noisy. **Result:** teams find out about a failed sync or a crashing deployment from an alert, not from a user report or a routine UI check.
+---
 
-??? question "What are the security considerations for ArgoCD?"
-    **Problem:** ArgoCD effectively holds deploy authority over every cluster it manages, and by default a single shared instance has no team isolation. **Solution:** `AppProject` scoping (restrict repos, destinations, and resource kinds per team), RBAC policies mapping SSO groups to roles with least privilege (sync but not delete, for most developers), and never letting ArgoCD itself store secret values — use Sealed Secrets, External Secrets Operator, or SOPS so secret material never lands in the Git repo ArgoCD reads from. **Result:** these are the same least-privilege and secrets-hygiene principles as anywhere else, applied to a system that has real, direct deploy authority over production.
+**Q3. What are the main components of ArgoCD?**
 
-??? question "How does ArgoCD compare to alternatives?"
-    This usually means FluxCD specifically, the other major CNCF GitOps tool. ArgoCD has a full web UI, an application-centric model (`Application`/`AppProject` as first-class objects), and multi-cluster management from one control plane. FluxCD is more Kubernetes-native (built as a set of composable controllers/CRDs, "the GitOps toolkit"), CLI-first, and often preferred for infrastructure-level GitOps. Many organizations use both — Flux for cluster/infrastructure bootstrapping, ArgoCD for application delivery where the UI's visibility matters to a broader team.
+**A:** **Problem:** "ArgoCD" names both the tool and several distinct internal pieces worth separating when reasoning about behavior. **Solution:** the `Application` CRD (source + destination + syncPolicy, one per deployed service/environment); `AppProject` (multi-tenant RBAC scoping which repos/clusters/resources an Application is allowed to use); `ApplicationSet` (template that generates many Applications); and the underlying API/Repo/Controller server components. **Result:** most real ArgoCD questions ("why can't this app deploy to that namespace," "why did 10 environments update from one commit") trace back to one of these — AppProject restrictions or an ApplicationSet generator, respectively.
 
-??? question "Explain GitOps & ArgoCD Concepts, concretely."
-    The four GitOps principles: declarative (desired state described, not imperative steps), versioned (the entire desired state lives in Git, with full history), pulled automatically (ArgoCD, an agent inside the cluster, pulls from Git — nothing external pushes to the cluster), and continuously reconciled (ArgoCD doesn't just apply once; it keeps checking and correcting drift). Each principle maps to a real operational property: versioned means audit trail, pulled means no external system needs cluster credentials, continuously reconciled means configuration drift gets caught rather than silently accumulating.
+---
 
-??? question "Explain Applications & AppProjects, concretely."
-    An `Application` is one deployable unit: `source` (repo URL, path, target revision), `destination` (cluster server URL, namespace), and `syncPolicy` (automated or manual, with `prune`/`selfHeal` flags). An `AppProject` groups Applications and restricts what they're collectively allowed to do — `sourceRepos` (which Git repos are allowed), `destinations` (which cluster/namespace combinations), `clusterResourceWhitelist`/`namespaceResourceWhitelist` (which Kubernetes resource kinds), and `roles` with Casbin-style policies for who can sync vs. just view. Without an AppProject, every Application implicitly has the access of the `default` project — restricting per-team is what makes a single shared ArgoCD instance safe for multiple teams.
+**Q4. How do you handle failures in ArgoCD?**
+
+**A:** **Problem:** a sync can fail outright, or succeed while leaving the workload unhealthy — two different failure modes needing different diagnosis. **Solution:** `argocd app get <app> --show-operation` for the actual sync error (not just "failed"); for a Synced-but-Degraded app, drill into the specific unhealthy resource via `kubectl describe`/`kubectl logs`; for a bad deploy, `git revert` is the GitOps-correct rollback (ArgoCD auto-applies it) rather than a one-off `argocd app rollback`, which reverts the live state without correcting Git. **Result:** treating Git as the actual record of truth, not just the initial deploy mechanism, is what keeps rollback and audit trail consistent over time.
+
+---
+
+**Q5. What is your production experience with ArgoCD?**
+
+**A:** This is a genuinely personal question — answer with a real incident using the Problem → Solution → Result structure: a sync stuck in Progressing, an AppProject misconfiguration blocking a legitimate deploy, drift from an emergency `kubectl` fix. Interviewers are listening for whether you've actually operated ArgoCD under real constraints, not just applied an Application manifest once.
+
+---
+
+**Q6. How do you monitor and observe ArgoCD in production?**
+
+**A:** **Problem:** ArgoCD's own UI shows current state, but doesn't proactively alert anyone when a sync fails or health degrades. **Solution:** ArgoCD Notifications, configured with triggers (`on-sync-failed`, `on-health-degraded`) and subscribed per-Application to Slack/email/PagerDuty — subscribing to failures and degradation specifically (not every successful sync) keeps the channel meaningful rather than noisy. **Result:** teams find out about a failed sync or a crashing deployment from an alert, not from a user report or a routine UI check.
+
+---
+
+**Q7. What are the security considerations for ArgoCD?**
+
+**A:** **Problem:** ArgoCD effectively holds deploy authority over every cluster it manages, and by default a single shared instance has no team isolation. **Solution:** `AppProject` scoping (restrict repos, destinations, and resource kinds per team), RBAC policies mapping SSO groups to roles with least privilege (sync but not delete, for most developers), and never letting ArgoCD itself store secret values — use Sealed Secrets, External Secrets Operator, or SOPS so secret material never lands in the Git repo ArgoCD reads from. **Result:** these are the same least-privilege and secrets-hygiene principles as anywhere else, applied to a system that has real, direct deploy authority over production.
+
+---
+
+**Q8. How does ArgoCD compare to alternatives?**
+
+**A:** This usually means FluxCD specifically, the other major CNCF GitOps tool. ArgoCD has a full web UI, an application-centric model (`Application`/`AppProject` as first-class objects), and multi-cluster management from one control plane. FluxCD is more Kubernetes-native (built as a set of composable controllers/CRDs, "the GitOps toolkit"), CLI-first, and often preferred for infrastructure-level GitOps. Many organizations use both — Flux for cluster/infrastructure bootstrapping, ArgoCD for application delivery where the UI's visibility matters to a broader team.
+
+---
+
+**Q9. Explain GitOps & ArgoCD Concepts, concretely.**
+
+**A:** The four GitOps principles: declarative (desired state described, not imperative steps), versioned (the entire desired state lives in Git, with full history), pulled automatically (ArgoCD, an agent inside the cluster, pulls from Git — nothing external pushes to the cluster), and continuously reconciled (ArgoCD doesn't just apply once; it keeps checking and correcting drift). Each principle maps to a real operational property: versioned means audit trail, pulled means no external system needs cluster credentials, continuously reconciled means configuration drift gets caught rather than silently accumulating.
+
+---
+
+**Q10. Explain Applications & AppProjects, concretely.**
+
+**A:** An `Application` is one deployable unit: `source` (repo URL, path, target revision), `destination` (cluster server URL, namespace), and `syncPolicy` (automated or manual, with `prune`/`selfHeal` flags). An `AppProject` groups Applications and restricts what they're collectively allowed to do — `sourceRepos` (which Git repos are allowed), `destinations` (which cluster/namespace combinations), `clusterResourceWhitelist`/`namespaceResourceWhitelist` (which Kubernetes resource kinds), and `roles` with Casbin-style policies for who can sync vs. just view. Without an AppProject, every Application implicitly has the access of the `default` project — restricting per-team is what makes a single shared ArgoCD instance safe for multiple teams.
 
 ---
 

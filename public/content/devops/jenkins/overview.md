@@ -121,40 +121,67 @@ stage('Test') {
 
 ## Interview Prep
 
-!!! tip "PSR Formula"
-    Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
+**PSR Formula:** Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
 
 ### Common Interview Questions
 
-??? question "What is Jenkins and why would you use it in production?"
-    **Problem:** manual build/test/deploy steps are slow and error-prone, and every developer's local environment drifts slightly differently. **Solution:** Jenkins automates the pipeline — every commit triggers a build, test run, and (if configured) deployment, defined as code in a `Jenkinsfile` rather than manual steps. **Result:** consistent, auditable delivery — the same pipeline runs identically for every commit, and the pipeline definition itself is reviewed the same way application code is.
+**Q1. What is Jenkins and why would you use it in production?**
 
-??? question "How does Jenkins work internally? Explain the architecture."
-    **Problem:** understanding what's actually orchestrating vs. actually executing matters for both scaling and debugging. **Solution:** the controller schedules jobs, stores configuration, and serves the UI; agents (permanent, Docker, Kubernetes, or cloud-provisioned) are where build steps actually execute, each agent offering one or more executors (concurrent build slots). **Result:** this separation is exactly why the controller should never run builds directly — a bad build can crash an agent without threatening the controller's own stability, which affects every other job on the instance.
+**A:** **Problem:** manual build/test/deploy steps are slow and error-prone, and every developer's local environment drifts slightly differently. **Solution:** Jenkins automates the pipeline — every commit triggers a build, test run, and (if configured) deployment, defined as code in a `Jenkinsfile` rather than manual steps. **Result:** consistent, auditable delivery — the same pipeline runs identically for every commit, and the pipeline definition itself is reviewed the same way application code is.
 
-??? question "What are the main components of Jenkins?"
-    **Problem:** "Jenkins" names several distinct pieces useful to separate when reasoning about a pipeline. **Solution:** the controller (orchestration, UI, job config); agents/nodes (execution); executors (concurrent build slots per agent); the workspace (a build's working directory on its agent); and the `Jenkinsfile` (the pipeline definition itself, checked into source control). **Result:** knowing this separation clarifies questions like "why did my build fail on one agent but not another" — workspace state and agent-specific tooling, not the pipeline definition, are usually the answer.
+---
 
-??? question "How do you handle failures in Jenkins?"
-    **Problem:** a failed stage partway through a pipeline can leave a workspace dirty, a deployment half-applied, or a team unnotified. **Solution:** `post { failure {} }` and `post { always {} }` blocks run regardless of which stage failed — use them for cleanup (`cleanWs()`), notifications (Slack/email), and automatic rollback (`kubectl rollout undo`, or re-deploying a known-good `stable`-tagged image). **Result:** failures become visible and recoverable automatically, rather than requiring someone to notice a broken pipeline and manually clean up.
+**Q2. How does Jenkins work internally? Explain the architecture.**
 
-??? question "What is your production experience with Jenkins?"
-    This is a genuinely personal question — answer with a real incident using the Problem → Solution → Result structure: a pipeline that started silently failing, a credential rotation that broke builds, a shared library change that had unexpected blast radius. Interviewers are listening for whether you've actually operated Jenkins under real constraints, not just written a Jenkinsfile once.
+**A:** **Problem:** understanding what's actually orchestrating vs. actually executing matters for both scaling and debugging. **Solution:** the controller schedules jobs, stores configuration, and serves the UI; agents (permanent, Docker, Kubernetes, or cloud-provisioned) are where build steps actually execute, each agent offering one or more executors (concurrent build slots). **Result:** this separation is exactly why the controller should never run builds directly — a bad build can crash an agent without threatening the controller's own stability, which affects every other job on the instance.
 
-??? question "How do you monitor and observe Jenkins in production?"
-    **Problem:** a Jenkins instance itself can degrade (disk filling with old build artifacts, a plugin leaking memory) independently of any individual pipeline's health. **Solution:** the Stage View/Blue Ocean for per-pipeline timing, `Manage Jenkins → Manage Nodes` for agent/executor health, disk usage monitoring on the controller (`df -h /var/lib/jenkins`), and a Build Discarder policy on every job so artifacts don't accumulate indefinitely. **Result:** most real Jenkins outages trace back to disk exhaustion or a stuck/offline agent — both are visible well before they cause an outage if actually monitored.
+---
 
-??? question "What are the security considerations for Jenkins?"
-    **Problem:** Jenkins often has broad credentials (cloud, registry, deployment) and, by default, weak authorization. **Solution:** matrix-based or role-based authorization instead of "any logged-in user can do anything," a controller with zero executors (enforcing agent isolation at the config level, not just convention), Groovy sandbox script approval for untrusted pipeline sources, credentials referenced by ID and never as literal values in a Jenkinsfile, and a deliberate (not blind auto-update) plugin patching cadence. **Result:** these mirror standard least-privilege and secrets-hygiene principles, applied specifically to Jenkins' permission and credentials model.
+**Q3. What are the main components of Jenkins?**
 
-??? question "How does Jenkins compare to alternatives?"
-    This usually means a specific comparison — most often GitHub Actions. Jenkins is self-hosted (you manage infrastructure and scaling) with a mature plugin ecosystem (1800+) and works with any VCS; GitHub Actions is cloud-managed, GitHub-native, and has a simpler YAML setup with a usage-based free tier. Choose Jenkins for complex, non-GitHub, or highly customized pipelines needing full infrastructure control; choose GitHub Actions for GitHub-hosted projects wanting managed infrastructure with less operational overhead.
+**A:** **Problem:** "Jenkins" names several distinct pieces useful to separate when reasoning about a pipeline. **Solution:** the controller (orchestration, UI, job config); agents/nodes (execution); executors (concurrent build slots per agent); the workspace (a build's working directory on its agent); and the `Jenkinsfile` (the pipeline definition itself, checked into source control). **Result:** knowing this separation clarifies questions like "why did my build fail on one agent but not another" — workspace state and agent-specific tooling, not the pipeline definition, are usually the answer.
 
-??? question "Explain Jenkins' Controller-Agent architecture, concretely."
-    The controller never runs build steps — it schedules work and distributes it to agents based on label matching (`agent { label 'docker' }`). Agents can be permanent (always-on VMs, predictable capacity, no per-build startup cost) or ephemeral Kubernetes pods (spun up per build, torn down after, no idle cost, but real per-build pod startup latency, commonly 10-30 seconds). At real scale, a hybrid of both is common: a small static pool for latency-sensitive builds, Kubernetes agents absorbing burst capacity.
+---
 
-??? question "Explain Declarative Pipeline syntax, concretely."
-    `pipeline { agent + environment + stages { stage { steps + post } } + post }` is the full shape. `agent` defines where it runs; `environment` sets variables (including credentials, via `credentials()`, which auto-creates `_USR`/`_PSW` variables for a username/password credential); `stages` are sequential by default, or `parallel {}` for concurrent; `when` gates a stage's execution (branch, environment variable, expression); `post` runs cleanup/notification regardless of outcome. Declarative is preferred over Scripted (raw Groovy) for anything that fits this structure — better validation, better readability, drop into a `script {}` block only for logic Declarative genuinely can't express.
+**Q4. How do you handle failures in Jenkins?**
+
+**A:** **Problem:** a failed stage partway through a pipeline can leave a workspace dirty, a deployment half-applied, or a team unnotified. **Solution:** `post { failure {} }` and `post { always {} }` blocks run regardless of which stage failed — use them for cleanup (`cleanWs()`), notifications (Slack/email), and automatic rollback (`kubectl rollout undo`, or re-deploying a known-good `stable`-tagged image). **Result:** failures become visible and recoverable automatically, rather than requiring someone to notice a broken pipeline and manually clean up.
+
+---
+
+**Q5. What is your production experience with Jenkins?**
+
+**A:** This is a genuinely personal question — answer with a real incident using the Problem → Solution → Result structure: a pipeline that started silently failing, a credential rotation that broke builds, a shared library change that had unexpected blast radius. Interviewers are listening for whether you've actually operated Jenkins under real constraints, not just written a Jenkinsfile once.
+
+---
+
+**Q6. How do you monitor and observe Jenkins in production?**
+
+**A:** **Problem:** a Jenkins instance itself can degrade (disk filling with old build artifacts, a plugin leaking memory) independently of any individual pipeline's health. **Solution:** the Stage View/Blue Ocean for per-pipeline timing, `Manage Jenkins → Manage Nodes` for agent/executor health, disk usage monitoring on the controller (`df -h /var/lib/jenkins`), and a Build Discarder policy on every job so artifacts don't accumulate indefinitely. **Result:** most real Jenkins outages trace back to disk exhaustion or a stuck/offline agent — both are visible well before they cause an outage if actually monitored.
+
+---
+
+**Q7. What are the security considerations for Jenkins?**
+
+**A:** **Problem:** Jenkins often has broad credentials (cloud, registry, deployment) and, by default, weak authorization. **Solution:** matrix-based or role-based authorization instead of "any logged-in user can do anything," a controller with zero executors (enforcing agent isolation at the config level, not just convention), Groovy sandbox script approval for untrusted pipeline sources, credentials referenced by ID and never as literal values in a Jenkinsfile, and a deliberate (not blind auto-update) plugin patching cadence. **Result:** these mirror standard least-privilege and secrets-hygiene principles, applied specifically to Jenkins' permission and credentials model.
+
+---
+
+**Q8. How does Jenkins compare to alternatives?**
+
+**A:** This usually means a specific comparison — most often GitHub Actions. Jenkins is self-hosted (you manage infrastructure and scaling) with a mature plugin ecosystem (1800+) and works with any VCS; GitHub Actions is cloud-managed, GitHub-native, and has a simpler YAML setup with a usage-based free tier. Choose Jenkins for complex, non-GitHub, or highly customized pipelines needing full infrastructure control; choose GitHub Actions for GitHub-hosted projects wanting managed infrastructure with less operational overhead.
+
+---
+
+**Q9. Explain Jenkins' Controller-Agent architecture, concretely.**
+
+**A:** The controller never runs build steps — it schedules work and distributes it to agents based on label matching (`agent { label 'docker' }`). Agents can be permanent (always-on VMs, predictable capacity, no per-build startup cost) or ephemeral Kubernetes pods (spun up per build, torn down after, no idle cost, but real per-build pod startup latency, commonly 10-30 seconds). At real scale, a hybrid of both is common: a small static pool for latency-sensitive builds, Kubernetes agents absorbing burst capacity.
+
+---
+
+**Q10. Explain Declarative Pipeline syntax, concretely.**
+
+**A:** `pipeline { agent + environment + stages { stage { steps + post } } + post }` is the full shape. `agent` defines where it runs; `environment` sets variables (including credentials, via `credentials()`, which auto-creates `_USR`/`_PSW` variables for a username/password credential); `stages` are sequential by default, or `parallel {}` for concurrent; `when` gates a stage's execution (branch, environment variable, expression); `post` runs cleanup/notification regardless of outcome. Declarative is preferred over Scripted (raw Groovy) for anything that fits this structure — better validation, better readability, drop into a `script {}` block only for logic Declarative genuinely can't express.
 
 ---
 

@@ -254,40 +254,67 @@ kubectl get authorizationpolicy -A
 
 ## Interview Prep
 
-!!! tip "PSR Formula"
-    Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
+**PSR Formula:** Answer every question: **Problem → Solution → Result**. 45-90 seconds max.
 
 ### Common Interview Questions
 
-??? question "What is Istio / Service Mesh and why would you use it in production?"
-    A service mesh moves cross-cutting networking concerns — mTLS, retries, circuit breaking, distributed tracing — out of application code and into a sidecar proxy (Envoy) injected alongside every pod. You'd reach for it once you have enough microservices that reimplementing these concerns per-service becomes unmaintainable — typically past 5+ services with real cross-cutting needs. The result: consistent security and traffic policy enforced in YAML, with zero application code changes.
+**Q1. What is Istio / Service Mesh and why would you use it in production?**
 
-??? question "How does Istio / Service Mesh work internally? Explain the architecture."
-    Istio splits into a control plane (`istiod`) and a data plane (the Envoy sidecars). `istiod` converts Istio config — VirtualService, DestinationRule, PeerAuthentication — into Envoy's native xDS configuration and pushes it to every sidecar. The Envoy sidecar sits next to each application container and intercepts all inbound/outbound traffic for that pod, enforcing routing, mTLS, and authorization without the application knowing it's there.
+**A:** A service mesh moves cross-cutting networking concerns — mTLS, retries, circuit breaking, distributed tracing — out of application code and into a sidecar proxy (Envoy) injected alongside every pod. You'd reach for it once you have enough microservices that reimplementing these concerns per-service becomes unmaintainable — typically past 5+ services with real cross-cutting needs. The result: consistent security and traffic policy enforced in YAML, with zero application code changes.
 
-??? question "What are the main components of Istio / Service Mesh?"
-    `istiod` (control plane) — bundles what used to be separate components: Pilot (converts Istio config to Envoy config), Citadel (Certificate Authority — issues/rotates mTLS certs), and Galley (validates config before it's applied). The Envoy sidecar (data plane) is the proxy actually injected into every pod that carries out the policies `istiod` pushes to it.
+---
 
-??? question "How do you handle failures in Istio / Service Mesh?"
-    Istio handles failure at the traffic layer using a DestinationRule's `outlierDetection` (circuit breaking): if a pod returns a configured number of consecutive 5xx errors within a window (e.g. 5 errors in 30s), Istio ejects it from the load-balancing pool for a set duration so it can recover, then re-admits it. Retries and timeouts are configured per-route in a VirtualService (`retries.attempts`, `perTryTimeout`) so transient failures are retried automatically without application code handling them.
+**Q2. How does Istio / Service Mesh work internally? Explain the architecture.**
 
-??? question "What is your production experience with Istio / Service Mesh?"
-    *(Needs verification — this platform can't fabricate a first-person production war story. Answer this from your own deployment: what version, what production profile settings, what broke and how it was diagnosed with `istioctl analyze` / `proxy-status`.)*
+**A:** Istio splits into a control plane (`istiod`) and a data plane (the Envoy sidecars). `istiod` converts Istio config — VirtualService, DestinationRule, PeerAuthentication — into Envoy's native xDS configuration and pushes it to every sidecar. The Envoy sidecar sits next to each application container and intercepts all inbound/outbound traffic for that pod, enforcing routing, mTLS, and authorization without the application knowing it's there.
 
-??? question "How do you monitor and observe Istio / Service Mesh in production?"
-    Istio gives you all three observability signals with zero application instrumentation: metrics (request rate, error rate, P50/P95/P99 latency per service pair) exported to Prometheus and visualized in the built-in Grafana dashboards, distributed traces via automatic header propagation into Jaeger or Zipkin, and access logs from every Envoy sidecar into ELK or Loki. `istioctl dashboard kiali` gives a live service-mesh topology view on top of these signals.
+---
 
-??? question "What are the security considerations for Istio / Service Mesh?"
-    The core security primitives are PeerAuthentication (controls mTLS mode — STRICT rejects all non-mTLS traffic, PERMISSIVE allows both during migration) and AuthorizationPolicy (fine-grained, service-account-based rules for which service can call which, on which path/method). In production, STRICT mTLS mesh-wide plus explicit AuthorizationPolicy allow-lists (rather than relying on network-level isolation alone) is the standard zero-trust posture. The control plane itself (`istiod`) is also a high-value target and should be restricted with its own RBAC.
+**Q3. What are the main components of Istio / Service Mesh?**
 
-??? question "How does Istio / Service Mesh compare to alternatives?"
-    Istio vs. Linkerd is the main comparison: Istio uses the heavier, more feature-rich Envoy proxy and supports advanced traffic management, multi-cluster, JWT auth, and WASM extensions — at the cost of a larger footprint and steeper learning curve. Linkerd uses a lighter, faster Rust-based proxy and focuses on mTLS plus basic observability with much less operational complexity. Choose Istio when you genuinely need its advanced traffic-management or multi-cluster features; choose Linkerd when mTLS and basic observability are the actual requirement.
+**A:** `istiod` (control plane) — bundles what used to be separate components: Pilot (converts Istio config to Envoy config), Citadel (Certificate Authority — issues/rotates mTLS certs), and Galley (validates config before it's applied). The Envoy sidecar (data plane) is the proxy actually injected into every pod that carries out the policies `istiod` pushes to it.
 
-??? question "Explain What is a Service Mesh? in Istio / Service Mesh."
-    A service mesh is the infrastructure layer handling service-to-service communication for you — traffic routing, retries, circuit breaking, mTLS encryption, and telemetry — implemented via a sidecar proxy injected into every pod, so no individual microservice has to implement these concerns itself.
+---
 
-??? question "Explain mTLS — Zero Trust Networking in Istio / Service Mesh."
-    mTLS (mutual TLS) means both sides of a connection prove their identity, not just the server as in regular TLS. Istio issues every pod a SPIFFE-format certificate automatically via its built-in CA and encrypts/authenticates all service-to-service traffic with zero code changes. STRICT mode enforces this mesh-wide by rejecting any non-mTLS connection; PERMISSIVE mode is the safer default during rollout since it still accepts plaintext from services not yet part of the mesh.
+**Q4. How do you handle failures in Istio / Service Mesh?**
+
+**A:** Istio handles failure at the traffic layer using a DestinationRule's `outlierDetection` (circuit breaking): if a pod returns a configured number of consecutive 5xx errors within a window (e.g. 5 errors in 30s), Istio ejects it from the load-balancing pool for a set duration so it can recover, then re-admits it. Retries and timeouts are configured per-route in a VirtualService (`retries.attempts`, `perTryTimeout`) so transient failures are retried automatically without application code handling them.
+
+---
+
+**Q5. What is your production experience with Istio / Service Mesh?**
+
+**A:** *(Needs verification — this platform can't fabricate a first-person production war story. Answer this from your own deployment: what version, what production profile settings, what broke and how it was diagnosed with `istioctl analyze` / `proxy-status`.)*
+
+---
+
+**Q6. How do you monitor and observe Istio / Service Mesh in production?**
+
+**A:** Istio gives you all three observability signals with zero application instrumentation: metrics (request rate, error rate, P50/P95/P99 latency per service pair) exported to Prometheus and visualized in the built-in Grafana dashboards, distributed traces via automatic header propagation into Jaeger or Zipkin, and access logs from every Envoy sidecar into ELK or Loki. `istioctl dashboard kiali` gives a live service-mesh topology view on top of these signals.
+
+---
+
+**Q7. What are the security considerations for Istio / Service Mesh?**
+
+**A:** The core security primitives are PeerAuthentication (controls mTLS mode — STRICT rejects all non-mTLS traffic, PERMISSIVE allows both during migration) and AuthorizationPolicy (fine-grained, service-account-based rules for which service can call which, on which path/method). In production, STRICT mTLS mesh-wide plus explicit AuthorizationPolicy allow-lists (rather than relying on network-level isolation alone) is the standard zero-trust posture. The control plane itself (`istiod`) is also a high-value target and should be restricted with its own RBAC.
+
+---
+
+**Q8. How does Istio / Service Mesh compare to alternatives?**
+
+**A:** Istio vs. Linkerd is the main comparison: Istio uses the heavier, more feature-rich Envoy proxy and supports advanced traffic management, multi-cluster, JWT auth, and WASM extensions — at the cost of a larger footprint and steeper learning curve. Linkerd uses a lighter, faster Rust-based proxy and focuses on mTLS plus basic observability with much less operational complexity. Choose Istio when you genuinely need its advanced traffic-management or multi-cluster features; choose Linkerd when mTLS and basic observability are the actual requirement.
+
+---
+
+**Q9. Explain What is a Service Mesh? in Istio / Service Mesh.**
+
+**A:** A service mesh is the infrastructure layer handling service-to-service communication for you — traffic routing, retries, circuit breaking, mTLS encryption, and telemetry — implemented via a sidecar proxy injected into every pod, so no individual microservice has to implement these concerns itself.
+
+---
+
+**Q10. Explain mTLS — Zero Trust Networking in Istio / Service Mesh.**
+
+**A:** mTLS (mutual TLS) means both sides of a connection prove their identity, not just the server as in regular TLS. Istio issues every pod a SPIFFE-format certificate automatically via its built-in CA and encrypts/authenticates all service-to-service traffic with zero code changes. STRICT mode enforces this mesh-wide by rejecting any non-mTLS connection; PERMISSIVE mode is the safer default during rollout since it still accepts plaintext from services not yet part of the mesh.
 
 ---
 
