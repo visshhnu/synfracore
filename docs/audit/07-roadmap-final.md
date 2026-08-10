@@ -3381,6 +3381,57 @@ substance, one scheduled content refresh identified** — not a blanket
 
 ---
 
+## Aerospace + VLSI depth expansion — closed 2026-08-09 (both academies at 9 sections/technology)
+
+**What this closes**: both verticals launched (2026-07-31 Aerospace,
+confirmed-live 2026-08-07 VLSI) as deliberate 3-tab starters (`overview`,
+`fundamentals`, `interview` only). This campaign adds the 6 missing tabs
+— `advanced`, `certification`, `installation`, `intermediate`,
+`prerequisites`, `troubleshooting` — to all 7 Aerospace technologies and
+all 7 VLSI technologies (84 files), plus propagates the Dholera fab-status
+correction (see the entry above) into `vlsi-careers`' two cross-references
+that hadn't been touched when that fix originally landed. Authored in an
+isolated sandbox with no push/deploy credentials, same pattern as the
+DevOps sitewide-norm campaign and Splunk's close-out; this session's job
+was independent verification, merge, and deploy.
+
+**Verified independently, not trusted from the sandbox report**: registry
+regenerated in native Linux — 2450 entries, 0 dropped, 0 broken, 0 added
+— confirmed idempotent via an immediate second run. Full predeploy chain
+re-run clean (`validate:roadmaps` PASS, `validate:content-quality` PASS
+with 0 hard-fail and 22 WARN hits within the new files, all manually
+confirmed as the documented "adjacent code blocks" false-positive
+pattern, `validate:no-hardcoded-stats` PASS). Content spot-checked: GATE
+EC's `effective_rate()` penalty math in `vlsi-careers/intermediate.md`
+independently recomputed by hand end to end (48.333 marks at 75%
+accuracy → 35.333 at 60%, a 26.9% score drop from a 20%-relative accuracy
+drop — exact) and the academy's two honest-positive GATE EC certification
+matches (Digital Logic, Analog/Mixed-Signal) cross-checked against two
+honest-negative ones (HDL, Functional Verification) — all four
+internally consistent with each other.
+
+**Parity claim, checked precisely rather than taken at face value**: all
+14 technologies now have exactly 9 files each (confirmed via direct
+directory listing) and all 126 section pages (14 technologies × 9
+sections) return 200 live in production, confirmed by direct fetch, not
+inferred from the commit. **This is genuine COUNT parity with DevOps's
+own typical tab depth** (established DevOps technologies range 9–11
+files — `prometheus` sits at exactly 9) — **but not identical tab
+vocabulary.** DevOps's norm tab set is `{cheatsheets, faq, notes, pyq,
+real-world-scenarios}` (plus `advanced` on some); Aerospace/VLSI's new
+norm tab set is `{prerequisites, installation, certification,
+troubleshooting}` instead. Both converge on ~9 sections of comparable
+depth, but by different, deliberately domain-appropriate tab names
+(structured learning/exam-prep for Aerospace/VLSI vs. quick-reference/
+interview-prep for DevOps), not a literal shared file-name set. Stating
+this precisely so "full parity" isn't read as "identical section
+structure" by a future reader.
+
+Merged and pushed to `main` (`a9c28b8`). Both verticals now genuinely,
+verifiably closed at the 9-section depth target — not just committed.
+
+---
+
 ## 34-file stale "Learning Path" label fix — completed 2026-08-07
 
 Sitewide grep confirmed (per the technical-SEO check earlier this
