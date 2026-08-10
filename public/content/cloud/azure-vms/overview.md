@@ -1,6 +1,6 @@
 # Azure Virtual Machines
 
-**Before you start:** basic Azure familiarity (subscriptions, resource groups — see the Azure Core Overview first if those are new) is assumed. VNets, subnets, and NSGs are used directly in the networking examples below; the dedicated Azure Networking (VNets) course covers them in depth if you want that grounding first, but the basics needed to follow along here are explained as they come up. No prior VM/server administration experience is required.
+**Before you start:** basic Azure familiarity (subscriptions, resource groups — see the Azure Core Overview first if those are new) is assumed. VNets and subnets are used directly in the networking examples below; the dedicated Azure Networking (VNets) course covers NSGs and deeper networking topics if you want that grounding first, but the VNet/subnet basics needed to follow along here are explained as they come up. No prior VM/server administration experience is required.
 
 Azure VMs provide IaaS compute. Choose the right size, configure networking, and automate provisioning with ARM templates or Terraform.
 

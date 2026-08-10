@@ -22,6 +22,33 @@ DynamoDB      ──→                            send email, etc.)
 EventBridge   ──→
 ```
 
+## IAM Execution Role
+
+Every Lambda function needs an IAM execution role — a role Lambda itself assumes (via a trust policy trusting `lambda.amazonaws.com`) to get permission to do anything beyond just running your code: writing logs to CloudWatch, reading from DynamoDB, publishing to SNS, whatever the function's own logic touches. Without this role, a function can't even write its own logs.
+
+```json
+// Trust policy — lets the Lambda SERVICE assume this role (not a person)
+{
+  "Version": "2012-10-17",
+  "Statement": [{
+    "Effect": "Allow",
+    "Principal": {"Service": "lambda.amazonaws.com"},
+    "Action": "sts:AssumeRole"
+  }]
+}
+```
+
+```bash
+# Minimum viable execution role — logging only
+aws iam create-role --role-name my-function-role \
+  --assume-role-policy-document file://trust-policy.json
+
+aws iam attach-role-policy --role-name my-function-role \
+  --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+```
+
+Everything beyond basic logging — reading the `UsersTable` in the handler above, calling Rekognition in the S3-trigger example — needs its own permission added to this role. The SAM template further down (`Policies: - DynamoDBReadPolicy`, `- RekognitionDetectOnlyPolicy`) is SAM's shorthand for generating and attaching exactly this kind of role automatically, rather than hand-writing the IAM policy JSON yourself.
+
 **Key facts:**
 - Max execution time: **15 minutes** (900 seconds)
 - Memory: **128MB to 10,240MB** (CPU scales proportionally)

@@ -88,6 +88,25 @@ Database Subnet → NSG + Private Endpoints
 | FQDN filtering | No | Yes |
 | Cost | Free | Paid *(needs verification — Azure Firewall's hourly rate changes with SKU/region; previously stated here as ~$1.25/hour)* |
 
+## WAF — Web Application Firewall
+
+A WAF operates at Layer 7, inspecting actual HTTP request content — not just source/destination/port like a Security Group, NSG, or NACL, and not just protocol/FQDN like Azure Firewall. It's the layer that catches things a network-layer firewall structurally can't see: a SQL injection payload in a POST body, a cross-site-scripting attempt in a query parameter, a request pattern matching a known bad bot signature.
+
+```
+AWS WAF                                Azure WAF (on Application Gateway/Front Door)
+────────                               ──────────────────────────────────────────
+Attached to CloudFront, ALB,           Attached to Application Gateway or
+or API Gateway                         Front Door — not a standalone resource
+
+Managed Rule Groups: OWASP Top 10,     Managed Rule Sets: OWASP Core Rule Set
+known bad IPs, SQLi/XSS signatures     (CRS), bot protection
+
+Rate-based rules: block an IP          Custom + managed rules combined,
+sending >N requests per 5 min          evaluated in Prevention or Detection mode
+```
+
+WAF and network-layer controls (Security Groups, NACLs, NSGs, Azure Firewall) aren't substitutes for each other — a WAF blocking a malicious HTTP payload does nothing to stop an internal service from being reachable on a port it shouldn't be, and a tightly-scoped Security Group does nothing to stop a SQL injection string arriving on a port it explicitly allowed open. Real production setups run both layers together, not one instead of the other.
+
 ## Zero Trust Principles
 1. Verify identity explicitly — MFA, device health check, location
 2. Least privilege access — RBAC, just-in-time access
