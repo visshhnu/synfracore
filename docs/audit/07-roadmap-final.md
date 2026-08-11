@@ -2996,6 +2996,43 @@ Items noted during other work that are real structural findings but out of
 scope for the phase they were found in. Not fixed, not actively being worked —
 logged here so they aren't lost before their own phase picks them up.
 
+### Homepage LCP — mega-menu hydration cost (needs verification — open, 2026-08-11)
+
+**Found during the CWV investigation session** (AI Assistant nav-item fix +
+FAQPage JSON-LD + font-preload/CLS work, same session). CC's real Lighthouse
+measurement found the homepage's actual LCP element is the Inter subtitle
+paragraph under the H1, with a ~2.9s **render-delay** (not a font-loading
+delay — the font-preload/fallback-metric work in this same session did not
+and was not expected to resolve this; it fixed a separate, real font-related
+LCP/CLS issue on the same page). Root-caused two candidate contributors:
+
+1. **Fixed this session**: `ClerkProvider` was unconditionally rendering
+   `<link rel="preload" as="script">` for Clerk's UI bundle on every page,
+   including the fully public homepage where almost no visitor opens the
+   sign-in modal — a real, confirmed (via `@clerk/nextjs` SDK source, not
+   assumed) competing high-priority fetch during the LCP-critical window.
+   Fixed via `prefetchUI={false}` on `ClerkProvider` in `app/layout.tsx`
+   (`(needs verification)` for actual impact — no live before/after
+   Lighthouse run was possible from the agent sandbox this fix was written
+   in; CC's next real measurement is what confirms whether this alone
+   closes the gap).
+2. **NOT fixed, NOT pursued further without a trace — logged here per
+   explicit instruction not to guess at this one:** the homepage's Navbar
+   renders a large mega-menu (20 academy categories, each with nested
+   domains/technologies/colors/icons) fully inline in the initial SSR HTML.
+   That's a substantial hydration payload — plausible, well-documented class
+   of cause for exactly this symptom (content visually present, but a busy
+   main thread delays the actual paint) under Lighthouse mobile's CPU
+   throttling — but this was NOT confirmed against a real performance trace
+   (Chrome DevTools Performance panel / Lighthouse main-thread breakdown),
+   which the investigating agent did not have access to. **Do not treat this
+   as root-caused.** Next step, when someone has trace access: profile the
+   homepage load under CPU throttling and check whether Navbar
+   hydration/mega-menu attachment is actually occupying the main thread
+   during the measured render-delay window, before designing a fix (e.g.
+   deferring mega-menu hydration, lazy-mounting it on first hover/interaction
+   instead of on page load).
+
 ### Section-Navigation cleanup phase (not yet started)
 
 **`/learn` vs. Education-academy content-root confusion (found during Phase 6

@@ -50,7 +50,25 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <ClerkProvider afterSignOutUrl="/">
+    <ClerkProvider
+      afterSignOutUrl="/"
+      // prefetchUI defaults to true, which makes Clerk unconditionally render
+      // <link rel="preload" as="script"> for its UI bundle on EVERY page,
+      // including fully public marketing pages like the homepage where the
+      // overwhelming majority of visitors never open the sign-in modal.
+      // That preload is high-priority and gets picked up by the browser's
+      // preload scanner immediately on parsing <head>, competing for early
+      // bandwidth against the page's actual content during the exact window
+      // that determines LCP. Confirmed via the installed SDK source
+      // (node_modules/@clerk/nextjs/dist/cjs/app-router/client/clerk-script-tags.js)
+      // — no downside to disabling it: sign-in/sign-up still work identically,
+      // Clerk just fetches the UI bundle on-demand instead of speculatively.
+      // Fixed 2026-08-11 as part of the LCP investigation (see
+      // docs/audit/07-roadmap-final.md for the fuller root-cause writeup,
+      // including the still-open mega-menu hydration question this does NOT
+      // resolve by itself).
+      prefetchUI={false}
+    >
       <html lang="en" suppressHydrationWarning>
       <head>
         {/* Self-hosted fonts — eliminates Google DNS lookup + render blocking */}
@@ -95,6 +113,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             priority), adding a full font-fetch round trip onto LCP.
             Confirmed via CWV audit 2026-08-11. */}
         <link rel="preload" href="/fonts/pjs-800.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        {/* inter-500/inter-600 — CLS tail fix (2026-08-11). Both are used
+            above the fold on the homepage (Navbar's desktop nav links at
+            weight 500, the hero's bold subtitle at weight 600) but were
+            being discovered late with no preload priority. That timing was
+            inconsistent enough run-to-run to sometimes land their reflow
+            outside the initial CLS session window, producing an isolated,
+            worse-scoring window on 2/8 measured runs (0.433) instead of
+            being absorbed into the diluted initial-load window like the
+            other 6/8 runs. Preloading removes the timing variance. */}
+        <link rel="preload" href="/fonts/inter-500.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/inter-600.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem('theme');if(t==='light')document.documentElement.classList.add('light');}catch(e){}` }} />
         <style>{`.goog-te-banner-frame,.skiptranslate{display:none!important}body{top:0!important}`}</style>
         <WebSiteJsonLd />
