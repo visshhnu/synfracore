@@ -63,9 +63,38 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           @font-face{font-family:'Plus Jakarta Sans';src:url('/fonts/pjs-800.woff2') format('woff2');font-weight:800;font-display:swap;}
           @font-face{font-family:'JetBrains Mono';src:url('/fonts/jbm-400.woff2') format('woff2');font-weight:400;font-display:swap;}
           @font-face{font-family:'JetBrains Mono';src:url('/fonts/jbm-500.woff2') format('woff2');font-weight:500;font-display:swap;}
+
+          /* Fallback-metric overrides — the actual CLS fix (2026-08-11).
+             font-display:swap alone means text first paints in the browser's
+             system sans-serif, then reflows once each custom font loads,
+             because the fallback and the custom font have different glyph
+             widths/heights. These "* Fallback" faces are local system fonts
+             (Arial, which every OS ships or has an equivalent for) resized
+             via ascent/descent/line-gap/size-adjust to match each real
+             font's actual metrics — computed from the real .woff2 files in
+             /public/fonts via fontkit, matched against @capsizecss/metrics'
+             verified Arial metrics (regular for weight<700, bold for >=700).
+             Referencing '<Family> Fallback' before the generic sans-serif in
+             each font stack (see globals.css) means the fallback now occupies
+             the same box the real font will occupy, so the swap-in causes
+             little to no reflow instead of a visible shift. */
+          @font-face{font-family:'Inter Fallback';src:local('Arial'),local('ArialMT');font-weight:400;font-display:swap;ascent-override:70.7575%;descent-override:17.618%;line-gap-override:0%;size-adjust:136.9113%;}
+          @font-face{font-family:'Inter Fallback';src:local('Arial'),local('ArialMT');font-weight:500;font-display:swap;ascent-override:69.9738%;descent-override:17.4229%;line-gap-override:0%;size-adjust:138.4447%;}
+          @font-face{font-family:'Inter Fallback';src:local('Arial'),local('ArialMT');font-weight:600;font-display:swap;ascent-override:69.2615%;descent-override:17.2455%;line-gap-override:0%;size-adjust:139.8686%;}
+          @font-face{font-family:'Plus Jakarta Sans Fallback';src:local('Arial'),local('ArialMT');font-weight:600;font-display:swap;ascent-override:81.7564%;descent-override:17.4855%;line-gap-override:0%;size-adjust:126.9625%;}
+          @font-face{font-family:'Plus Jakarta Sans Fallback';src:local('Arial Bold'),local('Arial-BoldMT');font-weight:700;font-display:swap;ascent-override:86.6469%;descent-override:18.5314%;line-gap-override:0%;size-adjust:119.7965%;}
+          @font-face{font-family:'Plus Jakarta Sans Fallback';src:local('Arial Bold'),local('Arial-BoldMT');font-weight:800;font-display:swap;ascent-override:85.3116%;descent-override:18.2458%;line-gap-override:0%;size-adjust:121.6716%;}
+          @font-face{font-family:'JetBrains Mono Fallback';src:local('Arial'),local('ArialMT');font-weight:400;font-display:swap;ascent-override:75.7861%;descent-override:22.29%;line-gap-override:0%;size-adjust:134.5893%;}
+          @font-face{font-family:'JetBrains Mono Fallback';src:local('Arial'),local('ArialMT');font-weight:500;font-display:swap;ascent-override:75.7861%;descent-override:22.29%;line-gap-override:0%;size-adjust:134.5893%;}
         ` }} />
         <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/pjs-700.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        {/* pjs-800 was missing here despite being the actual LCP element's
+            font on the homepage (.display-xl, the H1, is weight 800) — it
+            was being discovered late (after CSSOM build, no preload
+            priority), adding a full font-fetch round trip onto LCP.
+            Confirmed via CWV audit 2026-08-11. */}
+        <link rel="preload" href="/fonts/pjs-800.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem('theme');if(t==='light')document.documentElement.classList.add('light');}catch(e){}` }} />
         <style>{`.goog-te-banner-frame,.skiptranslate{display:none!important}body{top:0!important}`}</style>
         <WebSiteJsonLd />

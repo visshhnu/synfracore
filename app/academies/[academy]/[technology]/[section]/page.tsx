@@ -16,7 +16,8 @@ import ProgressTracker from "@/components/tech/ProgressTracker";
 import QuickQuiz from "@/components/tech/QuickQuiz";
 import SectionQuiz from "@/components/quiz/SectionQuiz";
 import { pageMetadata } from "@/lib/seo/metadata";
-import { CourseJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { CourseJsonLd, BreadcrumbJsonLd, FAQJsonLd } from "@/components/seo/JsonLd";
+import { parseFaqMarkdown } from "@/lib/seo/parseFaq";
 
 type Props = {
   params: Promise<{ academy: string; technology: string; section: string }>;
@@ -163,6 +164,13 @@ export default async function SectionPage({ params }: Props) {
     initialContent = await fetchContentEdge(aSlug, tSlug, section);
   }
 
+  // FAQPage structured data — parsed from the same markdown already
+  // resolved above, no extra fetch. parseFaqMarkdown() returns [] for
+  // anything malformed/empty; FAQJsonLd itself also no-ops on an empty
+  // array, so this is safe even if a future faq.md doesn't match the
+  // expected "## question" format.
+  const faqItems = section === "faq" && initialContent ? parseFaqMarkdown(initialContent) : [];
+
   // Sidebar "Practice Exams" tab — only for technologies with a real
   // question_papers row (technologyExamTypeMap in lib/data/navigation.ts is
   // just the registry of which exam_type to look for; existence is checked
@@ -192,6 +200,7 @@ export default async function SectionPage({ params }: Props) {
           { name: sectionData?.label || section, url: canonicalUrl },
         ]}
       />
+      {faqItems.length > 0 && <FAQJsonLd items={faqItems} />}
       {/* Sidebar */}
       <aside
         style={{

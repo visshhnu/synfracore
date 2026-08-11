@@ -1,4 +1,12 @@
-// Structured data for Google rich results — Course, BreadcrumbList, WebSite, Organization
+// Structured data for Google rich results — Course, BreadcrumbList, WebSite, Organization, FAQPage
+//
+// Note on FAQPage (added 2026-08-11): Google discontinued the FAQ rich
+// result for all sites as of 2026-05-07 (it had already been restricted to
+// government/health sites only since 2023) — this markup will not produce a
+// SERP snippet. It's kept here because Google has stated it still parses
+// FAQPage markup for page understanding, and other consumers (Bing, AI
+// answer engines that crawl schema.org data) do still use it. Don't assume
+// this drives a visible rich result — it doesn't, currently.
 
 interface CourseJsonLdProps {
   name: string;
@@ -78,6 +86,45 @@ export function WebSiteJsonLd() {
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
+
+interface FAQJsonLdProps {
+  items: { question: string; answer: string }[];
+}
+
+// Caller is responsible for not rendering this at all when items is empty —
+// an empty mainEntity array is invalid FAQPage structured data, not a valid
+// "no FAQs" state. See lib/seo/parseFaq.ts's parseFaqMarkdown() contract.
+export function FAQJsonLd({ items }: FAQJsonLdProps) {
+  if (items.length === 0) return null;
+
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": items.map((item) => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer,
+      },
+    })),
+  };
+
+  // Unlike the other JsonLd components above (whose data is all
+  // hardcoded/first-party strings), this one embeds real content pulled from
+  // faq.md files — JSON.stringify does not escape "<", so an answer
+  // containing a literal "</script>" sequence (unlikely today, confirmed via
+  // corpus grep, but not structurally prevented) would terminate this script
+  // tag early and corrupt the page. <-escaping "<" closes that off.
+  const json = JSON.stringify(data).replace(/</g, "\\u003c");
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: json }}
     />
   );
 }
