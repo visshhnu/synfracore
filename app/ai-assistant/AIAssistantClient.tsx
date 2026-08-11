@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { Send, Bot, User, Loader2, Sparkles, Zap } from "lucide-react";
+import { AssistantMessageBubble } from "@/components/ai/AssistantMessageBubble";
 
 type Message = {
   role: "user" | "assistant";
@@ -192,11 +193,15 @@ Always provide: accurate technical answers, working code examples in fenced bloc
                 <div style={{ width: "33px", height: "33px", borderRadius: "10px", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", background: msg.role === "user" ? "rgba(139,92,246,0.15)" : "linear-gradient(135deg,#3B82F6,#8B5CF6)", border: msg.role === "user" ? "1px solid rgba(139,92,246,0.3)" : "none" }}>
                   {msg.role === "user" ? <User size={15} style={{ color: "#A78BFA" }} /> : <Bot size={15} style={{ color: "#fff" }} />}
                 </div>
-                <div style={{ maxWidth: "87%", padding: "13px 17px", borderRadius: msg.role === "user" ? "16px 4px 16px 16px" : "4px 16px 16px 16px", background: msg.role === "user" ? "rgba(139,92,246,0.12)" : "#0F1A2E", border: `1px solid ${msg.role === "user" ? "rgba(139,92,246,0.2)" : "#1E2D47"}` }}>
-                  {msg.role === "user"
-                    ? <p style={{ color: "var(--text-1)", fontSize: "14px", lineHeight: 1.6, margin: 0 }}>{msg.content}</p>
-                    : <div>{renderMarkdown(msg.content)}</div>}
-                </div>
+                {msg.role === "user" ? (
+                  <div style={{ maxWidth: "87%", padding: "13px 17px", borderRadius: "16px 4px 16px 16px", background: "rgba(139,92,246,0.12)", border: "1px solid rgba(139,92,246,0.2)" }}>
+                    <p style={{ color: "var(--text-1)", fontSize: "14px", lineHeight: 1.6, margin: 0 }}>{msg.content}</p>
+                  </div>
+                ) : (
+                  <AssistantMessageBubble>
+                    <div>{renderMarkdown(msg.content)}</div>
+                  </AssistantMessageBubble>
+                )}
               </div>
             ))}
             {loading && (

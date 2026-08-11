@@ -3033,6 +3033,99 @@ LCP/CLS issue on the same page). Root-caused two candidate contributors:
    deferring mega-menu hydration, lazy-mounting it on first hover/interaction
    instead of on page load).
 
+### AI Assistant bubble — no light-mode styling (flagged, not fixed, 2026-08-12)
+
+**Found while fixing the dark-mode contrast bug on the assistant chat
+bubble** (`components/ai/AssistantMessageBubble.tsx`, now shared by
+`app/ai-assistant/AIAssistantClient.tsx` and
+`components/home/AIAssistantTeaser.tsx`). The new shared component is
+dark-mode only by design/scope — its background (`rgba(59,130,246,0.07)`)
+and border (`rgba(59,130,246,0.18)`) were tuned specifically for contrast
+against the dark-mode background stack (`--bg`/`--bg-1`/`--bg-2`/`--bg-3`,
+all near-black navy). **Neither the old duplicated versions of this bubble
+nor the new shared component have ever had a light-mode path** — no
+`html.light` override exists for it anywhere, unlike most other themed
+components in the app (`.prose`, `.card`, `.logo-wrapper`, etc. all have
+explicit `html.light` rules).
+
+**Update (2026-08-12, CC real-browser verification):** checked directly —
+this turns out to be a non-issue in practice. Real screenshots of
+`/ai-assistant` in light mode (a genuine "Sign in required..." response,
+not a mock) show the bubble reads fine: `rgba()` low-opacity overlays
+adapt to whatever's behind them rather than needing an explicit light
+counterpart, and the text color is inherited from a theme-aware token
+rather than hardcoded, so it stays legible in both modes by construction.
+No fix needed here after all — leaving the finding above for history
+rather than deleting it, since the underlying fact (no explicit
+`html.light` rule exists) is still true and worth knowing if this
+component's styling changes later. Also closely
+related and NOT fixed in this pass: the "Thinking..." loading-state bubble
+in `AIAssistantClient.tsx` (the `loading &&` block) still uses the old
+low-contrast `background: var(--bg-2)` pattern this fix moved away from for
+the actual message bubble — same visual-blending issue, narrower scope
+(a transient loading state, not a persistent message), left as-is since it
+wasn't in the reported bug's scope. Both are real, undone work — logged
+here rather than silently left unnoted.
+
+### Navbar logo crossfade — fixed a real regression, flagging an unmet goal (2026-08-12)
+
+**Found via real browser verification** (computed-style stepping across the
+80px scroll threshold, `elementFromPoint` ancestor-chain inspection, and
+zoomed element screenshots — not just a CSS read) of the uncommitted logo
+crossfade fix (`app/globals.css`, `.logo-wrapper`/`.logo-pill`/`.logo-mark`
+rules).
+
+1. **Fixed — a real, confirmed regression, pre-existing before this fix,
+   not introduced by it:** in light mode, after scrolling, the compact
+   mark's "Synfracore" text label was completely invisible. Root cause:
+   `.logo-mark`'s `color: var(--text-1)` resolves to `#0F172A` in light
+   mode — the exact same hex as the pre-existing `html.light .logo-wrapper
+   { background: #0F172A !important; }` rule (line ~700, written for the
+   full-lockup pill's dark card, predates this session). Same color text on
+   same color background. Confirmed via `getComputedStyle` +
+   `document.elementFromPoint`'s ancestor chain, and via a 6x-zoomed
+   element screenshot showing zero text pixels. This bug already existed
+   before this fix too (Navbar.tsx's own pre-existing inline `<style>`
+   already set the same `color: var(--text-1)` on `.logo-mark span`) — this
+   fix's `.logo-mark` rule just reproduced it, didn't cause it. Fixed by
+   hardcoding `.logo-mark`'s color to `#E8EDF5` (dark mode's `--text-1`
+   value) instead of the theme-dependent variable, since this box's
+   background is effectively dark in both themes for this component
+   specifically (transparent-over-navbar in dark mode, forced-dark card in
+   light mode) — not the general page background the variable is
+   calibrated for. Re-verified via screenshot in both themes after the fix.
+
+2. **NOT fixed, flagged as an unmet goal, not a regression:** the crossfade
+   does not actually crossfade — it's still an instant snap, same as
+   before this fix. Confirmed by stepping `window.scrollTo` in 5px
+   increments across the 80px threshold and reading computed `opacity`:
+   at scrollY=80 the pill is fully opaque (`opacity:1`) and at scrollY=85
+   it's fully gone (`opacity:0`, `display:none`) — no intermediate frame at
+   any sampled point. Root cause: `scrolled` (`Navbar.tsx`) is a plain
+   boolean (`scrollY > 80`) that toggles `display: none`/`flex` via
+   Navbar's own pre-existing inline `<style>` block (untouched by this
+   fix, and — contrary to this fix's own code comment — NOT actually
+   absent; it already defines `.logo-pill`/`.logo-mark`/`.is-hidden`/
+   `.is-visible`). CSS transitions cannot run across a `display:none`
+   boundary, so the new `opacity`/`transition` rules this fix adds are
+   inert for the stated goal — they never get a chance to animate.
+   Achieving a real fade requires changing how `scrolled` toggles
+   visibility in `Navbar.tsx` itself (e.g. driving it off `opacity` alone,
+   or delaying the `display` swap past the transition's duration) — out of
+   scope for a `globals.css`-only change, not attempted here. Not a
+   regression (behavior is identical to before this fix, just as before,
+   the double-stacking the fix's comment describes as the original bug
+   does not reproduce either, since Navbar's own display-toggling already
+   prevented it) — logged so the "crossfade" framing in the commit message
+   isn't taken at face value later.
+
+3. **Separately noted, not a bug:** `components/home/AIAssistantTeaser.tsx`
+   (one of the two call sites for the new shared
+   `AssistantMessageBubble.tsx`) is dead code — confirmed via exhaustive
+   repo-wide grep, it is not imported by `app/page.tsx` or anywhere else.
+   Its contrast fix is real and correctly implemented but has no live
+   effect since nothing renders this component today.
+
 ### Section-Navigation cleanup phase (not yet started)
 
 **`/learn` vs. Education-academy content-root confusion (found during Phase 6

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Bot, ArrowRight, Sparkles } from "lucide-react";
+import { AssistantMessageBubble } from "@/components/ai/AssistantMessageBubble";
 
 const demoMessages = [
   {
@@ -74,7 +75,7 @@ export default function AIAssistantTeaser() {
               <div style={{ width: "28px", height: "28px", borderRadius: "8px", background: "linear-gradient(135deg, #8B5CF6, #EC4899)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                 <Bot size={14} style={{ color: "#fff" }} />
               </div>
-              <div style={{ background: "#0C1524", border: "1px solid #1E2D47", borderRadius: "4px 14px 14px 14px", padding: "14px 16px", maxWidth: "87%" }}>
+              <AssistantMessageBubble>
                 <p style={{ color: "var(--text-3)", fontSize: "12px", lineHeight: 1.6, margin: "0 0 10px" }}>
                   A <strong style={{ color: "#FB7185" }}>CrashLoopBackOff</strong> means the container starts, crashes, and Kubernetes keeps restarting it. Here&apos;s how to diagnose:
                 </p>
@@ -85,7 +86,7 @@ export default function AIAssistantTeaser() {
                   <br />
                   kubectl describe pod &lt;pod&gt;
                 </div>
-              </div>
+              </AssistantMessageBubble>
             </div>
           </div>
 

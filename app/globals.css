@@ -710,6 +710,70 @@ html:not(.light) .logo-wrapper {
   align-items: center !important;
 }
 
+/* ══ NAVBAR LOGO CROSSFADE (scroll: full lockup ↔ compact mark) ══
+   Fixes a real bug: .logo-mark/.is-hidden/.is-visible had NO CSS at all
+   anywhere in the codebase — Navbar.tsx toggles these classes on scroll,
+   but with nothing defining them, .logo-pill (full lockup) and .logo-mark
+   (compact "AC" + "Synfracore" text) were both rendering unconditionally,
+   stacked in the same row, all the time. Found via direct visual comparison
+   against the footer's single clean logo instance, confirmed via repo-wide
+   grep turning up zero matches for these class names outside this file and
+   Navbar.tsx itself. Fixed 2026-08-12.
+   Both states are absolutely positioned in the same slot while hidden, and
+   returned to normal flow (position: static) while visible — so the
+   currently-visible one determines .logo-wrapper's box size and the
+   crossfade never causes a layout jump, matching the existing
+   `transition: height 0.2s ease` pattern already used on the header itself
+   for the scroll-collapse. */
+.logo-wrapper {
+  position: relative;
+  height: 42px;
+}
+.logo-pill {
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+.logo-pill.is-hidden {
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.logo-mark {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  /* Fixed light color, NOT var(--text-1) (2026-08-12 fix, found via live
+     browser check): .logo-wrapper's background is dark in BOTH themes for
+     this box specifically -- transparent-over-the-dark-navbar in dark mode,
+     and forced `#0F172A !important` in light mode (the pre-existing
+     `html.light .logo-wrapper` rule above, sized for the full-lockup pill's
+     dark card). var(--text-1) is #0F172A in light mode too -- identical to
+     that forced background, making this text fully invisible post-scroll in
+     light mode. Confirmed via computed-style + elementFromPoint before this
+     fix; confirmed legible after via screenshot in both themes. */
+  color: #E8EDF5;
+  font-family: 'Plus Jakarta Sans', 'Plus Jakarta Sans Fallback', ui-sans-serif, sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  white-space: nowrap;
+}
+.logo-mark.is-visible {
+  opacity: 1;
+  position: static;
+  transform: none;
+  pointer-events: auto;
+}
+
 /* ══ SCROLLED NAVBAR - clean minimal look ═════════════════ */
 /* When scrolled: header gets slight elevation */
 header[style*="box-shadow"] {
