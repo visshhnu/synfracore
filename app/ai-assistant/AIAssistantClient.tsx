@@ -116,7 +116,26 @@ Always provide: accurate technical answers, working code examples in fenced bloc
         }),
       });
       const data = await res.json();
-      const reply = data.content?.[0]?.text || "Sorry, I couldn't generate a response.";
+      // /api/ai (app/api/ai/route.ts) returns three distinct shapes, not just
+      // "success or throw" — collapsing all of them into the generic fallback
+      // string was the exact bug being fixed here (see page.tsx history):
+      // it made a real, intentional "not enabled yet" state indistinguishable
+      // from a genuine failure.
+      let reply: string;
+      if (data.status === "coming_soon") {
+        // AI_ASSISTANT_ENABLED=false state — a real, controlled response,
+        // not an error. Show it as-is rather than the generic fallback.
+        reply = data.message || "SynfraAI is launching soon.";
+      } else if (data.error) {
+        // 401 (signed out) returns { error: "Sign in required..." } as a
+        // plain string; the proxy's own catch block returns
+        // { error: { message: "..." } }. Handle both shapes explicitly.
+        reply = typeof data.error === "string" ? data.error : (data.error.message || "Something went wrong. Please try again.");
+      } else if (data.content?.[0]?.text) {
+        reply = data.content[0].text;
+      } else {
+        reply = "Sorry, I couldn't generate a response.";
+      }
       setMessages((prev) => [...prev, { role: "assistant", content: reply, id: (Date.now() + 1).toString() }]);
     } catch {
       setMessages((prev) => [...prev, { role: "assistant", content: "I encountered an error. Please try again.", id: (Date.now() + 1).toString() }]);
