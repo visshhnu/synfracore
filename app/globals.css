@@ -767,6 +767,22 @@ html:not(.light) .logo-wrapper {
   font-size: 14px;
   white-space: nowrap;
 }
+/* The color fix above on .logo-mark alone is not enough: Navbar.tsx's own
+   pre-existing inline <style> block sets `.logo-mark span { color:
+   var(--text-1) }` directly on the span. Same specificity as the rule
+   below (one class + one element each) -- but Navbar's <style> tag renders
+   inside <body>, physically AFTER this stylesheet's <link> in <head>, so
+   for equal specificity it wins on source order regardless of which file
+   is "newer." Confirmed via a real production deploy: getComputedStyle on
+   the span itself (not the parent) still showed the original #0F172A even
+   after the .logo-mark-level fix above went live. !important is the only
+   reliable way to win here without editing Navbar.tsx directly (out of
+   scope for this CSS-only fix) -- same pattern the pre-existing
+   `html.light .logo-wrapper { background: ... !important }` rule above
+   already uses for the same reason. */
+.logo-mark span {
+  color: #E8EDF5 !important;
+}
 .logo-mark.is-visible {
   opacity: 1;
   position: static;
