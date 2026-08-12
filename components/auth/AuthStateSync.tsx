@@ -47,49 +47,129 @@ import { useEffect, useRef } from "react";
 // `.cl-modalBackdrop` (confirmed present only for the modal, absent on
 // the standalone pages) before starting the grace-period timer at all.
 //
-// GRACE_PERIOD_MS was originally 4000 (4s) — verified live to be far too
-// short: a 4s reload fires while a real user is still reading their email
-// and typing the code, wiping their in-progress attempt entirely (this was
-// mistaken for a mysterious "modal timeout" during testing before the
-// actual cause — this component's own premature reload — was traced).
-// 20s is a more realistic floor for a user who already has the code
-// visible and is typing/pasting it directly into the field. Verified at
-// 90s (test-only value, to survive slow chat-relayed manual testing) that
-// the mechanism itself works: a validly-entered code, watched through the
-// full window, showed the reload firing and correctly recovering the
-// stuck session, on the same URL, with no data loss. 20s is the
-// production-shipping value.
-const GRACE_PERIOD_MS = 20000;
+// REWORKED 2026-08-12 (real production incident, reproduced first-hand
+// via a throwaway Clerk test user + sign-in token — see
+// docs/audit/07-roadmap-final.md for the reproduction). The single fixed
+// GRACE_PERIOD_MS (originally 4000, raised to 20000 after the 4s value
+// was confirmed to wipe an in-progress attempt) was still wrong in a
+// different way: it measured time since the OTP input *appeared*, not
+// time since the user actually went idle. A real user needs to receive
+// the email, switch apps/tabs, find it, and type/paste the code — that
+// routinely takes longer than 20s even when nothing is stuck, and the
+// fixed countdown doesn't care whether the user is actively typing right
+// now. Reproduced directly: filled the identifier, reached the OTP step,
+// then did nothing further — the input and modal were both gone by t+20s,
+// confirmed via a duplicate app remount in the console at the same
+// moment (the forced reload firing exactly on schedule).
+//
+// Replaced with two grace periods instead of one:
+//   - INITIAL_GRACE_MS (60s): from the OTP input appearing to the user's
+//     first interaction with it (focus, keystroke, or paste). Generous
+//     enough to cover realistic email-delivery + app-switching time
+//     before the user has even started responding.
+//   - IDLE_GRACE_MS (20s): reset on every interaction with the OTP input.
+//     Reuses the original 20s reasoning, which was actually defensible
+//     for its stated case ("already has the code, is typing it in") —
+//     the flaw was applying that number to a clock that started before
+//     the user had done anything at all, not the number itself.
+// A user who is actively engaging with the field — typing, correcting a
+// typo, retrying after an error — is never interrupted, no matter how
+// long the overall flow takes. Only real inactivity restarts the fixed
+// countdown to a rescue reload, preserving the fast-recovery behavior for
+// a genuinely stuck session (Symptom 13 itself: code entered correctly,
+// Clerk's session state just never updates, and the user stops
+// interacting because there's nothing left for them to do).
+//
+// Also added at fire time: re-confirm the OTP input is still present in
+// the DOM before reloading, not just that session/user are still empty.
+// Without this, a user who deliberately closes the modal (changed their
+// mind, or is signing in a different way) without completing sign-in
+// would still get an unwanted reload once the timer caught up — the
+// original code only checked Clerk's session state, not whether the
+// "stuck" premise (an open OTP step) still held.
+const INITIAL_GRACE_MS = 60000;
+const IDLE_GRACE_MS = 20000;
 
 export default function AuthStateSync() {
   const codeStepSeenRef = useRef(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const attachedInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
+    const clearTimer = () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+
+    const detachInputListeners = () => {
+      const el = attachedInputRef.current;
+      if (!el) return;
+      el.removeEventListener("focus", scheduleIdleCheck);
+      el.removeEventListener("input", scheduleIdleCheck);
+      el.removeEventListener("paste", scheduleIdleCheck);
+      attachedInputRef.current = null;
+    };
+
+    const reset = () => {
+      clearTimer();
+      detachInputListeners();
+      codeStepSeenRef.current = false;
+    };
+
+    const maybeReload = () => {
+      const stillPresent = document.querySelector(
+        '.cl-modalBackdrop input[autocomplete="one-time-code"]',
+      );
+      if (!stillPresent) {
+        // Modal was closed or the step moved on (sign-in completed
+        // normally, or the user cancelled) — the "stuck" premise no
+        // longer holds, nothing to rescue.
+        reset();
+        return;
+      }
+      const w = window as unknown as { Clerk?: { session?: unknown; user?: unknown } };
+      const hasSession = !!w.Clerk?.session;
+      const hasUser = !!w.Clerk?.user;
+      if (!hasSession && !hasUser) {
+        window.location.reload();
+      } else {
+        // Sign-in completed normally; allow future attempts (e.g. after
+        // a subsequent sign-out) to be tracked again.
+        reset();
+      }
+    };
+
+    function scheduleIdleCheck() {
+      clearTimer();
+      timerRef.current = setTimeout(maybeReload, IDLE_GRACE_MS);
+    }
+
     const observer = new MutationObserver(() => {
       if (codeStepSeenRef.current) return;
       const codeInput = document.querySelector(
         '.cl-modalBackdrop input[autocomplete="one-time-code"]',
-      );
+      ) as HTMLInputElement | null;
       if (!codeInput) return;
 
       codeStepSeenRef.current = true;
+      attachedInputRef.current = codeInput;
+      codeInput.addEventListener("focus", scheduleIdleCheck);
+      codeInput.addEventListener("input", scheduleIdleCheck);
+      codeInput.addEventListener("paste", scheduleIdleCheck);
 
-      setTimeout(() => {
-        const w = window as unknown as { Clerk?: { session?: unknown; user?: unknown } };
-        const hasSession = !!w.Clerk?.session;
-        const hasUser = !!w.Clerk?.user;
-        if (!hasSession && !hasUser) {
-          window.location.reload();
-        } else {
-          // Sign-in completed normally; allow future attempts (e.g. after
-          // a subsequent sign-out) to be tracked again.
-          codeStepSeenRef.current = false;
-        }
-      }, GRACE_PERIOD_MS);
+      // Initial grace period, before the user has interacted with the
+      // field at all — covers real email-delivery + app-switching time.
+      timerRef.current = setTimeout(maybeReload, INITIAL_GRACE_MS);
     });
 
     observer.observe(document.body, { childList: true, subtree: true });
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      clearTimer();
+      detachInputListeners();
+    };
   }, []);
 
   return null;
