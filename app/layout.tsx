@@ -52,22 +52,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <ClerkProvider
       afterSignOutUrl="/"
-      // prefetchUI defaults to true, which makes Clerk unconditionally render
-      // <link rel="preload" as="script"> for its UI bundle on EVERY page,
-      // including fully public marketing pages like the homepage where the
-      // overwhelming majority of visitors never open the sign-in modal.
-      // That preload is high-priority and gets picked up by the browser's
-      // preload scanner immediately on parsing <head>, competing for early
-      // bandwidth against the page's actual content during the exact window
-      // that determines LCP. Confirmed via the installed SDK source
-      // (node_modules/@clerk/nextjs/dist/cjs/app-router/client/clerk-script-tags.js)
-      // — no downside to disabling it: sign-in/sign-up still work identically,
-      // Clerk just fetches the UI bundle on-demand instead of speculatively.
-      // Fixed 2026-08-11 as part of the LCP investigation (see
-      // docs/audit/07-roadmap-final.md for the fuller root-cause writeup,
-      // including the still-open mega-menu hydration question this does NOT
-      // resolve by itself).
-      prefetchUI={false}
+      // REVERTED 2026-08-12 (live incident): prefetchUI={false} shipped
+      // 2026-08-11 as an LCP fix caused a real production outage --
+      // "Clerk was not loaded with Ui components" / assertComponentsReady
+      // thrown from mountUserButton, crashing the root layout's error
+      // boundary on sign-in. Disabling the UI-bundle preload meant
+      // UserButton (and other Clerk UI components) could attempt to mount
+      // before that bundle had actually finished loading. Back to Clerk's
+      // default (prefetchUI unset => true) until a safer way to get the
+      // LCP win is found and tested -- e.g. delaying UserButton mount
+      // until Clerk is ready, not removing the prefetch outright. See
+      // docs/audit/07-roadmap-final.md for the incident writeup.
     >
       <html lang="en" suppressHydrationWarning>
       <head>
