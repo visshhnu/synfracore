@@ -64,14 +64,15 @@ import { useEffect, useRef } from "react";
 //
 // Replaced with two grace periods instead of one:
 //   - INITIAL_GRACE_MS (60s): from the OTP input appearing to the user's
-//     first interaction with it (focus, keystroke, or paste). Generous
-//     enough to cover realistic email-delivery + app-switching time
-//     before the user has even started responding.
-//   - IDLE_GRACE_MS (20s): reset on every interaction with the OTP input.
-//     Reuses the original 20s reasoning, which was actually defensible
-//     for its stated case ("already has the code, is typing it in") —
-//     the flaw was applying that number to a clock that started before
-//     the user had done anything at all, not the number itself.
+//     first real interaction with it. Generous enough to cover realistic
+//     email-delivery + app-switching time before the user has even
+//     started responding.
+//   - IDLE_GRACE_MS (20s): reset on every real interaction with the OTP
+//     input. Reuses the original 20s reasoning, which was actually
+//     defensible for its stated case ("already has the code, is typing
+//     it in") — the flaw was applying that number to a clock that
+//     started before the user had done anything at all, not the number
+//     itself.
 // A user who is actively engaging with the field — typing, correcting a
 // typo, retrying after an error — is never interrupted, no matter how
 // long the overall flow takes. Only real inactivity restarts the fixed
@@ -79,6 +80,24 @@ import { useEffect, useRef } from "react";
 // a genuinely stuck session (Symptom 13 itself: code entered correctly,
 // Clerk's session state just never updates, and the user stops
 // interacting because there's nothing left for them to do).
+//
+// CORRECTED 2026-08-12, same day, after the first version of this rework
+// shipped and was found still broken via direct reproduction: "focus" was
+// originally included as one of the interaction events that resets the
+// timer. Clerk auto-focuses the OTP input the instant it renders
+// (confirmed via document.activeElement === otpInput immediately after
+// render, before any user action) — so that focus listener fired
+// immediately on every real sign-in, silently discarding the intended
+// 60s INITIAL_GRACE_MS and replacing it with just the 20s IDLE_GRACE_MS
+// before the user had done anything at all. Every real user was
+// effectively only ever getting ~20s from page-render, not 60s,
+// explaining the exact failure this rework was supposed to fix: a code
+// arriving in ~15s with no time left to read and type it. Only "input"
+// and "paste" reset the timer now — both require actual typed or pasted
+// content and cannot be triggered by a programmatic focus() call, unlike
+// "focus" which could. Verified this specific distinction directly:
+// simulating a programmatic focus() on the field does not reset the
+// timer, while a simulated "input" event does.
 //
 // Also added at fire time: re-confirm the OTP input is still present in
 // the DOM before reloading, not just that session/user are still empty.
@@ -106,7 +125,6 @@ export default function AuthStateSync() {
     const detachInputListeners = () => {
       const el = attachedInputRef.current;
       if (!el) return;
-      el.removeEventListener("focus", scheduleIdleCheck);
       el.removeEventListener("input", scheduleIdleCheck);
       el.removeEventListener("paste", scheduleIdleCheck);
       attachedInputRef.current = null;
@@ -155,7 +173,11 @@ export default function AuthStateSync() {
 
       codeStepSeenRef.current = true;
       attachedInputRef.current = codeInput;
-      codeInput.addEventListener("focus", scheduleIdleCheck);
+      // "focus" deliberately excluded — Clerk auto-focuses this field
+      // programmatically the instant it renders, which would otherwise
+      // fire immediately and discard the INITIAL_GRACE_MS window before
+      // the user has done anything. Only "input"/"paste" require actual
+      // user-typed or pasted content.
       codeInput.addEventListener("input", scheduleIdleCheck);
       codeInput.addEventListener("paste", scheduleIdleCheck);
 
