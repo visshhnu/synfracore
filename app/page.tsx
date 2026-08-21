@@ -1,15 +1,21 @@
 import { TelegramBanner } from "@/components/growth/TelegramBanner";
 import { NewsletterSignup } from "@/components/growth/NewsletterSignup";
+import { AcademyExplorer } from "@/components/home/AcademyExplorer";
 import Link from "next/link";
 import { academies } from "@/lib/data/academies";
 import { certifications, stats, roadmaps } from "@/lib/data/navigation";
 import { educationBoards } from "@/lib/data/education";
-import { ArrowRight, BookOpen, FlaskConical, Code2, Trophy, Wrench, Bot, CheckCircle, Users, Target, Zap } from "lucide-react";
+import {
+  ArrowRight, BookOpen, FlaskConical, Code2, Trophy, Wrench, Bot, CheckCircle, Target, Zap,
+  Sprout, Briefcase, Construction, NotebookPen, Landmark, PiggyBank, Scale, Ruler, Dna,
+  Home as HomeIcon, Database, BarChart3, Wallet, Microscope, Network, Cloud, Lock,
+  FileText, GraduationCap, Map, MessageSquare,
+} from "lucide-react";
 
 // Role-based paths
 const roles = [
   {
-    icon: "🌱",
+    icon: Sprout,
     title: "Absolute Beginner",
     desc: "No prior experience. Start from zero.",
     path: "Linux basics → Shell scripting → Git → Docker → Cloud fundamentals",
@@ -17,7 +23,7 @@ const roles = [
     color: "#10B981",
   },
   {
-    icon: "💼",
+    icon: Briefcase,
     title: "Job Seeker",
     desc: "Preparing for interviews and placements.",
     path: "Interview Q&A → Resume tips → Mock scenarios → Certification prep",
@@ -25,7 +31,7 @@ const roles = [
     color: "#3B82F6",
   },
   {
-    icon: "⚡",
+    icon: Zap,
     title: "Working Engineer",
     desc: "Level up your current skills.",
     path: "Advanced K8s → Terraform → CI/CD → Monitoring → Platform Engineering",
@@ -33,7 +39,7 @@ const roles = [
     color: "#8B5CF6",
   },
   {
-    icon: "🏗️",
+    icon: Construction,
     title: "Architect / Lead",
     desc: "Design production systems.",
     path: "HA/DR design → Multi-cloud → Security → Cost optimisation → Team leadership",
@@ -41,7 +47,7 @@ const roles = [
     color: "#F59E0B",
   },
   {
-    icon: "📚",
+    icon: BookOpen,
     title: "Exam Preparer",
     desc: "JEE, NEET, GATE, Banking, UPSC.",
     path: "Chapter-wise notes → PYQs → MCQ practice → Revision notes",
@@ -49,7 +55,7 @@ const roles = [
     color: "#EC4899",
   },
   {
-    icon: "🎯",
+    icon: Target,
     title: "Certification Seeker",
     desc: "AWS, Azure, GCP, CKA, CKAD.",
     path: "Domain study → Practice questions → Exam tips → Mock tests",
@@ -60,22 +66,22 @@ const roles = [
 
 // What you'll learn journey
 const journey = [
-  { step: "01", title: "Learn", desc: "Expert-written chapter-by-chapter content with real examples", icon: "📖" },
-  { step: "02", title: "Practice", desc: "Hands-on labs from beginner to production-grade scenarios", icon: "🧪" },
-  { step: "03", title: "Build", desc: "Real projects that go straight to your portfolio", icon: "🏗️" },
-  { step: "04", title: "Test Yourself", desc: "MCQs, PYQs, and scenario-based questions", icon: "✅" },
-  { step: "05", title: "Get Certified", desc: "Structured prep for 13 industry certifications", icon: "🏆" },
-  { step: "06", title: "Get Hired", desc: "Interview Q&A, resume tips, and career roadmaps", icon: "💼" },
+  { step: "01", title: "Learn", desc: "Expert-written chapter-by-chapter content with real examples", icon: NotebookPen },
+  { step: "02", title: "Practice", desc: "Hands-on labs from beginner to production-grade scenarios", icon: FlaskConical },
+  { step: "03", title: "Build", desc: "Real projects that go straight to your portfolio", icon: Construction },
+  { step: "04", title: "Test Yourself", desc: "MCQs, PYQs, and scenario-based questions", icon: CheckCircle },
+  { step: "05", title: "Get Certified", desc: "Structured prep for 13 industry certifications", icon: Trophy },
+  { step: "06", title: "Get Hired", desc: "Interview Q&A, resume tips, and career roadmaps", icon: Briefcase },
 ];
 
 // Tech domains
 const domains = [
-  { name: "DevOps", icon: "⚙️", topics: ["Docker","Kubernetes","Helm","Jenkins","ArgoCD","GitOps"], href: "/academies/devops", color: "#F59E0B" },
-  { name: "Cloud", icon: "☁️", topics: ["AWS","Azure","GCP","Multi-cloud","Cost Opt"], href: "/academies/cloud", color: "#3B82F6" },
-  { name: "AI & Data", icon: "🤖", topics: ["LLMs","RAG","MLOps","LangChain","Agents"], href: "/academies/ai", color: "#8B5CF6" },
-  { name: "Security", icon: "🔒", topics: ["DevSecOps","Zero Trust","RBAC","Vault","SAST"], href: "/academies/security", color: "#EF4444" },
-  { name: "Platform Eng", icon: "🏛️", topics: ["IDP","Backstage","Golden Paths","SRE"], href: "/academies/devops", color: "#10B981" },
-  { name: "Academy (Edu)", icon: "📚", topics: ["JEE","NEET","GATE","Banking","UPSC"], href: "/learn", color: "#EC4899" },
+  { name: "DevOps", icon: Wrench, topics: ["Docker","Kubernetes","Helm","Jenkins","ArgoCD","GitOps"], href: "/academies/devops", color: "#F59E0B" },
+  { name: "Cloud", icon: Cloud, topics: ["AWS","Azure","GCP","Multi-cloud","Cost Opt"], href: "/academies/cloud", color: "#3B82F6" },
+  { name: "AI & Data", icon: Bot, topics: ["LLMs","RAG","MLOps","LangChain","Agents"], href: "/academies/ai", color: "#8B5CF6" },
+  { name: "Security", icon: Lock, topics: ["DevSecOps","Zero Trust","RBAC","Vault","SAST"], href: "/academies/security", color: "#EF4444" },
+  { name: "Platform Eng", icon: Landmark, topics: ["IDP","Backstage","Golden Paths","SRE"], href: "/academies/devops", color: "#10B981" },
+  { name: "Academy (Edu)", icon: BookOpen, topics: ["JEE","NEET","GATE","Banking","UPSC"], href: "/learn", color: "#EC4899" },
 ];
 
 // Proof points — chapters/tech topics/certifications/roadmaps derived from
@@ -87,12 +93,12 @@ const totalChapters = educationBoards.reduce((sum, b) => sum + b.subjects.reduce
 const totalTechTopics = academies.reduce((sum, a) => sum + a.domains.reduce((s, d) => s + d.technologies.length, 0), 0);
 
 const proofPoints = [
-  { icon: "📝", stat: `${totalChapters}+`, label: "Education chapters", sub: "Class 10 to UPSC — expert-written" },
-  { icon: "💻", stat: `${totalTechTopics}+`, label: "Tech topics", sub: "Docker to Kubernetes to Platform Eng" },
-  { icon: "🎓", stat: `${certifications.length}`, label: "Certifications", sub: "AWS, Azure, GCP, CKA, CKAD and more" },
-  { icon: "🗺️", stat: `${roadmaps.length}+`, label: "Career roadmaps", sub: "From beginner to architect" },
-  { icon: "🧪", stat: "500+", label: "Labs & projects", sub: "Hands-on practice scenarios" },
-  { icon: "💬", stat: "100+", label: "Interview Q&As", sub: "Real questions with detailed answers" },
+  { icon: FileText, stat: `${totalChapters}+`, label: "Education chapters", sub: "Class 10 to UPSC — expert-written" },
+  { icon: Code2, stat: `${totalTechTopics}+`, label: "Tech topics", sub: "Docker to Kubernetes to Platform Eng" },
+  { icon: GraduationCap, stat: `${certifications.length}`, label: "Certifications", sub: "AWS, Azure, GCP, CKA, CKAD and more" },
+  { icon: Map, stat: `${roadmaps.length}+`, label: "Career roadmaps", sub: "From beginner to architect" },
+  { icon: FlaskConical, stat: "500+", label: "Labs & projects", sub: "Hands-on practice scenarios" },
+  { icon: MessageSquare, stat: "100+", label: "Interview Q&As", sub: "Real questions with detailed answers" },
 ];
 
 export default function Home() {
@@ -133,16 +139,16 @@ export default function Home() {
             </div>
             <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
               {[
-                { icon: "⚙️", label: "DevOps Engineer",      slug: "devops-engineer",     color: "#3B82F6" },
-                { icon: "☁️", label: "Cloud Architect",       slug: "cloud-architect",      color: "#0EA5E9" },
-                { icon: "🤖", label: "AI Engineer",           slug: "ai-engineer",          color: "#8B5CF6" },
-                { icon: "🏛️", label: "UPSC Civil Services",   slug: "upsc-ias",             color: "#F59E0B" },
-                { icon: "🏦", label: "Banking PO",            slug: "banking-po",           color: "#10B981" },
-                { icon: "⚖️", label: "Advocate / LLB",        slug: "advocate-career",      color: "#6366F1" },
+                { icon: Wrench, label: "DevOps Engineer",      slug: "devops-engineer",     color: "#3B82F6" },
+                { icon: Cloud, label: "Cloud Architect",       slug: "cloud-architect",      color: "#0EA5E9" },
+                { icon: Bot, label: "AI Engineer",           slug: "ai-engineer",          color: "#8B5CF6" },
+                { icon: Landmark, label: "UPSC Civil Services",   slug: "upsc-ias",             color: "#F59E0B" },
+                { icon: PiggyBank, label: "Banking PO",            slug: "banking-po",           color: "#10B981" },
+                { icon: Scale, label: "Advocate / LLB",        slug: "advocate-career",      color: "#6366F1" },
               ].map(rm => (
                 <a key={rm.slug} href={`/roadmaps/${rm.slug}`}
                   style={{ display: "flex", alignItems: "center", gap: "8px", padding: "8px 16px", borderRadius: "10px", background: "var(--bg-2)", border: `1px solid ${rm.color}30`, textDecoration: "none", transition: "border-color 0.15s" }}>
-                  <span style={{ fontSize: "16px" }}>{rm.icon}</span>
+                  <rm.icon size={16} color={rm.color} />
                   <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-2)", whiteSpace: "nowrap" }}>{rm.label}</span>
                   <span style={{ color: rm.color, fontSize: "12px", fontWeight: 700 }}>→</span>
                 </a>
@@ -181,44 +187,44 @@ export default function Home() {
               { icon: "🐳", name: "Docker", color: "#2496ED" },
               { icon: "☸️", name: "Kubernetes", color: "#326CE5" },
               { icon: "🌩️", name: "AWS", color: "#FF9900" },
-              { icon: "☁️", name: "Azure", color: "#0078D4" },
-              { icon: "🤖", name: "AI & LLMs", color: "#8B5CF6" },
-              { icon: "📐", name: "JEE Maths", color: "#EC4899" },
-              { icon: "🧬", name: "NEET Biology", color: "#10B981" },
-              { icon: "🏦", name: "Banking Exams", color: "#F59E0B" },
-              { icon: "🏠", name: "Home Health Coding", color: "#14B8A6" },
-              { icon: "🔒", name: "Cybersecurity", color: "#EF4444" },
-              { icon: "🗄️", name: "PostgreSQL", color: "#336791" },
-              { icon: "📊", name: "Power BI", color: "#F2C811" },
+              { icon: Cloud, name: "Azure", color: "#0078D4" },
+              { icon: Bot, name: "AI & LLMs", color: "#8B5CF6" },
+              { icon: Ruler, name: "JEE Maths", color: "#EC4899" },
+              { icon: Dna, name: "NEET Biology", color: "#10B981" },
+              { icon: PiggyBank, name: "Banking Exams", color: "#F59E0B" },
+              { icon: HomeIcon, name: "Home Health Coding", color: "#14B8A6" },
+              { icon: Lock, name: "Cybersecurity", color: "#EF4444" },
+              { icon: Database, name: "PostgreSQL", color: "#336791" },
+              { icon: BarChart3, name: "Power BI", color: "#F2C811" },
               { icon: "🐧", name: "Linux", color: "#FCC624" },
-              { icon: "⚙️", name: "Terraform", color: "#7B42BC" },
-              { icon: "🎯", name: "UPSC Prep", color: "#3B82F6" },
-              { icon: "🧪", name: "GATE CSE", color: "#6366F1" },
-              { icon: "🌱", name: "Gut Health", color: "#22C55E" },
-              { icon: "💰", name: "Personal Finance", color: "#F59E0B" },
-              { icon: "🔬", name: "NEET Chemistry", color: "#06B6D4" },
-              { icon: "📡", name: "Networking", color: "#8B5CF6" },
+              { icon: Wrench, name: "Terraform", color: "#7B42BC" },
+              { icon: Target, name: "UPSC Prep", color: "#3B82F6" },
+              { icon: FlaskConical, name: "GATE CSE", color: "#6366F1" },
+              { icon: Sprout, name: "Gut Health", color: "#22C55E" },
+              { icon: Wallet, name: "Personal Finance", color: "#F59E0B" },
+              { icon: Microscope, name: "NEET Chemistry", color: "#06B6D4" },
+              { icon: Network, name: "Networking", color: "#8B5CF6" },
               // Duplicate for seamless loop
               { icon: "🐳", name: "Docker", color: "#2496ED" },
               { icon: "☸️", name: "Kubernetes", color: "#326CE5" },
               { icon: "🌩️", name: "AWS", color: "#FF9900" },
-              { icon: "☁️", name: "Azure", color: "#0078D4" },
-              { icon: "🤖", name: "AI & LLMs", color: "#8B5CF6" },
-              { icon: "📐", name: "JEE Maths", color: "#EC4899" },
-              { icon: "🧬", name: "NEET Biology", color: "#10B981" },
-              { icon: "🏦", name: "Banking Exams", color: "#F59E0B" },
-              { icon: "🏠", name: "Home Health Coding", color: "#14B8A6" },
-              { icon: "🔒", name: "Cybersecurity", color: "#EF4444" },
-              { icon: "🗄️", name: "PostgreSQL", color: "#336791" },
-              { icon: "📊", name: "Power BI", color: "#F2C811" },
+              { icon: Cloud, name: "Azure", color: "#0078D4" },
+              { icon: Bot, name: "AI & LLMs", color: "#8B5CF6" },
+              { icon: Ruler, name: "JEE Maths", color: "#EC4899" },
+              { icon: Dna, name: "NEET Biology", color: "#10B981" },
+              { icon: PiggyBank, name: "Banking Exams", color: "#F59E0B" },
+              { icon: HomeIcon, name: "Home Health Coding", color: "#14B8A6" },
+              { icon: Lock, name: "Cybersecurity", color: "#EF4444" },
+              { icon: Database, name: "PostgreSQL", color: "#336791" },
+              { icon: BarChart3, name: "Power BI", color: "#F2C811" },
               { icon: "🐧", name: "Linux", color: "#FCC624" },
-              { icon: "⚙️", name: "Terraform", color: "#7B42BC" },
-              { icon: "🎯", name: "UPSC Prep", color: "#3B82F6" },
-              { icon: "🧪", name: "GATE CSE", color: "#6366F1" },
-              { icon: "🌱", name: "Gut Health", color: "#22C55E" },
-              { icon: "💰", name: "Personal Finance", color: "#F59E0B" },
-              { icon: "🔬", name: "NEET Chemistry", color: "#06B6D4" },
-              { icon: "📡", name: "Networking", color: "#8B5CF6" },
+              { icon: Wrench, name: "Terraform", color: "#7B42BC" },
+              { icon: Target, name: "UPSC Prep", color: "#3B82F6" },
+              { icon: FlaskConical, name: "GATE CSE", color: "#6366F1" },
+              { icon: Sprout, name: "Gut Health", color: "#22C55E" },
+              { icon: Wallet, name: "Personal Finance", color: "#F59E0B" },
+              { icon: Microscope, name: "NEET Chemistry", color: "#06B6D4" },
+              { icon: Network, name: "Networking", color: "#8B5CF6" },
             ].map((d, i) => (
               <div key={i} style={{
                 display: "flex", alignItems: "center", gap: "8px",
@@ -226,7 +232,7 @@ export default function Home() {
                 background: `${d.color}12`, border: `1px solid ${d.color}30`,
                 whiteSpace: "nowrap", flexShrink: 0,
               }}>
-                <span style={{ fontSize: "18px" }}>{d.icon}</span>
+                {typeof d.icon === "string" ? <span style={{ fontSize: "18px" }}>{d.icon}</span> : <d.icon size={18} color={d.color} />}
                 <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-2)" }}>{d.name}</span>
               </div>
             ))}
@@ -254,7 +260,7 @@ export default function Home() {
                   height: "100%", cursor: "pointer"
                 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "10px" }}>
-                    <span style={{ fontSize: "28px" }}>{r.icon}</span>
+                    <r.icon size={28} color={r.color} />
                     <div>
                       <div style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "16px", color: "var(--text-1)" }}>{r.title}</div>
                       <div style={{ color: "var(--text-4)", fontSize: "12px" }}>{r.desc}</div>
@@ -283,7 +289,7 @@ export default function Home() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "16px" }}>
             {proofPoints.map(p => (
               <div key={p.label} style={{ padding: "24px", borderRadius: "12px", border: "1px solid var(--border)", background: "var(--bg-1)", textAlign: "center" }}>
-                <div style={{ fontSize: "32px", marginBottom: "8px" }}>{p.icon}</div>
+                <div style={{ marginBottom: "8px" }}><p.icon size={32} /></div>
                 <div style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "28px", fontWeight: 800, color: "var(--text-1)", marginBottom: "4px" }}>{p.stat}</div>
                 <div style={{ fontWeight: 600, fontSize: "13px", color: "var(--text-2)", marginBottom: "4px" }}>{p.label}</div>
                 <div style={{ fontSize: "11px", color: "var(--text-4)" }}>{p.sub}</div>
@@ -305,7 +311,7 @@ export default function Home() {
               <Link key={d.name} href={d.href} style={{ textDecoration: "none" }}>
                 <div className="card-hover" style={{ padding: "22px", borderRadius: "12px", border: "1px solid var(--border)", background: "var(--bg)", cursor: "pointer" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
-                    <span style={{ fontSize: "24px" }}>{d.icon}</span>
+                    <d.icon size={24} color={d.color} />
                     <span style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "16px", color: "var(--text-1)" }}>{d.name}</span>
                   </div>
                   <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
@@ -330,19 +336,23 @@ export default function Home() {
               A proven 6-step system that takes you from concept to career-ready.
             </p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "2px" }}>
-            {journey.map((j, i) => (
-              <div key={j.step} style={{
-                padding: "28px 24px", background: "var(--bg-1)",
-                borderTop: "3px solid",
-                borderImage: `linear-gradient(135deg, ${["#3B82F6","#8B5CF6","#10B981","#F59E0B","#EC4899","#06B6D4"][i]}, ${["#8B5CF6","#10B981","#F59E0B","#EC4899","#06B6D4","#3B82F6"][i]}) 1`,
-              }}>
-                <div style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "11px", color: "var(--text-4)", fontWeight: 700, marginBottom: "12px" }}>{j.step}</div>
-                <div style={{ fontSize: "28px", marginBottom: "10px" }}>{j.icon}</div>
-                <div style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "16px", color: "var(--text-1)", marginBottom: "6px" }}>{j.title}</div>
-                <div style={{ color: "var(--text-3)", fontSize: "13px", lineHeight: 1.6 }}>{j.desc}</div>
-              </div>
-            ))}
+          <div className="journey-timeline">
+            <div className="journey-line" />
+            {journey.map((j, i) => {
+              const color = ["#3B82F6","#8B5CF6","#10B981","#F59E0B","#EC4899","#06B6D4"][i];
+              return (
+                <div key={j.step} className="journey-node">
+                  <div className="journey-dot" style={{ borderColor: color, color }}>
+                    <j.icon size={18} />
+                  </div>
+                  <div className="journey-node-body">
+                    <div style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "11px", color: "var(--text-4)", fontWeight: 700, marginBottom: "6px" }}>{j.step}</div>
+                    <div style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "16px", color: "var(--text-1)", marginBottom: "6px" }}>{j.title}</div>
+                    <div style={{ color: "var(--text-3)", fontSize: "13px", lineHeight: 1.6 }}>{j.desc}</div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -359,22 +369,7 @@ export default function Home() {
               All Academies <ArrowRight size={14} />
             </Link>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "16px" }}>
-            {academies.slice(0, 6).map(a => (
-              <Link key={a.slug} href={`/academies/${a.slug}`} style={{ textDecoration: "none" }}>
-                <div className="card-hover" style={{ padding: "24px", borderRadius: "14px", border: "1px solid var(--border)", background: "var(--bg-1)", cursor: "pointer" }}>
-                  <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "12px" }}>
-                    <span style={{ fontSize: "36px" }}>{a.icon}</span>
-                    <span style={{ background: a.color + "20", color: a.color, fontSize: "11px", fontWeight: 700, padding: "3px 8px", borderRadius: "6px" }}>
-                      {a.domains.length} Domains
-                    </span>
-                  </div>
-                  <h3 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "16px", marginBottom: "6px", color: "var(--text-1)" }}>{a.title}</h3>
-                  <p style={{ color: "var(--text-4)", fontSize: "13px", lineHeight: 1.5, margin: 0 }}>{a.description.slice(0, 90)}...</p>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <AcademyExplorer academies={academies.slice(0, 6)} />
         </div>
       </section>
 
@@ -420,7 +415,7 @@ export default function Home() {
 
             {/* Education card */}
             <div style={{ padding: "36px", borderRadius: "20px", background: "linear-gradient(135deg,rgba(236,72,153,0.08),rgba(139,92,246,0.08))", border: "1px solid rgba(236,72,153,0.2)" }}>
-              <div style={{ fontSize: "40px", marginBottom: "12px" }}>📚</div>
+              <div style={{ marginBottom: "12px" }}><BookOpen size={40} color="#EC4899" /></div>
               <h3 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 800, fontSize: "22px", marginBottom: "10px" }}>Education Academy</h3>
               <p style={{ color: "var(--text-3)", fontSize: "15px", lineHeight: 1.7, marginBottom: "20px" }}>
                 {totalChapters}+ chapters across Class 10, Class 12, JEE, NEET, GATE, Banking, UPSC, SSC, Defence, Career, and Finance. With PYQs, MCQs, and revision notes.
@@ -437,7 +432,7 @@ export default function Home() {
 
             {/* Interview card */}
             <div style={{ padding: "36px", borderRadius: "20px", background: "linear-gradient(135deg,rgba(59,130,246,0.08),rgba(16,185,129,0.08))", border: "1px solid rgba(59,130,246,0.2)" }}>
-              <div style={{ fontSize: "40px", marginBottom: "12px" }}>💬</div>
+              <div style={{ marginBottom: "12px" }}><MessageSquare size={40} color="#3B82F6" /></div>
               <h3 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 800, fontSize: "22px", marginBottom: "10px" }}>Interview Preparation</h3>
               <p style={{ color: "var(--text-3)", fontSize: "15px", lineHeight: 1.7, marginBottom: "20px" }}>
                 100+ real interview questions with detailed answers for Kubernetes, Terraform, Ansible, Docker, Jenkins, Helm, Prometheus, Linux, and more.

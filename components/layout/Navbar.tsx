@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect, useRef, useMemo } from "react";
-import { Menu, X, ChevronDown, ChevronRight, Search, Globe, LayoutDashboard, LogIn } from "lucide-react";
+import { Menu, X, ChevronDown, ChevronRight, Search, Globe, LayoutDashboard, LogIn, Wrench, GraduationCap, Leaf, Landmark, Map } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useTheme } from "@/components/ThemeProvider";
 import { academies } from "@/lib/data/academies";
@@ -193,19 +193,19 @@ const NAV_LINKS = [
 // Dropdown groups — 4 semantically correct columns
 const GROUPS = [
   {
-    label: "Tech & Engineering", color: "#3B82F6", icon: "⚙️",
+    label: "Tech & Engineering", color: "#3B82F6", icon: Wrench,
     slugs: ["devops", "cloud", "databases", "ai", "data", "security", "telecom", "aerospace", "vlsi"],
   },
   {
-    label: "Education & Exams", color: "#F59E0B", icon: "🎓",
+    label: "Education & Exams", color: "#F59E0B", icon: GraduationCap,
     slugs: ["education", "exams", "state-psc", "central-exams", "professional-certs"],
   },
   {
-    label: "Health & Life Skills", color: "#F43F5E", icon: "🌿",
+    label: "Health & Life Skills", color: "#F43F5E", icon: Leaf,
     slugs: ["healthcare", "essentials", "agriculture"],
   },
   {
-    label: "Professional & Law", color: "#8B5CF6", icon: "🏛️",
+    label: "Professional & Law", color: "#8B5CF6", icon: Landmark,
     slugs: ["law", "finance", "economics"],
   },
 ];
@@ -373,7 +373,7 @@ export default function Navbar() {
                   <div key={group.label}>
                     {/* Column header */}
                     <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: group.color, display: "flex", alignItems: "center", gap: "4px", marginBottom: "8px", paddingBottom: "6px", borderBottom: `1px solid ${group.color}30` }}>
-                      <span>{group.icon}</span> {group.label}
+                      <group.icon size={12} /> {group.label}
                     </div>
                     {/* Items in this column */}
                     <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
@@ -501,7 +501,7 @@ export default function Navbar() {
             Start Learning Free
           </Link>
           <Link href="/roadmaps" prefetch={false} onClick={closeDrawer} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "6px", padding: "10px", fontSize: "13px", borderRadius: "8px", textDecoration: "none", background: "var(--bg-2)", color: "var(--text-2)", border: "1px solid var(--border)", fontWeight: 600 }}>
-            🗺️ Learning Roadmaps
+            <Map size={14} /> Learning Roadmaps
           </Link>
         </div>
       </div>

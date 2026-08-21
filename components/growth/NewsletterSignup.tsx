@@ -90,7 +90,7 @@ export function NewsletterSignup({ variant = "full", context }: Props) {
           </button>
         </div>
         {status === "error" && <p style={{ color: "#EF4444", fontSize: "12px", margin: "8px 0 0" }}>{errorMsg}</p>}
-        {status === "done" && <p style={{ color: "#10B981", fontSize: "13px", margin: "10px 0 0", fontWeight: 600 }}>✓ Check your inbox for the welcome email!</p>}
+        {status === "done" && <p style={{ color: "#10B981", fontSize: "13px", margin: "10px 0 0", fontWeight: 600, display: "flex", alignItems: "center", gap: "6px" }}><CheckCircle size={14} /> Check your inbox for the welcome email!</p>}
       </div>
     );
   }

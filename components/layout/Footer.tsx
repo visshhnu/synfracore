@@ -3,6 +3,7 @@ import { NewsletterSignup } from "@/components/growth/NewsletterSignup";
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "@/components/ThemeProvider";
+import { Mail } from "lucide-react";
 
 const academyLinks = [
   { name: "DevOps", href: "/academies/devops" },
@@ -150,7 +151,7 @@ export default function Footer() {
             {/* Contact */}
             <div style={{ marginTop: "20px" }}>
               <a href="mailto:hello@synfracore.com" style={{ fontSize: "13px", color: "var(--text-4)", textDecoration: "none", display: "flex", alignItems: "center", gap: "6px" }}>
-                <span>✉️</span> hello@synfracore.com
+                <Mail size={13} /> hello@synfracore.com
               </a>
             </div>
           </div>
