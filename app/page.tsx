@@ -2,6 +2,7 @@ import { TelegramBanner } from "@/components/growth/TelegramBanner";
 import { NewsletterSignup } from "@/components/growth/NewsletterSignup";
 import { AcademyExplorer } from "@/components/home/AcademyExplorer";
 import Link from "next/link";
+import Image from "next/image";
 import { academies } from "@/lib/data/academies";
 import { certifications, stats, roadmaps } from "@/lib/data/navigation";
 import { educationBoards } from "@/lib/data/education";
@@ -72,6 +73,13 @@ const journey = [
   { step: "04", title: "Test Yourself", desc: "MCQs, PYQs, and scenario-based questions", icon: CheckCircle },
   { step: "05", title: "Get Certified", desc: "Structured prep for 13 industry certifications", icon: Trophy },
   { step: "06", title: "Get Hired", desc: "Interview Q&A, resume tips, and career roadmaps", icon: Briefcase },
+];
+
+// Product screenshots — regenerate via `node scripts/screenshot-marketing-sections.mjs`
+const productShots = [
+  { title: "Real lessons, not stubs", desc: "Diagrams, callouts, and working code in every technology page.", image: "/images/screenshots/lesson.png", height: 720, alt: "SynfraCore lesson page showing an AI inference diagram, a cost-estimation callout, and a Python code example" },
+  { title: "Quizzes that check understanding", desc: "Instant right/wrong feedback with a real explanation, not just a score.", image: "/images/screenshots/quiz.png", height: 620, alt: "SynfraCore quiz on Docker fundamentals showing a correct and an incorrect answer with an inline explanation" },
+  { title: "Progress that's actually tracked", desc: "Domain-by-domain completion, quiz history, and saved topics in one dashboard.", image: "/images/screenshots/dashboard.png", height: 720, alt: "SynfraCore dashboard showing progress bars across DevOps, Cloud, and Databases, quiz performance, and recent activity" },
 ];
 
 // Tech domains
@@ -166,6 +174,39 @@ export default function Home() {
                   WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", lineHeight: 1,
                 }}>{s.value}</div>
                 <div style={{ color: "var(--text-4)", fontSize: "13px", fontWeight: 500, marginTop: "6px", letterSpacing: "0.04em" }}>{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════ PRODUCT SCREENSHOTS ══════════════════ */}
+      <section style={{ padding: "80px 24px", background: "var(--bg-1)", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: "48px" }}>
+            <div className="label" style={{ marginBottom: "12px" }}>See It In Action</div>
+            <h2 className="display-md" style={{ marginBottom: "12px" }}>This Is What You Actually Get</h2>
+            <p style={{ color: "var(--text-3)", fontSize: "16px", maxWidth: "520px", margin: "0 auto" }}>
+              Real lessons, real quizzes, real progress tracking — not mockups.
+            </p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "24px" }}>
+            {productShots.map(shot => (
+              <div key={shot.title}>
+                <div className="browser-frame">
+                  <div className="browser-frame-bar">
+                    <span style={{ background: "#EF4444" }} />
+                    <span style={{ background: "#F59E0B" }} />
+                    <span style={{ background: "#10B981" }} />
+                  </div>
+                  <div className="browser-frame-body">
+                    <Image src={shot.image} alt={shot.alt} width={1200} height={shot.height} style={{ width: "100%", height: "auto", display: "block" }} />
+                  </div>
+                </div>
+                <div style={{ marginTop: "14px" }}>
+                  <div style={{ fontWeight: 700, fontSize: "15px", color: "var(--text-1)", marginBottom: "4px" }}>{shot.title}</div>
+                  <div style={{ fontSize: "13px", color: "var(--text-4)" }}>{shot.desc}</div>
+                </div>
               </div>
             ))}
           </div>

@@ -971,6 +971,29 @@ html.light .hover-row:hover  { background: #F1F5F9 !important; }
 .domain-slider-wrap::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
 .domain-slider-wrap::after { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
 
+/* ══ PRODUCT SCREENSHOTS (browser-chrome frame) ══════════════ */
+.browser-frame {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg-2);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+.browser-frame-bar {
+  display: flex;
+  gap: 6px;
+  padding: 10px 12px;
+  background: var(--bg-3);
+  border-bottom: 1px solid var(--border);
+}
+.browser-frame-bar span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.browser-frame-body { line-height: 0; }
+
 /* ══ JOURNEY TIMELINE ═════════════════════════════════════ */
 .journey-timeline {
   display: flex;

@@ -68,14 +68,24 @@ function renderMarkdown(content: string) {
         svgLines.push(lines[i]);
         i++;
       }
-      const svgContent = svgLines.join("\n");
+      // Content SVGs only ever declare a viewBox, not width/height -- inside
+      // this flex-centered wrapper that leaves the SVG rendering at 0x0
+      // (no explicit size means "auto", and "auto" here has nothing concrete
+      // to resolve against, so it collapses instead of falling back to the
+      // viewBox's aspect ratio). Force an explicit width so it has a
+      // definite size to size the wrapper against; height stays "auto" so
+      // the viewBox's aspect ratio still controls the actual proportions.
+      const svgContent = svgLines.join("\n").replace(
+        /<svg\b(?![^>]*\bwidth=)/,
+        '<svg width="100%" height="auto"'
+      );
       elements.push(
         <div key={`svg-${i}`} style={{
           margin: "24px 0", borderRadius: "16px", overflow: "hidden",
           border: "1px solid var(--border)", background: "var(--bg-2)",
           padding: "24px", display: "flex", justifyContent: "center"
         }}>
-          <div dangerouslySetInnerHTML={{ __html: svgContent }} style={{ maxWidth: "100%", overflow: "auto" }} />
+          <div dangerouslySetInnerHTML={{ __html: svgContent }} style={{ maxWidth: "100%", width: "100%", overflow: "auto" }} />
         </div>
       );
     }
