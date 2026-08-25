@@ -16,7 +16,8 @@
     "validate:no-hardcoded-stats": "node scripts/validate-no-hardcoded-stats.mjs",
     "generate:content-registry": "node scripts/generate-content-registry.mjs",
     "generate:labs-existence": "node scripts/generate-labs-existence.mjs",
-    "generate:og-images": "node scripts/generate-og-images.mjs"
+    "generate:og-images": "node scripts/generate-og-images.mjs",
+    "screenshots:marketing": "node scripts/screenshot-marketing-sections.mjs"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.5.12",
