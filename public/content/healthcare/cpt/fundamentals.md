@@ -59,9 +59,18 @@ APPENDICES:
 
 ```
 E&M (99202-99499): Most commonly billed codes
-  New patient needs all 3 key components (or time/MDM)
-  Established patient needs 2 of 3 key components
-  2021 changes: time or MDM determines level (office/outpatient)
+
+  Historical (pre-2021):
+    New patient needed all 3 key components (history, exam, MDM)
+    Established patient needed 2 of 3 key components
+    Superseded for office/outpatient E&M by the 2021 rule below —
+    still relevant for reading older documentation and some
+    non-office E&M categories that weren't part of the 2021 change
+
+  Current (2021+), office/outpatient E&M specifically:
+    Level is based on EITHER total time OR MDM alone — not the
+    3-key-component count above
+    This is the rule to apply for office/outpatient visits today
 
 ANESTHESIA (00100-01999):
   Reported in units: base units + time units
