@@ -8,7 +8,6 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { CopyProtection } from "@/components/CopyProtection";
 import { WebSiteJsonLd, OrganizationJsonLd } from "@/components/seo/JsonLd";
 import AuthStateSync from "@/components/auth/AuthStateSync";
-import NavbarAncestorDebug from "@/components/debug/NavbarAncestorDebug";
 
 export const metadata: Metadata = {
   title: { default: "SynfraCore — Learn DevOps, Cloud & AI", template: "%s | SynfraCore" },
@@ -143,10 +142,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <AuthStateSync />
           <CopyProtection />
           <Navbar />
-          {/* TEMPORARY diagnostic (2026-08-12) — read-only, logs to console
-              only, remove once the signed-in sticky-navbar root cause is
-              found. See components/debug/NavbarAncestorDebug.tsx. */}
-          <NavbarAncestorDebug />
           <main style={{ flex: 1, paddingTop: "64px" }}>{children}</main>
           <Footer />
         </ThemeProvider>
