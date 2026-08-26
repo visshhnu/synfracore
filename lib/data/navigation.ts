@@ -58,7 +58,7 @@ export const certifications = [
   { id: "cka", name: "Certified Kubernetes Administrator", code: "CKA", provider: "CNCF", color: "#326CE5", level: "Professional" },
   { id: "ckad", name: "Certified Kubernetes App Developer", code: "CKAD", provider: "CNCF", color: "#326CE5", level: "Professional" },
   { id: "cks", name: "Certified Kubernetes Security Specialist", code: "CKS", provider: "CNCF", color: "#326CE5", level: "Expert" },
-  { id: "terraform-associate", name: "Terraform Associate", code: "003", provider: "HashiCorp", color: "#7B42BC", level: "Associate" },
+  { id: "terraform-associate", name: "Terraform Associate", code: "004", provider: "HashiCorp", color: "#7B42BC", level: "Associate" },
   { id: "rhcsa", name: "Red Hat Certified System Administrator", code: "EX200", provider: "Red Hat", color: "#EE0000", level: "Professional" },
   { id: "rhce", name: "Red Hat Certified Engineer", code: "EX294", provider: "Red Hat", color: "#EE0000", level: "Expert" },
   { id: "aws-dop", name: "AWS DevOps Engineer Professional", code: "DOP-C02", provider: "AWS", color: "#FF9900", level: "Professional" },

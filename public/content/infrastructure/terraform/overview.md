@@ -148,6 +148,6 @@ No cloud account needed — Terraform can manage a fake "local" resource just to
 ## Study Resources
 - **Terraform: Up and Running** (Yevgeniy Brikman) — best book, covers real patterns
 - **HashiCorp Learn** (developer.hashicorp.com/terraform/tutorials) — free official tutorials
-- **Terraform Associate (003)** — entry-level certification; practical exam
+- **Terraform Associate (004)** — entry-level certification; practical exam
 - **Gruntwork IaC Library** — production-grade Terraform modules, patterns guide free online
 - **awesome-terraform** (github.com/shuaibiyy/awesome-terraform) — curated resource list

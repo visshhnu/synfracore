@@ -57,7 +57,7 @@ const certGroups = [
   {
     category: "Infrastructure & DevOps", color: "#7B42BC",
     certs: [
-      { id: "terraform-associate", name: "Terraform Associate",                     code: "003",    level: "Associate",    time: "2 months",
+      { id: "terraform-associate", name: "Terraform Associate",                     code: "004",    level: "Associate",    time: "2 months",
         topics: ["IaC Concepts", "Terraform Workflow", "State Management", "Modules"],
         modules: [{ label: "Terraform", href: "/academies/devops/terraform/overview" }] },
       { id: "rhcsa",               name: "Red Hat Certified System Administrator",  code: "EX200",  level: "Professional", time: "3 months",

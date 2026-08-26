@@ -101,6 +101,6 @@ terraform validate         # validate configuration syntax
 ## Study Resources
 - **HashiCorp Terraform Documentation** (developer.hashicorp.com/terraform) — official, comprehensive
 - **Terraform: Up and Running** (Yevgeniy Brikman) — best book for learning Terraform
-- **HashiCorp Certified: Terraform Associate (003)** — entry-level certification
+- **HashiCorp Certified: Terraform Associate (004)** — entry-level certification
 - **Gruntwork Terragrunt** — DRY Terraform configurations for large teams
 - **Terraform Registry** (registry.terraform.io) — modules and providers repository

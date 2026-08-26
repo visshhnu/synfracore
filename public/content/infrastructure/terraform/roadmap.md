@@ -48,7 +48,7 @@
 
 ## Target Certifications
 
-- HashiCorp Terraform Associate (003)
+- HashiCorp Terraform Associate (004)
 
 ## How to Use This Roadmap
 

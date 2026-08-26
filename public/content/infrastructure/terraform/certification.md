@@ -2,7 +2,7 @@
 
 ## Certifications Available
 
-**HashiCorp Certified: Terraform Associate (003)** — the primary Terraform cert.
+**HashiCorp Certified: Terraform Associate (004)** — the primary Terraform cert.
 
 | Detail | Info |
 |--------|------|
