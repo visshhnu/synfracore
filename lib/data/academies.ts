@@ -99,6 +99,10 @@ const devopsAcademy: Academy = {
         { slug: "git", name: "Git & GitHub", icon: "🔀", description: "Version control, branching strategies, PRs, and collaborative workflows", level: "Beginner", tags: ["VCS", "Branching", "Collaboration"] },
         { slug: "jenkins", name: "Jenkins", icon: "🤖", description: "CI/CD pipelines, declarative Jenkinsfiles, shared libraries, and Kubernetes agents", level: "Intermediate", tags: ["CI/CD", "Pipelines", "Automation"] },
         { slug: "argocd", name: "ArgoCD", icon: "🔄", description: "GitOps continuous delivery — App of Apps, sync waves, multi-cluster management", level: "Advanced", tags: ["GitOps", "CD", "Kubernetes"] },
+        // Registered 2026-08-26 — content existed on disk and in the content
+        // registry (lib/content/index.ts) but was never wired into this
+        // navigation file, same pattern as the earlier law/law orphan.
+        { slug: "argo-rollouts", name: "Argo Rollouts", icon: "🐦", description: "Progressive delivery — canary and blue-green rollouts with automated, metric-driven analysis and rollback", level: "Advanced", tags: ["Progressive Delivery", "Canary", "GitOps", "Kubernetes"] },
         // Registered 2026-08-07 — see ebpf/harbor/keda note above; same provenance.
         { slug: "gitlab-ci", name: "GitLab CI/CD", icon: "🦊", description: "All-in-one DevSecOps platform — SCM + CI/CD + Registry + Security scanning", level: "Intermediate", tags: ["CI/CD", "GitLab", "DevSecOps"] },
         { slug: "fluxcd", name: "FluxCD", icon: "🔁", description: "Pure GitOps — no UI, CRD-driven, multi-tenancy", level: "Advanced", tags: ["GitOps", "CRD", "Kubernetes"] },
