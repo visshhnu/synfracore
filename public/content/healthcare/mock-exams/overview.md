@@ -11,7 +11,7 @@ Timed mock examinations for ICD-10-CM, CPT, HCPCS, and medical coding certificat
 | CPC | AAPC | 100 MCQ, 4 hrs, 70% to pass | Outpatient/physician coding |
 | COC (formerly CPC-H) | AAPC | MCQ format, verify current question count/time | Hospital outpatient coding |
 | CCA | AHIMA | MCQ, verify current format | Coding fundamentals |
-| CCS | AHIMA | MCQ + coding, verify current format | Inpatient + outpatient |
+| CCS | AHIMA | 107 items (97 scored), 4 hrs, passing score 300 — verify current format | Inpatient + outpatient — see this course's dedicated **CCS** technology for ICD-10-PCS, root operations, and inpatient sequencing |
 | RHIT | AHIMA | MCQ, verify current format | Health information management |
 | BCHHC | Certifying body unclear — sources vary between BMSCC/AHCC/WellSky, verify directly | MCQ, case-based | Home health coding |
 
@@ -35,7 +35,7 @@ Timed mock examinations for ICD-10-CM, CPT, HCPCS, and medical coding certificat
 Medical coding students preparing for their first certification, working coders recertifying, and healthcare professionals adding coding credentials.
 
 ## How to Use This Section
-1. Complete the coding-specific technology modules first (CPT, HCPCS, ICD-10-CM, Coding Guidelines, or Home Health Coding/BCHHC Prep depending on your target credential)
+1. Complete the coding-specific technology modules first (CPT, HCPCS, ICD-10-CM, Coding Guidelines, CCS, or Home Health Coding/BCHHC Prep depending on your target credential)
 2. Use this section's **Fundamentals** for exam-taking mechanics and timed-practice strategy
 3. Use **Certification Guide** for exam format and study-resource specifics per credential
 4. Run full-length timed mocks under conditions matching your target exam's real format

@@ -501,6 +501,7 @@ const healthcareAcademy: Academy = {
         { slug: "cpt", name: "CPT Codes", icon: "🔬", description: "Current Procedural Terminology — E/M, surgery, global package, modifiers, NCCI", level: "Intermediate", tags: ["CPT", "E/M", "Surgery"] },
         { slug: "hcpcs", name: "HCPCS Level II", icon: "💊", description: "HCPCS — DME, drugs, ambulance, ABN, coverage determinations, modifiers", level: "Intermediate", tags: ["HCPCS", "DME", "Medicare"] },
         { slug: "coding-guidelines", name: "Coding Guidelines", icon: "📖", description: "OGCR, inpatient vs outpatient, UHDDS, uncertain diagnoses, sequencing rules", level: "Intermediate", tags: ["Guidelines", "OGCR", "HCC"] },
+        { slug: "ccs", name: "CCS — Inpatient/Outpatient Coding", icon: "🏥", description: "Certified Coding Specialist (AHIMA) — ICD-10-PCS structure and root operations, UHDDS principal diagnosis, POA indicators, DRG/CC-MCC impact, inpatient + outpatient dual-setting coding", level: "Advanced", tags: ["CCS", "ICD-10-PCS", "Inpatient", "AHIMA"] },
         { slug: "mock-exams", name: "Mock Exams & CPC Prep", icon: "📝", description: "CPC, CCS, CCA exam practice — case studies, timed tests, detailed explanations", level: "Advanced", tags: ["CPC", "CCS", "Certification"] },
       ],
     },
