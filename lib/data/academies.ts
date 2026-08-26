@@ -178,6 +178,18 @@ const devopsAcademy: Academy = {
         { slug: "openshift", name: "OpenShift (OCP)", icon: "🔴", description: "Enterprise Kubernetes — SCCs, Routes, Operators, OLM, KubeVirt, Tekton, live migration, and GitOps at scale", level: "Advanced", tags: ["OCP", "Enterprise K8s", "Red Hat", "Telecom"] },
       ],
     },
+    {
+      slug: "security-secrets",
+      name: "Security & Secrets Management",
+      icon: "🔐",
+      description: "Secrets management, encryption as a service, and DevSecOps scanning tools",
+      color: "#DC2626",
+      technologies: [
+        { slug: "vault", name: "HashiCorp Vault", icon: "🔐", description: "Secrets management — dynamic secrets, PKI, encryption as a service, and identity-based access control", level: "Advanced", tags: ["Vault", "Secrets", "PKI", "HashiCorp"] },
+        { slug: "trivy", name: "Trivy", icon: "🔍", description: "All-in-one vulnerability, misconfiguration, and secret scanner — images, IaC, Kubernetes clusters, and SBOM", level: "Intermediate", tags: ["Trivy", "DevSecOps", "Vulnerability Scanning", "SBOM"] },
+        { slug: "sonarqube", name: "SonarQube", icon: "🧹", description: "Continuous code quality and security analysis — bugs, vulnerabilities, code smells, and Quality Gates", level: "Intermediate", tags: ["SonarQube", "Static Analysis", "Code Quality", "DevSecOps"] },
+      ],
+    },
   ],
   technologies: [],
 };
