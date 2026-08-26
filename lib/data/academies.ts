@@ -439,6 +439,18 @@ const dataAcademy: Academy = {
         { slug: "cloud-data-warehouses", name: "Cloud Data Warehouses", icon: "🏬", description: "Cloud data warehousing across vendors — BigQuery, Redshift, Synapse, Snowflake compared, not one vendor only", level: "Intermediate", tags: ["Data Warehouse", "BigQuery", "Redshift", "Snowflake"] },
       ],
     },
+    {
+      slug: "mis-bridge",
+      name: "MIS Bridge Path",
+      icon: "🌉",
+      description: "An alternate route into Excel, SQL, NumPy, Pandas, and Power BI, framed for Excel-fluent MIS professionals transitioning to Python/SQL — not a replacement for the dedicated Excel/Pandas/Power BI/SQL technologies above, which cover each tool in more depth on its own terms.",
+      color: "#0EA5E9",
+      technologies: [
+        { slug: "mis-overview", name: "MIS & Data Analytics — Start Here", icon: "🧭", description: "Orientation for this bridge path — how Excel, SQL, NumPy, Pandas, and Power BI fit together as one stack, and why an MIS-background learner would take this route instead of the standalone technologies", level: "Beginner", tags: ["MIS", "Bridge Path", "Orientation"] },
+        { slug: "python-mis", name: "Python for MIS Professionals", icon: "🐍", description: "Python and SQL taught by mapping directly onto Excel intuition — VLOOKUP/XLOOKUP to pandas merge, pivot tables to groupby, for an Excel-fluent learner transitioning to code", level: "Intermediate", tags: ["MIS", "Python", "Excel-to-Python"] },
+        { slug: "python-mis-advanced", name: "Python for MIS Professionals — Advanced", icon: "🚀", description: "Automation workflows for MIS professionals — scheduled reporting scripts, SQLAlchemy, Plotly dashboards, and a full Windows Task Scheduler automation pipeline", level: "Advanced", tags: ["MIS", "Automation", "SQLAlchemy"] },
+      ],
+    },
   ],
   technologies: [],
 };
