@@ -116,8 +116,6 @@ const contentRegistry = new Map<string, string>([
   ["ai/ai-fundamentals/overview","ai/ai-fundamentals/overview"],
   ["ai/ai-fundamentals/projects","ai/ai-fundamentals/projects"],
   ["ai/ai-fundamentals/roadmap","ai/ai-fundamentals/roadmap"],
-  ["ai/ai-learning/fundamentals","ai/ai-learning/fundamentals"],
-  ["ai/ai-learning/interview","ai/ai-learning/interview"],
   ["ai/langchain/advanced","ai/langchain/advanced"],
   ["ai/langchain/certification","ai/langchain/certification"],
   ["ai/langchain/cheatsheets","ai/langchain/cheatsheets"],
