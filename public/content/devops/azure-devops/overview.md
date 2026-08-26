@@ -320,81 +320,61 @@ az deployment group create \\
 
 **Q1. What is Azure DevOps Pipelines and why would you use it in production?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** **Problem:** teams already invested in Azure and Microsoft 365 want CI/CD that integrates deeply with that ecosystem (AKS, ACR, Key Vault, Entra ID/RBAC) rather than bolting on a separate, disconnected CI/CD tool. **Solution:** Azure DevOps provides YAML-based Pipelines as Code alongside Repos, Boards, and Artifacts in one platform, with first-class Azure service connections for deploying to AKS, pushing to ACR, and pulling secrets from Key Vault. **Result:** for an organization already standardized on Azure, this integration reduces the glue code and separate-tool overhead a more generic CI/CD platform would require to reach the same level of Azure-native functionality.
 
 ---
 
 **Q2. How does Azure DevOps Pipelines work internally? Explain the architecture.**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** **Problem:** understanding the stage/job/step hierarchy matters for both writing efficient pipelines and diagnosing why something ran in an unexpected order. **Solution:** a pipeline is defined in YAML (stored in the repo, Pipeline as Code) as a sequence of Stages that run sequentially by default; each Stage contains Jobs that run in parallel by default; each Job contains Steps that run sequentially. Templates let common Stage/Job/Step patterns be defined once and reused — the Azure DevOps equivalent of Jenkins Shared Libraries or GitHub Actions reusable workflows. **Result:** this hierarchy is exactly what the `dependsOn` field controls when you need something that would otherwise run in parallel (like SecurityScan and Test) to instead run in a specific order relative to another job.
 
 ---
 
-**Q3. What are the main components of Azure DevOps Pipelines?**
+**Q3. What are the main components of Azure DevOps as a platform, beyond just Pipelines?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** **Problem:** "Azure DevOps" is often used loosely to mean just CI/CD, understating what the platform actually bundles. **Solution:** Repos (Git hosting), Pipelines (CI/CD), Boards (Agile project/work-item tracking), Artifacts (package registry for npm/NuGet/Maven packages), and Test Plans (test case management) — a genuinely full project-lifecycle platform, unlike GitHub Actions which is CI/CD-focused and pairs with separate GitHub features for the rest. **Result:** this breadth is exactly why Azure DevOps tends to appeal most to enterprises wanting one platform for the full lifecycle, rather than teams happy to assemble best-of-breed separate tools for each concern.
 
 ---
 
-**Q4. How do you handle failures in Azure DevOps Pipelines?**
+**Q4. How do you handle failures in an Azure DevOps pipeline?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** **Problem:** a pipeline stage failing partway through a multi-stage deploy (Build → DeployStaging → DeployProd) needs to stop propagation to later stages, and production deploys specifically need a human checkpoint before proceeding. **Solution:** `dependsOn` between stages ensures a failed Build stage blocks DeployStaging/DeployProd from running at all; Environments with approval gates (configured on the `production` environment) require explicit human approval before a deployment job targeting it proceeds, even if all prior stages succeeded. **Result:** the combination of dependency-based stage blocking and environment approval gates is what prevents a failure (or an insufficiently-reviewed change) from silently propagating all the way to production.
 
 ---
 
 **Q5. What is your production experience with Azure DevOps Pipelines?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** This is a genuinely personal question — answer with a real incident using the Problem → Solution → Result structure: optimizing a slow pipeline (caching, parallelization, self-hosted agents), configuring an approval gate that caught a problematic change before production, or choosing between Bicep and Terraform for an Azure-specific resource. Interviewers are listening for whether you've actually operated Azure Pipelines against real delivery pressure, not just read the YAML schema documentation.
 
 ---
 
 **Q6. How do you monitor and observe Azure DevOps Pipelines in production?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** **Problem:** a pipeline that's technically "passing" can still be slow, flaky, or silently degrading in ways a simple pass/fail status doesn't surface. **Solution:** track pipeline duration trends over time (a pipeline that's gradually gotten slower deserves investigation, per this guide's own pipeline-optimization module), review PublishTestResults output for flaky tests rather than just the overall pass/fail, and monitor Environment deployment history to catch a pattern of failed/rolled-back production deployments. **Result:** pipeline health is more than binary pass/fail — duration trends and flakiness patterns are leading indicators worth tracking before they become an outright failure.
 
 ---
 
 **Q7. What are the security considerations for Azure DevOps Pipelines?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** **Problem:** pipelines routinely need real credentials (container registry push access, Azure resource deployment permissions, Key Vault access) to do their job. **Solution:** use Service Connections (scoped, managed credential objects) rather than hardcoding credentials in pipeline YAML or Variable Groups where avoidable; fetch genuinely sensitive values from Azure Key Vault at runtime via the AzureKeyVault task rather than storing them as plain pipeline variables; and scope Service Connections to the minimum permissions a specific pipeline actually needs, rather than one broad connection reused everywhere. **Result:** Service Connections and Key Vault integration exist specifically to keep credentials out of pipeline YAML and variable groups where they'd otherwise be more broadly visible/exposed than necessary.
 
 ---
 
-**Q8. How does Azure DevOps Pipelines compare to alternatives?**
+**Q8. How does Azure DevOps compare to alternatives?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** This usually means a specific comparison. Azure DevOps vs. GitHub Actions: GitHub Actions is SaaS-native, has a large public marketplace, and is generally simpler — a better fit for open-source or GitHub-centric teams; Azure DevOps offers the full project lifecycle (Boards, Artifacts, Test Plans) and deeper enterprise RBAC/audit features, better suited to enterprises already on Azure. Azure DevOps vs. GitLab CI: GitLab CI is also all-in-one with built-in security scanning and a strong self-hosted option; the choice often comes down to which ecosystem (Azure vs. GitLab's own) an organization is already standardized on. State the specific tool being compared and the actual tradeoff, rather than reciting a generic list.
 
 ---
 
-**Q9. Explain Azure DevOps Overview in Azure DevOps Pipelines.**
+**Q9. Why does the guide describe Terraform as the default long-term choice on Azure, with Bicep reserved for quick Azure-specific resources?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** Terraform's multi-cloud provider model, larger community, and more mature state management make it the safer default for infrastructure meant to last and potentially span beyond just Azure. Bicep is cleaner than raw ARM JSON and has first-class Azure support, but is Azure-only — a reasonable choice for a quick, Azure-specific resource where multi-cloud portability was never a consideration, but a real limitation for infrastructure a team might want to keep cloud-agnostic. Raw ARM JSON is explicitly flagged as legacy-only, never hand-written, in this guide's own Module 04 content.
 
 ---
 
-**Q10. Explain YAML Pipelines in Azure DevOps Pipelines.**
+**Q10. Walk through how you'd optimize a pipeline that takes 45 minutes down to under 15 minutes, per this guide's own pipeline-optimization approach.**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** Identify what's actually sequential that doesn't NEED to be — per this guide's own worked example, running test, security-scan, and lint jobs in parallel (rather than sequentially) collapses their combined time to just the longest of the three. Add dependency caching (`Cache@2` for npm/pip/Maven) to avoid reinstalling unchanged dependencies on every run. Use Docker BuildKit layer caching for the image build step, avoiding a full rebuild of unchanged layers. For a monorepo, skip building/testing services that didn't actually change in a given commit rather than rebuilding everything every time. Together — parallelization, caching, and skipping unchanged work — is exactly the combination this guide's own example shows taking a pipeline from 45 minutes to roughly 12.
 
 ---
 
@@ -403,6 +383,4 @@ az deployment group create \\
 - [Azure Pipelines YAML Reference](https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/)
 - [Azure Pipelines Tasks Reference](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/)
 - [Bicep Documentation](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/)
-
----
 

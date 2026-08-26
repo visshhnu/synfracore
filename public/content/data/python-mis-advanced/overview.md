@@ -273,83 +273,63 @@ ctx = ClientContext(url).with_user_credentials("user@company.com", "password")
 
 ### Common Interview Questions
 
-**Q1. What is Python for MIS — Automation & Dashboards and why would you use it in production?**
+**Q1. What is this Automation & Dashboards phase, and why does it matter more than just knowing pandas basics?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** **Problem:** knowing pandas syntax alone doesn't produce the actual outcome most MIS professionals want first — a fully automated report that runs without any manual step, and a way to share results more engaging than a static spreadsheet. **Solution:** this phase combines the earlier pandas skills into a genuinely complete automation (scheduled, self-running, with error handling and automatic email delivery) and adds Plotly for interactive, browser-based dashboards shareable as a single HTML file, no Power BI license required. **Result:** this is the phase where the underlying skills turn into something with real, immediately visible workplace value — a report that used to take hours now runs unattended and gets emailed automatically.
 
 ---
 
-**Q2. How does Python for MIS — Automation & Dashboards work internally? Explain the architecture.**
+**Q2. How does the full automation script's architecture work, including its error handling?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** **Problem:** a production automation script needs to handle a genuinely messy real-world input (a missing file, a malformed row) without crashing entirely and losing the whole week's report. **Solution:** the script iterates through files in a shared folder, wrapping each file's read in a try/except so one bad file gets logged as an error and skipped rather than crashing the whole run; successfully-loaded data gets concatenated, cleaned, and has metrics calculated; the final multi-sheet report is written and then emailed automatically via SMTP. **Result:** the try/except-per-file pattern is specifically what makes this genuinely production-usable rather than a demo script — a real weekly batch will eventually include at least one problematic file, and the script needs to degrade gracefully, not fail completely.
 
 ---
 
-**Q3. What are the main components of Python for MIS — Automation & Dashboards?**
+**Q3. What are the main components of this automation and dashboarding stack?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** **Problem:** "automation and dashboards" spans genuinely distinct capabilities worth separating. **Solution:** the consolidation/automation layer (pandas + os + a scheduler), the notification layer (smtplib for automatic email delivery), the static visualization layer (matplotlib), and the interactive dashboard layer (Plotly, including multi-panel dashboards via `make_subplots`). **Result:** knowing which layer handles which concern is what lets you debug effectively — a dashboard rendering wrong is a Plotly issue, a report not arriving is an SMTP/scheduling issue, and a wrong number in the report is a pandas calculation issue, three genuinely different debugging paths.
 
 ---
 
-**Q4. How do you handle failures in Python for MIS — Automation & Dashboards?**
+**Q4. How do you handle failures specifically in the automated email-sending step?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** **Problem:** SMTP authentication failures, network issues, or an invalid recipient address can all cause email delivery to fail silently if not handled explicitly. **Solution:** wrap the `send_email` call in its own try/except separate from the report-generation logic, so a report that generated successfully but failed to SEND is distinguishable from a report that failed to generate at all — and log/alert differently for each case, since "report exists but wasn't emailed" has a different, often simpler fix (resend manually) than "report generation itself failed." **Result:** separating these two failure modes (generation vs. delivery) is what lets you diagnose and recover quickly rather than treating "the Monday report didn't arrive" as one undifferentiated problem.
 
 ---
 
-**Q5. What is your production experience with Python for MIS — Automation & Dashboards?**
+**Q5. What is your production experience with this level of MIS automation — full scheduling, email, and dashboards?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** This is a genuinely personal question — answer with a real example using the Problem → Solution → Result structure: a fully scheduled report that replaced real manual Monday-morning work, a Plotly dashboard that replaced a static Excel chart people actually preferred using, or a specific error-handling case (a missing file, a failed email send) you had to account for. Whoever's asking is listening for whether you've actually run something like this in production, not just written the code once.
 
 ---
 
-**Q6. How do you monitor and observe Python for MIS — Automation & Dashboards in production?**
+**Q6. How do you monitor a fully automated, scheduled MIS pipeline to know it's actually working?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** **Problem:** once a script is scheduled and unattended, there's no one watching it run the way there would be for a manual process — a silent failure could go unnoticed for weeks. **Solution:** the automatic email delivery itself doubles as a lightweight monitoring signal (a missing Monday email is the alert that something broke), combined with explicit logging of load errors and a periodic manual spot-check comparing the automated report's numbers against a manual calculation to catch a subtle calculation bug the automation wouldn't flag as an "error" on its own. **Result:** full automation doesn't mean zero oversight — it shifts oversight from "watching it run" to "periodically verifying its output is still correct," a different but still-necessary kind of attention.
 
 ---
 
-**Q7. What are the security considerations for Python for MIS — Automation & Dashboards?**
+**Q7. What are the security considerations for this level of automation, particularly the SQL/SharePoint integration in Phase 6?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** **Problem:** connecting Python directly to a database or SharePoint means the script now holds real credentials with real access to production data systems, a meaningfully bigger exposure than reading local Excel files. **Solution:** never hardcode database/SharePoint credentials directly in script source (the example code's inline password is illustrative only, not a production pattern) — use environment variables, a credentials manager, or (for Azure-connected environments) managed identity where available; and scope the database connection's own permissions to read-only access on only the specific tables the script actually needs. **Result:** the jump from "reading local Excel files" to "connecting directly to a database" is exactly the point where credential-handling discipline needs to meaningfully increase, not stay the same.
 
 ---
 
-**Q8. How does Python for MIS — Automation & Dashboards compare to alternatives?**
+**Q8. How does this Python-based dashboard approach compare to Power BI for the same reporting needs?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** Power BI offers a more polished, drag-and-drop dashboard-building experience and built-in scheduled-refresh infrastructure via Power BI Service, but requires a license and is a separate tool from the automation script itself. Plotly-based HTML dashboards are free, require no separate software for the recipient (just a browser), and integrate directly into the same Python pipeline already doing the data processing — genuinely replacing BASIC Power BI use cases, though Power BI's more advanced modeling (DAX, complex relationships across many tables) isn't something a Plotly HTML file replicates. The right choice depends on whether the reporting need is genuinely basic (Plotly suffices) or requires Power BI's deeper modeling capability.
 
 ---
 
-**Q9. Explain Phase 4 — Full Automation in Python for MIS — Automation & Dashboards.**
+**Q9. Why does the roadmap describe SQL as the natural next step after mastering pandas-based automation?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** Pandas automation up to this point still depends on OTHER teams manually exporting Excel files for the script to consume — a real bottleneck and failure point (a late file, a malformed export). Connecting Python directly to a database via SQL removes that manual export step entirely, querying live data directly rather than waiting on and depending on someone else's manual Excel export process. This is also why the roadmap frames SQL as opening up more senior job titles (Senior Data Analyst, Data Engineer) — it represents a genuine step up in technical independence from manual data handoffs.
 
 ---
 
-**Q10. Explain Phase 5 — Interactive Dashboards in Python for MIS — Automation & Dashboards.**
+**Q10. Walk through building a multi-panel dashboard that shows both departmental revenue and regional performance in one view.**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** Use Plotly's `make_subplots` to define a grid layout (e.g. 2 rows × 2 columns) with titled panels for each metric. Prepare the underlying data with pandas first — a `groupby("Department")` aggregation for departmental revenue, a separate `groupby("Region")` aggregation for regional data — since Plotly visualizes already-aggregated data, it doesn't do the aggregation itself. Add each prepared dataset as its own trace (`go.Bar`, `go.Pie`) to its designated subplot position. Save the combined figure as a single HTML file with `write_html`, which bundles everything (both panels, interactivity) into one file the recipient opens directly in a browser — no separate files or software needed per panel.
 
 ---
 
@@ -358,6 +338,4 @@ ctx = ClientContext(url).with_user_credentials("user@company.com", "password")
 - [Pandas Documentation](https://pandas.pydata.org/docs/)
 - [Plotly Python Documentation](https://plotly.com/python/)
 - [SQLAlchemy Documentation](https://docs.sqlalchemy.org/)
-
----
 

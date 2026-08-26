@@ -453,81 +453,61 @@ program_output:
 
 **Q1. What is DevSecOps and why would you use it in production?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** **Problem:** treating security as a final gate right before production means vulnerabilities get caught after most of the cost (design, implementation, review) has already been sunk — the cost of fixing an issue grows roughly 10x at each stage from dev through production. **Solution:** DevSecOps shifts security checks left, embedding gates at every stage — pre-commit secret scanning, PR-time SAST/IaC scanning, build-time image scanning, deploy-time admission policies, and runtime threat detection — rather than one late-stage security review. **Result:** issues get caught when they're cheapest to fix, and no single tool needs to catch everything, since defense-in-depth means a gap at one stage is likely caught at another.
 
 ---
 
-**Q2. How does DevSecOps work internally? Explain the architecture.**
+**Q2. How does a DevSecOps pipeline work internally? Explain the architecture.**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** **Problem:** understanding how the different tools at each stage actually fit together (rather than being a random collection) matters for reasoning about coverage gaps. **Solution:** each stage's tools address a genuinely different risk window — pre-commit tools (detect-secrets, gitleaks) prevent secrets from ever entering history; PR-stage tools (SonarQube, Checkov, tfsec) catch code and IaC issues before merge; build-stage tools (Trivy, Snyk) catch dependency/image vulnerabilities; deploy-stage admission controllers (OPA Gatekeeper, Kyverno) enforce policy on what's actually allowed to run; runtime tools (Falco) catch what static analysis structurally can't — actual anomalous behavior once something is already running. **Result:** this is why "no single tool covers everything" isn't a limitation to work around, it's the actual design — each stage catches a different class of risk the others structurally can't.
 
 ---
 
-**Q3. What are the main components of DevSecOps?**
+**Q3. What are the main components of a complete DevSecOps toolchain?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** **Problem:** "DevSecOps" names a genuinely large set of distinct tool categories worth separating. **Solution:** secrets management (Vault — static and dynamic secrets), vulnerability/dependency scanning (Trivy, Snyk), static code analysis (SonarQube), IaC misconfiguration scanning (Checkov, tfsec), Kubernetes admission policy enforcement (OPA Gatekeeper, Kyverno), and runtime threat detection (Falco). **Result:** knowing which category addresses which risk is what lets a team build genuine defense-in-depth rather than redundantly covering one risk category five times while leaving another (like runtime behavior) completely unaddressed.
 
 ---
 
-**Q4. How do you handle failures in DevSecOps?**
+**Q4. How do you handle failures/findings across a multi-stage DevSecOps pipeline?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** **Problem:** treating every finding at every stage as an identical hard block produces both alert fatigue and inconsistent enforcement across stages. **Solution:** per this guide's own pattern, CRITICAL CVEs block the build outright while HIGH severity creates a tracked ticket without blocking — a deliberate severity-based triage rather than all-or-nothing gating; admission-time policy violations (Kyverno/OPA) block deployment outright since they represent a defined, non-negotiable policy; runtime alerts (Falco) go to incident response rather than blocking anything retroactively, since the workload is already running. **Result:** each stage's appropriate failure response differs — a build-time gate can block; a runtime detection can only alert and trigger response, since there's nothing left to "block" once something is already deployed and running.
 
 ---
 
 **Q5. What is your production experience with DevSecOps?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** This is a genuinely personal question — answer with a real incident using the Problem → Solution → Result structure: a Trivy/SonarQube finding caught before a bad deploy, tuning an admission policy that was initially too strict or too permissive, or a Falco alert that surfaced genuinely suspicious runtime behavior. Interviewers are listening for whether you've actually operated a multi-stage security pipeline under real delivery pressure, not just read about each tool individually.
 
 ---
 
-**Q6. How do you monitor and observe DevSecOps in production?**
+**Q6. How do you monitor and keep a DevSecOps pipeline effective over time?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** **Problem:** a pipeline with security gates configured once at adoption can drift out of calibration as the codebase and threat landscape both evolve. **Solution:** track Quality Gate/scan pass rates over time (consistently failing suggests miscalibration; never failing suggests the gate isn't adding real value), periodically re-audit `.trivyignore`/accepted-risk lists for findings that now have available fixes, and treat Falco/runtime alert volume as its own signal — a sudden spike deserves investigation regardless of whether any single alert looks routine. **Result:** DevSecOps tooling, like any security control, needs periodic recalibration — a "configure once" mindset lets both false-positive fatigue and genuine coverage gaps grow unnoticed over time.
 
 ---
 
-**Q7. What are the security considerations for DevSecOps?**
+**Q7. What are the security considerations for the DevSecOps tooling itself, not just what it's scanning?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** **Problem:** the security tools themselves (Vault, SonarQube, the admission controller) become high-value targets, since compromising them can undermine every downstream security check they're meant to provide. **Solution:** Vault's own root token should be locked away post-setup with day-to-day access via scoped policies; SonarQube/Trivy findings (which describe exploitable weaknesses) deserve the same access control as any other sensitive security data; and admission controller policies themselves need change control, since a modified/disabled policy silently removes a deploy-time safety net without anyone necessarily noticing immediately. **Result:** the tools enforcing security need to be treated with at least the same rigor as the systems they protect — a compromised or misconfigured security tool is a single point of failure for the whole defense-in-depth model.
 
 ---
 
-**Q8. How does DevSecOps compare to alternatives?**
+**Q8. How does a shift-left DevSecOps approach compare to a traditional, late-stage security review model?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** A traditional model concentrates security review at one late gate (often right before production), meaning issues found there are the most expensive to fix (already implemented, already reviewed, already tested) and create a real bottleneck right when a team is trying to ship. Shift-left distributes checks across every stage, catching the same classes of issues far earlier and cheaper, at the cost of needing more tools integrated across more stages of the pipeline rather than one centralized review process — a real tooling/process investment tradeoff, not a free improvement.
 
 ---
 
-**Q9. Explain DevSecOps Pipeline in DevSecOps.**
+**Q9. Why are dynamic secrets described as Vault's "killer feature," beyond just being more convenient than static ones?**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** A static secret (a shared username/password stored in Vault's KV store) still carries the same fundamental risk as any long-lived credential — indefinite validity until someone manually rotates it. Dynamic secrets are generated on-demand, short-lived, and automatically expire/revoke — meaning a leaked dynamic credential has a bounded, generally short useful lifetime by design, with a full audit trail of exactly when and to what it was issued. This is a genuinely different security posture, not just a convenience feature — it removes the "did someone remember to rotate this" dependency entirely for the secrets it covers.
 
 ---
 
-**Q10. Explain HashiCorp Vault in DevSecOps.**
+**Q10. Walk through the complete security gate flow for a code change from commit to production, per this guide's own defense-in-depth model.**
 
-**A:** *Add your answer here based on your real experience.*
-
-**Framework:** State the problem it solves → explain your solution → describe the result.
+**A:** At commit time, pre-commit hooks (detect-secrets, gitleaks) block credential leaks before they ever enter Git history. At PR time, SonarQube SAST and Checkov/tfsec IaC scanning run automatically, surfacing code-quality/security and infrastructure-misconfiguration issues directly on the PR. At build time, Trivy scans both source dependencies (filesystem scan) and the built container image, with CRITICAL CVEs blocking the build outright. At deploy time, Kyverno or OPA Gatekeeper admission policies enforce non-negotiable rules (no root containers, required resource limits, approved registries only) before anything is admitted to the cluster. At runtime, Falco monitors for genuinely suspicious behavior the earlier static stages couldn't have caught, while Vault provides the dynamic secrets those running workloads need without any long-lived static credential ever existing in the first place.
 
 ---
 
@@ -538,6 +518,4 @@ program_output:
 - [SonarQube Documentation](https://docs.sonarsource.com/sonarqube/)
 - [Kyverno Documentation](https://kyverno.io/docs/)
 - [Falco Documentation](https://falco.org/docs/)
-
----
 
