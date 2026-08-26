@@ -822,6 +822,7 @@ const centralExamsAcademy: Academy = {
       { slug: "ctet-paper2", name: "CTET Paper II", icon: "📚", description: "Elementary level (Class VI-VIII) — CDP, Languages, Science/Social Studies/Maths", level: "Intermediate", tags: ["CTET", "Elementary", "Teaching"] },
       { slug: "psu-technical", name: "PSU Technical Exams", icon: "🏭", description: "BHEL, NTPC, ONGC, BEL, GAIL — technical + aptitude + HR rounds", level: "Intermediate", tags: ["PSU", "BHEL", "NTPC", "ONGC"] },
       { slug: "nda-prep", name: "NDA Preparation", icon: "🎖️", description: "NDA Maths + GAT — detailed topic-wise preparation with PYQs", level: "Intermediate", tags: ["NDA", "Defence", "UPSC"] },
+      { slug: "hal-trainee-prep", name: "HAL Design/Management Trainee Prep", icon: "✈️", description: "HAL (Hindustan Aeronautics Limited) DT/MT exam — General Awareness, English & Reasoning, exam strategy, and interview prep; discipline-specific technical syllabus not covered here — see GATE ECE/CSE, Aerospace, and VLSI", level: "Intermediate", tags: ["HAL", "PSU", "Defence", "Trainee Exam"] },
     ]
   }],
   technologies: [],
