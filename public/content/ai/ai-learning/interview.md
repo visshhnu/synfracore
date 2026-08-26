@@ -8,19 +8,3 @@ Retrieval-Augmented Generation: combine LLM with a knowledge base. Query → ret
 
 **Q: What is prompt engineering?**
 Crafting inputs to LLMs to get desired outputs. Techniques: few-shot (examples), chain-of-thought (step by step), system prompts, output format specification, role assignment.
-
-
-
-
-
-## Additional Reference
-
-This topic has detailed content in adjacent sections. Check Overview for architecture, Fundamentals for core concepts, and Cheatsheets for quick command reference. Cross-reference with related topics in the same academy for complete understanding.
-
-### Key Takeaways
-
-- Understand the core architecture and design decisions
-- Practice the commands and configurations hands-on
-- Review interview questions before any technical interview
-- Keep cheatsheets bookmarked for quick reference during work
-- Connect this knowledge to adjacent tools in the same domain

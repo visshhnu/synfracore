@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import { Send, Bot, User, Loader2, Sparkles, Zap } from "lucide-react";
 import { AssistantMessageBubble } from "@/components/ai/AssistantMessageBubble";
 
@@ -156,9 +157,14 @@ Always provide: accurate technical answers, working code examples in fenced bloc
           <h1 style={{ fontSize: "15px", fontWeight: 700 }}>SynfraAI Assistant</h1>
           <p style={{ color: "var(--text-4)", fontSize: "12px" }}>Expert in DevOps · Cloud · AI · Kubernetes · Terraform</p>
         </div>
-        <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "6px", background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.2)", color: "#34D399", padding: "3px 11px", borderRadius: "100px", fontSize: "11px", fontWeight: 600 }}>
-          <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#34D399", display: "inline-block" }} />
-          Online
+        <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "12px" }}>
+          <Link href="/ai-assistant/features" style={{ color: "var(--text-4)", fontSize: "12px", textDecoration: "none" }}>
+            How it works
+          </Link>
+          <div style={{ display: "flex", alignItems: "center", gap: "6px", background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.2)", color: "#34D399", padding: "3px 11px", borderRadius: "100px", fontSize: "11px", fontWeight: 600 }}>
+            <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#34D399", display: "inline-block" }} />
+            Online
+          </div>
         </div>
       </div>
 
