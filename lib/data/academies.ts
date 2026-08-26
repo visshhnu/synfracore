@@ -487,6 +487,10 @@ const securityAcademy: Academy = {
         { slug: "siem", name: "SIEM", icon: "📡", description: "Splunk, Microsoft Sentinel — KQL, SIEM rules, threat hunting", level: "Intermediate", tags: ["SIEM", "Splunk", "Sentinel"] },
         { slug: "cloud-security", name: "Cloud Security", icon: "🔐", description: "Securing cloud workloads — CSPM, IAM hardening, encryption, shared-responsibility, compliance guardrails", level: "Advanced", tags: ["Cloud Security", "CSPM", "Compliance"] },
         { slug: "incident-response", name: "Incident Response", icon: "🚑", description: "IR lifecycle — preparation, detection, containment, eradication, recovery, and post-incident review", level: "Advanced", tags: ["Incident Response", "IR", "Forensics"] },
+        // Registered 2026-08-26 — content existed on disk and in the content
+        // registry (lib/content/index.ts) but was never wired into this
+        // navigation file, same pattern as the earlier law/law orphan.
+        { slug: "devsecops", name: "DevSecOps", icon: "🔗", description: "Shift-left security pipeline integration — pre-commit scanning through runtime defense, tying Vault, Trivy, SonarQube, OPA/Kyverno, and Falco into one workflow", level: "Advanced", tags: ["DevSecOps", "Shift-Left", "Pipeline Security", "OPA"] },
       ],
     },
   ],
