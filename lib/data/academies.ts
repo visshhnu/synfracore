@@ -716,6 +716,7 @@ const lawAcademy: Academy = {
       { slug: "consumer-protection", name: "Consumer Protection", icon: "🛡️", description: "Consumer Protection Act 2019, three-tier redressal, product liability, CCPA, e-commerce", level: "Beginner", tags: ["Consumer Law", "COPRA", "NCDRC"] },
       { slug: "civil-law-procedure", name: "Civil Law (CPC, Contract, TP)", icon: "📜", description: "Code of Civil Procedure, Indian Contract Act, and Transfer of Property Act — core substantive civil law", level: "Intermediate", tags: ["CPC", "Contract Act", "Civil Law"] },
       { slug: "legal-career-growth", name: "Legal Career Growth", icon: "📈", description: "From junior advocate to independent practice — court procedure, drafting, choosing a specialisation, building a client base", level: "Intermediate", tags: ["Career", "Practice", "Specialisation"] },
+      { slug: "law", name: "Practical Legal & Compliance Literacy", icon: "💼", description: "Everyday legal awareness for working professionals — employment rights, contracts, consumer forums, data protection, and cyber law", level: "Beginner", tags: ["Employment Law", "Compliance", "Data Protection", "Contracts"] },
     ]
   }],
   technologies: [],
