@@ -135,6 +135,7 @@ const devopsAcademy: Academy = {
         { slug: "kafka", name: "Apache Kafka", icon: "📨", description: "Distributed event streaming — topics, partitions, consumer groups, exactly-once semantics", level: "Advanced", tags: ["Kafka", "Streaming", "Events"] },
         // Registered 2026-08-07 — see containers domain's ebpf/harbor/keda note above; same provenance.
         { slug: "platform-engineering", name: "Platform Engineering vs SRE vs DevOps", icon: "🧩", description: "Three roles clarified — what each actually does, how they differ, and how to answer it in interviews", level: "Intermediate", tags: ["Platform Engineering", "SRE", "Career"] },
+        { slug: "backstage", name: "Backstage", icon: "🎭", description: "The open platform for building developer portals — Software Catalog, Software Templates, TechDocs, and plugins", level: "Advanced", tags: ["Backstage", "Internal Developer Platform", "IDP", "CNCF"] },
         // Registered 2026-08-09 — held back from the 2026-08-07 batch pending
         // resolution of the infrastructure/{datadog,loki}/* alias-shadow
         // conflict (see docs/audit/07-roadmap-final.md's "8 of 10 guides
