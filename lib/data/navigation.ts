@@ -45,6 +45,10 @@ export const techSections = [
 // when a new technology gets real question-bank papers (e.g. VLSI, AEE, CPC).
 export const technologyExamTypeMap: Record<string, string> = {
   "healthcare/bchhc-prep": "bchhc",
+  "devops/kubernetes": "kubernetes",
+  "devops/terraform": "terraform",
+  "devops/docker": "docker",
+  "devops/ansible": "ansible",
 };
 
 export const certifications = [
