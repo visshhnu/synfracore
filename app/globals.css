@@ -31,6 +31,34 @@ select:focus-visible {
   --code-bg:   #060C18;
   --code-text: #CBD5E1;
   --table-hd:  #0D1526;
+
+  /* Diagram palette (FlowDiagram/ConceptBoxGrid) — bg/border are low-opacity
+     tints composited over --bg-2, so they stay subtle on any theme's surface
+     color automatically. --*-text is NOT reused across themes: a bright
+     tint that reads fine on a near-black background (dark mode) fails
+     contrast on a near-white one, so light mode gets darker, more saturated
+     shades of the same hue instead of the same value. */
+  --flow-blue-bg:      rgba(59,130,246,0.12);
+  --flow-blue-border:  rgba(59,130,246,0.45);
+  --flow-blue-text:    #60A5FA;
+  --flow-purple-bg:     rgba(139,92,246,0.12);
+  --flow-purple-border: rgba(139,92,246,0.45);
+  --flow-purple-text:   #A78BFA;
+  --flow-green-bg:     rgba(16,185,129,0.12);
+  --flow-green-border: rgba(16,185,129,0.45);
+  --flow-green-text:   #34D399;
+  --flow-amber-bg:     rgba(245,158,11,0.12);
+  --flow-amber-border: rgba(245,158,11,0.45);
+  --flow-amber-text:   #FBBF24;
+  --flow-slate-bg:     rgba(120,113,108,0.14);
+  --flow-slate-border: rgba(120,113,108,0.5);
+  --flow-slate-text:   #A8A29E;
+  --flow-red-bg:       rgba(239,68,68,0.12);
+  --flow-red-border:   rgba(239,68,68,0.45);
+  --flow-red-text:     #F87171;
+  --flow-cyan-bg:      rgba(14,165,233,0.12);
+  --flow-cyan-border:  rgba(14,165,233,0.45);
+  --flow-cyan-text:    #38BDF8;
 }
 
 /* ── LIGHT MODE ── */
@@ -50,6 +78,32 @@ html.light {
   --code-bg:   #F1F5F9;
   --code-text: #1E293B;
   --table-hd:  #F1F5F9;
+
+  /* Same hues as dark mode's diagram palette, darker/more-saturated text
+     shades for contrast against a near-white surface; bg/border stay as the
+     same low-opacity tints (they composite over --bg-2, which is already
+     white here, so they don't need a separate value). */
+  --flow-blue-text:    #1D4ED8;
+  --flow-purple-text:  #6D28D9;
+  --flow-green-text:   #047857;
+  --flow-amber-text:   #B45309;
+  --flow-slate-text:   #57534E;
+  --flow-red-text:     #B91C1C;
+  --flow-cyan-text:    #0369A1;
+  --flow-blue-bg:      rgba(59,130,246,0.08);
+  --flow-blue-border:  rgba(59,130,246,0.35);
+  --flow-purple-bg:     rgba(139,92,246,0.08);
+  --flow-purple-border: rgba(139,92,246,0.35);
+  --flow-green-bg:     rgba(16,185,129,0.08);
+  --flow-green-border: rgba(16,185,129,0.35);
+  --flow-amber-bg:     rgba(245,158,11,0.08);
+  --flow-amber-border: rgba(245,158,11,0.35);
+  --flow-slate-bg:     rgba(120,113,108,0.10);
+  --flow-slate-border: rgba(120,113,108,0.4);
+  --flow-red-bg:       rgba(239,68,68,0.08);
+  --flow-red-border:   rgba(239,68,68,0.35);
+  --flow-cyan-bg:      rgba(14,165,233,0.08);
+  --flow-cyan-border:  rgba(14,165,233,0.35);
 }
 
 html { background: var(--bg); }

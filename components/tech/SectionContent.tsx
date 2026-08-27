@@ -4,6 +4,8 @@ import { ShareButtons } from "@/components/growth/ShareButtons";
 import { TelegramBanner } from "@/components/growth/TelegramBanner";
 import { Loader2, RefreshCw, Sparkles, BookOpen } from "lucide-react";
 import { hasContent, fetchContent } from "@/lib/content";
+import { FlowDiagram, type FlowStep } from "./FlowDiagram";
+import { ConceptBoxGrid, type ConceptBox } from "./ConceptBoxGrid";
 
 type Props = {
   academy: string;
@@ -88,6 +90,44 @@ function renderMarkdown(content: string) {
           <div dangerouslySetInnerHTML={{ __html: svgContent }} style={{ maxWidth: "100%", width: "100%", overflow: "auto" }} />
         </div>
       );
+    }
+
+    // ── FLOW / STACK DIAGRAM BLOCK ── structured JSON, not hand-typed SVG.
+    // Colors are resolved through CSS custom properties inside FlowDiagram
+    // itself (see components/tech/diagramColors.ts) rather than baked into
+    // this content as hex, so the same authored block renders correctly in
+    // both dark and light mode automatically.
+    else if (line.trim() === "```flow") {
+      flushTable(`flow-${i}`);
+      const jsonLines: string[] = [];
+      i++;
+      while (i < lines.length && lines[i].trim() !== "```") {
+        jsonLines.push(lines[i]);
+        i++;
+      }
+      try {
+        const parsed = JSON.parse(jsonLines.join("\n")) as { title?: string; layout?: "flow" | "stack"; steps: FlowStep[] };
+        elements.push(<FlowDiagram key={`flow-${i}`} title={parsed.title} layout={parsed.layout} steps={parsed.steps} />);
+      } catch {
+        elements.push(<p key={`flow-err-${i}`} style={{ color: "var(--text-4)", fontSize: "13px" }}>[Invalid flow diagram data]</p>);
+      }
+    }
+
+    // ── CONCEPT BOX GRID BLOCK ── structured JSON, same rationale as above.
+    else if (line.trim() === "```conceptgrid") {
+      flushTable(`conceptgrid-${i}`);
+      const jsonLines: string[] = [];
+      i++;
+      while (i < lines.length && lines[i].trim() !== "```") {
+        jsonLines.push(lines[i]);
+        i++;
+      }
+      try {
+        const parsed = JSON.parse(jsonLines.join("\n")) as { boxes: ConceptBox[] };
+        elements.push(<ConceptBoxGrid key={`conceptgrid-${i}`} boxes={parsed.boxes} />);
+      } catch {
+        elements.push(<p key={`conceptgrid-err-${i}`} style={{ color: "var(--text-4)", fontSize: "13px" }}>[Invalid concept grid data]</p>);
+      }
     }
 
     // ── CODE BLOCKS ──
