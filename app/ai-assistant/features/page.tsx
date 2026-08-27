@@ -60,7 +60,7 @@ export default function AIFeaturesPage() {
           AI Learning Features
         </h1>
         <p style={{ color: "var(--text-4)", fontSize: "17px", lineHeight: 1.8 }}>
-          Every topic page on SynfraCore is backed by four AI-powered tools that adapt to what you're studying and where you're stuck, instead of leaving you with a static page alone.
+          Every topic page on SynfraCore is backed by four AI-powered tools that adapt to what you&apos;re studying and where you&apos;re stuck, instead of leaving you with a static page alone.
         </p>
       </div>
 
