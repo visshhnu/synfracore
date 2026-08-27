@@ -1,8 +1,12 @@
 # CPT — Current Procedural Terminology
 
+**Before you start:** this page assumes you already know what medical coding is and why it exists — if "ICD-10-CM," "claim," or "payer" are new terms to you, do **Medical Coding Overview** first (it covers the billing pipeline these codes feed into). Basic medical terminology (prefixes, roots, suffixes) also helps for reading procedure names, though it isn't strictly required to follow this page.
+
+When a patient sees a doctor, the provider doesn't just get paid automatically — they submit a **claim**: a formal, itemized bill sent to whoever is going to pay for the visit. The **payer** is whoever that is — an insurance company, Medicare, Medicaid, or (rarely) the patient directly. A payer won't just pay a claim on trust; it needs to see exactly what was done, coded in a standard way it can look up and price. That's what CPT codes are: a standardized code set describing medical services and procedures, so every claim says precisely what happened in a language every payer already understands.
+
 CPT codes are used to report medical, surgical, and diagnostic procedures performed by physicians and other healthcare providers. Maintained by the American Medical Association (AMA) and updated annually.
 
-**Analogy** — If ICD-10-CM is the "why" on a claim, CPT is the itemized receipt of "what was actually done." Think of a car repair invoice: the diagnosis is "why you came in" ("check engine light"), and the line items — "replaced spark plugs, $80; diagnostic scan, $40" — are the CPT equivalent. A payer won't reimburse a claim that only says why the patient came in without also itemizing exactly what service was performed, any more than a garage could bill you without listing the actual repairs.
+**Analogy** — If ICD-10-CM (a separate code set, covered in its own section) is the "why" on a claim, CPT is the itemized receipt of "what was actually done." Think of a car repair invoice: the diagnosis is "why you came in" ("check engine light"), and the line items — "replaced spark plugs, $80; diagnostic scan, $40" — are the CPT equivalent. A payer won't reimburse (pay out) a claim that only says why the patient came in without also itemizing exactly what service was performed, any more than a garage could bill you without listing the actual repairs.
 
 ```
 ICD-10-CM: "why"                CPT: "what was done"
@@ -17,7 +21,7 @@ CPT (Current Procedural Terminology) is a standardized code set that describes m
 **Key facts:**
 - Published and maintained by the **AMA**
 - Updated annually — new edition effective January 1st
-- Required for all outpatient claims to payers
+- Required for all outpatient claims to payers (the insurer or program being billed)
 - 5-digit numeric codes (some alphanumeric in Category II/III)
 - Different from ICD-10-CM (diagnoses) — CPT is WHAT was done, ICD-10-CM is WHY
 
@@ -66,6 +70,18 @@ E/M codes represent office visits, hospital visits, consultations. They are the 
 
 Since 2021, E/M level is based on either **MDM** OR **total time**:
 
+```flow
+{
+  "title": "How an E/M Level Actually Gets Assigned",
+  "layout": "flow",
+  "steps": [
+    { "label": "Visit Documented", "sublabel": "Provider records the encounter", "color": "blue" },
+    { "label": "Score by Time OR MDM", "sublabel": "Total time spent, or 2 of 3 MDM elements", "color": "purple" },
+    { "label": "E/M Level Assigned", "sublabel": "Low / Moderate / High → specific code", "color": "green" }
+  ]
+}
+```
+
 **MDM has 3 elements (need 2 of 3 to meet level):**
 
 1. **Number and complexity of problems addressed**
@@ -96,6 +112,8 @@ When you bill a surgical code, it includes:
 - Assistant surgeon services
 
 ### Modifiers — Critical for Surgery
+
+A **modifier** is a two-character code appended to a CPT code (like `-25` or `-59`) that tells the payer a service was altered in some specific way — without changing what the core procedure actually was. It doesn't replace the CPT code; it adds context the payer needs to process the claim correctly (e.g., "this wasn't a duplicate bill, it was genuinely two separate procedures").
 
 ```
 -22  Increased procedural services (unusual complexity — needs documentation)
@@ -165,6 +183,19 @@ When you bill a surgical code, it includes:
 ## Bundling and NCCI Edits
 
 The **National Correct Coding Initiative (NCCI)** identifies procedure code pairs that should not be billed together because one is considered part of the other.
+
+```flow
+{
+  "title": "Column1/Column2 Bundling — Can Modifier -59 Override It?",
+  "layout": "flow",
+  "steps": [
+    { "label": "Two codes billed together", "sublabel": "e.g. 27447 TKA + an intra-op injection", "color": "blue" },
+    { "label": "NCCI edit found?", "sublabel": "Component bundled into comprehensive code", "color": "amber" },
+    { "label": "Were they truly distinct?", "sublabel": "Separately supportable by documentation", "color": "purple" },
+    { "label": "Bill separately with -59", "sublabel": "Only if genuinely distinct — else stays bundled", "color": "green" }
+  ]
+}
+```
 
 ```
 Two different bundling patterns show up in practice:
