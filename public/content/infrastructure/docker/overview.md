@@ -8,60 +8,27 @@ A container is not a virtual machine. It shares the host OS kernel but has its o
 
 ## How Docker Works
 
-```svg
-<svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;font-family:Inter,sans-serif">
-  <defs>
-    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#2563EB;stop-opacity:1"/>
-      <stop offset="100%" style="stop-color:#7C3AED;stop-opacity:1"/>
-    </linearGradient>
-  </defs>
+On a single host, the Docker Engine sits between the hardware and any number of isolated containers — each with its own app, base image, and port, but sharing the same underlying kernel:
 
-  <!-- Host Machine -->
-  <rect x="10" y="10" width="700" height="320" rx="14" fill="none" stroke="#374151" stroke-width="2" stroke-dasharray="6,3"/>
-  <text x="30" y="34" font-size="12" fill="#6B7280" font-weight="600">HOST MACHINE (Linux / macOS / Windows)</text>
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "Containers (isolated from each other)", "sublabel": "Container A: Node.js App on node:20-alpine, port 3000 · Container B: Python API on python:3.12-slim, port 8000 · Container C: PostgreSQL on postgres:16-alpine, port 5432", "color": "blue" },
+    { "label": "Docker Engine (containerd + runc)", "color": "green" },
+    { "label": "Hardware", "sublabel": "CPU · RAM · Disk · Network", "color": "slate" }
+  ]
+}
+```
 
-  <!-- Hardware layer -->
-  <rect x="30" y="280" width="660" height="36" rx="8" fill="#1F2937"/>
-  <text x="360" y="303" font-size="12" fill="#9CA3AF" text-anchor="middle" font-weight="600">Hardware (CPU · RAM · Disk · Network)</text>
-
-  <!-- Docker Engine -->
-  <rect x="30" y="230" width="660" height="38" rx="8" fill="#064E3B"/>
-  <text x="360" y="254" font-size="13" fill="#34D399" text-anchor="middle" font-weight="700">Docker Engine (containerd + runc)</text>
-
-  <!-- Containers -->
-  <rect x="44" y="80" width="195" height="136" rx="10" fill="#1E3A5F" stroke="#3B82F6" stroke-width="1.5"/>
-  <text x="141" y="104" font-size="12" fill="#93C5FD" text-anchor="middle" font-weight="700">Container A</text>
-  <rect x="60" y="112" width="163" height="24" rx="6" fill="#1D4ED8" opacity="0.5"/>
-  <text x="141" y="129" font-size="11" fill="#BFDBFE" text-anchor="middle">Node.js App</text>
-  <rect x="60" y="142" width="163" height="24" rx="6" fill="#1D4ED8" opacity="0.4"/>
-  <text x="141" y="159" font-size="11" fill="#BFDBFE" text-anchor="middle">node:20-alpine</text>
-  <rect x="60" y="172" width="163" height="24" rx="6" fill="#1D4ED8" opacity="0.3"/>
-  <text x="141" y="189" font-size="11" fill="#93C5FD" text-anchor="middle">Port 3000</text>
-
-  <rect x="263" y="80" width="195" height="136" rx="10" fill="#1E3A5F" stroke="#8B5CF6" stroke-width="1.5"/>
-  <text x="360" y="104" font-size="12" fill="#C4B5FD" text-anchor="middle" font-weight="700">Container B</text>
-  <rect x="279" y="112" width="163" height="24" rx="6" fill="#5B21B6" opacity="0.5"/>
-  <text x="360" y="129" font-size="11" fill="#DDD6FE" text-anchor="middle">Python API</text>
-  <rect x="279" y="142" width="163" height="24" rx="6" fill="#5B21B6" opacity="0.4"/>
-  <text x="360" y="159" font-size="11" fill="#DDD6FE" text-anchor="middle">python:3.12-slim</text>
-  <rect x="279" y="172" width="163" height="24" rx="6" fill="#5B21B6" opacity="0.3"/>
-  <text x="360" y="189" font-size="11" fill="#C4B5FD" text-anchor="middle">Port 8000</text>
-
-  <rect x="482" y="80" width="195" height="136" rx="10" fill="#1E3A5F" stroke="#10B981" stroke-width="1.5"/>
-  <text x="579" y="104" font-size="12" fill="#6EE7B7" text-anchor="middle" font-weight="700">Container C</text>
-  <rect x="498" y="112" width="163" height="24" rx="6" fill="#065F46" opacity="0.5"/>
-  <text x="579" y="129" font-size="11" fill="#A7F3D0" text-anchor="middle">PostgreSQL</text>
-  <rect x="498" y="142" width="163" height="24" rx="6" fill="#065F46" opacity="0.4"/>
-  <text x="579" y="159" font-size="11" fill="#A7F3D0" text-anchor="middle">postgres:16-alpine</text>
-  <rect x="498" y="172" width="163" height="24" rx="6" fill="#065F46" opacity="0.3"/>
-  <text x="579" y="189" font-size="11" fill="#6EE7B7" text-anchor="middle">Port 5432</text>
-
-  <!-- Isolated labels -->
-  <text x="141" y="230" font-size="10" fill="#60A5FA" text-anchor="middle">isolated</text>
-  <text x="360" y="230" font-size="10" fill="#A78BFA" text-anchor="middle">isolated</text>
-  <text x="579" y="230" font-size="10" fill="#34D399" text-anchor="middle">isolated</text>
-</svg>
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Container A", "description": "Node.js App — node:20-alpine — port 3000", "color": "blue" },
+    { "title": "Container B", "description": "Python API — python:3.12-slim — port 8000", "color": "purple" },
+    { "title": "Container C", "description": "PostgreSQL — postgres:16-alpine — port 5432", "color": "green" }
+  ]
+}
 ```
 
 ## VM vs Container
@@ -76,31 +43,16 @@ A container is not a virtual machine. It shares the host OS kernel but has its o
 
 ## The Docker Build Workflow
 
-```svg
-<svg viewBox="0 0 720 120" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;font-family:Inter,sans-serif">
-  <!-- Steps -->
-  <rect x="10"  y="30" width="130" height="60" rx="10" fill="#1E3A5F" stroke="#3B82F6" stroke-width="1.5"/>
-  <text x="75"  y="56" font-size="11" fill="#93C5FD" text-anchor="middle" font-weight="700">Dockerfile</text>
-  <text x="75"  y="74" font-size="10" fill="#60A5FA" text-anchor="middle">Instructions</text>
-
-  <text x="165" y="65" font-size="20" fill="#3B82F6" text-anchor="middle">→</text>
-
-  <rect x="190" y="30" width="130" height="60" rx="10" fill="#1E3A5F" stroke="#8B5CF6" stroke-width="1.5"/>
-  <text x="255" y="56" font-size="11" fill="#C4B5FD" text-anchor="middle" font-weight="700">docker build</text>
-  <text x="255" y="74" font-size="10" fill="#A78BFA" text-anchor="middle">Creates Image</text>
-
-  <text x="345" y="65" font-size="20" fill="#8B5CF6" text-anchor="middle">→</text>
-
-  <rect x="370" y="30" width="130" height="60" rx="10" fill="#1E3A5F" stroke="#10B981" stroke-width="1.5"/>
-  <text x="435" y="56" font-size="11" fill="#6EE7B7" text-anchor="middle" font-weight="700">docker push</text>
-  <text x="435" y="74" font-size="10" fill="#34D399" text-anchor="middle">Registry (DockerHub)</text>
-
-  <text x="525" y="65" font-size="20" fill="#10B981" text-anchor="middle">→</text>
-
-  <rect x="550" y="30" width="130" height="60" rx="10" fill="#1E3A5F" stroke="#F59E0B" stroke-width="1.5"/>
-  <text x="615" y="56" font-size="11" fill="#FDE68A" text-anchor="middle" font-weight="700">docker run</text>
-  <text x="615" y="74" font-size="10" fill="#FCD34D" text-anchor="middle">Running Container</text>
-</svg>
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Dockerfile", "sublabel": "Instructions", "color": "blue" },
+    { "label": "docker build", "sublabel": "Creates Image", "color": "purple" },
+    { "label": "docker push", "sublabel": "Registry (DockerHub)", "color": "green" },
+    { "label": "docker run", "sublabel": "Running Container", "color": "amber" }
+  ]
+}
 ```
 
 ## Your First Dockerfile
