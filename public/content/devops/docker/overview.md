@@ -13,6 +13,19 @@
 
 Containers are isolated processes using Linux namespaces (PID, net, mnt, etc.) and cgroups (resource limits) — not VMs, since they share the host kernel rather than virtualizing an entire OS. This is exactly why containers start in milliseconds and use a fraction of a VM's memory: there's no separate kernel to boot. The Docker daemon runs and manages containers; Docker Hub is the default public registry for storing and pulling images.
 
+On a single host, the Docker Engine sits between the hardware and any number of isolated containers — each with its own app and dependencies, but sharing the same underlying kernel:
+
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "Containers (isolated from each other)", "sublabel": "Each with its own app, libraries, and process space", "color": "blue" },
+    { "label": "Docker Engine (containerd + runc)", "color": "green" },
+    { "label": "Hardware", "sublabel": "CPU · RAM · Disk · Network", "color": "slate" }
+  ]
+}
+```
+
 ## Why Docker?
 
 Before containers, "works on my machine" was a constant real problem — an app that ran fine on a developer's laptop could fail in staging or production because of subtle environment differences (a different library version, a missing system dependency, a different OS). Docker packages an application and everything it needs to run — code, runtime, libraries, system tools — into one portable image that behaves identically wherever it runs: a laptop, a CI runner, or a production cluster. That portability, not just resource efficiency, is the actual reason Docker became the default way to ship software.
@@ -34,6 +47,20 @@ Before containers, "works on my machine" was a constant real problem — an app 
 *Layers, multi-stage, security*
 
 Order Dockerfile instructions from least to most frequently changing, to maximize cache hits — dependency installation before application code, since code changes far more often than dependencies. Multi-stage builds reduce final image size by building in one stage (with the full toolchain) and copying only the compiled artifact into a minimal runtime stage. Containers should never run as root by default — a non-root `USER` limits what a compromised container process can actually do.
+
+**The build-to-run workflow, end to end:**
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Dockerfile", "sublabel": "Instructions", "color": "blue" },
+    { "label": "docker build", "sublabel": "Creates Image", "color": "purple" },
+    { "label": "docker push", "sublabel": "Registry (DockerHub)", "color": "green" },
+    { "label": "docker run", "sublabel": "Running Container", "color": "amber" }
+  ]
+}
+```
 
 **Topics covered:**
 

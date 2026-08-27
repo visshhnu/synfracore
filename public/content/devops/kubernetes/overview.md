@@ -43,6 +43,28 @@ Docker Compose (covered in the Docker course) runs multiple containers together,
 
 A Kubernetes cluster has two kinds of machines. The **control plane** ("the brain") makes decisions but never runs your application containers itself — it consists of the **API Server** (the single front door every request goes through, whether from you via `kubectl` or from Kubernetes' own internal components), **etcd** (a distributed key-value store — a simple, reliable database that holds the entire cluster's current state), the **Scheduler** (decides which Node a new Pod should run on), and the **Controller Manager** (continuously checks real state against desired state and corrects any difference). **Worker Nodes** ("the workhorses") are the machines that actually run your Pods.
 
+```flow
+{
+  "title": "Control Plane → Worker Nodes",
+  "layout": "flow",
+  "steps": [
+    { "label": "Control Plane", "sublabel": "kubectl → API Server → etcd", "detail": "Scheduler + Controller Manager keep desired state", "color": "blue" },
+    { "label": "Worker Nodes", "sublabel": "kubelet + kube-proxy per node", "detail": "Each node runs Pods scheduled to it", "color": "green" }
+  ]
+}
+```
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "API Server", "description": "Entry point for all requests — kubectl talks to this", "color": "blue" },
+    { "title": "etcd", "description": "Cluster state database — the single source of truth", "color": "blue" },
+    { "title": "Scheduler", "description": "Decides which node a new Pod runs on", "color": "blue" },
+    { "title": "Controller Manager", "description": "Continuously reconciles actual state toward desired state", "color": "blue" }
+  ]
+}
+```
+
 **Topics covered:**
 
 - Control Plane components — 🟡 Intermediate
@@ -73,6 +95,21 @@ Every Pod gets its own IP address, but Pods are constantly being replaced with n
 - Ingress Controllers — 🟡 Intermediate
 - CoreDNS (the internal DNS service that lets Pods find Services by name instead of IP) — 🟡 Intermediate
 - Network Policies — 🔴 Advanced
+
+**The core objects covered across Modules 03-04, at a glance:**
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Pod", "description": "1+ containers, the smallest deployable unit", "color": "purple" },
+    { "title": "Deployment", "description": "Manages Pods, handles rolling updates", "color": "blue" },
+    { "title": "Service", "description": "Stable IP/DNS, load balances across Pods", "color": "green" },
+    { "title": "ConfigMap", "description": "Non-secret config — env vars, files", "color": "amber" },
+    { "title": "Secret", "description": "Sensitive config — passwords, keys", "color": "red" },
+    { "title": "Ingress", "description": "HTTP routing and TLS termination", "color": "purple" }
+  ]
+}
+```
 
 ### Module 05 — Storage
 *PV, PVC, StorageClass*

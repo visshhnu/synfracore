@@ -26,6 +26,49 @@ Application code assumes the network "just works," but as a DevOps/platform engi
 ### Module 01 — OSI Model & TCP/IP
 *Layers 1-7, protocols, ports*
 
+```flow
+{
+  "title": "OSI Layers (Transport and Network are what DevOps touches most)",
+  "layout": "stack",
+  "steps": [
+    { "label": "7 — Application", "sublabel": "HTTP, HTTPS, DNS, SSH, SMTP, FTP", "color": "blue" },
+    { "label": "6 — Presentation", "sublabel": "TLS/SSL encryption, data encoding", "color": "blue" },
+    { "label": "5 — Session", "sublabel": "Connection management, WebSockets", "color": "blue" },
+    { "label": "4 — Transport ⭐", "sublabel": "TCP (reliable), UDP (fast) — PORTS live here", "color": "green" },
+    { "label": "3 — Network ⭐", "sublabel": "IP Addresses, Routing, ICMP (ping)", "color": "green" },
+    { "label": "2 — Data Link", "sublabel": "MAC Addresses, Ethernet, Wi-Fi frames", "color": "purple" },
+    { "label": "1 — Physical", "sublabel": "Cables, fiber, radio signals", "color": "slate" }
+  ]
+}
+```
+
+TCP's 3-way handshake trades a small setup cost for reliability; UDP skips it entirely for speed:
+
+```flow
+{
+  "title": "TCP — Reliable (HTTP · HTTPS · SSH · Databases · Email)",
+  "layout": "flow",
+  "steps": [
+    { "label": "SYN", "sublabel": "Client → Server", "color": "green" },
+    { "label": "SYN-ACK", "sublabel": "Server → Client", "color": "blue" },
+    { "label": "ACK", "sublabel": "Connected!", "color": "purple" }
+  ]
+}
+```
+
+```flow
+{
+  "title": "UDP — Fast (DNS · Video streaming · Gaming · VoIP)",
+  "layout": "flow",
+  "steps": [
+    { "label": "Packet 1", "sublabel": "delivered", "color": "amber" },
+    { "label": "Packet 2", "sublabel": "delivered", "color": "amber" },
+    { "label": "Packet 3", "sublabel": "LOST — no retry", "color": "red" },
+    { "label": "Packet 4", "sublabel": "delivered", "color": "amber" }
+  ]
+}
+```
+
 **Topics covered:**
 
 - OSI 7 layers and what happens at each — 🟢 Beginner
