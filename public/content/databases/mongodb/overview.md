@@ -1,6 +1,8 @@
 # MongoDB — Flexible Document Database
 
-MongoDB stores data as JSON-like documents instead of rows and tables. Each document can have a different structure, making it ideal for evolving schemas, nested data, and applications that don't fit the relational model.
+**Before you start:** basic familiarity with what a database is for (storing and retrieving data reliably) is assumed, but no prior MongoDB or NoSQL experience is needed. If you've done the SQL Mastery page, the comparisons below will click faster, but it isn't required — this page explains the document model from scratch either way.
+
+A **document database** stores each record as a single self-contained unit (a **document** — essentially one JSON object) rather than splitting it across multiple linked tables. MongoDB is the most widely used document database: it stores data as JSON-like documents instead of rows and tables, and — unlike a traditional table, where every row must have the same columns — each document can have a different structure. That flexibility is what makes it a good fit for evolving schemas, nested data, and applications that don't fit neatly into the relational (table-based) model.
 
 ## Document vs Row
 
@@ -45,6 +47,25 @@ MongoDB Document (flexible — each document can differ):
 - Situations demanding strict, rigid schema enforcement at the database layer
 
 **A note on financial transactions:** it's a common but outdated claim that MongoDB "can't do ACID" and is therefore unsuitable for financial data — MongoDB has supported multi-document ACID transactions since version 4.0 (2018, single replica set) and 4.2 (sharded clusters). Financial systems still often lean toward relational databases, but the real reasons are usually schema rigidity/constraints being a good fit for regulated data, mature reporting/JOIN tooling, and organizational familiarity — not a technical ACID limitation that no longer exists. MongoDB's own material even recommends single-document atomicity (via schema design) over multi-document transactions where possible, due to the performance cost of the latter — but "not possible at all" is simply inaccurate.
+
+## The Aggregation Pipeline
+
+MongoDB's most powerful feature for analysis is the **aggregation pipeline**: instead of one query trying to do everything at once, you chain together simple stages, each one taking the previous stage's output and transforming it further — the same idea as piping commands together in a shell, but for documents. A typical pipeline for "revenue by city, from completed orders" looks like this:
+
+```flow
+{
+  "title": "Aggregation Pipeline — Revenue by City",
+  "layout": "stack",
+  "steps": [
+    { "label": "$match", "sublabel": "Filter to completed orders since a given date", "color": "blue" },
+    { "label": "$lookup", "sublabel": "Join in the matching user document", "color": "purple" },
+    { "label": "$unwind", "sublabel": "Flatten the joined array into plain fields", "color": "green" },
+    { "label": "$group", "sublabel": "Bucket by city, sum revenue, count orders", "color": "amber" }
+  ]
+}
+```
+
+Each stage is independently simple — the power comes from chaining them, the same way a handful of simple shell commands piped together can do something none of them could alone.
 
 ## Quick Start
 
