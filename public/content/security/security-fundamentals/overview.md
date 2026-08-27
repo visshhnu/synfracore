@@ -1,56 +1,72 @@
 # Security Fundamentals — Cybersecurity for Engineers
 
-Security is no longer just the security team's job. Every DevOps, cloud, and platform engineer needs foundational security knowledge to build and operate secure systems.
+**Before you start:** no prior security background is assumed — this is the entry point for the whole Security academy. Basic familiarity with how a web request reaches a server (client → network → server) helps for the later examples, but isn't required.
+
+Imagine a bank vault. It isn't protected by one lock — there's a guard at the door, a vault door itself, a time lock, cameras, an alarm tied to a monitoring center, and a safe deposit box inside that. Any single one of those failing (a guard falls asleep, a camera goes offline) doesn't mean the bank gets robbed, because the other layers are still there. A secure computer system works the same way: no single protection is ever assumed to be perfect, so real systems stack several independent defenses, and a failure in one layer is a warning, not a catastrophe. Security engineering is the discipline of designing and reasoning about those layers deliberately, instead of hoping nothing ever goes wrong.
 
 ## The CIA Triad
 
-The foundation of information security:
+Every security decision traces back to protecting one (or more) of three properties:
 
-**Confidentiality** — Information is accessible only to authorized parties. Encryption, access controls, and authentication protect confidentiality. Breached by: data exfiltration, eavesdropping, unauthorized access.
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Confidentiality", "description": "Only authorized people can see the information. Protected by encryption (scrambling data so only someone with the right key can read it), access controls (rules about who's allowed to see what), and authentication (proving you are who you claim to be).", "color": "blue" },
+    { "title": "Integrity", "description": "The data is accurate and hasn't been secretly changed. Protected by hash functions (a fingerprint of data that changes if the data changes) and audit logs (a record of who did what, so tampering can be traced).", "color": "green" },
+    { "title": "Availability", "description": "The system is actually reachable when someone needs it. Protected by redundancy (more than one copy, so no single failure takes the whole thing down) and backups.", "color": "amber" }
+  ]
+}
+```
 
-**Integrity** — Data is accurate and hasn't been tampered with. Hash functions, digital signatures, and audit logs protect integrity. Breached by: SQL injection, man-in-the-middle, insider modification.
-
-**Availability** — Systems are accessible when needed. Redundancy, backups, and DDoS protection maintain availability. Breached by: DDoS attacks, ransomware, infrastructure failures.
+Each is broken differently — data exfiltration (data being stolen and copied out) breaks confidentiality; SQL injection (an attack that sneaks database commands into a form field) breaks integrity by letting an attacker alter data directly; a DDoS attack (flooding a system with fake traffic until it can't respond to real users) breaks availability.
 
 ## Threat Modeling
 
-Before building anything, ask: **STRIDE**
+**Threat modeling** means deliberately asking "what could go wrong here, before it actually happens" — walking through a system on paper and identifying its weak points, rather than waiting to find out the hard way. **STRIDE** is one structured way to do this — a checklist of 6 categories of things that can go wrong with any system:
 
 | Threat | Description | Example |
 |--------|-------------|---------|
 | **S**poofing | Impersonating another entity | Stolen credentials |
 | **T**ampering | Modifying data or code | SQL injection |
 | **R**epudiation | Denying performed actions | No audit logs |
-| **I**nformation Disclosure | Exposing sensitive data | Unencrypted PII |
+| **I**nformation Disclosure | Exposing sensitive data | Unencrypted PII (Personally Identifiable Information — data that could identify a specific person, like a name or SSN) |
 | **D**enial of Service | Disrupting availability | DDoS, resource exhaustion |
-| **E**levation of Privilege | Gaining unauthorized access | Privilege escalation |
+| **E**levation of Privilege | Gaining unauthorized access | Privilege escalation (a user or process getting access rights beyond what it was supposed to have) |
+
+```flow
+{
+  "title": "Threat Modeling in Practice",
+  "layout": "flow",
+  "steps": [
+    { "label": "Identify the asset", "sublabel": "What are we actually protecting?", "color": "blue" },
+    { "label": "Apply STRIDE", "sublabel": "Which of the 6 categories could hit it?", "color": "purple" },
+    { "label": "Assess real impact", "sublabel": "How bad, how likely?", "color": "amber" },
+    { "label": "Design a mitigation", "sublabel": "A specific control for that specific threat", "color": "green" }
+  ]
+}
+```
 
 ## Defense in Depth
 
-Never rely on a single security control. Layer defenses:
+Never rely on a single security control — the vault-with-many-layers idea from the opening, applied to a real web system. Each layer below assumes every layer above it could fail:
 
-```
-External Users
-      │
-[WAF / DDoS Protection]
-      │
-[CDN / Load Balancer]
-      │
-[Firewall / Security Groups]
-      │
-[Authentication (MFA)]
-      │
-[Authorization (RBAC / ABAC)]
-      │
-[Application Security (input validation)]
-      │
-[Encryption (TLS, at-rest)]
-      │
-[Database Access Controls]
-      │
-[Audit Logging & SIEM]
-      │
-[Backup & Recovery]
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "External Users", "color": "slate" },
+    { "label": "WAF / DDoS Protection", "sublabel": "Filters malicious traffic before it reaches anything else", "color": "red" },
+    { "label": "CDN / Load Balancer", "sublabel": "Spreads traffic, absorbs spikes", "color": "blue" },
+    { "label": "Firewall / Security Groups", "sublabel": "Only allows expected traffic through", "color": "blue" },
+    { "label": "Authentication (MFA)", "sublabel": "Proves who's connecting", "color": "purple" },
+    { "label": "Authorization (RBAC / ABAC)", "sublabel": "Controls what an authenticated user can actually do", "color": "purple" },
+    { "label": "Application Security", "sublabel": "Input validation — rejects malformed/malicious input", "color": "green" },
+    { "label": "Encryption (TLS, at-rest)", "sublabel": "Protects data in transit and in storage", "color": "green" },
+    { "label": "Database Access Controls", "color": "amber" },
+    { "label": "Audit Logging & SIEM", "sublabel": "Records what happened, for after-the-fact investigation", "color": "amber" },
+    { "label": "Backup & Recovery", "sublabel": "The last resort if everything else fails", "color": "slate" }
+  ]
+}
 ```
 
 ## Common Attack Vectors
