@@ -216,7 +216,17 @@ export async function getQuizQuestions(supabase: SupabaseClient, academySlug: st
       .eq("technology_slug", technologySlug)
       .eq("section_slug", sectionSlug);
     if (error) throw error;
-    return (data ?? []) as QuizQuestion[];
+    // Defensive: every Healthcare-academy row (189 rows, all technologies) has
+    // `options` stored as a JSON-encoded string rather than a native array —
+    // a data-insertion bug, not a schema one (other academies' rows are fine).
+    // SectionQuiz.tsx calls options.map() directly with no guard, so an
+    // unparsed string here crashes the entire page (root layout error
+    // boundary), not just the quiz widget. Parsing defensively here fixes
+    // every affected row without needing a database migration.
+    return (data ?? []).map((row) => ({
+      ...row,
+      options: typeof row.options === "string" ? JSON.parse(row.options) : row.options,
+    })) as QuizQuestion[];
   } catch (err) {
     console.error("getQuizQuestions failed:", err);
     return [];
