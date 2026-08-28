@@ -8,6 +8,18 @@ SRE automation means eliminating toil — repetitive, manual, automatable work t
 
 ## Types of SRE Automation
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Runbook Automation", "description": "Incident runbooks become scripts that trigger automatically from alerts", "color": "blue" },
+    { "title": "Auto-Remediation", "description": "Kubernetes restarts OOMKilled pods automatically, no human involved", "color": "green" },
+    { "title": "Capacity Auto-Scaling", "description": "HPA scales replicas on CPU/memory or custom metrics", "color": "purple" },
+    { "title": "GitOps Deployment", "description": "Push → CI builds → ArgoCD deploys. Zero manual kubectl apply", "color": "amber" },
+    { "title": "Alert Correlation", "description": "Group 50 symptom alerts into 1 root-cause incident", "color": "slate" }
+  ]
+}
+```
+
 ### 1. Runbook Automation
 Convert incident runbooks into executable scripts that trigger automatically from alerts.
 

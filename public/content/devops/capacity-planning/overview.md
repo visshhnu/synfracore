@@ -14,12 +14,35 @@ SLOs (Service Level Objectives) define your *reliability target*. Capacity plann
 4. **Provision or set autoscaling policy** — either pre-provision capacity or configure autoscaling to react within an acceptable time window.
 5. **Re-measure after changes** — capacity planning is continuous, not a one-time exercise.
 
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Measure", "sublabel": "Current CPU/mem/IO/network per service", "color": "blue" },
+    { "label": "Forecast", "sublabel": "Growth trends, launches, seasonal spikes", "color": "purple" },
+    { "label": "Determine headroom", "sublabel": "Peak load + 20-40% safety margin", "color": "amber" },
+    { "label": "Provision / autoscale", "sublabel": "Pre-provision or set autoscaling policy", "color": "green" },
+    { "label": "Re-measure", "sublabel": "Continuous, not one-time", "color": "slate" }
+  ]
+}
+```
+
 ## Load Testing
 
 You can't plan capacity you haven't tested. Common approaches:
 - **Load testing** — simulate expected peak traffic to confirm the system holds up.
 - **Stress testing** — push well beyond expected peak to find the actual breaking point.
 - **Soak testing** — sustained moderate load over hours/days to catch memory leaks and slow degradation.
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Load Testing", "description": "Simulate expected peak traffic to confirm the system holds up", "color": "blue" },
+    { "title": "Stress Testing", "description": "Push well beyond expected peak to find the actual breaking point", "color": "red" },
+    { "title": "Soak Testing", "description": "Sustained moderate load over hours/days — catches leaks and slow degradation", "color": "purple" }
+  ]
+}
+```
 
 ```bash
 # Example: simple load test with k6

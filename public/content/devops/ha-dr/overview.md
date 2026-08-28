@@ -132,6 +132,17 @@ spec:
 
 Four DR strategies in order of cost and speed. Choose based on your RTO/RPO targets. Backup and Restore: cheapest, RTO hours. Pilot Light: core components always on, scale up on failure, RTO 10-30min. Warm Standby: scaled-down running copy in DR region, RTO minutes. Active/Active: two regions both serving traffic, RTO seconds but most expensive.
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Backup & Restore", "description": "$ — RTO: hours. Internal tools, low-criticality systems", "color": "slate" },
+    { "title": "Pilot Light", "description": "$$ — RTO: 10-30 min. Minimal resources always on in DR region", "color": "blue" },
+    { "title": "Warm Standby", "description": "$$$ — RTO: minutes. Scaled-down running copy in DR region", "color": "purple" },
+    { "title": "Active/Active", "description": "$$$$ — RTO: seconds. Both regions serve traffic — data consistency is the real challenge", "color": "red" }
+  ]
+}
+```
+
 **Topics covered:**
 
 - Backup and Restore — cheapest, slowest — 🟢 Beginner
@@ -216,28 +227,28 @@ kubectl get nodes
 # Post in #incidents: "Initiating failover to DR region. ETA 15 minutes."
 
 # STEP 4: Database failover
-az sql failover-group failover \\
-  --name prod-fog \\
-  --resource-group dr-rg \\
+az sql failover-group failover \
+  --name prod-fog \
+  --resource-group dr-rg \
   --server dr-sql-server
 # Wait for: failoverGroupState = Primary (in DR server)
 
 # STEP 5: Scale up DR compute
-az aks nodepool scale \\
-  --resource-group dr-rg \\
-  --cluster-name dr-aks \\
-  --name default \\
+az aks nodepool scale \
+  --resource-group dr-rg \
+  --cluster-name dr-aks \
+  --name default \
   --node-count 10
 
 # STEP 6: Shift DNS traffic
-az network traffic-manager endpoint update \\
-  --resource-group prod-rg \\
-  --profile-name global-tm \\
-  --name primary-endpoint \\
-  --type azureEndpoints \\
+az network traffic-manager endpoint update \
+  --resource-group prod-rg \
+  --profile-name global-tm \
+  --name primary-endpoint \
+  --type azureEndpoints \
   --weight 0
-az network traffic-manager endpoint update \\
-  --name dr-endpoint \\
+az network traffic-manager endpoint update \
+  --name dr-endpoint \
   --weight 100
 # DNS TTL was 60s — traffic shifts within 1 minute
 

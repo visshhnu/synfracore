@@ -222,29 +222,38 @@ double-backslash artifact (`\\` where a single `\` was intended, in bash
 line-continuations and YAML/regex values) exists in at least 18 content files
 across multiple academies, most not touched this session:
 `cloud/azure-devops/intermediate.md`, `cloud/multi-cloud/overview.md`,
-`data/python-mis/overview.md`, `devops/argo-rollouts/overview.md`,
-`devops/ha-dr/overview.md`, `devops/gitlab-ci/fundamentals.md`,
+`data/python-mis/overview.md`, `devops/gitlab-ci/fundamentals.md`,
 `devops/gitlab-ci/troubleshooting.md`, `security/devsecops/overview.md`,
 `security/ethical-hacking/intermediate.md`, `security/soc/certification.md`,
 and others (`grep -rl '\\\\\\\\' public/content/` finds the full current
-list). Likely the same generation/edit pass that caused the literal-`\n`
-bug found in Part 2. Not fixed now — out of scope for this batch, flagged
-for a dedicated cleanup pass. Lower severity than the fence/newline bugs
-(doesn't break rendering, just makes example commands wrong if copy-pasted
-verbatim).
+list — `devops/argo-rollouts/overview.md` and `devops/ha-dr/overview.md`
+were fixed inline in batch 7 below since already being edited, and are no
+longer on this list). Likely the same generation/edit pass that caused the
+literal-`\n` bug found in Part 2. Not fixed wholesale — out of scope for a
+depth-rubric batch, flagged for a dedicated cleanup pass. Lower severity
+than the fence/newline bugs (doesn't break rendering, just makes example
+commands wrong if copy-pasted verbatim).
 
-**Remaining DevOps technologies, not yet started:**
+**Batch 7 — final DevOps batch** (2026-08-28): argo-rollouts, ha-dr,
+incident, chaos-engineering, capacity-planning, automation, splunk,
+openshift — overview.md only. Status: **done** — content, predeploy
+(including the fence check), JSON block validation for every new
+`flow`/`conceptgrid` block, and a full live Playwright dark/light + crash
+verification cycle (all 8 pages) all clean. Academies dropdown hover
+verified separately. **This completes the DevOps academy's overview.md
+pass — all 41 DevOps technologies now have the depth-rubric + visual
+treatment on overview.md.**
 
-| Technology | overview.md | fundamentals.md | intermediate.md | Notes |
-|---|---|---|---|---|
-| argo-rollouts | not started | not started | not started | |
-| ha-dr | not started | not started | not started | |
-| incident | not started | not started | not started | |
-| chaos-engineering | not started | not started | not started | |
-| capacity-planning | not started | not started | not started | |
-| automation | not started | not started | not started | |
-| splunk | not started | not started | not started | |
-| openshift | not started | not started | not started | |
+| Technology | overview.md | Notes |
+|---|---|---|
+| argo-rollouts | **content done (batch 7)** — added prerequisite line (previously missing), fixed a double-backslash artifact, FlowDiagram (canary weight → analysis → pass/rollback) | self-mapped; live-verified ✅ |
+| ha-dr | **content done (batch 7)** — already had a prerequisite line, fixed several double-backslash artifacts (Azure CLI failover/scale/traffic-manager commands), ConceptBoxGrid (4 DR strategies: Backup&Restore/Pilot Light/Warm Standby/Active-Active) | self-mapped; live-verified ✅ |
+| incident | **content done (batch 7)** — already had a prerequisite line and strong existing content (P1-P4 severity, 6-phase framework, blameless post-mortem), added ConceptBoxGrid (P1-P4 severity matrix) and stack FlowDiagram (6-phase incident response framework) | self-mapped; live-verified ✅ |
+| chaos-engineering | **content done (batch 7)** — already had a prerequisite line, added stack FlowDiagram (7-step scientific method loop) and ConceptBoxGrid (Infrastructure/Network/Application experiment categories) | self-mapped; live-verified ✅ |
+| capacity-planning | **content done (batch 7)** — already had a prerequisite line, added FlowDiagram (5-step capacity planning loop) and ConceptBoxGrid (Load/Stress/Soak testing) | self-mapped; live-verified ✅ |
+| automation | **content done (batch 7)** — already had a prerequisite line, added ConceptBoxGrid (5 SRE automation types) | self-mapped; live-verified ✅ |
+| splunk | **content done (batch 7)** — added prerequisite line (previously missing), converted the existing hand-drawn ASCII architecture diagram to a FlowDiagram, added ConceptBoxGrid (Enterprise/Cloud/Free tier comparison) | self-mapped; live-verified ✅ |
+| openshift | **content done (batch 7)** — already had a prerequisite line, added ConceptBoxGrid (4 OCP node types) | `devops/openshift/overview` aliases to `infrastructure/openshift/overview.md` — edited the infrastructure/ copy, confirmed via registry grep; live-verified ✅ |
 
 Other DevOps tiers (advanced.md, roadmap.md, etc.) not yet tracked
 per-technology — will be added to this table if/when the depth-rubric+visual

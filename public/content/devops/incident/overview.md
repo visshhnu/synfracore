@@ -13,6 +13,17 @@
 
 **Severity classification** drives how fast a team responds and who gets called. **P1** means a complete outage or data loss — all hands on deck, an SLA breach is imminent, leadership may be notified. **P2** is major degradation where the service is still partially working. **P3** is a non-critical feature broken, handled within a normal business day. **P4** is cosmetic, fixed whenever it fits into the next sprint. The rule of thumb: always err toward the higher severity — it's easy to downgrade an incident once you have more information, but missing a real P1 is expensive.
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "P1 — Critical", "description": "Service down, data loss. Immediate response, updates every 10-15 min", "color": "red" },
+    { "title": "P2 — Major", "description": "Degraded, partially working. Response within 30 minutes", "color": "amber" },
+    { "title": "P3 — Minor", "description": "Non-critical feature broken, workaround exists. Business hours", "color": "blue" },
+    { "title": "P4 — Low", "description": "Cosmetic, no functional impact. Next sprint", "color": "slate" }
+  ]
+}
+```
+
 ## Why Incident Management?
 
 The most important rule in incident response: **restore service first, find root cause second.** Every minute spent investigating without taking mitigating action is a minute of continued downtime. Communicate to stakeholders every 10-15 minutes even when there's nothing new to report — silence during an outage feels worse than uncertainty. And for incidents caused by a recent deployment, a rollback is almost always the fastest way to mitigate, faster than trying to forward-fix the actual bug under pressure.
@@ -80,6 +91,20 @@ Covered above: restore-first, communicate-constantly, rollback-as-default-mitiga
 - Phase 4 — Mitigate first, root cause later — 🟡 Intermediate
 - Phase 5 — Resolve and monitor — 🟢 Beginner
 - Phase 6 — Blameless post-mortem — 🟡 Intermediate
+
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "1. Detect", "sublabel": "Alert fires, acknowledge immediately", "color": "red" },
+    { "label": "2. Assess", "sublabel": "What's broken, who's affected, since when", "color": "amber" },
+    { "label": "3. Communicate", "sublabel": "Open incident channel, first status update", "color": "blue" },
+    { "label": "4. Mitigate", "sublabel": "Rollback/failover first — root cause comes later", "color": "purple" },
+    { "label": "5. Monitor", "sublabel": "Confirm resolution holds, close the incident", "color": "green" },
+    { "label": "6. Post-mortem", "sublabel": "Blameless, 5-Whys, action items", "color": "slate" }
+  ]
+}
+```
 
 ```bash
 # PHASE 1 — DETECT (0-2 minutes)

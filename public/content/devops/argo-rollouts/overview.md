@@ -7,9 +7,22 @@
 
 ---
 
+**Before you start:** solid Kubernetes fundamentals (Deployments, Services) and familiarity with Prometheus/metrics-based monitoring are assumed. Argo CD knowledge helps for the GitOps integration sections but isn't required to follow the core rollout mechanics.
+
 ## What is Argo Rollouts?
 
 Standard Kubernetes rolling update moves all traffic gradually but has no intelligence — it cannot check if the new version is actually healthy based on business metrics before proceeding. Argo Rollouts adds: precise traffic weight control (10% canary), automated analysis (check error rate in Prometheus before proceeding), automatic rollback if analysis fails, and works alongside ArgoCD for full GitOps progressive delivery.
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "setWeight: 10", "sublabel": "10% traffic to canary", "color": "blue" },
+    { "label": "Analysis", "sublabel": "Query Prometheus — error rate OK?", "color": "purple" },
+    { "label": "Pass → setWeight: 50", "sublabel": "Fail → automatic rollback", "color": "green" }
+  ]
+}
+```
 
 ## Why Argo Rollouts?
 
@@ -35,7 +48,7 @@ Standard Kubernetes rolling update moves all traffic gradually but has no intell
 ```bash
 # Install Argo Rollouts
 kubectl create namespace argo-rollouts
-kubectl apply -n argo-rollouts \\
+kubectl apply -n argo-rollouts \
   -f https://github.com/argoproj/argo-rollouts/releases/latest/download/install.yaml
 
 # Install kubectl plugin

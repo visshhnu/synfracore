@@ -5,6 +5,8 @@
 **Category:** Monitoring & Observability  
 **Learning Path:** What → Why → Learning Modules → Production Example → Interview Prep
 
+**Before you start:** no prior Splunk knowledge is assumed, but basic comfort with log files and command-line pipelines (the idea of piping one command's output into the next) makes SPL's syntax click faster.
+
 ---
 
 ## What is Splunk?
@@ -25,23 +27,20 @@ Think of Splunk as a universal translator sitting in a room full of people speak
 
 ## How it fits together (diagram)
 
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Varied Sources", "sublabel": "Firewall, Windows Event Log, app logs, cloud JSON, syslog", "color": "slate" },
+    { "label": "Forwarder", "sublabel": "Collects and ships raw data", "color": "blue" },
+    { "label": "Indexer", "sublabel": "Parses, extracts fields, stores in time buckets", "color": "purple" },
+    { "label": "Search Head", "sublabel": "SPL queries run here", "color": "green" },
+    { "label": "Dashboards / Alerts", "sublabel": "Notable Events (SIEM)", "color": "amber" }
+  ]
+}
 ```
-Data Sources (varied formats)              Splunk Platform
-─────────────────────────────              ────────────────────
-Firewall logs (proprietary)   ──┐
-Windows Event Logs             ──┤
-Application text logs          ──┼──► Forwarder ──► Indexer ──► Search Head
-Cloud audit logs (JSON)        ──┤     (collects)   (stores,     (SPL queries
-Network device syslog          ──┘                   indexes      run here)
-                                                       fields)          │
-                                                                        ▼
-                                                              Dashboards, Alerts,
-                                                              Notable Events (SIEM)
 
-Every source keeps its own native format — Splunk's indexing layer is
-what makes them searchable together, not a requirement that they agree
-on a shared format before being collected.
-```
+Every source keeps its own native format — Splunk's indexing layer is what makes them searchable together, not a requirement that they agree on a shared format before being collected.
 
 ## Try it yourself (2 minutes)
 
@@ -122,6 +121,16 @@ index=web_logs status>=500
 `(needs verification — recheck against current source: Splunk's pricing models and specific tier limits change and vary by contract; the distinctions below are directional, not exact current figures.)`
 
 **Splunk Enterprise** is self-hosted — the organization runs and scales its own indexers and search heads, on-prem or in its own cloud accounts, and licenses it either by data ingest volume (GB/day) or, more recently, by compute consumption (Splunk Virtual Compute units, tied to how much searching/alerting/dashboarding actually happens rather than raw ingest volume). **Splunk Cloud Platform** is Splunk's own managed SaaS offering — Splunk operates the infrastructure, and the organization only manages configuration, data onboarding, and searches, at a per-GB or workload-based subscription cost that is typically higher than self-hosted Enterprise on a pure per-GB basis, in exchange for not needing to operate the platform itself. **Splunk Free** is a genuinely free, capacity-limited tier (a low daily ingest cap, single-user, no clustering) intended for evaluation and small non-production use, not a viable path for any real production security or observability workload.
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Splunk Enterprise", "description": "Self-hosted, full control. Licensed by ingest volume or compute", "color": "blue" },
+    { "title": "Splunk Cloud Platform", "description": "Splunk-managed SaaS. Higher per-GB cost, no ops burden", "color": "purple" },
+    { "title": "Splunk Free", "description": "Free, capacity-limited. Evaluation/small non-production only", "color": "slate" }
+  ]
+}
+```
 
 **Topics covered:**
 

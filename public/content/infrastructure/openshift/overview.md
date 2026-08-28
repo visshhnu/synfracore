@@ -60,6 +60,17 @@ The single most important table to understand before any OCP interview:
 | Infrastructure Nodes | Run platform components: Ingress, Registry, Monitoring, Logging. Reduces licensing cost |
 | Bootstrap Node | Temporary — only used during initial install, then decommissioned |
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Control Plane (Masters)", "description": "Run etcd, API server, Scheduler, Controller Manager. Minimum 3 for HA", "color": "purple" },
+    { "title": "Worker Nodes", "description": "Run application workloads (pods). Scale horizontally", "color": "blue" },
+    { "title": "Infrastructure Nodes", "description": "Run Router, Registry, Monitoring, Logging. Reduces licensing cost", "color": "amber" },
+    { "title": "Bootstrap Node", "description": "Temporary — only used during initial install, then decommissioned", "color": "slate" }
+  ]
+}
+```
+
 ### Core OCP Components
 
 | Component | Purpose |

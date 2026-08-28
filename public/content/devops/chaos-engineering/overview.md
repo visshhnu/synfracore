@@ -20,6 +20,21 @@ Chaos Engineering is the practice of deliberately injecting failures into a syst
 6. Fix weaknesses found
 7. Repeat until confident
 
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "1. Define steady state", "sublabel": "Normal RPS, latency, error rate", "color": "blue" },
+    { "label": "2. Form a hypothesis", "sublabel": "\"Killing one replica won't affect latency\"", "color": "purple" },
+    { "label": "3. Design the experiment", "sublabel": "Minimum blast radius — one pod, not one AZ", "color": "amber" },
+    { "label": "4. Run in staging first", "sublabel": "Never production first", "color": "slate" },
+    { "label": "5. Observe and measure", "sublabel": "Compare against the steady-state baseline", "color": "cyan" },
+    { "label": "6. Fix weaknesses found", "sublabel": "This is the actual payoff of the experiment", "color": "red" },
+    { "label": "7. Repeat until confident", "sublabel": "Then increase blast radius and repeat again", "color": "green" }
+  ]
+}
+```
+
 ## Common Chaos Experiments
 
 **Infrastructure:**
@@ -38,6 +53,16 @@ Chaos Engineering is the practice of deliberately injecting failures into a syst
 - Slow down specific API endpoints
 - Kill database connections
 - Corrupt cache entries
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Infrastructure", "description": "Kill pods/instances, terminate an AZ, exhaust disk, CPU/memory stress", "color": "blue" },
+    { "title": "Network", "description": "Add latency, drop packets, block connectivity between services", "color": "purple" },
+    { "title": "Application", "description": "Return HTTP 500, slow endpoints, kill DB connections, corrupt cache", "color": "amber" }
+  ]
+}
+```
 
 ## Tools
 
