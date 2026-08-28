@@ -7,17 +7,37 @@
 
 ---
 
+**Before you start:** this page assumes you're already comfortable with Excel (formulas, pivot tables) and are looking for the route from there into SQL/Python — it's an orientation page, not a from-scratch tutorial. If you have no prior Excel background, start with [Excel & Advanced Excel](/academies/data/excel/overview) instead.
+
 ## What is MIS & Data Analytics?
 
 MIS converts raw data into actionable information. Know the full stack: Excel for quick analysis, SQL for databases, NumPy and Pandas for automation, Power BI for dashboards.
 
-## Why MIS & Data Analytics?
+## Why This Exists (The Hook)
 
-XLOOKUP replaces VLOOKUP. Power Query replaces manual data cleaning. Power Pivot enables multi-table models.
+An experienced MIS professional's Excel skills are real, transferable skills — VLOOKUP, pivot tables, and SUMIFS already encode the same "filter, group, aggregate" thinking that SQL and Pandas use, just expressed through clicks instead of code. This page exists because the standalone Excel, SQL, Pandas, and Power BI technologies each teach their tool on its own terms, assuming no particular starting point — while an Excel-fluent MIS professional benefits far more from a route that explicitly maps each new tool back onto the Excel intuition they already have (VLOOKUP → merge, pivot table → groupby), rather than starting over from zero.
+
+**Analogy** — Think of this bridge path like learning a second language you're already fluent-adjacent in, not starting language study from scratch. Someone who already speaks Spanish fluently learns Italian faster by noticing the cognates and shared grammar than by studying it as a totally unrelated language. This path treats SQL and Pandas the same way — as "Excel's cognates" — mapping XLOOKUP to a SQL JOIN and to `pd.merge()` explicitly, rather than teaching each as an unrelated new subject.
+
+**Try it (2 minutes)** — Reason through why the guide maps `pd.merge(df, targets, on="Department", how="left")` directly onto XLOOKUP rather than teaching it as a brand-new concept, without looking anything up: XLOOKUP matches a value in one table against a lookup table to pull in a related column. A SQL `JOIN` and a Pandas `merge()` do the exact same "match and combine" operation — just applied to the whole table at once instead of dragged down one row at a time. If you already understand what XLOOKUP does, what's actually new about `merge()` — the underlying operation, or just the mechanics of how you invoke it?
 
 ---
 
 ## Learning Modules
+
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "01. MIS Fundamentals", "sublabel": "Information systems thinking, KPI design", "color": "blue" },
+    { "label": "02. Excel & Advanced Excel", "sublabel": "XLOOKUP, Power Query, Pivot Tables", "color": "purple" },
+    { "label": "03. SQL for MIS", "sublabel": "Query databases directly, window functions", "color": "amber" },
+    { "label": "04. NumPy", "sublabel": "Fast numerical computing, the foundation under Pandas", "color": "green" },
+    { "label": "05. Pandas", "sublabel": "DataFrames, groupby, merge -- automates Excel workflows", "color": "red" },
+    { "label": "06. Power BI", "sublabel": "Dashboards, DAX, semantic models, scheduled sharing", "color": "slate" }
+  ]
+}
+```
 
 ### Module 01 — MIS Fundamentals
 *Information systems thinking*

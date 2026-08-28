@@ -101,7 +101,7 @@ each sub-academy.
 | 5 | Databases | 12 | **Done** (2026-08-28, batch 2) — see table below | None found — all self-mapped, no aliasing |
 | 6 | Healthcare | 13 | **Done** (2026-08-28, batch 2) — see table below | None found — all self-mapped, no aliasing; BCHHC mock-exam data permanently excluded (see feedback memory), respected throughout |
 | 7 | Security | 9 | **Done** (2026-08-28, batch 1) — see table below | None found — all 8 self-mapped, no aliasing |
-| 8 | Data (Analytics & BI) | 14 | Not started | None known |
+| 8 | Data (Analytics & BI) | 14 | Batch 1 done (2026-08-28, 6/14) — see table below | None found so far — all self-mapped, no aliasing |
 | 9 | Education | 12 | Not started | Generic-template stubs, see above |
 | 10+ | Essentials, Law, Finance, Agriculture, Telecom, Economics, Aerospace, VLSI | 10/10/12/7/7/7/8/8 | Not started | None known |
 
@@ -815,9 +815,53 @@ zero crashes, diagrams render (`[data-diagram-box]` count 8-19 per page),
 Academies dropdown expands with security links present. Not yet deployed —
 awaiting explicit deploy instruction.
 
-## Security academy — batch 1 COMPLETE, not yet deployed (2026-08-28)
+## Security academy — COMPLETE, deployed live (2026-08-28)
 
 All 9 technologies now have the depth-rubric + visual treatment:
 security-fundamentals (Phase 2 pilot) + network-security, ethical-hacking,
 pen-testing, soc, siem, cloud-security, incident-response, devsecops
 (batch 1) = **9/9**. This finished in a single batch as anticipated.
+Deployed and live-verified (all 9 pages 200, diagrams render in both
+themes, Academies dropdown working, `npm run predeploy` exit 0).
+
+## Data (Analytics & BI) — technology-level tracking (14 technologies)
+
+| Technology | Registry key | Rubric status before | Work done | Status |
+|---|---|---|---|---|
+| excel | data/excel/overview | None | Prerequisite/hook/analogy/try-it added; case-study workflow → `flow` FlowDiagram (5 steps); chart-type ConceptBoxGrid (4 boxes) | Done (batch 1) |
+| pandas | data/pandas/overview | None | Prerequisite/hook/analogy/try-it added (Excel-intuition framing); typical-workflow → `flow` FlowDiagram (5 steps) | Done (batch 1) |
+| power-bi | data/power-bi/overview | None | Prerequisite/hook/analogy/try-it added; core workflow → `flow` FlowDiagram (5 steps); Import/DirectQuery/Live ConceptBoxGrid (3 boxes) | Done (batch 1) |
+| tableau | data/tableau/overview | None | Prerequisite/hook/analogy/try-it added; Tableau products ConceptBoxGrid (4 boxes); LOD expressions ConceptBoxGrid (3 boxes) | Done (batch 1) |
+| sql | data/sql/overview | None | Prerequisite/hook/analogy/try-it added; SQL category ConceptBoxGrid (4 boxes: DDL/DML/DQL/DCL-TCL) | Done (batch 1) |
+| mis-overview | data/mis-overview/overview | None (had extensive interview-prep depth, no hook/analogy/try-it) | Prerequisite/hook/analogy/try-it added (bridge-path framing); 6-module learning path → `stack` FlowDiagram | Done (batch 1) |
+| dashboarding | data/dashboarding/overview | Not yet assessed | — | Pending |
+| data-visualization | data/data-visualization/overview | Not yet assessed | — | Pending |
+| dbt | data/dbt/overview | Not yet assessed | — | Pending |
+| airflow | data/airflow/overview | Not yet assessed | — | Pending |
+| spark | data/spark/overview | Not yet assessed | — | Pending |
+| cloud-data-warehouses | data/cloud-data-warehouses/overview | Not yet assessed | — | Pending |
+| python-mis | data/python-mis/overview | Not yet assessed | — | Pending |
+| python-mis-advanced | data/python-mis-advanced/overview | Not yet assessed | — | Pending |
+
+**Batch 1 notes (2026-08-28):** All 14 technologies in `lib/data/academies.ts`'s
+Data (Analytics & BI) navigation confirmed self-mapped in the content
+registry (`data/*`), no aliasing risk. Started with the 6 core
+analysis/BI/engineering technologies (excel, pandas, power-bi, tableau, sql,
+mis-overview) — all needed full standard-rubric treatment (none had any
+prerequisite/hook/analogy/try-it elements, despite some, like mis-overview,
+already having strong interview-prep depth). Note: `data/sql/overview.md` was
+confirmed distinct from the earlier Phase 2 `databases/sql/overview.md`
+pilot — different registry key, different (much shorter) content, no
+duplication. Fence-balance manually verified per-file (all balanced);
+batch-wide `validate-content-fences.mjs` clean (2579 files); all 7 new
+`flow`/`conceptgrid` JSON blocks parsed successfully (one file,
+`data/excel/overview.md`, has pre-existing CRLF line endings unrelated to
+this edit — confirmed harmless, only affected a local ad-hoc JSON-check
+script's regex, not the site's own fence/JSON validators); `npm run
+predeploy` exit 0 (new `empty_code_block` WARN-only false positives
+spot-checked — all the known adjacent-fence pattern). One native-WSL build +
+live Playwright verification cycle run for all 6 pages: all render with no
+crashes, diagrams present (4-9 per page), Academies dropdown works. Not yet
+deployed — awaiting explicit deploy instruction. 8 technologies remain
+(dashboarding, data-visualization, dbt, airflow, spark,
+cloud-data-warehouses, python-mis, python-mis-advanced) for batch 2.

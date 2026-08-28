@@ -1,6 +1,16 @@
 # Pandas — Data Analytics with Python
 
+**Before you start:** basic Python (variables, functions, loops) is assumed. Prior Excel experience helps build intuition — many Pandas operations map directly onto familiar Excel concepts (see the comparisons below).
+
 Pandas is the foundational Python library for data analysis. It provides DataFrame and Series data structures that make working with tabular data fast, expressive, and flexible.
+
+## Why This Exists (The Hook)
+
+Excel handles a few thousand rows comfortably and starts to strain well before a million; running the same cleanup, calculation, and export on a new file every morning by hand doesn't scale either, no matter how fast you are with formulas. Pandas exists to do both — handle far larger datasets than Excel can hold, and do it as repeatable code instead of manual clicking, so the exact same analysis runs unattended on tomorrow's file with zero extra effort.
+
+**Analogy** — Think of a Pandas DataFrame like an Excel worksheet you can program instead of click through. Selecting a column is `df['revenue']` instead of clicking a column header; filtering rows is `df[df['revenue'] > 1000]` instead of applying a filter dropdown; a VLOOKUP becomes `pd.merge()`; a pivot table becomes `df.groupby()`. The underlying idea — rows, columns, filter, summarize — is identical to Excel; what changes is that every step is now a written instruction that can be re-run instantly on a different file.
+
+**Try it (2 minutes)** — Reason through why `df.groupby('region')['revenue'].sum()` is described as the Pandas equivalent of an Excel pivot table, without looking anything up: a pivot table groups rows by a field (Region) and aggregates a value (sum of Revenue) for each group. What does `groupby('region')` do to the rows first, and what does `['revenue'].sum()` do to each resulting group — and how does that two-step shape match what a pivot table's "Rows" and "Values" boxes do?
 
 ## Why Pandas?
 
@@ -37,6 +47,21 @@ print(pd.__version__)
 pd.set_option('display.max_columns', 50)
 pd.set_option('display.max_rows', 100)
 pd.set_option('display.float_format', '{:.2f}'.format)
+```
+
+## A Typical Pandas Workflow
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "1. Read", "sublabel": "pd.read_csv / read_excel / read_sql", "color": "blue" },
+    { "label": "2. Explore", "sublabel": "df.info(), df.describe(), df.isnull().sum()", "color": "purple" },
+    { "label": "3. Clean", "sublabel": "dropna/fillna, fix dtypes, drop duplicates", "color": "amber" },
+    { "label": "4. Aggregate", "sublabel": "groupby, merge, pivot_table", "color": "green" },
+    { "label": "5. Export", "sublabel": "to_csv / to_excel / to_sql", "color": "slate" }
+  ]
+}
 ```
 
 ## Reading Data

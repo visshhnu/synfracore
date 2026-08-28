@@ -1,10 +1,31 @@
 # SQL Overview
 
+**Before you start:** no prior database experience is required — the concept of a table (rows and columns, like a spreadsheet) is the only assumption.
+
 ## What is SQL?
 
 SQL (Structured Query Language) is the standard language for managing and querying relational databases. It is used in MySQL, PostgreSQL, SQLite, SQL Server, Oracle, and BigQuery — making it the most widely used data language in the world.
 
+## Why This Exists (The Hook)
+
+A spreadsheet works fine until two people need to update the same data at once, or the dataset grows past a few hundred thousand rows, or you need to guarantee that a bank transfer either fully completes or doesn't happen at all — never half. SQL and relational databases exist to solve exactly those problems: many people can query and update the same data concurrently, at a scale spreadsheets can't handle, with guarantees (transactions) that a multi-step operation either fully succeeds or fully rolls back.
+
+**Analogy** — Think of a relational database like a well-organized filing cabinet system, not a single giant folder. Instead of dumping every fact into one massive sheet (a customer's name repeated on every one of their orders), a relational database keeps a `customers` table and a separate `orders` table, linked by a `customer_id` — like keeping one master client file and a separate folder of transaction slips that reference the client by ID, rather than rewriting the client's full address on every single slip. A `JOIN` is what temporarily pulls the linked folders together when you actually need to see both at once.
+
+**Try it (2 minutes)** — Reason through why `WHERE` and `HAVING` are both "filter" clauses but can't be swapped for each other, without looking anything up: `WHERE` filters individual rows before grouping happens; `HAVING` filters entire groups after `GROUP BY` has already aggregated them. If you wanted "only departments with more than 5 employees" (a fact about a whole group, not about any single employee row), why would `WHERE COUNT(*) > 5` fail, while `HAVING COUNT(*) > 5` works?
+
 ## Core SQL Categories
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "DDL", "description": "Data Definition -- CREATE, ALTER, DROP: defines table structure", "color": "blue" },
+    { "title": "DML", "description": "Data Manipulation -- INSERT, UPDATE, DELETE: changes the data", "color": "purple" },
+    { "title": "DQL", "description": "Data Query -- SELECT: retrieves data", "color": "green" },
+    { "title": "DCL / TCL", "description": "Permissions (GRANT/REVOKE) and transactions (COMMIT/ROLLBACK)", "color": "amber" }
+  ]
+}
+```
 
 ```
 DDL (Data Definition Language): structure

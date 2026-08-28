@@ -1,6 +1,16 @@
 # Excel & Advanced Excel — Complete Guide
 
+**Before you start:** no prior data-analysis experience is required — basic spreadsheet familiarity (typing into cells, saving a file) is assumed.
+
 Excel is the most widely used data tool in the world. From entry-level analysts to CFOs, everyone uses Excel. Mastering it means faster work, fewer errors, and better insights.
+
+## Why This Exists (The Hook)
+
+A messy 15,000-row export from a point-of-sale system tells you nothing by itself — leadership doesn't want the raw rows, they want one sentence: "Region X's revenue is flat because average selling price is quietly dropping." Excel exists to close that gap fast, without writing code or waiting on a data team: a formula language flexible enough to model almost anything, and a pivot table that turns thousands of rows into a two-minute answer.
+
+**Analogy** — Think of Excel like a Swiss Army knife, not a single-purpose tool. A dedicated BI platform (Power BI, Tableau) is like a specialized kitchen appliance — excellent at one job, but requiring setup and a defined pipeline before it's useful. Excel is the knife already in your pocket: it can model a budget, reconcile a bank statement, or sketch a dashboard, all without installing anything or asking IT for a data connection first — which is exactly why every dedicated BI tool still gets "sanity-checked in Excel" before anyone trusts it.
+
+**Try it (2 minutes)** — Reason through why `=VLOOKUP(A2, ProductTable, 3, FALSE)` almost always needs that final `FALSE` argument, without looking anything up: `FALSE` means "exact match only." If you omit it (or use `TRUE`), VLOOKUP will happily return the closest match below your lookup value instead of failing when there's no exact match — silently. For a product ID lookup, what real-world mistake would that silently produce, and why would it be worse than the formula just returning an error?
 
 ## Why Excel — And Why It Still Matters in 2026
 
@@ -22,6 +32,19 @@ If you can't yet picture *who* uses a formula and *why*, the formula is just tri
 ## Case Study 1 — Building a Regional Sales Dashboard
 
 **Scenario**: You're a data analyst at a retail chain. Leadership wants to see which regions are underperforming *before* the quarterly review, not during it.
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "1. Raw Data", "sublabel": "15,000-row POS export", "color": "slate" },
+    { "label": "2. Clean It", "sublabel": "Remove duplicates, fix regions, fix dates", "color": "blue" },
+    { "label": "3. Summarise It", "sublabel": "Pivot Table: Region x Month x Revenue", "color": "purple" },
+    { "label": "4. Visualise It", "sublabel": "Pivot Chart + Region slicer", "color": "amber" },
+    { "label": "5. The Insight", "sublabel": "One sentence leadership actually needed", "color": "green" }
+  ]
+}
+```
 
 1. **Raw data**: A 15,000-row export of `Date, Region, Product Category, Revenue, Units Sold` from the POS system.
 2. **Clean it**: Remove duplicate transaction IDs (`Data → Remove Duplicates`), fix inconsistent region names with `Find & Replace`, convert the `Date` text column to real dates with `Text to Columns`.
@@ -178,6 +201,17 @@ Timeline: PivotTable Analyze → Insert Timeline (date filter)
 Dynamic arrays (`FILTER`/`SORT`/`UNIQUE`), 2D lookups, and Power Query are genuinely intermediate/advanced material — covered in depth on the Intermediate tab once the lookup/conditional/aggregation functions above are comfortable, rather than repeated here.
 
 ## Excel Dashboard Essentials
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Bar/Column", "description": "Compare categories -- e.g. sales by region", "color": "blue" },
+    { "title": "Line", "description": "Trends over time -- e.g. monthly revenue", "color": "purple" },
+    { "title": "Combo (Bar + Line)", "description": "Two related measures together -- e.g. revenue + growth %", "color": "amber" },
+    { "title": "Waterfall", "description": "Cumulative effect -- e.g. a P&L breakdown", "color": "green" }
+  ]
+}
+```
 
 ```
 Chart Types and When to Use:

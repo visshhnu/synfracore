@@ -1,6 +1,16 @@
 # Power BI — Business Intelligence & Data Visualization
 
+**Before you start:** comfort with Excel formulas and pivot tables is assumed — Power BI's DAX language and data model build directly on those concepts, at larger scale and with live refresh.
+
 Power BI is Microsoft's business analytics platform. It connects to hundreds of data sources, transforms data, creates interactive dashboards, and shares insights across organizations.
+
+## Why This Exists (The Hook)
+
+An Excel workbook mailed around as an attachment is already stale the moment it's sent, connects to exactly one data source, and breaks the moment two people edit different copies. Power BI exists to fix all three problems at once: dashboards refresh on a schedule instead of being manually rebuilt, connect to dozens of live data sources instead of one static export, and get published once to a service everyone views the same live version of — rather than passing files back and forth.
+
+**Analogy** — Think of a Power BI dataset like a single shared Google Doc, versus Excel workbooks like emailed Word attachments. Emailed attachments fork the moment two people edit their own copy — nobody's sure which version is current. A Power BI dataset published to the Service is the one shared source everyone views live, refreshed on a schedule, with row-level security controlling who sees what — the same underlying reliability improvement that made shared docs replace emailed files.
+
+**Try it (2 minutes)** — Reason through why a measure (`Total Revenue = SUM(Orders[Revenue])`) recalculates differently depending on what's selected in a report, while a calculated column doesn't, without looking anything up: a calculated column is computed once, row by row, when data loads — it's a fixed value stored in the model. A measure is computed on-the-fly using whatever filters are currently active (the country/year/product selected in the report). If you click a different region in a slicer, why would a measure's displayed value change instantly, while a calculated column's stored values never do?
 
 ## Power BI Components
 
@@ -13,8 +23,18 @@ Power BI Embedded   → Embed reports in your own apps
 ```
 
 **Workflow:**
-```
-Data Sources → Power Query (Transform) → Data Model → Visuals → Publish → Share
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Data Sources", "sublabel": "SQL, Excel, APIs, cloud warehouses", "color": "blue" },
+    { "label": "Power Query", "sublabel": "Transform -- ETL step (M language)", "color": "purple" },
+    { "label": "Data Model", "sublabel": "Star schema, relationships, DAX measures", "color": "amber" },
+    { "label": "Visuals", "sublabel": "Charts, tables, slicers on a report page", "color": "green" },
+    { "label": "Publish & Share", "sublabel": "Power BI Service -- scheduled refresh", "color": "slate" }
+  ]
+}
 ```
 
 ## Connecting to Data Sources
@@ -33,6 +53,16 @@ Import vs DirectQuery vs Live Connection:
 Import       → Data copied into Power BI (fast queries, 1GB limit, scheduled refresh)
 DirectQuery  → Queries source database every time (always current, source must be fast)
 Live         → Like DirectQuery but for Analysis Services (no transformation)
+```
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Import", "description": "Data copied into Power BI -- fast queries, 1GB limit, scheduled refresh", "color": "blue" },
+    { "title": "DirectQuery", "description": "Queries source database every time -- always current, source must be fast", "color": "amber" },
+    { "title": "Live Connection", "description": "Like DirectQuery but for Analysis Services -- no transformation step", "color": "purple" }
+  ]
+}
 ```
 
 ## Power Query (M Language) — Data Transformation

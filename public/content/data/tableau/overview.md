@@ -1,8 +1,29 @@
 # Tableau — Data Visualisation and Business Intelligence
 
+**Before you start:** general spreadsheet/data familiarity (rows, columns, aggregation) is assumed. [Power BI](/academies/data/power-bi/overview) covers similar ground with Microsoft's tooling — Tableau is the same category of tool with a different vendor, philosophy, and query language.
+
 Tableau is the leading enterprise BI tool. It transforms raw data into interactive dashboards that non-technical users can explore. Learning Tableau opens data analyst, BI developer, and data scientist roles.
 
+## Why This Exists (The Hook)
+
+A chart built to answer one question ("what were Q3 sales?") is often a dead end the moment someone asks a natural follow-up ("okay, but which region drove that?"). Tableau exists to make that follow-up free — click a bar in one chart, and every other chart on the dashboard filters to match, so exploring a dataset feels like a conversation instead of a series of separate requests to a data team.
+
+**Analogy** — Think of a Tableau dashboard like a shop's interactive touchscreen directory, not a printed map. A printed map (a static chart or PDF report) shows you exactly one view, fixed at print time. An interactive directory lets you tap a store name and the map updates to highlight the route — the same data, but responsive to what you actually asked. Clicking a bar in a Tableau dashboard and watching every other chart filter to match is that same responsiveness, applied to data instead of store directions.
+
+**Try it (2 minutes)** — Reason through why a `{ FIXED [Customer ID] : SUM([Sales]) }` LOD expression is needed instead of just `SUM([Sales])`, without looking anything up: a normal `SUM([Sales])` aggregates at whatever level the current view is showing — if the view is grouped by month, it sums per month. If you want "total sales per customer, regardless of what time period the view is currently showing," what would a view-level-dependent SUM give you instead, and why does "FIXED" (ignore the view, compute at this specific level) solve that?
+
 ## Tableau Products
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Tableau Desktop", "description": "Build visualisations and dashboards (Windows/Mac)", "color": "blue" },
+    { "title": "Tableau Server / Cloud", "description": "Share and publish within an organisation -- on-prem or SaaS", "color": "purple" },
+    { "title": "Tableau Public", "description": "Free, all work is public", "color": "amber" },
+    { "title": "Tableau Prep", "description": "Data cleaning and transformation pipeline", "color": "green" }
+  ]
+}
+```
 
 ```
 Tableau Desktop:    Build visualisations and dashboards (Windows/Mac)
@@ -81,6 +102,16 @@ RANK(SUM([Sales]))
 ## LOD (Level of Detail) Expressions — The Power Feature
 
 LOD expressions compute at a different granularity than the view.
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "FIXED", "description": "Ignore view filters entirely -- compute at a specified level (e.g. total per customer)", "color": "blue" },
+    { "title": "INCLUDE", "description": "More granular than the view -- e.g. average order value when view is at customer level", "color": "purple" },
+    { "title": "EXCLUDE", "description": "Less granular than the view -- e.g. annual total shown on a monthly view", "color": "amber" }
+  ]
+}
+```
 
 ```
 // FIXED — ignore view filters, compute at specified level
