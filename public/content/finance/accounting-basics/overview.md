@@ -1,12 +1,18 @@
 # Financial Accounting — Overview
 
+**Before you start:** no prior accounting background is needed — this is the foundational Finance technology the others build on.
+
 ## What this technology covers
 
 Financial Accounting covers the foundational process of recording, classifying, and summarizing business transactions: journal entries (the initial recording of transactions), ledger posting (organizing entries by account), the trial balance (a check on recording accuracy), final accounts (the trading account, profit and loss account, and balance sheet that summarize a business's financial position), and ratio analysis (interpreting financial statements to assess business performance). This is the foundational accounting technology this academy's other Finance technologies build on — GST & Indirect Tax and Direct Tax both assume familiarity with basic accounting records, and CA/CS/CMA Foundation includes this material as one of its core papers.
 
-## Why it matters
+## Why This Exists (The Hook)
 
 Financial accounting is the universal language of business — every organization, regardless of size or sector, needs to record and summarize its financial transactions accurately, both for internal decision-making and external compliance (tax filing, statutory audit, investor reporting). Understanding the full cycle from a single transaction to final financial statements — not just isolated pieces of it — is what makes the subsequent, more specialized Finance technologies (GST, Direct Tax, Financial Markets) meaningfully comprehensible, since all of them ultimately reference the accounting records this technology teaches how to build.
+
+**Analogy** — Think of the accounting cycle like a kitchen's mise en place before cooking, not a single step. A chef doesn't just start cooking — ingredients get measured, prepped, and organized first, in a specific order, so that by the time cooking starts, everything needed is verified and ready. The accounting cycle works the same way: transactions get recorded (journal), organized (ledger), verified for accuracy (trial balance), and only then summarized into a final result (final accounts) — skip or reorder a step, and the final "dish" (the financial statements) can't be trusted.
+
+**Try it (2 minutes)** — Reason through why the trial balance is described as a "built-in error-checking mechanism," without looking anything up: double-entry bookkeeping means every transaction hits at least two accounts, with total debits always meant to equal total credits, keeping Assets = Liabilities + Capital in balance. If a trial balance is prepared and total debits DON'T equal total credits, what does that mismatch directly tell you — and why would this single check catch a wide range of different recording mistakes (a missed entry, a transposed number, a wrong account) without needing a separate check for each specific type of error?
 
 ## The accounting cycle — a quick map
 
@@ -17,6 +23,19 @@ Financial accounting is the universal language of business — every organizatio
 | Trial balance | Listing all ledger balances to verify total debits equal total credits |
 | Final accounts | Preparing the Trading Account, Profit and Loss Account, and Balance Sheet |
 | Ratio analysis | Interpreting final accounts to assess profitability, liquidity, and solvency |
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Journal Entry", "sublabel": "Record via double-entry bookkeeping", "color": "blue" },
+    { "label": "Ledger Posting", "sublabel": "Transfer into individual account records", "color": "purple" },
+    { "label": "Trial Balance", "sublabel": "Verify total debits = total credits", "color": "amber" },
+    { "label": "Final Accounts", "sublabel": "Trading, P&L, Balance Sheet", "color": "green" },
+    { "label": "Ratio Analysis", "sublabel": "Assess profitability, liquidity, solvency", "color": "red" }
+  ]
+}
+```
 
 ## Double-entry bookkeeping — the foundational principle
 

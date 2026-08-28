@@ -1,14 +1,31 @@
 # Direct Tax & Income Tax — Overview
 
+**Before you start:** [Financial Accounting](/academies/finance/accounting-basics/overview) basics are assumed where relevant, particularly for business/professional income computation.
+
 ## What this technology covers
 
 Direct Tax & Income Tax covers India's income tax framework: the five heads of income under which all taxable income is classified, common deductions available to reduce taxable income, TDS (Tax Deducted at Source — tax collected upfront by the payer rather than paid directly by the taxpayer), ITR (Income Tax Return) filing, and advance tax obligations. Unlike GST & Indirect Tax (a tax on transactions), direct tax is levied directly on income earned by individuals and entities — this technology assumes Financial Accounting's basic concepts as background where relevant, particularly for understanding business/professional income computation.
 
-## Why it matters
+## Why This Exists (The Hook)
 
 Income tax compliance is a near-universal obligation for any individual or entity earning income above the exemption threshold in India, making this technology directly relevant to personal financial planning as well as professional accounting/tax practice. Understanding the structure — which income head a given receipt falls under, what deductions legitimately apply, and how TDS interacts with final tax liability — is essential both for accurate compliance and for the tax-planning judgment (distinct from tax evasion) that legitimate deductions and exemptions are specifically designed to enable.
 
+**Analogy** — Think of the five heads of income like sorting mail into labeled bins before processing it, not one undifferentiated pile. A mailroom that dumped every letter into one pile would have no way to apply the right handling rules to each type (bills get one process, packages another). Classifying every receipt into its correct head — Salary, House Property, Business/Profession, Capital Gains, Other Sources — exists for the same reason: each head has different rules for what deductions apply and how the amount is computed, so the classification has to happen first, correctly, before any tax computation can even begin.
+
+**Try it (2 minutes)** — Reason through why TDS deducted can result in a refund when you file your own return, without looking anything up: TDS is described as a collection mechanism, not a separate tax — the payer deducts tax upfront at a specified rate and remits it to the government on your behalf, then that deducted amount gets credited against your TOTAL actual tax liability when you file your return. If your employer deducted TDS assuming a certain tax bracket, but your actual total tax liability (after legitimate deductions you're entitled to) turns out to be lower than what was deducted throughout the year, what would filing your return and claiming that difference back actually represent — overpayment being returned, or a separate benefit being granted?
+
 ## The five heads of income — a quick map
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Salary", "description": "Employment income, including perquisites", "color": "blue" },
+    { "title": "House Property", "description": "Rental income, including notional income from owned property", "color": "purple" },
+    { "title": "Business / Profession", "description": "Income from running a business or professional practice", "color": "amber" },
+    { "title": "Capital Gains / Other Sources", "description": "Profit from asset sale; interest, dividends, and everything else", "color": "green" }
+  ]
+}
+```
 
 | Head | Covers |
 |---|---|

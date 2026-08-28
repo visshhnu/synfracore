@@ -105,7 +105,8 @@ each sub-academy.
 | 9 | Education | 12 | **12/12 overview.md pass done** (2026-08-28) — see table below | Deeper intermediate/advanced-tier stub gap known for os/dbms/cn/system-design/placement-prep — still open, unrelated to this overview.md pass; all 12 overview.md files confirmed real content, no aliasing |
 | 10 | Essentials | 10 | **10/10 done** (2026-08-28) — see table below | **Live content bug found + fixed**: mental-health/overview.md was serving Sleep content, not mental-health content — rewritten from scratch |
 | 11 | Law | 9 (corrected from an earlier unverified estimate of 12) | **9/9 done** (2026-08-28) — see table below | None found — all self-mapped, no aliasing |
-| 12+ | Finance, Agriculture, Telecom, Economics, Aerospace, VLSI | 7/7/7/8/8 | Not started | None known |
+| 12 | Finance | 11 (corrected from a stated estimate of 12) | Batch 1 done (2026-08-28, 6/11) — see table below | None found — all self-mapped, no aliasing |
+| 13+ | Agriculture, Telecom, Economics, Aerospace, VLSI | 7/7/7/8/8 | Not started | None known |
 
 ## DevOps — technology-level tracking (41 technologies)
 
@@ -1127,7 +1128,7 @@ live Playwright verification cycle run for all 3 pages: all render with no
 crashes, diagrams present (3 per page), Academies dropdown works. Not yet
 deployed — awaiting explicit deploy instruction.
 
-## Law academy — COMPLETE, 9/9 (2026-08-28)
+## Law academy — COMPLETE, 9/9, deployed live (2026-08-28)
 
 All 9 technologies (legal-fundamentals, constitutional-law, clat-prep,
 aibe-bar-exam, judiciary-exams, consumer-protection — batch 1;
@@ -1137,4 +1138,51 @@ variant throughout (not the lighter exam-prep variant, which is scoped only
 to the exams/central-exams/state-psc/professional-certs cluster) — see the
 batch 1 notes above for the full reasoning. The technology count was
 corrected from an earlier unverified estimate of 12 to the actual,
-confirmed 9.
+confirmed 9. Both batches deployed and live-verified (2026-08-28).
+
+## Finance — technology-level tracking (11 technologies)
+
+Note: the user's stated estimate of 12 technologies for Finance was
+corrected during a live registry check — the actual, confirmed count is
+**11**, corrected here and in the "Academy rollout order" table.
+
+| Technology | Registry key | Rubric status before | Work done | Status |
+|---|---|---|---|---|
+| accounting-basics | finance/accounting-basics/overview | Informal hook/prerequisite prose already present, no formal rubric headers | Formalized into "Before you start"/hook/analogy/try-it; accounting-cycle → `flow` FlowDiagram (5 steps) | Done (batch 1) |
+| gst-taxation | finance/gst-taxation/overview | Same informal-prose pattern | Formalized rubric headers; GST-structure ConceptBoxGrid (4 boxes) | Done (batch 1) |
+| direct-tax | finance/direct-tax/overview | Same informal-prose pattern | Formalized rubric headers; five-heads-of-income ConceptBoxGrid (4 boxes) | Done (batch 1) |
+| financial-markets | finance/financial-markets/overview | Same informal-prose pattern | Formalized rubric headers; instrument-types ConceptBoxGrid (4 boxes) | Done (batch 1) |
+| ca-cs-foundation | finance/ca-cs-foundation/overview | Same informal-prose pattern | Formalized rubric headers; three-institutes ConceptBoxGrid (3 boxes) | Done (batch 1) |
+| banking-rbi | finance/banking-rbi/overview | None (dense reference content, no prose hooks at all) | Prerequisite/hook/analogy/try-it added; verification-caveat note (rates/ratios/salaries change); 5-Cs-of-credit ConceptBoxGrid (4 boxes) | Done (batch 1) |
+| sebi-nism | finance/sebi-nism/overview | Not yet assessed | — | Pending (batch 2) |
+| ca-articleship | finance/ca-articleship/overview | Not yet assessed | — | Pending (batch 2) |
+| ca-intermediate | finance/ca-intermediate/overview | Not yet assessed | — | Pending (batch 2) |
+| ca-final | finance/ca-final/overview | Not yet assessed | — | Pending (batch 2) |
+| credit-analysis | finance/credit-analysis/overview | Not yet assessed | — | Pending (batch 2) |
+
+**Batch 1 notes (2026-08-28):** All 11 technologies in `lib/data/academies.ts`'s
+Finance navigation confirmed self-mapped in the content registry
+(`finance/*`), no aliasing risk. This corrected the user's stated estimate
+of 12 to the actual confirmed count of 11 — flagged and corrected
+immediately, same discipline as the earlier Law correction (stated 12,
+actual 9). Five of the six files read (accounting-basics, gst-taxation,
+direct-tax, financial-markets, ca-cs-foundation) already had a distinctive,
+consistent informal-prose pattern — a "What this technology covers" +
+"Why it matters" structure with prerequisite framing and existing
+`(needs verification)` tags on volatile figures — good existing discipline,
+just not in the site's formal rubric header format. Formalized these into
+"Before you start" + "Why This Exists (The Hook)" + Analogy + Try-it
+without disturbing the existing good content, same approach as Education's
+dsa/overview.md earlier. banking-rbi was the one exception — pure dense
+reference content with no prose hooks at all — needed full standard
+treatment plus a new verification-caveat note. Fence-balance manually
+verified per-file (all balanced); batch-wide `validate-content-fences.mjs`
+clean (2579 files); all 6 new `flow`/`conceptgrid` JSON blocks parsed
+successfully; `npm run predeploy` exit 0 (financial-markets' new
+`abrupt_cutoff` WARN-only flag manually verified as a false positive — file
+ends cleanly with a complete sentence in an italicized disclaimer). One
+native-WSL build + live Playwright verification cycle run for all 6 pages:
+all render with no crashes, diagrams present (3-5 per page), Academies
+dropdown works. Not yet deployed — awaiting explicit deploy instruction. 5
+technologies remain (sebi-nism, ca-articleship, ca-intermediate, ca-final,
+credit-analysis) for batch 2.

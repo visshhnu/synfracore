@@ -1,5 +1,15 @@
 # Banking & RBI — Deep Dive
 
+**Before you start:** [Financial Accounting](/academies/finance/accounting-basics/overview) basics are assumed. *(Note: rates, ratios, and salary figures below reflect commonly cited reference points — RBI rates, Basel norms, and pay scales are revised periodically; verify current figures before relying on them.)*
+
+## Why This Exists (The Hook)
+
+A single failed bank doesn't just hurt its own shareholders — it can trigger a run on other banks, freeze credit across the economy, and destroy public confidence in the entire financial system, which is exactly what happened repeatedly before central banking existed in its modern form. RBI's structure and tools — the repo rate, CRR/SLR reserve requirements, Basel III capital adequacy rules, NPA classification — all exist to prevent that cascade: making sure banks hold enough safe reserves and capital that one institution's trouble doesn't become everyone's crisis, while still controlling the money supply precisely enough to manage inflation.
+
+**Analogy** — Think of RBI's monetary policy tools like a thermostat controlling a building's temperature, not a light switch. A light switch is binary — on or off. A thermostat makes continuous small adjustments (raise or lower the target by a fraction of a degree) to keep the room in a comfortable range despite constantly changing outside conditions. The repo rate works the same way: small, deliberate adjustments (often just 0.25% at a time) that ripple through bank lending rates, borrowing costs, and ultimately spending and investment — the "transmission mechanism" is the thermostat's effect flowing through the whole building, not a single room.
+
+**Try it (2 minutes)** — Reason through why the transmission mechanism (RBI ↓ Repo rate → Banks ↓ MCLR → Banks ↓ Lending rates → borrowing ↑ → GDP ↑) takes multiple steps to actually affect economic growth, rather than working instantly, without looking anything up: the repo rate is the rate RBI charges BANKS, not the rate banks charge their customers — that's a separate step (MCLR, then actual lending rates) that depends on banks choosing to pass the change along. If a bank decided NOT to lower its own lending rates even after RBI cut the repo rate, what would happen to the chain of consequences (more borrowing → more investment → GDP growth) that the whole mechanism depends on — and why does that make monetary policy's real-world effectiveness partly dependent on how banks actually respond, not just on what RBI sets?
+
 ## Indian Banking System Structure
 
 ```
@@ -77,6 +87,17 @@ Banks must direct 40% of Adjusted Net Bank Credit (ANBC) to priority sectors:
 ---
 
 ## Credit Analysis — How Banks Evaluate Loans
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Character", "description": "Track record, reputation -- CIBIL score 750+ preferred", "color": "blue" },
+    { "title": "Capacity", "description": "Ability to repay -- DSCR ≥ 1.25x", "color": "purple" },
+    { "title": "Capital", "description": "Borrower's own stake -- typically 25-30% margin", "color": "amber" },
+    { "title": "Collateral", "description": "Security offered -- hypothecation of assets", "color": "green" }
+  ]
+}
+```
 
 **5 Cs of Credit:**
 1. **Character:** Borrower's track record, reputation (CIBIL score 750+ preferred)
