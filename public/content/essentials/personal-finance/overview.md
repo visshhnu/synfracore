@@ -1,6 +1,30 @@
 # Personal Finance — Money Skills Nobody Teaches You
 
+**Before you start:** no prior finance background is needed. *(Note: specific figures below — interest rates, tax limits, insurance premiums, fund returns — reflect India-specific reference points current as of authoring; tax rules, rates, and product terms change, so verify current figures before making financial decisions — this page is educational, not financial advice.)*
+
 Schools teach algebra and history but not how to manage money, build wealth, or avoid the financial traps most people fall into. This guide covers everything — budgeting, debt, saving, investing, insurance, and building a plan that actually works for an Indian income.
+
+## Why This Exists (The Hook)
+
+Two people earning wildly different salaries can end up in opposite financial positions — an engineer earning ₹15 LPA can be broke, while a teacher earning ₹4 LPA can be financially secure — because the actual determinant of wealth isn't income, it's the gap between what you earn and what you keep, compounded over time. Nobody teaches this explicitly, which is exactly why lifestyle inflation (every raise silently absorbed into spending) quietly derails so many people who are, by any income measure, doing well.
+
+**Analogy** — Think of compound interest like a snowball rolling downhill, not a stack of coins you add to. A stack of coins only grows by what you add to it — linear, predictable. A snowball rolling downhill picks up more snow per rotation as it gets bigger, so its growth accelerates over time, not linearly. That's why starting a SIP at 22 instead of 32 isn't a "10 years less" difference — the extra 10 years of rolling, even after you stop actively adding more, is what produces a 3-4× larger snowball by the time it reaches the bottom of the hill.
+
+**Try it (2 minutes)** — Reason through why the guide says "time IN the market beats timing the market," using the Person A vs Person B example, without looking anything up: Person A invests ₹6,00,000 total over 10 years (age 22-32) and ends up with more than Person B, who invests ₹16,80,000 total over 28 years (age 32-60) — both at the same 12% CAGR. Person A invested nearly 3× LESS money in total. Given that both earned the same annual return rate, what single variable explains why Person A still ends up ahead — and what does that tell you about why waiting for "the right moment" to start investing is usually a worse strategy than just starting now?
+
+## Overview
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "1. Budget", "sublabel": "50-30-20 rule or pay-yourself-first", "color": "blue" },
+    { "label": "2. Emergency Fund", "sublabel": "6 months expenses -- non-negotiable first step", "color": "purple" },
+    { "label": "3. Insurance", "sublabel": "Term life + health -- before investing", "color": "amber" },
+    { "label": "4. Invest", "sublabel": "PF/PPF -> Equity mutual funds -> Direct stocks (optional)", "color": "green" }
+  ]
+}
+```
 
 ---
 

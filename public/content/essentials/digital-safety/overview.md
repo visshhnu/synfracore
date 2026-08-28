@@ -1,12 +1,29 @@
 # Digital Safety & Online Privacy
 
-## Why Digital Safety Matters
+**Before you start:** no prior technical background is needed. *(Note: legal section details — IT Act sections, penalties, DPDP Act specifics — reflect India law as of authoring; verify current provisions before relying on them for anything legal, as laws and amendments change.)*
 
-Every connected device is an entry point for attackers. Your smartphone, laptop, social media accounts, email, and banking apps are all targets. Digital literacy means understanding the threats and protecting yourself.
+## Why This Exists (The Hook)
+
+A phishing email doesn't need to fool a security expert — it only needs to fool one tired, distracted person for ten seconds, out of thousands of attempts. Attackers exploit exactly that asymmetry: they only need to succeed once, while you need to be careful every single time. Digital safety exists to shrink that asymmetry back in your favor — recognizing the small number of attack patterns (urgency, impersonation, requests for OTP/passwords) that cover the overwhelming majority of real attacks, so you can catch them reflexively instead of needing to analyze every message from scratch.
+
+**Analogy** — Think of digital safety like locking your car and not leaving valuables visible, not building a bunker. Most car break-ins are opportunistic — an unlocked door or a visible laptop on the seat, not a determined thief defeating a serious security system. Removing the easy opportunity (locking doors, hiding valuables) stops the overwhelming majority of real-world attempts, even though a truly determined, resourced attacker could theoretically still get in. Strong unique passwords, 2FA, and recognizing phishing are your "locked doors" — they don't make you invincible, but they stop the vast majority of real attacks, which are opportunistic, not targeted.
+
+**Try it (2 minutes)** — Reason through why "no legitimate organisation asks for your OTP, password, or CVV" is treated as an absolute rule rather than a rule of thumb, without looking anything up: an OTP exists specifically to prove that a request is coming from you, the account owner, at the moment of a legitimate transaction you initiated. If someone calling and claiming to be from your bank asks you to read them the OTP that just arrived, what are they actually trying to do with it — and why would a genuine bank employee, who already has access to your account internally, have no legitimate reason to need a code that exists purely to prove YOUR identity to THEM?
 
 ---
 
 ## Most Common Online Threats
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Phishing", "description": "Fake messages impersonating trusted entities to steal credentials", "color": "red" },
+    { "title": "Social Engineering", "description": "Manipulating people directly -- fake bank calls, fake job offers", "color": "amber" },
+    { "title": "Password Attacks", "description": "Brute force, credential stuffing, shoulder surfing", "color": "purple" },
+    { "title": "Malware", "description": "Ransomware, spyware, adware -- damages or steals from your device", "color": "blue" }
+  ]
+}
+```
 
 ### Phishing
 Fake emails/messages impersonating trusted entities (bank, UIDAI, IRCTC, IT Department) to steal credentials.

@@ -103,7 +103,7 @@ each sub-academy.
 | 7 | Security | 9 | **Done** (2026-08-28, batch 1) — see table below | None found — all 8 self-mapped, no aliasing |
 | 8 | Data (Analytics & BI) | 14 | **13/14 done, deployed live** (2026-08-28) — see table below | dbt/airflow/spark are generic-template stubs, flagged and deferred (need real content authoring, not just visuals) — 13/14 otherwise self-mapped, no aliasing |
 | 9 | Education | 12 | **12/12 overview.md pass done** (2026-08-28) — see table below | Deeper intermediate/advanced-tier stub gap known for os/dbms/cn/system-design/placement-prep — still open, unrelated to this overview.md pass; all 12 overview.md files confirmed real content, no aliasing |
-| 10 | Essentials | 10 | Batch 1 done (2026-08-28, 6/10) — see table below | **Live content bug found + fixed**: mental-health/overview.md was serving Sleep content, not mental-health content — rewritten from scratch |
+| 10 | Essentials | 10 | **10/10 done** (2026-08-28) — see table below | **Live content bug found + fixed**: mental-health/overview.md was serving Sleep content, not mental-health content — rewritten from scratch |
 | 11+ | Law, Finance, Agriculture, Telecom, Economics, Aerospace, VLSI | 12/7/7/7/8/8 | Not started | None known |
 
 ## DevOps — technology-level tracking (41 technologies)
@@ -984,10 +984,10 @@ and should not be assumed fixed by this batch.
 | nutrition | essentials/nutrition/overview | None | Prerequisite/hook/analogy/try-it added; verification-caveat note added; overview → `flow` FlowDiagram (4 steps) | Done (batch 1) |
 | mental-health | essentials/mental-health/overview | **CONTENT BUG: live-serving a Sleep article, not mental-health content** | **Rewrote overview.md from scratch** matching fundamentals/intermediate/advanced tiers' real content, with full standard rubric + visuals (conditions ConceptBoxGrid, bio-psycho-social FlowDiagram) | Done (batch 1) — bug fixed |
 | sleep-health | essentials/sleep-health/overview | None | Prerequisite/hook/analogy/try-it added; verification-caveat note added; sleep-stages → `flow` FlowDiagram | Done (batch 1) |
-| daily-movement | essentials/daily-movement/overview | Not yet assessed | — | Pending (batch 2) |
-| personal-finance | essentials/personal-finance/overview | Not yet assessed | — | Pending (batch 2) |
-| digital-safety | essentials/digital-safety/overview | Not yet assessed | — | Pending (batch 2) |
-| first-aid | essentials/first-aid/overview | Not yet assessed | — | Pending (batch 2) |
+| daily-movement | essentials/daily-movement/overview | None | Prerequisite/hook/analogy/try-it added; verification-caveat note added; desk-workers ConceptBoxGrid (4 boxes) | Done (batch 2) |
+| personal-finance | essentials/personal-finance/overview | None | Prerequisite/hook/analogy/try-it added; verification-caveat note added; wealth-building overview → `flow` FlowDiagram (4 steps) | Done (batch 2) |
+| digital-safety | essentials/digital-safety/overview | None | Prerequisite/hook/analogy/try-it added; verification-caveat note added; threat-type ConceptBoxGrid (4 boxes) | Done (batch 2) |
+| first-aid | essentials/first-aid/overview | None | Prerequisite/hook/analogy/try-it added; explicit "not a substitute for certified training" caveat added; medical-emergencies ConceptBoxGrid (4 boxes) | Done (batch 2) |
 
 **Batch 1 notes (2026-08-28) — LIVE CONTENT BUG FOUND AND FIXED:** All 10
 technologies confirmed self-mapped in the content registry
@@ -1033,6 +1033,39 @@ false positives — file reads completely and ends cleanly, no truncation).
 One native-WSL build + live Playwright verification cycle run for all 6
 pages: all render with no crashes, diagrams present (4-7 per page),
 mental-health confirmed NOT showing the old Sleep content, Academies
-dropdown works. Not yet deployed — awaiting explicit deploy instruction. 4
-technologies remain (daily-movement, personal-finance, digital-safety,
-first-aid) for batch 2.
+dropdown works. Deployed and live-verified (2026-08-28) — the mental-health
+fix was prioritized: live curl confirmed the page now serves "Mental
+Wellness — Overview" correctly (not the Sleep article), sleep-health
+independently confirmed unaffected; all 6 pages 200, diagrams render in
+both themes, Academies dropdown working, `npm run predeploy` exit 0.
+
+**Batch 2 notes (2026-08-28):** Read the remaining 4 files (daily-movement,
+personal-finance, digital-safety, first-aid) before editing — confirmed all
+genuinely dense, real content, no stubs, no further content-mismatch bugs
+found. Completed full standard-rubric treatment on all 4, adding
+verification-caveat notes to personal-finance (India tax/interest-rate
+figures change) and digital-safety (India IT Act/DPDP Act provisions
+change) alongside the existing pattern from batch 1, plus an explicit
+"not a substitute for certified training" caveat on first-aid given its
+domain (medical emergency response). Fence-balance manually verified
+per-file (all balanced); batch-wide `validate-content-fences.mjs` clean
+(2579 files); all 4 new `flow`/`conceptgrid` JSON blocks parsed
+successfully; `npm run predeploy` exit 0 (first-aid's new
+`empty_code_block` WARN-only flag confirmed as the known adjacent-fence
+pattern). One native-WSL build + live Playwright verification cycle run
+for all 4 pages: all render with no crashes, diagrams present (4 per
+page), Academies dropdown works. Not yet deployed — awaiting explicit
+deploy instruction.
+
+## Essentials academy — COMPLETE, 10/10 (2026-08-28)
+
+All 10 technologies (human-essentials, gut-health, hygiene, nutrition,
+mental-health, sleep-health — batch 1; daily-movement, personal-finance,
+digital-safety, first-aid — batch 2) now have real depth-rubric + visual
+treatment. Batch 1 also fixed a live content-mismatch bug on mental-health
+(was serving Sleep content) — see the batch 1 notes above for full detail.
+Domain-sensitivity verification-caveat notes were added across gut-health,
+nutrition, sleep-health, daily-movement, personal-finance, digital-safety,
+and first-aid; the underlying specific claims themselves were not audited
+line-by-line (flagged as a lower-priority follow-up, same as noted in
+batch 1).

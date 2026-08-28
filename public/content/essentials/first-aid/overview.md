@@ -1,6 +1,16 @@
 # First Aid & Emergency Response — Skills That Save Lives
 
+**Before you start:** no prior medical background is needed. **This page is educational, not a substitute for certified first-aid/CPR training or professional medical care** — in a real emergency, call emergency services immediately and follow their guidance; take a certified course (Red Cross, St. John Ambulance, or equivalent) for hands-on practice before relying on these skills. *(Specific figures — timings, dosages, ratios — reflect commonly cited first-aid guidelines; protocols are periodically updated, so verify against current certified training.)*
+
 Every year in India, thousands of people die from injuries and medical emergencies that were survivable — not because help wasn't available, but because nobody nearby knew what to do in the critical first minutes. Basic first aid knowledge can double or triple survival rates.
+
+## Why This Exists (The Hook)
+
+Cardiac arrest kills in 4-6 minutes without intervention, but an ambulance in most cities takes longer than that to arrive — which means the person standing nearest the emergency, not the paramedic still en route, is the one whose action in those first minutes actually determines survival. First aid exists to close exactly that gap: not to replace professional medical care, but to keep someone alive long enough for it to reach them.
+
+**Analogy** — Think of first aid like a fire extinguisher next to a stove, not a substitute for the fire department. You don't need to be a firefighter to use an extinguisher on a small kitchen fire in the first 30 seconds — and doing so can be the difference between a minor incident and the fire department arriving to a fully engulfed building. First aid is that same "first 30 seconds" response for a medical emergency: not a replacement for professional care, but the bridge that keeps the situation from becoming unsurvivable before professional care arrives.
+
+**Try it (2 minutes)** — Reason through why the guide says "do NOT waste time checking pulse" before starting CPR, even for trained professionals, without looking anything up: checking a pulse accurately under stress is genuinely difficult — even trained professionals get it wrong. If someone is unconscious and not breathing normally, and CPR chest compressions on a person whose heart IS still beating carries low real risk of harm, while delaying CPR on someone whose heart has actually stopped costs precious minutes with a 4-6 minute survival window — which mistake (starting CPR on someone who didn't strictly need it, vs. delaying CPR on someone who did) is more costly, and why would the guide's simplified "unconscious + not breathing normally = start CPR" rule reflect that asymmetry?
 
 ---
 
@@ -261,6 +271,17 @@ Heat Stroke (MEDICAL EMERGENCY):
 ---
 
 ## Medical Emergencies — Know These Signs
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Heart Attack", "description": "Chest pain/pressure, shortness of breath -- call 108, give aspirin if not allergic", "color": "red" },
+    { "title": "Stroke (FAST)", "description": "Face drooping, Arm weakness, Speech difficulty -- Time to call 108", "color": "amber" },
+    { "title": "Diabetic Emergency", "description": "Low blood sugar (conscious): give sugar. Unconscious: nothing by mouth, call 108", "color": "purple" },
+    { "title": "Anaphylaxis", "description": "EpiPen if available (outer thigh), call 108 immediately", "color": "blue" }
+  ]
+}
+```
 
 ```
 Heart Attack:
