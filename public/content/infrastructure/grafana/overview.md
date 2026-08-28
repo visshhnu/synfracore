@@ -48,6 +48,21 @@ Heatmap      — Request latency distributions over time
 Geomap       — Geographic distribution of traffic
 ```
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Time series", "description": "Line charts for metrics over time — CPU, memory, requests", "color": "blue" },
+    { "title": "Stat", "description": "Single big number with trend — current error rate, uptime", "color": "green" },
+    { "title": "Gauge", "description": "Dial showing value vs thresholds — disk usage %", "color": "amber" },
+    { "title": "Bar chart", "description": "Comparisons across categories", "color": "purple" },
+    { "title": "Table", "description": "Detailed data with sorting and filtering", "color": "slate" },
+    { "title": "Logs", "description": "Log stream from Loki or Elasticsearch", "color": "cyan" },
+    { "title": "Heatmap", "description": "Request latency distributions over time", "color": "red" },
+    { "title": "Geomap", "description": "Geographic distribution of traffic", "color": "blue" }
+  ]
+}
+```
+
 ## PromQL Dashboard Queries
 
 ```promql

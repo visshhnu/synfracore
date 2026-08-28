@@ -45,6 +45,20 @@ Step 6: Alertmanager routes
    Handles deduplication, grouping, silencing
 ```
 
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "1. App exposes metrics", "sublabel": "GET /metrics — e.g. http_requests_total{status=\"200\"} 1234", "color": "blue" },
+    { "label": "2. Prometheus scrapes", "sublabel": "Every 15-30s, pull model — Prometheus comes to you", "color": "purple" },
+    { "label": "3. Stored as time-series", "sublabel": "Timestamp + labels in a local TSDB", "color": "green" },
+    { "label": "4. Grafana queries", "sublabel": "PromQL to Prometheus's HTTP API", "color": "cyan" },
+    { "label": "5. Alert evaluation", "sublabel": "Every 30s, fires if condition true for the FOR duration", "color": "amber" },
+    { "label": "6. Alertmanager routes", "sublabel": "Slack/PagerDuty/email — dedup, grouping, silencing", "color": "red" }
+  ]
+}
+```
+
 ## Try It (2 Minutes)
 
 You can see the pull/scrape model directly without installing anything beyond Docker:
@@ -64,6 +78,17 @@ You can see the pull/scrape model directly without installing anything beyond Do
 | **Best for** | K8s, on-prem, multi-cloud | SaaS ease, APM | Legacy | Azure-only |
 
 ## Metric Types
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Counter", "description": "Only increases, resets to 0 on restart. Always query with rate()/increase()", "color": "blue" },
+    { "title": "Gauge", "description": "Goes up and down. Query directly or with avg/max/min", "color": "green" },
+    { "title": "Histogram", "description": "Samples into configurable buckets. Use histogram_quantile() for percentiles", "color": "purple" },
+    { "title": "Summary", "description": "Like a histogram, but quantiles calculated client-side", "color": "amber" }
+  ]
+}
+```
 
 **Counter** — Value that only increases. Resets to 0 on restart.
 ```

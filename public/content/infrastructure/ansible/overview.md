@@ -24,6 +24,17 @@ Ansible is an open-source automation platform that handles:
 | **Puppet** | Yes (puppet agent) | Puppet DSL | High | Compliance-heavy environments |
 | **SaltStack** | Yes (minion) | YAML/Python | Medium | High-scale, event-driven |
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Ansible", "description": "Agentless, YAML, low learning curve. General automation, existing infra", "color": "green" },
+    { "title": "Chef", "description": "Needs chef-client, Ruby DSL, high learning curve. Large enterprises", "color": "amber" },
+    { "title": "Puppet", "description": "Needs puppet agent, Puppet DSL. Compliance-heavy environments", "color": "purple" },
+    { "title": "SaltStack", "description": "Needs minion, YAML/Python. High-scale, event-driven", "color": "cyan" }
+  ]
+}
+```
+
 **Why Ansible wins for most teams:**
 - Zero agent overhead — just SSH and Python (already on every Linux server)
 - Human-readable YAML — ops team can read and write it
@@ -44,6 +55,18 @@ Control Node (your laptop / CI server)
     SSH ──→ Managed Node 1 (web-01)
     SSH ──→ Managed Node 2 (web-02)
     SSH ──→ Managed Node 3 (db-01)
+```
+
+```flow
+{
+  "title": "No Daemon on Managed Nodes — SSH In, Run, Clean Up",
+  "layout": "flow",
+  "steps": [
+    { "label": "Control Node", "sublabel": "Inventory, Playbooks, Roles, Vault", "color": "blue" },
+    { "label": "SSH + Python module", "sublabel": "Pushed temporarily, executed", "color": "purple" },
+    { "label": "Managed Nodes", "sublabel": "web-01, web-02, db-01 — nothing left running", "color": "green" }
+  ]
+}
 ```
 
 **No daemon on managed nodes.** Ansible SSHs in, copies a Python module, executes it, returns result, and cleans up. Completely stateless from the target perspective.

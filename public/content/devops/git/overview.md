@@ -14,6 +14,18 @@ Working Directory  →  git add  →  Staging Area  →  git commit  →  Local 
                                     to be saved)                   checkpoint)                 GitLab)
 ```
 
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Working Directory", "sublabel": "Raw edits", "color": "slate" },
+    { "label": "Staging Area", "sublabel": "git add — what's about to be saved", "color": "blue" },
+    { "label": "Local Repo", "sublabel": "git commit — permanent checkpoint", "color": "purple" },
+    { "label": "Remote", "sublabel": "git push — GitHub/GitLab", "color": "green" }
+  ]
+}
+```
+
 ---
 
 ## Core Concepts
@@ -100,6 +112,16 @@ git push origin --tags            # push all tags
 ---
 
 ## Branching Strategies
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Git Flow", "description": "main/develop/feature/release/hotfix branches. Structured, more overhead", "color": "blue" },
+    { "title": "GitHub Flow", "description": "main + short-lived feature branches. Simpler, works well with CI/CD", "color": "green" },
+    { "title": "Trunk-Based", "description": "Everyone commits to main daily. Needs strong CI/CD + feature flags", "color": "purple" }
+  ]
+}
+```
 
 ### Git Flow
 - `main` — production-ready

@@ -132,31 +132,60 @@ undefined-term violations found) — this batch was visuals-only, no rewrite
 needed, confirming the Step 2 pacing prediction that already-grounded content
 batches faster.
 
+Batch 1 was fully verified live and deployed (Version ID
+`c6cf21f8-68d4-4f71-b849-3c1ba238bd9d`). While verifying live, found and fixed
+a real flakiness bug in the verification method itself: `ThemeProvider.tsx`
+applies the `light` class inside a mount-time `useEffect`, so directly poking
+`classList` (the original approach in `scripts/verify-diagram-theming.mjs`)
+races that effect and produces false-negative "colors didn't differ" results
+intermittently. Fixed by clicking the real `aria-label="Toggle theme"` button
+instead — same code path a real user triggers, no race. Confirmed stable
+across repeated runs after the fix. See commit `091df04`.
+
+**Batch 2** (2026-08-27): git, linux, ansible, prometheus, grafana, terraform
+— overview.md only, one file per technology (all 6 self-contained overview
+pages, not a fundamentals/intermediate continuation like batch 1). Status:
+**done** — content, predeploy/typecheck, and full live Playwright dark/light
+verification all clean (WSL networking was blocked by VPN interference
+partway through the first verification pass; resumed and completed once
+access returned).
+
+| Technology | overview.md | Notes |
+|---|---|---|
+| git | **content done (batch 2)** — FlowDiagram (working-tree→staging→repo→remote), ConceptBoxGrid (3 branching strategies) | self-mapped; live-verified ✅ before VPN block |
+| linux | **content done (batch 2)** — added prerequisite line + kernel/Bash grounding (previously missing), ConceptBoxGrid (USE method) | self-mapped; live-verified ✅ before VPN block |
+| ansible | **content done (batch 2)** — FlowDiagram (control node→SSH→managed nodes), ConceptBoxGrid (Ansible vs Chef/Puppet/SaltStack) | infrastructure/ansible alias; live-verified ✅ |
+| prometheus | **content done (batch 2)** — stack FlowDiagram (6-step scrape→alert pipeline), ConceptBoxGrid (4 metric types) | infrastructure/prometheus alias; live-verified ✅ |
+| grafana | **content done (batch 2)** — ConceptBoxGrid (8 dashboard panel types) | infrastructure/grafana alias; live-verified ✅ |
+| terraform | **content done (batch 2)** — ConceptBoxGrid (Terraform vs CloudFormation/Ansible/Pulumi/CDK), FlowDiagram (init→plan→apply→destroy) | infrastructure/terraform alias; live-verified ✅. Note: a code-fence edit initially broke this file's structure (closed a bash block early, orphaning the "State operations" section as unfenced text) — caught via a fence-balance grep check and fixed before commit. Worth doing that same balance check on any edit that inserts a new fenced block mid-existing-block. |
+
+**Batch 3** (2026-08-27): github-actions, argocd, helm, jenkins, nginx, python
+— overview.md only. Status: **done** — content, predeploy/typecheck, and full
+live Playwright dark/light verification all clean.
+
+| Technology | overview.md | Notes |
+|---|---|---|
+| github-actions | **content done (batch 3)** — added prerequisite line + CI/CD grounding (previously missing), removed a stray leftover `​```bash\n1\n​```​` artifact found in the source, FlowDiagram (test/scan parallel → deploy) | self-mapped; live-verified ✅ |
+| argocd | **content done (batch 3)** — ConceptBoxGrid (4 GitOps principles), FlowDiagram (git push→ArgoCD watches→drift→sync) | infrastructure/argocd alias; live-verified ✅ |
+| helm | **content done (batch 3)** — stack FlowDiagram (Chart+Values=Rendered YAML→cluster) | infrastructure/helm alias; live-verified ✅ |
+| jenkins | **content done (batch 3)** — FlowDiagram (git push→controller→agents→registry→k8s) | infrastructure/jenkins alias; live-verified ✅ |
+| nginx | **content done (batch 3)** — added front-desk analogy (previously missing), ConceptBoxGrid (6 core functions) | infrastructure/nginx alias; live-verified ✅ |
+| python | **content done (batch 3)** — ConceptBoxGrid (Bash vs Python decision rule) | infrastructure/python alias; live-verified ✅ |
+
+**Remaining DevOps technologies, not yet started:**
+
 | Technology | overview.md | fundamentals.md | intermediate.md | Notes |
 |---|---|---|---|---|
-| kubernetes | done (Phase 1) | **done (batch 1)** — ConceptBoxGrid, ConfigMap vs Secret | **done (batch 1)** — ConceptBoxGrid, Service types | self-mapped, not infrastructure-aliased for these 3 tiers |
-| docker | done (Phase 1) | **done (batch 1)** — ConceptBoxGrid, Volume vs Bind Mount | **done (batch 1)** — FlowDiagram, multi-stage build | self-mapped, not infrastructure-aliased for these 3 tiers |
-| networking | done (Phase 1) | **done (batch 1)** — ConceptBoxGrid, L4 vs L7 LB | **done (batch 1)** — ConceptBoxGrid, LB algorithms | fundamentals self-mapped; intermediate genuinely aliased to infrastructure/networking/intermediate.md (edited there) |
-| linux | not started | not started | not started | |
 | shell-scripting | not started | not started | not started | |
-| helm | not started | not started | not started | |
 | istio | not started | not started | not started | |
 | ebpf | not started | not started | not started | |
 | harbor | not started | not started | not started | |
 | keda | not started | not started | not started | |
 | cicd | not started | not started | not started | |
-| git | not started | not started | not started | |
-| jenkins | not started | not started | not started | |
-| argocd | not started | not started | not started | |
 | argo-rollouts | not started | not started | not started | |
 | gitlab-ci | not started | not started | not started | |
 | fluxcd | not started | not started | not started | |
 | tekton | not started | not started | not started | |
-| github-actions | not started | not started | not started | |
-| terraform | not started | not started | not started | infrastructure/terraform alias |
-| ansible | not started | not started | not started | |
-| prometheus | not started | not started | not started | |
-| grafana | not started | not started | not started | |
 | elk-stack | not started | not started | not started | |
 | ha-dr | not started | not started | not started | |
 | incident | not started | not started | not started | |
@@ -165,16 +194,14 @@ batches faster.
 | automation | not started | not started | not started | |
 | kafka | not started | not started | not started | |
 | platform-engineering | not started | not started | not started | |
-| backstage | not started | not started | not started | |
+| backstage | not started | not started | not started | built with real content this session (pre-Phase-3) — likely faster batch, check quality before assuming a full rewrite is needed |
 | datadog | not started | not started | not started | |
 | loki | not started | not started | not started | |
 | splunk | not started | not started | not started | |
-| python | not started | not started | not started | |
-| nginx | not started | not started | not started | |
 | openshift | not started | not started | not started | |
-| vault | not started | not started | not started | |
-| trivy | not started | not started | not started | |
-| sonarqube | not started | not started | not started | |
+| vault | not started | not started | not started | built with real content this session (pre-Phase-3) — likely faster batch, check quality before assuming a full rewrite is needed |
+| trivy | not started | not started | not started | built with real content this session (pre-Phase-3) — likely faster batch, check quality before assuming a full rewrite is needed |
+| sonarqube | not started | not started | not started | built with real content this session (pre-Phase-3) — likely faster batch, check quality before assuming a full rewrite is needed |
 
 Other DevOps tiers (advanced.md, roadmap.md, etc.) not yet tracked
 per-technology — will be added to this table if/when the depth-rubric+visual

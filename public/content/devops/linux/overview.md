@@ -7,13 +7,27 @@
 
 ---
 
+**Before you start:** no prior Linux experience is assumed, but basic command-line comfort (opening a terminal, running a command) makes this land faster. This is usually the first DevOps technology worth learning, since almost everything else in this academy ultimately runs on top of it.
+
 ## What is Linux & Bash?
+
+The **kernel** is the core program that actually talks to the hardware — CPU, memory, disks, network — and every other program on the machine goes through it to get anything done. Linux is an operating system built around that kernel, and it's the OS every major cloud server, Kubernetes node, and container ultimately runs on — which is why DevOps work assumes Linux fluency by default, not as an optional extra. **Bash** is the command-line shell most Linux systems use — the program that reads the commands you type and runs them.
 
 Every DevOps engineer must be fluent in Linux. Key directories: `/etc` (config files), `/var` (logs, data), `/opt` (third-party apps), `/proc` (kernel interfaces), `/sys` (hardware interfaces). Permissions: owner/group/others, `rwx` = 4+2+1. Systemd manages services — always use `systemctl`, not the older `service` command, on modern Linux.
 
 ## Why Linux & Bash?
 
 USE Method: for every resource, check Utilization, Saturation, Errors. A slow server is almost always one of: CPU saturated (run queue > CPU count), memory pressure (swap active), disk I/O bottleneck (`await` > 10ms), or network issues (retransmits). Run `vmstat` first — the "r" column (run queue) tells you if CPU is saturated immediately.
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Utilization", "description": "How busy is the resource right now? (CPU %, memory used, disk busy time)", "color": "blue" },
+    { "title": "Saturation", "description": "Is work queuing up waiting for this resource? (run queue, swap activity, disk await)", "color": "amber" },
+    { "title": "Errors", "description": "Is the resource throwing errors? (dropped packets, disk I/O errors, OOM kills)", "color": "red" }
+  ]
+}
+```
 
 ---
 

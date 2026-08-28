@@ -36,6 +36,17 @@ vs CDK (Cloud Development Kit):
   CDK for Terraform (CDKTF): generates Terraform; use general-purpose languages
 ```
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "CloudFormation", "description": "AWS-only, native integration, no separate state file to manage", "color": "amber" },
+    { "title": "Ansible", "description": "Imperative, better for configuration. Best practice: Terraform provisions, Ansible configures", "color": "green" },
+    { "title": "Pulumi", "description": "General-purpose languages (Python, TS, Go) instead of HCL — pick this if the team prefers code", "color": "purple" },
+    { "title": "CDK / CDKTF", "description": "Generates CloudFormation or Terraform from general-purpose languages", "color": "blue" }
+  ]
+}
+```
+
 ## Core Workflow
 
 ```bash
@@ -58,7 +69,21 @@ terraform init        # download providers, configure backend
 terraform plan        # show what will change
 terraform apply       # make the changes
 terraform destroy     # destroy all resources
+```
 
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "terraform init", "sublabel": "Download providers, configure backend", "color": "blue" },
+    { "label": "terraform plan", "sublabel": "Preview exact changes", "color": "purple" },
+    { "label": "terraform apply", "sublabel": "Make the changes", "color": "green" },
+    { "label": "terraform destroy", "sublabel": "Tear down when needed", "color": "red" }
+  ]
+}
+```
+
+```bash
 # State operations
 terraform state list                    # list all managed resources
 terraform state show aws_s3_bucket.main # inspect a resource
