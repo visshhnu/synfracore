@@ -106,7 +106,8 @@ each sub-academy.
 | 10 | Essentials | 10 | **10/10 done** (2026-08-28) — see table below | **Live content bug found + fixed**: mental-health/overview.md was serving Sleep content, not mental-health content — rewritten from scratch |
 | 11 | Law | 9 (corrected from an earlier unverified estimate of 12) | **9/9 done** (2026-08-28) — see table below | None found — all self-mapped, no aliasing |
 | 12 | Finance | 11 (corrected from a stated estimate of 12) | **11/11 done** (2026-08-28) — see table below | None found — all self-mapped, no aliasing |
-| 13+ | Agriculture, Telecom, Economics, Aerospace, VLSI | 7/7/7/8/8 | Not started | None known |
+| 13 | Agriculture | 6 (corrected from a stated estimate of 7) | **6/6 done** (2026-08-28) — see table below | None found — all self-mapped, no aliasing |
+| 14+ | Telecom, Economics, Aerospace, VLSI | 7/7/8/8 | Not started | None known |
 
 ## DevOps — technology-level tracking (41 technologies)
 
@@ -1203,11 +1204,58 @@ flags confirmed as the known adjacent-fence pattern). One native-WSL build
 no crashes, diagrams present (3-4 per page), Academies dropdown works. Not
 yet deployed — awaiting explicit deploy instruction.
 
-## Finance academy — COMPLETE, 11/11 (2026-08-28)
+## Finance academy — COMPLETE, 11/11, deployed live (2026-08-28)
 
 All 11 technologies (accounting-basics, gst-taxation, direct-tax,
 financial-markets, ca-cs-foundation, banking-rbi — batch 1; sebi-nism,
 ca-articleship, ca-intermediate, ca-final, credit-analysis — batch 2) now
 have real depth-rubric + visual treatment. The technology count was
 corrected from the user's stated estimate of 12 to the actual, confirmed
-11 — see the batch 1 notes above.
+11 — see the batch 1 notes above. Both batches deployed and live-verified
+(2026-08-28).
+
+## Agriculture — technology-level tracking (6 technologies)
+
+Note: the user's stated estimate of 7 technologies for Agriculture was
+corrected during a live registry check — the actual, confirmed count is
+**6**, corrected here and in the "Academy rollout order" table.
+
+| Technology | Registry key | Rubric status before | Work done | Status |
+|---|---|---|---|---|
+| organic-farming | agriculture/organic-farming/overview | None (module-based style, no rubric) | Prerequisite/hook/analogy/try-it added; 6-module overview → `stack` FlowDiagram | Done |
+| soil-science | agriculture/soil-science/overview | Informal hook/prerequisite prose already present (same Finance-batch-1-style pattern), no formal rubric headers | Formalized into "Before you start"/hook/analogy/try-it; soil-types ConceptBoxGrid (4 boxes) | Done |
+| horticulture | agriculture/horticulture/overview | Same informal-prose pattern | Formalized rubric headers; technology-coverage ConceptBoxGrid (4 boxes) | Done |
+| icar-ibps-afo | agriculture/icar-ibps-afo/overview | None (dense reference content) | Prerequisite/hook/analogy/try-it added; verification-caveat note (MSP/scheme amounts change); cropping-seasons ConceptBoxGrid (3 boxes) | Done |
+| crop-science | agriculture/crop-science/overview | None (dense reference content) | Prerequisite/hook/analogy/try-it added; IPM-principles ConceptBoxGrid (4 boxes) | Done |
+| agri-business | agriculture/agri-business/overview | Same informal-prose pattern as soil-science/horticulture | Formalized rubric headers; technology-coverage ConceptBoxGrid (4 boxes) | Done |
+
+**Notes (2026-08-28):** All 6 technologies in `lib/data/academies.ts`'s
+Agriculture navigation confirmed self-mapped in the content registry
+(`agriculture/*`), no aliasing risk. This corrected the user's stated
+estimate of 7 to the actual confirmed count of 6 — same live-verification
+discipline as the Law (12→9) and Finance (12→11) corrections. Read all 6
+files before editing any; 3 (soil-science, horticulture, agri-business)
+shared the same informal-hook prose pattern seen in Finance batch 1 —
+formalized without disturbing the existing good content. organic-farming
+had a completely different module-based style (with placeholder "Add your
+real experience here" text in its Interview Prep section — noted but out
+of scope, since that's the Interview tier not Tier-0 overview.md).
+icar-ibps-afo and crop-science were dense reference content needing full
+standard treatment; icar-ibps-afo also got a verification-caveat note given
+its volatile MSP/scheme-amount figures. Since Agriculture has only 6
+technologies total, this single batch completes the entire academy.
+Fence-balance manually verified per-file (all balanced); batch-wide
+`validate-content-fences.mjs` clean (2579 files); all 6 new
+`flow`/`conceptgrid` JSON blocks parsed successfully; `npm run predeploy`
+exit 0 (organic-farming's `abrupt_cutoff` WARN-only flag manually verified
+as a pre-existing false positive — file ends with a trailing `---` divider
+unrelated to this edit). One native-WSL build + live Playwright
+verification cycle run for all 6 pages: all render with no crashes,
+diagrams present (3-6 per page), Academies dropdown works. Not yet
+deployed — awaiting explicit deploy instruction.
+
+## Agriculture academy — COMPLETE, 6/6 (2026-08-28)
+
+All 6 technologies now have real depth-rubric + visual treatment,
+completed in a single batch since the academy only has 6 technologies
+total (corrected from a stated estimate of 7).

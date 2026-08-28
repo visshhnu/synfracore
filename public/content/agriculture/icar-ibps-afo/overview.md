@@ -1,5 +1,15 @@
 # ICAR JRF / IBPS AFO / NABARD Exam Preparation
 
+**Before you start:** [Soil Science](/academies/agriculture/soil-science/overview), [Horticulture](/academies/agriculture/horticulture/overview), and [Crop Science](/academies/agriculture/crop-science/overview) are assumed as background — these exams test the professional-knowledge subjects covered in this academy's other technologies. *(Note: MSP values, scheme amounts, fellowship stipends, and mandi counts below reflect figures current as of authoring — these are revised periodically; verify current figures against official government/exam-body sources before relying on them.)*
+
+## Why This Exists (The Hook)
+
+Studying soil science, horticulture, and crop science individually gives you the subject knowledge these exams test — but the exams themselves (IBPS AFO, ICAR JRF, NABARD Grade A) have their own specific structure, weightage, and general-awareness component (government schemes, MSP, agricultural policy) that no single subject technology fully covers on its own. This page exists to map that exam-specific layer — which exam leads to which career track, what the pattern actually looks like, and the policy/scheme knowledge tested alongside subject matter — separately from the underlying agricultural science itself.
+
+**Analogy** — Think of this page like a job-interview format guide, separate from the technical skills the interview actually tests. Knowing how to code well is necessary but not sufficient for a software interview — you also need to know the interview's actual format (whiteboard coding, system design round, behavioral questions) to perform well under its specific conditions. Similarly, knowing soil science and crop science well is necessary but not sufficient for IBPS AFO or ICAR JRF — you also need to know each exam's specific pattern, weightage, and the policy/scheme knowledge (PM-KISAN, MSP, e-NAM) layered on top of pure subject knowledge.
+
+**Try it (2 minutes)** — Reason through why IBPS AFO's Professional Knowledge section spans agronomy, horticulture, plant pathology, entomology, animal husbandry, AND agricultural economics all at once, rather than testing deep expertise in just one, without looking anything up: an Agricultural Field Officer at a bank evaluates loan applications and agricultural schemes across an enormously wide range of farming situations — crop loans, horticulture loans, livestock loans, equipment financing — not just one narrow specialty. If the job itself requires broad working knowledge across many agricultural domains rather than deep specialization in one, why would the exam's broad-but-not-deep syllabus structure actually be testing for exactly the competency the job requires, rather than being unfocused?
+
 ## Overview of Agricultural Competitive Exams
 
 Agricultural officers and researchers are recruited through several prestigious exams:
@@ -60,6 +70,17 @@ Agricultural officers and researchers are recruited through several prestigious 
 **Contribution:** Agriculture contributes ~17% of India's GDP (2023-24); employs ~45% of workforce
 
 **Cropping Seasons:**
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Kharif (Jun-Nov)", "description": "Sown at monsoon onset -- rice, maize, cotton, soybean, groundnut", "color": "blue" },
+    { "title": "Rabi (Oct-Mar)", "description": "Sown post-monsoon -- wheat, barley, gram, mustard, lentils", "color": "purple" },
+    { "title": "Zaid (Mar-Jun)", "description": "Short-duration summer crops -- watermelon, cucumber, vegetables", "color": "amber" }
+  ]
+}
+```
+
 - **Kharif (June–November):** Sown at monsoon onset. Rice, maize, cotton, soybean, groundnut, bajra, jowar
 - **Rabi (October–March):** Sown post-monsoon. Wheat, barley, gram, mustard, peas, lentils
 - **Zaid (March–June):** Short-duration summer crops. Watermelon, muskmelon, cucumber, vegetables

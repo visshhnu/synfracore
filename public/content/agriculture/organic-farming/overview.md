@@ -7,9 +7,19 @@
 
 ---
 
+**Before you start:** no prior farming background is needed — this covers organic principles from a home terrace scale up to a full farm transition.
+
 ## What is Organic Farming?
 
 Chemical fertilisers kill soil microorganisms over time creating a dependency cycle. Organic farming rebuilds soil biology. Feed the SOIL not the plant — healthy soil makes nutrients available naturally, produces food with no pesticide residue, and costs less after year 3 as input costs drop.
+
+## Why This Exists (The Hook)
+
+Chemical fertilizers create a trap most farmers don't see coming: urea and DAP give a quick yield boost in year one, but they do it by feeding the plant directly while quietly killing the soil's own microorganisms — so by year seven, the soil is effectively dead and needs 3x the chemical input just to produce the same yield, with the farmer now locked into an escalating cost cycle. Organic farming exists as the structural fix, not just an ethical preference: rebuild the soil's living biology instead of bypassing it, and the soil eventually starts doing the nutrient-cycling work chemicals were substituting for — at near-zero ongoing input cost.
+
+**Analogy** — Think of chemical fertilizer like painkillers masking an injury, and organic soil-building like actual physical therapy. Painkillers make you feel fine immediately while the underlying injury goes untreated — and if you rely on them indefinitely instead of addressing the root cause, the underlying problem can quietly worsen. Physical therapy works slower and requires real effort upfront, but it rebuilds the actual underlying strength, so you need less and less intervention over time. Chemical fertilizer is the painkiller (quick yield, growing dependency); organic soil-building is the physical therapy (slower transition, genuinely self-sustaining result).
+
+**Try it (2 minutes)** — Reason through why organic yield typically DROPS in year 1 before recovering in year 2 and exceeding chemical yield by year 3, without looking anything up: soil that's been chemically farmed for years has had its natural microorganism population suppressed — it's become dependent on direct chemical feeding rather than the soil's own nutrient-cycling biology. If you stop the chemical inputs immediately, but the soil's biological "workforce" (the microorganisms that would naturally make nutrients available) hasn't rebuilt itself yet, what would you expect to happen to yield in that gap year — and why would that same yield curve NOT apply to land that had never been chemically farmed in the first place?
 
 ## Why Organic Farming?
 
@@ -20,6 +30,20 @@ Chemical fertilisers kill soil microorganisms over time creating a dependency cy
 ---
 
 ## Learning Modules
+
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "01. Why Organic Farming?", "sublabel": "Chemical dependency cycle vs soil biology", "color": "blue" },
+    { "label": "02. Soil Preparation", "sublabel": "Compost, vermicompost, jeevamrut, mulching", "color": "purple" },
+    { "label": "03. Terrace & Home Garden", "sublabel": "Container growing for small spaces", "color": "amber" },
+    { "label": "04. Natural Pest Control", "sublabel": "Neem, panchagavya, organic sprays", "color": "green" },
+    { "label": "05. Crop-Specific Guides", "sublabel": "Rice, vegetables, spices, dal, cotton", "color": "red" },
+    { "label": "06. Water Conservation", "sublabel": "Drip irrigation, rainwater harvesting", "color": "slate" }
+  ]
+}
+```
 
 ### Module 01 — Why Organic Farming?
 *What chemicals do vs what nature does better*

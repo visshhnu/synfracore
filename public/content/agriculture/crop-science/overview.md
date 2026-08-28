@@ -1,5 +1,15 @@
 # Crop Science — Agronomy, Plant Pathology & Entomology
 
+**Before you start:** [Soil Science](/academies/agriculture/soil-science/overview) fundamentals (texture, pH, water-holding capacity) are assumed — crop science builds directly on how soil properties interact with specific crops.
+
+## Why This Exists (The Hook)
+
+Knowing that a plant needs water and nutrients is trivial; knowing that rice specifically needs 1,200-2,000mm per season while wheat needs only 400-500mm, or that a specific pH range determines whether tea or wheat will actually thrive, is what turns general biology into an actionable farming decision. Crop science exists to make agriculture crop-specific rather than generic — each major crop has its own optimal conditions, disease vulnerabilities, and pest pressures, and getting these specifics right is the difference between a good harvest and a failed one.
+
+**Analogy** — Think of crop science like a doctor's specific diagnosis versus general health advice. "Eat well and exercise" is true for everyone but doesn't help treat a specific condition — a doctor needs to know the specific disease, its specific triggers, and its specific treatment. Crop science works the same way: "give plants water and nutrients" is true for everyone, but a farmer needs to know THIS crop's specific water requirement, THIS crop's specific vulnerable diseases (rice's blast fungus, wheat's rust), and THIS crop's specific pest pressures — general principles alone don't prevent a real crop failure.
+
+**Try it (2 minutes)** — Reason through why the "Disease Triangle" (Host × Pathogen × Environment) requires all three factors to be favorable for disease to occur, without looking anything up: a pathogen (like the rice blast fungus) can be physically present in a field without causing an outbreak if the host plant is resistant, or if environmental conditions (humidity, temperature) don't favor the pathogen's spread. If disease management strategies include resistant varieties (removing the "susceptible host" factor) AND fungicides (targeting the "pathogen" factor) AND drainage/timing (adjusting the "environment" factor), why does having THREE different intervention strategies, targeting three different points of the same triangle, give a farmer more resilience than relying on just one approach alone?
+
 ## Agronomy Fundamentals
 
 Agronomy is the science of managing field crops for food, feed, fibre, and fuel production.
@@ -95,6 +105,17 @@ All three must be favourable for disease to occur.
 ---
 
 ## Integrated Pest Management (IPM)
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Cultural Control", "description": "Crop rotation, resistant varieties, timing, sanitation", "color": "blue" },
+    { "title": "Biological Control", "description": "Natural enemies -- predators, parasitoids, pathogens", "color": "green" },
+    { "title": "Physical/Mechanical", "description": "Light traps, sticky traps, bird perches", "color": "amber" },
+    { "title": "Chemical Control", "description": "Last resort -- selective pesticides, correct dosage", "color": "red" }
+  ]
+}
+```
 
 **IPM principles:**
 1. **Cultural control:** Crop rotation, resistant varieties, timing of planting, sanitation
