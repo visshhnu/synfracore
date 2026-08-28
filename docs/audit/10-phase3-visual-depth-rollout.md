@@ -456,6 +456,40 @@ paragraph shape.
 
 No double-backslash or fence-imbalance defects found in this batch.
 
-**Remaining Exams-cluster technologies, not yet started:** all 26 `exams`
-technologies, all 5 `central-exams` technologies, all 5 `state-psc`
-technologies (36 remaining).
+**Batch 2 — exams/banking-ssc cluster** (2026-08-28): banking-exam,
+banking-exams, quant-aptitude, reasoning-ability, english-language,
+banking-awareness — overview.md only. Status: **done** — content,
+predeploy (fence check), JSON block validation, and full live Playwright
+dark/light + crash verification cycle all clean. Academies dropdown
+hover verified separately.
+
+`quant-aptitude`, `reasoning-ability`, `english-language`, and
+`banking-awareness` share an identical structure ("Why This Section
+Exists Separately" / "Core Topic Map" table / a numbered strategy list /
+"Study Approach") — applied the same two-visual pattern uniformly: a
+`ConceptBoxGrid` for the highest-weightage topics from the Core Topic
+Map, and a `FlowDiagram` converting the numbered strategy steps into a
+visual sequence. `banking-exam` and `banking-exams` are two separate,
+overlapping technologies both covering SBI/IBPS/RBI exam prep (not a
+duplication bug — both are genuinely registered as distinct
+technologies with distinct descriptions) — each got a `FlowDiagram` for
+its exam-stage timeline (Prelims → Mains → Interview → Final Merit) plus
+one more visual for its own content (a prep-plan `FlowDiagram` for
+`banking-exam`, an SBI-vs-IBPS `ConceptBoxGrid` for `banking-exams`).
+
+| Technology | overview.md | Notes |
+|---|---|---|
+| banking-exam | **content done (batch 2)** — FlowDiagram (IBPS PO exam-stage timeline), FlowDiagram (90-Day prep plan) | self-mapped; live-verified ✅ |
+| banking-exams | **content done (batch 2)** — FlowDiagram (SBI PO exam-stage timeline), ConceptBoxGrid (SBI PO vs IBPS PO) | self-mapped; live-verified ✅ |
+| quant-aptitude | **content done (batch 2)** — ConceptBoxGrid (4 highest-weightage topics), FlowDiagram (study approach) | self-mapped; live-verified ✅ |
+| reasoning-ability | **content done (batch 2)** — ConceptBoxGrid (4 core topics), FlowDiagram (puzzle-solving method) | self-mapped; live-verified ✅ |
+| english-language | **content done (batch 2)** — ConceptBoxGrid (4 core topics), FlowDiagram (RC strategy) | self-mapped; live-verified ✅ |
+| banking-awareness | **content done (batch 2)** — ConceptBoxGrid (4 topic areas), FlowDiagram (current-affairs building method) | self-mapped; live-verified ✅ |
+
+No double-backslash or fence-imbalance defects found in this batch.
+
+**Remaining Exams-cluster technologies, not yet started:** 20 remaining
+`exams` technologies (banking-ssc domain's `ssc-cgl`/`ssc-exam`/
+`rrb-ntpc` + all engineering-exams + gate + civil-services technologies),
+all 5 `central-exams` technologies, all 5 `state-psc` technologies (30
+remaining).

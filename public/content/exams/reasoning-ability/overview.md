@@ -16,7 +16,30 @@ Reasoning Ability is the single highest-weightage section in banking Mains exams
 | Input-Output | Step-by-step word/number rearrangement machine | Identify the rule from step 1→2 before proceeding |
 | Inequality | Coded/direct inequality chains | Combine statements carefully; watch for "either-or" cases |
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Puzzles & Seating Arrangement", "description": "Highest weightage in Mains -- practice daily", "color": "blue" },
+    { "title": "Syllogism", "description": "Rule-based; a fixed method solves nearly all variants", "color": "purple" },
+    { "title": "Blood Relations", "description": "Draw the tree -- never solve mentally beyond 3 relations", "color": "amber" },
+    { "title": "Coding-Decoding", "description": "New patterns appear yearly -- practice recent-year variety", "color": "green" }
+  ]
+}
+```
+
 ## Puzzle-Solving Method
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Read All Clues", "sublabel": "Get the puzzle's overall shape first, write nothing yet", "color": "slate" },
+    { "label": "Start From the Definite Clue", "sublabel": "A fixed position or exact relationship, not clue #1", "color": "blue" },
+    { "label": "Build Incrementally", "sublabel": "Mark uncertain placements distinctly from confirmed ones", "color": "purple" },
+    { "label": "Re-Verify Every Clue", "sublabel": "Catches most \"trap\" arrangements exams intentionally set", "color": "green" }
+  ]
+}
+```
 
 1. Read all clues once without writing anything, to get the puzzle's overall shape (how many people, how many variables — seat + floor + profession, etc.).
 2. Start from the most definite clue (a fixed position or an exact relationship), not the first clue in the list.

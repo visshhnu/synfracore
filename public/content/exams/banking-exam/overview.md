@@ -19,6 +19,18 @@ India's banking sector recruits through several competitive exams annually. Thes
 
 ## Exam Structure: IBPS PO (Pattern)
 
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Prelims", "sublabel": "English + Quant + Reasoning -- 100 marks, 1 hour", "color": "blue" },
+    { "label": "Mains", "sublabel": "Reasoning, Awareness, English, DI -- 155 Qs, 200 marks, 3 hours", "color": "purple" },
+    { "label": "Interview", "sublabel": "100 marks", "color": "amber" },
+    { "label": "Final Merit", "sublabel": "Mains (80%) + Interview (20%)", "color": "green" }
+  ]
+}
+```
+
 **Prelims (Online)**
 - English Language: 30 questions, 30 marks, 20 minutes
 - Quantitative Aptitude: 35 questions, 35 marks, 20 minutes
@@ -65,6 +77,18 @@ Current affairs (3–4 months before exam), banking basics (RBI functions, monet
 ## Preparation Strategy
 
 **90-Day Plan:**
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Days 1-30", "sublabel": "Concept building -- Quant + Reasoning basics", "color": "blue" },
+    { "label": "Days 31-60", "sublabel": "Practice sets + Banking Awareness current affairs", "color": "purple" },
+    { "label": "Days 61-90", "sublabel": "Full mock tests daily, error analysis, revision", "color": "green" }
+  ]
+}
+```
+
 - Days 1–30: Concept building (Quant + Reasoning basics)
 - Days 31–60: Practice sets + Banking Awareness current affairs
 - Days 61–90: Full mock tests daily, error analysis, revision

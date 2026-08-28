@@ -15,6 +15,18 @@ Banking exams are one of India's most sought-after government job paths. SBI PO,
 
 ## SBI PO Exam Pattern
 
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Prelims", "sublabel": "100 marks, 1 hour -- cutoff ~55-60/100", "color": "blue" },
+    { "label": "Mains", "sublabel": "250 marks, 3 hours -- includes Essay + Letter Writing", "color": "purple" },
+    { "label": "Interview", "sublabel": "50 marks", "color": "amber" },
+    { "label": "Final", "sublabel": "Mains (75%) + Interview (25%)", "color": "green" }
+  ]
+}
+```
+
 ```
 Prelims (100 marks, 1 hour):
   English Language:        30 questions, 30 marks, 20 min
@@ -208,6 +220,17 @@ Mains: Attempt 110-120 out of 155, Accuracy 80%+
 ```
 
 ## SBI PO vs IBPS PO — Which to Target?
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "SBI PO", "description": "Higher salary + prestige, but 1 crore+ applicants for ~2000 posts, only 1 attempt/year", "color": "blue" },
+    { "title": "IBPS PO", "description": "23 PSU banks, 4000+ vacancies, score valid 3 years, slightly lower salary", "color": "purple" }
+  ]
+}
+```
+
+Strategy: Appear for BOTH — same syllabus, maximize chances.
 
 ```
 SBI PO:

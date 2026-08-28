@@ -14,6 +14,17 @@ Banking/General Awareness is the fastest section to attempt (no calculation, pur
 | Current affairs | Last 6 months of appointments, schemes, awards, sports, and banking-sector news |
 | Government schemes | Flagship schemes (PM-KISAN, Ayushman Bharat, PMJDY) — objectives and eligibility, not just names |
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Banking Fundamentals", "description": "RBI functions, monetary policy tools (repo/CRR/SLR), NPA basics", "color": "blue" },
+    { "title": "Financial Awareness", "description": "Union Budget highlights, economic survey, inflation indices", "color": "purple" },
+    { "title": "Current Affairs", "description": "Last 6 months of appointments, schemes, awards, banking news", "color": "amber" },
+    { "title": "Government Schemes", "description": "PM-KISAN, Ayushman Bharat, PMJDY -- objectives and eligibility", "color": "green" }
+  ]
+}
+```
+
 ## RBI — What's Tested Most Often
 
 - **Repo rate vs reverse repo rate**: repo is the rate at which RBI lends to banks; reverse repo is the rate at which RBI borrows from banks — always know the current values before the exam, as questions frequently test the latest figure.
@@ -21,6 +32,17 @@ Banking/General Awareness is the fastest section to attempt (no calculation, pur
 - **Monetary Policy Committee (MPC)**: 6-member committee, decides the repo rate, meets bi-monthly — exam questions often test the meeting frequency and composition.
 
 ## Building Current Affairs the Right Way
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Monthly Compilation", "sublabel": "Compiled current affairs, not scattered daily news", "color": "blue" },
+    { "label": "Focus on Banking/Finance", "sublabel": "Higher weightage than generic national news here", "color": "purple" },
+    { "label": "Revise Last 3 Months", "sublabel": "Intensively, in the final fortnight before the exam", "color": "green" }
+  ]
+}
+```
 
 1. Read one static-format monthly current affairs compilation (not scattered daily news) — banking exams test compiled, exam-oriented current affairs more than raw news literacy.
 2. Focus disproportionately on banking-sector and finance-ministry news — these carry higher weightage than generic national news in this specific section.
