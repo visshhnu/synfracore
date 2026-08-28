@@ -14,6 +14,17 @@ The name "Six Sigma" refers to a statistical target: a process operating at Six 
 
 ## Belt hierarchy — a quick map
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Yellow Belt", "description": "Basic awareness, supports projects as a team member", "color": "amber" },
+    { "title": "Green Belt", "description": "Leads smaller improvement projects, applies DMAIC with some statistical depth", "color": "green" },
+    { "title": "Black Belt", "description": "Leads larger projects, deeper statistical mastery, mentors Green Belts", "color": "slate" },
+    { "title": "Master Black Belt", "description": "Organization-wide Six Sigma strategy and Black Belt mentorship", "color": "purple" }
+  ]
+}
+```
+
 | Belt level | Role |
 |---|---|
 | Yellow Belt | Basic awareness, supports projects as a team member |
@@ -29,4 +40,14 @@ Six Sigma certification (particularly Green Belt and Black Belt) is widely recog
 
 ## How to use this technology's sections
 
-Fundamentals covers the DMAIC methodology's five phases and core statistical concepts. Intermediate applies DMAIC's tools in depth, phase by phase. Advanced covers Black-Belt-level statistical techniques and organizational Six Sigma deployment. Interview and Cheatsheets provide exam-format practice and quick reference.
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Fundamentals", "sublabel": "DMAIC's five phases and core statistical concepts", "color": "blue" },
+    { "label": "Intermediate", "sublabel": "DMAIC's tools in depth, phase by phase", "color": "purple" },
+    { "label": "Advanced", "sublabel": "Black-Belt-level statistics and organizational deployment", "color": "amber" },
+    { "label": "Interview + Cheatsheets", "sublabel": "Exam-format practice and quick reference", "color": "green" }
+  ]
+}
+```

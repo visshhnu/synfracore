@@ -10,6 +10,18 @@ ITIL is the most widely adopted IT service management framework globally, and IT
 
 ## The Service Value System — a quick map
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Guiding Principles", "description": "Recommendations guiding decision-making in any circumstance", "color": "blue" },
+    { "title": "Governance", "description": "Organizational direction and control mechanisms", "color": "purple" },
+    { "title": "Service Value Chain", "description": "Core operating model -- six activities converting demand into value", "color": "amber" },
+    { "title": "Practices", "description": "34 specific management practices supporting the value chain", "color": "green" },
+    { "title": "Continual Improvement", "description": "Embedded throughout, not a separate phase", "color": "slate" }
+  ]
+}
+```
+
 | SVS Component | Role |
 |---|---|
 | Guiding principles | Recommendations guiding decision-making in any circumstance |
@@ -30,4 +42,14 @@ ITIL 4 Foundation is typically the first, entry-level ITIL certification, servin
 
 ## How to use this technology's sections
 
-Fundamentals covers the Service Value System's overall structure and guiding principles. Intermediate covers the four dimensions model and the service value chain's six activities. Advanced covers the 34 practices in depth, focusing on the most frequently tested. Interview and Cheatsheets provide exam-format practice and quick reference.
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Fundamentals", "sublabel": "Service Value System structure and guiding principles", "color": "blue" },
+    { "label": "Intermediate", "sublabel": "Four dimensions model, service value chain's six activities", "color": "purple" },
+    { "label": "Advanced", "sublabel": "The 34 practices, focusing on the most frequently tested", "color": "amber" },
+    { "label": "Interview + Cheatsheets", "sublabel": "Exam-format practice and quick reference", "color": "green" }
+  ]
+}
+```

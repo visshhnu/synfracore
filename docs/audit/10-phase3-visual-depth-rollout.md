@@ -97,7 +97,7 @@ each sub-academy.
 | 1 | DevOps | 41 | **Done** (2026-08-28, batch 7) — see table below | infrastructure/* aliasing |
 | 2 | Cloud | 25 (not 26 — `terraform` doesn't belong to Cloud, see orphan finding below) | **Done** (2026-08-28, batch 4) — see table below | azure-devops-style aliasing risk (confirmed once, resolved); also surfaced an orphaned-content case (`cloud/terraform`), see below |
 | 3 | AI | 9 | **Done** (2026-08-28, batch 1) — see table below | None found — all 9 self-mapped, no aliasing |
-| 4 | Exams cluster (exams, central-exams, state-psc, professional-certs) | 26+6+6+5=43 | Not started | Exam-prep rubric variant — see above |
+| 4 | Exams cluster (exams, central-exams, state-psc, professional-certs) | 26+5+5+4=40 | **In progress** — see table below (professional-certs done, batch 1) | Exam-prep rubric variant — see above |
 | 5 | Databases | 12 | Not started (2 techs done: sql, mongodb, Phase 2) | None known |
 | 6 | Healthcare | 13 | Not started (1 tech done: cpt, Phase 2) | None known |
 | 7 | Security | 9 | Not started (1 tech done: security-fundamentals, Phase 2) | None known |
@@ -410,3 +410,52 @@ No double-backslash artifacts found in this batch (the langchain fence
 bug above is a different, previously-uncatalogued defect class — escaped
 literal backticks instead of real fence markers — not the `\\`
 line-continuation bug tracked elsewhere in this document).
+
+---
+
+## Exams cluster — technology-level tracking (40 technologies: exams 26,
+## central-exams 5, state-psc 5, professional-certs 4)
+
+Uses the **exam-prep rubric variant** (see "Rubric variants" section
+above): no hook/analogy/why-this-exists grounding — a learner here has
+already committed to the exam. Content in this cluster already reads in
+a distinct, consistent style (`What this technology covers` / `Why it
+matters` / a quick-map table / `How to use this technology's sections`)
+rather than the DevOps/Cloud/AI hook-analogy-diagram-tryit shape — this
+batch confirmed that style already satisfies the exam-prep variant and
+did not need restructuring, only visuals added on top.
+
+Registry-checked all 4 professional-certs technologies AND confirmed
+each is genuinely registered under the `professional-certs` academy in
+`lib/data/academies.ts` before editing (same discipline as the AI batch,
+following the Cloud `terraform` orphan lesson) — all 4 confirmed clean.
+
+**Batch 1 — professional-certs (full academy)** (2026-08-28): pmp, itil,
+scrum, six-sigma — overview.md only. Status: **done** — content,
+predeploy (fence check), JSON block validation, and full live Playwright
+dark/light + crash verification cycle all clean. Academies dropdown
+hover verified separately. **This completes the professional-certs
+academy's overview.md pass.**
+
+Every file got the same two-visual treatment: a `ConceptBoxGrid`
+converting the file's existing "quick map" comparison table (exam
+domains, SVS components, certification landscape, belt hierarchy), and
+a `FlowDiagram` converting the "How to use this technology's sections"
+prose into a visual study-path timeline (Fundamentals → Intermediate →
+Advanced → Interview/Cheatsheets) — this same study-path FlowDiagram
+pattern is expected to repeat across every technology in this cluster,
+since all of them share the same five-tier structure and closing
+paragraph shape.
+
+| Technology | overview.md | Notes |
+|---|---|---|
+| pmp | **content done (batch 1)** — ConceptBoxGrid (3 PMP exam domains with weights), FlowDiagram (study path) | self-mapped; live-verified ✅ |
+| itil | **content done (batch 1)** — ConceptBoxGrid (5 Service Value System components), FlowDiagram (study path) | self-mapped; live-verified ✅ |
+| scrum | **content done (batch 1)** — ConceptBoxGrid (4 Agile Manifesto values), ConceptBoxGrid (3 certifications: CSM/PSM I/SAFe), FlowDiagram (study path) | self-mapped; live-verified ✅ |
+| six-sigma | **content done (batch 1)** — ConceptBoxGrid (4 belt levels), FlowDiagram (study path) | self-mapped; live-verified ✅ |
+
+No double-backslash or fence-imbalance defects found in this batch.
+
+**Remaining Exams-cluster technologies, not yet started:** all 26 `exams`
+technologies, all 5 `central-exams` technologies, all 5 `state-psc`
+technologies (36 remaining).

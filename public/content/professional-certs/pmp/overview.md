@@ -27,6 +27,16 @@ PMBOK 7 (2021) organized around 12 principles and 8 outcome-focused performance 
 
 ## Exam structure — post-July 9, 2026
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "People — 33%", "description": "Leading and managing project teams", "color": "blue" },
+    { "title": "Process — 41%", "description": "The largest domain -- technical project management execution", "color": "purple" },
+    { "title": "Business Environment — 26%", "description": "More than tripled from 8% -- value, sustainability, systems thinking", "color": "amber" }
+  ]
+}
+```
+
 | Property | Detail |
 |---|---|
 | Questions | 185 |
@@ -43,4 +53,14 @@ PMP certification is broadly recognized across industries (technology, construct
 
 ## How to use this technology's sections
 
-Fundamentals covers PMBOK 8's 6 principles, 7 performance domains, and the new mindset framework. Intermediate applies these across predictive, agile, and hybrid project approaches. Advanced covers exam-specific scenario reasoning and the post-July-2026 People/Process/Business Environment domain structure in depth. Interview and Cheatsheets provide exam-format practice and quick reference.
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Fundamentals", "sublabel": "PMBOK 8's 6 principles, 7 performance domains, mindset framework", "color": "blue" },
+    { "label": "Intermediate", "sublabel": "Applied across predictive, agile, and hybrid approaches", "color": "purple" },
+    { "label": "Advanced", "sublabel": "Scenario reasoning, People/Process/Business Environment depth", "color": "amber" },
+    { "label": "Interview + Cheatsheets", "sublabel": "Exam-format practice and quick reference", "color": "green" }
+  ]
+}
+```

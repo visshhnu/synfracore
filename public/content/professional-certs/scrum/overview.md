@@ -12,7 +12,28 @@ Scrum is the most widely adopted agile framework globally, particularly in softw
 
 Scrum sits within the broader agile movement, itself defined by the **Agile Manifesto** (2001), which expresses four value statements, each phrased as a preference rather than an absolute: **individuals and interactions** over processes and tools; **working software** over comprehensive documentation; **customer collaboration** over contract negotiation; and **responding to change** over following a plan. Critically, the Manifesto explicitly states that while items on the right retain value, the items on the left are valued more — this "and yet there is value in the items on the right" framing is frequently misunderstood as agile rejecting documentation, planning, or tools entirely, which the Manifesto does not actually claim.
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Individuals & Interactions", "description": "Over processes and tools", "color": "blue" },
+    { "title": "Working Software", "description": "Over comprehensive documentation", "color": "purple" },
+    { "title": "Customer Collaboration", "description": "Over contract negotiation", "color": "amber" },
+    { "title": "Responding to Change", "description": "Over following a plan", "color": "green" }
+  ]
+}
+```
+
 ## Certification landscape — a quick map
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "CSM", "description": "Certified ScrumMaster -- Scrum Alliance. Scrum framework fundamentals, ScrumMaster role", "color": "blue" },
+    { "title": "PSM I", "description": "Professional Scrum Master I -- Scrum.org. Assessed via the Scrum Guide directly", "color": "purple" },
+    { "title": "SAFe", "description": "Scaled Agile Framework -- Scaled Agile, Inc. Coordinating agile across multiple teams", "color": "amber" }
+  ]
+}
+```
 
 | Certification | Issuing body | Focus |
 |---|---|---|
@@ -28,4 +49,14 @@ Scrum & Agile certifications are widely sought for ScrumMaster, Agile Coach, and
 
 ## How to use this technology's sections
 
-Fundamentals covers the Agile Manifesto's values/principles and Scrum's three roles. Intermediate covers Scrum's events and artifacts in depth. Advanced covers scaling considerations (SAFe) and common Scrum anti-patterns. Interview and Cheatsheets provide exam-format practice and quick reference.
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Fundamentals", "sublabel": "Agile Manifesto's values/principles and Scrum's three roles", "color": "blue" },
+    { "label": "Intermediate", "sublabel": "Scrum's events and artifacts in depth", "color": "purple" },
+    { "label": "Advanced", "sublabel": "Scaling (SAFe) and common Scrum anti-patterns", "color": "amber" },
+    { "label": "Interview + Cheatsheets", "sublabel": "Exam-format practice and quick reference", "color": "green" }
+  ]
+}
+```
