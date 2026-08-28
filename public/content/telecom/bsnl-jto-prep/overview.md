@@ -1,5 +1,15 @@
 # BSNL JTO & JE Exam Preparation
 
+**Before you start:** [Telecom Fundamentals](/academies/telecom/telecom-fundamentals/overview) and [4G/5G & Wireless](/academies/telecom/wireless-tech/overview) are assumed — this page covers the exam-specific pattern and syllabus mapping, not the underlying technical content itself. *(Note: exam pattern, marks distribution, and frequency-band specifics below reflect figures current as of authoring — BSNL exam patterns and technology deployments change; verify current details against official BSNL/GATE notifications.)*
+
+## Why This Exists (The Hook)
+
+Knowing electronics, communication systems, and telecom networking well doesn't automatically tell you how BSNL's specific recruitment process is structured — whether GATE alone gets you in, what the direct-exam paper split looks like, or which topics get tested most heavily. This page exists to map the exam-specific layer on top of the technical knowledge this academy's other technologies already cover — the difference between knowing the material and knowing how to convert that knowledge into a cleared exam.
+
+**Analogy** — Think of this page like a driving test's specific format guide, separate from actually knowing how to drive. Knowing how to drive safely doesn't automatically tell you the specific test format — how many maneuvers are assessed, what the pass criteria are, which mistakes cause automatic failure. This page is that format guide for BSNL JTO/JE: given that you already know (or are learning) the underlying electronics/communication/telecom material elsewhere in this academy, this page explains specifically how that knowledge gets tested and scored.
+
+**Try it (2 minutes)** — Reason through why the GATE-score route is described as "the most preferred route" over BSNL's own direct written exam, without looking anything up: GATE is a single, well-established national exam with a long history, extensive study resources, and a 3-year score validity window that lets a candidate time their application. BSNL's own direct exam is conducted only "when vacancies are high" — meaning it's less predictable and has less established prep material built up around it specifically. Given that predictability and resource availability both favor GATE, why would a candidate reasonably prefer investing preparation time in an exam that's always available and well-documented (GATE) over one that appears irregularly with less mature prep infrastructure (BSNL's own exam)?
+
 ## What is the JTO / JE Exam?
 
 **Junior Telecom Officer (JTO)** — Entry-level Group-B gazetted officer in BSNL and MTNL.
@@ -10,6 +20,16 @@ These exams are conducted by BSNL directly (for external candidates) or through 
 ---
 
 ## Recruitment Routes
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "GATE Score", "description": "Most preferred -- GATE + interview, score valid 3 years", "color": "blue" },
+    { "title": "BSNL Direct Exam", "description": "When vacancies are high -- Technical + General Ability papers", "color": "purple" },
+    { "title": "Internal Promotion", "description": "BSNL employees only -- not applicable for fresh candidates", "color": "slate" }
+  ]
+}
+```
 
 ### Route 1: GATE Score
 - BSNL uses GATE (Electronics & Communication / Computer Science) scores for JTO recruitment
@@ -49,6 +69,18 @@ These exams are conducted by BSNL directly (for external candidates) or through 
 ---
 
 ## 4G LTE Architecture — Deep Dive
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "UE", "sublabel": "User Equipment", "color": "blue" },
+    { "label": "eNodeB", "sublabel": "Base station -- LTE-Uu air interface", "color": "purple" },
+    { "label": "EPC", "sublabel": "MME, SGW, PGW, HSS -- Evolved Packet Core", "color": "amber" },
+    { "label": "Internet / IMS", "sublabel": "SGi interface", "color": "green" }
+  ]
+}
+```
 
 ```
 UE (User Equipment)

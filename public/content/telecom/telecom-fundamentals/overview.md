@@ -1,14 +1,33 @@
 # Telecom Fundamentals — Overview
 
+**Before you start:** no prior telecom or electronics background is needed — this is the foundational technology this academy's other technologies build on.
+
 ## What this technology covers
 
 Telecom Fundamentals covers the foundational concepts underlying all telecommunications networks — telecom history and generational evolution, the GSM and CDMA cellular standards that preceded 4G/5G, radio spectrum as the core scarce resource every wireless system depends on, circuit and packet switching, and the signaling protocols that let network elements coordinate calls and data sessions. This is deliberately the pre-4G/5G foundation — advanced mobile broadband architecture (4G LTE, 5G NR) is covered in this academy's separate Wireless Tech technology, and optical/fiber networking in Fiber Optics — Telecom Fundamentals is what makes those later, more specialized topics comprehensible in the first place.
 
-## Why it matters
+## Why This Exists (The Hook)
 
 Modern 4G/5G networks didn't replace core telecom concepts — they built on them. Spectrum allocation, switching principles, and signaling remain foundational even in a 5G network; a 5G Core still needs to route calls/sessions, still operates within licensed spectrum, and still relies on signaling protocols descended from the same principles established decades earlier. Skipping this foundation to jump straight into 5G architecture (a common mistake) means missing *why* modern systems are designed the way they are — most 4G/5G design decisions are direct responses to specific limitations of the 2G/3G systems that came before.
 
+**Analogy** — Think of telecom generations like successive editions of a rulebook, each fixing specific problems the previous edition had, not a totally new game each time. A game's 2nd edition rulebook doesn't throw out everything from the 1st edition — it keeps what worked (core turn structure, scoring) and specifically revises the parts that caused real problems in play. 3G through 5G work the same way: each generation keeps foundational concepts (spectrum allocation, signaling) from earlier generations while specifically re-engineering the parts (switching method, multiple-access technique) that were limiting the previous generation's real-world performance.
+
+**Try it (2 minutes)** — Reason through why radio spectrum, not raw technology sophistication, is described as the resource "everything depends on," without looking anything up: spectrum is finite and government-licensed — there's only so much usable radio frequency available in any given geographic area, and it can't be manufactured or expanded the way factory capacity can. If a telecom generation's core improvement is "doing more with the same amount of spectrum" (higher throughput per unit of spectrum, per unit of time) rather than simply "getting more spectrum," what does that tell you about why spectral efficiency, not raw processing power, is the actual bottleneck driving most generational telecom design decisions?
+
 ## Telecom generations — a quick map
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "1G", "sublabel": "Analog cellular -- voice only", "color": "slate" },
+    { "label": "2G", "sublabel": "GSM/CDMA -- digital voice + SMS", "color": "blue" },
+    { "label": "3G", "sublabel": "UMTS/CDMA2000 -- mobile data", "color": "purple" },
+    { "label": "4G", "sublabel": "LTE -- high-speed broadband, all-IP", "color": "amber" },
+    { "label": "5G", "sublabel": "NR -- low latency, massive device density", "color": "green" }
+  ]
+}
+```
 
 | Generation | Core technology | Primary capability |
 |---|---|---|

@@ -107,7 +107,8 @@ each sub-academy.
 | 11 | Law | 9 (corrected from an earlier unverified estimate of 12) | **9/9 done** (2026-08-28) — see table below | None found — all self-mapped, no aliasing |
 | 12 | Finance | 11 (corrected from a stated estimate of 12) | **11/11 done** (2026-08-28) — see table below | None found — all self-mapped, no aliasing |
 | 13 | Agriculture | 6 (corrected from a stated estimate of 7) | **6/6 done** (2026-08-28) — see table below | None found — all self-mapped, no aliasing |
-| 14+ | Telecom, Economics, Aerospace, VLSI | 7/7/8/8 | Not started | None known |
+| 14 | Telecom | 6 (corrected from a stated estimate of 7) | **6/6 overview.md done** (2026-08-28) — see table below | telco's Fundamentals/Intermediate/Advanced tiers still mismatched (vTeMIP/UOC/UTM content), flagged as open follow-up; otherwise self-mapped, no aliasing |
+| 15+ | Economics, Aerospace, VLSI | 7/8/8 | Not started | None known |
 
 ## DevOps — technology-level tracking (41 technologies)
 
@@ -1254,8 +1255,79 @@ verification cycle run for all 6 pages: all render with no crashes,
 diagrams present (3-6 per page), Academies dropdown works. Not yet
 deployed — awaiting explicit deploy instruction.
 
-## Agriculture academy — COMPLETE, 6/6 (2026-08-28)
+## Agriculture academy — COMPLETE, 6/6, deployed live (2026-08-28)
 
 All 6 technologies now have real depth-rubric + visual treatment,
 completed in a single batch since the academy only has 6 technologies
-total (corrected from a stated estimate of 7).
+total (corrected from a stated estimate of 7). Deployed and live-verified
+(2026-08-28).
+
+## Telecom — technology-level tracking (6 technologies)
+
+Note: the user's stated estimate of 7 technologies for Telecom was
+corrected during a live registry check — the actual, confirmed count is
+**6**, corrected here and in the "Academy rollout order" table.
+
+| Technology | Registry key | Rubric status before | Work done | Status |
+|---|---|---|---|---|
+| telco | telecom/telco/overview | **CONTENT SCOPE MISMATCH: all 4 tiers were entirely about a niche Ericsson product suite (vTeMIP/UOC/UTM), not the nav-described "Telecom Industry Overview" (Jio/Airtel/BSNL, OSS/BSS, career paths)** | **Rewrote overview.md from scratch** with genuine industry-overview content (India market structure, OSS/BSS, 4G/5G rollout, career paths), full standard rubric + visuals. Fundamentals/Intermediate/Advanced tiers NOT rewritten — still about vTeMIP/UOC/UTM, flagged as a remaining gap | Done — overview.md fixed, other 3 tiers remain mismatched |
+| telecom-fundamentals | telecom/telecom-fundamentals/overview | Informal hook/prerequisite prose already present, no formal rubric headers | Formalized into "Before you start"/hook/analogy/try-it; generations → `flow` FlowDiagram (5 steps) | Done |
+| wireless-tech | telecom/wireless-tech/overview | Same informal-prose pattern | Formalized rubric headers; 5G use-case ConceptBoxGrid (3 boxes) | Done |
+| fiber-optics | telecom/fiber-optics/overview | Same informal-prose pattern | Formalized rubric headers; fiber-types ConceptBoxGrid (2 boxes) | Done |
+| networking-protocols | telecom/networking-protocols/overview | Same informal-prose pattern | Formalized rubric headers; core-protocols ConceptBoxGrid (4 boxes) | Done |
+| bsnl-jto-prep | telecom/bsnl-jto-prep/overview | None (dense reference content) | Prerequisite/hook/analogy/try-it added; verification-caveat note (exam pattern/marks change); recruitment-routes ConceptBoxGrid (3 boxes); LTE architecture → `flow` FlowDiagram | Done |
+
+**Notes (2026-08-28) — SECOND CONTENT SCOPE MISMATCH FOUND AND FIXED:**
+All 6 technologies confirmed self-mapped in the content registry
+(`telecom/*`), no aliasing risk — corrected the stated estimate of 7 to
+the actual 6, same discipline as the Law/Finance/Agriculture corrections.
+While reading `telecom/telco/overview.md` before editing, discovered its
+entire content (across all 4 tiers — overview/fundamentals/intermediate/
+advanced) is about a specific Ericsson telecom-operations product suite
+(vTeMIP/UOC/UTM), while the navigation describes this technology as
+"Telecom Industry Overview" promising India market structure, OSS/BSS,
+4G/5G rollout, Jio/Airtel/BSNL ecosystem, and career paths — none of which
+the actual content covers. Unlike the Essentials mental-health bug (one
+stray wrong file among otherwise-consistent correct siblings), this was a
+different shape of problem: all 4 tiers consistently agreed with each
+other, just not with the nav's stated scope — a genuine content gap
+requiring real authoring, not a copy/reference fix. Flagged to the user
+with live evidence before proceeding; user confirmed: write real Industry
+Overview content now. Authored a new `telco/overview.md` from scratch
+covering India's telecom market structure (Jio/Airtel/Vi/BSNL), the
+OSS/BSS operational split, 4G/5G rollout reality, and telecom career paths
+— with full standard-rubric treatment and visuals, plus a verification-
+caveat note for volatile market-share/rollout figures. Did NOT rewrite the
+Fundamentals/Intermediate/Advanced tiers (out of scope for this Tier-0
+visual/rubric pass, and a much larger content-authoring task) — added an
+explicit in-page note flagging that those 3 tiers still cover the
+mismatched vTeMIP/UOC/UTM topic, so a learner clicking through isn't
+silently confused. **This remains a known, flagged gap: telco's
+Fundamentals/Intermediate/Advanced need their own real-content authoring
+pass in the future**, tracked here for follow-up.
+
+The other 5 files: 3 (telecom-fundamentals, wireless-tech, fiber-optics,
+networking-protocols — actually 4) shared the same informal-hook prose
+pattern seen in Finance/Agriculture batches — formalized without
+disturbing existing content. bsnl-jto-prep was dense reference content
+needing full standard treatment plus a verification-caveat note. Since
+Telecom has only 6 technologies total, this single batch completes the
+entire academy's Tier-0 pass. Fence-balance manually verified per-file
+(all balanced); batch-wide `validate-content-fences.mjs` clean (2579
+files); all 7 new `flow`/`conceptgrid` JSON blocks parsed successfully;
+`npm run predeploy` exit 0 (telco's `abrupt_cutoff` and bsnl-jto-prep's
+`empty_code_block` WARN-only flags manually verified as false positives).
+One native-WSL build + live Playwright verification cycle run for all 6
+pages: all render with no crashes, diagrams present (2-7 per page), telco
+explicitly confirmed NOT showing the old vTeMIP content, Academies
+dropdown works. Not yet deployed — awaiting explicit deploy instruction.
+
+## Telecom academy — Tier-0 overview.md pass COMPLETE, 6/6 (2026-08-28)
+
+All 6 technologies now have real depth-rubric + visual treatment at the
+overview.md tier, completed in a single batch since the academy only has 6
+technologies total (corrected from a stated estimate of 7). **Open
+follow-up:** telco's Fundamentals/Intermediate/Advanced tiers still cover
+a mismatched topic (Ericsson vTeMIP/UOC/UTM instead of industry overview)
+and need their own content-authoring pass — not addressed in this batch,
+flagged above for future work.
