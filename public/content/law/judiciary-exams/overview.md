@@ -1,5 +1,15 @@
 # Judiciary Exams — Civil Judge & District Judge
 
+**Before you start:** [Constitutional Law](/academies/law/constitutional-law/overview) and general familiarity with major statutes (IPC/BNS, CPC, Evidence Act) are assumed. *(Note: salary figures, exam patterns, and conducting-body details below vary by state and change over time — verify against the specific state's current official notification before relying on them.)*
+
+## Why This Exists (The Hook)
+
+Most competitive government exams lead to a role where you administer or enforce existing rules. Judicial service exams are different: clearing one makes you a judge from day one — someone who directly decides cases, writes judgments that bind real people's lives, and interprets the very laws other exams only test you on knowing. That's precisely why the process is so demanding across three genuinely different skill types (objective legal knowledge, descriptive judgment-writing ability, and interview-tested judgment) rather than a single knowledge test — the role itself requires all three.
+
+**Analogy** — Think of the three-stage judiciary exam like a pilot's certification process, not a single written test. A pilot isn't certified just by passing a written exam on aerodynamics — they also need demonstrated hands-on flight skill (the practical) and psychological/judgment evaluation (fit to handle real emergencies under pressure). Judiciary exams test the equivalent trio: the Preliminary confirms you know the law (aerodynamics), the Mains' judgment-writing paper confirms you can apply it in the actual format the job requires (flight skill), and the Interview confirms judgment and temperament (psychological fitness) — because a judge, like a pilot, has to get it right when real consequences are on the line, not just on paper.
+
+**Try it (2 minutes)** — Reason through why judgment-writing carries its own dedicated paper (Paper III — Law Practical) separate from the pure-law paper (Paper II), without looking anything up: knowing that a particular section of the Contract Act applies to a fact pattern is a different skill from actually structuring a formal judgment — stating the issues for determination, reasoning through findings on each issue, and reaching a final order in the correct legal format. If a candidate knows the law perfectly (aces Paper II) but has never practiced the specific structural format a real judgment requires, what would that mean for their actual readiness to perform the job the exam is selecting for on day one?
+
 ## Overview of Judicial Services in India
 
 Judicial Services provide direct entry into the lower judiciary. These are among the most prestigious government positions — you become a judge from Day 1.
@@ -7,6 +17,17 @@ Judicial Services provide direct entry into the lower judiciary. These are among
 ---
 
 ## Three-Tier Entry System
+
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "Higher Judicial Service", "sublabel": "District Judge -- direct recruitment, 7 years practice required", "color": "red" },
+    { "label": "Civil Judge (Junior Division)", "sublabel": "Entry-level, LLB only, no practice required, most competitive", "color": "blue" },
+    { "label": "Metropolitan Magistrate", "sublabel": "Equivalent post in metro cities", "color": "purple" }
+  ]
+}
+```
 
 ```
 HIGHER JUDICIAL SERVICE (District Judge / ADD. District Judge)

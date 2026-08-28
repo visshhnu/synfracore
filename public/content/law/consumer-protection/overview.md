@@ -1,5 +1,15 @@
 # Consumer Protection Law — India
 
+**Before you start:** no prior legal background is needed — this page explains the relevant concepts (pecuniary jurisdiction, redressal tiers) as they come up.
+
+## Why This Exists (The Hook)
+
+A single buyer disputing a defective mixer-grinder with a large manufacturer is a massively lopsided fight — the manufacturer has lawyers and resources; the buyer usually doesn't, and a regular civil lawsuit is often too slow and expensive to be worth it for a small-value complaint. Consumer protection law exists to fix that imbalance deliberately: a faster, cheaper, purpose-built three-tier system where a consumer can file a complaint without a lawyer, get a hearing within months rather than years, and hold not just the manufacturer but the seller and platform accountable too.
+
+**Analogy** — Think of the three-tier Consumer Commission system like small-claims court sorted by amount, not a one-size-fits-all court. Just as a small-claims court exists specifically so a modest dispute doesn't require the same heavy machinery as a major civil lawsuit, the District/State/National Commission split routes a complaint to the right-sized forum based on how much money is actually at stake — a ₹5,000 defective product complaint doesn't need the same forum as a ₹3 crore corporate dispute, and forcing it through the same heavy process would defeat the purpose of making consumer justice fast and accessible.
+
+**Try it (2 minutes)** — Reason through why an e-commerce platform can be held liable for product liability even when it didn't manufacture the product, without looking anything up: CPA 2019 states a seller can be liable if they "exercised substantial control over product design" or knowingly sold a defective product — not just the manufacturer. If a large e-commerce platform curates which products get listed, sets return/refund policies, and profits from every sale, why would limiting liability to the manufacturer alone (who the platform-using buyer may never have directly interacted with) leave a real accountability gap that the three-party liability structure (manufacturer, service provider, seller) is specifically designed to close?
+
 ## Consumer Protection Act 2019 (CPA 2019)
 
 Replaced the Consumer Protection Act 1986. Came into force **20 July 2020**. Introduces e-commerce, product liability, mediation, and Central Consumer Protection Authority (CCPA).
@@ -18,6 +28,17 @@ A person who:
 ---
 
 ## Three-Tier Redressal Structure
+
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "NCDRC (National)", "sublabel": "New Delhi -- above ₹2 crore, appeals from State", "color": "red" },
+    { "label": "SCDRC (State)", "sublabel": "State level -- ₹1-2 crore, appeals from District", "color": "purple" },
+    { "label": "DCDRC (District)", "sublabel": "District level -- up to ₹1 crore, first forum for most complaints", "color": "blue" }
+  ]
+}
+```
 
 ```
 NATIONAL CONSUMER DISPUTES REDRESSAL COMMISSION (NCDRC)

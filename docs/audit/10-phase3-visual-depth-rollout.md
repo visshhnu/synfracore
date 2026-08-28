@@ -104,7 +104,8 @@ each sub-academy.
 | 8 | Data (Analytics & BI) | 14 | **13/14 done, deployed live** (2026-08-28) — see table below | dbt/airflow/spark are generic-template stubs, flagged and deferred (need real content authoring, not just visuals) — 13/14 otherwise self-mapped, no aliasing |
 | 9 | Education | 12 | **12/12 overview.md pass done** (2026-08-28) — see table below | Deeper intermediate/advanced-tier stub gap known for os/dbms/cn/system-design/placement-prep — still open, unrelated to this overview.md pass; all 12 overview.md files confirmed real content, no aliasing |
 | 10 | Essentials | 10 | **10/10 done** (2026-08-28) — see table below | **Live content bug found + fixed**: mental-health/overview.md was serving Sleep content, not mental-health content — rewritten from scratch |
-| 11+ | Law, Finance, Agriculture, Telecom, Economics, Aerospace, VLSI | 12/7/7/7/8/8 | Not started | None known |
+| 11 | Law | 9 (corrected from an earlier unverified estimate of 12) | Batch 1 done (2026-08-28, 6/9) — see table below | None found — all self-mapped, no aliasing |
+| 12+ | Finance, Agriculture, Telecom, Economics, Aerospace, VLSI | 7/7/7/8/8 | Not started | None known |
 
 ## DevOps — technology-level tracking (41 technologies)
 
@@ -1057,7 +1058,7 @@ for all 4 pages: all render with no crashes, diagrams present (4 per
 page), Academies dropdown works. Not yet deployed — awaiting explicit
 deploy instruction.
 
-## Essentials academy — COMPLETE, 10/10 (2026-08-28)
+## Essentials academy — COMPLETE, 10/10, deployed live (2026-08-28)
 
 All 10 technologies (human-essentials, gut-health, hygiene, nutrition,
 mental-health, sleep-health — batch 1; daily-movement, personal-finance,
@@ -1068,4 +1069,48 @@ Domain-sensitivity verification-caveat notes were added across gut-health,
 nutrition, sleep-health, daily-movement, personal-finance, digital-safety,
 and first-aid; the underlying specific claims themselves were not audited
 line-by-line (flagged as a lower-priority follow-up, same as noted in
-batch 1).
+batch 1). Both batches deployed and live-verified (2026-08-28) — the
+mental-health fix specifically confirmed live via curl before batch 2 was
+even started, per explicit priority.
+
+## Law — technology-level tracking (9 technologies)
+
+Note: the "Academy rollout order" table previously estimated 12
+technologies for Law based on an unverified early count — the actual,
+confirmed count is **9**, corrected here and in that table.
+
+| Technology | Registry key | Rubric status before | Work done | Status |
+|---|---|---|---|---|
+| legal-fundamentals | law/legal-fundamentals/overview | None | Prerequisite/hook/analogy/try-it added; verification-caveat note (BNS/BNSS/BSA 2023 transition); law-hierarchy → `stack` FlowDiagram | Done (batch 1) |
+| constitutional-law | law/constitutional-law/overview | None | Prerequisite/hook/analogy/try-it added; Article 32 writs ConceptBoxGrid (4 boxes) | Done (batch 1) |
+| clat-prep | law/clat-prep/overview | None (already had `(needs verification)` tags on dates/eligibility — good existing discipline) | Prerequisite/hook/analogy/try-it added (standard variant applies — Law is a tail-vertical academy, not the exam-prep cluster); section-weighting ConceptBoxGrid (4 boxes) | Done (batch 1) |
+| aibe-bar-exam | law/aibe-bar-exam/overview | None | Prerequisite/hook/analogy/try-it added; verification-caveat note (fees/passing marks); enrollment-process → `flow` FlowDiagram (5 steps) | Done (batch 1) |
+| judiciary-exams | law/judiciary-exams/overview | None | Prerequisite/hook/analogy/try-it added; verification-caveat note (state-varying salary/pattern); three-tier-entry → `stack` FlowDiagram | Done (batch 1) |
+| consumer-protection | law/consumer-protection/overview | None | Prerequisite/hook/analogy/try-it added; three-tier-redressal → `stack` FlowDiagram | Done (batch 1) |
+| civil-law-procedure | law/civil-law-procedure/overview | Not yet assessed | — | Pending (batch 2) |
+| legal-career-growth | law/legal-career-growth/overview | Not yet assessed | — | Pending (batch 2) |
+| law | law/law/overview | Not yet assessed | — | Pending (batch 2) |
+
+**Batch 1 notes (2026-08-28):** All 9 technologies in `lib/data/academies.ts`'s
+Law navigation confirmed self-mapped in the content registry (`law/*`), no
+aliasing risk. Confirmed the rubric-variant question before starting:
+Law's exam-flavored technologies (clat-prep, aibe-bar-exam, judiciary-exams)
+still use the **standard** rubric variant, not the lighter exam-prep
+variant — per the tracker's own "Rubric variants" section, the exam-prep
+variant applies ONLY to the `exams`/`central-exams`/`state-psc`/
+`professional-certs` cluster; all tail-vertical academies (including Law)
+use the standard variant regardless of a technology's exam-prep flavor.
+All 6 files read were genuinely dense, real content, no stubs. Added
+domain-sensitivity verification-caveat notes to legal-fundamentals (the
+2023 IPC/CrPC/Evidence Act → BNS/BNSS/BSA transition), aibe-bar-exam (fees/
+passing marks), and judiciary-exams (state-varying salary/pattern
+specifics) — did not audit the underlying claims themselves, consistent
+with the pattern established in Essentials. Fence-balance manually
+verified per-file (all balanced); batch-wide `validate-content-fences.mjs`
+clean (2579 files); all 6 new `flow`/`conceptgrid` JSON blocks parsed
+successfully; `npm run predeploy` exit 0 (new `empty_code_block` WARN-only
+flags confirmed as the known adjacent-fence pattern). One native-WSL build
++ live Playwright verification cycle run for all 6 pages: all render with
+no crashes, diagrams present (3-5 per page), Academies dropdown works.
+Not yet deployed — awaiting explicit deploy instruction. 3 technologies
+remain (civil-law-procedure, legal-career-growth, law) for batch 2.

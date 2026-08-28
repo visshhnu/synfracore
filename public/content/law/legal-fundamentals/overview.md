@@ -1,14 +1,37 @@
 # Legal Fundamentals — Indian Legal System
 
+**Before you start:** no prior legal background is needed. *(Note: statute names, section numbers, and procedural details below reflect the law as of authoring, including the 2023 transition from IPC/CrPC/Evidence Act to BNS/BNSS/BSA — verify current section numbers against the official acts before relying on them for anything specific.)*
+
 ## The Indian Legal System at a Glance
 
 India follows a **common law system** inherited from British rule, blended with elements of civil law and personal laws. The Constitution of India (1950) is the supreme law — everything else flows from it.
+
+## Why This Exists (The Hook)
+
+Without a hierarchy of laws, a city bylaw and a Parliamentary act could contradict each other with no way to determine which one actually governs — chaos, not law. The Indian legal system's entire structure — Constitution above Central law, Central law above State law, both above delegated rules — exists to answer one question unambiguously whenever two rules conflict: which one wins? Understanding this hierarchy, and which court handles which kind of dispute, is what turns "I have a legal problem" into "I know which law applies and where to take it," rather than a confusing mess of unrelated facts.
+
+**Analogy** — Think of the hierarchy of Indian law like a company's org chart, not a flat list of memos. A team lead's instruction can't override a company-wide policy from the CEO, and a company-wide policy can't override the law itself — each level operates within limits set by the level above it, and a conflict is resolved by simply checking which level issued which rule. The Constitution is the CEO's authority; Parliamentary/Central laws are company-wide policy; State laws and delegated rules are team-level instructions that must stay consistent with everything above them.
+
+**Try it (2 minutes)** — Reason through why the same drunk-driving-causing-death incident can result in BOTH a criminal prosecution AND a separate civil lawsuit for damages, without looking anything up: criminal law addresses harm to society as a whole (hence "State vs. the accused," with punishment as the remedy), while civil law addresses harm to a specific individual (hence a private lawsuit, with compensation as the remedy). Given that one act caused harm in both senses — a genuine wrong against society's rules AND real, quantifiable harm to a specific victim's family — why would a single legal proceeding not be enough to address both, and why do the two proceedings run on entirely separate tracks (different courts, different standards of proof) rather than being combined into one case?
 
 ---
 
 ## Hierarchy of Laws in India
 
 Understanding the hierarchy is essential — a lower law cannot contradict a higher one.
+
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "Constitution of India", "sublabel": "Supreme -- cannot be overridden", "color": "red" },
+    { "label": "Central / Parliamentary Laws", "sublabel": "Union List + Concurrent List", "color": "blue" },
+    { "label": "State Laws", "sublabel": "State List + Concurrent List", "color": "purple" },
+    { "label": "Delegated / Subordinate Legislation", "sublabel": "Rules, Regulations, By-laws", "color": "amber" },
+    { "label": "Executive Orders / Notifications", "sublabel": "", "color": "slate" }
+  ]
+}
+```
 
 ```
 CONSTITUTION OF INDIA  (Supreme — cannot be overridden)

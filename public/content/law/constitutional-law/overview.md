@@ -1,5 +1,15 @@
 # Constitutional Law — Indian Constitution
 
+**Before you start:** [Legal Fundamentals](/academies/law/legal-fundamentals/overview) (the hierarchy of laws, court structure) is assumed as background.
+
+## Why This Exists (The Hook)
+
+A government with no written limits on its own power can, in principle, do anything a simple majority votes for — including taking away the very rights that let citizens object. The Constitution exists specifically to put certain things beyond ordinary majority reach: Fundamental Rights that even Parliament cannot casually override, a Basic Structure that survives even a constitutional amendment, and a Supreme Court with the power to strike down a law that violates either. Constitutional law is the study of exactly where those limits sit — and why "Parliament passed it" is not, by itself, enough to make a law valid.
+
+**Analogy** — Think of the Constitution like the master rulebook for a competitive league, not a suggestion. Individual teams (State governments, Parliament) can set their own rules for how they operate, but none of those rules can contradict the league's master rulebook — and even the league's own governing body can't rewrite certain core rules (like "games must be fair") just because a majority of teams currently want to. The Basic Structure Doctrine is exactly this: some rules are so foundational to what the league IS that changing them would mean it's no longer the same league at all — which is why even Parliament, using the amendment process, can't touch them.
+
+**Try it (2 minutes)** — Reason through why Fundamental Rights (Part III) are "justiciable" while Directive Principles (Part IV) are explicitly "non-justiciable," without looking anything up: justiciable means a court can directly enforce it — you can sue if it's violated. DPSPs are described as goals for the State to work toward (like reducing inequality) rather than individually enforceable guarantees. If DPSPs were made justiciable in the same way FRs are, what would that mean for a court's role — would judges effectively be setting government economic and social policy through lawsuits, rather than the elected government doing so through legislation? Why might the Constitution's drafters have deliberately drawn that line differently for the two Parts?
+
 ## The Constitution of India: Foundation Document
 
 Adopted on **26 November 1949**, in force from **26 January 1950**. World's longest written constitution — originally 395 Articles, 8 Schedules. Currently: ~470 Articles, 12 Schedules, 25 Parts.
@@ -47,6 +57,18 @@ Each freedom has **reasonable restrictions** under Art 19(2)–(6) — sovereign
 - Includes: right to privacy (*Puttaswamy, 2017*), livelihood, health, education, speedy trial, dignity, environment
 
 ### Article 32 — Right to Constitutional Remedies ("Heart and Soul")
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Habeas Corpus", "description": "Produce the body -- challenges unlawful detention", "color": "red" },
+    { "title": "Mandamus", "description": "Commands a public body to perform its duty", "color": "blue" },
+    { "title": "Certiorari", "description": "Quashes the order of an inferior court", "color": "purple" },
+    { "title": "Quo Warranto", "description": "By what authority do you hold this office?", "color": "amber" }
+  ]
+}
+```
+
 Five writs:
 - **Habeas Corpus** — Produce the body (unlawful detention)
 - **Mandamus** — Command a public body to perform its duty

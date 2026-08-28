@@ -1,5 +1,15 @@
 # AIBE — All India Bar Examination
 
+**Before you start:** an LLB degree (or its near-completion) and enrollment with a State Bar Council are assumed — AIBE is specifically for already-enrolled advocates. *(Note: passing marks, fees, and syllabus weightings below reflect the exam as of authoring; verify current figures against the official BCI/AIBE notification before relying on them.)*
+
+## Why This Exists (The Hook)
+
+An LLB degree proves you studied law; it doesn't prove you can reliably find and apply the right provision under real time pressure, the way actual practice demands. AIBE exists as that separate check — a mandatory, open-book competency exam that every enrolled advocate must clear before receiving a Certificate of Practice, regardless of which law school they attended or how they scored there. Because it's open-book, it isn't testing memorization at all — it's testing something closer to what a working lawyer actually does daily: knowing exactly where in which act to look, fast.
+
+**Analogy** — Think of AIBE like an open-book driving test that still requires real skill, not a memory test. You're allowed to bring the rulebook into the exam, but that doesn't make it trivial — you still need to know which page covers which situation well enough to find it in seconds, not minutes, while the clock runs. AIBE's "know where to look, not what to memorise" preparation strategy exists for exactly this reason: with 100 questions in 3.5 hours and access to bare acts, the bottleneck isn't recall, it's navigation speed under time pressure.
+
+**Try it (2 minutes)** — Reason through why "compile all bare acts into one folder with a master index" is the recommended first preparation step, before any content review, without looking anything up: if the exam allows you to bring reference material but gives you roughly 2 minutes per question on average, what happens to your effective time-per-question if you spend 60-90 seconds of that just locating the right act and section, versus having a pre-built index that gets you there in 10 seconds? Why would building the index BEFORE studying content be a better use of early prep time than diving straight into reading the acts?
+
 ## What is AIBE?
 
 The All India Bar Examination (AIBE) is conducted by the Bar Council of India (BCI) for newly enrolled advocates. Passing AIBE is mandatory to practise law in any Indian court.
@@ -91,6 +101,19 @@ Since the exam is open book, the skill is **navigation speed** — knowing exact
 ---
 
 ## Enrollment Process After LLB
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "1. Apply to Bar Council", "sublabel": "Within 2 years of LLB completion", "color": "blue" },
+    { "label": "2. Submit + Pay", "sublabel": "Documents and enrollment fee", "color": "purple" },
+    { "label": "3. Take Oath", "sublabel": "Before State Bar Council", "color": "amber" },
+    { "label": "4. Get Enrollment #", "sublabel": "Advocate Enrollment Number", "color": "green" },
+    { "label": "5. Register + Clear AIBE", "sublabel": "Receive Certificate of Practice", "color": "red" }
+  ]
+}
+```
 
 **Step 1:** Apply to State Bar Council within 2 years of LLB completion  
 **Step 2:** Pay enrollment fee, submit documents  
