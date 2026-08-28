@@ -100,7 +100,7 @@ each sub-academy.
 | 4 | Exams cluster (exams, central-exams, state-psc, professional-certs) | 26+5+5+4=40 | **Done** (2026-08-28, batch 7) — see table below | Exam-prep rubric variant — see above; surfaced and fixed 2 real live-production bugs (cloud/terraform orphan, gate-ece stale alias), see below |
 | 5 | Databases | 12 | **Done** (2026-08-28, batch 2) — see table below | None found — all self-mapped, no aliasing |
 | 6 | Healthcare | 13 | **Done** (2026-08-28, batch 2) — see table below | None found — all self-mapped, no aliasing; BCHHC mock-exam data permanently excluded (see feedback memory), respected throughout |
-| 7 | Security | 9 | Not started (1 tech done: security-fundamentals, Phase 2) | None known |
+| 7 | Security | 9 | **Done** (2026-08-28, batch 1) — see table below | None found — all 8 self-mapped, no aliasing |
 | 8 | Data (Analytics & BI) | 14 | Not started | None known |
 | 9 | Education | 12 | Not started | Generic-template stubs, see above |
 | 10+ | Essentials, Law, Finance, Agriculture, Telecom, Economics, Aerospace, VLSI | 10/10/12/7/7/7/8/8 | Not started | None known |
@@ -781,3 +781,43 @@ mock-exams, home-health-coding, patient-documentation, bchhc-prep,
 healthcare-admin (batch 2) = **13/13**. The BCHHC mock-exam exam-bank
 exclusion (10 papers + backing DB/quiz_questions data) was respected
 throughout — never touched in any batch.
+
+## Security — technology-level tracking (9 technologies)
+
+| Technology | Registry key | Rubric status before | Work done | Status |
+|---|---|---|---|---|
+| security-fundamentals | security/security-fundamentals/overview | Full rubric (Phase 2 pilot) | — | Done (Phase 2) |
+| network-security | security/network-security/overview | None | Prerequisite/hook/analogy/try-it added; "Defense in Depth" ASCII → `stack` FlowDiagram (5 steps); attack-vector ConceptBoxGrid (4 boxes) | Done |
+| ethical-hacking | security/ethical-hacking/overview | None | Prerequisite/hook/analogy/try-it added; authorization-type ConceptBoxGrid (3 boxes); 5-phase methodology → `flow` FlowDiagram | Done |
+| pen-testing | security/pen-testing/overview | None | Prerequisite/hook/analogy/try-it added; pen-test-type ConceptBoxGrid (4 boxes); 7-step PTES → consolidated 5-step `flow` FlowDiagram | Done |
+| soc | security/soc/overview | None | Prerequisite/hook/analogy/try-it added; SOC team structure → `stack` FlowDiagram (4 tiers); SIEM platforms ConceptBoxGrid (4 boxes); Ransomware playbook 7 steps → `stack` FlowDiagram | Done |
+| siem | security/siem/overview | None | Prerequisite/hook/analogy/try-it added; "What SIEM Does" pipeline → `flow` FlowDiagram (5 steps); Major SIEM Platforms ConceptBoxGrid (4 boxes) | Done |
+| cloud-security | security/cloud-security/overview | None | Prerequisite/hook/analogy/try-it added; AWS Security Services ConceptBoxGrid (4 boxes); Azure Security Controls → `stack` FlowDiagram (5 steps) | Done |
+| incident-response | security/incident-response/overview | None | Prerequisite/hook/analogy/try-it added; NIST 4-phase framework → `flow` FlowDiagram; severity-tier ConceptBoxGrid (4 boxes: P1-P4) | Done |
+| devsecops | security/devsecops/overview | None (already had extensive interview-prep depth, but no hook/analogy/try-it/prerequisite) | Prerequisite/hook/analogy/try-it added; 5-layer defense-in-depth → `flow` FlowDiagram; tool-category ConceptBoxGrid (4 boxes) | Done |
+
+**Batch 1 notes (2026-08-28):** All 9 technologies in `lib/data/academies.ts`'s
+Security navigation confirmed self-mapped in the content registry, no
+aliasing risk (single grep query). `public/content/security/` folder itself
+contains 30+ misplaced files from unrelated academies (banking, medical,
+exam-prep, CS-fundamentals) — correctly excluded from scope by cross-checking
+against the real navigation definition rather than the folder listing.
+All 8 remaining files needed full standard-rubric treatment (none had any
+prerequisite/hook/analogy/try-it elements). Fence-balance manually verified
+per-file immediately after each edit (all balanced); batch-wide
+`validate-content-fences.mjs` clean (2579 files); all 17 new
+`flow`/`conceptgrid` JSON blocks across the 8 files parsed successfully;
+`npm run predeploy` exit 0 (pre-existing `empty_code_block`/`abrupt_cutoff`
+WARN-only false positives spot-checked in all 8 files — all are the known
+adjacent-fence pattern, not real issues). One native-WSL build + live
+Playwright verification cycle run for all 8 pages: all return HTTP 200,
+zero crashes, diagrams render (`[data-diagram-box]` count 8-19 per page),
+Academies dropdown expands with security links present. Not yet deployed —
+awaiting explicit deploy instruction.
+
+## Security academy — batch 1 COMPLETE, not yet deployed (2026-08-28)
+
+All 9 technologies now have the depth-rubric + visual treatment:
+security-fundamentals (Phase 2 pilot) + network-security, ethical-hacking,
+pen-testing, soc, siem, cloud-security, incident-response, devsecops
+(batch 1) = **9/9**. This finished in a single batch as anticipated.

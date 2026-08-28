@@ -7,9 +7,43 @@
 
 ---
 
+**Before you start:** general CI/CD pipeline familiarity (what a build stage and a deploy stage are) is assumed, along with basic container/Kubernetes concepts. [Cloud Security](/academies/security/cloud-security/overview) and [Pen Testing](/academies/security/pen-testing/overview) cover related but distinct ground — this page is specifically about embedding security checks into the delivery pipeline itself.
+
 ## What is DevSecOps?
 
 Shift-left means catching security issues as early as possible — in the developer's editor or at commit time, not in production. The cost of fixing a vulnerability grows 10x at each stage: dev → PR → build → staging → production. A complete DevSecOps pipeline has security gates at every stage. No single tool covers everything — defense in depth.
+
+## Why This Exists (The Hook)
+
+A security review held once, right before a production release, finds every issue at the single most expensive point to fix them — the code is already written, reviewed, tested, and scheduled to ship, so a critical finding now means reopening work that was considered done. DevSecOps exists because most of that cost is avoidable: the same categories of issues (a hardcoded credential, a vulnerable dependency, a misconfigured container) are just as detectable at commit time or build time, when fixing them costs minutes instead of a delayed release.
+
+**Analogy** — Think of DevSecOps like a car factory's quality checks at every station on the line, not one final inspection before the car leaves the lot. A factory that only inspects finished cars discovers a bad weld after the whole car is assembled around it — expensive to fix, sometimes requiring a full teardown. A factory that checks the weld right after it's made catches the same defect in seconds, at the one station where it's cheapest to fix. DevSecOps puts a "quality check station" (a security gate) at commit, at PR, at build, at deploy, and at runtime — instead of one inspection at the very end.
+
+**Try it (2 minutes)** — Reason through why CRITICAL Trivy findings block the build outright while HIGH findings only create a tracked ticket, without looking anything up: if every single finding, regardless of severity, blocked every build, what would that do to how quickly and how carefully developers respond to critical findings specifically — and what usually happens to alert systems that cry wolf on low-stakes issues as often as high-stakes ones?
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "1. Code", "sublabel": "Pre-commit: detect-secrets, gitleaks, hadolint", "color": "blue" },
+    { "label": "2. Repository", "sublabel": "PR: SAST, IaC scan, secret scan", "color": "purple" },
+    { "label": "3. Build", "sublabel": "Dependency + container scan, image signing", "color": "amber" },
+    { "label": "4. Deploy", "sublabel": "Admission policy enforcement (Kyverno/OPA)", "color": "red" },
+    { "label": "5. Runtime", "sublabel": "Falco detection, Vault secrets, zero-trust networking", "color": "green" }
+  ]
+}
+```
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Secrets Management", "description": "HashiCorp Vault -- static and dynamic, short-lived credentials", "color": "blue" },
+    { "title": "Dependency/Image Scanning", "description": "Trivy, Snyk -- CVEs in code and containers", "color": "purple" },
+    { "title": "Static Analysis (SAST)", "description": "SonarQube -- bugs, vulnerabilities, quality gates", "color": "amber" },
+    { "title": "Admission Policy", "description": "OPA Gatekeeper, Kyverno -- enforce rules on what runs", "color": "red" }
+  ]
+}
+```
 
 ## Why DevSecOps?
 

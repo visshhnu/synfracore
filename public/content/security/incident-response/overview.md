@@ -1,12 +1,32 @@
 # Incident Response — Overview
 
+**Before you start:** the concepts in [SOC](/academies/security/soc/overview) (how alerts get triaged and escalated) are assumed — incident response is what happens after an alert is confirmed as a real incident.
+
 ## What is Incident Response?
 
 Incident Response (IR) is the organized approach to addressing and managing the aftermath of a security breach or cyberattack. The goal is to handle the situation in a way that limits damage and reduces recovery time and costs.
 
----
+## Why This Exists (The Hook)
+
+The moment a breach is confirmed is the worst possible moment to start figuring out who does what — should this host be unplugged or left running to preserve evidence? Who has authority to notify customers? Which backup is actually clean? Under real pressure, with the CEO asking for updates every ten minutes, an undocumented, improvised response reliably makes things worse — reconnecting a "cleaned" system too early, destroying the forensic evidence that would have shown how the attacker got in, or notifying regulators late enough to trigger additional penalties. Incident response exists as a rehearsed, written-down process precisely so none of those decisions get made for the first time during an actual crisis.
+
+**Analogy** — Think of an IR plan like an aircraft's emergency checklist, not a first-timer's improvisation. Pilots don't figure out engine-failure procedures in the moment — they've drilled a specific checklist so often that, under real stress, they execute it almost automatically, in the right order, without missing a step. An IR runbook is that same checklist for a ransomware outbreak or a data breach: written and rehearsed long before the real incident, so the team executes it rather than debates it while the damage is still spreading.
+
+**Try it (2 minutes)** — Reason through why "Preserve evidence" comes explicitly BEFORE containment actions in the Identification phase, without looking anything up: if a compromised server is immediately rebooted or wiped to "clean it up" before anyone captures a memory dump or disk image, what forensic evidence about how the attacker got in, what they touched, and whether they're still present elsewhere is permanently lost — and why would that matter even after the immediate threat is contained?
 
 ## NIST IR Framework — 4 Phases
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Preparation", "sublabel": "Team, runbooks, logging, tabletop exercises", "color": "blue" },
+    { "label": "Identification", "sublabel": "Detect, classify severity, preserve evidence", "color": "purple" },
+    { "label": "Containment/Eradication/Recovery", "sublabel": "Isolate, remove threat, restore clean state", "color": "red" },
+    { "label": "Post-Incident", "sublabel": "Report, lessons learned -- loops back to Preparation", "color": "green" }
+  ]
+}
+```
 
 ```
 Preparation → Identification → Containment/Eradication/Recovery → Post-Incident
@@ -25,6 +45,17 @@ Preparation → Identification → Containment/Eradication/Recovery → Post-Inc
 ### Phase 2: Identification (Detection & Analysis)
 - Detect via: SIEM alerts, IDS/IPS, EDR, user reports, threat intel feeds
 - Classify severity:
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "P1 Critical", "description": "Active breach, data exfiltration, ransomware -- 15 minute SLA", "color": "red" },
+    { "title": "P2 High", "description": "Suspicious activity, potential compromise -- 1 hour SLA", "color": "amber" },
+    { "title": "P3 Medium", "description": "Policy violation, failed attack attempt -- 4 hour SLA", "color": "purple" },
+    { "title": "P4 Low", "description": "Informational, no active threat -- 24 hour SLA", "color": "slate" }
+  ]
+}
+```
 
 | Severity | Definition | Response SLA |
 |---------|-----------|-------------|

@@ -1,8 +1,31 @@
 # SIEM — Security Information and Event Management
 
+**Before you start:** basic networking and general IT-operations familiarity is assumed. The [SOC](/academies/security/soc/overview) page covers the team and workflow around this platform; this page goes deep on the platform itself.
+
 SIEM is the central nervous system of a Security Operations Center (SOC). It collects logs from every system in your infrastructure, correlates events across sources, detects threats, and enables incident response. Every enterprise security team runs a SIEM.
 
+## Why This Exists (The Hook)
+
+A firewall log, an Active Directory sign-in log, and a cloud audit log each tell you almost nothing alone — a single failed login is noise. But a failed login from an unusual country, followed two minutes later by a successful login from that same unusual location, followed by a large outbound data transfer — that pattern, stitched together across three completely different log sources, is a compromised account in progress. No human can watch every log source by hand and spot that correlation in real time across millions of events a day. SIEM exists to do exactly that correlation automatically, at a scale no analyst could do manually.
+
+**Analogy** — Think of SIEM like a hospital's central monitoring station, not a single bedside monitor. Each bedside monitor (a firewall, an endpoint, a cloud audit log) tracks one patient's one vital sign in isolation. The central station pulls every signal from every room into one place, in a common format, so a nurse can see that Room 4's heart rate spike lines up with Room 4's blood pressure drop — a pattern invisible from either monitor alone. SIEM's correlation engine is that central station for your entire infrastructure's logs.
+
+**Try it (2 minutes)** — Reason through why "normalization" (converting different log formats into one common schema) has to happen before correlation can work at all, without looking anything up: a Windows Event Log records a failed login as `EventCode=4625` with a `Source_Network_Address` field; a cloud audit log records the same kind of event as JSON with a `sourceIPAddress` field; a firewall log records it as a plain-text line with the IP in a different position entirely. If a correlation rule needs to match "same source IP across all three," what would happen if the SIEM tried to compare those three fields directly, without normalizing them into one common field name and format first?
+
 ## What SIEM Does
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Log Sources", "sublabel": "Firewalls, EDR, cloud audit logs, AD, applications", "color": "blue" },
+    { "label": "Collect & Normalize", "sublabel": "Ingest, parse into common schema", "color": "purple" },
+    { "label": "Correlate", "sublabel": "Match events across sources for attack patterns", "color": "amber" },
+    { "label": "Alert", "sublabel": "Trigger when correlation rules fire", "color": "red" },
+    { "label": "SOC Analyst", "sublabel": "Investigate, pivot, timeline, respond", "color": "green" }
+  ]
+}
+```
 
 ```
 Log Sources → SIEM → Correlation Engine → Alerts → SOC Analyst
@@ -22,6 +45,17 @@ SIEM functions:
 ```
 
 ## Major SIEM Platforms
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Splunk", "description": "Industry leader, most deployed -- SPL, expensive per-GB pricing", "color": "blue" },
+    { "title": "Microsoft Sentinel", "description": "Cloud-native, SIEM + SOAR combined -- deep Azure/M365 integration, KQL", "color": "purple" },
+    { "title": "Elastic SIEM", "description": "Open-source ELK base, free tier, excellent scalability -- EQL", "color": "green" },
+    { "title": "IBM QRadar", "description": "Strong network flow analysis, common in finance/healthcare", "color": "amber" }
+  ]
+}
+```
 
 ```
 Splunk Enterprise Security:

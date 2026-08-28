@@ -1,27 +1,30 @@
 # Network Security
 
+**Before you start:** basic networking concepts (what an IP address, a port, and a firewall are) are assumed. No prior security-specific experience is required.
+
 Network security protects your infrastructure from unauthorized access, misuse, and attacks. For cloud and DevOps engineers, network security is foundational — every misconfigured security group, open port, or unencrypted connection is a potential breach.
+
+## Why This Exists (The Hook)
+
+A single firewall rule at the network edge stops external scanners, but it does nothing once an attacker is already inside — a compromised container, a leaked credential, or a misconfigured internal service can all reach far more than they should if nothing stops them once past the first gate. Network security exists to make sure no single control is the whole defense: it's a series of independent barriers, each assuming the one before it might fail, so a breach at any one layer doesn't automatically mean a breach of everything.
+
+**Analogy** — Think of network security like a bank's physical security, not a single locked front door. A bank has a locked door, a security guard, a vault with its own combination, safety deposit boxes with their own keys, and cameras throughout — even if someone gets past the front door, they still can't just walk out with the vault's contents. Each layer (WAF, load balancer, security group, private subnet, encryption) is a separate barrier in the same spirit — defeating one doesn't hand an attacker everything else.
+
+**Try it (2 minutes)** — Reason through why a database sitting in a "database subnet" with no internet route matters, without touching any config: if an attacker compromises a public-facing web server, can they directly reach a database that has no route to or from the internet at all — or do they first need to pivot through something that actually has network access to that subnet? What does that forced extra step buy the defenders, even if it doesn't stop the attack completely?
 
 ## Defense in Depth — Network Layers
 
-```
-Internet
-    │
-[DDoS Protection]         AWS Shield, Cloudflare
-    │
-[WAF]                     AWS WAF, Cloudflare WAF
-    │
-[Load Balancer]           ALB/NLB — TLS termination
-    │
-[Firewall / Security Group]  Perimeter defense
-    │
-[DMZ / Public Subnet]     Bastion, NAT Gateway
-    │
-[Private Subnet]          Application servers
-    │
-[Database Subnet]         RDS, ElastiCache
-    │
-[Encryption at Rest]      KMS, EBS encryption
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "DDoS Protection", "sublabel": "AWS Shield, Cloudflare", "color": "red" },
+    { "label": "WAF", "sublabel": "AWS WAF, Cloudflare WAF", "color": "amber" },
+    { "label": "Load Balancer", "sublabel": "ALB/NLB -- TLS termination", "color": "blue" },
+    { "label": "Firewall / Security Group", "sublabel": "Perimeter defense", "color": "purple" },
+    { "label": "Private / Database Subnet", "sublabel": "Application servers, RDS -- no direct internet route", "color": "green" }
+  ]
+}
 ```
 
 ## Firewalls and Security Groups
@@ -278,6 +281,17 @@ spec:
 ```
 
 ## Common Attack Vectors and Defenses
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "DDoS (Volumetric)", "description": "Defense: Cloudflare/AWS Shield, anycast routing, auto-scaling, rate limiting", "color": "red" },
+    { "title": "Man-in-the-Middle", "description": "Defense: TLS 1.3 everywhere, HSTS, certificate pinning, mTLS", "color": "blue" },
+    { "title": "Lateral Movement", "description": "Defense: Network segmentation, K8s NetworkPolicy, zero trust", "color": "amber" },
+    { "title": "Credential Theft", "description": "Defense: MFA everywhere, just-in-time access, credential rotation", "color": "purple" }
+  ]
+}
+```
 
 ```
 Attack: Port Scanning

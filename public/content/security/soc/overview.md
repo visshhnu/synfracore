@@ -1,10 +1,31 @@
 # SOC & SIEM — Security Operations
 
+**Before you start:** basic networking and general IT-operations familiarity is assumed. No prior security-operations experience is required — this page's companion technology, SIEM, goes deeper on the platform itself.
+
 A Security Operations Center (SOC) is the team and technology responsible for monitoring, detecting, analyzing, and responding to cybersecurity threats in real time. SIEM (Security Information and Event Management) is the core platform SOC analysts use to do their work.
+
+## Why This Exists (The Hook)
+
+An attacker doesn't announce themselves — a compromised account looks like a normal login, a data exfiltration attempt looks like normal network traffic, until someone is actively watching for the pattern that gives it away. A SOC exists because "we'll notice if something's wrong" isn't a real strategy at any meaningful scale — someone has to be continuously watching millions of log events, most of which are completely normal, to find the handful that indicate an actual attack in progress.
+
+**Analogy** — Think of a SOC like an air traffic control tower, not a single security guard. A control tower doesn't watch one plane — it continuously monitors every aircraft in its airspace, using radar (SIEM) to see patterns no single person could track by eye, with different controllers (L1/L2/L3 analysts) handling routine traffic versus a genuine emergency. Most blips on the radar are completely normal; the tower's entire job is reliably telling the rare real emergency apart from routine traffic, fast enough to act on it.
+
+**Try it (2 minutes)** — Reason through why SOC analysts are tiered (L1/L2/L3) instead of one analyst handling everything, without looking anything up: a SOC might see thousands of alerts a day, and the vast majority turn out to be false positives after a few minutes of checking. If your most experienced (and most expensive) analysts spent their whole day triaging routine alerts instead of investigating genuinely serious incidents, what would that do to how quickly a real breach gets a skilled responder's attention?
 
 ## What is a SOC?
 
 The SOC is your organization's cyber defense nerve center. It operates 24/7, monitoring everything — network traffic, endpoint activity, cloud infrastructure, application logs — and responding to threats before they cause damage.
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Monitor", "description": "Watch all logs, alerts, and network traffic continuously", "color": "blue" },
+    { "title": "Detect", "description": "Identify anomalies and potential threats using rules and ML", "color": "purple" },
+    { "title": "Analyze", "description": "Triage alerts, distinguish true threats from false positives", "color": "amber" },
+    { "title": "Respond", "description": "Contain, eradicate, and recover from incidents", "color": "green" }
+  ]
+}
+```
 
 **SOC Functions:**
 - **Monitor** — Watch all logs, alerts, and network traffic continuously
@@ -14,6 +35,18 @@ The SOC is your organization's cyber defense nerve center. It operates 24/7, mon
 - **Hunt** — Proactively search for hidden threats (threat hunting)
 
 ## SOC Team Structure
+
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "L1 Analyst — Triage", "sublabel": "Monitor alerts, initial true/false positive call", "color": "blue" },
+    { "label": "L2 Analyst — Investigation", "sublabel": "Deep dive, correlate events, determine scope", "color": "purple" },
+    { "label": "L3 Analyst / Incident Responder", "sublabel": "Major incidents, forensics, threat hunting", "color": "red" },
+    { "label": "Threat Intel / Security Engineer / SOC Manager", "sublabel": "Rule maintenance, strategy, oversight", "color": "amber" }
+  ]
+}
+```
 
 ```
 L1 Analyst (Triage)
@@ -69,6 +102,17 @@ SIEM Processing:
 ```
 
 ## Popular SIEM Platforms
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Splunk", "description": "Large enterprises, powerful analytics -- SPL query language", "color": "blue" },
+    { "title": "Microsoft Sentinel", "description": "Azure/Microsoft shops, cloud-native -- KQL query language", "color": "purple" },
+    { "title": "Elastic SIEM", "description": "Open source, flexible -- KQL/Lucene query language", "color": "green" },
+    { "title": "IBM QRadar", "description": "Traditional enterprises -- AQL query language", "color": "amber" }
+  ]
+}
+```
 
 | SIEM | Best For | Query Language |
 |------|---------|---------------|
@@ -194,6 +238,21 @@ Alert received in SIEM
 ```
 
 ## Incident Response Playbooks
+
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "1. Isolate", "sublabel": "Disconnect from network -- do NOT power off (preserve memory)", "color": "red" },
+    { "label": "2. Identify Scope", "sublabel": "Affected systems, encrypted data, patient zero", "color": "amber" },
+    { "label": "3. Preserve Evidence", "sublabel": "Memory dump, disk image, 7 days of logs", "color": "purple" },
+    { "label": "4. Notify", "sublabel": "CISO, Legal, PR within 1 hour; law enforcement/regulators if required", "color": "blue" },
+    { "label": "5. Eradicate", "sublabel": "Remove ransomware, check persistence, patch entry vector", "color": "red" },
+    { "label": "6. Recover", "sublabel": "Restore from clean backups, verify integrity, monitor 30 days", "color": "green" },
+    { "label": "7. Post-Incident", "sublabel": "Report, root cause analysis, tabletop exercise update", "color": "slate" }
+  ]
+}
+```
 
 ```
 Playbook: Ransomware Detected
