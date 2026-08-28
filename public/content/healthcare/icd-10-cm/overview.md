@@ -2,13 +2,16 @@
 
 **Analogy** — ICD-10-CM works like a very detailed postal address system for diagnoses. A letter addressed just to "Springfield" won't reliably get delivered — you need the street, the house number, sometimes the apartment number too. A diagnosis code is the same: the first character gets you to the right "city" (the chapter — e.g. "I" for circulatory conditions), but you need the full string of characters — etiology, site, laterality, severity — to reach one specific, deliverable "address." A vague or incomplete code doesn't get rejected outright any more than an incomplete address does, but it doesn't reliably communicate the right information either.
 
-```
-I     50    .     9
-│     │     │      │
-Chapter  Category  │  Character 4+: specificity
-(circulatory)       (severity, site, laterality —
-                      the "apartment number")
-= I50.9: Heart failure, unspecified
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "I", "sublabel": "Chapter -- circulatory", "color": "blue" },
+    { "label": "50", "sublabel": "Category", "color": "purple" },
+    { "label": ".9", "sublabel": "Specificity -- severity, site, laterality (the \"apartment number\")", "color": "green" },
+    { "label": "= I50.9", "sublabel": "Heart failure, unspecified", "color": "slate" }
+  ]
+}
 ```
 
 ## What is ICD-10-CM?
@@ -85,6 +88,16 @@ This course targets the FY2026 guideline cycle (effective October 1, 2025, updat
 ---
 
 ## High-Complexity Coding Areas
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Diabetes Mellitus", "description": "Chapter 4 -- most common coding scenario, must get right every time", "color": "blue" },
+    { "title": "Hypertension", "description": "Chapter 9 -- causal relationship assumed with heart disease/CKD", "color": "purple" },
+    { "title": "Sepsis", "description": "Complex sequencing rules -- primary vs developed-during-stay vs postprocedural", "color": "red" }
+  ]
+}
+```
 
 ### Diabetes Mellitus (Chapter 4)
 Most common coding scenario — must get right every time.

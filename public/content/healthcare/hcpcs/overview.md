@@ -4,10 +4,13 @@ HCPCS (pronounced "hick-picks") is a coding system used primarily for Medicare a
 
 **Analogy** — If CPT is the itemized bill for the services a provider performed, HCPCS Level II is the itemized bill for everything the provider *gave or used* on the patient that CPT doesn't already cover — the walker sent home with them, the drug injected, the ambulance ride that got them there. A claim can genuinely need both: a CPT code for the office visit itself, and an HCPCS code for the wheelchair the patient left with, because they're billing for two categorically different things — a service versus a physical item or specific drug/transport.
 
-```
-CPT: the service performed        HCPCS Level II: the item/drug/transport
-99213 (office visit)          +   E0130 (walker, rigid) sent home with patient
-                               +   J1644 (heparin, injected during the visit)
+```conceptgrid
+{
+  "boxes": [
+    { "title": "CPT: The Service Performed", "description": "99213 -- office visit", "color": "blue" },
+    { "title": "HCPCS: The Item/Drug/Transport", "description": "E0130 (walker sent home) + J1644 (heparin injected during the visit)", "color": "purple" }
+  ]
+}
 ```
 
 ## HCPCS Structure
@@ -50,6 +53,17 @@ V0000-V9999    Vision/hearing services
 *Note: HCPCS Level II is updated quarterly by CMS (with major annual updates each January 1) — the codes, coverage rules, and NCD/LCD examples below are illustrative and long-standing but should be verified against a current CMS HCPCS release before use in real billing.*
 
 ## Key HCPCS Code Categories
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "E Codes", "description": "Durable Medical Equipment -- walkers, wheelchairs, CPAP", "color": "blue" },
+    { "title": "J Codes", "description": "Injectable drugs administered in office/outpatient settings", "color": "purple" },
+    { "title": "G Codes", "description": "CMS temporary codes -- often Medicare preventive services", "color": "amber" },
+    { "title": "A Codes", "description": "Transportation (ambulance) and supplies", "color": "green" }
+  ]
+}
+```
 
 ### E Codes — Durable Medical Equipment (DME)
 

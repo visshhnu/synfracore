@@ -2,13 +2,16 @@
 
 **Analogy** — Medical words are like LEGO builds made from a small, reusable parts bin: once you recognize the individual bricks (a handful of prefixes, roots, and suffixes), you can recognize — and even build — thousands of different "models" (terms) without ever having seen that exact combination before. You're not memorizing every finished model; you're learning the bricks, which is a vastly smaller and more reusable set of things to know.
 
-```
-hyper-  +  gastr  +  -itis
- [brick]   [brick]   [brick]
- above/     stomach   inflam-
- excess               mation
-    └──────────┬──────────┘
-      "excessive inflammation of the stomach"
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "hyper-", "sublabel": "Prefix: above/excess", "color": "blue" },
+    { "label": "gastr", "sublabel": "Root: stomach", "color": "purple" },
+    { "label": "-itis", "sublabel": "Suffix: inflammation", "color": "amber" },
+    { "label": "= \"excessive inflammation of the stomach\"", "sublabel": "The combined meaning", "color": "green" }
+  ]
+}
 ```
 
 ## Why This Comes Before Everything Else
@@ -26,6 +29,17 @@ hyper- / gastr / -itis
 ```
 
 ## Common Roots (by body system)
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "cardi/o", "description": "Heart -- e.g. cardiomyopathy", "color": "red" },
+    { "title": "nephr/o, ren/o", "description": "Kidney -- e.g. nephrectomy, renal", "color": "blue" },
+    { "title": "hepat/o", "description": "Liver -- e.g. hepatitis", "color": "amber" },
+    { "title": "oste/o", "description": "Bone -- e.g. osteoporosis", "color": "slate" }
+  ]
+}
+```
 
 | Root | Meaning | Example term |
 |---|---|---|

@@ -99,7 +99,7 @@ each sub-academy.
 | 3 | AI | 9 | **Done** (2026-08-28, batch 1) — see table below | None found — all 9 self-mapped, no aliasing |
 | 4 | Exams cluster (exams, central-exams, state-psc, professional-certs) | 26+5+5+4=40 | **Done** (2026-08-28, batch 7) — see table below | Exam-prep rubric variant — see above; surfaced and fixed 2 real live-production bugs (cloud/terraform orphan, gate-ece stale alias), see below |
 | 5 | Databases | 12 | **Done** (2026-08-28, batch 2) — see table below | None found — all self-mapped, no aliasing |
-| 6 | Healthcare | 13 | Not started (1 tech done: cpt, Phase 2) | None known |
+| 6 | Healthcare | 13 | **In progress** — see table below (1 done: cpt, Phase 2; batch 1 in progress) | None found — all self-mapped, no aliasing; BCHHC mock-exam data permanently excluded (see feedback memory) |
 | 7 | Security | 9 | Not started (1 tech done: security-fundamentals, Phase 2) | None known |
 | 8 | Data (Analytics & BI) | 14 | Not started | None known |
 | 9 | Education | 12 | Not started | Generic-template stubs, see above |
@@ -700,3 +700,48 @@ All 12 technologies now have the depth-rubric + visual treatment:
 sql and mongodb (Phase 2 pilot) + postgresql, mysql, redis, oracle,
 cassandra, dynamodb (batch 1) + database-design, performance-tuning,
 cloud-databases, elasticsearch (batch 2) = **12/12**.
+
+---
+
+## Healthcare — technology-level tracking (13 technologies)
+
+Standard rubric variant. **Domain-sensitive content** — medical
+coding/clinical terminology — so the same accuracy discipline used for
+the CCS build earlier this engagement applies throughout: mark
+unverified specifics clearly with `(needs verification — ...)`, never
+overstate certainty on a medical/coding claim. **Standing exclusion**
+(see `feedback_bchhc_mock_exam_permanent_exclusion` memory): never touch
+the 10 BCHHC mock exam papers or their backing DB/quiz_questions data in
+any Healthcare batch — `bchhc-prep`'s markdown tabs remain in scope, the
+exam-bank content does not. This batch touched none of that (overview.md
+only, none of the 6 files below are `bchhc-prep`).
+
+Registry-checked all 6 files before editing — self-mapped, no aliasing.
+
+**Batch 1** (2026-08-28): anatomy-physiology, medical-terminology,
+medical-coding, icd-10-cm, hcpcs, coding-guidelines — overview.md only.
+Status: **done** — content, predeploy (fence check), JSON block
+validation, and full live Playwright dark/light + crash verification
+cycle all clean. Academies dropdown hover verified separately.
+
+All 6 files were already fully depth-rubric complete (hook/analogy/
+try-it, and already carrying appropriate `(needs verification)` tags on
+FY2026 guideline specifics) — this batch was visuals only, no new
+medical claims introduced. Each file's existing ASCII diagram converted
+to a FlowDiagram; each file's existing comparison table/category list
+converted to a ConceptBoxGrid.
+
+| Technology | overview.md | Notes |
+|---|---|---|
+| anatomy-physiology | **content done (batch 1)** — FlowDiagram (diagnosis→system→chapter), ConceptBoxGrid (4 body systems) | self-mapped; live-verified ✅ |
+| medical-terminology | **content done (batch 1)** — FlowDiagram (prefix+root+suffix word-build), ConceptBoxGrid (4 common roots) | self-mapped; live-verified ✅ |
+| medical-coding | **content done (batch 1)** — FlowDiagram (documentation→codes translation), ConceptBoxGrid (3 code sets) | self-mapped; live-verified ✅ |
+| icd-10-cm | **content done (batch 1)** — FlowDiagram (code structure breakdown), ConceptBoxGrid (3 high-complexity areas) | self-mapped; live-verified ✅ |
+| hcpcs | **content done (batch 1)** — ConceptBoxGrid (CPT vs HCPCS), ConceptBoxGrid (4 code category letters) | self-mapped; live-verified ✅ |
+| coding-guidelines | **content done (batch 1)** — ConceptBoxGrid (4 authoritative sources), ConceptBoxGrid (inpatient vs outpatient uncertain-diagnosis rule) | self-mapped; live-verified ✅ |
+
+No double-backslash or fence-imbalance defects found in this batch.
+
+**Remaining Healthcare technologies, not yet started:** ccs, mock-exams,
+home-health-coding, patient-documentation, bchhc-prep (markdown tabs
+only, per standing exclusion), healthcare-admin (6 remaining).

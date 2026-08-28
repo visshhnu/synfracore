@@ -14,24 +14,15 @@ Knowing a code's meaning        Knowing the guideline
 
 ## Authoritative Sources
 
-```
-ICD-10-CM Official Guidelines for Coding and Reporting
-  → Published by: CDC, CMS, AHA, AHIMA jointly
-  → Updated: Annually (October 1)
-  → Applies to: All ICD-10-CM code assignment
-
-CPT Guidelines
-  → Published by: AMA
-  → Located in: Front of CPT code book, per-section
-  → Updated: Annually (January 1)
-
-UHDDS (Uniform Hospital Discharge Data Set)
-  → Applies to: Inpatient hospital reporting
-  → Defines: Principal diagnosis, additional diagnoses
-
-OGCR (Official Guidelines for Coding and Reporting)
-  → The "Bible" for ICD-10-CM coding
-  → All coders must follow these guidelines
+```conceptgrid
+{
+  "boxes": [
+    { "title": "ICD-10-CM Official Guidelines", "description": "Published jointly by CDC/CMS/AHA/AHIMA. Updated annually, October 1", "color": "blue" },
+    { "title": "CPT Guidelines", "description": "Published by AMA. In the front of the CPT code book, per-section. Updated January 1", "color": "purple" },
+    { "title": "UHDDS", "description": "Applies to inpatient hospital reporting. Defines principal + additional diagnoses", "color": "amber" },
+    { "title": "OGCR", "description": "The \"Bible\" for ICD-10-CM coding -- all coders must follow it", "color": "green" }
+  ]
+}
 ```
 
 ## Recent Guideline Changes — FY 2026
@@ -129,6 +120,15 @@ Additional: E11.9 (Type 2 DM — complicating condition affecting care)
 ```
 
 ### Uncertain Diagnoses — Inpatient Only Rule
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Inpatient", "description": "MAY code \"possible/probable/suspected/rule out\" AS IF CONFIRMED", "color": "blue" },
+    { "title": "Outpatient", "description": "NEVER code uncertain diagnoses -- code the sign/symptom instead", "color": "red" }
+  ]
+}
+```
 
 ```
 Inpatient: MAY code "possible," "probable," "suspected," "likely,"

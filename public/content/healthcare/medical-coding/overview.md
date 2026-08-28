@@ -2,11 +2,15 @@
 
 **Analogy** — Medical coding is like translation, not summarization. A translator doesn't paraphrase a sentence into whatever words feel close enough — they convert it into the exact vocabulary of the target language, precisely, or the meaning is lost or changed. A coder does the same thing with a physician's documentation: it isn't rewritten or summarized, it's converted into the exact standardized code the documentation supports — nothing added, nothing softened, nothing guessed.
 
-```
-Clinical documentation          Coded claim
-"Type 2 diabetes mellitus  →    E11.22  (diagnosis, ICD-10-CM)
- with diabetic CKD stage 3"      99214   (office visit level, CPT)
-        "source language"           "target language"
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Clinical Documentation", "sublabel": "\"Type 2 diabetes mellitus with diabetic CKD stage 3\" -- the source language", "color": "slate" },
+    { "label": "E11.22", "sublabel": "Diagnosis code, ICD-10-CM", "color": "blue" },
+    { "label": "99214", "sublabel": "Office visit level, CPT -- the target language", "color": "green" }
+  ]
+}
 ```
 
 ## What Is Medical Coding?
@@ -14,6 +18,16 @@ Clinical documentation          Coded claim
 Medical coding is the process of translating clinical documentation — diagnoses, procedures, services, supplies — into standardized alphanumeric codes used for billing, insurance claims, statistical tracking, and quality reporting. Every claim submitted to a payer depends on codes being assigned correctly from what's actually documented.
 
 ## The Three Code Sets You Need
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "ICD-10-CM", "description": "Diagnoses -- why the patient was seen. Maintained by CMS/CDC/NCHS", "color": "blue" },
+    { "title": "CPT", "description": "Procedures -- what was done (outpatient/physician). Maintained by AMA", "color": "purple" },
+    { "title": "HCPCS Level II", "description": "Supplies, DME, drugs, ambulance -- items CPT doesn't cover. Maintained by CMS", "color": "green" }
+  ]
+}
+```
 
 | Code Set | Covers | Maintained By |
 |---|---|---|
