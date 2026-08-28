@@ -12,6 +12,17 @@ GATE (Graduate Aptitude Test in Engineering) is a national examination conducted
 
 ## Key Papers and Subject Codes
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "CS", "description": "Computer Science & IT -- Software, IT companies, IT PSUs", "color": "blue" },
+    { "title": "EC", "description": "Electronics & Communication -- Hardware, Telecom, BSNL JTO", "color": "purple" },
+    { "title": "EE", "description": "Electrical Engineering -- Power sector, NTPC, PowerGrid", "color": "amber" },
+    { "title": "ME", "description": "Mechanical Engineering -- Core manufacturing, ISRO, defense", "color": "green" }
+  ]
+}
+```
+
 | Code | Paper | Common for |
 |------|-------|-----------|
 | CS | Computer Science & IT | Software, IT companies, IT PSUs |
@@ -33,6 +44,16 @@ GATE (Graduate Aptitude Test in Engineering) is a national examination conducted
   - Multiple Choice Questions (MCQ): 4 options, 1 correct, negative marking (-1/3 for 1-mark, -2/3 for 2-mark)
   - Multiple Select Questions (MSQ): Multiple correct, NO negative marking
   - Numerical Answer Type (NAT): Enter number directly, NO negative marking
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "MCQ", "description": "4 options, 1 correct. Negative marking: -1/3 (1-mark), -2/3 (2-mark)", "color": "blue" },
+    { "title": "MSQ", "description": "Multiple correct options. NO negative marking", "color": "purple" },
+    { "title": "NAT", "description": "Numerical Answer Type -- enter number directly. NO negative marking", "color": "green" }
+  ]
+}
+```
 
 **General Aptitude (common to all papers): 15 marks**
 - Verbal Ability: 5 marks

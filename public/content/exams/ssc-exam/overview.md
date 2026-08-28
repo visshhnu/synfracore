@@ -8,6 +8,17 @@ SSC recruits for Group B and C posts in Central Government departments, ministri
 
 ## Major SSC Exams
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "SSC CGL", "description": "Combined Graduate Level -- Inspector, Auditor, Assistant. Needs graduation", "color": "blue" },
+    { "title": "SSC CHSL", "description": "Combined Higher Secondary Level -- DEO, Postal Assistant, LDC. 12th pass", "color": "purple" },
+    { "title": "SSC MTS", "description": "Multi-Tasking Staff -- Group C non-technical. 10th pass", "color": "amber" },
+    { "title": "SSC CPO", "description": "Central Police Organisations -- SI in BSF/CISF/CRPF. Needs graduation", "color": "green" }
+  ]
+}
+```
+
 | Exam | Full Name | Posts | Eligibility |
 |------|-----------|-------|------------|
 | SSC CGL | Combined Graduate Level | Inspector, Auditor, Assistant, Tax Inspector | Graduation |
@@ -21,6 +32,17 @@ SSC recruits for Group B and C posts in Central Government departments, ministri
 ---
 
 ## SSC CGL — Exam Pattern (Most Popular)
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Tier I (CBT)", "sublabel": "100 questions, 200 marks, 60 min", "color": "blue" },
+    { "label": "Tier II Paper I", "sublabel": "Compulsory -- Maths, Reasoning, English, Awareness, Computer", "color": "purple" },
+    { "label": "Tier II Paper II/III", "sublabel": "Statistics (JSO) or Finance & Economics (AAO) -- post-specific", "color": "green" }
+  ]
+}
+```
 
 ### Tier I (Computer Based Test)
 - General Intelligence & Reasoning: 25 questions, 50 marks

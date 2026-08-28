@@ -488,8 +488,44 @@ one more visual for its own content (a prep-plan `FlowDiagram` for
 
 No double-backslash or fence-imbalance defects found in this batch.
 
-**Remaining Exams-cluster technologies, not yet started:** 20 remaining
-`exams` technologies (banking-ssc domain's `ssc-cgl`/`ssc-exam`/
-`rrb-ntpc` + all engineering-exams + gate + civil-services technologies),
-all 5 `central-exams` technologies, all 5 `state-psc` technologies (30
-remaining).
+**Batch 3 — SSC/RRB + GATE group** (2026-08-28): ssc-cgl, ssc-exam,
+rrb-ntpc, gate, gate-cse, gate-ece — overview.md only. Status: **done** —
+content, predeploy (fence check), JSON block validation, and full live
+Playwright dark/light + crash verification cycle all clean. Academies
+dropdown hover verified separately.
+
+**Found and fixed a real live-production content bug while checking
+registry aliasing for this batch** (before any content edits):
+`exams/gate-ece/overview` was registry-aliased to `exams/gate-cse/overview`
+— a wrong-technology mismatch (GATE ECE students were served GATE CSE
+overview content), not a thin/duplicate case. A real, complete, on-topic
+`gate-ece/overview.md` existed on disk the whole time; every other
+`gate-ece/*` tier was already correctly self-mapped — only this one key
+was stale. Confirmed live via curl before fixing. Fixed by adding the key
+to `STALE_ALIAS_FIX_KEYS` in `scripts/generate-content-registry.mjs`
+(the same mechanism already used for several `devops/*` technologies)
+and regenerating `lib/content/index.ts` via the real generator (native
+WSL) — diffed against the pre-fix registry and confirmed only that one
+line changed. Committed separately from this batch's visual work
+(`35e1618`), deployed together with batch 3. Live-verified post-fix that
+`gate-ece/overview` now renders its own ECE content, not CSE's.
+
+| Technology | overview.md | Notes |
+|---|---|---|
+| ssc-cgl | **content done (batch 3)** — FlowDiagram (4-tier exam pattern), ConceptBoxGrid (3 most sought-after posts) | self-mapped; live-verified ✅ |
+| ssc-exam | **content done (batch 3)** — ConceptBoxGrid (4 major SSC exams), FlowDiagram (CGL Tier I/II pattern) | self-mapped; live-verified ✅ |
+| rrb-ntpc | **content done (batch 3)** — ConceptBoxGrid (RRB vs other exams comparison), FlowDiagram (4 exam stages) | self-mapped; live-verified ✅ |
+| gate | **content done (batch 3)** — ConceptBoxGrid (4 key papers), ConceptBoxGrid (MCQ/MSQ/NAT question types) | self-mapped; live-verified ✅ |
+| gate-cse | **content done (batch 3)** — ConceptBoxGrid (question-type marks breakdown), FlowDiagram (12-month prep timeline) | self-mapped; live-verified ✅ |
+| gate-ece | **content done (batch 3)** — ConceptBoxGrid (4 heaviest-weight subjects), FlowDiagram (study sequence). **Also the stale-alias fix target above** — this file's content is now genuinely reachable for the first time | self-mapped (fixed this batch); live-verified ✅, ECE-specific content confirmed rendering |
+
+No double-backslash or fence-imbalance defects found in this batch.
+
+**Remaining Exams-cluster technologies, not yet started:** 14 remaining
+`exams` technologies (engineering-exams domain: neet-biology,
+neet-physics, neet-chemistry, jee-maths, jee-physics, jee-chemistry,
+jee-advanced, neet-mocktests, jee-main + civil-services domain:
+upsc-prelims, state-psc (the in-`exams`-academy technology, distinct
+from the separate `state-psc` academy), upsc-mains, upsc-ethics,
+upsc-interview), all 5 `central-exams` technologies, all 5 `state-psc`
+academy technologies (24 remaining).

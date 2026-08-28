@@ -21,7 +21,30 @@ COMPARED TO OTHER EXAMS:
   vs State PSC: Central government (RRB) vs state government
 ```
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "vs SSC CGL", "description": "Similar difficulty, but railway-specific GK needed here", "color": "blue" },
+    { "title": "vs Banking", "description": "Less mathematics intensity, no banking awareness needed", "color": "purple" },
+    { "title": "vs UPSC", "description": "Much simpler, faster result, state-level postings possible", "color": "amber" },
+    { "title": "vs State PSC", "description": "Central government (RRB) vs state government", "color": "green" }
+  ]
+}
+```
+
 ## Exam Stages
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "CBT 1", "sublabel": "Common to all posts -- 100 Qs, 90 min. Qualifying, 20x vacancy advances", "color": "blue" },
+    { "label": "CBT 2", "sublabel": "Post-specific -- 120 Qs, 90 min. 8x vacancy advances", "color": "purple" },
+    { "label": "Skill / Typing Test", "sublabel": "For select posts -- Junior Clerk, Traffic Assistant, etc.", "color": "amber" },
+    { "label": "Document Verification", "sublabel": "Certificates + medical exam at Railway Hospital", "color": "green" }
+  ]
+}
+```
 
 ```
 STAGE 1 — CBT 1 (Common to all posts):

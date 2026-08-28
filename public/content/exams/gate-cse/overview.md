@@ -27,6 +27,16 @@ NEGATIVE MARKING:
   NAT: no negative marking (always attempt NAT questions)
 ```
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "1-mark MCQ", "description": "~25 questions = 25 marks. -1/3 negative marking", "color": "blue" },
+    { "title": "2-mark MCQ", "description": "~25 questions = 50 marks. -2/3 negative marking", "color": "purple" },
+    { "title": "NAT", "description": "~5 questions = 10 marks. No negative marking -- always attempt", "color": "green" }
+  ]
+}
+```
+
 ## Syllabus Summary
 
 ```
@@ -52,6 +62,18 @@ WEIGHTAGE (approximate):
 ```
 
 ## Preparation Timeline
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Months 1-3", "sublabel": "Cover all subjects, one topic per day, make notes", "color": "blue" },
+    { "label": "Months 4-7", "sublabel": "Textbook exercises, then previous year papers topic-wise", "color": "purple" },
+    { "label": "Months 8-9", "sublabel": "Full-length mock tests (Gate Overflow, Made Easy, ACE)", "color": "amber" },
+    { "label": "Months 10-12", "sublabel": "Revision, weak-area focus, final full papers", "color": "green" }
+  ]
+}
+```
 
 ```
 12 MONTHS (ideal):

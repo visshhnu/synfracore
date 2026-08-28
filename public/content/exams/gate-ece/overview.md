@@ -14,6 +14,18 @@ GATE ECE is the Graduate Aptitude Test in Engineering for Electronics and Commun
 Duration: 3 hours | Questions: 65 | Negative marking: 1/3 for MCQs
 
 ## Core ECE Subjects (Weight)
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Analog Circuits", "description": "8-12 marks -- one of the two heaviest core subjects", "color": "blue" },
+    { "title": "Communications", "description": "8-12 marks -- tied for heaviest weight", "color": "purple" },
+    { "title": "Control Systems", "description": "8-10 marks", "color": "amber" },
+    { "title": "Signals & Systems", "description": "8-10 marks -- underpins most other subjects", "color": "green" }
+  ]
+}
+```
+
 - Networks: 5-8 marks
 - Electronic Devices: 5-8 marks
 - Analog Circuits: 8-12 marks
@@ -28,6 +40,18 @@ Duration: 3 hours | Questions: 65 | Negative marking: 1/3 for MCQs
 BSNL JE/DE, BEL, ECIL, NHPC, PGCIL, DRDO, and AAI recruit through GATE ECE scores directly.
 
 ## Study Strategy
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Signals & Systems + Networks", "sublabel": "These underpin everything else -- start here", "color": "blue" },
+    { "label": "Control Systems + Communications", "sublabel": "Build on the foundation above", "color": "purple" },
+    { "label": "Analog + Digital Circuits", "sublabel": "Engineering Mathematics practised in parallel throughout", "color": "green" }
+  ]
+}
+```
+
 Start with Signals & Systems and Network Theory (these underpin everything), then Control Systems and Communications, then Analog and Digital Circuits. Engineering Mathematics should be practised in parallel throughout.
 
 ## Who This Is For

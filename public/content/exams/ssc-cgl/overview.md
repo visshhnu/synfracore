@@ -26,7 +26,29 @@ Most sought after:
   CSS (Central Secretariat Service — work with top bureaucracy)
 ```
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Assistant Audit Officer", "description": "Highest pay + interesting audit work (Grade B, ₹47,600-₹1,51,100)", "color": "blue" },
+    { "title": "Income Tax Inspector", "description": "Field work + good posting (CBDT/CBIC)", "color": "purple" },
+    { "title": "CSS", "description": "Central Secretariat Service -- work with top bureaucracy", "color": "amber" }
+  ]
+}
+```
+
 ## Exam Pattern (4 Tiers)
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Tier I — Prelims", "sublabel": "100 marks, 60 min. Cutoff ~130-145 (General)", "color": "blue" },
+    { "label": "Tier II — Mains", "sublabel": "Maths+Reasoning, English, Statistics/GS (post-specific)", "color": "purple" },
+    { "label": "Tier III — Descriptive", "sublabel": "Essay + Letter/Application, pen and paper", "color": "amber" },
+    { "label": "Tier IV — Skill Test", "sublabel": "Data Entry/Computer Proficiency, for specific posts", "color": "green" }
+  ]
+}
+```
 
 ```
 Tier I — Preliminary (100 marks, 60 minutes, online)
