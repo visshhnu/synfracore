@@ -7,9 +7,11 @@
 
 ---
 
+**Before you start:** basic Docker comfort (what an image is, `docker push`/`pull`) is assumed. No prior registry-administration experience is needed.
+
 ## What is Harbor / Nexus / Artifactory?
 
-Cloud-native registries (ECR, ACR, GCR) are simple and managed — zero ops overhead. Harbor is open-source, cloud-agnostic, and adds features cloud registries lack: built-in CVE scanning, image replication across clouds, content trust (signed images only), RBAC per project, and retention policies. Choose Harbor when: air-gapped environments, multi-cloud, need scan-and-block policies, or cost at high pull volume.
+A **registry** is where built container images (and other build artifacts) actually live between being built and being deployed — the same role a package repository plays for a programming language, just for whole container images instead of code libraries. Cloud-native registries (ECR, ACR, GCR) are simple and managed — zero ops overhead. Harbor is open-source, cloud-agnostic, and adds features cloud registries lack: built-in CVE scanning, image replication across clouds, content trust (signed images only), RBAC per project, and retention policies. Choose Harbor when: air-gapped environments, multi-cloud, need scan-and-block policies, or cost at high pull volume.
 
 ## Why Harbor / Nexus / Artifactory?
 
@@ -178,7 +180,21 @@ kubectl create secret docker-registry harbor-cred \\
 # Layer 1: Scan at build time (Trivy in CI pipeline)
 # Layer 2: Scan at push time (Harbor auto-scan on push)
 # Layer 3: Scan at deploy time (Kyverno/OPA checks Harbor scan result)
+```
 
+```flow
+{
+  "title": "Three-Layer Scanning — Catch a Vulnerable Image at Every Stage",
+  "layout": "flow",
+  "steps": [
+    { "label": "Build time", "sublabel": "Trivy in the CI pipeline", "color": "blue" },
+    { "label": "Push time", "sublabel": "Harbor auto-scans on push", "color": "purple" },
+    { "label": "Deploy time", "sublabel": "Kyverno/OPA checks the scan result", "color": "green" }
+  ]
+}
+```
+
+```bash
 # 3. IMAGE SIGNING (supply chain security)
 # Sign with Cosign:
 cosign sign --key cosign.key harbor.company.com/production/myapp:v1.2.3

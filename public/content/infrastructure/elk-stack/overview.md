@@ -34,6 +34,20 @@ Application Pods / Servers
       [Kibana]            ← Dashboards, search, alerts
 ```
 
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "Application Pods / Servers", "color": "slate" },
+    { "label": "Filebeat DaemonSet", "sublabel": "Runs on every K8s node", "color": "blue" },
+    { "label": "Kafka", "sublabel": "Buffer — absorbs spikes, prevents data loss", "color": "purple" },
+    { "label": "Logstash", "sublabel": "Parse, filter, enrich", "color": "amber" },
+    { "label": "Elasticsearch", "sublabel": "Hot → Warm → Cold tiers", "color": "green" },
+    { "label": "Kibana", "sublabel": "Dashboards, search, alerts", "color": "cyan" }
+  ]
+}
+```
+
 > **Why Kafka in the middle?** At high volume (1M+ logs/minute), if Elasticsearch is slow, Logstash backs up and eventually drops logs. Kafka acts as a durable buffer — data is safe even if Elasticsearch is down for hours.
 
 ## Elasticsearch Fundamentals
@@ -44,6 +58,18 @@ Document   = A single log entry (JSON)
 Field      = A key in the JSON document
 Shard      = A piece of an index (horizontal scaling)
 Replica    = Copy of a shard (high availability)
+```
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Index", "description": "Like a database table — e.g. logs-nginx-2024.01.15", "color": "blue" },
+    { "title": "Document", "description": "A single log entry (JSON)", "color": "green" },
+    { "title": "Field", "description": "A key in the JSON document", "color": "purple" },
+    { "title": "Shard", "description": "A piece of an index — horizontal scaling", "color": "amber" },
+    { "title": "Replica", "description": "A copy of a shard — high availability", "color": "cyan" }
+  ]
+}
 ```
 
 ```bash

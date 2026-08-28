@@ -185,15 +185,24 @@ block validation, and full live Playwright dark/light verification all clean.
 | tekton | **content done (batch 4)** — added prerequisite line + grounding vs. server-based CI/CD (previously missing), FlowDiagram (Task→Pipeline→PipelineRun→Trigger) | self-mapped; live-verified ✅ |
 | shell-scripting | **content done (batch 4)** — stack FlowDiagram (5-step script execution order, replacing the ASCII box diagram) | infrastructure/shell-scripting alias; live-verified ✅ |
 
+**Batch 5** (2026-08-27): ebpf, harbor, keda, elk-stack, kafka, platform-engineering
+— overview.md only. Status: **done** — content, predeploy/typecheck, JSON block
+validation, and full live Playwright dark/light verification all clean.
+
+| Technology | overview.md | Notes |
+|---|---|---|
+| ebpf | **content done (batch 5)** — added prerequisite line + kernel-level grounding (previously missing), ConceptBoxGrid (5 eBPF-based tools) | self-mapped; live-verified ✅ |
+| harbor | **content done (batch 5)** — added prerequisite line + registry grounding (previously missing), FlowDiagram (3-layer scanning) | self-mapped; live-verified ✅. Note: same fence-closing mistake as terraform in batch 2 — caught and fixed via the fence-balance check before commit. |
+| keda | **content done (batch 5)** — added prerequisite line (previously missing), ConceptBoxGrid (4 trigger types) | self-mapped; live-verified ✅ |
+| elk-stack | **content done (batch 5)** — stack FlowDiagram (6-step log pipeline), ConceptBoxGrid (5 Elasticsearch fundamentals terms) | infrastructure/elk-stack alias; live-verified ✅ |
+| kafka | **content done (batch 5)** — ConceptBoxGrid (Kafka vs RabbitMQ) | self-mapped; live-verified ✅ |
+| platform-engineering | **content done (batch 5)** — added prerequisite line (previously missing), ConceptBoxGrid (DevOps vs SRE vs Platform Engineering) | self-mapped; live-verified ✅ |
+
 **Remaining DevOps technologies, not yet started:**
 
 | Technology | overview.md | fundamentals.md | intermediate.md | Notes |
 |---|---|---|---|---|
-| ebpf | not started | not started | not started | |
-| harbor | not started | not started | not started | |
-| keda | not started | not started | not started | |
 | argo-rollouts | not started | not started | not started | |
-| elk-stack | not started | not started | not started | |
 | ha-dr | not started | not started | not started | |
 | incident | not started | not started | not started | |
 | chaos-engineering | not started | not started | not started | |

@@ -7,9 +7,21 @@
 
 ---
 
+**Before you start:** general familiarity with what CI/CD and Kubernetes are for is assumed — this page is about roles and career framing, not a specific tool, so no deep technical prerequisite beyond that.
+
 ## What is Platform Engineering vs SRE vs DevOps?
 
 These three terms are often confused but have distinct meanings. DevOps is a culture — break silos between Dev and Ops, automate everything, developers own their deployments. SRE is Google's implementation of DevOps — uses software engineering to solve operations problems, defines SLOs, manages error budgets. Platform Engineering builds the internal platform that developers use — the golden path, the paved road. Interviewers test this distinction at senior levels.
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "DevOps", "description": "A culture, not a job title — break silos, automate everything, developers own their deployments", "color": "blue" },
+    { "title": "SRE", "description": "Google's implementation of DevOps — SLOs, error budgets, on-call, blameless postmortems", "color": "purple" },
+    { "title": "Platform Engineering", "description": "Builds the Internal Developer Platform — the golden path, self-service for other teams", "color": "green" }
+  ]
+}
+```
 
 ## Why Platform Engineering vs SRE vs DevOps?
 

@@ -212,6 +212,15 @@ spec:
 
 Kafka: high throughput, message retention (replay), consumer-controlled offsets, ordered per partition, for event streaming, audit logs, ML pipelines. RabbitMQ: moderate throughput, messages deleted after consume (no replay), push-based, complex routing (exchanges/queues), for task queues, RPC, microservice messaging. Kafka is NOT the right tool for simple job queues — RabbitMQ or SQS is simpler and more appropriate.
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Kafka", "description": "High throughput, replayable, consumer-controlled offsets. Event streaming, audit logs, ML pipelines", "color": "blue" },
+    { "title": "RabbitMQ", "description": "Moderate throughput, deleted after consume, complex routing. Task queues, RPC, microservice messaging", "color": "purple" }
+  ]
+}
+```
+
 **Topics covered:**
 
 - Kafka use cases (streaming, replay) — 🟢 Beginner

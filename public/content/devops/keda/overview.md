@@ -7,9 +7,22 @@
 
 ---
 
+**Before you start:** familiarity with Kubernetes' built-in Horizontal Pod Autoscaler (HPA) — what it is and that it scales on CPU/memory — is assumed, since KEDA exists specifically to cover what HPA can't. No prior event-driven-architecture experience is needed.
+
 ## What is KEDA?
 
 HPA only scales on CPU and memory. Problem: a Kafka consumer pod has low CPU even when 1 million messages are backed up — HPA won't scale it. KEDA (Kubernetes Event-Driven Autoscaling) scales on ANY metric — Kafka consumer lag, RabbitMQ queue depth, Azure Service Bus message count, cron schedule, Prometheus metrics. Killer feature: scale to zero when queue is empty, then scale up when messages arrive. From a large telecom organisation: our Kafka consumers needed KEDA not HPA because CPU stayed low during lag spikes.
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Kafka", "description": "Scale on consumer lag — the actual backlog, not CPU", "color": "blue" },
+    { "title": "RabbitMQ", "description": "Scale on queue depth", "color": "purple" },
+    { "title": "Cron", "description": "Scale up before business hours, down at night", "color": "amber" },
+    { "title": "Prometheus", "description": "Scale on any custom metric — HTTP RPS, anything queryable", "color": "green" }
+  ]
+}
+```
 
 ## Why KEDA?
 

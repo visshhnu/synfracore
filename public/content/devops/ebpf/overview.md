@@ -7,9 +7,23 @@
 
 ---
 
+**Before you start:** solid Kubernetes networking fundamentals (Services, Network Policies, kube-proxy) and basic Linux comfort are assumed — this page covers a lower, kernel-level layer that most networking/security tooling sits on top of. No prior eBPF-specific experience is needed.
+
 ## What is eBPF & Cilium?
 
-eBPF (extended Berkeley Packet Filter) allows running sandboxed programs inside the Linux kernel without modifying kernel source code or inserting modules. For DevOps: observe everything at kernel level with zero application changes. See every network connection, syscall, file access — even in encrypted traffic. 2-3x better performance than iptables-based networking. Cilium replaced kube-proxy in Google's GKE. Mentioning eBPF in interviews signals you follow modern infrastructure trends.
+Traditionally, seeing what's actually happening on a Linux machine — every network connection, every process, every file access — meant either instrumenting the application itself (adding code) or running a separate proxy in front of it (like Istio's Envoy sidecar), both of which add overhead and require touching every workload individually. **eBPF** (extended Berkeley Packet Filter) takes a different approach: it lets small, safety-checked programs run directly inside the Linux kernel itself, without modifying the kernel's source code or installing a kernel module. Because these programs sit at the kernel level, they can observe everything — every connection, every syscall, every file access, even traffic before it gets encrypted — with zero changes to the applications running above them. 2-3x better performance than iptables-based networking. Cilium replaced kube-proxy in Google's GKE.
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Cilium", "description": "K8s CNI — networking + security + observability. The most-used eBPF tool", "color": "blue" },
+    { "title": "Tetragon", "description": "Runtime security — sees every syscall", "color": "red" },
+    { "title": "Pixie", "description": "Auto-instrumentation — latency/errors with zero code changes", "color": "purple" },
+    { "title": "Falco", "description": "Runtime security, eBPF driver", "color": "amber" },
+    { "title": "Hubble", "description": "Network observability — part of Cilium", "color": "green" }
+  ]
+}
+```
 
 ## Why eBPF & Cilium?
 
