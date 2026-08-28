@@ -4,6 +4,8 @@
 
 Nginx (pronounced "engine-x") is the most widely deployed web server in the world. It powers over 34% of all websites and is the default reverse proxy in Kubernetes ingress, Docker environments, and cloud architectures.
 
+**Analogy** — Think of Nginx like a hotel front desk, not a hotel room. Guests never walk directly to a specific room on their own — they go to the front desk, which checks them in, decides which room they actually get, and can even say "that room's full, here's another one nearby" (load balancing across backends). The front desk also handles things no individual room should have to (checking ID at check-in, holding packages, security) — that's SSL termination and rate limiting, handled once at the front door instead of by every backend server individually.
+
 ## What Nginx Does
 
 ```
@@ -16,6 +18,19 @@ Internet → Nginx → Application Servers
             ├── Rate limiting (protect APIs from abuse)
             ├── Caching (cache backend responses)
             └── HTTP/2 and gRPC support (gRPC — a fast RPC framework often used for service-to-service calls)
+```
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Reverse Proxy", "description": "Forwards requests to backend servers, hiding them from clients", "color": "blue" },
+    { "title": "Load Balancer", "description": "Distributes requests across multiple backends", "color": "green" },
+    { "title": "SSL/TLS Termination", "description": "Handles HTTPS at the edge, passes plain HTTP internally", "color": "purple" },
+    { "title": "Static File Serving", "description": "Images, CSS, JS — extremely fast, no backend involved", "color": "cyan" },
+    { "title": "Rate Limiting", "description": "Protects APIs from abuse — caps requests per client", "color": "amber" },
+    { "title": "Caching", "description": "Caches backend responses to reduce repeat load", "color": "slate" }
+  ]
+}
 ```
 
 ## Installation

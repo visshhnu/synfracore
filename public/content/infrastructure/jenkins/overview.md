@@ -38,6 +38,18 @@ Developer pushes code
               Kubernetes Deployment
 ```
 
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Git Push", "sublabel": "Webhook triggers", "color": "slate" },
+    { "label": "Jenkins Controller", "sublabel": "Distributes work, doesn't build itself", "color": "blue" },
+    { "label": "Agent Nodes", "sublabel": "Build, test, deploy — the actual work", "color": "purple" },
+    { "label": "Docker Registry → K8s", "sublabel": "Artifacts pushed, then deployed", "color": "green" }
+  ]
+}
+```
+
 **Controller** — Manages the Jenkins UI, stores job configs, schedules builds, distributes work to agents.
 
 **Agent** — Where builds actually run. Can be permanent (always-on VMs) or ephemeral (Kubernetes pods that spin up per build and die after).

@@ -29,6 +29,15 @@ Python is the scripting language of DevOps. It's used for automation, infrastruc
 
 **Rule of thumb:** Use bash for simple shell operations (<20 lines). Use Python for anything with logic, error handling, or that needs to be maintainable.
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Use Bash when...", "description": "Simple shell operations, under ~20 lines, gluing existing CLI tools together", "color": "amber" },
+    { "title": "Use Python when...", "description": "Real logic, error handling, JSON/YAML parsing, HTTP calls, or anything that needs to stay maintainable", "color": "blue" }
+  ]
+}
+```
+
 ## Python for DevOps — Key Libraries
 
 | Library | Purpose | Install |

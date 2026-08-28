@@ -18,6 +18,17 @@ Hard to audit "who changed what"   Every change is a Git commit
 Rollback = re-run old pipeline     Rollback = revert Git commit
 ```
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Declarative", "description": "Desired state described declaratively, not as a sequence of steps", "color": "blue" },
+    { "title": "Versioned", "description": "The entire desired state is stored in Git — full history, full audit trail", "color": "green" },
+    { "title": "Pulled automatically", "description": "Software agents pull from Git — nothing external pushes to the cluster", "color": "purple" },
+    { "title": "Continuously reconciled", "description": "Agents continuously correct drift, indefinitely — not a one-time apply", "color": "amber" }
+  ]
+}
+```
+
 **Four GitOps Principles:**
 1. Declarative — desired state described declaratively
 2. Versioned — entire desired state stored in Git
@@ -36,6 +47,18 @@ Developer → Git Push → GitHub/GitLab
                     Syncs cluster to match Git
                               │
                     Kubernetes Cluster Updated
+```
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Git Push", "sublabel": "Developer → GitHub/GitLab", "color": "blue" },
+    { "label": "ArgoCD Watches", "sublabel": "Polls or receives webhooks", "color": "purple" },
+    { "label": "Detects Drift", "sublabel": "Cluster state vs. Git desired state", "color": "amber" },
+    { "label": "Syncs Cluster", "sublabel": "Cluster pulls from Git — CI never has direct access", "color": "green" }
+  ]
+}
 ```
 
 ArgoCD runs inside the cluster, polls (or receives webhooks from) Git repos, and calls the Kubernetes API to apply changes. The cluster pulls from Git — your CI pipeline never has direct cluster access.

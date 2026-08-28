@@ -7,9 +7,11 @@
 
 ---
 
+**Before you start:** basic Git/GitHub comfort (commits, pushes, pull requests) and a rough idea of what CI/CD means (automatically testing and deploying code on every change) are assumed. No prior CI/CD-tool experience is needed.
+
 ## What is GitHub Actions?
 
-GitHub Actions is CI/CD built into GitHub — no separate server needed. Workflows are YAML files in .github/workflows/. Triggered by events: push, pull_request, schedule, workflow_dispatch (manual). Jobs run in parallel by default; use needs: to create dependencies. Each job runs on a fresh runner (VM). GitHub-hosted runners are free for public repos. Self-hosted runners for private networks or custom hardware.
+**CI/CD** (Continuous Integration / Continuous Deployment) means automatically running checks — and often deploying — every time code changes, instead of a person manually testing and shipping each change by hand. Historically that automation ran on a separate server you had to install and maintain yourself (Jenkins is the classic example). GitHub Actions builds the same idea directly into GitHub itself — no separate server needed. Workflows are YAML files in .github/workflows/. Triggered by events: push, pull_request, schedule, workflow_dispatch (manual). Jobs run in parallel by default; use needs: to create dependencies. Each job runs on a fresh runner (VM). GitHub-hosted runners are free for public repos. Self-hosted runners for private networks or custom hardware.
 
 ## Why GitHub Actions?
 
@@ -81,8 +83,16 @@ A production GitHub Actions pipeline has: dependency caching (save 60-80% build 
 - Slack notifications — 🟢 Beginner
 - Cache optimization — 🟡 Intermediate
 
-```bash
-1
+```flow
+{
+  "title": "A Production Pipeline — Test/Scan Run in Parallel, Deploy Waits on Both",
+  "layout": "flow",
+  "steps": [
+    { "label": "test", "sublabel": "npm test, cached deps", "color": "blue" },
+    { "label": "scan", "sublabel": "Trivy security scan", "detail": "runs alongside test, not after", "color": "purple" },
+    { "label": "deploy", "sublabel": "needs: [test, scan] — env-gated, manual approval", "color": "green" }
+  ]
+}
 ```
 
 ---

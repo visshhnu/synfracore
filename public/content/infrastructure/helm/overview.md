@@ -28,6 +28,18 @@ kubectl apply (via Helm)
 Kubernetes Cluster
 ```
 
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "Chart", "sublabel": "templates/ + values.yaml defaults", "color": "blue" },
+    { "label": "+ Your values", "sublabel": "values-prod.yaml overrides", "color": "purple" },
+    { "label": "= Rendered Kubernetes YAML", "color": "green" },
+    { "label": "kubectl apply (via Helm) → Cluster", "color": "amber" }
+  ]
+}
+```
+
 ## Installation
 
 ```bash
