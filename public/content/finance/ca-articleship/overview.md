@@ -1,5 +1,15 @@
 # CA Articleship
 
+**Before you start:** [CA Intermediate](/academies/finance/ca-intermediate/overview) — clearing at least one group — is assumed, since that's the eligibility requirement to begin articleship.
+
+## Why This Exists (The Hook)
+
+Passing CA Intermediate proves you can answer exam questions about accounting standards and tax law correctly; it says nothing about whether you can actually conduct a real audit, handle a real client conversation, or navigate a real firm's workflow under time pressure. Articleship exists to close that gap deliberately — ICAI makes 3 years of supervised practical training mandatory precisely because a CA's real job (auditing actual companies, filing actual returns, advising actual clients) requires skills no written exam can fully verify.
+
+**Analogy** — Think of articleship like a pilot's required flight hours before becoming fully certified, not an optional bonus round. Passing aviation theory exams proves you understand aerodynamics and navigation; it doesn't prove you can actually land a plane under real conditions with a real instructor watching. Required flight hours close that gap by mandating real practice under supervision before full certification. CA articleship is the same structure — Intermediate proves you know the material; 3 years of supervised practical work proves you can actually do the job.
+
+**Try it (2 minutes)** — Reason through why the guide advises choosing a principal based on "real audit and tax exposure" over a slightly higher stipend, without looking anything up: articleship's entire purpose is building the practical skill written exams can't test — if a firm mostly assigns data entry rather than genuine audit/tax work, what skill is actually being built during those 3 years, regardless of what the stipend is? Given that the stipend is explicitly described as "training compensation, not a living wage," why would optimizing for the thing articleship is actually FOR (skill-building) make more sense long-term than optimizing for near-term pay during a period that's designed to be an investment, not an income source?
+
 ## What Articleship Is
 
 Articleship is a mandatory **3-year practical training period** under a practicing Chartered Accountant, required by ICAI between (or overlapping) the Intermediate and Final levels. It's what makes the CA qualification practice-ready rather than purely theoretical — you can't become a CA without completing it.
@@ -12,6 +22,17 @@ Articleship is a mandatory **3-year practical training period** under a practici
 4. **Register with ICAI**: Submit Form 102/103 within 30 days of starting articleship, along with the deed of articles signed by you and your principal.
 
 ## What the 3 Years Actually Look Like
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Year 1", "sublabel": "Audit assistance, vouching, learning firm workflows", "color": "blue" },
+    { "label": "Year 2", "sublabel": "Independent audit work, client interaction, tax returns", "color": "purple" },
+    { "label": "Year 3", "sublabel": "Leading small engagements, assessments, advisory exposure", "color": "green" }
+  ]
+}
+```
 
 | Year | Typical exposure |
 |---|---|

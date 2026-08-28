@@ -1,5 +1,15 @@
 # CA Intermediate — Complete Guide
 
+**Before you start:** [CA/CS/CMA Foundation](/academies/finance/ca-cs-foundation/overview) (or the Direct Entry route for Commerce graduates) is assumed as the entry point into this level.
+
+## Why This Exists (The Hook)
+
+Foundation tests whether you can handle the basic building blocks — simple accounting, elementary business law, basic quantitative aptitude. Intermediate is where those building blocks combine into the actual professional skill: 8 papers spanning advanced accounting standards, corporate law, taxation, and cost management, deliberately structured across two groups so you can clear one at a time rather than needing to master everything simultaneously. This is also where articleship begins — Intermediate is the gate that unlocks the practical training the CA qualification is built around.
+
+**Analogy** — Think of CA Intermediate like the core coursework in a professional degree, sitting between general prerequisites and a specialized thesis. Foundation is like general-education prerequisites — broad, foundational, not yet specialized. Intermediate is like the core major coursework — genuinely deep, subject-specific material (advanced accounting, corporate law, taxation) that a professional in the field actually needs, still building toward but not yet at the highest specialization level. CA Final, which comes after, is like the thesis stage — applying everything learned to complex, integrated real-world scenarios.
+
+**Try it (2 minutes)** — Reason through why groups can be cleared separately rather than requiring all 8 papers to be passed simultaneously, without looking anything up: each group has its own 50% aggregate + 40%-per-paper passing requirement, checked independently. If a candidate did well on Group I but narrowly missed Group II's aggregate, what would forcing an all-8-papers-at-once requirement do to that candidate's ability to bank the papers they already passed — and why would letting them retain Group I's clear while re-attempting only Group II reduce the overall exam's difficulty without lowering the actual competency bar for each individual group?
+
 ## What is CA Intermediate?
 
 CA Intermediate is the second level of the Chartered Accountancy qualification from ICAI (Institute of Chartered Accountants of India). After clearing Foundation (or through direct entry with Commerce graduates), students appear for Intermediate before the final CA exams.
@@ -7,6 +17,18 @@ CA Intermediate is the second level of the Chartered Accountancy qualification f
 ---
 
 ## CA Exam Structure — Full Path
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "CA Foundation", "sublabel": "4 papers, 400 marks", "color": "blue" },
+    { "label": "CA Intermediate", "sublabel": "8 papers, 800 marks", "color": "purple" },
+    { "label": "Articleship", "sublabel": "2-3 years practical training", "color": "amber" },
+    { "label": "CA Final", "sublabel": "6 papers, 600 marks", "color": "green" }
+  ]
+}
+```
 
 ```
 CA FOUNDATION (4 papers, 400 marks)

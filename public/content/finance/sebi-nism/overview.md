@@ -1,5 +1,15 @@
 # SEBI & Financial Markets — NISM Certification
 
+**Before you start:** [Financial Markets](/academies/finance/financial-markets/overview) basics (equity/debt/mutual fund fundamentals) are assumed — this page goes deeper on the professional certification and regulatory side. *(Note: NISM fees, SEBI limits, and specific figures below reflect commonly cited reference points — verify current values against official SEBI/NISM sources before relying on them.)*
+
+## Why This Exists (The Hook)
+
+Anyone can technically buy a stock or a mutual fund — but advising OTHERS on what to buy, or dealing professionally in derivatives, carries real risk of harm if done incompetently or dishonestly, which is exactly why SEBI mandates specific NISM certifications for different roles in the financial industry. A mutual fund distributor without the right certification, or an investment adviser giving advice without passing the required exam, isn't just breaking a technicality — they're operating in a role SEBI has specifically gated because the consequences of bad advice at scale (thousands of investors, real money) are serious enough to warrant a competency check.
+
+**Analogy** — Think of NISM certifications like different driving licenses for different vehicle classes, not one universal license. A regular driving license lets you drive a car — it doesn't qualify you to drive a commercial truck or a motorcycle, each of which has its own separate test because the risks and skills involved are genuinely different. NISM works the same way: a Mutual Fund Distributor certification qualifies you for that specific role, not for dealing in equity derivatives or giving investment advice — each carries its own exam because the competency needed for each role is genuinely different, and SEBI wants that verified separately, not assumed.
+
+**Try it (2 minutes)** — Reason through why "insider trading on UPSI" carries criminal penalties (₹25 crore or 3x profit, imprisonment up to 10 years) rather than just a civil fine, without looking anything up: UPSI (Unpublished Price Sensitive Information) is information that, once public, would move a stock's price — meaning someone trading on it before it's public has an unfair advantage no other investor in the market has access to. If markets only function fairly when all participants trade on the same available information, what does it do to overall investor trust and market integrity if insider trading were treated as a minor, easily-absorbed cost of doing business rather than a serious criminal offense?
+
 ## SEBI — Structure & Role
 
 **SEBI (Securities and Exchange Board of India)** — established 1992 (SEBI Act 1992). Statutory regulatory body for Indian capital markets.
@@ -12,6 +22,16 @@
 ---
 
 ## Indian Capital Market Structure
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Primary Market", "description": "New securities issued -- IPO, FPO, Rights Issue", "color": "blue" },
+    { "title": "Secondary Market", "description": "Trading of existing securities -- BSE, NSE, F&O", "color": "purple" },
+    { "title": "Debt Market", "description": "G-Sec, Corporate Bonds, T-Bills", "color": "amber" }
+  ]
+}
+```
 
 ```
 PRIMARY MARKET — new securities issued

@@ -105,7 +105,7 @@ each sub-academy.
 | 9 | Education | 12 | **12/12 overview.md pass done** (2026-08-28) — see table below | Deeper intermediate/advanced-tier stub gap known for os/dbms/cn/system-design/placement-prep — still open, unrelated to this overview.md pass; all 12 overview.md files confirmed real content, no aliasing |
 | 10 | Essentials | 10 | **10/10 done** (2026-08-28) — see table below | **Live content bug found + fixed**: mental-health/overview.md was serving Sleep content, not mental-health content — rewritten from scratch |
 | 11 | Law | 9 (corrected from an earlier unverified estimate of 12) | **9/9 done** (2026-08-28) — see table below | None found — all self-mapped, no aliasing |
-| 12 | Finance | 11 (corrected from a stated estimate of 12) | Batch 1 done (2026-08-28, 6/11) — see table below | None found — all self-mapped, no aliasing |
+| 12 | Finance | 11 (corrected from a stated estimate of 12) | **11/11 done** (2026-08-28) — see table below | None found — all self-mapped, no aliasing |
 | 13+ | Agriculture, Telecom, Economics, Aerospace, VLSI | 7/7/7/8/8 | Not started | None known |
 
 ## DevOps — technology-level tracking (41 technologies)
@@ -1154,11 +1154,11 @@ corrected during a live registry check — the actual, confirmed count is
 | financial-markets | finance/financial-markets/overview | Same informal-prose pattern | Formalized rubric headers; instrument-types ConceptBoxGrid (4 boxes) | Done (batch 1) |
 | ca-cs-foundation | finance/ca-cs-foundation/overview | Same informal-prose pattern | Formalized rubric headers; three-institutes ConceptBoxGrid (3 boxes) | Done (batch 1) |
 | banking-rbi | finance/banking-rbi/overview | None (dense reference content, no prose hooks at all) | Prerequisite/hook/analogy/try-it added; verification-caveat note (rates/ratios/salaries change); 5-Cs-of-credit ConceptBoxGrid (4 boxes) | Done (batch 1) |
-| sebi-nism | finance/sebi-nism/overview | Not yet assessed | — | Pending (batch 2) |
-| ca-articleship | finance/ca-articleship/overview | Not yet assessed | — | Pending (batch 2) |
-| ca-intermediate | finance/ca-intermediate/overview | Not yet assessed | — | Pending (batch 2) |
-| ca-final | finance/ca-final/overview | Not yet assessed | — | Pending (batch 2) |
-| credit-analysis | finance/credit-analysis/overview | Not yet assessed | — | Pending (batch 2) |
+| sebi-nism | finance/sebi-nism/overview | None | Prerequisite/hook/analogy/try-it added; verification-caveat note (fees/limits change); capital-market-structure ConceptBoxGrid (3 boxes) | Done (batch 2) |
+| ca-articleship | finance/ca-articleship/overview | None | Prerequisite/hook/analogy/try-it added; 3-year exposure → `flow` FlowDiagram | Done (batch 2) |
+| ca-intermediate | finance/ca-intermediate/overview | None | Prerequisite/hook/analogy/try-it added; CA exam path → `flow` FlowDiagram (4 steps) | Done (batch 2) |
+| ca-final | finance/ca-final/overview | Had a strong existing hook ("Why This Is Not Just GST"), no formal rubric headers | Formalized into "Before you start"/hook/analogy/try-it; Group I/II papers ConceptBoxGrid (4 boxes) | Done (batch 2) |
+| credit-analysis | finance/credit-analysis/overview | None | Prerequisite/hook/analogy/try-it added; 5-Cs-of-credit ConceptBoxGrid (4 boxes) | Done (batch 2) |
 
 **Batch 1 notes (2026-08-28):** All 11 technologies in `lib/data/academies.ts`'s
 Finance navigation confirmed self-mapped in the content registry
@@ -1183,6 +1183,31 @@ successfully; `npm run predeploy` exit 0 (financial-markets' new
 ends cleanly with a complete sentence in an italicized disclaimer). One
 native-WSL build + live Playwright verification cycle run for all 6 pages:
 all render with no crashes, diagrams present (3-5 per page), Academies
-dropdown works. Not yet deployed — awaiting explicit deploy instruction. 5
-technologies remain (sebi-nism, ca-articleship, ca-intermediate, ca-final,
-credit-analysis) for batch 2.
+dropdown works. Deployed and live-verified (2026-08-28): all 6 pages 200,
+diagrams render in both themes, Academies dropdown working, `npm run
+predeploy` exit 0.
+
+**Batch 2 notes (2026-08-28):** Read the remaining 5 files (sebi-nism,
+ca-articleship, ca-intermediate, ca-final, credit-analysis) before editing
+— confirmed all genuinely dense, real content, no stubs. ca-final was a
+partial case similar to Education's dsa/overview.md and Finance's earlier
+5 batch-1 files: it already had a strong existing hook ("Why This Is Not
+'Just GST'") but lacked the formal rubric headers — formalized without
+disturbing the existing good content. Added a verification-caveat note to
+sebi-nism (NISM fees/SEBI limits change). Fence-balance manually verified
+per-file (all balanced); batch-wide `validate-content-fences.mjs` clean
+(2579 files); all 5 new `flow`/`conceptgrid` JSON blocks parsed
+successfully; `npm run predeploy` exit 0 (new `empty_code_block` WARN-only
+flags confirmed as the known adjacent-fence pattern). One native-WSL build
++ live Playwright verification cycle run for all 5 pages: all render with
+no crashes, diagrams present (3-4 per page), Academies dropdown works. Not
+yet deployed — awaiting explicit deploy instruction.
+
+## Finance academy — COMPLETE, 11/11 (2026-08-28)
+
+All 11 technologies (accounting-basics, gst-taxation, direct-tax,
+financial-markets, ca-cs-foundation, banking-rbi — batch 1; sebi-nism,
+ca-articleship, ca-intermediate, ca-final, credit-analysis — batch 2) now
+have real depth-rubric + visual treatment. The technology count was
+corrected from the user's stated estimate of 12 to the actual, confirmed
+11 — see the batch 1 notes above.
