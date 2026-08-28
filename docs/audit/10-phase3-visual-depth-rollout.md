@@ -360,6 +360,17 @@ page is already the real, live, enhanced one, so a second orphaned copy
 just recreates the same duplication problem. Not acted on yet — flagged
 here for a dedicated cleanup pass.
 
+**RESOLVED 2026-08-28:** per confirmed user direction, `public/content/
+cloud/terraform/` (all 6 tiers) was deleted entirely. Confirmed no other
+references existed first — `lib/data/academies.ts` (navigation), `lib/
+data/labs*` (labs), `next.config.ts` (redirects), and `docs/slug-aliases-
+schema.sql` all came back clean; only the content registry had entries,
+and those were removed by regenerating `lib/content/index.ts` via the
+real generator (native WSL) per the standing regen-gate rule — diffed
+against the pre-deletion registry and confirmed the only change was the
+6 dead `cloud/terraform/*` entries dropping out, nothing else touched.
+`npm run predeploy` clean afterward (2579 files, down from 2585).
+
 ---
 
 ## AI — technology-level tracking (9 technologies)
