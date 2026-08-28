@@ -1,5 +1,15 @@
 # Dashboarding — Building End-to-End Data Dashboards
 
+**Before you start:** familiarity with [Power BI](/academies/data/power-bi/overview) or [Tableau](/academies/data/tableau/overview) basics (connecting to data, building a chart) is assumed — this page is about assembling those individual charts into one coherent, decision-ready dashboard.
+
+## Why This Exists (The Hook)
+
+A collection of correct, well-built charts is not automatically a good dashboard — five charts with no clear hierarchy, no headline metric, and no answer to "so what should I do" leaves the viewer doing the analytical work the dashboard was supposed to do for them. Dashboarding as its own discipline exists because turning individual charts into a single, scannable decision-support tool requires deliberate choices — what goes in the hero row, what a CEO needs versus what an SRE needs, what update frequency actually matters — that have nothing to do with any individual chart being built correctly.
+
+**Analogy** — Think of a dashboard like a car's instrument cluster, not a pile of individual gauges on a workbench. Each individual gauge (a speedometer, a fuel gauge) is accurate on its own, but scattered on a workbench they tell you nothing at a glance. The instrument cluster deliberately puts speed front and center, fuel and temperature as secondary, and buries diagnostic detail behind a menu you only open when something's wrong — that same deliberate hierarchy (headline metric first, supporting detail secondary, deep-dive on demand) is what separates a real dashboard from a folder of unrelated charts.
+
+**Try it (2 minutes)** — Reason through why "Who is the user? What decision do they make?" is Step 1, before touching any tool, without looking anything up: a CEO dashboard and a DevOps SRE dashboard could theoretically show overlapping data (both care about "is the business healthy"), but the CEO checks weekly and needs one clear trend line, while the SRE needs real-time alerts on a specific threshold. If you designed one dashboard trying to serve both without first answering who it's actually for, what would happen to how useful it is to either person?
+
 ## What is a Dashboard?
 
 A dashboard is a visual display of the most important information needed to achieve objectives, consolidated on a single screen. Unlike a report, a dashboard is:
@@ -11,6 +21,17 @@ A dashboard is a visual display of the most important information needed to achi
 
 ## Dashboard Types
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Operational", "description": "Teams, managers -- day-to-day KPIs, real-time/hourly", "color": "blue" },
+    { "title": "Strategic", "description": "C-suite, leadership -- business metrics, daily/weekly", "color": "purple" },
+    { "title": "Analytical", "description": "Analysts, data scientists -- deep-dive exploration, on-demand", "color": "amber" },
+    { "title": "Tactical", "description": "Team leads -- progress against targets, daily", "color": "green" }
+  ]
+}
+```
+
 | Type | Audience | Focus | Update Frequency |
 |------|---------|-------|-----------------|
 | **Operational** | Teams, managers | Day-to-day KPIs | Real-time / hourly |
@@ -21,6 +42,18 @@ A dashboard is a visual display of the most important information needed to achi
 ---
 
 ## End-to-End Dashboard Build Process
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "1. Define the Question", "sublabel": "Who's the user, what's the ONE metric", "color": "blue" },
+    { "label": "2. Design the Layout", "sublabel": "Wireframe -- headline, main chart, supporting charts", "color": "purple" },
+    { "label": "3. Build in Tool", "sublabel": "Power BI or Tableau -- connect, transform, visuals", "color": "amber" },
+    { "label": "4. Publish & Refresh", "sublabel": "Set schedule, filters, actions", "color": "green" }
+  ]
+}
+```
 
 ### Step 1: Define the Question
 Before touching any tool, answer:

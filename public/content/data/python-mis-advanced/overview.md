@@ -7,17 +7,34 @@
 
 ---
 
+**Before you start:** [Python for MIS Professionals](/academies/data/python-mis/overview) (Python basics, Pandas fundamentals) is assumed — this page builds full unattended automation and interactive dashboards on top of those foundations.
+
 ## What is Python for MIS — Automation & Dashboards?
 
 Phase 4 is the goal most MIS professionals want first — replace the manual weekly consolidation. The script runs automatically at a scheduled time, reads all team files from a shared folder, cleans and merges the data, calculates achievement %, creates a formatted multi-sheet Excel report, and can email it automatically. Once scheduled, you never touch it again.
 
-## Why Python for MIS — Automation & Dashboards?
+## Why This Exists (The Hook)
 
-Plotly creates interactive charts in your browser — hover to see values, click to filter, zoom in. The output is a single HTML file you can email. Recipient opens it in Chrome — no Excel, no Power BI, no software installed. This replaces basic Power BI use cases for internal reports.
+Knowing Pandas well enough to clean and calculate a report manually each week is a real skill, but it still requires a human to remember to run it, watch for a bad file, and hit send. This page exists to close that last gap: a script that runs unattended on a schedule, handles a missing or malformed file without crashing, and emails the finished report itself — the difference between "I know how to automate this" and "this is actually automated."
+
+**Analogy** — Think of this phase like the difference between knowing how to drive and installing cruise control with lane-keeping. Driving manually (running a Pandas script by hand each Monday) still needs a human present and attentive every single time, including remembering to do it at all. This phase adds the equivalent of cruise control and lane-keeping — a scheduler that starts the run automatically, error handling that keeps it on the road when one file is malformed, and an email-send step that delivers the result without you touching the wheel.
+
+**Try it (2 minutes)** — Reason through why a missing weekly email is described as a useful monitoring signal for a fully automated script, without looking anything up: once a script is scheduled and runs unattended, nobody is watching it execute the way they would if running it by hand. If the script's very last step is "email the finished report," and that email never arrives Monday morning, what does that absence directly tell you — and why is that a cheap, already-built alert compared to setting up separate monitoring infrastructure just to watch a script run?
 
 ---
 
 ## Learning Modules
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "01. Full Automation", "sublabel": "Collect, clean, calculate, save, schedule, email", "color": "blue" },
+    { "label": "02. Interactive Dashboards", "sublabel": "Plotly -- browser-based, no software needed", "color": "purple" },
+    { "label": "03. Future Stack", "sublabel": "SQL, Power BI + Python, Airflow, cloud storage", "color": "green" }
+  ]
+}
+```
 
 ### Module 01 — Phase 4 — Full Automation
 *Collect, clean, calculate, save, schedule*

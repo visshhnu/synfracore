@@ -7,17 +7,36 @@
 
 ---
 
+**Before you start:** Excel fluency (formulas, pivot tables) is assumed — no prior programming experience is required. This page is the [MIS bridge path's](/academies/data/mis-overview/overview) hands-on Python entry point.
+
 ## What is Python for MIS?
 
 Python does not replace what you know — it automates what you already do. Every Monday your script can wake up, collect files from all teams, clean them, merge them, calculate everything, create the report, and email it to your manager — without you touching anything. Setup: download Python from python.org, check "Add Python to PATH", install VS Code editor.
 
-## Why Python for MIS?
+## Why This Exists (The Hook)
 
-Python basics mapped to Excel concepts you already know. A list is like a column. A dictionary is like one row with column names as keys. A loop is like dragging a formula down every row. If/else is exactly the Excel IF function. Functions are like named formulas you can reuse.
+Every Monday, an MIS professional reruns the same manual sequence — open five team files, VLOOKUP them together, drag the same formulas down, format the same report, email it — and every week carries the same risk of a copy-paste mistake or a missed file. Python exists to turn that repeated manual sequence into a script that runs the identical logic, correctly, every single time, without a human re-executing thirty clicks by hand.
+
+**Analogy** — Think of learning Python this way like learning to record a macro that never breaks, not learning an unrelated new skill. An Excel macro records clicks, but breaks the moment a column shifts or a file's layout changes slightly. A Python script expresses the same "match this, sum that, filter this" logic as code that references data by name and structure, not by fragile cell position — a list is a column, a dictionary is a row, a loop is dragging a formula down. Same underlying logic you already have; a more durable way of expressing it.
+
+**Try it (2 minutes)** — Reason through why the guide maps a Python `dictionary` to "one row with column names as keys" specifically, without looking anything up: in Excel, a single employee's row has cells under column headers — Name, Department, Salary. A Python dictionary `{"name": "Ravi", "department": "Sales", "salary": 75000}` uses those same column names as keys to look up each value. If you already know that `employee["salary"]` pulls out 75000 the way clicking the Salary cell in that row would, what's actually new here — the underlying idea, or just the syntax for expressing it?
 
 ---
 
 ## Learning Modules
+
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "01. Why Python for MIS?", "sublabel": "What it automates, install Python + VS Code", "color": "blue" },
+    { "label": "02. Python Basics for MIS", "sublabel": "Variables, lists, dictionaries, loops, if/else, functions", "color": "purple" },
+    { "label": "03. Pandas — Excel in Python", "sublabel": "Read, filter, sort, group Excel files", "color": "amber" },
+    { "label": "04. Full Automation Script", "sublabel": "Weekly consolidation, scheduled with Task Scheduler", "color": "green" },
+    { "label": "05. Dashboards with Plotly", "sublabel": "Interactive browser reports -- no Power BI needed", "color": "red" }
+  ]
+}
+```
 
 ### Module 01 — Why Python for MIS?
 *What it replaces, what it automates*
