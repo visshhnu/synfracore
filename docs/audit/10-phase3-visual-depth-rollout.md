@@ -104,7 +104,7 @@ each sub-academy.
 | 8 | Data (Analytics & BI) | 14 | **13/14 done, deployed live** (2026-08-28) — see table below | dbt/airflow/spark are generic-template stubs, flagged and deferred (need real content authoring, not just visuals) — 13/14 otherwise self-mapped, no aliasing |
 | 9 | Education | 12 | **12/12 overview.md pass done** (2026-08-28) — see table below | Deeper intermediate/advanced-tier stub gap known for os/dbms/cn/system-design/placement-prep — still open, unrelated to this overview.md pass; all 12 overview.md files confirmed real content, no aliasing |
 | 10 | Essentials | 10 | **10/10 done** (2026-08-28) — see table below | **Live content bug found + fixed**: mental-health/overview.md was serving Sleep content, not mental-health content — rewritten from scratch |
-| 11 | Law | 9 (corrected from an earlier unverified estimate of 12) | Batch 1 done (2026-08-28, 6/9) — see table below | None found — all self-mapped, no aliasing |
+| 11 | Law | 9 (corrected from an earlier unverified estimate of 12) | **9/9 done** (2026-08-28) — see table below | None found — all self-mapped, no aliasing |
 | 12+ | Finance, Agriculture, Telecom, Economics, Aerospace, VLSI | 7/7/7/8/8 | Not started | None known |
 
 ## DevOps — technology-level tracking (41 technologies)
@@ -1087,9 +1087,9 @@ confirmed count is **9**, corrected here and in that table.
 | aibe-bar-exam | law/aibe-bar-exam/overview | None | Prerequisite/hook/analogy/try-it added; verification-caveat note (fees/passing marks); enrollment-process → `flow` FlowDiagram (5 steps) | Done (batch 1) |
 | judiciary-exams | law/judiciary-exams/overview | None | Prerequisite/hook/analogy/try-it added; verification-caveat note (state-varying salary/pattern); three-tier-entry → `stack` FlowDiagram | Done (batch 1) |
 | consumer-protection | law/consumer-protection/overview | None | Prerequisite/hook/analogy/try-it added; three-tier-redressal → `stack` FlowDiagram | Done (batch 1) |
-| civil-law-procedure | law/civil-law-procedure/overview | Not yet assessed | — | Pending (batch 2) |
-| legal-career-growth | law/legal-career-growth/overview | Not yet assessed | — | Pending (batch 2) |
-| law | law/law/overview | Not yet assessed | — | Pending (batch 2) |
+| civil-law-procedure | law/civil-law-procedure/overview | None | Prerequisite/hook/analogy/try-it added; study-approach → `flow` FlowDiagram (3 steps) | Done (batch 2) |
+| legal-career-growth | law/legal-career-growth/overview | None | Prerequisite/hook/analogy/try-it added; 3-stage career arc → `flow` FlowDiagram | Done (batch 2) |
+| law | law/law/overview | None | Prerequisite/hook/analogy/try-it added; verification-caveat note added; 3-module overview → `flow` FlowDiagram | Done (batch 2) |
 
 **Batch 1 notes (2026-08-28):** All 9 technologies in `lib/data/academies.ts`'s
 Law navigation confirmed self-mapped in the content registry (`law/*`), no
@@ -1112,5 +1112,29 @@ successfully; `npm run predeploy` exit 0 (new `empty_code_block` WARN-only
 flags confirmed as the known adjacent-fence pattern). One native-WSL build
 + live Playwright verification cycle run for all 6 pages: all render with
 no crashes, diagrams present (3-5 per page), Academies dropdown works.
-Not yet deployed — awaiting explicit deploy instruction. 3 technologies
-remain (civil-law-procedure, legal-career-growth, law) for batch 2.
+Deployed and live-verified (2026-08-28): all 6 pages 200, diagrams render
+in both themes, Academies dropdown working, `npm run predeploy` exit 0.
+
+**Batch 2 notes (2026-08-28):** Read the remaining 3 files
+(civil-law-procedure, legal-career-growth, law) before editing — confirmed
+all genuinely dense, real content, no stubs. Completed full standard-rubric
+treatment on all 3, adding a verification-caveat note to `law`
+(India employment-law/DPDP Act specifics). Fence-balance manually verified
+per-file (all balanced); batch-wide `validate-content-fences.mjs` clean
+(2579 files); all 3 new `flow` JSON blocks parsed successfully; `npm run
+predeploy` exit 0 (no new WARN-only flags even). One native-WSL build +
+live Playwright verification cycle run for all 3 pages: all render with no
+crashes, diagrams present (3 per page), Academies dropdown works. Not yet
+deployed — awaiting explicit deploy instruction.
+
+## Law academy — COMPLETE, 9/9 (2026-08-28)
+
+All 9 technologies (legal-fundamentals, constitutional-law, clat-prep,
+aibe-bar-exam, judiciary-exams, consumer-protection — batch 1;
+civil-law-procedure, legal-career-growth, law — batch 2) now have real
+depth-rubric + visual treatment. Confirmed and applied the standard rubric
+variant throughout (not the lighter exam-prep variant, which is scoped only
+to the exams/central-exams/state-psc/professional-certs cluster) — see the
+batch 1 notes above for the full reasoning. The technology count was
+corrected from an earlier unverified estimate of 12 to the actual,
+confirmed 9.
