@@ -7,9 +7,22 @@
 
 ---
 
+**Before you start:** basic comfort reading code in at least one language and a general sense of what CI/CD is are assumed. No prior static-analysis-tool experience is needed.
+
 ## What is SonarQube?
 
-SonarQube (from SonarSource) is a static code analysis platform that inspects source code — without running it — to find bugs, vulnerabilities, and "code smells" (maintainability issues that aren't strictly bugs, but make code harder to safely change over time). It supports dozens of languages, and results are tracked continuously as code evolves, not just as a one-time report.
+**Static analysis** means examining source code without actually running it — looking at the code's structure and patterns directly, rather than observing behavior at runtime the way testing does. SonarQube (from SonarSource) is a static code analysis platform that inspects source code to find bugs, vulnerabilities, and "code smells" (maintainability issues that aren't strictly bugs, but make code harder to safely change over time). It supports dozens of languages, and results are tracked continuously as code evolves, not just as a one-time report.
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Bug", "description": "Likely to cause incorrect behavior", "color": "red" },
+    { "title": "Vulnerability", "description": "A security weakness with known exploitation risk", "color": "amber" },
+    { "title": "Code Smell", "description": "Not wrong per se, but riskier/slower to safely change", "color": "blue" },
+    { "title": "Security Hotspot", "description": "Security-sensitive pattern — needs human review to judge if it's actually exploitable", "color": "purple" }
+  ]
+}
+```
 
 ## Why SonarQube?
 

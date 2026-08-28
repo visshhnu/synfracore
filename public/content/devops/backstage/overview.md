@@ -7,9 +7,22 @@
 
 ---
 
+**Before you start:** basic familiarity with what CI/CD and a service/microservice are is assumed. No prior developer-portal experience is needed.
+
 ## What is Backstage?
 
 Backstage (originally built at Spotify, donated to the CNCF) is an open-source framework for building an **Internal Developer Portal (IDP)** — a single, unified web UI where an organization's engineers can discover every service that exists, see who owns what, scaffold new projects from approved templates, and find documentation, all in one place instead of scattered across wikis, spreadsheets, and tribal knowledge.
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Software Catalog", "description": "Structured source of truth — every service, its owner, its relationships", "color": "blue" },
+    { "title": "Software Templates", "description": "Self-service scaffolding — new projects generated from the golden path", "color": "purple" },
+    { "title": "TechDocs", "description": "Docs-as-code — Markdown in the repo, rendered in the same portal", "color": "green" },
+    { "title": "Plugins", "description": "Extends the portal — CI/CD status, cost visibility, custom internal tools", "color": "amber" }
+  ]
+}
+```
 
 ## Why Backstage?
 

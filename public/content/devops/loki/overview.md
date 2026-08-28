@@ -7,6 +7,8 @@
 
 ---
 
+**Before you start:** this page assumes familiarity with Prometheus and Grafana (metrics, PromQL, dashboards) — Loki is explained largely by direct comparison to them. No prior log-aggregation-tool experience is needed.
+
 ## What is Loki + OpenTelemetry?
 
 Loki indexes only labels (like Prometheus), not log content. This makes it much cheaper than ELK for high-volume logs. Loki is the native log backend for Grafana — no extra UI needed. LogQL is similar to PromQL. Promtail is the log collection agent (like Filebeat for ELK). Choose Loki when you already use Prometheus+Grafana and want to keep your stack consistent.
@@ -14,6 +16,16 @@ Loki indexes only labels (like Prometheus), not log content. This makes it much 
 ## Why Loki + OpenTelemetry?
 
 Metrics answer "what is happening now" — CPU at 90%, error rate 2%. Logs answer "what happened and when" — show the actual error message. Traces answer "why is it slow" — show the full request path across services with timing. In Grafana you can link from a metric spike → to the logs at that timestamp → to the trace of that request. This correlation is the power of the unified stack.
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Metrics", "description": "WHAT is happening now — CPU at 90%, error rate 2%. Prometheus", "color": "blue" },
+    { "title": "Logs", "description": "WHAT happened and when — the actual error message. Loki/ELK", "color": "green" },
+    { "title": "Traces", "description": "WHY it's slow — full request path across services, with timing. Tempo/Jaeger", "color": "purple" }
+  ]
+}
+```
 
 ---
 
@@ -163,7 +175,7 @@ Metrics answer "what is happening now" — CPU at 90%, error rate 2%. Logs answe
 # In Loki data source settings:
 # Derived Fields:
 #   - Name: TraceID
-#   - Regex: traceID=(\\w+)
+#   - Regex: traceID=(\w+)
 #   - URL: http://tempo:3000/explore?traceId=${__value.raw}
 #   This turns trace IDs in logs into clickable links to Tempo
 
@@ -218,7 +230,7 @@ exporters:
     endpoint: http://tempo:4317
   datadog:                    # OR: everything → Datadog
     api:
-      key: \\${DATADOG_API_KEY}
+      key: ${DATADOG_API_KEY}
 
 service:
   pipelines:

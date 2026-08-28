@@ -7,9 +7,22 @@
 
 ---
 
+**Before you start:** this page assumes familiarity with the concepts covered by this platform's Prometheus/Grafana/ELK pages (metrics, dashboards, alerting, log aggregation) — Datadog is a managed platform covering the same ground, so it's explained largely by comparison to those. No prior Datadog-specific experience is needed.
+
 ## What is Datadog?
 
 Datadog is a managed observability SaaS — Prometheus+Grafana+ELK+APM+Synthetics in one platform. The Datadog Agent collects metrics, logs, and traces from hosts and containers. APM auto-instruments your code with distributed tracing. Key advantage: zero infrastructure to manage, integrations for everything, AI-powered anomaly detection (Watchdog). Key cost: expensive at scale.
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Prometheus PromQL", "description": "→ Datadog Query Language. Same concepts, different syntax", "color": "blue" },
+    { "title": "Grafana Dashboards", "description": "→ Datadog Dashboards. Panels/widgets and template variables map directly", "color": "purple" },
+    { "title": "AlertManager", "description": "→ Datadog Monitors. Rules, routing, and silences all have direct equivalents", "color": "amber" },
+    { "title": "ELK / Kibana", "description": "→ Datadog Log Explorer. KQL-style search, same core idea", "color": "green" }
+  ]
+}
+```
 
 ## Why Datadog?
 
@@ -36,15 +49,15 @@ Datadog is a managed observability SaaS — Prometheus+Grafana+ELK+APM+Synthetic
 helm repo add datadog https://helm.datadoghq.com
 helm repo update
 
-helm install datadog datadog/datadog \\\\
-  --namespace monitoring \\\\
-  --set datadog.apiKey=\\${DD_API_KEY} \\\\
-  --set datadog.clusterName=prod-aks \\\\
-  --set datadog.logs.enabled=true \\\\
-  --set datadog.logs.containerCollectAll=true \\\\
-  --set datadog.apm.portEnabled=true \\\\
-  --set datadog.processAgent.enabled=true \\\\
-  --set clusterAgent.enabled=true \\\\
+helm install datadog datadog/datadog \
+  --namespace monitoring \
+  --set datadog.apiKey=${DD_API_KEY} \
+  --set datadog.clusterName=prod-aks \
+  --set datadog.logs.enabled=true \
+  --set datadog.logs.containerCollectAll=true \
+  --set datadog.apm.portEnabled=true \
+  --set datadog.processAgent.enabled=true \
+  --set clusterAgent.enabled=true \
   --set clusterAgent.metricsProvider.enabled=true
 
 # Verify agent is running
@@ -82,9 +95,9 @@ avg:kubernetes.cpu.usage.total{cluster_name:prod-aks}
 
 # Datadog Monitor (alert) — equivalent of PrometheusRule
 # Via API:
-curl -X POST "https://api.datadoghq.com/api/v1/monitor" \\\\
-  -H "DD-API-KEY: \\${DD_API_KEY}" \\\\
-  -H "DD-APPLICATION-KEY: \\${DD_APP_KEY}" \\\\
+curl -X POST "https://api.datadoghq.com/api/v1/monitor" \
+  -H "DD-API-KEY: ${DD_API_KEY}" \
+  -H "DD-APPLICATION-KEY: ${DD_APP_KEY}" \
   -d '{
     "type": "query alert",
     "query": "avg(last_5m):sum:trace.http.request.errors{env:production}.as_rate() / sum:trace.http.request.hits{env:production}.as_rate() > 0.01",

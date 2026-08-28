@@ -7,6 +7,8 @@
 
 ---
 
+**Before you start:** basic Linux/CLI comfort and a general sense of what a secret (password, API key, certificate) is used for are assumed. No prior secrets-management-tool experience is needed.
+
 ## What is Vault?
 
 Vault is HashiCorp's secrets management tool — it centrally stores, tightly controls access to, and can dynamically generate sensitive data (passwords, API keys, certificates, encryption keys) rather than leaving secrets scattered across config files, environment variables, and Git repositories. Every secret access is authenticated, authorized, and audit-logged.
@@ -14,6 +16,28 @@ Vault is HashiCorp's secrets management tool — it centrally stores, tightly co
 ## Why Vault?
 
 Static secrets (a database password hardcoded in a config file, unrotated for years) are a real, common attack surface — anyone with access to that config file or its Git history has that credential indefinitely. Vault's core value is replacing static, long-lived secrets with **dynamic, short-lived, automatically-revoked** ones wherever possible: a database credential generated on-demand, valid for an hour, and automatically revoked afterward is a fundamentally smaller attack surface than one hardcoded and never rotated.
+
+```flow
+{
+  "title": "A Request, End to End",
+  "layout": "flow",
+  "steps": [
+    { "label": "Client authenticates", "sublabel": "Token, AppRole, Kubernetes auth...", "color": "blue" },
+    { "label": "Vault issues a token", "sublabel": "Scoped to the auth method's policies", "color": "purple" },
+    { "label": "Secrets engine responds", "sublabel": "KV, database, PKI — reads or generates the secret", "color": "green" }
+  ]
+}
+```
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "KV Engine", "description": "Static secrets — you write it, Vault stores it, you read it back unchanged", "color": "blue" },
+    { "title": "Database Engine", "description": "Genuinely dynamic — generates a brand-new, short-lived DB credential per request", "color": "green" },
+    { "title": "PKI Engine", "description": "Issues short-lived TLS certificates on demand", "color": "purple" }
+  ]
+}
+```
 
 ---
 

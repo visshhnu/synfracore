@@ -7,9 +7,22 @@
 
 ---
 
+**Before you start:** basic Docker/container comfort and a general sense of what a CVE (a publicly known software vulnerability) is are assumed. No prior security-scanning-tool experience is needed.
+
 ## What is Trivy?
 
 Trivy (from Aqua Security) is an open-source scanner covering a genuinely wide range of security-relevant targets from one tool: container images, filesystems, Git repositories, Kubernetes clusters, and Infrastructure-as-Code configuration (Terraform, CloudFormation, Kubernetes manifests, Dockerfiles). It detects known vulnerabilities (CVEs), misconfigurations, exposed secrets, and license issues.
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Image / FS / Repo", "description": "Known CVEs in installed OS packages and language dependencies", "color": "blue" },
+    { "title": "Config (IaC)", "description": "Misconfigurations in Terraform, Kubernetes manifests, Dockerfiles, CloudFormation", "color": "purple" },
+    { "title": "Secrets", "description": "Accidentally-committed credentials, API keys, private keys", "color": "red" },
+    { "title": "SBOM / License", "description": "Full component inventory (CycloneDX/SPDX) and license compliance", "color": "green" }
+  ]
+}
+```
 
 ## Why Trivy?
 

@@ -198,6 +198,41 @@ validation, and full live Playwright dark/light verification all clean.
 | kafka | **content done (batch 5)** — ConceptBoxGrid (Kafka vs RabbitMQ) | self-mapped; live-verified ✅ |
 | platform-engineering | **content done (batch 5)** — added prerequisite line (previously missing), ConceptBoxGrid (DevOps vs SRE vs Platform Engineering) | self-mapped; live-verified ✅ |
 
+**Batch 6** (2026-08-27): vault, trivy, sonarqube, backstage, datadog, loki —
+overview.md only. Status: **done** — content, predeploy/typecheck (including
+the new automated fence check), JSON block validation, and full live
+Playwright dark/light verification all clean.
+
+As predicted, vault/trivy/sonarqube (built earlier this session, pre-Phase-3)
+and backstage/datadog/loki (also pre-existing, high quality) needed only a
+prerequisite-line + visuals pass, not a rewrite — this batch moved noticeably
+faster than batches needing real depth-rubric work.
+
+| Technology | overview.md | Notes |
+|---|---|---|
+| vault | **content done (batch 6)** — added prerequisite line (previously missing), FlowDiagram (auth→token→secrets engine), ConceptBoxGrid (KV/database/PKI engines) | self-mapped; live-verified ✅ |
+| trivy | **content done (batch 6)** — added prerequisite line (previously missing), ConceptBoxGrid (4 scan types) | self-mapped; live-verified ✅ |
+| sonarqube | **content done (batch 6)** — added prerequisite line + static-analysis grounding (previously missing), ConceptBoxGrid (4 issue types) | self-mapped; live-verified ✅ |
+| backstage | **content done (batch 6)** — added prerequisite line (previously missing), ConceptBoxGrid (Catalog/Templates/TechDocs/Plugins) | self-mapped; live-verified ✅ |
+| datadog | **content done (batch 6)** — added prerequisite line cross-referencing Prometheus/Grafana/ELK (previously missing), ConceptBoxGrid (tool-mapping grid). Also fixed a real pre-existing defect: stray quadruple-backslash (`\\\\`) artifacts in bash line-continuations that would break if copy-pasted — should be single `\` | self-mapped; live-verified ✅ |
+| loki | **content done (batch 6)** — added prerequisite line cross-referencing Prometheus/Grafana (previously missing), ConceptBoxGrid (3 observability pillars). Also fixed the same double-backslash artifact class (a YAML value and a regex pattern) | self-mapped; live-verified ✅ |
+
+**Flagged, not fixed — backlog item found during batch 6:** the same
+double-backslash artifact (`\\` where a single `\` was intended, in bash
+line-continuations and YAML/regex values) exists in at least 18 content files
+across multiple academies, most not touched this session:
+`cloud/azure-devops/intermediate.md`, `cloud/multi-cloud/overview.md`,
+`data/python-mis/overview.md`, `devops/argo-rollouts/overview.md`,
+`devops/ha-dr/overview.md`, `devops/gitlab-ci/fundamentals.md`,
+`devops/gitlab-ci/troubleshooting.md`, `security/devsecops/overview.md`,
+`security/ethical-hacking/intermediate.md`, `security/soc/certification.md`,
+and others (`grep -rl '\\\\\\\\' public/content/` finds the full current
+list). Likely the same generation/edit pass that caused the literal-`\n`
+bug found in Part 2. Not fixed now — out of scope for this batch, flagged
+for a dedicated cleanup pass. Lower severity than the fence/newline bugs
+(doesn't break rendering, just makes example commands wrong if copy-pasted
+verbatim).
+
 **Remaining DevOps technologies, not yet started:**
 
 | Technology | overview.md | fundamentals.md | intermediate.md | Notes |
@@ -208,16 +243,8 @@ validation, and full live Playwright dark/light verification all clean.
 | chaos-engineering | not started | not started | not started | |
 | capacity-planning | not started | not started | not started | |
 | automation | not started | not started | not started | |
-| kafka | not started | not started | not started | |
-| platform-engineering | not started | not started | not started | |
-| backstage | not started | not started | not started | built with real content this session (pre-Phase-3) — likely faster batch, check quality before assuming a full rewrite is needed |
-| datadog | not started | not started | not started | |
-| loki | not started | not started | not started | |
 | splunk | not started | not started | not started | |
 | openshift | not started | not started | not started | |
-| vault | not started | not started | not started | built with real content this session (pre-Phase-3) — likely faster batch, check quality before assuming a full rewrite is needed |
-| trivy | not started | not started | not started | built with real content this session (pre-Phase-3) — likely faster batch, check quality before assuming a full rewrite is needed |
-| sonarqube | not started | not started | not started | built with real content this session (pre-Phase-3) — likely faster batch, check quality before assuming a full rewrite is needed |
 
 Other DevOps tiers (advanced.md, roadmap.md, etc.) not yet tracked
 per-technology — will be added to this table if/when the depth-rubric+visual
