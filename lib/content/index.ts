@@ -1715,7 +1715,7 @@ const contentRegistry = new Map<string, string>([
   ["exams/gate-ece/fundamentals","exams/gate-ece/fundamentals"],
   ["exams/gate-ece/intermediate","exams/gate-ece/intermediate"],
   ["exams/gate-ece/interview","exams/gate-ece/interview"],
-  ["exams/gate-ece/overview","exams/gate-cse/overview"],
+  ["exams/gate-ece/overview","exams/gate-ece/overview"],
   ["exams/gate-ece/projects","exams/gate-ece/projects"],
   ["exams/gate-ece/roadmap","exams/gate-ece/roadmap"],
   ["exams/gate/fundamentals","exams/gate/fundamentals"],

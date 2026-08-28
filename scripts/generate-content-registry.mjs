@@ -136,6 +136,14 @@ const STALE_ALIAS_FIX_KEYS = new Set([
   // in house style) while back in Loki's content for its Troubleshooting
   // tab. Unshadowing now that the direct file exists.
   "devops/loki/intermediate",
+  // Found 2026-08-28 during Phase 3 Exams-cluster batch 3 prep: exams/gate-ece/overview
+  // was aliased to exams/gate-cse/overview -- a wrong-technology mismatch (ECE
+  // students were served CSE overview content), not a thin/duplicate case. A real,
+  // complete, on-topic exams/gate-ece/overview.md exists on disk; every other
+  // gate-ece/* tier was already correctly self-mapped -- only this one key was
+  // stale. Confirmed live in production before fixing (curl showed "GATE CSE
+  // Overview" rendering at the gate-ece URL).
+  "exams/gate-ece/overview",
 ]);
 
 const registry = new Map();
