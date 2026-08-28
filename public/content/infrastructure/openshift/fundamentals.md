@@ -217,3 +217,4 @@ spec:
     max:              # maximum allowed
       cpu: "4"
       memory: 4Gi
+```

@@ -39,7 +39,13 @@ docker exec -it cassandra cqlsh
 
 
 
-```cql\nCREATE KEYSPACE myapp WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};\nUSE myapp;\nCREATE TABLE users (id UUID PRIMARY KEY, email TEXT, name TEXT, created_at TIMESTAMP);\nINSERT INTO users (id, email, name) VALUES (uuid(), 'alice@example.com', 'Alice');\nSELECT * FROM users;\n```
+```cql
+CREATE KEYSPACE myapp WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+USE myapp;
+CREATE TABLE users (id UUID PRIMARY KEY, email TEXT, name TEXT, created_at TIMESTAMP);
+INSERT INTO users (id, email, name) VALUES (uuid(), 'alice@example.com', 'Alice');
+SELECT * FROM users;
+```
 
 ## Key Terminology
 

@@ -35,7 +35,14 @@ docker exec -it mysql mysql -uroot -psecret
 
 ## First Commands
 
-```sql\nSHOW DATABASES;\nCREATE DATABASE myapp;\nUSE myapp;\nCREATE TABLE users (id INT AUTO_INCREMENT PRIMARY KEY, email VARCHAR(255) UNIQUE NOT NULL, name VARCHAR(100), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);\nINSERT INTO users (email, name) VALUES ('alice@example.com', 'Alice');\nSELECT * FROM users;\n```
+```sql
+SHOW DATABASES;
+CREATE DATABASE myapp;
+USE myapp;
+CREATE TABLE users (id INT AUTO_INCREMENT PRIMARY KEY, email VARCHAR(255) UNIQUE NOT NULL, name VARCHAR(100), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+INSERT INTO users (email, name) VALUES ('alice@example.com', 'Alice');
+SELECT * FROM users;
+```
 
 
 

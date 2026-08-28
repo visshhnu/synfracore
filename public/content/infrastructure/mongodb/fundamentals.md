@@ -37,7 +37,14 @@ docker exec -it mongodb mongosh
 
 
 
-```javascript\nuse myapp\ndb.users.insertOne({name: "Alice", email: "alice@example.com", createdAt: new Date()})\ndb.users.find({})\ndb.users.find({name: "Alice"})\ndb.users.updateOne({name: "Alice"}, {$set: {name: "Alice Smith"}})\ndb.users.deleteOne({name: "Alice Smith"})\n```
+```javascript
+use myapp
+db.users.insertOne({name: "Alice", email: "alice@example.com", createdAt: new Date()})
+db.users.find({})
+db.users.find({name: "Alice"})
+db.users.updateOne({name: "Alice"}, {$set: {name: "Alice Smith"}})
+db.users.deleteOne({name: "Alice Smith"})
+```
 
 
 

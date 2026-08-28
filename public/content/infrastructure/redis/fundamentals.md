@@ -36,7 +36,18 @@ docker exec -it redis redis-cli
 ## First Commands
 
 
-```bash\nSET name "Alice"\nGET name\nSET counter 0\nINCR counter\nEXPIRE name 3600\nTTL name\nHSET user:1 name "Alice" email "alice@example.com"\nHGETALL user:1\nLPUSH queue "task1" "task2"\nLPOP queue\n```
+```bash
+SET name "Alice"
+GET name
+SET counter 0
+INCR counter
+EXPIRE name 3600
+TTL name
+HSET user:1 name "Alice" email "alice@example.com"
+HGETALL user:1
+LPUSH queue "task1" "task2"
+LPOP queue
+```
 
 
 

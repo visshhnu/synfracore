@@ -38,7 +38,17 @@ docker exec -it postgres psql -U postgres
 
 
 
-```sql\nCREATE TABLE users (\n    id BIGSERIAL PRIMARY KEY,\n    email TEXT UNIQUE NOT NULL,\n    name TEXT NOT NULL,\n    created_at TIMESTAMPTZ DEFAULT NOW()\n);\nINSERT INTO users (email, name) VALUES ('alice@example.com', 'Alice');\nSELECT * FROM users;\n\\d users\n```
+```sql
+CREATE TABLE users (
+    id BIGSERIAL PRIMARY KEY,
+    email TEXT UNIQUE NOT NULL,
+    name TEXT NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+INSERT INTO users (email, name) VALUES ('alice@example.com', 'Alice');
+SELECT * FROM users;
+\d users
+```
 
 
 ## Key Terminology

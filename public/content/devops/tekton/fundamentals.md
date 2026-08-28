@@ -183,4 +183,5 @@ params:
 - name: REPO_URL
 value: $(tt.params.git-repo-url)
 - name: IMAGE_TAG
-val
+value: $(tt.params.git-revision)
+```
