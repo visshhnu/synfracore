@@ -1,12 +1,33 @@
 # Union Budget & Economic Survey — Analysis Guide
 
+**Before you start:** [Macroeconomics](/academies/economics/macro-economics/overview) (fiscal policy, GDP basics) is assumed. *(Note: nearly every specific figure below — deficit percentages, GDP growth rates, capex amounts, inflation numbers — reflects a specific fiscal year's actuals and is superseded by each year's new Budget and Economic Survey; treat these as illustrative examples of the FRAMEWORK, not current facts, and check the latest official Budget documents for current figures.)*
+
 ## What is the Union Budget?
 
 The Union Budget is the annual financial statement of the Government of India (Article 112 of the Constitution). Presented on **February 1** each year by the Finance Minister.
 
+## Why This Exists (The Hook)
+
+A government, like any large organization, has to decide how much it will spend, where the money comes from, and how big a gap it's willing to run between the two — the Union Budget is that decision made explicit and public, once a year, for the entire country. Understanding its structure (receipts vs. expenditure, revenue vs. capital, the deficit measures that summarize the gap) is what turns budget headlines from abstract numbers into an actual read on government priorities and fiscal discipline.
+
+**Analogy** — Think of the Budget's revenue/capital split like a household's distinction between grocery spending and a home renovation. Grocery spending (revenue expenditure — salaries, subsidies, interest payments) is recurring consumption that doesn't build anything lasting. A home renovation (capital expenditure — roads, railways, infrastructure) creates a lasting asset that keeps providing value after the spending happens. A household that borrows heavily just to cover groceries every month is in a fundamentally worse position than one borrowing for a renovation — which is exactly why economists watch the Revenue Deficit (borrowing for consumption) as a more worrying signal than Capital Expenditure (borrowing for asset creation).
+
+**Try it (2 minutes)** — Reason through why the Capex multiplier (₹1 of government capex generating ₹2-3 of GDP growth) makes capital expenditure a preferred lever for stimulating growth, without looking anything up: government spending on a road doesn't just pay the construction workers directly — it also creates demand for cement, steel, and equipment (further economic activity), and once built, the road itself makes future economic activity (trade, commuting, business) more efficient for years afterward. If ₹1 of revenue expenditure (like a one-time subsidy) mostly just gets spent once and doesn't create a lasting asset, why would capital expenditure's combination of an immediate multiplier effect AND a lasting productive asset make it a structurally more growth-generating way to spend the same rupee?
+
 ---
 
 ## Budget Structure
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Capital Receipts", "description": "One-time, create liabilities -- borrowings, disinvestment", "color": "blue" },
+    { "title": "Revenue Receipts", "description": "Regular income, no liability -- tax + non-tax revenue", "color": "purple" },
+    { "title": "Capital Expenditure", "description": "Creates assets -- infrastructure, defence equipment", "color": "green" },
+    { "title": "Revenue Expenditure", "description": "Regular, recurring -- interest, subsidies, salaries, pensions", "color": "amber" }
+  ]
+}
+```
 
 ### Receipts (Income)
 ```

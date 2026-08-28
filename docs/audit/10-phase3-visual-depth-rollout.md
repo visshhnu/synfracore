@@ -108,7 +108,8 @@ each sub-academy.
 | 12 | Finance | 11 (corrected from a stated estimate of 12) | **11/11 done** (2026-08-28) — see table below | None found — all self-mapped, no aliasing |
 | 13 | Agriculture | 6 (corrected from a stated estimate of 7) | **6/6 done** (2026-08-28) — see table below | None found — all self-mapped, no aliasing |
 | 14 | Telecom | 6 (corrected from a stated estimate of 7) | **6/6 overview.md done** (2026-08-28) — see table below | telco's Fundamentals/Intermediate/Advanced tiers still mismatched (vTeMIP/UOC/UTM content), flagged as open follow-up; otherwise self-mapped, no aliasing |
-| 15+ | Economics, Aerospace, VLSI | 7/8/8 | Not started | None known |
+| 15 | Economics | 6 (corrected from a stated estimate of 7) | **6/6 done** (2026-08-28) — see table below | None found — all self-mapped, no aliasing |
+| 16+ | Aerospace, VLSI | 8/8 | Not started | None known |
 
 ## DevOps — technology-level tracking (41 technologies)
 
@@ -1322,7 +1323,7 @@ pages: all render with no crashes, diagrams present (2-7 per page), telco
 explicitly confirmed NOT showing the old vTeMIP content, Academies
 dropdown works. Not yet deployed — awaiting explicit deploy instruction.
 
-## Telecom academy — Tier-0 overview.md pass COMPLETE, 6/6 (2026-08-28)
+## Telecom academy — Tier-0 overview.md pass COMPLETE, 6/6, deployed live (2026-08-28)
 
 All 6 technologies now have real depth-rubric + visual treatment at the
 overview.md tier, completed in a single batch since the academy only has 6
@@ -1330,4 +1331,53 @@ technologies total (corrected from a stated estimate of 7). **Open
 follow-up:** telco's Fundamentals/Intermediate/Advanced tiers still cover
 a mismatched topic (Ericsson vTeMIP/UOC/UTM instead of industry overview)
 and need their own content-authoring pass — not addressed in this batch,
-flagged above for future work.
+flagged above for future work. Deployed and live-verified (2026-08-28) —
+telco's fix specifically confirmed live via curl before other work
+proceeded.
+
+## Economics — technology-level tracking (6 technologies)
+
+Note: the user's stated estimate of 7 technologies for Economics was
+corrected during a live registry check — the actual, confirmed count is
+**6**, corrected here and in the "Academy rollout order" table.
+
+| Technology | Registry key | Rubric status before | Work done | Status |
+|---|---|---|---|---|
+| micro-economics | economics/micro-economics/overview | Informal hook/prerequisite prose already present (same Finance/Agriculture-batch-style pattern), no formal rubric headers | Formalized into "Before you start"/hook/analogy/try-it; core-concepts ConceptBoxGrid (4 boxes) | Done |
+| macro-economics | economics/macro-economics/overview | Same informal-prose pattern | Formalized rubric headers; core-concepts ConceptBoxGrid (4 boxes) | Done |
+| indian-economy | economics/indian-economy/overview | Same informal-prose pattern | Formalized rubric headers; LPG-reforms ConceptBoxGrid (3 boxes) | Done |
+| international-trade | economics/international-trade/overview | Same informal-prose pattern | Formalized rubric headers; core-concepts ConceptBoxGrid (4 boxes) | Done |
+| budget-analysis | economics/budget-analysis/overview | None (dense reference content, heavy volatile figures) | Prerequisite/hook/analogy/try-it added; verification-caveat note (fiscal-year figures superseded annually); budget-structure ConceptBoxGrid (4 boxes) | Done |
+| rbi-monetary-policy | economics/rbi-monetary-policy/overview | None (dense reference content, heavy volatile figures) | Prerequisite/hook/analogy/try-it added; verification-caveat note (rates/international figures change); transmission-mechanism → `flow` FlowDiagram (4 steps) | Done |
+
+**Notes (2026-08-28):** All 6 technologies in `lib/data/academies.ts`'s
+Economics navigation confirmed self-mapped in the content registry
+(`economics/*`), no aliasing risk — corrected the stated estimate of 7 to
+the actual 6, same discipline as Law/Finance/Agriculture/Telecom
+corrections. No content-scope-mismatch bugs found this time (unlike
+Essentials' mental-health and Telecom's telco). All 6 files read before
+editing; 4 (micro-economics, macro-economics, indian-economy,
+international-trade) shared the same informal-hook prose pattern seen
+repeatedly in this Phase 3 rollout — formalized without disturbing
+existing content. budget-analysis and rbi-monetary-policy were dense
+reference content carrying an unusually high density of specific,
+fiscal-year-bound figures (deficit percentages, GDP growth rates, rate
+levels, remittance amounts) — given full standard treatment plus
+explicit, prominent verification-caveat notes flagging that nearly every
+specific number is a point-in-time snapshot superseded by each year's new
+Budget/Economic Survey or RBI policy statement. Since Economics has only 6
+technologies total, this single batch completes the entire academy's
+Tier-0 pass. Fence-balance manually verified per-file (all balanced);
+batch-wide `validate-content-fences.mjs` clean (2579 files); all 6 new
+`flow`/`conceptgrid` JSON blocks parsed successfully; `npm run predeploy`
+exit 0 (rbi-monetary-policy's new `empty_code_block` WARN-only flag
+confirmed as the known adjacent-fence pattern). One native-WSL build +
+live Playwright verification cycle run for all 6 pages: all render with no
+crashes, diagrams present (3-4 per page), Academies dropdown works. Not
+yet deployed — awaiting explicit deploy instruction.
+
+## Economics academy — COMPLETE, 6/6 (2026-08-28)
+
+All 6 technologies now have real depth-rubric + visual treatment,
+completed in a single batch since the academy only has 6 technologies
+total (corrected from a stated estimate of 7).

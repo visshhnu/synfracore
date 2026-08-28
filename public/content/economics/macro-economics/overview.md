@@ -1,14 +1,31 @@
 # Macroeconomics — Overview
 
+**Before you start:** [Microeconomics](/academies/economics/micro-economics/overview) is assumed as background — this technology extends its demand/supply framework to economy-wide aggregates.
+
 ## What this technology covers
 
 Macroeconomics covers the study of the economy as a whole, rather than individual markets or decision-makers (Microeconomics' focus): national income accounting (GDP and its components), inflation and unemployment, and the two primary policy levers governments and central banks use to influence economic outcomes — fiscal policy (government spending and taxation) and monetary policy (central bank management of money supply and interest rates). This technology assumes Microeconomics' demand/supply framework as background, extending it from individual markets to economy-wide aggregate demand and supply.
 
-## Why it matters
+## Why This Exists (The Hook)
 
 Macroeconomic indicators — GDP growth, inflation rate, unemployment rate — are the headline numbers used to assess an economy's health and directly shape government policy decisions and public discourse. Understanding how these indicators are measured, what causes them to move, and how fiscal and monetary policy attempt to influence them is essential not just for economics exams but for interpreting real-world economic news and policy debates, including India's own RBI monetary policy announcements and Union Budget fiscal decisions (covered in more India-specific depth in Indian Economy).
 
+**Analogy** — Think of GDP, inflation, and unemployment like a doctor's vital signs (temperature, blood pressure, heart rate) for an entire economy, not a complete diagnosis on their own. A single vital sign reading doesn't tell a doctor everything, but tracking it over time and alongside other vital signs reveals whether the patient is healthy, worsening, or recovering. Macroeconomic indicators work the same way for a national economy — no single number is the whole picture, but tracking GDP growth, inflation, and unemployment together is how economists and policymakers assess overall economic health and decide whether intervention (fiscal or monetary policy) is needed.
+
+**Try it (2 minutes)** — Reason through why GDP's three measurement approaches (expenditure, income, output) should theoretically produce the same total figure, without looking anything up: every rupee spent on a final good or service (the expenditure approach) ultimately becomes someone's income — a wage, a profit, a rent payment (the income approach) — and every rupee of that spending corresponds to value actually created somewhere in the production process (the output approach). If money spent by one party always becomes income received by another party, and all of that spending traces back to something actually produced, why would counting the SAME underlying economic activity from three different vantage points (spending, earning, producing) necessarily arrive at the same total, rather than three genuinely different numbers?
+
 ## Core concepts — a quick map
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "GDP", "description": "Total value of goods and services produced in a period", "color": "blue" },
+    { "title": "Inflation", "description": "The rate at which the general price level rises over time", "color": "red" },
+    { "title": "Fiscal Policy", "description": "Government spending and taxation used to influence the economy", "color": "purple" },
+    { "title": "Monetary Policy", "description": "Central bank use of money supply and interest rates", "color": "green" }
+  ]
+}
+```
 
 | Concept | What it measures/does |
 |---|---|

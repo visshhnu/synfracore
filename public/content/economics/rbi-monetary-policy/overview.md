@@ -1,5 +1,11 @@
 # RBI Monetary Policy — Deep Dive
 
+**Before you start:** [Macroeconomics](/academies/economics/macro-economics/overview) (monetary policy basics, inflation) is assumed. *(Note: specific rate figures, remittance amounts, and quota percentages below reflect a point-in-time snapshot — RBI rates and international figures change regularly; verify current figures against RBI's latest monetary policy statement before relying on them.)*
+
+## Why This Exists (The Hook)
+
+A central bank's rate decisions can feel abstract — "RBI raised the repo rate by 25 basis points" means little without understanding the actual chain of consequences that follows: banks' own borrowing costs rise, they pass that through to loan rates, borrowing and spending slow down, and inflation (the original target) eases as a result. This page exists to make that transmission chain concrete rather than abstract — not just what RBI's tools are, but how each one actually reaches the real economy, and how long that reach takes.
+
 ## Monetary Policy Framework
 
 India follows a **flexible inflation targeting** framework since 2016 (amended RBI Act, Section 45ZA).
@@ -9,9 +15,25 @@ India follows a **flexible inflation targeting** framework since 2016 (amended R
 
 ---
 
+**Analogy** — Think of monetary policy transmission like adjusting a thermostat that controls the whole house through a chain of connected systems, not a single switch. Turning the thermostat down doesn't instantly cool every room — it signals the furnace, which changes the air handler's output, which gradually changes room temperature over time, with each link in that chain adding delay. RBI's repo rate is the "thermostat setting" — it doesn't instantly change what a borrower pays; it works through a chain (repo → bank funding cost → MCLR → actual lending rates → borrowing behavior → GDP/inflation) where each link takes real time to respond, which is exactly why monetary policy changes take months to fully show up in the real economy, not days.
+
+**Try it (2 minutes)** — Reason through why MCLR replaced the older "base rate" system specifically because it was "too slow to transmit RBI policy," without looking anything up: if RBI cuts the repo rate to stimulate borrowing and spending during a slowdown, but banks' own lending rates only adjust slowly and partially in response, what happens to how quickly RBI's intended stimulus actually reaches borrowers and the real economy? Given that monetary policy's effectiveness depends on this transmission actually happening at a reasonable speed, why would a benchmark (MCLR) explicitly designed for faster, more mechanical pass-through of RBI's rate changes be a meaningful structural improvement over one where banks had more discretion to delay adjusting their own rates?
+
 ## Monetary Policy Transmission
 
 How RBI rate changes affect the real economy:
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "RBI Cuts Repo Rate", "sublabel": "The policy lever", "color": "blue" },
+    { "label": "Banks Cut MCLR", "sublabel": "Bank funding cost benchmark adjusts", "color": "purple" },
+    { "label": "Lending Rates Fall", "sublabel": "Home, auto, corporate loans", "color": "amber" },
+    { "label": "Borrowing & Spending Rise", "sublabel": "GDP growth, employment increase", "color": "green" }
+  ]
+}
+```
 
 ```
 RBI ↓ REPO RATE
