@@ -7,9 +7,23 @@
 
 ---
 
+**Before you start:** solid Kubernetes fundamentals (Pods, CRDs, kubectl) are required — Tekton expresses its entire pipeline model as Kubernetes objects, so without that foundation the CRDs below won't make sense. A general idea of what CI/CD means helps too.
+
 ## What is Tekton?
 
-Tekton is a Kubernetes-native CI/CD framework — each pipeline step runs as a K8s pod. No central server to manage. CRD-based: Task (single step), Pipeline (chain of Tasks), PipelineRun (execution), Trigger (webhook event → PipelineRun). Deeply integrated with OpenShift Pipelines (Red Hat's distribution of Tekton). Best for teams running everything on Kubernetes.
+Most CI/CD tools (Jenkins, GitHub Actions) run pipeline steps on their own dedicated servers or runners, separate from your application infrastructure. Tekton instead runs every single pipeline step as an ordinary Kubernetes pod — there's no separate CI server at all, just more Kubernetes objects managed the same way as everything else in the cluster. CRD-based: Task (single step), Pipeline (chain of Tasks), PipelineRun (execution), Trigger (webhook event → PipelineRun). Deeply integrated with OpenShift Pipelines (Red Hat's distribution of Tekton). Best for teams running everything on Kubernetes.
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Task", "sublabel": "A single step — like a Job", "color": "blue" },
+    { "label": "Pipeline", "sublabel": "Chains Tasks — just a template, nothing runs yet", "color": "purple" },
+    { "label": "PipelineRun", "sublabel": "One execution — this is what creates real pods", "color": "green" },
+    { "label": "Trigger", "sublabel": "Webhook → creates a PipelineRun automatically", "color": "amber" }
+  ]
+}
+```
 
 ## Why Tekton?
 

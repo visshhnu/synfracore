@@ -7,6 +7,8 @@
 
 ---
 
+**Before you start:** this page assumes you already know what GitOps is (Git as the single source of truth for cluster state, a controller pulling and reconciling changes rather than a pipeline pushing them) — see the **ArgoCD** overview if that's new, since it covers the concept from scratch. No prior FluxCD-specific experience is needed.
+
 ## What is FluxCD?
 
 Both ArgoCD and FluxCD implement GitOps — cluster pulls desired state from Git. Key difference: ArgoCD has a rich UI for visualising application state; FluxCD has no UI — everything is CRDs managed via CLI or kubectl. FluxCD is preferred by platform teams who want pure CLI-driven GitOps with no web UI to maintain. FluxCD has better multi-tenancy support natively.
@@ -14,6 +16,18 @@ Both ArgoCD and FluxCD implement GitOps — cluster pulls desired state from Git
 ## Why FluxCD?
 
 FluxCD is built around CRDs. GitRepository tells Flux where to watch. Kustomization tells Flux what path to apply from that repo. HelmRelease manages Helm charts. The key GitOps loop: Git changes → source-controller detects → kustomize-controller applies → cluster matches Git.
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Git Changes", "color": "slate" },
+    { "label": "source-controller", "sublabel": "Detects the change", "color": "blue" },
+    { "label": "kustomize-controller", "sublabel": "Applies it", "color": "purple" },
+    { "label": "Cluster Matches Git", "color": "green" }
+  ]
+}
+```
 
 ---
 
@@ -31,6 +45,18 @@ Both ArgoCD and FluxCD implement GitOps — cluster pulls desired state from Git
 - ArgoCD: UI + CRDs — 🟢 Beginner
 - When to choose FluxCD over ArgoCD — 🟡 Intermediate
 - Flux components: source-controller, kustomize-controller — 🟡 Intermediate
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "source-controller", "description": "Watches Git repos, Helm repos, OCI registries", "color": "blue" },
+    { "title": "kustomize-controller", "description": "Applies Kustomization CRDs", "color": "purple" },
+    { "title": "helm-controller", "description": "Manages HelmRelease CRDs", "color": "green" },
+    { "title": "notification-controller", "description": "Sends alerts — Slack, Teams, webhook", "color": "amber" },
+    { "title": "image-automation-controller", "description": "Auto-updates image tags in Git", "color": "cyan" }
+  ]
+}
+```
 
 ```bash
 # FluxCD architecture components:

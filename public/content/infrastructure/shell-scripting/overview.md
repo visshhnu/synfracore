@@ -26,6 +26,19 @@ Shell scripting is the glue of DevOps. Every deployment script, health check, lo
 └─────────────────────────────────────────────────────────┘
 ```
 
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Shebang", "sublabel": "Which interpreter reads this", "color": "slate" },
+    { "label": "set -euo pipefail", "sublabel": "Fail loudly, not quietly", "color": "red" },
+    { "label": "Validate input", "sublabel": "Refuse to run on bad arguments/env", "color": "amber" },
+    { "label": "Do the real work", "color": "blue" },
+    { "label": "Log / report result", "sublabel": "Leave a trail behind", "color": "green" }
+  ]
+}
+```
+
 ## Script Structure & Best Practices
 
 Every line below matters, but one is worth understanding before you see it in context: `set -euo pipefail` at the top of a script changes Bash's default (and surprising) behavior of silently continuing after an error. Without it, a script where step 3 fails will still barrel ahead into steps 4 and 5 as if nothing went wrong — `-e` stops execution the moment any command fails, `-u` stops it if you reference a variable you never actually set (usually a typo), and `-o pipefail` makes a pipeline (`cmd1 | cmd2`) report failure if *either* command fails, not just the last one. Almost every production script should start with this line.

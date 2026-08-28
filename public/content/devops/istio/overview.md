@@ -19,6 +19,27 @@
 
 With Istio, every pod gets a certificate — a **SPIFFE identity** (a standardized, verifiable format for "who is this service") — issued automatically by Istio's built-in Certificate Authority. All service-to-service traffic is then automatically encrypted and authenticated with no code changes. **STRICT mode** means non-mTLS traffic is rejected outright; **PERMISSIVE mode** (the default while migrating) accepts both plaintext and mTLS so existing services don't break during rollout.
 
+```flow
+{
+  "title": "Control Plane Pushes Config to Every Sidecar",
+  "layout": "flow",
+  "steps": [
+    { "label": "istiod (control plane)", "sublabel": "VirtualService, DestinationRule, PeerAuthentication", "color": "blue" },
+    { "label": "Converts to Envoy config", "sublabel": "xDS configuration", "color": "purple" },
+    { "label": "Envoy Sidecar (data plane)", "sublabel": "Every pod — enforces routing, mTLS, authz", "color": "green" }
+  ]
+}
+```
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Istio", "description": "Envoy proxy, larger footprint. Advanced traffic mgmt, multi-cluster, JWT auth, WASM", "color": "blue" },
+    { "title": "Linkerd", "description": "Rust proxy, smaller/faster. mTLS + basic observability, K8s-only, performance-sensitive", "color": "green" }
+  ]
+}
+```
+
 ---
 
 ## Learning Modules

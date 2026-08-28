@@ -7,9 +7,11 @@
 
 ---
 
+**Before you start:** a rough idea of what CI/CD means (automatically testing and deploying code on every change, instead of doing it by hand) is assumed — see the **CI/CD Pipelines** overview if that's new. No prior GitLab-specific experience is needed.
+
 ## What is GitLab CI/CD?
 
-.gitlab-ci.yml defines your entire CI/CD pipeline and lives in the root of your repo. Stages run sequentially; jobs within a stage run in parallel. Artifacts persist files between stages (e.g., build output → test stage). Cache persists dependencies between pipeline runs (speeds up builds). GitLab Runners execute jobs — shared runners are free on GitLab.com; specific runners are your own VMs or Kubernetes pods.
+GitLab CI/CD is what makes GitLab an "all-in-one" platform rather than just source control: source hosting, pipelines, a container registry, and security scanning all live in the same product, instead of stitching four separate tools together. `.gitlab-ci.yml` defines your entire CI/CD pipeline and lives in the root of your repo. Stages run sequentially; jobs within a stage run in parallel. Artifacts persist files between stages (e.g., build output → test stage). Cache persists dependencies between pipeline runs (speeds up builds). GitLab Runners execute jobs — shared runners are free on GitLab.com; specific runners are your own VMs or Kubernetes pods.
 
 ## Why GitLab CI/CD?
 
@@ -49,6 +51,16 @@ Modern .gitlab-ci.yml uses rules: (not only:/except: which are deprecated). need
 *Shell, Docker, Kubernetes executors*
 
 Runners have three main executors: Shell (runs directly on runner VM — fast, but environment pollutes between jobs), Docker (each job in a fresh container — clean, most common), Kubernetes (each job is a K8s pod — autoscales to zero, best for production). Tag runners and use tags: in jobs to route specific jobs to specific runners.
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Shell", "description": "Runs directly on the runner VM — fast, but environment pollutes between jobs", "color": "amber" },
+    { "title": "Docker", "description": "Each job in a fresh container — clean, the most common choice", "color": "blue" },
+    { "title": "Kubernetes", "description": "Each job is a K8s pod — autoscales to zero, best for production", "color": "green" }
+  ]
+}
+```
 
 **Topics covered:**
 

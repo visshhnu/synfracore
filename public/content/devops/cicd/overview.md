@@ -26,6 +26,20 @@ CI/CD stands for Continuous Integration and Continuous Delivery. It automates th
 
 Code Commit → Build → Unit Tests → Integration Tests → Security Scan → Artifact Push → Deploy Staging → Smoke Tests → [Approval] → Deploy Production → Monitor
 
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Commit", "color": "slate" },
+    { "label": "Build", "sublabel": "fails here? pipeline stops", "color": "blue" },
+    { "label": "Test suite", "sublabel": "fails here? pipeline stops", "color": "purple" },
+    { "label": "Package artifact", "color": "green" },
+    { "label": "Staging deploy", "color": "amber" },
+    { "label": "Production deploy", "sublabel": "often behind a manual or automated gate", "color": "red" }
+  ]
+}
+```
+
 ## Tools Compared
 
 | Tool | Type | Best For |
@@ -66,6 +80,17 @@ Each strategy below answers the same question differently: how do you replace th
 | Blue/Green | Two full environments exist side by side ("blue" = current live, "green" = new version) — traffic is switched from one to the other all at once, only after the new one is verified healthy | No | Instant (atomic traffic switch back to the still-running "blue" environment) |
 | Canary | The new version is sent a small slice of real traffic first (e.g. 5%), and only rolled out further if it looks healthy | No | Fast, but only with automated monitoring + rollback wired up — not instant by default |
 | Recreate | The old version is stopped completely, then the new version is started — simplest to reason about, but users see an outage during the gap | Yes | Slow |
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Rolling Update", "description": "Old instances replaced gradually, a few at a time. No downtime, slow rollback", "color": "blue" },
+    { "title": "Blue/Green", "description": "Two full environments — traffic switches all at once after health checks pass. Instant rollback", "color": "green" },
+    { "title": "Canary", "description": "New version gets a small slice of traffic first, expands if healthy. Fast rollback with monitoring", "color": "purple" },
+    { "title": "Recreate", "description": "Old version stopped, then new one starts. Simplest, but users see an outage", "color": "amber" }
+  ]
+}
+```
 
 ## Try It (2 Minutes)
 

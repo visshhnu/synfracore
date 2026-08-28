@@ -172,20 +172,27 @@ live Playwright dark/light verification all clean.
 | nginx | **content done (batch 3)** — added front-desk analogy (previously missing), ConceptBoxGrid (6 core functions) | infrastructure/nginx alias; live-verified ✅ |
 | python | **content done (batch 3)** — ConceptBoxGrid (Bash vs Python decision rule) | infrastructure/python alias; live-verified ✅ |
 
+**Batch 4** (2026-08-27): cicd, fluxcd, gitlab-ci, istio, tekton, shell-scripting
+— overview.md only. Status: **done** — content, predeploy/typecheck, JSON
+block validation, and full live Playwright dark/light verification all clean.
+
+| Technology | overview.md | Notes |
+|---|---|---|
+| cicd | **content done (batch 4)** — FlowDiagram (commit→build→test→package→staging→production), ConceptBoxGrid (4 deployment strategies) | self-mapped; live-verified ✅ |
+| fluxcd | **content done (batch 4)** — added prerequisite line cross-referencing ArgoCD for GitOps grounding (previously missing), FlowDiagram (GitOps loop), ConceptBoxGrid (5 Flux controllers) | self-mapped; live-verified ✅ |
+| gitlab-ci | **content done (batch 4)** — added prerequisite line + grounding (previously missing), ConceptBoxGrid (3 runner executor types) | self-mapped; live-verified ✅ |
+| istio | **content done (batch 4)** — FlowDiagram (control plane → Envoy sidecar push), ConceptBoxGrid (Istio vs Linkerd) | self-mapped; live-verified ✅ |
+| tekton | **content done (batch 4)** — added prerequisite line + grounding vs. server-based CI/CD (previously missing), FlowDiagram (Task→Pipeline→PipelineRun→Trigger) | self-mapped; live-verified ✅ |
+| shell-scripting | **content done (batch 4)** — stack FlowDiagram (5-step script execution order, replacing the ASCII box diagram) | infrastructure/shell-scripting alias; live-verified ✅ |
+
 **Remaining DevOps technologies, not yet started:**
 
 | Technology | overview.md | fundamentals.md | intermediate.md | Notes |
 |---|---|---|---|---|
-| shell-scripting | not started | not started | not started | |
-| istio | not started | not started | not started | |
 | ebpf | not started | not started | not started | |
 | harbor | not started | not started | not started | |
 | keda | not started | not started | not started | |
-| cicd | not started | not started | not started | |
 | argo-rollouts | not started | not started | not started | |
-| gitlab-ci | not started | not started | not started | |
-| fluxcd | not started | not started | not started | |
-| tekton | not started | not started | not started | |
 | elk-stack | not started | not started | not started | |
 | ha-dr | not started | not started | not started | |
 | incident | not started | not started | not started | |
