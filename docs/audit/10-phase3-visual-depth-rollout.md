@@ -606,6 +606,34 @@ sections and a FlowDiagram for its recruitment-cycle timeline instead.
 
 No double-backslash or fence-imbalance defects found in this batch.
 
-**Remaining Exams-cluster technologies, not yet started:** all 5
-`state-psc` academy technologies (tnpsc, kpsc, mpsc, appsc, tspsc) — the
-final piece of the entire Exams cluster.
+**Batch 7 — final batch, entire `state-psc` academy** (2026-08-28):
+tnpsc, kpsc, mpsc, appsc, tspsc — overview.md only. Status: **done** —
+content, predeploy (fence check), JSON block validation, and full live
+Playwright dark/light + crash verification cycle all clean. Academies
+dropdown hover verified separately.
+
+All 5 files share the identical professional-certs-style structure —
+applied the same ConceptBoxGrid (Group/exam-level quick-map) +
+FlowDiagram (study-path) pattern used across the rest of this cluster.
+
+| Technology | overview.md | Notes |
+|---|---|---|
+| tnpsc | **content done (batch 7)** — ConceptBoxGrid (Group I-IV), FlowDiagram (study path) | self-mapped; live-verified ✅ |
+| kpsc | **content done (batch 7)** — ConceptBoxGrid (KAS/FDA/SDA), FlowDiagram (study path) | self-mapped; live-verified ✅ |
+| mpsc | **content done (batch 7)** — ConceptBoxGrid (MCS/Group A/B), FlowDiagram (study path) | self-mapped; live-verified ✅ |
+| appsc | **content done (batch 7)** — ConceptBoxGrid (Group I-IV), FlowDiagram (study path) | self-mapped; live-verified ✅ |
+| tspsc | **content done (batch 7)** — ConceptBoxGrid (Group I-IV), FlowDiagram (study path) | self-mapped; live-verified ✅ |
+
+No double-backslash or fence-imbalance defects found in this batch.
+
+## Exams cluster — COMPLETE (2026-08-28)
+
+All 43 technologies across all 4 academies now have the depth-rubric
+(where needed) + visual treatment: `exams` (26/26), `central-exams`
+(5/5), `professional-certs` (4/4), `state-psc` (5/5) = **43/43**.
+Along the way this cluster also surfaced and fixed two real
+live-production bugs unrelated to visuals: the `cloud/terraform` orphan
+(deleted) and the `exams/gate-ece` stale-alias-to-gate-cse bug (fixed).
+The `banking-exam` vs `banking-exams` non-duplication was independently
+verified with pasted live-content evidence three times over the course
+of this cluster after repeated user requests for direct confirmation.

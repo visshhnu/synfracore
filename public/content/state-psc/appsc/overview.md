@@ -10,6 +10,17 @@ APPSC recruitment fills Andhra Pradesh's state administrative, revenue, and tech
 
 ## Exam structure — Group I-IV
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Group I", "description": "Senior administrative -- Deputy Collector and comparable posts", "color": "blue" },
+    { "title": "Group II", "description": "Executive -- various department executive posts", "color": "purple" },
+    { "title": "Group III", "description": "Junior-level -- various department junior posts", "color": "amber" },
+    { "title": "Group IV", "description": "Entry-level -- junior assistants and comparable posts", "color": "green" }
+  ]
+}
+```
+
 | Group | Level | Typical roles |
 |---|---|---|
 | Group I | Senior administrative | Deputy Collector and comparable senior posts |
@@ -29,4 +40,14 @@ APPSC Prep is the primary preparation pathway for Andhra Pradesh state governmen
 
 ## How to use this technology's sections
 
-Fundamentals covers Group I-IV exam structure and the Telugu language paper. Intermediate covers Andhra-Pradesh-specific history, geography, and post-bifurcation economy. Advanced covers Mains strategy and current-affairs integration. Interview and Cheatsheets provide exam-format practice and quick reference.
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Fundamentals", "sublabel": "Group I-IV structure, the Telugu language paper", "color": "blue" },
+    { "label": "Intermediate", "sublabel": "AP-specific history, geography, post-bifurcation economy", "color": "purple" },
+    { "label": "Advanced", "sublabel": "Mains strategy, current-affairs integration", "color": "amber" },
+    { "label": "Interview + Cheatsheets", "sublabel": "Exam-format practice and quick reference", "color": "green" }
+  ]
+}
+```

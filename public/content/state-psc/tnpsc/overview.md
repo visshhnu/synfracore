@@ -10,6 +10,17 @@ State PSC recruitment is a major government-employment pathway distinct from UPS
 
 ## Exam structure — Group I-IV
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Group I", "description": "Senior administrative -- Deputy Collector, Deputy SP", "color": "blue" },
+    { "title": "Group II", "description": "Executive/non-executive -- department executive and clerical posts", "color": "purple" },
+    { "title": "Group III", "description": "Junior-level -- department junior posts", "color": "amber" },
+    { "title": "Group IV", "description": "Entry-level -- junior assistants, typists", "color": "green" }
+  ]
+}
+```
+
 | Group | Level | Typical roles |
 |---|---|---|
 | Group I | Senior administrative | Deputy Collector, Deputy Superintendent of Police, and similar senior posts |
@@ -29,4 +40,14 @@ TNPSC Prep is the primary preparation pathway for Tamil Nadu state government em
 
 ## How to use this technology's sections
 
-Fundamentals covers the general Prelims-Mains-Interview exam structure and Samacheer-Kalvi-based General Studies foundation. Intermediate covers Tamil-Nadu-specific content (history, geography, economy, schemes) and the Tamil language paper. Advanced covers Mains-stage strategy and Group-specific differences. Interview and Cheatsheets provide exam-format practice and quick reference.
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Fundamentals", "sublabel": "Prelims-Mains-Interview structure, Samacheer Kalvi GS foundation", "color": "blue" },
+    { "label": "Intermediate", "sublabel": "Tamil Nadu-specific content + the Tamil language paper", "color": "purple" },
+    { "label": "Advanced", "sublabel": "Mains-stage strategy, Group-specific differences", "color": "amber" },
+    { "label": "Interview + Cheatsheets", "sublabel": "Exam-format practice and quick reference", "color": "green" }
+  ]
+}
+```

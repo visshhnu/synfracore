@@ -10,6 +10,16 @@ KPSC recruitment, and KAS specifically, is Karnataka's primary state civil-servi
 
 ## Exam structure — a quick map
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "KAS", "description": "Senior administrative -- Assistant Commissioner, Deputy SP. Full Prelims-Mains-Interview", "color": "blue" },
+    { "title": "FDA", "description": "First Division Assistant -- mid-level clerical, screening-focused", "color": "purple" },
+    { "title": "SDA", "description": "Second Division Assistant -- entry-level clerical, screening-focused", "color": "green" }
+  ]
+}
+```
+
 | Exam | Level | Typical roles |
 |---|---|---|
 | KAS | Senior administrative | Assistant Commissioner, Deputy Superintendent of Police, and comparable posts |
@@ -28,4 +38,14 @@ KPSC Prep is the primary preparation pathway for Karnataka state government empl
 
 ## How to use this technology's sections
 
-Fundamentals covers KAS/FDA/SDA exam structure and the Kannada language paper. Intermediate covers Karnataka-specific history (including unification), geography, and economy. Advanced covers KAS Mains strategy and current-affairs integration. Interview and Cheatsheets provide exam-format practice and quick reference.
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Fundamentals", "sublabel": "KAS/FDA/SDA exam structure, the Kannada language paper", "color": "blue" },
+    { "label": "Intermediate", "sublabel": "Karnataka-specific history (incl. unification), geography, economy", "color": "purple" },
+    { "label": "Advanced", "sublabel": "KAS Mains strategy, current-affairs integration", "color": "amber" },
+    { "label": "Interview + Cheatsheets", "sublabel": "Exam-format practice and quick reference", "color": "green" }
+  ]
+}
+```

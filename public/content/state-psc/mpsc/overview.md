@@ -10,6 +10,16 @@ MPSC recruitment, and MCS specifically, is Maharashtra's primary state civil-ser
 
 ## Exam structure — a quick map
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "MCS", "description": "Maharashtra Civil Service -- Deputy Collector, Deputy SP. Full Prelims-Mains-Interview", "color": "blue" },
+    { "title": "Group A", "description": "Senior/specialized -- various senior department posts", "color": "purple" },
+    { "title": "Group B", "description": "Mid-level -- various mid-level department posts, simpler process", "color": "green" }
+  ]
+}
+```
+
 | Post classification | Level | Typical roles |
 |---|---|---|
 | MCS (Maharashtra Civil Service) | Senior administrative | Deputy Collector, Deputy Superintendent of Police, and comparable posts |
@@ -28,4 +38,14 @@ MPSC Prep is the primary preparation pathway for Maharashtra state government em
 
 ## How to use this technology's sections
 
-Fundamentals covers MCS/Group A/B exam structure and the Marathi language paper. Intermediate covers Maharashtra-specific history (including the Maratha Empire) and geography/economy. Advanced covers MCS Mains strategy and current-affairs integration. Interview and Cheatsheets provide exam-format practice and quick reference.
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Fundamentals", "sublabel": "MCS/Group A/B structure, the Marathi language paper", "color": "blue" },
+    { "label": "Intermediate", "sublabel": "Maharashtra history (incl. Maratha Empire), geography/economy", "color": "purple" },
+    { "label": "Advanced", "sublabel": "MCS Mains strategy, current-affairs integration", "color": "amber" },
+    { "label": "Interview + Cheatsheets", "sublabel": "Exam-format practice and quick reference", "color": "green" }
+  ]
+}
+```
