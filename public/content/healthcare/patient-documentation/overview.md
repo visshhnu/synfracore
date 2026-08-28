@@ -12,6 +12,18 @@ Clinical Documentation Improvement (CDI) is the process of ensuring that a patie
 - **Continuity of care**: Incomplete records harm future clinical decision-making
 
 ## Common Documentation Deficiencies
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Unspecified Diagnoses", "description": "\"Anemia\" instead of \"Iron-deficiency anemia\" -- lower specificity, missed CC/MCC", "color": "blue" },
+    { "title": "Missing Linkage", "description": "HTN documented but not linked to CKD -- misses I13.x combination code", "color": "purple" },
+    { "title": "No Severity", "description": "\"Sepsis\" without organ dysfunction -- misses severe sepsis/septic shock", "color": "red" },
+    { "title": "Missing POA", "description": "Present-on-admission indicator blank -- quality metric errors", "color": "amber" }
+  ]
+}
+```
+
 | Deficiency | Example | Impact |
 |-----------|---------|--------|
 | Unspecified diagnoses | "Anemia" instead of "Iron-deficiency anemia" | Lower specificity, missed CC/MCC |
@@ -21,6 +33,20 @@ Clinical Documentation Improvement (CDI) is the process of ensuring that a patie
 | Unsigned entries | Verbal orders not countersigned | Compliance violation |
 
 ## The CDI Workflow
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Concurrent Review", "sublabel": "CDI specialist reviews chart during admission", "color": "blue" },
+    { "label": "Query Generation", "sublabel": "Sends clarification queries to physicians", "color": "purple" },
+    { "label": "Query Response", "sublabel": "Physician responds with specific documentation", "color": "amber" },
+    { "label": "Final Coding", "sublabel": "Coder assigns codes based on improved documentation", "color": "green" },
+    { "label": "Quality Audit", "sublabel": "Random review of coded charts for accuracy", "color": "slate" }
+  ]
+}
+```
+
 1. Concurrent review — CDI specialist reviews chart during admission
 2. Query generation — sends clarification queries to physicians
 3. Query response — physician responds with specific documentation

@@ -6,6 +6,18 @@
 Timed mock examinations for ICD-10-CM, CPT, HCPCS, and medical coding certification preparation. Designed to replicate the actual exam environment for CPC, COC, CCA, CCS, RHIT, and BCHHC credentials.
 
 ## Exams Covered
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "CPC", "description": "AAPC -- 100 MCQ, 4 hrs, 70% to pass. Outpatient/physician coding", "color": "blue" },
+    { "title": "CCS", "description": "AHIMA -- 107 items (97 scored), 4 hrs. Inpatient + outpatient", "color": "purple" },
+    { "title": "CCA", "description": "AHIMA -- coding fundamentals, verify current format", "color": "amber" },
+    { "title": "BCHHC", "description": "Certifying body unclear (BMSCC/AHCC/WellSky) -- verify directly. Home health coding", "color": "slate" }
+  ]
+}
+```
+
 | Certification | Body | Format | Focus |
 |-------------|------|--------|-------|
 | CPC | AAPC | 100 MCQ, 4 hrs, 70% to pass | Outpatient/physician coding |
@@ -35,6 +47,19 @@ Timed mock examinations for ICD-10-CM, CPT, HCPCS, and medical coding certificat
 Medical coding students preparing for their first certification, working coders recertifying, and healthcare professionals adding coding credentials.
 
 ## How to Use This Section
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Complete Target Modules", "sublabel": "CPT/HCPCS/ICD-10-CM/CCS/Home Health depending on credential", "color": "blue" },
+    { "label": "Fundamentals", "sublabel": "Exam-taking mechanics, timed-practice strategy", "color": "purple" },
+    { "label": "Certification Guide", "sublabel": "Exam format + study resources per credential", "color": "amber" },
+    { "label": "Full Timed Mocks", "sublabel": "Under conditions matching your target exam's real format", "color": "green" }
+  ]
+}
+```
+
 1. Complete the coding-specific technology modules first (CPT, HCPCS, ICD-10-CM, Coding Guidelines, CCS, or Home Health Coding/BCHHC Prep depending on your target credential)
 2. Use this section's **Fundamentals** for exam-taking mechanics and timed-practice strategy
 3. Use **Certification Guide** for exam format and study-resource specifics per credential

@@ -13,6 +13,19 @@ Healthcare administration covers the operational, financial, and compliance mana
 - **Insurance & Payer Management**: Contract negotiation, prior authorisation, payer credentialing
 
 ## Revenue Cycle — Full Flow
+
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "Registration + Verification", "sublabel": "Patient Registration -> Insurance Verification -> Pre-authorisation", "color": "blue" },
+    { "label": "Care + Documentation", "sublabel": "Service Delivery -> Clinical Documentation -> Medical Coding", "color": "purple" },
+    { "label": "Billing", "sublabel": "Charge Capture -> Claims Submission -> Remittance Posting", "color": "amber" },
+    { "label": "Resolution", "sublabel": "Denial Management -> Patient Billing -> Collections", "color": "green" }
+  ]
+}
+```
+
 ```
 Patient Registration → Insurance Verification → Pre-authorisation
 → Service Delivery → Clinical Documentation → Medical Coding
@@ -21,6 +34,18 @@ Patient Registration → Insurance Verification → Pre-authorisation
 ```
 
 ## Key Regulations
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "HIPAA", "description": "Privacy and security of PHI", "color": "blue" },
+    { "title": "HITECH", "description": "EHR adoption incentives and breach notification", "color": "purple" },
+    { "title": "CMS CoPs", "description": "Conditions of Participation for Medicare/Medicaid", "color": "amber" },
+    { "title": "OIG", "description": "Fraud, waste, and abuse in federal healthcare programmes", "color": "green" }
+  ]
+}
+```
+
 | Regulation | What It Covers |
 |-----------|---------------|
 | HIPAA | Privacy and security of PHI |

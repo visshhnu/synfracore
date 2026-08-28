@@ -4,12 +4,16 @@ Home health coding is a specialized and growing field. With an aging population 
 
 **Analogy** — PDGM works like a delivery-pricing algorithm, not a flat rate. A shipping company doesn't charge one price for every package — it factors in weight (clinical grouping), fragility (functional impairment), special handling (comorbidity adjustment), and where the package is coming from (admission source). Two patients can look similar on paper, but if their OASIS answers and primary diagnosis differ, they land in different "pricing tiers" — which is exactly why getting the primary diagnosis and OASIS data right isn't a formality, it's what determines the actual payment.
 
-```
-Primary diagnosis (OASIS M1021)  →  Clinical Grouping (1 of 12)
-Functional status (OASIS M1800s) →  Functional Impairment Level
-Other diagnoses (OASIS M1023)    →  Comorbidity Adjustment
-                                        │
-                                  = HIPPS code → 30-day payment
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Primary Diagnosis (M1021)", "sublabel": "-> Clinical Grouping (1 of 12)", "color": "blue" },
+    { "label": "Functional Status (M1800s)", "sublabel": "-> Functional Impairment Level", "color": "purple" },
+    { "label": "Other Diagnoses (M1023)", "sublabel": "-> Comorbidity Adjustment", "color": "amber" },
+    { "label": "HIPPS Code", "sublabel": "-> 30-day payment", "color": "green" }
+  ]
+}
 ```
 
 ## What is Home Health?
@@ -74,6 +78,18 @@ Stroke with hemiplegia:    I69.354 (right hemiplegia)
 ## OASIS — Outcome and Assessment Information Set
 
 OASIS is the standardized assessment tool completed by clinicians at:
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Start of Care (SOC)", "description": "Within 5 days of admission", "color": "blue" },
+    { "title": "Resumption of Care (ROC)", "description": "After hospital stay", "color": "purple" },
+    { "title": "Recertification (REC)", "description": "Every 60 days", "color": "amber" },
+    { "title": "Discharge (DC)", "description": "At end of care", "color": "green" }
+  ]
+}
+```
+
 - **Start of Care (SOC)** — within 5 days of admission
 - **Resumption of Care (ROC)** — after hospital stay
 - **Recertification (REC)** — every 60 days

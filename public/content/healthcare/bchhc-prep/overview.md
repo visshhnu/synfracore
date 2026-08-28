@@ -36,11 +36,35 @@ Most candidates need 6-8 weeks of structured preparation. The fundamentals secti
 
 ## How to Use This Academy
 
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Fundamentals", "sublabel": "ICD-10-CM conventions", "color": "blue" },
+    { "label": "Intermediate", "sublabel": "OASIS and PDGM in depth", "color": "purple" },
+    { "label": "Advanced", "sublabel": "Complex multi-condition coding scenarios", "color": "amber" },
+    { "label": "Interview + Cheatsheet", "sublabel": "Practice questions and quick reference", "color": "green" }
+  ]
+}
+```
+
 Work through each section in order: Fundamentals → Intermediate → Advanced → Interview Q&A → Cheatsheet. The Roadmap section gives you a week-by-week study plan. The Projects section has full patient coding case studies to practice on.
 
 After completing all sections, take the mock exams under timed conditions (simulating the actual BCHHC exam environment). Review every wrong answer and trace back to the ICD-10-CM guideline or PDGM rule that applies.
 
 ## Key Numbers to Memorise
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "SOC OASIS", "description": "Within 5 calendar days of first visit", "color": "blue" },
+    { "title": "ROC OASIS", "description": "Within 48 hours (2 calendar days) of return from hospital", "color": "purple" },
+    { "title": "PDGM Payment Period", "description": "30 days (not 60)", "color": "amber" },
+    { "title": "PDGM Clinical Groups", "description": "12 groups, 5 classification factors", "color": "green" }
+  ]
+}
+```
+
 - SOC OASIS: within **5 calendar days** of first visit
 - ROC OASIS: within **48 hours (2 calendar days)** of return from hospital
 - PDGM payment period: **30 days** (not 60)

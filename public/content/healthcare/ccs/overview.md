@@ -4,14 +4,13 @@ CCS (Certified Coding Specialist, credentialed by **AHIMA**) certifies coders wh
 
 **Analogy** — If CPT/CPC-level coding is like being fluent in reading a restaurant's itemized bill (what dish, what drink, what side), CCS is like also being fluent in reading a full hotel folio for an extended stay — the same underlying skill of "translate services into billable codes," but applied to a fundamentally different setting with its own separate code set (ICD-10-PCS) that doesn't exist in the outpatient world at all, plus outpatient CPT/HCPCS knowledge still applies where a facility bills outpatient services too.
 
-```
-CPC / CCA scope:            outpatient & physician-office
-  Code sets: ICD-10-CM (diagnosis) + CPT/HCPCS (procedure)
-
-CCS scope:                  inpatient AND outpatient
-  Code sets: ICD-10-CM (diagnosis, both settings)
-           + ICD-10-PCS (inpatient procedures — NEW code set)
-           + CPT/HCPCS (outpatient facility procedures)
+```conceptgrid
+{
+  "boxes": [
+    { "title": "CPC / CCA Scope", "description": "Outpatient & physician-office. Code sets: ICD-10-CM + CPT/HCPCS", "color": "blue" },
+    { "title": "CCS Scope", "description": "Inpatient AND outpatient. Adds ICD-10-PCS (a new code set) for inpatient procedures", "color": "purple" }
+  ]
+}
 ```
 
 ## What CCS Certifies
@@ -38,6 +37,17 @@ Candidates need at least one of the following:
 `(needs verification — recheck current eligibility pathways directly against ahima.org before relying on this for exam registration, since credentialing-body eligibility rules are revised periodically)`
 
 ## Exam Format
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "107 Questions", "description": "97 scored + 10 unscored pretest items", "color": "blue" },
+    { "title": "4 Hours", "description": "Time allowed", "color": "purple" },
+    { "title": "Passing Score: 300", "description": "Scaled score, not raw percent-correct", "color": "amber" },
+    { "title": "Pearson VUE", "description": "Computer-based delivery at testing centers", "color": "green" }
+  ]
+}
+```
 
 | Item | Value |
 |---|---|

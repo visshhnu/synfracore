@@ -99,7 +99,7 @@ each sub-academy.
 | 3 | AI | 9 | **Done** (2026-08-28, batch 1) — see table below | None found — all 9 self-mapped, no aliasing |
 | 4 | Exams cluster (exams, central-exams, state-psc, professional-certs) | 26+5+5+4=40 | **Done** (2026-08-28, batch 7) — see table below | Exam-prep rubric variant — see above; surfaced and fixed 2 real live-production bugs (cloud/terraform orphan, gate-ece stale alias), see below |
 | 5 | Databases | 12 | **Done** (2026-08-28, batch 2) — see table below | None found — all self-mapped, no aliasing |
-| 6 | Healthcare | 13 | **In progress** — see table below (1 done: cpt, Phase 2; batch 1 in progress) | None found — all self-mapped, no aliasing; BCHHC mock-exam data permanently excluded (see feedback memory) |
+| 6 | Healthcare | 13 | **Done** (2026-08-28, batch 2) — see table below | None found — all self-mapped, no aliasing; BCHHC mock-exam data permanently excluded (see feedback memory), respected throughout |
 | 7 | Security | 9 | Not started (1 tech done: security-fundamentals, Phase 2) | None known |
 | 8 | Data (Analytics & BI) | 14 | Not started | None known |
 | 9 | Education | 12 | Not started | Generic-template stubs, see above |
@@ -742,6 +742,42 @@ converted to a ConceptBoxGrid.
 
 No double-backslash or fence-imbalance defects found in this batch.
 
-**Remaining Healthcare technologies, not yet started:** ccs, mock-exams,
-home-health-coding, patient-documentation, bchhc-prep (markdown tabs
-only, per standing exclusion), healthcare-admin (6 remaining).
+**Batch 2 — final batch** (2026-08-28): ccs, mock-exams,
+home-health-coding, patient-documentation, bchhc-prep, healthcare-admin
+— overview.md only. Status: **done** — content, predeploy (fence check),
+JSON block validation, and full live Playwright dark/light + crash
+verification cycle all clean. Academies dropdown hover verified
+separately. **This completes the entire Healthcare academy's
+overview.md pass — 13/13 technologies.**
+
+All 6 files were already fully depth-rubric complete, with genuinely
+strong existing accuracy discipline — `bchhc-prep` and `mock-exams` both
+already carried an explicit `(needs verification — certifying body
+unclear, sources vary between BMSCC/AHCC/WellSky)` note on the BCHHC
+credential, and `home-health-coding` already had a self-correction note
+about an earlier oversimplified PDGM group count. This batch was visuals
+only — no new medical/coding claims introduced, existing verification
+caveats left untouched. `bchhc-prep/overview.md` is markdown-tab content
+(in scope per the standing exclusion); no exam-bank tables or
+`quiz_questions` rows were touched by this or any batch in this academy.
+
+| Technology | overview.md | Notes |
+|---|---|---|
+| ccs | **content done (batch 2)** — ConceptBoxGrid (CPC/CCA vs CCS scope), ConceptBoxGrid (exam format facts) | self-mapped; live-verified ✅ |
+| mock-exams | **content done (batch 2)** — ConceptBoxGrid (4 exam credentials), FlowDiagram (how-to-use-this-section steps) | self-mapped; live-verified ✅ |
+| home-health-coding | **content done (batch 2)** — FlowDiagram (OASIS→HIPPS→payment), ConceptBoxGrid (4 OASIS assessment timepoints) | self-mapped; live-verified ✅ |
+| patient-documentation | **content done (batch 2)** — ConceptBoxGrid (4 documentation deficiencies), FlowDiagram (5-step CDI workflow) | self-mapped; live-verified ✅ |
+| bchhc-prep | **content done (batch 2)** — ConceptBoxGrid (key numbers), FlowDiagram (section progression). Markdown-tab content, standing BCHHC exam-bank exclusion respected | self-mapped; live-verified ✅ |
+| healthcare-admin | **content done (batch 2)** — FlowDiagram (revenue cycle, stack layout), ConceptBoxGrid (4 key regulations) | self-mapped; live-verified ✅ |
+
+No double-backslash or fence-imbalance defects found in this batch.
+
+## Healthcare academy — COMPLETE (2026-08-28)
+
+All 13 technologies now have the depth-rubric + visual treatment: cpt
+(Phase 2 pilot) + anatomy-physiology, medical-terminology,
+medical-coding, icd-10-cm, hcpcs, coding-guidelines (batch 1) + ccs,
+mock-exams, home-health-coding, patient-documentation, bchhc-prep,
+healthcare-admin (batch 2) = **13/13**. The BCHHC mock-exam exam-bank
+exclusion (10 papers + backing DB/quiz_questions data) was respected
+throughout — never touched in any batch.
