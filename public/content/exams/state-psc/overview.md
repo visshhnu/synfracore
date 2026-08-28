@@ -27,6 +27,17 @@ Every Indian state has a Public Service Commission (PSC) that recruits for Group
 
 ## Common Exam Pattern (Group I Level)
 
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Preliminary", "sublabel": "150-200 MCQs, 2-2.5 hrs. Qualifying, 60-65% typical", "color": "blue" },
+    { "label": "Main (Descriptive)", "sublabel": "4 GS papers + optional + language + essay", "color": "purple" },
+    { "label": "Interview", "sublabel": "75-100 marks -- personality, communication, state affairs", "color": "green" }
+  ]
+}
+```
+
 ### Preliminary Examination
 - General Studies: 150–200 MCQs, 2–2.5 hours
 - Topics: History, Geography, Polity, Economy, Science & Technology, Current Affairs, State-specific GK
@@ -84,6 +95,18 @@ Every Indian state has a Public Service Commission (PSC) that recruits for Group
 70% of the syllabus overlaps with UPSC Civil Services. Preparing for UPSC gives a strong foundation for State PSC exams.
 
 **State-specific additions (30%):**
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "State History & Culture", "description": "1-2 books specific to your state", "color": "blue" },
+    { "title": "State Geography", "description": "Atlases and official data", "color": "purple" },
+    { "title": "State Govt Schemes", "description": "Official website + newspapers", "color": "amber" },
+    { "title": "State Language Paper", "description": "Practice writing, comprehension, grammar", "color": "green" }
+  ]
+}
+```
+
 1. State history and culture (1–2 books specific to your state)
 2. State geography (atlases and official data)
 3. State government schemes (official website + newspapers)

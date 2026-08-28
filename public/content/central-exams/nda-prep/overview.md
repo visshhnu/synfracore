@@ -10,6 +10,16 @@ NDA is the primary entry route into India's three defence services (Army, Navy, 
 
 ## Exam structure — a quick map
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Mathematics", "description": "300 marks -- Algebra, trigonometry, geometry, calculus, vectors, stats (Class XI-XII)", "color": "blue" },
+    { "title": "General Ability Test", "description": "600 marks -- English + General Knowledge combined", "color": "purple" },
+    { "title": "SSB Interview", "description": "5-day process -- psych tests, group tasks, personal interview. Pass/fail gate", "color": "green" }
+  ]
+}
+```
+
 | Component | Content | Marks |
 |---|---|---|
 | Mathematics | Algebra, trigonometry, geometry, calculus, vectors, statistics/probability (Class XI-XII level) | 300 |
@@ -28,4 +38,14 @@ NDA is the foundational entry exam for candidates seeking a career as a commissi
 
 ## How to use this technology's sections
 
-Fundamentals covers Mathematics topic-wise foundations and GAT's English/GK structure. Intermediate applies these to NDA's specific question style and topic-wise weightage patterns. Advanced covers SSB interview preparation in depth. Interview and Cheatsheets provide exam-format practice and quick reference.
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Fundamentals", "sublabel": "Mathematics topic-wise foundations, GAT's English/GK structure", "color": "blue" },
+    { "label": "Intermediate", "sublabel": "NDA-specific question style, topic-wise weightage", "color": "purple" },
+    { "label": "Advanced", "sublabel": "SSB interview preparation in depth", "color": "amber" },
+    { "label": "Interview + Cheatsheets", "sublabel": "Exam-format practice and quick reference", "color": "green" }
+  ]
+}
+```

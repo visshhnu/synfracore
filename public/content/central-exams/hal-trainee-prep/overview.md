@@ -30,6 +30,16 @@ Use this technology for the sections every HAL applicant sits regardless of bran
 
 HAL's DT/MT written exam has followed this structure across recent recruitment cycles:
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "General Awareness", "description": "~20 questions -- smallest section", "color": "blue" },
+    { "title": "English & Reasoning", "description": "~40 questions combined -- second largest, discipline-agnostic", "color": "purple" },
+    { "title": "Engineering Discipline", "description": "~100 questions -- largest section by far, branch-specific", "color": "amber" }
+  ]
+}
+```
+
 | Section | Approx. Questions | Approx. Weight |
 |---|---|---|
 | General Awareness | ~20 | Smallest section |
@@ -41,7 +51,21 @@ Final selection typically weighs the written test heavily against a subsequent p
 
 ## Recruitment Cycle Pattern
 
-HAL does not recruit DT/MT on a fixed annual calendar the way GATE or UPSC do — cycles are floated as HAL's vacancy needs arise, announced on HAL's official careers page (`hal-india.co.in/career`) and conducted online through HAL's designated exam-testing partner. A typical cycle runs: online application window (roughly 2-3 weeks) → admit card release → computer-based test → shortlist → personal interview → document verification → medical exam → joining.
+HAL does not recruit DT/MT on a fixed annual calendar the way GATE or UPSC do — cycles are floated as HAL's vacancy needs arise, announced on HAL's official careers page (`hal-india.co.in/career`) and conducted online through HAL's designated exam-testing partner.
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Application Window", "sublabel": "Roughly 2-3 weeks, then admit card release", "color": "blue" },
+    { "label": "Computer-Based Test", "sublabel": "Followed by shortlist", "color": "purple" },
+    { "label": "Personal Interview", "sublabel": "Followed by document verification", "color": "amber" },
+    { "label": "Medical Exam + Joining", "sublabel": "Final stage", "color": "green" }
+  ]
+}
+```
+
+A typical cycle runs: online application window (roughly 2-3 weeks) → admit card release → computer-based test → shortlist → personal interview → document verification → medical exam → joining.
 
 Because timing varies cycle to cycle, the concrete dates from any one past cycle should be treated as illustrative of the *pattern*, not as a fixed recurring calendar — always check HAL's official careers page for the live notification before planning a study timeline around specific dates.
 

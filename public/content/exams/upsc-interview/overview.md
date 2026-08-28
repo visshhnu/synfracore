@@ -19,6 +19,15 @@ Contrary to its reputation, the UPSC Personality Test is not a knowledge test â€
 
 ## Do's and Don'ts
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Do", "description": "Admit not knowing, then reason through it. Give considered, nuanced opinions. Stay calm under pressure", "color": "green" },
+    { "title": "Don't", "description": "Bluff or fabricate. Give robotic textbook answers. Get visibly rattled by trick questions", "color": "red" }
+  ]
+}
+```
+
 | Do | Don't |
 |---|---|
 | Admit when you don't know something, then reason through it | Bluff or fabricate an answer |
@@ -27,6 +36,17 @@ Contrary to its reputation, the UPSC Personality Test is not a knowledge test â€
 | Answer the actual question asked | Redirect to a memorized answer that doesn't fit |
 
 ## Common Question Categories
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Hobby/Background Deep-Dives", "description": "From your DAF -- know every line cold", "color": "blue" },
+    { "title": "Administrative Dilemmas", "description": "\"As a District Collector, how would you handle X?\"", "color": "purple" },
+    { "title": "Current Affairs Opinion", "description": "With follow-up \"why\" probing", "color": "amber" },
+    { "title": "Ethical Dilemmas", "description": "Testing integrity and judgment, not GS4 theory recall", "color": "green" }
+  ]
+}
+```
 
 - **Hobby/background deep-dives** â€” from your DAF.
 - **Hypothetical administrative dilemmas** â€” "As a District Collector, how would you handle X?"

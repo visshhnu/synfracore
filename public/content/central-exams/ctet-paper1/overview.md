@@ -10,6 +10,17 @@ CTET Paper I qualification is a mandatory eligibility requirement for primary-le
 
 ## Exam structure — a quick map
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Child Development & Pedagogy", "description": "30 Qs -- developmental psychology, learning theory, inclusive education", "color": "blue" },
+    { "title": "Language I & II", "description": "30 Qs each -- language pedagogy, comprehension, teaching methods", "color": "purple" },
+    { "title": "Mathematics", "description": "30 Qs -- primary-level content + pedagogy of teaching math", "color": "amber" },
+    { "title": "Environmental Studies", "description": "30 Qs -- primary-level EVS content + pedagogy", "color": "green" }
+  ]
+}
+```
+
 | Section | Questions | Focus |
 |---|---|---|
 | Child Development and Pedagogy | 30 | Developmental psychology, learning theory, inclusive education, assessment |
@@ -30,4 +41,14 @@ CTET Paper I is the mandatory eligibility gate for primary-level teaching roles 
 
 ## How to use this technology's sections
 
-Fundamentals covers CDP's core developmental and pedagogical theory. Intermediate applies pedagogy to the specific content areas (Language, Maths, EVS) at primary level. Advanced covers inclusive-education nuance and the applied-scenario question style CTET favors. Interview and Cheatsheets provide exam-format practice and quick reference.
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Fundamentals", "sublabel": "CDP's core developmental and pedagogical theory", "color": "blue" },
+    { "label": "Intermediate", "sublabel": "Pedagogy applied to Language, Maths, EVS at primary level", "color": "purple" },
+    { "label": "Advanced", "sublabel": "Inclusive-education nuance, applied-scenario questions", "color": "amber" },
+    { "label": "Interview + Cheatsheets", "sublabel": "Exam-format practice and quick reference", "color": "green" }
+  ]
+}
+```

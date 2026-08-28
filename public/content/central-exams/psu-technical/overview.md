@@ -10,6 +10,15 @@ PSUs remain among the most sought-after employers for engineering graduates in I
 
 ## Two recruitment routes — a quick map
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "GATE-Score-Based", "description": "PSU directly uses GATE score for shortlisting -- no separate written exam. NTPC, GAIL, BHEL", "color": "blue" },
+    { "title": "Standalone PSU Exam", "description": "PSU conducts its own technical + aptitude exam, independent of GATE. ONGC, BEL", "color": "purple" }
+  ]
+}
+```
+
 | Route | How it works | Example PSUs |
 |---|---|---|
 | GATE-score-based | PSU directly uses a candidate's GATE score for shortlisting, no separate written technical exam | NTPC, GAIL, BHEL (for many disciplines/years) |
@@ -19,6 +28,17 @@ Which route a given PSU uses can vary by recruitment cycle and specific position
 
 ## The three-stage selection process
 
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Written Exam / GATE Score", "sublabel": "Technical + aptitude exam, or direct shortlist by GATE score", "color": "blue" },
+    { "label": "Group Discussion", "sublabel": "Used by some PSUs, not universal", "color": "purple" },
+    { "label": "Personal / HR Interview", "sublabel": "Technical depth + role/organizational fit -- often weighted heavily", "color": "green" }
+  ]
+}
+```
+
 Most PSU recruitment (regardless of route) follows a broadly similar downstream process after initial shortlisting: a **technical + aptitude written exam** (for standalone-route PSUs) or direct shortlisting by GATE score (for GATE-route PSUs), often followed by a **group discussion** (used by some PSUs, not universal), and finally a **personal/HR interview** assessing both technical depth and role/organizational fit. The technical and HR stages are weighted differently across PSUs — some weight the interview heavily even after strong written/GATE performance, making interview preparation a genuinely high-stakes, not optional, part of PSU preparation.
 
 ## Exam and career relevance
@@ -27,4 +47,14 @@ PSU Technical Exams preparation is directly relevant to any engineering graduate
 
 ## How to use this technology's sections
 
-Fundamentals covers the GATE-score vs. standalone-exam distinction and general PSU exam pattern. Intermediate covers discipline-specific technical content areas and aptitude-section preparation. Advanced covers interview/HR-round preparation and PSU-specific nuances. Interview and Cheatsheets provide exam-format practice and quick reference.
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Fundamentals", "sublabel": "GATE-score vs standalone-exam distinction, general pattern", "color": "blue" },
+    { "label": "Intermediate", "sublabel": "Discipline-specific technical content, aptitude prep", "color": "purple" },
+    { "label": "Advanced", "sublabel": "Interview/HR-round prep, PSU-specific nuances", "color": "amber" },
+    { "label": "Interview + Cheatsheets", "sublabel": "Exam-format practice and quick reference", "color": "green" }
+  ]
+}
+```

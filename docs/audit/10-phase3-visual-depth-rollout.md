@@ -575,8 +575,37 @@ the `exams` academy** (all NEET/JEE technologies now have visuals).
 
 No double-backslash or fence-imbalance defects found in this batch.
 
-**Remaining Exams-cluster technologies, not yet started:** 2 remaining
-`exams` technologies (civil-services domain: state-psc [the
-in-`exams`-academy technology, distinct from the separate `state-psc`
-academy] and upsc-interview), all 5 `central-exams` technologies, all 5
-`state-psc` academy technologies (12 remaining).
+**Batch 6 — civil-services tail + all central-exams** (2026-08-28):
+state-psc (`exams` academy), upsc-interview, ctet-paper1, ctet-paper2,
+psu-technical, nda-prep, hal-trainee-prep — overview.md only. Status:
+**done** — content, predeploy (fence check), JSON block validation, and
+full live Playwright dark/light + crash verification cycle all clean.
+Academies dropdown hover verified separately (both `exams` and
+`central-exams` top-level links confirmed visible on hover). **This
+completes the entire `exams` academy's overview.md pass (26/26) and the
+entire `central-exams` academy's overview.md pass (5/5).**
+
+`ctet-paper1`, `ctet-paper2`, `psu-technical`, and `nda-prep` share the
+same "What this technology covers / Why it matters / quick-map table /
+How to use this technology's sections" structure already seen in
+professional-certs — applied the identical two-visual pattern
+(ConceptBoxGrid for the quick-map, FlowDiagram for the study-path
+closing paragraph). `hal-trainee-prep` has a different structure
+(no closing study-path paragraph) — got a ConceptBoxGrid for its exam
+sections and a FlowDiagram for its recruitment-cycle timeline instead.
+
+| Technology | overview.md | Notes |
+|---|---|---|
+| state-psc (exams) | **content done (batch 6)** — FlowDiagram (Prelim/Main/Interview stages), ConceptBoxGrid (4 state-specific prep additions) | self-mapped; live-verified ✅ |
+| upsc-interview | **content done (batch 6)** — ConceptBoxGrid (4 question categories), ConceptBoxGrid (Do's vs Don'ts) | self-mapped; live-verified ✅ |
+| ctet-paper1 | **content done (batch 6)** — ConceptBoxGrid (4 exam sections), FlowDiagram (study path) | self-mapped; live-verified ✅ |
+| ctet-paper2 | **content done (batch 6)** — ConceptBoxGrid (4 sections incl. track choice), FlowDiagram (study path) | self-mapped; live-verified ✅ |
+| psu-technical | **content done (batch 6)** — ConceptBoxGrid (2 recruitment routes), FlowDiagram (3-stage selection), FlowDiagram (study path) | self-mapped; live-verified ✅ |
+| nda-prep | **content done (batch 6)** — ConceptBoxGrid (Maths/GAT/SSB), FlowDiagram (study path) | self-mapped; live-verified ✅ |
+| hal-trainee-prep | **content done (batch 6)** — ConceptBoxGrid (3 exam sections), FlowDiagram (recruitment cycle timeline) | self-mapped; live-verified ✅ |
+
+No double-backslash or fence-imbalance defects found in this batch.
+
+**Remaining Exams-cluster technologies, not yet started:** all 5
+`state-psc` academy technologies (tnpsc, kpsc, mpsc, appsc, tspsc) — the
+final piece of the entire Exams cluster.

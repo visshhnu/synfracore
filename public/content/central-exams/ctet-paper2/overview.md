@@ -10,6 +10,17 @@ CTET Paper II qualification is the mandatory eligibility requirement for element
 
 ## Exam structure — a quick map
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Child Development & Pedagogy", "description": "30 Qs -- all candidates, shared foundation with Paper I", "color": "blue" },
+    { "title": "Language I & II", "description": "30 Qs each -- all candidates", "color": "purple" },
+    { "title": "Maths & Science Track", "description": "60 Qs -- for candidates choosing this track", "color": "amber" },
+    { "title": "Social Studies Track", "description": "60 Qs -- for candidates choosing this track instead", "color": "green" }
+  ]
+}
+```
+
 | Section | Questions | Applies to |
 |---|---|---|
 | Child Development and Pedagogy | 30 | All candidates |
@@ -30,4 +41,14 @@ CTET Paper II is the mandatory eligibility gate for elementary-level teaching ro
 
 ## How to use this technology's sections
 
-Fundamentals covers what's genuinely new at the elementary developmental level beyond Paper I's CDP foundation. Intermediate applies pedagogy to Language I/II and introduces the Maths/Science vs. Social Studies track structure. Advanced covers track-specific pedagogy in depth and applied-scenario question patterns. Interview and Cheatsheets provide exam-format practice and quick reference.
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Fundamentals", "sublabel": "What's new at the elementary level beyond Paper I's CDP", "color": "blue" },
+    { "label": "Intermediate", "sublabel": "Language I/II pedagogy + Maths/Science vs Social Studies track", "color": "purple" },
+    { "label": "Advanced", "sublabel": "Track-specific pedagogy, applied-scenario patterns", "color": "amber" },
+    { "label": "Interview + Cheatsheets", "sublabel": "Exam-format practice and quick reference", "color": "green" }
+  ]
+}
+```
