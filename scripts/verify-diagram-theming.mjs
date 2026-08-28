@@ -17,15 +17,14 @@ const pages = [
   "/academies/devops/networking/overview",
 ];
 
-// Cloudflare's html.light toggle is a client-side class on <html>, not
-// colorScheme-media-query-driven, so Playwright's colorScheme context option
-// won't trigger it -- toggle it directly via the same mechanism the app uses.
-async function setTheme(page, theme) {
-  await page.evaluate((t) => {
-    document.documentElement.classList.toggle("light", t === "light");
-  }, theme);
-}
-
+// ThemeProvider.tsx applies the `light` class inside a useEffect that runs
+// once on mount (reading localStorage/system preference) -- directly poking
+// classList (the old approach here) races that effect and is flaky: it can
+// get silently overwritten depending on exactly when the effect fires
+// relative to the poke. Click the real toggle button instead (same
+// aria-label="Toggle theme" element ThemeToggle.tsx renders) so verification
+// goes through the exact same code path a real user triggers -- no race,
+// confirmed stable across repeated runs where raw classList poking wasn't.
 let failures = 0;
 
 const browser = await chromium.launch();
@@ -35,6 +34,9 @@ for (const path of pages) {
   const url = `${baseUrl}${path}`;
   await page.goto(url, { waitUntil: "load", timeout: 30000 });
 
+  const toggleBtn = page.locator('button[aria-label="Toggle theme"]').first();
+  await toggleBtn.waitFor({ state: "visible", timeout: 10000 });
+
   const flowBox = page.locator('[data-diagram-box]').first();
   const hasFlow = await flowBox.count() > 0;
   if (!hasFlow) {
@@ -43,25 +45,22 @@ for (const path of pages) {
     continue;
   }
 
-  await setTheme(page, "dark");
-  await page.waitForTimeout(150);
-  const darkBg = await flowBox.evaluate((el) => getComputedStyle(el).backgroundColor);
-  const darkBorder = await flowBox.evaluate((el) => getComputedStyle(el).borderColor);
-
-  await setTheme(page, "light");
-  await page.waitForTimeout(150);
-  const lightBg = await flowBox.evaluate((el) => getComputedStyle(el).backgroundColor);
-  const lightBorder = await flowBox.evaluate((el) => getComputedStyle(el).borderColor);
+  const bg1 = await flowBox.evaluate((el) => getComputedStyle(el).backgroundColor);
+  const border1 = await flowBox.evaluate((el) => getComputedStyle(el).borderColor);
 
   const dir = "screenshots-diagram-theming";
   await import("node:fs/promises").then((fs) => fs.mkdir(dir, { recursive: true }));
   const slug = path.replace(/\//g, "_");
-  await setTheme(page, "dark");
-  await page.waitForTimeout(150);
-  await page.screenshot({ path: `${dir}/${slug}__dark.png` });
-  await setTheme(page, "light");
-  await page.waitForTimeout(150);
-  await page.screenshot({ path: `${dir}/${slug}__light.png` });
+  await page.screenshot({ path: `${dir}/${slug}__before-toggle.png` });
+
+  await toggleBtn.click();
+  await page.waitForTimeout(300);
+
+  const bg2 = await flowBox.evaluate((el) => getComputedStyle(el).backgroundColor);
+  const border2 = await flowBox.evaluate((el) => getComputedStyle(el).borderColor);
+  await page.screenshot({ path: `${dir}/${slug}__after-toggle.png` });
+
+  const darkBg = bg1, lightBg = bg2, darkBorder = border1, lightBorder = border2;
 
   // The real assertion: computed colors must actually differ between themes.
   // Equal values here would mean the theme toggle isn't reaching this
