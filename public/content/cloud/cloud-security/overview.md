@@ -16,25 +16,16 @@ Traditional, on-premise security is like guarding a single building with one per
 
 ## How it fits together (diagram)
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Provider Secures OF the Cloud", "description": "Physical DCs, hardware, hypervisor, managed-service internals -- fixed floor, doesn't move", "color": "blue" },
+    { "title": "You Secure IN the Cloud", "description": "IAM, network config, encryption, OS patching (IaaS), app code, data -- most real breaches happen here", "color": "red" }
+  ]
+}
 ```
-                    SHARED RESPONSIBILITY MODEL
-   ┌─────────────────────────────────────────────────────────┐
-   │  PROVIDER secures OF the cloud                            │
-   │  physical DCs · hardware · hypervisor · managed-service   │
-   │  internals (the RDS engine itself, S3's own durability)   │
-   └─────────────────────────────────────────────────────────┘
-                              ▲  fixed floor, doesn't move
-   ┌─────────────────────────────────────────────────────────┐
-   │  YOU secure IN the cloud                                  │
-   │  IAM policies · network config · encryption settings ·    │
-   │  OS patching (IaaS only) · application code · data itself │
-   └─────────────────────────────────────────────────────────┘
-        ▲
-   This line is the same in IaaS/PaaS/SaaS — only the SIZE of
-   the "you" box shrinks; "data + access control" never leaves it.
 
-   MOST REAL BREACHES happen in the bottom box, not the top one.
-```
+This line is the same in IaaS/PaaS/SaaS — only the SIZE of the "you" box shrinks; "data + access control" never leaves it.
 
 ## Try it yourself (2 minutes)
 
@@ -64,6 +55,19 @@ THE BOUNDARY SHIFTS BY SERVICE TYPE:
 ```
 
 ## Security Pillars
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Identity & Access", "description": "Least privilege, MFA everywhere, roles over long-lived credentials", "color": "blue" },
+    { "title": "Network Security", "description": "Subnet segmentation, Security Groups/NSGs, WAF, DDoS protection", "color": "purple" },
+    { "title": "Data Protection", "description": "Encryption at rest and in transit, key management, classification", "color": "green" },
+    { "title": "Threat Detection", "description": "GuardDuty/Defender/Security Command Center, SIEM", "color": "red" },
+    { "title": "Vulnerability Management", "description": "OS patching, container image scanning, IaC scanning", "color": "amber" },
+    { "title": "Compliance", "description": "CSPM, CIS Benchmarks, NIST/ISO 27001/SOC 2/GDPR/HIPAA", "color": "slate" }
+  ]
+}
+```
 
 ```
 1. IDENTITY AND ACCESS MANAGEMENT:

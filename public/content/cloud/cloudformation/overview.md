@@ -12,26 +12,28 @@ Clicking through the AWS Console to create a VPC, subnets, an EC2 instance, and 
 
 **Diagram** — the deploy lifecycle:
 
-```
-template.yaml  ──apply──►  CloudFormation  ──creates/updates──►  Real AWS resources
-  (source of truth)          engine tracks:                        (VPC, EC2, etc.)
-                              - what exists now (the Stack)
-                              - what changed (a Change Set)
-                              - dependency order (VPC before Subnet
-                                before EC2Instance, automatically
-                                inferred from !Ref / !GetAtt usage)
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "template.yaml", "sublabel": "Source of truth", "color": "slate" },
+    { "label": "CloudFormation Engine", "sublabel": "Tracks the Stack, computes a Change Set, infers dependency order", "color": "blue" },
+    { "label": "Real AWS Resources", "sublabel": "VPC, EC2, etc. -- created/updated to match", "color": "green" }
+  ]
+}
 ```
 
 ## Core Concepts
 
-```
-Template → Stack → Resources
-
-Template: YAML/JSON file describing desired infrastructure
-Stack:    A deployed instance of a template
-StackSet: Deploy a stack across multiple accounts/regions
-Change Set: Preview changes before applying
-Drift Detection: Check if resources have changed outside CloudFormation
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Template", "description": "YAML/JSON file describing desired infrastructure", "color": "blue" },
+    { "title": "Stack", "description": "A deployed instance of a template", "color": "purple" },
+    { "title": "StackSet", "description": "Deploy a stack across multiple accounts/regions", "color": "amber" },
+    { "title": "Change Set", "description": "Preview changes before applying", "color": "green" }
+  ]
+}
 ```
 
 ## Template Structure

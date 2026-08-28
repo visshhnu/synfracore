@@ -95,7 +95,7 @@ each sub-academy.
 | Order | Academy | Techs | Status | Complication |
 |---|---|---|---|---|
 | 1 | DevOps | 41 | **Done** (2026-08-28, batch 7) — see table below | infrastructure/* aliasing |
-| 2 | Cloud | 26 | **In progress** — see table below (2 done: aws-vpc Phase 1, batch 1 in progress) | azure-devops-style aliasing risk |
+| 2 | Cloud | 25 (not 26 — `terraform` doesn't belong to Cloud, see orphan finding below) | **Done** (2026-08-28, batch 4) — see table below | azure-devops-style aliasing risk (confirmed once, resolved); also surfaced an orphaned-content case (`cloud/terraform`), see below |
 | 3 | AI | 9 | Not started (1 tech done: ai-fundamentals, Phase 1) | None known |
 | 4 | Exams cluster (exams, central-exams, state-psc, professional-certs) | 26+6+6+5=43 | Not started | Exam-prep rubric variant — see above |
 | 5 | Databases | 12 | Not started (2 techs done: sql, mongodb, Phase 2) | None known |
@@ -318,7 +318,44 @@ dropdown hover verified separately.
 
 No double-backslash or fence-imbalance defects found in this batch.
 
-**Remaining Cloud technologies, not yet started:** cloud-security,
+**Batch 4 — final Cloud batch** (2026-08-28): cloud-security,
 cloudformation, cost-optimization, gke, landing-zones, multi-cloud,
-networking-security, route53, terraform (9 remaining; aws-vpc done in
-Phase 1, 16 done in batches 1-3).
+networking-security, route53 — overview.md only. Status: **done** —
+content, predeploy (fence check), JSON block validation, and full live
+Playwright dark/light + crash verification cycle all clean. Academies
+dropdown hover verified separately. **This completes the Cloud academy's
+overview.md pass — Cloud's real technology count is 25 (not 26 — see the
+orphaned-terraform finding below), all 25 now have the depth-rubric +
+visual treatment.**
+
+| Technology | overview.md | Notes |
+|---|---|---|
+| cloud-security | **content done (batch 4)** — already fully depth-rubric complete, converted the shared-responsibility ASCII box diagram to a ConceptBoxGrid, added a second ConceptBoxGrid (6 security pillars) | self-mapped; live-verified ✅ |
+| cloudformation | **content done (batch 4)** — already fully depth-rubric complete, converted the deploy-lifecycle ASCII diagram to a FlowDiagram, added ConceptBoxGrid (Template/Stack/StackSet/Change Set) | self-mapped; live-verified ✅ |
+| cost-optimization | **content done (batch 4)** — already fully depth-rubric complete, converted the waste-accumulation ASCII diagram to a FlowDiagram, added ConceptBoxGrid (On-Demand/Reserved/Savings Plan/Spot) | self-mapped; live-verified ✅ |
+| gke | **content done (batch 4)** — already fully depth-rubric complete, converted the control-plane/Standard/Autopilot ASCII diagram to a ConceptBoxGrid | self-mapped; live-verified ✅ |
+| landing-zones | **content done (batch 4)** — already fully depth-rubric complete, converted the without/with comparison to a ConceptBoxGrid, added a second ConceptBoxGrid (4 Control Tower OUs). Hit and fixed the fence-closing mistake live during this edit (inserting mid-block reopened as unfenced text) — caught immediately by the automated fence checker before commit, exactly the failure mode it was built for | self-mapped; live-verified ✅ |
+| multi-cloud | **content done (batch 4)** — already fully depth-rubric complete, converted the Terraform/AWS/Azure ASCII diagram to a stack FlowDiagram, added ConceptBoxGrid (3 multi-cloud patterns). Also fixed a pre-existing double-backslash artifact (`ciliumclustermesh connect \\` — also had a missing space, `cilium clustermesh`) — this file was on the batch-6 double-backslash backlog list, now resolved and removed from it | self-mapped; live-verified ✅ |
+| networking-security | **content done (batch 4)** — already fully depth-rubric complete, converted the subnet-layering ASCII diagram to a stack FlowDiagram, added ConceptBoxGrid (3 Zero Trust principles) | self-mapped; live-verified ✅ |
+| route53 | **content done (batch 4)** — already fully depth-rubric complete, converted the DNS-resolution ASCII diagram to a FlowDiagram, added ConceptBoxGrid (6 routing policies) | self-mapped; live-verified ✅ |
+
+**Orphaned content found, not deployed — `cloud/terraform`:**
+`public/content/cloud/terraform/` is a full 6-tier content set (overview,
+fundamentals, intermediate, advanced, interview, cheatsheets) that exists
+on disk and is mapped in the content registry (`cloud/terraform/overview`
+self-maps), but "terraform" was never registered under the Cloud academy
+in `lib/data/academies.ts` — only under DevOps (`devops/terraform` →
+aliases to `infrastructure/terraform/overview.md`, already depth-rubric +
+visual complete since DevOps batch 2). Requesting `/academies/cloud/
+terraform/overview` 307-redirects to `/academies` — confirming it is
+genuinely unreachable, not just unlinked. Depth-rubric content + visuals
+were added to `cloud/terraform/overview.md` before this was discovered;
+per user direction (2026-08-28) the edit is being **left in the working
+tree, uncommitted and undeployed** — not counted toward Cloud's technology
+total. **Follow-up, not yet actioned:** user is leaning toward *deleting*
+`public/content/cloud/terraform/` entirely, matching the precedent where
+the `devops/azure-devops` duplicate was deleted in favor of the canonical
+`cloud/azure-devops` copy earlier this engagement — DevOps's Terraform
+page is already the real, live, enhanced one, so a second orphaned copy
+just recreates the same duplication problem. Not acted on yet — flagged
+here for a dedicated cleanup pass.

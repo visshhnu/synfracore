@@ -27,25 +27,18 @@ Think of multi-cloud like a company operating in two countries after a merger, r
 
 ## How it fits together (diagram)
 
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "Terraform / Pulumi (IaC)", "sublabel": "One config language, provider-specific blocks underneath", "color": "slate" },
+    { "label": "AWS (EKS) <-> Azure (AKS)", "sublabel": "Connected via VPN / Direct Connect / ExpressRoute", "color": "blue" },
+    { "label": "Unified Observability", "sublabel": "Datadog / Prometheus + Thanos across both clouds", "color": "green" }
+  ]
+}
 ```
-                 ┌─────────────────────────────┐
-                 │   Terraform / Pulumi (IaC)   │  ← one config language,
-                 └──────────────┬──────────────┘     provider-specific blocks
-                                 │
-        ┌────────────────────────────────────────────────┐
-        │                                                  │
-   ┌────▼────┐                                       ┌─────▼────┐
-   │   AWS   │◄──── VPN / Direct Connect / ExpressRoute ────►│  Azure  │
-   │  (EKS)  │         cross-cloud networking            │  (AKS)  │
-   └────┬────┘                                       └─────┬────┘
-        │                                                    │
-        └─────────────► Unified observability ◄──────────────┘
-                    (Datadog / Prometheus + Thanos)
 
-Kubernetes workload manifests are the one thing that's genuinely
-portable as-is across the bottom row. Storage, serverless, and IAM
-are NOT — those stay cloud-specific no matter which tool you use.
-```
+Kubernetes workload manifests are the one thing that's genuinely portable as-is across clouds. Storage, serverless, and IAM are NOT — those stay cloud-specific no matter which tool you use.
 
 ## Try it yourself (2 minutes)
 
@@ -169,6 +162,16 @@ spec:
 
 Three common multi-cloud patterns: (1) Primary + DR: run everything on AWS, DR on Azure. Lower complexity, higher availability. (2) Active/active: both clouds serve production traffic via global load balancer. Highest availability, highest complexity, stateless only. (3) Data mesh: business domains own their data in the cloud that fits best — payments on Azure, analytics on GCP BigQuery.
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Primary + DR", "description": "Everything on one cloud, DR standby on another. Lower complexity", "color": "blue" },
+    { "title": "Active/Active", "description": "Both clouds serve traffic via global load balancer. Highest complexity, stateless only", "color": "purple" },
+    { "title": "Data Mesh", "description": "Business domains own data in whichever cloud fits best", "color": "green" }
+  ]
+}
+```
+
 **Topics covered:**
 
 - Primary + DR across clouds — 🟡 Intermediate
@@ -212,8 +215,8 @@ Three common multi-cloud patterns: (1) Primary + DR: run everything on AWS, DR o
 # Option C: Overlay network (Cilium Cluster Mesh)
 # Pod-to-pod connectivity across AKS and EKS
 # Same K8s NetworkPolicy across both clusters
-ciliumclustermesh connect \\
-  --context aws-prod \\
+cilium clustermesh connect \
+  --context aws-prod \
   --destination-context azure-prod
 ```
 

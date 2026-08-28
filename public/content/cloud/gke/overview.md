@@ -12,27 +12,15 @@ Running your own Kubernetes cluster (self-managed, on bare VMs) is like owning a
 
 ## How it fits together (diagram)
 
-```
-                     ┌─────────────────────────────┐
-                     │   GKE Control Plane          │
-                     │   (fully managed by Google   │
-                     │   in BOTH Standard & Autopilot)│
-                     │   api-server, scheduler,      │
-                     │   etcd, controller-manager    │
-                     └───────────────┬──────────────┘
-                                     │ schedules Pods onto
-                     ┌───────────────┴──────────────┐
-                     │                               │
-          ┌──────────▼─────────┐         ┌───────────▼──────────┐
-          │  STANDARD mode      │         │  AUTOPILOT mode       │
-          │  Nodes = VMs YOU    │         │  Nodes = provisioned  │
-          │  create in node     │         │  and sized by Google  │
-          │  pools; you pick    │         │  automatically per    │
-          │  machine type,      │         │  Pod resource request │
-          │  count, GPUs        │         │  (you never see a VM) │
-          │  Billing: per node  │         │  Billing: per Pod     │
-          │  (idle or not)      │         │  CPU/memory request   │
-          └─────────────────────┘         └───────────────────────┘
+GKE's control plane is fully managed by Google in **both** modes — the difference is entirely in who manages the nodes underneath it.
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Standard Mode", "description": "You create node pools -- pick machine type, count, GPUs. Billed per node, idle or not", "color": "blue" },
+    { "title": "Autopilot Mode", "description": "Google provisions and sizes nodes per Pod request -- you never see a VM. Billed per Pod CPU/memory", "color": "green" }
+  ]
+}
 ```
 
 ## Annotated example: creating a cluster and running a Pod

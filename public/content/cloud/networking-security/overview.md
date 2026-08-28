@@ -16,31 +16,19 @@ Think of a VPC's subnet layout like a building's floor plan, and security contro
 
 ## How it fits together (diagram)
 
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "Internet Gateway", "sublabel": "Entry point from the internet", "color": "slate" },
+    { "label": "Public Subnet", "sublabel": "Load balancer, bastion ONLY", "color": "blue" },
+    { "label": "Private Subnet", "sublabel": "Application servers -- NAT Gateway, outbound only", "color": "purple" },
+    { "label": "Database Subnet", "sublabel": "Databases -- no internet route at all", "color": "red" }
+  ]
+}
 ```
-                 Internet
-                    │
-             ┌──────▼──────┐
-             │   Internet   │
-             │   Gateway    │
-             └──────┬──────┘
-                     │
-      ┌──────────────▼──────────────┐
-      │        Public Subnet         │  ← load balancer, bastion ONLY
-      └──────────────┬──────────────┘
-                     │ (NAT Gateway — outbound only)
-      ┌──────────────▼──────────────┐
-      │       Private Subnet         │  ← application servers
-      └──────────────┬──────────────┘
-                     │ (no internet route at all)
-      ┌──────────────▼──────────────┐
-      │       Database Subnet        │  ← databases, never internet-reachable
-      └───────────────────────────────┘
 
-Security Groups (stateful, per-instance) and NACLs (stateless,
-per-subnet) are enforced at every layer above — the network
-topology limits WHAT can reach a resource; SGs/NACLs limit WHO,
-on WHICH port, is actually allowed through.
-```
+Security Groups (stateful, per-instance) and NACLs (stateless, per-subnet) are enforced at every layer above — the network topology limits WHAT can reach a resource; SGs/NACLs limit WHO, on WHICH port, is actually allowed through.
 
 ## Try it yourself (2 minutes)
 
@@ -108,6 +96,17 @@ sending >N requests per 5 min          evaluated in Prevention or Detection mode
 WAF and network-layer controls (Security Groups, NACLs, NSGs, Azure Firewall) aren't substitutes for each other — a WAF blocking a malicious HTTP payload does nothing to stop an internal service from being reachable on a port it shouldn't be, and a tightly-scoped Security Group does nothing to stop a SQL injection string arriving on a port it explicitly allowed open. Real production setups run both layers together, not one instead of the other.
 
 ## Zero Trust Principles
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Verify Identity Explicitly", "description": "MFA, device health check, location", "color": "blue" },
+    { "title": "Least Privilege Access", "description": "RBAC, just-in-time access", "color": "purple" },
+    { "title": "Assume Breach", "description": "Segment everything, monitor all traffic", "color": "red" }
+  ]
+}
+```
+
 1. Verify identity explicitly — MFA, device health check, location
 2. Least privilege access — RBAC, just-in-time access
 3. Assume breach — segment everything, monitor all traffic

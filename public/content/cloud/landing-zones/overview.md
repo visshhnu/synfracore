@@ -14,14 +14,13 @@ A landing zone is a well-architected, multi-account environment that serves as t
 
 ## Why Landing Zones
 
-```
-Without landing zone:              With landing zone:
-  Single AWS account                Multiple accounts (isolation)
-  Shared access for all teams       Each team/environment isolated
-  No baseline security policies     Enforced guardrails via SCPs
-  No cost visibility by team        Cost allocation by account/tag
-  Ad-hoc networking                 Consistent VPC architecture
-  Manual compliance checks          Automated compliance
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Without a Landing Zone", "description": "Single shared account, no baseline policies, no cost visibility, ad-hoc networking", "color": "red" },
+    { "title": "With a Landing Zone", "description": "Isolated multi-account, enforced guardrails, cost allocation by account, automated compliance", "color": "green" }
+  ]
+}
 ```
 
 ## AWS Control Tower
@@ -43,7 +42,20 @@ Without landing zone:              With landing zone:
 # │   └── Prod account
 # └── Shared Services OU
 #     └── Shared services       (CI/CD, monitoring, DNS)
+```
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Security OU", "description": "Log Archive account (centralized logging), Audit account (security tooling)", "color": "red" },
+    { "title": "Sandbox OU", "description": "Developer accounts -- experiments, no prod data", "color": "amber" },
+    { "title": "Workload OU", "description": "Dev, Staging, Prod accounts", "color": "blue" },
+    { "title": "Shared Services OU", "description": "CI/CD, monitoring, DNS", "color": "green" }
+  ]
+}
+```
+
+```bash
 # Enrolling existing accounts and OUs into Control Tower is primarily a
 # console/Account Factory workflow, not a single direct CLI subcommand
 # *(needs verification — check the current AWS CLI controltower command

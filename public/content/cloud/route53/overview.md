@@ -12,21 +12,16 @@ Humans don't remember IP addresses — nobody types `203.0.113.1` into a browser
 
 **Diagram** — how a DNS query resolves through Route 53:
 
-```
-Browser: "What's the IP for api.example.com?"
-   |
-   v
-Recursive resolver (ISP / 8.8.8.8 / etc.)
-   |
-   |  asks the authoritative name servers for the zone
-   v
-Route 53 Hosted Zone: example.com
-   |
-   |  looks up the record set for "api.example.com" (type A)
-   |  AND applies the routing policy (weighted/latency/failover/geo/simple)
-   |  AND checks associated health checks before answering
-   v
-Returns: 1.2.3.4  (or a different IP, depending on policy + health)
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Browser Query", "sublabel": "\"What's the IP for api.example.com?\"", "color": "slate" },
+    { "label": "Recursive Resolver", "sublabel": "ISP / 8.8.8.8 -- asks the authoritative name servers", "color": "blue" },
+    { "label": "Route 53 Hosted Zone", "sublabel": "Looks up the record, applies routing policy, checks health checks", "color": "purple" },
+    { "label": "Returns an IP", "sublabel": "1.2.3.4, or a different IP depending on policy + health", "color": "green" }
+  ]
+}
 ```
 
 ## Core Concepts
@@ -50,6 +45,19 @@ Record Types:
 ```
 
 ## Routing Policies
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Simple", "description": "Single resource, one name to one value", "color": "slate" },
+    { "title": "Weighted", "description": "Split traffic by percentage -- A/B testing, canary deployments", "color": "blue" },
+    { "title": "Latency", "description": "Routes to the lowest-latency region for the requester", "color": "purple" },
+    { "title": "Failover", "description": "Primary/secondary -- unhealthy primary auto-fails to secondary", "color": "red" },
+    { "title": "Geolocation", "description": "Routes by the requester's country/continent", "color": "amber" },
+    { "title": "Multi-Value", "description": "Returns up to 8 healthy IPs, client-side load balancing", "color": "green" }
+  ]
+}
+```
 
 ```yaml
 # 1. Simple Routing — single resource

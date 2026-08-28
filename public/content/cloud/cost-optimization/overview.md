@@ -18,18 +18,16 @@ The top causes: forgotten test resources never terminated, over-provisioned inst
 
 ## How waste accumulates (diagram)
 
-```
-Launch an instance ──► No natural "is this still needed?" prompt
-        │
-        ▼
-  Workload finishes,                 Instance/volume/IP left running
-  test completes,                 ──► with no automatic cost signal
-  project ends                        until the monthly bill arrives
-        │                                        │
-        ▼                                        ▼
-  Nobody terminates it            By the time someone notices,
-  (no reminder exists)             weeks/months of charges have
-                                    already accumulated silently
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Launch an instance", "sublabel": "No natural \"is this still needed?\" prompt", "color": "blue" },
+    { "label": "Workload finishes", "sublabel": "Test completes, project ends -- nobody terminates it", "color": "amber" },
+    { "label": "Left running", "sublabel": "No automatic cost signal until the monthly bill", "color": "red" },
+    { "label": "Charges accumulate", "sublabel": "Weeks/months of silent spend before anyone notices", "color": "slate" }
+  ]
+}
 ```
 
 ## Try it yourself (2 minutes)
@@ -55,13 +53,15 @@ aws compute-optimizer get-ec2-instance-recommendations \
 
 ## Savings Plans and Reserved Instances
 
-```
-On-Demand:            No commitment, most expensive
-Reserved (1-year):    30-40% savings, specific instance type
-Reserved (3-year):    50-60% savings
-Compute Savings Plan: Commit to $/hour, applies to any EC2/Fargate/Lambda
-                      Most flexible — recommended over RIs
-Spot Instances:       60-90% cheaper, can be interrupted with 2-min notice
+```conceptgrid
+{
+  "boxes": [
+    { "title": "On-Demand", "description": "No commitment, most expensive baseline", "color": "slate" },
+    { "title": "Reserved Instances", "description": "1yr: 30-40% savings, specific type. 3yr: 50-60% savings", "color": "blue" },
+    { "title": "Compute Savings Plan", "description": "Commit to $/hour, applies to any EC2/Fargate/Lambda -- most flexible", "color": "purple" },
+    { "title": "Spot Instances", "description": "60-90% cheaper, can be interrupted with 2-min notice", "color": "green" }
+  ]
+}
 ```
 
 Use Savings Plans for your baseline production load. Use Spot for batch processing, CI/CD runners, ML training, and any fault-tolerant workload.
