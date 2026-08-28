@@ -1,5 +1,15 @@
 # Sleep & Recovery — Overview
 
+**Before you start:** no prior background is needed. *(Note: specific figures below — hours, percentages, thresholds — reflect commonly cited sleep-science reference points; treat them as general guidance, not personalized medical advice.)*
+
+## Why This Exists (The Hook)
+
+Sleep looks like the body simply switching off — nothing happening, time wasted. The opposite is true: it's the single most active repair process your body runs, and there is no supplement, diet, or exercise routine that compensates for consistently skipping it. Understanding what's actually happening during sleep — memory consolidation, physical repair, immune strengthening, brain waste clearance — is what turns "I should sleep more" from a vague guilt-inducing suggestion into a concrete, high-leverage health decision.
+
+**Analogy** — Think of sleep like a factory's overnight maintenance shift, not downtime with the lights off. A factory that never schedules maintenance eventually breaks down from accumulated wear, even though it looked "fine" every single day it skipped maintenance. Sleep is your body's scheduled maintenance shift — repairing tissue, clearing metabolic waste from the brain, consolidating the day's memories, resetting hormones — all work that has to happen while the "production line" (your conscious, active brain) is offline. Skip the maintenance shift repeatedly, and the accumulated wear eventually shows up, even if each individual skipped night felt fine at the time.
+
+**Try it (2 minutes)** — Reason through why "catching up on sleep on weekends" doesn't fully undo a week of poor sleep, without looking anything up: weekend catch-up sleep partially restores how alert and functional you feel, but doesn't reverse the metabolic changes (insulin sensitivity, cardiovascular strain) that built up during the week. If those metabolic effects are driven by a sustained pattern (5 nights of poor sleep) rather than a single night's deficit, why would 1-2 nights of extra sleep only address the "feeling tired" symptom while leaving the underlying metabolic strain mostly unaddressed?
+
 ## Why Sleep is the Foundation of Health
 
 Sleep is not downtime — it's active restoration. During sleep:
@@ -30,6 +40,18 @@ Sleep is not downtime — it's active restoration. During sleep:
 ---
 
 ## Sleep Architecture — The 4 Stages
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Stage 1 (N1)", "sublabel": "Light sleep, 5-10 min, easy to wake", "color": "slate" },
+    { "label": "Stage 2 (N2)", "sublabel": "True sleep onset, 20 min, heart slows", "color": "blue" },
+    { "label": "Stage 3 (N3)", "sublabel": "Deep sleep, 20-40 min, physical restoration", "color": "purple" },
+    { "label": "REM", "sublabel": "Dream sleep, memory + emotional processing", "color": "amber" }
+  ]
+}
+```
 
 ```
 Stage 1 (N1): Light sleep, 5–10 min, easy to wake, hypnic jerks common

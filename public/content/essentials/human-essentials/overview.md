@@ -7,13 +7,33 @@
 
 ---
 
+**Before you start:** no prior background is needed — this page assumes no existing health or wellness knowledge.
+
 ## What is Human Essentials?
 
 Prevention is better than cure. Annual checkups, blood work, and screenings catch problems early. Learn to read your own lab reports. Know your baseline numbers: BP, blood glucose, cholesterol, BMI.
 
-## Why Human Essentials?
+## Why This Exists (The Hook)
 
-Food is information for your body. Focus on whole foods, reduce ultra-processed foods. Hydration affects cognitive performance. Learn the difference between evidence-based nutrition and marketing.
+Schools teach algebra and history in detail but rarely teach the things that determine how you actually feel day to day — how sleep debt compounds, why a lab report number matters more as a trend than a single reading, or how to tell evidence-based nutrition advice from marketing dressed up as science. This page exists to cover that gap directly: the foundational health literacy that shapes daily quality of life, taught with the same rigor as any other subject.
+
+**Analogy** — Think of these four modules like the dashboard warning lights and maintenance schedule for a car, not a mechanic's full repair manual. You don't need to be a mechanic to know that ignoring the oil-change light, the check-engine light, and unusual noises will eventually cause a breakdown — you just need to know what the signals mean and act on them early. Preventive checkups, nutrition basics, sleep, and stress awareness are exactly that: the dashboard signals for your own body, not a substitute for a doctor (the mechanic) when something genuinely needs deeper attention.
+
+**Try it (2 minutes)** — Reason through why the guide says to track your baseline numbers (BP, glucose, cholesterol, BMI) over TIME rather than evaluating a single reading, without looking anything up: a single "normal" reading tells you where you are right now, but says nothing about direction. If your blood glucose was 85 last year and is 98 this year — both still technically within a "normal" range — what does that trend suggest that a single snapshot reading would completely miss, and why might catching that trend early matter more than waiting until a reading finally crosses into "abnormal"?
+
+## Overview
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Preventive Care", "sublabel": "Checkups, lab literacy, baseline numbers", "color": "blue" },
+    { "label": "Nutrition", "sublabel": "Whole foods, hydration, evidence vs. marketing", "color": "purple" },
+    { "label": "Mental Wellness", "sublabel": "Sleep, stress response, mindfulness", "color": "amber" },
+    { "label": "Sustainability", "sublabel": "Conscious consumption, plastic-free living", "color": "green" }
+  ]
+}
+```
 
 ---
 

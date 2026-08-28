@@ -1,6 +1,30 @@
 # Nutrition — Eating Right in a World Designed to Make You Sick
 
+**Before you start:** no prior background is needed. *(Note: specific figures below — grams, percentages, ratios — reflect commonly cited nutritional guidelines; treat them as general reference rather than personalized medical advice, and consult a doctor or dietitian for anything specific to your own health.)*
+
 The modern food environment is engineered by billion-dollar companies to override your natural hunger signals, make you addicted, and keep you buying. Understanding how food actually works — and what the food industry doesn't want you to know — is the foundation of real health.
+
+## Why This Exists (The Hook)
+
+A packet of chips and a plate of dal-rice-vegetables can contain a similar number of calories and still affect your body completely differently — one is engineered to override your satiety signals and leave you wanting more, the other is a whole food your digestive and hormonal systems evolved to process normally. "Calories in, calories out" is true but radically incomplete: it says nothing about which foods spike blood sugar and crash it an hour later, which additives quietly damage the gut lining, or why a product can list "no added sugar" and still be mostly sugar under a different name. Understanding nutrition at this level is what lets you read past a food label's marketing to what's actually happening inside your body.
+
+**Analogy** — Think of the modern food industry's engineering like a slot machine, not a vending machine. A vending machine gives you exactly what you paid for and you're done. A slot machine is deliberately engineered — through variable rewards and sensory triggers — to keep you playing past the point of satisfaction. Ultra-processed food's "bliss point" (the precise sugar/fat/salt combination that maximizes pleasure while minimizing the feeling of fullness) is the same engineering principle applied to eating: not an accident of taste, but a deliberately optimized outcome designed to keep you consuming past genuine hunger.
+
+**Try it (2 minutes)** — Reason through why Glycemic Load (GL) is described as more practically useful than Glycemic Index (GI) alone, without looking anything up: GI measures how fast a food spikes your blood glucose, assuming a fixed portion. GL = GI × the actual amount of carbs in a real portion you'd eat. Watermelon has a high GI (72) but a low GL (6) because a typical watermelon serving is mostly water with relatively few actual carbs. If you only looked at GI, what wrong conclusion would you draw about eating watermelon — and why does factoring in the real portion size (GL) correct that?
+
+## Overview
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Understand Processing", "sublabel": "NOVA classification -- what's actually in packaged food", "color": "red" },
+    { "label": "Learn Macronutrients", "sublabel": "Carbs, protein, fats -- beyond diet-industry oversimplification", "color": "blue" },
+    { "label": "Assess Outside Food", "sublabel": "Restaurant/street food risks and smarter choices", "color": "purple" },
+    { "label": "Apply a Framework", "sublabel": "The plate method, timing, and label-reading", "color": "green" }
+  ]
+}
+```
 
 ---
 

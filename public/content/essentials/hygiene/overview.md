@@ -1,6 +1,16 @@
 # Hygiene & Sanitation — Prevention Is Better Than Cure
 
+**Before you start:** no prior background is needed — this page covers hygiene practices from the basics up.
+
 Personal hygiene is your first line of defense against disease. Many of the most common illnesses — diarrhea, respiratory infections, skin infections, dental disease — are almost entirely preventable through consistent hygiene practices.
+
+## Why This Exists (The Hook)
+
+Most people know "wash your hands" as a rule without knowing why it works or what specifically breaks the disease-transmission chain — which is exactly why most people also do it wrong: 6 seconds of rinsing instead of the 20 seconds actually needed to mechanically dislodge and wash away pathogens. Hygiene isn't about germophobia or obsessive cleaning; it's about understanding the small number of specific transmission routes (hands to face, contaminated surfaces, undercooked food) that cause the overwhelming majority of preventable illness, and breaking those routes deliberately rather than cleaning everything indiscriminately.
+
+**Analogy** — Think of hygiene like locking specific doors, not sealing an entire building. You don't need to seal every possible entry point into your house to be secure — you need to reliably lock the handful of doors and windows that are actually used. Hand hygiene, food safety, and a few high-touch surfaces are those specific "doors" for disease transmission — get those right consistently, and you've addressed the overwhelming majority of the risk, without needing to treat every surface as equally dangerous.
+
+**Try it (2 minutes)** — Reason through why hand sanitizer is explicitly NOT a substitute for soap and water after using the toilet, without looking anything up: the guide states sanitizer doesn't remove norovirus, C. difficile spores, or visible soil/blood/feces — it kills many pathogens chemically but doesn't physically wash anything away. Handwashing with soap and water works partly through mechanical action — lathering and rinsing physically dislodges and carries away contamination, not just kills it in place. Given that some of the most resistant pathogens (like spores) survive alcohol-based sanitizer entirely, why would physically washing them away matter in a way that chemical killing alone can't replace?
 
 ---
 
@@ -303,6 +313,19 @@ COVID and respiratory viruses:
 ```
 
 ---
+
+## Highest-Impact Hygiene Habits
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Handwashing (20 sec)", "description": "Prevents ~50% of diarrheal disease and ~25% of respiratory infections", "color": "blue" },
+    { "title": "Oral Hygiene (2x daily)", "description": "Linked to heart disease, diabetes, and dementia risk beyond just teeth", "color": "purple" },
+    { "title": "Food Safety", "description": "Cook to temperature, avoid the 4-60C danger zone, prevent cross-contamination", "color": "amber" },
+    { "title": "High-Touch Surfaces", "description": "Phone screens, sponges, and door handles carry the most bacteria", "color": "green" }
+  ]
+}
+```
 
 ## Daily Hygiene Checklist
 

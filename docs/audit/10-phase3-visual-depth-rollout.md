@@ -103,7 +103,8 @@ each sub-academy.
 | 7 | Security | 9 | **Done** (2026-08-28, batch 1) — see table below | None found — all 8 self-mapped, no aliasing |
 | 8 | Data (Analytics & BI) | 14 | **13/14 done, deployed live** (2026-08-28) — see table below | dbt/airflow/spark are generic-template stubs, flagged and deferred (need real content authoring, not just visuals) — 13/14 otherwise self-mapped, no aliasing |
 | 9 | Education | 12 | **12/12 overview.md pass done** (2026-08-28) — see table below | Deeper intermediate/advanced-tier stub gap known for os/dbms/cn/system-design/placement-prep — still open, unrelated to this overview.md pass; all 12 overview.md files confirmed real content, no aliasing |
-| 10+ | Essentials, Law, Finance, Agriculture, Telecom, Economics, Aerospace, VLSI | 10/10/12/7/7/7/8/8 | Not started | None known |
+| 10 | Essentials | 10 | Batch 1 done (2026-08-28, 6/10) — see table below | **Live content bug found + fixed**: mental-health/overview.md was serving Sleep content, not mental-health content — rewritten from scratch |
+| 11+ | Law, Finance, Agriculture, Telecom, Economics, Aerospace, VLSI | 12/7/7/7/8/8 | Not started | None known |
 
 ## DevOps — technology-level tracking (41 technologies)
 
@@ -958,10 +959,11 @@ false positives spot-checked — all the known adjacent-fence pattern,
 including two pre-existing ones in c-programming/java unrelated to this
 edit). One native-WSL build + live Playwright verification cycle run for
 all 6 pages: all render with no crashes, diagrams present (3-6 per page),
-Academies dropdown works. Not yet deployed — awaiting explicit deploy
-instruction.
+Academies dropdown works. Deployed and live-verified (2026-08-28): all 6
+pages 200, diagrams render in both themes, Academies dropdown working,
+`npm run predeploy` exit 0.
 
-## Education academy — overview.md pass COMPLETE, 12/12 (2026-08-28)
+## Education academy — overview.md pass COMPLETE, 12/12, deployed live (2026-08-28)
 
 All 12 technologies (maths, science, cs-school, dsa, os, dbms — batch 1;
 cn, system-design, placement-prep, java, c-programming, cpp — batch 2) now
@@ -971,3 +973,66 @@ have real depth-rubric + visual treatment. This is specifically the Tier-0
 advanced.md tiers for os/dbms/cn/system-design/placement-prep remains open
 and unrelated to this completion; it was not re-verified or addressed here
 and should not be assumed fixed by this batch.
+
+## Essentials — technology-level tracking (10 technologies)
+
+| Technology | Registry key | Rubric status before | Work done | Status |
+|---|---|---|---|---|
+| human-essentials | essentials/human-essentials/overview | None | Prerequisite/hook/analogy/try-it added; 4-module overview → `flow` FlowDiagram | Done (batch 1) |
+| gut-health | essentials/gut-health/overview | None | Prerequisite/hook/analogy/try-it added; verification-caveat note added for specific figures; gut-diversity-damage ConceptBoxGrid (4 boxes) | Done (batch 1) |
+| hygiene | essentials/hygiene/overview | None | Prerequisite/hook/analogy/try-it added; highest-impact-habits ConceptBoxGrid (4 boxes) | Done (batch 1) |
+| nutrition | essentials/nutrition/overview | None | Prerequisite/hook/analogy/try-it added; verification-caveat note added; overview → `flow` FlowDiagram (4 steps) | Done (batch 1) |
+| mental-health | essentials/mental-health/overview | **CONTENT BUG: live-serving a Sleep article, not mental-health content** | **Rewrote overview.md from scratch** matching fundamentals/intermediate/advanced tiers' real content, with full standard rubric + visuals (conditions ConceptBoxGrid, bio-psycho-social FlowDiagram) | Done (batch 1) — bug fixed |
+| sleep-health | essentials/sleep-health/overview | None | Prerequisite/hook/analogy/try-it added; verification-caveat note added; sleep-stages → `flow` FlowDiagram | Done (batch 1) |
+| daily-movement | essentials/daily-movement/overview | Not yet assessed | — | Pending (batch 2) |
+| personal-finance | essentials/personal-finance/overview | Not yet assessed | — | Pending (batch 2) |
+| digital-safety | essentials/digital-safety/overview | Not yet assessed | — | Pending (batch 2) |
+| first-aid | essentials/first-aid/overview | Not yet assessed | — | Pending (batch 2) |
+
+**Batch 1 notes (2026-08-28) — LIVE CONTENT BUG FOUND AND FIXED:** All 10
+technologies confirmed self-mapped in the content registry
+(`essentials/*`), no aliasing risk. While reading `essentials/mental-
+health/overview.md` before editing, discovered it was live-serving an
+entire article titled "Sleep — The Most Underrated Health Intervention"
+instead of mental-health content — confirmed via live curl showing the
+wrong `<h1>` and body text at
+`https://synfracore.com/academies/essentials/mental-health/overview`. The
+other tiers for this technology (`fundamentals.md`/`intermediate.md`/
+`advanced.md`) were correctly about mental health — only `overview.md` had
+the wrong file substituted, likely dating to the original 2026-06-26
+content-authoring commit (`d796d85`). This is distinct from
+`essentials/sleep-health/overview.md`, which has its own separate,
+different "Sleep & Recovery" article — not a duplicate/alias, a genuine
+wrong-content bug. Flagged to the user immediately with live evidence before
+proceeding; user confirmed: write correct content now as part of this
+batch. Authored a new `mental-health/overview.md` from scratch, matching
+the depth and style of the existing (correct) fundamentals/intermediate/
+advanced tiers for this technology — common conditions, the bio-psycho-
+social model, evidence-based self-care, when to seek help, India crisis
+helplines — with full standard-rubric treatment (prerequisite line
+including a crisis-safety note, hook, analogy, try-it) plus a
+ConceptBoxGrid and FlowDiagram. Live-verified post-fix: the page now
+renders mental-health content, not the Sleep article.
+
+Domain-sensitivity note (Volatile Core content per standing QA process):
+gut-health, nutrition, and sleep-health all contain specific supplement
+dosages, percentages, and timelines stated as fact without
+"(needs verification)" caveats — added a general verification-caveat note
+to the prerequisite line of each during this batch, but did NOT audit or
+verify the specific claims themselves (out of scope for a visual/rubric
+pass). A dedicated accuracy pass on these specific figures — the same
+discipline already applied to Healthcare and CCS content earlier in this
+engagement — is a worthwhile lower-priority follow-up, not done here.
+
+Fence-balance manually verified per-file (all balanced, including
+mental-health's full rewrite); batch-wide `validate-content-fences.mjs`
+clean (2579 files); all 7 new `flow`/`conceptgrid` JSON blocks parsed
+successfully; `npm run predeploy` exit 0 (sleep-health's new
+`empty_code_block`+`abrupt_cutoff` WARN-only flags manually verified as
+false positives — file reads completely and ends cleanly, no truncation).
+One native-WSL build + live Playwright verification cycle run for all 6
+pages: all render with no crashes, diagrams present (4-7 per page),
+mental-health confirmed NOT showing the old Sleep content, Academies
+dropdown works. Not yet deployed — awaiting explicit deploy instruction. 4
+technologies remain (daily-movement, personal-finance, digital-safety,
+first-aid) for batch 2.
