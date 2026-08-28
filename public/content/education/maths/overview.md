@@ -1,6 +1,16 @@
 # Mathematics — Class 10 to 12 Complete Guide
 
+**Before you start:** Class 9 arithmetic and basic algebra (solving simple equations) are assumed — this guide builds from Class 10 onward.
+
 Mathematics is the foundation of every technical field. This guide covers the complete CBSE/ICSE school mathematics curriculum from Class 10 through Class 12, with concepts explained clearly, solved examples, and exam tips.
+
+## Why This Exists (The Hook)
+
+A formula memorized without understanding what problem it solves is fragile — it works on the exact question it was drilled on and falls apart the moment a board exam rephrases it. Every topic here is anchored to what it's actually used for: the quadratic formula solves "when does this equation equal zero," calculus's derivative answers "how fast is this changing right now," and probability's Bayes' theorem answers "given new evidence, how should I update what I believed before." Knowing the question a formula answers is what lets you recognize it in an unfamiliar word problem, not just recite it.
+
+**Analogy** — Think of this curriculum like building a tool chest, not memorizing a spell book. A spell book teaches formulas as fixed incantations — say the exact words, get the exact result, but change one word and nothing works. A tool chest teaches you what each tool is *for* — a wrench is for turning bolts, whatever size or angle they're at. Knowing that the quadratic formula's job is "find where a parabola crosses zero" means you can still solve it even when a word problem never mentions the words "quadratic equation" at all.
+
+**Try it (2 minutes)** — Reason through why the discriminant `D = b² - 4ac` alone (without solving the full quadratic formula) tells you how many real roots an equation has, without looking anything up: the quadratic formula is `x = [-b ± √D] / 2a`. If `D` is negative, what happens when you try to take its square root using only real numbers — and if `D` is exactly zero, what happens to the `±` part of the formula? What does each case tell you about how many distinct real values of x satisfy the equation?
 
 ---
 
@@ -372,6 +382,17 @@ Binomial Distribution:
 ```
 
 ## Board Exam Strategy
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Calculus", "description": "~35 marks in Class 12 -- the single biggest topic weight", "color": "blue" },
+    { "title": "Algebra", "description": "~25 marks -- matrices, determinants, sequences", "color": "purple" },
+    { "title": "Vectors + 3D", "description": "~17 marks", "color": "amber" },
+    { "title": "Probability", "description": "~10 marks", "color": "green" }
+  ]
+}
+```
 
 ```
 CBSE Class 10:

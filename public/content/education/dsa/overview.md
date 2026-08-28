@@ -1,8 +1,18 @@
 # Data Structures & Algorithms — Overview
 
+**Before you start:** basic programming (variables, loops, functions) in any language is assumed — no prior DSA-specific knowledge is needed.
+
 ## What DSA Actually Is
 
 **Data structures** are ways of organizing data in memory so it can be accessed and modified efficiently — an array, a linked list, a stack, a tree, a graph are all data structures, each with different trade-offs for different situations. **Algorithms** are step-by-step procedures for solving a problem using that data — searching, sorting, finding a shortest path. DSA is the combined study of both: which structure fits a problem, and which procedure solves it efficiently.
+
+## Why This Exists (The Hook)
+
+The same task — "find a specific item in a collection" — can take a millisecond or a minute depending entirely on how the data is organized and what procedure searches it, even though both approaches produce the correct answer. DSA exists because "get the right answer" is only half the job in real software — a search feature that works correctly but takes 30 seconds on a million-row table is a bug, not a feature, even though it never returns a wrong result. Learning which structure and which algorithm fits which situation is what separates code that works from code that works *and scales*.
+
+**Analogy** — Think of choosing a data structure like choosing where to put things in a kitchen, not just finding any empty space. You could store every ingredient in one giant unsorted pile (an unsorted array) — finding salt means checking everything, one item at a time. Or you could organize by category in labeled drawers (a hash map) — finding salt means going straight to "spices." Both technically store the same ingredients; only one lets you find what you need in constant time instead of searching everything. A data structure is that same organizational choice, made explicit and measurable.
+
+**Try it (2 minutes)** — Reason through why binary search is O(log n) instead of O(n), without looking anything up: binary search on a sorted array checks the middle element, and — based on whether the target is bigger or smaller — throws away HALF the remaining elements each time, repeating on the smaller half. If you start with 1,000,000 elements and cut the remaining search space in half on every single check, roughly how many checks would it take to get down to just 1 element — and why does "halving repeatedly" grow so much slower than "checking one at a time" as the input size gets larger?
 
 ## Why It's Central to Software Engineering Interviews
 
@@ -34,6 +44,17 @@ O(1) < O(log n) < O(n) < O(n log n) < O(n²) < O(2ⁿ) < O(n!)
 The practical payoff: given two approaches to the same problem, Big O lets you reason about which one will still work when the input is 10,000 items instead of 10, without having to actually run both and time them.
 
 ## How This Course Is Sequenced
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Fundamentals", "sublabel": "Arrays, linked lists, stacks/queues, binary search, recursion", "color": "blue" },
+    { "label": "Intermediate", "sublabel": "Trees and graphs -- built on recursion", "color": "purple" },
+    { "label": "Advanced", "sublabel": "DP, sorting trade-offs, heaps, union-find", "color": "amber" }
+  ]
+}
+```
 
 This course is deliberately ordered so each section builds on real, already-taught foundations — nothing here assumes knowledge from a later section:
 

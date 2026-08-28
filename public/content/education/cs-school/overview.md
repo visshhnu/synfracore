@@ -1,10 +1,16 @@
 # Computer Science Basics — School-Level Programming with Python
 
+**Before you start:** no prior programming experience is required — basic comfort with a computer (typing, running an application) is the only assumption.
+
 This guide introduces programming for school students (Class 9-12, CBSE/ICSE). Python is the ideal first language — readable, powerful, and the same language used by Google, Instagram, and data scientists worldwide.
 
-## Why Learn Programming?
+## Why This Exists (The Hook)
 
-Programming is the new literacy. It trains logical thinking, problem-solving, and creativity. Whether you become a doctor, artist, or engineer — the ability to automate tasks, analyse data, and build tools will be valuable.
+Every app on your phone, every website you visit, every game you play is a list of precise instructions a computer follows exactly, in order — nothing more mysterious than that. Programming exists to let you write those instructions yourself instead of only using instructions someone else wrote. The gap between "I use apps" and "I can build one" is smaller than it looks — the same `if`/`for`/function building blocks you'll learn here are what every app, from a calculator to a search engine, is ultimately built from.
+
+**Analogy** — Think of learning to program like learning to write a recipe, not learning a foreign spell language. A recipe is a precise sequence of steps — "chop the onion, then heat the oil, then add the onion" — where the order matters and each step is unambiguous enough that anyone following it gets the same result. A Python program is the exact same idea: a precise, ordered sequence of steps ("get user input, then check a condition, then print a result") that the computer follows exactly as written, in order, every single time.
+
+**Try it (2 minutes)** — Reason through why `if/elif/else` needs to check conditions in a specific top-to-bottom order, without looking anything up: in the grading example below, marks ≥ 90 is checked before marks ≥ 75. If you swapped the order — checking `marks >= 75` first — what would happen to a student who scored 95? Would they still correctly get "Grade A," or would the reordered code stop at the first condition that happens to be true and give the wrong grade?
 
 ## Python Basics
 
@@ -218,6 +224,19 @@ with open("data.csv", "r") as f:
 ```
 
 ## What to Learn Next
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "1. OOP", "sublabel": "Classes, objects, inheritance", "color": "blue" },
+    { "label": "2. Data Structures", "sublabel": "Lists, tuples, dicts, sets in depth", "color": "purple" },
+    { "label": "3. Libraries", "sublabel": "NumPy, Pandas, Matplotlib", "color": "amber" },
+    { "label": "4. Practice Platforms", "sublabel": "HackerRank, CodeChef, LeetCode Easy", "color": "green" },
+    { "label": "5. Real Projects", "sublabel": "Calculator, quiz game, data analysis", "color": "red" }
+  ]
+}
+```
 
 ```
 After mastering these basics:

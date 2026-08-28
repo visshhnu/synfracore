@@ -1,6 +1,16 @@
 # Operating Systems — Complete Guide for GATE & Interviews
 
+**Before you start:** basic programming concepts (what a program is, what memory is) are assumed — no prior OS-specific knowledge is needed.
+
 Operating Systems is one of the highest-weightage subjects in GATE CSE and a core topic in every software engineering interview. This covers everything from processes to memory management to file systems.
+
+## Why This Exists (The Hook)
+
+Your laptop runs dozens of programs at once, on a CPU that can genuinely execute only one instruction stream per core at any given instant — yet nothing feels like it's waiting in line. The OS exists to maintain that illusion convincingly: deciding which process gets the CPU next (scheduling), pretending every process has its own private memory when RAM is actually shared (virtual memory), and mediating access to shared resources like disks and network so programs don't corrupt each other's data. Every concept in this guide is really answering one question from a different angle: how does the OS make limited, shared hardware look like unlimited, private hardware to every program running on it?
+
+**Analogy** — Think of an OS like an air traffic controller for a single busy runway, not a series of separate lanes. Only one plane can physically land or take off at any given instant (the CPU can only run one process's instructions right now), but the controller (the scheduler) switches between planes so fast and so fairly that from the ground, dozens of flights appear to be handled simultaneously. Round Robin scheduling is a controller giving each plane a fixed, short slot before moving to the next; priority scheduling is letting an emergency landing jump the queue — same runway, different rules for who goes next.
+
+**Try it (2 minutes)** — Reason through why increasing the number of page frames can sometimes INCREASE page faults under FIFO replacement (Belady's Anomaly), without looking anything up: FIFO replaces whichever page has been in memory longest, regardless of whether it's about to be used again. If a program's access pattern happens to align badly with "oldest first," why wouldn't simply adding more memory (more frames) guarantee fewer faults — and what does that tell you about why LRU (which tracks actual usage recency, not just arrival order) doesn't suffer from this same anomaly?
 
 ## What is an OS?
 
@@ -24,6 +34,20 @@ Hardware (CPU, RAM, Disk, Network)
 ## Processes & Threads
 
 ### Process States
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "New", "sublabel": "Process being created", "color": "slate" },
+    { "label": "Ready", "sublabel": "Waiting for CPU, in ready queue", "color": "blue" },
+    { "label": "Running", "sublabel": "Currently executing on CPU", "color": "green" },
+    { "label": "Waiting", "sublabel": "Blocked for I/O or event", "color": "amber" },
+    { "label": "Terminated", "sublabel": "Execution complete", "color": "red" }
+  ]
+}
+```
+
 ```
 New → Ready → Running → Waiting → Terminated
                 ↓           ↑

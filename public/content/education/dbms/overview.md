@@ -1,6 +1,16 @@
 # DBMS — Complete Guide for GATE & Interviews
 
+**Before you start:** basic programming concepts are assumed; no prior database experience is required — the concept of a table (rows and columns) is introduced from scratch below.
+
 DBMS is 8-10 marks in GATE and essential for backend developer interviews. Covers relational model, SQL, normalization, transactions, and indexing.
+
+## Why This Exists (The Hook)
+
+Store the same customer's address in three different tables (an order table, a shipping table, a billing table) and you now have three places that can silently disagree the moment the customer moves — update one, forget the other two, and now your data is simply wrong with no error message telling you so. DBMS theory — normalization, keys, transactions — exists specifically to prevent this class of problem: store each fact exactly once, reference it everywhere else, and use rules (ACID, foreign keys) that make it structurally hard for the data to become inconsistent, rather than trusting every future developer to remember to update all three copies correctly, forever.
+
+**Analogy** — Think of normalization like avoiding sticky notes with the same phone number written on five different desks. If five people each write down a colleague's phone number on their own sticky note, and that colleague changes their number, someone has to remember to update all five notes — miss one, and now there's a wrong number floating around with nothing to flag it as outdated. A normalized database keeps that phone number in exactly one place (the colleague's own row) and has everyone else's records simply point to it — update it once, and everyone who references it sees the correct number automatically.
+
+**Try it (2 minutes)** — Reason through why `HAVING` filters happen after `GROUP BY` while `WHERE` filters happen before, without looking anything up: `GROUP BY dept_id` first collapses many employee rows into one row per department. If you wanted "only departments with more than 5 employees," that's a fact about the whole GROUP (a count), not about any individual employee row. Given that `WHERE` only ever sees individual rows *before* grouping happens, why would `WHERE COUNT(*) > 5` be nonsensical at the point `WHERE` actually runs — and why does `HAVING`, running after grouping, have exactly the information needed to check it?
 
 ## Relational Model
 
@@ -176,6 +186,17 @@ Dependency preservation: All FDs preserved in decompositions
 ```
 
 ## Transactions & ACID
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Atomicity", "description": "All or nothing -- commit or rollback, no partial state", "color": "blue" },
+    { "title": "Consistency", "description": "DB moves from one valid state to another valid state", "color": "purple" },
+    { "title": "Isolation", "description": "Concurrent transactions don't interfere with each other", "color": "amber" },
+    { "title": "Durability", "description": "Committed changes survive failures", "color": "green" }
+  ]
+}
+```
 
 ```
 Transaction: Sequence of operations as a single logical unit

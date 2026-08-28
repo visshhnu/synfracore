@@ -101,8 +101,8 @@ each sub-academy.
 | 5 | Databases | 12 | **Done** (2026-08-28, batch 2) — see table below | None found — all self-mapped, no aliasing |
 | 6 | Healthcare | 13 | **Done** (2026-08-28, batch 2) — see table below | None found — all self-mapped, no aliasing; BCHHC mock-exam data permanently excluded (see feedback memory), respected throughout |
 | 7 | Security | 9 | **Done** (2026-08-28, batch 1) — see table below | None found — all 8 self-mapped, no aliasing |
-| 8 | Data (Analytics & BI) | 14 | 13/14 done (2026-08-28) — see table below | dbt/airflow/spark are generic-template stubs, flagged and deferred (need real content authoring, not just visuals) — 13/14 otherwise self-mapped, no aliasing |
-| 9 | Education | 12 | Not started | Generic-template stubs, see above |
+| 8 | Data (Analytics & BI) | 14 | **13/14 done, deployed live** (2026-08-28) — see table below | dbt/airflow/spark are generic-template stubs, flagged and deferred (need real content authoring, not just visuals) — 13/14 otherwise self-mapped, no aliasing |
+| 9 | Education | 12 | Batch 1 done (2026-08-28, 6/12) — see table below | Deeper intermediate/advanced-tier stub gap known for os/dbms/cn/system-design/placement-prep (unrelated to this overview.md pass); all 12 overview.md files confirmed real content, no aliasing |
 | 10+ | Essentials, Law, Finance, Agriculture, Telecom, Economics, Aerospace, VLSI | 10/10/12/7/7/7/8/8 | Not started | None known |
 
 ## DevOps — technology-level tracking (41 technologies)
@@ -892,5 +892,55 @@ Fence-balance manually verified per-file (all balanced); batch-wide
 `flow`/`conceptgrid` JSON blocks parsed successfully; `npm run predeploy`
 exit 0 (no new WARN-only false positives even). One native-WSL build + live
 Playwright verification cycle run for all 5 pages: all render with no
-crashes, diagrams present (3-8 per page), Academies dropdown works. Not yet
-deployed — awaiting explicit deploy instruction.
+crashes, diagrams present (3-8 per page), Academies dropdown works. Deployed
+and live-verified (2026-08-28): all 5 pages 200, diagrams render in both
+themes, Academies dropdown working, `npm run predeploy` exit 0.
+
+## Data (Analytics & BI) academy — EFFECTIVELY COMPLETE for this pass, 13/14 (2026-08-28)
+
+11 of 14 technologies (batches 1+2) now have real depth-rubric + visual
+treatment; dbt, airflow, and spark remain flagged generic-template stubs,
+logged as an open backlog item requiring genuine content authoring — not
+counted as done, not silently patched over. **13/14 done, 3/14 flagged.**
+
+## Education — technology-level tracking (12 technologies)
+
+| Technology | Registry key | Rubric status before | Work done | Status |
+|---|---|---|---|---|
+| maths | education/maths/overview | None (dense, real reference content) | Prerequisite/hook/analogy/try-it added; board-exam marks-weight ConceptBoxGrid (4 boxes) | Done (batch 1) |
+| science | education/science/overview | None (dense, real reference content) | Prerequisite/hook/analogy/try-it added; Class 12 marks-weight ConceptBoxGrid (4 boxes) | Done (batch 1) |
+| cs-school | education/cs-school/overview | None | Prerequisite/hook/analogy/try-it added; "what to learn next" roadmap → `flow` FlowDiagram (5 steps) | Done (batch 1) |
+| dsa | education/dsa/overview | Had strong hook-adjacent prose, no formal rubric headers | Prerequisite line added; formal "Why This Exists (The Hook)"/Analogy/Try-it added; course sequencing → `flow` FlowDiagram (3 steps) | Done (batch 1) |
+| os | education/os/overview | None (dense, real GATE-prep content) | Prerequisite/hook/analogy/try-it added; process-states → `flow` FlowDiagram (5 states) | Done (batch 1) |
+| dbms | education/dbms/overview | None (dense, real GATE-prep content) | Prerequisite/hook/analogy/try-it added; ACID ConceptBoxGrid (4 boxes) | Done (batch 1) |
+| cn | education/cn/overview | Not yet assessed | — | Pending (batch 2) |
+| system-design | education/system-design/overview | Not yet assessed | — | Pending (batch 2) |
+| placement-prep | education/placement-prep/overview | Not yet assessed | — | Pending (batch 2) |
+| java | education/java/overview | Not yet assessed | — | Pending (batch 2) |
+| c-programming | education/c-programming/overview | Not yet assessed | — | Pending (batch 2) |
+| cpp | education/cpp/overview | Not yet assessed | — | Pending (batch 2) |
+
+**Batch 1 notes (2026-08-28):** All 12 technologies in `lib/data/academies.ts`'s
+Education navigation confirmed self-mapped in the content registry
+(`education/*`), no aliasing risk. Read all 12 `overview.md` files before
+editing any, specifically to check for the previously-flagged
+[[project_education_generic_template_stub_gap]] stub pattern — **none of the
+12 overview.md files are stubs**; the previously-flagged gap is specific to
+the `intermediate.md`/`advanced.md` tiers for os/dbms/cn/system-design/
+placement-prep (still open, unrelated to this Tier-0 overview.md pass, not
+re-verified here). All 12 overview.md files are genuinely dense,
+high-quality reference content (GATE-prep style for os/dbms/cn/
+system-design, CBSE-board-style for maths/science) — none needed content
+authoring, only rubric+visual treatment. dsa/overview.md was a partial case:
+it already had strong hook-like prose ("Why It's Central to Software
+Engineering Interviews") but lacked the formal rubric headers and an
+explicit Analogy/Try-it — added those without disturbing the existing good
+content. Fence-balance manually verified per-file (all balanced); batch-wide
+`validate-content-fences.mjs` clean (2579 files); all 6 new
+`flow`/`conceptgrid` JSON blocks parsed successfully; `npm run predeploy`
+exit 0 (new `empty_code_block` WARN-only false positives spot-checked — all
+the known adjacent-fence pattern). One native-WSL build + live Playwright
+verification cycle run for all 6 pages: all render with no crashes, diagrams
+present (3-5 per page), Academies dropdown works. Not yet deployed —
+awaiting explicit deploy instruction. 6 technologies remain (cn,
+system-design, placement-prep, java, c-programming, cpp) for batch 2.

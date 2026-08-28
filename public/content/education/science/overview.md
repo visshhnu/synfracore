@@ -1,6 +1,16 @@
 # Science — Class 10 to 12 Complete Guide
 
+**Before you start:** Class 9 science fundamentals (basic atomic structure, simple motion) are assumed — this guide builds from Class 10 onward.
+
 This guide covers CBSE/ICSE Science from Class 10 through Class 12, including Physics, Chemistry, and Biology — with clear explanations, key formulas, and exam-focused summaries.
+
+## Why This Exists (The Hook)
+
+Physics, Chemistry, and Biology look like three unrelated subjects on a timetable, but they're really one continuous story told at different scales — Physics explains how energy and forces behave, Chemistry explains how atoms use that physics to bond into molecules, and Biology explains how those molecules organize into living systems that use energy (respiration), transform it (photosynthesis), and pass information forward (genetics). A single equation — E=mc² territory aside — like the ATP yield of respiration only makes sense once you already know what a chemical bond is, which only makes sense once you know what an electron is.
+
+**Analogy** — Think of Science's three subjects like zoom levels on the same map, not three separate maps. Physics is the widest zoom — forces, energy, motion, the rules everything else obeys. Chemistry zooms in to how atoms use those rules to combine into molecules. Biology zooms in further to how those molecules organize into cells and organisms that are, underneath everything, still just obeying the same physics you started with. Zooming between them is why "why does rusting release heat" (Chemistry) traces back to "what is an exothermic reaction" (Physics-adjacent thermodynamics), which is why concepts genuinely build on each other across the three subjects.
+
+**Try it (2 minutes)** — Reason through why aerobic respiration produces far more ATP (38) than anaerobic respiration/fermentation (2), without looking anything up: aerobic respiration's full equation is `C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O + 38 ATP`; anaerobic fermentation is `C₆H₁₂O₆ → 2C₂H₅OH + 2CO₂ + 2 ATP`. Both start with the same glucose molecule. What's present on the left side of the aerobic equation that's completely absent from the anaerobic one — and given that oxygen is what allows a cell to fully break down glucose (releasing far more of the energy stored in its bonds) instead of only partially breaking it down, why would that explain the roughly 19x difference in ATP yield?
 
 ---
 
@@ -382,4 +392,15 @@ Key topics by marks weight (Class 12):
   Physics: Electrostatics 8m, Current Electricity 7m, Magnetism 8m, Optics 10m
   Chemistry: Solutions 5m, Electrochemistry 5m, Chemical Kinetics 5m, Organic 28m
   Biology: Genetics 15m, Reproduction 14m, Ecology 14m, Biotechnology 10m
+```
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Physics — Optics", "description": "10 marks -- highest single Physics topic in Class 12", "color": "blue" },
+    { "title": "Chemistry — Organic", "description": "28 marks -- by far the largest Chemistry weight", "color": "purple" },
+    { "title": "Biology — Genetics", "description": "15 marks -- the largest single Biology topic", "color": "amber" },
+    { "title": "Biology — Reproduction / Ecology", "description": "14 marks each -- next largest Biology topics", "color": "green" }
+  ]
+}
 ```
