@@ -33,6 +33,15 @@ Each instruction (`FROM`, `RUN`, `COPY`) creates a new, cached layer. **Layer or
 
 A **volume** is storage managed entirely by Docker, stored in Docker's own managed area on the host — the correct choice for data a container needs to persist across restarts/recreations (a database's data directory) without caring exactly where on the host filesystem it physically lives. A **bind mount** maps a specific host path directly into the container — the correct choice when you need to actually see/edit the files from the host (mounting your source code directory into a container during local development, so edits show up without rebuilding the image).
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Volume", "description": "Docker-managed storage. Best for data that must persist without caring where it physically lives (a database's data dir)", "color": "blue" },
+    { "title": "Bind Mount", "description": "Maps a specific host path into the container. Best when you need to see/edit files from the host (local dev)", "color": "green" }
+  ]
+}
+```
+
 ```bash
 docker run -v mydata:/var/lib/postgresql/data postgres     # named volume
 docker run -v $(pwd)/src:/app/src myapp                    # bind mount

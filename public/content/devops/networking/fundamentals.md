@@ -86,6 +86,15 @@ L7 (Application layer) — routes based on HTTP content (path, headers,
   stickiness. Example: an Application Load Balancer, NGINX.
 ```
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "L4 — Transport Layer", "description": "Routes on IP + port only, protocol-agnostic, fast. e.g. a Network Load Balancer", "color": "blue" },
+    { "title": "L7 — Application Layer", "description": "Routes on HTTP content — path, headers, cookies. SSL termination, session stickiness. e.g. an ALB, NGINX", "color": "purple" }
+  ]
+}
+```
+
 ```yaml
 # Kubernetes Service types
 apiVersion: v1

@@ -29,6 +29,17 @@ In the GOOD version, `npm install` only reruns when `package.json` actually chan
 
 Multi-stage builds use multiple `FROM` instructions; the final image only contains what the last stage explicitly copies. A 1.2GB build image can become a 50MB production image this way.
 
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Stage 1: builder", "sublabel": "Full toolchain — compilers, dependencies", "detail": "Never shipped", "color": "blue" },
+    { "label": "COPY --from=builder", "sublabel": "Only the compiled artifact crosses over", "color": "purple" },
+    { "label": "Stage 2: runtime", "sublabel": "Minimal base image, just the binary", "detail": "This is what actually ships", "color": "green" }
+  ]
+}
+```
+
 ```dockerfile
 # Stage 1: build (has compilers, full toolchain — never shipped)
 FROM golang:1.22 AS builder

@@ -50,6 +50,17 @@ envFrom:
 | LoadBalancer | External cloud LB | Direct external access, TCP/UDP services |
 | ExternalName | Internal DNS alias | Integrating an external dependency into cluster DNS |
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "ClusterIP", "description": "Default — inside cluster only. Most services in a real cluster", "color": "blue" },
+    { "title": "NodePort", "description": "Node IP + static port. Dev/testing, non-cloud clusters", "color": "purple" },
+    { "title": "LoadBalancer", "description": "External cloud LB. Direct external access, TCP/UDP services", "color": "green" },
+    { "title": "ExternalName", "description": "Internal DNS alias. Integrating an external dependency into cluster DNS", "color": "amber" }
+  ]
+}
+```
+
 An Ingress is a separate resource routing external HTTP/HTTPS by host/path to one or more Services — it needs an Ingress Controller (NGINX, Traefik) actually running in the cluster to do anything; the resource alone is just a routing spec. Production pattern: one `LoadBalancer` Service for the Ingress Controller itself, `ClusterIP` for everything it routes to — this avoids paying for (and managing) a separate cloud load balancer per service.
 
 ## Storage: PV, PVC, StorageClass

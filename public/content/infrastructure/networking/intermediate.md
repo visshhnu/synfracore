@@ -111,6 +111,18 @@ Health checking:    Remove unhealthy backends automatically
                     Passive: detect failures from real traffic errors
 ```
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Round Robin", "description": "Cycles evenly through servers. Simple, ignores server load", "color": "blue" },
+    { "title": "Least Connections", "description": "Routes to fewest active connections. Better for long-lived connections", "color": "green" },
+    { "title": "IP Hash", "description": "Same client always hits same server. Uneven if clients share an IP behind NAT", "color": "purple" },
+    { "title": "Weighted RR", "description": "Higher-weight servers get proportionally more traffic — for heterogeneous servers", "color": "amber" },
+    { "title": "Random with 2", "description": "Pick 2 random servers, send to the less loaded of the two", "color": "cyan" }
+  ]
+}
+```
+
 ## Network Troubleshooting Toolkit
 
 ```bash
