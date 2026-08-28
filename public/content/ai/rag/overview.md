@@ -1,50 +1,46 @@
 # RAG — Retrieval Augmented Generation
 
+**Before you start:** basic familiarity with calling an LLM API (system prompts, message history) is assumed — see LLM Engineering or the OpenAI/Anthropic API courses first if those are new. Python is used throughout the examples.
+
 RAG is the most important pattern in production LLM systems. It solves the fundamental problem of LLMs: they have a knowledge cutoff and don't know about your private data. RAG lets LLMs answer questions about YOUR documents, databases, and real-time information.
+
+## Why This Exists (The Hook)
+
+An LLM's knowledge is frozen at whenever its training data was collected, and it has never seen your company's internal documents at all — no amount of clever prompting can make it know something it was never shown. Fine-tuning the model on your data is possible but expensive, slow, and has to be redone every time the underlying documents change. RAG solves both problems at once: instead of teaching the model your data permanently, you search your own documents at the moment of the question and hand the relevant pieces to the model as part of the prompt — updateable instantly, cheap, and the model only ever "knows" what you actually gave it.
+
+**Analogy** — An LLM without RAG is like a brilliant expert taking a closed-book exam — impressive recall, but if the answer isn't already in their memory, they simply can't get it right, and they'll often guess with total confidence instead of saying so. RAG turns it into an open-book exam: right before answering, the expert is handed the exact pages of your company handbook relevant to the question, and now they're combining their real reasoning ability with your actual, current information instead of a fixed memory.
+
+**Try it (2 minutes)** — Reason through why RAG needs a similarity search step and can't just paste in every document: if a company has 10,000 pages of internal documentation but a model's context window can only hold roughly 100 pages of text, what has to happen before those documents can be "injected into the prompt" at all? (This is exactly what the embedding model and vector database below are for — finding the small number of pages actually relevant to *this* question, out of all 10,000.)
 
 ## The Problem RAG Solves
 
-```
-Without RAG:
-User: "What is our Q3 deployment policy?"
-LLM:  "I don't have access to your company's internal policies."
-
-With RAG:
-User: "What is our Q3 deployment policy?"
-System: [searches policy docs] → [finds relevant policy] → [injects into prompt]
-LLM:  "According to your deployment policy document, Q3 deployments require..."
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "User Question", "sublabel": "\"What is our Q3 deployment policy?\"", "color": "slate" },
+    { "label": "Without RAG", "sublabel": "\"I don't have access to your company's internal policies.\"", "color": "red" },
+    { "label": "With RAG: Search + Inject", "sublabel": "Finds the relevant policy, injects it into the prompt", "color": "blue" },
+    { "label": "Grounded Answer", "sublabel": "\"According to your policy document, Q3 deployments require...\"", "color": "green" }
+  ]
+}
 ```
 
 LLMs are expensive to fine-tune and have training cutoffs. RAG is cheaper, more accurate for factual retrieval, and updateable in real-time.
 
 ## RAG Architecture
 
-```
-Documents/Data
-     │
-     ▼
-[Document Loader]
-(PDFs, URLs, Confluence, Notion, S3...)
-     │
-     ▼
-[Text Splitter]
-(Chunk into smaller pieces)
-     │
-     ▼
-[Embedding Model]
-(text → vector, e.g. text-embedding-3-small)
-     │
-     ▼
-[Vector Database]
-(Pinecone, Chroma, Weaviate, pgvector)
-     │
-     │ ← At query time:
-     │
-[User Query] → [Embed query] → [Similarity Search] → [Top K chunks]
-                                                            │
-                                               [Inject into LLM prompt]
-                                                            │
-                                                       [LLM Response]
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "Document Loader", "sublabel": "PDFs, URLs, Confluence, Notion, S3...", "color": "slate" },
+    { "label": "Text Splitter", "sublabel": "Chunk into smaller pieces", "color": "blue" },
+    { "label": "Embedding Model", "sublabel": "Text -> vector, e.g. text-embedding-3-small", "color": "purple" },
+    { "label": "Vector Database", "sublabel": "Pinecone, Chroma, Weaviate, pgvector", "color": "amber" },
+    { "label": "Query -> Search -> Inject -> Response", "sublabel": "At query time: embed query, similarity search, top K chunks into the prompt", "color": "green" }
+  ]
+}
 ```
 
 ## Chunking Strategies

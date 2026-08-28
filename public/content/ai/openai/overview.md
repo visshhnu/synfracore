@@ -1,10 +1,31 @@
 # OpenAI API Overview
 
+**Before you start:** basic Python and comfort with calling a REST API (or a Python SDK wrapping one) are assumed. No prior AI/ML experience is required — everything used here is explained as it comes up.
+
 ## What is the OpenAI API?
 
 The OpenAI API provides programmatic access to OpenAI's models including GPT-4o, GPT-4 Turbo, o1, o3, DALL-E, Whisper, and text-embedding models. It is the most widely used LLM API in production applications.
 
+## Why This Exists (The Hook)
+
+Training a model like GPT-4o from scratch costs many millions of dollars and requires infrastructure almost no company has. The OpenAI API is what makes that model useful to everyone else: instead of training your own, you send a request over HTTPS with your prompt, and OpenAI runs the model on their infrastructure and sends back the result — you pay only for the tokens you actually use, with zero training cost or GPU management on your end.
+
+**Analogy** — Think of the OpenAI API like an electricity grid instead of owning a power plant. Building and running a power plant (training a foundation model) is enormous, specialized infrastructure that almost nobody needs to own directly. Instead, you plug into the grid (call the API) and pay for exactly what you consume (tokens), and the utility company (OpenAI) handles generation, maintenance, and keeping the lights on at massive scale.
+
+**Try it (2 minutes)** — Reason through the cost math without writing any code: a typical support-ticket classification call might send 200 input tokens and receive 20 output tokens. Using the pricing table below, roughly compare the cost of running that on `gpt-4o` versus `gpt-4o-mini`. At 10,000 requests a day, does that difference matter enough to justify testing whether the cheaper model is accurate enough for the task first?
+
 ## Available Models
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Chat / Text", "description": "gpt-4o, gpt-4o-mini, o1, o3-mini -- generation and reasoning", "color": "blue" },
+    { "title": "Embeddings", "description": "text-embedding-3-small/large -- text to vectors, for search/RAG", "color": "purple" },
+    { "title": "Image Generation", "description": "dall-e-3, dall-e-2", "color": "amber" },
+    { "title": "Speech", "description": "whisper-1 (transcription), tts-1/tts-1-hd (text-to-speech)", "color": "green" }
+  ]
+}
+```
 
 ```
 CHAT / TEXT GENERATION:

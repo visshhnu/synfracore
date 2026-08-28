@@ -1,7 +1,17 @@
 # LLM Engineering
 
+**Before you start:** basic Python and comfort with calling a REST API are assumed. No prior AI/ML background is required — how an LLM actually works, at the level needed here, is explained from scratch below.
+
 ## What Is LLM Engineering?
 LLM Engineering is the discipline of building production applications powered by Large Language Models. It goes beyond prompt writing — LLM engineers design the full pipeline: model selection, context management, retrieval, evaluation, latency optimisation, cost control, and safety.
+
+## Why This Exists (The Hook)
+
+A working LLM demo takes an afternoon: call an API, print the response, done. A production LLM system is a completely different problem — it needs to handle the model returning something wrong or unsafe, keep costs predictable at scale, retrieve the right private data instead of only what the model was trained on, and be measurably evaluated rather than "it seemed fine when I tried it." LLM Engineering is the discipline that closes that gap between a demo and something a real business can depend on.
+
+**Analogy** — Calling an LLM API is like hiring a brilliant but overconfident consultant who has read almost everything ever published, but has no access to your company's actual files and will state a guess with total confidence if it doesn't know the real answer. LLM Engineering is the job of building the consultant's actual working environment: giving them the right files to reference before they answer (RAG), a way to check their answers against reality before they're shown to a customer (evaluation), and rules for when they should say "I don't know" instead of guessing (guardrails).
+
+**Try it (2 minutes)** — Reason through why temperature matters without running any code: if you're building a system that classifies support tickets into exactly one of five fixed categories, would you want `temperature=0` (deterministic) or `temperature=1` (creative)? Now consider a system that brainstorms five different marketing taglines — does the same answer still hold? The parameter table below explains exactly what's being traded off in each case.
 
 ## Core Responsibilities
 - Design and implement RAG (Retrieval Augmented Generation) pipelines
@@ -28,9 +38,16 @@ LLMs are powerful but unpredictable. The gap between a demo and a production sys
 
 An LLM generates text one token at a time. Your prompt is tokenized into numbers, passed through a transformer neural network (stacked attention + feed-forward layers), and the model outputs a probability distribution over its entire vocabulary for "what token comes next." One token is sampled, appended to the sequence, and the whole process repeats — that's the entire mechanism behind everything from a one-word answer to a full essay.
 
-```
-Your Prompt → Tokenizer → Transformer (attention + feed-forward, dozens of layers)
-            → probability distribution over next token → sample → repeat
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Your Prompt", "sublabel": "Raw text", "color": "slate" },
+    { "label": "Tokenizer", "sublabel": "Text -> numbers", "color": "blue" },
+    { "label": "Transformer", "sublabel": "Attention + feed-forward, dozens of layers", "color": "purple" },
+    { "label": "Sample Next Token", "sublabel": "Probability distribution over vocabulary -- repeat", "color": "green" }
+  ]
+}
 ```
 
 Key parameters that control this loop:
@@ -89,6 +106,15 @@ Claude Sonnet: **$3 per 1M input tokens, $15 per 1M output tokens**. A 1,000-wor
 :::
 
 ## RAG vs Fine-Tuning — When to Use Each
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "RAG", "description": "Updates knowledge instantly, just re-index. Best for current info, citations, Q&A", "color": "blue" },
+    { "title": "Fine-Tuning", "description": "Must retrain to update knowledge. Best for style, format, specialized tasks", "color": "purple" }
+  ]
+}
+```
 
 | | RAG | Fine-Tuning |
 |---|---|---|

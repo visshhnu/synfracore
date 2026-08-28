@@ -1,28 +1,44 @@
 # AI Agents — Autonomous LLM Systems
 
+**Before you start:** solid familiarity with calling an LLM API directly (system prompts, message history — see LLM Engineering or the OpenAI/Anthropic API courses first if those are new) is assumed, since agents are built on top of that foundation. Python is used throughout the examples.
+
 AI Agents are LLM-powered systems that can autonomously reason, plan, and take actions to complete complex tasks — going beyond simple question-answering to actually doing things in the world.
+
+## Why This Exists (The Hook)
+
+A plain LLM call is a single round trip: you send text, it sends text back, and it has no way to check whether its answer was actually correct or to go find information it doesn't have. Ask it "is pod X in namespace Y healthy right now" and it can only guess — it has no live connection to your cluster. An agent fixes this by putting the LLM in a loop with tools: it can decide to run `kubectl get pods`, read the real result, and use that result to decide its next step, repeating until it has an actual answer instead of a guess.
+
+**Analogy** — A plain LLM call is like asking a very well-read consultant a question over email, with no ability to look anything up — they answer purely from memory, on the spot. An AI agent is the same consultant, except now they can put you on hold, actually go check the file cabinet or make a phone call, come back with real information, and only then give you their answer — possibly checking several things before they're confident enough to respond. The reasoning ability is the same consultant; the agent framework is what lets them go verify instead of just guessing.
+
+**Try it (2 minutes)** — Reason through why an agent needs a step limit, without running any code: imagine an agent tasked with "find out why the payment service is down," and its first tool call returns an ambiguous result. If the agent's loop has no maximum number of turns, what's the worst case if it keeps deciding "I need one more piece of information" forever? Now consider a real production agent with a `max_turns=10` limit, like the one in the ReAct example below — what should happen to the user when turn 10 is reached without a confident answer, versus silently returning nothing?
 
 ## What Makes Something an Agent?
 
-```
-Simple LLM:         User input → LLM → Text output
-
-AI Agent:           Goal
-                      │
-                   Reasoning (what do I need to do?)
-                      │
-                   Planning (what steps? what order?)
-                      │
-                   Tool use (search, code, API calls)
-                      │
-                   Observe result
-                      │
-                   Reflect (did it work? what next?)
-                      │
-                   Final answer or next action
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Goal", "sublabel": "What needs to happen", "color": "slate" },
+    { "label": "Reason + Plan", "sublabel": "What do I need to do, in what order?", "color": "blue" },
+    { "label": "Tool Use", "sublabel": "Search, code, API calls", "color": "purple" },
+    { "label": "Observe + Reflect", "sublabel": "Did it work? What next?", "color": "amber" },
+    { "label": "Answer or Next Action", "sublabel": "Loop continues until done or step limit hit", "color": "green" }
+  ]
+}
 ```
 
-An agent has: **Memory** (what it knows), **Tools** (what it can do), **Planning** (how it decides), and **Action** (what it executes).
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Memory", "description": "What the agent knows -- conversation history, learned facts", "color": "blue" },
+    { "title": "Tools", "description": "What the agent can do -- search, code execution, API calls", "color": "purple" },
+    { "title": "Planning", "description": "How the agent decides what to do next", "color": "amber" },
+    { "title": "Action", "description": "What the agent actually executes", "color": "green" }
+  ]
+}
+```
+
+A simple LLM call is just: `User input → LLM → Text output` — no loop, no tools, no memory beyond one exchange.
 
 ## Agent Architectures
 

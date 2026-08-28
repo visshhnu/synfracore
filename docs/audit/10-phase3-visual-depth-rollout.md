@@ -96,7 +96,7 @@ each sub-academy.
 |---|---|---|---|---|
 | 1 | DevOps | 41 | **Done** (2026-08-28, batch 7) — see table below | infrastructure/* aliasing |
 | 2 | Cloud | 25 (not 26 — `terraform` doesn't belong to Cloud, see orphan finding below) | **Done** (2026-08-28, batch 4) — see table below | azure-devops-style aliasing risk (confirmed once, resolved); also surfaced an orphaned-content case (`cloud/terraform`), see below |
-| 3 | AI | 9 | Not started (1 tech done: ai-fundamentals, Phase 1) | None known |
+| 3 | AI | 9 | **Done** (2026-08-28, batch 1) — see table below | None found — all 9 self-mapped, no aliasing |
 | 4 | Exams cluster (exams, central-exams, state-psc, professional-certs) | 26+6+6+5=43 | Not started | Exam-prep rubric variant — see above |
 | 5 | Databases | 12 | Not started (2 techs done: sql, mongodb, Phase 2) | None known |
 | 6 | Healthcare | 13 | Not started (1 tech done: cpt, Phase 2) | None known |
@@ -261,7 +261,7 @@ treatment expands to those tiers.
 
 ---
 
-## Cloud — technology-level tracking (26 technologies)
+## Cloud — technology-level tracking (25 technologies — see orphaned `terraform` finding in batch 4 below; not a real 26th Cloud technology)
 
 Same aliasing risk as DevOps's infrastructure/* pattern: `azure-devops` was
 already found duplicated between `cloud/azure-devops` and `devops/azure-devops`
@@ -359,3 +359,43 @@ the `devops/azure-devops` duplicate was deleted in favor of the canonical
 page is already the real, live, enhanced one, so a second orphaned copy
 just recreates the same duplication problem. Not acted on yet — flagged
 here for a dedicated cleanup pass.
+
+---
+
+## AI — technology-level tracking (9 technologies)
+
+Registry-checked all 9 remaining technologies before editing (learned
+directly from the Cloud `terraform` orphan above) — all 9 confirmed
+self-mapped in the content registry AND genuinely registered under the
+`ai` academy in `lib/data/academies.ts` (`foundations`/`llm-apps`/`mlops`
+sections). No aliasing or orphan risk found this batch.
+
+**Unlike DevOps/Cloud, none of these 8 files had any depth-rubric
+elements** (no prerequisite line, hook, analogy, or try-it prompt) —
+this was a real content-authoring batch, not primarily a visual pass,
+much closer in effort to early DevOps batches than late Cloud batches.
+
+**Batch 1 — full AI batch** (2026-08-28): ai-agents, langchain,
+llm-engineering, llmops, openai, prompt-engineering, python-for-ai, rag —
+overview.md only. Status: **done** — content, predeploy (fence check),
+JSON block validation, and full live Playwright dark/light + crash
+verification cycle all clean. Academies dropdown hover verified
+separately. **This completes the AI academy's overview.md pass — all 9
+AI technologies (8 this batch + ai-fundamentals from Phase 1) now have
+the depth-rubric + visual treatment.**
+
+| Technology | overview.md | Notes |
+|---|---|---|
+| ai-agents | **content done (batch 1)** — added prerequisite line + hook + analogy + try-it (previously missing entirely), converted the agent-loop ASCII diagram to a FlowDiagram, added ConceptBoxGrid (Memory/Tools/Planning/Action) | self-mapped; live-verified ✅ |
+| langchain | **content done (batch 1)** — added prerequisite line + hook + analogy + try-it (previously missing entirely), added ConceptBoxGrid (4 core concepts). Also fixed a real pre-existing bug: the "LangChain vs Raw API" code block used escaped backtick sequences (`\`\`\``) instead of real fences, so it never rendered as a code block at all — fixed to real fences | self-mapped; live-verified ✅ |
+| llm-engineering | **content done (batch 1)** — added prerequisite line + hook + analogy + try-it (previously missing entirely), converted the tokenizer/transformer ASCII diagram to a FlowDiagram, added ConceptBoxGrid (RAG vs Fine-Tuning) | self-mapped; live-verified ✅ |
+| llmops | **content done (batch 1)** — added prerequisite line + hook + analogy + try-it (previously missing entirely), converted the MLOps-vs-LLMOps ASCII comparison to a ConceptBoxGrid, added a second ConceptBoxGrid (4 core LLMOps components) | self-mapped; live-verified ✅ |
+| openai | **content done (batch 1)** — added prerequisite line + hook + analogy + try-it (previously missing entirely), added ConceptBoxGrid (4 model categories) | self-mapped; live-verified ✅ |
+| prompt-engineering | **content done (batch 1)** — added prerequisite line + hook + analogy + try-it (previously missing entirely), added ConceptBoxGrid (5 core principles) | self-mapped; live-verified ✅ |
+| python-for-ai | **content done (batch 1)** — added prerequisite line + analogy + try-it (already had an implicit hook via its "why separate from DevOps Python" framing), added ConceptBoxGrid (4 core practice areas) | self-mapped; live-verified ✅ |
+| rag | **content done (batch 1)** — added prerequisite line + hook + analogy + try-it (previously missing entirely), converted both the "problem RAG solves" and RAG-architecture ASCII diagrams to FlowDiagrams | self-mapped; live-verified ✅ |
+
+No double-backslash artifacts found in this batch (the langchain fence
+bug above is a different, previously-uncatalogued defect class — escaped
+literal backticks instead of real fence markers — not the `\\`
+line-continuation bug tracked elsewhere in this document).

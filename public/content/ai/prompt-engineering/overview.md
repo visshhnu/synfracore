@@ -1,6 +1,16 @@
 # Prompt Engineering — LLM Mastery
 
+**Before you start:** no prior AI/ML experience is required — this is the entry point for working with LLMs. Basic familiarity with what an LLM API call looks like helps for the code examples further down, but isn't required for the core prompting principles.
+
 Prompt engineering is the discipline of designing inputs to Large Language Models to get accurate, reliable, and useful outputs. It's the most important skill for anyone building AI applications.
+
+## Why This Exists (The Hook)
+
+An LLM doesn't know what you actually want — it only has the words you gave it to work with. Ask it something vague and it has to guess at your intent, filling gaps with the statistically most common answer to similar-sounding questions, which is rarely exactly what you needed. Prompt engineering is the skill of removing that guesswork: giving the model enough specificity, context, and structure that there's only one reasonable way to interpret what you're asking for.
+
+**Analogy** — Asking an LLM a vague question is like handing a contractor a one-line description — "renovate the kitchen" — and hoping the result matches what you pictured. A well-engineered prompt is the equivalent of handing over a detailed brief: the exact scope, the constraints, the format you expect the estimate back in. Same contractor, same skill level — the difference in outcome comes entirely from how much of your actual intent made it into the instructions.
+
+**Try it (2 minutes)** — Take any question you'd normally ask an AI assistant and rewrite it using the "Be Specific" and "Specify the Output Format" principles below — add a role, a constraint, and an explicit format for the answer. Ask it both ways (or just compare the prompts side by side) and notice how much of the difference in expected output quality was decided before the model ever saw the question.
 
 ## Why Prompt Engineering Matters
 
@@ -19,6 +29,18 @@ Output:      Exactly what you need, first try
 The model's knowledge is fixed. Your prompt determines what portion of that knowledge is activated and how it's applied.
 
 ## Core Principles
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Be Specific", "description": "Vague asks get vague answers -- name the exact scope and constraints", "color": "blue" },
+    { "title": "Provide Context", "description": "Tell the model who it is and what situation it's reasoning about", "color": "purple" },
+    { "title": "Specify Output Format", "description": "Table, JSON, word limit -- don't leave structure to chance", "color": "amber" },
+    { "title": "Use Examples", "description": "Few-shot examples teach the exact pattern without fine-tuning", "color": "green" },
+    { "title": "Chain of Thought", "description": "Ask the model to reason step by step for complex problems", "color": "slate" }
+  ]
+}
+```
 
 ### 1. Be Specific and Explicit
 
