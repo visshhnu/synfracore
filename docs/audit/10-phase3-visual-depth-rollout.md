@@ -98,7 +98,7 @@ each sub-academy.
 | 2 | Cloud | 25 (not 26 — `terraform` doesn't belong to Cloud, see orphan finding below) | **Done** (2026-08-28, batch 4) — see table below | azure-devops-style aliasing risk (confirmed once, resolved); also surfaced an orphaned-content case (`cloud/terraform`), see below |
 | 3 | AI | 9 | **Done** (2026-08-28, batch 1) — see table below | None found — all 9 self-mapped, no aliasing |
 | 4 | Exams cluster (exams, central-exams, state-psc, professional-certs) | 26+5+5+4=40 | **Done** (2026-08-28, batch 7) — see table below | Exam-prep rubric variant — see above; surfaced and fixed 2 real live-production bugs (cloud/terraform orphan, gate-ece stale alias), see below |
-| 5 | Databases | 12 | **In progress** — see table below (2 done: sql, mongodb, Phase 2; batch 1 in progress) | None found — all self-mapped, no aliasing |
+| 5 | Databases | 12 | **Done** (2026-08-28, batch 2) — see table below | None found — all self-mapped, no aliasing |
 | 6 | Healthcare | 13 | Not started (1 tech done: cpt, Phase 2) | None known |
 | 7 | Security | 9 | Not started (1 tech done: security-fundamentals, Phase 2) | None known |
 | 8 | Data (Analytics & BI) | 14 | Not started | None known |
@@ -669,5 +669,34 @@ into a ConceptBoxGrid.
 
 No double-backslash or fence-imbalance defects found in this batch.
 
-**Remaining Databases technologies, not yet started:** database-design,
-performance-tuning, cloud-databases, elasticsearch (4 remaining).
+**Batch 2 — final batch** (2026-08-28): database-design,
+performance-tuning, cloud-databases, elasticsearch — overview.md only.
+Status: **done** — content, predeploy (fence check), JSON block
+validation, and full live Playwright dark/light + crash verification
+cycle all clean. Academies dropdown hover verified separately. **This
+completes the entire Databases academy's overview.md pass — 12/12
+technologies (10 from this Phase 3 pass + sql/mongodb from Phase 2).**
+
+None of these 4 files had any depth-rubric elements — added
+prerequisite + hook + analogy + try-it from scratch to each, plus
+ConceptBoxGrids/FlowDiagrams converting each file's existing
+tables/lists into visuals. Caught and fixed a stray duplicate heading
+introduced mid-edit in `database-design/overview.md` before it reached
+predeploy or commit — same class of self-caught mistake as cassandra in
+batch 1.
+
+| Technology | overview.md | Notes |
+|---|---|---|
+| database-design | **content done (batch 2)** — added prerequisite + hook + analogy + try-it, ConceptBoxGrid (4 normal forms), ConceptBoxGrid (CAP theorem). Fixed a stray duplicate heading introduced mid-edit | self-mapped; live-verified ✅ |
+| performance-tuning | **content done (batch 2)** — added prerequisite + hook + analogy + try-it, FlowDiagram (5-step tuning hierarchy), ConceptBoxGrid (EXPLAIN plan node types) | self-mapped; live-verified ✅ |
+| cloud-databases | **content done (batch 2)** — added prerequisite + hook + analogy + try-it, ConceptBoxGrid (4-provider landscape) | self-mapped; live-verified ✅ |
+| elasticsearch | **content done (batch 2)** — added prerequisite + hook + analogy + try-it, ConceptBoxGrid (core concepts), ConceptBoxGrid (4 excellent-for use cases) | self-mapped; live-verified ✅ |
+
+No double-backslash or fence-imbalance defects found in this batch.
+
+## Databases academy — COMPLETE (2026-08-28)
+
+All 12 technologies now have the depth-rubric + visual treatment:
+sql and mongodb (Phase 2 pilot) + postgresql, mysql, redis, oracle,
+cassandra, dynamodb (batch 1) + database-design, performance-tuning,
+cloud-databases, elasticsearch (batch 2) = **12/12**.

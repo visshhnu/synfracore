@@ -1,14 +1,35 @@
 # Database Design — Overview
 
+**Before you start:** basic SQL (SELECT/WHERE/JOIN, CREATE TABLE) is assumed — see the SQL Mastery course first if that's new. No prior schema-design experience is required.
+
 ## What is Database Design?
 
 Database design is the process of producing a detailed data model for a database. It determines what data gets stored, how it's organized, what relationships exist, and what constraints enforce data integrity.
+
+## Why This Exists (The Hook)
+
+A database with no design discipline still technically works at first — you can jam every field into one giant table and it'll return correct answers on small data. The problems show up later: the same customer's email duplicated across a thousand rows means updating it requires a thousand writes instead of one, and forgetting even one leaves the data silently inconsistent. Database design exists to catch these problems on paper, before they're baked into millions of production rows that are expensive and risky to restructure later.
+
+**Analogy** — Think of database design like architectural blueprints for a building versus building it as you go. You *can* start construction without blueprints — walls go up, rooms get built — but you'll eventually discover a load-bearing wall in the wrong place, or a plumbing run that should have been planned before the concrete was poured. Normalization and ER diagrams are the blueprint phase: figuring out the structure on paper, where changes cost nothing, instead of discovering the problem after the data (the building) already exists.
+
+**Try it (2 minutes)** — Reason through why storing `customer_name` and `customer_email` directly on every order row is a real problem, without running any SQL: if a customer places 50 orders and then changes their email address, how many rows does an unnormalized `orders` table need to update to keep that customer's email consistent everywhere? What happens if row #37 gets missed during that update — does the database have any way of knowing that's now a mistake?
 
 ---
 
 ## Normalization — The Foundation
 
 ### Normal Forms
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "1NF", "description": "Atomic values, no repeating groups -- eliminate arrays in columns", "color": "blue" },
+    { "title": "2NF", "description": "1NF + no partial dependencies -- remove columns dependent on part of PK", "color": "purple" },
+    { "title": "3NF", "description": "2NF + no transitive dependencies -- remove columns dependent on non-key columns", "color": "amber" },
+    { "title": "BCNF", "description": "Stronger 3NF -- every determinant is a candidate key", "color": "green" }
+  ]
+}
+```
 
 | Form | Rule | Fixes |
 |------|------|-------|
@@ -139,6 +160,16 @@ CREATE TABLE orders (
 ---
 
 ## CAP Theorem
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Consistency", "description": "All nodes see the same data at the same time -- PostgreSQL, MySQL", "color": "blue" },
+    { "title": "Availability", "description": "Every request gets a response -- Cassandra, DynamoDB", "color": "purple" },
+    { "title": "Partition Tolerance", "description": "System works despite network splits -- required for any distributed system", "color": "green" }
+  ]
+}
+```
 
 | Guarantee | Meaning | Example |
 |-----------|---------|---------|

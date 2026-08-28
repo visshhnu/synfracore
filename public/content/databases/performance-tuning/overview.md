@@ -1,12 +1,33 @@
 # Database Performance Tuning — Overview
 
+**Before you start:** basic SQL and comfort writing JOIN queries are assumed — see the SQL Mastery course first if that's new. No prior performance-tuning experience is required.
+
 ## Why Performance Tuning?
 
 A poorly performing database is the #1 cause of application latency. A query that takes 10 seconds instead of 10ms degrades the entire user experience. Performance tuning addresses the root causes systematically.
 
----
+## Why This Exists (The Hook)
+
+The same query can run in 10 milliseconds or 10 seconds depending entirely on whether the database has to scan every row or can jump straight to the ones that match — and the database engine won't tell you which one is happening unless you ask it to explain itself. Performance tuning exists because "it's slow" is a symptom with many possible causes (missing index, bad schema, misconfigured memory, an N+1 query pattern in application code), and guessing at the fix without first identifying the actual cause usually wastes effort on something that wasn't the real problem.
+
+**Analogy** — Think of a slow query like a doctor's visit for chest pain. A bad doctor guesses — maybe it's stress, try relaxing — without ever running a test. A good doctor runs diagnostics first (an EKG, blood work) to see exactly what's happening before prescribing anything. `EXPLAIN ANALYZE` is the database's EKG: it shows you exactly what the query actually did — which tables were scanned in full, which indexes were used, where the time actually went — so the fix targets the real cause instead of a guess.
+
+**Try it (2 minutes)** — Reason through why the tuning hierarchy below goes in that specific order, without running anything: fixing a bad schema design after millions of rows already exist requires a risky migration; adding the right index usually takes seconds and can be done live. If you found a slow query today, would it make more sense to first check whether an index is missing, or to first consider redesigning the table's schema? Now flip the question: why is schema design still listed *first* in the hierarchy, if index fixes are so much cheaper to apply later?
 
 ## The Tuning Hierarchy (Top to Bottom)
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Schema Design", "sublabel": "Hardest to change later -- get right upfront", "color": "blue" },
+    { "label": "Query Optimization", "sublabel": "EXPLAIN ANALYZE -- always start here", "color": "purple" },
+    { "label": "Index Strategy", "sublabel": "Most impactful quick win", "color": "amber" },
+    { "label": "DB Configuration", "sublabel": "Memory, connections, autovacuum", "color": "green" },
+    { "label": "Hardware", "sublabel": "Last resort", "color": "slate" }
+  ]
+}
+```
 
 ```
 1. Schema design (hardest to change later — get right upfront)
@@ -56,6 +77,18 @@ GROUP BY o.order_id, c.name;
 ```
 
 **What to look for:**
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Seq Scan", "description": "Sequential scan -- full table read, usually needs an index", "color": "red" },
+    { "title": "Index Scan", "description": "Good -- for selective queries", "color": "green" },
+    { "title": "Hash Join", "description": "OK for large datasets", "color": "blue" },
+    { "title": "Nested Loop", "description": "Great if the inner side is small, bad if large", "color": "amber" }
+  ]
+}
+```
+
 ```
 Seq Scan → Sequential scan (full table read) → needs an index
 Index Scan → Good for selective queries

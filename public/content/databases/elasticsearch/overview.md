@@ -1,8 +1,18 @@
 # Elasticsearch Overview
 
+**Before you start:** basic familiarity with JSON and REST APIs is assumed. No prior search-engine or Elasticsearch experience is required.
+
 ## What is Elasticsearch?
 
 Elasticsearch is an open-source, distributed, RESTful search and analytics engine built on Apache Lucene. It is part of the Elastic Stack (formerly ELK Stack: Elasticsearch, Logstash, Kibana) and is used for full-text search, log analytics, APM, security analytics, and vector search.
+
+## Why This Exists (The Hook)
+
+A relational database's `LIKE '%widget%'` search has to check every single row, character by character, because it has no way to know in advance which rows contain "widget" — there's no index built for arbitrary substring search across free text. Elasticsearch exists to solve exactly this: it pre-processes text into an inverted index (a map from every word to the documents containing it) at write time, so a search for "widget" across millions of documents becomes a fast index lookup instead of a full scan — the same fundamental trick a book's index uses versus reading every page.
+
+**Analogy** — Think of a relational database searching text like reading an entire book cover-to-cover every time you want to find a mention of a specific word. Elasticsearch is like that same book, but with a detailed index in the back listing every significant word and every page it appears on — built once when the book was printed, so any future lookup is instant regardless of how long the book is.
+
+**Try it (2 minutes)** — Reason through why Elasticsearch isn't a good primary transactional store, without running anything: updating a single field in an existing Elasticsearch document doesn't modify it in place — it marks the old document deleted and indexes a brand new one, because the underlying Lucene segments are immutable once written. If an application updated the same "product view count" field thousands of times per second, what would that mean for how many "deleted" documents accumulate over time, compared to a database built for frequent in-place row updates?
 
 ## Core Concepts
 
@@ -23,6 +33,17 @@ DOCUMENT: JSON object (like a row) with unique _id
 MAPPING: defines field types (like a schema, but flexible)
   Dynamic mapping: Elasticsearch infers types automatically
   Explicit mapping: you define types for control and performance
+```
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Cluster / Node", "description": "One or more nodes working together -- master, data, ingest, coordinating roles", "color": "blue" },
+    { "title": "Index", "description": "Collection of documents, like a database -- split into primary + replica shards", "color": "purple" },
+    { "title": "Document", "description": "A JSON object with a unique _id, like a row", "color": "amber" },
+    { "title": "Mapping", "description": "Defines field types -- like a schema, but flexible (dynamic or explicit)", "color": "green" }
+  ]
+}
 ```
 
 ## REST API Basics
@@ -85,6 +106,17 @@ curl -X DELETE "localhost:9200/products"
 ```
 
 ## When to Use Elasticsearch
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Full-Text Search", "description": "Product search, document search", "color": "blue" },
+    { "title": "Log Analytics", "description": "ELK stack for application/infrastructure logs", "color": "purple" },
+    { "title": "Vector / Semantic Search", "description": "AI applications", "color": "amber" },
+    { "title": "Real-Time Dashboards", "description": "Kibana-powered analytics", "color": "green" }
+  ]
+}
+```
 
 ```
 EXCELLENT FOR:
