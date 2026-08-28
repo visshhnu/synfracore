@@ -14,23 +14,15 @@ Running your own Kubernetes cluster is like owning and maintaining the elevator 
 
 ## How it fits together (diagram)
 
-```
-                    Microsoft manages, free:
-        ┌───────────────────────────────────────┐
-        │  Control Plane (API server, etcd,      │
-        │  scheduler, controller-manager)        │
-        └───────────────────┬─────────────────────┘
-                             │ you talk to this via kubectl
-                             ▼
-        ┌───────────────────────────────────────┐
-        │  You provision and pay for:            │
-        │  Node Pools (VMs running kubelet)      │
-        │   - System pool: CoreDNS, kube-proxy   │
-        │   - User pool(s): your application pods│
-        └───────────────────┬─────────────────────┘
-                             │ scheduled onto
-                             ▼
-                     Your application Pods
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "Control Plane", "sublabel": "Microsoft manages, free -- API server, etcd, scheduler, controller-manager", "color": "blue" },
+    { "label": "Node Pools", "sublabel": "You provision and pay for -- system pool (CoreDNS, kube-proxy), user pool(s)", "color": "purple" },
+    { "label": "Application Pods", "sublabel": "Scheduled onto your node pools", "color": "green" }
+  ]
+}
 ```
 
 ## Try it yourself (2 minutes)
@@ -38,6 +30,17 @@ Running your own Kubernetes cluster is like owning and maintaining the elevator 
 If you have an Azure sandbox available, run `az aks create --resource-group <rg> --name demo-aks --node-count 1 --generate-ssh-keys` (a single-node cluster is enough to see the shape) and then `kubectl get nodes` and `kubectl get pods -n kube-system` once `az aks get-credentials` has been run. Notice the system pods (`coredns`, `kube-proxy`, `metrics-server`) are already running on your one node without you deploying them — that's the boundary between what Microsoft ships pre-configured on every node and what you're responsible for adding yourself.
 
 ## Why AKS?
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Free Control Plane", "description": "Microsoft manages and pays for it -- you only pay for worker nodes", "color": "blue" },
+    { "title": "Entra ID + Workload Identity", "description": "Existing identities for K8s RBAC; pods get identities, no secrets needed", "color": "purple" },
+    { "title": "Azure Native Integration", "description": "Azure Monitor, ACR pull, Virtual Nodes (burst to ACI)", "color": "green" },
+    { "title": "Windows Node Pools", "description": "Run Windows containers alongside Linux in the same cluster", "color": "slate" }
+  ]
+}
+```
 
 - **Free control plane** — Microsoft manages and pays for it
 - **Entra ID integration** — Use existing identities for K8s RBAC

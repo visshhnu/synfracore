@@ -12,29 +12,15 @@ Think of individual cloud services (EC2, RDS, S3, Lambda) as building materials 
 
 ## How it fits together (diagram)
 
-```
-                    A recurring problem
-             (zone failure, N-to-N networking,
-          legacy rewrite risk, read/write asymmetry,
-              cross-service transactions,
-                  unpredictable load)
-                          │
-                          ▼
-              Match to the pattern designed
-                for THAT problem class
-                          │
-          ┌───────┬───────┼───────┬───────┬────────┐
-          ▼       ▼       ▼       ▼       ▼        ▼
-      Multi-AZ  Hub-&-  Strangler CQRS   Saga   Serverless
-      Active-   Spoke   Fig                     Event-Driven
-      Active
-          │       │       │       │       │        │
-          └───────┴───────┴───────┴───────┴────────┘
-                          │
-                          ▼
-            Each pattern has a real cost/complexity
-             tradeoff — apply only when the specific
-                problem it solves is actually present
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "A recurring problem", "sublabel": "Zone failure, N-to-N networking, legacy risk, read/write asymmetry, cross-service transactions, unpredictable load", "color": "slate" },
+    { "label": "Match to the pattern", "sublabel": "designed for that specific problem class", "color": "blue" },
+    { "label": "Apply with judgment", "sublabel": "Every pattern has a cost/complexity tradeoff -- use only when the problem it solves is actually present", "color": "amber" }
+  ]
+}
 ```
 
 ## What are Architecture Patterns?
@@ -53,6 +39,19 @@ Proven design approaches for building reliable, scalable, and cost-efficient sys
 | Sustainability | Minimum environmental impact? |
 
 ## Core Patterns
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Multi-AZ Active-Active", "description": "Both AZs serve traffic. RDS failover ~60s, zero data loss via sync replication", "color": "blue" },
+    { "title": "Hub-and-Spoke Networking", "description": "Transit Gateway connects VPCs to shared services -- no peering mesh", "color": "purple" },
+    { "title": "Strangler Fig", "description": "Route specific paths to new microservices while the monolith handles the rest", "color": "amber" },
+    { "title": "CQRS", "description": "Separate write path (consistency) and read path (performance)", "color": "green" },
+    { "title": "Saga Pattern", "description": "Compensating transactions replace 2-phase commit across microservices", "color": "red" },
+    { "title": "Serverless Event-Driven", "description": "Upload triggers a function, scales from zero to millions automatically", "color": "slate" }
+  ]
+}
+```
 
 ### Multi-AZ Active-Active
 Both availability zones serve traffic simultaneously. RDS automatic failover in ~60 seconds. Zero data loss with synchronous replication.

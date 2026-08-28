@@ -27,26 +27,19 @@ Think of the Management Group → Subscription → Resource Group → Resource h
 
 ## How it fits together (diagram)
 
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "Management Group", "sublabel": "Company-wide policy/RBAC", "color": "slate" },
+    { "label": "Subscription", "sublabel": "Billing + quota boundary", "color": "blue" },
+    { "label": "Resource Group", "sublabel": "Lifecycle container -- created/deleted together", "color": "purple" },
+    { "label": "Resource", "sublabel": "VM, storage account, database, VNet, ...", "color": "green" }
+  ]
+}
 ```
-Management Group  (company-wide policy/RBAC)
-      │
-      ▼
-Subscription       (billing + quota boundary)
-      │
-      ▼
-Resource Group     (lifecycle container: created/deleted together)
-      │
-      ▼
-Resource           (VM, storage account, database, VNet, ...)
 
-Every one of the above is created/read/updated/deleted through
-Azure Resource Manager (ARM) — the single control-plane API that
-the Portal, CLI, Terraform, and Bicep all call underneath.
-
-Entra ID (identity) + Azure RBAC (authorization) sit alongside
-this hierarchy, not inside it — a role assignment can be scoped
-at any of the four levels above.
-```
+Every level above is created/read/updated/deleted through Azure Resource Manager (ARM) — the single control-plane API that the Portal, CLI, Terraform, and Bicep all call underneath. Entra ID (identity) + Azure RBAC (authorization) sit alongside this hierarchy, not inside it — a role assignment can be scoped at any of the four levels above.
 
 ## Try it yourself (2 minutes)
 
@@ -55,6 +48,18 @@ If you have (or can create) a free Azure account, run these two commands and rea
 ---
 
 ## Learning Modules
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Identity", "description": "Entra ID + Azure RBAC -- underlies everything else", "color": "slate" },
+    { "title": "Compute", "description": "VMs, AKS (managed Kubernetes), App Service/Functions (PaaS/serverless)", "color": "blue" },
+    { "title": "Storage", "description": "Blob Storage (objects), managed disks (VM-attached block storage)", "color": "green" },
+    { "title": "Networking", "description": "VNets, NSGs, Application Gateway, ExpressRoute", "color": "purple" },
+    { "title": "Azure Monitor", "description": "Metrics, Log Analytics (KQL), Application Insights", "color": "amber" }
+  ]
+}
+```
 
 ### Module 01 — Azure Fundamentals
 *Hierarchy, subscriptions, ARM*

@@ -284,9 +284,25 @@ verification cycle all clean. Academies dropdown hover verified separately.
 
 No double-backslash or fence-imbalance defects found in this batch.
 
-**Remaining Cloud technologies, not yet started:** architecture-patterns,
-aws, aws-eks, azure, azure-aks, azure-devops, azure-entra, azure-vms,
+**Batch 2** (2026-08-28): aws, azure, aws-eks, azure-aks, azure-devops,
+architecture-patterns — overview.md only. Status: **done** — content,
+predeploy (fence check), JSON block validation, and full live Playwright
+dark/light + crash verification cycle all clean. Academies dropdown hover
+verified separately.
+
+| Technology | overview.md | Notes |
+|---|---|---|
+| aws | **content done (batch 2)** — added hook + analogy + try-it prompt (previously missing, now fully depth-rubric complete), ConceptBoxGrid (Compute/Storage/Networking/Database/IAM) | self-mapped; live-verified ✅ |
+| azure | **content done (batch 2)** — already fully depth-rubric complete (hook/analogy/diagram/try-it), converted the existing ASCII hierarchy diagram to a stack FlowDiagram, added ConceptBoxGrid (Identity/Compute/Storage/Networking/Monitor) | self-mapped; live-verified ✅ |
+| aws-eks | **content done (batch 2)** — already fully depth-rubric complete, converted the "who manages what" ASCII diagram to a ConceptBoxGrid, added FlowDiagram (4-step upgrade process) | self-mapped; live-verified ✅ |
+| azure-aks | **content done (batch 2)** — already fully depth-rubric complete, converted the nested ASCII control-plane/node-pool diagram to a stack FlowDiagram, added ConceptBoxGrid (4 key AKS features) | self-mapped; live-verified ✅ |
+| azure-devops | **content done (batch 2)** — already fully depth-rubric complete, converted the ASCII Boards→Repos→Pipelines→Artifacts diagram to a stack FlowDiagram, added ConceptBoxGrid (5 Azure DevOps services) | self-mapped; live-verified ✅ |
+| architecture-patterns | **content done (batch 2)** — already fully depth-rubric complete, simplified the ASCII fan-out diagram to a 3-step stack FlowDiagram, added ConceptBoxGrid (6 core patterns) | self-mapped; live-verified ✅ |
+
+No double-backslash or fence-imbalance defects found in this batch.
+
+**Remaining Cloud technologies, not yet started:** azure-entra, azure-vms,
 azure-vnets, bigquery, cloud-fundamentals, cloud-run, cloud-security,
 cloudformation, cost-optimization, gke, landing-zones, multi-cloud,
-networking-security, route53, terraform (21 remaining; aws-vpc already
-done in Phase 1).
+networking-security, route53, terraform (15 remaining; aws-vpc done in
+Phase 1, 10 done in batches 1-2).

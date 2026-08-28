@@ -12,14 +12,13 @@ Running Kubernetes yourself means standing up and babysitting the control plane:
 
 **Diagram** — who manages what:
 
-```
-AWS-managed (control plane)          You manage (data plane)
-────────────────────────────         ───────────────────────
-API server (multi-AZ)                Worker nodes (EC2 or Fargate)
-etcd (managed, backed up)     <──►    kubectl / Deployments / Services
-Scheduler, controller-manager        Pod specs, resource requests
-                                      Add-ons you choose to install (ALB
-                                      controller, cluster-autoscaler, etc.)
+```conceptgrid
+{
+  "boxes": [
+    { "title": "AWS-Managed (Control Plane)", "description": "API server (multi-AZ), etcd (backed up), scheduler, controller-manager", "color": "blue" },
+    { "title": "You Manage (Data Plane)", "description": "Worker nodes (EC2/Fargate), kubectl/Deployments/Services, add-ons you choose", "color": "purple" }
+  ]
+}
 ```
 
 ## EKS vs Self-Managed Kubernetes
@@ -284,6 +283,18 @@ aws eks list-addons --cluster-name prod-cluster
 ```
 
 ## EKS Upgrade Process
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Check version", "sublabel": "kubectl version", "color": "slate" },
+    { "label": "Upgrade control plane", "sublabel": "aws eks update-cluster-version", "color": "blue" },
+    { "label": "Update add-ons", "sublabel": "vpc-cni, coredns, kube-proxy", "color": "purple" },
+    { "label": "Upgrade node groups", "sublabel": "One at a time, or blue/green with a new group", "color": "green" }
+  ]
+}
+```
 
 ```bash
 # 1. Check current version

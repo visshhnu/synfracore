@@ -14,20 +14,16 @@ Think of Azure DevOps like an all-in-one hospital versus a patient having to dri
 
 ## How it fits together (diagram)
 
-```
-Azure Boards (work item #1234: "Fix login timeout")
-        │
-        │  git commit -m "Fix login timeout AB#1234"
-        ▼
-Azure Repos (commit auto-links back to work item #1234)
-        │
-        │  push triggers
-        ▼
-Azure Pipelines (build → test → scan → deploy stages)
-        │
-        ├──▶ Azure Artifacts (versioned package/image published)
-        │
-        └──▶ Environments (staging → approval gate → production)
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "Azure Boards", "sublabel": "Work item #1234: \"Fix login timeout\"", "color": "slate" },
+    { "label": "Azure Repos", "sublabel": "git commit -m \"Fix login timeout AB#1234\" -- auto-links back to the work item", "color": "blue" },
+    { "label": "Azure Pipelines", "sublabel": "Push triggers build -> test -> scan -> deploy stages", "color": "purple" },
+    { "label": "Artifacts + Environments", "sublabel": "Versioned package published; staging -> approval gate -> production", "color": "green" }
+  ]
+}
 ```
 
 ## Try it yourself (2 minutes)
@@ -35,6 +31,18 @@ Azure Pipelines (build → test → scan → deploy stages)
 If you have an Azure DevOps organization available (the free tier is enough), create a work item in Boards, note its ID, then make a commit in a connected repo with `git commit -m "test change AB#<id>"` and push it. Open the work item again — you'll see the commit listed under its "Development" links automatically, with no extra configuration. That auto-linking is the concrete example of what "integrated suite" means in practice, versus separately-run tools that would need a bot or webhook to achieve the same thing.
 
 ## Azure DevOps Services
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Azure Repos", "description": "Git source control -- alternative to GitHub", "color": "blue" },
+    { "title": "Azure Pipelines", "description": "CI/CD automation -- alternative to Jenkins, GitHub Actions", "color": "purple" },
+    { "title": "Azure Boards", "description": "Agile planning, work items -- alternative to Jira", "color": "amber" },
+    { "title": "Azure Artifacts", "description": "Package registry (npm, pip, NuGet, Maven)", "color": "green" },
+    { "title": "Azure Test Plans", "description": "Test case management", "color": "slate" }
+  ]
+}
+```
 
 | Service | Purpose | Alternative |
 |---------|---------|-------------|

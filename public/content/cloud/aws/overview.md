@@ -17,9 +17,29 @@ AWS is a cloud platform — instead of buying and racking physical servers, you 
 
 **IAM (Identity and Access Management)** is the security foundation everything else sits on — it decides who or what can call which AWS API on which resource. The standing rule: use **Roles** (temporary, short-lived credentials) rather than **Users** (long-lived credentials) for anything application-facing, since a leaked role credential expires on its own within hours while a leaked user access key stays valid until someone notices. **IRSA** (IAM Roles for Service Accounts) extends this pattern into Kubernetes, letting EKS pods assume AWS roles directly without ever storing an access key. **SCPs** (Service Control Policies) work at a level above individual IAM policies — they set an organization-wide ceiling on what an entire AWS account can do, which no IAM policy inside that account can override.
 
+## Why This Exists (The Hook)
+
+Before cloud platforms existed, launching a new product meant buying physical servers months ahead of knowing whether anyone would actually use it — guess the capacity wrong and you either wasted money on idle hardware or crashed under real demand with no way to add more overnight. AWS exists to remove that guess entirely: instead of owning hardware, you rent exactly the compute, storage, and networking you need, when you need it, and give it back the moment you don't — the bill follows actual usage, not a purchasing decision made six months too early.
+
+**Analogy** — Think of AWS like a fully-stocked hardware store versus building your own factory. Owning a data center is building a factory: enormous upfront cost, years of commitment, and you're stuck with whatever capacity you built even if demand changes. AWS is the hardware store on the corner — walk in, take exactly what you need (an EC2 instance, an S3 bucket, an RDS database), use it for as long as the job requires, and return it (stop, delete, scale down) the moment you're done. The store (AWS) owns and maintains the actual inventory across 30+ Regions worldwide; you just check out what the current job needs.
+
+**Try it (2 minutes)** — Reason through the Shared Responsibility Model without needing an AWS account: if an S3 bucket gets accidentally left open to the public internet and sensitive data leaks, is that AWS's fault or the account owner's? Now ask the reverse: if an AWS data center itself loses power and a Multi-AZ RDS database automatically fails over without any data loss, whose design made that recovery possible? The line between "AWS's job" and "your job" is exactly where these two answers diverge — infrastructure and hypervisor security are AWS's; what you configure on top of it is yours.
+
 ---
 
 ## Learning Modules
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Compute", "description": "EC2 (VMs), Lambda (serverless), EKS/ECS (containers)", "color": "blue" },
+    { "title": "Storage", "description": "S3 (objects), EBS (block, one instance), EFS (shared filesystem)", "color": "green" },
+    { "title": "Networking", "description": "VPC, Route 53, load balancers -- connects and isolates everything", "color": "purple" },
+    { "title": "Database", "description": "RDS, DynamoDB -- managed structured/NoSQL data", "color": "amber" },
+    { "title": "IAM", "description": "Underlies all of the above -- who/what can call which API on which resource", "color": "slate" }
+  ]
+}
+```
 
 ### Module 01 — AWS Fundamentals
 *Regions, AZs, global infrastructure*
