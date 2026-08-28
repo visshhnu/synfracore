@@ -1,6 +1,16 @@
 # Computer Networks — GATE & Interview Complete Guide
 
+**Before you start:** basic familiarity with what a "network" and an "IP address" are (from general computing exposure) is assumed — no prior networking-specific coursework required.
+
 Computer Networks is 8-10 marks in GATE and heavily tested in backend/infrastructure interviews. Master the OSI model, protocols, and routing.
+
+## Why This Exists (The Hook)
+
+When you type a URL into a browser, dozens of independent systems — DNS resolution, TCP handshaking, TLS encryption, HTTP request/response — have to cooperate correctly, in order, for a page to load. None of those systems needs to know how any of the others work internally; each just needs to correctly hand off to the next layer. The OSI/TCP-IP layering model exists to describe exactly that separation of concerns — it's why a network engineer can swap Wi-Fi for Ethernet (Physical/Data Link layer) without anyone above the Network layer noticing or caring.
+
+**Analogy** — Think of the network layers like a postal system, not a single door-to-door courier. When you mail a letter, you don't personally drive it to the recipient — you hand it to a local post office (Application layer: your message), which hands it to regional sorting (Transport layer: TCP breaks it into segments), which hands it to a shipping route (Network layer: IP routes it), which finally goes over an actual physical truck or plane (Physical layer). Each stage only needs to know how to hand off to the next one — the sender never worries about which specific truck the regional depot chooses.
+
+**Try it (2 minutes)** — Reason through why DNS uses UDP for regular queries but TCP for zone transfers, without looking anything up: a regular DNS query is a single small request-response ("what's the IP for example.com?") where speed matters more than guaranteed delivery — if it's lost, the client just retries. A zone transfer copies an entire domain's DNS records between servers — potentially a large amount of data that absolutely must arrive complete and in order. Given that UDP is fast but unreliable, and TCP is reliable but has more overhead, why does matching the protocol to what's actually being sent (one small query vs. a large complete dataset) make sense here?
 
 ## OSI vs TCP/IP Model
 
@@ -143,6 +153,16 @@ DNSSEC: DNS with cryptographic signatures, prevents spoofing
 ```
 
 ## HTTP & HTTPS
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "HTTP/1.1", "description": "TCP connection per request or reuse -- head-of-line blocking", "color": "blue" },
+    { "title": "HTTP/2", "description": "Multiplexing, server push, header compression", "color": "purple" },
+    { "title": "HTTP/3", "description": "QUIC (UDP-based) -- eliminates TCP head-of-line blocking", "color": "green" }
+  ]
+}
+```
 
 ```
 HTTP methods:

@@ -1,8 +1,31 @@
 # System Design — Complete Guide for Interviews & GATE
 
+**Before you start:** [DBMS](/academies/education/dbms/overview) and basic networking concepts ([Computer Networks](/academies/education/cn/overview)) are assumed — system design combines both into decisions about real, large-scale systems.
+
 System design interviews separate senior from junior engineers. You're asked to design real systems (WhatsApp, YouTube, Uber, Amazon) — the skill is breaking a vague problem into concrete components that work at scale.
 
+## Why This Exists (The Hook)
+
+A single-server web app with one database works perfectly for 100 users and falls over completely at 10 million — not because anything is "wrong" with it, but because certain problems (a single database becoming a bottleneck, a single point of failure taking down the whole system) only appear at scale. System design is the discipline of anticipating those problems before they happen: which parts need to be duplicated (replication), which parts need to be split apart (sharding), and which trade-off (consistency vs. availability, latency vs. throughput) you're deliberately accepting and why.
+
+**Analogy** — Think of system design like planning a city's infrastructure, not just designing one building. Designing a single house, you don't think about traffic patterns or water pressure at scale — one family, one set of pipes. Designing a city, the same "one pipe, one road" approach collapses the moment a million people need water and roads at once — you need distribution networks, redundancy, and load-spreading built in from the start. A system design interview is testing whether you think like a city planner (anticipating scale) or a house architect (designing for the one case in front of you).
+
+**Try it (2 minutes)** — Reason through why "Capacity Estimation" (traffic, storage, bandwidth) comes as Step 2, before any actual design decisions in Step 3, without looking anything up: if you don't yet know whether a system needs to handle 100 requests/second or 100,000 requests/second, how would you decide whether a single database server is enough, or whether you need sharding and read replicas from day one? What concrete design decisions in Step 3 (load balancer, caching, database choice) would you be guessing at blindly without first doing the capacity math in Step 2?
+
 ## How to Approach Any System Design Question
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "1. Clarify Requirements", "sublabel": "Functional + non-functional, 5 min", "color": "blue" },
+    { "label": "2. Capacity Estimation", "sublabel": "QPS, storage, bandwidth, 3 min", "color": "purple" },
+    { "label": "3. High-Level Design", "sublabel": "Boxes: clients, LB, servers, DB, cache", "color": "amber" },
+    { "label": "4. Deep Dive", "sublabel": "2-3 components in detail, 15 min", "color": "green" },
+    { "label": "5. Trade-offs", "sublabel": "What was sacrificed and why, 5 min", "color": "red" }
+  ]
+}
+```
 
 ```
 Step 1 — Clarify Requirements (5 min)

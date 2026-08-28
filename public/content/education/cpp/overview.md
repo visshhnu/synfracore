@@ -1,5 +1,15 @@
 # C++ — Overview
 
+**Before you start:** [C Programming](/academies/education/c-programming/overview) fundamentals are strongly recommended, though not strictly required — C++ is a superset of C, and much of what makes C++ distinctive (classes, RAII, smart pointers) is best understood as "what C++ adds on top of C."
+
+## Why This Exists (The Hook)
+
+C gives you total control over memory and hardware but forces every reusable concept (an "object" with its own data and behavior) to be built by hand from structs and function pointers — workable, but verbose and easy to get wrong at scale. C++ exists to add real language-level support for that pattern (classes, inheritance, polymorphism) without giving up C's performance or low-level control — which is exactly why C++ powers both extremely high-level application code and extremely performance-critical systems like game engines and high-frequency trading, in the same language.
+
+**Analogy** — Think of C++ like a fully-equipped workshop built as an extension onto a bare workspace, not a replacement for it. The bare workspace (C) has a workbench and hand tools — completely functional, but every jig and fixture has to be built from scratch each time. The workshop extension (C++'s classes, STL, smart pointers) adds power tools and pre-built fixtures on top of that same workbench — you can still use the original hand tools when you need C's raw control, but for most jobs the added tools genuinely make you faster and less error-prone, as long as you don't awkwardly mix hand-cutting a joint the power saw was built to do.
+
+**Try it (2 minutes)** — Reason through why mixing `malloc`/`free` (C-style) with `new`/`delete` (C++-style) for the *same* object is undefined behavior rather than just "bad style," without looking anything up: `malloc`/`free` only handle raw memory allocation — they know nothing about C++ constructors or destructors. `new`/`delete` call your class's constructor and destructor as part of allocating/freeing. If you allocate an object with `new` (which runs its constructor) but free it with `free` (which skips calling the destructor entirely), what does that mean for any cleanup code (closing a file, releasing a lock) that the destructor was supposed to run?
+
 ## What is C++?
 
 C++ is a general-purpose programming language created by Bjarne Stroustrup, first released in 1985 as an extension of C with object-oriented features (its original name was literally "C with Classes"). C++ is used across game development (Unreal Engine), system software, browser engines (Chrome's V8 has significant C++ components), databases (MySQL's core), high-frequency trading systems, and competitive programming.
@@ -23,6 +33,17 @@ The practical guidance: learn C++'s own idioms (RAII, smart pointers, `std::stri
 | C++20 | 2020 | Concepts, coroutines, ranges, modules |
 
 **Use C++17 or C++20** for new projects. Most competitive programming judges (Codeforces, CodeChef) default to C++17, so that's the practical standard to learn against if competitive programming is your goal.
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "C++11", "description": "Lambda expressions, auto, move semantics, smart pointers, threads", "color": "blue" },
+    { "title": "C++14", "description": "Generic lambdas, improved constexpr", "color": "purple" },
+    { "title": "C++17", "description": "Structured bindings, if constexpr, <filesystem> -- competitive-programming default", "color": "amber" },
+    { "title": "C++20", "description": "Concepts, coroutines, ranges, modules", "color": "green" }
+  ]
+}
+```
 
 ## Install C++
 

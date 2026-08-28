@@ -1,5 +1,15 @@
 # Java — Overview
 
+**Before you start:** no prior programming experience is required, though comfort with basic programming logic (variables, loops, if/else in any language) helps — Java's syntax is introduced from scratch below.
+
+## Why This Exists (The Hook)
+
+A C program compiled on Windows won't run on Linux without recompiling from source for that specific machine — the compiled output is tied to one operating system's hardware conventions. Java exists specifically to break that dependency: compile once to an intermediate form (bytecode), and any machine with a JVM installed — Windows, Linux, macOS — runs that exact same compiled file unchanged. "Write once, run anywhere" isn't marketing language; it's a direct description of what the JVM layer mechanically does.
+
+**Analogy** — Think of Java bytecode like a universal power adapter, not a country-specific plug. A device with a fixed US plug simply doesn't work in a UK socket — you'd need to rebuild the device itself for each country. A universal adapter (the JVM) lets the exact same device (your compiled bytecode) plug into any country's socket, because the adapter — not the device — handles the platform-specific translation. `javac` compiles your code into that universal "plug" once; each platform's own JVM is the adapter that makes it work there.
+
+**Try it (2 minutes)** — Reason through why `javac HelloWorld.java` and `java HelloWorld` are two separate commands instead of one, without looking anything up: `javac` (the compiler) translates your `.java` source into `.class` bytecode — a file no operating system can execute directly. `java` (invoked via the JVM) is what actually reads and runs that bytecode. If Java collapsed both into a single "compile and run directly to native machine code" step, the way a language like C does, what would happen to the promise that the same compiled output runs unchanged on Windows, Linux, and macOS?
+
 ## What is Java?
 
 Java is a class-based, object-oriented programming language designed around "write once, run anywhere" (WORA). Java source code compiles to an intermediate form called **bytecode**, which runs on the **Java Virtual Machine (JVM)** rather than directly on the underlying hardware — that's what makes the same compiled `.class` file run unchanged on Windows, Linux, or macOS, as long as each has a JVM installed.
@@ -17,6 +27,17 @@ These three terms get confused constantly, and interviewers ask about the distin
 | **JDK (Java Development Kit)** | JRE + the compiler (`javac`), debugger, and other tools needed to *write and build* Java programs. If you're developing, you need the JDK. |
 
 In practice today, most installations just ship the JDK (which includes everything), so this distinction matters more for understanding *what each tool does* than for choosing what to install.
+
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "JDK", "sublabel": "JRE + compiler (javac), debugger, dev tools", "color": "blue" },
+    { "label": "JRE", "sublabel": "JVM + standard class libraries -- enough to run programs", "color": "purple" },
+    { "label": "JVM", "sublabel": "The runtime engine that executes bytecode", "color": "green" }
+  ]
+}
+```
 
 ## Why Learn Java?
 

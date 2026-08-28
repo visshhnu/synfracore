@@ -1,8 +1,32 @@
 # Placement Preparation — Complete Campus & Off-Campus Guide
 
+**Before you start:** no specific prerequisite technology is required, though [DSA](/academies/education/dsa/overview) is heavily referenced — the coding-round and technical-interview sections assume that foundation.
+
 Getting placed at a top tech company requires strategy. This guide covers the full journey — aptitude rounds, coding tests, technical interviews, and HR — with what actually works.
 
+## Why This Exists (The Hook)
+
+Being technically capable and getting an offer are not the same thing — plenty of strong engineers get rejected because their resume never got past an automated screening tool, or because they froze in an HR round they dismissed as "just a formality." Placement prep exists because the hiring funnel has multiple genuinely different filters (ATS keyword matching, aptitude speed, DSA correctness, communication in an HR round) and being unprepared for any single one of them can end the process — regardless of how strong you are at the others.
+
+**Analogy** — Think of the hiring funnel like a multi-stage obstacle course, not one big exam. A marathon tests one thing (endurance) end to end. An obstacle course tests several different, unrelated skills in sequence — climbing, balance, sprinting — and being excellent at climbing doesn't help you at all if you can't clear the balance beam. Being a strong coder (DSA round) doesn't automatically carry you through an ATS keyword filter or an HR round testing communication — each stage needs its own specific preparation.
+
+**Try it (2 minutes)** — Reason through why the guide says constraints like "n ≤ 10⁵" should tell you the expected time complexity before you even start coding, without looking anything up: competitive judges typically expect a solution to run in about one second, and a modern CPU can execute roughly 10⁸ simple operations per second. If a problem's input size is n ≤ 10⁵, and an O(n²) solution would mean roughly (10⁵)² = 10¹⁰ operations — far more than a CPU can do in a second — what does that tell you about whether an O(n²) approach can possibly be the intended solution, before you've written a single line of code?
+
 ## The Hiring Process
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "1. Resume Screening", "sublabel": "ATS + human", "color": "blue" },
+    { "label": "2. Online Assessment", "sublabel": "Aptitude + coding", "color": "purple" },
+    { "label": "3-4. Technical Rounds", "sublabel": "DSA + CS fundamentals", "color": "amber" },
+    { "label": "5. System Design", "sublabel": "Senior roles only", "color": "red" },
+    { "label": "6. HR Round", "sublabel": "Communication, fit", "color": "green" },
+    { "label": "7. Offer", "sublabel": "", "color": "slate" }
+  ]
+}
+```
 
 ```
 Most companies follow this funnel:

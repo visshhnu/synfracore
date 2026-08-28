@@ -1,5 +1,15 @@
 # C Programming — Overview
 
+**Before you start:** no prior programming experience is required — basic computer literacy is the only assumption.
+
+## Why This Exists (The Hook)
+
+Higher-level languages like Python quietly manage memory for you — allocate a variable, and it's cleaned up automatically when you're done with it, no thought required. C makes you do that management by hand: request memory explicitly (`malloc`), free it explicitly (`free`), and if you forget either step, the program leaks memory or crashes — with no safety net. This isn't C being poorly designed; it's C deliberately exposing what every higher-level language is quietly doing underneath. Learning C is learning what "memory management" actually means at the level the hardware sees it.
+
+**Analogy** — Think of C like driving a manual-transmission car, and higher-level languages like driving an automatic. An automatic car handles gear shifting for you — convenient, and you'll never stall it, but you also never really learn what the engine is doing at each speed. A manual forces you to feel the engine's RPM and shift gears yourself — harder to learn, but you come away actually understanding how the car works, not just how to operate it. C's manual memory management (`malloc`/`free`) is that same forced understanding — once you've done it by hand, garbage collection in other languages stops being a mystery and starts being "oh, that's the automatic version of what I already know how to do manually."
+
+**Try it (2 minutes)** — Reason through why the guide insists on always compiling with `-Wall`, without looking anything up: C is described as "permissive by default" — it will compile code with real bugs (an uninitialized variable, a mismatched `printf` format specifier) without complaint. If a bug like that compiles silently and only causes a crash or wrong output much later, at runtime, far from where the actual mistake was made in the source — what would `-Wall` (enabling all compiler warnings) catch instead, and why would catching it at compile time be so much cheaper to fix than discovering it at runtime?
+
 ## What is C?
 
 C is a general-purpose, procedural programming language developed by Dennis Ritchie at Bell Labs, released in 1972. It's the foundation much of modern computing is built on: the Linux kernel, the CPython interpreter, MySQL's core, and most operating systems are written in C, directly or through languages that were themselves influenced by it.
@@ -7,6 +17,18 @@ C is a general-purpose, procedural programming language developed by Dennis Ritc
 ## What Actually Happens When You Compile a C Program
 
 This is worth understanding early, since C's compilation model is a common source of confusion (and a common interview question):
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Preprocessor", "sublabel": "Expands #include, #define, macros", "color": "blue" },
+    { "label": "Compiler", "sublabel": "Translates to assembly for your CPU", "color": "purple" },
+    { "label": "Assembler", "sublabel": "Assembly -> machine code object file (.o)", "color": "amber" },
+    { "label": "Linker", "sublabel": "Resolves calls like printf, produces executable", "color": "green" }
+  ]
+}
+```
 
 ```
 Source code (.c)
