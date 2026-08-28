@@ -556,10 +556,27 @@ already present in its Organic Chemistry section.
 
 No double-backslash artifacts found in this batch.
 
-**Remaining Exams-cluster technologies, not yet started:** 8 remaining
-`exams` technologies (engineering-exams domain: jee-advanced,
-neet-mocktests, jee-main + civil-services domain: upsc-prelims, state-psc
-[the in-`exams`-academy technology, distinct from the separate
-`state-psc` academy], upsc-mains, upsc-ethics, upsc-interview), all 5
-`central-exams` technologies, all 5 `state-psc` academy technologies (18
-remaining).
+**Batch 5 — JEE tail + UPSC group** (2026-08-28): jee-advanced,
+neet-mocktests, jee-main, upsc-prelims, upsc-mains, upsc-ethics —
+overview.md only. Status: **done** — content, predeploy (fence check),
+JSON block validation, and full live Playwright dark/light + crash
+verification cycle all clean. Academies dropdown hover verified
+separately. **This completes the entire engineering-exams domain within
+the `exams` academy** (all NEET/JEE technologies now have visuals).
+
+| Technology | overview.md | Notes |
+|---|---|---|
+| jee-advanced | **content done (batch 5)** — ConceptBoxGrid (JEE Main vs Advanced), FlowDiagram (JOSAA counselling process) | self-mapped; live-verified ✅ |
+| neet-mocktests | **content done (batch 5)** — FlowDiagram (mock test schedule phases), ConceptBoxGrid (subject-wise revision strategy) | self-mapped; live-verified ✅ |
+| jee-main | **content done (batch 5)** — ConceptBoxGrid (JEE Main vs Advanced), FlowDiagram (prep priorities) | self-mapped; live-verified ✅ |
+| upsc-prelims | **content done (batch 5)** — ConceptBoxGrid (Paper I vs CSAT), FlowDiagram (monthly prep schedule) | self-mapped; live-verified ✅ |
+| upsc-mains | **content done (batch 5)** — ConceptBoxGrid (4 GS papers), FlowDiagram (answer-writing structure) | self-mapped; live-verified ✅ |
+| upsc-ethics | **content done (batch 5)** — ConceptBoxGrid (3 ethics theories), FlowDiagram (case-study answer format) | self-mapped; live-verified ✅ |
+
+No double-backslash or fence-imbalance defects found in this batch.
+
+**Remaining Exams-cluster technologies, not yet started:** 2 remaining
+`exams` technologies (civil-services domain: state-psc [the
+in-`exams`-academy technology, distinct from the separate `state-psc`
+academy] and upsc-interview), all 5 `central-exams` technologies, all 5
+`state-psc` academy technologies (12 remaining).

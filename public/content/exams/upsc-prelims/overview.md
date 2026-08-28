@@ -29,6 +29,15 @@ Only Paper I marks count for Prelims cutoff
 Marking: +2 for correct, -0.67 for wrong (1/3 negative)
 ```
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Paper I — General Studies", "description": "200 marks, 100 questions. Only this counts toward the cutoff", "color": "blue" },
+    { "title": "Paper II — CSAT", "description": "200 marks, 80 questions. Merely QUALIFYING -- 33 marks (26.67/200) to pass", "color": "purple" }
+  ]
+}
+```
+
 ## History — Complete Coverage
 
 ### Ancient India
@@ -230,6 +239,18 @@ Recommended Books:
   Current:     The Hindu daily, PIB, Yojana, Kurukshetra
 
 Monthly schedule:
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Days 1-15", "sublabel": "Static syllabus, 1 subject per day rotation", "color": "blue" },
+    { "label": "Days 16-25", "sublabel": "Current affairs compilation", "color": "purple" },
+    { "label": "Days 26-30", "sublabel": "Revision + 2 full mock tests", "color": "green" }
+  ]
+}
+```
+
   Day 1-15: Static syllabus (1 subject per day rotation)
   Day 16-25: Current affairs compilation
   Day 26-30: Revision + 2 full mock tests

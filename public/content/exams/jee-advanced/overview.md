@@ -13,6 +13,17 @@ JEE Advanced is the second stage of the Joint Entrance Examination. It is the on
 
 ## JEE Advanced vs JEE Main
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Difficulty", "description": "Main: Moderate. Advanced: Very High", "color": "blue" },
+    { "title": "Question Types", "description": "Main: Mostly MCQ. Advanced: MCQ + Integer + Paragraph", "color": "purple" },
+    { "title": "Purpose", "description": "Main: NITs, IIITs, GFTIs. Advanced: IITs only", "color": "amber" },
+    { "title": "Attempts", "description": "Main: 3 per year. Advanced: 2 consecutive attempts", "color": "green" }
+  ]
+}
+```
+
 | Aspect | JEE Main | JEE Advanced |
 |--------|---------|-------------|
 | Difficulty | Moderate | Very High |
@@ -43,6 +54,19 @@ JEE Advanced is the second stage of the Joint Entrance Examination. It is the on
 JOSAA (Joint Seat Allocation Authority) conducts seat allocation for all IITs, NITs, IIITs, and GFTIs.
 
 **Process:**
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Register", "sublabel": "josaa.nic.in with your JEE roll number", "color": "blue" },
+    { "label": "Fill Choices", "sublabel": "Program preferences in priority order, up to 200", "color": "purple" },
+    { "label": "Lock Choices", "sublabel": "Before each round's deadline", "color": "amber" },
+    { "label": "Seat Allotted", "sublabel": "Pay fee + report, or float for next round", "color": "green" }
+  ]
+}
+```
+
 1. Register at josaa.nic.in with your JEE roll number
 2. Fill program choices in priority order (up to 200 programs)
 3. Lock choices before each round deadline

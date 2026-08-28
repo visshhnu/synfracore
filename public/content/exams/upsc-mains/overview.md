@@ -22,6 +22,17 @@ UPSC Civil Services Mains is the second stage of India's most prestigious exam �
 Plus interview (Personality Test): 275 marks
 **Grand Total: 2025 marks**
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "GS1 — 250 marks", "description": "Modern history, world history, Indian society, geography", "color": "blue" },
+    { "title": "GS2 — 250 marks", "description": "Constitution, governance, social justice, international relations", "color": "purple" },
+    { "title": "GS3 — 250 marks", "description": "Economy, agriculture, infrastructure, environment, security", "color": "amber" },
+    { "title": "GS4 — 250 marks", "description": "Ethics, integrity, aptitude, case studies", "color": "green" }
+  ]
+}
+```
+
 ## GS Paper Topics in Detail
 
 **GS1 (250 marks):**
@@ -56,6 +67,17 @@ Plus interview (Personality Test): 275 marks
 ## Answer Writing Strategy
 
 Unlike Prelims, Mains tests your ability to articulate — both knowledge AND expression matter.
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Introduction", "sublabel": "1 paragraph", "color": "blue" },
+    { "label": "Body", "sublabel": "3-5 paragraphs -- headings, data, examples, diagrams", "color": "purple" },
+    { "label": "Conclusion", "sublabel": "Ties the answer together", "color": "green" }
+  ]
+}
+```
 
 Key rules:
 1. **Structure** — Introduction (1 para) → Body (3-5 paras) → Conclusion

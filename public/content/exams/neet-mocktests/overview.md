@@ -6,6 +6,17 @@ NEET has 720 marks, 180 questions, 3 hours, and negative marking. Speed and accu
 
 ## Mock Test Schedule
 
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "3 Months Before", "sublabel": "Chapter-wise tests (30 min), daily", "color": "blue" },
+    { "label": "2 Months Before", "sublabel": "Subject-wise tests (1 hr) + 2 full mocks/week", "color": "purple" },
+    { "label": "1 Month Before", "sublabel": "Full mocks only (3 hrs), 1 per day", "color": "green" }
+  ]
+}
+```
+
 | Phase | Activity | Frequency |
 |-------|---------|-----------|
 | 3 months before | Chapter-wise tests (30 min) | Daily |
@@ -22,6 +33,16 @@ For every wrong answer, record:
 After 10 mocks, identify your top 5 weak topics and schedule focused revision.
 
 ## Subject-wise Revision Strategy
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Biology — 360 marks", "description": "50% of NEET. Pure memorization + application, spaced repetition", "color": "blue" },
+    { "title": "Physics", "description": "Laws of Motion, Optics, Modern Physics, Thermodynamics -- formula sheet per chapter", "color": "purple" },
+    { "title": "Chemistry", "description": "Named reactions (Organic), p/d-Block (Inorganic), Electrochemistry (Physical)", "color": "green" }
+  ]
+}
+```
 
 ### Biology (360 marks — 50% of NEET)
 Pure memorization plus application. Use spaced repetition:

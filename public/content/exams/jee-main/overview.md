@@ -13,6 +13,17 @@ JEE Main is the National Testing Agency (NTA)-conducted entrance exam for admiss
 
 ## JEE Main vs JEE Advanced
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Conducting Body", "description": "Main: NTA. Advanced: IIT (rotating)", "color": "blue" },
+    { "title": "Eligibility", "description": "Main: Class 12 pass/appearing. Advanced: Top ~2.5 lakh Main rankers only", "color": "purple" },
+    { "title": "Purpose", "description": "Main: NIT/IIIT/GFTI + Advanced eligibility. Advanced: IIT admission only", "color": "amber" },
+    { "title": "Attempts", "description": "Main: Twice a year. Advanced: Twice in consecutive years max", "color": "green" }
+  ]
+}
+```
+
 | Aspect | JEE Main | JEE Advanced |
 |---|---|---|
 | Conducting body | NTA | IIT (rotating) |
@@ -27,6 +38,17 @@ JEE Main is the National Testing Agency (NTA)-conducted entrance exam for admiss
 - Category-wise age and attempt relaxations apply for SC/ST/PwD candidates per government norms.
 
 ## Preparation Priorities Specific to JEE Main
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Speed + Formula Recall", "sublabel": "Questions are more formula-direct than Advanced", "color": "blue" },
+    { "label": "Don't Skip NCERT", "sublabel": "Covers a large share of questions directly", "color": "purple" },
+    { "label": "Treat January as Real", "sublabel": "Best of two sessions counts -- not just a practice run", "color": "green" }
+  ]
+}
+```
 
 1. Because JEE Main questions are more formula-direct than JEE Advanced, speed and formula recall matter more here than in Advanced-style deep multi-concept problems.
 2. NCERT-level conceptual clarity covers a large share of JEE Main questions directly — don't skip NCERT even while doing advanced-level problem sets.
