@@ -94,8 +94,8 @@ each sub-academy.
 
 | Order | Academy | Techs | Status | Complication |
 |---|---|---|---|---|
-| 1 | DevOps | 41 | **In progress** — see table below | infrastructure/* aliasing |
-| 2 | Cloud | 26 | Not started (1 tech done: aws-vpc, Phase 1) | azure-devops-style aliasing risk |
+| 1 | DevOps | 41 | **Done** (2026-08-28, batch 7) — see table below | infrastructure/* aliasing |
+| 2 | Cloud | 26 | **In progress** — see table below (2 done: aws-vpc Phase 1, batch 1 in progress) | azure-devops-style aliasing risk |
 | 3 | AI | 9 | Not started (1 tech done: ai-fundamentals, Phase 1) | None known |
 | 4 | Exams cluster (exams, central-exams, state-psc, professional-certs) | 26+6+6+5=43 | Not started | Exam-prep rubric variant — see above |
 | 5 | Databases | 12 | Not started (2 techs done: sql, mongodb, Phase 2) | None known |
@@ -258,3 +258,35 @@ treatment on overview.md.**
 Other DevOps tiers (advanced.md, roadmap.md, etc.) not yet tracked
 per-technology — will be added to this table if/when the depth-rubric+visual
 treatment expands to those tiers.
+
+---
+
+## Cloud — technology-level tracking (26 technologies)
+
+Same aliasing risk as DevOps's infrastructure/* pattern: `azure-devops` was
+already found duplicated between `cloud/azure-devops` and `devops/azure-devops`
+earlier this engagement (kept `cloud/azure-devops` as canonical, deleted the
+DevOps duplicate). Every file's registry mapping is live-grepped individually
+before editing, not assumed from the technology name.
+
+**Batch 1** (2026-08-28): aws-ec2, aws-s3, aws-iam, aws-lambda, aws-rds —
+overview.md only. Status: **done** — content, predeploy (fence check),
+JSON block validation, and full live Playwright dark/light + crash
+verification cycle all clean. Academies dropdown hover verified separately.
+
+| Technology | overview.md | Notes |
+|---|---|---|
+| aws-ec2 | **content done (batch 1)** — added analogy + try-it prompt (previously missing, now fully depth-rubric complete), FlowDiagram (instance lifecycle), ConceptBoxGrid (AMI/Security Groups/Key Pairs/Elastic IP) | self-mapped; live-verified ✅ |
+| aws-s3 | **content done (batch 1)** — already fully depth-rubric complete (hook/analogy/diagram/example/try-it), converted the existing ASCII request-flow diagram to a FlowDiagram, added ConceptBoxGrid (storage class tiers) | self-mapped; live-verified ✅ |
+| aws-iam | **content done (batch 1)** — added hook + analogy + try-it prompt (previously missing, now fully depth-rubric complete), converted the existing ASCII policy-evaluation diagram to a FlowDiagram, added ConceptBoxGrid (Users/Groups/Roles/Policies) | self-mapped; live-verified ✅ |
+| aws-lambda | **content done (batch 1)** — already fully depth-rubric complete (hook/analogy/diagram/try-it), converted the existing ASCII event-source diagram to a FlowDiagram, added ConceptBoxGrid (cold-start optimization strategies) | self-mapped; live-verified ✅ |
+| aws-rds | **content done (batch 1)** — already had analogy/diagram/try-it, converted the existing ASCII architecture diagram to a stack FlowDiagram, added ConceptBoxGrid (RDS vs Aurora vs Self-Managed) | self-mapped; live-verified ✅ |
+
+No double-backslash or fence-imbalance defects found in this batch.
+
+**Remaining Cloud technologies, not yet started:** architecture-patterns,
+aws, aws-eks, azure, azure-aks, azure-devops, azure-entra, azure-vms,
+azure-vnets, bigquery, cloud-fundamentals, cloud-run, cloud-security,
+cloudformation, cost-optimization, gke, landing-zones, multi-cloud,
+networking-security, route53, terraform (21 remaining; aws-vpc already
+done in Phase 1).

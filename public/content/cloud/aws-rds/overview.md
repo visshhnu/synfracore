@@ -10,33 +10,19 @@ Running your own database on EC2 is like owning a car outright — you do the oi
 
 ## How It Fits Together
 
-```
-                         ┌──────────────────────────┐
-                         │   App servers (private    │
-                         │   subnet, "app" SG)       │
-                         └────────────┬──────────────┘
-                                      │ writes + reads
-                                      ▼
-                    ┌───────────────────────────────┐
-  AZ-1 (primary)     │   RDS Primary (db subnet grp) │      AZ-2 (standby)
-                    └────────────┬──────────────────┘
-                                 │ synchronous replication (Multi-AZ)
-                                 ▼
-                    ┌───────────────────────────────┐
-                    │   Standby — NOT readable,      │
-                    │   only takes over on failover  │
-                    └───────────────────────────────┘
-
-                                 │ asynchronous replication (separate feature)
-                                 ▼
-                    ┌───────────────────────────────┐
-                    │   Read Replica — IS readable,  │
-                    │   offloads SELECT traffic,     │
-                    │   can be cross-region           │
-                    └───────────────────────────────┘
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "App Servers", "sublabel": "Private subnet, \"app\" security group -- writes + reads", "color": "slate" },
+    { "label": "RDS Primary", "sublabel": "AZ-1, db subnet group", "color": "blue" },
+    { "label": "Multi-AZ Standby (AZ-2)", "sublabel": "Synchronous replication -- NOT readable, only takes over on failover", "color": "purple" },
+    { "label": "Read Replica", "sublabel": "Asynchronous replication -- IS readable, offloads SELECT traffic, can be cross-region", "color": "green" }
+  ]
+}
 ```
 
-Multi-AZ (top) and a read replica (bottom) are two independent features that are often confused: Multi-AZ exists purely for HA — the standby cannot serve queries. A read replica exists for read scaling — it can serve queries, but isn't part of automatic failover.
+Multi-AZ (standby) and a read replica are two independent features that are often confused: Multi-AZ exists purely for HA — the standby cannot serve queries. A read replica exists for read scaling — it can serve queries, but isn't part of automatic failover.
 
 ## RDS vs Aurora vs Self-Managed
 
@@ -52,6 +38,16 @@ Multi-AZ (top) and a read replica (bottom) are two independent features that are
 | **Best for** | Full control | Standard workloads | High performance |
 
 *(needs verification — failover-time figures, storage ceilings, and max read-replica counts are the kind of numbers AWS revises between engine versions; confirm current limits per-engine on the RDS/Aurora quotas page before treating these as exact.)*
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Self-Managed (EC2)", "description": "You patch, back up, and replicate. Lowest cost, full control", "color": "slate" },
+    { "title": "RDS", "description": "AWS handles patching + auto backups. 1-click standby, up to 5 read replicas", "color": "blue" },
+    { "title": "Aurora", "description": "Cloud-native, up to 5x faster. Auto 6-copy replication, up to 15 read replicas", "color": "purple" }
+  ]
+}
+```
 
 ## Supported Engines
 

@@ -12,20 +12,17 @@ Every app eventually needs to store files somewhere that isn't the server's own 
 
 **Diagram** — how a request reaches an object:
 
-```
-Client (browser / app / CLI)
-   |
-   |  HTTPS request: GET /my-bucket/logs/2024/01/app.log
-   v
-S3 API endpoint (regional)
-   |
-   |  bucket policy + IAM check -> allow/deny
-   v
-Bucket: my-bucket  (region: ap-south-1)
-   |
-   |  key lookup: "logs/2024/01/app.log"
-   v
-Object returned (bytes + metadata), no real "folder traversal" happens
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Client", "sublabel": "GET /my-bucket/logs/2024/01/app.log", "color": "slate" },
+    { "label": "S3 API Endpoint", "sublabel": "Regional endpoint receives the request", "color": "blue" },
+    { "label": "Policy + IAM Check", "sublabel": "Bucket policy and IAM evaluated -- allow/deny", "color": "purple" },
+    { "label": "Key Lookup", "sublabel": "\"logs/2024/01/app.log\" matched as a key, not a path walk", "color": "amber" },
+    { "label": "Object Returned", "sublabel": "Bytes + metadata", "color": "green" }
+  ]
+}
 ```
 
 **Annotated example** — uploading and reading back one object end to end:
@@ -86,6 +83,17 @@ No AWS access handy? Reason through it instead: if `a/b/c/README.md` is the *onl
 | **Glacier Flexible** | Archives accessed yearly | Minutes-hours | Very Low |
 | **Glacier Deep Archive** | Compliance, 7+ year retention | 12–48 hours *(needs verification — exact retrieval-tier timing changes over time, check current AWS docs)* | Lowest |
 | **Intelligent-Tiering** | Unknown access patterns | Instant | Auto-optimizes |
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Standard", "description": "Frequently accessed, instant retrieval, highest cost", "color": "blue" },
+    { "title": "Standard-IA / One Zone-IA", "description": "Infrequent access, instant retrieval, ~20-40% cheaper", "color": "purple" },
+    { "title": "Glacier (Instant/Flexible)", "description": "Archives, retrieval from instant to hours, low cost", "color": "amber" },
+    { "title": "Glacier Deep Archive", "description": "Long-term compliance retention, 12-48hr retrieval, lowest cost", "color": "slate" }
+  ]
+}
+```
 
 ## Essential Operations
 

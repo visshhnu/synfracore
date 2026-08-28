@@ -12,14 +12,15 @@ Normally, running code means keeping a server alive 24/7 — even if it only doe
 
 ## How Lambda Works
 
-```
-Event Source          Lambda Function        Result
-─────────────         ───────────────        ──────
-API Gateway   ──→     Your code runs         Response
-S3 upload     ──→     in a container         Side effects
-SQS message   ──→     managed by AWS         (write to DB,
-DynamoDB      ──→                            send email, etc.)
-EventBridge   ──→
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Event Source", "sublabel": "API Gateway, S3 upload, SQS, DynamoDB, EventBridge", "color": "slate" },
+    { "label": "Lambda Function", "sublabel": "Your code runs in an AWS-managed container", "color": "blue" },
+    { "label": "Result", "sublabel": "Response, or a side effect (DB write, email, etc.)", "color": "green" }
+  ]
+}
 ```
 
 ## IAM Execution Role
@@ -306,6 +307,17 @@ def handler(event, context):
 ```
 
 ## Cold Start Optimization
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Provisioned Concurrency", "description": "Pre-warm N containers ahead of traffic. Costs money to keep warm", "color": "blue" },
+    { "title": "Smaller Packages", "description": "Avoid heavy deps like pandas. Use Lambda Layers instead", "color": "purple" },
+    { "title": "Right Runtime", "description": "Go/Rust: 1-5ms. Python/Node: 50-200ms. Java: 500ms-2s", "color": "amber" },
+    { "title": "Lambda SnapStart", "description": "Java 11+: pre-initializes and snapshots the environment", "color": "green" }
+  ]
+}
+```
 
 ```python
 # Problem: First invocation creates new container
