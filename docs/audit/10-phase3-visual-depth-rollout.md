@@ -97,8 +97,8 @@ each sub-academy.
 | 1 | DevOps | 41 | **Done** (2026-08-28, batch 7) — see table below | infrastructure/* aliasing |
 | 2 | Cloud | 25 (not 26 — `terraform` doesn't belong to Cloud, see orphan finding below) | **Done** (2026-08-28, batch 4) — see table below | azure-devops-style aliasing risk (confirmed once, resolved); also surfaced an orphaned-content case (`cloud/terraform`), see below |
 | 3 | AI | 9 | **Done** (2026-08-28, batch 1) — see table below | None found — all 9 self-mapped, no aliasing |
-| 4 | Exams cluster (exams, central-exams, state-psc, professional-certs) | 26+5+5+4=40 | **In progress** — see table below (professional-certs done, batch 1) | Exam-prep rubric variant — see above |
-| 5 | Databases | 12 | Not started (2 techs done: sql, mongodb, Phase 2) | None known |
+| 4 | Exams cluster (exams, central-exams, state-psc, professional-certs) | 26+5+5+4=40 | **Done** (2026-08-28, batch 7) — see table below | Exam-prep rubric variant — see above; surfaced and fixed 2 real live-production bugs (cloud/terraform orphan, gate-ece stale alias), see below |
+| 5 | Databases | 12 | **In progress** — see table below (2 done: sql, mongodb, Phase 2; batch 1 in progress) | None found — all self-mapped, no aliasing |
 | 6 | Healthcare | 13 | Not started (1 tech done: cpt, Phase 2) | None known |
 | 7 | Security | 9 | Not started (1 tech done: security-fundamentals, Phase 2) | None known |
 | 8 | Data (Analytics & BI) | 14 | Not started | None known |
@@ -637,3 +637,37 @@ live-production bugs unrelated to visuals: the `cloud/terraform` orphan
 The `banking-exam` vs `banking-exams` non-duplication was independently
 verified with pasted live-content evidence three times over the course
 of this cluster after repeated user requests for direct confirmation.
+
+---
+
+## Databases — technology-level tracking (12 technologies)
+
+Standard rubric variant (not exam-prep) — Databases needs the full
+hook/analogy/try-it/prerequisite treatment like DevOps/Cloud/AI, not the
+lighter exams-cluster style. Registry-checked all 10 remaining
+technologies before editing — all self-mapped, no aliasing found.
+
+**Batch 1** (2026-08-28): postgresql, mysql, redis, oracle, cassandra,
+dynamodb — overview.md only. Status: **done** — content, predeploy
+(fence check), JSON block validation, and full live Playwright
+dark/light + crash verification cycle all clean. Academies dropdown
+hover verified separately.
+
+None of these 6 files had any depth-rubric elements (no prerequisite
+line, hook, analogy, or try-it) — added all of them from scratch, plus
+visuals converting each file's existing comparison table/concept list
+into a ConceptBoxGrid.
+
+| Technology | overview.md | Notes |
+|---|---|---|
+| postgresql | **content done (batch 1)** — added prerequisite + hook + analogy + try-it (previously missing), ConceptBoxGrid (JSONB/arrays/full-text/generated columns) | self-mapped; live-verified ✅ |
+| mysql | **content done (batch 1)** — added prerequisite + hook + analogy + try-it (previously missing), ConceptBoxGrid (choose MySQL vs choose PostgreSQL) | self-mapped; live-verified ✅ |
+| redis | **content done (batch 1)** — added prerequisite + hook + analogy + try-it (previously missing), ConceptBoxGrid (4 top use cases) | self-mapped; live-verified ✅ |
+| oracle | **content done (batch 1)** — added prerequisite + hook + analogy + try-it (previously missing), ConceptBoxGrid (Tablespace/Sequence/PL-SQL/RAC) | self-mapped; live-verified ✅ |
+| cassandra | **content done (batch 1)** — added prerequisite + hook + analogy + try-it (previously missing), ConceptBoxGrid (4 "use Cassandra for" cases). Caught and fixed a duplicate "## Architecture" heading introduced mid-edit before it reached predeploy | self-mapped; live-verified ✅ |
+| dynamodb | **content done (batch 1)** — added prerequisite + hook + analogy + try-it (previously missing), ConceptBoxGrid (core concepts), ConceptBoxGrid (Provisioned vs On-Demand) | self-mapped; live-verified ✅ |
+
+No double-backslash or fence-imbalance defects found in this batch.
+
+**Remaining Databases technologies, not yet started:** database-design,
+performance-tuning, cloud-databases, elasticsearch (4 remaining).

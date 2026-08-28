@@ -1,8 +1,18 @@
 # Apache Cassandra Overview
 
+**Before you start:** basic familiarity with distributed systems concepts (what a node and replication mean) helps but isn't required — the ring architecture and consistency levels are explained from scratch below. No prior NoSQL experience is assumed.
+
 ## What is Cassandra?
 
 Apache Cassandra is an open-source, distributed, wide-column NoSQL database originally developed at Facebook and open-sourced in 2008. It is now maintained by the Apache Software Foundation. Cassandra is designed for handling very large amounts of data across many commodity servers with no single point of failure.
+
+## Why This Exists (The Hook)
+
+A traditional relational database has a primary node — if it goes down, writes stop until a replica is promoted, and that failover takes time. For a system that genuinely cannot ever stop accepting writes (Facebook's original use case was the inbox-search feature, where losing writes for even a minute at global scale was unacceptable), that's a real problem. Cassandra exists to remove the single point of failure entirely: every node is equal, any node can accept a write, and data is automatically replicated across multiple nodes and even multiple data centers — the tradeoff is giving up the convenience of joins and ad-hoc queries that a relational database gives you for free.
+
+**Analogy** — Think of a traditional database like a single post office that's the only place you can mail a letter from — efficient, but if it closes, nobody in town can send mail that day. Cassandra is like a city with mailboxes on every corner, all connected to the same postal network — you can drop a letter in any box (write to any node), and the system routes it to wherever it actually needs to be stored, with copies kept at multiple sorting facilities (replicas) so no single facility going offline stops the mail.
+
+**Try it (2 minutes)** — Reason through why Cassandra queries must include the partition key, without running anything: in a relational database, `WHERE event_time > '2025-06-01'` can scan an index across the whole table no matter which machine the data lives on, because it's all on one machine (or a small cluster the query planner coordinates). In Cassandra, data is physically scattered across potentially hundreds of nodes based on a hash of the partition key. If you asked for `WHERE event_time > '2025-06-01'` *without* specifying `device_id`, how would Cassandra know which of those hundreds of nodes to even ask?
 
 ## Architecture
 
@@ -65,6 +75,17 @@ CREATE TABLE time_series (
 ```
 
 ## When to Use (and Not Use) Cassandra
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Time-Series Data", "description": "IoT, metrics, logs, events", "color": "blue" },
+    { "title": "Write-Heavy Workloads", "description": "Millions of writes per second", "color": "purple" },
+    { "title": "Multi-Region Active-Active", "description": "Never-down requirements, 99.999% availability", "color": "amber" },
+    { "title": "Naturally Partitioned Data", "description": "Data keyed by something like user_id", "color": "green" }
+  ]
+}
+```
 
 ```
 USE CASSANDRA FOR:

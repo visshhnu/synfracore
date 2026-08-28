@@ -1,10 +1,31 @@
 # DynamoDB Overview
 
+**Before you start:** basic AWS familiarity helps but isn't required. No prior NoSQL experience is assumed — every concept below is explained from scratch.
+
 ## What is DynamoDB?
 
 Amazon DynamoDB is a fully managed, serverless, NoSQL key-value and document database provided by AWS. It delivers single-digit millisecond performance at any scale and is used by companies like Amazon, Lyft, Airbnb, and Samsung for applications requiring high-throughput, low-latency data access.
 
+## Why This Exists (The Hook)
+
+Running a database that can reliably handle Amazon's own retail traffic — spikes during a sale, millions of requests per second, zero tolerance for a slow checkout — used to mean a team of engineers dedicated to sharding, replicating, and capacity-planning a database cluster by hand. DynamoDB exists because Amazon built exactly that operational muscle internally, then productized it: you define a table and a key, and AWS handles the sharding, replication, and scaling behind the scenes — you never provision a server or tune a query planner.
+
+**Analogy** — Think of a traditional database like owning and driving your own delivery truck — full control over the route, but you're also responsible for maintenance, fuel, and hiring a backup driver if yours calls in sick. DynamoDB is like a fully-staffed courier service you just hand packages to: you specify the destination (the key), and the service handles routing, backup drivers, and scaling up its fleet during a busy season — you just pay per package delivered (per request).
+
+**Try it (2 minutes)** — Reason through why a "hot partition" is a real problem without running anything: DynamoDB spreads data across partitions based on a hash of the partition key. If you designed a table using `date` (like `"2026-08-28"`) as the partition key for an app logging every user action platform-wide, every single write for today would hash to the same partition, no matter how many users are active. What happens to that one partition's throughput ceiling when your whole platform's traffic funnels through it, compared to using something higher-cardinality like `user_id`?
+
 ## Core Concepts
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Table / Item / Attribute", "description": "Like a SQL table/row/column, but attributes are flexible per item", "color": "blue" },
+    { "title": "Partition Key", "description": "Hashed to determine storage location -- design for high cardinality", "color": "purple" },
+    { "title": "Sort Key", "description": "Determines order within a partition -- enables range queries", "color": "amber" },
+    { "title": "Capacity Mode", "description": "Provisioned (RCU/WCU) or On-Demand (pay per request)", "color": "green" }
+  ]
+}
+```
 
 ```
 TABLE: collection of items (like a table in SQL)
@@ -31,6 +52,15 @@ CAPACITY MODES:
     Use with Auto Scaling for variable traffic
   On-Demand: pay per request, no capacity planning
     Use for: unpredictable traffic, new applications
+```
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Provisioned", "description": "Specify RCU/WCU, use with Auto Scaling for variable traffic", "color": "blue" },
+    { "title": "On-Demand", "description": "Pay per request, no capacity planning -- unpredictable traffic, new apps", "color": "purple" }
+  ]
+}
 ```
 
 ## Key Operations

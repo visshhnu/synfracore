@@ -1,6 +1,16 @@
 # Redis — In-Memory Data Structure Store
 
+**Before you start:** basic familiarity with a general-purpose database (what a key-value lookup is) helps but isn't required — Redis's data structures are explained from scratch below.
+
 Redis stores data in RAM, making it 100-1000× faster than disk databases. It's the Swiss Army knife of backend infrastructure — used as a cache, message queue, session store, rate limiter, leaderboard, and pub/sub system.
+
+## Why This Exists (The Hook)
+
+A disk-backed database like PostgreSQL is durable but has a physical floor on how fast it can respond — every read may mean a disk seek. Many real workloads (checking a user's session, incrementing a page-view counter, checking a rate limit) don't need that durability guarantee; they need an answer in microseconds and can tolerate losing that specific value if the server restarts. Redis exists to serve exactly that class of problem: it keeps everything in RAM, so read/write latency drops to sub-millisecond, at the cost of needing its own strategy (snapshots, replication) if you want that data to survive a crash.
+
+**Analogy** — Think of Redis like the sticky notes on your desk versus the filing cabinet across the room. The filing cabinet (a disk-backed database) is where you keep everything permanently — safe, organized, but a walk away every time you need something. Sticky notes (Redis) are for the things you need constantly and right now — today's task list, a running tally — instantly available on your desk, but if the office burns down tonight, the sticky notes are gone while the fireproof cabinet's contents survive. You use both, for different kinds of data.
+
+**Try it (2 minutes)** — Reason through why `KEYS user:*` is dangerous in production without running anything: Redis is single-threaded for command execution, meaning while it's doing one thing, it can't do anything else — including serving other clients' requests. `KEYS` has to scan every single key in the entire database to find matches. On a Redis instance holding 10 million keys, what happens to every other request trying to read a session or check a rate limit while that scan is running? (This is exactly why `SCAN` exists as a cursor-based alternative — it works in small increments instead of one blocking pass.)
 
 ## What Redis Is Used For
 
@@ -14,6 +24,17 @@ Redis stores data in RAM, making it 100-1000× faster than disk databases. It's 
 | **Pub/Sub** | Pub/Sub | Real-time notifications |
 | **Distributed Lock** | SET NX PX | Prevent duplicate processing |
 | **Counting** | Incr | Page views, analytics counters |
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Caching / Session Store", "description": "String/Hash + TTL -- cache API responses, store web sessions", "color": "blue" },
+    { "title": "Rate Limiting", "description": "INCR + TTL -- e.g. 100 requests/minute per user", "color": "purple" },
+    { "title": "Leaderboards", "description": "Sorted Set -- game rankings by score", "color": "amber" },
+    { "title": "Message Queue / Pub-Sub", "description": "List (BRPOP) for job queues, Pub/Sub for real-time notifications", "color": "green" }
+  ]
+}
+```
 
 ## Quick Start
 

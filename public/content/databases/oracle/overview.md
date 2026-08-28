@@ -1,8 +1,18 @@
 # Oracle Database — Overview
 
+**Before you start:** basic SQL (SELECT/WHERE/JOIN) is assumed — see the SQL Mastery course first if that's new. No prior Oracle-specific experience is required; every Oracle-specific term below is defined as it comes up.
+
 ## What is Oracle Database?
 
 Oracle Database is the world's leading enterprise relational database management system (RDBMS), used by Fortune 500 companies, banks, telecoms, and governments. Known for: enterprise features, RAC (Real Application Clusters) for extreme HA, advanced security, and decades of stability.
+
+## Why This Exists (The Hook)
+
+A bank processing millions of transactions a second, across multiple data centers, cannot tolerate a database going down even for the minutes a failover normally takes — and it needs decades-old audit and compliance features baked into the platform itself, not bolted on. Oracle Database exists because it was built from the start for exactly that tier of requirement: extreme high availability (RAC lets multiple database instances share the same storage so the database stays up even if a node dies), enterprise security, and support contracts with guaranteed response times — at a real licensing cost that reflects that guarantee.
+
+**Analogy** — Think of Oracle like a private, dedicated fire department versus PostgreSQL's excellent volunteer department. Both will show up and put out the fire (both are real, capable relational databases) — but the private department comes with a guaranteed response-time contract, redundant equipment at every station (RAC), and a direct line to a paid support team, all for a real annual fee. The volunteer department is free, highly skilled, and handles the vast majority of fires just as well — but there's no contractual guarantee behind it.
+
+**Try it (2 minutes)** — Reason through why `SELECT 2 + 2 FROM DUAL;` looks strange coming from PostgreSQL or MySQL, without running anything: in most databases, you can just write `SELECT 2 + 2;` — no table required for a plain expression. Oracle's SQL implementation historically required every `SELECT` to name a table. `DUAL` is a real, permanent one-row table Oracle ships specifically so expressions have something to "select from." What does this tell you about the era and design philosophy Oracle's SQL dialect grew out of, compared to more modern SQL implementations?
 
 ## Oracle vs PostgreSQL vs MySQL
 
@@ -38,6 +48,17 @@ PGA (Program Global Area):
 ```
 
 ## Key Oracle-Specific Concepts
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Tablespace", "description": "Logical storage unit grouping related segments -- like a folder for DB objects", "color": "blue" },
+    { "title": "Sequence", "description": "Auto-incrementing number generator, created explicitly (unlike Postgres's BIGSERIAL)", "color": "purple" },
+    { "title": "PL/SQL", "description": "Oracle's procedural extension to SQL -- procedures, functions, triggers, packages", "color": "amber" },
+    { "title": "RAC", "description": "Real Application Clusters -- multiple instances sharing storage for extreme HA", "color": "green" }
+  ]
+}
+```
 
 **Tablespace** — logical storage unit grouping related segments. Like a filesystem folder for database objects.
 

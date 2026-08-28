@@ -1,8 +1,27 @@
 # MySQL — The World's Most Popular Open Source Database
 
+**Before you start:** basic SQL (SELECT/WHERE/JOIN) is assumed — see the SQL Mastery course first if that's new. No prior database administration experience is required.
+
 MySQL powers some of the largest websites on earth — Facebook, Twitter, YouTube, Wikipedia, and Shopify. It's the most deployed relational database, valued for its simplicity, performance, and massive ecosystem.
 
+## Why This Exists (The Hook)
+
+Before MySQL, running a relational database usually meant a commercial license and real setup overhead — not something you'd casually add to a small project. MySQL exists because it made "just add a real database" nearly free and simple: install it, connect, and you have ACID transactions and SQL without a licensing conversation. That simplicity is exactly why an entire generation of the web (WordPress, early Facebook, Wikipedia) was built on it.
+
+**Analogy** — Think of MySQL like a reliable, no-frills sedan and PostgreSQL like a well-equipped SUV with every accessory available. Both get you from A to B (both are real relational databases with transactions and SQL), but the sedan is simpler to learn, cheaper to maintain, and does the everyday commute extremely well — it just doesn't come with the SUV's off-road package (JSONB indexing, advanced full-text search, exotic extensions) because most drivers never needed it.
+
+**Try it (2 minutes)** — Reason through why `ENGINE=InnoDB` matters without running anything: MySQL historically supported multiple storage engines, and the older MyISAM engine doesn't support transactions or foreign keys at all — a multi-step operation (like transferring money between two accounts) could partially fail with no rollback. If you saw a `CREATE TABLE` statement with `ENGINE=MyISAM` in a production app that handles payments, what real-world risk would that specific choice introduce?
+
 ## MySQL vs PostgreSQL: When to Choose MySQL
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Choose MySQL", "description": "Team knows it, LAMP/LEMP stack, managed services (RDS/PlanetScale), WordPress/Drupal", "color": "blue" },
+    { "title": "Choose PostgreSQL", "description": "Advanced features (JSONB, full-text, window functions), complex analytics, extensions", "color": "purple" }
+  ]
+}
+```
 
 **Choose MySQL when:**
 - Your team knows MySQL and your stack is LAMP/LEMP
