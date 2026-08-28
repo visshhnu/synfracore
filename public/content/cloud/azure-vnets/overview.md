@@ -20,6 +20,17 @@ If you have an Azure sandbox available, run `az network vnet list --output table
 
 ## Core Concepts
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "VNet", "description": "Private IP address space, spans all AZs in a region, cannot span regions", "color": "blue" },
+    { "title": "Subnets", "description": "Sub-divisions of the VNet -- NSGs and route tables apply at this level", "color": "purple" },
+    { "title": "IP Addressing", "description": "Private RFC 1918 ranges; public IPs static/dynamic, standard/basic SKU", "color": "amber" },
+    { "title": "DNS", "description": "Azure-provided by default, or custom/on-prem DNS, or Private DNS Zones", "color": "slate" }
+  ]
+}
+```
+
 ```
 VNET:
   Private IP address space (RFC 1918 recommended)
@@ -71,6 +82,17 @@ VNET TO VNET:
 ```
 
 ## Hub-Spoke Architecture
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Spoke VNets", "sublabel": "Application workloads, isolated, peered to hub only", "color": "purple" },
+    { "label": "Hub VNet", "sublabel": "Shared services: Azure Firewall, VPN/ER Gateway, DNS, Bastion", "color": "blue" },
+    { "label": "On-Premises / Internet", "sublabel": "Traffic routes through the hub firewall", "color": "slate" }
+  ]
+}
+```
 
 ```
 HUB VNET:

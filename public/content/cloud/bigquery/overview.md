@@ -14,28 +14,16 @@ A traditional data warehouse cluster is like owning a fleet of delivery trucks s
 
 ## How a query executes (diagram)
 
-```
-   Your SQL query
-        │
-        ▼
- ┌─────────────────┐   BigQuery's query planner figures out which
- │  Dremel engine   │   columns/partitions/blocks it actually needs
- │  (Google's       │   (this is why columnar storage + partitioning +
- │  distributed     │   clustering matter — they shrink what gets read)
- │  query system)   │
- └────────┬─────────┘
-          │  fans out across a temporary pool of workers
-          ▼
- ┌────────────────────────────────────────┐
- │ Thousands of machines read only the      │
- │ needed columns/partitions in parallel,   │
- │ aggregate, and shuffle results back      │
- └────────────────┬─────────────────────────┘
-                   ▼
-            Your result set
-     (workers are torn down after — you were
-      never billed for owning them, only for
-      the bytes they had to scan)
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Your SQL query", "sublabel": "Submitted to BigQuery", "color": "slate" },
+    { "label": "Dremel Engine", "sublabel": "Google's query planner picks the columns/partitions/blocks actually needed", "color": "blue" },
+    { "label": "Temporary Worker Pool", "sublabel": "Thousands of machines read in parallel, aggregate, shuffle results", "color": "purple" },
+    { "label": "Result Set", "sublabel": "Workers torn down after -- billed only for bytes scanned", "color": "green" }
+  ]
+}
 ```
 
 ## Annotated example
@@ -80,17 +68,17 @@ Compare the bytes-scanned estimate for `SELECT *` versus selecting only the two 
 
 ## Why BigQuery
 
-```
-Traditional data warehouse: Provision cluster, pay for cluster 24/7
-BigQuery: Pay only for queries run (or flat-rate if predictable)
+Traditional data warehouse: provision a cluster, pay for it 24/7. BigQuery: pay only for queries run (or flat-rate if predictable).
 
-Key capabilities:
-  Petabyte-scale queries in seconds
-  Standard SQL
-  Built-in ML (BigQuery ML — train models with SQL)
-  Streaming ingestion (millions of rows/second)
-  Federated queries (query Cloud Storage, Sheets without loading)
-  BI Engine (in-memory caching for sub-second dashboard queries)
+```conceptgrid
+{
+  "boxes": [
+    { "title": "BigQuery ML", "description": "Train models with SQL -- no separate ML pipeline needed", "color": "blue" },
+    { "title": "Streaming Ingestion", "description": "Millions of rows per second", "color": "purple" },
+    { "title": "Federated Queries", "description": "Query Cloud Storage, Sheets without loading data in first", "color": "amber" },
+    { "title": "BI Engine", "description": "In-memory caching for sub-second dashboard queries", "color": "green" }
+  ]
+}
 ```
 
 ## Query Optimisation

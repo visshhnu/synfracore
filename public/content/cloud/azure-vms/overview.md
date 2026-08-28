@@ -14,24 +14,15 @@ Choosing an Azure VM is like renting an apartment versus a serviced hotel room. 
 
 ## How it fits together (diagram)
 
-```
-                 You choose:
-        ┌────────────────────────────┐
-        │  VM Series (D/E/F/L/N/B)   │  ← CPU:RAM ratio, GPU, burst behavior
-        │  Managed Disk (Ultra/      │  ← latency/IOPS/cost tradeoff
-        │  Premium/Standard)         │
-        │  Availability (Set/Zone/   │  ← blast-radius protection level
-        │  Scale Set)                │
-        └──────────────┬─────────────┘
-                        ▼
-              Azure provisions the VM
-              into your VNet/subnet
-                        │
-        ┌───────────────┴────────────────┐
-        │  Access it WITHOUT a public IP  │
-        │  via Azure Bastion (SSH/RDP     │
-        │  over HTTPS through the Portal) │
-        └──────────────────────────────────┘
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "You Choose", "sublabel": "VM series (CPU:RAM), Managed Disk tier, Availability option", "color": "slate" },
+    { "label": "Azure Provisions", "sublabel": "The VM into your VNet/subnet", "color": "blue" },
+    { "label": "Secure Access", "sublabel": "Via Azure Bastion -- SSH/RDP over HTTPS, no public IP needed", "color": "green" }
+  ]
+}
 ```
 
 ## Try it yourself (2 minutes)
@@ -40,13 +31,17 @@ If you have an Azure sandbox available, run `az vm list-sizes --location eastus 
 
 ## VM Series
 
-```
-General Purpose: D-series (Dsv5, Ddsv5) — balanced CPU/memory, most workloads
-Compute Optimised: F-series — high CPU ratio, web servers, batch
-Memory Optimised: E-series — databases, in-memory analytics, SAP HANA
-Storage Optimised: L-series — high disk I/O, NoSQL databases
-GPU: NC, ND, NV — ML training, rendering, visualisation
-Burstable: B-series — dev/test, low baseline with burst credits
+```conceptgrid
+{
+  "boxes": [
+    { "title": "D-series (General)", "description": "Balanced CPU/memory, most workloads", "color": "blue" },
+    { "title": "F-series (Compute)", "description": "High CPU ratio -- web servers, batch", "color": "amber" },
+    { "title": "E-series (Memory)", "description": "Databases, in-memory analytics, SAP HANA", "color": "purple" },
+    { "title": "L-series (Storage)", "description": "High disk I/O -- NoSQL databases", "color": "slate" },
+    { "title": "NC/ND/NV (GPU)", "description": "ML training, rendering, visualisation", "color": "green" },
+    { "title": "B-series (Burstable)", "description": "Dev/test, low baseline with burst credits", "color": "red" }
+  ]
+}
 ```
 
 ## Creating a VM (Terraform)

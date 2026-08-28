@@ -15,25 +15,16 @@ Think of Cloud Run like an on-demand car rental kiosk versus owning a car. Ownin
 
 ## How a request flows through Cloud Run (diagram)
 
-```
-  Request arrives
-        │
-        ▼
- ┌─────────────────────┐   No running instance? Cloud Run starts one from
- │ Cloud Run front-end   │   your container image ("cold start" — the request
- │ (load balancing +     │   waits for the container to boot before it's served)
- │ autoscaling)           │
- └──────────┬────────────┘
-            │  instance already warm? route straight to it
-            ▼                                      (instance handles up to
- ┌────────────────────────┐                          `--concurrency` requests
- │ Container instance      │◄── multiple concurrent ── at once, by default;
- │ running your image      │    requests can share      each request doesn't
- └────────────────────────┘    ONE instance             get its own container)
-            │
-            ▼
-   No new requests for a while → instance is torn down
-   → back to zero running instances → zero cost
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Request Arrives", "sublabel": "HTTP request hits Cloud Run", "color": "slate" },
+    { "label": "Front-End Routing", "sublabel": "Warm instance? Route to it. Cold? Start one first", "color": "blue" },
+    { "label": "Container Instance", "sublabel": "Handles up to --concurrency requests at once", "color": "purple" },
+    { "label": "Scale to Zero", "sublabel": "No requests for a while -> torn down -> zero cost", "color": "green" }
+  ]
+}
 ```
 
 ## Annotated example: deploy and understand what happened
@@ -70,6 +61,18 @@ gcloud run deploy hello-world \
 Open the URL it prints. Then wait roughly 15 minutes without hitting it again, and check `gcloud run services describe hello-world --region us-central1` for instance count — you'll see it's scaled back to zero. Hit the URL once more and time how long the response takes versus a second immediate request; the difference you feel is the cold start. *(the exact idle-to-zero timing and cold-start latency are not fixed guarantees and can vary by traffic pattern and image size — treat the exercise as building intuition, not a benchmark.)*
 
 ## Key Features
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Fully Managed", "description": "No servers, no clusters to manage", "color": "blue" },
+    { "title": "Scale to Zero", "description": "Pay nothing when idle", "color": "green" },
+    { "title": "Any Language", "description": "Deploy any container -- Python, Node, Go, Java, Rust", "color": "purple" },
+    { "title": "Request-Based Billing", "description": "Charged per CPU/memory time actually used", "color": "amber" }
+  ]
+}
+```
+
 - **Fully managed**: No servers, no clusters to manage
 - **Scale to zero**: Pay nothing when idle
 - **Any language**: Deploy any container — Python, Node, Go, Java, Rust

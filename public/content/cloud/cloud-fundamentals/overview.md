@@ -27,24 +27,31 @@ Think of the four deployment models as different ways of getting workspace: **pu
 
 ## How it fits together (diagram)
 
+Every real cloud service is one point on a grid crossing two independent questions: **whose infrastructure** (deployment model) and **how much do you manage** (service model).
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Public Cloud", "description": "AWS/Azure/GCP shared infrastructure -- the default for most workloads", "color": "blue" },
+    { "title": "Private Cloud", "description": "Your own dedicated infrastructure, cloud-style operations", "color": "purple" },
+    { "title": "Hybrid Cloud", "description": "Public cloud + on-premise, connected", "color": "amber" },
+    { "title": "Multi-Cloud", "description": "2+ public clouds, deliberately, for a specific reason", "color": "slate" }
+  ]
+}
 ```
-                     DEPLOYMENT MODEL (whose infrastructure?)
-   Public Cloud  |  Private Cloud  |  Hybrid  |  Multi-Cloud
-   (AWS/Azure/GCP  (your own dedi-   (public +   (2+ public
-    shared infra)   cated infra)     on-prem)     clouds)
 
-                     ×
-
-                     SERVICE MODEL (how much do YOU manage?)
-   IaaS          PaaS            SaaS           FaaS/Serverless
-   (OS upward)   (code + data)   (config only)  (function code only)
-   ─────────────────────────────────────────────────────────────►
-   MORE control, MORE burden           LESS control, LESS burden
-
-Every real cloud service is one point on this grid:
-EC2 = Public Cloud × IaaS.   Gmail = Public Cloud × SaaS.
-On-prem SAP + Azure web tier = Hybrid × (IaaS + PaaS mixed).
+```conceptgrid
+{
+  "boxes": [
+    { "title": "IaaS", "description": "You manage OS upward. EC2, Azure VMs. MORE control, MORE burden", "color": "blue" },
+    { "title": "PaaS", "description": "You manage only code + data. App Service, Cloud Run", "color": "purple" },
+    { "title": "SaaS", "description": "You use the software. Gmail, Salesforce. Config only", "color": "amber" },
+    { "title": "FaaS / Serverless", "description": "You manage only function code. LESS control, LESS burden", "color": "green" }
+  ]
+}
 ```
+
+EC2 = Public Cloud × IaaS. Gmail = Public Cloud × SaaS. On-prem SAP + Azure web tier = Hybrid × (IaaS + PaaS mixed).
 
 ## Try it yourself (2 minutes)
 

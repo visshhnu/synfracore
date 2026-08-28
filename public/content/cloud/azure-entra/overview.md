@@ -14,23 +14,17 @@ Think of Entra ID as a company's badge office and security desk combined, not ju
 
 ## How it fits together (diagram)
 
-```
-   Human user / Application / Azure resource
-                    │
-                    ▼
-      Entra ID  (authenticates: "who is this?")
-       │  Users, Groups, Service Principals,
-       │  Managed Identities, App Registrations
-       ▼
-   Conditional Access  ("under what conditions
-   is this authentication even allowed to succeed?")
-       │  location, device compliance, sign-in risk
-       ▼
-   Azure RBAC  (authorizes: "what can this
-   authenticated identity actually do, and where?")
-       │  Role Assignment = Principal + Role + Scope
-       ▼
-   Resource (VM, Key Vault secret, Resource Group, ...)
+```flow
+{
+  "layout": "stack",
+  "steps": [
+    { "label": "Identity", "sublabel": "Human, app, or Azure resource -- who is making the request", "color": "slate" },
+    { "label": "Entra ID", "sublabel": "Authenticates: Users, Groups, Service Principals, Managed Identities", "color": "blue" },
+    { "label": "Conditional Access", "sublabel": "Under what conditions is this authentication allowed to succeed?", "color": "amber" },
+    { "label": "Azure RBAC", "sublabel": "Authorizes: Role Assignment = Principal + Role + Scope", "color": "purple" },
+    { "label": "Resource", "sublabel": "VM, Key Vault secret, Resource Group, ...", "color": "green" }
+  ]
+}
 ```
 
 ## Try it yourself (2 minutes)
@@ -39,13 +33,15 @@ If you have a free/trial Azure account, run `az ad signed-in-user show` in the C
 
 ## Core Concepts
 
-```
-Tenant: An organisation's dedicated instance of Entra ID
-User: Person with an identity in the directory
-Group: Collection of users for easier permission management
-Service Principal: Identity for an application (like a service account)
-Managed Identity: Automatic identity for Azure resources (no credentials)
-App Registration: Register applications to use Entra ID for auth
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Tenant", "description": "An organization's dedicated instance of Entra ID", "color": "slate" },
+    { "title": "User / Group", "description": "A person's identity, or a collection of users for easier permission management", "color": "blue" },
+    { "title": "Service Principal", "description": "Identity for an application -- like a service account", "color": "purple" },
+    { "title": "Managed Identity", "description": "Automatic identity for Azure resources, no stored credentials", "color": "green" }
+  ]
+}
 ```
 
 ## Authentication Flows

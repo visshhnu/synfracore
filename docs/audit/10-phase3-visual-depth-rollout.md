@@ -301,8 +301,24 @@ verified separately.
 
 No double-backslash or fence-imbalance defects found in this batch.
 
-**Remaining Cloud technologies, not yet started:** azure-entra, azure-vms,
-azure-vnets, bigquery, cloud-fundamentals, cloud-run, cloud-security,
+**Batch 3** (2026-08-28): azure-entra, azure-vms, azure-vnets, bigquery,
+cloud-fundamentals, cloud-run — overview.md only. Status: **done** —
+content, predeploy (fence check), JSON block validation, and full live
+Playwright dark/light + crash verification cycle all clean. Academies
+dropdown hover verified separately.
+
+| Technology | overview.md | Notes |
+|---|---|---|
+| azure-entra | **content done (batch 3)** — already fully depth-rubric complete, converted the ASCII auth-flow diagram to a stack FlowDiagram, added ConceptBoxGrid (Tenant/User-Group/Service Principal/Managed Identity) | self-mapped; live-verified ✅ |
+| azure-vms | **content done (batch 3)** — already fully depth-rubric complete, converted the ASCII provisioning diagram to a stack FlowDiagram, added ConceptBoxGrid (6 VM series) | self-mapped; live-verified ✅ |
+| azure-vnets | **content done (batch 3)** — already fully depth-rubric complete, added ConceptBoxGrid (VNet/Subnets/IP Addressing/DNS) and FlowDiagram (hub-spoke architecture) | self-mapped; live-verified ✅ |
+| bigquery | **content done (batch 3)** — already fully depth-rubric complete, converted the ASCII query-execution diagram to a FlowDiagram, added ConceptBoxGrid (BigQuery ML/Streaming/Federated/BI Engine) | self-mapped; live-verified ✅ |
+| cloud-fundamentals | **content done (batch 3)** — already fully depth-rubric complete, replaced the 2D ASCII deployment×service matrix with two ConceptBoxGrids (4 deployment models, 4 service models) | self-mapped; live-verified ✅ |
+| cloud-run | **content done (batch 3)** — already fully depth-rubric complete, converted the ASCII request-flow diagram to a FlowDiagram, added ConceptBoxGrid (4 key features) | self-mapped; live-verified ✅ |
+
+No double-backslash or fence-imbalance defects found in this batch.
+
+**Remaining Cloud technologies, not yet started:** cloud-security,
 cloudformation, cost-optimization, gke, landing-zones, multi-cloud,
-networking-security, route53, terraform (15 remaining; aws-vpc done in
-Phase 1, 10 done in batches 1-2).
+networking-security, route53, terraform (9 remaining; aws-vpc done in
+Phase 1, 16 done in batches 1-3).
