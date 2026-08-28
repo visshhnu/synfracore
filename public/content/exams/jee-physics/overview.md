@@ -4,6 +4,17 @@ Physics is the most conceptual subject in JEE. Students who understand the physi
 
 ## Exam Weightage
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Mechanics", "description": "~35% Main, ~32% Advanced -- the largest single topic area", "color": "blue" },
+    { "title": "Electromagnetism", "description": "~30% both exams -- electrostatics, current, magnetism", "color": "purple" },
+    { "title": "Waves + Optics", "description": "~15% Main, ~16% Advanced", "color": "amber" },
+    { "title": "Modern Physics", "description": "~12% both exams -- highly predictable, formula-based", "color": "green" }
+  ]
+}
+```
+
 ```
 Topic                           JEE Main    JEE Advanced
 Mechanics (total)                ~35%         ~32%
@@ -247,4 +258,13 @@ Strategy:
   Advanced: Focus on Mechanics + Electromagnetism (60% weightage)
   Must solve: HC Verma (conceptual foundation) + DC Pandey (variety)
   Past papers: 2005-2024 JEE Advanced mandatory
+```
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "JEE Main Strategy", "description": "3 full topics mastered beats 8 half-mastered ones", "color": "blue" },
+    { "title": "JEE Advanced Strategy", "description": "Focus on Mechanics + Electromagnetism -- 60% of the weightage", "color": "purple" }
+  ]
+}
 ```

@@ -25,7 +25,20 @@ MOST IMPORTANT CHAPTERS (by marks):
   Current Electricity: 4-5 questions — Kirchhoff and formulas
   Thermodynamics: 3-4 questions — conceptual + formula
   Mechanics: 8-10 questions spread across chapters
+```
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Mechanics", "description": "8-10 questions, spread across chapters -- highest total weight", "color": "blue" },
+    { "title": "Modern Physics", "description": "5-8 questions -- highly predictable, formula-based", "color": "purple" },
+    { "title": "Optics", "description": "5-7 questions -- sign convention mastery needed", "color": "amber" },
+    { "title": "Current Electricity", "description": "4-5 questions -- Kirchhoff and formulas", "color": "green" }
+  ]
+}
+```
+
+```
 LEAST TIME-EFFICIENT (high effort, fewer marks):
   Rotational mechanics (limited in NEET)
   Electromagnetic induction advanced concepts
@@ -52,6 +65,18 @@ ONLINE RESOURCES:
 ```
 
 ## Month-wise Plan
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Months 1-2", "sublabel": "Class 11 -- mechanics, thermodynamics, waves", "color": "blue" },
+    { "label": "Months 3-4", "sublabel": "Class 12 -- electrostatics, magnetism, optics, modern physics", "color": "purple" },
+    { "label": "Months 5-6", "sublabel": "Revision + PYQ, weak-chapter focus, full mock tests", "color": "amber" },
+    { "label": "Last Month", "sublabel": "Formula revision, previous 5 years' full papers, exam-day stamina", "color": "green" }
+  ]
+}
+```
 
 ```
 MONTH 1-2: Class 11 Physics

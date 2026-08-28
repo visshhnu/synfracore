@@ -24,6 +24,17 @@ Biology is the most important subject in NEET. A high score in Biology can compe
 
 ### High-Weightage Topics
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Genetics & Evolution", "description": "8-10 questions -- highest weightage topic", "color": "blue" },
+    { "title": "Human Physiology", "description": "8-10 questions -- tied for highest weightage", "color": "purple" },
+    { "title": "Plant Physiology", "description": "5-7 questions", "color": "amber" },
+    { "title": "Cell Biology & Division", "description": "5-7 questions", "color": "green" }
+  ]
+}
+```
+
 | Topic | Avg Questions |
 |---|---|
 | Genetics & Evolution | 8-10 |
@@ -47,6 +58,18 @@ Biology is the most important subject in NEET. A high score in Biology can compe
 - Cell Biology: cell division, biomolecules, enzymes
 
 ## NEET Score vs College
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "650+", "sublabel": "Top government medical colleges (AIIMS-like)", "color": "green" },
+    { "label": "550-650", "sublabel": "Good government medical colleges", "color": "blue" },
+    { "label": "450-550", "sublabel": "State government colleges", "color": "amber" },
+    { "label": "350-450", "sublabel": "Private medical colleges", "color": "slate" }
+  ]
+}
+```
 
 | Score | Category |
 |---|---|

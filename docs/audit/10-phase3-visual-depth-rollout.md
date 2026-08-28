@@ -521,11 +521,45 @@ line changed. Committed separately from this batch's visual work
 
 No double-backslash or fence-imbalance defects found in this batch.
 
-**Remaining Exams-cluster technologies, not yet started:** 14 remaining
-`exams` technologies (engineering-exams domain: neet-biology,
-neet-physics, neet-chemistry, jee-maths, jee-physics, jee-chemistry,
-jee-advanced, neet-mocktests, jee-main + civil-services domain:
-upsc-prelims, state-psc (the in-`exams`-academy technology, distinct
-from the separate `state-psc` academy), upsc-mains, upsc-ethics,
-upsc-interview), all 5 `central-exams` technologies, all 5 `state-psc`
-academy technologies (24 remaining).
+**Batch 4 — NEET + JEE core sciences** (2026-08-28): neet-biology,
+neet-physics, neet-chemistry, jee-maths, jee-physics, jee-chemistry —
+overview.md only. Status: **done** — content, predeploy (fence check),
+JSON block validation, and full live Playwright dark/light + crash
+verification cycle all clean. Academies dropdown hover verified
+separately.
+
+**Fence-closing mistake happened again during this batch** (in
+`neet-physics/overview.md`) — inserting a `​```conceptgrid` block mid-way
+through an existing multi-section `​```` block closed that block early,
+leaving the following "LEAST TIME-EFFICIENT" section as unfenced text.
+Caught immediately by a manual fence-balance sanity check run right
+after the edit (before moving to the next file), fixed before it ever
+reached predeploy/commit. This is the same recurring bug class the
+automated `validate:content-fences` check exists for — worth noting it
+can still happen mid-edit, the automated check is what catches it before
+commit, not a preventer of the mistake itself.
+
+Each file's weightage/marks-distribution table converted to a
+`ConceptBoxGrid` (top 3-4 highest-weighted topics); JEE's month/3-month
+prep plans converted to `FlowDiagram`s; `jee-chemistry` additionally got
+a `ConceptBoxGrid` for the SN1/SN2/E1/E2 reaction-mechanism comparison
+already present in its Organic Chemistry section.
+
+| Technology | overview.md | Notes |
+|---|---|---|
+| neet-biology | **content done (batch 4)** — ConceptBoxGrid (4 high-weightage topics), FlowDiagram (score-vs-college tiers) | self-mapped; live-verified ✅ |
+| neet-physics | **content done (batch 4)** — ConceptBoxGrid (4 important chapters), FlowDiagram (month-wise plan). Fence-closing mistake caught and fixed mid-edit (see above) | self-mapped; live-verified ✅ |
+| neet-chemistry | **content done (batch 4)** — ConceptBoxGrid (Inorganic/Organic/Physical strategy), FlowDiagram (study plan sequence) | self-mapped; live-verified ✅ |
+| jee-maths | **content done (batch 4)** — ConceptBoxGrid (4 high-weightage topics), FlowDiagram (3-month plan) | self-mapped; live-verified ✅ |
+| jee-physics | **content done (batch 4)** — ConceptBoxGrid (4 weightage topics), ConceptBoxGrid (Main vs Advanced strategy) | self-mapped; live-verified ✅ |
+| jee-chemistry | **content done (batch 4)** — ConceptBoxGrid (Physical/Organic/Inorganic weightage), ConceptBoxGrid (SN1/SN2/E1/E2 mechanisms) | self-mapped; live-verified ✅ |
+
+No double-backslash artifacts found in this batch.
+
+**Remaining Exams-cluster technologies, not yet started:** 8 remaining
+`exams` technologies (engineering-exams domain: jee-advanced,
+neet-mocktests, jee-main + civil-services domain: upsc-prelims, state-psc
+[the in-`exams`-academy technology, distinct from the separate
+`state-psc` academy], upsc-mains, upsc-ethics, upsc-interview), all 5
+`central-exams` technologies, all 5 `state-psc` academy technologies (18
+remaining).

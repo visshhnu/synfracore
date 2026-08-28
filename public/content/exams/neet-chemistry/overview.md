@@ -9,6 +9,16 @@ Chemistry in NEET carries 180 marks — equal to Physics. However, Chemistry is 
 
 ## Subject Division Strategy
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Inorganic — ~40%", "description": "95% directly from NCERT. Memorize reactions/properties, 2-3 revisions mandatory", "color": "blue" },
+    { "title": "Organic — ~35%", "description": "Understand mechanism -> predict products -> practice PYQs", "color": "purple" },
+    { "title": "Physical — ~25%", "description": "Master mole concept first. Formulas are straightforward at NEET level", "color": "green" }
+  ]
+}
+```
+
 ```
 INORGANIC CHEMISTRY (~40% of NEET Chemistry):
   Highest weightage in NEET (unlike JEE where Physical/Organic dominate)
@@ -46,6 +56,18 @@ Environmental chemistry: 3-4 marks (easy marks from NCERT)
 ```
 
 ## Study Plan
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Class 11 Foundation", "sublabel": "Basic concepts, periodic table, hydrocarbons", "color": "blue" },
+    { "label": "Class 12 Advanced", "sublabel": "Electrochemistry, d/f block, biomolecules", "color": "purple" },
+    { "label": "PYQ Practice", "sublabel": "After each chapter, last 10 years of that topic", "color": "amber" },
+    { "label": "Mock Tests", "sublabel": "Full NEET mocks from Month 7 onwards", "color": "green" }
+  ]
+}
+```
 
 ```
 CLASS 11 FIRST (foundation):

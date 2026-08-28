@@ -4,10 +4,14 @@ Chemistry is often the highest-scoring subject in JEE for prepared students. It 
 
 ## Weightage Distribution
 
-```
-Physical Chemistry:   ~35%    Numerical heavy, concept dependent
-Organic Chemistry:    ~35%    Mechanism-based, logical
-Inorganic Chemistry:  ~30%    Memory + understanding periodic trends
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Physical — ~35%", "description": "Numerical heavy, concept dependent", "color": "blue" },
+    { "title": "Organic — ~35%", "description": "Mechanism-based, logical", "color": "purple" },
+    { "title": "Inorganic — ~30%", "description": "Memory + understanding periodic trends", "color": "green" }
+  ]
+}
 ```
 
 ## Physical Chemistry
@@ -82,6 +86,17 @@ Faraday's laws of electrolysis:
 ## Organic Chemistry
 
 ### Reaction Mechanisms (Master These)
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "SN2", "description": "One step, backside attack, inversion. Primary substrate + strong nucleophile", "color": "blue" },
+    { "title": "SN1", "description": "Two steps, carbocation intermediate, racemisation. Tertiary substrate", "color": "purple" },
+    { "title": "E2", "description": "Concerted, anti-periplanar. Strong base + high temperature", "color": "amber" },
+    { "title": "E1", "description": "Two steps via carbocation. Tertiary substrate + weak base", "color": "green" }
+  ]
+}
+```
 
 ```
 SN2 (Bimolecular Nucleophilic Substitution):

@@ -17,6 +17,17 @@ JEE Advanced Mathematics (2 papers):
 
 ## High Weightage Topics (Focus First)
 
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Calculus", "description": "~35% Main, ~40% Advanced -- the single largest topic area", "color": "blue" },
+    { "title": "Algebra", "description": "~30% both exams -- complex numbers, matrices, series", "color": "purple" },
+    { "title": "Coordinate Geometry", "description": "~20% Main, ~15% Advanced -- lines, circles, conics", "color": "amber" },
+    { "title": "Trigonometry", "description": "~10% Main, ~8% Advanced", "color": "green" }
+  ]
+}
+```
+
 ```
 Topic                    JEE Main    JEE Advanced
 Calculus (total)           ~35%         ~40%
@@ -263,6 +274,17 @@ Time strategy:
 ```
 
 ## 3-Month Intensive Plan
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Month 1", "sublabel": "Calculus + Algebra -- limits, derivatives, integrals", "color": "blue" },
+    { "label": "Month 2", "sublabel": "Complex numbers, matrices, series, coordinate geometry", "color": "purple" },
+    { "label": "Month 3", "sublabel": "Vectors, 3D, differential equations, full mock tests", "color": "green" }
+  ]
+}
+```
 
 ```
 Month 1: Calculus + Algebra
