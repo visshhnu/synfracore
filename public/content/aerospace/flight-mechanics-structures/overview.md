@@ -1,5 +1,7 @@
 # Flight Mechanics & Aircraft Structures — Overview
 
+**Before you start:** [Aerodynamics](/academies/aerospace/aerodynamics/overview) and [Propulsion Systems](/academies/aerospace/propulsion-systems/overview) are assumed.
+
 Aerodynamics explained lift, drag, and stall. Propulsion explained where thrust comes from. This page is the connective layer: how those forces, once they exist, determine whether an aircraft flies in a controlled, stable way — and how the structure has to be strong enough to survive the loads that flying actually produces.
 
 **Analogy** — Balancing a broom upright on your palm is inherently unstable: the smallest tip grows worse on its own, and you have to actively correct it. Balancing a cone on its base, point up, is different — nudge it slightly and it settles itself back upright without you doing anything. Longitudinal static stability in an aircraft is exactly this distinction: a well-designed aircraft is built like the cone, so that a small disturbance in pitch generates its own restoring force, rather than like the broom, where a small disturbance grows on its own.
@@ -19,16 +21,22 @@ own). This is determined by the combined aerodynamic center of the
 wing AND tail together, not the wing alone.
 
 LONGITUDINAL STATIC STABILITY requires the CG to sit AHEAD of the
-neutral point:
-  Nose pitches up (angle of attack increases) →
-    Tail's angle of attack increases too →
-    Tail generates MORE lift (per Aerodynamics' L = ½ρV²S·CL — more
-    angle of attack means higher CL, up to the tail's own stall
-    limit) →
-    That extra tail force, acting at a distance behind the CG,
-    creates a NOSE-DOWN restoring moment (τ = r × F) →
-    The disturbance is corrected automatically.
+neutral point (see the restoring chain below).
+```
 
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Nose Pitches Up", "sublabel": "Angle of attack increases", "color": "blue" },
+    { "label": "Tail AoA Increases", "sublabel": "Tail generates more lift (higher CL)", "color": "purple" },
+    { "label": "Restoring Moment", "sublabel": "Extra tail force at distance behind CG (tau = r x F)", "color": "amber" },
+    { "label": "Disturbance Corrected", "sublabel": "Nose pitches back down automatically", "color": "green" }
+  ]
+}
+```
+
+```
 If the CG sits BEHIND the neutral point, this chain runs in reverse
 — a nose-up disturbance produces a moment that pitches the nose UP
 further, not back down. This is genuine aerodynamic instability, not

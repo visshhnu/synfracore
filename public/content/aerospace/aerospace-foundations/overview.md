@@ -1,5 +1,7 @@
 # Aerospace Foundations — Overview
 
+**Before you start:** basic algebra and trigonometry (sin/cos, right-triangle relationships) are assumed — no prior physics or calculus background is required, since this page introduces the necessary vector/Newton's-laws vocabulary from scratch.
+
 This is the on-ramp for the whole Aerospace academy. Every technology after this one — Aerodynamics, Propulsion, Flight Mechanics, Orbital Mechanics, Spacecraft Systems — leans on the same small toolkit: vectors, Newton's laws applied to a vehicle instead of a point mass, and just enough calculus to connect position, velocity, and acceleration. This page doesn't teach a specific aircraft or rocket — it teaches the math/physics vocabulary you'll see reused in every module that follows.
 
 **Analogy** — A vector is an arrow with a job to do: its length tells you how hard it's pushing or pulling, its direction tells you which way. An aircraft in steady flight has four such arrows fighting each other — lift, weight, thrust, drag — and almost everything in introductory aerospace engineering is just learning to add and resolve arrows like these correctly. Nothing more exotic than that is happening at this stage, even though the diagrams look intimidating at first.
@@ -27,6 +29,17 @@ Both halves use the exact same three mathematical tools:
 ```
 
 ## The Four Forces of Flight — A Worked Vector Example
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Lift", "description": "Upward -- balances Weight in steady flight", "color": "blue" },
+    { "title": "Weight", "description": "Downward -- gravity acting on the aircraft's mass", "color": "purple" },
+    { "title": "Thrust", "description": "Forward -- balances Drag in steady flight", "color": "green" },
+    { "title": "Drag", "description": "Backward -- aerodynamic resistance to motion", "color": "red" }
+  ]
+}
+```
 
 ```
                     LIFT (↑)

@@ -1,10 +1,23 @@
 # Spacecraft Systems & Mission Design — Overview
 
+**Before you start:** [Orbital Mechanics & Astrodynamics](/academies/aerospace/orbital-mechanics/overview) and [Propulsion Systems](/academies/aerospace/propulsion-systems/overview) are assumed — this page reuses their worked figures directly.
+
 Orbital Mechanics gave you the physics of getting from one orbit to another and computed a real LEO-to-GEO transfer costing 3.854 km/s of Δv. This page is where that number stops being a physics exercise and becomes an engineering input: what a real spacecraft is actually built of, and how its full mission Δv budget — not just one transfer — gets assembled.
 
 **Analogy** — A spacecraft is like a delivery truck built around whatever cargo it's carrying: the payload (the actual mission instrument — a camera, an antenna, a science experiment) is the cargo, and everything else — power, navigation, communications, structure — is the truck itself, existing purely to keep that cargo alive, pointed the right way, and in contact with the ground. Engineers call this supporting structure the spacecraft "bus," deliberately borrowing the same word as a delivery vehicle.
 
 ## The Spacecraft Bus: Core Subsystems
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Power", "description": "Solar panels + batteries -- generate and store power through eclipse", "color": "amber" },
+    { "title": "ADCS", "description": "Attitude Determination and Control -- keeps the spacecraft pointed correctly", "color": "blue" },
+    { "title": "Thermal Control", "description": "Radiators, insulation, heaters -- survives sunlight/shadow extremes", "color": "red" },
+    { "title": "C&DH", "description": "Onboard computer -- executes commands, manages data, fault detection", "color": "purple" }
+  ]
+}
+```
 
 ```
 POWER            — solar panels generate power while in sunlight;
@@ -54,6 +67,17 @@ PAYLOAD          — the actual reason the mission exists: a camera,
 ```
 
 ## The Full Mission Δv Budget — Not Just One Transfer
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Phase 1: Launch", "sublabel": "~9.4 km/s -- launch vehicle's job, not the spacecraft's", "color": "red" },
+    { "label": "Phase 2: Orbital Transfer", "sublabel": "e.g. 3.854 km/s LEO-to-GEO Hohmann transfer", "color": "amber" },
+    { "label": "Phase 3: Station-Keeping", "sublabel": "~50 m/s/year -- spacecraft's own onboard propulsion", "color": "green" }
+  ]
+}
+```
 
 ```
 A real mission's total Δv requirement is the SUM of several distinct

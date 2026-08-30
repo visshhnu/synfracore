@@ -1,5 +1,7 @@
 # Propulsion Systems — Overview
 
+**Before you start:** [Aerospace Foundations](/academies/aerospace/aerospace-foundations/overview) and [Aerodynamics](/academies/aerospace/aerodynamics/overview) are assumed.
+
 Foundations gave you F = ma and vector components. Aerodynamics explained lift and drag, two of the four forces of flight. This page explains the third — thrust — and the family of engines that produce it, from air-breathing jet engines to self-contained rockets.
 
 **Analogy** — Propulsion is like throwing bowling balls off the back of a skateboard: throw them backward fast and heavy enough, and by Newton's Third Law you roll forward. A jet engine scoops up air from outside, speeds it up, and throws it out the back — borrowing its "bowling balls" from the atmosphere. A rocket carries its own bowling balls (propellant) onboard instead of scooping them up, which is exactly why a rocket works in the vacuum of space and a jet engine doesn't — there's no air out there to scoop.
@@ -32,6 +34,15 @@ engineering.
 ```
 
 ## Jet Engines vs. Rockets — Why the Distinction Matters
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Air-Breathing (Jet)", "description": "Carries only fuel -- oxidizer comes free from atmosphere. Can't operate in space", "color": "blue" },
+    { "title": "Rocket", "description": "Carries both fuel AND oxidizer -- works anywhere, including vacuum", "color": "red" }
+  ]
+}
+```
 
 ```
 AIR-BREATHING (jet) engines:

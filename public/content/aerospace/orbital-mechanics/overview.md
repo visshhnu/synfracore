@@ -1,10 +1,22 @@
 # Orbital Mechanics & Astrodynamics — Overview
 
+**Before you start:** [Aerospace Foundations](/academies/aerospace/aerospace-foundations/overview) (vectors, Newton's laws) is assumed — the aeronautical technologies (Aerodynamics, Propulsion, Flight Mechanics) are useful context but not strictly required for this astronautical branch.
+
 Everything so far in this academy has been about flight within the atmosphere. This is where the "space" branch starts: how an object stays in orbit at all, described first by Johannes Kepler nearly 400 years before the first satellite ever flew, and still exactly how mission planners calculate real orbits today.
 
 **Analogy** — Picture someone on a playground swing holding a rope with a weight on the end, reeling the rope in and letting it out as the weight swings around them. Reel the rope in (get closer) and the weight whips around fast; let it out (get farther) and it drifts slowly. A planet or satellite does the same thing on its elliptical path around a central body — moving fast when close, slow when far — and Kepler's Second Law is just the precise statement of HOW MUCH faster or slower: exactly enough that a line from the central body to the orbiting object sweeps out equal areas in equal time, everywhere on the orbit.
 
 ## Kepler's Three Laws
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "First Law", "description": "Orbits are ellipses -- the central body sits at one focus, not the center", "color": "blue" },
+    { "title": "Second Law", "description": "Equal areas swept in equal time -- fastest at perigee, slowest at apogee", "color": "purple" },
+    { "title": "Third Law", "description": "T^2 proportional to a^3 -- farther orbits take dramatically longer", "color": "green" }
+  ]
+}
+```
 
 ```
 FIRST LAW — orbits are ellipses, not circles, with the central body

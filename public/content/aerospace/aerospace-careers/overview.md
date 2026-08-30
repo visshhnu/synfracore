@@ -1,10 +1,22 @@
 # Aerospace Careers & Exam Pathways — Overview
 
+**Before you start:** no strict technical prerequisite, though familiarity with this academy's other technologies helps you recognize which subjects each exam/career path actually tests.
+
 Every technology so far in this academy — Foundations through Spacecraft Systems — has been building a specific toolkit. This page is the job listing: which real exams and career paths actually want that toolkit, and how India's aerospace hiring landscape (government and private) is structured. Exam formats and eligibility criteria change year to year — treat the specific numbers below as a snapshot, confirmed against current sources at the time of writing, not a permanent fact to memorize without rechecking.
 
 **Analogy** — The six technologies you've worked through are tools in a toolbox — vectors, lift equations, thrust equations, stability, orbital mechanics, subsystem design. This page is the job listing that tells you which combination of those tools each specific career path or exam is actually asking for, so you're not walking into an ISRO interview with the wrong set of tools sharpened.
 
 ## The Three Main Pathways in Indian Aerospace
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "ISRO", "description": "Government space agency -- Scientist/Engineer 'SC' centralized exam", "color": "blue" },
+    { "title": "DRDO", "description": "Defense research -- multiple fragmented entry routes by lab/role", "color": "red" },
+    { "title": "Private Space Industry", "description": "Skyroot, Agnikul -- tech-industry-style hiring, not a standard exam", "color": "green" }
+  ]
+}
+```
 
 ```
 GOVERNMENT SPACE AGENCY — ISRO (Indian Space Research Organisation)

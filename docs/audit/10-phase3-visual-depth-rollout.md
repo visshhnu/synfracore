@@ -109,7 +109,8 @@ each sub-academy.
 | 13 | Agriculture | 6 (corrected from a stated estimate of 7) | **6/6 done** (2026-08-28) — see table below | None found — all self-mapped, no aliasing |
 | 14 | Telecom | 6 (corrected from a stated estimate of 7) | **6/6 overview.md done** (2026-08-28) — see table below | telco's Fundamentals/Intermediate/Advanced tiers still mismatched (vTeMIP/UOC/UTM content), flagged as open follow-up; otherwise self-mapped, no aliasing |
 | 15 | Economics | 6 (corrected from a stated estimate of 7) | **6/6 done** (2026-08-28) — see table below | None found — all self-mapped, no aliasing |
-| 16+ | Aerospace, VLSI | 8/8 | Not started | None known |
+| 16 | Aerospace | 7 (corrected from a stated estimate of 8) | **7/7 done** (2026-08-28) — see table below | None found — all self-mapped, no aliasing. Highest existing content quality seen this engagement |
+| 17 | VLSI | 8 | Not started | None known |
 
 ## DevOps — technology-level tracking (41 technologies)
 
@@ -1376,8 +1377,78 @@ live Playwright verification cycle run for all 6 pages: all render with no
 crashes, diagrams present (3-4 per page), Academies dropdown works. Not
 yet deployed — awaiting explicit deploy instruction.
 
-## Economics academy — COMPLETE, 6/6 (2026-08-28)
+## Economics academy — COMPLETE, 6/6, deployed live (2026-08-28)
 
 All 6 technologies now have real depth-rubric + visual treatment,
 completed in a single batch since the academy only has 6 technologies
-total (corrected from a stated estimate of 7).
+total (corrected from a stated estimate of 7). Deployed and live-verified
+(2026-08-28).
+
+## Aerospace — technology-level tracking (7 technologies)
+
+Note: the user's stated estimate of 8 technologies for Aerospace was
+corrected during a live registry check — the actual, confirmed count is
+**7**, corrected here and in the "Academy rollout order" table.
+
+| Technology | Registry key | Rubric status before | Work done | Status |
+|---|---|---|---|---|
+| aerospace-foundations | aerospace/aerospace-foundations/overview | **Already exceptional** — hook, analogy, try-it, worked example, study resources all present | Added explicit "Before you start" line; four-forces ConceptBoxGrid (4 boxes) — did not touch existing prose | Done |
+| aerodynamics | aerospace/aerodynamics/overview | Same — already exceptional | Added prerequisite line; Newton/pressure-view ConceptBoxGrid (2 boxes) | Done |
+| propulsion-systems | aerospace/propulsion-systems/overview | Same — already exceptional | Added prerequisite line; jet-vs-rocket ConceptBoxGrid (2 boxes) | Done |
+| flight-mechanics-structures | aerospace/flight-mechanics-structures/overview | Same — already exceptional | Added prerequisite line; restoring-moment chain → `flow` FlowDiagram (4 steps) — **self-caught a fence-structure bug from this edit, see notes below** | Done |
+| orbital-mechanics | aerospace/orbital-mechanics/overview | Same — already exceptional | Added prerequisite line; Kepler's laws ConceptBoxGrid (3 boxes) | Done |
+| spacecraft-systems | aerospace/spacecraft-systems/overview | Same — already exceptional | Added prerequisite line; subsystems ConceptBoxGrid (4 boxes); mission Δv budget → `flow` FlowDiagram (3 phases) | Done |
+| aerospace-careers | aerospace/aerospace-careers/overview | Same — already exceptional | Added prerequisite line; three-pathways ConceptBoxGrid (3 boxes) | Done |
+
+**Notes (2026-08-28) — HIGHEST EXISTING CONTENT QUALITY SEEN THIS ENGAGEMENT:**
+All 7 technologies confirmed self-mapped in the content registry
+(`aerospace/*`), no aliasing risk — corrected the stated estimate of 8 to
+the actual 7, same discipline as prior academy corrections this session.
+Reading all 7 files before editing revealed content of a materially higher
+standard than anything else encountered in this Phase 3 rollout: every
+file already had a genuine hook, a real analogy, a "Try it" prompt with a
+worked numeric answer, an annotated worked example, explicit
+cross-references to sibling technologies (reusing actual computed values
+between pages — e.g. spacecraft-systems reuses orbital-mechanics' exact
+3.854 km/s Hohmann-transfer figure rather than restating it), appropriate
+`(needs verification)` caveats on genuinely volatile figures (ISRO exam
+format, ISS altitude), and real study-resource citations. This is
+effectively already at or above the site's standard rubric bar. Scope for
+this batch was accordingly narrower: add an explicit "Before you start"
+prerequisite line for consistency with the rest of the site, and convert
+existing ASCII diagrams to `FlowDiagram`/`ConceptBoxGrid` — without
+touching any of the existing hook/analogy/try-it prose, which needed no
+improvement.
+
+**Self-caught bug:** inserting the flight-mechanics-structures FlowDiagram
+initially closed the WRONG fence — the surrounding prose was one single
+un-closed plain code block spanning what I mistakenly treated as two
+separate paragraphs, so the new `flow` block landed inside that still-open
+block and rendered as inert literal text (confirmed via a live Playwright
+diagram-count check showing 0 diagrams on this page specifically, while
+all 6 siblings correctly showed 2-7). Fixed by closing the original block
+immediately before the new `flow` block and reopening a fresh block for
+the remaining prose — re-verified via fence count, JSON parse, a second
+native-WSL build, and a second live Playwright check confirming 4 diagrams
+now render correctly. This is the exact class of error the manual
+fence-parity self-check (established earlier this session) exists to
+catch, and it worked as intended.
+
+Since Aerospace has only 7 technologies total, this single batch completes
+the entire academy's Tier-0 pass. Fence-balance manually verified per-file
+(all balanced, including the corrected flight-mechanics-structures);
+batch-wide `validate-content-fences.mjs` clean (2579 files); all 8 new
+`flow`/`conceptgrid` JSON blocks parsed successfully; `npm run predeploy`
+exit 0 (new `empty_code_block` WARN-only flags across all 6 other files
+confirmed as the known adjacent-fence pattern). Two full native-WSL build +
+live Playwright verification cycles run (one initial, one after the
+self-caught fix): all 7 pages render with no crashes, diagrams present
+(2-7 per page), Academies dropdown works. Not yet deployed — awaiting
+explicit deploy instruction.
+
+## Aerospace academy — COMPLETE, 7/7 (2026-08-28)
+
+All 7 technologies now have visual treatment layered onto already-
+exceptional existing content, completed in a single batch since the
+academy only has 7 technologies total (corrected from a stated estimate
+of 8).

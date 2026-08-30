@@ -1,5 +1,7 @@
 # Aerodynamics — Overview
 
+**Before you start:** [Aerospace Foundations](/academies/aerospace/aerospace-foundations/overview) (vectors, Newton's laws, the four forces of flight) is assumed.
+
 Foundations gave you vectors, F = ma, and the four forces of flight as a balance to satisfy. This page explains where two of those four forces — lift and drag — actually come from, and how engineers predict their size before a wing is ever built.
 
 **Analogy** — Stick your flat hand out of a moving car window, palm down, and tilt your fingertips up slightly. You'll feel your hand pushed upward and backward. That's lift and drag, in miniature: your tilted hand deflects air downward and, by Newton's Third Law, the air pushes back on your hand — upward. A wing does the same thing, just shaped and angled to do it far more efficiently than a flat hand.
@@ -28,6 +30,15 @@ event:
 These are not competing theories — they're the same physical event
 described two different ways (a force viewpoint and a pressure
 viewpoint), and both give the same answer.
+```
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Newton's Third Law View", "description": "Wing deflects airflow downward (downwash) -- air pushes back up on the wing", "color": "blue" },
+    { "title": "Pressure View", "description": "Downwash creates lower pressure above, higher below -- the difference IS lift", "color": "purple" }
+  ]
+}
 ```
 
 ## The Lift and Drag Equations
