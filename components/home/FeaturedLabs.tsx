@@ -108,8 +108,8 @@ export default function FeaturedLabs() {
                       {lab.icon}
                     </div>
                     <div style={{ display: "flex", gap: "6px", flexDirection: "column", alignItems: "flex-end" }}>
-                      <span style={{ background: ls.bg, border: `1px solid ${ls.border}`, color: ls.color, padding: "2px 9px", borderRadius: "100px", fontSize: "10px", fontWeight: 600 }}>{lab.level}</span>
-                      <span style={{ display: "flex", alignItems: "center", gap: "4px", color: "var(--text-4)", fontSize: "11px" }}><Clock size={11} />{lab.duration}</span>
+                      <span style={{ background: ls.bg, border: `1px solid ${ls.border}`, color: ls.color, padding: "2px 9px", borderRadius: "100px", fontSize: "12px", fontWeight: 600 }}>{lab.level}</span>
+                      <span style={{ display: "flex", alignItems: "center", gap: "4px", color: "var(--text-4)", fontSize: "12px" }}><Clock size={11} />{lab.duration}</span>
                     </div>
                   </div>
 
@@ -117,7 +117,7 @@ export default function FeaturedLabs() {
                   <p style={{ color: "var(--text-4)", fontSize: "13px", lineHeight: 1.6, flexGrow: 1 }}>{lab.desc}</p>
 
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "16px", paddingTop: "14px", borderTop: "1px solid #1E2D47" }}>
-                    <span style={{ background: `${lab.color}12`, border: `1px solid ${lab.color}20`, color: lab.color, padding: "3px 9px", borderRadius: "6px", fontSize: "11px", fontWeight: 600 }}>{lab.tech}</span>
+                    <span style={{ background: `${lab.color}12`, border: `1px solid ${lab.color}20`, color: lab.color, padding: "3px 9px", borderRadius: "6px", fontSize: "12px", fontWeight: 600 }}>{lab.tech}</span>
                     <span style={{ color: lab.color, fontSize: "12px", fontWeight: 600 }}>Start Lab →</span>
                   </div>
                 </div>

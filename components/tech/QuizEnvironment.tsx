@@ -167,8 +167,8 @@ function MCQQuiz({ set, accentColor, onComplete }: { set: QuizSet; accentColor: 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
           <span style={{ fontSize: "13px", color: "var(--text-4)" }}>Question {current + 1} of {questions.length}</span>
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-            {q.topic && <span style={{ fontSize: "11px", background: `${accentColor}22`, color: accentColor, padding: "2px 8px", borderRadius: "4px" }}>{q.topic}</span>}
-            {q.difficulty && <span style={{ fontSize: "11px", color: q.difficulty === "Hard" ? "#F85149" : q.difficulty === "Medium" ? "#F59E0B" : "#3FB950" }}>{q.difficulty}</span>}
+            {q.topic && <span style={{ fontSize: "12px", background: `${accentColor}22`, color: accentColor, padding: "2px 8px", borderRadius: "4px" }}>{q.topic}</span>}
+            {q.difficulty && <span style={{ fontSize: "12px", color: q.difficulty === "Hard" ? "#F85149" : q.difficulty === "Medium" ? "#F59E0B" : "#3FB950" }}>{q.difficulty}</span>}
             {set.timeLimit && <span style={{ fontSize: "14px", fontWeight: 700, color: timeLeft <= 5 ? "#F85149" : "var(--text-3)", display: "flex", alignItems: "center", gap: "4px" }}><Clock size={14}/>{timeLeft}s</span>}
             <span style={{ fontSize: "13px", color: "#3FB950", fontWeight: 600 }}>Score: {score}</span>
           </div>
@@ -283,11 +283,11 @@ function FlashcardDeck({ set, accentColor }: { set: QuizSet; accentColor: string
         transition: "all 0.2s", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center",
         textAlign: "center", marginBottom: "20px",
       }}>
-        <div style={{ position: "absolute", top: "14px", left: "16px", fontSize: "11px", color: "var(--text-4)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em" }}>
+        <div style={{ position: "absolute", top: "14px", left: "16px", fontSize: "12px", color: "var(--text-4)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em" }}>
           {flipped ? "Answer" : "Question"} • {current + 1}/{remaining.length}
         </div>
         {card.category && (
-          <div style={{ position: "absolute", top: "14px", right: "16px", fontSize: "11px", background: `${accentColor}22`, color: accentColor, padding: "2px 8px", borderRadius: "4px" }}>{card.category}</div>
+          <div style={{ position: "absolute", top: "14px", right: "16px", fontSize: "12px", background: `${accentColor}22`, color: accentColor, padding: "2px 8px", borderRadius: "4px" }}>{card.category}</div>
         )}
         <p style={{ fontSize: flipped ? "15px" : "18px", fontWeight: flipped ? 500 : 700, lineHeight: 1.7, margin: 0, color: flipped ? "var(--text-2)" : "var(--text-1)", maxWidth: "580px" }}>
           {flipped ? card.back : card.front}
@@ -393,9 +393,9 @@ export default function QuizEnvironment({ sets, accentColor = "#3B82F6", techNam
               <p style={{ color: "var(--text-4)", fontSize: "13px", marginBottom: "16px", lineHeight: 1.6 }}>{set.description}</p>
               <div style={{ display: "flex", gap: "10px", alignItems: "center", justifyContent: "space-between" }}>
                 <div style={{ display: "flex", gap: "8px" }}>
-                  <span style={{ background: `${accentColor}22`, color: accentColor, padding: "3px 10px", borderRadius: "6px", fontSize: "11px", fontWeight: 600 }}>{typeLabel}</span>
-                  <span style={{ background: "var(--bg-2)", border: "1px solid var(--border)", padding: "3px 10px", borderRadius: "6px", fontSize: "11px", color: "var(--text-4)" }}>{itemCount} items</span>
-                  {set.timeLimit && <span style={{ background: "var(--bg-2)", border: "1px solid var(--border)", padding: "3px 10px", borderRadius: "6px", fontSize: "11px", color: "var(--text-4)", display: "flex", alignItems: "center", gap: "3px" }}><Clock size={10}/>{set.timeLimit}s/q</span>}
+                  <span style={{ background: `${accentColor}22`, color: accentColor, padding: "3px 10px", borderRadius: "6px", fontSize: "12px", fontWeight: 600 }}>{typeLabel}</span>
+                  <span style={{ background: "var(--bg-2)", border: "1px solid var(--border)", padding: "3px 10px", borderRadius: "6px", fontSize: "12px", color: "var(--text-4)" }}>{itemCount} items</span>
+                  {set.timeLimit && <span style={{ background: "var(--bg-2)", border: "1px solid var(--border)", padding: "3px 10px", borderRadius: "6px", fontSize: "12px", color: "var(--text-4)", display: "flex", alignItems: "center", gap: "3px" }}><Clock size={10}/>{set.timeLimit}s/q</span>}
                 </div>
                 <span style={{ color: accentColor, fontSize: "13px", fontWeight: 600 }}>Start →</span>
               </div>

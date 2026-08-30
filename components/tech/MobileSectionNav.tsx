@@ -78,7 +78,7 @@ export default function MobileSectionNav({ academy, technology, currentSection, 
         <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-1)", flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
           {current?.label || currentSection}
         </span>
-        <span style={{ fontSize: "11px", color: "var(--text-4)", flexShrink: 0 }}>Jump to section</span>
+        <span style={{ fontSize: "12px", color: "var(--text-4)", flexShrink: 0 }}>Jump to section</span>
         <ChevronDown size={16} color="var(--text-4)" style={{ flexShrink: 0 }} />
       </button>
 
@@ -105,7 +105,7 @@ export default function MobileSectionNav({ academy, technology, currentSection, 
       >
         <div style={{ position: "sticky", top: 0, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 16px", borderBottom: "1px solid var(--border)", background: "var(--bg-1)" }}>
           <div>
-            <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--text-4)" }}>{techName}</div>
+            <div style={{ fontSize: "12px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--text-4)" }}>{techName}</div>
             <div style={{ fontSize: "14px", fontWeight: 700, color: "var(--text-1)" }}>Jump to section</div>
           </div>
           <button onClick={() => setOpen(false)} aria-label="Close" style={{ background: "none", border: "1px solid var(--border)", cursor: "pointer", color: "var(--text-2)", padding: "6px", display: "flex", borderRadius: "8px" }}>

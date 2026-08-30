@@ -155,7 +155,7 @@ export default function Home() {
                 { icon: Scale, label: "Advocate / LLB",        slug: "advocate-career",      color: "#6366F1" },
               ].map(rm => (
                 <a key={rm.slug} href={`/roadmaps/${rm.slug}`}
-                  style={{ display: "flex", alignItems: "center", gap: "8px", padding: "8px 16px", borderRadius: "10px", background: "var(--bg-2)", border: `1px solid ${rm.color}30`, textDecoration: "none", transition: "border-color 0.15s" }}>
+                  style={{ display: "flex", alignItems: "center", gap: "8px", minHeight: "44px", padding: "8px 16px", borderRadius: "10px", background: "var(--bg-2)", border: `1px solid ${rm.color}30`, textDecoration: "none", transition: "border-color 0.15s" }}>
                   <rm.icon size={16} color={rm.color} />
                   <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-2)", whiteSpace: "nowrap" }}>{rm.label}</span>
                   <span style={{ color: rm.color, fontSize: "12px", fontWeight: 700 }}>→</span>
@@ -333,7 +333,7 @@ export default function Home() {
                 <div style={{ marginBottom: "8px" }}><p.icon size={32} /></div>
                 <div style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "28px", fontWeight: 800, color: "var(--text-1)", marginBottom: "4px" }}>{p.stat}</div>
                 <div style={{ fontWeight: 600, fontSize: "13px", color: "var(--text-2)", marginBottom: "4px" }}>{p.label}</div>
-                <div style={{ fontSize: "11px", color: "var(--text-4)" }}>{p.sub}</div>
+                <div style={{ fontSize: "12px", color: "var(--text-4)" }}>{p.sub}</div>
               </div>
             ))}
           </div>
@@ -410,7 +410,14 @@ export default function Home() {
               All Academies <ArrowRight size={14} />
             </Link>
           </div>
-          <AcademyExplorer academies={academies.slice(0, 6)} />
+          {/* Explicit flagship-slug selection, not a positional slice — a
+              plain academies.slice(0,6) used to work only because the
+              array happened to list the core tech academies first; once
+              academies.ts was reordered alphabetically (2026-08-30 mobile
+              UX audit), that same slice would have started featuring
+              Aerospace/Agriculture/Central-Govt-Exams here instead of the
+              intended flagship 6. */}
+          <AcademyExplorer academies={["devops", "cloud", "databases", "ai", "data", "security"].map(slug => academies.find(a => a.slug === slug)!).filter(Boolean)} />
         </div>
       </section>
 
@@ -440,7 +447,7 @@ export default function Home() {
                   <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: c.color, flexShrink: 0 }} />
                   <div>
                     <div style={{ fontSize: "12px", fontWeight: 700, color: "var(--text-1)" }}>{c.code}</div>
-                    <div style={{ fontSize: "10px", color: "var(--text-4)" }}>{c.level}</div>
+                    <div style={{ fontSize: "12px", color: "var(--text-4)" }}>{c.level}</div>
                   </div>
                 </div>
               </Link>

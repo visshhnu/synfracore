@@ -49,11 +49,11 @@ export default function TroubleshootingPreview() {
                   <div style={{ flexGrow: 1 }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "6px" }}>
                       <h3 style={{ fontSize: "14px", fontWeight: 700, lineHeight: 1.3 }}>{item.issue}</h3>
-                      <span style={{ background: ss.bg, border: `1px solid ${ss.border}`, color: ss.color, padding: "1px 7px", borderRadius: "100px", fontSize: "10px", fontWeight: 600, flexShrink: 0, marginLeft: "8px" }}>
+                      <span style={{ background: ss.bg, border: `1px solid ${ss.border}`, color: ss.color, padding: "1px 7px", borderRadius: "100px", fontSize: "12px", fontWeight: 600, flexShrink: 0, marginLeft: "8px" }}>
                         {item.severity}
                       </span>
                     </div>
-                    <p style={{ color: item.color, fontSize: "11px", fontWeight: 600 }}>{item.tech}</p>
+                    <p style={{ color: item.color, fontSize: "12px", fontWeight: 600 }}>{item.tech}</p>
                   </div>
                 </div>
               </Link>

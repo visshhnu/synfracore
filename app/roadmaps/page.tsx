@@ -16,20 +16,6 @@ const CATEGORIES = [
   { id: "wellness",    label: "Wellness",    color: "#A855F7" },
 ];
 
-const salaries: Record<string, string> = {
-  "devops-engineer": "₹8L–₹35L", "cloud-architect": "₹15L–₹60L",
-  "platform-engineer": "₹20L–₹80L", "ai-engineer": "₹18L–₹80L",
-  "data-analyst": "₹5L–₹25L", "security-engineer": "₹10L–₹45L",
-  "database-engineer": "₹8L–₹35L", "data-engineer": "₹10L–₹40L",
-  "sre-engineer": "₹20L–₹90L", "healthcare-coder": "₹3L–₹12L",
-  "advocate-career": "₹3L–₹50L+", "judiciary-civil-judge": "₹13L–₹25L",
-  "upsc-ias": "₹8L–₹25L (govt)", "banking-po": "₹8L–₹18L",
-  "state-psc-officer": "₹6L–₹20L", "ca-journey": "₹8L–₹50L+",
-  "banking-finance-analyst": "₹5L–₹25L", "agricultural-officer": "₹5L–₹18L",
-  "telecom-engineer": "₹4L–₹20L", "neet-medical": "MBBS admission",
-  "jee-engineering": "B.Tech admission", "personal-wellness": "Life skill",
-};
-
 export default function RoadmapsPage() {
   const [active, setActive] = useState("all");
   const rms = roadmaps as Array<typeof roadmaps[0] & { color?: string; category?: string }>;
@@ -79,14 +65,9 @@ export default function RoadmapsPage() {
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontWeight: 700, fontSize: "15px", color: "var(--text-1)", marginBottom: "4px" }}>{rm.title}</div>
                     <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", alignItems: "center" }}>
-                      <span style={{ fontSize: "11px", color: "var(--text-4)", display: "flex", alignItems: "center", gap: "3px" }}>
+                      <span style={{ fontSize: "12px", color: "var(--text-4)", display: "flex", alignItems: "center", gap: "3px" }}>
                         <Clock size={10} /> {rm.duration}
                       </span>
-                      {salaries[rm.slug] && (
-                        <span style={{ fontSize: "10px", padding: "2px 7px", borderRadius: "10px", background: color + "18", color, fontWeight: 700 }}>
-                          {salaries[rm.slug]}
-                        </span>
-                      )}
                     </div>
                   </div>
                 </div>
@@ -98,10 +79,10 @@ export default function RoadmapsPage() {
                       <span style={{ fontSize: "12px", color: i === 0 ? "var(--text-1)" : "var(--text-4)", fontWeight: i === 0 ? 600 : 400 }}>{step}</span>
                     </div>
                   ))}
-                  {rm.steps.length > 5 && <div style={{ fontSize: "11px", color: "var(--text-4)" }}>+{rm.steps.length - 5} more phases</div>}
+                  {rm.steps.length > 5 && <div style={{ fontSize: "12px", color: "var(--text-4)" }}>+{rm.steps.length - 5} more phases</div>}
                 </div>
                 <div style={{ paddingTop: "12px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ fontSize: "11px", color: "var(--text-4)" }}>{rm.steps.length} phases</span>
+                  <span style={{ fontSize: "12px", color: "var(--text-4)" }}>{rm.steps.length} phases</span>
                   <span style={{ fontSize: "12px", fontWeight: 700, color }}>View roadmap →</span>
                 </div>
               </div>

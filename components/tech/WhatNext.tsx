@@ -97,7 +97,7 @@ export default function WhatNext({ academy, technology, currentSection, techName
                     </span>
                   )}
                 </div>
-                <div style={{ fontSize: "11px", color: "var(--text-4)" }}>{s.desc}</div>
+                <div style={{ fontSize: "12px", color: "var(--text-4)" }}>{s.desc}</div>
               </div>
             </Link>
           ))}

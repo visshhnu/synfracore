@@ -83,7 +83,15 @@ export default async function DashboardPage() {
   const isAdmin = profile?.role === "admin";
 
   const interestedAcademies = academies.filter(a => domainPrefs.includes(a.slug));
-  const recommendedAcademies = interestedAcademies.length > 0 ? interestedAcademies : academies.slice(0, 4);
+  // Explicit flagship-slug fallback, not a positional slice — same fix as
+  // app/page.tsx's AcademyExplorer, and for the same reason: a plain
+  // academies.slice(0,4) only ever showed sensible defaults because the
+  // array happened to list core tech academies first before the 2026-08-30
+  // alphabetical reorder.
+  const FALLBACK_RECOMMENDED_SLUGS = ["devops", "cloud", "ai", "databases"];
+  const recommendedAcademies = interestedAcademies.length > 0
+    ? interestedAcademies
+    : FALLBACK_RECOMMENDED_SLUGS.map(slug => academies.find(a => a.slug === slug)!).filter(Boolean);
   const touchedSlugs = new Set(progressSummary.map(p => p.academySlug));
   const progressAcademies = academies.filter(a => touchedSlugs.has(a.slug));
 

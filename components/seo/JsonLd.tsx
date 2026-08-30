@@ -144,8 +144,9 @@ export function OrganizationJsonLd() {
     "description": "Practitioner-built learning platform for DevOps, Cloud, AI, Security, and career readiness. Expert content, hands-on labs, interview prep, and certification guides.",
     "knowsAbout": ["DevOps", "Kubernetes", "Cloud Computing", "AWS", "Azure", "Terraform", "Ansible", "Platform Engineering", "AI Engineering"],
     "sameAs": [
+      "https://linkedin.com/company/synfracore",
       "https://t.me/synfracore",
-      "https://github.com/visshhnu/synfracore",
+      "https://github.com/synfracore",
     ],
     "contactPoint": {
       "@type": "ContactPoint",

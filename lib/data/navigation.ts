@@ -51,6 +51,27 @@ export const technologyExamTypeMap: Record<string, string> = {
   "devops/ansible": "ansible",
 };
 
+// Same existence-check pattern as technologyExamTypeMap above, but keyed by
+// certification id (app/certifications/[id]/page.tsx) instead of a
+// technology tab — added 2026-08-30 to wire the question_papers that
+// already exist (kubernetes/terraform/ansible exam_types) to the specific
+// certification detail pages a learner would actually be studying for.
+// One exam_type can map from several certification ids (the kubernetes
+// papers aren't split by CKA vs CKAD vs KCNA vs CKS specifically — they're
+// general Kubernetes practice questions relevant to all four). "docker"
+// has real papers too but is deliberately NOT mapped here: there is no
+// Docker Certified Associate (or any Docker cert) in the `certifications`
+// list to map it to — extend `certifications` first if that's ever added,
+// don't invent a mapping to a cert that doesn't exist on this page.
+export const certificationExamTypeMap: Record<string, string> = {
+  kcna: "kubernetes",
+  cka: "kubernetes",
+  ckad: "kubernetes",
+  cks: "kubernetes",
+  "terraform-associate": "terraform",
+  rhce: "ansible",
+};
+
 export const certifications = [
   { id: "aws-ccp", name: "AWS Cloud Practitioner", code: "CLF-C02", provider: "AWS", color: "#FF9900", level: "Foundational" },
   { id: "aws-saa", name: "AWS Solutions Architect Associate", code: "SAA-C03", provider: "AWS", color: "#FF9900", level: "Associate" },
@@ -93,6 +114,8 @@ export const roadmaps = [
     steps: ["Linux Deep Dive", "Kubernetes Production", "Prometheus & SLOs", "Incident Management", "Chaos Engineering", "Capacity Planning", "Automation"] },
   { slug: "healthcare-coder", title: "Medical Coder (CPC/BCHHC)", icon: "🏥", color: "#14B8A6", category: "professional", duration: "6 months",
     steps: ["Anatomy & Physiology", "Medical Terminology", "ICD-10-CM Fundamentals", "CPT Procedure Codes", "HCPCS Level II", "Coding Guidelines", "OASIS & PDGM", "CPC Exam Prep", "BCHHC Certification Prep"] },
+  { slug: "professional-certifications", title: "Professional Certifications (PMP/ITIL/Scrum/Six Sigma)", icon: "🏅", color: "#14B8A6", category: "professional", duration: "Varies by cert",
+    steps: ["PMP — Overview", "PMP — Fundamentals", "Scrum & Agile — Overview", "Scrum & Agile — Fundamentals", "ITIL 4 — Overview", "ITIL 4 — Fundamentals", "Six Sigma — Overview", "Six Sigma — Fundamentals"] },
   { slug: "aerospace-engineer", title: "Aerospace Engineer", icon: "🚀", color: "#1D4ED8", category: "tech", duration: "9 months",
     steps: ["Aerospace Foundations", "Aerodynamics", "Propulsion Systems", "Flight Mechanics & Structures", "Orbital Mechanics", "Spacecraft Systems", "Careers & Exam Prep"] },
   { slug: "vlsi-design-engineer", title: "VLSI Design Engineer", icon: "🔬", color: "#64748B", category: "tech", duration: "9 months",
@@ -117,6 +140,8 @@ export const roadmaps = [
     steps: ["CA Foundation (4 papers)", "Register for Articleship", "CA Intermediate Group I (4 papers)", "CA Intermediate Group II (4 papers)", "3-Year Articleship + ICITSS", "CA Final Group I", "CA Final Group II + AICITSS"] },
   { slug: "banking-finance-analyst", title: "Banking & Finance Analyst", icon: "💹", color: "#14B8A6", category: "finance", duration: "1–2 years",
     steps: ["Accounting Basics", "Financial Markets (SEBI/NISM)", "Banking & RBI Framework", "Credit Analysis Fundamentals", "CA/MBA or NISM Certifications", "Role: Analyst / Relationship Manager"] },
+  { slug: "economics-analyst", title: "Economist / Policy Analyst", icon: "📊", color: "#F97316", category: "finance", duration: "1–3 years",
+    steps: ["Microeconomics", "Macroeconomics", "Indian Economy", "Union Budget & Economic Survey", "RBI & Monetary Policy", "International Trade"] },
 
   // ── AGRICULTURE ────────────────────────────────────────────────────────────
   { slug: "agricultural-officer", title: "Agricultural Officer (IBPS AFO / NABARD)", icon: "🌾", color: "#22C55E", category: "agriculture", duration: "1–2 years",

@@ -112,7 +112,7 @@ export function RelatedTechnologies({ academySlug, techSlug, domain }: Props) {
                       display: "inline-flex",
                       alignItems: "center",
                       gap: "3px",
-                      fontSize: "10px",
+                      fontSize: "12px",
                       fontWeight: 700,
                       padding: "2px 6px",
                       borderRadius: "10px",

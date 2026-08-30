@@ -190,7 +190,7 @@ function InteractiveConsole({
         <div style={{ display: "flex", alignItems: "center", gap: "8px", color: accentColor, fontSize: "13px", fontWeight: 600 }}>
           {iconMap[type]}
           {labelMap[type]}
-          <span style={{ color: "#444", fontSize: "11px" }}>— Simulated (safe)</span>
+          <span style={{ color: "#444", fontSize: "12px" }}>— Simulated (safe)</span>
         </div>
         <div style={{ display: "flex", gap: "6px" }}>
           <button onClick={copy} style={{ background: "none", border: `1px solid #333`, color: "#aaa", padding: "4px 10px", borderRadius: "6px", cursor: "pointer", fontSize: "12px", display: "flex", alignItems: "center", gap: "4px" }}>
@@ -231,7 +231,7 @@ function InteractiveConsole({
           {output.length === 0 ? (
             <div style={{ color: "#444", fontStyle: "italic", marginTop: "80px", textAlign: "center" }}>
               Output appears here<br/>
-              <span style={{ fontSize: "11px" }}>Ctrl+Enter to run</span>
+              <span style={{ fontSize: "12px" }}>Ctrl+Enter to run</span>
             </div>
           ) : (
             output.map((line, i) => (
@@ -243,7 +243,7 @@ function InteractiveConsole({
           )}
         </div>
       </div>
-      <div style={{ padding: "6px 16px", background: "#161B22", borderTop: "1px solid #21262D", fontSize: "11px", color: "#484F58", display: "flex", justifyContent: "space-between" }}>
+      <div style={{ padding: "6px 16px", background: "#161B22", borderTop: "1px solid #21262D", fontSize: "12px", color: "#484F58", display: "flex", justifyContent: "space-between" }}>
         <span>Ctrl+Enter to run • Tab for indent</span>
         <span>{code.split("\n").length} lines</span>
       </div>
@@ -257,7 +257,7 @@ function InteractiveConsole({
 function DiffBadge({ level }: { level: string }) {
   const colors: Record<string, string> = { Beginner: "#10B981", Intermediate: "#F59E0B", Advanced: "#F43F5E" };
   const c = colors[level] || "#6B7280";
-  return <span style={{ background: `${c}22`, color: c, border: `1px solid ${c}44`, padding: "2px 10px", borderRadius: "20px", fontSize: "11px", fontWeight: 700 }}>{level}</span>;
+  return <span style={{ background: `${c}22`, color: c, border: `1px solid ${c}44`, padding: "2px 10px", borderRadius: "20px", fontSize: "12px", fontWeight: 700 }}>{level}</span>;
 }
 
 // ─────────────────────────────────────────────────────────
@@ -298,7 +298,7 @@ function LabCard({ lab, accentColor }: { lab: Lab; accentColor: string }) {
             <p style={{ color: "var(--text-4)", fontSize: "13px", margin: 0 }}>{lab.objective}</p>
             <div style={{ display: "flex", gap: "6px", marginTop: "8px", flexWrap: "wrap" }}>
               {lab.tools.map(tool => (
-                <span key={tool} style={{ background: "var(--bg-2)", border: "1px solid var(--border)", padding: "1px 8px", borderRadius: "4px", fontSize: "11px", color: "var(--text-4)", fontFamily: "monospace" }}>{tool}</span>
+                <span key={tool} style={{ background: "var(--bg-2)", border: "1px solid var(--border)", padding: "1px 8px", borderRadius: "4px", fontSize: "12px", color: "var(--text-4)", fontFamily: "monospace" }}>{tool}</span>
               ))}
             </div>
           </div>
@@ -306,7 +306,7 @@ function LabCard({ lab, accentColor }: { lab: Lab; accentColor: string }) {
         <div style={{ display: "flex", alignItems: "center", gap: "16px", flexShrink: 0, marginLeft: "16px" }}>
           {completedSteps.size > 0 && (
             <div style={{ textAlign: "right" }}>
-              <div style={{ fontSize: "11px", color: accentColor, fontWeight: 600, marginBottom: "4px" }}>{progress}% done</div>
+              <div style={{ fontSize: "12px", color: accentColor, fontWeight: 600, marginBottom: "4px" }}>{progress}% done</div>
               <div style={{ width: "80px", height: "4px", background: "var(--bg-2)", borderRadius: "2px" }}>
                 <div style={{ width: `${progress}%`, height: "100%", background: accentColor, borderRadius: "2px", transition: "width 0.3s" }}/>
               </div>
@@ -352,8 +352,8 @@ function LabCard({ lab, accentColor }: { lab: Lab; accentColor: string }) {
                     <span style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: "14px", textDecoration: done ? "line-through" : "none", color: done ? "var(--text-4)" : "inherit" }}>
                       {step.title}
                     </span>
-                    {step.type === "verify" && <span style={{ background: "#3FB95022", color: "#3FB950", padding: "1px 8px", borderRadius: "4px", fontSize: "11px" }}>✓ Verify</span>}
-                    {step.type === "challenge" && <span style={{ background: "#F5900022", color: "#F59000", padding: "1px 8px", borderRadius: "4px", fontSize: "11px" }}>⚡ Challenge</span>}
+                    {step.type === "verify" && <span style={{ background: "#3FB95022", color: "#3FB950", padding: "1px 8px", borderRadius: "4px", fontSize: "12px" }}>✓ Verify</span>}
+                    {step.type === "challenge" && <span style={{ background: "#F5900022", color: "#F59000", padding: "1px 8px", borderRadius: "4px", fontSize: "12px" }}>⚡ Challenge</span>}
                   </div>
 
                   <p style={{ color: "var(--text-3)", fontSize: "14px", lineHeight: 1.7, marginBottom: "12px" }}>{step.description}</p>
@@ -368,7 +368,7 @@ function LabCard({ lab, accentColor }: { lab: Lab; accentColor: string }) {
                   {/* Expected output */}
                   {step.expectedOutput && (
                     <div style={{ background: "#0D1117", border: "1px solid #30363D", borderRadius: "8px", padding: "12px 16px", marginBottom: "12px", fontFamily: "monospace", fontSize: "12px", color: "#3FB950" }}>
-                      <div style={{ color: "#484F58", fontSize: "11px", marginBottom: "6px" }}>Expected output:</div>
+                      <div style={{ color: "#484F58", fontSize: "12px", marginBottom: "6px" }}>Expected output:</div>
                       <pre style={{ margin: 0, whiteSpace: "pre-wrap" }}>{step.expectedOutput}</pre>
                     </div>
                   )}
@@ -407,7 +407,7 @@ function LabCard({ lab, accentColor }: { lab: Lab; accentColor: string }) {
               <h4 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, marginBottom: "12px", display: "flex", alignItems: "center", gap: "8px" }}>
                 <Terminal size={16} color={accentColor}/>
                 Practice Environment
-                <span style={{ background: "#3FB95022", color: "#3FB950", padding: "2px 8px", borderRadius: "4px", fontSize: "11px" }}>Safe Simulation</span>
+                <span style={{ background: "#3FB95022", color: "#3FB950", padding: "2px 8px", borderRadius: "4px", fontSize: "12px" }}>Safe Simulation</span>
               </h4>
               <InteractiveConsole
                 type={lab.interface === "sql-console" ? "sql" : lab.interface === "code-editor" ? "code" : "terminal"}
@@ -443,7 +443,7 @@ function CopyableCode({ code, language, accentColor }: { code: string; language:
   return (
     <div style={{ position: "relative", borderRadius: "10px", overflow: "hidden", border: "1px solid #21262D", background: "#0D1117" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "6px 14px", background: "#161B22", borderBottom: "1px solid #21262D" }}>
-        <span style={{ fontFamily: "monospace", fontSize: "11px", color: "#79C0FF", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>{language}</span>
+        <span style={{ fontFamily: "monospace", fontSize: "12px", color: "#79C0FF", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>{language}</span>
         <button onClick={copy} style={{ background: "none", border: "none", color: "#484F58", cursor: "pointer", fontSize: "12px", display: "flex", alignItems: "center", gap: "4px", padding: "2px 6px" }}>
           {copied ? <><Check size={11} color="#3FB950"/> <span style={{ color: "#3FB950" }}>Copied</span></> : <><Copy size={11}/> Copy</>}
         </button>

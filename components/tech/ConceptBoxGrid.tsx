@@ -36,7 +36,7 @@ export function ConceptBoxGrid({ boxes }: ConceptBoxGridProps) {
             <div style={{ fontSize: "12px", fontWeight: 700, color: text, marginBottom: "6px" }}>
               {box.title}
             </div>
-            <div style={{ fontSize: "11px", color: "var(--text-3)", lineHeight: 1.5 }}>
+            <div style={{ fontSize: "12px", color: "var(--text-3)", lineHeight: 1.5 }}>
               {box.description}
             </div>
           </div>

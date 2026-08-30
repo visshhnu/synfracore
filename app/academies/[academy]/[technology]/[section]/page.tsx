@@ -293,17 +293,20 @@ export default async function SectionPage({ params }: Props) {
 
       {/* Main content */}
       <main style={{ flex: 1, minWidth: 0, padding: "32px 24px" }}>
-        {/* Breadcrumb */}
-        <nav style={{ fontSize: "12px", color: "var(--text-4)", marginBottom: "16px" }}>
-          <Link href="/" style={{ color: "var(--text-4)", textDecoration: "none" }}>Home</Link>
-          {" / "}
-          <Link href="/academies" style={{ color: "var(--text-4)", textDecoration: "none" }}>Academies</Link>
-          {" / "}
-          <Link href={`/academies/${aSlug}`} style={{ color: "var(--text-4)", textDecoration: "none" }}>{academy.title}</Link>
-          {" / "}
-          <Link href={`/academies/${aSlug}/${tSlug}`} style={{ color: "var(--text-4)", textDecoration: "none" }}>{tech.name}</Link>
-          {" / "}
-          <span style={{ color: "var(--text-2)" }}>{sectionData?.label || section}</span>
+        {/* Breadcrumb — each link uses minHeight/inline-flex to reach the
+            44px minimum tap-target guideline without inflating the visible
+            font size (a 12px breadcrumb is fine visually; a 15px CLICKABLE
+            area was the actual mobile-usability problem). */}
+        <nav style={{ fontSize: "12px", color: "var(--text-4)", marginBottom: "16px", display: "flex", flexWrap: "wrap", alignItems: "center" }}>
+          <Link href="/" style={{ display: "inline-flex", alignItems: "center", minHeight: "44px", padding: "0 4px", color: "var(--text-4)", textDecoration: "none" }}>Home</Link>
+          <span aria-hidden="true">/</span>
+          <Link href="/academies" style={{ display: "inline-flex", alignItems: "center", minHeight: "44px", padding: "0 4px", color: "var(--text-4)", textDecoration: "none" }}>Academies</Link>
+          <span aria-hidden="true">/</span>
+          <Link href={`/academies/${aSlug}`} style={{ display: "inline-flex", alignItems: "center", minHeight: "44px", padding: "0 4px", color: "var(--text-4)", textDecoration: "none" }}>{academy.title}</Link>
+          <span aria-hidden="true">/</span>
+          <Link href={`/academies/${aSlug}/${tSlug}`} style={{ display: "inline-flex", alignItems: "center", minHeight: "44px", padding: "0 4px", color: "var(--text-4)", textDecoration: "none" }}>{tech.name}</Link>
+          <span aria-hidden="true">/</span>
+          <span style={{ display: "inline-flex", alignItems: "center", padding: "0 4px", color: "var(--text-2)" }}>{sectionData?.label || section}</span>
         </nav>
 
         {/* Mobile-only equivalent of the desktop sidebar above, which is

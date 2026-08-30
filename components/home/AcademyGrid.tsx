@@ -110,7 +110,7 @@ export default function AcademyGrid() {
                       color: academy.color,
                       padding: "3px 10px",
                       borderRadius: "100px",
-                      fontSize: "11px",
+                      fontSize: "12px",
                       fontWeight: 600,
                     }}
                   >
@@ -118,7 +118,7 @@ export default function AcademyGrid() {
                   </span>
                 ))}
                 {academy.domains.flatMap(d=>d.technologies).length > 4 && (
-                  <span style={{ color: "var(--text-4)", fontSize: "11px", padding: "3px 6px" }}>
+                  <span style={{ color: "var(--text-4)", fontSize: "12px", padding: "3px 6px" }}>
                     +{academy.domains.flatMap(d=>d.technologies).length - 4} more
                   </span>
                 )}

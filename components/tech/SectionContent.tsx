@@ -142,7 +142,7 @@ function renderMarkdown(content: string) {
       }
       elements.push(
         <div key={`code-${i}`} style={{ margin: "16px 0", borderRadius: "12px", overflow: "hidden", border: "1px solid var(--border)" }}>
-          {lang && <div style={{ background: "var(--bg-2)", padding: "5px 16px", fontSize: "11px", color: "#60A5FA", fontFamily: "monospace", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase" }}>{lang}</div>}
+          {lang && <div style={{ background: "var(--bg-2)", padding: "5px 16px", fontSize: "12px", color: "#60A5FA", fontFamily: "monospace", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase" }}>{lang}</div>}
           <pre style={{ background: "var(--bg)", padding: "20px", margin: 0, overflowX: "auto" }}>
             <code style={{ color: "var(--text-2)", fontSize: "13px", fontFamily: "monospace", lineHeight: 1.75 }}>{codeLines.join("\n")}</code>
           </pre>
@@ -341,7 +341,7 @@ export default function SectionContent({ academy, technology, section, techName,
   if (mode === "pre" && preContent) return (
     <div>
       <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "28px", paddingBottom: "18px", borderBottom: "1px solid var(--border)" }}>
-        <span style={{ background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.2)", color: "#34D399", padding: "3px 12px", borderRadius: "100px", fontSize: "11px", fontWeight: 700, letterSpacing: "0.04em", display: "flex", alignItems: "center", gap: "5px" }}>
+        <span style={{ background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.2)", color: "#34D399", padding: "3px 12px", borderRadius: "100px", fontSize: "12px", fontWeight: 700, letterSpacing: "0.04em", display: "flex", alignItems: "center", gap: "5px" }}>
           <BookOpen size={11} /> Expert Content
         </span>
         <button onClick={() => generateAI()} style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "6px", background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.15)", color: "#A78BFA", padding: "5px 14px", borderRadius: "8px", cursor: "pointer", fontSize: "12px", fontWeight: 600 }}>
@@ -383,7 +383,7 @@ export default function SectionContent({ academy, technology, section, techName,
     if (aiContent) return (
       <div>
         <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "28px", paddingBottom: "18px", borderBottom: "1px solid var(--border)" }}>
-          <span style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)", color: "#A78BFA", padding: "3px 12px", borderRadius: "100px", fontSize: "11px", fontWeight: 700, display: "flex", alignItems: "center", gap: "5px" }}>
+          <span style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)", color: "#A78BFA", padding: "3px 12px", borderRadius: "100px", fontSize: "12px", fontWeight: 700, display: "flex", alignItems: "center", gap: "5px" }}>
             <Sparkles size={11} /> AI Generated
           </span>
           {preContent && <button onClick={() => setMode("pre")} style={{ marginLeft: "auto", background: "transparent", border: "1px solid var(--border)", color: "var(--text-4)", padding: "4px 12px", borderRadius: "8px", cursor: "pointer", fontSize: "12px" }}>← Expert Version</button>}

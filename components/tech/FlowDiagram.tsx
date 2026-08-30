@@ -43,7 +43,7 @@ function Box({ step }: { step: FlowStep }) {
         </div>
       )}
       {step.detail && (
-        <div style={{ fontSize: "11px", color: "var(--text-4)" }}>{step.detail}</div>
+        <div style={{ fontSize: "12px", color: "var(--text-4)" }}>{step.detail}</div>
       )}
     </div>
   );

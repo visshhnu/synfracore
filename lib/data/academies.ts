@@ -912,28 +912,41 @@ const vlsiAcademy: Academy = {
   technologies: [],
 };
 
+// Alphabetical by title (2026-08-30 mobile UX audit) — was raw
+// build-chronology order (the original 10 academies, then every "Phase 3"
+// academy appended in the order it was built), which had no relationship
+// to how a user would actually look for something in a 20-item list.
+// Alphabetical was chosen over a "popularity" or "most relevant" ordering
+// because there's no real usage data yet to rank by (Phase 4 audit found
+// only 12 total registered users) — alphabetical is the standard,
+// zero-maintenance convention for a category list this size, and new
+// academies just insert in sorted position instead of accumulating at
+// the end indefinitely. The Navbar's desktop dropdown (GROUPS in
+// components/layout/Navbar.tsx) is a separate, deliberately curated
+// thematic grouping and is NOT reordered by this — only this flat list
+// (which /academies, the mobile drawer, and the homepage explorer all
+// read directly) was the actual flagged problem.
 export const academies: Academy[] = [
-  devopsAcademy,
-  cloudAcademy,
-  databasesAcademy,
-  aiAcademy,
-  dataAcademy,
-  securityAcademy,
-  healthcareAcademy,
-  essentialsAcademy,
-  educationAcademy,
-  examsAcademy,
-  // Phase 3 new academies
-  lawAcademy,
-  agricultureAcademy,
-  financeAcademy,
-  telecomAcademy,
-  statePscAcademy,
-  centralExamsAcademy,
-  professionalCertsAcademy,
-  economicsAcademy,
-  aerospaceAcademy,
-  vlsiAcademy,
+  aerospaceAcademy,          // Aeronautical & Aerospace Engineering
+  agricultureAcademy,        // Agriculture & Organic Farming
+  aiAcademy,                 // AI & ML Engineering
+  centralExamsAcademy,       // Central Govt Exams
+  cloudAcademy,               // Cloud Platforms
+  examsAcademy,               // Competitive Exams
+  securityAcademy,            // Cybersecurity
+  dataAcademy,                // Data Analytics & BI
+  databasesAcademy,           // Databases
+  devopsAcademy,              // DevOps & Platform Engineering
+  economicsAcademy,           // Economics
+  financeAcademy,             // Finance & Commerce
+  healthcareAcademy,          // Health & Hospitality
+  essentialsAcademy,          // Human Essentials
+  lawAcademy,                 // Law & Legal Studies
+  professionalCertsAcademy,   // Professional Certifications
+  educationAcademy,           // School & College
+  statePscAcademy,            // State PSC Exams
+  telecomAcademy,             // Telecom & 5G
+  vlsiAcademy,                 // VLSI & Semiconductor Engineering
 ];
 
 // Kept only for any external backward-compat imports — education/exams are in main academies array

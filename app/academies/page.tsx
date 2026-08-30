@@ -37,7 +37,7 @@ export default function AcademiesPage() {
             <Link key={p.title} href={p.href} style={{ textDecoration: "none" }}>
               <div className="card-hover" style={{ padding: "16px 18px", borderRadius: "10px", border: `1px solid ${p.color}25`, background: p.color + "06" }}>
                 <div style={{ fontWeight: 700, fontSize: "13px", color: "var(--text-1)", marginBottom: "6px" }}>{p.title}</div>
-                <div style={{ fontSize: "11px", color: p.color, fontWeight: 600, lineHeight: 1.5 }}>{p.path}</div>
+                <div style={{ fontSize: "12px", color: p.color, fontWeight: 600, lineHeight: 1.5 }}>{p.path}</div>
               </div>
             </Link>
           ))}
@@ -56,7 +56,7 @@ export default function AcademiesPage() {
             }}>
               <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "16px" }}>
                 <span style={{ fontSize: "40px" }}>{a.icon}</span>
-                <span style={{ background: a.color + "20", color: a.color, fontSize: "11px", fontWeight: 700, padding: "4px 10px", borderRadius: "6px" }}>
+                <span style={{ background: a.color + "20", color: a.color, fontSize: "12px", fontWeight: 700, padding: "4px 10px", borderRadius: "6px" }}>
                   {a.domains.length} Domains
                 </span>
               </div>
@@ -71,12 +71,12 @@ export default function AcademiesPage() {
               {/* Domain tags */}
               <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "16px" }}>
                 {a.domains.slice(0, 4).map(d => (
-                  <span key={d.slug} style={{ fontSize: "10px", padding: "2px 8px", borderRadius: "4px", background: a.color + "12", color: a.color, fontWeight: 600 }}>
+                  <span key={d.slug} style={{ fontSize: "12px", padding: "2px 8px", borderRadius: "4px", background: a.color + "12", color: a.color, fontWeight: 600 }}>
                     {d.name}
                   </span>
                 ))}
                 {a.domains.length > 4 && (
-                  <span style={{ fontSize: "10px", color: "var(--text-4)", padding: "2px 4px" }}>+{a.domains.length - 4} more</span>
+                  <span style={{ fontSize: "12px", color: "var(--text-4)", padding: "2px 4px" }}>+{a.domains.length - 4} more</span>
                 )}
               </div>
 

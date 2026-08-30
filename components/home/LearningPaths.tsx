@@ -84,7 +84,7 @@ export default function LearningPaths() {
                         color: "#C4B5FD",
                         padding: "3px 9px",
                         borderRadius: "100px",
-                        fontSize: "11px",
+                        fontSize: "12px",
                         fontWeight: 500,
                       }}
                     >

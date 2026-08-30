@@ -1,7 +1,9 @@
-import { certifications } from "@/lib/data/navigation";
+import { certifications, certificationExamTypeMap } from "@/lib/data/navigation";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/seo/metadata";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getFirstPaperByExamType } from "@/lib/supabase/questionBank";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -294,6 +296,15 @@ export default async function CertificationDetailPage({ params }: Props) {
   const detail = certDetail[id];
   const color = cert.color;
 
+  // Existence check only, same convention as technologyExamTypeMap's use on
+  // the tech section page — links to /question-bank (the full catalog),
+  // never straight into one paper (see getFirstPaperByExamType's own
+  // comment for why: it hid the other real papers from a user before).
+  const examType = certificationExamTypeMap[id];
+  const practiceExamPaper = examType
+    ? await getFirstPaperByExamType(createSupabaseServerClient(), examType)
+    : null;
+
   return (
     <div style={{ maxWidth: "900px", margin: "0 auto", padding: "40px 24px" }}>
       <Link href="/certifications" style={{ color: "var(--text-4)", fontSize: "13px", textDecoration: "none", marginBottom: "24px", display: "inline-block" }}>
@@ -328,6 +339,27 @@ export default async function CertificationDetailPage({ params }: Props) {
           </div>
         </div>
       </div>
+
+      {/* Practice Exams — only rendered when a real question_papers row
+          actually exists for this cert's mapped exam_type (existence
+          checked above via certificationExamTypeMap); links to the full
+          /question-bank catalog, not straight into one paper. */}
+      {practiceExamPaper && (
+        <section style={{ marginBottom: "28px" }}>
+          <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "18px", fontWeight: 800, marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
+            🎯 Practice Exams
+          </h2>
+          <Link href="/question-bank" style={{ textDecoration: "none" }}>
+            <div style={{ background: `${color}08`, border: `1px solid ${color}25`, borderRadius: "14px", padding: "18px 20px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px" }}>
+              <div>
+                <div style={{ fontSize: "14px", fontWeight: 700, color: "var(--text-1)", marginBottom: "4px" }}>Real practice questions for this exam topic</div>
+                <div style={{ fontSize: "12px", color: "var(--text-4)" }}>{practiceExamPaper.question_count} questions · {practiceExamPaper.difficulty}</div>
+              </div>
+              <span style={{ color, fontWeight: 700, fontSize: "16px", flexShrink: 0 }}>→</span>
+            </div>
+          </Link>
+        </section>
+      )}
 
       {detail ? (
         <>

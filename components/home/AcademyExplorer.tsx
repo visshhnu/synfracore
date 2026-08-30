@@ -39,7 +39,7 @@ export function AcademyExplorer({ academies }: { academies: Academy[] }) {
               <div style={{ color: "var(--text-4)", fontSize: "13px" }}>{active.subtitle}</div>
             </div>
           </div>
-          <span style={{ background: active.color + "20", color: active.color, fontSize: "11px", fontWeight: 700, padding: "3px 8px", borderRadius: "6px", whiteSpace: "nowrap" }}>
+          <span style={{ background: active.color + "20", color: active.color, fontSize: "12px", fontWeight: 700, padding: "3px 8px", borderRadius: "6px", whiteSpace: "nowrap" }}>
             {active.domains.length} Domains
           </span>
         </div>

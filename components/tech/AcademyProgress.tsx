@@ -74,7 +74,7 @@ export default function AcademyProgress({ academy, topics, sections, accentColor
         <span>✅ {completed} complete</span>
         <span>~ {inProgress} in progress</span>
         <span>⬜ {topics.length - completed - inProgress} not started</span>
-        <button onClick={() => setExpanded(!expanded)} style={{ marginLeft: "auto", background: "none", border: "none", color: "var(--text-4)", cursor: "pointer", fontSize: "11px" }}>
+        <button onClick={() => setExpanded(!expanded)} style={{ marginLeft: "auto", background: "none", border: "none", color: "var(--text-4)", cursor: "pointer", fontSize: "12px", minHeight: "44px", padding: "0 4px" }}>
           {expanded ? "▲ collapse" : "▼ details"}
         </button>
       </div>
@@ -85,13 +85,13 @@ export default function AcademyProgress({ academy, topics, sections, accentColor
             const pct = progress[topic.slug] ?? 0;
             return (
               <div key={topic.slug} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <span style={{ fontSize: "11px", color: "var(--text-3)", width: "160px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flexShrink: 0 }}>
+                <span style={{ fontSize: "12px", color: "var(--text-3)", width: "160px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flexShrink: 0 }}>
                   {topic.name}
                 </span>
                 <div style={{ flex: 1, height: "4px", borderRadius: "2px", background: "var(--border)" }}>
                   <div style={{ height: "100%", borderRadius: "2px", background: pct === 100 ? "#10B981" : accentColor, width: `${pct}%`, transition: "width 0.3s" }} />
                 </div>
-                <span style={{ fontSize: "10px", color: pct === 100 ? "#10B981" : "var(--text-4)", fontWeight: 600, width: "30px", textAlign: "right" }}>
+                <span style={{ fontSize: "12px", color: pct === 100 ? "#10B981" : "var(--text-4)", fontWeight: 600, width: "30px", textAlign: "right" }}>
                   {pct === 100 ? "✓" : `${pct}%`}
                 </span>
               </div>

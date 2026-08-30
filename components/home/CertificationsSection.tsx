@@ -74,7 +74,7 @@ export default function CertificationsSection() {
                   color: certs[0].color,
                   padding: "2px 10px",
                   borderRadius: "100px",
-                  fontSize: "11px",
+                  fontSize: "12px",
                   fontWeight: 600,
                 }}
               >
@@ -104,7 +104,7 @@ export default function CertificationsSection() {
                     <span style={{ color: "var(--text-1)", fontSize: "13px", fontWeight: 600, display: "block" }}>
                       {cert.name}
                     </span>
-                    <span style={{ color: "var(--text-4)", fontSize: "11px" }}>{cert.code}</span>
+                    <span style={{ color: "var(--text-4)", fontSize: "12px" }}>{cert.code}</span>
                   </div>
                   <span
                     style={{
@@ -113,7 +113,7 @@ export default function CertificationsSection() {
                       border: `1px solid ${cert.level === "Expert" ? "rgba(244, 63, 94, 0.2)" : cert.level === "Professional" ? "rgba(245, 158, 11, 0.2)" : "rgba(16, 185, 129, 0.2)"}`,
                       padding: "2px 8px",
                       borderRadius: "100px",
-                      fontSize: "10px",
+                      fontSize: "12px",
                       fontWeight: 600,
                     }}
                   >

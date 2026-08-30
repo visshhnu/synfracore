@@ -5,17 +5,33 @@ import Image from "next/image";
 import { useTheme } from "@/components/ThemeProvider";
 import { Mail } from "lucide-react";
 
+// Was missing 10 of the 20 real academies entirely (only the original 10
+// pre-"Phase 3" ones were ever added here — a separate hardcoded list from
+// lib/data/academies.ts, so nothing kept it in sync as new academies
+// shipped). Fixed alongside the 2026-08-30 alphabetical reorder since a
+// footer that's missing half the platform's academies is a bigger problem
+// than the ordering itself.
 const academyLinks = [
-  { name: "DevOps", href: "/academies/devops" },
-  { name: "Cloud", href: "/academies/cloud" },
-  { name: "Databases", href: "/academies/databases" },
+  { name: "Aerospace Engineering", href: "/academies/aerospace" },
+  { name: "Agriculture", href: "/academies/agriculture" },
   { name: "AI Engineering", href: "/academies/ai" },
+  { name: "Central Govt Exams", href: "/academies/central-exams" },
+  { name: "Cloud", href: "/academies/cloud" },
+  { name: "Competitive Exams", href: "/academies/exams" },
+  { name: "Cybersecurity", href: "/academies/security" },
   { name: "Data Analytics", href: "/academies/data" },
-  { name: "Security", href: "/academies/security" },
+  { name: "Databases", href: "/academies/databases" },
+  { name: "DevOps", href: "/academies/devops" },
+  { name: "Economics", href: "/academies/economics" },
+  { name: "Finance & Commerce", href: "/academies/finance" },
   { name: "Healthcare Coding", href: "/academies/healthcare" },
   { name: "Life Essentials", href: "/academies/essentials" },
+  { name: "Law & Legal Studies", href: "/academies/law" },
+  { name: "Professional Certifications", href: "/academies/professional-certs" },
   { name: "CS Education", href: "/academies/education" },
-  { name: "Exam Prep", href: "/academies/exams" },
+  { name: "State PSC Exams", href: "/academies/state-psc" },
+  { name: "Telecom & 5G", href: "/academies/telecom" },
+  { name: "VLSI & Semiconductor", href: "/academies/vlsi" },
 ];
 
 const platformLinks = [
@@ -126,7 +142,7 @@ export default function Footer() {
                 <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"
                   title={s.name}
                   style={{
-                    width: "36px", height: "36px", borderRadius: "9px",
+                    width: "44px", height: "44px", borderRadius: "10px",
                     background: "var(--bg-2)", border: "1px solid var(--border)",
                     display: "flex", alignItems: "center", justifyContent: "center",
                     color: "var(--text-4)", textDecoration: "none",
