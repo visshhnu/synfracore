@@ -62,4 +62,4 @@ This industry-overview knowledge is commonly tested alongside the technical syll
 
 ## How to Use This Technology's Sections
 
-*(Note: the Fundamentals, Intermediate, and Advanced tabs on this technology currently cover a different, more specialized topic — telecom operations management platforms (vTeMIP, UOC, UTM) — rather than continuing this industry-overview theme. This is a known content gap, not an intentional structure; treat those tabs as a separate specialized topic for now rather than a continuation of this page.)*
+The Fundamentals and Intermediate tabs continue this industry-overview theme in more depth — Fundamentals covers spectrum licensing, India's circle-based structure, TRAI/DoT, prepaid vs. postpaid economics, and ARPU; Intermediate covers interconnection charges, number portability mechanics, spectrum trading/sharing, and 5G rollout economics. Interview covers common industry Q&A across both.
