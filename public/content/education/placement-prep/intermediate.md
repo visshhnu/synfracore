@@ -1,48 +1,115 @@
 # Placement Preparation — Intermediate
 
-## From Concepts to Problems
+## Quantitative Aptitude — worked examples
 
-At the intermediate level, you apply fundamental knowledge to solve structured problems. This is where Placements/GATE/University questions at medium difficulty level fall.
+```
+Time, Speed, Distance — a genuinely common pattern:
+  Two trains, 120km apart, moving toward each other at 40km/h
+  and 60km/h. When do they meet?
+  Relative speed (approaching) = 40+60 = 100 km/h
+  Time = Distance / Relative speed = 120/100 = 1.2 hours
 
-## Topics at This Level
+  Same-direction chase — a different relative-speed rule:
+  Train A leaves at 8:00 at 60km/h. Train B leaves the same
+  station at 9:00 at 90km/h, same direction. When does B catch A?
+  By 9:00, A has a 60km head start.
+  Relative speed (same direction) = 90-60 = 30 km/h
+  Time for B to close the gap = 60/30 = 2 hours → B catches A at 11:00
 
-- Quantitative Aptitude
-- Logical & Verbal Reasoning
-- Technical DSA (LeetCode)
-- System Design (for Senior roles)
-- HR Behavioral Questions
-- Resume & LinkedIn Optimization
-- Mock Interviews
-- Company-Specific Preparation
+  The rule that actually matters: approaching → add speeds,
+  same-direction chase → subtract speeds. Most errors on this
+  topic come from applying the wrong one under time pressure,
+  not from the arithmetic itself.
 
-## Problem-Solving Strategy
+Permutations vs Combinations — the actual distinguishing question:
+  "Does order matter?" — arranging 3 books on a shelf out of 5
+  (order matters, book positions are distinct) = permutation:
+  P(5,3) = 5!/(5-3)! = 60
+  Choosing 3 books out of 5 to take on a trip (order doesn't
+  matter, just which 3) = combination:
+  C(5,3) = 5!/(3!×2!) = 10
+```
 
-For Placement Preparation at intermediate level:
+## DSA Pattern Recognition — Two Pointers, worked
 
-**1. Identify the type** — Which topic does this question belong to? (e.g., work-time, profit-loss, normalization)
+```python
+# Problem: given a sorted array, find two numbers that sum to a target
+# Naive approach: check every pair — O(n^2)
+# Two-pointer approach — O(n), the pattern worth recognizing:
 
-**2. Recall the approach** — What formula/method applies? Write it down.
+def two_sum_sorted(arr, target):
+    left, right = 0, len(arr) - 1
+    while left < right:
+        current_sum = arr[left] + arr[right]
+        if current_sum == target:
+            return [left, right]
+        elif current_sum < target:
+            left += 1   # need a bigger sum, move left pointer up
+        else:
+            right -= 1  # need a smaller sum, move right pointer down
+    return None
+```
 
-**3. Apply methodically** — Work step by step. Don't skip steps under time pressure — mistakes happen.
+The pattern-recognition skill this is actually testing: **the
+array being sorted is what makes two-pointer valid at all** —
+moving `left` up always increases the sum, moving `right` down
+always decreases it, because the array is ordered. On an
+unsorted array, this exact technique doesn't work (a hash-set
+approach is the right pattern there instead) — recognizing which
+signal in the problem statement ("sorted array," "find a pair
+summing to X") points to which pattern is the actual interview
+skill, more than memorizing this one solution.
 
-**4. Verify** — Does your answer make sense? For MCQ, check if the answer is "in the ballpark."
+## Resume — a real before/after
 
-**5. Review wrong answers** — Every wrong answer reveals a gap. Fix the gap, not just the answer.
+```
+Before (common, weak, task-focused):
+  "Worked on the backend team, responsible for API development
+  and bug fixes"
 
-## Practice Distribution
+After (impact-focused, quantified, specific):
+  "Redesigned a REST API's pagination logic, reducing average
+  response time from 800ms to 120ms for the top 3 highest-traffic
+  endpoints; fixed 12 production bugs over one quarter, reducing
+  the team's open bug backlog by 30%"
 
-For optimal preparation:
-- 60% time on problem solving (not reading)
-- 20% time on concept review
-- 20% time on analyzing mistakes
+What changed, specifically: the "after" version replaces a job
+description ("responsible for X") with a measurable outcome
+(numbers: 800ms→120ms, 12 bugs, 30%) — a resume screener or
+interviewer can't evaluate "responsible for API development," but
+can immediately evaluate a specific, quantified claim, and it
+gives the interviewer a concrete, comfortable thread to ask
+follow-up questions about, which "responsible for" does not.
+```
 
-## Key Formulas & Rules
+## Behavioral Questions — the STAR method, worked
 
-Study the **Cheatsheet** section for a compiled list of the most important formulas and rules for Placement Preparation. The **Labs** section has intermediate MCQ sets that test exactly this level.
+```
+Question: "Tell me about a time you disagreed with a teammate."
+
+Situation: "During a sprint, a teammate wanted to skip writing
+  tests for a new feature to hit a deadline."
+Task: "I needed to make the case for keeping test coverage
+  without blowing the deadline or creating team friction."
+Action: "I proposed we write tests only for the feature's core
+  logic (not exhaustive edge cases) to save time, and offered to
+  pair-program the tests with them so it wouldn't slow them down
+  alone."
+Result: "We shipped on time with meaningful test coverage, and
+  that partial-coverage compromise became the team's informal
+  standard for tight-deadline features afterward."
+
+Why this structure works in an interview specifically: each
+letter forces a concrete detail (not a vague generality), and
+the Result section is what most weak answers skip entirely —
+ending on "we disagreed and eventually agreed" without a
+measurable or concrete outcome leaves the interviewer unable to
+judge whether the resolution actually worked.
+```
 
 ## Transition to Advanced
 
-You're ready for advanced topics when you can:
-- Solve intermediate problems in under 2 minutes each
-- Identify the approach within 15 seconds of reading a problem
-- Score 75%+ consistently on intermediate MCQ sets
+You're ready for advanced placement prep when you can:
+- Solve a two-pointer or sliding-window problem within 10-15 minutes without seeing the pattern name given to you first
+- Rewrite any resume bullet from a task description into a quantified outcome on the first try
+- Deliver a STAR answer in under 2 minutes without rambling in the Situation/Task setup
