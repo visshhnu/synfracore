@@ -79,10 +79,16 @@ migration/cutover record — this was a re-attempt of a migration first tried
    ~2-4x faster (confirmed: ~50s vs ~120-200s), which is a useful tell if a build
    is unexpectedly slow — it may mean you're on the wrong filesystem. If working
    from `D:\synfracore` on Windows, sync to a native WSL path first: `rsync -a
-   --delete --exclude='.next' --exclude='.open-next' --exclude='.git'
+   --delete --exclude='.next' --exclude='.open-next'
    --exclude='node_modules' /mnt/d/synfracore/ ~/synfracore-build/`, then run
    `npm run pages:build` (runs `opennextjs-cloudflare build` under the hood)
    and `wrangler deploy` from that native path, not from `/mnt/d`.
+   **Do NOT exclude `.git` from this sync** (real incident, 2026-08-30):
+   `pages:build` runs `generate:content-dates`, which reads real git commit
+   history to compute per-file "last updated" dates — a `.git`-excluded
+   build directory made that step fail. `.git` is ~50MB against the build
+   dir's ~1.3GB total, with no measurable build-time impact from including
+   it (confirmed: both builds ran ~1m20s either way).
    - **`.env.local` MUST be copied fresh — `cp /mnt/d/synfracore/.env.local
      ~/synfracore-build/.env.local` — on every single build, no exceptions,
      even if you're confident nothing in it changed.** It's excluded from the
