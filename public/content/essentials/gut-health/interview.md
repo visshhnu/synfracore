@@ -10,7 +10,7 @@ The gut microbiome is the community of trillions of microorganisms (bacteria, fu
 - Digest fibre → produce Short-Chain Fatty Acids (SCFAs: butyrate, propionate, acetate) — energy for gut lining cells, anti-inflammatory
 - Synthesise vitamins: B12, K2, some B vitamins
 - Regulate immune system: ~70% of immune cells are in the gut
-- Produce neurotransmitters: 90% of serotonin made in gut (gut-brain axis)
+- Produce neurotransmitters: ~90% of serotonin made in gut, though it's used locally and doesn't cross into the brain — the real gut-brain axis link runs through the vagus nerve and immune signaling, not gut serotonin itself
 - Protect against pathogens: competitive exclusion, produce antimicrobial compounds
 - Metabolise drugs and toxins
 

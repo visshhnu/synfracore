@@ -279,10 +279,17 @@ Traditional strengths:
 
 ```
 Vitamin D: Deficient in 60-80% of Indians despite living in a sunny country
+  (published Indian studies actually range wider, commonly 50-90%+ --
+  60-80% is a reasonable middle estimate, not a precise figure)
   → Reason: We avoid sun during peak hours, covered clothing, indoor work
   → Symptoms: Fatigue, bone pain, frequent infections, depression, muscle weakness
   → Solution: 15-20 minutes sunlight on arms/legs between 10am-2pm daily
-               OR Vitamin D3 (2000-4000 IU daily) with K2
+               OR Vitamin D3 supplementation -- NIH's standard daily
+               allowance is 600-800 IU; the higher 2000-4000 IU range
+               is a deficiency-correction dose, appropriate once low
+               blood levels are actually confirmed (a simple blood
+               test), not a default everyone should take -- check
+               levels first rather than assuming this dose applies
   
 Iron: Most common deficiency globally, especially women
   → Symptoms: Fatigue, pale skin, cold hands/feet, brittle nails, brain fog

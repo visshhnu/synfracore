@@ -2,7 +2,7 @@
 
 **Before you start:** no prior background is needed — basic familiarity with digestion (that food goes through your digestive tract) is the only assumption. *(Note: specific figures below — percentages, dosages, timelines — reflect commonly cited estimates in this field; treat them as general guidance rather than precise clinical values, and consult a doctor for anything specific to your own health.)*
 
-Your gut contains 100 trillion bacteria — more than the number of cells in your entire body. Scientists now call it the "second brain" because it has its own nervous system (enteric nervous system), produces 90% of your body's serotonin, and directly communicates with your brain through the vagus nerve. When your gut is unhealthy, everything else suffers.
+Your gut contains around 38 trillion bacteria — roughly matching the number of cells in your entire body (the older "100 trillion, far outnumbering human cells" figure was revised down by a 2016 study; the actual ratio is closer to 1:1). Scientists now call it the "second brain" because it has its own nervous system (enteric nervous system), produces around 90% of your body's serotonin (used locally for gut function, not exported to the brain), and communicates with your brain constantly through the vagus nerve — a separate, genuine pathway, not the serotonin itself. When your gut is unhealthy, everything else suffers.
 
 ## Why This Exists (The Hook)
 
@@ -31,7 +31,7 @@ The gut microbiome is the community of trillions of microorganisms — bacteria,
 
 ## The Modern Gut Crisis — Why Everyone Is Struggling
 
-The average person today has a gut microbiome that is **50% less diverse** than people 100 years ago. Here's why:
+There's no direct microbiome data from 100 years ago (DNA sequencing didn't exist then), so that specific comparison can't be verified — but the real comparative research tells a similar story: studies comparing modern urban populations against present-day hunter-gatherer communities (like Tanzania's Hadza) have found roughly 60% fewer gut bacterial species in the urban group. The comparison that's actually measurable is lifestyle-based (industrialized vs. traditional diet/environment), not a specific historical date — and either way, the direction and rough scale of the loss is real. Here's why:
 
 ### Ultra-Processed Food (The Biggest Problem)
 ```
@@ -134,16 +134,22 @@ This is the most underappreciated health fact:
 
 ```
 Your gut produces:
-  90% of serotonin (mood, happiness, sleep)
-  50% of dopamine (motivation, reward)
-  Large amounts of GABA (calm, anti-anxiety)
+  ~90% of the body's serotonin (mostly used LOCALLY, for gut
+    motility and digestion — this serotonin does not cross the
+    blood-brain barrier and is not the same pool that regulates
+    mood in the brain)
+  ~50% of the body's dopamine (similarly used locally in the gut;
+    does not cross into the brain either — this is also why
+    Parkinson's is treated with L-DOPA, which does cross the
+    blood-brain barrier, rather than dopamine itself)
+  Large amounts of GABA
 
 The vagus nerve: Carries signals bidirectionally
-  80% of signals: Gut → Brain (gut tells brain what's happening)
-  20% of signals: Brain → Gut (brain tells gut what to do)
+  Roughly 80% of vagal fibres carry signals Gut → Brain
+  Roughly 20% carry signals Brain → Gut
 ```
 
-This means gut dysfunction directly causes mental health issues — not just stress causing gut problems, but gut problems causing anxiety, depression, and brain fog. Studies show:
+A common myth worth correcting directly: gut-produced serotonin and dopamine do NOT travel to the brain and directly cause mood changes — the blood-brain barrier blocks them. The real gut-brain mood connection runs through different pathways instead: vagus nerve signaling, immune/inflammatory mediators, and microbiome-derived metabolites (like the SCFAs covered below) that do have measurable effects on brain function. This means gut dysfunction can genuinely contribute to mental health issues — not just stress causing gut problems, but gut problems affecting mood — through these indirect pathways, not through gut serotonin/dopamine reaching the brain. Studies show:
 
 - People with IBS have 3× higher rates of anxiety and depression
 - Transplanting gut bacteria from depressed mice to healthy mice makes them depressed
@@ -253,7 +259,7 @@ Reduce:
 Most bloating is from fermentation of poorly absorbed carbohydrates (FODMAPs). Common triggers: wheat, onion, garlic, apples, dairy. **Don't eliminate all — rotate and identify your trigger.** Also: eat slowly, don't talk while eating, reduce carbonated drinks.
 
 ### Constipation
-Almost always: insufficient water, insufficient fibre, insufficient movement. Increase water to 3L, add prunes or figs daily, walk 20 minutes after dinner. **Magnesium glycinate 200-400mg** at bedtime is highly effective and safe.
+Almost always: insufficient water, insufficient fibre, insufficient movement. Increase water to 3L, add prunes or figs daily, walk 20 minutes after dinner. **Magnesium glycinate 200-400mg of elemental magnesium** (not the total compound weight — a capsule labeled "500mg magnesium glycinate" often contains only 60-80mg of actual elemental magnesium; check the label's elemental magnesium line) at bedtime is a commonly used, evidence-supported option — but NIH sets the tolerable upper limit for *supplemental* magnesium at 350mg/day, so stay at or below that from supplements alone and get any additional amount from food `(needs verification — recheck against current NIH ODS guidance before recommending a specific number)`.
 
 ### Acid Reflux/GERD
 Counterintuitively, most GERD is from LOW stomach acid, not high. Acid pumped up damages oesophagus but isn't being made in enough quantity to fully digest food. Test: drink 1/4 tsp baking soda in water — if you don't burp within 3 minutes, low stomach acid likely. Try apple cider vinegar (1 tbsp in water before meals) instead of antacids long-term.

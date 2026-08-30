@@ -16,7 +16,7 @@
 ```
 THE GUT MICROBIOME:
   Trillions of microorganisms (bacteria, fungi, viruses) in the digestive tract
-  ~100 trillion bacteria — more than human body cells
+  ~38 trillion bacteria — roughly 1:1 with human body cells (the older "100 trillion" figure was revised down by a 2016 study)
   Major phyla: Firmicutes, Bacteroidetes (together ~90% of gut bacteria)
   Functions:
     Digest food we cannot digest (fibre fermentation)
@@ -27,7 +27,11 @@ THE GUT MICROBIOME:
 
 GUT-BRAIN AXIS:
   Bidirectional communication: gut ↔ brain via vagus nerve
-  Gut produces 90% of body serotonin (mood regulation)
+  Gut produces ~90% of body serotonin, but it's used locally
+    (gut motility) and does NOT cross the blood-brain barrier --
+    gut serotonin is not the same pool that regulates mood
+  Real gut-mood link: vagus nerve signaling, immune/inflammatory
+    mediators, microbiome-derived metabolites (SCFAs)
   Dysbiosis (imbalanced microbiome) linked to anxiety, depression
   Stress affects gut motility and permeability
 
@@ -68,9 +72,9 @@ IBS MANAGEMENT:
 
 ## Revision Notes
 ```
-MICROBIOME: ~100 trillion bacteria | Firmicutes + Bacteroidetes = 90%
+MICROBIOME: ~38 trillion bacteria (roughly 1:1 with human cells) | Firmicutes + Bacteroidetes = 90%
 FUNCTIONS: digest fibre | make vitamins | regulate immunity | produce serotonin
-GUT-BRAIN: vagus nerve | 90% serotonin in gut | dysbiosis → mood issues
+GUT-BRAIN: vagus nerve | 90% serotonin in gut (local, doesn't cross to brain) | dysbiosis → mood issues via vagus/immune pathways
 PROBIOTICS: curd, idli/dosa, kimchi, kefir, kombucha, brine pickles
 PREBIOTICS: garlic, onion, oats, banana, flaxseed (feed good bacteria)
 IBS: Low FODMAP diet | identify personal triggers | stress management
