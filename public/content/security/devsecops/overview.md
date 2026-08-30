@@ -133,7 +133,7 @@ helm install vault hashicorp/vault \
 # 2. Enable Kubernetes auth method
 vault auth enable kubernetes
 vault write auth/kubernetes/config \
-  kubernetes_host="https://\\$KUBERNETES_PORT_443_TCP_ADDR:443"
+  kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"
 
 # 3. Create policy (least privilege)
 vault policy write payment-policy - <<EOF
@@ -287,7 +287,7 @@ sonarqube-check:
   image: sonarsource/sonar-scanner-cli:latest
   variables:
     SONAR_HOST_URL: "https://sonarqube.company.com"
-    SONAR_TOKEN: \\$SONAR_TOKEN
+    SONAR_TOKEN: $SONAR_TOKEN
   script:
     - sonar-scanner -Dsonar.qualitygate.wait=true
   only: [merge_requests, main]
@@ -421,9 +421,9 @@ program_output:
   keep_alive: false
   program: |
     jq --raw-output '
-      .output as \\$msg |
-      {text: "🚨 Security Alert: \\(\\$msg)"}
-    ' | curl -d @- -X POST \\$SLACK_WEBHOOK
+      .output as $msg |
+      {text: "🚨 Security Alert: \($msg)"}
+    ' | curl -d @- -X POST $SLACK_WEBHOOK
 ```
 
 ---
