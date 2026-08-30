@@ -13,13 +13,17 @@ interface CourseJsonLdProps {
   description: string;
   url: string;
   provider?: string;
+  // Real git-derived last-updated date (YYYY-MM-DD), from
+  // lib/content/last-updated.ts. Omitted from the structured data
+  // entirely when unavailable, rather than fabricating one.
+  dateModified?: string;
 }
 
 interface BreadcrumbJsonLdProps {
   items: { name: string; url: string }[];
 }
 
-export function CourseJsonLd({ name, description, url, provider = "SynfraCore" }: CourseJsonLdProps) {
+export function CourseJsonLd({ name, description, url, provider = "SynfraCore", dateModified }: CourseJsonLdProps) {
   const data = {
     "@context": "https://schema.org",
     "@type": "Course",
@@ -35,6 +39,7 @@ export function CourseJsonLd({ name, description, url, provider = "SynfraCore" }
     "inLanguage": "en",
     "isAccessibleForFree": true,
     "courseMode": "online",
+    ...(dateModified ? { "dateModified": dateModified } : {}),
   };
 
   return (

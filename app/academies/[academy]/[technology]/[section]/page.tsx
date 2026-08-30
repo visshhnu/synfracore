@@ -3,7 +3,8 @@ import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { getAcademy, getTechnology } from "@/lib/data/academies";
 import { nonTechAcademyIds, technologyExamTypeMap, getSectionsForTechnology } from "@/lib/data/navigation";
-import { hasContent, fetchContentEdge } from "@/lib/content";
+import { hasContent, fetchContentEdge, getContentFilePath } from "@/lib/content";
+import { getLastUpdated } from "@/lib/content/last-updated";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getFirstPaperByExamType } from "@/lib/supabase/questionBank";
 import { Sparkles } from "lucide-react";
@@ -164,6 +165,13 @@ export default async function SectionPage({ params }: Props) {
     initialContent = await fetchContentEdge(aSlug, tSlug, section);
   }
 
+  // Real, git-derived last-updated date for this exact file — replaces the
+  // previous hardcoded "Updated 2025" literal that rendered unchanged on
+  // every page site-wide (see AuthorBadge.tsx and
+  // scripts/generate-content-dates.mjs for the full history).
+  const contentFilePath = getContentFilePath(aSlug, tSlug, section);
+  const lastUpdated = contentFilePath ? getLastUpdated(contentFilePath) : null;
+
   // FAQPage structured data — parsed from the same markdown already
   // resolved above, no extra fetch. parseFaqMarkdown() returns [] for
   // anything malformed/empty; FAQJsonLd itself also no-ops on an empty
@@ -190,6 +198,7 @@ export default async function SectionPage({ params }: Props) {
         name={`${tech.name} — ${sectionData?.label || section}`}
         description={tech.description}
         url={canonicalUrl}
+        dateModified={lastUpdated?.date}
       />
       <BreadcrumbJsonLd
         items={[
@@ -320,7 +329,7 @@ export default async function SectionPage({ params }: Props) {
         </p>
 
         {/* Author badge */}
-        <AuthorBadge techName={tech.name} section={section} accentColor="#6366F1" />
+        <AuthorBadge section={section} accentColor="#6366F1" lastUpdated={lastUpdated?.date} />
 
         {/* Main content */}
         {isLabs ? (

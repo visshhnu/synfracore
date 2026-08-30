@@ -2537,6 +2537,13 @@ const contentRegistry = new Map<string, string>([
 export function hasContent(a: string, t: string, s: string): boolean {
   return contentRegistry.has(`${a}/${t}/${s}`);
 }
+// The physical file path behind a registry key — e.g. for looking up
+// git-derived last-updated data (lib/content/last-updated.ts), which is
+// keyed by physical path, not registry key, since an aliased key (like a
+// legacy "infrastructure/" root) shares its target file's real history.
+export function getContentFilePath(a: string, t: string, s: string): string | null {
+  return contentRegistry.get(`${a}/${t}/${s}`) || null;
+}
 // Client-side only (relative fetch — the browser supplies the origin). Do
 // NOT call this from a Server Component; see fetchContentEdge() below.
 export async function fetchContent(a: string, t: string, s: string): Promise<string | null> {
