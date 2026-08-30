@@ -125,14 +125,14 @@ Vault is the industry standard for secret management. Two types of secrets: Stat
 # Vault on Kubernetes — Agent Injector pattern
 
 # 1. Install Vault with Helm
-helm install vault hashicorp/vault \\\\
-  --namespace vault \\\\
-  --set "server.ha.enabled=true" \\\\
+helm install vault hashicorp/vault \
+  --namespace vault \
+  --set "server.ha.enabled=true" \
   --set "server.ha.replicas=3"
 
 # 2. Enable Kubernetes auth method
 vault auth enable kubernetes
-vault write auth/kubernetes/config \\\\
+vault write auth/kubernetes/config \
   kubernetes_host="https://\\$KUBERNETES_PORT_443_TCP_ADDR:443"
 
 # 3. Create policy (least privilege)
@@ -146,10 +146,10 @@ path "database/creds/payment-role" {
 EOF
 
 # 4. Bind Kubernetes ServiceAccount to policy
-vault write auth/kubernetes/role/payment \\\\
-  bound_service_account_names=payment-sa \\\\
-  bound_service_account_namespaces=production \\\\
-  policies=payment-policy \\\\
+vault write auth/kubernetes/role/payment \
+  bound_service_account_names=payment-sa \
+  bound_service_account_namespaces=production \
+  policies=payment-policy \
   ttl=1h
 
 # 5. Annotate pod — Vault Agent injects secrets automatically
@@ -158,7 +158,7 @@ spec:
   annotations:
     vault.hashicorp.com/agent-inject: "true"
     vault.hashicorp.com/role: "payment"
-    vault.hashicorp.com/agent-inject-secret-db: \\\\
+    vault.hashicorp.com/agent-inject-secret-db: \
       "secret/data/production/payment/db"
     vault.hashicorp.com/agent-inject-template-db: |
       {{- with secret "secret/data/production/payment/db" -}}
@@ -184,22 +184,22 @@ Trivy is the most popular open-source vulnerability scanner — scans OS package
 ```bash
 # Trivy scanning in CI/CD
 # Filesystem scan (source code + dependencies)
-trivy fs \\\\
-  --exit-code 1 \\\\
-  --severity CRITICAL \\\\
-  --ignore-unfixed \\\\
+trivy fs \
+  --exit-code 1 \
+  --severity CRITICAL \
+  --ignore-unfixed \
   .
 
 # Image scan
-trivy image \\\\
-  --exit-code 1 \\\\
-  --severity CRITICAL,HIGH \\\\
-  --format table \\\\
+trivy image \
+  --exit-code 1 \
+  --severity CRITICAL,HIGH \
+  --format table \
   myapp:latest
 
 # Kubernetes cluster scan
-trivy k8s \\\\
-  --report summary \\\\
+trivy k8s \
+  --report summary \
   cluster
 
 # SBOM (Software Bill of Materials) — list all components
@@ -254,11 +254,11 @@ stage('SonarQube') {
   steps {
     withSonarQubeEnv('sonarqube') {
       sh '''
-        sonar-scanner \\\\
-          -Dsonar.projectKey=myapp \\\\
-          -Dsonar.sources=src \\\\
-          -Dsonar.tests=tests \\\\
-          -Dsonar.python.coverage.reportPaths=coverage.xml \\\\
+        sonar-scanner \
+          -Dsonar.projectKey=myapp \
+          -Dsonar.sources=src \
+          -Dsonar.tests=tests \
+          -Dsonar.python.coverage.reportPaths=coverage.xml \
           -Dsonar.qualitygate.wait=true
       '''
     }

@@ -41,7 +41,7 @@ Cloud-native registries (ECR, ACR, GCR) are simple and managed — zero ops over
 # - Want zero registry ops
 # - Need IAM-based auth (no credentials to manage)
 aws ecr create-repository --repository-name myapp --region us-east-1
-aws ecr get-login-password | docker login --username AWS \\
+aws ecr get-login-password | docker login --username AWS \
   --password-stdin 123456789.dkr.ecr.us-east-1.amazonaws.com
 
 # ACR (Azure) — use when:
@@ -79,13 +79,13 @@ Harbor organises images into Projects (like namespaces). Each project has its ow
 ```bash
 # Install Harbor with Helm
 helm repo add harbor https://helm.goharbor.io
-helm install harbor harbor/harbor \\
-  --namespace harbor --create-namespace \\
-  --set expose.type=ingress \\
-  --set expose.ingress.hosts.core=harbor.company.com \\
-  --set externalURL=https://harbor.company.com \\
-  --set harborAdminPassword=Admin12345 \\
-  --set persistence.enabled=true \\
+helm install harbor harbor/harbor \
+  --namespace harbor --create-namespace \
+  --set expose.type=ingress \
+  --set expose.ingress.hosts.core=harbor.company.com \
+  --set externalURL=https://harbor.company.com \
+  --set harborAdminPassword=Admin12345 \
+  --set persistence.enabled=true \
   --set persistence.persistentVolumeClaim.registry.size=100Gi
 
 # Push image to Harbor
@@ -94,15 +94,15 @@ docker login harbor.company.com -u admin
 docker push harbor.company.com/production/myapp:v1.2.3
 
 # Block images with CRITICAL CVEs via Harbor API
-curl -u admin:Admin12345 -X PUT \\
-  https://harbor.company.com/api/v2.0/projects/production \\
-  -H "Content-Type: application/json" \\
+curl -u admin:Admin12345 -X PUT \
+  https://harbor.company.com/api/v2.0/projects/production \
+  -H "Content-Type: application/json" \
   -d '{"metadata":{"prevent_vul":"true","severity":"critical"}}'
 
 # Retention policy — keep only last 10 tags per repo
-curl -u admin:Admin12345 -X POST \\
-  https://harbor.company.com/api/v2.0/projects/1/retentions \\
-  -H "Content-Type: application/json" \\
+curl -u admin:Admin12345 -X POST \
+  https://harbor.company.com/api/v2.0/projects/1/retentions \
+  -H "Content-Type: application/json" \
   -d '{"rules":[{"action":"retain","params":{"latestK":10},"scope_selectors":{"repository":[{"kind":"doublestar","decoration":"repoMatches","pattern":"**"}]},"tag_selectors":[{"kind":"doublestar","decoration":"matches","pattern":"**"}]}]}'
 
 # Replication rule — sync production project to DR Harbor
@@ -138,7 +138,7 @@ Nexus and Artifactory are universal artifact managers — they handle not just D
 npm config set registry https://nexus.company.com/repository/npm-group/
 
 # Configure pip to use Nexus proxy:
-pip install mypackage \\
+pip install mypackage \
   --index-url https://nexus.company.com/repository/pypi-proxy/simple/
 
 # Configure Maven to use Nexus (settings.xml):
@@ -170,10 +170,10 @@ docker push nexus.company.com:5000/myapp:latest
 # 1. NEVER pull from Docker Hub in production
 # Set imagePullPolicy and use internal registry
 # In Kubernetes, use ImagePullSecret for private registries:
-kubectl create secret docker-registry harbor-cred \\
-  --docker-server=harbor.company.com \\
-  --docker-username=ci-user \\
-  --docker-password=token123 \\
+kubectl create secret docker-registry harbor-cred \
+  --docker-server=harbor.company.com \
+  --docker-username=ci-user \
+  --docker-password=token123 \
   --namespace=production
 
 # 2. ALWAYS scan before deploy (three-layer approach):

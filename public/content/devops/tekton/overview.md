@@ -149,8 +149,8 @@ spec:
     params:
     - name: script
       value: |
-        kubectl set image deployment/myapp \\
-          app=$(params.image-name):$(tasks.clone.results.commit) \\
+        kubectl set image deployment/myapp \
+          app=$(params.image-name):$(tasks.clone.results.commit) \
           -n $(params.namespace)
         kubectl rollout status deployment/myapp -n $(params.namespace)
 ```

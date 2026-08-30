@@ -201,6 +201,7 @@ const contentRegistry = new Map<string, string>([
   ["central-exams/hal-trainee-prep/interview","central-exams/hal-trainee-prep/interview"],
   ["central-exams/hal-trainee-prep/notes","central-exams/hal-trainee-prep/notes"],
   ["central-exams/hal-trainee-prep/overview","central-exams/hal-trainee-prep/overview"],
+  ["central-exams/hal-trainee-prep/pyq","central-exams/hal-trainee-prep/pyq"],
   ["central-exams/nda-prep/advanced","central-exams/nda-prep/advanced"],
   ["central-exams/nda-prep/cheatsheets","central-exams/nda-prep/cheatsheets"],
   ["central-exams/nda-prep/fundamentals","central-exams/nda-prep/fundamentals"],

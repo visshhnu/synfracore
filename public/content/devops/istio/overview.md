@@ -108,8 +108,8 @@ spec:
     mode: STRICT    # Reject any non-mTLS traffic
 
 # Verify mTLS is working between services
-kubectl exec -it payment-pod -c istio-proxy -- \\
-  openssl s_client -connect orders-service:8080 2>/dev/null \\
+kubectl exec -it payment-pod -c istio-proxy -- \
+  openssl s_client -connect orders-service:8080 2>/dev/null \
   | grep "Verify return code"
 # Should show: Verify return code: 0 (ok)
 

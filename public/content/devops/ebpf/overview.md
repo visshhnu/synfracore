@@ -88,10 +88,10 @@ Cilium is the most popular eBPF-based CNI for Kubernetes. It replaces both kube-
 ```bash
 # Install Cilium (replaces kube-proxy)
 helm repo add cilium https://helm.cilium.io/
-helm install cilium cilium/cilium \\
-  --namespace kube-system \\
-  --set kubeProxyReplacement=true \\
-  --set hubble.relay.enabled=true \\
+helm install cilium cilium/cilium \
+  --namespace kube-system \
+  --set kubeProxyReplacement=true \
+  --set hubble.relay.enabled=true \
   --set hubble.ui.enabled=true
 
 # Verify Cilium status
@@ -128,8 +128,8 @@ hubble observe --http-path /api/payment
 
 # Cluster Mesh — pod-to-pod across clusters
 ciliumclustermesh enable
-ciliumclustermesh connect \\
-  --context prod-cluster-1 \\
+ciliumclustermesh connect \
+  --context prod-cluster-1 \
   --destination-context prod-cluster-2
 ```
 

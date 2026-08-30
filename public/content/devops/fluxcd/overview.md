@@ -70,11 +70,11 @@ Both ArgoCD and FluxCD implement GitOps — cluster pulls desired state from Git
 curl -s https://fluxcd.io/install.sh | sudo bash
 
 # Bootstrap FluxCD — installs into cluster + sets up Git repo
-flux bootstrap github \\
-  --owner=myorg \\
-  --repository=gitops-fleet \\
-  --branch=main \\
-  --path=clusters/production \\
+flux bootstrap github \
+  --owner=myorg \
+  --repository=gitops-fleet \
+  --branch=main \
+  --path=clusters/production \
   --personal
 
 # This:

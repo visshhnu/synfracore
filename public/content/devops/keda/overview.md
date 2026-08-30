@@ -55,8 +55,8 @@ HPA only scales on CPU and memory. Problem: a Kafka consumer pod has low CPU eve
 # KEDA solves this:
 # Install KEDA
 helm repo add kedacore https://kedacore.github.io/charts
-helm install keda kedacore/keda \\
-  --namespace keda \\
+helm install keda kedacore/keda \
+  --namespace keda \
   --create-namespace
 
 # Verify
