@@ -110,7 +110,7 @@ each sub-academy.
 | 14 | Telecom | 6 (corrected from a stated estimate of 7) | **6/6 overview.md done** (2026-08-28) — see table below | telco's Fundamentals/Intermediate/Advanced tiers still mismatched (vTeMIP/UOC/UTM content), flagged as open follow-up; otherwise self-mapped, no aliasing |
 | 15 | Economics | 6 (corrected from a stated estimate of 7) | **6/6 done** (2026-08-28) — see table below | None found — all self-mapped, no aliasing |
 | 16 | Aerospace | 7 (corrected from a stated estimate of 8) | **7/7 done** (2026-08-28) — see table below | None found — all self-mapped, no aliasing. Highest existing content quality seen this engagement |
-| 17 | VLSI | 7 (corrected from a stated estimate of 8) | **7/7 done** (2026-08-28) — see table below. **FINAL ACADEMY — Phase 3 complete** | None found — all self-mapped, no aliasing. Same exceptional existing quality as Aerospace |
+| 17 | VLSI | 7 (corrected from a stated estimate of 8) | **7/7 done, deployed live** (2026-08-28) — see table below. **FINAL ACADEMY — Phase 3 complete and live** | None found — all self-mapped, no aliasing. Same exceptional existing quality as Aerospace |
 
 ## DevOps — technology-level tracking (41 technologies)
 
@@ -1508,9 +1508,11 @@ pre-existing Verilog/VHDL code-pair in hdl-verilog-vhdl unrelated to this
 edit). One native-WSL build + live Playwright verification cycle run for
 all 7 pages: all render with no crashes, diagrams present (2-5 per page,
 all nonzero — confirming the fence discipline held), Academies dropdown
-works. Not yet deployed — awaiting explicit deploy instruction.
+works. Deployed and live-verified (2026-08-28): all 7 pages 200, diagrams
+render in both themes, Academies dropdown working, `npm run predeploy`
+exit 0.
 
-## VLSI academy — COMPLETE, 7/7 (2026-08-28)
+## VLSI academy — COMPLETE, 7/7, deployed live (2026-08-28)
 
 All 7 technologies now have visual treatment layered onto already-
 exceptional existing content, completed in a single batch since the
@@ -1518,20 +1520,25 @@ academy only has 7 technologies total (corrected from a stated estimate
 of 8). This is the final academy in the Phase 3 platform-wide rollout —
 see the summary section below for the complete initiative record.
 
-## Phase 3 — COMPLETE: all academies at their Tier-0 (overview.md) rubric+visual pass (2026-08-28)
+## Phase 3 — COMPLETE: all academies at their Tier-0 (overview.md) rubric+visual pass, all deployed live (2026-08-28)
 
 Every academy planned for this initiative now has real depth-rubric +
-visual treatment at the `overview.md` tier: DevOps (41), Cloud (25), AI
-(9), the Exams cluster (43: exams/central-exams/state-psc/
-professional-certs), Databases (12), Healthcare (13), Security (9), Data/
-Analytics & BI (14, 11/14 real — dbt/airflow/spark flagged as an open
-backlog item, see above), Education (12), Essentials (10), Law (9),
-Finance (11), Agriculture (6), Telecom (6, telco's deeper tiers flagged
-as an open backlog item, see above), Economics (6), Aerospace (7), and
-VLSI (7) — **totaling 260 technologies across 17 academies**, all
-confirmed self-mapped, deployed, and live-verified as each batch
-completed, except for whatever the most recent VLSI batch's deploy
-status is at the time this doc is next read.
+visual treatment at the `overview.md` tier — confirmed live in
+production, not just committed: DevOps (41), Cloud (25), AI (9), the
+Exams cluster (43: exams/central-exams/state-psc/professional-certs),
+Databases (12), Healthcare (13), Security (9), Data/Analytics & BI (14,
+11/14 real — dbt/airflow/spark flagged as an open backlog item, see
+above), Education (12), Essentials (10), Law (9), Finance (11),
+Agriculture (6), Telecom (6, telco's deeper tiers flagged as an open
+backlog item, see above), Economics (6), Aerospace (7), and VLSI (7) —
+**totaling 260 technologies across 17 academies**, every single batch
+across the entire rollout confirmed self-mapped, content-verified
+(fence-balance + JSON-parse + `npm run predeploy`), build-verified (one
+native-WSL build + live Playwright cycle per batch), deployed, and
+post-deploy live-verified (HTTP 200 + diagram render in both themes +
+Academies dropdown + `npm run predeploy`) before moving to the next
+batch. VLSI's deploy (2026-08-28) was the final piece — Phase 3 is now
+fully complete and live.
 
 **Two live content bugs were found and fixed during this rollout**,
 both while reading files before editing (per standing discipline) rather
