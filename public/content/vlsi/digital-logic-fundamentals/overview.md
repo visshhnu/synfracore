@@ -1,5 +1,7 @@
 # Digital Logic & Design Fundamentals — Overview
 
+**Before you start:** basic algebra is assumed — no prior electronics or programming background is required, since this page introduces Boolean algebra and gate vocabulary from scratch.
+
 This is the on-ramp for the whole VLSI academy. Every technology after this one — HDL/Verilog-VHDL, RTL Design, Functional Verification, Physical Design, Analog/Mixed-Signal — assumes you can already think in 1s and 0s: how a handful of AND/OR/NOT gates combine into circuits that add numbers, remember state, and eventually become the billions-of-transistors chips this whole field is about. This page doesn't teach a specific chip or tool — it teaches the logic vocabulary every later module reuses.
 
 **Analogy** — A logic gate is a light switch with an opinion. A single switch just passes power through or blocks it. A logic gate looks at one or more incoming signals (each either "on" — 1 — or "off" — 0) and decides, by a fixed rule, whether to pass a 1 or a 0 onward. An AND gate is a strict switch: it only says yes if every input says yes. An OR gate is a lenient switch: it says yes if any input says yes. Wire enough of these opinionated switches together in the right pattern, and you get a calculator, a memory cell, or — at the scale of billions — a processor.
@@ -28,6 +30,16 @@ ideas taught here:
   3. LOGIC GATES       — the physical (or simulated) building blocks —
                           AND, OR, NOT, NAND, NOR, XOR — that implement
                           Boolean algebra in silicon.
+```
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Boolean Algebra", "description": "The math of TRUE/FALSE values -- AND, OR, NOT combinations", "color": "blue" },
+    { "title": "Number Systems", "description": "Binary, hexadecimal -- how decimal numbers become bit patterns", "color": "purple" },
+    { "title": "Logic Gates", "description": "AND, OR, NOT, NAND, NOR, XOR -- Boolean algebra implemented in silicon", "color": "green" }
+  ]
+}
 ```
 
 ## The Basic Gates — A Worked Truth-Table Example

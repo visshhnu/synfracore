@@ -1,5 +1,7 @@
 # Functional Verification — Overview
 
+**Before you start:** [RTL Design & Computer Architecture](/academies/vlsi/rtl-digital-design/overview) is assumed.
+
 RTL Design & Computer Architecture built two real modules — the `seq_detector_101` Mealy FSM and the `counter_4bit` counter — and verified their behavior by hand-tracing the state tables. In a real design flow, you don't verify a chip's actual RTL by hand — you write a separate piece of code, a testbench, whose entire job is to stimulate the design and automatically check whether its outputs are correct. This page builds a self-checking testbench for the exact `seq_detector_101` module from RTL Design & Computer Architecture — same input stream, same expected output sequence — rather than inventing a new example, so the connection between "design" and "verification" is concrete, not asserted.
 
 **Analogy** — If RTL design is writing the recipe and cooking the dish, verification is a food inspector who never trusts the chef's word that the dish came out right — they taste it against a known-correct reference every single time, and they specifically try feeding the kitchen unusual or edge-case ingredients to see if it still holds up. A testbench is exactly that inspector, automated: it applies inputs to a design and checks outputs against an independently-computed expected result, rather than assuming the design worked just because it compiled or ran without crashing.
@@ -42,6 +44,17 @@ A testbench that only generates stimulus and watches waveforms
 without automated checking is not self-checking, and doesn't scale —
 a human would have to inspect every waveform by eye. The example
 below automates step 3 explicitly.
+```
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "1. Stimulus Generation", "sublabel": "Apply inputs to the Design Under Test", "color": "blue" },
+    { "label": "2. DUT Instantiation", "sublabel": "The actual design, wired up as in the real chip", "color": "purple" },
+    { "label": "3. Checking", "sublabel": "Compare actual vs. known-correct output, report pass/fail", "color": "green" }
+  ]
+}
 ```
 
 ## Annotated Example — A Self-Checking Testbench for `seq_detector_101`

@@ -1,5 +1,7 @@
 # HDL — Verilog & VHDL — Overview
 
+**Before you start:** [Digital Logic & Design Fundamentals](/academies/vlsi/digital-logic-fundamentals/overview) is assumed.
+
 Digital Logic & Design Fundamentals taught you to describe a circuit as Boolean algebra and truth tables — AND/OR/NOT, gates, K-maps. A real chip has millions to billions of gates; nobody draws that by hand or writes it out gate-by-gate. A Hardware Description Language (HDL) lets you describe *what a circuit should do*, in text, and a synthesis tool (covered later in RTL Design & Computer Architecture) turns that description into an actual gate-level netlist. This page introduces the two dominant HDLs — Verilog and VHDL — using the exact gates and truth tables from the previous technology, just expressed in code instead of tables.
 
 **Analogy** — A truth table is a recipe written as an exhaustive list: "if you have these exact ingredients in this exact amount, you get this exact dish" — every combination spelled out. An HDL module is the same recipe rewritten as an actual instruction: "combine ingredient A and ingredient B this way." Both describe the identical dish (the identical circuit behavior) — the truth table lists every case, the HDL states the general rule that produces every case. A synthesis tool is what turns that written rule back into a physical dish (real gates), the same way a chef turns a recipe into food.
@@ -100,6 +102,15 @@ default to Verilog/SystemVerilog syntax, with VHDL shown alongside
 where the comparison is instructive — not because VHDL doesn't
 matter, but to match where this academy's stated career-outcome
 focus is.
+```
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Verilog", "description": "C-like, terser, looser typing -- dominant in US commercial semiconductor industry", "color": "blue" },
+    { "title": "VHDL", "description": "Ada-derived, strongly typed -- dominant in European/defense/academia", "color": "purple" }
+  ]
+}
 ```
 
 ## Try It (2 Minutes)

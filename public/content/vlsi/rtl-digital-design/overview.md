@@ -1,5 +1,7 @@
 # RTL Design & Computer Architecture — Overview
 
+**Before you start:** [HDL — Verilog & VHDL](/academies/vlsi/hdl-verilog-vhdl/overview) is assumed.
+
 HDL — Verilog & VHDL taught you to describe both combinational logic (the mux) and sequential logic (the D flip-flop) in code. RTL (Register-Transfer Level) design is the discipline of composing many flip-flops and combinational blocks into something with actual behavior over time — a circuit that remembers where it is in a sequence and reacts differently depending on that memory. The centerpiece of this page is a Finite State Machine (FSM): the standard way to design any circuit whose next output depends not just on current inputs, but on what's already happened.
 
 **Analogy** — A vending machine is a finite state machine. It doesn't just react to the current coin — it remembers how much money has already been inserted (its "state"), and the same next coin produces a different outcome depending on that memory: 5 rupees when the machine has already counted 15 rupees toward a 20-rupee item behaves completely differently from the same 5 rupees inserted into an empty machine. An FSM formalizes exactly this: a fixed set of states, and rules for which state comes next given the current state and current input — precisely the "remembers where it is" idea that separates RTL design from the purely combinational logic of Digital Logic Fundamentals and the single-flip-flop examples of HDL — Verilog & VHDL.
@@ -48,6 +50,15 @@ dedicated state).                  glitches, since it reacts
 Neither is universally "better" — it's a real design tradeoff
 between state count and output-timing behavior, and both types
 appear regularly in real designs.
+```
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Moore Machine", "description": "Output depends ONLY on current state -- changes only on clock edge", "color": "blue" },
+    { "title": "Mealy Machine", "description": "Output depends on state AND input -- fewer states, more input-sensitive", "color": "purple" }
+  ]
+}
 ```
 
 ## Annotated Example — A Mealy "101" Sequence Detector

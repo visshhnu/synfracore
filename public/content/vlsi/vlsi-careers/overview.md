@@ -1,5 +1,7 @@
 # VLSI Careers & Exam Pathways — Overview
 
+**Before you start:** no strict technical prerequisite, though familiarity with this academy's other technologies helps you recognize which subjects each exam/career path actually tests.
+
 Every technology so far in this academy — Digital Logic Fundamentals through Analog & Mixed-Signal Design — has been building a specific toolkit. This page is the job listing: which real exams and career paths actually want that toolkit, and how India's semiconductor hiring landscape is structured. Exam formats, company hiring status, and fab timelines change year to year — treat the specific figures below as a snapshot, live-searched and confirmed against current sources at the time of writing, not permanent facts to memorize without rechecking.
 
 **Analogy** — The seven technologies you've worked through are tools in a toolbox — Boolean logic, HDL coding, FSM design, testbench verification, physical layout, analog circuits. This page is the job listing that tells you which combination of those tools each specific career path or exam is actually asking for — including one important correction to a common assumption, covered directly below, about what the relevant qualifying exam actually is.
@@ -60,6 +62,16 @@ HIGHER STUDY — GATE EC score is used for MTech VLSI admission at
   criterion, not a separate VLSI exam, reinforcing the correction
   above: the exam is GATE EC, VLSI is the MTech PROGRAM name, not
   the exam's subject.
+```
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Private Industry", "description": "Dominant path -- Intel, Qualcomm, AMD, Synopsys, Cadence, direct hiring", "color": "blue" },
+    { "title": "Manufacturing (Fabs)", "description": "India Semiconductor Mission facilities -- process/yield/DFT roles", "color": "amber" },
+    { "title": "Higher Study", "description": "GATE EC score for MTech VLSI admission at IISc, IITs", "color": "green" }
+  ]
+}
 ```
 
 ## GATE EC — The Actual Qualifying Exam

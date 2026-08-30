@@ -1,5 +1,7 @@
 # Analog & Mixed-Signal Design — Overview
 
+**Before you start:** [Digital Logic & Design Fundamentals](/academies/vlsi/digital-logic-fundamentals/overview) is assumed — the digital-track technologies (HDL, RTL, Verification, Physical Design) are useful context but not strictly required, since this is a parallel branch.
+
 Every technology since Digital Logic & Design Fundamentals — HDL, RTL Design, Functional Verification, Physical Design — has stayed on the digital side: signals that only ever sit at 0 or 1. Real-world signals (sound, temperature, voltage from a sensor) don't work that way — they vary continuously. Analog & Mixed-Signal Design branches off directly from Digital Logic Fundamentals rather than continuing the digital chain, because it needs that same foundation (Boolean 0/1 thinking, binary number representation) but applies it to a genuinely different problem: circuits that process continuous voltages, and the boundary components (ADCs and DACs) that translate between the continuous analog world and the discrete digital world every other technology in this academy assumes.
 
 **Analogy** — A digital signal is a light switch: fully on or fully off, nothing in between, exactly the 0/1 world Digital Logic Fundamentals introduced. An analog signal is a dimmer switch: it can sit at any brightness level continuously, not just two fixed states. An ADC (Analog-to-Digital Converter) is what happens when you photograph the dimmer switch's position and round it to the nearest notch on a numbered dial — you lose some precision (rounding to the nearest notch), but you now have a number a digital circuit can actually store and compute with, connecting the continuous dimmer-switch world back to the 0/1 world every other technology in this academy operates in.
@@ -46,6 +48,15 @@ INVERTING AMPLIFIER            NON-INVERTING AMPLIFIER
   ratio of two resistors --      resistor ratio, offset by 1 --
   no other component values      again, entirely resistor-ratio
   matter for the gain itself     controlled
+```
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Inverting Amplifier", "description": "Vout = -(Rf/Rin) x Vin -- output polarity flips", "color": "blue" },
+    { "title": "Non-Inverting Amplifier", "description": "Vout = (1 + Rf/Rin) x Vin -- same polarity as input", "color": "purple" }
+  ]
+}
 ```
 
 ### Annotated Example — Computing Op-Amp Gain

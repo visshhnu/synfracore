@@ -1,5 +1,7 @@
 # Physical Design & Fabrication — Overview
 
+**Before you start:** [RTL Design & Computer Architecture](/academies/vlsi/rtl-digital-design/overview) is assumed. *(Note: the fab process node and India Semiconductor Mission sections below are explicitly flagged Volatile Core content in the source — re-verify against current sources before relying on any specific figure.)*
+
 RTL Design & Computer Architecture ended with synthesis: turning RTL code into a gate-level netlist, and computing a single critical path's minimum clock period by hand (clock-to-Q + combinational delay + setup). Physical design is what happens between that netlist and an actual manufactured chip — placing every gate at a real physical location on silicon, wiring them together, and confirming the *entire* chip (not just one hand-picked path) meets timing. This page walks the physical design flow end to end and extends RTL Design's single-path timing formula to a real multi-path scenario, the way an actual timing-closure report works.
 
 **Analogy** — Synthesis is like getting an architect's floor plan approved — you know every room exists and roughly how big it is, but nothing has been physically built. Physical design is construction: deciding exactly where each room sits in the building (floorplanning), running every pipe and wire to its actual destination (routing), and a final inspector checking that water pressure and electrical load meet code *everywhere in the building*, not just in the room you happened to check first (timing closure across every path, not just one).
@@ -34,6 +36,19 @@ Physical Design extends this directly:
 ```
 
 ## The Physical Design Flow
+
+```flow
+{
+  "layout": "flow",
+  "steps": [
+    { "label": "Floorplanning", "sublabel": "Place major blocks to minimize wire length", "color": "blue" },
+    { "label": "Placement", "sublabel": "Place every standard cell within its region", "color": "purple" },
+    { "label": "Routing", "sublabel": "Connect cells with real metal wires (R and C)", "color": "amber" },
+    { "label": "STA", "sublabel": "Check every path, find the critical one", "color": "red" },
+    { "label": "DFT + Tape-Out", "sublabel": "Scan chains, then send to the fab", "color": "green" }
+  ]
+}
+```
 
 ```
 Netlist (from RTL Design's synthesis)
