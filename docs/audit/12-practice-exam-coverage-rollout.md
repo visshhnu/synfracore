@@ -1,10 +1,11 @@
 # Practice-Exam Coverage — Future Rollout Tracker
 
-**Started:** 2026-08-31
-**Status: FUTURE INITIATIVE, NOT ACTIVE WORK.** This doc exists to record the
-scope and rationale so it isn't lost once the current session's work (AWS SAA
-+ Security+ papers, working toward BCHHC parity) wraps up — it is explicitly
-**not** a commitment to start building it now. Read this before assuming any
+**Started:** 2026-08-31. **Last updated:** 2026-08-31 (AWS SAA + Security+
+batch completed, seeded, and deployed — see "Current real state" below).
+**Status: FUTURE INITIATIVE, NOT ACTIVE WORK** beyond the Healthcare
+CPT/CCS note added below. This doc exists to record the scope and rationale
+so it isn't lost — it is explicitly **not** a commitment to start building
+the broader 260-technology rollout now. Read this before assuming any
 technology beyond the ones listed below has real practice-exam
 infrastructure — most don't.
 
@@ -15,38 +16,50 @@ The platform has 260 technologies across 20 academies (see
 rollout covering all of them). Real, premium, DB-backed practice-exam
 infrastructure (the `question_papers` / `questions` / `question_options` /
 `question_answers` schema — see `docs/question-bank-schema.sql`) exists for a
-tiny fraction of that: **6 technologies/certifications, out of 260.**
+tiny fraction of that: **7 technologies/certifications, out of 260.**
 
 ## Current real state (verified live against the database, 2026-08-31)
 
-**Seeded and live in production:**
+**Seeded and live in production — all at BCHHC's 10-paper depth:**
 
 | exam_type | Technology/cert | Papers | Total questions |
 |---|---|---|---|
 | `bchhc` | Healthcare/BCHHC-prep | 10 | 1,000 |
-| `kubernetes` | DevOps/Kubernetes (CKA/CKAD) | 4 | 133 |
+| `kubernetes` | DevOps/Kubernetes (CKA/CKAD/KCNA/CKS) | 4 | 133 |
 | `terraform` | DevOps/Terraform | 4 | 103 |
 | `docker` | DevOps/Docker | 4 | 95 |
 | `ansible` | DevOps/Ansible | 4 | 88 |
+| `aws-saa` | AWS Solutions Architect Associate | 10 | 200 |
+| `comptia-sec-plus` | CompTIA Security+ | 10 | 200 |
 
-**Built and verified, held for DB-seeding confirmation (not yet live)** — see
-the current session's work:
+AWS SAA and Security+ were built alternating (so neither sat at zero for
+long), each reaching 10 papers/200 questions, then seeded into production
+and deployed together — see the per-paper `docs/aws_saa_seed_paper_{1..10}.sql`
+and `docs/secplus_seed_paper_{1..10}.sql` git history for the full build
+record, including every bug caught and fixed along the way (section below).
 
-| exam_type | Cert | Papers built | Questions | Target |
-|---|---|---|---|---|
-| `aws-saa` | AWS Solutions Architect Associate | 5 | 100 | 10 papers (BCHHC parity) |
-| `comptia-sec-plus` | CompTIA Security+ | 3 | 60 | 10 papers (BCHHC parity) |
+**Wired to a UI entry point:** every `exam_type` with real papers above is
+wired to a technology tab (`technologyExamTypeMap` in
+`lib/data/navigation.ts`), a certification page (`certificationExamTypeMap`),
+or both — and, as of the same 2026-08-31 session, to the grouped `/question-bank`
+catalog page itself (`examTypeGroupMap`, same file), which groups papers by
+academy (Healthcare / DevOps / Cloud / Security) with a per-exam_type
+sub-heading within each group.
 
-Both are being built toward the same 10-papers depth BCHHC already has,
-alternating between the two certs so neither sits at zero for long — this is
-the CURRENT session's active work, tracked here for continuity but not the
-subject of this doc's "future" framing.
+## Content priority for the next batch (flagged here, not started)
 
-**Wired to a certification page but with zero real papers behind them:**
-None currently — every `exam_type` with real papers above is either wired to
-a technology tab (`technologyExamTypeMap` in `lib/data/navigation.ts`) or a
-certification page (`certificationExamTypeMap`, added Phase-4-audit-response
-2026-08-30), or both.
+**Healthcare should get CPT and CCS practice-paper content next**, alongside
+or immediately after this AWS SAA/Security+ batch — both certs already have
+real lesson content built on the platform (see the Healthcare academy), just
+missing the exam-paper layer BCHHC, AWS SAA, and Security+ now all have. This
+would make Healthcare the first academy group holding **multiple** certs
+under one `/question-bank` group section (BCHHC + CPT + CCS, and potentially
+more later) — the same pattern DevOps already uses for its four
+(Kubernetes/Terraform/Docker/Ansible). `examTypeGroupMap` already supports
+this correctly with no structural change needed: adding `cpt`/`ccs` entries
+with `group: "Healthcare"` is sufficient once real papers exist for them.
+Not started — flagged here specifically so it isn't lost, per this doc's
+whole purpose.
 
 ## The future scope this doc exists to record
 
@@ -121,19 +134,41 @@ just AWS SAA/Security+:
    consciously avoid re-testing the same scenario a prior paper already
    used, so 10 papers add up to broad real coverage rather than repeating
    a smaller pool of scenarios 10 times.
-6. **Hold DB seeding for explicit confirmation.** Every paper built this
-   session was committed to git as a record immediately, but none were
-   executed against the live Supabase database without explicit sign-off —
-   seeding is a production-data change, held to the same confirmation
-   discipline as a `wrangler deploy`.
+6. **Hold DB seeding for explicit confirmation, then re-verify against the
+   LIVE database (not just the seed files against each other) immediately
+   before actually running it.** Every paper built this session was
+   committed to git as a record immediately, but held unseeded until
+   explicit sign-off — seeding is a production-data change, held to the
+   same confirmation discipline as a `wrangler deploy`. When the go-ahead
+   came, the pre-existing cross-file UUID collision check (item 3 above)
+   was re-run one more time against the *live* database's actual UUIDs
+   (not just the 20 seed files against each other) immediately before
+   running the real inserts — cheap, and the only way to be certain
+   against what's actually live at that moment, not what was live when an
+   earlier check happened to run. Writing the actual SQL-parsing insert
+   script itself caught one more real bug an unbalanced-quote in
+   `secplus_seed_paper_10.sql` that had passed every earlier
+   UUID/referential/distractor-language check (none of which validate raw
+   SQL string-literal syntax) — fixed before it reached the database. A raw
+   quote-balance check (every `''`-stripped line has an even quote count)
+   is now part of the standing per-paper verification sequence, not just a
+   one-off catch.
+7. **A deploy following the seed can surface real wiring gaps a data-only
+   check won't catch.** After seeding, verifying the actual cert detail
+   pages live turned up `certificationExamTypeMap` genuinely missing entries
+   for `aws-saa`/`comptia-sec-plus` (a 2-line fix, deployed the same
+   session) — the papers existed and `/question-bank` already listed them,
+   but their own certification pages showed no Practice Exams section at
+   all until that map was extended. Checking the specific UI surface a
+   new exam_type is supposed to appear on — not just "did the insert
+   succeed" — is what catches this class of gap.
 
 ## Where the actual SQL files live
 
-`docs/aws_saa_seed_paper_{1..5}.sql`, `docs/secplus_seed_paper_{1..3}.sql`
-(current session, growing), `docs/bchhc_seed_papers_1_6.sql` and
-`docs/bchhc_seed_papers_7_10.sql` (pre-existing, already live). No seed
+`docs/aws_saa_seed_paper_{1..10}.sql` and `docs/secplus_seed_paper_{1..10}.sql`
+(this session's full batch, seeded and live), `docs/bchhc_seed_papers_1_6.sql`
+and `docs/bchhc_seed_papers_7_10.sql` (pre-existing, already live). No seed
 files exist yet for Kubernetes/Terraform/Docker/Ansible — those were seeded
-directly, before this file-based-record convention was established this
-session; if they ever need to be regenerated or extended, there is no
-existing `.sql` record to build from, only the live database rows
-themselves.
+directly, before this file-based-record convention was established; if they
+ever need to be regenerated or extended, there is no existing `.sql` record
+to build from, only the live database rows themselves.

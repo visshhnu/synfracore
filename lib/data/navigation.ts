@@ -74,6 +74,32 @@ export const certificationExamTypeMap: Record<string, string> = {
   "comptia-sec-plus": "comptia-sec-plus",
 };
 
+// Presentation-only metadata for /question-bank's grouped catalog view
+// (app/question-bank/page.tsx) — maps each exam_type to the academy-level
+// group it belongs under and a human-readable label for its own
+// sub-section within that group. Deliberately separate from the two maps
+// above (which are existence-check gates for a specific page's sidebar/
+// section, keyed by technology or certification id) — this one groups
+// ALREADY-KNOWN-to-exist exam_types for display, keyed by exam_type
+// itself. A new exam_type with real question_papers rows needs an entry
+// here too, or it silently falls into the catch-all "Other" group added at
+// render time in app/question-bank/page.tsx — extend this map, not the
+// page component, when a new cert/technology ships real papers.
+//
+// One academy group can (and, per the roadmap tracker in
+// docs/audit/12-practice-exam-coverage-rollout.md, will) hold multiple
+// exam_types — Healthcare is planned to add CPT and CCS alongside BCHHC,
+// the same pattern DevOps already uses for its four.
+export const examTypeGroupMap: Record<string, { group: string; label: string }> = {
+  bchhc: { group: "Healthcare", label: "BCHHC (Board Certified Home Health Coder)" },
+  kubernetes: { group: "DevOps", label: "Kubernetes (CKA / CKAD / KCNA / CKS)" },
+  terraform: { group: "DevOps", label: "Terraform (HashiCorp Certified)" },
+  docker: { group: "DevOps", label: "Docker (DCA)" },
+  ansible: { group: "DevOps", label: "Ansible (RHCE)" },
+  "aws-saa": { group: "Cloud", label: "AWS Solutions Architect Associate" },
+  "comptia-sec-plus": { group: "Security", label: "CompTIA Security+" },
+};
+
 export const certifications = [
   { id: "aws-ccp", name: "AWS Cloud Practitioner", code: "CLF-C02", provider: "AWS", color: "#FF9900", level: "Foundational" },
   { id: "aws-saa", name: "AWS Solutions Architect Associate", code: "SAA-C03", provider: "AWS", color: "#FF9900", level: "Associate" },

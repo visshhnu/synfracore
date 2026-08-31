@@ -5,33 +5,30 @@ import Image from "next/image";
 import { useTheme } from "@/components/ThemeProvider";
 import { Mail } from "lucide-react";
 
-// Was missing 10 of the 20 real academies entirely (only the original 10
-// pre-"Phase 3" ones were ever added here — a separate hardcoded list from
-// lib/data/academies.ts, so nothing kept it in sync as new academies
-// shipped). Fixed alongside the 2026-08-30 alphabetical reorder since a
-// footer that's missing half the platform's academies is a bigger problem
-// than the ordering itself.
+// Truncated to the 8 most prominent academies (the four with real, live
+// premium practice-exam content — DevOps, Cloud, Cybersecurity, Healthcare
+// Coding — plus the platform's other core tech categories and its largest
+// non-tech audience) with a "View all academies →" link to /academies for
+// the rest, specifically to fix a real visual-imbalance problem: all 20
+// academies in one column made it dramatically taller than the Platform
+// (9 links) and Company (6 links) columns beside it. Grouping (reusing
+// Navbar.tsx's GROUPS) was considered and rejected for this specific
+// problem — it adds 4 subheadings on top of still listing all 20 links,
+// making the column taller, not shorter; it solves an organization
+// problem this footer doesn't have, not the height problem it does.
+// Full, ungrouped list with every academy lives at academies.ts and is
+// what /academies itself renders — this is deliberately a curated subset,
+// not a sync target, so it does NOT need updating every time a new
+// academy ships (unlike the pre-fix flat list this replaced).
 const academyLinks = [
-  { name: "Aerospace Engineering", href: "/academies/aerospace" },
-  { name: "Agriculture", href: "/academies/agriculture" },
-  { name: "AI Engineering", href: "/academies/ai" },
-  { name: "Central Govt Exams", href: "/academies/central-exams" },
+  { name: "DevOps", href: "/academies/devops" },
   { name: "Cloud", href: "/academies/cloud" },
-  { name: "Competitive Exams", href: "/academies/exams" },
   { name: "Cybersecurity", href: "/academies/security" },
+  { name: "Healthcare Coding", href: "/academies/healthcare" },
+  { name: "AI Engineering", href: "/academies/ai" },
   { name: "Data Analytics", href: "/academies/data" },
   { name: "Databases", href: "/academies/databases" },
-  { name: "DevOps", href: "/academies/devops" },
-  { name: "Economics", href: "/academies/economics" },
-  { name: "Finance & Commerce", href: "/academies/finance" },
-  { name: "Healthcare Coding", href: "/academies/healthcare" },
-  { name: "Life Essentials", href: "/academies/essentials" },
-  { name: "Law & Legal Studies", href: "/academies/law" },
-  { name: "Professional Certifications", href: "/academies/professional-certs" },
-  { name: "CS Education", href: "/academies/education" },
-  { name: "State PSC Exams", href: "/academies/state-psc" },
-  { name: "Telecom & 5G", href: "/academies/telecom" },
-  { name: "VLSI & Semiconductor", href: "/academies/vlsi" },
+  { name: "Competitive Exams", href: "/academies/exams" },
 ];
 
 const platformLinks = [
@@ -39,7 +36,7 @@ const platformLinks = [
   { name: "Projects", href: "/projects" },
   { name: "Roadmaps", href: "/roadmaps" },
   { name: "Certifications", href: "/certifications" },
-  { name: "BCHHC Exam Prep", href: "/academies/healthcare/bchhc-prep" },
+  { name: "Practice Exams", href: "/question-bank" },
   { name: "Interview Hub", href: "/interview" },
   { name: "Troubleshooting", href: "/troubleshooting" },
   { name: "AI Assistant", href: "/ai-assistant" },
@@ -185,6 +182,13 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link href="/academies" prefetch={false} style={{ color: "var(--text-4)", fontSize: "13px", fontWeight: 700, textDecoration: "none", transition: "color 0.15s" }}
+                  onMouseEnter={e => (e.target as HTMLElement).style.color = "var(--text-1)"}
+                  onMouseLeave={e => (e.target as HTMLElement).style.color = "var(--text-4)"}>
+                  View all academies →
+                </Link>
+              </li>
             </ul>
           </div>
 
