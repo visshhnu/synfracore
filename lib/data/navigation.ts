@@ -70,6 +70,8 @@ export const certificationExamTypeMap: Record<string, string> = {
   cks: "kubernetes",
   "terraform-associate": "terraform",
   rhce: "ansible",
+  "aws-saa": "aws-saa",
+  "comptia-sec-plus": "comptia-sec-plus",
 };
 
 export const certifications = [
