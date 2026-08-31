@@ -34,7 +34,7 @@
 -- ============================================================
 
 INSERT INTO question_papers (id, slug, title, exam_type, focus_tags, question_count, difficulty, is_premium, sort_order, time_limit_minutes)
-VALUES ('bb1f1fb6-cfbe-4c8c-8d5a-031ce78025cb', 'aws-saa-practice-10', 'AWS Certified Solutions Architect - Associate Practice Paper 10', 'aws-saa', ARRAY['Secrets Manager Rotation', 'WAF Bot Control', 'CloudTrail Org Trail', 'KMS Multi-Region Keys', 'Geolocation Routing', 'EFS Replication', 'DynamoDB GSI/LSI', 'Aurora Reader Endpoint', 'RDS Reserved Instances']::TEXT[], 20, 'standard', true, 10, 30);
+VALUES ('bb1f1fb6-cfbe-4c8c-8d5a-031ce78025cb', 'aws-saa-practice-10', 'AWS SAA-C03 Practice Paper 10', 'aws-saa', ARRAY['Secrets Manager Rotation', 'WAF Bot Control', 'CloudTrail Org Trail', 'KMS Multi-Region Keys', 'Geolocation Routing', 'EFS Replication', 'DynamoDB GSI/LSI', 'Aurora Reader Endpoint', 'RDS Reserved Instances']::TEXT[], 20, 'standard', true, 10, 30);
 
 -- ── Domain: Secure Architectures (30% — 6 questions) ──
 

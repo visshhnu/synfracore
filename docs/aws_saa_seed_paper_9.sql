@@ -34,7 +34,7 @@
 -- ============================================================
 
 INSERT INTO question_papers (id, slug, title, exam_type, focus_tags, question_count, difficulty, is_premium, sort_order, time_limit_minutes)
-VALUES ('030b206e-c700-49db-9905-3ac82057637b', 'aws-saa-practice-9', 'AWS Certified Solutions Architect - Associate Practice Paper 9', 'aws-saa', ARRAY['Config Remediation', 'S3 Object Ownership', 'Traffic Mirroring', 'IAM Roles Anywhere', 'Route 53 ARC', 'Spread Placement Groups', 'Instance Store', 'S3 Batch Operations']::TEXT[], 20, 'standard', true, 9, 30);
+VALUES ('030b206e-c700-49db-9905-3ac82057637b', 'aws-saa-practice-9', 'AWS SAA-C03 Practice Paper 9', 'aws-saa', ARRAY['Config Remediation', 'S3 Object Ownership', 'Traffic Mirroring', 'IAM Roles Anywhere', 'Route 53 ARC', 'Spread Placement Groups', 'Instance Store', 'S3 Batch Operations']::TEXT[], 20, 'standard', true, 9, 30);
 
 -- ── Domain: Secure Architectures (30% — 6 questions) ──
 

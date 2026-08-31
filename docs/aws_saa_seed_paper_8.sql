@@ -23,7 +23,7 @@
 -- ============================================================
 
 INSERT INTO question_papers (id, slug, title, exam_type, focus_tags, question_count, difficulty, is_premium, sort_order, time_limit_minutes)
-VALUES ('63368e78-2b0d-4abd-8a2f-6a1a58a1467e', 'aws-saa-practice-8', 'AWS Certified Solutions Architect - Associate Practice Paper 8', 'aws-saa', ARRAY['Parameter Store', 'S3 Access Points', 'Firewall Manager', 'IMDSv2', 'RDS Multi-AZ Cluster', 'Warm Pools', 'Adaptive Capacity', 'Capacity Reservations']::TEXT[], 20, 'standard', true, 8, 30);
+VALUES ('63368e78-2b0d-4abd-8a2f-6a1a58a1467e', 'aws-saa-practice-8', 'AWS SAA-C03 Practice Paper 8', 'aws-saa', ARRAY['Parameter Store', 'S3 Access Points', 'Firewall Manager', 'IMDSv2', 'RDS Multi-AZ Cluster', 'Warm Pools', 'Adaptive Capacity', 'Capacity Reservations']::TEXT[], 20, 'standard', true, 8, 30);
 
 -- ── Domain: Secure Architectures (30% — 6 questions) ──
 

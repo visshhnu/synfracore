@@ -21,7 +21,7 @@
 -- ============================================================
 
 INSERT INTO question_papers (id, slug, title, exam_type, focus_tags, question_count, difficulty, is_premium, sort_order, time_limit_minutes)
-VALUES ('7d059e9a-f045-47d6-87c0-db4b365cdf41', 'aws-saa-practice-7', 'AWS Certified Solutions Architect - Associate Practice Paper 7', 'aws-saa', ARRAY['CloudTrail', 'IAM Access Analyzer', 'Network Firewall', 'Aurora Backtrack', 'DynamoDB PITR', 'Lambda@Edge', 'Enhanced Networking', 'Cost Anomaly Detection']::TEXT[], 20, 'standard', true, 7, 30);
+VALUES ('7d059e9a-f045-47d6-87c0-db4b365cdf41', 'aws-saa-practice-7', 'AWS SAA-C03 Practice Paper 7', 'aws-saa', ARRAY['CloudTrail', 'IAM Access Analyzer', 'Network Firewall', 'Aurora Backtrack', 'DynamoDB PITR', 'Lambda@Edge', 'Enhanced Networking', 'Cost Anomaly Detection']::TEXT[], 20, 'standard', true, 7, 30);
 
 -- ── Domain: Secure Architectures (30% — 6 questions) ──
 

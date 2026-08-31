@@ -16,7 +16,7 @@
 -- ============================================================
 
 INSERT INTO question_papers (id, slug, title, exam_type, focus_tags, question_count, difficulty, is_premium, sort_order, time_limit_minutes)
-VALUES ('ae5e9e35-6c53-4d23-afd8-c02e7ad36198', 'aws-saa-practice-6', 'AWS Certified Solutions Architect - Associate Practice Paper 6', 'aws-saa', ARRAY['VPC Endpoint Policies', 'ACM Private CA', 'AWS Backup', 'DR Strategies', 'Aurora Global Database', 'CloudFront Origin Groups', 'Savings Plans']::TEXT[], 20, 'standard', true, 6, 30);
+VALUES ('ae5e9e35-6c53-4d23-afd8-c02e7ad36198', 'aws-saa-practice-6', 'AWS SAA-C03 Practice Paper 6', 'aws-saa', ARRAY['VPC Endpoint Policies', 'ACM Private CA', 'AWS Backup', 'DR Strategies', 'Aurora Global Database', 'CloudFront Origin Groups', 'Savings Plans']::TEXT[], 20, 'standard', true, 6, 30);
 
 -- ── Domain: Secure Architectures (30% — 6 questions) ──
 
