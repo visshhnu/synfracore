@@ -27,6 +27,42 @@ export type RoadmapDetail = {
 };
 
 export const roadmapDetails: Record<string, RoadmapDetail> = {
+  "full-stack-developer": {
+    description: "Build and ship complete web applications — frontend, backend, database, auth, and deployment — using the modern JavaScript/TypeScript stack.",
+    whyChoose: "The most in-demand tech role by sheer job volume in India. JavaScript remains the #1 most-used language industry-wide, and TypeScript is now a co-requirement at most companies. One skill stack covers both frontend and backend hiring.",
+    skills: ["HTML/CSS & semantic markup", "JavaScript & TypeScript", "React & Next.js", "Node.js & Express", "REST API design", "Authentication & deployment"],
+    techLinks: [
+      { name: "HTML & Semantic Markup", academy: "web-dev", slug: "html" },
+      { name: "CSS & Modern Layout", academy: "web-dev", slug: "css" },
+      { name: "JavaScript", academy: "web-dev", slug: "javascript" },
+      { name: "TypeScript", academy: "web-dev", slug: "typescript" },
+      { name: "React", academy: "web-dev", slug: "react" },
+      { name: "Next.js", academy: "web-dev", slug: "nextjs" },
+      { name: "Node.js", academy: "web-dev", slug: "nodejs" },
+      { name: "Express.js", academy: "web-dev", slug: "express" },
+      { name: "REST API Design", academy: "web-dev", slug: "rest-api-design" },
+      { name: "Authentication & Authorization", academy: "web-dev", slug: "auth" },
+      { name: "Full-Stack Integration & Deployment", academy: "web-dev", slug: "fullstack-integration" },
+    ],
+    steps: [
+      { label: "HTML & Semantic Markup", techLink: { name: "HTML & Semantic Markup", academy: "web-dev", slug: "html" } },
+      { label: "CSS & Modern Layout", techLink: { name: "CSS & Modern Layout", academy: "web-dev", slug: "css" } },
+      { label: "JavaScript", techLink: { name: "JavaScript", academy: "web-dev", slug: "javascript" } },
+      { label: "TypeScript", techLink: { name: "TypeScript", academy: "web-dev", slug: "typescript" } },
+      { label: "React", techLink: { name: "React", academy: "web-dev", slug: "react" } },
+      { label: "Next.js", techLink: { name: "Next.js", academy: "web-dev", slug: "nextjs" } },
+      { label: "Node.js", techLink: { name: "Node.js", academy: "web-dev", slug: "nodejs" } },
+      { label: "Express.js", techLink: { name: "Express.js", academy: "web-dev", slug: "express" } },
+      { label: "REST API Design", techLink: { name: "REST API Design", academy: "web-dev", slug: "rest-api-design" } },
+      { label: "Authentication & Authorization", techLink: { name: "Authentication & Authorization", academy: "web-dev", slug: "auth" } },
+      { label: "Full-Stack Integration & Deployment", techLink: { name: "Full-Stack Integration & Deployment", academy: "web-dev", slug: "fullstack-integration" } },
+    ],
+    salaryRange: "Scales heavily with React/Next.js depth and a real deployed portfolio versus tutorial-level familiarity — check current listings for this exact stack and seniority rather than a fixed figure.",
+    jobTitles: ["Full-Stack Developer", "Frontend Developer", "Backend Developer", "Software Engineer"],
+    topEmployers: ["Swiggy", "Zomato", "Razorpay", "Flipkart", "Freshworks", "Zoho", "Infosys", "TCS Digital"],
+    timelineNote: "Most people land their first full-stack role in 5-7 months of focused learning. A deployed, working portfolio project matters more than any single credential — see the Full-Stack Integration technology's Projects tab.",
+    color: "#0EA5E9",
+  },
   "devops-engineer": {
     description: "Master the tools and practices modern engineering teams use to ship software fast and reliably.",
     whyChoose: "One of the highest-demand roles in Indian tech. Strong salary growth from Year 1. Clear skill progression.",

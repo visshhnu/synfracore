@@ -122,6 +122,8 @@ export const certifications = [
 
 export const roadmaps = [
   // ── TECH TRACKS ────────────────────────────────────────────────────────────
+  { slug: "full-stack-developer", title: "Full-Stack Developer", icon: "🌐", color: "#0EA5E9", category: "tech", duration: "5-7 months",
+    steps: ["HTML & Semantic Markup", "CSS & Modern Layout", "JavaScript", "TypeScript", "React", "Next.js", "Node.js", "Express.js", "REST API Design", "Authentication & Authorization", "Full-Stack Integration & Deployment"] },
   { slug: "devops-engineer", title: "DevOps Engineer", icon: "⚙️", color: "#3B82F6", category: "tech", duration: "6 months",
     steps: ["Linux", "Shell Scripting", "Git", "Docker", "Kubernetes", "CI/CD Pipelines", "Cloud — AWS", "Cloud — Azure", "Monitoring", "IaC with Terraform"] },
   { slug: "cloud-architect", title: "Cloud Architect", icon: "☁️", color: "#0EA5E9", category: "tech", duration: "8 months",
