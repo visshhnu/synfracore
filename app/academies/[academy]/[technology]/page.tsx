@@ -8,6 +8,7 @@ import { pageMetadata } from "@/lib/seo/metadata";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getFirstPaperByExamType } from "@/lib/supabase/questionBank";
 import { RelatedTechnologies } from "@/components/tech/RelatedTechnologies";
+import TechIcon from "@/components/icons/TechIcon";
 
 type Props = { params: Promise<{ academy: string; technology: string }> };
 
@@ -126,7 +127,7 @@ export default async function TechnologyPage({ params }: Props) {
       {/* Header */}
       <div style={{ marginBottom: "36px" }}>
         <div style={{ display: "flex", alignItems: "flex-start", gap: "16px", marginBottom: "14px" }}>
-          <span style={{ fontSize: "44px" }}>{tech.icon}</span>
+          <TechIcon slug={tSlug} fallback={tech.icon} size={44} />
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
               <h1 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 800, fontSize: "28px", margin: 0 }}>{tech.name}</h1>

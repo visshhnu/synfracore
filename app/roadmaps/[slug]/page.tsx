@@ -75,7 +75,18 @@ export default async function RoadmapDetailPage({ params }: Props) {
         </div>
       </div>
 
-      {/* Steps */}
+      {/* Step-by-step roadmap — each step IS the link into its content page
+          (via s.techLink), rather than a separate static list duplicated by
+          a second "Start learning" card grid immediately below it (that
+          redundant section existed only because these rows used to be
+          plain, non-interactive text — fixed 2026-09-01). Deliberately
+          keeps the shorter step `label` as the display text rather than
+          switching to techLink.name — roughly 15% of steps across all 26
+          roadmaps have a label that reads better as a sequential narrative
+          step than the fuller content-page title it links to (e.g. step
+          "Monitoring" links to the page titled "Monitoring — Prometheus"),
+          confirmed by diffing every step's label against its techLink.name
+          before this change. */}
       <div style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "16px", padding: "28px", marginBottom: "24px" }}>
         <div style={{ fontWeight: 700, fontSize: "16px", marginBottom: "24px", color }}>Step-by-step roadmap</div>
         <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
@@ -88,25 +99,23 @@ export default async function RoadmapDetailPage({ params }: Props) {
                 {i < detail.steps.length - 1 && <div style={{ width: "2px", flex: 1, background: "var(--border)", minHeight: "20px" }} />}
               </div>
               <div style={{ paddingBottom: "20px", flex: 1 }}>
-                <div style={{ fontWeight: i === 0 ? 700 : 500, fontSize: "14px", color: i === 0 ? "var(--text-1)" : "var(--text-2)", paddingTop: "6px" }}>
-                  {s.label}
-                </div>
+                <Link
+                  href={`/academies/${s.techLink.academy}/${s.techLink.slug}/${s.techLink.section || "overview"}`}
+                  prefetch={false}
+                  style={{
+                    display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px",
+                    textDecoration: "none", marginTop: "6px", padding: "6px 10px", marginLeft: "-10px",
+                    borderRadius: "8px", transition: "background 0.15s",
+                  }}
+                  className="roadmap-step-link"
+                >
+                  <span style={{ fontWeight: i === 0 ? 700 : 500, fontSize: "14px", color: i === 0 ? "var(--text-1)" : "var(--text-2)" }}>
+                    {s.label}
+                  </span>
+                  <ArrowRight size={13} color="var(--text-4)" style={{ flexShrink: 0 }} />
+                </Link>
               </div>
             </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Content links */}
-      <div style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "16px", padding: "28px", marginBottom: "24px" }}>
-        <div style={{ fontWeight: 700, fontSize: "16px", marginBottom: "18px", color }}>Start learning — content pages</div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: "8px" }}>
-          {detail.steps.map(s => s.techLink).map(t => (
-            <Link key={`${t.academy}-${t.slug}-${t.name}`} href={`/academies/${t.academy}/${t.slug}/${t.section || "overview"}`} style={{ textDecoration: "none" }}>
-              <div style={{ padding: "10px 14px", borderRadius: "8px", border: "1px solid var(--border)", fontSize: "13px", color: "var(--text-2)", fontWeight: 500, display: "flex", alignItems: "center", justifyContent: "space-between", gap: "6px" }}>
-                {t.name} <ArrowRight size={12} />
-              </div>
-            </Link>
           ))}
         </div>
       </div>
@@ -132,6 +141,14 @@ export default async function RoadmapDetailPage({ params }: Props) {
           ← All roadmaps
         </Link>
       </div>
+
+      {/* Plain <style> tag, not inline onMouseEnter/onMouseLeave handlers —
+          this is a Server Component (no "use client"), so JS event handlers
+          aren't available here; a literal <style> element works fine in RSC
+          since it needs no client-side JS to apply. */}
+      <style>{`
+        .roadmap-step-link:hover { background: var(--bg-1); }
+      `}</style>
     </div>
   );
 }
