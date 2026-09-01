@@ -1,5 +1,17 @@
 # HAL DT/MT — PYQ (Practice Questions)
 
+**This page has been superseded by real, full-length premium mock papers —
+see the Practice Exams tab.** Full-length mock papers (160 questions each,
+matching the real DT/MT exam's General Awareness / English & Reasoning /
+Engineering Discipline structure, one branch-specific paper per engineering
+discipline) are now available under Practice Exams, with honest per-question
+provenance disclosure (genuinely HAL-sourced vs. GATE-branch technical proxy
+vs. general competitive-exam content — visible on each question during
+result review). The material below remains as free, narrower-scope
+introductory practice (General Awareness and English & Reasoning only, no
+discipline-specific technical questions) — start with the full mock papers
+for real exam-condition practice.
+
 **Framing note:** HAL does not publish an official archive of past DT/MT written-exam questions, and the papers circulated by third-party coaching sites cannot be independently verified as authentic — treating them as confirmed past questions would be misleading. What follows is built from this technology's own Fundamentals/Intermediate material (General Awareness, English & Reasoning), framed as **practice questions in the same style and topic spread as the real exam** — not sourced from any leaked or claimed-authentic exam archive. Questions are deliberately built around static, evergreen facts (HAL corporate history, reasoning/grammar patterns) rather than time-sensitive current affairs, so this page doesn't go stale the way a current-affairs-heavy practice set would.
 
 ---

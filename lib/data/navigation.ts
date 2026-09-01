@@ -49,6 +49,7 @@ export const technologyExamTypeMap: Record<string, string> = {
   "devops/terraform": "terraform",
   "devops/docker": "docker",
   "devops/ansible": "ansible",
+  "central-exams/hal-trainee-prep": "hal-trainee",
 };
 
 // Same existence-check pattern as technologyExamTypeMap above, but keyed by
@@ -98,6 +99,7 @@ export const examTypeGroupMap: Record<string, { group: string; label: string }> 
   ansible: { group: "DevOps", label: "Ansible (RHCE)" },
   "aws-saa": { group: "Cloud", label: "AWS Solutions Architect Associate" },
   "comptia-sec-plus": { group: "Security", label: "CompTIA Security+" },
+  "hal-trainee": { group: "Central Govt Exams", label: "HAL Design/Management Trainee (DT/MT)" },
 };
 
 export const certifications = [
