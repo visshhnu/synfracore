@@ -83,6 +83,23 @@ export const RELATED_TECHNOLOGIES: Record<string, RelatedTechEntry[]> = {
   "cloud/gcp": [
     { academy: "devops", technology: "terraform" },
   ],
+  // Web Development academy's capstone technology — deliberately the
+  // cross-link hub for the whole academy (see the academy's own scoping
+  // decision: it doesn't duplicate Databases/DevOps/AI content, it teaches
+  // how those pieces integrate into a full-stack app and points here for
+  // actual depth). Other web-dev technologies (Node.js, Express, etc.)
+  // deliberately do NOT get their own entries here — centralizing the
+  // cross-links on the capstone keeps this coherent rather than scattering
+  // partial links across every backend technology.
+  "web-dev/fullstack-integration": [
+    { academy: "databases", technology: "postgresql" },
+    { academy: "databases", technology: "mongodb" },
+    { academy: "databases", technology: "cloud-databases" },
+    { academy: "devops", technology: "docker" },
+    { academy: "devops", technology: "cicd" },
+    { academy: "devops", technology: "kubernetes" },
+    { academy: "ai", technology: "prompt-engineering" },
+  ],
 };
 
 export function getRelatedTechnologies(academySlug: string, techSlug: string): RelatedTechEntry[] {
