@@ -194,7 +194,7 @@ const NAV_LINKS = [
 const GROUPS = [
   {
     label: "Tech & Engineering", color: "#3B82F6", icon: Wrench,
-    slugs: ["devops", "cloud", "databases", "ai", "data", "security", "telecom", "aerospace", "vlsi"],
+    slugs: ["devops", "cloud", "databases", "ai", "data", "security", "telecom", "aerospace", "vlsi", "web-dev"],
   },
   {
     label: "Education & Exams", color: "#F59E0B", icon: GraduationCap,

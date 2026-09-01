@@ -912,6 +912,46 @@ const vlsiAcademy: Academy = {
   technologies: [],
 };
 
+// Deliberately does NOT duplicate Databases, DevOps, or AI Engineering
+// content — a full-stack learner needing the database layer, deployment,
+// or AI-assisted-dev-tooling depth is cross-linked to those academies'
+// existing technologies (via RELATED_TECHNOLOGIES in
+// lib/data/relatedTechnologies.ts) rather than that material being rebuilt
+// here. Scoped 2026-09-01 specifically to the two genuinely missing pieces:
+// Frontend and Backend/Node.js. 11 technologies total (not 12) — an
+// originally-proposed standalone "AI-Assisted Development" technology was
+// folded into fullstack-integration as a subsection instead of its own
+// page, per the approved scoping decision.
+const webDevAcademy: Academy = {
+  slug: "web-dev", title: "Web Development", subtitle: "JavaScript · React · Node.js",
+  icon: "🌐", color: "#0EA5E9",
+  description: "Frontend and backend web development — HTML, CSS, JavaScript, TypeScript, React, and Next.js on the frontend; Node.js, Express, REST API design, and authentication on the backend. Deliberately does not duplicate this platform's existing Databases, DevOps, or AI Engineering academies — cross-linked instead of rebuilt.",
+  domains: [
+    {
+      slug: "frontend", name: "Frontend", icon: "🎨", description: "The browser side — markup, styling, and the JavaScript/TypeScript/React stack that turns them interactive", color: "#0EA5E9",
+      technologies: [
+        { slug: "html", name: "HTML & Semantic Markup", icon: "📄", description: "The structural language of the web — elements, semantic tags, forms, and accessibility fundamentals", level: "Beginner", tags: ["HTML", "Semantic Markup", "Accessibility", "Forms"] },
+        { slug: "css", name: "CSS & Modern Layout", icon: "🎨", description: "Styling and layout — the box model, Flexbox, Grid, responsive design, and modern CSS features", level: "Beginner", tags: ["CSS", "Flexbox", "Grid", "Responsive Design"] },
+        { slug: "javascript", name: "JavaScript", icon: "📜", description: "The programming language of the browser — syntax, the DOM, closures, async/await, and the event loop", level: "Beginner", tags: ["JavaScript", "ES6+", "DOM", "Async"] },
+        { slug: "typescript", name: "TypeScript", icon: "🔷", description: "JavaScript with a static type system — interfaces, generics, and the type-safety guarantees that scale with codebase size", level: "Intermediate", tags: ["TypeScript", "Type Safety", "Generics", "Interfaces"] },
+        { slug: "react", name: "React", icon: "⚛️", description: "Component-based UI development — hooks, state, props, and the rendering model underneath them", level: "Intermediate", tags: ["React", "Hooks", "Components", "State"] },
+        { slug: "nextjs", name: "Next.js", icon: "▲", description: "The production React framework — rendering strategies (SSR/SSG/ISR), routing, and full-stack React patterns", level: "Advanced", tags: ["Next.js", "SSR", "React Framework", "Routing"] },
+      ],
+    },
+    {
+      slug: "backend", name: "Backend", icon: "⚙️", description: "The server side — a JavaScript/TypeScript runtime, HTTP frameworks, API design, and tying a full application together", color: "#0EA5E9",
+      technologies: [
+        { slug: "nodejs", name: "Node.js", icon: "💚", description: "The JavaScript runtime outside the browser — the event loop, npm, modules, and asynchronous I/O", level: "Beginner", tags: ["Node.js", "Runtime", "Event Loop", "npm"] },
+        { slug: "express", name: "Express.js", icon: "🚂", description: "The standard Node.js web framework — routing, middleware, and building an HTTP API server", level: "Intermediate", tags: ["Express", "Middleware", "Routing", "API Server"] },
+        { slug: "rest-api-design", name: "REST API Design", icon: "🔌", description: "Framework-agnostic API design principles — resource modeling, HTTP semantics, status codes, versioning, and idempotency", level: "Intermediate", tags: ["REST", "API Design", "HTTP", "Versioning"] },
+        { slug: "auth", name: "Authentication & Authorization", icon: "🔐", description: "Identifying and permissioning users — sessions, JWTs, OAuth, and the tradeoffs between stateful and stateless auth", level: "Intermediate", tags: ["Authentication", "JWT", "OAuth", "Sessions"] },
+        { slug: "fullstack-integration", name: "Full-Stack Integration & Deployment", icon: "🔗", description: "Wiring frontend, backend, and a database into one deployed application — plus AI-assisted development workflow as a subsection. Cross-links to this platform's Databases and DevOps academies rather than rebuilding that content", level: "Advanced", tags: ["Full-Stack", "Deployment", "Integration", "AI-Assisted Dev"] },
+      ],
+    },
+  ],
+  technologies: [],
+};
+
 // Alphabetical by title (2026-08-30 mobile UX audit) — was raw
 // build-chronology order (the original 10 academies, then every "Phase 3"
 // academy appended in the order it was built), which had no relationship
@@ -947,6 +987,7 @@ export const academies: Academy[] = [
   statePscAcademy,            // State PSC Exams
   telecomAcademy,             // Telecom & 5G
   vlsiAcademy,                 // VLSI & Semiconductor Engineering
+  webDevAcademy,               // Web Development
 ];
 
 // Kept only for any external backward-compat imports — education/exams are in main academies array
