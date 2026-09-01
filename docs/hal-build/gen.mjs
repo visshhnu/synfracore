@@ -1,10 +1,13 @@
-// Generates docs/hal_seed_paper_1.sql (with {{TOKEN}} UUID placeholders) from
-// docs/hal-build/paper1-data.mjs. Run scripts/fill-seed-uuids.mjs on the
-// output afterward to fill in real UUIDs — same two-step process used for
-// the AWS SAA / Security+ papers. Mirrors docs/aws_saa_seed_paper_1.sql's
-// final format otherwise (one INSERT per row).
+// Generic generator: node docs/hal-build/gen.mjs <n>
+// Reads docs/hal-build/paper<n>-data.mjs, writes docs/hal_seed_paper_<n>.sql
+// with {{TOKEN}} UUID placeholders. Run scripts/fill-seed-uuids.mjs on the
+// output afterward. Same two-step process used for AWS SAA / Security+.
 import { writeFileSync } from "node:fs";
-import { PAPER, SECTIONS } from "./paper1-data.mjs";
+
+const n = process.argv[2];
+if (!n) { console.error("Usage: node docs/hal-build/gen.mjs <paper-number>"); process.exit(1); }
+
+const { PAPER, SECTIONS, HEADER_LABEL } = await import(`./paper${n}-data.mjs`);
 
 function esc(s) {
   return String(s).replace(/'/g, "''");
@@ -12,26 +15,16 @@ function esc(s) {
 
 const lines = [];
 lines.push(`-- ============================================================`);
-lines.push(`-- HAL Design/Management Trainee -- Electrical & Electronics Engineering`);
-lines.push(`-- Full-Length Mock Paper 1 (${PAPER.questionCount} questions, ${PAPER.timeLimitMinutes} minutes)`);
+lines.push(`-- HAL Design/Management Trainee -- ${HEADER_LABEL}`);
+lines.push(`-- Full-Length Mock Paper ${n} (${PAPER.questionCount} questions, ${PAPER.timeLimitMinutes} minutes)`);
 lines.push(`-- `);
 lines.push(`-- SOURCE: informally shared study material (not an official/proprietary HAL`);
 lines.push(`-- archive). Honest per-question source note via question_answers.source_note`);
-lines.push(`-- (already rendered in the results-review UI):`);
-lines.push(`--   Section A (General Awareness, Q1-20): written to match HAL's real GA`);
-lines.push(`--     scope, not taken from an official HAL paper.`);
-lines.push(`--   Section B (English & Reasoning, Q21-60): general competitive-exam style`);
-lines.push(`--     practice content, not an official HAL paper.`);
-lines.push(`--   Section C (Electrical & Electronics discipline, Q61-160): technical`);
-lines.push(`--     difficulty based on GATE-pattern questions, not an official HAL paper.`);
-lines.push(`--     All 160 answers independently checked/derived, not copied from source.`);
+lines.push(`-- (already rendered in the results-review UI) -- see each section below.`);
 lines.push(`-- Run this AFTER docs/question-bank-schema.sql.`);
 lines.push(`-- ============================================================`);
 lines.push(``);
 
-// Emits {{TOKEN}} placeholders (not real UUIDs directly) — filled by
-// scripts/fill-seed-uuids.mjs afterward, same two-step process used for
-// the AWS SAA / Security+ papers, per explicit instruction for this paper.
 const paperId = "{{PAPER}}";
 lines.push(`-- ---------- Paper ----------`);
 lines.push(
@@ -45,7 +38,7 @@ lines.push(``);
 let sortOrder = 0;
 const allStems = [];
 for (const section of SECTIONS) {
-  lines.push(`-- ── Section: ${section.name} (${section.questions.length} questions) ──`);
+  lines.push(`-- ── Section: ${section.name} (${section.questions.length} questions) — ${section.sourceNote} ──`);
   lines.push(``);
   for (const q of section.questions) {
     sortOrder += 1;
@@ -67,9 +60,9 @@ for (const section of SECTIONS) {
   }
 }
 
-writeFileSync("d:/synfracore/docs/hal_seed_paper_1.sql", lines.join("\n"), "utf8");
+const outPath = `d:/synfracore/docs/hal_seed_paper_${n}.sql`;
+writeFileSync(outPath, lines.join("\n"), "utf8");
 
-// ---- integrity checks ----
 const dupStems = allStems.filter((s, i) => allStems.indexOf(s) !== i);
 console.log(`Total questions written: ${sortOrder} (expected ${PAPER.questionCount})`);
 console.log(`Duplicate question stems: ${dupStems.length}`, dupStems);
@@ -79,4 +72,4 @@ for (const section of SECTIONS) {
     if (q.correct < 0 || q.correct > 3) console.log("BAD CORRECT INDEX:", q.stem);
   }
 }
-console.log("Done -> docs/hal_seed_paper_1.sql");
+console.log(`Done -> ${outPath}`);

@@ -1,25 +1,20 @@
-// One-shot production seeder for docs/hal_seed_paper_1.sql — parses the
-// generated INSERT statements and writes them via the Supabase service-role
-// client, in FK-safe order (paper -> questions -> options -> answers).
-// Same approach used for the AWS SAA / Security+ production seed.
+// Generic production seeder: node docs/hal-build/seed.mjs <n>
+// Parses docs/hal_seed_paper_<n>.sql and writes it via the Supabase
+// service-role client, in FK-safe order.
 import { readFileSync } from "node:fs";
 import { config } from "dotenv";
 import { createClient } from "@supabase/supabase-js";
 
+const n = process.argv[2];
+if (!n) { console.error("Usage: node docs/hal-build/seed.mjs <paper-number>"); process.exit(1); }
+
 config({ path: "d:/synfracore/.env.local" });
 const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 
-const sql = readFileSync("d:/synfracore/docs/hal_seed_paper_1.sql", "utf8");
+const sql = readFileSync(`d:/synfracore/docs/hal_seed_paper_${n}.sql`, "utf8");
 
-// Quote- and comment-aware statement splitter: skips "-- ..." line comments
-// entirely (so apostrophes inside comments never affect string-literal
-// tracking) and handles '' escaped quotes / semicolons inside real string
-// literals correctly.
 function stripComments(text) {
-  return text
-    .split("\n")
-    .map((line) => (line.trim().startsWith("--") ? "" : line))
-    .join("\n");
+  return text.split("\n").map((line) => (line.trim().startsWith("--") ? "" : line)).join("\n");
 }
 
 function splitStatements(text) {
@@ -48,14 +43,11 @@ function splitStatements(text) {
 }
 
 function parseValues(stmt) {
-  // Extract the parenthesized VALUES(...) content, respecting quotes/brackets.
   const valuesIdx = stmt.indexOf("VALUES");
   let rest = stmt.slice(valuesIdx + "VALUES".length).trim();
-  rest = rest.slice(1, rest.lastIndexOf(")")); // strip outer ( ... )
+  rest = rest.slice(1, rest.lastIndexOf(")"));
   const fields = [];
-  let cur = "";
-  let inStr = false;
-  let depth = 0;
+  let cur = "", inStr = false, depth = 0;
   for (let i = 0; i < rest.length; i++) {
     const c = rest[i], next = rest[i + 1];
     if (c === "'") {
@@ -73,8 +65,6 @@ function parseValues(stmt) {
 }
 
 function parseArrayLiteral(raw) {
-  // raw like: ARRAY['HAL', 'Electrical Engineering']::TEXT[] — use the FIRST
-  // "]" (the array literal's own close), not the last (that's ::TEXT[]'s).
   const inner = raw.slice(raw.indexOf("[") + 1, raw.indexOf("]"));
   return inner.split(",").map((s) => s.trim());
 }
@@ -82,10 +72,7 @@ function parseArrayLiteral(raw) {
 const statements = splitStatements(sql).filter((s) => s.startsWith("INSERT"));
 console.log("Total INSERT statements to run:", statements.length);
 
-const papers = [];
-const questions = [];
-const options = [];
-const answers = [];
+const papers = [], questions = [], options = [], answers = [];
 
 for (const stmt of statements) {
   const fields = parseValues(stmt);

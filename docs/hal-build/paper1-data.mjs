@@ -1,3 +1,5 @@
+export const HEADER_LABEL = "Electrical & Electronics Engineering";
+
 export const PAPER = {
   slug: "hal-eee-practice-1",
   title: "HAL DT/MT — Electrical & Electronics Engineering — Full Mock Paper 1",
