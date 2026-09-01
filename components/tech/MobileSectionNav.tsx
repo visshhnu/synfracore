@@ -15,9 +15,13 @@ interface Props {
   // question_papers check (see app/academies/[academy]/[technology]/
   // [section]/page.tsx) — mobile users were losing that tab entirely since
   // the sidebar that renders it is hidden below 768px with no replacement.
-  // Passed down as a plain boolean (not the paper object) since that's all
-  // the sidebar itself ever used it for — keeps the client bundle small.
-  showPracticeExams?: boolean;
+  // Passed down as the already-built scoped href (was a plain boolean
+  // until 2026-08-31 — that only gated whether to render the tab at all;
+  // now it also carries the ?examType=... scoping so mobile users land on
+  // this technology's own papers, not the full 46-paper catalog, same as
+  // the desktop sidebar). Absent = don't render the tab at all, same
+  // semantics the old boolean had.
+  practiceExamsHref?: string;
   // "guide" suppresses Roadmap/Projects/Certification — see the
   // Technology.contentScope doc comment in lib/data/academies.ts. Absent =
   // "full", nothing suppressed.
@@ -32,7 +36,7 @@ interface Props {
 // one. This reads from the exact same techSections/nonTechSections source
 // (lib/data/navigation.ts) the sidebar and WhatNext already use, so it
 // can't drift out of sync with either.
-export default function MobileSectionNav({ academy, technology, currentSection, techName, techIcon, accentColor = "#6366F1", showPracticeExams = false, contentScope }: Props) {
+export default function MobileSectionNav({ academy, technology, currentSection, techName, techIcon, accentColor = "#6366F1", practiceExamsHref, contentScope }: Props) {
   const [open, setOpen] = useState(false);
   const isNonTech = nonTechAcademyIds.includes(academy);
   const sections = getSectionsForTechnology({ contentScope }, isNonTech, academy, technology);
@@ -144,9 +148,9 @@ export default function MobileSectionNav({ academy, technology, currentSection, 
             );
           })}
 
-          {showPracticeExams && (
+          {practiceExamsHref && (
             <Link
-              href="/question-bank"
+              href={practiceExamsHref}
               prefetch={false}
               onClick={() => setOpen(false)}
               style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 12px", borderRadius: "10px", textDecoration: "none" }}

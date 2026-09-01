@@ -99,13 +99,18 @@ export default async function TechnologyPage({ params }: Props) {
   // Practice Exams card — same registry-driven check as the sidebar
   // (app/academies/[academy]/[technology]/[section]/page.tsx), so both
   // "same place Overview/Fundamentals/etc. appear" locations stay in sync.
-  // Links to /question-bank (the full catalog), not a single paper — see
-  // that file's comment for why (confirmed live 2026-07-18: linking straight
-  // into one paper hid the other 9 BCHHC papers from the user).
+  // Links to /question-bank scoped to THIS technology's own exam_type
+  // (?examType=...), not the bare catalog — see that file's comment for
+  // the full reasoning (fixed 2026-08-31; previously linked to the full,
+  // unscoped catalog — still not a single paper, since linking straight
+  // into one paper hid the other 9 BCHHC papers from the user, confirmed
+  // live 2026-07-18, which is why scoping is a query param on the full
+  // catalog page rather than a direct link into practiceExamPaper).
   const examType = technologyExamTypeMap[`${aSlug}/${tSlug}`];
   const practiceExamPaper = examType
     ? await getFirstPaperByExamType(createSupabaseServerClient(), examType)
     : null;
+  const practiceExamsHref = examType ? `/question-bank?examType=${examType}` : "/question-bank";
 
   return (
     <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "40px 24px" }}>
@@ -189,7 +194,7 @@ export default async function TechnologyPage({ params }: Props) {
             );
           })}
           {practiceExamPaper && (
-            <Link href="/question-bank" prefetch={false} style={{ textDecoration: "none" }}>
+            <Link href={practiceExamsHref} prefetch={false} style={{ textDecoration: "none" }}>
               <div className="card-hover" style={{
                 padding: "20px", borderRadius: "12px",
                 border: "1px solid rgba(245,158,11,0.3)",

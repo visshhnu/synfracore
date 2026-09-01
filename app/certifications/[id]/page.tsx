@@ -297,13 +297,15 @@ export default async function CertificationDetailPage({ params }: Props) {
   const color = cert.color;
 
   // Existence check only, same convention as technologyExamTypeMap's use on
-  // the tech section page — links to /question-bank (the full catalog),
-  // never straight into one paper (see getFirstPaperByExamType's own
-  // comment for why: it hid the other real papers from a user before).
+  // the tech section page — links to /question-bank scoped to THIS cert's
+  // own exam_type (?examType=...), not the bare catalog (fixed 2026-08-31),
+  // and still never straight into one paper (see getFirstPaperByExamType's
+  // own comment for why: it hid the other real papers from a user before).
   const examType = certificationExamTypeMap[id];
   const practiceExamPaper = examType
     ? await getFirstPaperByExamType(createSupabaseServerClient(), examType)
     : null;
+  const practiceExamsHref = examType ? `/question-bank?examType=${examType}` : "/question-bank";
 
   return (
     <div style={{ maxWidth: "900px", margin: "0 auto", padding: "40px 24px" }}>
@@ -349,7 +351,7 @@ export default async function CertificationDetailPage({ params }: Props) {
           <h2 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "18px", fontWeight: 800, marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
             🎯 Practice Exams
           </h2>
-          <Link href="/question-bank" style={{ textDecoration: "none" }}>
+          <Link href={practiceExamsHref} style={{ textDecoration: "none" }}>
             <div style={{ background: `${color}08`, border: `1px solid ${color}25`, borderRadius: "14px", padding: "18px 20px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px" }}>
               <div>
                 <div style={{ fontSize: "14px", fontWeight: 700, color: "var(--text-1)", marginBottom: "4px" }}>Real practice questions for this exam topic</div>

@@ -183,14 +183,19 @@ export default async function SectionPage({ params }: Props) {
   // question_papers row (technologyExamTypeMap in lib/data/navigation.ts is
   // just the registry of which exam_type to look for; existence is checked
   // live here, not assumed from the map alone, so a mapped-but-empty entry
-  // never shows a tab that leads nowhere real). Links to /question-bank (the
-  // full catalog), not a single paper — linking straight into one paper hid
-  // the other 9 BCHHC papers from a user who only found this tab (confirmed
-  // live 2026-07-18).
+  // never shows a tab that leads nowhere real). Links to /question-bank
+  // scoped to THIS technology's own exam_type (?examType=...), not the bare
+  // catalog — a Kubernetes learner should see only Kubernetes' 4 papers,
+  // not all 46 (fixed 2026-08-31; previously linked to the full catalog,
+  // still not a single paper — linking straight into one paper hid the
+  // other 9 BCHHC papers from a user who only found this tab, confirmed
+  // live 2026-07-18, which is why the scoping is via query param on the
+  // full catalog page, not a link straight into practiceExamPaper itself).
   const examType = technologyExamTypeMap[`${aSlug}/${tSlug}`];
   const practiceExamPaper = examType
     ? await getFirstPaperByExamType(createSupabaseServerClient(), examType)
     : null;
+  const practiceExamsHref = examType ? `/question-bank?examType=${examType}` : "/question-bank";
 
   return (
     <div style={{ display: "flex", alignItems: "flex-start", gap: "0", minHeight: "80vh" }}>
@@ -266,7 +271,7 @@ export default async function SectionPage({ params }: Props) {
           ))}
           {practiceExamPaper && (
             <Link
-              href="/question-bank"
+              href={practiceExamsHref}
               prefetch={false}
               style={{
                 display: "flex",
@@ -320,7 +325,7 @@ export default async function SectionPage({ params }: Props) {
           techName={tech.name}
           techIcon={tech.icon}
           accentColor="#6366F1"
-          showPracticeExams={!!practiceExamPaper}
+          practiceExamsHref={practiceExamPaper ? practiceExamsHref : undefined}
           contentScope={tech.contentScope}
         />
 
