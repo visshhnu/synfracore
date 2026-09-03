@@ -258,7 +258,7 @@ run_weekly_consolidation()
 
 # SCHEDULE IT — Windows Task Scheduler:
 # Program: python
-# Arguments: C:\\Scripts\\weekly_consolidation.py
+# Arguments: C:\Scripts\weekly_consolidation.py
 # Trigger: Weekly, Monday, 08:00 AM
 ```
 

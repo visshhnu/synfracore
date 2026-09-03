@@ -98,7 +98,7 @@ Windows uses `\` as a path separator; Linux and macOS use `/`. Hardcoding either
 const path = require("node:path");
 
 path.join("users", "alice", "notes.txt");
-// "users/alice/notes.txt" on Linux/Mac, "users\\alice\\notes.txt" on Windows
+// "users/alice/notes.txt" on Linux/Mac, "users\alice\notes.txt" on Windows
 
 path.resolve("notes.txt");
 // an absolute path, resolved against the current working directory
