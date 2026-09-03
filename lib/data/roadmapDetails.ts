@@ -130,16 +130,31 @@ export const roadmapDetails: Record<string, RoadmapDetail> = {
     techLinks: [
       { name: "Cloud Fundamentals", academy: "cloud", slug: "cloud-fundamentals" },
       { name: "AWS Core Services", academy: "cloud", slug: "aws" },
-      { name: "Azure Core Services", academy: "cloud", slug: "azure" },
       { name: "Networking & Security", academy: "cloud", slug: "networking-security" },
       { name: "Architecture Patterns", academy: "cloud", slug: "architecture-patterns" },
       { name: "HA & DR", academy: "devops", slug: "ha-dr" },
       { name: "Cost Optimization", academy: "cloud", slug: "cost-optimization" },
     ],
+    // 6 steps, not the previous 7 — "AWS Core Services"/"Azure Core Services"
+    // (formerly two separate sequential steps) are now one fork step with
+    // two branches, since a cloud architect specializing genuinely picks a
+    // primary platform rather than mastering both in sequence. AWS is the
+    // recommended default: it already has real practice-exam papers
+    // (aws-saa) on this platform, the same reasoning used for the DevOps
+    // Engineer pilot's Cloud Platform fork. See
+    // docs/audit/14-roadmap-tree-redesign.md for the rollout record.
     steps: [
       { label: "Cloud Fundamentals", techLink: { name: "Cloud Fundamentals", academy: "cloud", slug: "cloud-fundamentals" } },
-      { label: "AWS Core Services", techLink: { name: "AWS Core Services", academy: "cloud", slug: "aws" } },
-      { label: "Azure Core Services", techLink: { name: "Azure Core Services", academy: "cloud", slug: "azure" } },
+      {
+        label: "Cloud Platform", techLink: { name: "AWS Core Services", academy: "cloud", slug: "aws" },
+        fork: {
+          recommendedSlug: "aws",
+          branches: [
+            { name: "AWS Core Services", academy: "cloud", slug: "aws" },
+            { name: "Azure Core Services", academy: "cloud", slug: "azure" },
+          ],
+        },
+      },
       { label: "Networking & Security", techLink: { name: "Networking & Security", academy: "cloud", slug: "networking-security" } },
       { label: "Architecture Patterns", techLink: { name: "Architecture Patterns", academy: "cloud", slug: "architecture-patterns" } },
       { label: "HA & DR", techLink: { name: "HA & DR", academy: "devops", slug: "ha-dr" } },
@@ -213,16 +228,33 @@ export const roadmapDetails: Record<string, RoadmapDetail> = {
       { name: "Python & Pandas", academy: "data", slug: "pandas" },
       { name: "Data Visualization", academy: "data", slug: "data-visualization" },
       { name: "Power BI", academy: "data", slug: "power-bi" },
-      { name: "Tableau", academy: "data", slug: "tableau" },
       { name: "Dashboarding", academy: "data", slug: "dashboarding" },
     ],
+    // 6 steps, not the previous 7 — "Power BI"/"Tableau" (formerly two
+    // separate sequential steps) are now one fork step with two branches,
+    // since a data analyst typically specializes in the one BI tool their
+    // target employer/market actually uses rather than mastering both in
+    // sequence. Power BI is the recommended default — Microsoft-ecosystem
+    // prevalence in the Indian corporate market gives it a lower real
+    // barrier to entry than Tableau for a first BI tool; this is a softer
+    // call than AWS's "already has practice-exam papers" reasoning on the
+    // Cloud Platform fork, flagged here rather than presented as equally
+    // clear-cut. See docs/audit/14-roadmap-tree-redesign.md.
     steps: [
       { label: "Excel Advanced", techLink: { name: "Excel Advanced", academy: "data", slug: "excel" } },
       { label: "SQL Mastery", techLink: { name: "SQL Mastery", academy: "databases", slug: "sql" } },
       { label: "Python & Pandas", techLink: { name: "Python & Pandas", academy: "data", slug: "pandas" } },
       { label: "Data Visualization", techLink: { name: "Data Visualization", academy: "data", slug: "data-visualization" } },
-      { label: "Power BI", techLink: { name: "Power BI", academy: "data", slug: "power-bi" } },
-      { label: "Tableau", techLink: { name: "Tableau", academy: "data", slug: "tableau" } },
+      {
+        label: "BI Tool", techLink: { name: "Power BI", academy: "data", slug: "power-bi" },
+        fork: {
+          recommendedSlug: "power-bi",
+          branches: [
+            { name: "Power BI", academy: "data", slug: "power-bi" },
+            { name: "Tableau", academy: "data", slug: "tableau" },
+          ],
+        },
+      },
       { label: "Dashboarding", techLink: { name: "Dashboarding", academy: "data", slug: "dashboarding" } },
     ],
     salaryRange: "An entry-accessible tech role where pay varies mostly by city and company tier rather than deep specialization — check current listings for your target city and industry rather than a fixed figure.", jobTitles: ["Data Analyst", "Business Analyst", "BI Developer", "Analytics Engineer"],
@@ -346,8 +378,16 @@ export const roadmapDetails: Record<string, RoadmapDetail> = {
       { name: "Coding Guidelines", academy: "healthcare", slug: "coding-guidelines" },
       { name: "OASIS & PDGM", academy: "healthcare", slug: "home-health-coding" },
       { name: "CPC Exam Prep", academy: "healthcare", slug: "mock-exams" },
-      { name: "BCHHC Certification Prep", academy: "healthcare", slug: "bchhc-prep" },
     ],
+    // 8 steps, not the previous 9 — "CPC Exam Prep"/"BCHHC Certification
+    // Prep" (formerly two separate sequential steps) are now one fork step
+    // with two branches, since these are two distinct certification tracks
+    // (general medical coding vs. home-health-specific), not a sequence.
+    // CPC is the recommended default — the broader, more foundational
+    // certification most coders pursue first. This link ONLY points at
+    // bchhc-prep's existing overview page — it does not touch the
+    // standing BCHHC mock-exam-bank/quiz_questions exclusion (see memory:
+    // "never touch the 10 BCHHC mock exam papers/backing DB data").
     steps: [
       { label: "Anatomy & Physiology", techLink: { name: "Anatomy & Physiology", academy: "healthcare", slug: "anatomy-physiology" } },
       { label: "Medical Terminology", techLink: { name: "Medical Terminology", academy: "healthcare", slug: "medical-terminology" } },
@@ -356,8 +396,16 @@ export const roadmapDetails: Record<string, RoadmapDetail> = {
       { label: "HCPCS Level II", techLink: { name: "HCPCS Level II", academy: "healthcare", slug: "hcpcs" } },
       { label: "Coding Guidelines", techLink: { name: "Coding Guidelines", academy: "healthcare", slug: "coding-guidelines" } },
       { label: "OASIS & PDGM", techLink: { name: "OASIS & PDGM", academy: "healthcare", slug: "home-health-coding" } },
-      { label: "CPC Exam Prep", techLink: { name: "CPC Exam Prep", academy: "healthcare", slug: "mock-exams" } },
-      { label: "BCHHC Certification Prep", techLink: { name: "BCHHC Certification Prep", academy: "healthcare", slug: "bchhc-prep" } },
+      {
+        label: "Certification Track", techLink: { name: "CPC Exam Prep", academy: "healthcare", slug: "mock-exams" },
+        fork: {
+          recommendedSlug: "mock-exams",
+          branches: [
+            { name: "CPC Exam Prep", academy: "healthcare", slug: "mock-exams" },
+            { name: "BCHHC Certification Prep", academy: "healthcare", slug: "bchhc-prep" },
+          ],
+        },
+      },
     ],
     salaryRange: "Two genuinely different pay structures, not one scale — US-remote roles (common for BCHHC/CPC-certified coders) are typically hourly or per-encounter contract work, while India-based hospital/BPO roles are salaried. Check current listings for the specific employment model you're targeting rather than a blended figure.", jobTitles: ["Medical Coder", "HIM Specialist", "Coding Auditor"],
     topEmployers: ["Omega Healthcare", "Accenture Health", "Cognizant Health", "Gebbs Healthcare"],

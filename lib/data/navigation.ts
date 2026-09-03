@@ -152,13 +152,17 @@ export const roadmaps = [
     // full branch-point rationale (2026-09-03 pilot).
     steps: ["Linux", "Shell Scripting", "Git", "Docker", "Kubernetes", "CI/CD Tooling", "Cloud Platform", "Monitoring", "IaC with Terraform"] },
   { slug: "cloud-architect", title: "Cloud Architect", icon: "☁️", color: "#0EA5E9", category: "tech", duration: "8 months",
-    steps: ["Cloud Fundamentals", "AWS Core Services", "Azure Core Services", "Networking & Security", "Architecture Patterns", "HA & DR", "Cost Optimization"] },
+    // 6 steps, not the previous 7 — AWS/Azure merged into one "Cloud
+    // Platform" fork step. See roadmapDetails.ts's matching comment.
+    steps: ["Cloud Fundamentals", "Cloud Platform", "Networking & Security", "Architecture Patterns", "HA & DR", "Cost Optimization"] },
   { slug: "platform-engineer", title: "Platform Engineer", icon: "🏗️", color: "#6366F1", category: "tech", duration: "9 months",
     steps: ["Linux", "Networking", "Kubernetes Advanced", "Terraform", "Helm", "ArgoCD / GitOps", "Service Mesh", "Observability"] },
   { slug: "ai-engineer", title: "AI Engineer", icon: "🤖", color: "#8B5CF6", category: "tech", duration: "6 months",
     steps: ["Python Foundations", "ML Fundamentals", "LLM Concepts", "Prompt Engineering", "LangChain & RAG", "AI Agents", "LLMOps"] },
   { slug: "data-analyst", title: "Data Analyst", icon: "📊", color: "#06B6D4", category: "tech", duration: "4 months",
-    steps: ["Excel Advanced", "SQL Mastery", "Python & Pandas", "Data Visualization", "Power BI", "Tableau", "Dashboarding"] },
+    // 6 steps, not the previous 7 — Power BI/Tableau merged into one
+    // "BI Tool" fork step. See roadmapDetails.ts's matching comment.
+    steps: ["Excel Advanced", "SQL Mastery", "Python & Pandas", "Data Visualization", "BI Tool", "Dashboarding"] },
   { slug: "security-engineer", title: "Security Engineer", icon: "🛡️", color: "#EF4444", category: "tech", duration: "7 months",
     steps: ["Security Fundamentals", "Network Security", "Cloud Security", "SIEM & SOC", "Pen Testing", "Ethical Hacking", "Incident Response"] },
   { slug: "database-engineer", title: "Database Engineer", icon: "🗄️", color: "#10B981", category: "tech", duration: "6 months",
@@ -168,7 +172,9 @@ export const roadmaps = [
   { slug: "sre-engineer", title: "SRE / Reliability Engineer", icon: "📡", color: "#EC4899", category: "tech", duration: "7 months",
     steps: ["Linux Deep Dive", "Kubernetes Production", "Prometheus & SLOs", "Incident Management", "Chaos Engineering", "Capacity Planning", "Automation"] },
   { slug: "healthcare-coder", title: "Medical Coder (CPC/BCHHC)", icon: "🏥", color: "#14B8A6", category: "professional", duration: "6 months",
-    steps: ["Anatomy & Physiology", "Medical Terminology", "ICD-10-CM Fundamentals", "CPT Procedure Codes", "HCPCS Level II", "Coding Guidelines", "OASIS & PDGM", "CPC Exam Prep", "BCHHC Certification Prep"] },
+    // 8 steps, not the previous 9 — CPC/BCHHC merged into one
+    // "Certification Track" fork step. See roadmapDetails.ts's comment.
+    steps: ["Anatomy & Physiology", "Medical Terminology", "ICD-10-CM Fundamentals", "CPT Procedure Codes", "HCPCS Level II", "Coding Guidelines", "OASIS & PDGM", "Certification Track"] },
   { slug: "professional-certifications", title: "Professional Certifications (PMP/ITIL/Scrum/Six Sigma)", icon: "🏅", color: "#14B8A6", category: "professional", duration: "Varies by cert",
     steps: ["PMP — Overview", "PMP — Fundamentals", "Scrum & Agile — Overview", "Scrum & Agile — Fundamentals", "ITIL 4 — Overview", "ITIL 4 — Fundamentals", "Six Sigma — Overview", "Six Sigma — Fundamentals"] },
   { slug: "aerospace-engineer", title: "Aerospace Engineer", icon: "🚀", color: "#1D4ED8", category: "tech", duration: "9 months",

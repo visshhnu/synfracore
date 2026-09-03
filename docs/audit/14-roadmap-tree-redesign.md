@@ -1,10 +1,69 @@
 # Roadmap.sh-Style Tree Redesign — Future Rollout Tracker
 
 **Started:** 2026-09-01. **Pilot built and deployed:** 2026-09-03.
-**Status: PILOT LIVE on DevOps Engineer.** Real branching UI, not a mockup —
-see "Pilot build record" near the end of this doc for what shipped, what
-changed from the original draft, and what a wider rollout decision should
-weigh next.
+**B1 audit + B2/B3 rollout to 3 confirmed forks:** 2026-09-03.
+**Status: LIVE on 4 roadmaps** (DevOps Engineer pilot + Cloud Architect +
+Data Analyst + Medical Coder). See "Pilot build record" for the original
+pilot and "B1 audit + B2/B3 rollout" near the end of this doc for the
+full-rollout audit findings and what shipped from them.
+
+## B1 audit + B2/B3 rollout (2026-09-03)
+
+Audited all 26 non-pilot roadmaps directly against both `navigation.ts`'s
+step labels and `roadmapDetails.ts`'s actual `techLink` data (a label
+containing "X / Y" doesn't necessarily mean two real technologies exist
+behind it — verified each candidate against the real data, not the label
+text alone). Full per-roadmap findings live in
+`docs/audit/15-backlog-prioritization.md`'s conversation record; summary:
+
+- **3 confirmed genuine, immediately-buildable forks** (both branches
+  already had full, real, existing content) — built and deployed this
+  pass:
+  - **cloud-architect**: Cloud Platform fork, AWS (recommended — has real
+    practice-exam papers, same reasoning as the pilot) vs. Azure.
+  - **data-analyst**: BI Tool fork, Power BI (recommended — Microsoft-
+    ecosystem prevalence in the Indian market; a softer call than AWS's,
+    flagged as such in the code comment) vs. Tableau.
+  - **healthcare-coder**: Certification Track fork, CPC Exam Prep
+    (recommended — the broader, more foundational cert) vs. BCHHC
+    Certification Prep. This link only points at `bchhc-prep`'s existing
+    overview page — does not touch the standing BCHHC mock-exam-bank/
+    quiz_questions exclusion.
+  - Each roadmap dropped one step (two sequential steps merged into one
+    fork step), using the exact same additive `fork` field pattern as the
+    pilot — `techLink` still required and always points at the
+    recommended branch, so `scripts/validate-roadmaps.ts`'s strict 1:1
+    positional matching stays untouched. Confirmed: 27 roadmaps, 187
+    techLinks (down from 190 — 3 fewer, one per merged pair), zero
+    validator failures, before and after.
+  - Verified: dark + light theme, desktop (1280px) + mobile (390px) — 9
+    screenshots total, all clean; a live click-through on each fork's
+    non-default branch confirming real navigation (not a dead link); a
+    regression check on an untouched roadmap (`jee-engineering`) and on
+    the pilot itself (`devops-engineer`) confirming the shared rendering
+    path didn't change anything for either.
+- **1 special case, deferred, not a simple fork**: `professional-
+  certifications` — its own `description`/`whyChoose` text already states
+  these are four standalone, non-reconverging certification tracks (PMP/
+  Scrum/ITIL/Six Sigma), not steps toward one role. The pilot's fork-then-
+  reconverge pattern doesn't fit a set of tracks with no reconvergence
+  point — this needs its own UI pattern (e.g. a "pick one" landing state),
+  not `RoadmapTree`. Left for a future, separately-scoped decision.
+- **5 "fake forks" found, deferred — content gap, not a component gap**:
+  upsc-ias (Optional Subject — no per-subject content exists to link to),
+  state-psc-officer (per-state technologies exist elsewhere but this
+  roadmap's links are all generic), banking-finance-analyst, agricultural-
+  officer, and telecom-engineer (each has an "X / Y" step label pointing
+  at only ONE real technology). None of these are buildable as a fork
+  without new content authored first — a separate initiative, not
+  component work.
+- **17 confirmed linear**, no fork candidate: full-stack-developer,
+  platform-engineer (its "ArgoCD / GitOps" and "Service Mesh — Istio"
+  labels name single technologies, not real either/or choices),
+  ai-engineer, security-engineer, database-engineer, data-engineer,
+  sre-engineer, aerospace-engineer, vlsi-design-engineer, advocate-career,
+  judiciary-civil-judge, banking-po, ca-journey, economics-analyst,
+  neet-medical, jee-engineering, personal-wellness.
 
 ## What was asked, and what was decided
 
