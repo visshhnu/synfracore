@@ -61,20 +61,50 @@ function buildSubjectStats(results: AttemptResults): SubjectStat[] {
   return Array.from(bySubject.values());
 }
 
+// Static circular progress ring — pure SVG, no client JS needed, so this
+// stays inside ResultsSummary's own Server Component (results are already
+// fully known at render time, nothing here is interactive).
+function ScoreGauge({ pct, color, size = 132 }: { pct: number; color: string; size?: number }) {
+  const stroke = 10;
+  const radius = (size - stroke) / 2;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference * (1 - Math.min(100, Math.max(0, pct)) / 100);
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} role="img" aria-label={`${pct}% score`}>
+      <circle
+        cx={size / 2} cy={size / 2} r={radius}
+        fill="none" stroke="var(--border)" strokeWidth={stroke}
+      />
+      <circle
+        cx={size / 2} cy={size / 2} r={radius}
+        fill="none" stroke={color} strokeWidth={stroke} strokeLinecap="round"
+        strokeDasharray={circumference} strokeDashoffset={offset}
+        transform={`rotate(-90 ${size / 2} ${size / 2})`}
+        style={{ transition: "stroke-dashoffset 0.6s ease" }}
+      />
+    </svg>
+  );
+}
+
 export default function ResultsSummary({ results }: Props) {
   const pct = results.maxScore > 0 ? Math.round((results.score / results.maxScore) * 100) : 0;
   const minutes = results.timeTakenSeconds != null ? Math.round(results.timeTakenSeconds / 60) : null;
   const answeredPct = results.total > 0 ? Math.round((results.answeredCount / results.total) * 100) : 100;
   const subjectStats = buildSubjectStats(results);
   const hasSubjectBreakdown = subjectStats.length >= 2;
+  const scoreColor = pct >= 70 ? "#10B981" : pct >= 50 ? "#F59E0B" : "#EF4444";
 
   return (
     <div>
-      <div style={{ padding: "28px", borderRadius: "14px", border: "1px solid var(--border)", background: "var(--bg-1)", marginBottom: "20px", textAlign: "center" }}>
-        <div style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "42px", fontWeight: 800, color: pct >= 70 ? "#10B981" : pct >= 50 ? "#F59E0B" : "#EF4444" }}>
-          {results.score}/{results.maxScore}
+      <div style={{ padding: "28px", borderRadius: "14px", border: "1px solid var(--border)", background: "var(--bg-1)", marginBottom: "20px", display: "flex", flexDirection: "column", alignItems: "center", gap: "16px" }}>
+        <div style={{ position: "relative", width: "132px", height: "132px" }}>
+          <ScoreGauge pct={pct} color={scoreColor} />
+          <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "26px", fontWeight: 800, color: scoreColor, lineHeight: 1 }}>{pct}%</div>
+            <div style={{ fontSize: "11px", color: "var(--text-4)", marginTop: "3px" }}>{results.score}/{results.maxScore}</div>
+          </div>
         </div>
-        <div style={{ fontSize: "14px", color: "var(--text-3)", marginTop: "6px" }}>
+        <div style={{ fontSize: "14px", color: "var(--text-3)" }}>
           {pct}% correct{minutes != null ? ` · ${minutes} min` : ""}
         </div>
       </div>
