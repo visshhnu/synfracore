@@ -8,20 +8,20 @@
 - **Styling:** Tailwind CSS v4 + custom dark design system
 - **AI:** Anthropic Claude API — gated behind `AI_ASSISTANT_ENABLED` (see `.env.example`); off by default
 - **Fonts:** Space Grotesk · Syne · JetBrains Mono
-- **Deploy:** Cloudflare Pages (via `@cloudflare/next-on-pages` + `wrangler`) — **not Vercel**
+- **Deploy:** Cloudflare Worker via `@opennextjs/cloudflare` (D1) + `wrangler` — **not Vercel**, not `@cloudflare/next-on-pages`/Pages (migrated off Pages 2026-07-19, see `docs/audit/07-roadmap-final.md` Part 4l)
 
-## 18 Academies · 200+ Technologies · 17 Certifications
+## 21 Academies · 259 Technologies · 17 Certifications
 
 Counts above are verified against `lib/data/academies.ts`/`lib/data/navigation.ts` directly — treat those files as the live source of truth rather than this number, since it will drift as content is added. Academies include DevOps, Cloud, Databases, AI, Data, Security, Healthcare, Essentials, Education, Exams, Law, Agriculture, Finance, Telecom, Economics, State PSC, Central Exams and Professional Certs.
 
-## Deploy to Cloudflare Pages
+## Deploy to Cloudflare (Worker)
 
 ```bash
 npm run deploy
-# = npm run pages:build (bundles via @cloudflare/next-on-pages) && wrangler pages deploy
+# = npm run pages:build (opennextjs-cloudflare build) && wrangler deploy
 ```
 
-Requires `wrangler` to be authenticated (`npx wrangler login`) and the Cloudflare Pages project already created, with all required environment variables/secrets set in the Cloudflare dashboard (or via `wrangler pages secret put <NAME>`) — see `.env.example` for the full list. Public (`NEXT_PUBLIC_*`) values live in `wrangler.toml`; secrets (`CLERK_SECRET_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `ANTHROPIC_API_KEY`, etc.) must never go in `wrangler.toml` — add them as Cloudflare secrets instead.
+Requires `wrangler` to be authenticated (`npx wrangler login`) and the Cloudflare Worker (`synfracore`) already created, with all required environment variables/secrets set in the Cloudflare dashboard (or via `wrangler secret put <NAME>`) — see `.env.example` for the full list. Public (`NEXT_PUBLIC_*`) values are baked into the client bundle from `.env.local` at build time (see `CLAUDE.md`'s deploy checklist — this is NOT read from `wrangler.jsonc`/the dashboard); secrets (`CLERK_SECRET_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `ANTHROPIC_API_KEY`, etc.) must never go in `wrangler.jsonc` — add them as Cloudflare secrets instead. See `CLAUDE.md`'s "Deploying to production" section for the full mandatory pre/post-deploy checklist before running this — this snippet alone is not the safe procedure.
 
 ## Local Development
 
