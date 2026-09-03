@@ -30,6 +30,19 @@ export type RoadmapDetail = {
   // to lay out the fork visually); `recommendedSlug` names which branch's
   // `slug` is the default so the UI can highlight it.
   steps: { label: string; techLink: RoadmapTechLink; fork?: { branches: RoadmapTechLink[]; recommendedSlug: string } }[];
+  // `trackGroups` (optional, added 2026-09-04) handles a genuinely
+  // different shape from `fork`: a roadmap made of several fully
+  // independent, NON-reconverging tracks (see "professional-certifications"
+  // below) rather than one continuing path with a branch-and-rejoin point.
+  // `fork` assumes exactly one of several options is chosen and the
+  // roadmap continues afterward on a shared path — that doesn't fit a case
+  // where a learner might reasonably want more than one track, and there's
+  // no shared continuation to reconverge onto. Same additive discipline as
+  // `fork`: `steps`/`techLinks` are untouched, so
+  // scripts/validate-roadmaps.ts's positional matching stays unaffected;
+  // this is purely a rendering hint grouping existing step INDICES into
+  // independent tracks. See docs/audit/14-roadmap-tree-redesign.md.
+  trackGroups?: { label: string; stepIndices: number[] }[];
   salaryRange: string;
   jobTitles: string[];
   topEmployers: string[];
@@ -784,6 +797,14 @@ export const roadmapDetails: Record<string, RoadmapDetail> = {
       { label: "ITIL 4 — Fundamentals", techLink: { name: "ITIL 4 — Fundamentals", academy: "professional-certs", slug: "itil", section: "fundamentals" } },
       { label: "Six Sigma — Overview", techLink: { name: "Six Sigma — Overview", academy: "professional-certs", slug: "six-sigma", section: "overview" } },
       { label: "Six Sigma — Fundamentals", techLink: { name: "Six Sigma — Fundamentals", academy: "professional-certs", slug: "six-sigma", section: "fundamentals" } },
+    ],
+    // 4 fully independent, non-reconverging tracks — see trackGroups'
+    // type comment. Indices map 1:1 to the `steps` array immediately above.
+    trackGroups: [
+      { label: "PMP", stepIndices: [0, 1] },
+      { label: "Scrum & Agile", stepIndices: [2, 3] },
+      { label: "ITIL 4", stepIndices: [4, 5] },
+      { label: "Six Sigma", stepIndices: [6, 7] },
     ],
     salaryRange: "Varies significantly by certification, industry, and seniority — these four credentials carry different market value depending on role and sector, more so than most single-track technical paths. Check current compensation benchmarks for your specific role, industry, and location before treating any figure as representative.",
     jobTitles: ["Project Manager (PMP)", "Scrum Master / Agile Coach", "IT Service Manager (ITIL)", "Process Improvement / Quality Manager (Six Sigma)"],

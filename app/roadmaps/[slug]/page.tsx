@@ -90,7 +90,7 @@ export default async function RoadmapDetailPage({ params }: Props) {
           before this change. */}
       <div style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "16px", padding: "28px", marginBottom: "24px" }}>
         <div style={{ fontWeight: 700, fontSize: "16px", marginBottom: "24px", color }}>Step-by-step roadmap</div>
-        <RoadmapTree steps={detail.steps} color={color} />
+        <RoadmapTree steps={detail.steps} color={color} trackGroups={detail.trackGroups} />
       </div>
 
       {/* Employers + Timeline */}

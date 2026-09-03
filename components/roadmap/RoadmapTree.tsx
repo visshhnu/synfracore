@@ -2,7 +2,89 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { RoadmapDetail } from "@/lib/data/roadmapDetails";
 
-type Props = { steps: RoadmapDetail["steps"]; color: string };
+type Props = { steps: RoadmapDetail["steps"]; color: string; trackGroups?: RoadmapDetail["trackGroups"] };
+
+// One step's own numbered-circle + link row — shared between the default
+// single connected list below and each independent track group's own
+// mini-list in TrackGroups, so both renderers produce visually identical
+// step rows (same circle style, same link style) even though the
+// surrounding structure (one continuous line vs. several disconnected
+// short lists) differs.
+function StepRow({ step, number, isFirst, isLast, color }: { step: RoadmapDetail["steps"][number]; number: number; isFirst: boolean; isLast: boolean; color: string }) {
+  return (
+    <div style={{ display: "flex", gap: "16px" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0, width: "32px" }}>
+        <div
+          style={{
+            width: "32px", height: "32px", borderRadius: "50%",
+            background: isFirst ? color : "var(--bg-1)",
+            border: `2px solid ${isFirst ? color : "var(--border)"}`,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            fontSize: "12px", fontWeight: 700, color: isFirst ? "white" : "var(--text-4)", flexShrink: 0,
+          }}
+        >
+          {number}
+        </div>
+        {!isLast && <div style={{ width: "2px", flex: 1, background: "var(--border)", minHeight: "20px" }} />}
+      </div>
+      <div style={{ paddingBottom: "20px", flex: 1 }}>
+        <Link
+          href={`/academies/${step.techLink.academy}/${step.techLink.slug}/${step.techLink.section || "overview"}`}
+          prefetch={false}
+          className="roadmap-step-link"
+          style={{
+            display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px",
+            textDecoration: "none", marginTop: "6px", padding: "6px 10px", marginLeft: "-10px",
+            borderRadius: "8px", transition: "background 0.15s",
+          }}
+        >
+          <span style={{ fontWeight: isFirst ? 700 : 500, fontSize: "14px", color: isFirst ? "var(--text-1)" : "var(--text-2)" }}>
+            {step.label}
+          </span>
+          <ArrowRight size={13} color="var(--text-4)" style={{ flexShrink: 0 }} />
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+// A roadmap made of several fully independent, NON-reconverging tracks
+// (see RoadmapDetail's `trackGroups` type comment — e.g.
+// "professional-certifications": PMP/Scrum/ITIL/Six Sigma are four
+// separate real credentials, not steps toward one shared continuation).
+// Renders each track as its own short, independently-numbered mini-list
+// in a responsive grid, deliberately with NO connecting line between
+// groups (there's nothing to reconverge onto) and no "Recommended" badge
+// (unlike `fork`, these aren't mutually exclusive — a learner might
+// reasonably want more than one).
+function TrackGroups({ steps, groups, color }: { steps: RoadmapDetail["steps"]; groups: NonNullable<RoadmapDetail["trackGroups"]>; color: string }) {
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "24px" }}>
+      {groups.map((group) => (
+        <div key={group.label}>
+          <div style={{ fontWeight: 700, fontSize: "13px", color, marginBottom: "12px", textTransform: "uppercase", letterSpacing: "0.03em" }}>
+            {group.label}
+          </div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            {group.stepIndices.map((stepIdx, i) => (
+              <StepRow
+                key={steps[stepIdx].label}
+                step={steps[stepIdx]}
+                number={i + 1}
+                isFirst={i === 0}
+                isLast={i === group.stepIndices.length - 1}
+                color={color}
+              />
+            ))}
+          </div>
+        </div>
+      ))}
+      <style>{`
+        .roadmap-step-link:hover { background: var(--bg-1); }
+      `}</style>
+    </div>
+  );
+}
 
 // Server Component — a lighter, static branching layout (CSS flex/grid,
 // no pan/zoom, no client JS) per the approved scope in
@@ -13,8 +95,16 @@ type Props = { steps: RoadmapDetail["steps"]; color: string };
 // single connecting line in and out, instead of the plain one-line-per-step
 // list every other roadmap still uses (RoadmapDetailPage renders that
 // linear list directly; this component is opted into only where a step
-// actually has a `fork`).
-export default function RoadmapTree({ steps, color }: Props) {
+// actually has a `fork`). `trackGroups`, when present, replaces the whole
+// connected-list rendering with TrackGroups above instead — a genuinely
+// different shape (independent tracks, not a branch-and-rejoin), so it's
+// handled as an early return rather than threading a second condition
+// through every line of the default renderer below.
+export default function RoadmapTree({ steps, color, trackGroups }: Props) {
+  if (trackGroups) {
+    return <TrackGroups steps={steps} groups={trackGroups} color={color} />;
+  }
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
       {steps.map((s, i) => {

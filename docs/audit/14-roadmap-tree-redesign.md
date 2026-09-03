@@ -2,10 +2,46 @@
 
 **Started:** 2026-09-01. **Pilot built and deployed:** 2026-09-03.
 **B1 audit + B2/B3 rollout to 3 confirmed forks:** 2026-09-03.
-**Status: LIVE on 4 roadmaps** (DevOps Engineer pilot + Cloud Architect +
-Data Analyst + Medical Coder). See "Pilot build record" for the original
-pilot and "B1 audit + B2/B3 rollout" near the end of this doc for the
-full-rollout audit findings and what shipped from them.
+**trackGroups (professional-certifications) shipped:** 2026-09-04.
+**Status: LIVE on 5 roadmaps** (DevOps Engineer pilot + Cloud Architect +
+Data Analyst + Medical Coder, all via `fork`; Professional Certifications
+via the new `trackGroups` shape). See "Pilot build record" for the
+original pilot, "B1 audit + B2/B3 rollout" for the full-rollout audit
+findings, and "trackGroups" below for the non-reconverging-tracks case.
+
+## trackGroups — professional-certifications (2026-09-04)
+
+Closes the one deferred special case from the B1 audit: PMP/Scrum/ITIL/Six
+Sigma are four fully independent, non-reconverging 2-step tracks (each
+learner picks based on career direction, and might reasonably want more
+than one) — `fork`'s branch-then-rejoin shape doesn't fit a case with no
+shared continuation to rejoin onto.
+
+**Design, same additive discipline as `fork`**: a new optional
+`RoadmapDetail.trackGroups?: { label: string; stepIndices: number[] }[]`
+field groups existing step *indices* into independent tracks — `steps`/
+`techLinks` are completely untouched, so `scripts/validate-roadmaps.ts`'s
+positional matching is unaffected (confirmed: 27 roadmaps, 187 techLinks,
+zero failures, before and after).
+
+**Rendering**: `RoadmapTree.tsx` gained a `TrackGroups` sub-component and
+an early-return branch — when `trackGroups` is passed, it renders each
+track as its own short, independently-numbered mini-list in a responsive
+grid (`repeat(auto-fit, minmax(240px, 1fr))`, collapsing to one column on
+mobile), reusing the exact same step-link row markup as the default
+renderer (extracted into a shared `StepRow` component so both paths stay
+visually identical). Deliberately no connecting line between groups (there's
+nothing to reconverge onto) and no "Recommended" badge (unlike `fork`,
+these aren't mutually exclusive).
+
+**Verified**: `tsc`/`validate:roadmaps` clean; dark+light+mobile
+screenshots, all clean; a live click-through on production (a local dev-
+mode click attempt hit the same pre-existing Navbar `<style>` hydration
+mismatch already confirmed elsewhere this engagement as dev-only and
+unrelated — production's click-through worked correctly, confirming the
+local failure was that known artifact, not a real bug); a regression check
+on both an unrelated existing fork (cloud-architect) and the original
+pilot (devops-engineer).
 
 ## B1 audit + B2/B3 rollout (2026-09-03)
 
