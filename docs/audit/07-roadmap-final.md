@@ -3119,6 +3119,22 @@ rules).
    prevented it) — logged so the "crossfade" framing in the commit message
    isn't taken at face value later.
 
+   **RESOLVED 2026-09-03**: fixed properly this time, by editing
+   `Navbar.tsx` directly rather than staying `globals.css`-only, exactly as
+   this entry's own root-cause diagnosis said was required. Removed the
+   competing `display:none`/`flex` toggle rules for `.logo-pill`/
+   `.logo-mark`/`.is-hidden`/`.is-visible` from Navbar.tsx's inline
+   `<style>` block, leaving `globals.css`'s already-correct opacity+
+   position rules as the sole authority on show/hide. Kept only the
+   non-conflicting layout properties (the compact mark's vertical stacking
+   and tight icon-to-text gap) that `globals.css` didn't already define.
+   Re-verified with the exact same method this entry used to find the bug
+   (stepping `window.scrollTo` and sampling computed `opacity` every ~35ms
+   across the transition window, both locally before deploy and live in
+   production after) — confirmed genuine intermediate opacity values now
+   (e.g. 0.42 → 0.13 → 0.02 → 0), a real animating crossfade, not an
+   instant snap.
+
 3. **Separately noted, not a bug:** `components/home/AIAssistantTeaser.tsx`
    (one of the two call sites for the new shared
    `AssistantMessageBubble.tsx`) is dead code — confirmed via exhaustive
