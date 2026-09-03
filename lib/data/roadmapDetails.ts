@@ -18,7 +18,18 @@ export type RoadmapDetail = {
   // New merged shape (Phase 3.6) — the actual source of truth going
   // forward. techLinks[] above is kept only for the transition window;
   // see docs/audit/06-roadmap.md 3.6.
-  steps: { label: string; techLink: RoadmapTechLink }[];
+  //
+  // `fork` (optional, added 2026-09-03 for the roadmap-tree-redesign pilot
+  // — see docs/audit/14-roadmap-tree-redesign.md) marks a step as a genuine
+  // branch point: `techLink` above stays required and points at the
+  // recommended/default branch (so scripts/validate-roadmaps.ts's strict
+  // 1:1 techLinks/steps positional matching keeps working completely
+  // unchanged for every roadmap, forked or not — this field is additive,
+  // not a replacement for the existing shape). `branches` lists every
+  // option INCLUDING the recommended one (the renderer needs the full set
+  // to lay out the fork visually); `recommendedSlug` names which branch's
+  // `slug` is the default so the UI can highlight it.
+  steps: { label: string; techLink: RoadmapTechLink; fork?: { branches: RoadmapTechLink[]; recommendedSlug: string } }[];
   salaryRange: string;
   jobTitles: string[];
   topEmployers: string[];
@@ -73,9 +84,8 @@ export const roadmapDetails: Record<string, RoadmapDetail> = {
       { name: "Git", academy: "devops", slug: "git" },
       { name: "Docker", academy: "devops", slug: "docker" },
       { name: "Kubernetes", academy: "devops", slug: "kubernetes" },
-      { name: "CI/CD Pipelines", academy: "devops", slug: "cicd" },
+      { name: "GitHub Actions", academy: "devops", slug: "github-actions" },
       { name: "Cloud — AWS", academy: "cloud", slug: "aws" },
-      { name: "Cloud — Azure", academy: "cloud", slug: "azure" },
       { name: "Monitoring — Prometheus", academy: "devops", slug: "prometheus" },
       { name: "IaC — Terraform", academy: "devops", slug: "terraform" },
     ],
@@ -85,9 +95,27 @@ export const roadmapDetails: Record<string, RoadmapDetail> = {
       { label: "Git", techLink: { name: "Git", academy: "devops", slug: "git" } },
       { label: "Docker", techLink: { name: "Docker", academy: "devops", slug: "docker" } },
       { label: "Kubernetes", techLink: { name: "Kubernetes", academy: "devops", slug: "kubernetes" } },
-      { label: "CI/CD Pipelines", techLink: { name: "CI/CD Pipelines", academy: "devops", slug: "cicd" } },
-      { label: "Cloud — AWS", techLink: { name: "Cloud — AWS", academy: "cloud", slug: "aws" } },
-      { label: "Cloud — Azure", techLink: { name: "Cloud — Azure", academy: "cloud", slug: "azure" } },
+      {
+        label: "CI/CD Tooling", techLink: { name: "GitHub Actions", academy: "devops", slug: "github-actions" },
+        fork: {
+          recommendedSlug: "github-actions",
+          branches: [
+            { name: "GitHub Actions", academy: "devops", slug: "github-actions" },
+            { name: "Jenkins", academy: "devops", slug: "jenkins" },
+            { name: "GitLab CI", academy: "devops", slug: "gitlab-ci" },
+          ],
+        },
+      },
+      {
+        label: "Cloud Platform", techLink: { name: "Cloud — AWS", academy: "cloud", slug: "aws" },
+        fork: {
+          recommendedSlug: "aws",
+          branches: [
+            { name: "AWS", academy: "cloud", slug: "aws" },
+            { name: "Azure", academy: "cloud", slug: "azure" },
+          ],
+        },
+      },
       { label: "Monitoring", techLink: { name: "Monitoring — Prometheus", academy: "devops", slug: "prometheus" } },
       { label: "IaC with Terraform", techLink: { name: "IaC — Terraform", academy: "devops", slug: "terraform" } },
     ],

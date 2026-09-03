@@ -114,6 +114,8 @@ export const examTypeGroupMap: Record<string, { group: string; label: string }> 
   "hal-trainee": { group: "Central Govt Exams", label: "HAL Design/Management Trainee (DT/MT)" },
   neet: { group: "Competitive Exams", label: "NEET UG (Medical Entrance)" },
   "jee-main": { group: "Competitive Exams", label: "JEE Main (Engineering Entrance)" },
+  "ssc-cgl": { group: "Competitive Exams", label: "SSC CGL (Combined Graduate Level)" },
+  "ibps-po": { group: "Competitive Exams", label: "IBPS PO (Bank Probationary Officer)" },
 };
 
 export const certifications = [
@@ -141,7 +143,14 @@ export const roadmaps = [
   { slug: "full-stack-developer", title: "Full-Stack Developer", icon: "🌐", color: "#0EA5E9", category: "tech", duration: "5-7 months",
     steps: ["HTML & Semantic Markup", "CSS & Modern Layout", "JavaScript", "TypeScript", "React", "Next.js", "Node.js", "Express.js", "REST API Design", "Authentication & Authorization", "Full-Stack Integration & Deployment"] },
   { slug: "devops-engineer", title: "DevOps Engineer", icon: "⚙️", color: "#3B82F6", category: "tech", duration: "6 months",
-    steps: ["Linux", "Shell Scripting", "Git", "Docker", "Kubernetes", "CI/CD Pipelines", "Cloud — AWS", "Cloud — Azure", "Monitoring", "IaC with Terraform"] },
+    // 9 steps, not the previous 10 — "CI/CD Pipelines" is now a genuine
+    // fork (GitHub Actions/Jenkins/GitLab CI) at one step position instead
+    // of a generic placeholder, and "Cloud — AWS"/"Cloud — Azure" (formerly
+    // two separate sequential steps) are now one fork step with two
+    // branches, since they're a genuine either/or choice, not two things to
+    // learn in sequence. See docs/audit/14-roadmap-tree-redesign.md for the
+    // full branch-point rationale (2026-09-03 pilot).
+    steps: ["Linux", "Shell Scripting", "Git", "Docker", "Kubernetes", "CI/CD Tooling", "Cloud Platform", "Monitoring", "IaC with Terraform"] },
   { slug: "cloud-architect", title: "Cloud Architect", icon: "☁️", color: "#0EA5E9", category: "tech", duration: "8 months",
     steps: ["Cloud Fundamentals", "AWS Core Services", "Azure Core Services", "Networking & Security", "Architecture Patterns", "HA & DR", "Cost Optimization"] },
   { slug: "platform-engineer", title: "Platform Engineer", icon: "🏗️", color: "#6366F1", category: "tech", duration: "9 months",

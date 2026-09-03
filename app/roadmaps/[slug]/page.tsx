@@ -2,8 +2,9 @@ import { roadmaps } from "@/lib/data/navigation";
 import { roadmapDetails } from "@/lib/data/roadmapDetails";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Clock, ArrowRight, BookOpen, Target, TrendingUp, Users, Briefcase } from "lucide-react";
+import { Clock, BookOpen, Target, TrendingUp, Users, Briefcase } from "lucide-react";
 import { pageMetadata } from "@/lib/seo/metadata";
+import RoadmapTree from "@/components/roadmap/RoadmapTree";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -89,35 +90,7 @@ export default async function RoadmapDetailPage({ params }: Props) {
           before this change. */}
       <div style={{ background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "16px", padding: "28px", marginBottom: "24px" }}>
         <div style={{ fontWeight: 700, fontSize: "16px", marginBottom: "24px", color }}>Step-by-step roadmap</div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
-          {detail.steps.map((s, i) => (
-            <div key={s.label} style={{ display: "flex", gap: "16px" }}>
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0, width: "32px" }}>
-                <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: i === 0 ? color : "var(--bg-1)", border: `2px solid ${i === 0 ? color : "var(--border)"}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", fontWeight: 700, color: i === 0 ? "white" : "var(--text-4)", flexShrink: 0 }}>
-                  {i + 1}
-                </div>
-                {i < detail.steps.length - 1 && <div style={{ width: "2px", flex: 1, background: "var(--border)", minHeight: "20px" }} />}
-              </div>
-              <div style={{ paddingBottom: "20px", flex: 1 }}>
-                <Link
-                  href={`/academies/${s.techLink.academy}/${s.techLink.slug}/${s.techLink.section || "overview"}`}
-                  prefetch={false}
-                  style={{
-                    display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px",
-                    textDecoration: "none", marginTop: "6px", padding: "6px 10px", marginLeft: "-10px",
-                    borderRadius: "8px", transition: "background 0.15s",
-                  }}
-                  className="roadmap-step-link"
-                >
-                  <span style={{ fontWeight: i === 0 ? 700 : 500, fontSize: "14px", color: i === 0 ? "var(--text-1)" : "var(--text-2)" }}>
-                    {s.label}
-                  </span>
-                  <ArrowRight size={13} color="var(--text-4)" style={{ flexShrink: 0 }} />
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
+        <RoadmapTree steps={detail.steps} color={color} />
       </div>
 
       {/* Employers + Timeline */}
@@ -141,14 +114,6 @@ export default async function RoadmapDetailPage({ params }: Props) {
           ← All roadmaps
         </Link>
       </div>
-
-      {/* Plain <style> tag, not inline onMouseEnter/onMouseLeave handlers —
-          this is a Server Component (no "use client"), so JS event handlers
-          aren't available here; a literal <style> element works fine in RSC
-          since it needs no client-side JS to apply. */}
-      <style>{`
-        .roadmap-step-link:hover { background: var(--bg-1); }
-      `}</style>
     </div>
   );
 }
