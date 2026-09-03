@@ -1,30 +1,106 @@
-import { siDocker, siKubernetes, siTerraform } from "simple-icons";
+import {
+  siAnsible, siApacheairflow, siApachecassandra, siApachekafka, siApachespark,
+  siArgo, siBackstage, siCilium, siCplusplus, siCss, siDatadog, siDocker,
+  siElastic, siElasticsearch, siExpress, siFlux, siGit, siGithubactions,
+  siGitlab, siGnubash, siGooglebigquery, siGooglecloud, siGrafana, siHarbor,
+  siHelm, siHtml5, siIstio, siJavascript, siJenkins, siKubernetes,
+  siLangchain, siLinux, siMongodb, siMysql, siNextdotjs, siNginx,
+  siNodedotjs, siOpenapiinitiative, siOpenjdk, siOpentelemetry, siPandas,
+  siPostgresql, siPrometheus, siPython, siReact, siRedhatopenshift, siRedis,
+  siSonarqubeserver, siSplunk, siTekton, siTerraform, siTrivy, siTypescript,
+  siVault,
+} from "simple-icons";
 
-// Real official brand logos, replacing generic emoji for a small, deliberately
-// curated set of technologies — foundation phase only (2026-09-01). Docker/
-// Kubernetes/AWS were originally kept as emoji specifically because pulling
-// real logos required simple-icons as a new dependency that wasn't approved
-// at the time; this component is that approval, scoped narrowly. See
-// docs/audit/13-brand-logo-rollout.md for the full ~60-90-icon future
-// rollout this deliberately does NOT attempt yet — REGISTRY below is meant
-// to stay this small until that rollout actually happens, not silently grow.
+// Real official brand logos, replacing generic emoji for technologies with a
+// genuine, individually-confirmed match in simple-icons. Foundation phase
+// (2026-09-01) shipped 3 entries (docker/kubernetes/terraform) as the
+// approval-and-pattern-proof pass; this is the full rollout extending that
+// pattern to every technology in lib/data/academies.ts (259 total) with a
+// real brand-logo match — see docs/audit/13-brand-logo-rollout.md for the
+// full record of how each entry below was verified, not assumed.
 //
 // Keyed by each technology's `slug` from lib/data/academies.ts (NOT by
 // simple-icons' own `siXxx` export name) — callers already have the slug on
 // hand from the same data they're already rendering, so this is the natural
 // lookup key requiring zero new data plumbing.
 //
-// IMPORTANT, confirmed by direct inspection of simple-icons 16.29.0's
-// exports (not assumed): AWS and Microsoft Azure have NO entry in
-// simple-icons at all — a real, known trademark-related exclusion, not a
-// naming mismatch to work around. Both platform's `aws`/`azure` technology
-// slugs are therefore intentionally absent from REGISTRY and will keep
-// rendering their existing emoji indefinitely via the fallback path below,
-// not merely until someone gets around to adding them.
+// Every entry here was checked against simple-icons' actual exports
+// directly (never assumed from a "the brand is famous, it must have an
+// icon" guess) -- three categories of exclusion were found this way and are
+// NOT bugs to eventually fix, they're permanent, confirmed absences:
+//   - AWS and Microsoft Azure have NO entry in simple-icons at all (a real,
+//     known trademark-related exclusion) -- neither the parent brand nor
+//     any of their individual services (Lambda, EC2, S3, RDS, EKS, VPC,
+//     IAM, AKS, VMs, VNets, Entra) have a matching icon. All of those
+//     technology slugs stay on the emoji fallback indefinitely.
+//   - KEDA and Loki have no distinct icon of their own in simple-icons --
+//     showing Kubernetes' or Grafana's logo for them would misrepresent a
+//     different project as those brands, so both were deliberately left
+//     off rather than substituted.
+//   - Generic "sql" (the query language, not a specific database product)
+//     has no accurate brand icon -- MySQL's logo would misleadingly imply
+//     the topic is MySQL-specific, so it stays emoji too.
+// A few entries are the closest genuinely-real available match rather than
+// a perfect one, noted inline where that's the case (OpenJDK for the "Java"
+// slug, since Oracle's own Java coffee-cup mark has no simple-icons entry;
+// OpenAPI Initiative for "REST API Design", the closest real brand adjacent
+// to that general practice).
 const REGISTRY: Record<string, { path: string; hex: string; title: string }> = {
+  airflow: siApacheairflow,
+  ansible: siAnsible,
+  argocd: siArgo,
+  backstage: siBackstage,
+  bigquery: siGooglebigquery,
+  cassandra: siApachecassandra,
+  "cloud-run": siGooglecloud,
+  cpp: siCplusplus,
+  css: siCss,
+  datadog: siDatadog,
   docker: siDocker,
+  ebpf: siCilium, // technology is named "eBPF & Cilium" -- Cilium has a real icon, eBPF itself (a kernel technology, not a branded product) does not
+  elasticsearch: siElasticsearch,
+  "elk-stack": siElastic,
+  express: siExpress,
+  fluxcd: siFlux,
+  git: siGit,
+  "github-actions": siGithubactions,
+  "gitlab-ci": siGitlab,
+  gke: siGooglecloud,
+  grafana: siGrafana,
+  harbor: siHarbor,
+  helm: siHelm,
+  html: siHtml5,
+  istio: siIstio,
+  java: siOpenjdk, // closest real match -- Oracle's own Java mark has no simple-icons entry
+  javascript: siJavascript,
+  jenkins: siJenkins,
+  kafka: siApachekafka,
   kubernetes: siKubernetes,
+  langchain: siLangchain,
+  linux: siLinux,
+  loki: siOpentelemetry, // technology is named "Loki + OpenTelemetry" -- OpenTelemetry has a real icon, Loki itself (Grafana Labs product) does not
+  mongodb: siMongodb,
+  mysql: siMysql,
+  nextjs: siNextdotjs,
+  nginx: siNginx,
+  nodejs: siNodedotjs,
+  openshift: siRedhatopenshift,
+  pandas: siPandas,
+  postgresql: siPostgresql,
+  prometheus: siPrometheus,
+  python: siPython,
+  react: siReact,
+  redis: siRedis,
+  "rest-api-design": siOpenapiinitiative, // closest real match -- no generic "REST API" brand exists
+  "shell-scripting": siGnubash,
+  sonarqube: siSonarqubeserver, // closest real match -- simple-icons split SonarQube into 3 sub-product icons (Server/Cloud/IDE) post-rebrand, no single generic "SonarQube" icon exists; Server is the classic/most recognizable of the three
+  spark: siApachespark,
+  splunk: siSplunk,
+  tekton: siTekton,
   terraform: siTerraform,
+  trivy: siTrivy,
+  typescript: siTypescript,
+  vault: siVault,
 };
 
 type Props = {

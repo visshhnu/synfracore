@@ -6,6 +6,7 @@ import { Loader2, RefreshCw, Sparkles, BookOpen } from "lucide-react";
 import { hasContent, fetchContent } from "@/lib/content";
 import { FlowDiagram, type FlowStep } from "./FlowDiagram";
 import { ConceptBoxGrid, type ConceptBox } from "./ConceptBoxGrid";
+import TechIcon from "@/components/icons/TechIcon";
 
 type Props = {
   academy: string;
@@ -364,7 +365,7 @@ export default function SectionContent({ academy, technology, section, techName,
   if (mode === "ai") {
     if (aiLoading) return (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "80px 24px", gap: "16px" }}>
-        <div style={{ width: "52px", height: "52px", borderRadius: "14px", background: `${accentColor}15`, border: `1px solid ${accentColor}25`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "24px" }}>{techIcon}</div>
+        <div style={{ width: "52px", height: "52px", borderRadius: "14px", background: `${accentColor}15`, border: `1px solid ${accentColor}25`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "24px" }}><TechIcon slug={technology} fallback={techIcon} size={24} /></div>
         <div style={{ display: "flex", alignItems: "center", gap: "10px", color: "var(--text-4)", fontSize: "14px" }}>
           <Loader2 size={16} style={{ animation: "spin 1s linear infinite" }} />
           Generating {techName} {sectionLabel}...
@@ -398,7 +399,7 @@ export default function SectionContent({ academy, technology, section, techName,
 
   return (
     <div style={{ textAlign: "center", padding: "80px 24px" }}>
-      <div style={{ fontSize: "48px", marginBottom: "20px" }}>{techIcon}</div>
+      <div style={{ marginBottom: "20px" }}><TechIcon slug={technology} fallback={techIcon} size={48} /></div>
       <h3 style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "20px", fontWeight: 700, marginBottom: "10px", color: "var(--text-1)" }}>
         {sectionLabel} for {techName}
       </h3>

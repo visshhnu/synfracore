@@ -7,6 +7,7 @@ import { useTheme } from "@/components/ThemeProvider";
 import { academies } from "@/lib/data/academies";
 import Image from "next/image";
 import { useAuth, SignInButton, UserButton } from "@clerk/nextjs";
+import TechIcon from "@/components/icons/TechIcon";
 
 // Minimal shape for the untyped third-party Google Translate widget global —
 // only the members this component actually touches.
@@ -462,7 +463,7 @@ export default function Navbar() {
                       style={{ display: "flex", alignItems: "center", gap: "7px", padding: "6px 12px 6px 44px", textDecoration: "none" }}
                       onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--bg-1)"}
                       onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "transparent"}>
-                      <span style={{ fontSize: "11px" }}>{tech.icon || "·"}</span>
+                      <TechIcon slug={tech.slug} fallback={tech.icon || "·"} size={14} />
                       <span style={{ fontSize: "12px", color: "var(--text-2)", fontWeight: 500 }}>{tech.name}</span>
                     </Link>
                   ))}
@@ -510,10 +511,19 @@ export default function Navbar() {
         .desktop-nav { display: flex; align-items: center; gap: 1px; }
         .mobile-only { display: none; }
         .logo-wrapper { display: inline-flex; align-items: center; }
-        .logo-pill { display: block; }
-        .logo-pill.is-hidden { display: none; }
-        .logo-mark { display: none; flex-direction: column; align-items: center; gap: 1px; line-height: 1; }
-        .logo-mark.is-visible { display: flex; }
+        /* .logo-pill/.logo-mark's actual show/hide is driven entirely by
+           app/globals.css's opacity+position rules (the real crossfade fix,
+           2026-08-12) -- this block used to also define a competing
+           display:none/flex toggle for the same classes, which silently won
+           at equal specificity (this <style> tag renders after globals.css's
+           <link> in source order) and canceled the opacity transition before
+           it could ever animate, since a transition cannot run across a
+           display:none boundary. Only the non-conflicting layout details
+           globals.css doesn't already set (the compact mark's vertical
+           stacking and tight icon-to-text gap) are kept here. See
+           docs/audit/07-roadmap-final.md's "Navbar logo crossfade" entry for
+           the original diagnosis this fix resolves. */
+        .logo-mark { flex-direction: column; align-items: center; gap: 1px; line-height: 1; }
         .logo-mark span { font-size: 8px; font-weight: 700; letter-spacing: 0.03em; color: var(--text-1); white-space: nowrap; }
         @media (max-width: 1024px) {
           .desktop-nav { display: none !important; }

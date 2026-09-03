@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getAcademy, getTechnology, type Domain } from "@/lib/data/academies";
 import { getRelatedTechnologies } from "@/lib/data/relatedTechnologies";
+import TechIcon from "@/components/icons/TechIcon";
 
 // Internal-linking SEO component (2026-08-07 technical-SEO build — see
 // docs/audit/07-roadmap-final.md's "New: Technical SEO" section). Extracted
@@ -104,7 +105,7 @@ export function RelatedTechnologies({ academySlug, techSlug, domain }: Props) {
                   color: "var(--text-2)",
                 }}
               >
-                <span>{item.icon}</span> {item.name}
+                <TechIcon slug={item.slug} fallback={item.icon} size={16} /> {item.name}
                 {item.crossAcademy && itemAcademy && (
                   <span
                     title={itemAcademy.title}

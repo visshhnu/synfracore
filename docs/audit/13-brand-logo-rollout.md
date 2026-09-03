@@ -1,11 +1,115 @@
-# Real Brand Logo Icons — Future Rollout Tracker
+# Real Brand Logo Icons — Rollout Tracker
 
-**Started:** 2026-09-01.
-**Status: FOUNDATION DONE, FULL ROLLOUT NOT STARTED.** This doc exists to
-record the scope and rationale so it isn't lost — the same convention as
-`docs/audit/12-practice-exam-coverage-rollout.md`. It is explicitly **not**
-a commitment to swap every technology's icon now. Read this before assuming
-any technology beyond the 3 listed below has a real logo — almost none do.
+**Started:** 2026-09-01. **Full rollout completed:** 2026-09-03.
+**Status: DONE — REGISTRY holds 55 verified real-logo entries, wired into
+every genuine technology-icon render location on the site. Deployed to
+production (version `3fce24cc-f1b5-49e5-8512-e134605ceb6f`).**
+
+## Second-pass additions (2026-09-03, same day, deeper candidate search)
+
+After the first pass shipped 52 entries, a second search checked specific
+product names directly against simple-icons (not just each technology's own
+slug/name) across every academy, since a technology's platform-facing name
+sometimes bundles two products together and only one half has a real icon.
+Found exactly 3 more genuine matches this way — the rest of dozens of
+candidates checked (Oracle, Power BI, Tableau, Excel, Argo Rollouts, Litmus,
+dbt, every AWS/Azure service) came back with zero simple-icons coverage,
+confirming 55 as the practical ceiling, not the originally estimated 60-90:
+
+- `sonarqube` → `siSonarqubeserver` — simple-icons split SonarQube into 3
+  post-rebrand sub-product icons (Server/Cloud/IDE), no single generic
+  "SonarQube" icon exists; Server is the closest/most recognizable.
+- `loki` → `siOpentelemetry` — the platform's technology is named
+  "Loki + OpenTelemetry"; Loki itself (a Grafana Labs product) has no icon,
+  but OpenTelemetry does.
+- `ebpf` → `siCilium` — the platform's technology is named "eBPF & Cilium";
+  eBPF is a kernel technology, not a branded product, so it has no icon,
+  but Cilium does.
+
+REGISTRY is now 55 entries. This closes Phase B — no further match-search
+passes are planned; the remaining ~204 technologies in `academies.ts`
+either fall under the AWS/Azure/KEDA/Loki/generic-sql exclusion categories
+below or are generic domain topics (Healthcare, Law, Exams, etc.) with no
+brand to represent.
+
+## What the full rollout pass did (2026-09-03)
+
+1. **Re-derived the actual technology list from `lib/data/academies.ts`
+   directly** rather than trusting this doc's earlier ~60-90 estimate —
+   the real count is **259 technologies** (not 285; that number was itself
+   an estimate, not a re-count).
+2. **Matched every technology against simple-icons' actual exports**
+   (`icon.slug`, not a guessed export-key name), plus a manually-verified
+   alias table for cases where the technology's own slug/name doesn't
+   literally match simple-icons' slug but a real brand icon exists under a
+   different key (e.g. `nodejs` → `nodedotjs`, `shell-scripting` →
+   `gnubash`). Result: **52 technologies matched to a real icon** (not the
+   original 60-90 estimate — several categories assumed likely turned out
+   to have no real match; see exclusions below).
+3. **Excluded 3 near-misses that would have been actively misleading**,
+   caught by checking each match's actual identity rather than trusting a
+   slug-string match alone:
+   - `keda` and `loki` have **no distinct icon in simple-icons at all** —
+     an early pass would have shown Kubernetes' logo for KEDA and
+     Grafana's logo for Loki, misrepresenting one project as a different
+     brand. Both stay on emoji fallback.
+   - `sql` (the query language) has no generic brand icon — only
+     `mysql`/`sqlite`/`sqlalchemy` exist. Showing MySQL's logo for a
+     generic SQL topic would misleadingly imply the topic is
+     MySQL-specific. Stays emoji.
+4. **Confirmed the AWS/Azure exclusion extends to every individual
+   service slug too** — `aws-lambda`, `aws-ec2`, `aws-s3`, `aws-rds`,
+   `aws-eks`, `aws-vpc`, `aws-iam`, `azure-aks`, `azure-vms`,
+   `azure-vnets`, `azure-entra`, `azure-devops` (the standalone DevOps
+   product, not Azure itself — this one has its own real icon), `gke`,
+   `cloud-run` — none of these have a simple-icons entry either (checked
+   directly, not assumed). `gke`/`cloud-run` were given the generic Google
+   Cloud logo instead, an honest "part of this platform" representation
+   since no service-specific icon exists.
+5. **Found and fixed the actual render-location scope** — the original
+   "24 files render `.icon`" estimate conflated genuine technology-brand
+   icons with academy/domain/section/roadmap/career/lab-category icons
+   (none of which have a "brand" concept — correctly out of scope, per
+   this doc's own original note that roadmap/career categories have no
+   brand to swap in). The REAL technology-icon render surface, after
+   checking each of the 35 files that render some `.icon` field, is
+   **7 call sites across 6 files** (plus the 1 already wired in the
+   foundation phase = 7 files total):
+   - `app/academies/[academy]/[technology]/[section]/page.tsx` (sidebar)
+   - `app/academies/[academy]/page.tsx` (academy technology grid)
+   - `components/layout/Navbar.tsx` (mobile drawer's expanded technology list)
+   - `components/tech/RelatedTechnologies.tsx` (related-technologies links)
+   - `components/tech/MobileSectionNav.tsx` (mobile header, technology-icon fallback branch only — the common-case render there is a section icon, unrelated)
+   - `components/tech/SectionContent.tsx` (2 sites: AI-generation loading state, empty-state)
+6. **Verified theme-safety directly** (screenshots, both themes) on the
+   sidebar location and the mobile drawer's expanded technology list —
+   confirmed the same-hue tinted-backdrop design (fixed brand hex, not a
+   CSS variable — a brand's official color doesn't change with site theme,
+   so this is correct by design, not a shortcut) reads correctly against
+   both light and dark surrounding backgrounds, same result as the
+   foundation phase's original 3 icons.
+7. Two entries are the closest genuinely-real available match rather than
+   a perfect one: `java` → OpenJDK's icon (Oracle's own Java coffee-cup
+   mark has no simple-icons entry) and `rest-api-design` →
+   OpenAPI Initiative's icon (no generic "REST API" brand icon exists).
+
+## What's explicitly still emoji, and why (permanent, not a gap)
+
+- **AWS, Azure, and every individual service under both** — confirmed
+  absent from simple-icons entirely, a real trademark-related exclusion.
+- **KEDA, Loki** — no distinct icon exists; showing a different project's
+  logo would misrepresent the brand.
+- **Generic `sql`** — no accurate non-vendor-specific icon exists.
+- **Healthcare, Law, Competitive Exams, Life Essentials, School Education,
+  Agriculture, Finance, Aerospace, VLSI, Telecom** — as originally
+  predicted, essentially zero real candidates; their content is generic
+  domain topics, not branded tools.
+- Everything else without a `REGISTRY` entry simply has no genuine,
+  confirmed real-brand-logo match — not an oversight, checked directly.
+
+This doc previously read as follows (kept below for history):
+
+---
 
 ## What shipped this pass (the foundation)
 

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ChevronDown, X, Sparkles, Check } from "lucide-react";
 import { nonTechAcademyIds, getSectionsForTechnology } from "@/lib/data/navigation";
+import TechIcon from "@/components/icons/TechIcon";
 
 interface Props {
   academy: string;
@@ -78,7 +79,11 @@ export default function MobileSectionNav({ academy, technology, currentSection, 
           cursor: "pointer", fontFamily: "inherit", textAlign: "left",
         }}
       >
-        <span style={{ fontSize: "16px", flexShrink: 0 }}>{current?.icon || techIcon}</span>
+        {current?.icon ? (
+          <span style={{ fontSize: "16px", flexShrink: 0 }}>{current.icon}</span>
+        ) : (
+          <TechIcon slug={technology} fallback={techIcon} size={16} />
+        )}
         <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-1)", flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
           {current?.label || currentSection}
         </span>

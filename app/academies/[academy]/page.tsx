@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { getAcademy } from "@/lib/data/academies";
 import { ArrowRight, CheckCircle, Clock, BookOpen, FlaskConical, Trophy } from "lucide-react";
 import { pageMetadata } from "@/lib/seo/metadata";
+import TechIcon from "@/components/icons/TechIcon";
 
 type Props = { params: Promise<{ academy: string }> };
 
@@ -353,7 +354,7 @@ export default async function AcademyPage({ params }: Props) {
               <Link key={tech.slug} href={`/academies/${aSlug}/${tech.slug}`} style={{ textDecoration: "none" }}>
                 <div className="card-hover" style={{ padding: "16px", borderRadius: "10px", border: "1px solid var(--border)", background: "var(--bg-1)", cursor: "pointer" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
-                    <span style={{ fontSize: "20px" }}>{tech.icon}</span>
+                    <TechIcon slug={tech.slug} fallback={tech.icon} size={20} />
                     <span style={{ fontWeight: 600, fontSize: "13px" }}>{tech.name}</span>
                     <span style={{ marginLeft: "auto", fontSize: "10px", padding: "2px 6px", borderRadius: "4px", background: "var(--bg-2)", color: "var(--text-4)" }}>{tech.level}</span>
                   </div>

@@ -8,6 +8,7 @@ import { getLastUpdated } from "@/lib/content/last-updated";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getFirstPaperByExamType } from "@/lib/supabase/questionBank";
 import { Sparkles } from "lucide-react";
+import TechIcon from "@/components/icons/TechIcon";
 import SectionContent from "@/components/tech/SectionContent";
 import LabsSection from "@/components/tech/LabsSection";
 import AuthorBadge from "@/components/tech/AuthorBadge";
@@ -235,7 +236,7 @@ export default async function SectionPage({ params }: Props) {
             ← {academy.title}
           </Link>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "10px" }}>
-            <span style={{ fontSize: "20px" }}>{tech.icon}</span>
+            <TechIcon slug={tSlug} fallback={tech.icon} size={20} />
             <span style={{ fontWeight: 700, fontSize: "16px" }}>{tech.name}</span>
           </div>
         </div>
