@@ -35,10 +35,14 @@ export type QuestionPaper = {
 };
 
 export type QuestionOption = { id: string; option_text: string };
+export type AnswerType = "mcq" | "numeric";
 export type QuestionWithOptions = {
   id: string;
   sort_order: number;
   question_text: string;
+  subject: string | null;
+  topic: string | null;
+  answer_type: AnswerType;
   options: QuestionOption[];
 };
 
@@ -60,6 +64,10 @@ export type AttemptResponseRow = {
   question_id: string;
   shown_option_order: string[];
   selected_option_id: string | null;
+  // NUMERIC column — PostgREST returns it as a string, not a JS number
+  // (same gotcha as paper_attempts.score elsewhere in this file); callers
+  // must Number() it before doing arithmetic or equality comparisons.
+  numeric_answer: string | null;
   is_correct: boolean | null;
 };
 
@@ -143,6 +151,63 @@ export async function getPaperTimeLimitMinutes(supabase: SupabaseClient, paperId
   }
 }
 
+// Isolated from the shared paper-select() clauses for the same reason as
+// getPaperTimeLimitMinutes above: positive_marks/negative_marks
+// (docs/add-question-subject-marking.sql) is a newer column than the base
+// schema, and no other caller needs a per-paper marking scheme besides
+// grading/results — bundling it into getPaperCatalog/getPaperBySlug would
+// put every paper-listing page at risk of a query error on an environment
+// where this migration hasn't run yet, for a field those pages never use.
+export async function getPaperMarkingScheme(
+  supabase: SupabaseClient,
+  paperId: string
+): Promise<{ positiveMarks: number; negativeMarks: number }> {
+  try {
+    const { data, error } = await supabase
+      .from("question_papers")
+      .select("positive_marks, negative_marks")
+      .eq("id", paperId)
+      .maybeSingle();
+    if (error) throw error;
+    return {
+      positiveMarks: Number(data?.positive_marks ?? 1),
+      negativeMarks: Number(data?.negative_marks ?? 0),
+    };
+  } catch (err) {
+    console.error("getPaperMarkingScheme failed (column may not exist yet — falling back to 1/0):", err);
+    return { positiveMarks: 1, negativeMarks: 0 };
+  }
+}
+
+// Isolated from the questions-select() clause above for the same reason as
+// getPaperTimeLimitMinutes/getPaperMarkingScheme: answer_type
+// (docs/add-numeric-answer-type.sql) is a newer column than the base
+// schema. Bundling it into the shared question fetch would break the
+// ENTIRE attempt page — for every paper, MCQ included — on any environment
+// where this migration hasn't been applied yet (an "undefined column"
+// error fails the whole multi-column select, not just this one field).
+// Isolating it means only numeric-question support degrades (falling back
+// to "mcq", which is correct for every question authored before this
+// migration existed) if the column is missing; nothing else breaks.
+async function getAnswerTypesByQuestionId(
+  supabase: SupabaseClient,
+  questionIds: string[]
+): Promise<Map<string, AnswerType>> {
+  const fallback = new Map<string, AnswerType>();
+  if (questionIds.length === 0) return fallback;
+  try {
+    const { data, error } = await supabase
+      .from("questions")
+      .select("id, answer_type")
+      .in("id", questionIds);
+    if (error) throw error;
+    return new Map((data ?? []).map((q) => [q.id as string, (q.answer_type as AnswerType | null) ?? "mcq"]));
+  } catch (err) {
+    console.error("getAnswerTypesByQuestionId failed (column may not exist yet — falling back to mcq for all):", err);
+    return fallback;
+  }
+}
+
 // Questions+options in ORIGINAL sort_order — used internally to build the
 // per-attempt shuffle and to map ids -> display text. Never render this
 // return value's order directly on the practice screen; only the shuffled
@@ -154,13 +219,15 @@ export async function getPaperQuestionsWithOptions(
   try {
     const { data: questions, error: qErr } = await supabase
       .from("questions")
-      .select("id, sort_order, question_text")
+      .select("id, sort_order, question_text, subject, topic")
       .eq("paper_id", paperId)
       .order("sort_order", { ascending: true });
     if (qErr) throw qErr;
     if (!questions || questions.length === 0) return [];
 
     const questionIds = questions.map((q) => q.id as string);
+    const answerTypeById = await getAnswerTypesByQuestionId(supabase, questionIds);
+
     const { data: options, error: oErr } = await supabase
       .from("question_options")
       .select("id, question_id, sort_order, option_text")
@@ -179,6 +246,9 @@ export async function getPaperQuestionsWithOptions(
       id: q.id as string,
       sort_order: q.sort_order as number,
       question_text: q.question_text as string,
+      subject: (q.subject as string | null) ?? null,
+      topic: (q.topic as string | null) ?? null,
+      answer_type: answerTypeById.get(q.id as string) ?? "mcq",
       options: optionsByQuestion.get(q.id as string) ?? [],
     }));
   } catch (err) {
@@ -212,7 +282,30 @@ export async function getAttemptWithResponses(
       .eq("attempt_id", attemptId);
     if (rErr) throw rErr;
 
-    return { attempt: attempt as AttemptRow, responses: (responses ?? []) as AttemptResponseRow[] };
+    // Isolated from the select above for the same reason as
+    // getAnswerTypesByQuestionId: numeric_answer
+    // (docs/add-numeric-answer-type.sql) is a newer column. Bundling it
+    // into the main select would break the ENTIRE in-progress-attempt page
+    // — for every paper, MCQ included — on an environment where this
+    // migration hasn't been applied yet.
+    let numericAnswerById = new Map<string, string | null>();
+    try {
+      const { data: numericRows, error: numErr } = await supabase
+        .from("attempt_responses")
+        .select("id, numeric_answer")
+        .eq("attempt_id", attemptId);
+      if (numErr) throw numErr;
+      numericAnswerById = new Map((numericRows ?? []).map((r) => [r.id as string, (r.numeric_answer as string | null) ?? null]));
+    } catch (err) {
+      console.error("getAttemptWithResponses: numeric_answer fetch failed (column may not exist yet):", err);
+    }
+
+    const responsesWithNumeric: AttemptResponseRow[] = (responses ?? []).map((r) => ({
+      ...(r as Omit<AttemptResponseRow, "numeric_answer">),
+      numeric_answer: numericAnswerById.get(r.id as string) ?? null,
+    }));
+
+    return { attempt: attempt as AttemptRow, responses: responsesWithNumeric };
   } catch (err) {
     console.error("getAttemptWithResponses failed:", err);
     return null;
@@ -258,7 +351,11 @@ export async function getLatestSubmittedAttempt(
       .limit(1)
       .maybeSingle();
     if (error) throw error;
-    return data as { id: string; score: number | null; total: number | null } | null;
+    if (!data) return null;
+    // score is a NUMERIC column — PostgREST returns it as a string, not a
+    // JS number; coerce so callers doing arithmetic on it don't silently
+    // get string concatenation instead.
+    return { id: data.id as string, score: data.score === null ? null : Number(data.score), total: data.total as number | null };
   } catch (err) {
     console.error("getLatestSubmittedAttempt failed:", err);
     return null;
@@ -347,6 +444,40 @@ export async function recordAnswer(
   }
 }
 
+// Numeric-entry counterpart to recordAnswer() above, for answer_type =
+// "numeric" questions (e.g. JEE Main's NVQs) — same ownership/submitted
+// checks, writing to numeric_answer instead of selected_option_id.
+// numericAnswer of null clears a previously-typed answer back to
+// "unanswered" (mirrors the numeric-input field being emptied out).
+export async function recordNumericAnswer(
+  serviceClient: SupabaseClient,
+  attemptId: string,
+  userId: string,
+  questionId: string,
+  numericAnswer: number | null
+): Promise<boolean> {
+  try {
+    const { data: attempt, error: aErr } = await serviceClient
+      .from("paper_attempts")
+      .select("user_id, submitted_at")
+      .eq("id", attemptId)
+      .maybeSingle();
+    if (aErr) throw aErr;
+    if (!attempt || attempt.user_id !== userId || attempt.submitted_at !== null) return false;
+
+    const { error } = await serviceClient
+      .from("attempt_responses")
+      .update({ numeric_answer: numericAnswer })
+      .eq("attempt_id", attemptId)
+      .eq("question_id", questionId);
+    if (error) throw error;
+    return true;
+  } catch (err) {
+    console.error("recordNumericAnswer failed:", err);
+    return false;
+  }
+}
+
 export async function gradeAttempt(
   serviceClient: SupabaseClient,
   attemptId: string,
@@ -355,16 +486,18 @@ export async function gradeAttempt(
   try {
     const { data: attempt, error: aErr } = await serviceClient
       .from("paper_attempts")
-      .select("id, user_id, started_at, submitted_at")
+      .select("id, user_id, paper_id, started_at, submitted_at")
       .eq("id", attemptId)
       .maybeSingle();
     if (aErr) throw aErr;
     if (!attempt || attempt.user_id !== userId) return null;
     if (attempt.submitted_at !== null) return null;
 
+    const { positiveMarks, negativeMarks } = await getPaperMarkingScheme(serviceClient, attempt.paper_id as string);
+
     const { data: responses, error: rErr } = await serviceClient
       .from("attempt_responses")
-      .select("id, attempt_id, question_id, shown_option_order, selected_option_id")
+      .select("id, attempt_id, question_id, shown_option_order, selected_option_id, numeric_answer")
       .eq("attempt_id", attemptId);
     if (rErr) throw rErr;
     if (!responses || responses.length === 0) return null;
@@ -372,24 +505,48 @@ export async function gradeAttempt(
     const questionIds = responses.map((r) => r.question_id as string);
     const { data: answers, error: ansErr } = await serviceClient
       .from("question_answers")
-      .select("question_id, correct_option_id")
+      .select("question_id, correct_option_id, correct_numeric_answer")
       .in("question_id", questionIds);
     if (ansErr) throw ansErr;
 
-    const correctByQuestion = new Map<string, string>();
-    for (const a of answers ?? []) correctByQuestion.set(a.question_id as string, a.correct_option_id as string);
+    // Exactly one of these two is ever populated per row (enforced by the
+    // question_answers_exactly_one_answer_shape CHECK constraint) — no
+    // separate "which shape" flag needed here, just check which field the
+    // authored answer actually has.
+    const correctByQuestion = new Map<string, { optionId: string | null; numericAnswer: number | null }>();
+    for (const a of answers ?? []) {
+      correctByQuestion.set(a.question_id as string, {
+        optionId: (a.correct_option_id as string | null) ?? null,
+        numericAnswer: a.correct_numeric_answer != null ? Number(a.correct_numeric_answer) : null,
+      });
+    }
 
     let score = 0;
     const updates = responses.map((r) => {
-      const correctOptionId = correctByQuestion.get(r.question_id as string);
-      const isCorrect = correctOptionId != null && r.selected_option_id === correctOptionId;
-      if (isCorrect) score++;
+      const correct = correctByQuestion.get(r.question_id as string);
+      const numericAnswer = r.numeric_answer != null ? Number(r.numeric_answer) : null;
+      const isAnswered = r.selected_option_id !== null || numericAnswer !== null;
+
+      let isCorrect = false;
+      if (correct?.optionId != null) {
+        isCorrect = r.selected_option_id === correct.optionId;
+      } else if (correct?.numericAnswer != null && numericAnswer != null) {
+        // Canonical numeric equality (5 == 5.0 == 5.00), per NTA's own
+        // published NVQ rule that trailing zeroes are disregarded — not a
+        // fuzzy/epsilon tolerance band. Number() coercion on both sides
+        // gives this for free; no custom tolerance-window logic needed.
+        isCorrect = numericAnswer === correct.numericAnswer;
+      }
+
+      if (isCorrect) score += positiveMarks;
+      else if (isAnswered) score -= negativeMarks;
       return {
         id: r.id as string,
         attempt_id: r.attempt_id as string,
         question_id: r.question_id as string,
         shown_option_order: r.shown_option_order,
         selected_option_id: r.selected_option_id as string | null,
+        numeric_answer: numericAnswer,
         is_correct: isCorrect,
       };
     });
@@ -440,15 +597,21 @@ const FULL_REVIEW_COMPLETION_THRESHOLD = 0.8;
 export type AttemptResultQuestion = {
   id: string;
   question_text: string;
+  subject: string | null;
+  topic: string | null;
+  answerType: AnswerType;
   options: QuestionOption[];
   selectedOptionId: string | null;
+  selectedNumericAnswer: number | null;
   isCorrect: boolean;
   // Unanswered + attempt didn't meet the completion threshold. When true,
-  // correctOptionId/explanation/sourceNote are never populated with the real
-  // values below — not a UI-hides-it convention, the answer key data for
-  // this question genuinely never leaves getAttemptResults().
+  // correctOptionId/correctNumericAnswer/explanation/sourceNote are never
+  // populated with the real values below — not a UI-hides-it convention,
+  // the answer key data for this question genuinely never leaves
+  // getAttemptResults().
   reviewLocked: boolean;
   correctOptionId: string;
+  correctNumericAnswer: number | null;
   explanation: string;
   sourceNote: string | null;
 };
@@ -457,6 +620,16 @@ export type AttemptResults = {
   attemptId: string;
   paperId: string;
   score: number;
+  // Max possible score under the paper's current marking scheme
+  // (total questions × positive_marks) — NOT the same as `total`, which
+  // stays a plain question count for the answered% / review-threshold math
+  // elsewhere. Only use maxScore for score percentage display.
+  maxScore: number;
+  // Exposed so per-subject score can be recomputed client-side (the subject
+  // breakdown table) using the same formula as gradeAttempt() — there's no
+  // per-subject score persisted anywhere, only the whole-paper total.
+  positiveMarks: number;
+  negativeMarks: number;
   total: number;
   answeredCount: number;
   fullReviewUnlocked: boolean;
@@ -481,7 +654,7 @@ export async function getAttemptResults(
 
     const { data: responses, error: rErr } = await serviceClient
       .from("attempt_responses")
-      .select("question_id, shown_option_order, selected_option_id, is_correct")
+      .select("question_id, shown_option_order, selected_option_id, numeric_answer, is_correct")
       .eq("attempt_id", attemptId);
     if (rErr) throw rErr;
     if (!responses) return null;
@@ -490,9 +663,13 @@ export async function getAttemptResults(
 
     const { data: questions, error: qErr } = await serviceClient
       .from("questions")
-      .select("id, question_text")
+      .select("id, question_text, subject, topic")
       .in("id", questionIds);
     if (qErr) throw qErr;
+
+    const answerTypeById = await getAnswerTypesByQuestionId(serviceClient, questionIds);
+
+    const { positiveMarks, negativeMarks } = await getPaperMarkingScheme(serviceClient, attempt.paper_id as string);
 
     const { data: options, error: oErr } = await serviceClient
       .from("question_options")
@@ -502,23 +679,31 @@ export async function getAttemptResults(
 
     const { data: answers, error: ansErr } = await serviceClient
       .from("question_answers")
-      .select("question_id, correct_option_id, explanation, source_note")
+      .select("question_id, correct_option_id, correct_numeric_answer, explanation, source_note")
       .in("question_id", questionIds);
     if (ansErr) throw ansErr;
 
     const questionTextById = new Map((questions ?? []).map((q) => [q.id as string, q.question_text as string]));
+    const questionMetaById = new Map(
+      (questions ?? []).map((q) => [q.id as string, { subject: (q.subject as string | null) ?? null, topic: (q.topic as string | null) ?? null }])
+    );
     const optionById = new Map((options ?? []).map((o) => [o.id as string, { id: o.id as string, option_text: o.option_text as string }]));
     const responseByQuestion = new Map(responses.map((r) => [r.question_id as string, r]));
     const answerByQuestion = new Map(
       (answers ?? []).map((a) => [
         a.question_id as string,
-        { correctOptionId: a.correct_option_id as string, explanation: a.explanation as string, sourceNote: a.source_note as string | null },
+        {
+          correctOptionId: (a.correct_option_id as string | null) ?? null,
+          correctNumericAnswer: a.correct_numeric_answer != null ? Number(a.correct_numeric_answer) : null,
+          explanation: a.explanation as string,
+          sourceNote: a.source_note as string | null,
+        },
       ])
     );
 
     const orderedQuestionIds = (attempt.question_order as string[]).filter((qid) => responseByQuestion.has(qid));
 
-    const answeredCount = responses.filter((r) => r.selected_option_id !== null).length;
+    const answeredCount = responses.filter((r) => r.selected_option_id !== null || r.numeric_answer !== null).length;
     const fullReviewUnlocked =
       responses.length === 0 || answeredCount / responses.length >= FULL_REVIEW_COMPLETION_THRESHOLD;
 
@@ -528,28 +713,41 @@ export async function getAttemptResults(
       const orderedOptions = (response.shown_option_order as string[])
         .map((oid) => optionById.get(oid))
         .filter((o): o is QuestionOption => Boolean(o));
+      const selectedNumericAnswer = response.numeric_answer != null ? Number(response.numeric_answer) : null;
 
-      const isUnanswered = response.selected_option_id === null;
+      const isUnanswered = response.selected_option_id === null && selectedNumericAnswer === null;
       const reviewLocked = isUnanswered && !fullReviewUnlocked;
 
+      const meta = questionMetaById.get(qid);
       return {
         id: qid,
         question_text: questionTextById.get(qid) ?? "",
+        subject: meta?.subject ?? null,
+        topic: meta?.topic ?? null,
+        answerType: answerTypeById.get(qid) ?? "mcq",
         options: orderedOptions,
         selectedOptionId: response.selected_option_id as string | null,
+        selectedNumericAnswer,
         isCorrect: Boolean(response.is_correct),
         reviewLocked,
         correctOptionId: reviewLocked ? "" : answer?.correctOptionId ?? "",
+        correctNumericAnswer: reviewLocked ? null : answer?.correctNumericAnswer ?? null,
         explanation: reviewLocked ? "" : answer?.explanation ?? "",
         sourceNote: reviewLocked ? null : answer?.sourceNote ?? null,
       };
     });
 
+    const total = (attempt.total as number) ?? resultQuestions.length;
     return {
       attemptId: attempt.id as string,
       paperId: attempt.paper_id as string,
-      score: (attempt.score as number) ?? 0,
-      total: (attempt.total as number) ?? resultQuestions.length,
+      // NUMERIC columns come back from PostgREST as strings, not JS numbers —
+      // Number(null) is 0, so this also covers the pre-submission null case.
+      score: Number(attempt.score ?? 0),
+      maxScore: total * positiveMarks,
+      positiveMarks,
+      negativeMarks,
+      total,
       answeredCount,
       fullReviewUnlocked,
       timeTakenSeconds: attempt.time_taken_seconds as number | null,

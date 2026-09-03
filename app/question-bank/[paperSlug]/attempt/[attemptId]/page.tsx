@@ -49,12 +49,20 @@ export default async function AttemptPage({ params }: Props) {
       const orderedOptions = response.shown_option_order
         .map((oid) => optionMap.get(oid))
         .filter((o): o is { id: string; option_text: string } => Boolean(o));
-      return { id: question.id, question_text: question.question_text, options: orderedOptions };
+      return {
+        id: question.id,
+        question_text: question.question_text,
+        subject: question.subject,
+        answer_type: question.answer_type,
+        options: orderedOptions,
+      };
     })
     .filter((q): q is AttemptQuestion => Boolean(q));
 
   const initialSelections: Record<string, string | null> = {};
-  for (const r of responses) initialSelections[r.question_id] = r.selected_option_id;
+  for (const r of responses) {
+    initialSelections[r.question_id] = r.selected_option_id ?? (r.numeric_answer != null ? r.numeric_answer : null);
+  }
 
   return (
     <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "32px 24px" }}>

@@ -45,11 +45,21 @@ export const techSections = [
 // when a new technology gets real question-bank papers (e.g. VLSI, AEE, CPC).
 export const technologyExamTypeMap: Record<string, string> = {
   "healthcare/bchhc-prep": "bchhc",
+  "healthcare/cpt": "cpt",
+  "healthcare/ccs": "ccs",
   "devops/kubernetes": "kubernetes",
   "devops/terraform": "terraform",
   "devops/docker": "docker",
   "devops/ansible": "ansible",
   "central-exams/hal-trainee-prep": "hal-trainee",
+  "exams/neet-biology": "neet",
+  "exams/neet-physics": "neet",
+  "exams/neet-chemistry": "neet",
+  "exams/neet-mocktests": "neet",
+  "exams/jee-main": "jee-main",
+  "exams/jee-physics": "jee-main",
+  "exams/jee-chemistry": "jee-main",
+  "exams/jee-maths": "jee-main",
 };
 
 // Same existence-check pattern as technologyExamTypeMap above, but keyed by
@@ -93,6 +103,8 @@ export const certificationExamTypeMap: Record<string, string> = {
 // the same pattern DevOps already uses for its four.
 export const examTypeGroupMap: Record<string, { group: string; label: string }> = {
   bchhc: { group: "Healthcare", label: "BCHHC (Board Certified Home Health Coder)" },
+  cpt: { group: "Healthcare", label: "CPT Coding Proficiency" },
+  ccs: { group: "Healthcare", label: "CCS (Certified Coding Specialist, AHIMA)" },
   kubernetes: { group: "DevOps", label: "Kubernetes (CKA / CKAD / KCNA / CKS)" },
   terraform: { group: "DevOps", label: "Terraform (HashiCorp Certified)" },
   docker: { group: "DevOps", label: "Docker (DCA)" },
@@ -100,6 +112,8 @@ export const examTypeGroupMap: Record<string, { group: string; label: string }> 
   "aws-saa": { group: "Cloud", label: "AWS Solutions Architect Associate" },
   "comptia-sec-plus": { group: "Security", label: "CompTIA Security+" },
   "hal-trainee": { group: "Central Govt Exams", label: "HAL Design/Management Trainee (DT/MT)" },
+  neet: { group: "Competitive Exams", label: "NEET UG (Medical Entrance)" },
+  "jee-main": { group: "Competitive Exams", label: "JEE Main (Engineering Entrance)" },
 };
 
 export const certifications = [
