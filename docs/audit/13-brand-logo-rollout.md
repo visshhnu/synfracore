@@ -1,9 +1,81 @@
 # Real Brand Logo Icons — Rollout Tracker
 
-**Started:** 2026-09-01. **Full rollout completed:** 2026-09-03.
-**Status: DONE — REGISTRY holds 55 verified real-logo entries, wired into
+**Started:** 2026-09-01. **Full simple-icons rollout completed:** 2026-09-03.
+**Phase C — AWS/Azure real icons completed:** 2026-09-03.
+**Status: DONE — REGISTRY holds 55 verified simple-icons entries, plus 14
+official AWS/Azure Architecture Icons entries (BRAND_ASSETS), wired into
 every genuine technology-icon render location on the site. Deployed to
-production (version `3fce24cc-f1b5-49e5-8512-e134605ceb6f`).**
+production (versions `3fce24cc-f1b5-49e5-8512-e134605ceb6f` for the
+simple-icons rollout, `08225c76-2b90-438f-9329-83c423c9e43c` for Phase C).**
+
+## Phase C — AWS/Azure real icons (2026-09-03)
+
+Closes the AWS/Azure gap flagged throughout the simple-icons rollout above
+(neither vendor has ANY entry in simple-icons at all — a real, confirmed
+trademark-related exclusion, not a gap in that library). Sourced from each
+vendor's own official Architecture Icons asset packs instead — a
+genuinely different pipeline from simple-icons, not a variant of it.
+
+**Sources, verified directly, not assumed**:
+- AWS: `https://aws.amazon.com/architecture/icons/` — current package
+  (`Icon-package_07312026...zip`), confirmed live via direct download.
+- Azure: `https://learn.microsoft.com/en-us/azure/architecture/icons/` —
+  current package (`Azure_Public_Service_Icons_V24.zip`), confirmed live,
+  including its bundled `Microsoft_Terms_of_Use.pdf`.
+- Microsoft Entra ID specifically required a THIRD, separate package
+  (`https://download.microsoft.com/.../Microsoft Entra architecture icons
+  - Oct 2023.zip`) — the main Azure package has no bare "Entra ID" icon,
+  only sub-feature icons (Entra Connect, Entra ID Protection, etc.).
+
+**Scope — 14 service-level technologies, not a full library pull**:
+`aws-iam`, `aws-ec2`, `aws-vpc`, `aws-s3`, `aws-rds`, `aws-lambda`,
+`aws-eks`, `cloudformation`, `dynamodb`, `azure-entra`, `azure-vms`,
+`azure-vnets`, `azure-aks`, `azure-devops` — exactly the set
+`lib/data/academies.ts` already names, nothing broader.
+
+**A real scope narrowing, made and disclosed before deploying**: the
+generic parent/overview slugs `aws` and `azure` are deliberately NOT
+included, even though both vendors' Architecture Icons pages grant clear
+permission for service icons in documentation/training use (our exact use
+case). AWS's separate, broader Trademark Guidelines state that logo use
+beyond the Architecture Icons page's own scope "requires prior AWS
+approval" — a stricter standard that plausibly applies to AWS's own
+general brand mark rather than individual service icons. Rather than
+judge which side of that line the generic "AWS Cloud" icon falls on, both
+`aws` and `azure` stay on the emoji fallback indefinitely (one consistent
+standard applied to both vendors, not just AWS) — same as they already
+correctly do in the simple-icons REGISTRY above.
+
+**Technical shape — a genuinely different rendering contract from
+REGISTRY**: simple-icons ships a single SVG *path* per brand that this
+component recolors to the brand's hex on our own tinted backdrop. AWS's
+and Microsoft's official icons ship complete, already-colored pictograms
+(AWS: a full-bleed solid-color square background baked into the file;
+Azure: a gradient/multi-color icon on a transparent canvas) — there is no
+extractable path and no hex to recolor with, and both vendors' own terms
+explicitly prohibit exactly that (no cropping/distorting/recoloring, use
+as provided). `components/icons/TechIcon.tsx` gained a second, separate
+`BRAND_ASSETS` registry and render branch: a plain `<img>` at fixed size
+with `object-fit: contain`, `border-radius`+`overflow:hidden` on the
+container only (clips corners of AWS's own baked-in square, never actual
+icon content), and a neutral `var(--bg-2)` backdrop for Azure's
+transparent-canvas icons only (not a color derived from the icon).
+
+**C3 compliance pass** — reported to the user in full before deploying,
+per: clear-space (fixed-size `<img>`, `object-fit:contain`, no
+crop/distort), no recoloring (files used byte-for-byte as downloaded,
+verified via direct `cp` with no edits), no implied endorsement (icons
+label the technology a page teaches, exactly like a certification badge
+identifies its subject — nothing on the page states or implies an
+AWS/Microsoft partnership).
+
+**Verified**: `tsc --noEmit` clean; local dev-server screenshots in both
+themes across the sidebar (section page), academy technology grid, mobile
+drawer (zoomed to confirm at actual small render size), and
+`SectionContent`'s large empty-state icon — all render the real official
+icons correctly; a live post-deploy check confirming the `<img>` element
+actually loaded (`naturalWidth > 0`, not a broken reference) on
+production, not just returning 200 for the asset URL.
 
 ## Second-pass additions (2026-09-03, same day, deeper candidate search)
 
