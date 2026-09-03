@@ -7,7 +7,7 @@
 
 ---
 
-**Before you start:** no prior background is needed — this page assumes no existing health or wellness knowledge.
+**Before you start:** no prior background is needed — this page assumes no existing health or wellness knowledge. *(Note: specific figures below — sleep-hour ranges, lab-value categories like BP/glucose/cholesterol/BMI — reflect commonly cited health-science reference points; treat them as general guidance, not personalized medical advice, and consult a doctor for anything specific to your own numbers.)*
 
 ## What is Human Essentials?
 

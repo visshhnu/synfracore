@@ -1,6 +1,6 @@
 # Hygiene & Sanitation — Prevention Is Better Than Cure
 
-**Before you start:** no prior background is needed — this page covers hygiene practices from the basics up.
+**Before you start:** no prior background is needed — this page covers hygiene practices from the basics up. *(Note: specific figures below — disease-reduction percentages, timings — reflect commonly cited public-health reference points (WHO/CDC-adjacent studies); the exact percentages vary meaningfully across individual studies and meta-analyses, so treat them as general guidance rather than a precise, settled figure.)*
 
 Personal hygiene is your first line of defense against disease. Many of the most common illnesses — diarrhea, respiratory infections, skin infections, dental disease — are almost entirely preventable through consistent hygiene practices.
 
