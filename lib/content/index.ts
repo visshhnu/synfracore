@@ -2456,6 +2456,7 @@ const contentRegistry = new Map<string, string>([
   ["telecom/networking-protocols/intermediate","telecom/networking-protocols/intermediate"],
   ["telecom/networking-protocols/interview","telecom/networking-protocols/interview"],
   ["telecom/networking-protocols/overview","telecom/networking-protocols/overview"],
+  ["telecom/telco/advanced","telecom/telco/advanced"],
   ["telecom/telco/fundamentals","telecom/telco/fundamentals"],
   ["telecom/telco/intermediate","telecom/telco/intermediate"],
   ["telecom/telco/interview","telecom/telco/interview"],
