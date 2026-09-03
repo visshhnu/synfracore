@@ -1,5 +1,15 @@
 # SSC Exams — Combined Graduate Level (CGL) and Other Exams
 
+**Before you start:** no prior background needed — this covers the SSC exam landscape from the structure up.
+
+## Why This Section Exists Separately
+
+Most SSC aspirants start memorizing formulas and vocabulary without first understanding how the exam is actually structured — and get blindsided by things the syllabus itself never warns about, like Tier 1's strict per-section time lock, or the fact that Tier 1 doesn't count toward final rank at all. Understanding the real exam architecture before studying changes how you prepare, not just what you study.
+
+**Analogy** — Think of SSC's tier structure like a resume screen followed by a real interview. Tier 1 only decides whether you get through the door — the score itself doesn't carry into your final standing. Tier 2 is where you're actually ranked. Someone who barely clears Tier 1 but performs strongly in Tier 2 outranks someone who topped Tier 1 but did poorly in Tier 2.
+
+**Try it (2 minutes)** — Reason through why SSC locks each Tier 1 section to a strict time window instead of letting you freely allocate time across all sections: if time could move freely, a candidate strong in one section could "buy" time for a weak section, lowering the real bar there. A strict per-section lock forces every candidate to show a genuine minimum in each section independently.
+
 ## SSC — Staff Selection Commission
 
 SSC recruits for Group B and C posts in Central Government departments, ministries, and organizations. It is one of India's largest recruiters.

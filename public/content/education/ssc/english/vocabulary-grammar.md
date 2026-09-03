@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 English carries 25-50 marks in SSC CGL (Tier 1: 25 marks, Tier 2 English paper: 200 marks). Vocabulary (synonyms, antonyms, idioms, one-word) and Grammar (error detection, sentence improvement) are the core components.
 
+**Analogy** — Think of building SSC vocabulary like learning a small, fixed set of tools rather than trying to learn an entire dictionary. SSC recycles a genuinely bounded set of high-frequency words and idioms year after year (the same "tools" keep reappearing), which is exactly why targeted practice on frequently-tested lists beats broad, unfocused reading for exam-specific vocabulary gains — you're not trying to master English as a whole, you're mastering the specific, repeating subset SSC actually tests.
+
 ## Vocabulary
 
 ### 1. High-Frequency Synonyms (SSC)
@@ -130,4 +132,8 @@ GRAMMAR: Most common SSC errors:
 3. Tense (yesterday → simple past; since point, for duration)
 4. Article (an + vowel SOUND; a + consonant SOUND)
 5. Redundancy (return back, revert back, end result)
+
+## Try It (2 Minutes)
+
+Find the error: "Each of the students have submitted their assignment." Before checking the rule above, read it aloud — it probably sounds fine, because "students" (plural) makes "have" feel natural. But the actual subject is "Each," not "students" — "students" is inside a prepositional phrase ("of the students") that doesn't change the subject's number. So the correct verb is "has," not "have." This is exactly the SSC error-detection trap: a plural noun sitting near the verb, even though it isn't grammatically the subject.
 ```

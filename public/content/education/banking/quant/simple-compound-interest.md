@@ -1,5 +1,10 @@
 # Simple and Compound Interest
 
+## Why This Chapter Matters
+SI/CI questions appear in 2-4 banking Quant questions per paper, and the underlying compounding concept also shows up disguised inside population-growth and depreciation word problems.
+
+**Analogy** — Think of Simple Interest like flat rent that's always calculated on the same original amount, and Compound Interest like a snowball rolling downhill, picking up more snow (and more surface area to pick up even more) as it goes. SI pays interest only ever on the original Principal — the base never changes. CI pays interest on Principal PLUS all interest already earned so far, so each period's interest becomes part of the next period's base — exactly why CI overtakes SI increasingly with each additional year, even at an identical rate.
+
 ## Core Concepts
 
 ### 1. Simple Interest (SI)
@@ -58,4 +63,8 @@ Half-yearly: A = P(1+R/200)^(2T)
 Quarterly: A = P(1+R/400)^(4T)
 
 RULE OF 72: Doubling time ≈ 72/R years
+
+## Try It (2 Minutes)
+
+₹5000 at 10% for 2 years — calculate SI and CI separately, year by year, without the formula shortcut. Year 1: both give ₹500 interest (10% of ₹5000) — identical so far. Year 2: SI still gives ₹500 (always 10% of the original ₹5000), but CI gives 10% of ₹5500 (last year's total) = ₹550. Confirm the gap (₹50) matches the CI-SI difference formula: P(R/100)² = 5000×(0.1)² = ₹50. Notice the two methods agree exactly in Year 1 and only diverge from Year 2 onward — that's the moment compounding actually starts.
 ```

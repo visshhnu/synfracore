@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 Number system is the foundation of SSC CGL Tier 1 and Tier 2 quantitative aptitude — 3-5 questions every paper. HCF, LCM, divisibility rules, and number properties are tested directly and as part of word problems.
 
+**Analogy** — Think of HCF and LCM like finding the largest shared "building block" versus the smallest shared "meeting point" between two repeating patterns. HCF asks: what's the biggest identical piece both numbers can be cut into evenly? LCM asks: at what point do two repeating cycles (like two traffic lights blinking at different intervals) line up again at the same time? That's exactly why "bells ringing together" problems use LCM (finding the next shared meeting point) while "largest tile that evenly fits a floor" problems use HCF (finding the largest shared piece).
+
 ## Core Concepts
 
 ### 1. Types of Numbers
@@ -115,3 +117,7 @@ Largest divisor leaving same remainder r from x,y,z → HCF(x-r, y-r, z-r)
 Smallest multiple + remainder r → LCM + r
 Bells/signals together → LCM of intervals
 ```
+
+## Try It (2 Minutes)
+
+Two traffic lights blink every 12 seconds and every 18 seconds respectively, both starting together right now. Without looking up the formula, reason through when they'll next blink at exactly the same moment: list out the first few times each light blinks (12, 24, 36, 48... and 18, 36, 54...) and find the first number common to both lists. Check that this matches LCM(12,18) = 36 — and notice that you just derived LCM's actual meaning (the first shared point between two repeating cycles) rather than just applying a memorized formula.

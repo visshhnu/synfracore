@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 Cloze Test (fill in the blanks in a passage) has 5-10 marks in banking exams. The new pattern is harder — double fillers and contextual vocabulary. Master both old and new patterns.
 
+**Analogy** — Think of a Cloze passage like a chain where each link has to connect correctly to the ones on both sides, not just look sturdy on its own. A word can be a perfectly valid English word and still be the wrong choice if it breaks the passage's tone (formal vs casual) or contradicts a connector used two sentences earlier — banking Cloze passages specifically favor formal, economy-related vocabulary (fiscal, prudent, resilient) over casual synonyms precisely because of this "fits the surrounding chain" requirement.
+
 ## Types
 
 ### 1. Traditional Cloze Test
@@ -79,3 +81,7 @@ Economy: fiscal, monetary, deficit, surplus, repo, liquidity
 Connectors: however, therefore, albeit, notwithstanding, consequently
 Formal: prudent, stringent, volatile, resilient, mitigate
 ```
+
+## Try It (2 Minutes)
+
+"The bank's exposure to volatile markets was ___, prompting a swift review of its lending policy." Before picking a word, notice what the sentence needs: something that explains WHY a swift review followed. "Significant" or "considerable" fits (a large exposure would justify urgent review) — but a mismatched word like "negligible" would contradict the very next clause. This is the exact skill banking Cloze tests: does your word choice logically support what comes immediately after it, not just fit grammatically in isolation.

@@ -1,5 +1,10 @@
 # Time and Work
 
+## Why This Chapter Matters
+Time and Work appears in 2-3 banking Quant questions, often combined with wage-distribution or pipes-and-cisterns variants — all of which reduce to the same underlying "rate" concept.
+
+**Analogy** — Think of "1-day work" like an hourly output rate, the same way you'd describe a factory's production rate. If A finishes a job in 10 days, A's rate is 1/10 of the job per day — combining two people's work is just adding their rates, the same way two machines running in parallel add their hourly output. Pipes and wages are the identical idea in different clothing: an inlet pipe's rate adds, an outlet pipe's rate subtracts, and wage share is distributed in proportion to each person's rate — because rate IS contribution.
+
 ## Core Concepts
 
 ### 1. Basic Concept
@@ -69,3 +74,7 @@ Inlet: +1/a per hour
 Outlet: -1/b per hour
 Net: 1/a - 1/b per hour
 ```
+
+## Try It (2 Minutes)
+
+A and B can finish a job in 10 and 15 days respectively; they work together but B leaves after 3 days. Before using shortcuts, reason step by step: combined rate = 1/10+1/15 = 1/6 per day, so in 3 days together they complete 3×(1/6) = 1/2 of the job. Remaining work = 1/2, and now only A continues at 1/10 per day, so A needs 1/2 ÷ 1/10 = 5 more days. Total: 3+5 = 8 days — notice this whole problem is just rate-addition and rate-based division, nothing beyond what "1-day work" already gave you.

@@ -1,5 +1,7 @@
 # English Language — Fundamentals
 
+**Analogy** — Think of reading the questions before the passage like reading a map's destination before starting to drive. Knowing what you're looking for means you scan with purpose, spotting the relevant sentence as you pass it — rather than reading once for general understanding and again to hunt for each answer.
+
 ## Reading Comprehension: applying the question-first strategy correctly
 
 The Overview tab's guidance — read questions before the passage for factual/detail questions — needs a specific execution method to actually save time rather than just shuffling where time is spent:
@@ -89,3 +91,5 @@ This mirrors the Reading Comprehension principle directly — understanding the 
 ## Building a personalized grammar error log, not generic revision
 
 The Overview tab's guidance to maintain a personalized list of grammar rules you personally get wrong, rather than generic revision, reflects a real efficiency principle: generic grammar revision spends equal time on rules you already handle correctly and rules that are genuinely your specific weak points, while a personalized error log concentrates all revision time on your actual, confirmed gaps. Building this log requires the same discipline as the mock-analysis habit covered in this platform's other exam-prep content — recording not just "got this wrong" but the specific rule category (subject-verb agreement with collective nouns, a specific preposition pairing) each time an error-spotting question is missed, and reviewing that log's recurring patterns specifically, is what makes grammar revision time genuinely efficient rather than diffusely spread across material regardless of actual need.
+
+**Try it (2 minutes)** — "Please revert back to me with your decision." Before checking any rule, ask: does "revert" already mean "reply/go back"? If so, "back" repeats that meaning. Spotting this kind of redundancy (revert back, return back, advance planning) is exactly the error-detection skill this page builds — it feels natural in casual speech, which is precisely why it survives unnoticed unless you're specifically scanning for it.

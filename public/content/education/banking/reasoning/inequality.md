@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 Inequalities (symbol-based) appear in every Banking exam — 5 marks. Both direct and coded inequality questions need fast solving. Systematic approach is key.
 
+**Analogy** — Think of chaining inequalities like linking arrows that all point the same direction to see the overall relationship. "A>B" and "B>C" are two arrows both pointing "greater than" — link them (A>B>C) and you can read off that A>C directly, the same way linking two "taller than" statements about three people lets you rank all three without measuring anyone new. The moment an arrow flips direction (a > suddenly followed by a <), the chain breaks — that break is exactly why "combining a strict and a non-strict inequality" needs care rather than blind chaining.
+
 ## Core Concepts
 
 ### 1. Basic Symbols
@@ -75,3 +77,7 @@ Break chain at direction change (> to < or < to >)
 Same inequality can be strengthened: A≥B + B>C → A>C (not A≥C)
 Weakened: A>B + B≥C → A>C still (because B≥C includes B=C, and A>B>C or A>B=C both give A>C)
 ```
+
+## Try It (2 Minutes)
+
+Given: A>B, B≥C, C>D. Before checking any rule, chain them yourself: A>B≥C>D. Can you conclude A>D? Walk through it: A is strictly greater than B, B is at least equal to C, C is strictly greater than D. Even in the "worst case" where B equals C exactly, you still get A>C (since A>B=C means A>C), and C>D, so A>C>D means A>D holds regardless. You've just verified the "weakened chain still yields the strict conclusion" rule by testing the edge case yourself, rather than trusting it as a memorized fact.

@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 Speed, Distance, Time appears in 3-5 questions in SSC — trains, boats, relative speed, and average speed problems are all common. Once you know the patterns, these are quick marks.
 
+**Analogy** — Think of relative speed like walking on a moving walkway at an airport versus walking against its direction. Two objects moving in the SAME direction partially cancel each other out (like walking on the walkway — your effective speed relative to a bystander is higher than your own walking speed, but two walkers matching pace feel almost stationary relative to each other). Two objects moving in OPPOSITE directions add together (walking against the walkway feels much slower to a bystander, but two people approaching each other close the gap at the sum of both speeds). This is exactly why "same direction → subtract speeds" and "opposite direction → add speeds" isn't an arbitrary rule to memorize — it's just describing how fast the gap between two moving things actually changes.
+
 ## Core Concepts
 
 ### 1. Basic Formula
@@ -86,3 +88,7 @@ Boat speed=(D+U)/2 | Stream=(D-U)/2
 RELATIVE SPEED:
 Same dir=|s1-s2| | Opposite=s1+s2
 ```
+
+## Try It (2 Minutes)
+
+Two friends start 100km apart and walk toward each other, one at 4 km/h and one at 6 km/h. Without using the formula, reason through it directly: every hour, the gap between them shrinks by 4+6=10 km (their speeds add, since they're approaching each other). At that rate, how many hours until they meet? Now flip it: if they'd started at the same point and walked in the same direction instead, the gap between them would grow by only 6-4=2 km/hour — confirm for yourself why "opposite direction adds, same direction subtracts" isn't a rule to memorize, but just what actually happens to the distance between two moving points.

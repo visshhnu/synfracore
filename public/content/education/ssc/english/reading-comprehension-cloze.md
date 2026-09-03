@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 RC and Cloze Test together give 10-15 marks in SSC CGL Tier 1 and up to 40 marks in Tier 2 English paper. The SSC pattern uses medium-difficulty passages with direct factual and mild inference questions.
 
+**Analogy** — Think of a Cloze Test like solving a jigsaw puzzle where each blank has to fit with the pieces on BOTH sides of it, not just make sense on its own. A word can be grammatically correct and still be the wrong answer if it doesn't fit the surrounding sentence's tone or the connector logic used two sentences earlier. Reading Comprehension is the reverse skill: instead of fitting one word into a fixed context, you're extracting exactly what the passage actually states — the trap is answering from what you'd expect the passage to say (based on general knowledge) rather than what it specifically says.
+
 ## Reading Comprehension — SSC Pattern
 
 ### What SSC RC Tests
@@ -104,3 +106,7 @@ Addition: moreover, furthermore, additionally, also
 Result: therefore, hence, consequently, thus
 Concession: albeit, even though, while
 ```
+
+## Try It (2 Minutes)
+
+Read this short passage: "The company's profits fell sharply last quarter. ___, it announced a major expansion into new markets." Before picking a connector, ask: does the second sentence AGREE with the first (falling profits → expected caution) or CONTRAST with it (falling profits → unexpected boldness)? Since expanding despite falling profits is a contrast, "However" or "Nevertheless" fits — not "Therefore," even though "therefore" is grammatically valid in the blank. This is exactly the skill Cloze Test rewards: checking logical relationship to surrounding sentences, not just grammatical correctness in isolation.

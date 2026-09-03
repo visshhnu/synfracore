@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 Time and Work gives 2-4 questions in SSC CGL and CHSL. Pipes and Cisterns is the same concept applied to filling/emptying tanks. Master the efficiency method — fastest approach.
 
+**Analogy** — Think of "work" problems like combining two people's hourly output on a shared task, and pipes/cisterns as the exact same idea with a tank instead of a task. If A can paint a wall in 10 hours, A paints 1/10 of the wall every hour — that's A's "rate." Two people working together simply add their rates (1/10 + 1/b), the same way an inlet pipe filling a tank adds water per hour and an outlet pipe draining it subtracts water per hour. Once you see "days to complete" as just "1 ÷ rate," time-and-work and pipes-and-cisterns stop being two separate topics to memorize — they're the same rate-addition idea applied to two different real-world objects.
+
 ## Core Concepts
 
 ### 1. Work Efficiency Method (Best for SSC)
@@ -75,3 +77,7 @@ Net rate = Σinlets - Σoutlets | Time = 1/net rate
 
 SHORTCUT: A does in a, B in b. Together = ab/(a+b). Always less than smaller of a,b.
 ```
+
+## Try It (2 Minutes)
+
+A can paint a room in 6 hours, B can paint the same room in 3 hours. Before computing anything, predict: will they finish together in more or less than 3 hours (B's own solo time)? Now calculate: A's rate is 1/6 per hour, B's rate is 1/3 per hour, combined rate is 1/6+1/3=1/2 per hour, so together they take 2 hours. Confirm this matches your prediction (working together is always faster than either person alone) — and notice this is the exact same rate-addition math as an inlet pipe (B) and a slower inlet pipe (A) filling a tank together.

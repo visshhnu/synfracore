@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 Direction questions have 3-5 marks in banking exams. Shadow-based problems and displacement calculations are trickier. Build a strong compass and always draw the path.
 
+**Analogy** — Think of a direction question like plotting a walking route on a phone map rather than tracking turns purely by memory. Each instruction ("walk 5km north, turn right, walk 3km") is one segment on that map — drawing it as you go turns a multi-step mental-rotation problem (which is genuinely hard to do purely in your head, since "right" means a different compass direction depending on which way you're currently facing) into a simple, visual read-off at the end.
+
 ## Core Concepts
 
 ### 1. Compass Directions
@@ -91,3 +93,7 @@ Displacement = shortest path (Pythagoras for perpendicular moves)
 
 APPROACH: Always draw the path. Never solve mentally.
 ```
+
+## Try It (2 Minutes)
+
+A person walks 6km north, then 8km east. Before calculating, draw it: a vertical segment (north) then a horizontal segment (east) forming a right angle. The DISTANCE walked is simply 6+8=14km (adding both segments) — but the DISPLACEMENT (straight-line distance from start to end) is the hypotenuse of that right triangle: √(6²+8²) = √100 = 10km. Confirm for yourself why these two numbers are different: distance tracks the actual path length, displacement only cares about start and end points.

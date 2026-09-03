@@ -1,5 +1,7 @@
 # General & Banking Awareness — Fundamentals
 
+**Analogy** — Think of India's financial regulators like different departments in a large hospital, each with a specific, non-overlapping specialty. RBI is the department for banks, SEBI for markets, IRDAI for insurance — a question about mutual funds belongs to SEBI's department, not RBI's, the same way a cardiology question isn't referred to orthopedics. Fixing each regulator to one specialty is what prevents the common exam trap of mixing them up.
+
 > **A structural note before anything else**: this topic is unusually time-sensitive — repo rates, CRR/SLR values, the current RBI Governor, and scheme-specific parameters all change over time, sometimes frequently. This page deliberately explains *what each concept means and how it functions* (stable, definitional knowledge) rather than stating specific current figures, which would go stale and could mislead you if taken as current fact. **Always verify today's actual repo rate, CRR, SLR, and officeholder names against RBI's own official website or a current-affairs source before an exam** — never rely on a number stated in any static study material, including this one, without checking it's still current.
 
 ## RBI's core functions — structurally stable, worth knowing precisely
@@ -26,3 +28,5 @@ A loan/asset becomes an NPA when interest or principal payment remains overdue f
 ## Types of banks in India — the structural categories
 
 Scheduled Commercial Banks (public sector, private sector, foreign banks, regional rural banks), Cooperative Banks, and Payments Banks/Small Finance Banks (newer categories with more limited permitted activities than full-service commercial banks) are the core structural categories worth knowing distinctly — exam questions frequently test which category a specific named institution belongs to, or what activities a given category is/isn't permitted to perform.
+
+**Try it (2 minutes)** — For each of these, name the regulator before checking: a new mutual fund launch, a bank's capital adequacy rules, a life insurance solvency requirement. If you got all three without hesitation, you've internalized the "one specialty per regulator" structure this page is built around.

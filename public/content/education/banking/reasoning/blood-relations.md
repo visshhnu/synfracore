@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 Blood Relations has 3-5 marks in Banking exams. Questions involve 2-3 generations and require systematic diagramming. Coded blood relations have higher difficulty.
 
+**Analogy** — Think of a blood-relations puzzle like building a family tree diagram on paper, the same way you'd sketch an actual genealogy chart rather than tracking every relationship in your head. Each new piece of information ("A is B's mother," "B is C's brother") is one branch added to the tree — solving mentally without drawing is exactly like trying to remember a family tree three generations deep purely from conversation, which is why "always draw it" isn't optional advice here, it's the actual method.
+
 ## Core Concepts
 
 ### 1. Generation Chart
@@ -81,3 +83,7 @@ CLASSIC PUZZLE:
 B's mother's husband = B's father. Father's sister = B's paternal aunt.
 B's paternal aunt = A's aunt → A and B are cousins OR siblings.
 ```
+
+## Try It (2 Minutes)
+
+"Pointing to a man, a woman said, 'His mother is the only daughter of my mother.'" Before checking the answer, draw it: "my mother's only daughter" — if the woman's mother has only one daughter, that daughter must be the woman herself (since she's her mother's daughter too, and there's only one). So "his mother" = the woman herself, meaning the man is the woman's son. Notice how drawing "my mother → only daughter" as one small branch made the answer immediate, versus trying to hold that chain in your head.

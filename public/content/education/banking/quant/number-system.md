@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 Number System forms the base of all quantitative aptitude — tested in SBI PO, IBPS PO, IBPS Clerk, RRB every year. Strong fundamentals here make all other topics easier.
 
+**Analogy** — Think of divisibility rules like a quick pre-screening test before doing full division — a bouncer checking IDs before letting someone into a club, not the club's actual entry process. Checking a number's last digit against 2, its digit sum against 3 or 9, or its last 3 digits against 8 takes seconds and immediately rules in or out most candidates, letting you skip full long division entirely for the numbers that clearly fail — exactly the kind of shortcut that matters under Prelims' tight 1-hour composite time limit.
+
 ## Core Concepts
 
 ### 1. Types of Numbers
@@ -74,3 +76,7 @@ PRIMES to 50: 2,3,5,7,11,13,17,19,23,29,31,37,41,43,47
 
 PERFECT SQUARES: 1,4,9,16,25,36,49,64,81,100,121,144,169,196,225
 ```
+
+## Try It (2 Minutes)
+
+Is 4,572 divisible by 9? Instead of long division, add the digits: 4+5+7+2 = 18, and 18 is divisible by 9 — so 4,572 is too. Now try 4,573 the same way: digit sum = 19, not divisible by 9, so 4,573 isn't either. Notice you answered both in seconds using only addition — this is exactly why divisibility rules exist as a pre-check, not a replacement for actual division when you genuinely need the quotient.

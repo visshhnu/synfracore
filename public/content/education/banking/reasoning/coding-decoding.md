@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 Coding-Decoding has 3-5 marks in Banking exams. The new pattern (grid/row-column based) is more complex than traditional letter coding. Master both old and new patterns.
 
+**Analogy** — Think of coding-decoding like a simple cipher where the same substitution rule is applied consistently across an entire message. Once you figure out the rule from one worked example (e.g. each letter shifts forward by 2 positions), applying it to a new word is mechanical substitution, not fresh reasoning — the actual skill being tested is spotting the rule from limited examples, similar to cracking a substitution cipher from a short sample of coded text.
+
 ## Types of Coding
 
 ### 1. Letter Substitution (Old Pattern)
@@ -95,3 +97,7 @@ Given code → Row = first digit, Column = second digit → find letter
 MIXED CODING:
 Decode all symbols first, then compute BODMAS
 ```
+
+## Try It (2 Minutes)
+
+If "CAT" is coded as "DBU" and "DOG" is coded as "EPH," find the rule before checking: C→D (+1), A→B (+1), T→U (+1); D→E (+1), O→P (+1), G→H (+1). Every letter shifts forward by exactly 1 position. Now apply that same rule to code "BAT" yourself (should be "CBU") — confirming the rule generalizes is exactly what a real exam question tests with a third, unseen word.

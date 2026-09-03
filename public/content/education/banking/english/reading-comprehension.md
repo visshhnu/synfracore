@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 Reading Comprehension (RC) has 10-15 marks in SBI PO, IBPS PO, and every banking exam. It is the most important English section. Speed and accuracy in reading and answering in under 8 minutes is the goal.
 
+**Analogy** — Think of reading the questions before the passage like reading a map's destination before starting to drive, not after. Knowing what you're looking for (a specific fact, the author's tone, a cause-effect relationship) before you read means you scan the passage with purpose — spotting the relevant sentence as you pass it, rather than reading the whole passage once for general understanding and then re-reading it again to hunt for each answer.
+
 ## Types of RC Questions
 
 ### 1. Main Idea / Central Theme
@@ -75,3 +77,7 @@ Partially correct options
 4. Answer with passage reference
 5. Verify by re-reading surrounding sentence
 ```
+
+## Try It (2 Minutes)
+
+Take any short news article. Before reading it, write down one specific question you want answered by it (e.g. "what caused this?" or "what is the author's opinion?"). Read the article once with that question in mind. Notice how much faster you found the relevant sentence compared to reading without a specific question first — that's the exact mechanism behind "read questions first" as an RC strategy.

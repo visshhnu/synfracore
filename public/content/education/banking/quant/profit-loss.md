@@ -1,5 +1,10 @@
 # Profit and Loss
 
+## Why This Chapter Matters
+Profit & Loss builds directly on Percentage (profit% and loss% are just percentage changes applied to Cost Price) and appears in 3-5 questions across every banking exam, often layered with successive discounts or false-weight scenarios.
+
+**Analogy** — Think of Cost Price as the "starting point" a percentage change is always measured against, exactly like Original Price in a percentage-change problem. Profit% = (Profit/CP) × 100 is literally the same formula shape as "% increase = (increase/original) × 100" from Percentage — the shopkeeper's CP plays the role of "original," and Profit plays the role of "increase." Once you see Profit & Loss as Percentage applied to buying and selling, the formulas stop being a new set to memorize.
+
 ## Core Concepts
 
 ### 1. Basic Terms
@@ -69,4 +74,8 @@ SUCCESSIVE DISCOUNTS d1, d2:
 Net% = d1+d2-d1xd2/100
 
 FALSE WEIGHT PROFIT% = (True-False)/False x 100
+
+## Try It (2 Minutes)
+
+A shopkeeper uses a false weight of 900g instead of 1kg while buying and selling at the marked (no-discount) price. Before calculating, reason through why this alone creates profit even with "no markup": the shopkeeper pays for 900g but sells it labeled as 1000g, so for every claimed kg sold, they've actually only given away 900g of goods. Using the formula: Profit% = (1000-900)/900 × 100 ≈ 11.1% — pure profit from the weight discrepancy alone, before any price markup is even applied.
 ```

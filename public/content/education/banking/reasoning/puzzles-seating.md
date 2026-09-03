@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 Puzzles and Seating Arrangement is the HIGHEST WEIGHTAGE topic in Banking Reasoning — 10-15 marks per paper in SBI PO, IBPS PO, and RRB. Complex puzzles appear in every single exam.
 
+**Analogy** — Think of a seating puzzle like assembling a jigsaw puzzle by placing the most-constrained pieces first (corner pieces, pieces with a distinctive edge), not working through the clues in the order they're given. A clue like "X sits immediately left of Y" is far more constraining than "X likes red" — placing the highly-constraining clues first narrows down the possible arrangements fast, while starting with a vague clue leaves too many possibilities open and wastes time re-checking them later.
+
 ## Types of Puzzles
 
 ### 1. Linear Arrangement
@@ -91,3 +93,7 @@ COMMON TRAPS:
 "Not adjacent" means neither left nor right
 "Between A and B" = someone sits between A and B (at least 1 gap)
 ```
+
+## Try It (2 Minutes)
+
+Five people sit in a row. Clue 1: "C likes red." Clue 2: "B sits immediately to the right of A." Before placing anyone, decide which clue to use FIRST. Clue 2 fixes a concrete relative position (A and B must be adjacent, in that order) — Clue 1 tells you nothing about position at all. Starting with Clue 2 immediately narrows down valid arrangements; starting with Clue 1 wastes a step, since it constrains nothing about seating yet. This ordering habit — most-positional-constraint first — is what separates a fast puzzle solve from a slow one.

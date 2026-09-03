@@ -1,5 +1,10 @@
 # Time, Speed and Distance
 
+## Why This Chapter Matters
+Time-Speed-Distance appears in 2-4 banking Quant questions, most often as trains/boats problems combined with relative speed — a topic that rewards understanding the underlying relationship over memorizing separate train/boat formulas.
+
+**Analogy** — Think of relative speed like the closing gap between two cars on the same highway. If both move in the SAME direction, the gap between them closes (or grows) slowly — at the DIFFERENCE of their speeds, since the faster one is only pulling ahead by that margin each hour. If they move toward each other from OPPOSITE directions, the gap closes fast — at the SUM of their speeds, since both contribute to shrinking the same distance simultaneously. Boats work identically: a boat's effective speed downstream is boat-speed+stream-speed (both pushing the same direction), and upstream is boat-speed−stream-speed (working against each other).
+
 ## Core Concepts
 
 ### 1. Basic Relationship
@@ -74,4 +79,8 @@ Opposite direction: S1+S2
 TRAINS: Distance = lengths of objects involved
 BOATS: DS speed = u+v, US speed = u-v
 Boat speed = (DS+US)/2, Stream = (DS-US)/2
+
+## Try It (2 Minutes)
+
+A boat's downstream speed is 18 km/h and upstream speed is 12 km/h. Before using the formula, reason it out: downstream = boat+stream, upstream = boat−stream. Adding both equations cancels the stream term (2×boat = 30), so boat speed = 15 km/h — and subtracting them cancels the boat term (2×stream = 6), so stream speed = 3 km/h. Confirm this matches the "Boat speed = (DS+US)/2, Stream = (DS-US)/2" shortcut — you've just derived where that formula actually comes from.
 ```

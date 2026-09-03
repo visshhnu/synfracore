@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 General Awareness carries 25 marks in SSC CGL Tier 1 (25 questions × 2 marks each minus 0.5 for wrong). It covers Static GK (History, Geography, Polity, Economy, Science) plus Current Affairs. This is the fastest section — 15-20 minutes for 25 questions.
 
+**Analogy** — Think of General Awareness like a savings account, not a loan you take out the night before the exam. Quant and Reasoning skills can be sharpened significantly in the final weeks through drilling — General Awareness can't, because it's a large, slowly-accumulated body of facts (static GK plus a year's worth of current affairs) that genuinely rewards small, consistent daily deposits over many months far more than a last-minute cram session ever could. This is exactly why GA prep should start on day one of your preparation, not get deferred to "later."
+
 ## Core Topics
 
 ### 1. Indian History (Static GK)
@@ -143,3 +145,7 @@ AWARDS:
 Bharat Ratna (highest civilian) | Padma Vibhushan > Bhushan > Shri
 Khel Ratna (highest sports) | Arjuna Award (sports) | Dronacharya (coaches)
 ```
+
+## Try It (2 Minutes)
+
+Pick today's newspaper (or a news app) and read just the top 3 headlines. For each one, ask: does this touch a government scheme, an appointment, an award, or an international relation — the categories SSC GA current-affairs questions actually draw from? Note them in one line each. Do this daily for a week and you'll notice the same handful of categories recurring — that recognition is the actual skill GA rewards, not memorizing every fact you encounter.

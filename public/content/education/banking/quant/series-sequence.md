@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 Number Series questions appear in every banking exam — 5-10 marks. You need to identify the pattern quickly (usually within 30-60 seconds per question) and find the missing/wrong term.
 
+**Analogy** — Think of a number series like a short piece of music with a repeating rhythm — once you've identified the pattern in the first 2-3 "beats" (the gap between consecutive terms), the rest of the sequence is just continuing that same rhythm, not a fresh puzzle each time. Checking the differences between consecutive terms first (is it constant? growing? doubling?) is exactly like listening for the beat before trying to guess the next note.
+
 ## Types of Number Series
 
 ### 1. Arithmetic Series
@@ -88,3 +90,7 @@ Primes: 2,3,5,7,11,13,17,19,23,29,31,37
 WRONG NUMBER: find which term breaks the pattern
 - Usually the error is ±1 or a small difference from the correct value
 ```
+
+## Try It (2 Minutes)
+
+Series: 3, 7, 15, 31, 63, ?. Before checking any formula, find the "rhythm" between consecutive terms yourself: 7-3=4, 15-7=8, 31-15=16, 63-31=32 — each gap doubles. Continuing that rhythm, the next gap should be 64, so the answer is 63+64=127. Notice you found this purely by listening for the repeating pattern in the differences, not by matching it to a memorized series "type."

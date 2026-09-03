@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 Banking Awareness carries 40-50 marks in IBPS SO (Specialist Officer) and 10-15 marks in all other banking exams. Understanding how banks work, RBI's role, and monetary policy tools are the most tested topics.
 
+**Analogy** — Think of RBI's monetary policy tools like a thermostat controlling how much money is circulating in the economy, not a single on/off switch. Raising the repo rate (the rate RBI lends to banks) is like turning the thermostat down — borrowing gets costlier, banks lend less, money supply cools. Open Market Operations (buying/selling government securities) work the same direction but through a different mechanism — selling securities pulls money OUT of circulation the same way raising rates discourages new borrowing. Multiple tools, same underlying goal: adjusting how much money is actually moving through the economy.
+
 ## Core Concepts
 
 ### 1. Types of Banks in India
@@ -110,3 +112,7 @@ PSL: 40% loans to priority sectors
 KYC: mandatory identity verification
 SARFAESI: recover bad loans without court
 ```
+
+## Try It (2 Minutes)
+
+RBI raises the repo rate by 0.5%. Before reading further, predict the chain reaction in your own words: banks' own borrowing cost from RBI goes up → banks raise the interest rates they charge customers → loans (home, car, business) become costlier → people and businesses borrow and spend less → money supply in the economy cools down. This is exactly why a repo rate hike is RBI's go-to tool when inflation is too high (too much money chasing goods) — it's a deliberate brake on spending, not just an isolated number change.

@@ -1,88 +1,65 @@
-# SSC Exam Preparation
+# SSC Exam Preparation — Overview
 
-## Overview
-SSC CGL, CHSL, MTS, CPO, GD — Staff Selection Commission complete preparation for central government posts.
+**Before you start:** no prior background needed — this covers SSC exams from the exam pattern up. *(Note: exam pattern, marks, and timing figures below reflect the SSC CGL pattern current as of authoring (2026) — SSC periodically revises tier structure and marking, so verify against the current official notification at ssc.gov.in before finalizing your prep plan.)*
+
+## Why This Exists (The Hook)
+
+Most SSC aspirants start by memorizing formulas and vocabulary lists without ever looking at how the exam is actually structured — and then get blindsided on exam day by things the syllabus never warned them about: a strict 15-minute lock per section in Tier 1 (you can't borrow time from a section you finished early to rescue one you're stuck on), and the fact that Tier 1 itself doesn't count toward your final rank at all — it's purely a qualifying gate. Understanding the actual exam architecture before you start studying changes how you prepare, not just what you study.
+
+**Analogy** — Think of SSC's two-tier structure like a job application with a resume screen followed by a real interview. Tier 1 (the resume screen) only decides whether you get through the door — your score there doesn't carry forward into your final standing. Tier 2 (the interview) is where you're actually ranked against everyone else. Someone who barely scrapes past Tier 1 but performs strongly in Tier 2 will outrank someone who topped Tier 1 but did poorly in Tier 2 — which is exactly why over-investing prep time polishing Tier 1 skills at the expense of Tier 2 depth is a common, costly mistake.
+
+**Try it (2 minutes)** — Reason through why SSC locks each Tier 1 section to a strict 15 minutes instead of giving you 60 minutes to freely allocate across all 4 sections, without looking anything up: if a candidate could move time freely between sections, someone very strong in Quant but weak in General Awareness could "buy" extra time on GA using spare Quant time, effectively lowering the bar for that section for that specific candidate. A strict per-section lock forces every candidate to demonstrate a genuine minimum in *each* section independently, rather than letting overall speed in one area mask a real weakness in another. What does that suggest about how you should practice — timed drills per section, or only full-length mixed practice?
+
+## SSC CGL Exam Structure — Two Tiers
+
+```conceptgrid
+{
+  "boxes": [
+    { "title": "Tier 1 — Qualifying", "description": "4 sections x 25 questions, 200 marks, 60 min total with a strict 15-min lock PER section. Does not count toward final merit -- pass/fail gate only.", "color": "amber" },
+    { "title": "Tier 2 — Merit-Deciding", "description": "Paper I (compulsory, 450 marks) for every post; Paper II (Statistics) only for JSO/Statistical Investigator posts; Paper III (Finance & Economics) only for AAO posts. This is what your final rank is actually based on.", "color": "green" }
+  ]
+}
+```
+
+```
+Tier 1 -- 4 sections, 25 questions each, 60 minutes total:
+  Section 1: General Intelligence & Reasoning
+  Section 2: General Awareness
+  Section 3: Quantitative Aptitude
+  Section 4: English Comprehension
+
+  Each section is LOCKED to 15 minutes -- you cannot move to the next
+  section early, and you cannot go back to a previous one. Time unused
+  in one section is lost, not transferable.
+
+  Negative marking: -1 for each wrong answer in Reasoning, English, and
+  the Quant module -- meaning blind guessing has real expected-value cost,
+  not just a missed opportunity.
+
+Tier 2 -- the stage that actually determines your rank:
+  Paper I: compulsory for every candidate, 450 marks
+  Paper II: Statistics -- only if applying for JSO/Statistical Investigator
+  Paper III: Finance & Economics -- only if applying for AAO posts
+```
 
 ## What This Section Covers
-- Quantitative Aptitude — Arithmetic, Algebra, Geometry, Trigonometry, Data Interpretation
-- Reasoning & General Intelligence — Analogy, Classification, Series, Matrix, Directions, Blood Relations
-- English Language — Synonyms, Antonyms, Idioms, Error Spotting, One Word Substitution, RC
-- General Awareness — History, Geography, Polity, Economics, Science, Static GK, Current Affairs
 
-## Career / Outcome
-Income Tax Inspector, Auditor, Accountant, CSS, CISF/CAPF ASI, MTS, CHSL Postal Assistant
+- **Quantitative Aptitude** — Arithmetic, Algebra, Geometry, Trigonometry, Data Interpretation
+- **Reasoning & General Intelligence** — Analogy, Classification, Series, Matrix, Directions, Blood Relations
+- **English Language** — Synonyms, Antonyms, Idioms, Error Spotting, One Word Substitution, Reading Comprehension
+- **General Awareness** — History, Geography, Polity, Economics, Science, Static GK, Current Affairs
 
-## How to Use This Section
-Work through Fundamentals first, then Intermediate and Advanced for depth. Use Cheatsheets for last-minute revision. The Roadmap section gives you a week-by-week study plan.
+## Career Outcomes
 
-## Learning Path
-This section follows a structured approach from fundamentals to advanced topics. Each module builds on the previous one.
+Income Tax Inspector, Auditor, Accountant, Central Secretariat Service (CSS), CISF/CAPF Assistant Sub-Inspector, Multi-Tasking Staff (MTS), CHSL Postal Assistant/Sorting Assistant.
 
-## Who This Is For
-Students and professionals at all levels who want to build knowledge in this domain — whether for exam preparation, career advancement, or general knowledge.
+## Try It (2 Minutes) — Section 2
+
+Take any 5 questions from this section's Quant topics under a strict 3-minute timer (roughly matching Tier 1's per-question pace of ~2.4 minutes for 25 questions in 15 minutes, minus time for reading). Note which specific step you got stuck on, not just whether you got the answer right — that specific step is where your practice should actually focus, not the topic as a whole.
 
 ## How to Study
-1. Start with the **Fundamentals** section to build a solid base
-2. Move to **Intermediate** for applied knowledge and scenarios
-3. Use **Advanced** for exam-level depth and complex topics
-4. Practise with **Interview Q&A** for exams and assessments
-5. Use the **Cheatsheet** for last-minute revision before the exam
 
-## Key Features of This Section
-- Structured notes aligned with official syllabus
-- Practice questions after key concepts
-- Cheatsheets for quick revision
-- Interview and exam Q&A format
-- Current and updated content
-
-## Getting Started
-Click **Fundamentals** to begin your learning journey with this topic. Work systematically through each section for the best results.
-
-## Assessment Strategy
-For objective exams: understand > memorise. For descriptive/written exams: structure your answers clearly. For interviews: demonstrate reasoning, not just recall.
-
-## Detailed Study Notes
-
-Understanding this topic requires both theoretical knowledge and practical application. The notes in this section are structured to help you build both.
-
-### Theoretical Framework
-Every subject has a theoretical framework — the set of principles, rules, and concepts that govern how it works. Master this framework first. Everything else — applications, exceptions, edge cases — makes more sense once you understand the core structure.
-
-### Practical Application
-Theory without practice is incomplete. For every concept you learn:
-- Apply it to a practice problem or scenario
-- Check your understanding with the Q&A section
-- Use the cheatsheet to test recall without looking at notes
-
-### Exam Relevance
-This topic appears in multiple examinations. The specific questions and depth required vary by exam type:
-- **Objective exams (MCQ)**: Focus on precise definitions, key facts, and eliminating wrong options
-- **Descriptive exams**: Focus on structure, examples, and analytical depth
-- **Interviews**: Focus on reasoning, current context, and practical implications
-
-### Study Schedule Recommendation
-| Week | Activity |
-|------|---------|
-| Week 1 | Read fundamentals, make notes |
-| Week 2 | Intermediate topics + practice questions |
-| Week 3 | Advanced topics + previous year questions |
-| Week 4 | Mock tests + revision using cheatsheet |
-
-### Resources for Deeper Study
-- Official textbooks and government publications
-- Previous year question papers (last 5-10 years)
-- Current affairs updates relevant to this domain
-- SynfraCore practice questions and mock tests
-
-### Key Takeaways
-- Build your foundation before attempting advanced topics
-- Consistent daily study is more effective than sporadic intensive sessions
-- Practice questions are as important as reading notes
-- Review your mistakes carefully — errors teach more than correct answers
-
-### Progress Tracking
-Mark each sub-topic as:
-- [ ] Read and understood
-- [ ] Practised with questions
-- [ ] Revised with cheatsheet
-- [ ] Ready for exam
+1. Build the Quant/Reasoning formula base first — these are the most time-recoverable sections with deliberate practice.
+2. Practice English and General Awareness in parallel — vocabulary and current affairs compound over weeks, they don't cram well the night before.
+3. Once comfortable with individual topics, switch to strict per-section-timed mixed practice — this is what actually trains you for Tier 1's real constraint (the 15-minute lock), not untimed topic study.
+4. Once past Tier 1 prep, shift weight toward Tier 2 Paper I depth — it's worth more than 2x Tier 1's marks and is what your final rank is actually based on.

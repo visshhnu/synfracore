@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 Classification (Odd One Out) gives 5-8 questions in SSC. Matrix questions test pattern recognition. Both are reliable scoring areas.
 
+**Analogy** — Think of Classification like sorting a mixed drawer of tools by what they're actually FOR, not what they look like. Four items might share a superficial trait (all are metal, all are small) while one shares a genuinely different category (three are cutting tools, one is a measuring tool) — the trap is stopping at the first shared trait you notice instead of checking every candidate grouping. Matrix questions are the same underlying skill applied to numbers/shapes in a grid instead of objects in a drawer: find the actual rule connecting cells (by row, then column, then diagonal), not just a pattern that happens to fit the first two you looked at.
+
 ## Part 1 — Classification (Odd One Out)
 
 ### Types
@@ -95,3 +97,7 @@ Apply to find missing value
 MAGIC SQUARE: every row=column=diagonal. Middle cell = total/3.
 Classic 3×3 sum=15, middle cell=5.
 ```
+
+## Try It (2 Minutes)
+
+Given: Dog, Cat, Lion, Table. Before reading further, pick the odd one out and state WHY in one sentence. Most people correctly say "Table" (not an animal) — but notice the reasoning you used: you checked what category each item belonged to, not a surface trait like size or color. Now try a harder set: Triangle, Square, Circle, Cube. The trap here is subtler — three are 2D shapes, one (Cube) is 3D. If you'd sorted by "has straight edges" instead (Triangle/Square vs Circle/Cube), you'd get a different, wrong answer — which is exactly why checking multiple possible groupings before committing matters more than pattern-matching the first shared trait you spot.

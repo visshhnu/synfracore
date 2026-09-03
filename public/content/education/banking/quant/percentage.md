@@ -1,5 +1,10 @@
 # Percentage
 
+## Why This Chapter Matters
+Percentage underlies most other Quant topics in banking exams (Profit & Loss, Simple/Compound Interest, Data Interpretation all reduce to percentage calculations) — a strong grip here makes every downstream topic faster, not just this one.
+
+**Analogy** — Think of "percent" literally as its Latin root says: "per hundred" — a way of describing any fraction using a common, comparable denominator of 100. Saying "35 out of 40" and "52 out of 60" doesn't let you compare them at a glance, but converting both to percentages (87.5% and 86.67%) makes the comparison instant — that's the entire reason percentages exist as a concept, not an arbitrary school topic.
+
 ## Core Concepts
 
 ### 1. Basics
@@ -60,4 +65,8 @@ MULTIPLYING FACTOR:
 
 PRICE-CONSUMPTION:
 Price up by r% -> consumption down by r/(100+r) x 100% to maintain expenditure
+
+## Try It (2 Minutes)
+
+A price rises 20%, then falls 20%. Before calculating, guess: does the price end up back where it started, higher, or lower? Most people guess "back to start" — but using the successive-change formula: net% = 20 + (-20) + (20)(-20)/100 = 0 - 4 = -4%. The price ends up 4% LOWER than the original, not unchanged — because the second 20% decrease is calculated on the already-inflated (higher) price, not the original one. This is exactly why "equal and opposite percentage changes" don't cancel out.
 ```

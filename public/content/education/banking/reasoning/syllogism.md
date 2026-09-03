@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 Syllogism has 5-10 marks in every Banking exam. The new pattern includes possibility cases which confuse many candidates. Master the rules and you can score full marks.
 
+**Analogy** — Think of syllogism like a strict courtroom standard rather than everyday conversation. In casual speech, "All bankers are wealthy" and "some bankers struggle financially" might feel contradictory — but formal logic only cares about exactly what's stated: "All A are B" says nothing whatsoever about anyone outside A, so it can't be contradicted by a claim about a different group. The single biggest trap in syllogism is importing real-world plausibility ("that seems unlikely") into a system that only evaluates strict logical validity from the given statements alone.
+
 ## Core Concepts
 
 ### 1. Basic Statements (Propositions)
@@ -92,3 +94,7 @@ POSSIBILITY RULES:
 Particular + Particular → No definite conclusion
 Universal Negative is symmetric: No A-B = No B-A
 ```
+
+## Try It (2 Minutes)
+
+Statement: "All cats are animals. Some animals are wild." Before checking any rule, draw it: a small circle (Cats) fully inside a larger circle (Animals), and a separate circle (Wild) overlapping Animals somewhere — but since you don't know WHERE inside Animals the Wild circle overlaps, it might or might not touch the Cats circle at all. That's exactly why "Some cats are wild" does NOT definitely follow — Particular + Particular-style combinations (Some + Some) genuinely permit multiple different diagrams, so no single conclusion is forced by the statements alone.

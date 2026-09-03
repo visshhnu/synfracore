@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 DI is the highest-weightage topic in Banking exams — 15-20 marks in every paper. The key skill is speed and accuracy in reading tables, bar graphs, pie charts, and line graphs. Practice reading and calculating quickly.
 
+**Analogy** — Think of a DI set as one dataset asked about from 4-5 different angles, not four separate problems needing separate data extraction. Once you've genuinely understood the chart itself — what each axis, column, or slice represents — most sub-questions become quick lookups or one-step arithmetic on numbers you've already identified. The real time sink is misreading the chart once and then compounding that error across every question built on it.
+
 ## Types of DI
 
 ### 1. Tabular DI
@@ -83,3 +85,7 @@ SHORTCUTS:
 25% of x = x/4
 33.33% of x = x/3
 ```
+
+## Try It (2 Minutes)
+
+Pick any pie chart from a newspaper or practice set. Before answering a single question, spend 20-30 seconds reading it cold: what does the whole circle represent, what does each slice's percentage mean, is a total value given? Then answer one question. Compare how fast the actual calculation was once the chart itself was understood — that upfront reading time is what separates a fast DI set from a slow one under the 1-hour Prelims composite window.

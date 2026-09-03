@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 Error Detection has 5-10 marks in banking exams. The question gives a sentence divided into parts — find the part with grammatical error. Speed matters — each question should take 30-45 seconds max.
 
+**Analogy** — Think of Error Detection like proofreading a colleague's email rather than translating a foreign sentence from scratch — you're not building understanding from zero, you're scanning specifically for the handful of error types that repeat across nearly every question (subject-verb agreement, preposition, tense, article, redundancy). Once you know exactly what to scan for, most of the sentence can be skimmed — only the parts touching one of these known error categories need real scrutiny.
+
 ## Common Error Types
 
 ### 1. Subject-Verb Agreement
@@ -120,3 +122,7 @@ The + specific/unique/previously mentioned
 COMPARISON: more + adj (no -er) | most + adj (no -est) | superior/inferior/prefer + TO (not than)
 REDUNDANCY: revert back, return back, advance planning, mutual cooperation
 ```
+
+## Try It (2 Minutes)
+
+Find the error: "Please revert back to me with your decision by tomorrow." Before checking the redundancy list above, ask: does "revert" already mean "to go back / reply"? If so, adding "back" is saying the same thing twice. That's exactly the redundancy category — "revert back," "return back," and "advance planning" are all error-detection favorites because the redundant word FEELS natural in casual speech, which is precisely why it survives unnoticed unless you're specifically scanning for it.

@@ -4,6 +4,10 @@
 
 English Language is the section where non-native-medium candidates lose the most avoidable marks — not because the content is hard, but because it's rarely given dedicated daily practice compared to Quant and Reasoning. Treating it as a skill to drill, not just "read more," closes that gap fastest.
 
+**Analogy** — Think of a Cloze passage like a chain where each link has to connect to the ones on both sides, not just look sturdy on its own. A word can be perfectly correct in isolation and still be wrong if it breaks the passage's tone or contradicts a connector used earlier — exactly why "read the whole sentence's logic, not just grammar" is the actual skill this section tests.
+
+**Try it (2 minutes)** — Take any short news paragraph. Read the first and last sentence only, then predict what the middle sentences must logically connect. Read the full paragraph and check your prediction — this is the exact skill Reading Comprehension and Para-jumbles both reward.
+
 ## Core Topic Map
 
 | Topic | What's tested | Weightage (typical Prelims) |

@@ -1,5 +1,15 @@
 # Banking Exams — Overview
 
+**Before you start:** no prior background needed — this covers the banking exam landscape from the structure up.
+
+## Why This Section Exists Separately
+
+Banking exams (IBPS PO/Clerk, SBI PO, RBI) look similar to SSC on the surface — MCQ-based, negative marking, reasoning + quant + English — but reward a different skill: Prelims gives only 1 hour for 100 questions, and Mains adds a Descriptive (typing) component with zero negative marking. Someone who only drilled MCQ speed and never practiced timed typed writing will lose Mains marks that have nothing to do with reasoning ability at all.
+
+**Analogy** — Think of Prelims-to-Mains like a qualifying lap before the actual race. Prelims is fast and unforgiving, but the score itself doesn't carry into final rank — only qualifying does. Mains is the real race, worth far more marks and including the Descriptive paper — this is what final selection (weighted alongside Interview) is actually based on.
+
+**Try it (2 minutes)** — Reason through why IBPS negative marking is typically a quarter-mark penalty rather than a full mark: a full-mark penalty would make any uncertain answer, including ones where you can eliminate 2 of 4 options through partial knowledge, a bad bet. A smaller penalty keeps informed partial-guessing worthwhile while still discouraging pure blind guessing.
+
 ## Major Banking Exams in India
 
 India's banking sector recruits through several competitive exams annually. These are conducted by IBPS, SBI, and RBI separately.

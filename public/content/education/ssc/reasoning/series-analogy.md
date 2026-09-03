@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 Series (number, letter, mixed) and Analogy together give 6-10 marks in SSC CGL and CHSL. These are the most consistent questions — same pattern repeated every year.
 
+**Analogy (yes, about Analogy questions themselves)** — Think of a word-analogy question like a recipe you're asked to repeat with different ingredients. "Tool : User" (Hammer : Carpenter) isn't really about hammers or carpenters specifically — it's about the RELATIONSHIP (an object and the person who characteristically uses it). Once you name the relationship precisely in your own words first ("X is the tool of profession Y"), applying that same relationship to a new pair of options becomes mechanical rather than another guess — the skill is extracting the relationship, not memorizing every possible word pair.
+
 ## Part 1 — Number Series
 
 ### Types of Series
@@ -100,3 +102,7 @@ Animal-Sound | Country-Capital | Cause-Effect | Degree
 COMMON OPERATIONS IN NUMBER ANALOGY:
 n² | n³ | n(n+1) | 2n+1 | n+prime | n²+k
 ```
+
+## Try It (2 Minutes)
+
+Given the analogy "Doctor : Hospital", state the relationship in one precise sentence before looking at the answer choices (e.g. "a professional and their characteristic workplace"). Now apply that exact same relationship to find the missing word in "Teacher : ___" — the answer should follow mechanically from your own stated rule (School), not from guessing among the options first. This "name the rule before touching the options" habit is what separates a 10-second analogy question from a 40-second one under real exam pressure.

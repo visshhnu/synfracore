@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 Data Interpretation (DI) carries 10-15 marks in SSC CGL Tier 2 and 5-8 marks in Tier 1. Speed and accuracy in reading charts, tables, pie charts, and bar graphs determine your rank.
 
+**Analogy** — Think of a DI set like a single dataset viewed through 4-5 different questions, not four unrelated problems. Once you've actually understood the table or chart itself (what each row/column/slice represents, what units are used), most of the individual questions become quick lookups or one-step calculations on data you already extracted — the real time cost is in correctly reading the chart once, not recalculating from scratch for each sub-question.
+
 ## Types of DI Questions
 
 ### 1. Tables
@@ -92,3 +94,7 @@ Always check if options are far apart (large gap → rough calculation fine)
 If options close → precise calculation needed
 Round intermediate values to nearest 5 or 10
 ```
+
+## Try It (2 Minutes)
+
+Pick any bar graph or pie chart from a newspaper or a practice book. Before answering any question on it, spend 30 seconds just reading it: what does each axis/slice represent, what are the units, is there a "total" value given or implied? Then answer one question. Notice how much faster the actual calculation was once the chart itself was understood first — that 30-second investment is exactly what separates a fast DI set from a slow one under real exam time pressure.

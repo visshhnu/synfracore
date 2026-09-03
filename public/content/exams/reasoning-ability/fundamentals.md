@@ -1,5 +1,7 @@
 # Reasoning Ability — Fundamentals
 
+**Analogy** — Think of building a puzzle solution like assembling a jigsaw from its most distinctive pieces first (corners, edges) rather than working the box in the order pieces happen to be listed. The most-constraining clue narrows the search space fastest — starting anywhere else means re-checking possibilities you'd have already ruled out.
+
 ## The puzzle-solving method, worked through on a real example
 
 The Overview tab's 4-step method is the reference — seeing it applied concretely is what actually makes it usable:
@@ -89,3 +91,5 @@ The specific reason direction sense problems cause disproportionate errors relat
 ## Building genuine speed through daily volume, not occasional intensive sessions
 
 The Overview tab's "solve at least one full puzzle daily under a 6-8 minute timer from day one" guidance reflects a real principle about how pattern recognition actually builds: reasoning ability speed comes from having seen and correctly solved many similar puzzle structures before, such that recognizing "this is a circular arrangement with a definite starting clue in position X" becomes near-automatic rather than requiring fresh analysis each time. This kind of pattern recognition builds more reliably through consistent daily exposure than through occasional longer sessions — a candidate solving one puzzle daily for 60 days builds more transferable pattern recognition than one solving 10 puzzles in a single cram session once a week, even at similar total practice volume, because spaced, repeated exposure is what actually consolidates pattern recognition into fast, reliable recall.
+
+**Try it (2 minutes)** — Given: "A said to B: your mother's husband's sister is my aunt." Before checking any rule, draw it: B's mother's husband = B's father. Father's sister = B's paternal aunt. If that's also A's aunt, what's the relationship between A and B? Drawing each step as a small branch, rather than holding the chain in your head, is exactly the method this page teaches.

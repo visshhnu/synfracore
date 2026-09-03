@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 Current Affairs (last 6 months before exam) carries 20-25 marks in IBPS PO, 15-20 in SBI PO, 10-15 in Clerk exams. Topics: banking/financial appointments, economic data, summits, awards, government schemes, sports.
 
+**Analogy** — Think of Current Affairs prep like watering a plant a little every day rather than flooding it once a month. A single "current affairs marathon" the week before the exam tries to absorb 6 months of news at once, and most of it won't stick — daily 15-20 minute review, sustained over months, is what actually survives to exam day, the same way small consistent watering grows a healthier plant than one large flood followed by neglect.
+
 ## How to Prepare Current Affairs
 
 ### Regular Reading Sources
@@ -110,3 +112,7 @@ Scheme → Launch year + Beneficiary + Key figure (amount, coverage)
 Award → Category + Winner + Reason
 Appointment → Name + Previous role + New role + Organisation
 ```
+
+## Try It (2 Minutes)
+
+Read one banking/financial news item from today. Instead of just noting the headline, force yourself to fill in all four fields from the "Appointment" format above (Name, Previous role, New role, Organisation) or the "Scheme" format (Launch year, Beneficiary, Key figure) — whichever applies. If you can't fill in one of the fields, that's exactly the gap a real exam question would exploit, and you now know precisely what to look up.

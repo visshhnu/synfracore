@@ -4,6 +4,10 @@
 
 Reasoning Ability is the single highest-weightage section in banking Mains exams (puzzles alone can carry 15–20 questions), and it's the section where preparation quality — not raw intelligence — determines speed. Pattern recognition built through repetition is the entire game.
 
+**Analogy** — Think of a seating puzzle like assembling a jigsaw puzzle by placing the most-constrained pieces first, not working through clues in the order given. A clue like "X sits immediately left of Y" pins down a relationship immediately; a clue like "X likes red" pins down nothing about position at all. Solving the highly-constraining clues first narrows the possibilities fast — starting with a vague clue leaves too many arrangements open and wastes time re-checking them later.
+
+**Try it (2 minutes)** — Five people sit in a row. Clue 1: "C likes red." Clue 2: "B sits immediately to the right of A." Before placing anyone, decide which clue to start from, and why — then check your reasoning against the "Puzzle-Solving Method" section below.
+
 ## Core Topic Map
 
 | Topic | What's tested | Notes |

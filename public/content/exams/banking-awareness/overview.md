@@ -4,6 +4,10 @@
 
 Banking/General Awareness is the fastest section to attempt (no calculation, pure recall) but the hardest to cram last-minute — it rewards months of steady current-affairs tracking far more than any other section, which is exactly why it deserves its own dedicated prep track rather than being folded into general revision.
 
+**Analogy** — Think of this section like a savings account, not a loan you take out the night before the exam. Quant and Reasoning can be sharpened significantly in the final weeks through drilling — Awareness can't, since it's a large, slowly-accumulated body of facts that genuinely rewards small, consistent daily deposits over months far more than any last-minute cram session could.
+
+**Try it (2 minutes)** — Read one banking/financial news item today. Force yourself to note: who (name/organization), what changed, and why it matters for a banking-exam context. If you can't answer one of those three, that's exactly the gap a real exam question would exploit.
+
 ## Core Topic Map
 
 | Area | What's tested |

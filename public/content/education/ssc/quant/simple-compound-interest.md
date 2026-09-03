@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 SI and CI gives 3-5 questions in SSC CGL and CHSL. Also appears in banking exams. Once you know the formulas and shortcuts, these are fast marks.
 
+**Analogy** — Think of Simple Interest like a flat monthly rent that never changes, and Compound Interest like a snowball rolling downhill. SI pays interest only ever on the original amount (P) — the "rent" is always calculated on the same base. CI pays interest on the original amount PLUS all the interest already earned so far — each year's interest becomes part of next year's base, exactly like a snowball picking up more snow (and more surface area to pick up even more snow) as it rolls. That's precisely why CI grows faster than SI over time even at the identical rate — the base itself is growing, not staying flat.
+
 ## Core Concepts
 
 ### Simple Interest (SI)
@@ -67,3 +69,7 @@ DOUBLING: SI→ T=100/R years | CI→ Rule of 72 (72/R)
 Tripling at SI: double time × 2 = triple time? NO.
 If doubles in T years SI, trebles in 2T years (SI is linear).
 ```
+
+## Try It (2 Minutes)
+
+Take ₹1000 at 10% per year for 3 years. Calculate SI and CI separately by hand, year by year for CI (don't use the formula shortcut yet): Year 1 both give ₹100 interest — identical. Year 2: SI still gives ₹100 (always on the original ₹1000), but CI gives 10% of ₹1100 (last year's total) = ₹110. Notice the gap only appears from Year 2 onward, not Year 1 — because CI only starts compounding once there's accumulated interest to compound on top of.

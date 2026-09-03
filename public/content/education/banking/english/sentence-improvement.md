@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 Sentence improvement (phrase replacement) and para-jumbles (rearranging sentences) together carry 5-10 marks in banking exams. Para-jumbles in particular require a systematic approach.
 
+**Analogy** — Think of a para-jumble like assembling a short story from shuffled comic-strip panels rather than a random word-order puzzle. Every story has a clear opening panel (introduces the topic, no dependency on anything before it) and a clear closing panel (a conclusion, "therefore"/"thus"-type wording) — find those two anchors first, the same way you'd spot the first and last panel of a comic strip before working out the middle order, and the remaining sentences usually snap into place around pronoun references and logical connectors.
+
 ## Part 1: Sentence Improvement / Phrase Replacement
 
 A sentence is given with one phrase underlined. Choose the replacement that improves it.
@@ -110,3 +112,7 @@ STEPS:
 4. Link connectors to their logical pairs
 5. Verify full sequence makes sense
 ```
+
+## Try It (2 Minutes)
+
+Given 4 shuffled sentences where one starts with "This policy..." and another starts with "The RBI announced a new policy...", which comes first? "This policy" is a pronoun-style reference that needs an antecedent already established — it can't be the opener, since there's nothing for "this" to point back to yet. That single check (does this sentence depend on something not yet introduced?) eliminates candidate openers fast, without needing to consider the whole passage's meaning at once.

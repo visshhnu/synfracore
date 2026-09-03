@@ -3,6 +3,8 @@
 ## Why This Chapter Matters
 Financial awareness questions (Budget, GDP, government schemes, financial institutions) appear in every banking exam — 10-15 marks in IBPS PO, 5-8 in Clerk. This section requires current affairs plus conceptual understanding.
 
+**Analogy** — Think of India's financial regulators like different departments in a large hospital, each with a specific, non-overlapping specialty. RBI is the department for banks, SEBI for markets, IRDAI for insurance, PFRDA for pensions — a question about mutual funds belongs to SEBI's "department," not RBI's, the same way a cardiology question doesn't get referred to orthopedics. Once you fix each regulator to its one specific "specialty," the common exam trap (mixing up which regulator governs what) becomes much harder to fall into.
+
 ## Core Concepts
 
 ### 1. Union Budget Key Terms
@@ -96,3 +98,7 @@ REGULATORS:
 RBI → Banks | SEBI → Markets | IRDAI → Insurance | PFRDA → Pensions
 NHB → Housing finance | NABARD → Rural credit | SIDBI → MSME
 ```
+
+## Try It (2 Minutes)
+
+For each of these, name the regulator before checking the list above: a new mutual fund launch, a bank's capital adequacy rules, a life insurance company's solvency requirement, an MSME loan scheme. If you got all four right without looking, you've internalized the "one specialty per regulator" structure — if you mixed any up, that specific pair (e.g. SEBI vs IRDAI) is exactly where to focus review.

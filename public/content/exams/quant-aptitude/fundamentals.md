@@ -1,5 +1,7 @@
 # Quantitative Aptitude — Fundamentals
 
+**Analogy** — Think of these formulas like a small, fixed toolkit rather than a large subject to master broadly. Every topic below (Percentage, Profit & Loss, SI/CI) turns out to be the same "percentage change on some base value" idea applied to a different real-world object — once you see that connection, you're maintaining one toolkit, not memorizing five unrelated formula sets.
+
 ## Number System — the foundation everything else builds on
 
 Before formulas, get genuinely fast at basic number properties: divisibility rules (a number's divisible by 3 if its digit sum is divisible by 3; by 4 if its last two digits form a number divisible by 4; by 9 if its digit sum is divisible by 9 — memorize these, don't re-derive them under time pressure), HCF/LCM via prime factorization, and recognizing perfect squares/cubes on sight. This sounds basic, but slow number-sense is what actually causes slow performance on "harder" topics later — the bottleneck usually isn't the advanced formula, it's slow arithmetic underneath it.
@@ -26,6 +28,8 @@ The common trap: profit/loss percentage is always calculated on Cost Price, not 
 - Compound Interest: A = P × (1 + R/100)^T — interest is calculated on the accumulated amount (principal + previously earned interest), which is why it grows faster over time.
 
 For a 2-year period specifically, there's a useful shortcut: CI − SI = P × (R/100)² — worth memorizing directly rather than computing both full formulas separately when a question specifically involves a 2-year CI/SI difference.
+
+**Try it (2 minutes)** — ₹5000 at 10% for 2 years. Calculate SI and CI year by year without the shortcut: Year 1 both give ₹500 (identical). Year 2, SI still gives ₹500 (always on the original ₹5000), but CI gives 10% of ₹5500 (last year's total) = ₹550. Confirm the ₹50 gap matches P×(R/100)² = 5000×0.01 = ₹50 — and notice the two methods only diverge starting Year 2, which is exactly when compounding begins.
 
 ## Ratio, Proportion & Averages
 
