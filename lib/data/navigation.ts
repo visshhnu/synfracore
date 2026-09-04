@@ -200,7 +200,9 @@ export const roadmaps = [
   { slug: "ca-journey", title: "Chartered Accountant (CA)", icon: "📒", color: "#F59E0B", category: "finance", duration: "4–5 years",
     steps: ["CA Foundation (4 papers)", "Register for Articleship", "CA Intermediate Group I (4 papers)", "CA Intermediate Group II (4 papers)", "3-Year Articleship + ICITSS", "CA Final Group I", "CA Final Group II + AICITSS"] },
   { slug: "banking-finance-analyst", title: "Banking & Finance Analyst", icon: "💹", color: "#14B8A6", category: "finance", duration: "1–2 years",
-    steps: ["Accounting Basics", "Financial Markets (SEBI/NISM)", "Banking & RBI Framework", "Credit Analysis Fundamentals", "CA/MBA or NISM Certifications", "Role: Analyst / Relationship Manager"] },
+    // "CA/MBA or NISM Certifications" -> "Credentialing Path", now a real
+    // fork (CA/CS/CMA vs. Banking Exams). See roadmapDetails.ts's matching comment.
+    steps: ["Accounting Basics", "Financial Markets (SEBI/NISM)", "Banking & RBI Framework", "Credit Analysis Fundamentals", "Credentialing Path", "Role: Analyst / Relationship Manager"] },
   { slug: "economics-analyst", title: "Economist / Policy Analyst", icon: "📊", color: "#F97316", category: "finance", duration: "1–3 years",
     steps: ["Microeconomics", "Macroeconomics", "Indian Economy", "Union Budget & Economic Survey", "RBI & Monetary Policy", "International Trade"] },
 
@@ -210,7 +212,9 @@ export const roadmaps = [
 
   // ── TELECOM ────────────────────────────────────────────────────────────────
   { slug: "telecom-engineer", title: "Telecom Engineer / BSNL JTO", icon: "📡", color: "#0EA5E9", category: "telecom", duration: "1–2 years",
-    steps: ["Electronics & Communication (ECE Basics)", "Transmission & Fiber Optics", "Mobile Networks (4G LTE / 5G NR)", "OSS/BSS & Network Management", "GATE ECE / BSNL JTO Exam", "Career: JTO, Network Engineer, RAN"] },
+    // "GATE ECE / BSNL JTO Exam" -> "Exam Path", now a real fork (BSNL JTO
+    // vs GATE ECE). See roadmapDetails.ts's matching comment.
+    steps: ["Electronics & Communication (ECE Basics)", "Transmission & Fiber Optics", "Mobile Networks (4G LTE / 5G NR)", "OSS/BSS & Network Management", "Exam Path", "Career: JTO, Network Engineer, RAN"] },
 
   // ── EDUCATION ──────────────────────────────────────────────────────────────
   { slug: "neet-medical", title: "NEET — Medical College Admission", icon: "🧬", color: "#F43F5E", category: "education", duration: "2 years",

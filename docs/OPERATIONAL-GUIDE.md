@@ -344,42 +344,67 @@ This section is a snapshot, not a permanent record — update it as items
 get resolved or as new ones surface, rather than letting it go stale the
 way some older tracker docs did.
 
-**Real technical bugs, not yet investigated this engagement:**
-- Sign-in redirect race on the question-bank Start flow for signed-out
-  users (`docs/audit/06-roadmap.md` and `07-roadmap-final.md`)
-- The hydrate-then-404 mechanism (`07-roadmap-final.md` Part 4d) — rare,
-  unresolved
-- Nested dynamic-route 404 on question-bank attempt pages (Symptom 9) —
-  unclear if the D1/OpenNext migration incidentally fixed this; needs a
-  direct check
+**Real technical bugs — re-verified 2026-09-04, all confirmed resolved
+or stale, not open:**
+- Sign-in redirect race (Symptom 8) and nested dynamic-route 404 on
+  question-bank attempt pages (Symptom 9) — same root mechanism
+  (Clerk's `invalidateCacheAction` Server Action 404ing under
+  `next-on-pages`), confirmed RESOLVED by the 2026-07-19 D1/OpenNext
+  cutover, verified live on production (`07-roadmap-final.md`'s
+  consolidated Symptom 8-13 summary). The "still open" line elsewhere in
+  that doc is from its archived pre-migration incident list (Part 9),
+  superseded by the fix.
+- The hydrate-then-404 mechanism — never reproduced since 2026-07-17
+  (74+ attempts); diagnostic instrumentation (`app/not-found.tsx` +
+  `NotFoundDiagnosticsBeacon`) confirmed still live. Treat as
+  closed/monitored, not open.
 - A pre-existing React hydration warning (`#418` in production, tied to
   Navbar's inline `<style>` tag) — confirmed cosmetic/dev-console-only
   across multiple unrelated pages this session, never blocking, but never
-  formally root-caused either
+  formally root-caused either. Still genuinely open (not covered by the
+  2026-09-04 re-verification above).
 
 **Content work, sized and ready for a dedicated session:**
-- **Healthcare**: `medical-coding/intermediate.md` contamination (flagged
-  across multiple batches, never fixed), a tab-depth/sequencing defect,
-  Batches 3-4 (Coding Guidelines, Mock Exams, Home Health Coding, Patient
-  Documentation, BCHHC Prep, Healthcare Admin) never comprehension-checked,
-  BCHHC Prep's outdated pre-2022 CMS/OASIS content
+- **Healthcare batch — CLOSED 2026-09-04, re-verified against commit
+  history and live files, not still open:** `medical-coding/
+  intermediate.md` contamination deleted (`3860ed9`); Batches 3-4
+  (Coding Guidelines, Mock Exams, Home Health Coding, Patient
+  Documentation, BCHHC Prep, Healthcare Admin) were in fact completed,
+  not still pending; BCHHC Prep's pre-2022 OASIS content (ROC-timing,
+  OT-cannot-complete-OASIS) both corrected and sitewide-swept (`ae0bf36`,
+  `a09a0db`). See `docs/audit/11-healthcare-retroactive-comprehension-
+  audit.md`'s final tally.
+- **New, small (found during the above close-out):**
+  `coding-guidelines/projects.md` still carries leftover DevOps-flavored
+  contamination boilerplate ("Cloud and infrastructure tools evolve
+  rapidly...") — same signature already cleaned from 4 sibling
+  `interview.md` files, just missed in that pass. Small, single-file fix.
 - **SSC/Banking premium papers**: two flagship papers shipped (SSC CGL
   Tier 1, IBPS PO Prelims) — matching NEET/JEE's scale (5 papers each)
   would need a similarly-sized future batch
 - **`upsc-ias` roadmap fork**: genuinely large — 48 real optional subjects
   exist, even an MVP of the 5-8 most popular ones means authoring
   full multi-tab content per subject
-- **`banking-finance-analyst` roadmap fork**: needs one new technology
-  authored (no existing "MBA Finance" content to link to) — medium size
 
-**Small, ready to build with no new content needed (confirmed this
-session, not yet built):**
-- `state-psc-officer`'s first step could fork into all 5 real, already-
-  content-complete state technologies (TNPSC/KPSC/MPSC/APPSC/TSPSC) using
-  the exact existing `fork` pattern
-- `telecom-engineer`'s "GATE ECE / BSNL JTO" step could fork using the
-  already-complete `exams/gate-ece` technology as the second branch —
-  zero collision risk confirmed, zero new content needed
+**Built and deployed 2026-09-04 (no longer open):**
+- `state-psc-officer`'s first step forks into all 5 state technologies
+  (TNPSC/KPSC/MPSC/APPSC/TSPSC), no `recommendedSlug` (no technically-
+  better default among them)
+- `telecom-engineer`'s exam-path step forks into GATE ECE (recommended,
+  per the roadmap's own existing `timelineNote`) vs. BSNL JTO Prep
+- `banking-finance-analyst`'s credentialing step forks into CA/CS/CMA
+  Foundation vs. the already-existing, already-complete
+  `exams/banking-exams` technology (no new content needed — the original
+  "needs one new technology authored" estimate was wrong, scope was
+  smaller than assumed)
+
+**Sentry re-activation (D3)**: not blocked anymore — the old blocker was
+`next-on-pages`-specific; Sentry has documented Next.js-on-Cloudflare
+support via `@opennextjs/cloudflare`, and `wrangler.jsonc` already has
+the one required prerequisite (`nodejs_compat`). Deliberately held, not
+installed yet — do a canary deploy and a bundle-size check (Cloudflare's
+3MB gzip free-tier limit) in its own dedicated session, not bundled into
+unrelated work.
 
 **Housekeeping, low priority:**
 - CLAUDE.md/`06-roadmap.md`/`07-roadmap-final.md` reconciliation — several
@@ -393,3 +418,7 @@ session, not yet built):**
   source docs)
 - The unused `contentScope: "guide"` schema field — a real but small
   design loose end
+- An orphaned `security/banking-exams` content folder looks like the same
+  duplicate-academy-placement pattern already found and deleted at
+  `security/home-health-coding` — flagged 2026-09-04, not investigated or
+  touched yet

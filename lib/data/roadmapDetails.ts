@@ -21,15 +21,24 @@ export type RoadmapDetail = {
   //
   // `fork` (optional, added 2026-09-03 for the roadmap-tree-redesign pilot
   // — see docs/audit/14-roadmap-tree-redesign.md) marks a step as a genuine
-  // branch point: `techLink` above stays required and points at the
-  // recommended/default branch (so scripts/validate-roadmaps.ts's strict
-  // 1:1 techLinks/steps positional matching keeps working completely
-  // unchanged for every roadmap, forked or not — this field is additive,
-  // not a replacement for the existing shape). `branches` lists every
-  // option INCLUDING the recommended one (the renderer needs the full set
-  // to lay out the fork visually); `recommendedSlug` names which branch's
-  // `slug` is the default so the UI can highlight it.
-  steps: { label: string; techLink: RoadmapTechLink; fork?: { branches: RoadmapTechLink[]; recommendedSlug: string } }[];
+  // branch point: `techLink` above stays required and points at SOME
+  // branch (usually the recommended one, when one exists — so
+  // scripts/validate-roadmaps.ts's strict 1:1 techLinks/steps positional
+  // matching keeps working completely unchanged for every roadmap, forked
+  // or not — this field is additive, not a replacement for the existing
+  // shape). `branches` lists every option INCLUDING whichever one
+  // `techLink` points at (the renderer needs the full set to lay out the
+  // fork visually). `recommendedSlug` is OPTIONAL (added 2026-09-04) —
+  // most forks have a genuine technical reason to suggest a default (AWS
+  // has real practice-exam papers already, GitHub Actions has the largest
+  // market share), but some forks are a purely personal choice with no
+  // technically-better option (e.g. which state's PSC you're targeting) —
+  // forcing a "Recommended" badge onto an arbitrary branch in that case
+  // would misrepresent it as a considered suggestion. Omit the field
+  // entirely for that case; the renderer already treats "no branch matches
+  // recommendedSlug" as "no badge, no branch highlighted" with zero
+  // special-casing needed.
+  steps: { label: string; techLink: RoadmapTechLink; fork?: { branches: RoadmapTechLink[]; recommendedSlug?: string } }[];
   // `trackGroups` (optional, added 2026-09-04) handles a genuinely
   // different shape from `fork`: a roadmap made of several fully
   // independent, NON-reconverging tracks (see "professional-certifications"
@@ -529,15 +538,38 @@ export const roadmapDetails: Record<string, RoadmapDetail> = {
     whyChoose: "State-level prestige. Work in your home state. Excellent job security and perks.",
     skills: ["State-specific GK", "State language", "Indian Polity & History", "Economy & Current Affairs", "Essay writing"],
     techLinks: [
-      { name: "State GK + Language", academy: "exams", slug: "state-psc" },
+      { name: "TNPSC Prep", academy: "state-psc", slug: "tnpsc" },
       { name: "Indian Polity & History", academy: "law", slug: "constitutional-law" },
       { name: "Prelims (state-specific)", academy: "exams", slug: "state-psc", section: "fundamentals" },
       { name: "Mains + State-specific papers", academy: "exams", slug: "state-psc", section: "pyq" },
       { name: "Mains — Essay & Answer Writing", academy: "exams", slug: "state-psc", section: "advanced" },
       { name: "Interview", academy: "exams", slug: "state-psc", section: "interview" },
     ],
+    // 6 steps, unchanged count — "State GK + Language" is now a genuine
+    // fork across all 5 real, content-complete state-psc technologies
+    // (confirmed 2026-09-03: each of tnpsc/kpsc/mpsc/appsc/tspsc has real,
+    // distinct 6-tab content, not templates) instead of pointing at the
+    // generic exams/state-psc technology. Deliberately NO recommendedSlug
+    // — which state to target is a personal choice (where the learner
+    // actually lives/wants to work), not a technically-better option, so
+    // no branch is marked "Recommended". Steps 3-6 (Prelims/Mains/
+    // Interview) stay on the generic exams/state-psc technology for now —
+    // making those state-aware too would need a persistent "remember my
+    // state" pattern across steps, a larger, separate UI question, not
+    // this fork. See docs/audit/14-roadmap-tree-redesign.md.
     steps: [
-      { label: "State GK + Language", techLink: { name: "State GK + Language", academy: "exams", slug: "state-psc" } },
+      {
+        label: "State GK + Language", techLink: { name: "TNPSC Prep", academy: "state-psc", slug: "tnpsc" },
+        fork: {
+          branches: [
+            { name: "TNPSC (Tamil Nadu)", academy: "state-psc", slug: "tnpsc" },
+            { name: "KPSC (Karnataka)", academy: "state-psc", slug: "kpsc" },
+            { name: "MPSC (Maharashtra)", academy: "state-psc", slug: "mpsc" },
+            { name: "APPSC (Andhra Pradesh)", academy: "state-psc", slug: "appsc" },
+            { name: "TSPSC (Telangana)", academy: "state-psc", slug: "tspsc" },
+          ],
+        },
+      },
       { label: "Indian Polity & History", techLink: { name: "Indian Polity & History", academy: "law", slug: "constitutional-law" } },
       { label: "Prelims (state-specific)", techLink: { name: "Prelims (state-specific)", academy: "exams", slug: "state-psc", section: "fundamentals" } },
       { label: "Mains + State-specific papers", techLink: { name: "Mains + State-specific papers", academy: "exams", slug: "state-psc", section: "pyq" } },
@@ -583,7 +615,7 @@ export const roadmapDetails: Record<string, RoadmapDetail> = {
       { name: "Financial Markets (SEBI/NISM)", academy: "finance", slug: "sebi-nism" },
       { name: "Banking & RBI Framework", academy: "finance", slug: "banking-rbi" },
       { name: "Credit Analysis Fundamentals", academy: "finance", slug: "credit-analysis" },
-      { name: "CA/MBA or NISM Certifications", academy: "finance", slug: "ca-cs-foundation" },
+      { name: "Credentialing Path", academy: "finance", slug: "ca-cs-foundation" },
       { name: "Role: Analyst / RM", academy: "finance", slug: "banking-rbi", section: "notes" },
     ],
     steps: [
@@ -591,7 +623,21 @@ export const roadmapDetails: Record<string, RoadmapDetail> = {
       { label: "Financial Markets (SEBI/NISM)", techLink: { name: "Financial Markets (SEBI/NISM)", academy: "finance", slug: "sebi-nism" } },
       { label: "Banking & RBI Framework", techLink: { name: "Banking & RBI Framework", academy: "finance", slug: "banking-rbi" } },
       { label: "Credit Analysis Fundamentals", techLink: { name: "Credit Analysis Fundamentals", academy: "finance", slug: "credit-analysis" } },
-      { label: "CA/MBA or NISM Certifications", techLink: { name: "CA/MBA or NISM Certifications", academy: "finance", slug: "ca-cs-foundation" } },
+      // "CA/MBA or NISM Certifications" -> "Credentialing Path", now a real
+      // fork (CA/CS/CMA route vs. the banking-exam route). No technically-
+      // better default between them -- CA/CS/CMA suits someone targeting
+      // credit/risk/investment-banking roles, the banking exam route suits
+      // someone targeting a direct PO/officer post -- so recommendedSlug is
+      // deliberately omitted, same reasoning as state-psc-officer's fork.
+      {
+        label: "Credentialing Path", techLink: { name: "Credentialing Path", academy: "finance", slug: "ca-cs-foundation" },
+        fork: {
+          branches: [
+            { name: "CA/CS/CMA Foundation", academy: "finance", slug: "ca-cs-foundation" },
+            { name: "Banking Exams (SBI/IBPS)", academy: "exams", slug: "banking-exams" },
+          ],
+        },
+      },
       { label: "Role: Analyst / Relationship Manager", techLink: { name: "Role: Analyst / RM", academy: "finance", slug: "banking-rbi", section: "notes" } },
     ],
     salaryRange: "Varies by which role and firm type you target — a public-sector bank, a private bank, and a boutique investment firm pay on genuinely different scales for similar-sounding analyst titles. Check current listings for the specific role and firm type rather than a blended figure.", jobTitles: ["Credit Analyst", "Equity Analyst", "Relationship Manager", "Risk Analyst"],
@@ -631,15 +677,36 @@ export const roadmapDetails: Record<string, RoadmapDetail> = {
       { name: "Transmission & Fiber Optics", academy: "telecom", slug: "fiber-optics" },
       { name: "Mobile Networks (4G LTE / 5G NR)", academy: "telecom", slug: "wireless-tech" },
       { name: "OSS/BSS & Network Management", academy: "telecom", slug: "telco", section: "fundamentals" },
-      { name: "GATE ECE / BSNL JTO Exam", academy: "telecom", slug: "bsnl-jto-prep" },
+      { name: "GATE ECE", academy: "exams", slug: "gate-ece" },
       { name: "Career: JTO, Network Engineer, RAN", academy: "telecom", slug: "telco", section: "interview" },
     ],
+    // 6 steps, unchanged count — "GATE ECE / BSNL JTO Exam" is now a
+    // genuine fork: exams/gate-ece was confirmed 2026-09-03 as a real,
+    // content-complete (9-tab) technology, unused by any other roadmap
+    // (zero collapsed-step collision risk), sitting unused as a second
+    // exam path this label already named but never linked to. GATE ECE
+    // is the recommended default — this roadmap's OWN pre-existing
+    // timelineNote below already states "GATE ECE is the primary route
+    // for PSU telecom jobs; BSNL JTO direct exam is conducted
+    // irregularly" — recommending BSNL JTO instead would have directly
+    // contradicted the roadmap's own already-vetted content, caught in
+    // visual review before this shipped. See
+    // docs/audit/14-roadmap-tree-redesign.md.
     steps: [
       { label: "Electronics & Communication (ECE Basics)", techLink: { name: "Electronics & Communication Basics", academy: "telecom", slug: "telecom-fundamentals" } },
       { label: "Transmission & Fiber Optics", techLink: { name: "Transmission & Fiber Optics", academy: "telecom", slug: "fiber-optics" } },
       { label: "Mobile Networks (4G LTE / 5G NR)", techLink: { name: "Mobile Networks (4G LTE / 5G NR)", academy: "telecom", slug: "wireless-tech" } },
       { label: "OSS/BSS & Network Management", techLink: { name: "OSS/BSS & Network Management", academy: "telecom", slug: "telco", section: "fundamentals" } },
-      { label: "GATE ECE / BSNL JTO Exam", techLink: { name: "GATE ECE / BSNL JTO Exam", academy: "telecom", slug: "bsnl-jto-prep" } },
+      {
+        label: "Exam Path", techLink: { name: "GATE ECE", academy: "exams", slug: "gate-ece" },
+        fork: {
+          recommendedSlug: "gate-ece",
+          branches: [
+            { name: "GATE ECE", academy: "exams", slug: "gate-ece" },
+            { name: "BSNL JTO Prep", academy: "telecom", slug: "bsnl-jto-prep" },
+          ],
+        },
+      },
       { label: "Career: JTO, Network Engineer, RAN", techLink: { name: "Career: JTO, Network Engineer, RAN", academy: "telecom", slug: "telco", section: "interview" } },
     ],
     salaryRange: "Two genuinely different structures — BSNL JTO follows a fixed PSU pay scale set by official notification, while private-telecom roles (Jio, Airtel, network vendors) are market-rate and vary by employer and specialization. Check the current BSNL notification for the PSU track, or current listings for the private track, rather than one blended figure.", jobTitles: ["JTO (BSNL)", "Network Engineer", "RAN Engineer", "5G Solutions Architect"],
