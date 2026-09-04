@@ -107,13 +107,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const title = `${techName} ${sectionLabel}`;
 
-  return pageMetadata({
+  const meta = pageMetadata({
     title,
     description,
     keywords: [techName, sectionLabel, `learn ${techName}`, `${techName} tutorial`, `${techName} course`, "DevOps", "SynfraCore"],
     path: `/academies/${aSlug}/${tSlug}/${section}`,
     ogImageParams: { academy: aSlug, title: techName, section: sectionLabel },
   });
+
+  // Labs never has markdown content by design (it's the interactive labs
+  // tab, not a written lesson) — don't noindex it just because hasContent()
+  // is false for it. Every other section with no written content yet is a
+  // real, live, crawlable "Not yet written" placeholder page (the tab bar
+  // links to it unconditionally, see the nav render below) — indexable by
+  // default until now, which is exactly the kind of thin-content page
+  // Search Console flags as "crawled/discovered — currently not indexed".
+  // noindex still allows follow, so link equity through this page (e.g. to
+  // sibling sections that DO have content) is unaffected.
+  if (section !== "labs" && !hasContent(aSlug, tSlug, section)) {
+    meta.robots = { index: false, follow: true };
+  }
+
+  return meta;
 }
 
 export default async function SectionPage({ params }: Props) {
