@@ -1,10 +1,12 @@
 "use client";
 import { useEffect } from "react";
 import Link from "next/link";
+import { logClientError } from "@/lib/errorLog";
 
 export default function OnboardingError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
     console.error("Onboarding error boundary caught:", error);
+    logClientError({ message: error.message, stack: error.stack, source: "client-boundary", digest: error.digest });
   }, [error]);
 
   return (

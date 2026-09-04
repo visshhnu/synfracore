@@ -46,7 +46,7 @@ export default async function PaperLandingPage({ params, searchParams }: Props) 
     <div style={{ maxWidth: "760px", margin: "0 auto", padding: "40px 24px" }}>
       <nav style={{ fontSize: "12px", color: "var(--text-4)", marginBottom: "24px", display: "flex", gap: "6px" }}>
         <Link href="/" style={{ color: "var(--text-4)", textDecoration: "none" }}>Home</Link>›
-        <Link href="/question-bank" style={{ color: "var(--text-4)", textDecoration: "none" }}>Question Bank</Link>›
+        <Link href={`/question-bank?examType=${paper.exam_type}`} style={{ color: "var(--text-4)", textDecoration: "none" }}>Question Bank</Link>›
         <span style={{ color: "var(--text-2)" }}>{paper.title}</span>
       </nav>
 

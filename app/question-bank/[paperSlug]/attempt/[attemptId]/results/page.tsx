@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { getAuthSafely } from "@/lib/clerk/authFallback";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { createServiceRoleClient } from "@/lib/supabase/serviceRole";
-import { getAttemptWithResponses, getAttemptResults } from "@/lib/supabase/questionBank";
+import { getAttemptWithResponses, getAttemptResults, getPaperBySlug } from "@/lib/supabase/questionBank";
 import ResultsSummary from "@/components/question-bank/ResultsSummary";
 
 type Props = { params: Promise<{ paperSlug: string; attemptId: string }> };
@@ -35,11 +35,20 @@ export default async function AttemptResultsPage({ params }: Props) {
     redirect(`/question-bank/${paperSlug}`);
   }
 
+  // Fetched separately from `results` (AttemptResults doesn't carry
+  // exam_type) purely to scope the "back to Question Bank" links to this
+  // paper's own exam type, matching the same stay-in-context pattern the
+  // paper landing page and the technology page's Practice Exams tab already
+  // use — a signed-in RLS-restricted read, not the service-role client.
+  const supabaseForPaper = createSupabaseServerClient();
+  const paper = await getPaperBySlug(supabaseForPaper, paperSlug);
+  const questionBankHref = paper ? `/question-bank?examType=${paper.exam_type}` : "/question-bank";
+
   return (
     <div style={{ maxWidth: "800px", margin: "0 auto", padding: "32px 24px" }}>
       <nav style={{ fontSize: "12px", color: "var(--text-4)", marginBottom: "24px", display: "flex", gap: "6px" }}>
         <Link href="/" style={{ color: "var(--text-4)", textDecoration: "none" }}>Home</Link>›
-        <Link href="/question-bank" style={{ color: "var(--text-4)", textDecoration: "none" }}>Question Bank</Link>›
+        <Link href={questionBankHref} style={{ color: "var(--text-4)", textDecoration: "none" }}>Question Bank</Link>›
         <Link href={`/question-bank/${paperSlug}`} style={{ color: "var(--text-4)", textDecoration: "none" }}>Paper</Link>›
         <span style={{ color: "var(--text-2)" }}>Results</span>
       </nav>
@@ -49,7 +58,7 @@ export default async function AttemptResultsPage({ params }: Props) {
       <ResultsSummary results={results} />
 
       <div style={{ textAlign: "center", marginTop: "32px", paddingTop: "24px", borderTop: "1px solid var(--border)" }}>
-        <Link href="/question-bank" className="btn-secondary">Back to Question Bank</Link>
+        <Link href={questionBankHref} className="btn-secondary">Back to Question Bank</Link>
       </div>
     </div>
   );

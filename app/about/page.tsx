@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { academies as allAcademies } from "@/lib/data/academies";
+import { getRegisteredContentCount } from "@/lib/content";
 export const metadata = {
   title: "About SynfraCore",
   description: "SynfraCore is India's most comprehensive tech learning platform — DevOps, Cloud, AI, Databases, Security and more. Learn who we are and what we are building.",
@@ -16,7 +17,7 @@ const totalTechnologies = allAcademies.reduce(
 const stats = [
   { value: `${totalTechnologies}`, label: "Technologies" },
   { value: `${allAcademies.length}`, label: "Learning Academies" },
-  { value: "5,000+", label: "Content Pages" },
+  { value: `${getRegisteredContentCount().toLocaleString()}+`, label: "Content Pages" },
   { value: "100%", label: "Free to Start" },
 ];
 
@@ -37,7 +38,7 @@ const academies = [
   { icon: "📊", name: "Data Analytics", techs: "SQL, Pandas, Power BI, Tableau" },
   { icon: "🛡️", name: "Security", techs: "Network Security, Ethical Hacking, SOC, SIEM, Pen Testing" },
   { icon: "🏥", name: "Healthcare Coding", techs: "ICD-10-CM, CPT, HCPCS, OASIS, PDGM — CPC exam prep" },
-  { icon: "💡", name: "Life Essentials", techs: "Nutrition, Mental Health, Personal Finance, First Aid" },
+  { icon: "💡", name: "Human Essentials", techs: "Nutrition, Mental Health, Personal Finance, First Aid" },
   { icon: "🎓", name: "CS Education", techs: "DSA, OS, DBMS, System Design, Java, C, C++" },
   { icon: "📝", name: "Competitive Exams", techs: "GATE CSE/ECE, JEE, NEET, UPSC, SSC CGL, RRB NTPC" },
 ];

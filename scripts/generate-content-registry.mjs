@@ -207,6 +207,13 @@ ${lines}
 export function hasContent(a: string, t: string, s: string): boolean {
   return contentRegistry.has(\`\${a}/\${t}/\${s}\`);
 }
+// Real, live count of registered content sections -- used by app/about/
+// page.tsx's "Content Pages" stat instead of a hand-typed guess. Excludes
+// aliased duplicate keys pointing at the same physical file, since those
+// don't represent additional real content.
+export function getRegisteredContentCount(): number {
+  return new Set(contentRegistry.values()).size;
+}
 // The physical file path behind a registry key — e.g. for looking up
 // git-derived last-updated data (lib/content/last-updated.ts), which is
 // keyed by physical path, not registry key, since an aliased key (like a

@@ -1,5 +1,6 @@
 "use client";
 import { useEffect } from "react";
+import { logClientError } from "@/lib/errorLog";
 
 // The last line of defense — catches exceptions in the ROOT layout itself
 // (ClerkProvider, etc.), which route-level error.tsx files (dashboard,
@@ -11,6 +12,7 @@ import { useEffect } from "react";
 export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
     console.error("Global error boundary caught (root layout failure):", error);
+    logClientError({ message: error.message, stack: error.stack, source: "global-boundary", digest: error.digest });
   }, [error]);
 
   return (
