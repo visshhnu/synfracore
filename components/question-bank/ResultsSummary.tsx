@@ -1,12 +1,17 @@
-import { CheckCircle2, XCircle, MinusCircle, Lock } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import { CheckCircle2, XCircle, MinusCircle, Lock, ChevronLeft, ChevronRight } from "lucide-react";
 import type { AttemptResults } from "@/lib/supabase/questionBank";
 
 type Props = { results: AttemptResults };
 
-// Server Component — all data here is already known/safe post-submission
-// (fetched via the service-role client inside the results page, ownership
-// already checked there). No client-side comparison logic at all; this
-// component only ever renders what the server already graded.
+// Client Component (was a Server Component until the one-question-at-a-time
+// review mode below needed pagination state) — all data here is still
+// already known/safe post-submission (fetched server-side via the
+// service-role client, ownership already checked there); this just adds
+// local view-mode/index state on top of data that was always going to be
+// sent to the client anyway. No client-side grading/comparison logic.
 //
 // reviewLocked questions (unanswered, attempt didn't hit the completion
 // threshold — see FULL_REVIEW_COMPLETION_THRESHOLD in questionBank.ts) are
@@ -86,6 +91,76 @@ function ScoreGauge({ pct, color, size = 132 }: { pct: number; color: string; si
   );
 }
 
+// The per-question review card — identical markup whichever view mode is
+// active, so "All questions" and "One at a time" can never visually drift
+// apart. `id` is only meaningful in "all" mode (anchor-scroll target for
+// Areas for Improvement); "one" mode ignores it, it's harmless either way.
+function QuestionReviewCard({ q, index, id }: { q: AttemptResults["questions"][number]; index: number; id?: string }) {
+  return (
+    <div id={id} style={{ padding: "20px", borderRadius: "12px", border: "1px solid var(--border)", background: "var(--bg-1)", scrollMarginTop: "20px" }}>
+      <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", marginBottom: "12px" }}>
+        {q.reviewLocked ? <Lock size={17} color="var(--text-4)" style={{ marginTop: "2px", flexShrink: 0 }} />
+          : q.isCorrect ? <CheckCircle2 size={17} color="#10B981" style={{ marginTop: "2px", flexShrink: 0 }} />
+          : (q.selectedOptionId || q.selectedNumericAnswer !== null) ? <XCircle size={17} color="#EF4444" style={{ marginTop: "2px", flexShrink: 0 }} />
+          : <MinusCircle size={17} color="var(--text-4)" style={{ marginTop: "2px", flexShrink: 0 }} />}
+        <div style={{ fontSize: "13.5px", fontWeight: 600, color: "var(--text-1)", lineHeight: 1.6 }}>{index + 1}. {q.question_text}</div>
+      </div>
+
+      {q.reviewLocked ? (
+        <p style={{ fontSize: "12.5px", color: "var(--text-4)", marginLeft: "27px", fontStyle: "italic" }}>
+          Not answered — complete more of the paper to unlock this question&apos;s review.
+        </p>
+      ) : (
+        <>
+          {q.answerType === "numeric" ? (
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px", marginLeft: "27px" }}>
+              <div
+                style={{
+                  padding: "8px 12px", borderRadius: "8px", fontSize: "13px", color: "var(--text-2)",
+                  border: `1px solid ${q.isCorrect ? "#10B981" : q.selectedNumericAnswer !== null ? "#EF4444" : "var(--border)"}`,
+                  background: q.isCorrect ? "rgba(16,185,129,0.08)" : q.selectedNumericAnswer !== null ? "rgba(239,68,68,0.08)" : "var(--bg-2)",
+                }}
+              >
+                Your answer: {q.selectedNumericAnswer !== null ? q.selectedNumericAnswer : "Not answered"}
+              </div>
+              {!q.isCorrect && (
+                <div style={{ padding: "8px 12px", borderRadius: "8px", border: "1px solid #10B981", background: "rgba(16,185,129,0.08)", fontSize: "13px", color: "var(--text-2)" }}>
+                  Correct answer: {q.correctNumericAnswer}
+                </div>
+              )}
+            </div>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px", marginLeft: "27px" }}>
+              {q.options.map((opt) => {
+                const isCorrectOption = opt.id === q.correctOptionId;
+                const isSelected = opt.id === q.selectedOptionId;
+                let border = "1px solid var(--border)";
+                let bg = "var(--bg-2)";
+                if (isCorrectOption) { border = "1px solid #10B981"; bg = "rgba(16,185,129,0.08)"; }
+                else if (isSelected && !isCorrectOption) { border = "1px solid #EF4444"; bg = "rgba(239,68,68,0.08)"; }
+                return (
+                  <div key={opt.id} style={{ display: "flex", alignItems: "center", gap: "8px", padding: "8px 12px", borderRadius: "8px", border, background: bg, fontSize: "13px", color: "var(--text-2)" }}>
+                    {isCorrectOption && <CheckCircle2 size={13} color="#10B981" />}
+                    {isSelected && !isCorrectOption && <XCircle size={13} color="#EF4444" />}
+                    {opt.option_text}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {q.explanation && (
+            <p style={{ fontSize: "12.5px", color: "var(--text-4)", marginTop: "12px", marginLeft: "27px", lineHeight: 1.7 }}>💡 {q.explanation}</p>
+          )}
+          {q.sourceNote && (
+            <p style={{ fontSize: "11px", color: "var(--text-4)", marginTop: "6px", marginLeft: "27px", fontStyle: "italic" }}>{q.sourceNote}</p>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
 export default function ResultsSummary({ results }: Props) {
   const pct = results.maxScore > 0 ? Math.round((results.score / results.maxScore) * 100) : 0;
   const minutes = results.timeTakenSeconds != null ? Math.round(results.timeTakenSeconds / 60) : null;
@@ -93,6 +168,23 @@ export default function ResultsSummary({ results }: Props) {
   const subjectStats = buildSubjectStats(results);
   const hasSubjectBreakdown = subjectStats.length >= 2;
   const scoreColor = pct >= 70 ? "#10B981" : pct >= 50 ? "#F59E0B" : "#EF4444";
+
+  // "all" (unchanged default — the full scrollable list) vs "one" (new —
+  // one question at a time, reusing AttemptRunner's own prev/next pattern:
+  // same currentIndex-style state, same disabled-at-bounds/opacity-0.4
+  // button treatment, so review mode feels like a continuation of the
+  // attempt UI rather than a different pattern bolted on).
+  const [viewMode, setViewMode] = useState<"all" | "one">("all");
+  const [reviewIndex, setReviewIndex] = useState(0);
+  const total = results.questions.length;
+
+  // Areas for Improvement's jump links: in "one" mode, jump by switching
+  // the current question instead of anchor-scrolling to a card that may not
+  // be rendered at all in that mode.
+  function jumpTo(questionNumber: number) {
+    setReviewIndex(questionNumber - 1);
+    setViewMode("one");
+  }
 
   return (
     <div>
@@ -161,19 +253,20 @@ export default function ResultsSummary({ results }: Props) {
                 </div>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
                   {s.needsReview.map(({ questionNumber, status }) => (
-                    <a
+                    <button
                       key={questionNumber}
-                      href={`#result-q-${questionNumber}`}
+                      type="button"
+                      onClick={() => jumpTo(questionNumber)}
                       style={{
                         display: "flex", alignItems: "center", justifyContent: "center", width: "32px", height: "32px",
-                        borderRadius: "6px", fontSize: "12px", fontWeight: 700, textDecoration: "none",
+                        borderRadius: "6px", fontSize: "12px", fontWeight: 700, textDecoration: "none", cursor: "pointer",
                         border: `1px solid ${status === "incorrect" ? "rgba(239,68,68,0.3)" : "var(--border)"}`,
                         background: status === "incorrect" ? "rgba(239,68,68,0.1)" : "var(--bg-2)",
                         color: status === "incorrect" ? "#EF4444" : "var(--text-3)",
                       }}
                     >
                       {questionNumber}
-                    </a>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -182,71 +275,61 @@ export default function ResultsSummary({ results }: Props) {
         </div>
       )}
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
-        {results.questions.map((q, i) => (
-          <div key={q.id} id={`result-q-${i + 1}`} style={{ padding: "20px", borderRadius: "12px", border: "1px solid var(--border)", background: "var(--bg-1)", scrollMarginTop: "20px" }}>
-            <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", marginBottom: "12px" }}>
-              {q.reviewLocked ? <Lock size={17} color="var(--text-4)" style={{ marginTop: "2px", flexShrink: 0 }} />
-                : q.isCorrect ? <CheckCircle2 size={17} color="#10B981" style={{ marginTop: "2px", flexShrink: 0 }} />
-                : (q.selectedOptionId || q.selectedNumericAnswer !== null) ? <XCircle size={17} color="#EF4444" style={{ marginTop: "2px", flexShrink: 0 }} />
-                : <MinusCircle size={17} color="var(--text-4)" style={{ marginTop: "2px", flexShrink: 0 }} />}
-              <div style={{ fontSize: "13.5px", fontWeight: 600, color: "var(--text-1)", lineHeight: 1.6 }}>{i + 1}. {q.question_text}</div>
-            </div>
-
-            {q.reviewLocked ? (
-              <p style={{ fontSize: "12.5px", color: "var(--text-4)", marginLeft: "27px", fontStyle: "italic" }}>
-                Not answered — complete more of the paper to unlock this question&apos;s review.
-              </p>
-            ) : (
-              <>
-                {q.answerType === "numeric" ? (
-                  <div style={{ display: "flex", flexDirection: "column", gap: "6px", marginLeft: "27px" }}>
-                    <div
-                      style={{
-                        padding: "8px 12px", borderRadius: "8px", fontSize: "13px", color: "var(--text-2)",
-                        border: `1px solid ${q.isCorrect ? "#10B981" : q.selectedNumericAnswer !== null ? "#EF4444" : "var(--border)"}`,
-                        background: q.isCorrect ? "rgba(16,185,129,0.08)" : q.selectedNumericAnswer !== null ? "rgba(239,68,68,0.08)" : "var(--bg-2)",
-                      }}
-                    >
-                      Your answer: {q.selectedNumericAnswer !== null ? q.selectedNumericAnswer : "Not answered"}
-                    </div>
-                    {!q.isCorrect && (
-                      <div style={{ padding: "8px 12px", borderRadius: "8px", border: "1px solid #10B981", background: "rgba(16,185,129,0.08)", fontSize: "13px", color: "var(--text-2)" }}>
-                        Correct answer: {q.correctNumericAnswer}
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <div style={{ display: "flex", flexDirection: "column", gap: "6px", marginLeft: "27px" }}>
-                    {q.options.map((opt) => {
-                      const isCorrectOption = opt.id === q.correctOptionId;
-                      const isSelected = opt.id === q.selectedOptionId;
-                      let border = "1px solid var(--border)";
-                      let bg = "var(--bg-2)";
-                      if (isCorrectOption) { border = "1px solid #10B981"; bg = "rgba(16,185,129,0.08)"; }
-                      else if (isSelected && !isCorrectOption) { border = "1px solid #EF4444"; bg = "rgba(239,68,68,0.08)"; }
-                      return (
-                        <div key={opt.id} style={{ display: "flex", alignItems: "center", gap: "8px", padding: "8px 12px", borderRadius: "8px", border, background: bg, fontSize: "13px", color: "var(--text-2)" }}>
-                          {isCorrectOption && <CheckCircle2 size={13} color="#10B981" />}
-                          {isSelected && !isCorrectOption && <XCircle size={13} color="#EF4444" />}
-                          {opt.option_text}
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-
-                {q.explanation && (
-                  <p style={{ fontSize: "12.5px", color: "var(--text-4)", marginTop: "12px", marginLeft: "27px", lineHeight: 1.7 }}>💡 {q.explanation}</p>
-                )}
-                {q.sourceNote && (
-                  <p style={{ fontSize: "11px", color: "var(--text-4)", marginTop: "6px", marginLeft: "27px", fontStyle: "italic" }}>{q.sourceNote}</p>
-                )}
-              </>
-            )}
-          </div>
-        ))}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "14px" }}>
+        <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--text-1)" }}>Question review</h2>
+        <div style={{ display: "flex", gap: "4px", padding: "3px", borderRadius: "8px", background: "var(--bg-2)", border: "1px solid var(--border)" }}>
+          {(["all", "one"] as const).map((mode) => (
+            <button
+              key={mode}
+              type="button"
+              onClick={() => setViewMode(mode)}
+              style={{
+                padding: "6px 12px", borderRadius: "6px", fontSize: "12.5px", fontWeight: 600, cursor: "pointer",
+                border: "none", background: viewMode === mode ? "var(--bg-1)" : "transparent",
+                color: viewMode === mode ? "var(--text-1)" : "var(--text-4)",
+                boxShadow: viewMode === mode ? "0 1px 2px rgba(0,0,0,0.08)" : "none",
+              }}
+            >
+              {mode === "all" ? "All questions" : "One at a time"}
+            </button>
+          ))}
+        </div>
       </div>
+
+      {viewMode === "all" ? (
+        <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
+          {results.questions.map((q, i) => (
+            <QuestionReviewCard key={q.id} q={q} index={i} id={`result-q-${i + 1}`} />
+          ))}
+        </div>
+      ) : (
+        <div>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "14px" }}>
+            <span style={{ fontSize: "12px", color: "var(--text-4)", fontWeight: 700 }}>Question {reviewIndex + 1} of {total}</span>
+            <div style={{ display: "flex", gap: "8px" }}>
+              <button
+                type="button"
+                disabled={reviewIndex === 0}
+                onClick={() => setReviewIndex((i) => Math.max(0, i - 1))}
+                className="btn-secondary"
+                style={{ display: "flex", alignItems: "center", gap: "4px", opacity: reviewIndex === 0 ? 0.4 : 1 }}
+              >
+                <ChevronLeft size={14} /> Prev
+              </button>
+              <button
+                type="button"
+                disabled={reviewIndex === total - 1}
+                onClick={() => setReviewIndex((i) => Math.min(total - 1, i + 1))}
+                className="btn-secondary"
+                style={{ display: "flex", alignItems: "center", gap: "4px", opacity: reviewIndex === total - 1 ? 0.4 : 1 }}
+              >
+                Next <ChevronRight size={14} />
+              </button>
+            </div>
+          </div>
+          <QuestionReviewCard q={results.questions[reviewIndex]} index={reviewIndex} />
+        </div>
+      )}
     </div>
   );
 }

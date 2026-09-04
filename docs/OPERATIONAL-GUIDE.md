@@ -374,11 +374,11 @@ or stale, not open:**
   OT-cannot-complete-OASIS) both corrected and sitewide-swept (`ae0bf36`,
   `a09a0db`). See `docs/audit/11-healthcare-retroactive-comprehension-
   audit.md`'s final tally.
-- **New, small (found during the above close-out):**
-  `coding-guidelines/projects.md` still carries leftover DevOps-flavored
-  contamination boilerplate ("Cloud and infrastructure tools evolve
-  rapidly...") — same signature already cleaned from 4 sibling
-  `interview.md` files, just missed in that pass. Small, single-file fix.
+- ~~`coding-guidelines/projects.md` DevOps contamination~~ — re-checked
+  2026-09-04, was a stale claim: this file was already rewritten in
+  `2203370` ("Healthcare batch 1 — DevOps-template contamination, 16
+  files"), which predates the audit doc's later claim that it was still
+  open. Confirmed clean on disk, no contamination present. Nothing to fix.
 - **SSC/Banking premium papers**: two flagship papers shipped (SSC CGL
   Tier 1, IBPS PO Prelims) — matching NEET/JEE's scale (5 papers each)
   would need a similarly-sized future batch
