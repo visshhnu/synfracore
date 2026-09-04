@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { academies as allAcademies } from "@/lib/data/academies";
 import { getRegisteredContentCount } from "@/lib/content";
 export const metadata = {
@@ -103,21 +104,20 @@ export default function AboutPage() {
 
         {/* Section 1 — Hero */}
         <div style={{ display: "flex", gap: "32px", alignItems: "flex-start", flexWrap: "wrap", marginBottom: "40px" }}>
-          {/* Photo placeholder — swap this div for a next/image once the
-              real photo is provided. Intended crop: portrait, ~4:5 ratio
-              (e.g. 800x1000px source), natural/candid, not a studio
-              headshot — matches the box's own aspect ratio below so the
-              real photo drops in with no layout change needed. */}
-          <div
-            style={{
-              width: "180px", aspectRatio: "4 / 5", flexShrink: 0, borderRadius: "16px",
-              border: "1px solid var(--border)", background: "var(--bg-1)",
-              display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-              gap: "8px", padding: "16px", textAlign: "center",
-            }}
-          >
-            <span style={{ fontSize: "28px", opacity: 0.5 }}>📷</span>
-            <span style={{ fontSize: "11px", color: "var(--text-4)", lineHeight: 1.5 }}>Photo placeholder<br />4:5 portrait crop<br />~800×1000px</span>
+          {/* Source photo is a 1280x1280 square; object-fit:cover on this
+              4:5 box crops only ~18% off each side (centered, matching
+              where the face already sits in the source), no vertical crop
+              at all — full natural framing preserved, no re-processing of
+              the source file itself. */}
+          <div style={{ width: "180px", aspectRatio: "4 / 5", flexShrink: 0, borderRadius: "16px", overflow: "hidden", border: "1px solid var(--border)", position: "relative" }}>
+            <Image
+              src="/about/vishnu-founder.jpg"
+              alt="Vishnu B, Founder of SynfraCore"
+              fill
+              sizes="180px"
+              style={{ objectFit: "cover", objectPosition: "center" }}
+              priority
+            />
           </div>
 
           <div style={{ flex: 1, minWidth: "260px" }}>
