@@ -725,6 +725,7 @@ const examsAcademy: Academy = {
       { slug: "upsc-mains", name: "UPSC Mains", icon: "✍️", description: "Essay, GS Papers I-IV, Optional subject strategy and answer writing", level: "Advanced", tags: ["UPSC", "IAS", "Mains"] },
       { slug: "upsc-ethics", name: "Essay + Ethics (GS4)", icon: "🖋️", description: "Essay writing strategy and GS Paper IV Ethics, Integrity & Aptitude — case studies and model answers", level: "Advanced", tags: ["UPSC", "Ethics", "Essay"] },
       { slug: "upsc-interview", name: "UPSC Interview / Personality Test", icon: "🎤", description: "UPSC Personality Test — DAF-based questioning, mock panel prep, do's and don'ts for the interview stage", level: "Advanced", tags: ["UPSC", "Interview", "Personality Test"] },
+        { slug: "upsc-geography", name: "UPSC Geography Optional", icon: "🗺️", description: "Geography optional subject — Physical, Human, Indian Geography, plus Paper I/II syllabus, sourced from the current official UPSC syllabus", level: "Advanced", tags: ["UPSC", "Optional", "Geography"] },
       ],
     },
   ],

@@ -62,6 +62,18 @@ export const technologyExamTypeMap: Record<string, string> = {
   "exams/jee-maths": "jee-main",
 };
 
+// Same existence-check pattern as technologyExamTypeMap above, but for the
+// PYQ + model-answer bank (docs/pyq-bank-schema.sql, app/pyq-bank/) instead
+// of the MCQ question bank — a completely separate content type/route tree,
+// deliberately not merged into technologyExamTypeMap even though both are
+// "does this technology have premium papers" checks, since conflating the
+// two would make it easy to link an essay-format subject into the MCQ
+// attempt flow (or vice versa) by mistake. Extend this map, not the page
+// component, when a new optional subject gets real PYQ collections.
+export const technologyPyqSubjectMap: Record<string, string> = {
+  "exams/upsc-geography": "geography",
+};
+
 // Same existence-check pattern as technologyExamTypeMap above, but keyed by
 // certification id (app/certifications/[id]/page.tsx) instead of a
 // technology tab — added 2026-08-30 to wire the question_papers that

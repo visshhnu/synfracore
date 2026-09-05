@@ -2,11 +2,12 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { getAcademy, getTechnology } from "@/lib/data/academies";
-import { nonTechAcademyIds, technologyExamTypeMap, getSectionsForTechnology } from "@/lib/data/navigation";
+import { nonTechAcademyIds, technologyExamTypeMap, technologyPyqSubjectMap, getSectionsForTechnology } from "@/lib/data/navigation";
 import { hasContent, fetchContentEdge, getContentFilePath } from "@/lib/content";
 import { getLastUpdated } from "@/lib/content/last-updated";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getFirstPaperByExamType } from "@/lib/supabase/questionBank";
+import { getCollectionsBySubject } from "@/lib/supabase/pyqBank";
 import { Sparkles } from "lucide-react";
 import TechIcon from "@/components/icons/TechIcon";
 import SectionContent from "@/components/tech/SectionContent";
@@ -213,6 +214,15 @@ export default async function SectionPage({ params }: Props) {
     : null;
   const practiceExamsHref = examType ? `/question-bank?examType=${examType}` : "/question-bank";
 
+  // Sidebar "PYQ + Model Answers" tab — same existence-check discipline as
+  // Practice Exams above, but for the separate PYQ bank (essay-format,
+  // ungraded) content type. Only for technologies with a real pyq_collections
+  // row (technologyPyqSubjectMap in lib/data/navigation.ts is just the
+  // registry of which subject to look for).
+  const pyqSubject = technologyPyqSubjectMap[`${aSlug}/${tSlug}`];
+  const pyqCollections = pyqSubject ? await getCollectionsBySubject(createSupabaseServerClient(), pyqSubject) : [];
+  const pyqBankHref = pyqSubject ? `/pyq-bank?subject=${pyqSubject}` : "/pyq-bank";
+
   return (
     <div style={{ display: "flex", alignItems: "flex-start", gap: "0", minHeight: "80vh" }}>
       <CourseJsonLd
@@ -304,6 +314,30 @@ export default async function SectionPage({ params }: Props) {
             >
               <span style={{ fontSize: "14px" }}>📝</span>
               Practice Exams
+              <span style={{ display: "flex", alignItems: "center", gap: "2px", marginLeft: "auto", fontSize: "9px", fontWeight: 700, padding: "2px 7px", borderRadius: "20px", background: "rgba(245,158,11,0.12)", color: "#F59E0B", whiteSpace: "nowrap" }}>
+                <Sparkles size={9} /> Premium
+              </span>
+            </Link>
+          )}
+          {pyqCollections.length > 0 && (
+            <Link
+              href={pyqBankHref}
+              prefetch={false}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "8px 10px",
+                borderRadius: "6px",
+                marginBottom: "2px",
+                textDecoration: "none",
+                fontSize: "13px",
+                fontWeight: 400,
+                color: "var(--text-3)",
+              }}
+            >
+              <span style={{ fontSize: "14px" }}>📄</span>
+              PYQ + Model Answers
               <span style={{ display: "flex", alignItems: "center", gap: "2px", marginLeft: "auto", fontSize: "9px", fontWeight: 700, padding: "2px 7px", borderRadius: "20px", background: "rgba(245,158,11,0.12)", color: "#F59E0B", whiteSpace: "nowrap" }}>
                 <Sparkles size={9} /> Premium
               </span>
