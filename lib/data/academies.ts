@@ -729,6 +729,7 @@ const examsAcademy: Academy = {
         { slug: "upsc-psir", name: "UPSC PSIR Optional", icon: "🏛️", description: "Political Science & International Relations optional subject — Political Theory, Indian Government/Politics, Comparative Politics, International Relations, sourced from the current official UPSC syllabus", level: "Advanced", tags: ["UPSC", "Optional", "PSIR"] },
         { slug: "upsc-sociology", name: "UPSC Sociology Optional", icon: "👥", description: "Sociology optional subject — Sociological Theory, Research Methods, Indian Society (structure, change, social movements), sourced from the current official UPSC syllabus", level: "Advanced", tags: ["UPSC", "Optional", "Sociology"] },
         { slug: "upsc-history", name: "UPSC History Optional", icon: "📜", description: "History optional subject — Ancient/Medieval/Modern Indian History, World History, sourced from the current official UPSC syllabus", level: "Advanced", tags: ["UPSC", "Optional", "History"] },
+        { slug: "upsc-public-administration", name: "UPSC Public Administration Optional", icon: "🏢", description: "Public Administration optional subject — Administrative Theory, Indian Administration, Public Policy, Comparative & Development Administration, sourced from the current official UPSC syllabus", level: "Advanced", tags: ["UPSC", "Optional", "Public Administration"] },
       ],
     },
   ],
