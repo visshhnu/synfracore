@@ -730,6 +730,7 @@ const examsAcademy: Academy = {
         { slug: "upsc-sociology", name: "UPSC Sociology Optional", icon: "👥", description: "Sociology optional subject — Sociological Theory, Research Methods, Indian Society (structure, change, social movements), sourced from the current official UPSC syllabus", level: "Advanced", tags: ["UPSC", "Optional", "Sociology"] },
         { slug: "upsc-history", name: "UPSC History Optional", icon: "📜", description: "History optional subject — Ancient/Medieval/Modern Indian History, World History, sourced from the current official UPSC syllabus", level: "Advanced", tags: ["UPSC", "Optional", "History"] },
         { slug: "upsc-public-administration", name: "UPSC Public Administration Optional", icon: "🏢", description: "Public Administration optional subject — Administrative Theory, Indian Administration, Public Policy, Comparative & Development Administration, sourced from the current official UPSC syllabus", level: "Advanced", tags: ["UPSC", "Optional", "Public Administration"] },
+        { slug: "upsc-anthropology", name: "UPSC Anthropology Optional", icon: "🧬", description: "Anthropology optional subject — Social-Cultural Anthropology, Physical Anthropology, Indian Anthropology (tribal communities, social change), sourced from the current official UPSC syllabus", level: "Advanced", tags: ["UPSC", "Optional", "Anthropology"] },
       ],
     },
   ],

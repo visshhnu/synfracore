@@ -76,6 +76,7 @@ export const technologyPyqSubjectMap: Record<string, string> = {
   "exams/upsc-sociology": "sociology",
   "exams/upsc-history": "history",
   "exams/upsc-public-administration": "public-administration",
+  "exams/upsc-anthropology": "anthropology",
 };
 
 // Same existence-check pattern as technologyExamTypeMap above, but keyed by
