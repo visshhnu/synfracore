@@ -1,0 +1,395 @@
+// UPSC Civil Services Mains Public Administration Optional Paper II -- PYQ +
+// Model Answer data file. All 28 questions below are real questions from the
+// 2023 UPSC CSE Mains Public Administration Optional Paper II (exam held 24
+// September 2023, afternoon session, per official records).
+//
+// Sourcing method: this file uses a text-based, multi-source
+// cross-corroboration tier -- ONE STEP BELOW the direct-official-PDF-text-
+// extraction tier used in this batch's Paper I file. Every question's exact
+// wording (with quotation marks preserved exactly as printed) and marks
+// value was taken from EduRev's page-by-page PYQ transcription (edurev.in,
+// "UPSC Mains Answer PYQ 2023 Public Administration Paper 2", Section A page
+// and Section B page), which reproduces each question in the same verbatim,
+// quoted style as the official paper. This was cross-checked against THREE
+// further independent sources that matched exactly in substance and marks:
+// IASexamportal's categorized-analysis page ("UPSC Mains 2023 Public
+// Administration Optional Categorized Analysis (Paper-2)", iasexamportal.com),
+// LotusArise's full question-paper reproduction (lotusarise.com), and GS
+// Score/IASscore's transcription (iasscore.in). During this session, the
+// direct upsc.gov.in PDF for this paper returned HTTP 403 to automated
+// fetch, and no pwonlyias.com-hosted copy of this specific paper (mirroring
+// the one found and used for Paper I) could be located under any of the
+// filename patterns tried -- so, unlike Paper I, a direct official-PDF text
+// extraction could not be independently re-verified for this paper within
+// this session. Reported honestly: this is the multi-source text
+// cross-corroboration tier, not the scanned/extracted-official-document
+// tier. All 28 questions on the real paper are text-based (no map/diagram/
+// case-study question), so all 28 are included -- no exclusions were
+// required for this paper.
+//
+// Word-limit note: none of the four sources preserved an explicit "answer in
+// about N words" instruction line for this paper either; all four
+// independently describe Q1 and Q5 as "answer in about 150 words each
+// (10x5=50 marks)". For Q2-4 and Q6-8, this file applies UPSC's
+// well-documented general convention (approx. 350 words for 20 marks,
+// approx. 150 words for 10 marks). Paper II's non-Q1/Q5 marks pattern here
+// is 20/20/10 for Q2-4 and Q6-8 -- confirmed identically across all four
+// sources -- distinct from Paper I's 20/15/15 pattern (see that file's own
+// header note).
+
+const SOURCE_A = (q) =>
+  `UPSC CSE Mains 2023, Public Administration Optional Paper II, Section A, Q${q}. Verified against EduRev's verbatim quoted transcription of the official question paper (edurev.in, "UPSC Mains Answer PYQ 2023 Public Administration Paper 2 (Section- A)"). Cross-checked against three independent sources matching exactly in substance and marks: IASexamportal's categorized analysis (iasexamportal.com), LotusArise's full paper reproduction (lotusarise.com), and GS Score/IASscore's transcription (iasscore.in). A direct official-PDF text extraction (as achieved for Paper I) could not be independently located/re-verified for this paper this session -- see file header for the honest sourcing-tier disclosure.`;
+
+const SOURCE_B = (q) =>
+  `UPSC CSE Mains 2023, Public Administration Optional Paper II, Section B, Q${q}. Verified against EduRev's verbatim quoted transcription of the official question paper (edurev.in, "UPSC Mains Answer PYQ 2023 Public Administration Paper 2 (Section- B)"). Cross-checked against three independent sources matching exactly in substance and marks: IASexamportal's categorized analysis (iasexamportal.com), LotusArise's full paper reproduction (lotusarise.com), and GS Score/IASscore's transcription (iasscore.in). A direct official-PDF text extraction (as achieved for Paper I) could not be independently located/re-verified for this paper this session -- see file header for the honest sourcing-tier disclosure.`;
+
+export const COLLECTION = {
+  slug: "upsc-public-administration-optional-paper-2-pyq",
+  subject: "public-administration",
+  title: "UPSC Public Administration Optional Paper II — PYQ & Model Answers (2023)",
+  examPaper: "paper-2",
+  year: 2023,
+  questionCount: 28,
+  sortOrder: 2,
+};
+
+export const QUESTIONS = [
+  // ---------------- SECTION A ----------------
+  {
+    section: "A",
+    questionNumber: "1(a)",
+    marks: 10,
+    wordLimit: 150,
+    questionText: "\"Kautilya's Arthashastra is a theoretical work on the State and Statecraft.\" Comment.",
+    modelAnswer:
+      "Kautilya's Arthashastra (c. 4th century BCE, attributed to Chanakya, minister to the Mauryan emperor Chandragupta) is widely regarded as ancient India's foundational treatise on statecraft, administration, economics and diplomacy.\n\nTheoretical content on the State: it articulates the Saptanga (seven-limbed) theory of the state -- Swami (the king), Amatya (ministers), Janapada (territory/population), Durga (fort), Kosha (treasury), Danda (military/coercive power) and Mitra (allies) -- as the constituent elements whose sound functioning and mutual interdependence sustain state power, an early systematic theory of state structure.\n\nStatecraft: the Mandala (circle of states) theory analyzes inter-state relations through concentric rings of neighbouring states, framing a realist diplomatic doctrine (a neighbouring state is a natural rival, a neighbour's neighbour a natural ally) that anticipates later balance-of-power thinking. Kautilya also elaborates Sadgunya (six-fold foreign policy: peace, war, neutrality, alliance, double policy, preparation for war) and extensively covers internal administration -- taxation, espionage networks, judicial administration, and the king's duty (Rajadharma) toward subjects' welfare, alongside pragmatic, often amoral prescriptions for maintaining and expanding state power (danda-niti, statecraft grounded in coercive authority).\n\nConclusion: the Arthashastra is rightly comment-worthy as a genuinely theoretical, systematic work on both the state's internal constitution and its external statecraft, combining normative concern for welfare with unsentimental realist political analysis -- making it a foundational text for both public administration and political theory in the Indian tradition.",
+    examinerNotes:
+      "The Saptanga theory and the Mandala theory are the two specific frameworks examiners expect to be named; briefly noting Kautilya's blend of welfare-oriented Rajadharma with pragmatic/realist danda-niti captures the theory's dual character.",
+    sourceNote: SOURCE_A("1(a)"),
+  },
+  {
+    section: "A",
+    questionNumber: "1(b)",
+    marks: 10,
+    wordLimit: 150,
+    questionText: "Critics sometimes argue that bureaucracy is an impediment to a nation's development. Analyse.",
+    modelAnswer:
+      "The critique that bureaucracy impedes development rests on well-documented pathologies: red-tapism and procedural rigidity that delay project execution; risk-aversion and excessive caution (fear of audit objections/CVC scrutiny) discouraging innovative or timely decision-making; corruption and rent-seeking that divert resources from developmental purposes; over-centralization and hierarchical delay in decision transmission; and what Gunnar Myrdal termed the 'soft state' -- weak enforcement capacity and political interference undermining the bureaucracy's developmental effectiveness in South Asian contexts specifically.\n\nCounter-view: bureaucracy is also indispensable to development -- providing continuity, technical expertise, implementation capacity for large-scale programmes (Green Revolution, digital infrastructure rollout), and a stabilizing, rule-bound administrative backbone without which any developmental policy would lack execution capacity. Development administration theory (Riggs, Weidner) treats a professionalized, appropriately reformed bureaucracy as the essential vehicle for planned development, not its enemy.\n\nConclusion: bureaucracy's developmental impact is contingent on its own quality and reform status -- a rigid, corrupt, over-centralized bureaucracy is genuinely a developmental impediment, while a professionalized, accountable, appropriately decentralized one is a necessary condition for development; the critique is valid as a description of bureaucratic pathology, not as an indictment of bureaucratic administration per se.",
+    examinerNotes:
+      "Myrdal's 'soft state' concept and the red-tapism/risk-aversion pathologies are the specific expected critique points; balancing this against development administration theory's view of bureaucracy as a necessary developmental vehicle is required for a complete 'analyse'.",
+    sourceNote: SOURCE_A("1(b)"),
+  },
+  {
+    section: "A",
+    questionNumber: "1(c)",
+    marks: 10,
+    wordLimit: 150,
+    questionText: "The Ninety-First Constitutional Amendment Act successfully right-sized the Council of Ministers both at Union and State levels. Comment.",
+    modelAnswer:
+      "The 91st Constitutional Amendment Act, 2003 inserted Articles 75(1A) and 164(1A), capping the total strength of the Council of Ministers (including the Prime Minister/Chief Minister) at 15% of the total members of the Lok Sabha/state Legislative Assembly, to curb the pre-amendment trend of unwieldy, often disproportionately large ministries driven by coalition-management and patronage needs.\n\nAssessment of success: the amendment did impose a genuine, enforceable numerical ceiling absent before, curbing the most extreme cases of oversized ministries seen in the 1990s coalition era, and also tightened the Tenth Schedule (anti-defection law) by removing the earlier one-third-split exemption that had enabled defection-driven ministry expansion.\n\nLimitations: the 15% ceiling remains a relatively generous cap in large assemblies, still permitting sizeable ministries; the amendment does not address the underlying incentive structures (coalition bargaining, patronage politics) that drove ministry-size inflation in the first place, so pressure for maximum ministerial berths persists within the new ceiling; and enforcement/interpretation questions (e.g., whether all minister-of-state and deputy-minister-level appointments are counted) have occasionally been contested.\n\nConclusion: the 91st Amendment achieved a meaningful, if partial, right-sizing by introducing an enforceable numerical cap, but did not fully resolve the deeper political incentives driving ministry-size inflation.",
+    examinerNotes:
+      "Citing the specific constitutional provisions (Articles 75(1A)/164(1A)) and the linked Tenth Schedule anti-defection tightening (removal of the one-third-split exemption) are the expected precise legal anchors for this question.",
+    sourceNote: SOURCE_A("1(c)"),
+  },
+  {
+    section: "A",
+    questionNumber: "1(d)",
+    marks: 10,
+    wordLimit: 150,
+    questionText: "Is it true that the Finance Commission has been lending financial strength to the local bodies in India? Argue in favour of your response.",
+    modelAnswer:
+      "Yes, substantially true, though with acknowledged limitations. Following the 73rd/74th Constitutional Amendments (1992) establishing Panchayati Raj Institutions and Urban Local Bodies as constitutional entities, Article 280(3)(bb)/(c) mandates the Finance Commission to recommend measures to augment the Consolidated Fund of States to supplement panchayat/municipality resources, based on State Finance Commission recommendations.\n\nEvidence of strengthening: successive Finance Commissions (13th through 15th) have progressively increased the quantum of grants earmarked specifically for local bodies, moved toward more objective, formula-based (population, area, forest cover, own revenue effort) devolution criteria rather than ad hoc allocation, and introduced performance-linked and tied grants (for basic services like drinking water, sanitation) directly channelled to local bodies, bypassing state-level discretion in disbursement in several cases -- the 15th Finance Commission notably recommended direct transfers to be tracked through a dedicated local-body grant portal.\n\nLimitations: the overall share remains modest relative to local bodies' functional responsibilities (the 3Fs -- funds, functions, functionaries -- devolution under the 73rd/74th amendments remains incomplete at the state level), and actual utilization/absorption capacity at the local level often lags behind allocated grants.\n\nConclusion: the Finance Commission has genuinely and progressively strengthened local body finances through increasing, more formula-based and increasingly direct devolution, even though the broader 3Fs devolution gap at the state level limits the full realization of local fiscal empowerment.",
+    examinerNotes:
+      "Article 280(3)(bb)/(c) and the trend across the 13th-15th Finance Commissions toward larger, more formula-based, more directly-transferred local-body grants are the specific expected evidentiary anchors for an 'argue in favour' response.",
+    sourceNote: SOURCE_A("1(d)"),
+  },
+  {
+    section: "A",
+    questionNumber: "1(e)",
+    marks: 10,
+    wordLimit: 150,
+    questionText: "\"Parliamentary democracy in India envisages elected head as the real executive of a State.\" Discuss.",
+    modelAnswer:
+      "In India's parliamentary system, both at the Union and State level, there is a clear distinction between the nominal/constitutional head and the real executive head, and the statement is accurate with a precise qualification about which 'elected head' is meant.\n\nAt the Union level: the President is the constitutional (nominal) head of state, while the Prime Minister -- though not directly elected by citizens but by virtue of commanding majority support in the directly-elected Lok Sabha -- is the real executive, exercising actual governmental power under Article 74's binding aid-and-advice provision (post-42nd/44th Amendments).\n\nAt the State level: the Governor is the nominal head (in fact, not even elected but appointed by the President), while the Chief Minister, similarly deriving authority from majority support in the directly-elected Legislative Assembly, is the real executive under Article 163.\n\nPrecise sense of 'elected': the PM/CM is not directly elected to that specific office by the citizenry (as in a presidential system) but derives real executive authority indirectly, through direct election to the legislature and subsequent command of legislative majority -- this indirect but genuinely accountable electoral basis is what parliamentary democracy envisages as constituting the 'real' executive, as opposed to the nominal head's largely ceremonial/reserve-power role.\n\nConclusion: the statement correctly captures parliamentary democracy's core design -- real executive power vests in the legislature-accountable Prime Minister/Chief Minister, not the nominal constitutional head.",
+    examinerNotes:
+      "The answer should precisely distinguish the President/Governor's nominal role from the PM/CM's real executive role, and clarify that the PM/CM's 'elected' character is indirect (via legislative majority) rather than direct popular election -- conflating the two would be a significant error.",
+    sourceNote: SOURCE_A("1(e)"),
+  },
+  {
+    section: "A",
+    questionNumber: "2(a)",
+    marks: 20,
+    wordLimit: 350,
+    questionText: "\"Indian Prime Minister is more empowered than his British counterpart in the Westminster model of democracy.\" Elucidate.",
+    modelAnswer:
+      "Introduction: while India's parliamentary system is modelled on the British Westminster system, several institutional and political differences have arguably concentrated greater real power in the Indian Prime Minister than in the British Prime Minister.\n\nConstitutional/structural factors favouring Indian PM's greater power: India's written, codified constitution gives the PM-led Union government significant authority over a federal structure with residuary powers and strong central institutions (compared to the UK's unitary but historically more devolved/decentralizing trajectory in recent decades -- Scotland, Wales, Northern Ireland devolution reducing Westminster's direct reach); India's PM heads a government controlling a vast public sector, extensive administrative machinery (All India Services directly under central control) and significant discretionary emergency powers (Article 352/356) absent in equivalent form in the UK.\n\nPolitical factors: the anti-defection law (Tenth Schedule) in India enforces strict party-line voting, giving a majority PM near-total control over the legislative agenda without the intra-party rebellion risk British PMs regularly face (backbench rebellions being a real constraint on UK PMs, as seen repeatedly on Brexit-related votes); Indian PMs with a single-party majority (unlike the more frequent UK/Indian coalition scenarios) face fewer coalition-partner constraints when such majorities exist.\n\nFactors favouring British PM: the UK's flexible, uncodified constitution allows a PM significant discretionary latitude (traditionally over dissolution timing, though the Fixed-term Parliaments Act, 2011, later repealed in 2022, complicated this); British Cabinet collective responsibility and long parliamentary convention still afford British PMs strong practical authority.\n\nQualifications: an Indian PM leading a coalition government (era of 1989-2014 in particular) faces substantial constraint from coalition partners, sometimes more so than a British PM with a working majority; judicial review and a written constitution's fundamental rights framework also constrain the Indian PM in ways not identically present in the UK's more parliamentary-sovereignty-centred tradition.\n\nConclusion: institutional features (anti-defection law, federal-yet-centralized authority, extensive administrative control, emergency powers) do generally empower an Indian PM commanding a majority more than a British counterpart, though this comparison is highly contingent on whether the PM in question leads a single-party majority or a coalition government.",
+    examinerNotes:
+      "The anti-defection law's effect on legislative discipline and the Indian PM's emergency-power/federal-administrative-control advantages are the specific comparative points expected; the coalition-era qualification is necessary for a balanced 'elucidate'.",
+    sourceNote: SOURCE_A("2(a)"),
+  },
+  {
+    section: "A",
+    questionNumber: "2(b)",
+    marks: 20,
+    wordLimit: 350,
+    questionText: "Post-amendment period Panchayats have become a platform of competitive politics, but could not emerge as an agency of planning and service delivery. Examine.",
+    modelAnswer:
+      "Introduction: the 73rd Constitutional Amendment (1992) envisioned Panchayati Raj Institutions (PRIs) as genuine institutions of local self-government responsible for grassroots planning and service delivery (as per the Eleventh Schedule's 29 subjects), but three decades of experience show PRIs have more consistently become sites of competitive electoral politics than effective planning/delivery agencies.\n\nEvidence of politicization: panchayat elections have become intensely contested, often along caste, factional and party lines, mirroring state/national-level political competition rather than functioning as consensus-based grassroots governance; reservation provisions (for SC/ST/women) intended to democratize representation have sometimes been undermined by proxy-representation phenomena (e.g., 'sarpanch pati'); political parties increasingly contest panchayat elections directly or through proxies, converting local bodies into extensions of state-level party competition.\n\nEvidence of planning/delivery shortfall: the constitutionally-envisioned devolution of the '3Fs' -- funds, functions and functionaries -- to PRIs remains incomplete and highly uneven across states, with many states retaining effective control over key functions and finances at the state/district bureaucracy level; Gram Panchayat Development Plans are frequently prepared as a formality to satisfy Finance Commission fund-release conditions rather than through genuine bottom-up participatory planning (as originally envisioned via Gram Sabhas); technical and administrative capacity at the panchayat level often remains inadequate for genuine planning functions, leaving actual implementation dependent on state-line-department officials rather than elected panchayat bodies themselves.\n\nCounter-evidence/exceptions: some states (Kerala's People's Plan Campaign, parts of Karnataka and Madhya Pradesh) have achieved more genuine devolution and participatory planning, showing the shortfall is not universal but reflects highly uneven state-level political will to devolve genuine functional and financial authority.\n\nConclusion: the statement is substantially accurate as a general characterization -- PRIs have become vibrant sites of competitive local politics but have, in most states, fallen well short of their designed role as genuine planning and service-delivery agencies, primarily due to incomplete 3Fs devolution rather than any inherent institutional flaw in the panchayat model itself.",
+    examinerNotes:
+      "The incomplete '3Fs' (funds, functions, functionaries) devolution is the central, expected diagnostic concept; citing Kerala's People's Plan Campaign as a genuine counter-example of successful devolution shows the necessary nuance that the shortfall is state-variable, not universal.",
+    sourceNote: SOURCE_A("2(b)"),
+  },
+  {
+    section: "A",
+    questionNumber: "2(c)",
+    marks: 10,
+    wordLimit: 150,
+    questionText: "Former Chief Justice of India, Dipak Misra observed: \"An efficient judiciary is the hallmark of a great nation.\" Comment.",
+    modelAnswer:
+      "Justice Dipak Misra's observation captures the judiciary's centrality to constitutional governance, rule of law, and citizen confidence in the state -- an efficient, timely and accessible justice system is indeed a marker of institutional maturity and national governance quality.\n\nWhy judicial efficiency matters: timely dispute resolution underpins economic activity (contract enforcement, property rights), protects fundamental rights against executive overreach, and sustains public trust in the constitutional order; conversely, judicial inefficiency (India's enormous case pendency -- over 4-5 crore cases across all court levels) delays justice, undermines the 'justice delayed is justice denied' principle, and disproportionately harms marginalized litigants unable to sustain prolonged litigation.\n\nCurrent challenges: inadequate judge-to-population ratio relative to the Law Commission's recommended benchmarks, infrastructural and case-management deficiencies, and slow adoption of technology (though e-Courts Mission Mode Project has made recent progress) all constrain judicial efficiency.\n\nConclusion: Justice Misra's observation is well-founded -- judicial efficiency is not a peripheral administrative concern but a genuine hallmark of governance quality, making judicial reforms (increased judicial strength, case-management reform, technology adoption via e-Courts) a national governance priority, not merely a judiciary-internal matter.",
+    examinerNotes:
+      "Citing India's specific case-pendency scale and the e-Courts Mission Mode Project as the concrete reform response gives the answer real substantiation beyond restating the quote approvingly.",
+    sourceNote: SOURCE_A("2(c)"),
+  },
+  {
+    section: "A",
+    questionNumber: "3(a)",
+    marks: 20,
+    wordLimit: 350,
+    questionText: "India has significantly advanced in development goals, increased efficiency in public sector and unlocked innovation in private sector by adopting Digital Public Infrastructure approach. Elucidate.",
+    modelAnswer:
+      "Introduction: India's Digital Public Infrastructure (DPI) approach -- open, interoperable, population-scale digital systems built as public goods (often summarized as the 'India Stack') -- has become a widely cited model for using foundational digital identity, payments and data-sharing layers to advance development, public-sector efficiency and private-sector innovation simultaneously.\n\nDevelopment goals advanced: Aadhaar (biometric digital identity, over 1.3 billion enrolled) enabled Direct Benefit Transfer (DBT) of subsidies and welfare payments directly to beneficiaries, substantially reducing leakage and ghost/duplicate beneficiaries in schemes like PDS, LPG subsidy (PAHAL) and MGNREGA wages; Jan Dhan-Aadhaar-Mobile (JAM) trinity extended formal financial inclusion to previously unbanked populations; CoWIN enabled world-scale digital vaccine registration and certification during COVID-19.\n\nPublic-sector efficiency: Unified Payments Interface (UPI) and e-governance platforms (DigiLocker, UMANG) have streamlined government-citizen transactions, reduced paperwork and processing time, and enabled real-time, data-driven monitoring of scheme implementation (e.g., PFMS for expenditure tracking).\n\nPrivate-sector innovation unlocked: UPI's open, interoperable architecture allowed hundreds of private fintech companies (PhonePe, Google Pay, Paytm) to build consumer-facing payment products atop shared public rails, dramatically expanding digital payments adoption without requiring each private player to build proprietary infrastructure -- a genuine public-goods model catalyzing private innovation rather than crowding it out; similar account-aggregator and Open Network for Digital Commerce (ONDC) initiatives aim to extend this model to financial data-sharing and e-commerce.\n\nCritical considerations: concerns remain regarding digital exclusion of those without adequate connectivity/digital literacy, data privacy and consent-management adequacy, and Aadhaar-linked authentication failures occasionally denying legitimate beneficiaries access to entitlements.\n\nConclusion: India's DPI approach has demonstrably advanced development outcomes (leakage reduction, financial inclusion), improved public-sector delivery efficiency, and catalyzed substantial private fintech/digital-commerce innovation through an open, interoperable public-goods architecture, though inclusion and privacy safeguards remain necessary ongoing priorities.",
+    examinerNotes:
+      "Aadhaar-DBT leakage reduction, UPI's open-architecture catalyzing private fintech innovation, and ONDC/account-aggregator as newer DPI extensions are the three specific pillars examiners expect; the digital-exclusion and authentication-failure critique should be included for balance.",
+    sourceNote: SOURCE_A("3(a)"),
+  },
+  {
+    section: "A",
+    questionNumber: "3(b)",
+    marks: 20,
+    wordLimit: 350,
+    questionText: "\"Attempts to prepare unified and holistic plans for the country are complex and full of challenges.\" Discuss.",
+    modelAnswer:
+      "Introduction: national development planning in India has evolved from the centralized Five Year Plans (Planning Commission, 1951-2014) to NITI Aayog's more indicative, cooperative-federalism-based planning approach post-2015, reflecting the genuine complexity of preparing a single unified plan for a vast, diverse federal polity.\n\nChallenges in unified planning: (i) federal diversity -- states vary enormously in development levels, resource endowments, administrative capacity and political priorities, making a single national plan structure ill-suited to genuinely address all state-specific needs; (ii) sectoral fragmentation -- coordinating across dozens of central ministries and departments, each with independent budgetary and programmatic priorities, resists easy integration into one holistic document; (iii) data and information gaps -- reliable, current, granular socio-economic data at district/local level remains inconsistent, undermining evidence-based unified planning; (iv) political-economy constraints -- competing electoral and coalition priorities across Centre and states complicate consensus on unified national priorities, particularly given states' resistance to perceived central overreach into state subjects; (v) resource constraints -- fiscal federalism arrangements (Finance Commission devolution, GST compensation disputes) create friction over which level of government bears planning/financing responsibility for which priorities; (vi) rapidly changing external conditions (technology change, climate commitments, global economic shocks) outdate rigid long-term plans quickly, favouring more flexible, iterative planning.\n\nInstitutional response: NITI Aayog's shift away from binding Five Year Plans toward indicative Three-Year Action Agendas, Seven-Year Strategy documents and Fifteen-Year Vision documents, alongside cooperative-federalism mechanisms (Governing Council with state Chief Ministers, sector-specific working groups) represents an attempt to manage this complexity through more flexible, consultative, non-binding planning rather than a single unified command-and-control document.\n\nConclusion: preparing a genuinely unified, holistic national plan is indeed complex and challenge-laden given India's federal diversity, sectoral fragmentation, data gaps and political-economy constraints -- reflected in the deliberate institutional shift from the rigid Five Year Plan model toward NITI Aayog's more flexible, cooperative-federalism-oriented planning architecture.",
+    examinerNotes:
+      "The shift from Planning Commission's Five Year Plans to NITI Aayog's indicative, cooperative-federalism-based planning documents is the essential institutional narrative expected; naming specific complexity sources (federal diversity, sectoral fragmentation, data gaps, political economy) rather than a generic 'planning is hard' answer is required.",
+    sourceNote: SOURCE_A("3(b)"),
+  },
+  {
+    section: "A",
+    questionNumber: "3(c)",
+    marks: 10,
+    wordLimit: 150,
+    questionText: "\"Excessive political interference in development process has become a cause of concern in achieving national goals.\" Examine.",
+    modelAnswer:
+      "Political interference in development administration manifests through several well-documented channels: politically-motivated site selection or beneficiary targeting for development projects rather than objective need-based criteria; frequent transfers of officials implementing development schemes to serve political rather than administrative logic, disrupting continuity; delays in project clearances/approvals driven by political bargaining rather than technical assessment; and diversion of development funds toward politically expedient but lower-priority projects ahead of technically prioritized ones.\n\nConsequences for national goals: such interference undermines evidence-based, needs-driven development planning, causes project delays and cost overruns, erodes administrative accountability (officials become responsive to political rather than technical/public-interest criteria), and can worsen regional/social inequities if development resources are steered by political rather than developmental logic.\n\nMitigating institutional responses: fixed-tenure policies and Civil Services Boards (per 2nd ARC recommendations and the T.S.R. Subramanian judgment) aim to insulate implementation-level officials from arbitrary political interference; transparent, criteria-based scheme guidelines and social audits (as under MGNREGA) aim to reduce discretionary political influence over targeting.\n\nConclusion: excessive political interference is a genuine and persistent concern undermining development effectiveness, requiring continued institutional insulation of implementation processes from short-term political considerations to protect national developmental goals.",
+    examinerNotes:
+      "Linking this to the same Civil Services Board/fixed-tenure institutional safeguards discussed in Paper I's civil-service-neutrality question shows integrated understanding; social audits under MGNREGA are a useful concrete counter-interference mechanism to cite.",
+    sourceNote: SOURCE_A("3(c)"),
+  },
+  {
+    section: "A",
+    questionNumber: "4(a)",
+    marks: 20,
+    wordLimit: 350,
+    questionText: "Constitutional provision on Council of Ministers with Chief Minister advising Governor is being intensively debated. Elucidate.",
+    modelAnswer:
+      "Introduction: Article 163 of the Constitution provides that the Governor shall act on the aid and advice of the Council of Ministers headed by the Chief Minister, 'except in so far as he is by or under this Constitution required to exercise his functions or any of them in his discretion' -- a provision generating persistent debate over the actual scope of gubernatorial discretion versus binding ministerial advice.\n\nSource and nature of the debate: the phrase 'in his discretion' has been interpreted expansively by some Governors to justify independent action in areas like assent to state bills, recommending President's Rule (Article 356), appointing a Chief Minister after a hung/ambiguous assembly verdict, and dismissing/testing a ministry's majority -- generating repeated Centre-state friction, especially where the Governor and state government are of different political persuasions.\n\nJudicial clarification: in Shamsher Singh v. State of Punjab (1974), the Supreme Court held that the Governor, like the President, is ordinarily bound to act on ministerial aid and advice except in the narrow areas explicitly provided for by the Constitution itself (not a general reserve of discretion); Nabam Rebia (2016) and other judgments have further constrained discretionary Governor action, particularly around assembly floor tests and Speaker-related disputes.\n\nOngoing tensions: despite this judicial clarification, practical disputes recur over bill assent delays, discretion in inviting government formation after fractured mandates, and perceived partisan use of gubernatorial office -- prompting recommendations (Sarkaria Commission, 1988; Punchhi Commission, 2010) for clearer conventions, fixed timelines for gubernatorial action on bills, and more transparent, apolitical appointment processes for Governors.\n\nConclusion: while Article 163's 'discretion' clause is textually narrow and judicially clarified (Shamsher Singh) to be exceptional rather than general, its practical application remains intensively debated due to recurring instances of expansive gubernatorial discretion, underscoring continuing calls for institutional reforms recommended by the Sarkaria and Punchhi Commissions.",
+    examinerNotes:
+      "Shamsher Singh v. State of Punjab (1974) is the essential judicial anchor; naming the Sarkaria and Punchhi Commission recommendations on Governor-CM relations situates the debate's institutional-reform dimension, which the question's 'being intensively debated' framing specifically invites.",
+    sourceNote: SOURCE_A("4(a)"),
+  },
+  {
+    section: "A",
+    questionNumber: "4(b)",
+    marks: 20,
+    wordLimit: 350,
+    questionText: "There is a need to redefine and realign the functions of the Deputy Commissioner/District Collector. Elaborate.",
+    modelAnswer:
+      "Introduction: the Deputy Commissioner/District Collector (DC/DM), a colonial-era institution originally designed primarily for revenue collection and law-and-order maintenance, has accumulated an ever-expanding, often unwieldy range of functions over time, generating a persistent case for redefinition and realignment to match contemporary governance needs.\n\nOriginal and accumulated functions: revenue administration and land records; law and order (as District Magistrate); disaster management (as the district's designated disaster-response authority); implementation coordination for virtually all central and state welfare schemes at district level (MGNREGA, PDS, health/education programme monitoring); election administration (as District Election Officer); and increasingly, digital-governance and e-service delivery coordination -- resulting in role overload that dilutes attention to any single function's depth.\n\nCase for redefinition: (i) functional overload means the DC/DM often cannot give adequate depth to complex, technically demanding sectors (health, education, disaster management) that arguably warrant dedicated specialist administrative leadership; (ii) rapid urbanization and the growth of dedicated Urban Local Bodies/Municipal Commissioners has created functional overlap and coordination ambiguity between district and urban local administration; (iii) increasing decentralization to Panchayati Raj Institutions post-73rd Amendment creates potential role conflict/overlap between elected local government and DC/DM-led district administration; (iv) technological change (e-governance, DPI-based service delivery) is shifting many DC/DM functions toward digital, less location-bound coordination.\n\nProposed realignment directions: the Second Administrative Reforms Commission has recommended clearer functional demarcation between the DC/DM's core regulatory/coordination role and sector-specific technical implementation left to specialized departmental officers; greater devolution of routine coordination functions to strengthened Panchayati Raj/Urban Local Body institutions; and redefining the DC/DM's role increasingly toward high-level inter-departmental coordination, crisis/disaster leadership and grievance-redress oversight rather than direct implementation across every sector.\n\nConclusion: the DC/DM institution's historically accumulated, overloaded functional scope genuinely requires redefinition toward a more focused coordination/oversight role, with routine sectoral implementation increasingly devolved to specialized departmental and local-government institutions -- a realignment the 2nd ARC has already substantively recommended.",
+    examinerNotes:
+      "The 2nd ARC's specific recommendations on functional demarcation and devolution to PRIs/ULBs are the expected institutional-reform anchor; the answer should trace the DC/DM's colonial-origin role overload concretely (revenue, law and order, disaster management, scheme implementation, elections) before proposing realignment.",
+    sourceNote: SOURCE_A("4(b)"),
+  },
+  {
+    section: "A",
+    questionNumber: "4(c)",
+    marks: 10,
+    wordLimit: 150,
+    questionText: "Examine Project Bharatmala -- Road to Prosperity -- launched in 2017.",
+    modelAnswer:
+      "Bharatmala Pariyojana, launched in 2017 by the Ministry of Road Transport and Highways, is India's umbrella national highway development programme aimed at optimizing the efficiency of road-based freight and passenger movement through a comprehensive network of economic corridors, inter-corridor and feeder routes, national corridor efficiency improvements, border and international connectivity roads, coastal and port connectivity roads, and expressways.\n\nDevelopmental rationale: unlike earlier phase-wise highway programmes (National Highways Development Project) focused primarily on connecting existing highway segments, Bharatmala took a more holistic, economic-corridor-based approach, prioritizing routes based on freight movement data (Origin-Destination studies) to maximize economic impact per rupee invested, alongside multi-modal integration (connecting highways to ports, railways and logistics parks).\n\nImplementation and challenges: financed through a mix of budgetary support, market borrowing (NHAI bonds) and PPP models (hybrid annuity model in particular), it has faced land-acquisition delays, cost escalations and slower-than-targeted completion rates on portions of its ambitious original scope.\n\nConclusion: Bharatmala represents a genuinely more economically rational, data-driven approach to highway development than earlier programmes, with significant realized connectivity gains, though full achievement of its original scope and timeline has faced the familiar Indian infrastructure-project challenges of land acquisition and financing delays.",
+    examinerNotes:
+      "Distinguishing Bharatmala's economic-corridor, freight-data-driven design from earlier highway programmes' more segment-connection-focused approach is the key substantive point; noting the hybrid annuity PPP financing model and implementation delays rounds out the 'examine'.",
+    sourceNote: SOURCE_A("4(c)"),
+  },
+  // ---------------- SECTION B ----------------
+  {
+    section: "B",
+    questionNumber: "5(a)",
+    marks: 10,
+    wordLimit: 150,
+    questionText: "\"The district training component of Induction Training of IAS officers requires to be revisited.\" Examine.",
+    modelAnswer:
+      "IAS induction training combines a Foundation Course (at LBSNAA, Mussoorie, alongside other civil service cadres) with a subsequent district-training component, during which probationers are attached to a district to gain hands-on exposure to field administration, revenue work, law-and-order functions and rural/social realities before formal posting.\n\nCase for revisiting: critics argue the district-training component sometimes lacks structured, outcome-oriented learning objectives, with probationers' actual exposure varying widely depending on the host district officer's mentorship quality; insufficient integration between classroom learning at LBSNAA and practical district exposure; limited exposure to emerging administrative priorities (digital governance, disaster management, urban administration) if district training remains oriented toward traditional revenue/law-and-order functions alone; and inconsistent evaluation/feedback mechanisms to assess what probationers actually learn during this phase.\n\nProposed improvements: structured, standardized learning modules and checklists for district training across all states; stronger mentor-officer accountability and periodic assessment; deliberate exposure to contemporary priority areas (e-governance platforms, Aadhaar-DBT systems, disaster management protocols) alongside traditional functions; and better integration/sequencing between Foundation Course theoretical learning and district practical exposure.\n\nConclusion: the district training component remains a valuable, irreplaceable field-exposure mechanism, but its current design's inconsistency and traditional-function bias justify the periodic institutional review the statement calls for.",
+    examinerNotes:
+      "The answer should specify concrete shortcomings (mentorship variability, traditional-function bias, weak evaluation) rather than only asserting revisiting is needed, and should propose specific improvements (structured modules, contemporary-priority exposure) to substantiate 'examine'.",
+    sourceNote: SOURCE_B("5(a)"),
+  },
+  {
+    section: "B",
+    questionNumber: "5(b)",
+    marks: 10,
+    wordLimit: 150,
+    questionText: "\"Mission Antyodaya strives to realize the vision of poverty-free India.\" Examine.",
+    modelAnswer:
+      "Mission Antyodaya, launched in 2017 by the Ministry of Rural Development, aims to converge various rural development schemes at the gram panchayat level to create comprehensive, participatory Gram Panchayat Development Plans (GPDPs) targeting poverty-free, self-reliant village development, drawing on Gandhian 'Antyodaya' philosophy (upliftment of the last/poorest person).\n\nKey features: annual village-level surveys assessing infrastructure and socio-economic gaps against defined outcome indicators; convergence of multiple central schemes (MGNREGA, PMAY-G, Swachh Bharat, National Rural Livelihood Mission) at the village level rather than siloed scheme-wise implementation; participatory planning through Gram Sabhas to identify local priorities, aligning with the 73rd Amendment's decentralized-planning vision.\n\nAssessment: the mission's convergence approach is a genuine improvement over fragmented scheme-wise rural development delivery, and its village-level outcome-tracking creates useful accountability data; however, actual poverty-free outcomes depend heavily on state-level implementation capacity, panchayat-level planning quality, and adequate resource devolution -- limitations shared with the broader panchayat-planning shortfalls discussed elsewhere in this paper (Q2(b)).\n\nConclusion: Mission Antyodaya represents a genuinely convergence-oriented, panchayat-centred strategy aligned with the poverty-free India vision, though its ultimate success remains contingent on overcoming the same local-capacity and devolution challenges that constrain panchayat-level planning more broadly.",
+    examinerNotes:
+      "Linking Mission Antyodaya's convergence model to the broader panchayat-planning capacity constraints (cross-referenced with Q2(b) of this paper) shows integrated understanding rather than treating it as an isolated scheme description.",
+    sourceNote: SOURCE_B("5(b)"),
+  },
+  {
+    section: "B",
+    questionNumber: "5(c)",
+    marks: 10,
+    wordLimit: 150,
+    questionText: "\"The dynamics of coalitions vary with the nature of leadership, political parties and contemporary political conditions.\" Analyze.",
+    modelAnswer:
+      "Indian coalition politics, especially prominent from 1989 to 2014 and again in more recent electoral cycles, demonstrates that coalition stability and functioning depend heavily on situational factors rather than following a single fixed pattern.\n\nLeadership factor: coalitions led by consensus-building, accommodative leaders (e.g., the NDA under Atal Bihari Vajpayee) have historically proven more durable than those with more centralizing or confrontational leadership styles, which tend to alienate smaller coalition partners.\n\nParty-nature factor: coalitions involving ideologically proximate parties with overlapping social bases tend toward greater stability than those built purely on anti-incumbency or opportunistic seat-arithmetic across ideologically distant parties (the United Front governments of the mid-1990s, characterized by frequent instability, illustrate this).\n\nContemporary political conditions: the presence or absence of a dominant national party, state-level electoral dynamics, and specific issue-based flashpoints (economic policy disputes, communal or regional tensions) all shape whether a coalition holds together or fractures -- coalition dharma (an informal Indian convention of coalition partners accommodating each other's core interests) itself evolved as a practical governance norm precisely because these variable dynamics required flexible, negotiated accommodation rather than a rigid single-party command structure.\n\nConclusion: coalition dynamics in India are genuinely contingent on the interplay of leadership style, party ideological compatibility and prevailing political conditions, explaining the widely varying stability and functioning of different coalition governments across Indian political history.",
+    examinerNotes:
+      "Contrasting the relatively stable Vajpayee-led NDA with the more unstable United Front coalitions of the mid-1990s gives concrete substantiation; naming 'coalition dharma' as the informal accommodation norm that emerged from this variability strengthens the analysis.",
+    sourceNote: SOURCE_B("5(c)"),
+  },
+  {
+    section: "B",
+    questionNumber: "5(d)",
+    marks: 10,
+    wordLimit: 150,
+    questionText: "\"Computerization of treasuries has revolutionized the accounting and budget planning process.\" Comment.",
+    modelAnswer:
+      "Treasury computerization in India -- through systems like state-level Integrated Financial Management Systems (IFMS) and the Public Financial Management System (PFMS) at the central level -- has substantially transformed government accounting and budget execution.\n\nTransformative effects: real-time tracking of government receipts and expenditure replacing delayed, manual reconciliation processes; direct benefit transfer integration enabling faster, more transparent disbursement of welfare payments and reduced leakage; improved cash-management, allowing better forecasting of government cash-flow needs and more efficient ways and means management; enhanced audit trail and transparency, making expenditure tracking auditable in near-real-time rather than only through periodic post-facto audit; and better inter-departmental and Centre-state fund-flow visibility, supporting more informed budget planning based on actual utilization patterns rather than only historical allocation trends.\n\nRemaining limitations: interoperability challenges between different state-level IFMS platforms and the central PFMS; capacity constraints among treasury/accounting staff in fully utilizing computerized systems' analytical potential; and occasional technical/connectivity failures disrupting real-time processing in remote areas.\n\nConclusion: treasury computerization has indeed revolutionized government accounting and budgeting by enabling real-time tracking, improved transparency and better cash-management, though full realization of its potential still requires addressing interoperability and capacity gaps.",
+    examinerNotes:
+      "Naming PFMS (central) and IFMS (state-level) as the specific systems, and DBT integration as the clearest tangible transformation, are the expected concrete anchors for 'comment'.",
+    sourceNote: SOURCE_B("5(d)"),
+  },
+  {
+    section: "B",
+    questionNumber: "5(e)",
+    marks: 10,
+    wordLimit: 150,
+    questionText: "\"Do you agree that code of ethics and code of conduct for ministers would help in upholding higher standards of their constitutional and ethical conduct?\" Explain.",
+    modelAnswer:
+      "Agreement is warranted: a codified code of ethics/conduct for ministers would meaningfully strengthen constitutional propriety and ethical governance, addressing a genuine gap in India's current framework.\n\nCurrent framework's limitations: ministerial conduct is currently governed mainly by constitutional convention (collective responsibility under Article 75(3)), general codes of conduct issued periodically by the Union/state governments (often advisory and weakly enforced), and broad anti-corruption law (Prevention of Corruption Act) that addresses only criminal-level misconduct, not the wider ethical grey areas (conflicts of interest, post-office employment restrictions, asset-disclosure norms) that a genuine code of ethics would cover.\n\nBenefits of a formal code: would provide clear, publicly known standards against which ministerial conduct can be judged, reducing ambiguity in cases of conflict of interest or impropriety; the Second Administrative Reforms Commission's 4th Report ('Ethics in Governance') specifically recommended a statutory Code of Ethics and Code of Conduct for ministers covering asset declaration, conflict-of-interest management and post-retirement/post-office restrictions; would strengthen public accountability by creating an explicit benchmark for constitutional propriety beyond bare legality.\n\nConclusion: a formal code of ethics and conduct for ministers, as recommended by the 2nd ARC, would genuinely help institutionalize higher standards of constitutional and ethical conduct by closing the gap between mere legal compliance and genuine ethical propriety currently left to informal convention.",
+    examinerNotes:
+      "The 2nd ARC's 4th Report ('Ethics in Governance') specific recommendation for a ministerial Code of Ethics/Conduct is the essential expected reference; the answer should distinguish legal/criminal accountability (Prevention of Corruption Act) from the broader ethical-propriety gap a code would address.",
+    sourceNote: SOURCE_B("5(e)"),
+  },
+  {
+    section: "B",
+    questionNumber: "6(a)",
+    marks: 20,
+    wordLimit: 350,
+    questionText: "\"Civil Service Reforms along with a transparent transfer policy will go a long way in insulating civil servants from undesired political pulls and pressures.\" Discuss.",
+    modelAnswer:
+      "Introduction: undesired political pulls and pressures on civil servants -- primarily exercised through arbitrary transfer and posting decisions -- have long been identified as a central obstacle to genuine civil service neutrality and professional integrity in Indian administration.\n\nThe problem: frequent, politically-motivated transfers (often before an officer completes any meaningful tenure) are used to reward compliant officers with favourable postings and punish those resisting improper political directives, creating strong incentives for civil servants to prioritize political favour over impartial, rule-based conduct.\n\nReform measures proposed/implemented: the Surinder Nath Committee (2003) and Second Administrative Reforms Commission recommended fixed minimum tenure for civil servants in any given posting and the establishment of Civil Services Boards -- composed of senior officials rather than political executives -- to make transfer/posting recommendations based on objective, merit and administrative-need criteria; the Supreme Court's landmark judgment in T.S.R. Subramanian v. Union of India (2013) made these recommendations binding, directing all states and the Union to establish Civil Services Boards, enforce minimum tenure norms, and require written justification for premature transfers.\n\nImpact assessment: where genuinely implemented, these reforms have demonstrably reduced arbitrary transfer frequency and provided civil servants greater confidence to act independently and professionally; however, implementation has been inconsistent across states, with some states establishing Civil Services Boards only nominally, continuing de facto political control over sensitive postings, and using loopholes (declaring posts 'sensitive' or citing administrative exigency) to bypass minimum-tenure protections.\n\nAdditional reform needs: performance-based promotion criteria delinked from political proximity, whistleblower protections for officers resisting improper directives, and stronger judicial/oversight enforcement of existing Civil Services Board mandates where states fail to comply.\n\nConclusion: civil service reform combined with a genuinely transparent, Civil-Services-Board-based transfer policy has real, demonstrated potential to insulate civil servants from undesired political pressure, but achieving this fully requires more consistent, non-circumventable implementation across all states than currently exists.",
+    examinerNotes:
+      "The Surinder Nath Committee and T.S.R. Subramanian v. Union of India (2013) judgment are the essential specific reference points; the answer should include the implementation-gap critique (nominal Boards, 'sensitive post' loopholes) for a genuine 'discuss' rather than simply endorsing the reform's stated design.",
+    sourceNote: SOURCE_B("6(a)"),
+  },
+  {
+    section: "B",
+    questionNumber: "6(b)",
+    marks: 20,
+    wordLimit: 350,
+    questionText: "\"The withdrawal of AFSPA from Tripura has sent a positive signal across the State and North-Eastern Region.\" Do you think that now it is an appropriate time to take a more rational policy decision in this matter?",
+    modelAnswer:
+      "Introduction: the Armed Forces (Special Powers) Act, 1958 (AFSPA), granting security forces extraordinary powers of arrest, search and use of force in 'disturbed areas', was withdrawn from Tripura in 2015 after a marked and sustained improvement in the state's internal security situation, and has since been progressively reduced or withdrawn from parts of other North-Eastern states (Meghalaya fully in 2018, and reduced areas of Assam, Manipur, Nagaland in subsequent years).\n\nWhy Tripura's withdrawal sent a positive signal: it demonstrated that AFSPA withdrawal is genuinely tied to objective, assessable improvement in law-and-order conditions rather than being permanently entrenched regardless of ground reality, offering other North-Eastern states a concrete precedent and incentive pathway toward normalization; it also symbolically signalled reduced securitization of civilian life, improving trust between local populations and security/administrative institutions long strained by AFSPA's immunity provisions and associated human-rights concerns (extensively documented by the Justice B.P. Jeevan Reddy Committee, 2005, which recommended AFSPA's repeal and its replacement with more calibrated legal provisions within ordinary law).\n\nCase for a more rational, calibrated policy: continuing area-specific, periodically reviewed assessment (rather than blanket, indefinite application) of security conditions to determine AFSPA's necessity in specific districts; greater alignment with the Jeevan Reddy Committee's recommendation to embed necessary special powers within amended ordinary criminal law with adequate safeguards and accountability, rather than a separate, broadly immunizing special statute; and continued phased withdrawal calibrated to genuine, sustained security improvement rather than either premature blanket withdrawal (risking security vacuum) or indefinite retention regardless of improved conditions.\n\nCaveats: some areas (parts of Manipur, Nagaland) continue to experience genuine insurgency-related instability, meaning a uniform, region-wide withdrawal without area-specific assessment would be imprudent; policy must remain responsive to actual, current ground conditions rather than either extreme.\n\nConclusion: Tripura's experience does indicate this is an appropriate juncture for a more calibrated, area-specific and periodically-reviewed AFSPA policy across the North-East, informed by the Jeevan Reddy Committee's reform recommendations, rather than either indefinite blanket retention or uniform withdrawal disregarding continuing security challenges in specific areas.",
+    examinerNotes:
+      "The Justice B.P. Jeevan Reddy Committee (2005) recommendation to repeal AFSPA and embed its necessary powers within amended ordinary law is the essential specific policy reference; the answer must include the caveat about continuing instability in parts of Manipur/Nagaland for a genuinely rational, non-uniform policy recommendation.",
+    sourceNote: SOURCE_B("6(b)"),
+  },
+  {
+    section: "B",
+    questionNumber: "6(c)",
+    marks: 10,
+    wordLimit: 150,
+    questionText: "\"The Swachh Bharat Abhiyan is by far the most significant cleanliness campaign by the Government of India.\" Comment.",
+    modelAnswer:
+      "The Swachh Bharat Abhiyan (Clean India Mission), launched in October 2014, is indeed the most extensive sanitation and cleanliness campaign undertaken by the Indian government in scale, funding and political prioritization, building toilets, promoting behaviour change and pursuing Open Defecation Free (ODF) status nationwide.\n\nAchievements: the mission reported constructing over 10 crore individual household toilets and declared rural India ODF by October 2019 (though independent surveys raised questions about actual usage/sustainability versus mere toilet construction); solid and liquid waste management infrastructure expanded significantly; Swachh Bharat Mission 2.0 (from 2020-21) shifted focus toward ODF-Plus sustainability, waste management and safai karamchari welfare.\n\nCritical assessment: significant gaps remain between toilet construction targets and genuine, sustained behaviour change (usage rates, particularly in some rural areas, have lagged construction numbers); urban solid-waste management remains uneven across cities; and the campaign's success metrics have sometimes prioritized visible targets (toilet counts, ODF declarations) over harder-to-measure genuine sanitation outcomes.\n\nConclusion: Swachh Bharat Abhiyan is justifiably regarded as the most significant Indian cleanliness campaign in scale and ambition, though genuine, sustained sanitation outcomes require continued attention beyond infrastructure-creation targets, as SBM 2.0's shift toward sustainability and behaviour change itself acknowledges.",
+    examinerNotes:
+      "The 10-crore-plus toilet construction figure, the 2019 rural ODF declaration (with the necessary caveat about usage-vs-construction gaps), and SBM 2.0's shift toward sustainability are the expected concrete anchors for a balanced 'comment'.",
+    sourceNote: SOURCE_B("6(c)"),
+  },
+  {
+    section: "B",
+    questionNumber: "7(a)",
+    marks: 20,
+    wordLimit: 350,
+    questionText: "\"Accountability of the Executive to the Parliament in the domain of financial administration is secured through CAG reports.\" Discuss.",
+    modelAnswer:
+      "Introduction: the Comptroller and Auditor General of India (CAG), established under Articles 148-151 of the Constitution, is the constitutional authority whose audit reports form a central mechanism securing executive financial accountability to Parliament.\n\nMechanism of accountability: the CAG audits all receipts and expenditure of the Union and state governments, certifying accounts and examining whether public funds were spent legally, efficiently and for their intended purposes (encompassing regularity/compliance audit, performance audit assessing value-for-money, and audit of public-sector undertakings); CAG reports are submitted to the President/Governor and laid before Parliament/state legislatures, where the Public Accounts Committee (PAC) -- a parliamentary committee -- examines them in detail, questions concerned ministries/departments, and reports back to the legislature with its findings and recommendations, closing the accountability loop from independent audit through legislative scrutiny.\n\nSignificant impact: CAG reports have historically exposed major instances of financial irregularity, wasteful expenditure and procedural lapses (2G spectrum allocation, Commonwealth Games expenditure, coal-block allocation being widely cited examples), triggering parliamentary scrutiny, further investigation, and in some cases judicial proceedings -- demonstrating the mechanism's real accountability-enforcing power.\n\nLimitations: CAG audit is inherently post-facto (after expenditure has occurred), limiting its capacity to prevent rather than merely expose irregularity; PAC recommendations are not legally binding on the executive, and follow-up/compliance with PAC recommendations is often weak; CAG's performance-audit methodology has occasionally been criticized (as in the 2G case) for contested loss-estimation assumptions; and the sheer volume of audit findings can exceed PAC's practical capacity to scrutinize every finding in depth.\n\nConclusion: CAG reports, combined with PAC scrutiny, constitute a genuinely significant and historically impactful constitutional mechanism for securing executive financial accountability to Parliament, though their post-facto nature and the non-binding character of PAC recommendations mean this accountability mechanism functions more as ex-post exposure and deterrence than ex-ante prevention.",
+    examinerNotes:
+      "The CAG-PAC institutional linkage (audit report to legislative committee scrutiny) is the essential mechanism to explain precisely, not just naming the CAG; citing a specific high-profile CAG report (2G spectrum, coal-block allocation) substantiates real-world impact, while noting the post-facto/non-binding limitations is necessary for a complete 'discuss'.",
+    sourceNote: SOURCE_B("7(a)"),
+  },
+  {
+    section: "B",
+    questionNumber: "7(b)",
+    marks: 20,
+    wordLimit: 350,
+    questionText: "\"The government response to the Supreme Court's judgement on Police Reforms has been lackadaisical. The reasons are multiple and multidimensional.\" Discuss.",
+    modelAnswer:
+      "Introduction: in Prakash Singh v. Union of India (2006), the Supreme Court issued seven binding directives to insulate police from political interference and improve accountability -- including fixed minimum tenure for the Director General of Police and other key officers, separation of investigation from law-and-order functions, establishment of State Security Commissions, Police Establishment Boards, and Police Complaints Authorities. Nearly two decades later, compliance across most states remains widely acknowledged as partial and inconsistent, substantiating the statement's characterization.\n\nReasons for lackadaisical implementation -- multiple and multidimensional: (i) political-incentive reasons -- state governments across the political spectrum have resisted directives that would reduce their direct control over police postings/transfers, since police remain a valuable instrument of political patronage and law-and-order management; (ii) institutional/administrative reasons -- separating investigation from law-and-order functions requires substantial additional personnel and infrastructure that many state police forces, already understaffed relative to sanctioned strength, have struggled to provide; (iii) federal structure reasons -- policing is a State subject under the Constitution, limiting the Centre's direct enforcement capacity and making compliance dependent on each state's own political will; (iv) weak enforcement mechanisms -- despite the judgment's binding character, the Supreme Court itself has limited direct enforcement tools beyond periodic monitoring (through committees like the Justice Thomas Committee and later monitoring benches) and cannot compel legislative/executive compliance beyond issuing further directions; (v) many states have enacted new Police Acts that nominally comply with the directives' letter while substantively diluting their spirit (e.g., defining State Security Commission recommendations as non-binding, or providing loosely-defined tenure-security exceptions).\n\nConsequences: continued politicization of police postings/transfers, persistence of poor conviction rates and investigation quality linked to inadequate separation of functions, and weak public accountability mechanisms for police misconduct given largely non-functional or nominal Police Complaints Authorities in many states.\n\nConclusion: the statement is well-substantiated -- political incentive structures, administrative capacity constraints, federal-structure limits on central enforcement, and deliberate legislative dilution together constitute the genuinely multidimensional reasons behind the persistently lackadaisical state-level response to the Prakash Singh judgment's police-reform directives.",
+    examinerNotes:
+      "Prakash Singh v. Union of India (2006) and its seven specific directives must be named individually or at least in substantial detail; the answer's core expected content is precisely the multidimensional reasons for non-compliance (political incentive, capacity, federalism, weak enforcement, deliberate dilution) rather than merely restating the directives themselves.",
+    sourceNote: SOURCE_B("7(b)"),
+  },
+  {
+    section: "B",
+    questionNumber: "7(c)",
+    marks: 10,
+    wordLimit: 150,
+    questionText: "\"Disasters can push the world's poorest deeper into poverty. Do you think that a comprehensive strategy to deal with such vulnerabilities is required?\"",
+    modelAnswer:
+      "Disasters disproportionately impact the poor, who typically live in more vulnerable locations (flood plains, unstable slopes, poorly-constructed housing), have fewer savings/insurance buffers to absorb shocks, and depend more heavily on climate-sensitive livelihoods (agriculture, daily-wage labour) that disasters directly disrupt -- pushing already-vulnerable households into deeper, sometimes irreversible poverty traps through asset loss, debt, and interrupted education/health outcomes for children.\n\nCase for a comprehensive strategy: reactive, relief-only disaster response addresses immediate humanitarian needs but does not prevent recurring poverty-deepening cycles; a comprehensive approach requires integrating disaster risk reduction into development planning itself (as the Sendai Framework for Disaster Risk Reduction, 2015-2030 emphasizes), combining pre-disaster resilience-building (climate-resilient infrastructure, crop insurance, early-warning systems), social protection mechanisms that can rapidly scale up post-disaster (shock-responsive social safety nets), and post-disaster recovery support explicitly designed to prevent long-term poverty entrenchment, not merely restore pre-disaster status quo.\n\nIndian institutional context: the National Disaster Management Authority (NDMA) and the shift from a purely relief-centric to a risk-reduction-and-mitigation-centric disaster management framework (post the Disaster Management Act, 2005) reflect movement toward this comprehensive approach, though implementation depth varies across states.\n\nConclusion: yes, a comprehensive, prevention-and-resilience-oriented strategy -- not merely post-disaster relief -- is genuinely necessary to prevent disasters from becoming a structural driver of deepening poverty among the world's and India's most vulnerable populations.",
+    examinerNotes:
+      "The Sendai Framework and India's shift from relief-centric to risk-reduction-centric disaster management (Disaster Management Act, 2005; NDMA) are the specific expected institutional/policy references for this question.",
+    sourceNote: SOURCE_B("7(c)"),
+  },
+  {
+    section: "B",
+    questionNumber: "8(a)",
+    marks: 20,
+    wordLimit: 350,
+    questionText: "In the context of the Second Administrative Reforms Commission recommendations, evaluate Public-Private Partnership (PPP) as a preferred mode of implementing infrastructural projects.",
+    modelAnswer:
+      "Introduction: the Second Administrative Reforms Commission (2nd ARC), across several of its reports, endorsed Public-Private Partnerships as a pragmatic mechanism for infrastructure delivery given India's substantial infrastructure financing gap and constrained public fiscal capacity, while also flagging specific implementation conditions necessary for PPPs to succeed.\n\n2nd ARC's favourable rationale: PPPs mobilize private capital and technical/managerial efficiency for infrastructure projects (roads, ports, airports, urban infrastructure) that pure public financing could not support at required scale and speed; appropriately structured risk-sharing (transferring construction/operational risk to the party best positioned to manage it) can improve project delivery timelines and quality compared to traditional public-works execution.\n\n2nd ARC's conditions/cautions: the Commission emphasized that PPP success depends on transparent, competitive bidding processes; robust regulatory and contract-monitoring capacity within government to prevent private-party opportunism or renegotiation abuse; realistic risk allocation (not offloading disproportionate risk onto the private party in ways that either deter genuine bidders or, conversely, onto the public exchequer through implicit guarantees); and adequate Viability Gap Funding design for projects with strong social value but limited independent commercial viability.\n\nEvaluation against actual experience: India's PPP experience since (highway hybrid-annuity model projects, airport modernization at Delhi/Mumbai/Hyderabad, some port projects) shows genuine successes in accelerating infrastructure delivery, but also recurring problems the 2nd ARC anticipated -- contract renegotiation disputes, some projects facing financial distress requiring government bailout/renegotiation, and uneven regulatory capacity across sectors and states to enforce contract terms robustly.\n\nConclusion: the 2nd ARC's endorsement of PPP as a preferred infrastructure-delivery mode remains substantively valid, but its accompanying conditions -- transparent bidding, robust regulatory capacity, realistic risk allocation, adequate viability-gap support -- have been inconsistently met in practice, meaning PPP's actual success has been uneven rather than uniformly vindicating the Commission's optimistic framing.",
+    examinerNotes:
+      "The answer should explicitly draw on the 2nd ARC's specific conditions for PPP success (transparent bidding, risk allocation, regulatory capacity, Viability Gap Funding) rather than only listing PPP's general advantages, and should evaluate real Indian PPP experience against those conditions for a genuine 'evaluate'.",
+    sourceNote: SOURCE_B("8(a)"),
+  },
+  {
+    section: "B",
+    questionNumber: "8(b)",
+    marks: 20,
+    wordLimit: 350,
+    questionText: "In 2011, India ratified the United Nations Convention Against Corruption (UNCAC). Evaluate the existing legal framework for fulfilling this commitment.",
+    modelAnswer:
+      "Introduction: India signed the UN Convention Against Corruption (UNCAC) in 2005 and ratified it in 2011, committing to establish comprehensive anti-corruption legal and institutional frameworks covering prevention, criminalization, international cooperation and asset recovery.\n\nExisting legal framework: the Prevention of Corruption Act, 1988 (substantially amended in 2018 to introduce provisions on bribe-giving as a distinct offence, protect bona fide business decisions, and require prior sanction for investigating serving/former officials) is India's principal anti-corruption criminal statute; the Lokpal and Lokayuktas Act, 2013 established an independent ombudsman institution (Lokpal) for central government officials, with corresponding state-level Lokayukta institutions (of varying effectiveness); the Prevention of Money Laundering Act, 2002 addresses proceeds-of-crime/asset-recovery dimensions relevant to UNCAC's asset-recovery chapter; the Right to Information Act, 2005 serves a preventive transparency function UNCAC also emphasizes; the Whistle Blowers Protection Act, 2014, though enacted, remains largely unimplemented/unnotified, representing a significant gap relative to UNCAC's whistleblower-protection expectations.\n\nGaps and evaluation: India has not enacted a dedicated law specifically addressing private-sector bribery to the same extent as public-sector corruption, despite UNCAC's private-sector provisions; the delayed operationalization of Lokpal after the 2013 Act (first Chairperson appointed only in 2019) and continuing state-level variation in Lokayukta effectiveness show implementation lag; the Whistle Blowers Protection Act's non-implementation leaves whistleblowers -- including RTI activists exposing corruption -- without the statutory protection UNCAC's framework anticipates; and international mutual legal assistance/asset-recovery mechanisms, while legally provided for, have shown mixed practical effectiveness in high-profile cases (economic offenders fleeing jurisdiction).\n\nConclusion: India's existing legal framework substantially addresses UNCAC's core criminalization and institutional requirements (Prevention of Corruption Act, Lokpal, PMLA), but meaningful gaps persist -- particularly the unimplemented Whistle Blowers Protection Act and underdeveloped private-sector corruption provisions -- meaning full, effective fulfilment of India's 2011 UNCAC commitment remains a work in progress rather than complete.",
+    examinerNotes:
+      "The Prevention of Corruption Act (1988, amended 2018), the Lokpal and Lokayuktas Act (2013) and the unimplemented Whistle Blowers Protection Act (2014) are the three essential specific statutes to evaluate against UNCAC's requirements; identifying the private-sector-bribery gap shows deeper awareness beyond the standard anti-corruption-law list.",
+    sourceNote: SOURCE_B("8(b)"),
+  },
+  {
+    section: "B",
+    questionNumber: "8(c)",
+    marks: 10,
+    wordLimit: 150,
+    questionText: "\"Shyama Prasad Mukherji Rurban Mission is a cluster-based approach of converging rural development efforts of different departments of the government.\" Comment.",
+    modelAnswer:
+      "The Shyama Prasad Mukherji Rurban Mission (SPMRM), launched in 2016, aims to develop clusters of geographically contiguous rural settlements with similar economic activity/potential into economically, socially and physically integrated 'rurban' growth clusters, providing amenities typically associated with urban areas while preserving the rural character of the area.\n\nCluster-based convergence approach: rather than treating individual villages in isolation, SPMRM identifies clusters (typically covering 25,000-50,000 population in plain/coastal areas, lower thresholds in hilly/desert/tribal areas) and prepares Integrated Cluster Action Plans converging resources and schemes from multiple central and state departments -- rural roads, drinking water, sanitation, digital connectivity, skill development, agro-processing and economic-activity support -- into a single, coordinated development plan for the cluster rather than fragmented, department-wise implementation.\n\nRationale and significance: the cluster approach aims to achieve economies of scale in infrastructure provision, create genuine rural growth centres that can retain population/economic activity (addressing distress rural-to-urban migration), and overcome the coordination failures typical of scheme-wise, siloed rural development delivery -- directly addressing the convergence challenge also seen (per Mission Antyodaya, Q5(b)) as a recurring rural-development priority in current policy design.\n\nConclusion: SPMRM's cluster-based, multi-departmental convergence design represents a genuine methodological improvement over fragmented rural development delivery, aiming to create self-sustaining rural growth centres through coordinated rather than siloed departmental effort.",
+    examinerNotes:
+      "Naming the specific population-threshold criteria for cluster identification and explicitly linking SPMRM's convergence logic to the same coordination-failure problem addressed by Mission Antyodaya (Q5(b)) shows integrated understanding of the paper's recurring convergence theme.",
+    sourceNote: SOURCE_B("8(c)"),
+  },
+];
