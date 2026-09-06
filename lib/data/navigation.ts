@@ -72,6 +72,7 @@ export const technologyExamTypeMap: Record<string, string> = {
 // component, when a new optional subject gets real PYQ collections.
 export const technologyPyqSubjectMap: Record<string, string> = {
   "exams/upsc-geography": "geography",
+  "exams/upsc-psir": "psir",
 };
 
 // Same existence-check pattern as technologyExamTypeMap above, but keyed by
