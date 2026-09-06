@@ -727,6 +727,7 @@ const examsAcademy: Academy = {
       { slug: "upsc-interview", name: "UPSC Interview / Personality Test", icon: "🎤", description: "UPSC Personality Test — DAF-based questioning, mock panel prep, do's and don'ts for the interview stage", level: "Advanced", tags: ["UPSC", "Interview", "Personality Test"] },
         { slug: "upsc-geography", name: "UPSC Geography Optional", icon: "🗺️", description: "Geography optional subject — Physical, Human, Indian Geography, plus Paper I/II syllabus, sourced from the current official UPSC syllabus", level: "Advanced", tags: ["UPSC", "Optional", "Geography"] },
         { slug: "upsc-psir", name: "UPSC PSIR Optional", icon: "🏛️", description: "Political Science & International Relations optional subject — Political Theory, Indian Government/Politics, Comparative Politics, International Relations, sourced from the current official UPSC syllabus", level: "Advanced", tags: ["UPSC", "Optional", "PSIR"] },
+        { slug: "upsc-sociology", name: "UPSC Sociology Optional", icon: "👥", description: "Sociology optional subject — Sociological Theory, Research Methods, Indian Society (structure, change, social movements), sourced from the current official UPSC syllabus", level: "Advanced", tags: ["UPSC", "Optional", "Sociology"] },
       ],
     },
   ],

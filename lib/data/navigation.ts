@@ -73,6 +73,7 @@ export const technologyExamTypeMap: Record<string, string> = {
 export const technologyPyqSubjectMap: Record<string, string> = {
   "exams/upsc-geography": "geography",
   "exams/upsc-psir": "psir",
+  "exams/upsc-sociology": "sociology",
 };
 
 // Same existence-check pattern as technologyExamTypeMap above, but keyed by
