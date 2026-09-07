@@ -490,7 +490,7 @@ export const roadmapDetails: Record<string, RoadmapDetail> = {
       { name: "Economy & Environment", academy: "economics", slug: "indian-economy" },
       { name: "Prelims — GS + CSAT", academy: "exams", slug: "upsc-prelims", section: "fundamentals" },
       { name: "Mains — GS Papers 1–4", academy: "exams", slug: "upsc-mains" },
-      { name: "Optional Subject", academy: "exams", slug: "upsc-mains", section: "fundamentals" },
+      { name: "Optional Subject: Geography", academy: "exams", slug: "upsc-geography" },
       { name: "Essay + Ethics (GS4)", academy: "exams", slug: "upsc-ethics" },
       { name: "Interview / Personality Test", academy: "exams", slug: "upsc-interview" },
     ],
@@ -499,7 +499,30 @@ export const roadmapDetails: Record<string, RoadmapDetail> = {
       { label: "Economy & Environment", techLink: { name: "Economy & Environment", academy: "economics", slug: "indian-economy" } },
       { label: "Prelims (GS + CSAT)", techLink: { name: "Prelims — GS + CSAT", academy: "exams", slug: "upsc-prelims", section: "fundamentals" } },
       { label: "Mains: GS Papers 1–4", techLink: { name: "Mains — GS Papers 1–4", academy: "exams", slug: "upsc-mains" } },
-      { label: "Optional Subject (2 papers)", techLink: { name: "Optional Subject", academy: "exams", slug: "upsc-mains", section: "fundamentals" } },
+      // "Optional Subject" -> real fork across all 6 subjects this platform
+      // now has genuine full-depth content for (lesson content + real PYQ +
+      // model answers, all sourced from actual UPSC papers -- see
+      // docs/OPERATIONAL-GUIDE.md's upsc-ias section). No recommendedSlug --
+      // same reasoning as state-psc-officer's fork: which optional to pick
+      // is a personal-fit choice (background, writing style, interest), not
+      // one with a technically-better default among these 6. 48 real UPSC
+      // optionals exist in total; these 6 are the ones with real platform
+      // content today, confirmed via real search as consistently the most
+      // popular picks (not an arbitrary subset).
+      {
+        label: "Optional Subject (2 papers)",
+        techLink: { name: "Optional Subject: Geography", academy: "exams", slug: "upsc-geography" },
+        fork: {
+          branches: [
+            { name: "Geography", academy: "exams", slug: "upsc-geography" },
+            { name: "PSIR", academy: "exams", slug: "upsc-psir" },
+            { name: "Sociology", academy: "exams", slug: "upsc-sociology" },
+            { name: "History", academy: "exams", slug: "upsc-history" },
+            { name: "Public Administration", academy: "exams", slug: "upsc-public-administration" },
+            { name: "Anthropology", academy: "exams", slug: "upsc-anthropology" },
+          ],
+        },
+      },
       { label: "Essay + Ethics (GS4)", techLink: { name: "Essay + Ethics (GS4)", academy: "exams", slug: "upsc-ethics" } },
       { label: "Interview / Personality Test", techLink: { name: "Interview / Personality Test", academy: "exams", slug: "upsc-interview" } },
     ],
