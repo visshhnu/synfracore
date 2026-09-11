@@ -86,11 +86,19 @@ export default function AIAssistantClient() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  // Scroll only this container's own scrollTop, not scrollIntoView() on a
+  // child — scrollIntoView walks up every scrollable ancestor to bring the
+  // target into view, and on this page that included the document itself
+  // (this container's fixed calc(100vh - 65px) height doesn't stop the
+  // Footer rendered below it in the root layout from still being part of
+  // the document's normal flow), so it was dragging the whole page down to
+  // the footer on every new message instead of just scrolling the chat pane.
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    const el = messagesContainerRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
   }, [messages, loading]);
 
   const sendMessage = async (text?: string) => {
@@ -177,7 +185,7 @@ Always provide: accurate technical answers, working code examples in fenced bloc
       </div>
 
       {/* Messages */}
-      <div style={{ flexGrow: 1, overflowY: "auto", padding: "24px" }}>
+      <div ref={messagesContainerRef} style={{ flexGrow: 1, overflowY: "auto", padding: "24px" }}>
         {messages.length === 0 ? (
           <div style={{ maxWidth: "740px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "40px", paddingTop: "24px" }}>
@@ -229,7 +237,6 @@ Always provide: accurate technical answers, working code examples in fenced bloc
                 </div>
               </div>
             )}
-            <div ref={bottomRef} />
           </div>
         )}
       </div>
