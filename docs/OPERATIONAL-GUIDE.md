@@ -338,7 +338,7 @@ tracker's claim, especially an older one.
 
 ---
 
-## 6. Current Known-Open Items (as of 2026-09-04)
+## 6. Current Known-Open Items (as of 2026-09-11)
 
 This section is a snapshot, not a permanent record — update it as items
 get resolved or as new ones surface, rather than letting it go stale the
@@ -382,9 +382,23 @@ or stale, not open:**
 - **SSC/Banking premium papers**: two flagship papers shipped (SSC CGL
   Tier 1, IBPS PO Prelims) — matching NEET/JEE's scale (5 papers each)
   would need a similarly-sized future batch
-- **`upsc-ias` roadmap fork**: genuinely large — 48 real optional subjects
-  exist, even an MVP of the 5-8 most popular ones means authoring
-  full multi-tab content per subject
+- **`upsc-ias` optional-subject build — CLOSED 2026-09-11, no longer
+  open:** all 6 real UPSC Mains optional subjects (Geography, PSIR,
+  Sociology, History, Public Administration, Anthropology) now have
+  full 9-tab Standard-9 lesson content AND real PYQ + written model
+  answers (330 total questions across all 6, every one sourced from an
+  actual UPSC CSE Mains exam paper, never invented — two questions were
+  deliberately excluded rather than guessed at when the real exam map/
+  source material wasn't locatable). A new premium content type
+  (`pyq_collections`/`pyq_questions`/`pyq_model_answers`, `/pyq-bank`
+  routes) was built specifically for this, since UPSC optionals are
+  100% descriptive/essay format and the existing MCQ question-bank
+  schema couldn't represent them — see its own entry below. The
+  `upsc-ias` roadmap's "Optional Subject" step now forks into all 6
+  real subjects (no `recommendedSlug` — personal-fit choice, no
+  technically-better default among them), verified live. The original
+  "48 subjects, even an MVP is large" framing was correct at the time;
+  the 6-subject MVP is what actually got built and shipped.
 
 **Built and deployed 2026-09-04 (no longer open):**
 - `state-psc-officer`'s first step forks into all 5 state technologies
@@ -398,13 +412,66 @@ or stale, not open:**
   "needs one new technology authored" estimate was wrong, scope was
   smaller than assumed)
 
-**Sentry re-activation (D3)**: not blocked anymore — the old blocker was
-`next-on-pages`-specific; Sentry has documented Next.js-on-Cloudflare
-support via `@opennextjs/cloudflare`, and `wrangler.jsonc` already has
-the one required prerequisite (`nodejs_compat`). Deliberately held, not
-installed yet — do a canary deploy and a bundle-size check (Cloudflare's
-3MB gzip free-tier limit) in its own dedicated session, not bundled into
-unrelated work.
+**Sentry re-activation (D3) — DECIDED and CLOSED, both real options
+tried, not a pending "do a canary someday" item anymore:**
+- `@sentry/nextjs` canary was actually built and measured: adds
+  ~650KB gzip, landing at ~96% of the free Workers plan's 3MB limit
+  (~124KB headroom) — technically works, but too thin a margin to
+  merge as-is.
+- `@sentry/cloudflare` was tried as the lighter alternative and ruled
+  out entirely: it has no supported integration hook into
+  `@opennextjs/cloudflare`'s generated worker entry point (its only
+  two documented setup modes — a Cloudflare Pages middleware, or
+  wrapping a hand-written Workers `fetch` handler — don't fit this
+  stack's generated-worker architecture). Confirmed via the SDK's own
+  docs and corroborated by open upstream GitHub issues on this exact
+  combination.
+- Decision: held entirely on the free tier, not merged, not blocked
+  either — revisit only if/when moving to Cloudflare's $5/mo Workers
+  plan (10MB limit, ~7.4MB headroom, comfortable) makes the margin
+  question moot. As a free, zero-bundle-cost alternative, a self-hosted
+  error-logging system was built instead — see below.
+
+**Self-hosted error logging (built 2026-09-05, live in production)**:
+the practical replacement for Sentry. New `error_logs` table
+(`docs/error-logs-schema.sql`, service-role-only RLS, same pattern as
+`question_answers`), a client wrapper (`lib/errorLog.ts`) posting to a
+rate-limited `app/api/log-error/route.ts`, wired into all 4 `error.tsx`
+boundaries plus a global unhandled-error/rejection listener
+(`components/ErrorLogListener.tsx`) and `instrumentation.ts`'s native
+`onRequestError` hook for server-side errors — a first-class Next.js
+mechanism, not tied to the Workers runtime, so it isn't affected by
+the same integration gap that ruled out `@sentry/cloudflare`. Adds a
+real, measured ~120-130KB to the gzip bundle (mostly the Supabase
+client code pulled into the edge middleware bundle by
+`instrumentation.ts`) — still comfortable on the free tier. No
+dashboard UI built — review via the Supabase SQL editor/table view
+directly, as scoped.
+
+**PYQ + model-answer bank (built 2026-09-05 through 2026-09-11, live
+in production)**: a new premium content type for descriptive/essay-
+format exams, first used for the `upsc-ias` build above but designed
+to be reusable for any future essay-format exam. Schema:
+`pyq_collections`/`pyq_questions` (public SELECT, same "preview before
+paying" pattern as `question_papers`/`questions`) + `pyq_model_answers`
+(zero SELECT policies, service-role-only, gated in application code via
+the same `hasActivePremiumAccess()` check the MCQ question-bank
+already uses — not a new security pattern). New top-level route
+namespace `/pyq-bank` (`app/pyq-bank/page.tsx`,
+`app/pyq-bank/[slug]/page.tsx`), deliberately not nested under
+`/question-bank` since that route tree is built around the MCQ-attempt
+lifecycle (timer, scoring) which this content type has none of — it's
+a reading page, not a quiz. A new conditional "PYQ + Model Answers"
+sidebar link on technology pages (`technologyPyqSubjectMap` in
+`lib/data/navigation.ts`), same existence-check discipline as the
+existing "Practice Exams" link, kept as a deliberately separate map so
+an essay-format subject can never get linked into the MCQ attempt flow
+by mistake. Content pipeline: `docs/pyq-build/gen.mjs`/`seed.mjs`, same
+two-step gen-then-fill-seed-uuids process as the MCQ exam-paper
+pipelines, with one addition specific to this content type's integrity
+bar — `gen.mjs` hard-fails if any question is missing a `sourceNote`,
+since a row in `pyq_model_answers` without a verifiable real citation
+must not exist.
 
 **Housekeeping, low priority:**
 - CLAUDE.md/`06-roadmap.md`/`07-roadmap-final.md` reconciliation — several
