@@ -24,11 +24,12 @@
 
     // Kill switch for /api/ai (app/api/ai/route.ts) — while "false" (the safe
     // default), the endpoint never calls Workers AI at all, at any cost, even
-    // for signed-in users. Reverted to "false" 2026-09-11: the manual
-    // click-through test against a dedicated /ai-assistant page failed
-    // ("Sorry, I couldn't generate a response") — root cause not yet
-    // confirmed, staying closed until it is. See docs/OPERATIONAL-GUIDE.md.
-    "AI_ASSISTANT_ENABLED": "false"
+    // for signed-in users. Flipped back to "true" 2026-09-11 for a second
+    // manual click-through, on BOTH /api/ai consumers this time
+    // (components/tech/SectionContent.tsx AND app/ai-assistant/AIAssistantClient.tsx)
+    // — the first attempt caught a stale-response-shape bug in the second
+    // consumer, now fixed. See docs/OPERATIONAL-GUIDE.md.
+    "AI_ASSISTANT_ENABLED": "true"
   },
 
   "kv_namespaces": [
