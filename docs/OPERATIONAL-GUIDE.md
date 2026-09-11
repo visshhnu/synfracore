@@ -30,7 +30,7 @@ describe a stack that hasn't been true since mid-2026:
 | Primary database | **Supabase (Postgres only)** | Supabase's own Auth is **not** used — see below |
 | Auth | **Clerk** | Issues the session JWT; Supabase trusts it via native Third-Party Auth (not the deprecated JWT-template method) |
 | Payments | Razorpay (India) + Stripe (global) | Not yet integrated |
-| AI | Anthropic Claude API | Gated behind `AI_ASSISTANT_ENABLED`, off by default |
+| AI | **Cloudflare Workers AI** (native `env.AI` binding, `llama-3.1-8b-instruct-fp8-fast`) | Replaced the Anthropic Claude API 2026-09-11 to remove per-token cost — see Section on `/api/ai` below. Gated behind `AI_ASSISTANT_ENABLED`, off by default |
 
 **Auth model, precisely**: Clerk issues the JWT. Supabase trusts it
 directly (Authentication → Sign In / Providers → Clerk in the Supabase
@@ -472,6 +472,31 @@ pipelines, with one addition specific to this content type's integrity
 bar — `gen.mjs` hard-fails if any question is missing a `sourceNote`,
 since a row in `pyq_model_answers` without a verifiable real citation
 must not exist.
+
+**SynfraCore AI backend swap: Anthropic → Cloudflare Workers AI (built
+2026-09-11, deployed with `AI_ASSISTANT_ENABLED` still `"false"` pending a
+real browser click-through)**: `/api/ai` (`app/api/ai/route.ts`) no longer
+calls the Anthropic Messages API — it calls Cloudflare Workers AI's native
+`env.AI` binding (added to `wrangler.jsonc`) directly, model
+`@cf/meta/llama-3.1-8b-instruct-fp8-fast`. Motivation: Workers AI's
+10,000-Neuron/day allowance is genuinely free on the plain Workers Free
+plan (no separate API-key account, no per-token billing), vs. Anthropic's
+metered API cost. Confirmed live during this build that
+`@cf/meta/llama-3.1-8b-instruct` (the initially-scoped model) is
+deprecated server-side (error 5028) despite still being listed on
+Cloudflare's own pricing page — the `-fp8-fast` variant is the working
+replacement and is actually cheaper per-token. Response shape changed
+accordingly (Workers AI returns `{ response: string }`, not Anthropic's
+`{ content: [{ type, text }] }`) — fixed in both the route and its sole
+consumer, `components/tech/SectionContent.tsx`. A new sitewide (not
+per-user) daily-quota gate reuses `lib/rateLimit.ts`'s existing KV
+rate-limit primitive, keyed by UTC date instead of IP
+(`DAILY_MESSAGE_LIMIT = 300`, well under the ~500/day real capacity at
+500-input/500-output-token messages) — once hit, the endpoint returns a
+graceful `{ status: "quota_exceeded" }` message rather than erroring, and
+by design never auto-upgrades to the $5/mo Workers Paid plan to keep
+serving past the free allowance. `ANTHROPIC_API_KEY` is no longer used by
+this route (removed from CLAUDE.md's env-var list).
 
 **Housekeeping, low priority:**
 - CLAUDE.md/`06-roadmap.md`/`07-roadmap-final.md` reconciliation — several

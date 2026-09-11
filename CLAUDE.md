@@ -10,7 +10,7 @@ Full product blueprint, schema, wireframe, and pitch doc are in `/docs`.
 - Database: Supabase (Postgres only — NOT using Supabase's own Auth)
 - Auth/Identity: Clerk — handles sign-in, sessions, user management
 - Payments: Razorpay (India) + Stripe (global) — not yet integrated
-- AI Assistant: Claude API
+- AI Assistant: Cloudflare Workers AI (native `env.AI` binding, `llama-3.1-8b-instruct-fp8-fast` — see `app/api/ai/route.ts`; not Anthropic — that was replaced 2026-09-11, see `docs/OPERATIONAL-GUIDE.md`)
 
 ## Auth architecture — READ THIS FIRST
 This project uses **Clerk for authentication** and **Supabase purely as the
@@ -42,8 +42,11 @@ NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=        # Clerk webhook sync + question-bank grading — server-only, never NEXT_PUBLIC_
 CLERK_WEBHOOK_SIGNING_SECRET=     # Clerk webhook sync only
-ANTHROPIC_API_KEY=                # /api/ai — server-only
 AI_ASSISTANT_ENABLED=false        # /api/ai kill switch — "true" to enable, defaults closed
+                                   # (no API-key var needed: /api/ai now runs on Cloudflare
+                                   # Workers AI via the native `env.AI` binding in
+                                   # wrangler.jsonc, not an Anthropic account — see
+                                   # app/api/ai/route.ts)
 RESEND_API_KEY=                   # /api/digest, /api/subscribe — both degrade gracefully if unset
 DIGEST_SECRET=                    # /api/digest shared secret
 NEXT_PUBLIC_CF_BEACON_TOKEN=      # Cloudflare Web Analytics beacon token — app/layout.tsx, no-op if unset
