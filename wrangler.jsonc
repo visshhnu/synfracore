@@ -31,5 +31,11 @@
 
   "kv_namespaces": [
     { "binding": "BLOG_KV", "id": "57d60b769fbe4ae6be430d9dc4975f00" }
-  ]
+  ],
+
+  // Workers AI — powers /api/ai (app/api/ai/route.ts) once AI_ASSISTANT_ENABLED
+  // is flipped to "true". No separate service/dashboard signup required (works
+  // on the plain Free Workers plan up to 10,000 Neurons/day); this binding is
+  // config-only, same weight as the KV binding above.
+  "ai": { "binding": "AI" }
 }

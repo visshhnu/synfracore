@@ -299,7 +299,8 @@ export default function SectionContent({ academy, technology, section, techName,
       const data = await res.json();
       if (res.status === 401) { setError("Sign in to generate AI content."); return; }
       if (data.status === "coming_soon") { setError(data.message || "SynfraCore AI Assistant launching soon."); return; }
-      const text = data.content?.[0]?.text || "";
+      if (data.status === "quota_exceeded") { setError(data.message || "Daily free usage cap reached — try again tomorrow."); return; }
+      const text = data.response || "";
       if (!text) throw new Error("Empty response");
       setAiContent(text);
       sessionStorage.setItem(cacheKey, text);
