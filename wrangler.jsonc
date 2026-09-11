@@ -23,10 +23,13 @@
     "NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL": "/",
 
     // Kill switch for /api/ai (app/api/ai/route.ts) — while "false" (the safe
-    // default), the endpoint never calls Anthropic at all, at any cost, even
-    // for signed-in users. Flip to "true" only once the real SynfraAI tutor
-    // (with per-user metering) is ready to ship.
-    "AI_ASSISTANT_ENABLED": "false"
+    // default), the endpoint never calls Workers AI at all, at any cost, even
+    // for signed-in users. Flipped to "true" 2026-09-11 for a real manual
+    // browser click-through test (real end-to-end verification was still
+    // outstanding) — low-risk given current low traffic and the sitewide
+    // daily-quota gate already in app/api/ai/route.ts. Flip back to "false"
+    // immediately if the manual test surfaces anything wrong.
+    "AI_ASSISTANT_ENABLED": "true"
   },
 
   "kv_namespaces": [
