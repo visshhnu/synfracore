@@ -21,13 +21,16 @@ const isProtectedRoute = createRouteMatcher([
   "/dashboard(.*)",
   "/onboarding(.*)",
   "/profile(.*)",
+  "/settings(.*)",
   "/question-bank/:paperSlug/attempt(.*)",
 ]);
 
 // Product decision (2026-07-10, resolves 3.7's open question): /dashboard and
 // /onboarding redirect a signed-out visitor to /sign-in explicitly — there's
 // nothing sensitive about confirming these pages exist, and that's normal UX
-// for any app. /question-bank/[paperSlug]/attempt(.*) joins this list for the
+// for any app. /settings (added 2026-09-12 for /settings/social, Phase 2's
+// Telegram connect-flow/composer) joins for the same reasoning.
+// /question-bank/[paperSlug]/attempt(.*) joins this list for the
 // same reason (2026-07-13): the practice/results screens are meaningless
 // without a signed-in attempt owner, so there's nothing to hide by confirming
 // the URL shape exists — unlike /admin below. Note this is defense-in-depth
@@ -41,6 +44,7 @@ const isProtectedRoute = createRouteMatcher([
 const isRedirectOnSignedOut = createRouteMatcher([
   "/dashboard(.*)",
   "/onboarding(.*)",
+  "/settings(.*)",
   "/question-bank/:paperSlug/attempt(.*)",
 ]);
 

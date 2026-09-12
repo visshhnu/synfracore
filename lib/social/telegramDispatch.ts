@@ -1,4 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { callTelegramApi } from "./telegram";
 
 // Service-role dispatch logic for scheduled_posts (docs/social-integrations-schema.sql).
 // Called from custom-worker.ts's scheduled() handler — a Cron Trigger has no
@@ -14,8 +15,6 @@ type DueScheduledPost = {
   content: string;
   social_connections: { external_id: string } | null;
 };
-
-const TELEGRAM_API_BASE = "https://api.telegram.org";
 // Real cap on rows processed per invocation — not a correctness requirement
 // (the query itself is already narrowed to due rows), but a deliberate bound
 // on how much work one 2-minute-interval Cron Trigger invocation takes on,
@@ -62,14 +61,12 @@ export async function dispatchDueTelegramPosts(
     }
 
     try {
-      const res = await fetch(`${TELEGRAM_API_BASE}/bot${botToken}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ chat_id: chatId, text: post.content }),
+      const result = await callTelegramApi<Record<string, unknown>>(botToken, "sendMessage", {
+        chat_id: chatId,
+        text: post.content,
       });
-      const body = (await res.json()) as { ok: boolean; description?: string };
 
-      if (res.ok && body.ok) {
+      if (result.ok) {
         await supabase
           .from("scheduled_posts")
           .update({ status: "sent", sent_at: new Date().toISOString() })
@@ -78,7 +75,7 @@ export async function dispatchDueTelegramPosts(
       } else {
         await supabase
           .from("scheduled_posts")
-          .update({ status: "failed", error: body.description ?? `Telegram API error (HTTP ${res.status})` })
+          .update({ status: "failed", error: result.description ?? "Telegram API error" })
           .eq("id", post.id);
         failed++;
       }

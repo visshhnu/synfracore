@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect, useRef, useMemo } from "react";
-import { Menu, X, ChevronDown, ChevronRight, Search, Globe, LayoutDashboard, LogIn, Wrench, GraduationCap, Leaf, Landmark, Map } from "lucide-react";
+import { Menu, X, ChevronDown, ChevronRight, Search, Globe, LayoutDashboard, LogIn, Wrench, GraduationCap, Leaf, Landmark, Map, Share2 } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useTheme } from "@/components/ThemeProvider";
 import { academies } from "@/lib/data/academies";
@@ -331,7 +331,11 @@ export default function Navbar() {
                 <Link href="/dashboard" className="mobile-only" aria-label="Dashboard" style={{ background: "none", border: "1px solid var(--border)", color: "var(--text-2)", padding: "6px 8px", borderRadius: "8px" }}>
                   <LayoutDashboard size={18} />
                 </Link>
-                <UserButton />
+                <UserButton>
+                  <UserButton.MenuItems>
+                    <UserButton.Link label="Social Integrations" labelIcon={<Share2 size={14} />} href="/settings/social" />
+                  </UserButton.MenuItems>
+                </UserButton>
               </>
             ) : (
               <>
