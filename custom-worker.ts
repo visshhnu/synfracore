@@ -53,12 +53,25 @@ export default {
   fetch: handler.fetch,
 
   async scheduled(_controller: ScheduledController, env: WorkerEnv, ctx: WaitUntilCtx) {
-    // TELEGRAM_BOT_TOKEN unset means the feature isn't configured yet
-    // (no bot created via BotFather, or the secret hasn't been added) — skip
-    // silently rather than erroring every 2 minutes with nothing to dispatch
-    // to. Same "fails closed, not loud" posture as AI_ASSISTANT_ENABLED.
-    if (!env.TELEGRAM_BOT_TOKEN || !env.SUPABASE_SERVICE_ROLE_KEY || !env.NEXT_PUBLIC_SUPABASE_URL) {
-      console.error("scheduled(): required env vars not set, skipping Telegram dispatch");
+    // SUPABASE_SERVICE_ROLE_KEY/NEXT_PUBLIC_SUPABASE_URL are always-set
+    // production config (question-bank grading and the Clerk webhook both
+    // already depend on them) — missing here is a genuine misconfiguration
+    // worth an error log.
+    if (!env.SUPABASE_SERVICE_ROLE_KEY || !env.NEXT_PUBLIC_SUPABASE_URL) {
+      console.error("scheduled(): SUPABASE_SERVICE_ROLE_KEY/NEXT_PUBLIC_SUPABASE_URL not set, skipping Telegram dispatch");
+      return;
+    }
+
+    // TELEGRAM_BOT_TOKEN unset means the feature isn't configured yet — no
+    // bot has been created via BotFather, or its secret hasn't been added.
+    // This is the expected, permanent state until the connect-flow/composer
+    // UI ships, and this Cron Trigger fires every 2 minutes regardless — a
+    // console.error here every 2 minutes forever (confirmed live in
+    // production: this branch fired and logged as an error before this fix)
+    // is log noise for a known, not-yet-configured state, not a real
+    // problem. Returns silently, same "fails closed, not loud" posture as
+    // AI_ASSISTANT_ENABLED.
+    if (!env.TELEGRAM_BOT_TOKEN) {
       return;
     }
 
