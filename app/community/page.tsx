@@ -15,7 +15,7 @@ const channels = [
   },
   {
     icon: "💼", name: "LinkedIn", handle: "linkedin.com/company/synfracore", color: "#0077B5",
-    href: "https://linkedin.com/company/synfracore",
+    href: "https://www.linkedin.com/company/synfracore",
     desc: "Career updates, industry news, and professional networking",
     members: "Growing", cta: "Follow Page",
   },
@@ -32,8 +32,8 @@ const channels = [
     members: "Growing", cta: "Subscribe",
   },
   {
-    icon: "🐦", name: "Twitter / X", handle: "@synfracore", color: "#1DA1F2",
-    href: "https://twitter.com/synfracore",
+    icon: "🐦", name: "X", handle: "@synfracore", color: "#1DA1F2",
+    href: "https://x.com/synfracore",
     desc: "Quick updates, one-liners, and industry commentary",
     members: "Growing", cta: "Follow",
   },

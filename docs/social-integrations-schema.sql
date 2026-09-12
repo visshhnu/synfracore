@@ -8,13 +8,26 @@
 -- their own channel/group) and no inbound webhook for v1 (outbound-only:
 -- scheduled text posts, dispatched by a Cron Trigger).
 --
--- SECURITY MODEL: social_connections/scheduled_posts are user-managed
--- directly (standard Clerk-JWT RLS, same pattern as every other user_id
--- table — see synfracore-schema.sql's own note on this). The dispatch job
--- itself (custom-worker.ts's scheduled() handler) has no end-user session —
--- same reasoning as the Clerk webhook and question-bank grading — so it
--- reads/writes scheduled_posts via SUPABASE_SERVICE_ROLE_KEY
--- (lib/supabase/serviceRole.ts), which bypasses RLS entirely.
+-- SECURITY MODEL (revised 2026-09-12 — see below): admin-only, not
+-- per-user. Real gap found through actual use: this started as standard
+-- Clerk-JWT "owner manages own rows" RLS (same pattern as every other
+-- user_id table — see synfracore-schema.sql's own note), which meant ANY
+-- signed-in visitor could connect their own Telegram channel through
+-- /settings/social. The actual intent is SynfraCore posting to its own
+-- official channels — a single-owner internal tool, not a multi-tenant
+-- feature — so both tables are now gated by is_admin() instead, reusing
+-- the exact admin mechanism /admin already has (the `role` column on
+-- `users` + the is_admin() SECURITY DEFINER function, both defined in
+-- docs/learner-platform-schema.sql). No new allowlist, no new schema field,
+-- no new role system — same reasoning as choosing Cloudflare Workers AI
+-- over a new provider: reuse what's already trusted before adding a new
+-- mechanism.
+--
+-- The dispatch job itself (custom-worker.ts's scheduled() handler) has no
+-- end-user session either way — same reasoning as the Clerk webhook and
+-- question-bank grading — so it reads/writes scheduled_posts via
+-- SUPABASE_SERVICE_ROLE_KEY (lib/supabase/serviceRole.ts), which bypasses
+-- RLS entirely regardless of the policy below.
 -- ============================================================
 
 CREATE TABLE IF NOT EXISTS social_connections (
@@ -50,14 +63,21 @@ CREATE TABLE IF NOT EXISTS scheduled_posts (
 CREATE INDEX IF NOT EXISTS idx_scheduled_posts_due ON scheduled_posts(status, scheduled_at);
 CREATE INDEX IF NOT EXISTS idx_scheduled_posts_user ON scheduled_posts(user_id);
 
--- ---------- RLS: user-managed tables (Clerk JWT, standard pattern) ----------
+-- ---------- RLS: admin-only (see SECURITY MODEL above) ----------
+-- Requires is_admin() to already exist — docs/learner-platform-schema.sql,
+-- run once for /admin. If this errors with "function is_admin() does not
+-- exist", that file hasn't been applied to this database yet.
 ALTER TABLE social_connections ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "user manages own connections" ON social_connections
-  FOR ALL USING ((select auth.jwt()->>'sub') = user_id);
+DROP POLICY IF EXISTS "user manages own connections" ON social_connections;
+DROP POLICY IF EXISTS "admin manages connections" ON social_connections;
+CREATE POLICY "admin manages connections" ON social_connections
+  FOR ALL USING (is_admin());
 
 ALTER TABLE scheduled_posts ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "user manages own scheduled posts" ON scheduled_posts
-  FOR ALL USING ((select auth.jwt()->>'sub') = user_id);
+DROP POLICY IF EXISTS "user manages own scheduled posts" ON scheduled_posts;
+DROP POLICY IF EXISTS "admin manages scheduled posts" ON scheduled_posts;
+CREATE POLICY "admin manages scheduled posts" ON scheduled_posts
+  FOR ALL USING (is_admin());
 
 -- ---------- SERVICE-ROLE TABLE-LEVEL GRANTS (must run BEFORE relying on service-role access) ----------
 -- The dispatch job only ever needs to read due rows and flip their status —

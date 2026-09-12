@@ -1,15 +1,42 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getAuthSafely } from "@/lib/clerk/authFallback";
 import { verifyTelegramChannelAdmin } from "@/lib/social/telegramConnect";
 
 export type ActionResult = { success: true } | { success: false; error: string };
 
+// /settings/social is admin-only (docs/social-integrations-schema.sql's
+// SECURITY MODEL — a single-owner internal tool, not a multi-tenant
+// feature). RLS on social_connections/scheduled_posts already enforces this
+// at the database layer, but a Server Action is a real, directly-callable
+// endpoint regardless of what the page renders — this is the app-level
+// layer of the same defense-in-depth /admin already uses.
+//
+// Deliberately calls the same is_admin() function RLS itself uses, via RPC,
+// rather than a separate `currentUser()`/ensureUserRecord() check — that
+// pair has a confirmed-live bug where Clerk's auth() context doesn't
+// reliably reach Server Actions on this adapter (see
+// lib/clerk/authFallback.ts's own comment), which getAuthSafely() already
+// works around for the userId; this reuses that same safe path for the
+// admin check instead of reintroducing the broken one.
+async function requireAdmin(supabase: SupabaseClient): Promise<boolean> {
+  const { data, error } = await supabase.rpc("is_admin");
+  if (error) {
+    console.error("requireAdmin: is_admin() RPC failed:", error);
+    return false;
+  }
+  return data === true;
+}
+
 export async function connectTelegram(formData: FormData): Promise<ActionResult> {
   const { userId } = await getAuthSafely();
   if (!userId) return { success: false, error: "Sign in required." };
+
+  const supabase = createSupabaseServerClient();
+  if (!(await requireAdmin(supabase))) return { success: false, error: "Not authorized." };
 
   const chatIdentifier = String(formData.get("chatIdentifier") ?? "").trim();
   if (!chatIdentifier) return { success: false, error: "Enter a channel username or ID." };
@@ -24,7 +51,6 @@ export async function connectTelegram(formData: FormData): Promise<ActionResult>
   if (!verified.ok) return { success: false, error: verified.error };
 
   try {
-    const supabase = createSupabaseServerClient();
     const { error } = await supabase.from("social_connections").insert({
       user_id: userId,
       platform: "telegram",
@@ -51,6 +77,9 @@ export async function createScheduledPost(formData: FormData): Promise<ActionRes
   const { userId } = await getAuthSafely();
   if (!userId) return { success: false, error: "Sign in required." };
 
+  const supabase = createSupabaseServerClient();
+  if (!(await requireAdmin(supabase))) return { success: false, error: "Not authorized." };
+
   const connectionId = String(formData.get("connectionId") ?? "");
   const content = String(formData.get("content") ?? "").trim();
   const scheduledAtLocal = String(formData.get("scheduledAt") ?? "");
@@ -74,7 +103,6 @@ export async function createScheduledPost(formData: FormData): Promise<ActionRes
   }
 
   try {
-    const supabase = createSupabaseServerClient();
     const { error } = await supabase.from("scheduled_posts").insert({
       user_id: userId,
       connection_id: connectionId,
