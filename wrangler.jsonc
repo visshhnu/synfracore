@@ -1,6 +1,13 @@
 {
   "name": "synfracore",
-  "main": ".open-next/worker.js",
+  // Points at custom-worker.ts, not directly at the OpenNext-generated
+  // .open-next/worker.js — @opennextjs/cloudflare has no built-in support
+  // for a scheduled() Cron Trigger handler (confirmed live against its own
+  // docs), so custom-worker.ts wraps the generated worker's fetch handler
+  // and adds scheduled() alongside it, per OpenNext's own documented
+  // "Custom Worker" pattern. See custom-worker.ts for the Telegram
+  // scheduled-post dispatch this powers (Phase 2).
+  "main": "custom-worker.ts",
   "compatibility_date": "2024-12-30",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
@@ -40,5 +47,16 @@
   // is flipped to "true". No separate service/dashboard signup required (works
   // on the plain Free Workers plan up to 10,000 Neurons/day); this binding is
   // config-only, same weight as the KV binding above.
-  "ai": { "binding": "AI" }
+  "ai": { "binding": "AI" },
+
+  // Cron Trigger for custom-worker.ts's scheduled() handler — the Telegram
+  // scheduled-post dispatch job (Phase 2). Genuinely new infrastructure
+  // (this account had zero Cron Triggers before this), not a config no-op
+  // like the AI binding above — approved 2026-09-12. Free plan allows 5 Cron
+  // Triggers per account (confirmed live); this uses 1. Every 2 minutes is
+  // the approved cadence — worst case a scheduled post goes out up to 2
+  // minutes late.
+  "triggers": {
+    "crons": ["*/2 * * * *"]
+  }
 }
