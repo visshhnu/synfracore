@@ -1151,3 +1151,25 @@ html.light .hover-row:hover  { background: #F1F5F9 !important; }
   .academy-list-item { flex-shrink: 0; white-space: nowrap; }
   .academy-preview { padding: 24px; }
 }
+
+/* Native date/time picker controls (e.g. the scheduled-post composer at
+   /settings/social) render their own browser-drawn calendar icon and popup
+   chrome, which does NOT automatically follow this site's CSS variables.
+   Without an explicit color-scheme, browsers default to their icon set for
+   a light background — a dark icon that's effectively invisible against
+   this theme's dark default background (--bg-1: #080D18), which read as
+   "no calendar picker affordance" even though the control was there and
+   functional the whole time, just unclickable-looking. color-scheme is the
+   correct, non-hacky fix (not a CSS filter on the icon) — it tells the
+   browser which native chrome variant to draw, matching real browser
+   behavior instead of fighting it. */
+input[type="datetime-local"],
+input[type="date"],
+input[type="time"] {
+  color-scheme: dark;
+}
+html.light input[type="datetime-local"],
+html.light input[type="date"],
+html.light input[type="time"] {
+  color-scheme: light;
+}
