@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition, type CSSProperties, type FormEvent } from "react";
+import { useState, useEffect, useTransition, type CSSProperties, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { connectTelegram, createScheduledPost } from "@/app/settings/social/actions";
 import type { SocialConnection, ScheduledPost } from "@/lib/supabase/social";
@@ -9,6 +9,26 @@ type Props = {
   initialConnections: SocialConnection[];
   initialScheduledPosts: ScheduledPost[];
 };
+
+// Pure, exported for a direct unit test (see scratchpad test — no browser
+// available this session, so this is what makes the fix genuinely
+// verifiable rather than just re-read). Bug this fixes: `useState(x)`'s
+// initial value only ever applies on the component's first mount — it was
+// used to seed `connectionId` from `initialConnections[0]?.id`, which is ""
+// on first load (no connections exist yet). Connecting a channel calls
+// router.refresh(), which re-renders this same component instance with a
+// new `initialConnections` prop — but does NOT remount it, so that stale ""
+// state survived untouched. The <select> then visually fell back to
+// rendering its first real <option> (browsers do this whenever a
+// controlled value matches no option), while the actual `connectionId`
+// state — what handleSchedule actually reads and submits — stayed "".
+// That's the exact reported symptom: a channel visibly shown selected, but
+// the server action rejecting with "Choose a connection to post to."
+export function resolveSelectedConnectionId(currentId: string, connections: { id: string }[]): string {
+  if (connections.length === 0) return "";
+  if (connections.some((c) => c.id === currentId)) return currentId;
+  return connections[0].id;
+}
 
 const STATUS_COLORS: Record<ScheduledPost["status"], string> = {
   pending: "#F59E0B",
@@ -56,6 +76,13 @@ export function SocialSettingsClient({ initialConnections, initialScheduledPosts
   const [connectSuccess, setConnectSuccess] = useState(false);
 
   const [connectionId, setConnectionId] = useState(initialConnections[0]?.id ?? "");
+  // Re-syncs whenever initialConnections changes (e.g. after connecting a
+  // channel triggers router.refresh()) — useState's initializer above only
+  // ever runs once, on first mount, so without this the state above goes
+  // stale the moment a real connection appears after the initial empty load.
+  useEffect(() => {
+    setConnectionId((prev) => resolveSelectedConnectionId(prev, initialConnections));
+  }, [initialConnections]);
   const [content, setContent] = useState("");
   const [scheduledAt, setScheduledAt] = useState("");
   const [postError, setPostError] = useState("");
