@@ -72,7 +72,10 @@ export default function MobileSectionNav({ academy, technology, currentSection, 
         aria-label="Jump to section"
         aria-expanded={open}
         style={{
-          position: "sticky", top: "64px", zIndex: 40, width: "100%",
+          // 96px = TopUtilityBar (32px) + Navbar (64px) — was "64px" before
+          // the utility bar existed (app/layout.tsx makes the same
+          // assumption in its <main> padding).
+          position: "sticky", top: "96px", zIndex: 40, width: "100%",
           display: "flex", alignItems: "center", gap: "8px",
           padding: "10px 24px", background: "var(--bg-1)",
           borderBottom: "1px solid var(--border)", borderTop: "1px solid var(--border)",

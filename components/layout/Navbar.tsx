@@ -8,6 +8,7 @@ import { academies } from "@/lib/data/academies";
 import Image from "next/image";
 import { useAuth, SignInButton, UserButton } from "@clerk/nextjs";
 import TechIcon from "@/components/icons/TechIcon";
+import { TOP_UTILITY_BAR_HEIGHT } from "@/components/layout/TopUtilityBar";
 
 // Minimal shape for the untyped third-party Google Translate widget global —
 // only the members this component actually touches.
@@ -281,7 +282,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 9999, background: "var(--bg-1)", backdropFilter: "blur(16px)", borderBottom: "1px solid var(--border)", boxShadow: scrolled ? "0 2px 20px rgba(0,0,0,0.12)" : "none", transition: "box-shadow 0.2s" }}>
+      <header style={{ position: "fixed", top: `${TOP_UTILITY_BAR_HEIGHT}px`, left: 0, right: 0, zIndex: 9999, background: "var(--bg-1)", backdropFilter: "blur(16px)", borderBottom: "1px solid var(--border)", boxShadow: scrolled ? "0 2px 20px rgba(0,0,0,0.12)" : "none", transition: "box-shadow 0.2s" }}>
         <div style={{ maxWidth: "1300px", margin: "0 auto", padding: "0 16px", height: scrolled ? "48px" : "60px", transition: "height 0.2s ease", display: "flex", alignItems: "center", gap: "6px" }}>
           <Link href="/" prefetch={false} style={{ textDecoration: "none", flexShrink: 0, lineHeight: 0, marginRight: "4px" }}>
             <div className="logo-wrapper">

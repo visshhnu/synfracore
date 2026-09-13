@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import TopUtilityBar from "@/components/layout/TopUtilityBar";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { CopyProtection } from "@/components/CopyProtection";
 import { WebSiteJsonLd, OrganizationJsonLd } from "@/components/seo/JsonLd";
@@ -143,8 +144,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <AuthStateSync />
           <ErrorLogListener />
           <CopyProtection />
+          <TopUtilityBar />
           <Navbar />
-          <main style={{ flex: 1, paddingTop: "64px" }}>{children}</main>
+          {/* 96px = TopUtilityBar's 32px + Navbar's own 64px height — was a
+              bare "64px" before the utility bar existed; if this drifts out
+              of sync again, also check MobileSectionNav.tsx's sticky offset,
+              which makes the same assumption. */}
+          <main style={{ flex: 1, paddingTop: "96px" }}>{children}</main>
           <Footer />
         </ThemeProvider>
       </body>
