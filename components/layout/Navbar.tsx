@@ -364,49 +364,73 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Desktop mega dropdown — single unified grid */}
-        {dropOpen && (
-          <div onMouseEnter={() => { clearTimeout(dropTimer); setDropOpen(true); }} onMouseLeave={() => { dropTimer = setTimeout(() => setDropOpen(false), 200); }}
-            style={{ position: "absolute", left: 0, right: 0, top: "100%", background: "var(--bg-2)", borderBottom: "2px solid var(--border)", boxShadow: "0 20px 50px rgba(0,0,0,0.18)", zIndex: 300, padding: "16px 32px 12px" }}>
-            <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-              {/* 4 independent columns — each group owns its header + items */}
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0 20px" }}>
-                {GROUPS.map(group => (
-                  <div key={group.label}>
-                    {/* Column header */}
-                    <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: group.color, display: "flex", alignItems: "center", gap: "4px", marginBottom: "8px", paddingBottom: "6px", borderBottom: `1px solid ${group.color}30` }}>
-                      <group.icon size={12} /> {group.label}
+        {/* Desktop mega dropdown — single unified grid. Always mounted (not
+            {dropOpen && (...)}) so opacity/transform can transition —
+            a hard conditional mount/unmount, which is what this had before,
+            has no way to animate an entrance; Stripe's and Squarespace's
+            hover-reveal menus both rely on exactly this "mounted but
+            invisible, then faded/slid in" mechanic. pointerEvents:"none"
+            while closed keeps it from intercepting hover/click when hidden. */}
+        <div onMouseEnter={() => { clearTimeout(dropTimer); setDropOpen(true); }} onMouseLeave={() => { dropTimer = setTimeout(() => setDropOpen(false), 200); }}
+          aria-hidden={!dropOpen}
+          style={{
+            position: "absolute", left: 0, right: 0, top: "100%", background: "var(--bg-2)",
+            borderBottom: "2px solid var(--border)", boxShadow: "0 20px 50px rgba(0,0,0,0.18)", zIndex: 300,
+            padding: "16px 32px 12px",
+            opacity: dropOpen ? 1 : 0,
+            transform: dropOpen ? "translateY(0)" : "translateY(-6px)",
+            pointerEvents: dropOpen ? "auto" : "none",
+            transition: "opacity 0.18s ease, transform 0.18s ease",
+          }}>
+          <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+            {/* 4 independent columns — each group owns its header + items.
+                gap widened 20->28 and each column gets a persistent tinted
+                left border (not just a header-only color cue) — both purely
+                about giving 4 categories more visual separation, same
+                information as before. */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0 28px" }}>
+              {GROUPS.map(group => (
+                <div key={group.label} style={{ borderLeft: `2px solid ${group.color}40`, paddingLeft: "12px" }}>
+                  {/* Column header — icon now sits in a tinted rounded badge
+                      instead of a bare 12px line icon, which had no visual
+                      weight of its own next to the label. */}
+                  <div style={{ display: "flex", alignItems: "center", gap: "7px", marginBottom: "10px", paddingBottom: "8px", borderBottom: `1px solid ${group.color}30` }}>
+                    <div style={{ width: "22px", height: "22px", borderRadius: "7px", background: `${group.color}18`, border: `1px solid ${group.color}35`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                      <group.icon size={13} color={group.color} />
                     </div>
-                    {/* Items in this column */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
-                      {group.slugs.map(slug => {
-                        const a = academyMap[slug];
-                        if (!a) return null;
-                        return (
-                          <Link key={a.slug} href={`/academies/${a.slug}`} prefetch={false} onClick={() => setDropOpen(false)}
-                            style={{ textDecoration: "none", padding: "5px 7px", borderRadius: "7px", display: "flex", alignItems: "center", gap: "7px" }}
-                            onMouseEnter={e => { e.currentTarget.style.background = `${a.color}14`; }}
-                            onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
-                            <span style={{ fontSize: "13px", flexShrink: 0 }}>{a.icon}</span>
-                            <div style={{ minWidth: 0 }}>
-                              <div style={{ fontSize: "11px", fontWeight: 600, color: "var(--text-1)", lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{a.title}</div>
-                              <div style={{ fontSize: "9px", color: "var(--text-4)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{a.subtitle}</div>
-                            </div>
-                          </Link>
-                        );
-                      })}
-                    </div>
+                    <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.07em", textTransform: "uppercase", color: group.color }}>
+                      {group.label}
+                    </span>
                   </div>
-                ))}
-              </div>
-              <div style={{ marginTop: "10px", paddingTop: "8px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "center" }}>
-                <Link href="/academies" prefetch={false} onClick={() => setDropOpen(false)} style={{ fontSize: "12px", fontWeight: 600, color: "#3B82F6", textDecoration: "none", padding: "5px 18px", background: "rgba(59,130,246,0.08)", borderRadius: "8px", border: "1px solid rgba(59,130,246,0.2)" }}>
-                  View all {academies.length} academies →
-                </Link>
-              </div>
+                  {/* Items in this column */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
+                    {group.slugs.map(slug => {
+                      const a = academyMap[slug];
+                      if (!a) return null;
+                      return (
+                        <Link key={a.slug} href={`/academies/${a.slug}`} prefetch={false} onClick={() => setDropOpen(false)}
+                          style={{ textDecoration: "none", padding: "7px 9px", borderRadius: "7px", display: "flex", alignItems: "center", gap: "7px" }}
+                          onMouseEnter={e => { e.currentTarget.style.background = `${a.color}14`; }}
+                          onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
+                          <span style={{ fontSize: "13px", flexShrink: 0 }}>{a.icon}</span>
+                          <div style={{ minWidth: 0 }}>
+                            <div style={{ fontSize: "11px", fontWeight: 600, color: "var(--text-1)", lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{a.title}</div>
+                            <div style={{ fontSize: "9px", color: "var(--text-4)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{a.subtitle}</div>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div style={{ marginTop: "10px", paddingTop: "8px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "center" }}>
+              <Link href="/academies" prefetch={false} onClick={() => setDropOpen(false)} style={{ fontSize: "12px", fontWeight: 600, color: "#3B82F6", textDecoration: "none", padding: "5px 18px", background: "rgba(59,130,246,0.08)", borderRadius: "8px", border: "1px solid rgba(59,130,246,0.2)" }}>
+                View all {academies.length} academies →
+              </Link>
             </div>
           </div>
-        )}
+        </div>
       </header>
 
       {/* Mobile search overlay */}
