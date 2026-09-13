@@ -330,7 +330,28 @@ export default function Navbar() {
             <div className="desktop-nav"><SearchBox /></div>
             <LanguageSwitcher />
             <ThemeToggle />
-            {isLoaded && (isSignedIn ? (
+            {!isLoaded ? (
+              // Perf audit finding (2026-09-13): this whole block used to
+              // render nothing at all until Clerk's isLoaded flag resolved,
+              // then pop in a Sign In button (or Dashboard link + UserButton)
+              // — a real, measured layout shift every cold load, since
+              // "Start Learning" right after this slot in the DOM has
+              // nothing to hold its position steady until then. Reserving
+              // the signed-out button's exact box (same style object, just
+              // invisible) instead of rendering nothing means the space is
+              // already claimed before Clerk resolves, so the real content
+              // swap causes no reflow. Signed-out is the right shape to
+              // reserve for, not just the common case: a synthetic
+              // Lighthouse/CWV run is always a fresh, signed-out session.
+              <>
+                <button className="desktop-nav" aria-hidden="true" tabIndex={-1} style={{ background: "none", border: "1px solid var(--border)", borderRadius: "7px", padding: "5px 12px", fontSize: "13px", fontWeight: 600, fontFamily: "inherit", visibility: "hidden", whiteSpace: "nowrap" }}>
+                  Sign In
+                </button>
+                <button className="mobile-only" aria-hidden="true" tabIndex={-1} style={{ background: "none", border: "1px solid var(--border)", padding: "6px 8px", borderRadius: "8px", visibility: "hidden" }}>
+                  <LogIn size={18} />
+                </button>
+              </>
+            ) : (isSignedIn ? (
               <>
                 <Link href="/dashboard" className="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "5px", color: "var(--text-2)", fontSize: "13px", fontWeight: 600, padding: "5px 10px", borderRadius: "7px", textDecoration: "none", whiteSpace: "nowrap" }}>
                   <LayoutDashboard size={14} /> Dashboard
