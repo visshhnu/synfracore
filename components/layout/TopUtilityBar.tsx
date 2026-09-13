@@ -3,13 +3,14 @@ import { socialLinks } from "@/lib/data/socialLinks";
 // A slim bar above the main Navbar, showing SynfraCore's real social
 // accounts — additive to Footer.tsx's existing icon row, not a
 // replacement (footer icons stay). Server Component (no "use client" —
-// hover uses a CSS :hover rule below, not JS handlers), so this costs
-// nothing extra in client JS, unlike Navbar.tsx. Fixed at the very top of
-// the viewport (top: 0), with Navbar.tsx shifted down by this bar's own
-// height (see TOP_UTILITY_BAR_HEIGHT, and its two other usages:
-// app/layout.tsx's <main> padding and
-// components/tech/MobileSectionNav.tsx's sticky offset — both previously
-// assumed the Navbar alone occupied the top 64px of the viewport).
+// both the resting brand color and the light-mode override use plain CSS
+// below, not a theme hook), so this costs nothing extra in client JS,
+// unlike Navbar.tsx or Footer.tsx. Fixed at the very top of the viewport
+// (top: 0), with Navbar.tsx shifted down by this bar's own height (see
+// TOP_UTILITY_BAR_HEIGHT, and its two other usages: app/layout.tsx's
+// <main> padding and components/tech/MobileSectionNav.tsx's sticky offset
+// — both previously assumed the Navbar alone occupied the top 64px of the
+// viewport).
 export const TOP_UTILITY_BAR_HEIGHT = 32;
 
 export default function TopUtilityBar() {
@@ -45,18 +46,24 @@ export default function TopUtilityBar() {
           aria-label={s.name}
           title={s.name}
           className="utility-bar-icon"
-          style={{ display: "flex", ["--hover-color" as string]: s.color } as React.CSSProperties}
+          style={{
+            display: "flex",
+            ["--icon-color" as string]: s.color,
+            ["--icon-color-light" as string]: s.lightColor ?? s.color,
+          } as React.CSSProperties}
         >
           {s.icon}
         </a>
       ))}
       <style>{`
         .utility-bar-icon {
-          color: var(--text-4);
-          transition: color 0.15s;
+          color: var(--icon-color);
+          opacity: 0.85;
+          transition: opacity 0.15s;
         }
+        html.light .utility-bar-icon { color: var(--icon-color-light); }
+        .utility-bar-icon:hover { opacity: 1; }
         .utility-bar-icon svg { width: 14px; height: 14px; display: block; }
-        .utility-bar-icon:hover { color: var(--hover-color); }
       `}</style>
     </div>
   );

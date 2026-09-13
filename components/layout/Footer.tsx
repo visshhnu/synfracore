@@ -81,32 +81,41 @@ export default function Footer() {
               <NewsletterSignup variant="compact" context="footer" />
             </div>
 
-            {/* Social icons */}
+            {/* Social icons — resting color is each platform's real brand
+                color (matches TopUtilityBar.tsx), not the previous
+                monochrome var(--text-4) with color-on-hover only.
+                X/GitHub's marks are themselves theme-dependent (black on
+                light backgrounds, white on dark) — `theme` is already in
+                scope here via useTheme(), same source as logoSrc below,
+                so picking lightColor vs color is a plain JS branch rather
+                than TopUtilityBar's CSS-variable approach (that component
+                has no theme hook, being a Server Component). */}
             <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-              {socialLinks.map(s => (
-                <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"
-                  title={s.name}
-                  style={{
-                    width: "44px", height: "44px", borderRadius: "10px",
-                    background: "var(--bg-2)", border: "1px solid var(--border)",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    color: "var(--text-4)", textDecoration: "none",
-                    transition: "color 0.2s, border-color 0.2s, background 0.2s",
-                  }}
-                  onMouseEnter={e => {
-                    (e.currentTarget as HTMLElement).style.color = s.color;
-                    (e.currentTarget as HTMLElement).style.borderColor = s.color + "44";
-                    (e.currentTarget as HTMLElement).style.background = s.color + "10";
-                  }}
-                  onMouseLeave={e => {
-                    (e.currentTarget as HTMLElement).style.color = "var(--text-4)";
-                    (e.currentTarget as HTMLElement).style.borderColor = "var(--border)";
-                    (e.currentTarget as HTMLElement).style.background = "var(--bg-2)";
-                  }}
-                >
-                  {s.icon}
-                </a>
-              ))}
+              {socialLinks.map(s => {
+                const restColor = theme === "light" ? (s.lightColor ?? s.color) : s.color;
+                return (
+                  <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"
+                    title={s.name}
+                    style={{
+                      width: "44px", height: "44px", borderRadius: "10px",
+                      background: "var(--bg-2)", border: "1px solid var(--border)",
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      color: restColor, textDecoration: "none",
+                      transition: "border-color 0.2s, background 0.2s",
+                    }}
+                    onMouseEnter={e => {
+                      (e.currentTarget as HTMLElement).style.borderColor = s.color + "44";
+                      (e.currentTarget as HTMLElement).style.background = s.color + "10";
+                    }}
+                    onMouseLeave={e => {
+                      (e.currentTarget as HTMLElement).style.borderColor = "var(--border)";
+                      (e.currentTarget as HTMLElement).style.background = "var(--bg-2)";
+                    }}
+                  >
+                    {s.icon}
+                  </a>
+                );
+              })}
             </div>
 
             {/* Contact */}

@@ -1,5 +1,6 @@
 import { Mail, ExternalLink } from "lucide-react";
 import { pageMetadata } from "@/lib/seo/metadata";
+import { socialLinks } from "@/lib/data/socialLinks";
 
 export const metadata = pageMetadata({
   title: "Contact",
@@ -34,43 +35,17 @@ const channels = [
   },
 ];
 
-const socials = [
-  {
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>,
-    name: "LinkedIn",
-    handle: "@synfracore",
-    href: "https://www.linkedin.com/company/synfracore",
-    color: "#0077B5",
-  },
-  {
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>,
-    name: "X",
-    handle: "@synfracore",
-    href: "https://x.com/synfracore",
-    color: "#1DA1F2",
-  },
-  {
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>,
-    name: "YouTube",
-    handle: "@synfracore",
-    href: "https://youtube.com/@synfracore",
-    color: "#FF0000",
-  },
-  {
-    icon: <ExternalLink size={18}/>,
-    name: "GitHub",
-    handle: "github.com/synfracore",
-    href: "https://github.com/synfracore",
-    color: "#888",
-  },
-  {
-    icon: <ExternalLink size={18}/>,
-    name: "Telegram",
-    handle: "t.me/synfracore",
-    href: "https://t.me/synfracore",
-    color: "#0088CC",
-  },
-];
+// Display handle text for each shared socialLinks entry — cosmetic only,
+// not part of the shared type (lib/data/socialLinks.tsx has no reason to
+// know how each platform's handle should read on this one page).
+const SOCIAL_HANDLES: Record<string, string> = {
+  LinkedIn: "@synfracore",
+  X: "@synfracore",
+  YouTube: "@synfracore",
+  GitHub: "github.com/synfracore",
+  Telegram: "t.me/synfracore",
+  WhatsApp: "Chat with us",
+};
 
 export default function ContactPage() {
   return (
@@ -106,24 +81,41 @@ export default function ContactPage() {
         ))}
       </div>
 
-      {/* Social channels */}
+      {/* Social channels — real brand colors, shared with Footer.tsx and
+          TopUtilityBar.tsx (lib/data/socialLinks.tsx). X/GitHub's marks
+          are theme-dependent (black on light backgrounds, white on dark);
+          this is a Server Component with no theme hook, so that's a CSS
+          variable + html.light override, same mechanic as
+          TopUtilityBar.tsx uses for the same reason. */}
       <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", fontSize: "12px", color: "var(--text-4)", marginBottom: "16px" }}>
         SOCIAL MEDIA
       </h2>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "10px", marginBottom: "48px" }}>
-        {socials.map(s => (
+        {socialLinks.map(s => (
           <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"
-            style={{ display: "flex", alignItems: "center", gap: "12px", background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "12px", padding: "14px 16px", textDecoration: "none", color: "var(--text-1)" }}>
-            <div style={{ width: "36px", height: "36px", borderRadius: "9px", background: `${s.color}18`, color: s.color, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+            style={{
+              display: "flex", alignItems: "center", gap: "12px", background: "var(--bg-1)",
+              border: "1px solid var(--border)", borderRadius: "12px", padding: "14px 16px",
+              textDecoration: "none", color: "var(--text-1)",
+              ["--icon-color" as string]: s.color,
+              ["--icon-color-light" as string]: s.lightColor ?? s.color,
+              ["--icon-bg" as string]: s.color + "18",
+              ["--icon-bg-light" as string]: (s.lightColor ?? s.color) + "18",
+            } as React.CSSProperties}>
+            <div className="contact-social-icon" style={{ width: "36px", height: "36px", borderRadius: "9px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
               {s.icon}
             </div>
             <div>
               <div style={{ fontSize: "14px", fontWeight: 600 }}>{s.name}</div>
-              <div style={{ fontSize: "12px", color: "var(--text-4)" }}>{s.handle}</div>
+              <div style={{ fontSize: "12px", color: "var(--text-4)" }}>{SOCIAL_HANDLES[s.name]}</div>
             </div>
           </a>
         ))}
       </div>
+      <style>{`
+        .contact-social-icon { background: var(--icon-bg); color: var(--icon-color); }
+        html.light .contact-social-icon { background: var(--icon-bg-light); color: var(--icon-color-light); }
+      `}</style>
 
       {/* Response time */}
       <div style={{ background: "linear-gradient(135deg, rgba(59,130,246,0.08), rgba(139,92,246,0.08))", border: "1px solid rgba(59,130,246,0.15)", borderRadius: "14px", padding: "24px" }}>
