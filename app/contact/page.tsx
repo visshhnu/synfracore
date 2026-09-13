@@ -44,6 +44,8 @@ const SOCIAL_HANDLES: Record<string, string> = {
   YouTube: "@synfracore",
   GitHub: "github.com/synfracore",
   Telegram: "t.me/synfracore",
+  Instagram: "@synfracore",
+  Facebook: "@synfracore",
   WhatsApp: "Chat with us",
 };
 
