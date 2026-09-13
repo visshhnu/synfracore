@@ -338,7 +338,7 @@ tracker's claim, especially an older one.
 
 ---
 
-## 6. Current Known-Open Items (as of 2026-09-11)
+## 6. Current Known-Open Items (as of 2026-09-13)
 
 This section is a snapshot, not a permanent record — update it as items
 get resolved or as new ones surface, rather than letting it go stale the
@@ -497,6 +497,85 @@ graceful `{ status: "quota_exceeded" }` message rather than erroring, and
 by design never auto-upgrades to the $5/mo Workers Paid plan to keep
 serving past the free allowance. `ANTHROPIC_API_KEY` is no longer used by
 this route (removed from CLAUDE.md's env-var list).
+
+**Phase 2 — native social integrations: Telegram DONE/live; Instagram
+PAUSED mid-build (2026-09-13), resume-from point documented below.**
+Not a Postiz fork — see this doc's own fork-feasibility audit further up
+(Nx/NestJS/Temporal stack, native deps, total Workers-runtime
+incompatibility). `docs/social-integrations-schema.sql` is the schema of
+record for both platforms.
+
+*Telegram — fully built, tested, and confirmed working end-to-end
+(2026-09-11 through 2026-09-13), stays live as-is:*
+- `social_connections`/`scheduled_posts` tables, admin-only RLS via
+  `is_admin()` (real gap fixed mid-build: this started as per-user
+  Clerk-JWT RLS, which meant any signed-in visitor could connect their own
+  channel — tightened to admin-only once that was caught, reusing
+  `/admin`'s exact `role`/`is_admin()` mechanism, no new allowlist).
+- `custom-worker.ts` wraps the OpenNext-generated worker to add a
+  `scheduled()` Cron Trigger handler (`*/2 * * * *`) —
+  `@opennextjs/cloudflare` has no built-in support for this; confirmed via
+  its own docs and built via its documented "Custom Worker" pattern.
+  `lib/social/telegramDispatch.ts` does the actual send.
+- `/settings/social` — connect flow (`getChat`/`getChatMember` verifies
+  the bot is really an admin on the target channel, the actual ownership
+  proof — no OAuth needed), composer, scheduled-posts list. Two real bugs
+  found through actual use and fixed: the "Post to" dropdown submitting
+  empty due to a stale `useState` initializer surviving a `router.refresh()`
+  that didn't remount the component (fixed with a `resolveSelectedConnectionId()`
+  resync effect), and the datetime picker's calendar icon being invisible
+  in dark mode (fixed with the CSS `color-scheme` property).
+- Confirmed live: a real scheduled post went `pending` → `sent` via the
+  Cron Trigger against a real Telegram channel.
+
+*Instagram — paused by deliberate decision, not abandoned mid-bug. Real
+current state, verified live just before pausing (2026-09-13), not
+assumed:*
+- **Committed and deployed** (commit `b3309b6`): `lib/social/instagram.ts`
+  (OAuth helper — authorize-URL builder, the 3-step token exchange, `/me`
+  identity lookup, a refresh helper), `app/settings/social/instagram/callback/route.ts`
+  (the OAuth redirect target, admin-gated, degrades gracefully if
+  `INSTAGRAM_APP_ID`/`INSTAGRAM_APP_SECRET` aren't set), and the schema
+  migration SQL *text* in `docs/social-integrations-schema.sql` (widened
+  `platform` CHECK to include `'instagram'`, added nullable `access_token`/
+  `token_expires_at` columns). `lib/supabase/social.ts`'s `SocialConnection`
+  type already reflects the wider platform union.
+- **NOT applied — confirmed via a live query just before pausing**: the
+  migration SQL above was never run against the database (`social_connections.access_token
+  does not exist` — checked directly, not assumed). The `platform` CHECK
+  constraint in the live database still only allows `'telegram'`.
+- **NOT done**: R2 was never enabled on the Cloudflare account — `wrangler
+  r2 bucket create` still fails live with `Please enable R2 through the
+  Cloudflare Dashboard [code: 10042]`, a one-time account-level opt-in only
+  the account owner can do (not scriptable via wrangler CLI). No bucket
+  exists, no `r2_buckets` binding was ever added to `wrangler.jsonc`.
+  `INSTAGRAM_APP_ID`/`INSTAGRAM_APP_SECRET` were never set as Cloudflare
+  secrets either — no Meta app/Instagram Tester setup was done.
+- **Deployed code is safely inert**: the callback route 404s for anyone
+  non-admin, and even for an admin it would hit its own
+  "not configured" branch (missing secrets) before ever reaching the
+  database — there is no reachable path that would attempt an insert
+  against the not-yet-migrated schema.
+- **Real research findings worth keeping** (from the scoping pass before
+  this paused): Instagram's *Business Login for Instagram* flow needs no
+  linked Facebook Page (the older *Facebook Login for Business* flow does —
+  deliberately not used here). Because SynfraCore only ever posts to its
+  own account (added as an Instagram Tester on the Meta app), this
+  qualifies for **Standard Access** — no Meta App Review, no Business
+  Verification, confirmed live against Meta's current docs. That finding
+  stays valid whenever this resumes.
+- **To resume**: (1) run the migration SQL in `docs/social-integrations-schema.sql`'s
+  "MIGRATION (2026-09-13)" section, (2) enable R2 in the Cloudflare
+  dashboard, create the bucket, add the `r2_buckets` binding, (3) create
+  the Meta app + add the SynfraCore Instagram account as a Tester, set
+  `INSTAGRAM_APP_ID`/`INSTAGRAM_APP_SECRET` as secrets, (4) build the
+  media-upload step and the 2-step publish flow (`/media` container →
+  `/media_publish`) — neither exists yet.
+- **Decision**: Instagram (and all further social-media automation —
+  the rest of Phase 2, and Phase 3) is deliberately postponed to the very
+  end of the overall roadmap. Telegram is complete and valuable standing
+  alone; this was a deliberate scope/sequencing call, not a blocker or a
+  problem found with the Instagram work itself.
 
 **Housekeeping, low priority:**
 - CLAUDE.md/`06-roadmap.md`/`07-roadmap-final.md` reconciliation — several
