@@ -1,19 +1,25 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 // Query/mutation functions for docs/social-integrations-schema.sql. Both
-// tables have standard Clerk-JWT RLS ("user manages own rows") — these
-// functions take the caller's normal authenticated client
-// (lib/supabase/server.ts's createSupabaseServerClient()), never the
-// service-role client, since ownership is enforced by RLS itself here, not
-// application code (unlike the question-bank's service-role functions).
+// tables are admin-only RLS (is_admin() — see the schema file's own
+// SECURITY MODEL note, revised 2026-09-12) — these functions take the
+// caller's normal authenticated client (lib/supabase/server.ts's
+// createSupabaseServerClient()), never the service-role client, since
+// is_admin() enforcement happens in RLS itself here, not application code
+// (unlike the question-bank's service-role functions).
 
 export type SocialConnection = {
   id: string;
-  platform: "telegram";
+  platform: "telegram" | "instagram";
   external_id: string;
   display_name: string | null;
   connected_at: string;
   status: "active" | "revoked";
+  // access_token/token_expires_at (Instagram only) are deliberately never
+  // selected here — this type/query feeds the UI's connection list, which
+  // has no reason to ever see a live OAuth credential. The dispatch job
+  // (lib/social/instagram.ts's eventual consumer) reads those columns
+  // itself, directly, when it actually needs them.
 };
 
 export type ScheduledPost = {

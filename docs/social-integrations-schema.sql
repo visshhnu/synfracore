@@ -87,3 +87,23 @@ CREATE POLICY "admin manages scheduled posts" ON scheduled_posts
 -- touched server-side.
 GRANT SELECT, UPDATE ON scheduled_posts TO service_role;
 GRANT SELECT ON social_connections TO service_role; -- read-only join, for the connection's external_id
+
+-- ============================================================
+-- MIGRATION (2026-09-13): widen for Instagram (Phase 2 Step 2)
+-- Telegram needed neither of these — one shared bot token (a Cloudflare
+-- secret) covered every channel, and bot tokens don't expire. Instagram's
+-- Business Login OAuth flow issues a per-connection long-lived access
+-- token that expires in 60 days and must be refreshed before then (see
+-- lib/social/instagram.ts) — that token has to live somewhere per-row,
+-- since each connected Instagram account has its own. Nullable because
+-- existing Telegram rows have neither.
+-- ============================================================
+ALTER TABLE social_connections ADD COLUMN IF NOT EXISTS access_token TEXT;
+ALTER TABLE social_connections ADD COLUMN IF NOT EXISTS token_expires_at TIMESTAMPTZ;
+
+-- Postgres's auto-generated name for an unnamed inline CHECK is
+-- <table>_<column>_check — dropping and recreating rather than trying to
+-- ALTER it in place, since Postgres has no "ALTER CHECK" statement.
+ALTER TABLE social_connections DROP CONSTRAINT IF EXISTS social_connections_platform_check;
+ALTER TABLE social_connections ADD CONSTRAINT social_connections_platform_check
+  CHECK (platform IN ('telegram', 'instagram'));
