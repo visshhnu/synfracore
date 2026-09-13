@@ -18,16 +18,31 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  // Optimize images
+  // Real finding (2026-09-13 perf audit): despite this config declaring
+  // formats/deviceSizes/imageSizes below, NONE of it was actually taking
+  // effect in production — confirmed live by requesting the same image at
+  // w=64, w=256, and w=1920 through /_next/image and getting back the
+  // identical, full-original byte count every time. Root cause: Next.js's
+  // built-in image optimization route targets Vercel's infrastructure;
+  // @opennextjs/cloudflare needs either a Cloudflare Images binding (a
+  // real, ongoing paid product beyond its free tier — not adopted here
+  // without that being a deliberate call, same bar as every other
+  // Cloudflare product decision this project has made) or
+  // `unoptimized: true`, per OpenNext's own docs. Every image on the site
+  // was silently being served at full original size through a wasted
+  // proxy round-trip this whole time. `unoptimized: true` is the honest,
+  // zero-new-cost fix — it stops pretending to resize/reformat and just
+  // serves the source file directly (one less hop, too). The actual size
+  // problem this masked (a 2339x1857px PNG logo displayed at 56px tall)
+  // is fixed separately, at the source file itself — see
+  // components/layout/Navbar.tsx and Footer.tsx.
   images: {
-    formats: ["image/webp", "image/avif"],
-    minimumCacheTTL: 31536000, // 1 year cache
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    unoptimized: true,
     // Clerk avatar URLs (currentUser().imageUrl / profile.avatar_url) are
-    // remote — next/image throws at render time for any hostname not
-    // whitelisted here, which was crashing /dashboard for every signed-in
-    // user (Clerk auto-generates an avatar even for email/OTP sign-in).
+    // remote — kept even under unoptimized:true. Whether this list is
+    // still enforced in that mode is unconfirmed (conflicting signals on
+    // this specific Next.js behavior), but leaving it is harmless either
+    // way and documents the real remote hosts this app actually uses.
     remotePatterns: [
       { protocol: "https", hostname: "img.clerk.com" },
       { protocol: "https", hostname: "images.clerk.dev" },

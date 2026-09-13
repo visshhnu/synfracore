@@ -68,9 +68,12 @@ export default function Footer() {
             <Link href="/" prefetch={false} style={{ display: "inline-flex", alignItems: "center", textDecoration: "none", marginBottom: "16px" }}>
               {/* Both source files already have their 4 outer corners keyed
                   transparent, so only the rounded card renders — no square
-                  artifact against the footer background. */}
-              <Image src={logoSrc} alt="SynfraCore" width={2339} height={1857} className="footer-logo-desktop" style={{ height: "56px", width: "auto" }} />
-              <Image src={logoSrc} alt="SynfraCore" width={2339} height={1857} className="footer-logo-mobile" style={{ height: "44px", width: "auto" }} />
+                  artifact against the footer background. width/height
+                  378x300 match the real files (resized 2026-09-13 perf
+                  audit — see Navbar.tsx's identical logo for the full
+                  story; these render even smaller, 44-56px tall). */}
+              <Image src={logoSrc} alt="SynfraCore" width={378} height={300} className="footer-logo-desktop" style={{ height: "56px", width: "auto" }} />
+              <Image src={logoSrc} alt="SynfraCore" width={378} height={300} className="footer-logo-mobile" style={{ height: "44px", width: "auto" }} />
             </Link>
             <p style={{ color: "var(--text-4)", fontSize: "13px", lineHeight: 1.75, maxWidth: "260px", marginBottom: "20px" }}>
               The world&apos;s most comprehensive tech learning ecosystem. Built for practitioners, by practitioners. Education should be free.

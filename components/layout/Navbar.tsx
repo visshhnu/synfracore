@@ -290,7 +290,14 @@ export default function Navbar() {
                   Two theme-specific source files — each already has its 4
                   outer corners keyed to transparent, so only the rounded
                   card itself shows against the navbar, no square artifact. */}
-              <Image src={theme === "light" ? "/logo-light-full.png" : "/logo-dark-full.png"} alt="SynfraCore" width={2339} height={1857} priority
+              {/* width/height match the real files (378x300 / 377x300) —
+                  both were 2339x1857/2329x1851 source PNGs, resized
+                  2026-09-13 (perf audit: this component's `priority` prop
+                  meant this image was preloaded, competing with the LCP
+                  font for bandwidth, while only ever rendering at 42px
+                  tall — 355KB/249KB down to ~11KB/10KB, same visual
+                  output, verified directly). */}
+              <Image src={theme === "light" ? "/logo-light-full.png" : "/logo-dark-full.png"} alt="SynfraCore" width={378} height={300} priority
                 className={`logo-pill${scrolled ? " is-hidden" : ""}`}
                 style={{ height: "42px", width: "auto" }} />
               <div className={`logo-mark${scrolled ? " is-visible" : ""}`}>
