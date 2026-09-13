@@ -18,9 +18,10 @@
 // Optional: BASE_URL=http://localhost:3000 node scripts/screenshot-marketing-sections.mjs
 
 import { chromium } from "playwright";
-import { mkdirSync } from "fs";
+import { mkdirSync, unlinkSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
+import sharp from "sharp";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
@@ -129,14 +130,30 @@ async function shootDashboard(browser) {
   await page.close();
 }
 
+// Playwright's screenshot() only writes PNG/JPEG (no WebP option) — these
+// convert to WebP right after, since that's the format app/page.tsx
+// actually references (perf audit, 2026-09-13: PNG->WebP at quality 82
+// shrank these by 52-62% with no visible loss, checked directly). The
+// intermediate PNG is deleted so a re-run doesn't leave a stale, unused
+// PNG sitting alongside the WebP that's actually shipped.
+async function toWebp(name) {
+  const pngPath = join(OUT_DIR, `${name}.png`);
+  const webpPath = join(OUT_DIR, `${name}.webp`);
+  await sharp(pngPath).webp({ quality: 82 }).toFile(webpPath);
+  unlinkSync(pngPath);
+}
+
 const browser = await chromium.launch();
 try {
   await shootLesson(browser);
-  console.log("✓ lesson.png");
+  await toWebp("lesson");
+  console.log("✓ lesson.webp");
   await shootQuiz(browser);
-  console.log("✓ quiz.png");
+  await toWebp("quiz");
+  console.log("✓ quiz.webp");
   await shootDashboard(browser);
-  console.log("✓ dashboard.png");
+  await toWebp("dashboard");
+  console.log("✓ dashboard.webp");
 } finally {
   await browser.close();
 }

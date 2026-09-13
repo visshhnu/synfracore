@@ -76,10 +76,12 @@ const journey = [
 ];
 
 // Product screenshots — regenerate via `node scripts/screenshot-marketing-sections.mjs`
+// (that script now writes .webp directly — perf audit 2026-09-13: PNG->WebP
+// at quality 82 shrank these 52-62% with no visible loss, verified directly).
 const productShots = [
-  { title: "Real lessons, not stubs", desc: "Diagrams, callouts, and working code in every technology page.", image: "/images/screenshots/lesson.png", height: 720, alt: "SynfraCore lesson page showing an AI inference diagram, a cost-estimation callout, and a Python code example" },
-  { title: "Quizzes that check understanding", desc: "Instant right/wrong feedback with a real explanation, not just a score.", image: "/images/screenshots/quiz.png", height: 620, alt: "SynfraCore quiz on Docker fundamentals showing a correct and an incorrect answer with an inline explanation" },
-  { title: "Progress that's actually tracked", desc: "Domain-by-domain completion, quiz history, and saved topics in one dashboard.", image: "/images/screenshots/dashboard.png", height: 720, alt: "SynfraCore dashboard showing progress bars across DevOps, Cloud, and Databases, quiz performance, and recent activity" },
+  { title: "Real lessons, not stubs", desc: "Diagrams, callouts, and working code in every technology page.", image: "/images/screenshots/lesson.webp", height: 720, alt: "SynfraCore lesson page showing an AI inference diagram, a cost-estimation callout, and a Python code example" },
+  { title: "Quizzes that check understanding", desc: "Instant right/wrong feedback with a real explanation, not just a score.", image: "/images/screenshots/quiz.webp", height: 620, alt: "SynfraCore quiz on Docker fundamentals showing a correct and an incorrect answer with an inline explanation" },
+  { title: "Progress that's actually tracked", desc: "Domain-by-domain completion, quiz history, and saved topics in one dashboard.", image: "/images/screenshots/dashboard.webp", height: 720, alt: "SynfraCore dashboard showing progress bars across DevOps, Cloud, and Databases, quiz performance, and recent activity" },
 ];
 
 // Tech domains
