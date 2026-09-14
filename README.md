@@ -6,13 +6,13 @@
 - **Framework:** Next.js 15 (App Router, TypeScript)
 - **Auth:** Clerk (session/identity) + Supabase (Postgres only, RLS via Clerk JWT — see `CLAUDE.md`)
 - **Styling:** Tailwind CSS v4 + custom dark design system
-- **AI:** Anthropic Claude API — gated behind `AI_ASSISTANT_ENABLED` (see `.env.example`); off by default
-- **Fonts:** Space Grotesk · Syne · JetBrains Mono
+- **AI:** Cloudflare Workers AI — native `env.AI` binding, `llama-3.1-8b-instruct-fp8-fast` (replaced the Anthropic Claude API 2026-09-11 — free on the Workers Free plan, no per-token cost); gated behind `AI_ASSISTANT_ENABLED`, currently **live in production** (see `.env.example`)
+- **Fonts:** Inter · Plus Jakarta Sans · JetBrains Mono
 - **Deploy:** Cloudflare Worker via `@opennextjs/cloudflare` (D1) + `wrangler` — **not Vercel**, not `@cloudflare/next-on-pages`/Pages (migrated off Pages 2026-07-19, see `docs/audit/07-roadmap-final.md` Part 4l)
 
-## 21 Academies · 259 Technologies · 17 Certifications
+## 21 Academies · 265 Technologies · 17 Certifications
 
-Counts above are verified against `lib/data/academies.ts`/`lib/data/navigation.ts` directly — treat those files as the live source of truth rather than this number, since it will drift as content is added. Academies include DevOps, Cloud, Databases, AI, Data, Security, Healthcare, Essentials, Education, Exams, Law, Agriculture, Finance, Telecom, Economics, State PSC, Central Exams and Professional Certs.
+Counts above are verified against `lib/data/academies.ts`/`lib/data/navigation.ts` directly — treat those files as the live source of truth rather than this number, since it will drift as content is added. Academies include DevOps, Cloud, Databases, AI, Data, Security, Healthcare, Essentials, Education, Exams, Law, Agriculture, Finance, Telecom, Economics, State PSC, Central Exams, Professional Certs, Aerospace, VLSI and Web Development.
 
 ## Deploy to Cloudflare (Worker)
 
@@ -42,7 +42,8 @@ app/
       [section]/page.tsx      # Lesson content — pre-written markdown by default,
                                # with an optional AI-generate fallback when a
                                # section has no registered content yet
-  ai-assistant/               # AI assistant UI (backing API gated off by default)
+  ai-assistant/               # AI assistant UI — backing API (Cloudflare Workers AI)
+                               # gated behind AI_ASSISTANT_ENABLED, currently live
   roadmaps/, certifications/
   labs/, projects/, interview/
   troubleshooting/, community/, career/

@@ -30,7 +30,7 @@ describe a stack that hasn't been true since mid-2026:
 | Primary database | **Supabase (Postgres only)** | Supabase's own Auth is **not** used — see below |
 | Auth | **Clerk** | Issues the session JWT; Supabase trusts it via native Third-Party Auth (not the deprecated JWT-template method) |
 | Payments | Razorpay (India) + Stripe (global) | Not yet integrated |
-| AI | **Cloudflare Workers AI** (native `env.AI` binding, `llama-3.1-8b-instruct-fp8-fast`) | Replaced the Anthropic Claude API 2026-09-11 to remove per-token cost — see Section on `/api/ai` below. Gated behind `AI_ASSISTANT_ENABLED`, off by default |
+| AI | **Cloudflare Workers AI** (native `env.AI` binding, `llama-3.1-8b-instruct-fp8-fast`) | Replaced the Anthropic Claude API 2026-09-11 to remove per-token cost — see Section on `/api/ai` below. Gated behind `AI_ASSISTANT_ENABLED` (defaults closed for a fresh local setup), currently **live in production** |
 
 **Auth model, precisely**: Clerk issues the JWT. Supabase trusts it
 directly (Authentication → Sign In / Providers → Clerk in the Supabase
@@ -338,7 +338,7 @@ tracker's claim, especially an older one.
 
 ---
 
-## 6. Current Known-Open Items (as of 2026-09-13)
+## 6. Current Known-Open Items (as of 2026-09-14)
 
 This section is a snapshot, not a permanent record — update it as items
 get resolved or as new ones surface, rather than letting it go stale the
@@ -474,8 +474,14 @@ since a row in `pyq_model_answers` without a verifiable real citation
 must not exist.
 
 **SynfraCore AI backend swap: Anthropic → Cloudflare Workers AI (built
-2026-09-11, deployed with `AI_ASSISTANT_ENABLED` still `"false"` pending a
-real browser click-through)**: `/api/ai` (`app/api/ai/route.ts`) no longer
+2026-09-11, `AI_ASSISTANT_ENABLED` now LIVE in production)**: the real
+browser click-through test this entry originally noted as pending was run
+and initially failed (`5421988`, reverted to `false`) — root cause was the
+response-shape mismatch (Workers AI returns `{ response: string }`, not
+Anthropic's `{ content: [...] }`), fixed in `AIAssistantClient.tsx`
+(`49c468c`), which also re-enabled the flag. Confirmed live: `wrangler.jsonc`
+currently has `"AI_ASSISTANT_ENABLED": "true"` and every deploy since
+2026-09-11 has shipped with it on. `/api/ai` (`app/api/ai/route.ts`) no longer
 calls the Anthropic Messages API — it calls Cloudflare Workers AI's native
 `env.AI` binding (added to `wrangler.jsonc`) directly, model
 `@cf/meta/llama-3.1-8b-instruct-fp8-fast`. Motivation: Workers AI's
@@ -576,6 +582,98 @@ assumed:*
   end of the overall roadmap. Telegram is complete and valuable standing
   alone; this was a deliberate scope/sequencing call, not a blocker or a
   problem found with the Instagram work itself.
+
+**UI polish and static social links (2026-09-13, live):**
+- Academies mega-menu visual polish (`daad95b`) and top-utility-bar/About-page
+  copy pass (`690007c`) — cosmetic/UX, no schema or route changes.
+- Instagram and Facebook added to the shared social-links source
+  (`lib/data/socialLinks.tsx`, commits `e2fd762`/`4768399`) — real brand-color
+  icon marks (Instagram's gradient, Facebook's blue) plus a WhatsApp contact
+  channel, consumed by the top utility bar, footer, and Contact page. This is
+  the static profile-link icon set — separate from, and not to be confused
+  with, the Phase 2 Instagram OAuth/posting integration above, which remains
+  paused.
+
+**Performance batch (2026-09-13, live, all three deployed and verified
+independently — see the perf commits for measured before/after numbers):**
+- `7750792` — found and fixed a real, previously-unknown production bug:
+  Next.js's built-in image optimizer was non-functional on this
+  `@opennextjs/cloudflare` stack (confirmed live: identical byte count at
+  every requested width). Fixed via `images.unoptimized: true` (the
+  zero-cost fix per OpenNext's own docs — a paid Cloudflare Images binding
+  is the alternative, not adopted). Also shrank the oversized logo files
+  95-97% (2339×1857px down to 378×300px, matching actual render size).
+- `ceb3a3b` — fixed a real, code-evidenced CLS cause: the Navbar's
+  Clerk-`isLoaded`-gated auth UI popped in after Clerk resolved, shifting
+  layout. Fixed by reserving the signed-out button's exact size with an
+  invisible placeholder beforehand — deliberately does not touch Clerk's
+  own script-loading strategy, given a documented real production outage
+  (2026-08-12) from a prior attempt at that exact optimization.
+- `9c830f0` — converted the 3 homepage screenshot images PNG→WebP,
+  52-62% smaller, visually verified for no quality loss.
+- Investigated and deliberately NOT touched: Clerk's ~309KB script bundle
+  (likely the largest remaining TBT/LCP contributor, but repeats the class
+  of change that caused the 2026-08-12 outage) and the 5 font preloads in
+  `app/layout.tsx` (has its own documented CLS-regression history) — both
+  flagged as genuine judgment calls needing sign-off, not silently skipped.
+
+**Beginner-accessibility audit and fixes (2026-09-13/14, live)**: a
+Standard-9 beginner-simulation read (not just word-count/pattern scan) across
+a representative sample of pages surfaced two real Overview-tab failures —
+`ai/ai-fundamentals` had zero hook/analogy/prerequisites anywhere and opened
+straight into transformer internals, and `devops/docker`'s hook and
+kernel-level detail were in the wrong order with no analogy at all. Both
+rewritten (`d834965`): AI Fundamentals now opens with a phone-keyboard
+next-token analogy before any jargon and defines every acronym (RAG,
+temperature, embeddings, etc.) at first use; Docker now leads with the
+"works on my machine" hook and Docker's own shipping-container analogy
+before the namespaces/cgroups detail. Other pages sampled (SQL, Security
+Fundamentals, JavaScript, VLSI Digital Logic) were confirmed already meeting
+the bar — used as the quality reference for the two rewrites. Held, not
+built: the AWS-overview reorder (lower priority), a School-academy
+scope-check, and a pre-publish lint-script tool — all flagged as open
+decisions, not silently dropped.
+
+**UPSC Mains core GS papers + Prelims — live and in-progress
+(2026-09-14)**: extends the `upsc-ias` optional-subject pattern above to
+UPSC's own core papers, previously a real, confirmed gap (the optional
+subjects had full PYQ+model-answer coverage; UPSC's own Prelims/Mains GS
+papers did not). Required one schema change first: `pyq_collections
+.exam_paper` was `CHECK`-constrained to `'paper-1'/'paper-2'` (the optional
+subjects' 2-paper shape) and couldn't represent Essay/GS1-4 as five
+distinct named papers — widened via `docs/extend-pyq-exam-paper-types.sql`
+to also accept `essay`/`gs1`-`gs4` (backward-compatible, no existing rows
+touched), with `examPaperLabel()` in `lib/supabase/pyqBank.ts` replacing a
+hardcoded Paper-I/II-only ternary in both `/pyq-bank` pages.
+
+*Live in production, seeded and verified*: Essay (`40fc757`, 8 questions,
+real 2023 paper), GS Paper I (`1ceadd6`, 20 questions, real 2026 paper), GS
+Paper II (`aca6746`, 20 questions, real 2026 paper), GS Paper III (`7921ca1`,
+20 questions, real 2026 paper) — all under the existing `upsc-mains`
+technology page, `technologyPyqSubjectMap` registered.
+
+*Committed but NOT seeded/deployed — parked pending a Cloudflare auth issue
+(VPN interference on the build machine, not a platform problem; resolves
+when the user disconnects it)*:
+- GS Paper IV/Ethics (`2ed6274`) — 19 questions (13 Section A sub-parts +
+  6 Section B case studies) under `upsc-ethics`.
+- UPSC Prelims GS Paper I (`b6726e3`, `78f3e22`) — 95 of the real 100
+  questions from the actual 2026 sitting (5 UPSC-declared-defective or
+  source-unverifiable exclusions, disclosed per-question, not silently
+  dropped).
+- UPSC Prelims CSAT Paper II (`b60f8b7`) — 78 of the real 80 questions
+  (2 exclusions, same disclosure discipline).
+- All three seed SQL files are generated, UUID-filled, and independently
+  verified valid (statement counts and quote-balance checked against the
+  real seeder's own parsing logic) — resuming is a straightforward
+  seed → verify → deploy → post-deploy-checklist pass per file once auth
+  is restored, no further authoring needed.
+
+Sourcing discipline throughout, both live and parked: every question
+verified verbatim against at least one independent source (two, where a
+batch-size constraint on the fetch tool didn't force a single-source
+fallback — disclosed per-file where it applies), never fabricated, excluded
+rather than guessed wherever a source couldn't be verified.
 
 **Housekeeping, low priority:**
 - CLAUDE.md/`06-roadmap.md`/`07-roadmap-final.md` reconciliation — several
