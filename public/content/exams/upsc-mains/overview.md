@@ -65,6 +65,8 @@ A recurring, testable pattern in GS2: a large share of questions pair a **live i
 - Science & Technology: space, defence, biotechnology
 - Internal security: extremism, cyber security
 
+**GS3 question pattern:** Same 20-question, 10-mark/15-mark structure. GS3 is the paper most likely to reward staying current — the real 2026 paper asked directly about that year's Digital Rupee progress, a satellite launched months before the exam, and "agentic AI," none of which appear in any static textbook. Static-syllabus preparation (crop-marketing inefficiency, FBR vs thermal reactors, WTO's Agreement on Agriculture) is still the majority of the paper, but a real, current-affairs-linked example from the preceding 6-12 months is often what separates an average GS3 answer from a strong one — the syllabus areas (Economy, Agriculture, S&T, Environment, Disaster Management, Internal Security) are exactly the areas where government schemes, missions, and international frameworks change fastest.
+
 **GS4 (250 marks):**
 - Ethics and Human Interface
 - Attitude, Aptitude, Foundational Values
