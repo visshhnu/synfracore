@@ -53,6 +53,10 @@ GS1 questions consistently reward answers that name **specific, real examples** 
 - Social justice: welfare schemes, vulnerable sections
 - International Relations: India and its neighbors, global bodies (UN, WTO, WHO)
 
+**GS2 question pattern:** Same 20-question, 10-mark/15-mark structure as GS1. In the real 2026 paper, Polity and Constitution alone accounted for half the paper (10 of 20 questions), with International Relations, Governance, and Social Justice splitting the rest — a genuine skew worth knowing about, not an even spread across the syllabus's five listed areas.
+
+A recurring, testable pattern in GS2: a large share of questions pair a **live institutional tension** (the Governor's assent powers, the Lok Sabha Speaker's neutrality under anti-defection law, whether a constitutional body has real enforcement power) with a request to **suggest reform**, not just describe the tension. Answering only "here is the problem" without a concrete, specific suggested fix leaves real marks on the table on this kind of question. On IR questions specifically, current initiatives (the Quad, BRICS, IPMDA, BRI) are tested by asking you to critically assess a specific claim about them, not just describe what they are — know what each actually does operationally, not just its name.
+
 **GS3 (250 marks):**
 - Indian Economy: planning, growth, development
 - Agriculture: land reforms, food security, crop patterns
