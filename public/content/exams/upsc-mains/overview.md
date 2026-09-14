@@ -42,6 +42,10 @@ Plus interview (Personality Test): 275 marks
 - Indian Society: diversity, women, poverty, urbanization
 - Geography: physical, Indian, world economic geography
 
+**GS1 question pattern:** GS1 is 20 compulsory questions in a fixed structure — Q1-10 at 10 marks each (~150-word answers) and Q11-20 at 15 marks each (~250-word answers), adding to 250 marks total. Unlike the Essay paper's open-ended prompts, every GS1 question names a specific topic or claim — you're not choosing what to write about, only how to structure the answer around what's asked.
+
+GS1 questions consistently reward answers that name **specific, real examples** rather than describing a concept in the abstract — a question on regional imbalance is better answered citing an actual Five-Year Plan decision (e.g. the Bhilai/Durgapur/Rourkela steel-plant siting) than describing "the government invested in backward regions" generically. Several recent GS1 questions have also explicitly asked for a *critical* or balanced view (e.g. examining a claim's real limits, not just agreeing with it) — treat any "examine," "critically examine," or "comment" instruction as a signal to state the claim's genuine limitation somewhere in the answer, not just its supporting case.
+
 **GS2 (250 marks):**
 - Indian Constitution: features, amendments, schedules
 - Parliament, state legislatures, executive, judiciary
