@@ -42,6 +42,8 @@ One more real thing worth knowing: UPSC itself occasionally declares a question 
 }
 ```
 
+**What CSAT actually tests (2026 paper):** despite "qualifying only" making it sound low-stakes, the real paper is genuinely demanding — heavy on multi-step quantitative word problems (successive-replacement mixtures, weighted averages, relative-speed-with-direction-change), data-sufficiency questions (given two statements, can the question be answered at all — a distinct skill from solving it), and reading comprehension passages that test inference and the writer's actual intent, not just fact-recall from the passage. A real, recurring trap: several 2026 questions were explicitly "insufficient data" or "cannot be determined" — the correct answer is sometimes recognizing that no answer is derivable from what's given, not picking the most plausible-looking number.
+
 ## History — Complete Coverage
 
 ### Ancient India
