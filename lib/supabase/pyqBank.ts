@@ -22,12 +22,32 @@ export type PyqCollection = {
   slug: string;
   subject: string;
   title: string;
-  exam_paper: "paper-1" | "paper-2";
+  // "essay"/"gs1"-"gs4" added for UPSC's own core Mains papers (Essay,
+  // GS Paper I-IV) alongside the original paper-1/paper-2 shape used by
+  // the 6 optional subjects — see docs/extend-pyq-exam-paper-types.sql.
+  exam_paper: "paper-1" | "paper-2" | "essay" | "gs1" | "gs2" | "gs3" | "gs4";
   year: number;
   is_premium: boolean;
   question_count: number;
   sort_order: number;
 };
+
+const EXAM_PAPER_LABELS: Record<PyqCollection["exam_paper"], string> = {
+  "paper-1": "Paper I",
+  "paper-2": "Paper II",
+  essay: "Essay",
+  gs1: "GS Paper I",
+  gs2: "GS Paper II",
+  gs3: "GS Paper III",
+  gs4: "GS Paper IV",
+};
+
+// Single source of truth for the human-readable paper label — used by both
+// app/pyq-bank/page.tsx and app/pyq-bank/[slug]/page.tsx so the two never
+// drift out of sync the way a hardcoded ternary in each place would.
+export function examPaperLabel(examPaper: PyqCollection["exam_paper"]): string {
+  return EXAM_PAPER_LABELS[examPaper] ?? examPaper;
+}
 
 export type PyqQuestion = {
   id: string;

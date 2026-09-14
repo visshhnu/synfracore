@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Lock, Sparkles } from "lucide-react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { createServiceRoleClient } from "@/lib/supabase/serviceRole";
-import { getCollectionBySlug, getQuestionsForCollection, getModelAnswersForQuestions } from "@/lib/supabase/pyqBank";
+import { getCollectionBySlug, getQuestionsForCollection, getModelAnswersForQuestions, examPaperLabel } from "@/lib/supabase/pyqBank";
 import { getAuthSafely } from "@/lib/clerk/authFallback";
 import { hasActivePremiumAccess } from "@/lib/billing/access";
 
@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!collection) return { title: "PYQ Collection" };
   return {
     title: `${collection.title} — PYQ + Model Answers`,
-    description: `${collection.question_count} real UPSC ${collection.exam_paper === "paper-1" ? "Paper I" : "Paper II"} questions (${collection.year}) with full written model answers.`,
+    description: `${collection.question_count} real UPSC ${examPaperLabel(collection.exam_paper)} questions (${collection.year}) with full written model answers.`,
     alternates: { canonical: `https://synfracore.com/pyq-bank/${slug}` },
   };
 }
@@ -61,7 +61,7 @@ export default async function PyqCollectionPage({ params }: Props) {
         )}
       </div>
       <p style={{ fontSize: "13px", color: "var(--text-4)", marginBottom: "32px" }}>
-        {collection.exam_paper === "paper-1" ? "Paper I" : "Paper II"} · {collection.year} · {collection.question_count} questions
+        {examPaperLabel(collection.exam_paper)} · {collection.year} · {collection.question_count} questions
       </p>
 
       {!hasAccess && (

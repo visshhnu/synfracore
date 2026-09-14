@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Sparkles, FileText } from "lucide-react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { getCollectionsBySubject } from "@/lib/supabase/pyqBank";
+import { getCollectionsBySubject, examPaperLabel } from "@/lib/supabase/pyqBank";
 
 type Props = { searchParams: Promise<{ subject?: string }> };
 
@@ -57,7 +57,7 @@ export default async function PyqBankPage({ searchParams }: Props) {
                   )}
                 </div>
                 <div style={{ fontSize: "12px", color: "var(--text-4)" }}>
-                  {c.exam_paper === "paper-1" ? "Paper I" : "Paper II"} · {c.year} · {c.question_count} questions
+                  {examPaperLabel(c.exam_paper)} · {c.year} · {c.question_count} questions
                 </div>
               </div>
             </Link>

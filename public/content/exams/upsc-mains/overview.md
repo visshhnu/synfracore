@@ -64,6 +64,22 @@ Plus interview (Personality Test): 275 marks
 - Case Studies (very important — 2-3 case studies, 25 marks each)
 - Public administration values, integrity, accountability
 
+## Essay Paper — Structure & Strategy
+
+The Essay paper is 250 marks split across **two essays of 125 marks each**, written in 3 hours total. UPSC presents two sections (Section A and Section B) of **4 topics each**, and you choose **one topic from each section** — you never write more than two essays, and you never see a "choose any one of eight" format; the section split is fixed.
+
+**Word limit:** 1000-1200 words per essay — roughly 4-5 handwritten pages. There's no hard penalty printed for going over, but running short (well under 1000 words) reads as underdeveloped, and overrunning eats into the second essay's time in a 3-hour paper with no extra time allotted.
+
+**What the topics actually look like:** UPSC's Essay topics are not subject-specific prompts ("Discuss X policy") — they're abstract statements, aphorisms, or philosophical claims (e.g. a real 2023 topic: *"Not all who wander are lost"*) that could be argued from history, science, personal experience, current affairs, or philosophy. There is no single "correct" content area to prepare — the paper tests how well you can construct and defend an argument, not whether you memorized the right facts for it.
+
+**Choosing a topic:** pick the topic you can support with the most **specific, real examples** — not the one that sounds most inspiring in the moment. A topic you can back with 4-5 concrete, verifiable examples (a real historical event, a documented scientific case, a real policy) will consistently outscore a topic argued only in the abstract, however eloquent the abstract argument is.
+
+**Structure that scores well:**
+1. A concrete opening (a real anecdote, fact, or sharp restatement of the claim) — not a dictionary-style restatement of the topic in different words.
+2. Multiple body sections that each add a genuinely new angle (historical, scientific, socio-political, personal/philosophical) rather than repeating the same point with new examples.
+3. At least one paragraph that complicates or qualifies the claim — UPSC's own model answers consistently reward essays that acknowledge a real limit or counter-case to the topic, not just essays that argue the topic is uncomplicatedly true.
+4. A conclusion that ties back to the opening rather than introducing a new, unrelated point in the final paragraph.
+
 ## Answer Writing Strategy
 
 Unlike Prelims, Mains tests your ability to articulate — both knowledge AND expression matter.

@@ -77,6 +77,12 @@ export const technologyPyqSubjectMap: Record<string, string> = {
   "exams/upsc-history": "history",
   "exams/upsc-public-administration": "public-administration",
   "exams/upsc-anthropology": "anthropology",
+  // Core Mains papers (not an optional subject) -- Essay/GS1/GS2/GS3 all
+  // file under the single upsc-mains technology page, differentiated by
+  // exam_paper (examPaperLabel() in pyqBank.ts renders the real paper
+  // name); GS Paper IV/Ethics has its own existing technology page.
+  "exams/upsc-mains": "upsc-mains",
+  "exams/upsc-ethics": "upsc-ethics",
 };
 
 // Same existence-check pattern as technologyExamTypeMap above, but keyed by

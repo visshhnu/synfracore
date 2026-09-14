@@ -218,8 +218,13 @@ automatically.
 ## Do not
 - Do not use Supabase Auth alongside Clerk — pick one identity system (Clerk).
 - Do not commit `.env.local` or any real key.
-- Do not launch new academies beyond the 3 flagship ones until the auth +
-  dashboard shell is stable (see phased plan in `/docs`).
+- ~~Do not launch new academies beyond the 3 flagship ones until the auth +
+  dashboard shell is stable~~ — **STALE, removed 2026-09-14.** The auth +
+  dashboard shell has been stable for a long time and `lib/data/academies.ts`
+  already defines 21 academies operating fine in production (confirmed live
+  count, not just this file's own claim). Kept here struck through rather
+  than silently deleted, in case the history of this restriction matters
+  later — but it is not in effect and should not gate new academy work.
 - **Symptom 10/11 is RESOLVED as of 2026-07-19** — production now runs on
   `@opennextjs/cloudflare` (D1), which does not have the Server-Action-404
   mechanism that `@cloudflare/next-on-pages` had. The old restriction ("do
