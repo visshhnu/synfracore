@@ -1,5 +1,9 @@
 # AI Fundamentals — How LLMs Actually Work
 
+**Before you start:** this tab assumes you've read the Overview's "next-token prediction" idea (a phone keyboard guessing your next word, at a vastly bigger scale) — this page goes one level deeper into the mechanism itself, still with no prior ML/math background required.
+
+**Analogy — what "attention" actually does.** Read this sentence: "The trophy didn't fit in the suitcase because *it* was too big." To know what "it" refers to, you unconsciously looked back at both "trophy" and "suitcase" and judged which one makes sense as "too big." **Attention** is the part of a transformer that does exactly this, automatically, for every token against every other token in the input — deciding how much each earlier word should influence the model's understanding of the current one. Stack enough of these attention passes together, alternated with some further number-crunching (feed-forward layers, below), and the model builds up a genuinely rich sense of how the words in a sentence relate to each other — not just what each word means alone.
+
 ## What an LLM Is
 
 ```
@@ -24,12 +28,23 @@ Inference: Given a prompt, sample next token, append, repeat
 ## The Transformer Architecture
 
 ```
-Embedding layer:  Tokens → vectors (numbers representing meaning)
-Attention heads:  Each token "attends to" other tokens
-                  Weights determine how much each token influences others
-Feed-forward:     Process each position independently
-Layer norm:       Normalize activations
-Stack N layers:   GPT-4 has ~96 layers
+Embedding layer:  Tokens → vectors (numbers representing meaning —
+                  same idea as the Overview's embeddings, just used
+                  internally here instead of for RAG search)
+Attention heads:  Each token "attends to" other tokens (the trophy/
+                  suitcase example above) — a model runs many of
+                  these attention heads in parallel, each free to
+                  learn a different kind of relationship (grammar,
+                  reference, topic, etc.)
+Feed-forward:     Further processes each token's own position,
+                  independently of the others, after attention has
+                  mixed in the surrounding context
+Layer norm:       A rescaling step that keeps the numbers flowing
+                  through the network in a stable, workable range
+                  as they pass through many layers
+Stack N layers:   Repeat this whole attention → feed-forward block
+                  N times, each layer building a richer understanding
+                  on top of the last. GPT-4 has ~96 layers
 
 Key insight: "Attention is all you need" (2017 paper)
   Before Transformers: RNNs processed tokens sequentially
@@ -50,7 +65,11 @@ What fits in context:
 
 Limitations:
   - Cost scales with tokens (input + output)
-  - Attention is O(n²) in context length
+  - Attention gets expensive fast as context grows: doubling the
+    input length roughly quadruples the attention computation
+    (every token attends to every other token, so the work grows
+    with the square of the length — written "O(n²)" for short),
+    not just double
   - Models perform worse at very long contexts ("lost in the middle")
 ```
 

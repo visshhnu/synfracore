@@ -9,9 +9,15 @@
 
 ---
 
-## What is Docker?
+## Why Docker?
 
-Containers are isolated processes using Linux namespaces (PID, net, mnt, etc.) and cgroups (resource limits) — not VMs, since they share the host kernel rather than virtualizing an entire OS. This is exactly why containers start in milliseconds and use a fraction of a VM's memory: there's no separate kernel to boot. The Docker daemon runs and manages containers; Docker Hub is the default public registry for storing and pulling images.
+Before containers, "works on my machine" was a constant real problem — an app that ran fine on a developer's laptop could fail in staging or production because of subtle environment differences (a different library version, a missing system dependency, a different OS). Docker packages an application and everything it needs to run — code, runtime, libraries, system tools — into one portable image that behaves identically wherever it runs: a laptop, a CI runner, or a production cluster. That portability, not just resource efficiency, is the actual reason Docker became the default way to ship software.
+
+**Analogy** — Docker is named after, and built around, the real shipping container. Before standardized containers existed, loading a ship meant handling every crate, barrel, and sack by hand, in whatever odd shape it came in — slow, and every port needed different equipment for different cargo. The shipping container fixed this by standardizing the *box*: any ship, truck, or crane built to handle a standard container can move it, completely regardless of what's actually packed inside. A Docker image is that same idea applied to software — it doesn't matter whether your laptop, a CI server, or a production cluster is a totally different "ship"; if it can run Docker containers, it can run your image, unchanged, because the messy details of what's inside (your app's exact runtime, libraries, and config) are sealed inside a standard box.
+
+## What is Docker, Technically?
+
+Containers are isolated processes using Linux namespaces (PID, net, mnt, etc. — each namespace hides a different resource, like process IDs or network interfaces, so a container only sees its own) and cgroups (short for "control groups" — the kernel feature that caps how much CPU/memory a container can use) — not VMs, since they share the host kernel rather than virtualizing an entire OS. This is exactly why containers start in milliseconds and use a fraction of a VM's memory: there's no separate kernel to boot. The Docker daemon runs and manages containers; Docker Hub is the default public registry for storing and pulling images.
 
 On a single host, the Docker Engine sits between the hardware and any number of isolated containers — each with its own app and dependencies, but sharing the same underlying kernel:
 
@@ -25,10 +31,6 @@ On a single host, the Docker Engine sits between the hardware and any number of 
   ]
 }
 ```
-
-## Why Docker?
-
-Before containers, "works on my machine" was a constant real problem — an app that ran fine on a developer's laptop could fail in staging or production because of subtle environment differences (a different library version, a missing system dependency, a different OS). Docker packages an application and everything it needs to run — code, runtime, libraries, system tools — into one portable image that behaves identically wherever it runs: a laptop, a CI runner, or a production cluster. That portability, not just resource efficiency, is the actual reason Docker became the default way to ship software.
 
 ---
 
