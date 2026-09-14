@@ -60,6 +60,7 @@ export const technologyExamTypeMap: Record<string, string> = {
   "exams/jee-physics": "jee-main",
   "exams/jee-chemistry": "jee-main",
   "exams/jee-maths": "jee-main",
+  "exams/upsc-prelims": "upsc-prelims",
 };
 
 // Same existence-check pattern as technologyExamTypeMap above, but for the

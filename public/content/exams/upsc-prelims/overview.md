@@ -29,6 +29,10 @@ Only Paper I marks count for Prelims cutoff
 Marking: +2 for correct, -0.67 for wrong (1/3 negative)
 ```
 
+**What the real question format actually looks like (2026 paper):** the large majority of GS Paper I questions are not simple single-fact recall — they're built around a set of numbered statements ("1. ... 2. ... 3. ...") followed by "how many of the above are correct" or "select using the code below," where each of the 4 lettered options is a different combination of statement numbers. Genuinely knowing the topic isn't enough on its own — you also have to hold multiple statements in mind at once and correctly judge each independently, since one wrong statement in an otherwise-correct-sounding option is enough to make it wrong. "Match List I with List II" questions (mapping 4 items to 4 corresponding items) are common too, especially for international bodies, defence formations, and government programmes.
+
+One more real thing worth knowing: UPSC itself occasionally declares a question **defective** — no valid correct option among the four given — and drops it from scoring for everyone. This happened multiple times in the real 2026 paper. It's rare, it's not something you can prepare for, and it isn't a sign you misunderstood the topic if a question felt unanswerable.
+
 ```conceptgrid
 {
   "boxes": [
