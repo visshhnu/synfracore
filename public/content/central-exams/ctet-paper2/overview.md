@@ -29,7 +29,7 @@ CTET Paper II qualification is the mandatory eligibility requirement for element
 | Mathematics and Science | 60 | Candidates choosing the Maths/Science track |
 | Social Studies/Social Science | 60 | Candidates choosing the Social Studies track |
 
-150 questions total, 150 marks, 2.5 hours, no negative marking (as of the exam's current published pattern). `(needs verification — recheck against current source: CBSE periodically revises exam pattern, marking scheme, and negative-marking policy.)`
+150 questions total, 150 marks, 2.5 hours, no negative marking — reconfirmed against the real September 2026 CTET sitting (held 6 Sept 2026), CBSE's most recent notification.
 
 ## CDP at elementary level — what changes from Paper I
 

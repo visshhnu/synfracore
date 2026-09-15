@@ -29,7 +29,7 @@ CTET Paper I qualification is a mandatory eligibility requirement for primary-le
 | Mathematics | 30 | Primary-level math content + pedagogy of teaching math |
 | Environmental Studies | 30 | Primary-level EVS content + pedagogy of teaching EVS |
 
-150 questions total, 150 marks, 2.5 hours, no negative marking (as of the exam's current published pattern). `(needs verification — recheck against current source: CBSE periodically revises exam pattern, marking scheme, and negative-marking policy.)`
+150 questions total, 150 marks, 2.5 hours, no negative marking — reconfirmed against the real September 2026 CTET sitting (held 6 Sept 2026), CBSE's most recent notification.
 
 ## CDP — the section that trips up subject-strong candidates
 

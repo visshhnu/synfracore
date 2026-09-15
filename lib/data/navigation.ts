@@ -52,6 +52,8 @@ export const technologyExamTypeMap: Record<string, string> = {
   "devops/docker": "docker",
   "devops/ansible": "ansible",
   "central-exams/hal-trainee-prep": "hal-trainee",
+  "central-exams/ctet-paper1": "ctet-paper1",
+  "central-exams/ctet-paper2": "ctet-paper2",
   "exams/neet-biology": "neet",
   "exams/neet-physics": "neet",
   "exams/neet-chemistry": "neet",
