@@ -30,6 +30,16 @@ TSPSC recruitment fills Telangana's state administrative, revenue, and technical
 
 Group I generally follows the full Prelims-Mains-Interview structure, while lower Groups use progressively simpler processes — the same pattern established across this technology cluster's other state PSC technologies. `(needs verification — recheck against current source: TSPSC periodically revises exam pattern and Group classifications.)`
 
+## Group 1's real exam pattern — Prelims, Mains, Interview
+
+Group 1 follows a genuine three-stage selection:
+
+- **Prelims** — 1 paper, 150 objective questions, 150 marks (1 mark each), 2.5 hours. Purely a qualifying screen — Prelims marks are **not** carried forward to the final merit list, only used to shortlist candidates for Mains. **Negative marking is genuinely disputed across sources checked** — some state 1/3 mark deducted per wrong answer, others state none. This technology's practice paper uses zero negative marking (the more frequently repeated claim across sources checked), but this is disclosed as an unresolved conflict, not a confirmed fact — verify against the current official notification before relying on this for real exam strategy.
+- **Mains** — 6 descriptive papers plus a qualifying English paper, fully descriptive.
+- **Interview** — the final stage after Mains.
+
+**A real, current sourcing gap worth knowing about if you're building or reviewing TSPSC PYQ content**: like TNPSC and MPSC, TSPSC's Mains descriptive papers were checked directly (official pattern searches, coaching aggregators, a paid civiccentre.in product listing) and none offered real Mains question text as fetchable, quotable web content — only PDF downloads or a paywalled product page with no preview text. Real Prelims-style objective practice content is available now (see the PYQ tab); genuine sourced Mains PYQ+model-answer content is not built here.
+
 ## The Telangana movement — why it carries distinctive syllabus weight
 
 The **Telangana movement** — the decades-long political movement advocating for a separate Telangana state, culminating in Telangana's formation in 2014 — is a syllabus theme carrying genuinely distinctive weight in TSPSC's history and current-affairs content, in a way that doesn't have a direct parallel in most other state PSC syllabi covered in this technology cluster. The movement's roots trace back to concerns about regional development disparities within united Andhra Pradesh, and understanding both its historical arc and its continued influence on Telangana's post-2014 governance priorities is treated as core, not peripheral, TSPSC content.

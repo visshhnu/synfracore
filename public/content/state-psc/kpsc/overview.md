@@ -28,6 +28,16 @@ KPSC recruitment, and KAS specifically, is Karnataka's primary state civil-servi
 
 KAS follows the full Prelims-Mains-Interview structure (given its senior-administrative scope), while FDA/SDA are generally simpler, screening-exam-focused processes without a Mains/Interview stage of comparable depth. `(needs verification — recheck against current source: KPSC periodically revises exam pattern and eligibility criteria.)`
 
+## KAS's real exam pattern — Prelims, Mains, Interview
+
+KAS follows a genuine three-stage selection:
+
+- **Prelims** — 2 papers (Paper I and Paper II), 100 objective questions each, 2 marks/question (200 marks each, 400 total), 2 hours each, **−0.25 for each wrong answer**. Purely a qualifying screen — Prelims marks are **not** carried forward to the final merit list, only used to shortlist candidates for Mains.
+- **Mains** — qualifying Kannada and English language papers, plus 5 merit-determining papers (Essay, and General Studies I-IV), 250 marks each (1250 marks total), fully descriptive, **zero negative marking**.
+- **Interview** — the final stage after Mains, alongside the 1250 Mains marks, determines the final merit rank.
+
+**A real sourcing note for anyone reviewing this technology's PYQ content**: unlike TNPSC (where Mains PYQs were not sourceable as readable web text), KPSC's Mains previous-year questions *are* available as genuine, quotable text from a well-established aggregator (EduRev), verified directly. The PYQ tab's Mains GS-I collection here contains a real, disclosed subset of the actual 2021 KAS Mains GS-I paper with genuine model answers — not the full paper, and disclosed as a subset rather than presented as complete.
+
 ## Karnataka's unification history — a distinctive syllabus theme
 
 A syllabus theme specific to Karnataka (without a direct equivalent in several other state PSC syllabi) is the history of **Karnataka's unification** — the process by which Kannada-speaking regions, previously divided across multiple princely states and British administrative divisions, were consolidated into a single Karnataka state (initially as Mysore State, renamed Karnataka in 1973) following India's independence and the subsequent linguistic reorganization of states. This is a frequently and specifically tested topic precisely because it's central to Karnataka's own state identity in a way that doesn't have a close parallel in every other state's history syllabus.

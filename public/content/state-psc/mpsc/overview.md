@@ -28,6 +28,16 @@ MPSC recruitment, and MCS specifically, is Maharashtra's primary state civil-ser
 
 MCS and senior Group A posts generally follow the full Prelims-Mains-Interview structure, while lower-tier posts typically use simpler, screening-focused processes. `(needs verification — recheck against current source: MPSC periodically revises exam pattern and post classifications.)`
 
+## MPSC Rajyaseva's real exam pattern — Prelims, Mains, Interview
+
+MPSC Rajyaseva follows a genuine three-stage selection:
+
+- **Prelims** — 2 papers on one day: Paper I General Studies (100 questions, 200 marks, 2 hours) and Paper II CSAT (80 questions, 200 marks, 2 hours), **−0.25 for each wrong answer** on both. Purely a qualifying screen — Prelims marks are **not** carried forward to the final merit list, only used to shortlist candidates for Mains.
+- **Mains** — multiple descriptive General Studies papers plus language papers, fully descriptive.
+- **Interview** — the final stage after Mains.
+
+**A real, current sourcing gap worth knowing about if you're building or reviewing MPSC PYQ content**: unlike KPSC and APPSC, MPSC's Mains descriptive papers were checked directly (the official mpsc.gov.in previous-papers page, EduRev, and several coaching aggregators) and none offered real Mains question text as fetchable, quotable web content — only PDF downloads or paywalled/purchase pages. Real Prelims-style objective practice content is available now (see the PYQ tab); genuine sourced Mains PYQ+model-answer content is not built here, the same honest limitation already disclosed for TNPSC.
+
 ## Maratha Empire history — a distinctive syllabus theme
 
 A syllabus theme carrying particular weight in MPSC's history component is **Maratha Empire history** — Shivaji Maharaj's founding of the Maratha kingdom, the subsequent Maratha Confederacy's expansion across much of the Indian subcontinent, and its administrative innovations (including the **Ashtapradhan** council system, an eight-minister administrative structure). This carries genuine significance for Maharashtra's state identity beyond its exam-topic status, given the Maratha Empire's substantial historical role in resisting Mughal expansion and later shaping much of India's 18th-century political landscape.

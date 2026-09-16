@@ -30,6 +30,16 @@ APPSC recruitment fills Andhra Pradesh's state administrative, revenue, and tech
 
 Group I generally follows the full Prelims-Mains-Interview structure, while lower Groups use progressively simpler processes — the same pattern established across this technology cluster's other state PSC technologies. `(needs verification — recheck against current source: APPSC periodically revises exam pattern and Group classifications.)`
 
+## Group 1's real exam pattern — Prelims, Mains, Interview
+
+Group 1 follows a genuine three-stage selection:
+
+- **Prelims** — 2 papers, 120 objective questions/120 marks each (1 mark each), 120 minutes each, **−1/3 mark deducted per wrong answer**. Purely a qualifying screen — Prelims marks are **not** carried forward to the final merit list, only used to shortlist candidates for Mains.
+- **Mains** — 7 descriptive papers, 150 marks each (150 minutes each). The first two (Telugu and English) are qualifying only; Papers III-VII (including General Studies and Essay) are what actually determine merit rank, **zero negative marking**.
+- **Interview** — the final stage after Mains.
+
+**A real sourcing note for anyone reviewing this technology's PYQ content**: unlike TNPSC/MPSC/TSPSC, APPSC's Mains previous-year questions *are* available as genuine, quotable text from a well-established aggregator (EduRev), independently corroborated by two further sites carrying the same paper's questions. The PYQ tab's Mains Paper III collection here contains a real, disclosed subset of the actual 2020 Group 1 Mains Paper III (Polity, Constitution, Governance, Law & Ethics) with genuine model answers — not the full paper, and disclosed as a subset rather than presented as complete.
+
 ## The 2014 bifurcation — why it matters for syllabus content
 
 Andhra Pradesh's 2014 division into Andhra Pradesh and Telangana followed a prolonged political movement (the Telangana movement, covered in more depth in this academy's separate TSPSC technology, given its centrality to Telangana's specific state identity) and required both resulting states to establish updated administrative, economic, and capital-city arrangements. For APPSC's syllabus specifically, this means state-specific General Studies content (particularly economy, government schemes, and current administrative structure) reflects Andhra Pradesh's post-2014 configuration — candidates should be careful not to rely on pre-2014 "undivided Andhra Pradesh" material for content areas that changed with bifurcation, even though pre-2014 history remains shared and relevant.

@@ -55,6 +55,10 @@ export const technologyExamTypeMap: Record<string, string> = {
   "central-exams/ctet-paper1": "ctet-paper1",
   "central-exams/ctet-paper2": "ctet-paper2",
   "state-psc/tnpsc": "tnpsc-group1",
+  "state-psc/kpsc": "kpsc",
+  "state-psc/mpsc": "mpsc",
+  "state-psc/appsc": "appsc",
+  "state-psc/tspsc": "tspsc",
   "exams/neet-biology": "neet",
   "exams/neet-physics": "neet",
   "exams/neet-chemistry": "neet",
@@ -87,6 +91,8 @@ export const technologyPyqSubjectMap: Record<string, string> = {
   // name); GS Paper IV/Ethics has its own existing technology page.
   "exams/upsc-mains": "upsc-mains",
   "exams/upsc-ethics": "upsc-ethics",
+  "state-psc/kpsc": "kpsc",
+  "state-psc/appsc": "appsc",
 };
 
 // Same existence-check pattern as technologyExamTypeMap above, but keyed by
