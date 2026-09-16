@@ -19,18 +19,23 @@
 // that path, so process.env would be empty here. The Supabase client is
 // built directly from the env bindings scheduled() actually receives.
 
-// @ts-ignore — .open-next/worker.js is generated at build time (npm run
-// pages:build), not present in source control. Deliberately the non-strict
-// suppression directive, not the strict one: once .open-next/ exists (any
-// build after the first), this .js import resolves fine under allowJs and
-// needs no suppression at all — the strict directive would then fail as
-// "unused", exactly as it did during this file's own first typecheck.
+// @ts-expect-error — .open-next/worker.js is generated at build time (npm
+// run pages:build), not present in source control, so this import never
+// resolves at typecheck time under the project's established process
+// (both CI's bare `tsc --noEmit`, which never builds, and the real deploy
+// checklist's `rm -rf .open-next` before every `next build`) — the
+// directive always has a real error to suppress. If .open-next/worker.js
+// is ever left on disk from a previous build and NOT cleared before a
+// typecheck (e.g. an ad hoc local `tsc --noEmit` without the deploy
+// checklist's cleanup step), the import resolves fine and this directive
+// will itself fail as "unused" — that's a signal to re-run the standard
+// clear-and-rebuild flow, not a bug in this comment.
 import { default as handler } from "./.open-next/worker.js";
-// @ts-ignore — see above
+// @ts-expect-error — see above
 export { DOQueueHandler } from "./.open-next/worker.js";
-// @ts-ignore — see above
+// @ts-expect-error — see above
 export { DOShardedTagCache } from "./.open-next/worker.js";
-// @ts-ignore — see above
+// @ts-expect-error — see above
 export { BucketCachePurge } from "./.open-next/worker.js";
 
 import { createClient } from "@supabase/supabase-js";
