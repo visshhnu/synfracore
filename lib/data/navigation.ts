@@ -54,6 +54,8 @@ export const technologyExamTypeMap: Record<string, string> = {
   "central-exams/hal-trainee-prep": "hal-trainee",
   "central-exams/ctet-paper1": "ctet-paper1",
   "central-exams/ctet-paper2": "ctet-paper2",
+  "exams/quant-aptitude": "quant-aptitude",
+  "exams/reasoning-ability": "reasoning-ability",
   "state-psc/tnpsc": "tnpsc-group1",
   "state-psc/kpsc": "kpsc",
   "state-psc/mpsc": "mpsc",
