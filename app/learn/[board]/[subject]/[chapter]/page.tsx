@@ -4,6 +4,7 @@ import { getBoard, getSubject, getChapter } from "@/lib/data/education";
 import { redirect } from "next/navigation";
 import { hasContent, fetchContentEdge } from "@/lib/content";
 import SectionContent from "@/components/tech/SectionContent";
+import SectionQuiz from "@/components/quiz/SectionQuiz";
 import { pageMetadata } from "@/lib/seo/metadata";
 
 type Props = { params: Promise<{ board: string; subject: string; chapter: string }> };
@@ -174,6 +175,9 @@ export default async function ChapterPage({ params }: Props) {
           initialContent={initialContent}
           pageUrl={`https://synfracore.com/learn/${bSlug}/${sSlug}/${cSlug}`}
         />
+
+        {/* Verification quiz — real, DB-backed questions, invisible until a chapter has some */}
+        <SectionQuiz academy={contentAcademy} technology={contentTechnology} section={cSlug} techName={chapter.title} accentColor={board.color} />
 
         {/* Prev / Next navigation */}
         <div style={{
