@@ -115,6 +115,8 @@ A different chip has a scan chain of 800 flip-flops, tested with 150 patterns at
 
 You should land on: per pattern = 800 + 1 + 800 = 1,601 cycles; total = 1,601 × 150 = 240,150 cycles × 1.5 ns = 360,225 ns ≈ 360.2 µs. With 4 parallel chains of 200 flip-flops each, per-pattern cost drops to 200 + 1 + 200 = 401 cycles (all 4 chains shift simultaneously), giving a new total of 401 × 150 × 1.5 ns = 90,225 ns ≈ 90.2 µs — roughly a 4x reduction, directly tracking the 4x reduction in per-chain flip-flop count, which is exactly the motivation for splitting long scan chains in real designs.
 
+The RC delay computed above is exactly the `T_logic` term that shows up in the formal setup and hold timing inequalities — Intermediate extends this page's timing material with clock skew, and Advanced completes the picture with the full setup/hold constraint pair, OCV derating, and useful skew.
+
 ## Study Resources
 - **Weste & Harris, *CMOS VLSI Design*** — covers wire RC delay, standard cell libraries, and physical design fundamentals in this same style
 - **Bushnell & Agrawal, *Essentials of Electronic Testing*** — the standard reference for DFT, scan chains, and ATPG
