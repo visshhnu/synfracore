@@ -15,9 +15,11 @@ actually work," not a replacement for that history.
 ## 1. Architecture Overview
 
 **What this is**: a single-account, multi-"academy" learning platform
-(DevOps, Cloud, Healthcare Coding, Exam Prep, and ~20 more), covering both
-technology and non-technology (competitive exams, healthcare, life
-essentials) content under one product.
+(DevOps, Cloud, Healthcare Coding, Exam Prep, Entrepreneurship & Business
+Ventures, and ~17 more — 22 academies total, 260 technologies, verified
+against `lib/data/academies.ts` directly), covering both technology and
+non-technology (competitive exams, healthcare, life essentials,
+government-scheme financing) content under one product.
 
 **The actual current stack** — this matters because some older docs
 describe a stack that hasn't been true since mid-2026:
@@ -53,7 +55,15 @@ for exam-prep material: `/academies/{academy}/{technology}/{section}` (the
 main academy system) and `/learn/{board}/{subject}/{chapter}` (a
 chapter-wise system for board/competitive exams, backed by
 `lib/data/education.ts`) — the same subject can legitimately have content
-in both, they're not duplicates of each other.
+in both, they're not duplicates of each other. A third, standalone system,
+`/schemes` (`app/schemes/page.tsx` + `components/schemes/SchemeNavigator.tsx`),
+is not nested under `/academies` at all — it's a public Scheme Navigator
+backed by the `government_schemes` table (`docs/government-schemes-schema.sql`,
+`lib/supabase/governmentSchemes.ts`), independently tracking financing-scheme
+freshness (verified-date-driven `fresh`/`due-for-review`/`stale` badges,
+computed live, never stored) separately from each scheme's own operational
+`status` (active/closing-soon/expired/superseded/phase-transition) — the two
+signals are intentionally orthogonal, not duplicates of each other.
 
 ---
 
@@ -338,7 +348,7 @@ tracker's claim, especially an older one.
 
 ---
 
-## 6. Current Known-Open Items (as of 2026-09-14)
+## 6. Current Known-Open Items (as of 2026-09-17)
 
 This section is a snapshot, not a permanent record — update it as items
 get resolved or as new ones surface, rather than letting it go stale the
@@ -674,6 +684,58 @@ verified verbatim against at least one independent source (two, where a
 batch-size constraint on the fetch tool didn't force a single-source
 fallback — disclosed per-file where it applies), never fabricated, excluded
 rather than guessed wherever a source couldn't be verified.
+
+**Exam-paper + /learn quiz-badge initiative — CLOSED 2026-09-16 (live in
+production)**: CTET Paper I/II, SSC CGL Tier 1 Paper 2, IBPS PO Prelims Paper
+2, a TNPSC Group I pilot plus KPSC/MPSC/APPSC/TSPSC (all 5 State PSC
+technologies now have Prelims practice papers, with real Mains PYQ where
+sourceable), and standalone Quant Aptitude + Reasoning Ability practice
+papers all shipped as new premium exam papers. Separately, the `/learn`
+chapter-quiz initiative (`quiz_questions` wired onto `/learn` chapter pages,
+piloted on CBSE Class 10 Maths) was carried through to completion across all
+12 planned subjects — CBSE Class 10 Maths/Science/English/Social Science,
+JEE Maths/Physics/Chemistry, GATE CSE (DSA/OS/DBMS), Banking Quant, and NEET
+Biology/Physics/Chemistry — 94 chapters, 470 questions total. English/Social
+Science used a comprehension/factual-recall question format rather than the
+`pyqYears`-badge exam-style format the other subjects use, per the scope
+decision logged when that gap was first flagged.
+
+**VLSI setup/hold timing pilot — live 2026-09-16**: a pilot doc's real
+setup/hold timing content incorporated across VLSI's fundamentals, advanced,
+interview, and quiz sections.
+
+**OpenShift content relocation — fixed 2026-09-16**: content that had been
+orphaned under `infrastructure/openshift` by an incomplete
+`infrastructure` → `devops` slug rename (see `CLAUDE.md`'s slug-rename
+section for the original incident) was relocated to the live
+`devops/openshift` path it should always have resolved to.
+
+**Entrepreneurship & Business Ventures academy + Scheme Navigator — built
+2026-09-17, live in production**: a new 22nd academy (`entrepreneurship`,
+`contentScope: "guide"` on all its technologies — a 3-tab overview/
+fundamentals/advanced depth by deliberate design, not an unfinished
+build), covering EV Business, Food Processing & Agri-Business, Renewable
+Energy Business, Dairy & Agri-Processing Business, and Tourism &
+Hospitality Business — 5 technologies, 15 markdown files. Paired with a
+new, standalone `/schemes` Scheme Navigator (see Section 1's content-
+storage note above) backed by a new `government_schemes` table, seeded
+with 19 individually-researched and sourced government financing schemes
+across all 5 sectors, including 6 entries in a genuine `phase-transition`
+state (e.g. Stand-Up India's original scheme concluding March 2025 with a
+revamped version announced but not yet confirmed operational) — disclosed
+honestly in-content rather than presented as settled fact. This is the
+first academy to use `contentScope: "guide"` in production.
+
+**Mobile mega-menu z-index inversion — fixed 2026-09-17 (`a288b01`)**: the
+mobile drawer (`9998`) and its backdrop (`9997`) were both stacked *below*
+the sticky header (`9999`), so the header visually painted over the
+drawer's own controls on mobile — raised to `10011`/`10010` respectively,
+above the header. A first attempt (`bf980e2`) fixed a real but unrelated
+rendering issue (the desktop `.mega-dropdown` hover panel leaking onto
+mobile) that turned out not to be the actual reported bug; the z-index fix
+is the real root cause. Bundle presence reconfirmed as of the most recent
+production deploy; a real-device visual confirmation from the user is
+still outstanding.
 
 **Housekeeping, low priority:**
 - CLAUDE.md/`06-roadmap.md`/`07-roadmap-final.md` reconciliation — several
