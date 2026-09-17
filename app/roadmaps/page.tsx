@@ -1,95 +1,20 @@
-"use client";
-import Link from "next/link";
-import { roadmaps } from "@/lib/data/navigation";
-import { Clock } from "lucide-react";
-import { useState } from "react";
-const CATEGORIES = [
-  { id: "all",         label: "All Paths",   color: "#6B7280" },
-  { id: "tech",        label: "Tech",        color: "#3B82F6" },
-  { id: "law",         label: "Law",         color: "#6366F1" },
-  { id: "government",  label: "Government",  color: "#F59E0B" },
-  { id: "finance",     label: "Finance",     color: "#14B8A6" },
-  { id: "agriculture", label: "Agriculture", color: "#22C55E" },
-  { id: "telecom",     label: "Telecom",     color: "#0EA5E9" },
-  { id: "education",   label: "Education",   color: "#F43F5E" },
-  { id: "professional",label: "Professional",color: "#10B981" },
-  { id: "wellness",    label: "Wellness",    color: "#A855F7" },
-];
+import { pageMetadata } from "@/lib/seo/metadata";
+import RoadmapsPageClient from "./RoadmapsPageClient";
+
+// Real bug found live via Search Console (2026-09-17): this page had no
+// metadata export at all, so it silently inherited the root layout's
+// alternates.canonical ("/") -- telling Google it was a duplicate of the
+// homepage instead of its own real, substantive page. Split into this thin
+// Server Component (for generateMetadata/metadata support) wrapping the
+// original interactive content as a Client Component, same pattern as
+// app/schemes/page.tsx + components/schemes/SchemeNavigator.tsx.
+export const metadata = pageMetadata({
+  title: "Learning Roadmaps — Step-by-Step Paths to Job-Ready",
+  description: "Structured, phase-by-phase learning roadmaps from beginner to job-ready across Tech, Law, Government, Finance, Agriculture, Telecom, and Education — pick a path and follow it.",
+  path: "/roadmaps",
+  keywords: ["learning roadmap", "DevOps roadmap", "career roadmap India", "UPSC roadmap", "cloud architect roadmap", "SynfraCore"],
+});
 
 export default function RoadmapsPage() {
-  const [active, setActive] = useState("all");
-  const rms = roadmaps as Array<typeof roadmaps[0] & { color?: string; category?: string }>;
-  const filtered = active === "all" ? rms : rms.filter(r => r.category === active);
-
-  return (
-    <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "56px 24px" }}>
-      <div style={{ marginBottom: "48px", textAlign: "center" }}>
-        <div style={{ display: "inline-block", background: "rgba(99,102,241,0.1)", border: "1px solid rgba(99,102,241,0.2)", borderRadius: "20px", padding: "6px 16px", fontSize: "13px", color: "#6366F1", fontWeight: 600, marginBottom: "16px" }}>
-          {roadmaps.length} Career Paths · All Domains
-        </div>
-        <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "16px" }}>
-          Learning Roadmaps
-        </h1>
-        <p style={{ color: "var(--text-4)", fontSize: "18px", maxWidth: "600px", margin: "0 auto", lineHeight: 1.6 }}>
-          Step-by-step paths from beginner to job-ready — for tech, law, government, finance, agriculture, telecom, and more.
-        </p>
-      </div>
-
-      <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", justifyContent: "center", marginBottom: "40px" }}>
-        {CATEGORIES.map(cat => (
-          <button key={cat.id} onClick={() => setActive(cat.id)} style={{
-            padding: "7px 16px", borderRadius: "20px", fontSize: "13px", fontWeight: 600,
-            border: "1px solid var(--border)", cursor: "pointer", transition: "all 0.15s",
-            background: active === cat.id ? cat.color : "var(--bg-2)",
-            color: active === cat.id ? "white" : "var(--text-3)",
-            borderColor: active === cat.id ? "transparent" : "var(--border)",
-          }}>
-            {cat.label}
-          </button>
-        ))}
-      </div>
-
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 360px), 1fr))", gap: "20px" }}>
-        {filtered.map(rm => {
-          const color = rm.color || "#3B82F6";
-          return (
-            <Link key={rm.slug} href={`/roadmaps/${rm.slug}`} style={{ textDecoration: "none" }}>
-              <div style={{
-                background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "16px",
-                padding: "24px", height: "100%", transition: "border-color 0.15s",
-                display: "flex", flexDirection: "column",
-              }}>
-                <div style={{ height: "3px", borderRadius: "2px", background: color, marginBottom: "16px", marginLeft: "-24px", marginRight: "-24px", marginTop: "-24px", borderTopLeftRadius: "16px", borderTopRightRadius: "16px" }} />
-                <div style={{ display: "flex", alignItems: "flex-start", gap: "12px", marginBottom: "16px" }}>
-                  <span style={{ fontSize: "30px", flexShrink: 0 }}>{rm.icon}</span>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontWeight: 700, fontSize: "15px", color: "var(--text-1)", marginBottom: "4px" }}>{rm.title}</div>
-                    <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", alignItems: "center" }}>
-                      <span style={{ fontSize: "12px", color: "var(--text-4)", display: "flex", alignItems: "center", gap: "3px" }}>
-                        <Clock size={10} /> {rm.duration}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div style={{ flex: 1, position: "relative", paddingLeft: "16px", marginBottom: "16px" }}>
-                  <div style={{ position: "absolute", left: "5px", top: "6px", bottom: "6px", width: "1.5px", background: "var(--border)" }} />
-                  {rm.steps.slice(0, 5).map((step, i) => (
-                    <div key={step} style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "7px", position: "relative" }}>
-                      <div style={{ width: "10px", height: "10px", borderRadius: "50%", flexShrink: 0, background: i === 0 ? color : "var(--bg-1)", border: `2px solid ${i === 0 ? color : "var(--border)"}`, position: "absolute", left: "-16px" }} />
-                      <span style={{ fontSize: "12px", color: i === 0 ? "var(--text-1)" : "var(--text-4)", fontWeight: i === 0 ? 600 : 400 }}>{step}</span>
-                    </div>
-                  ))}
-                  {rm.steps.length > 5 && <div style={{ fontSize: "12px", color: "var(--text-4)" }}>+{rm.steps.length - 5} more phases</div>}
-                </div>
-                <div style={{ paddingTop: "12px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ fontSize: "12px", color: "var(--text-4)" }}>{rm.steps.length} phases</span>
-                  <span style={{ fontSize: "12px", fontWeight: 700, color }}>View roadmap →</span>
-                </div>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
-    </div>
-  );
+  return <RoadmapsPageClient />;
 }
