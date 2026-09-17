@@ -882,6 +882,33 @@ const economicsAcademy: Academy = {
   technologies: [],
 };
 
+// Deliberately NOT a skill-drilling or exam-prep academy like everything
+// else here -- this is real, honest guidance on starting and running a
+// business, in three sectors chosen specifically for being physical,
+// regulated, and capital-intensive (genuinely harder to automate away than
+// desk-based knowledge work). Each technology is `contentScope: "guide"`
+// (3 tabs: overview/fundamentals/advanced) by deliberate, confirmed design
+// choice -- approved 2026-09-17 -- not a content gap to fill in later.
+// Financing content here cross-references the government_schemes table
+// (docs/government-schemes-schema.sql) and the /schemes Navigator rather
+// than hardcoding scheme details in prose, since schemes change faster
+// than markdown content should be expected to track (PM-KUSUM's Phase 1/2
+// transition and PM E-DRIVE's two-wheeler subsidy expiry, both confirmed
+// live during this academy's own scoping research, are exactly why).
+const entrepreneurshipAcademy: Academy = {
+  slug: "entrepreneurship", title: "Entrepreneurship & Business Ventures", subtitle: "EV Business · Food Processing · Renewable Energy · Real Financing Schemes",
+  icon: "🚀", color: "#0D9488",
+  description: "Real, honest roadmaps for starting and running a business in sectors resilient to AI disruption — EV, food processing/agri-business, and renewable energy — grounded in genuine, currently-verified government financing and subsidy schemes, not evergreen assumptions.",
+  domains: [{ slug: "ai-resilient-ventures", name: "AI-Resilient Ventures", icon: "🚀", description: "Physical, regulated, capital-intensive businesses", color: "#0D9488",
+    technologies: [
+      { slug: "ev-business", name: "EV Business", icon: "🔋", description: "Starting and scaling an electric vehicle business in India — manufacturing, dealership, and charging infrastructure, with real financing pathways (PM E-DRIVE, SIDBI)", level: "Intermediate", tags: ["EV", "Entrepreneurship", "PM E-DRIVE"], contentScope: "guide" },
+      { slug: "food-processing-business", name: "Food Processing & Agri-Business", icon: "🌾", description: "Starting a food processing or agri-business venture — FSSAI licensing, infrastructure, and real financing (PMFME, PM Kisan SAMPADA Yojana, NABARD)", level: "Intermediate", tags: ["Food Processing", "Agri-Business", "PMFME"], contentScope: "guide" },
+      { slug: "renewable-energy-business", name: "Renewable Energy Business", icon: "☀️", description: "Starting a solar/renewable energy business — installation, EPC, agrivoltaics, and real financing (PM-KUSUM, IREDA, SIDBI STAR)", level: "Intermediate", tags: ["Renewable Energy", "Solar", "PM-KUSUM"], contentScope: "guide" },
+    ]
+  }],
+  technologies: [],
+};
+
 const aerospaceAcademy: Academy = {
   slug: "aerospace", title: "Aeronautical & Aerospace Engineering", subtitle: "Aerodynamics · Propulsion · Orbital Mechanics · ISRO/GATE",
   icon: "🚀", color: "#1D4ED8",
@@ -984,6 +1011,7 @@ export const academies: Academy[] = [
   databasesAcademy,           // Databases
   devopsAcademy,              // DevOps & Platform Engineering
   economicsAcademy,           // Economics
+  entrepreneurshipAcademy,     // Entrepreneurship & Business Ventures
   financeAcademy,             // Finance & Commerce
   healthcareAcademy,          // Health & Hospitality
   essentialsAcademy,          // Human Essentials

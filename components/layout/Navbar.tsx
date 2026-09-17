@@ -208,7 +208,7 @@ const GROUPS = [
   },
   {
     label: "Professional & Law", color: "#8B5CF6", icon: Landmark,
-    slugs: ["law", "finance", "economics"],
+    slugs: ["law", "finance", "economics", "entrepreneurship"],
   },
 ];
 

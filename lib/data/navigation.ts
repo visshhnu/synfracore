@@ -305,7 +305,7 @@ export const nonTechSections = [
 export const nonTechAcademyIds = [
   "law", "exams", "education", "state-psc", "central-exams",
   "finance", "economics", "agriculture", "essentials", "healthcare",
-  "telecom", "professional-certs",
+  "telecom", "professional-certs", "entrepreneurship",
 ];
 
 // Sections that don't apply to a Technology.contentScope === "guide" page
