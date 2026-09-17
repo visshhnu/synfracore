@@ -61,6 +61,7 @@ export const SECTOR_LABELS: Record<string, string> = {
   "renewable-energy": "Renewable Energy",
   "general-msme": "General MSME",
   agri: "Agri (General)",
+  manufacturing: "Manufacturing/MSME Supplier",
 };
 
 export const STATUS_LABELS: Record<SchemeStatus, string> = {

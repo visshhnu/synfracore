@@ -896,9 +896,9 @@ const economicsAcademy: Academy = {
 // transition and PM E-DRIVE's two-wheeler subsidy expiry, both confirmed
 // live during this academy's own scoping research, are exactly why).
 const entrepreneurshipAcademy: Academy = {
-  slug: "entrepreneurship", title: "Entrepreneurship & Business Ventures", subtitle: "EV · Food Processing · Renewable Energy · Dairy & Agri-Processing · Tourism · Real Financing Schemes",
+  slug: "entrepreneurship", title: "Entrepreneurship & Business Ventures", subtitle: "EV · Food Processing · Renewable Energy · Dairy & Agri-Processing · Tourism · Manufacturing/MSME · Real Financing Schemes",
   icon: "🚀", color: "#0D9488",
-  description: "Real, honest roadmaps for starting and running a business in sectors resilient to AI disruption — EV, food processing/agri-business, renewable energy, dairy & agri-processing, and tourism & hospitality — grounded in genuine, currently-verified government financing and subsidy schemes, not evergreen assumptions.",
+  description: "Real, honest roadmaps for starting and running a business in sectors resilient to AI disruption — EV, food processing/agri-business, renewable energy, dairy & agri-processing, tourism & hospitality, and manufacturing/MSME supply-chain — grounded in genuine, currently-verified government financing and subsidy schemes, not evergreen assumptions.",
   domains: [{ slug: "ai-resilient-ventures", name: "AI-Resilient Ventures", icon: "🚀", description: "Physical, regulated, capital-intensive businesses", color: "#0D9488",
     technologies: [
       { slug: "ev-business", name: "EV Business", icon: "🔋", description: "Starting and scaling an electric vehicle business in India — manufacturing, dealership, and charging infrastructure, with real financing pathways (PM E-DRIVE, SIDBI)", level: "Intermediate", tags: ["EV", "Entrepreneurship", "PM E-DRIVE"], contentScope: "guide" },
@@ -906,6 +906,7 @@ const entrepreneurshipAcademy: Academy = {
       { slug: "renewable-energy-business", name: "Renewable Energy Business", icon: "☀️", description: "Starting a solar/renewable energy business — installation, EPC, agrivoltaics, and real financing (PM-KUSUM, IREDA, SIDBI STAR)", level: "Intermediate", tags: ["Renewable Energy", "Solar", "PM-KUSUM"], contentScope: "guide" },
       { slug: "dairy-agri-processing-business", name: "Dairy & Agri-Processing Business", icon: "🐄", description: "Starting a dairy, meat, or animal-feed processing business — infrastructure, licensing, and real financing via AHIDF's interest subvention and credit guarantee", level: "Intermediate", tags: ["Dairy", "Agri-Processing", "AHIDF"], contentScope: "guide" },
       { slug: "tourism-hospitality-business", name: "Tourism & Hospitality Business", icon: "🏨", description: "Starting a hotel, homestay, or tour-operation business — licensing, real financing (Stand-Up India, CGTMSE, dedicated bank hospitality loans), and state-level tourism subsidies", level: "Intermediate", tags: ["Tourism", "Hospitality", "Stand-Up India"], contentScope: "guide" },
+      { slug: "manufacturing-supplier-business", name: "Manufacturing & MSME Supplier Business", icon: "🏭", description: "Becoming a component/ancillary supplier into an existing PLI value chain — not starting a PLI business directly. Public procurement quota + NSIC vendor development as the real Day-1 path, ECMS as a real but capital-intensive second pathway, generic MSME financing for unit setup", level: "Intermediate", tags: ["Manufacturing", "MSME", "PLI Supply Chain", "ECMS"], contentScope: "guide" },
     ]
   }],
   technologies: [],
