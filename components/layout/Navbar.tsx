@@ -481,13 +481,32 @@ export default function Navbar() {
       {/* Mobile search overlay */}
       {searchOpen && <MobileSearchOverlay onClose={() => setSearchOpen(false)} />}
 
-      {/* Mobile backdrop */}
+      {/* Mobile backdrop and drawer -- z-index MUST exceed header's 9999.
+          Real regression (2026-09-17, found via re-investigation after the
+          .mega-dropdown fix didn't help -- that fix targeted the desktop
+          hover panel, which was never actually reachable via the mobile
+          hamburger at all): the header sits at zIndex 9999, but this
+          backdrop/drawer pair was at 9997/9998 -- LOWER than the header,
+          not higher. The header is a full-width, opaque, fixed-position bar
+          that occupies the same top-right corner of the screen as the
+          drawer's own sticky header row (its "Navigation" label, its own
+          ThemeToggle, its own close button). With the header painting on
+          top, opening the drawer showed the header's controls (search icon,
+          hamburger/X, theme toggle) visually colliding with the drawer's
+          own duplicate row of controls in that same corner -- exactly the
+          "overlapping elements / stray shape when tapping the menu icon"
+          symptom reported, and exactly why the DIFFERENT .mega-dropdown fix
+          (a panel never reachable via this trigger) didn't resolve it. A
+          slide-in drawer should render above its own trigger's chrome, not
+          underneath it -- raising both above the header (and above
+          MobileSearchOverlay's 10000, so the drawer can't be shadowed by
+          that either) fixes the actual paint order. */}
       {mobileOpen && (
-        <div onClick={closeDrawer} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.45)", zIndex: 9997, backdropFilter: "blur(2px)" }} />
+        <div onClick={closeDrawer} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.45)", zIndex: 10010, backdropFilter: "blur(2px)" }} />
       )}
 
       {/* Mobile slide-in drawer */}
-      <div style={{ position: "fixed", top: 0, right: 0, bottom: 0, width: "min(300px, 88vw)", background: "var(--bg-1)", zIndex: 9998, transform: mobileOpen ? "translateX(0)" : "translateX(100%)", transition: "transform 0.28s cubic-bezier(0.4,0,0.2,1)", boxShadow: mobileOpen ? "-8px 0 40px rgba(0,0,0,0.2)" : "none", display: "flex", flexDirection: "column", overflowY: "auto", overflowX: "hidden" }}>
+      <div style={{ position: "fixed", top: 0, right: 0, bottom: 0, width: "min(300px, 88vw)", background: "var(--bg-1)", zIndex: 10011, transform: mobileOpen ? "translateX(0)" : "translateX(100%)", transition: "transform 0.28s cubic-bezier(0.4,0,0.2,1)", boxShadow: mobileOpen ? "-8px 0 40px rgba(0,0,0,0.2)" : "none", display: "flex", flexDirection: "column", overflowY: "auto", overflowX: "hidden" }}>
         <div style={{ position: "sticky", top: 0, zIndex: 2, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "13px 14px", borderBottom: "1px solid var(--border)", background: "var(--bg-1)", flexShrink: 0 }}>
           <span style={{ fontSize: "13px", fontWeight: 700, color: "var(--text-1)" }}>Navigation</span>
           <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
