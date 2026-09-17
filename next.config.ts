@@ -4,6 +4,29 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        // Real bug found live via Search Console (2026-09-17): this plain
+        // `:path*` wildcard blindly reinserts whatever it captures into the
+        // destination. A request for the literal string
+        // "/academies/infrastructure/:path*" -- almost certainly lifted
+        // straight from this file's source on the public repo by an external
+        // crawler/tool, not a real in-app link -- got captured AS that
+        // literal text and 308'd to the equally nonexistent
+        // "/academies/devops/:path*". A first attempt fixed this by
+        // constraining the captured segment to a real-slug character class
+        // directly in this redirect's `source` -- reverted (2026-09-17,
+        // same day) after it broke the redirect ENTIRELY in production (the
+        // legitimate case, e.g. .../infrastructure/docker/overview, started
+        // 500ing instead of redirecting; live-verified via curl before this
+        // revert, not assumed) -- the custom path-to-regexp constraint isn't
+        // compatible with how this OpenNext/Cloudflare adapter compiles
+        // redirects(). Kept simple here on purpose. The actual fix now lives
+        // entirely in middleware.ts's `hasMalformedPlaceholderSegment` guard:
+        // it can't stop this rule's first 308 (redirects() run before
+        // middleware, confirmed via Next's own docs), but it 404s the
+        // destination URL the browser/crawler is sent to next, so the
+        // dead-end chain terminates in a clean 404 instead of another
+        // phantom "canonical" URL. Live-verified both hops after this
+        // revert before trusting it fixed.
         source: "/academies/infrastructure/:path*",
         destination: "/academies/devops/:path*",
         permanent: true,

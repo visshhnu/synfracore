@@ -108,7 +108,27 @@ function withCacheHeaders(req: NextRequest, res: NextResponse) {
 // synchronously without keys, which would otherwise take down the whole
 // site), but protected routes must fail closed on their own, not rely on
 // downstream pages continuing to compensate correctly forever.
+// Real bug found live via Search Console (2026-09-17): next.config.ts's
+// `/academies/infrastructure/:path* -> /academies/devops/:path*` redirect
+// (the infrastructure->devops slug-rename alias) blindly reinserts whatever
+// it captures for `:path*` into the destination. A request for the exact
+// literal string "/academies/infrastructure/:path*" -- which some external
+// crawler/tool did make, almost certainly by lifting the pattern straight
+// out of this public repo's next.config.ts rather than following a real
+// in-app link -- gets the wildcard segment captured AS that literal text,
+// producing a 308 to "/academies/devops/:path*", an equally nonexistent
+// destination. No real technology/section slug in this app ever contains a
+// literal ":" or "*" character, so any request path that does is
+// unconditionally garbage (never a legitimate parameter value) -- reject it
+// here, before it can reach that redirect rule or any real route.
+function hasMalformedPlaceholderSegment(pathname: string): boolean {
+  return pathname.includes(":") || pathname.includes("*");
+}
+
 function fallbackMiddleware(req: NextRequest) {
+  if (hasMalformedPlaceholderSegment(req.nextUrl.pathname)) {
+    return new NextResponse(null, { status: 404 });
+  }
   if (isProtectedRoute(req)) {
     return NextResponse.redirect(new URL("/sign-in", req.url));
   }
@@ -117,6 +137,9 @@ function fallbackMiddleware(req: NextRequest) {
 
 export default hasClerkKeys
   ? clerkMiddleware(async (auth, req) => {
+      if (hasMalformedPlaceholderSegment(req.nextUrl.pathname)) {
+        return new NextResponse(null, { status: 404 });
+      }
       if (isProtectedRoute(req)) {
         if (isRedirectOnSignedOut(req)) {
           await auth.protect({ unauthenticatedUrl: new URL("/sign-in", req.url).toString() });
