@@ -398,8 +398,25 @@ export default function Navbar() {
             has no way to animate an entrance; Stripe's and Squarespace's
             hover-reveal menus both rely on exactly this "mounted but
             invisible, then faded/slid in" mechanic. pointerEvents:"none"
-            while closed keeps it from intercepting hover/click when hidden. */}
-        <div onMouseEnter={() => { clearTimeout(dropTimer); setDropOpen(true); }} onMouseLeave={() => { dropTimer = setTimeout(() => setDropOpen(false), 200); }}
+            while closed keeps it from intercepting hover/click when hidden.
+
+            MOBILE REGRESSION FIX (2026-09-17): this always-mounted panel is
+            only ever opened via desktop-only mouse hover on the (mobile-
+            hidden) "Academies" trigger, so dropOpen can never become true on
+            mobile through normal interaction -- but unlike .desktop-nav
+            (which gets a real `display:none` below 1024px), this div had NO
+            mobile-hide rule at all, relying purely on opacity:0 +
+            pointerEvents:"none" to stay invisible. A real-device screenshot
+            showed exactly the failure mode that combination invites on
+            mobile WebKit: this panel's content -- including its new tinted
+            icon badges from the same commit -- visually ghosting/overlapping
+            the header, a known Safari/WebKit stacking-context quirk with
+            opacity+transform elements sitting inside a position:fixed
+            ancestor that also has backdrop-filter (this header does). Adding
+            the `.mega-dropdown` class below and a real `display:none` media
+            rule (matching .desktop-nav's existing, proven pattern) removes
+            it from rendering entirely on mobile, not just visually. */}
+        <div className="mega-dropdown" onMouseEnter={() => { clearTimeout(dropTimer); setDropOpen(true); }} onMouseLeave={() => { dropTimer = setTimeout(() => setDropOpen(false), 200); }}
           aria-hidden={!dropOpen}
           style={{
             position: "absolute", left: 0, right: 0, top: "100%", background: "var(--bg-2)",
@@ -583,6 +600,7 @@ export default function Navbar() {
           .mobile-only { display: flex !important; }
           .logo-pill { display: none !important; }
           .logo-mark { display: flex !important; }
+          .mega-dropdown { display: none !important; }
         }
       `}</style>
     </>
