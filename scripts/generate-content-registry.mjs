@@ -244,6 +244,34 @@ export async function fetchContent(a: string, t: string, s: string): Promise<str
 export async function fetchContentEdge(a: string, t: string, s: string): Promise<string | null> {
   const filePath = contentRegistry.get(\`\${a}/\${t}/\${s}\`);
   if (!filePath) return null;
+  // Build-time prerendering (2026-11-25): section/chapter pages are now
+  // generated during \`next build\`, where there is no Worker and no ASSETS
+  // binding — read the same file straight from public/content instead.
+  //
+  // Two signals, not one: NEXT_PHASE alone proved unreliable — on the WSL
+  // build machine some static-generation workers didn't see it, so 726+
+  // pages fell through to getCloudflareContext() and were prerendered with
+  // NO lesson content (SectionContent shows "empty" for null, it does not
+  // re-fetch). __NEXT_DATA__.nextExport is the flag Next sets inside its SSG
+  // workers, and is the same check @opennextjs/cloudflare itself uses.
+  const inStaticGeneration =
+    process.env.NEXT_PHASE === "phase-production-build" ||
+    (globalThis as { __NEXT_DATA__?: { nextExport?: boolean } }).__NEXT_DATA__?.nextExport === true;
+  if (inStaticGeneration) {
+    // Fail the BUILD loudly rather than ship a page with an empty lesson.
+    // The registry says this file exists, so a read failure here is a real
+    // bug (missing/renamed file) that must block the deploy.
+    try {
+      // webpackIgnore: this module is also bundled for the browser
+      // (fetchContent), where node: builtins can't resolve. Only reached
+      // during \`next build\`, which runs in Node.
+      const { readFile } = await import(/* webpackIgnore: true */ "node:fs/promises");
+      const { join } = await import(/* webpackIgnore: true */ "node:path");
+      return await readFile(join(process.cwd(), "public", "content", \`\${filePath}.md\`), "utf8");
+    } catch (err) {
+      throw new Error(\`fetchContentEdge (build) failed for \${a}/\${t}/\${s} (public/content/\${filePath}.md): \${String(err)}\`);
+    }
+  }
   try {
     const { getCloudflareContext } = await import("@opennextjs/cloudflare");
     const { env } = getCloudflareContext();
