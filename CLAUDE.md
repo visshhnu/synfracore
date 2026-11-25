@@ -165,6 +165,15 @@ and `difficulty`. Always filter what's shown to a user by matching their
 average completed-lesson difficulty — never surface an advanced challenge
 to a beginner. Leaderboards must be filtered by tier, never global.
 
+## Generated-file invariants
+`lib/content/index.ts` is regenerated in full by
+`scripts/generate-content-registry.mjs` on every `pages:build` — any edit to
+functions in `index.ts` must be mirrored in the generator's template, or it
+is silently reverted at build time. This already happened once: a
+hand-edited `fetchContentEdge` fix was wiped out by the very next
+`generate:content-registry` run because the generator's embedded template
+still emitted the old version.
+
 ## Renaming a slug (academy/technology/section) — MANDATORY procedure
 `academy_slug`/`technology_slug`/`section_slug` are stored as plain TEXT in
 every user-data table (`lesson_progress`, `bookmarks`, `quiz_attempts`,
