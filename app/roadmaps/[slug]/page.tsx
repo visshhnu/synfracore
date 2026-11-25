@@ -9,6 +9,11 @@ import RoadmapTree from "@/components/roadmap/RoadmapTree";
 type Props = { params: Promise<{ slug: string }> };
 
 
+// Prerendered at build time (2026-11-25) — keeps this page off the Worker's per-request CPU budget.
+export function generateStaticParams() {
+  return roadmaps.map((r) => ({ slug: r.slug }));
+}
+
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const rm = roadmaps.find(r => r.slug === slug);

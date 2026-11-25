@@ -16,6 +16,11 @@ const tagColors: Record<string, string> = {
   Education: "#A855F7", Ansible: "#EF4444", AWS: "#F97316",
 };
 
+// Prerendered at build time (2026-11-25) — keeps this page off the Worker's per-request CPU budget.
+export function generateStaticParams() {
+  return Object.keys(articles).map((slug) => ({ slug }));
+}
+
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const article = articles[slug];

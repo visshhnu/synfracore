@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
-import { getAcademy } from "@/lib/data/academies";
+import { getAcademy, academies } from "@/lib/data/academies";
 import { ArrowRight, CheckCircle, Clock, BookOpen, FlaskConical, Trophy } from "lucide-react";
 import { pageMetadata } from "@/lib/seo/metadata";
 import TechIcon from "@/components/icons/TechIcon";
@@ -185,6 +185,11 @@ const defaultMeta = {
   jobs: [],
   proofStats: [{ label: "Topics", value: "50+" }, { label: "Practice Q&As", value: "50+" }],
 };
+
+// Prerendered at build time (2026-11-25) — keeps this page off the Worker's per-request CPU budget.
+export function generateStaticParams() {
+  return academies.map((a) => ({ academy: a.slug }));
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { academy: aSlug } = await params;

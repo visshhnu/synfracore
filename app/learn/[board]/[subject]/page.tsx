@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getBoard, getSubject } from "@/lib/data/education";
+import { getBoard, getSubject, educationBoards } from "@/lib/data/education";
 import { redirect } from "next/navigation";
 
 type Props = { params: Promise<{ board: string; subject: string }> };
+
+// Prerendered at build time (2026-11-25) — keeps this page off the Worker's per-request CPU budget.
+export function generateStaticParams() {
+  return educationBoards.flatMap((b) => b.subjects.map((s) => ({ board: b.slug, subject: s.slug })));
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { board: bSlug, subject: sSlug } = await params;

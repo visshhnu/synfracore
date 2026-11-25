@@ -5,9 +5,8 @@ import { getAcademy, getTechnology } from "@/lib/data/academies";
 import { nonTechAcademyIds, technologyExamTypeMap, technologyPyqSubjectMap, getSectionsForTechnology } from "@/lib/data/navigation";
 import { hasContent, fetchContentEdge, getContentFilePath } from "@/lib/content";
 import { getLastUpdated } from "@/lib/content/last-updated";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { getFirstPaperByExamType } from "@/lib/supabase/questionBank";
-import { getCollectionsBySubject } from "@/lib/supabase/pyqBank";
+import { getFirstPublicPaperByExamType, getPublicCollectionsBySubject } from "@/lib/supabase/public";
+import { academies } from "@/lib/data/academies";
 import { Sparkles } from "lucide-react";
 import TechIcon from "@/components/icons/TechIcon";
 import SectionContent from "@/components/tech/SectionContent";
@@ -97,6 +96,18 @@ const sectionTitles: Record<string, string> = {
   troubleshooting: "Troubleshooting",
   roadmap: "Learning Roadmap",
 };
+
+// Prerendered at build time (2026-11-25) — see lib/supabase/public.ts for why.
+export function generateStaticParams() {
+  return academies.flatMap((a) => {
+    const isNonTech = nonTechAcademyIds.includes(a.slug);
+    return a.domains.flatMap((d) => d.technologies).flatMap((t) =>
+      getSectionsForTechnology(t, isNonTech, a.slug, t.slug).map((s) => ({
+        academy: a.slug, technology: t.slug, section: s.slug,
+      }))
+    );
+  });
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { academy: aSlug, technology: tSlug, section } = await params;
@@ -210,7 +221,7 @@ export default async function SectionPage({ params }: Props) {
   // full catalog page, not a link straight into practiceExamPaper itself).
   const examType = technologyExamTypeMap[`${aSlug}/${tSlug}`];
   const practiceExamPaper = examType
-    ? await getFirstPaperByExamType(createSupabaseServerClient(), examType)
+    ? await getFirstPublicPaperByExamType(examType)
     : null;
   const practiceExamsHref = examType ? `/question-bank?examType=${examType}` : "/question-bank";
 
@@ -220,7 +231,7 @@ export default async function SectionPage({ params }: Props) {
   // row (technologyPyqSubjectMap in lib/data/navigation.ts is just the
   // registry of which subject to look for).
   const pyqSubject = technologyPyqSubjectMap[`${aSlug}/${tSlug}`];
-  const pyqCollections = pyqSubject ? await getCollectionsBySubject(createSupabaseServerClient(), pyqSubject) : [];
+  const pyqCollections = pyqSubject ? await getPublicCollectionsBySubject(pyqSubject) : [];
   const pyqBankHref = pyqSubject ? `/pyq-bank?subject=${pyqSubject}` : "/pyq-bank";
 
   return (

@@ -2825,6 +2825,22 @@ export async function fetchContent(a: string, t: string, s: string): Promise<str
 export async function fetchContentEdge(a: string, t: string, s: string): Promise<string | null> {
   const filePath = contentRegistry.get(`${a}/${t}/${s}`);
   if (!filePath) return null;
+  // Build-time prerendering (2026-11-25): section/chapter pages are now
+  // generated during `next build`, where there is no Worker and no ASSETS
+  // binding — read the same file straight from public/content instead.
+  if (process.env.NEXT_PHASE === "phase-production-build") {
+    try {
+      // webpackIgnore: this module is also bundled for the browser
+      // (fetchContent), where node: builtins can't resolve. Only reached
+      // during `next build`, which runs in Node.
+      const { readFile } = await import(/* webpackIgnore: true */ "node:fs/promises");
+      const { join } = await import(/* webpackIgnore: true */ "node:path");
+      return await readFile(join(process.cwd(), "public", "content", `${filePath}.md`), "utf8");
+    } catch (err) {
+      console.error(`fetchContentEdge (build) failed for ${a}/${t}/${s}:`, err);
+      return null;
+    }
+  }
   try {
     const { getCloudflareContext } = await import("@opennextjs/cloudflare");
     const { env } = getCloudflareContext();

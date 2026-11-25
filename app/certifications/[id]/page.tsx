@@ -2,8 +2,7 @@ import { certifications, certificationExamTypeMap } from "@/lib/data/navigation"
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/seo/metadata";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { getFirstPaperByExamType } from "@/lib/supabase/questionBank";
+import { getFirstPublicPaperByExamType } from "@/lib/supabase/public";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -276,6 +275,11 @@ const certDetail: Record<string, {
   },
 };
 
+// Prerendered at build time (2026-11-25) — see lib/supabase/public.ts for why.
+export function generateStaticParams() {
+  return certifications.map((c) => ({ id: c.id }));
+}
+
 export async function generateMetadata({ params }: Props) {
   const { id } = await params;
   const cert = certifications.find((c) => c.id === id);
@@ -303,7 +307,7 @@ export default async function CertificationDetailPage({ params }: Props) {
   // own comment for why: it hid the other real papers from a user before).
   const examType = certificationExamTypeMap[id];
   const practiceExamPaper = examType
-    ? await getFirstPaperByExamType(createSupabaseServerClient(), examType)
+    ? await getFirstPublicPaperByExamType(examType)
     : null;
   const practiceExamsHref = examType ? `/question-bank?examType=${examType}` : "/question-bank";
 

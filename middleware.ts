@@ -1,5 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-import { NextResponse, type NextRequest } from "next/server";
+import { NextResponse, type NextRequest, type NextFetchEvent } from "next/server";
 
 // clerkMiddleware() throws synchronously on every request if its keys aren't
 // configured in the deployment environment (confirmed against @clerk/nextjs
@@ -135,7 +135,29 @@ function fallbackMiddleware(req: NextRequest) {
   return withCacheHeaders(req, NextResponse.next());
 }
 
-export default hasClerkKeys
+// 2026-11-25 — CPU-limit fix. These page trees are prerendered at build time
+// and never call auth()/currentUser() on the server (the Navbar's signed-in
+// state is handled client-side by ClerkProvider), so running Clerk's
+// middleware on them only burns Worker CPU on every visit and crawler hit.
+// They get the cheap fallback path instead (same malformed-path 404 + cache
+// headers). Anything that DOES need server-side auth — /api, /dashboard,
+// /onboarding, /profile, /admin, /settings, /question-bank, /pyq-bank,
+// /schemes, /sign-in, /sign-up — is NOT listed and still runs through Clerk.
+// Adding a page here that later starts calling auth() would silently break
+// it, so only list fully public, prerendered trees.
+const PUBLIC_STATIC_PREFIXES = [
+  "/academies", "/blog", "/roadmaps", "/learn", "/careers", "/career",
+  "/certifications", "/about", "/privacy", "/terms", "/contact", "/community",
+  "/interview", "/labs", "/projects", "/pyqs", "/troubleshooting", "/search",
+  "/ai-assistant",
+];
+
+function isPublicStaticPath(pathname: string): boolean {
+  if (pathname === "/") return true;
+  return PUBLIC_STATIC_PREFIXES.some((p) => pathname === p || pathname.startsWith(p + "/"));
+}
+
+const clerkHandler = hasClerkKeys
   ? clerkMiddleware(async (auth, req) => {
       if (hasMalformedPlaceholderSegment(req.nextUrl.pathname)) {
         return new NextResponse(null, { status: 404 });
@@ -150,6 +172,13 @@ export default hasClerkKeys
       return withCacheHeaders(req, NextResponse.next());
     })
   : fallbackMiddleware;
+
+export default function middleware(req: NextRequest, event: NextFetchEvent) {
+  if (isPublicStaticPath(req.nextUrl.pathname)) {
+    return fallbackMiddleware(req);
+  }
+  return clerkHandler(req, event);
+}
 
 export const config = {
   matcher: [

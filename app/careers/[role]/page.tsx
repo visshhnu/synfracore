@@ -182,6 +182,11 @@ const roles: Record<string, {
   },
 };
 
+// Prerendered at build time (2026-11-25) — keeps this page off the Worker's per-request CPU budget.
+export function generateStaticParams() {
+  return Object.keys(roles).map((role) => ({ role }));
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { role } = await params;
   const r = roles[role];

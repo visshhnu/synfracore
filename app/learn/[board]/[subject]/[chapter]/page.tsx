@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getBoard, getSubject, getChapter } from "@/lib/data/education";
+import { getBoard, getSubject, getChapter, educationBoards } from "@/lib/data/education";
 import { redirect } from "next/navigation";
 import { hasContent, fetchContentEdge } from "@/lib/content";
 import SectionContent from "@/components/tech/SectionContent";
@@ -8,6 +8,13 @@ import SectionQuiz from "@/components/quiz/SectionQuiz";
 import { pageMetadata } from "@/lib/seo/metadata";
 
 type Props = { params: Promise<{ board: string; subject: string; chapter: string }> };
+
+// Prerendered at build time (2026-11-25) — keeps this page off the Worker's per-request CPU budget.
+export function generateStaticParams() {
+  return educationBoards.flatMap((b) =>
+    b.subjects.flatMap((s) => s.chapters.map((c) => ({ board: b.slug, subject: s.slug, chapter: c.slug })))
+  );
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { board: bSlug, subject: sSlug, chapter: cSlug } = await params;

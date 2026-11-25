@@ -1,16 +1,22 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
-import { getAcademy } from "@/lib/data/academies";
+import { getAcademy, academies } from "@/lib/data/academies";
 import { nonTechAcademyIds, technologyExamTypeMap, getSectionsForTechnology } from "@/lib/data/navigation";
 import { ArrowRight, Clock, Target, BookOpen, Sparkles } from "lucide-react";
 import { pageMetadata } from "@/lib/seo/metadata";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { getFirstPaperByExamType } from "@/lib/supabase/questionBank";
+import { getFirstPublicPaperByExamType } from "@/lib/supabase/public";
 import { RelatedTechnologies } from "@/components/tech/RelatedTechnologies";
 import TechIcon from "@/components/icons/TechIcon";
 
 type Props = { params: Promise<{ academy: string; technology: string }> };
+
+// Prerendered at build time (2026-11-25) — see lib/supabase/public.ts for why.
+export function generateStaticParams() {
+  return academies.flatMap((a) =>
+    a.domains.flatMap((d) => d.technologies).map((t) => ({ academy: a.slug, technology: t.slug }))
+  );
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { academy: aSlug, technology: tSlug } = await params;
@@ -109,7 +115,7 @@ export default async function TechnologyPage({ params }: Props) {
   // catalog page rather than a direct link into practiceExamPaper).
   const examType = technologyExamTypeMap[`${aSlug}/${tSlug}`];
   const practiceExamPaper = examType
-    ? await getFirstPaperByExamType(createSupabaseServerClient(), examType)
+    ? await getFirstPublicPaperByExamType(examType)
     : null;
   const practiceExamsHref = examType ? `/question-bank?examType=${examType}` : "/question-bank";
 
